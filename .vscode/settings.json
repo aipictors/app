@@ -1,0 +1,17 @@
+{
+  "editor.formatOnSave": true,
+  "cSpell.words": ["aipictors", "riverpod"],
+  "files.associations": {
+    "*.xml": "html",
+    "*.svg": "html"
+  },
+  "files.exclude": {
+    "**/__generated__": true,
+    "*.iml": true,
+    ".dart_tool": true,
+    ".idea": true,
+    ".metadata": true,
+    "build": true,
+    "pubspec.lock": true
+  }
+}
