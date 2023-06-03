@@ -1,0 +1,10 @@
+query Works($offset: Int!, $limit: Int!, $where: WorksWhereInput) {
+  works(offset: $offset, limit: $limit, where: $where) {
+    id
+    title
+    image {
+      id
+      downloadURL
+    }
+  }
+}

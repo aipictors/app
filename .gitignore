@@ -1,3 +1,6 @@
+# Ferry
+/lib/**/__generated__
+
 # Miscellaneous
 *.class
 *.log

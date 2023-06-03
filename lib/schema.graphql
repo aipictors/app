@@ -1,0 +1,337 @@
+type Query {
+  work(id: ID!): WorkNode
+  works(offset: Int!, limit: Int!, where: WorksWhereInput): [WorkNode!]
+  user(id: ID!): WorkNode
+  users(offset: Int!, limit: Int!, where: UsersWhereInput): [UserNode!]
+}
+
+input WorksWhereInput {
+  search: String
+}
+
+input UsersWhereInput {
+  search: String
+}
+
+interface Node {
+  id: ID!
+}
+
+type Viewer implements Node {
+  id: ID!
+  workBookmarks: [WorkBookmarkNode!]!
+  workLikes: [WorkLikeNode!]!
+  followers: [UserFollowNode!]!
+  followees: [UserFollowNode!]!
+}
+
+type WorkBookmarkNode {
+  id: ID!
+  userId: ID!
+  user: UserNode!
+  workId: ID!
+  work: WorkNode!
+}
+
+type TagNode {
+  name: String!
+  works: [WorkNode!]!
+}
+
+type CommentNode {
+  id: ID!
+  userId: ID!
+  user: UserNode!
+  workId: ID
+  work: WorkNode
+  commentId: ID
+  comment: CommentNode
+  stickerId: ID
+  sticker: StickerNode
+  type: String!
+  createdAt: Int!
+  text: String!
+}
+
+type WorkEventNode {
+  id: ID!
+  title: String
+  link: String
+  description: String
+  ogpImageId: String!
+  ogpImage: ImageNode!
+  thumbnailImageId: ID!
+  thumbnailImage: ImageNode
+  startTime: Int!
+  endTime: Int!
+}
+
+type WorkLikeNode {
+  id: ID!
+  userId: ID!
+  user: UserNode!
+  workId: ID!
+  work: WorkNode!
+  createdAt: Int
+}
+
+type UserFollowNode {
+  id: ID!
+  followerId: ID!
+  follower: UserNode!
+  followeeId: ID!
+  followee: WorkNode!
+  createdAt: Int!
+}
+
+type UserMuteNode {
+  id: ID!
+  followerId: ID!
+  follower: UserNode!
+  followeeId: ID!
+  followee: WorkNode!
+  createdAt: Int!
+}
+
+type UserBlockNode {
+  id: ID!
+  followerId: ID!
+  follower: UserNode!
+  followeeId: ID!
+  followee: WorkNode!
+  createdAt: Int!
+}
+
+type WorkNode implements Node {
+  id: ID!
+  """
+  作成日
+  """
+  createdAt: Int!
+  """
+  閲覧権限の種類
+  """
+  permission: WorkPermission
+  """
+  タイトル
+  """
+  title: String
+  """
+  タイトル（英語）
+  """
+  titleEN: String
+  """
+  説明
+  """
+  description: String
+  """
+  説明（英語）
+  """
+  descriptionEN: String
+  """
+  種類
+  """
+  type: String!
+  """
+  いいね数
+  """
+  likesCount: Int!
+  """
+  閲覧数
+  """
+  viewsCount: Int!
+  """
+  ブックマーク数
+  """
+  bookmarksCount: Int!
+  """
+  タグ名
+  """
+  tagNames: [String!]!
+  imageId: ID!
+  """
+  画像URL
+  """
+  image: ImageNode
+  thumbnailImageId: ID!
+  """
+  画像URL（サムネイル）
+  """
+  thumbnailImage: ImageNode
+  largeThumbnailImageId: ID!
+  """
+  画像URL（サムネイル）
+  """
+  largeThumbnailImage: ImageNode
+  ogpThumbnailImageId: ID!
+  """
+  画像URL（サムネイル）
+  """
+  ogpThumbnailImage: ImageNode
+  """
+  プロンプト
+  """
+  prompt: String
+  """
+  ネガティブプロンプト
+  """
+  negativePrompt: String
+  """
+  シード値
+  """
+  seed: String
+  """
+  画像生成関連の設定
+  """
+  steps: Int
+  """
+  画像生成関連の設定
+  """
+  scale: Int
+  """
+  画像生成関連の設定
+  """
+  model: String
+  """
+  画像生成関連の設定
+  """
+  modelHash: String
+  """
+  画像生成関連の設定
+  """
+  sampler: String
+  """
+  ユーザID
+  """
+  userId: ID!
+  """
+  ユーザ
+  """
+  user: UserNode!
+}
+
+type ImageNode implements Node {
+  id: ID!
+  downloadURL: String!
+  type: String!
+}
+
+type WorkAlbumNode implements Node {
+  id: ID!
+  workId: ID!
+  work: WorkNode!
+  relationId: ID!
+  imageId: ID
+  image: ImageNode
+  thumbnailImageId: ID
+  thumbnailImage: ImageNode
+}
+
+type UserNode implements Node {
+  id: ID!
+  """
+  作成日
+  """
+  createdAt: Int!
+  """
+  表示名
+  """
+  name: String!
+  """
+  ログインID
+  """
+  login: String!
+  """
+  サイトURL
+  """
+  siteURL: String
+  """
+  作品
+  """
+  works(offset: Int!, limit: Int!, where: UserWorksWhereInput): [WorkNode!]!
+}
+
+input UserWorksWhereInput {
+  search: String
+}
+
+type UserSettingNode {
+  id: ID!
+  userId: ID!
+  user: UserNode!
+  useDarkMode: Boolean!
+}
+
+type NotificationNode {
+  id: ID!
+  userId: ID
+  user: UserNode
+  relatedUserId: ID
+  relatedUser: UserNode
+  commentId: ID
+  comment: CommentNode
+  stickerId: ID
+  sticker: StickerNode
+  type: String!
+  createdAt: Int
+}
+
+type RankingHistoryNode {
+  id: ID!
+  type: String!
+  index: Int
+  userId: ID!
+  user: UserNode!
+  workId: ID
+  work: WorkNode
+  createdAt: Int!
+}
+
+type StoryNode {
+  id: ID!
+  createdAt: Int!
+  title: String!
+  description: String!
+  userId: ID!
+  user: UserNode!
+  likesCount: Int!
+  viewsCount: Int!
+  ageLimit: Int!
+}
+
+type StoryLikeNode {
+  id: ID!
+  createdAt: Int!
+  userId: ID!
+  user: UserNode!
+  storyId: ID!
+  story: StoryNode!
+}
+
+type StickerNode {
+  id: ID!
+  createdAt: Int!
+  imageId: ID!
+  image: ImageNode!
+  userId: ID!
+  user: UserNode!
+  title: String!
+  releaseMode: String!
+  likesCount: Int!
+  usesCount: Int!
+  downloadsCount: Int!
+}
+
+type DailyThemeNode {
+  id: ID!
+  type: String!
+  name: String!
+  startTime: Int!
+}
+
+enum WorkPermission {
+  PUBLIC
+  PRIVATE
+  PUBLIC_SILENT
+  PRIVATE_LINK
+}
