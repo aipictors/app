@@ -7,7 +7,12 @@ import 'global.dart';
 Client createClient() {
   final cache = Cache(store: Global.store!);
 
-  final link = HttpLink(Config.graphqlURI);
+  final link = HttpLink(
+    Config.graphqlURI,
+    defaultHeaders: {
+      'token': Config.graphqlToken,
+    },
+  );
 
   final client = Client(
     link: link,

@@ -16,7 +16,9 @@ class WorkScreen extends HookConsumerWidget {
     final queryWork = ref.watch(queryWorkProvider(workId));
 
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: const Text("イラスト"),
+      ),
       body: queryWork.when(
         data: (data) {
           return SingleChildScrollView(

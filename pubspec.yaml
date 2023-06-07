@@ -11,6 +11,8 @@ environment:
 
 dependencies:
   built_collection: ^5.1.1
+  cached_network_image: ^3.2.3
+  equatable: ^2.0.5
   ferry: ^0.14.0+1
   ferry_flutter: ^0.8.0+1
   ferry_hive_store: ^0.5.1

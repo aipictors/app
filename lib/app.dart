@@ -11,7 +11,7 @@ class App extends StatelessWidget {
       routerConfig: router,
       title: 'Flutter',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.orangeAccent),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightBlue),
         useMaterial3: true,
       ),
     );

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../providers/query_works_provider.dart';
+import 'feed_followees_screen.dart';
+import 'feed_hot_screen.dart';
+import 'feed_latest_screen.dart';
 
 class FeedScreen extends HookConsumerWidget {
   const FeedScreen({
@@ -12,43 +12,50 @@ class FeedScreen extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
-    final queryWorks = ref.watch(queryWorksProvider);
+    const views = [
+      FeedHotScreen(),
+      FeedLatestScreen(),
+      FeedFolloweesScreen(),
+    ];
 
-    return Scaffold(
-      body: SafeArea(
-        child: queryWorks.when(
-          data: (data) {
-            return MasonryGridView.count(
-              padding: const EdgeInsets.all(8),
-              crossAxisCount: 2,
-              mainAxisSpacing: 8,
-              crossAxisSpacing: 8,
-              itemCount: data.data!.works!.length,
-              itemBuilder: (context, index) {
-                final work = data.data!.works![index];
-                return GestureDetector(
-                  onTap: () {
-                    context.push("/works/${work.id}");
-                  },
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(8.0),
-                    child: Image.network(
-                      work.image!.downloadURL,
-                      fit: BoxFit.cover,
+    return DefaultTabController(
+      key: const PageStorageKey("feed"),
+      length: views.length,
+      child: Builder(builder: (context) {
+        return Scaffold(
+          appBar: AppBar(
+            flexibleSpace: const Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                TabBar(
+                  dividerColor: Colors.transparent,
+                  tabs: [
+                    Tab(
+                      child: Text(
+                        'おすすめ',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
                     ),
-                  ),
-                );
-              },
-            );
-          },
-          error: (error, stackTrace) {
-            return const Text("エラー");
-          },
-          loading: () {
-            return const CircularProgressIndicator();
-          },
-        ),
-      ),
+                    Tab(
+                      child: Text(
+                        'フォロー中',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Tab(
+                      child: Text(
+                        '新着',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          body: const TabBarView(children: views),
+        );
+      }),
     );
   }
 }
