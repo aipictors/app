@@ -7,5 +7,18 @@ query Work($id: ID!) {
       id
       downloadURL
     }
+    user {
+      id
+      name
+      login
+      iconImage {
+        id
+        downloadURL
+      }
+    }
+    tagNames
+    createdAt
+    likesCount
+    viewsCount
   }
 }

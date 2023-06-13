@@ -8,6 +8,10 @@ type Query {
   """
   works(offset: Int!, limit: Int!, where: WorksWhereInput): [WorkNode!]
   """
+  作品
+  """
+  tabWorks(offset: Int!, limit: Int!, where: TabWorksWhereInput): [WorkNode!]
+  """
   ユーザ
   """
   user(id: ID!): UserNode
@@ -55,10 +59,22 @@ type Query {
   ステッカー
   """
   tags(offset: Int!, limit: Int!, where: TagsWhereInput): [TagNode!]!
+  """
+  ランキング履歴
+  """
+  histories(
+    offset: Int!
+    limit: Int!
+    where: HistoriesWhereInput!
+  ): [HistoryNode!]!
 }
 
 input WorksWhereInput {
   search: String
+}
+
+input TabWorksWhereInput {
+  slug: String
 }
 
 input UsersWhereInput {
@@ -79,6 +95,10 @@ input DailyThemesWhereInput {
 
 input TagsWhereInput {
   search: String
+}
+
+input HistoriesWhereInput {
+  dateText: String!
 }
 
 interface Node {
@@ -308,6 +328,10 @@ type WorkNode implements Node {
   ユーザ
   """
   user: UserNode!
+  """
+  コメント
+  """
+  comments(offset: Int!, limit: Int!): [CommentNode!]!
 }
 
 """
@@ -352,7 +376,7 @@ type UserNode implements Node {
   フォロー（ユーザがフォローしているユーザ)
   """
   followees(offset: Int!, limit: Int!): [UserNode!]!
-  rankingHistories(offset: Int!, limit: Int!): [RankingHistoryNode!]!
+  histories(offset: Int!, limit: Int!): [HistoryNode!]!
   stickers(offset: Int!, limit: Int!): [StickerNode!]!
   folders(offset: Int!, limit: Int!): [FolderNode!]!
   iconImageId: ID
@@ -400,7 +424,7 @@ type NotificationNode implements Node {
 """
 ランキングの履歴
 """
-type RankingHistoryNode implements Node {
+type HistoryNode implements Node {
   id: ID!
   type: String!
   index: Int

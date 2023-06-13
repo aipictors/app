@@ -3,8 +3,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'feed_screen.dart';
+import 'history_screen.dart';
 import 'notification_screen.dart';
-import 'post_screen.dart';
 import 'search_screen.dart';
 import 'user_screen.dart';
 
@@ -19,7 +19,7 @@ class HomeScreen extends HookConsumerWidget {
     const screens = [
       FeedScreen(),
       SearchScreen(),
-      PostScreen(),
+      HistoryScreen(),
       NotificationScreen(),
       UserScreen()
     ];
@@ -38,8 +38,8 @@ class HomeScreen extends HookConsumerWidget {
             label: '検索',
           ),
           NavigationDestination(
-            icon: Icon(Icons.add_rounded),
-            label: '投稿',
+            icon: Icon(Icons.today_rounded),
+            label: '新着',
           ),
           NavigationDestination(
             icon: Icon(Icons.notifications_rounded),
@@ -47,7 +47,7 @@ class HomeScreen extends HookConsumerWidget {
           ),
           NavigationDestination(
             icon: Icon(Icons.person_rounded),
-            label: '自分',
+            label: 'マイページ',
           ),
         ],
         onDestinationSelected: (index) {

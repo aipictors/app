@@ -1,0 +1,35 @@
+query WorkComments($id: ID!) {
+  work(id: $id) {
+    id
+    comments(offset: 0, limit: 128) {
+      id
+      createdAt
+      text
+      sticker {
+        image {
+          id
+          downloadURL
+        }
+      }
+      user {
+        id
+        name
+        iconImage {
+          id
+          downloadURL
+        }
+      }
+      responses(offset: 0, limit: 128) {
+        id
+        text
+        sticker {
+          id
+          image {
+            id
+            downloadURL
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,33 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../providers/query_search_works_provider.dart';
-import '../widgets/app_bar/search_app_bar.dart';
+import '../providers/query_histories_provider.dart';
 
-class SearchScreen extends HookConsumerWidget {
-  const SearchScreen({
+class HistoryScreen extends HookConsumerWidget {
+  const HistoryScreen({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(context, ref) {
-    final search = useState("");
-
-    final queryWorks = ref.watch(
-      querySearchWorksProvider(SearchWorksProps(search: search.value)),
+    final queryHistories = ref.watch(
+      queryHistoriesProvider(
+        const QueryHistoriesProps(dateTime: "2023-06-12"),
+      ),
     );
 
     return Scaffold(
-      key: const PageStorageKey("search"),
-      appBar: SearchAppBar(onSubmit: (text) {
-        search.value = text;
-      }),
+      key: const PageStorageKey("feed_histories"),
+      appBar: AppBar(
+        title: const Text('ランキング'),
+      ),
       body: SafeArea(
-        child: queryWorks.when(
+        child: queryHistories.when(
           data: (data) {
-            final works = data.data!.works!;
+            final histories = data.data!.histories;
             return GridView.builder(
               padding: const EdgeInsets.all(16),
               cacheExtent: 0.0,
@@ -36,9 +34,17 @@ class SearchScreen extends HookConsumerWidget {
                 mainAxisSpacing: 4,
                 crossAxisCount: 3,
               ),
-              itemCount: works.length,
+              itemCount: histories.length,
               itemBuilder: (context, index) {
-                final work = works[index];
+                final history = histories[index];
+                final work = history.work;
+                if (work == null) {
+                  return Container(
+                    width: double.infinity,
+                    height: double.infinity,
+                    color: Theme.of(context).disabledColor,
+                  );
+                }
                 return GestureDetector(
                   onTap: () {
                     context.push("/works/${work.id}");
@@ -46,7 +52,7 @@ class SearchScreen extends HookConsumerWidget {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8.0),
                     child: Image.network(
-                      work.image!.downloadURL,
+                      work.thumbnailImage!.downloadURL,
                       fit: BoxFit.cover,
                       loadingBuilder: (context, child, event) {
                         if (event == null) return child;

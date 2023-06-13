@@ -26,7 +26,7 @@ final querySearchWorksProvider = provider((ref, props) {
   final client = createClient();
   final req = GWorksReq((builder) {
     return builder
-      ..vars.limit = 16
+      ..vars.limit = 40
       ..vars.offset = 0
       ..vars.where.search = props.search;
   });
