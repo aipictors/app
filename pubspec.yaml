@@ -29,6 +29,7 @@ dependencies:
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   hooks_riverpod: ^2.3.6
+  intl: ^0.18.1
   riverpod_annotation: ^2.1.1
 
 dev_dependencies:
