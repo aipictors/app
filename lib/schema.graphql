@@ -332,6 +332,14 @@ type WorkNode implements Node {
   コメント
   """
   comments(offset: Int!, limit: Int!): [CommentNode!]!
+  """
+  作品
+  """
+  subWorks: [SubWorkNode!]!
+}
+
+type SubWorkNode implements Node {
+  id: ID!
 }
 
 """

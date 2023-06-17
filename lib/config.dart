@@ -1,5 +1,6 @@
 class Config {
   static get graphqlURI {
+    // return 'https://any.ngrok.io/api';
     return 'https://prompton-ptiui4gkeq-an.a.run.app/api';
   }
 

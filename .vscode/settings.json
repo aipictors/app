@@ -1,11 +1,16 @@
 {
   "editor.formatOnSave": true,
-  "cSpell.words": ["aipictors", "followees", "riverpod", "unfocus"],
+  "cSpell.words": ["aipictors", "followees", "MMMMEEE", "riverpod", "unfocus"],
   "files.associations": {
     "*.xml": "html",
     "*.svg": "html"
   },
   "files.exclude": {
+    "**/*.ast.gql.dart": true,
+    "**/*.data.gql.dart": true,
+    "**/*.gql.g.dart": true,
+    "**/*.req.gql.dart": true,
+    "**/*.var.gql.dart": true,
     "**/__generated__": true,
     "*.iml": true,
     ".dart_tool": true,

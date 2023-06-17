@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:intl/intl.dart';
 
 import '../providers/query_work_comments_provider.dart';
 import '../providers/query_work_provider.dart';
+import '../widgets/app_bar/work_bottom_app_bar.dart';
+import '../widgets/button/follow_button.dart';
+import '../widgets/container/work_response_container.dart';
+import '../widgets/container/work_status_container.dart';
+import '../widgets/container/work_tags_container.dart';
+import '../widgets/container/work_text_container.dart';
+import '../widgets/container/work_user_profile_container.dart';
 
 class WorkScreen extends HookConsumerWidget {
   const WorkScreen({
@@ -53,193 +59,48 @@ class WorkScreen extends HookConsumerWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Row(
-                          children: [
-                            CircleAvatar(
-                              backgroundImage: NetworkImage(
-                                data.data!.work!.user.iconImage!.downloadURL,
-                              ),
-                            ),
-                            const SizedBox(width: 8),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  data.data!.work!.user.name,
-                                  style: const TextStyle(
-                                    height: 1.2,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16,
-                                  ),
-                                ),
-                                Row(
-                                  children: [
-                                    SizedBox(width: 1),
-                                    Text(
-                                      data.data!.work!.user.login,
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: Theme.of(context).dividerColor,
-                                        fontSize: 10,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        FilledButton.tonal(
-                          style: const ButtonStyle(
-                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                          ),
-                          onPressed: () {},
-                          child: const Text(
-                            "フォロー",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
+                        WorkUserProfileContainer(user: work.user),
+                        const FollowButton(),
                       ],
                     ),
                   ),
                   const SizedBox(height: 12),
                   Image.network(
-                    data.data!.work!.image!.downloadURL,
+                    work.image!.downloadURL,
                     fit: BoxFit.cover,
                   ),
                   const SizedBox(height: 16),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Row(
-                      children: [
-                        Row(
-                          children: [
-                            const Icon(Icons.favorite_rounded),
-                            const SizedBox(width: 8),
-                            Text(
-                              work.likesCount.toString(),
-                              style:
-                                  const TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        ),
-                        SizedBox(width: 16),
-                        Row(
-                          children: [
-                            const Icon(Icons.visibility_rounded),
-                            const SizedBox(width: 8),
-                            Text(
-                              work.viewsCount.toString(),
-                              style:
-                                  const TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                  WorkStatusContainer(
+                    likesCount: work.likesCount,
+                    viewsCount: work.viewsCount,
                   ),
                   const SizedBox(height: 8),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Text(
-                      data.data!.work!.title!,
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyMedium
-                          ?.copyWith(fontWeight: FontWeight.bold),
-                    ),
+                  WorkTextContainer(
+                    title: work.title!,
+                    description: work.description,
                   ),
-                  if (work.description != null) const SizedBox(height: 4),
-                  if (work.description != null)
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: Text(
-                        work.description!,
-                        style: Theme.of(context).textTheme.bodyMedium,
-                      ),
-                    ),
                   const SizedBox(height: 8),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Wrap(
-                      spacing: 8,
-                      children: [
-                        for (final tagName in work.tagNames) Text("#$tagName"),
-                      ],
-                    ),
-                  ),
+                  WorkTagsContainer(tagNames: work.tagNames.toList()),
                   const SizedBox(height: 16),
-                  const Divider(),
                   queryWorkComments.when(
                     data: (data) {
                       final comments = data.data!.work!.comments;
-                      print(comments);
                       return Column(
                         children: [
                           for (final comment in comments)
-                            Container(
-                              padding: EdgeInsets.only(
-                                left: 16,
-                                right: 16,
-                                top: 16,
-                              ),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  CircleAvatar(
-                                    backgroundImage: NetworkImage(
-                                      comment.user.iconImage!.downloadURL,
-                                    ),
+                            Column(
+                              children: [
+                                const Divider(height: 0),
+                                WorkResponseContainer(
+                                  comment: comment,
+                                  isResponse: false,
+                                ),
+                                for (final response in comment.responses)
+                                  WorkResponseContainer(
+                                    comment: response,
+                                    isResponse: true,
                                   ),
-                                  SizedBox(width: 8),
-                                  Flexible(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          comment.user.name,
-                                          style: const TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        SizedBox(height: 4),
-                                        if (comment.text.isNotEmpty)
-                                          Text(comment.text),
-                                        if (comment.sticker != null)
-                                          ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(8.0),
-                                            child: Image.network(
-                                              comment
-                                                  .sticker!.image.downloadURL,
-                                              fit: BoxFit.cover,
-                                              width: 80,
-                                            ),
-                                          ),
-                                        SizedBox(height: 4),
-                                        Text(
-                                          DateFormat.yMMMMEEEEd('ja')
-                                              .format(
-                                                DateTime
-                                                    .fromMillisecondsSinceEpoch(
-                                                  comment.createdAt * 1000,
-                                                ),
-                                              )
-                                              .toString(),
-                                          style: TextStyle(
-                                            color:
-                                                Theme.of(context).dividerColor,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
+                              ],
                             )
                         ],
                       );
@@ -266,36 +127,7 @@ class WorkScreen extends HookConsumerWidget {
           ),
         ),
       ),
-      bottomNavigationBar: BottomAppBar(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              children: [
-                IconButton.filledTonal(
-                  icon: const Icon(Icons.favorite_rounded),
-                  onPressed: () {},
-                ),
-                SizedBox(width: 8),
-                IconButton.filledTonal(
-                  icon: const Icon(Icons.bookmark_rounded),
-                  onPressed: () {},
-                ),
-              ],
-            ),
-            SizedBox(width: 8),
-            FilledButton.tonal(
-              child: Text(
-                "コメント",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              onPressed: () {},
-            ),
-          ],
-        ),
-      ),
+      bottomNavigationBar: const WorkBottomAppContainer(),
     );
   }
 }

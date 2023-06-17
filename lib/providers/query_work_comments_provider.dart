@@ -3,9 +3,9 @@ import 'package:ferry/ferry.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../client.dart';
-import '../graphql/__generated__/work_comment.data.gql.dart';
-import '../graphql/__generated__/work_comment.req.gql.dart';
-import '../graphql/__generated__/work_comment.var.gql.dart';
+import '../graphql/__generated__/work_comments.data.gql.dart';
+import '../graphql/__generated__/work_comments.req.gql.dart';
+import '../graphql/__generated__/work_comments.var.gql.dart';
 
 class QueryWorkCommentsProps extends Equatable {
   const QueryWorkCommentsProps({

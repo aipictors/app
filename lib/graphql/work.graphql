@@ -1,3 +1,5 @@
+# import './fragments/work_user_fields_fragment.graphql'
+
 query Work($id: ID!) {
   work(id: $id) {
     id
@@ -8,13 +10,7 @@ query Work($id: ID!) {
       downloadURL
     }
     user {
-      id
-      name
-      login
-      iconImage {
-        id
-        downloadURL
-      }
+      ...WorkUserFields
     }
     tagNames
     createdAt
