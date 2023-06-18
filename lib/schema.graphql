@@ -1,36 +1,461 @@
+directive @link(
+  url: String
+  as: String
+  for: link__Purpose
+  import: [link__Import]
+) on SCHEMA
+
+directive @key(
+  fields: federation__FieldSet!
+  resolvable: Boolean = true
+) on OBJECT | INTERFACE
+
+directive @federation__requires(
+  fields: federation__FieldSet!
+) on FIELD_DEFINITION
+
+directive @federation__provides(
+  fields: federation__FieldSet!
+) on FIELD_DEFINITION
+
+directive @federation__external(reason: String) on OBJECT | FIELD_DEFINITION
+
+directive @federation__tag(
+  name: String!
+) on FIELD_DEFINITION | OBJECT | INTERFACE | UNION | ARGUMENT_DEFINITION | SCALAR | ENUM | ENUM_VALUE | INPUT_OBJECT | INPUT_FIELD_DEFINITION
+
+directive @federation__extends on OBJECT | INTERFACE
+
+directive @shareable on OBJECT | FIELD_DEFINITION
+
+directive @federation__inaccessible on FIELD_DEFINITION | OBJECT | INTERFACE | UNION | ARGUMENT_DEFINITION | SCALAR | ENUM | ENUM_VALUE | INPUT_OBJECT | INPUT_FIELD_DEFINITION
+
+directive @federation__override(from: String!) on FIELD_DEFINITION
+
+"""
+Exposes a URL that specifies the behavior of this scalar.
+"""
+directive @specifiedBy(
+  """
+  The URL that specifies the behavior of this scalar.
+  """
+  url: String!
+) on SCALAR
+
+scalar _Any
+
+union _Entity =
+    CommentNode
+  | DailyThemeNode
+  | FolderLikeNode
+  | FolderNode
+  | FriendshipNode
+  | HistoryNode
+  | ImageNode
+  | MutedTagNode
+  | MutedUserNode
+  | NotificationNode
+  | StickerNode
+  | SubWorkNode
+  | TagNode
+  | UserNode
+  | UserSettingNode
+  | Viewer
+  | WorkBookmarkNode
+  | WorkEventNode
+  | WorkLikeNode
+  | WorkNode
+
+type _Service {
+  sdl: String
+}
+
+"""
+コメント
+"""
+type CommentNode implements Node {
+  id: ID!
+  userId: ID!
+  user: UserNode!
+  workId: ID
+  work: WorkNode
+  stickerId: ID
+  sticker: StickerNode
+  type: String!
+  createdAt: Int!
+  text: String!
+  responses(offset: Int!, limit: Int!): [CommentNode!]!
+}
+
+input CreateCommentInput {
+  commentId: ID!
+}
+
+input CreateFolderInput {
+  title: String!
+}
+
+input CreateStickerInput {
+  title: String!
+}
+
+input CreateUserInput {
+  idToken: String!
+}
+
+input CreateWorkBookmarkInput {
+  workId: ID!
+}
+
+input CreateWorkInput {
+  title: String!
+}
+
+input CreateWorkLikeInput {
+  workId: ID!
+}
+
+"""
+作品の日別テーマ
+"""
+type DailyThemeNode implements Node {
+  id: ID!
+  type: String!
+  name: String!
+  startTime: Int!
+}
+
+input DailyThemesWhereInput {
+  search: String
+}
+
+input DeleteCommentInput {
+  commentId: ID!
+}
+
+input DeleteFolderInput {
+  folderId: ID!
+}
+
+input DeleteStickerInput {
+  stickerId: ID!
+}
+
+input DeleteWorkBookmarkInput {
+  workId: ID!
+}
+
+input DeleteWorkInput {
+  workId: ID!
+}
+
+input DeleteWorkLikeInput {
+  workId: ID!
+}
+
+scalar federation__FieldSet
+
+"""
+作品のフォルダのイイネ
+"""
+type FolderLikeNode implements Node {
+  id: ID!
+  createdAt: Int!
+  userId: ID!
+  user: UserNode!
+  folderId: ID!
+  folder: FolderNode!
+}
+
+"""
+作品のフォルダ
+"""
+type FolderNode implements Node {
+  id: ID!
+  createdAt: Int!
+  title: String!
+  description: String!
+  userId: ID!
+  user: UserNode!
+  likesCount: Int!
+  viewsCount: Int!
+  ageLimit: Int!
+
+  """
+  作品
+  """
+  works(offset: Int!, limit: Int!): [WorkNode!]
+}
+
+input FoldersWhereInput {
+  search: String
+}
+
+input FollowUserInput {
+  userId: ID!
+}
+
+"""
+ユーザのフォロ
+"""
+type FriendshipNode implements Node {
+  id: ID!
+  followerId: ID!
+
+  """
+  フォローしたユーザ
+  """
+  follower: UserNode!
+
+  """
+  フォローされたユーザ
+  """
+  followeeId: ID!
+  followee: UserNode!
+  createdAt: Int!
+}
+
+input HistoriesWhereInput {
+  dateText: String!
+}
+
+"""
+ランキングの履歴
+"""
+type HistoryNode implements Node {
+  id: ID!
+  type: String!
+  index: Int
+  userId: ID!
+  user: UserNode!
+  workId: ID
+  work: WorkNode
+  createdAt: Int!
+}
+
+"""
+画像
+"""
+type ImageNode implements Node {
+  id: ID!
+  downloadURL: String!
+  type: String!
+}
+
+scalar link__Import
+
+enum link__Purpose {
+  """
+  `SECURITY` features provide metadata necessary to securely resolve fields.
+  """
+  SECURITY
+
+  """
+  `EXECUTION` features provide metadata necessary for operation execution.
+  """
+  EXECUTION
+}
+
+type Mutation {
+  createUser(input: CreateUserInput!): UserNode!
+
+  """
+  ユーザーのプロフィールを作成する
+  """
+  updateUserProfile(input: UpdateUserProfileInput!): UserNode!
+
+  """
+  作品を作成する
+  """
+  createWork(input: CreateWorkInput!): WorkNode!
+
+  """
+  作品を削除する
+  """
+  deleteWork(input: DeleteWorkInput!): WorkNode!
+
+  """
+  作品のコメントを作成する
+  """
+  createComment(input: CreateCommentInput!): CommentNode!
+
+  """
+  作品のコメントを作成する
+  """
+  deleteComment(input: DeleteCommentInput!): CommentNode!
+
+  """
+  作品のスキを作成する
+  """
+  createWorkLike(input: CreateWorkLikeInput!): WorkNode!
+
+  """
+  作品のスキを削除する
+  """
+  deleteWorkLike(input: DeleteWorkLikeInput!): WorkNode!
+
+  """
+  作品のブックマークを作成する
+  """
+  createWorkBookmark(input: CreateWorkBookmarkInput!): WorkNode!
+
+  """
+  作品のブックマークを削除する
+  """
+  deleteWorkBookmark(input: DeleteWorkBookmarkInput!): WorkNode!
+
+  """
+  ユーザをフォローする
+  """
+  followUser(input: FollowUserInput!): UserNode!
+
+  """
+  ユーザのフォローを解除する
+  """
+  unfollowUser(input: UnfollowUserInput!): UserNode!
+
+  """
+  ユーザをミュートする
+  """
+  muteUser(input: MuteUserInput!): UserNode!
+
+  """
+  ユーザのミュートを解除する
+  """
+  unmuteUser(input: UnmuteUserInput!): UserNode!
+
+  """
+  タグをミュートする
+  """
+  muteTag(input: MuteTagInput!): TagNode!
+
+  """
+  タグのミュートを解除する
+  """
+  unmuteTag(input: UnmuteTagInput!): TagNode!
+
+  """
+  スタンプを作成する
+  """
+  createSticker(input: CreateStickerInput!): StickerNode!
+
+  """
+  スタンプを更新する
+  """
+  updateSticker(input: UpdateStickerInput!): StickerNode!
+
+  """
+  スタンプを削除する
+  """
+  deleteSticker(input: DeleteStickerInput!): StickerNode!
+
+  """
+  フォルダを作成する
+  """
+  createFolder(input: CreateFolderInput!): FolderNode!
+
+  """
+  フォルダを更新する
+  """
+  updateFolder(input: UpdateFolderInput!): FolderNode!
+
+  """
+  フォルダを削除する
+  """
+  deleteFolder(input: DeleteFolderInput!): FolderNode!
+}
+
+"""
+ミュートされたタグ
+"""
+type MutedTagNode implements Node {
+  id: ID!
+  userId: ID!
+  user: UserNode!
+  mutedTagId: ID!
+  mutedTag: TagNode!
+}
+
+"""
+ユーザのミュート
+"""
+type MutedUserNode implements Node {
+  id: ID!
+  userId: ID!
+  user: UserNode!
+  mutedUserId: ID!
+  mutedUser: UserNode!
+}
+
+input MuteTagInput {
+  tagId: ID!
+}
+
+input MuteUserInput {
+  userId: ID!
+}
+
+interface Node {
+  id: ID!
+}
+
+"""
+通知
+"""
+type NotificationNode implements Node {
+  id: ID!
+  userId: ID
+  user: UserNode
+  relatedUserId: ID
+  relatedUser: UserNode
+  comment: String
+  stickerId: ID
+  sticker: StickerNode
+  type: String!
+  createdAt: Int
+}
+
 type Query {
   """
   作品
   """
   work(id: ID!): WorkNode
+
   """
   作品
   """
   works(offset: Int!, limit: Int!, where: WorksWhereInput): [WorkNode!]
+
   """
   作品
   """
   tabWorks(offset: Int!, limit: Int!, where: TabWorksWhereInput): [WorkNode!]
+
   """
   ユーザ
   """
   user(id: ID!): UserNode
+
   """
   ユーザ
   """
   users(offset: Int!, limit: Int!, where: UsersWhereInput): [UserNode!]
+
   """
   フォルダ
   """
   folder(id: ID!): FolderNode
+
   """
   フォルダ
   """
   folders(offset: Int!, limit: Int!, where: FoldersWhereInput): [FolderNode!]
+
   """
   日別テーマ
   """
   dailyTheme(id: ID!): DailyThemeNode
+
   """
   日別テーマ
   """
@@ -39,10 +464,12 @@ type Query {
     limit: Int!
     where: DailyThemesWhereInput
   ): [DailyThemeNode!]!
+
   """
   ステッカー
   """
   sticker(id: ID!): StickerNode
+
   """
   ステッカー
   """
@@ -51,14 +478,17 @@ type Query {
     limit: Int!
     where: StickersWhereInput
   ): [StickerNode!]!
+
   """
   ステッカー
   """
   tag(name: String!): TagNode
+
   """
   ステッカー
   """
   tags(offset: Int!, limit: Int!, where: TagsWhereInput): [TagNode!]!
+
   """
   ランキング履歴
   """
@@ -67,42 +497,148 @@ type Query {
     limit: Int!
     where: HistoriesWhereInput!
   ): [HistoryNode!]!
+  _entities(representations: [_Any!]!): [_Entity]!
+  _service: _Service!
 }
 
-input WorksWhereInput {
-  search: String
-}
-
-input TabWorksWhereInput {
-  slug: String
-}
-
-input UsersWhereInput {
-  search: String
-}
-
-input FoldersWhereInput {
-  search: String
+"""
+ステッカー
+"""
+type StickerNode implements Node {
+  id: ID!
+  createdAt: Int!
+  imageId: ID!
+  image: ImageNode!
+  userId: ID!
+  user: UserNode!
+  title: String!
+  releaseMode: String!
+  likesCount: Int!
+  usesCount: Int!
+  downloadsCount: Int!
 }
 
 input StickersWhereInput {
   search: String
 }
 
-input DailyThemesWhereInput {
-  search: String
+type SubWorkNode implements Node {
+  id: ID!
+}
+
+input TabWorksWhereInput {
+  slug: String
+}
+
+"""
+タグ
+"""
+type TagNode implements Node {
+  id: ID!
+  name: String!
+  works(offset: Int!, limit: Int!): [WorkNode!]!
 }
 
 input TagsWhereInput {
   search: String
 }
 
-input HistoriesWhereInput {
-  dateText: String!
+input UnfollowUserInput {
+  userId: ID!
 }
 
-interface Node {
+input UnmuteTagInput {
+  tagId: ID!
+}
+
+input UnmuteUserInput {
+  userId: ID!
+}
+
+input UpdateFolderInput {
+  folderId: ID!
+}
+
+input UpdateStickerInput {
+  stickerId: ID!
+  title: String!
+}
+
+input UpdateUserProfileInput {
+  userId: ID!
+}
+
+"""
+ユーザ
+"""
+type UserNode implements Node {
   id: ID!
+
+  """
+  作成日
+  """
+  createdAt: Int!
+
+  """
+  表示名
+  """
+  name: String!
+
+  """
+  ログインID
+  """
+  login: String!
+
+  """
+  サイトURL
+  """
+  siteURL: String
+
+  """
+  作品
+  """
+  works(offset: Int!, limit: Int!, where: UserWorksWhereInput): [WorkNode!]!
+
+  """
+  フォロワー（ユーザをフォローしているユーザ）
+  """
+  followers(offset: Int!, limit: Int!): [UserNode!]!
+
+  """
+  フォロー（ユーザがフォローしているユーザ)
+  """
+  followees(offset: Int!, limit: Int!): [UserNode!]!
+  histories(offset: Int!, limit: Int!): [HistoryNode!]!
+  stickers(offset: Int!, limit: Int!): [StickerNode!]!
+  folders(offset: Int!, limit: Int!): [FolderNode!]!
+  iconImageId: ID
+  iconImage: ImageNode
+  headerImageId: ID
+  headerImage: ImageNode
+  twitterAccountId: String
+  instagramAccountId: String
+  githubAccountId: String
+  biography: String
+  biographyEN: String
+  workCreatedAt: Int
+}
+
+"""
+ユーザの設定
+"""
+type UserSettingNode implements Node {
+  id: ID!
+  userId: ID!
+  user: UserNode!
+  useDarkMode: Boolean!
+}
+
+input UsersWhereInput {
+  search: String
+}
+
+input UserWorksWhereInput {
+  search: String
 }
 
 """
@@ -125,32 +661,6 @@ type WorkBookmarkNode implements Node {
   user: UserNode!
   workId: ID!
   work: WorkNode!
-}
-
-"""
-タグ
-"""
-type TagNode implements Node {
-  id: ID!
-  name: String!
-  works(offset: Int!, limit: Int!): [WorkNode!]!
-}
-
-"""
-コメント
-"""
-type CommentNode implements Node {
-  id: ID!
-  userId: ID!
-  user: UserNode!
-  workId: ID
-  work: WorkNode
-  stickerId: ID
-  sticker: StickerNode
-  type: String!
-  createdAt: Int!
-  text: String!
-  responses(offset: Int!, limit: Int!): [CommentNode!]!
 }
 
 """
@@ -179,326 +689,150 @@ type WorkLikeNode implements Node {
 }
 
 """
-ユーザのフォロ
-"""
-type FriendshipNode implements Node {
-  id: ID!
-  followerId: ID!
-  """
-  フォローしたユーザ
-  """
-  follower: UserNode!
-  """
-  フォローされたユーザ
-  """
-  followeeId: ID!
-  followee: UserNode!
-  createdAt: Int!
-}
-
-"""
-ミュートされたタグ
-"""
-type MutedTagNode implements Node {
-  id: ID!
-  userId: ID!
-  user: UserNode!
-  mutedTagId: ID!
-  mutedTag: TagNode!
-}
-
-"""
-ユーザのミュート
-"""
-type MutedUserNode implements Node {
-  id: ID!
-  userId: ID!
-  user: UserNode!
-  mutedUserId: ID!
-  mutedUser: UserNode!
-}
-
-"""
 作品
 """
 type WorkNode implements Node {
   id: ID!
+
   """
   作成日
   """
   createdAt: Int!
+
   """
   閲覧権限の種類
   """
   permission: WorkPermission
+
   """
   タイトル
   """
   title: String
+
   """
   タイトル（英語）
   """
   titleEN: String
+
   """
   説明
   """
   description: String
+
   """
   説明（英語）
   """
   descriptionEN: String
+
   """
   種類
   """
   type: String!
+
   """
   いいね数
   """
   likesCount: Int!
+
   """
   閲覧数
   """
   viewsCount: Int!
+
   """
   ブックマーク数
   """
   bookmarksCount: Int!
+
   """
   タグ名
   """
   tagNames: [String!]!
   tags: [TagNode!]!
   imageId: ID!
+
   """
   画像URL
   """
   image: ImageNode
   thumbnailImageId: ID!
+
   """
   画像URL（サムネイル）
   """
   thumbnailImage: ImageNode
   largeThumbnailImageId: ID!
+
   """
   画像URL（サムネイル）
   """
   largeThumbnailImage: ImageNode
   ogpThumbnailImageId: ID!
+
   """
   画像URL（サムネイル）
   """
   ogpThumbnailImage: ImageNode
+
   """
   プロンプト
   """
   prompt: String
+
   """
   ネガティブプロンプト
   """
   negativePrompt: String
+
   """
   シード値
   """
   seed: String
+
   """
   画像生成関連の設定
   """
   steps: Int
+
   """
   画像生成関連の設定
   """
   scale: Int
+
   """
   画像生成関連の設定
   """
   model: String
+
   """
   画像生成関連の設定
   """
   modelHash: String
+
   """
   画像生成関連の設定
   """
   sampler: String
+
   """
   ユーザID
   """
   userId: ID!
+
   """
   ユーザ
   """
   user: UserNode!
+
   """
   コメント
   """
   comments(offset: Int!, limit: Int!): [CommentNode!]!
+
   """
   作品
   """
   subWorks: [SubWorkNode!]!
-}
-
-type SubWorkNode implements Node {
-  id: ID!
-}
-
-"""
-画像
-"""
-type ImageNode implements Node {
-  id: ID!
-  downloadURL: String!
-  type: String!
-}
-
-"""
-ユーザ
-"""
-type UserNode implements Node {
-  id: ID!
-  """
-  作成日
-  """
-  createdAt: Int!
-  """
-  表示名
-  """
-  name: String!
-  """
-  ログインID
-  """
-  login: String!
-  """
-  サイトURL
-  """
-  siteURL: String
-  """
-  作品
-  """
-  works(offset: Int!, limit: Int!, where: UserWorksWhereInput): [WorkNode!]!
-  """
-  フォロワー（ユーザをフォローしているユーザ）
-  """
-  followers(offset: Int!, limit: Int!): [UserNode!]!
-  """
-  フォロー（ユーザがフォローしているユーザ)
-  """
-  followees(offset: Int!, limit: Int!): [UserNode!]!
-  histories(offset: Int!, limit: Int!): [HistoryNode!]!
-  stickers(offset: Int!, limit: Int!): [StickerNode!]!
-  folders(offset: Int!, limit: Int!): [FolderNode!]!
-  iconImageId: ID
-  iconImage: ImageNode
-  headerImageId: ID
-  headerImage: ImageNode
-  twitterAccountId: String
-  instagramAccountId: String
-  githubAccountId: String
-  biography: String
-  biographyEN: String
-  workCreatedAt: Int
-}
-
-input UserWorksWhereInput {
-  search: String
-}
-
-"""
-ユーザの設定
-"""
-type UserSettingNode implements Node {
-  id: ID!
-  userId: ID!
-  user: UserNode!
-  useDarkMode: Boolean!
-}
-
-"""
-通知
-"""
-type NotificationNode implements Node {
-  id: ID!
-  userId: ID
-  user: UserNode
-  relatedUserId: ID
-  relatedUser: UserNode
-  comment: String
-  stickerId: ID
-  sticker: StickerNode
-  type: String!
-  createdAt: Int
-}
-
-"""
-ランキングの履歴
-"""
-type HistoryNode implements Node {
-  id: ID!
-  type: String!
-  index: Int
-  userId: ID!
-  user: UserNode!
-  workId: ID
-  work: WorkNode
-  createdAt: Int!
-}
-
-"""
-作品のフォルダ
-"""
-type FolderNode implements Node {
-  id: ID!
-  createdAt: Int!
-  title: String!
-  description: String!
-  userId: ID!
-  user: UserNode!
-  likesCount: Int!
-  viewsCount: Int!
-  ageLimit: Int!
-  """
-  作品
-  """
-  works(offset: Int!, limit: Int!): [WorkNode!]
-}
-
-"""
-作品のフォルダのイイネ
-"""
-type FolderLikeNode implements Node {
-  id: ID!
-  createdAt: Int!
-  userId: ID!
-  user: UserNode!
-  folderId: ID!
-  folder: FolderNode!
-}
-
-"""
-ステッカー
-"""
-type StickerNode implements Node {
-  id: ID!
-  createdAt: Int!
-  imageId: ID!
-  image: ImageNode!
-  userId: ID!
-  user: UserNode!
-  title: String!
-  releaseMode: String!
-  likesCount: Int!
-  usesCount: Int!
-  downloadsCount: Int!
-}
-
-"""
-作品の日別テーマ
-"""
-type DailyThemeNode implements Node {
-  id: ID!
-  type: String!
-  name: String!
-  startTime: Int!
 }
 
 """
@@ -511,179 +845,6 @@ enum WorkPermission {
   PRIVATE_LINK
 }
 
-type Mutation {
-  createUser(input: CreateUserInput!): UserNode!
-  """
-  ユーザーのプロフィールを作成する
-  """
-  updateUserProfile(input: UpdateUserProfileInput!): UserNode!
-  """
-  作品を作成する
-  """
-  createWork(input: CreateWorkInput!): WorkNode!
-  """
-  作品を削除する
-  """
-  deleteWork(input: DeleteWorkInput!): WorkNode!
-  """
-  作品のコメントを作成する
-  """
-  createComment(input: CreateCommentInput!): CommentNode!
-  """
-  作品のコメントを作成する
-  """
-  deleteComment(input: DeleteCommentInput!): CommentNode!
-  """
-  作品のスキを作成する
-  """
-  createWorkLike(input: CreateWorkLikeInput!): WorkNode!
-  """
-  作品のスキを削除する
-  """
-  deleteWorkLike(input: DeleteWorkLikeInput!): WorkNode!
-  """
-  作品のブックマークを作成する
-  """
-  createWorkBookmark(input: CreateWorkBookmarkInput!): WorkNode!
-  """
-  作品のブックマークを削除する
-  """
-  deleteWorkBookmark(input: DeleteWorkBookmarkInput!): WorkNode!
-  """
-  ユーザをフォローする
-  """
-  followUser(input: FollowUserInput!): UserNode!
-  """
-  ユーザのフォローを解除する
-  """
-  unfollowUser(input: UnfollowUserInput!): UserNode!
-  """
-  ユーザをミュートする
-  """
-  muteUser(input: MuteUserInput!): UserNode!
-  """
-  ユーザのミュートを解除する
-  """
-  unmuteUser(input: UnmuteUserInput!): UserNode!
-  """
-  タグをミュートする
-  """
-  muteTag(input: MuteTagInput!): TagNode!
-  """
-  タグのミュートを解除する
-  """
-  unmuteTag(input: UnmuteTagInput!): TagNode!
-  """
-  スタンプを作成する
-  """
-  createSticker(input: CreateStickerInput!): StickerNode!
-  """
-  スタンプを更新する
-  """
-  updateSticker(input: UpdateStickerInput!): StickerNode!
-  """
-  スタンプを削除する
-  """
-  deleteSticker(input: DeleteStickerInput!): StickerNode!
-  """
-  フォルダを作成する
-  """
-  createFolder(input: CreateFolderInput!): FolderNode!
-  """
-  フォルダを更新する
-  """
-  updateFolder(input: UpdateFolderInput!): FolderNode!
-  """
-  フォルダを削除する
-  """
-  deleteFolder(input: DeleteFolderInput!): FolderNode!
-}
-
-input CreateUserInput {
-  idToken: String!
-}
-
-input UpdateUserProfileInput {
-  userId: ID!
-}
-
-input CreateWorkInput {
-  title: String!
-}
-
-input DeleteWorkInput {
-  workId: ID!
-}
-
-input CreateCommentInput {
-  commentId: ID!
-}
-
-input DeleteCommentInput {
-  commentId: ID!
-}
-
-input CreateWorkLikeInput {
-  workId: ID!
-}
-
-input DeleteWorkLikeInput {
-  workId: ID!
-}
-
-input CreateWorkBookmarkInput {
-  workId: ID!
-}
-
-input DeleteWorkBookmarkInput {
-  workId: ID!
-}
-
-input FollowUserInput {
-  userId: ID!
-}
-
-input UnfollowUserInput {
-  userId: ID!
-}
-
-input MuteUserInput {
-  userId: ID!
-}
-
-input UnmuteUserInput {
-  userId: ID!
-}
-
-input MuteTagInput {
-  tagId: ID!
-}
-
-input UnmuteTagInput {
-  tagId: ID!
-}
-
-input CreateStickerInput {
-  title: String!
-}
-
-input UpdateStickerInput {
-  stickerId: ID!
-  title: String!
-}
-
-input DeleteStickerInput {
-  stickerId: ID!
-}
-
-input CreateFolderInput {
-  title: String!
-}
-
-input UpdateFolderInput {
-  folderId: ID!
-}
-
-input DeleteFolderInput {
-  folderId: ID!
+input WorksWhereInput {
+  search: String
 }

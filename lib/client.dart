@@ -10,7 +10,7 @@ Client createClient() {
   final link = HttpLink(
     Config.graphqlURI,
     defaultHeaders: {
-      'token': Config.graphqlToken,
+      'secret': Config.graphqlSecret,
     },
   );
 
