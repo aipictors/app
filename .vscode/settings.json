@@ -18,7 +18,17 @@
     ".flutter-plugins-dependencies": true,
     ".idea": true,
     ".metadata": true,
+    "android/aipictors_android.iml": true,
+    "android/gradlew": true,
+    "android/gradlew.bat": true,
+    "android/local.properties": true,
     "build": true,
+    "ios/.symlinks": true,
+    "ios/Pods": true,
+    "ios/Runner.xcodeproj": true,
+    "ios/Runner.xcworkspace": true,
+    "ios/Runner/GeneratedPluginRegistrant.h": true,
+    "ios/Runner/GeneratedPluginRegistrant.m": true,
     "pubspec.lock": true
   }
 }

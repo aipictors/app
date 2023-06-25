@@ -45,13 +45,16 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.example.aipictors"
+        applicationId "com.aipictors.flutter"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
         minSdkVersion flutter.minSdkVersion
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        applicationIdSuffix appIdSuffix
+        resValue "string", "app_name", appName
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -69,4 +72,21 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+}
+
+task copySources(type: Copy) {
+   from "src/$flavor/res"
+   into 'src/main/res'
+}
+
+tasks.whenTaskAdded { task ->
+   task.dependsOn copySources
+   if (task.name == 'processDebugGoogleServices' || task.name == 'processReleaseGoogleServices') {
+        task.dependsOn selectGoogleServicesJson
+    }
+}
+
+task selectGoogleServicesJson(type: Copy) {
+    from "src/$flavor/google-services.json"
+    into './'
 }

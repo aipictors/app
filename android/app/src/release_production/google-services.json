@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "698114764060",
+    "project_id": "kwkjsui8ghyt93ai5feb",
+    "storage_bucket": "kwkjsui8ghyt93ai5feb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:698114764060:android:6a7396359d50e1f6b49ed9",
+        "android_client_info": {
+          "package_name": "com.aipictors.flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "698114764060-5rpjtdi5goec2gjnrs72bptrjpjl81ug.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBx7oKnrmpfuktHivvbndam_MqrNzRMr6k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "698114764060-5rpjtdi5goec2gjnrs72bptrjpjl81ug.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "698114764060-51l6sm5os9tvst8r1klmv1pt8lkspld3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.aipictors.flutter"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
