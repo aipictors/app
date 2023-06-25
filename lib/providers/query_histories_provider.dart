@@ -1,11 +1,14 @@
 import 'package:equatable/equatable.dart';
 import 'package:ferry/ferry.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../client.dart';
 import '../graphql/__generated__/histories.data.gql.dart';
 import '../graphql/__generated__/histories.req.gql.dart';
 import '../graphql/__generated__/histories.var.gql.dart';
+
+part 'query_histories_provider.g.dart';
 
 class QueryHistoriesProps extends Equatable {
   const QueryHistoriesProps({
@@ -18,11 +21,10 @@ class QueryHistoriesProps extends Equatable {
   List<Object> get props => [dateTime];
 }
 
-typedef State = OperationResponse<GHistoriesData, GHistoriesVars>;
+typedef State = Stream<OperationResponse<GHistoriesData, GHistoriesVars>>;
 
-final provider = StreamProvider.family<State, QueryHistoriesProps>;
-
-final queryHistoriesProvider = provider((ref, props) {
+@riverpod
+State queryHistories(QueryHistoriesRef ref, QueryHistoriesProps props) {
   final client = createClient();
   final req = GHistoriesReq((builder) {
     return builder
@@ -31,4 +33,4 @@ final queryHistoriesProvider = provider((ref, props) {
       ..vars.where.dateText = props.dateTime;
   });
   return client.request(req);
-});
+}

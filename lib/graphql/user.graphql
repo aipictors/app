@@ -1,0 +1,7 @@
+# import './fragments/user_fields_fragment.graphql'
+
+query User($userId: ID!) {
+  user(id: $userId) {
+    ...UserFields
+  }
+}

@@ -1,0 +1,13 @@
+query UserWorks($user_id: ID!, $offset: Int!, $limit: Int!) {
+  user(id: $user_id) {
+    id
+    works(offset: $offset, limit: $limit) {
+      id
+      title
+      image {
+        id
+        downloadURL
+      }
+    }
+  }
+}

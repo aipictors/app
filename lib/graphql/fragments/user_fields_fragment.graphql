@@ -1,0 +1,14 @@
+fragment UserFields on UserNode {
+  id
+  biography
+  login
+  name
+  iconImage {
+    id
+    downloadURL
+  }
+  headerImage {
+    id
+    downloadURL
+  }
+}

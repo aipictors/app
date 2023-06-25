@@ -1,3 +1,4 @@
+import 'package:aipictors/screens/viewer_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -6,7 +7,6 @@ import 'feed_screen.dart';
 import 'history_screen.dart';
 import 'notification_screen.dart';
 import 'search_screen.dart';
-import 'user_screen.dart';
 
 class HomeScreen extends HookConsumerWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -21,7 +21,7 @@ class HomeScreen extends HookConsumerWidget {
       SearchScreen(),
       HistoryScreen(),
       NotificationScreen(),
-      UserScreen()
+      ViewerScreen()
     ];
 
     return Scaffold(

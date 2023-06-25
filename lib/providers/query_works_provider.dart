@@ -1,9 +1,17 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ferry/ferry.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../client.dart';
+import '../graphql/__generated__/works.data.gql.dart';
 import '../graphql/__generated__/works.req.gql.dart';
+import '../graphql/__generated__/works.var.gql.dart';
 
-final queryWorksProvider = StreamProvider((ref) {
+part 'query_works_provider.g.dart';
+
+typedef State = Stream<OperationResponse<GWorksData, GWorksVars>>;
+
+@riverpod
+State queryWorks(QueryWorksRef ref) {
   final client = createClient();
   final req = GWorksReq((builder) {
     return builder
@@ -12,4 +20,4 @@ final queryWorksProvider = StreamProvider((ref) {
       ..vars.where.search = "";
   });
   return client.request(req);
-});
+}

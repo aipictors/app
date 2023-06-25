@@ -4,7 +4,7 @@ import 'package:gql_http_link/gql_http_link.dart';
 import 'config.dart';
 
 Client createClient() {
-  // final cache = Cache(store: Global.store!);
+  // final cache = Cache(store: HiveRepository.store!);
   final cache = Cache();
 
   final link = HttpLink(

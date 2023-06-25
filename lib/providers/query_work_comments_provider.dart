@@ -1,11 +1,13 @@
 import 'package:equatable/equatable.dart';
 import 'package:ferry/ferry.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../client.dart';
 import '../graphql/__generated__/work_comments.data.gql.dart';
 import '../graphql/__generated__/work_comments.req.gql.dart';
 import '../graphql/__generated__/work_comments.var.gql.dart';
+
+part 'query_work_comments_provider.g.dart';
 
 class QueryWorkCommentsProps extends Equatable {
   const QueryWorkCommentsProps({
@@ -18,14 +20,16 @@ class QueryWorkCommentsProps extends Equatable {
   List<Object> get props => [workId];
 }
 
-typedef State = OperationResponse<GWorkCommentsData, GWorkCommentsVars>;
+typedef State = Stream<OperationResponse<GWorkCommentsData, GWorkCommentsVars>>;
 
-final provider = StreamProvider.family<State, QueryWorkCommentsProps>;
-
-final queryWorkCommentsProvider = provider((ref, props) {
+@riverpod
+State queryWorkComments(
+  QueryWorkCommentsRef ref,
+  QueryWorkCommentsProps props,
+) {
   final client = createClient();
   final req = GWorkCommentsReq((builder) {
     return builder..vars.workId = props.workId;
   });
   return client.request(req);
-});
+}
