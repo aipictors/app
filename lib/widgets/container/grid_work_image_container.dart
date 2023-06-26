@@ -12,7 +12,7 @@ class GridWorkImageContainer extends HookConsumerWidget {
   @override
   Widget build(context, ref) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(8.0),
+      // borderRadius: BorderRadius.circular(4.0),
       child: Image.network(
         downloadURL,
         fit: BoxFit.cover,

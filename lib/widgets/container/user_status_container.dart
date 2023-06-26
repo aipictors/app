@@ -34,7 +34,7 @@ class UserStatusContainer extends HookConsumerWidget {
         Row(
           children: [
             Text(
-              "いいね $likesCount回",
+              "貰ったいいね $likesCount件",
               style: TextStyle(color: Theme.of(context).dividerColor),
             ),
             const SizedBox(width: 12),

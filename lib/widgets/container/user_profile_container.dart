@@ -43,7 +43,10 @@ class UserProfileContainer extends HookConsumerWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          Text("@$login"),
+          Text(
+            "@$login",
+            style: TextStyle(color: Theme.of(context).dividerColor),
+          ),
           if (biography != null) const SizedBox(height: 8),
           if (biography != null) Text(biography!),
           const SizedBox(height: 4),

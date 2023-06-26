@@ -16,13 +16,13 @@ class WorkGridView extends HookConsumerWidget {
   Widget build(context, ref) {
     return GridView.builder(
       shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      padding: const EdgeInsets.only(left: 16, right: 16),
+      physics: const ClampingScrollPhysics(),
+      padding: const EdgeInsets.only(top: 0, left: 0, right: 0),
       cacheExtent: 0.0,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisSpacing: 4,
-        mainAxisSpacing: 4,
-        crossAxisCount: 3,
+        crossAxisSpacing: 0,
+        mainAxisSpacing: 0,
+        crossAxisCount: 2,
       ),
       itemCount: itemCount,
       itemBuilder: itemBuilder,
