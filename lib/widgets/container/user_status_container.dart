@@ -21,31 +21,31 @@ class UserStatusContainer extends HookConsumerWidget {
   @override
   Widget build(context, ref) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          children: [
-            Text(
-              "いいね $likesCount",
-              style: const TextStyle(color: Colors.black54),
-            ),
-            const SizedBox(width: 8),
-            Text(
-              "閲覧回数 $viewsCount",
-              style: const TextStyle(color: Colors.black54),
-            ),
-          ],
+        Text(
+          "$followersCount人のユーザにフォローされています。",
+          style: TextStyle(
+            color: Theme.of(context).primaryColor,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         const SizedBox(height: 4),
         Row(
           children: [
             Text(
-              "フォロワー $followersCount",
-              style: const TextStyle(color: Colors.black54),
+              "いいね $likesCount回",
+              style: TextStyle(color: Theme.of(context).dividerColor),
             ),
-            const SizedBox(width: 8),
+            const SizedBox(width: 12),
             Text(
-              "入賞 $awardsCount",
-              style: const TextStyle(color: Colors.black54),
+              "閲覧 $viewsCount回",
+              style: TextStyle(color: Theme.of(context).dividerColor),
+            ),
+            const SizedBox(width: 12),
+            Text(
+              "入賞回数 $awardsCount回",
+              style: TextStyle(color: Theme.of(context).dividerColor),
             ),
           ],
         ),

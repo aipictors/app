@@ -46,12 +46,12 @@ class UserProfileContainer extends HookConsumerWidget {
           Text("@$login"),
           if (biography != null) const SizedBox(height: 8),
           if (biography != null) Text(biography!),
-          const SizedBox(height: 8),
-          const UserStatusContainer(
-            likesCount: 0,
-            viewsCount: 0,
-            followersCount: 0,
-            awardsCount: 0,
+          const SizedBox(height: 4),
+          UserStatusContainer(
+            likesCount: likesCount,
+            viewsCount: viewsCount,
+            followersCount: followersCount,
+            awardsCount: awardsCount,
           ),
         ],
       ),

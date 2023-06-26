@@ -3,6 +3,10 @@ fragment UserFields on UserNode {
   biography
   login
   name
+  receivedLikesCount
+  receivedViewsCount
+  awardsCount
+  followersCount
   iconImage {
     id
     downloadURL
