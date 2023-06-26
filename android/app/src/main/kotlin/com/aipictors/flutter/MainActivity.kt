@@ -1,4 +1,4 @@
-package com.example.aipictors
+package com.aipictors.flutter
 
 import io.flutter.embedding.android.FlutterActivity
 
