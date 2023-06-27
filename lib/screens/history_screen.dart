@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../providers/query_histories_provider.dart';
+import '../providers/query_daily_work_awards_provider.dart';
 
 class HistoryScreen extends HookConsumerWidget {
   const HistoryScreen({
@@ -12,8 +12,12 @@ class HistoryScreen extends HookConsumerWidget {
   @override
   Widget build(context, ref) {
     final queryHistories = ref.watch(
-      queryHistoriesProvider(
-        const QueryHistoriesProps(dateTime: "2023-06-12"),
+      queryDailyWorkAwardsProvider(
+        const QueryDailyWorkAwardsProps(
+          year: 2023,
+          month: 6,
+          day: 12,
+        ),
       ),
     );
 
@@ -25,7 +29,7 @@ class HistoryScreen extends HookConsumerWidget {
       body: SafeArea(
         child: queryHistories.when(
           data: (data) {
-            final histories = data.data!.histories;
+            final awards = data.data!.workAwards;
             return GridView.builder(
               padding: const EdgeInsets.all(16),
               cacheExtent: 0.0,
@@ -34,17 +38,10 @@ class HistoryScreen extends HookConsumerWidget {
                 mainAxisSpacing: 4,
                 crossAxisCount: 3,
               ),
-              itemCount: histories.length,
+              itemCount: awards.length,
               itemBuilder: (context, index) {
-                final history = histories[index];
-                final work = history.work;
-                if (work == null) {
-                  return Container(
-                    width: double.infinity,
-                    height: double.infinity,
-                    color: Theme.of(context).disabledColor,
-                  );
-                }
+                final award = awards[index];
+                final work = award.work;
                 return GestureDetector(
                   onTap: () {
                     context.push("/works/${work.id}");

@@ -1,0 +1,7 @@
+# import './fragments/partial_work_fields_fragment.graphql'
+
+query HotWorks {
+  hotWorks {
+    ...PartialWorkFields
+  }
+}

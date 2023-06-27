@@ -1,0 +1,10 @@
+query DailyThemes($offset: Int!, $limit: Int!, $where: DailyThemesWhereInput!) {
+  dailyThemes(offset: $offset, limit: $limit, where: $where) {
+    id
+    title
+    dateText
+    year
+    month
+    day
+  }
+}

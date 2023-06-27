@@ -1,12 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'query_histories_provider.dart';
+part of 'query_weekly_work_awards_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$queryHistoriesHash() => r'08b240ca0a536b30b591eb784973b2961d2fc972';
+String _$queryWeeklyWorkAwardsHash() =>
+    r'56994c218a7280e167bb2366ab343ec2ddec90b4';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -29,31 +30,31 @@ class _SystemHash {
   }
 }
 
-typedef QueryHistoriesRef = AutoDisposeStreamProviderRef<
-    OperationResponse<GHistoriesData, GHistoriesVars>>;
+typedef QueryWeeklyWorkAwardsRef = AutoDisposeStreamProviderRef<
+    OperationResponse<GWorkAwardsData, GWorkAwardsVars>>;
 
-/// See also [queryHistories].
-@ProviderFor(queryHistories)
-const queryHistoriesProvider = QueryHistoriesFamily();
+/// See also [queryWeeklyWorkAwards].
+@ProviderFor(queryWeeklyWorkAwards)
+const queryWeeklyWorkAwardsProvider = QueryWeeklyWorkAwardsFamily();
 
-/// See also [queryHistories].
-class QueryHistoriesFamily extends Family<
-    AsyncValue<OperationResponse<GHistoriesData, GHistoriesVars>>> {
-  /// See also [queryHistories].
-  const QueryHistoriesFamily();
+/// See also [queryWeeklyWorkAwards].
+class QueryWeeklyWorkAwardsFamily extends Family<
+    AsyncValue<OperationResponse<GWorkAwardsData, GWorkAwardsVars>>> {
+  /// See also [queryWeeklyWorkAwards].
+  const QueryWeeklyWorkAwardsFamily();
 
-  /// See also [queryHistories].
-  QueryHistoriesProvider call(
-    QueryHistoriesProps props,
+  /// See also [queryWeeklyWorkAwards].
+  QueryWeeklyWorkAwardsProvider call(
+    QueryWeeklyWorkAwardsProps props,
   ) {
-    return QueryHistoriesProvider(
+    return QueryWeeklyWorkAwardsProvider(
       props,
     );
   }
 
   @override
-  QueryHistoriesProvider getProviderOverride(
-    covariant QueryHistoriesProvider provider,
+  QueryWeeklyWorkAwardsProvider getProviderOverride(
+    covariant QueryWeeklyWorkAwardsProvider provider,
   ) {
     return call(
       provider.props,
@@ -72,36 +73,36 @@ class QueryHistoriesFamily extends Family<
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'queryHistoriesProvider';
+  String? get name => r'queryWeeklyWorkAwardsProvider';
 }
 
-/// See also [queryHistories].
-class QueryHistoriesProvider extends AutoDisposeStreamProvider<
-    OperationResponse<GHistoriesData, GHistoriesVars>> {
-  /// See also [queryHistories].
-  QueryHistoriesProvider(
+/// See also [queryWeeklyWorkAwards].
+class QueryWeeklyWorkAwardsProvider extends AutoDisposeStreamProvider<
+    OperationResponse<GWorkAwardsData, GWorkAwardsVars>> {
+  /// See also [queryWeeklyWorkAwards].
+  QueryWeeklyWorkAwardsProvider(
     this.props,
   ) : super.internal(
-          (ref) => queryHistories(
+          (ref) => queryWeeklyWorkAwards(
             ref,
             props,
           ),
-          from: queryHistoriesProvider,
-          name: r'queryHistoriesProvider',
+          from: queryWeeklyWorkAwardsProvider,
+          name: r'queryWeeklyWorkAwardsProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$queryHistoriesHash,
-          dependencies: QueryHistoriesFamily._dependencies,
+                  : _$queryWeeklyWorkAwardsHash,
+          dependencies: QueryWeeklyWorkAwardsFamily._dependencies,
           allTransitiveDependencies:
-              QueryHistoriesFamily._allTransitiveDependencies,
+              QueryWeeklyWorkAwardsFamily._allTransitiveDependencies,
         );
 
-  final QueryHistoriesProps props;
+  final QueryWeeklyWorkAwardsProps props;
 
   @override
   bool operator ==(Object other) {
-    return other is QueryHistoriesProvider && other.props == props;
+    return other is QueryWeeklyWorkAwardsProvider && other.props == props;
   }
 
   @override

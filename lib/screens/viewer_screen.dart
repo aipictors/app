@@ -10,7 +10,7 @@ class ViewerScreen extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
-    const userId = "26725";
+    const userId = "3293";
 
     final queryUser = ref.watch(queryUserProvider(userId));
 
@@ -32,7 +32,7 @@ class ViewerScreen extends HookConsumerWidget {
               }
               final user = data.data!.user!;
               print(user);
-              return Column(
+              return const Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [],
               );

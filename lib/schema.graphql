@@ -1,28 +1,14 @@
-directive @link(
-  url: String
-  as: String
-  for: link__Purpose
-  import: [link__Import]
-) on SCHEMA
+directive @link(url: String, as: String, for: link__Purpose, import: [link__Import]) on SCHEMA
 
-directive @key(
-  fields: federation__FieldSet!
-  resolvable: Boolean = true
-) on OBJECT | INTERFACE
+directive @key(fields: federation__FieldSet!, resolvable: Boolean = true) on OBJECT | INTERFACE
 
-directive @federation__requires(
-  fields: federation__FieldSet!
-) on FIELD_DEFINITION
+directive @federation__requires(fields: federation__FieldSet!) on FIELD_DEFINITION
 
-directive @federation__provides(
-  fields: federation__FieldSet!
-) on FIELD_DEFINITION
+directive @federation__provides(fields: federation__FieldSet!) on FIELD_DEFINITION
 
 directive @federation__external(reason: String) on OBJECT | FIELD_DEFINITION
 
-directive @federation__tag(
-  name: String!
-) on FIELD_DEFINITION | OBJECT | INTERFACE | UNION | ARGUMENT_DEFINITION | SCALAR | ENUM | ENUM_VALUE | INPUT_OBJECT | INPUT_FIELD_DEFINITION
+directive @federation__tag(name: String!) on FIELD_DEFINITION | OBJECT | INTERFACE | UNION | ARGUMENT_DEFINITION | SCALAR | ENUM | ENUM_VALUE | INPUT_OBJECT | INPUT_FIELD_DEFINITION
 
 directive @federation__extends on OBJECT | INTERFACE
 
@@ -32,69 +18,51 @@ directive @federation__inaccessible on FIELD_DEFINITION | OBJECT | INTERFACE | U
 
 directive @federation__override(from: String!) on FIELD_DEFINITION
 
-"""
-Exposes a URL that specifies the behavior of this scalar.
-"""
+"""Exposes a URL that specifies the behavior of this scalar."""
 directive @specifiedBy(
-  """
-  The URL that specifies the behavior of this scalar.
-  """
+  """The URL that specifies the behavior of this scalar."""
   url: String!
 ) on SCALAR
 
 scalar _Any
 
-union _Entity =
-    CommentNode
-  | DailyThemeNode
-  | FolderLikeNode
-  | FolderNode
-  | FriendshipNode
-  | HistoryNode
-  | ImageNode
-  | MutedTagNode
-  | MutedUserNode
-  | NotificationNode
-  | StickerNode
-  | SubWorkNode
-  | TagNode
-  | UserNode
-  | UserSettingNode
-  | Viewer
-  | WorkBookmarkNode
-  | WorkEventNode
-  | WorkLikeNode
-  | WorkNode
+union _Entity = CommentNode | DailyThemeNode | FolderLikeNode | FolderNode | FriendshipNode | ImageNode | MutedTagNode | MutedUserNode | NotificationNode | StickerNode | SubWorkNode | TagNode | UserNode | UserSettingNode | Viewer | WorkAwardNode | WorkBookmarkNode | WorkEventNode | WorkLikeNode | WorkNode
 
 type _Service {
   sdl: String
 }
 
 enum AccessType {
-  """
-  下書き
-  """
+  """下書き"""
   PUBLIC
 
-  """
-  公開
-  """
+  """公開"""
   SILENT
 
-  """
-  非公開
-  """
+  """非公開"""
   PRIVATE
 
-  """
-  限定公開
-  """
+  """限定公開"""
   LIMITED
 }
 
-"""
-コメント
-"""
+input AwardsWhereInput {
+  type: AwardType
+  postType: PostType
+  date: String
+  year: Int
+  month: Int
+  day: Int
+}
+
+enum AwardType {
+  MONTHLY
+  WEEKLY
+  DAILY
+  DAILY_NO_THEME
+}
+
+"""コメント"""
 type CommentNode implements Node {
   id: ID!
   userId: ID!
@@ -137,26 +105,40 @@ input CreateWorkLikeInput {
   workId: ID!
 }
 
-"""
-作品の日別テーマ
-"""
+"""作品の日別テーマ"""
 type DailyThemeNode implements Node {
   id: ID!
   type: String!
 
-  """
-  タイトル
-  """
+  """タイトル"""
   title: String!
 
-  """
-  開始時刻
-  """
+  """日付"""
+  dateText: String!
+
+  """年"""
+  year: Int!
+
+  """月"""
+  month: Int!
+
+  """日にち"""
+  day: Int!
+
+  """開始時刻"""
   startTime: Int!
+
+  """作品"""
+  works(offset: Int!, limit: Int!): [WorkNode!]!
 }
 
 input DailyThemesWhereInput {
   search: String
+  year: Int
+  month: Int
+  day: Int
+  startDate: String
+  endDate: String
 }
 
 input DeleteCommentInput {
@@ -185,67 +167,45 @@ input DeleteWorkLikeInput {
 
 scalar federation__FieldSet
 
-"""
-作品のフォルダのイイネ
-"""
+"""作品のフォルダのイイネ"""
 type FolderLikeNode implements Node {
   id: ID!
   createdAt: Int!
   userId: ID!
 
-  """
-  ユーザ
-  """
+  """ユーザ"""
   user: UserNode!
   folderId: ID!
 
-  """
-  フォルダ
-  """
+  """フォルダ"""
   folder: FolderNode!
 }
 
-"""
-作品のフォルダ
-"""
+"""作品のフォルダ"""
 type FolderNode implements Node {
   id: ID!
   createdAt: Int!
 
-  """
-  タイトル
-  """
+  """タイトル"""
   title: String!
 
-  """
-  説明
-  """
+  """説明"""
   description: String!
   userId: ID!
 
-  """
-  ユーザ
-  """
+  """ユーザ"""
   user: UserNode!
 
-  """
-  いいね数
-  """
+  """いいね数"""
   likesCount: Int!
 
-  """
-  閲覧数
-  """
+  """閲覧数"""
   viewsCount: Int!
 
-  """
-  年齢制限
-  """
+  """年齢制限"""
   rating: Int!
 
-  """
-  作品
-  """
+  """作品"""
   works(offset: Int!, limit: Int!): [WorkNode!]
 }
 
@@ -257,55 +217,21 @@ input FollowUserInput {
   userId: ID!
 }
 
-"""
-ユーザのフォロ
-"""
+"""ユーザのフォロ"""
 type FriendshipNode implements Node {
   id: ID!
   followerId: ID!
 
-  """
-  フォローしたユーザ
-  """
+  """フォローしたユーザ"""
   follower: UserNode!
 
-  """
-  フォローされたユーザ
-  """
+  """フォローされたユーザ"""
   followeeId: ID!
   followee: UserNode!
   createdAt: Int!
 }
 
-input HistoriesWhereInput {
-  dateText: String!
-}
-
-"""
-ランキングの履歴
-"""
-type HistoryNode implements Node {
-  id: ID!
-  type: String!
-  index: Int
-  userId: ID!
-
-  """
-  ユーザ
-  """
-  user: UserNode!
-  workId: ID
-
-  """
-  作品
-  """
-  work: WorkNode
-  createdAt: Int!
-}
-
-"""
-画像
-"""
+"""画像"""
 type ImageNode implements Node {
   id: ID!
   downloadURL: String!
@@ -329,115 +255,71 @@ enum link__Purpose {
 type Mutation {
   createUser(input: CreateUserInput!): UserNode!
 
-  """
-  ユーザーのプロフィールを作成する
-  """
+  """ユーザーのプロフィールを作成する"""
   updateUserProfile(input: UpdateUserProfileInput!): UserNode!
 
-  """
-  作品を作成する
-  """
+  """作品を作成する"""
   createWork(input: CreateWorkInput!): WorkNode!
 
-  """
-  作品を削除する
-  """
+  """作品を削除する"""
   deleteWork(input: DeleteWorkInput!): WorkNode!
 
-  """
-  作品のコメントを作成する
-  """
+  """作品のコメントを作成する"""
   createComment(input: CreateCommentInput!): CommentNode!
 
-  """
-  作品のコメントを作成する
-  """
+  """作品のコメントを作成する"""
   deleteComment(input: DeleteCommentInput!): CommentNode!
 
-  """
-  作品のスキを作成する
-  """
+  """作品のスキを作成する"""
   createWorkLike(input: CreateWorkLikeInput!): WorkNode!
 
-  """
-  作品のスキを削除する
-  """
+  """作品のスキを削除する"""
   deleteWorkLike(input: DeleteWorkLikeInput!): WorkNode!
 
-  """
-  作品のブックマークを作成する
-  """
+  """作品のブックマークを作成する"""
   createWorkBookmark(input: CreateWorkBookmarkInput!): WorkNode!
 
-  """
-  作品のブックマークを削除する
-  """
+  """作品のブックマークを削除する"""
   deleteWorkBookmark(input: DeleteWorkBookmarkInput!): WorkNode!
 
-  """
-  ユーザをフォローする
-  """
+  """ユーザをフォローする"""
   followUser(input: FollowUserInput!): UserNode!
 
-  """
-  ユーザのフォローを解除する
-  """
+  """ユーザのフォローを解除する"""
   unfollowUser(input: UnfollowUserInput!): UserNode!
 
-  """
-  ユーザをミュートする
-  """
+  """ユーザをミュートする"""
   muteUser(input: MuteUserInput!): UserNode!
 
-  """
-  ユーザのミュートを解除する
-  """
+  """ユーザのミュートを解除する"""
   unmuteUser(input: UnmuteUserInput!): UserNode!
 
-  """
-  タグをミュートする
-  """
+  """タグをミュートする"""
   muteTag(input: MuteTagInput!): TagNode!
 
-  """
-  タグのミュートを解除する
-  """
+  """タグのミュートを解除する"""
   unmuteTag(input: UnmuteTagInput!): TagNode!
 
-  """
-  スタンプを作成する
-  """
+  """スタンプを作成する"""
   createSticker(input: CreateStickerInput!): StickerNode!
 
-  """
-  スタンプを更新する
-  """
+  """スタンプを更新する"""
   updateSticker(input: UpdateStickerInput!): StickerNode!
 
-  """
-  スタンプを削除する
-  """
+  """スタンプを削除する"""
   deleteSticker(input: DeleteStickerInput!): StickerNode!
 
-  """
-  フォルダを作成する
-  """
+  """フォルダを作成する"""
   createFolder(input: CreateFolderInput!): FolderNode!
 
-  """
-  フォルダを更新する
-  """
+  """フォルダを更新する"""
   updateFolder(input: UpdateFolderInput!): FolderNode!
 
-  """
-  フォルダを削除する
-  """
+  """フォルダを削除する"""
   deleteFolder(input: DeleteFolderInput!): FolderNode!
 }
 
-"""
-ミュートされたタグ
-"""
+"""ミュートされたタグ"""
 type MutedTagNode implements Node {
   id: ID!
   userId: ID!
@@ -446,9 +328,7 @@ type MutedTagNode implements Node {
   mutedTag: TagNode!
 }
 
-"""
-ユーザのミュート
-"""
+"""ユーザのミュート"""
 type MutedUserNode implements Node {
   id: ID!
   userId: ID!
@@ -469,9 +349,7 @@ interface Node {
   id: ID!
 }
 
-"""
-通知
-"""
+"""通知"""
 type NotificationNode implements Node {
   id: ID!
   userId: ID
@@ -485,159 +363,113 @@ type NotificationNode implements Node {
   createdAt: Int
 }
 
+input PopularWorksWhereInput {
+  date: String
+  rating: Rating
+}
+
+enum PostType {
+  WORK
+  NOVEL
+  NOTE
+}
+
 type Query {
-  """
-  作品
-  """
+  """作品"""
   work(id: ID!): WorkNode
 
-  """
-  作品
-  """
+  """作品"""
   works(offset: Int!, limit: Int!, where: WorksWhereInput): [WorkNode!]
 
-  """
-  作品
-  """
+  """作品"""
   tabWorks(offset: Int!, limit: Int!, where: TabWorksWhereInput): [WorkNode!]
 
-  """
-  ユーザ
-  """
+  """ユーザ"""
   user(id: ID!): UserNode
 
-  """
-  ユーザ
-  """
+  """ユーザ"""
   users(offset: Int!, limit: Int!, where: UsersWhereInput): [UserNode!]
 
-  """
-  フォルダ
-  """
+  """フォルダ"""
   folder(id: ID!): FolderNode
 
-  """
-  フォルダ
-  """
+  """フォルダ"""
   folders(offset: Int!, limit: Int!, where: FoldersWhereInput): [FolderNode!]
 
-  """
-  日別テーマ
-  """
+  """日別テーマ"""
   dailyTheme(id: ID!): DailyThemeNode
 
-  """
-  日別テーマ
-  """
-  dailyThemes(
-    offset: Int!
-    limit: Int!
-    where: DailyThemesWhereInput
-  ): [DailyThemeNode!]!
+  """日別テーマ"""
+  dailyThemes(offset: Int!, limit: Int!, where: DailyThemesWhereInput): [DailyThemeNode!]!
 
-  """
-  ステッカー
-  """
+  """ステッカー"""
   sticker(id: ID!): StickerNode
 
-  """
-  ステッカー
-  """
-  stickers(
-    offset: Int!
-    limit: Int!
-    where: StickersWhereInput
-  ): [StickerNode!]!
+  """ステッカー"""
+  stickers(offset: Int!, limit: Int!, where: StickersWhereInput): [StickerNode!]!
 
-  """
-  ステッカー
-  """
+  """ステッカー"""
   tag(name: String!): TagNode
 
-  """
-  ステッカー
-  """
+  """ステッカー"""
   tags(offset: Int!, limit: Int!, where: TagsWhereInput): [TagNode!]!
 
-  """
-  ランキング履歴
-  """
-  histories(
-    offset: Int!
-    limit: Int!
-    where: HistoriesWhereInput!
-  ): [HistoryNode!]!
+  """ランキング履歴"""
+  workAwards(offset: Int!, limit: Int!, where: WorkAwardsWhereInput!): [WorkAwardNode!]!
+
+  """1日以内の人気の作品"""
+  hotWorks: [WorkNode!]!
+
+  """全期間の人気作品"""
+  bestWorks(where: PopularWorksWhereInput!): [WorkNode!]!
+
+  """全期間の人気作品"""
+  popularWorks(where: PopularWorksWhereInput!): [WorkNode!]!
   _entities(representations: [_Any!]!): [_Entity]!
   _service: _Service!
 }
 
-"""
-年齢制限
-"""
+"""年齢制限"""
 enum Rating {
-  """
-  全年齢
-  """
+  """全年齢"""
   G
 
-  """
-  R15
-  """
+  """R15"""
   R15
 
-  """
-  R18
-  """
+  """R18"""
   R18
 
-  """
-  R18+
-  """
+  """R18+"""
   R18G
 }
 
-"""
-ステッカー
-"""
+"""ステッカー"""
 type StickerNode implements Node {
   id: ID!
   createdAt: Int!
 
-  """
-  タイトル
-  """
+  """タイトル"""
   title: String!
   imageId: ID!
 
-  """
-  画像
-  """
+  """画像"""
   image: ImageNode!
   userId: ID!
 
-  """
-  ユーザ
-  """
+  """ユーザ"""
   user: UserNode!
 
-  """
-  閲覧の種類
-  """
+  """閲覧の種類"""
   accessType: AccessType!
 
-  """
-  いいね数
-  """
+  """いいね数"""
   likesCount: Int!
 
-  """
-  使用回数
-  """
+  """使用回数"""
   usesCount: Int!
 
-  """
-  ダウンロード数
-  """
+  """ダウンロード数"""
   downloadsCount: Int!
 }
 
@@ -657,9 +489,7 @@ input TabWorksWhereInput {
   slug: String
 }
 
-"""
-タグ
-"""
+"""タグ"""
 type TagNode implements Node {
   id: ID!
   name: String!
@@ -695,67 +525,43 @@ input UpdateUserProfileInput {
   userId: ID!
 }
 
-"""
-ユーザ
-"""
+"""ユーザ"""
 type UserNode implements Node {
   id: ID!
 
-  """
-  作成日
-  """
+  """作成日"""
   createdAt: Int!
 
-  """
-  表示名
-  """
+  """表示名"""
   name: String!
 
-  """
-  ログインID
-  """
+  """ログインID"""
   login: String!
 
-  """
-  サイトURL
-  """
+  """サイトURL"""
   siteURL: String
 
-  """
-  受け取ったいいね数
-  """
+  """受け取ったいいね数"""
   receivedLikesCount: Int!
 
-  """
-  受け取った閲覧数
-  """
+  """受け取った閲覧数"""
   receivedViewsCount: Int!
 
-  """
-  フォロワー数
-  """
+  """フォロワー数"""
   followersCount: Int!
 
-  """
-  入賞回数
-  """
+  """入賞回数"""
   awardsCount: Int!
 
-  """
-  作品
-  """
+  """作品"""
   works(offset: Int!, limit: Int!, where: UserWorksWhereInput): [WorkNode!]!
 
-  """
-  フォロワー（ユーザをフォローしているユーザ）
-  """
+  """フォロワー（ユーザをフォローしているユーザ）"""
   followers(offset: Int!, limit: Int!): [UserNode!]!
 
-  """
-  フォロー（ユーザがフォローしているユーザ)
-  """
+  """フォロー（ユーザがフォローしているユーザ)"""
   followees(offset: Int!, limit: Int!): [UserNode!]!
-  histories(offset: Int!, limit: Int!): [HistoryNode!]!
+  workAwards(offset: Int!, limit: Int!, where: AwardsWhereInput): [WorkAwardNode!]!
   stickers(offset: Int!, limit: Int!): [StickerNode!]!
   folders(offset: Int!, limit: Int!): [FolderNode!]!
   iconImageId: ID
@@ -768,11 +574,10 @@ type UserNode implements Node {
   biography: String
   biographyEN: String
   workCreatedAt: Int
+  likedWorks(offset: Int!, limit: Int!): [WorkNode!]!
 }
 
-"""
-ユーザの設定
-"""
+"""ユーザの設定"""
 type UserSettingNode implements Node {
   id: ID!
   userId: ID!
@@ -788,9 +593,7 @@ input UserWorksWhereInput {
   search: String
 }
 
-"""
-ログイン中のユーザ
-"""
+"""ログイン中のユーザ"""
 type Viewer implements Node {
   id: ID!
   workBookmarks(offset: Int!, limit: Int!): [WorkBookmarkNode!]!
@@ -799,9 +602,31 @@ type Viewer implements Node {
   followees(offset: Int!, limit: Int!): [FriendshipNode!]!
 }
 
-"""
-作品のブックマーク
-"""
+"""アワード（作品）"""
+type WorkAwardNode implements Node {
+  id: ID!
+  index: Int!
+  userId: ID!
+
+  """ユーザ"""
+  user: UserNode!
+  workId: ID
+
+  """作品"""
+  work: WorkNode!
+  dateText: String!
+}
+
+input WorkAwardsWhereInput {
+  type: AwardType
+  date: String
+  year: Int
+  month: Int
+  day: Int
+  weekIndex: Int
+}
+
+"""作品のブックマーク"""
 type WorkBookmarkNode implements Node {
   id: ID!
   userId: ID!
@@ -810,9 +635,7 @@ type WorkBookmarkNode implements Node {
   work: WorkNode!
 }
 
-"""
-作品のコンテスト
-"""
+"""作品のコンテスト"""
 type WorkEventNode implements Node {
   id: ID!
   title: String
@@ -823,9 +646,7 @@ type WorkEventNode implements Node {
   users(offset: Int!, limit: Int!): [UserNode!]!
 }
 
-"""
-作品のイイネ
-"""
+"""作品のイイネ"""
 type WorkLikeNode implements Node {
   id: ID!
   userId: ID!
@@ -835,163 +656,107 @@ type WorkLikeNode implements Node {
   createdAt: Int
 }
 
-"""
-作品
-"""
+"""作品"""
 type WorkNode implements Node {
   id: ID!
 
-  """
-  作成日
-  """
+  """作成日"""
   createdAt: Int!
 
-  """
-  年齢制限
-  """
+  """年齢制限"""
   rating: Rating
 
-  """
-  タイトル
-  """
+  """タイトル"""
   title: String
 
-  """
-  タイトル（英語）
-  """
+  """タイトル（英語）"""
   titleEN: String
 
-  """
-  説明
-  """
+  """説明"""
   description: String
 
-  """
-  説明（英語）
-  """
+  """説明（英語）"""
   descriptionEN: String
 
-  """
-  種類
-  """
+  """種類"""
   type: String!
 
-  """
-  閲覧権限の種類
-  """
+  """テーマ"""
+  dailyTheme: DailyThemeNode
+
+  """閲覧権限の種類"""
   accessType: AccessType!
 
-  """
-  プロンプトの閲覧権限の種類
-  """
+  """プロンプトの閲覧権限の種類"""
   promptAccessType: AccessType!
 
-  """
-  いいね数
-  """
+  """いいね数"""
   likesCount: Int!
 
-  """
-  閲覧数
-  """
+  """閲覧数"""
   viewsCount: Int!
 
-  """
-  ブックマーク数
-  """
+  """ブックマーク数"""
   bookmarksCount: Int!
 
-  """
-  タグ名
-  """
+  """タグ名"""
   tagNames: [String!]!
   tags: [TagNode!]!
   imageId: ID!
 
-  """
-  画像URL
-  """
+  """画像URL"""
   image: ImageNode
   thumbnailImageId: ID!
 
-  """
-  画像URL（サムネイル）
-  """
+  """画像URL（サムネイル）"""
   thumbnailImage: ImageNode
   largeThumbnailImageId: ID!
 
-  """
-  画像URL（サムネイル）
-  """
+  """画像URL（サムネイル）"""
   largeThumbnailImage: ImageNode
   ogpThumbnailImageId: ID!
 
-  """
-  画像URL（サムネイル）
-  """
+  """画像URL（サムネイル）"""
   ogpThumbnailImage: ImageNode
 
-  """
-  プロンプト
-  """
+  """プロンプト"""
   prompt: String
 
-  """
-  ネガティブプロンプト
-  """
+  """ネガティブプロンプト"""
   negativePrompt: String
 
-  """
-  シード値
-  """
+  """シード値"""
   seed: String
 
-  """
-  画像生成関連の設定
-  """
+  """画像生成関連の設定"""
   steps: Int
 
-  """
-  画像生成関連の設定
-  """
+  """画像生成関連の設定"""
   scale: Int
 
-  """
-  画像生成関連の設定
-  """
+  """画像生成関連の設定"""
   model: String
 
-  """
-  画像生成関連の設定
-  """
+  """画像生成関連の設定"""
   modelHash: String
 
-  """
-  画像生成関連の設定
-  """
+  """画像生成関連の設定"""
   sampler: String
 
-  """
-  ユーザID
-  """
+  """ユーザID"""
   userId: ID!
 
-  """
-  ユーザ
-  """
+  """ユーザ"""
   user: UserNode!
 
-  """
-  コメント
-  """
+  """コメント"""
   comments(offset: Int!, limit: Int!): [CommentNode!]!
 
-  """
-  作品
-  """
+  """作品"""
   subWorks: [SubWorkNode!]!
 }
 
 input WorksWhereInput {
   search: String
 }
+
