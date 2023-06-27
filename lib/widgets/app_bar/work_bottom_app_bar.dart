@@ -23,9 +23,9 @@ class WorkBottomAppContainer extends HookConsumerWidget {
               ),
             ],
           ),
-          SizedBox(width: 8),
+          const SizedBox(width: 8),
           FilledButton.tonal(
-            child: Text(
+            child: const Text(
               "コメント",
               style: TextStyle(
                 fontWeight: FontWeight.bold,
