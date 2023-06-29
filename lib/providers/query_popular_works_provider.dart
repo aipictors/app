@@ -8,12 +8,10 @@ import '../graphql/__generated__/popular_works.var.gql.dart';
 
 part 'query_popular_works_provider.g.dart';
 
-typedef State = Stream<OperationResponse<GPopularWorksData, GPopularWorksVars>>;
+typedef State = OperationResponse<GPopularWorksData, GPopularWorksVars>;
 
 @riverpod
-State queryPopularWorks(
-  QueryPopularWorksRef ref,
-) {
+Stream<State> queryPopularWorks(QueryPopularWorksRef ref) {
   final client = createClient();
   final req = GPopularWorksReq((builder) {
     return builder;

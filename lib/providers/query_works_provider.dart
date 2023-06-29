@@ -8,10 +8,10 @@ import '../graphql/__generated__/works.var.gql.dart';
 
 part 'query_works_provider.g.dart';
 
-typedef State = Stream<OperationResponse<GWorksData, GWorksVars>>;
+typedef State = OperationResponse<GWorksData, GWorksVars>;
 
 @riverpod
-State queryWorks(QueryWorksRef ref) {
+Stream<State> queryWorks(QueryWorksRef ref) {
   final client = createClient();
   final req = GWorksReq((builder) {
     return builder

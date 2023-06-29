@@ -130,6 +130,12 @@ type DailyThemeNode implements Node {
 
   """作品"""
   works(offset: Int!, limit: Int!): [WorkNode!]!
+
+  """作品数"""
+  worksCount: Int!
+
+  """作品"""
+  firstWork: WorkNode
 }
 
 input DailyThemesWhereInput {
@@ -667,7 +673,7 @@ type WorkNode implements Node {
   rating: Rating
 
   """タイトル"""
-  title: String
+  title: String!
 
   """タイトル（英語）"""
   titleEN: String

@@ -6,8 +6,8 @@ import '../../providers/query_user_works_provider.dart';
 import '../grid/work_grid_view.dart';
 import 'grid_work_image_container.dart';
 
-class UserWorksContainer extends HookConsumerWidget {
-  const UserWorksContainer({
+class UserFoldersContainer extends HookConsumerWidget {
+  const UserFoldersContainer({
     Key? key,
     required this.userId,
   }) : super(key: key);

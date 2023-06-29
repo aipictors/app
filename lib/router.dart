@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import 'screens/daily_theme_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/user_screen.dart';
 import 'screens/work_screen.dart';
@@ -19,18 +20,26 @@ final router = GoRouter(
       },
     ),
     GoRoute(
-      path: '/works/:workId',
+      path: '/daily_themes/:theme_id',
+      name: 'daily_theme',
+      builder: (context, state) {
+        final themeId = state.params['theme_id'];
+        return DailyThemeScreen(themeId: themeId!);
+      },
+    ),
+    GoRoute(
+      path: '/works/:work_id',
       name: 'work',
       builder: (context, state) {
-        final workId = state.params['workId'];
+        final workId = state.params['work_id'];
         return WorkScreen(workId: workId!);
       },
     ),
     GoRoute(
-      path: '/users/:userId',
+      path: '/users/:user_id',
       name: 'user',
       builder: (context, state) {
-        final userId = state.params['userId'];
+        final userId = state.params['user_id'];
         return UserScreen(userId: userId!);
       },
     ),

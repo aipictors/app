@@ -29,6 +29,7 @@
     "ios/Runner.xcworkspace": true,
     "ios/Runner/GeneratedPluginRegistrant.h": true,
     "ios/Runner/GeneratedPluginRegistrant.m": true,
+    "lib/**/*.freezed.dart": true,
     "lib/**/*.g.dart": true,
     "pubspec.lock": true
   }

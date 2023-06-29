@@ -1,5 +1,5 @@
-import 'package:equatable/equatable.dart';
 import 'package:ferry/ferry.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../client.dart';
@@ -7,29 +7,22 @@ import '../graphql/__generated__/work_awards.data.gql.dart';
 import '../graphql/__generated__/work_awards.req.gql.dart';
 import '../graphql/__generated__/work_awards.var.gql.dart';
 
+part 'query_weekly_work_awards_provider.freezed.dart';
 part 'query_weekly_work_awards_provider.g.dart';
 
-class QueryWeeklyWorkAwardsProps extends Equatable {
-  const QueryWeeklyWorkAwardsProps({
-    required this.year,
-    required this.month,
-    required this.weekIndex,
-  });
-
-  final int year;
-
-  final int month;
-
-  final int weekIndex;
-
-  @override
-  List<Object> get props => [year, month, weekIndex];
+@freezed
+class QueryWeeklyWorkAwardsProps with _$QueryWeeklyWorkAwardsProps {
+  const factory QueryWeeklyWorkAwardsProps({
+    required int year,
+    required int month,
+    required int weekIndex,
+  }) = _QueryWeeklyWorkAwardsProps;
 }
 
-typedef State = Stream<OperationResponse<GWorkAwardsData, GWorkAwardsVars>>;
+typedef State = OperationResponse<GWorkAwardsData, GWorkAwardsVars>;
 
 @riverpod
-State queryWeeklyWorkAwards(
+Stream<State> queryWeeklyWorkAwards(
   QueryWeeklyWorkAwardsRef ref,
   QueryWeeklyWorkAwardsProps props,
 ) {

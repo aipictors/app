@@ -31,7 +31,6 @@ class ViewerScreen extends HookConsumerWidget {
                 );
               }
               final user = data.data!.user!;
-              print(user);
               return const Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [],

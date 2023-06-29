@@ -8,10 +8,10 @@ import '../graphql/__generated__/user.var.gql.dart';
 
 part 'query_user_provider.g.dart';
 
-typedef State = Stream<OperationResponse<GUserData, GUserVars>>;
+typedef State = OperationResponse<GUserData, GUserVars>;
 
 @riverpod
-State queryUser(QueryUserRef ref, String id) {
+Stream<State> queryUser(QueryUserRef ref, String id) {
   final client = createClient();
   final req = GUserReq((builder) {
     return builder..vars.userId = id;

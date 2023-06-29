@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
@@ -15,26 +16,36 @@ class SearchScreen extends HookConsumerWidget {
   Widget build(context, ref) {
     final search = useState("");
 
-    final queryWorks = ref.watch(
-      querySearchWorksProvider(SearchWorksProps(search: search.value)),
+    final provider = querySearchWorksProvider(
+      SearchWorksProps(search: search.value),
     );
+
+    final queryWorks = ref.watch(provider);
 
     return Scaffold(
       key: const PageStorageKey("search"),
       appBar: SearchAppBar(onSubmit: (text) {
         search.value = text;
       }),
-      body: SafeArea(
+      body: RefreshIndicator(
+        onRefresh: () async {
+          return ref.refresh(provider);
+        },
         child: queryWorks.when(
+          error: (error, stackTrace) {
+            return const Text("エラー");
+          },
+          loading: () {
+            return const Center(child: CircularProgressIndicator());
+          },
           data: (data) {
             final works = data.data!.works!;
             return GridView.builder(
-              padding: const EdgeInsets.all(16),
-              cacheExtent: 0.0,
+              physics: const ClampingScrollPhysics(),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisSpacing: 4,
-                mainAxisSpacing: 4,
-                crossAxisCount: 3,
+                crossAxisSpacing: 0,
+                mainAxisSpacing: 0,
+                crossAxisCount: 2,
               ),
               itemCount: works.length,
               itemBuilder: (context, index) {
@@ -43,37 +54,19 @@ class SearchScreen extends HookConsumerWidget {
                   onTap: () {
                     context.push("/works/${work.id}");
                   },
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(8.0),
-                    child: Image.network(
-                      work.image!.downloadURL,
-                      fit: BoxFit.cover,
-                      loadingBuilder: (context, child, event) {
-                        if (event == null) return child;
-                        return Container(
-                          width: double.infinity,
-                          height: double.infinity,
-                          color: Theme.of(context).primaryColorLight,
-                        );
-                      },
-                      errorBuilder: (context, uri, error) {
-                        return Container(
-                          width: double.infinity,
-                          height: double.infinity,
-                          color: Theme.of(context).disabledColor,
-                        );
-                      },
-                    ),
+                  child: CachedNetworkImage(
+                    imageUrl: work.image!.downloadURL,
+                    fit: BoxFit.cover,
+                    progressIndicatorBuilder: (context, child, _) {
+                      return const Placeholder();
+                    },
+                    errorWidget: (context, uri, error) {
+                      return const Placeholder();
+                    },
                   ),
                 );
               },
             );
-          },
-          error: (error, stackTrace) {
-            return const Text("エラー");
-          },
-          loading: () {
-            return const CircularProgressIndicator();
           },
         ),
       ),

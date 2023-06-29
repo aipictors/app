@@ -1,5 +1,5 @@
-import 'package:equatable/equatable.dart';
 import 'package:ferry/ferry.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../client.dart';
@@ -7,27 +7,21 @@ import '../graphql/__generated__/user_followers.data.gql.dart';
 import '../graphql/__generated__/user_followers.req.gql.dart';
 import '../graphql/__generated__/user_followers.var.gql.dart';
 
+part 'query_user_followers_provider.freezed.dart';
 part 'query_user_followers_provider.g.dart';
 
-class QueryUserFollowersProps extends Equatable {
-  const QueryUserFollowersProps({
-    required this.userId,
-    required this.page,
-  });
-
-  final String userId;
-
-  final int page;
-
-  @override
-  List<Object> get props => [userId, page];
+@freezed
+class QueryUserFollowersProps with _$QueryUserFollowersProps {
+  const factory QueryUserFollowersProps({
+    required String userId,
+    required int page,
+  }) = _QueryUserFollowersProps;
 }
 
-typedef State
-    = Stream<OperationResponse<GUserFollowersData, GUserFollowersVars>>;
+typedef State = OperationResponse<GUserFollowersData, GUserFollowersVars>;
 
 @riverpod
-State queryUserFollowers(
+Stream<State> queryUserFollowers(
   QueryUserFollowersRef ref,
   QueryUserFollowersProps props,
 ) {

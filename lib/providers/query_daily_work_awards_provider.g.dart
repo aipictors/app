@@ -7,7 +7,7 @@ part of 'query_daily_work_awards_provider.dart';
 // **************************************************************************
 
 String _$queryDailyWorkAwardsHash() =>
-    r'3ea60b3300cce6f54f759b8874d0868c3a42bd07';
+    r'0d3f0087b6b9d1bb5d7093d70eb15e5c0cbb7476';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -30,16 +30,16 @@ class _SystemHash {
   }
 }
 
-typedef QueryDailyWorkAwardsRef = AutoDisposeStreamProviderRef<
-    OperationResponse<GWorkAwardsData, GWorkAwardsVars>>;
+typedef QueryDailyWorkAwardsRef
+    = AutoDisposeStreamProviderRef<OperationResponse<dynamic, dynamic>>;
 
 /// See also [queryDailyWorkAwards].
 @ProviderFor(queryDailyWorkAwards)
 const queryDailyWorkAwardsProvider = QueryDailyWorkAwardsFamily();
 
 /// See also [queryDailyWorkAwards].
-class QueryDailyWorkAwardsFamily extends Family<
-    AsyncValue<OperationResponse<GWorkAwardsData, GWorkAwardsVars>>> {
+class QueryDailyWorkAwardsFamily
+    extends Family<AsyncValue<OperationResponse<dynamic, dynamic>>> {
   /// See also [queryDailyWorkAwards].
   const QueryDailyWorkAwardsFamily();
 
@@ -77,8 +77,8 @@ class QueryDailyWorkAwardsFamily extends Family<
 }
 
 /// See also [queryDailyWorkAwards].
-class QueryDailyWorkAwardsProvider extends AutoDisposeStreamProvider<
-    OperationResponse<GWorkAwardsData, GWorkAwardsVars>> {
+class QueryDailyWorkAwardsProvider
+    extends AutoDisposeStreamProvider<OperationResponse<dynamic, dynamic>> {
   /// See also [queryDailyWorkAwards].
   QueryDailyWorkAwardsProvider(
     this.props,

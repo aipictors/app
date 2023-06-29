@@ -3,6 +3,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../delegates/tab_header_delegate.dart';
 import '../providers/query_user_provider.dart';
+import '../widgets/app_bar/user_app_bar.dart';
+import '../widgets/container/user_folders_container.dart';
 import '../widgets/container/user_header_container.dart';
 import '../widgets/container/user_profile_container.dart';
 import '../widgets/container/user_works_container.dart';
@@ -23,15 +25,17 @@ class UserScreen extends HookConsumerWidget {
       data: (data) {
         final user = data.data!.user!;
         return Scaffold(
-          appBar: AppBar(
-            title: Text(user.name),
-          ),
           extendBody: true,
           body: DefaultTabController(
             length: 2,
             child: NestedScrollView(
               headerSliverBuilder: (context, innerBoxIsScrolled) {
                 return [
+                  UserAppBar(
+                    headerImageURL: user.headerImage?.downloadURL ?? '',
+                    innerBoxIsScrolled: innerBoxIsScrolled,
+                    userName: user.name,
+                  ),
                   SliverList(
                     delegate: SliverChildListDelegate(
                       [
@@ -68,10 +72,9 @@ class UserScreen extends HookConsumerWidget {
                 ];
               },
               body: TabBarView(
-                physics: const ClampingScrollPhysics(),
                 children: [
                   UserWorksContainer(userId: userId),
-                  const SizedBox(height: 64),
+                  UserFoldersContainer(userId: userId),
                 ],
               ),
             ),

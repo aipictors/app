@@ -1,5 +1,5 @@
-import 'package:equatable/equatable.dart';
 import 'package:ferry/ferry.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../client.dart';
@@ -7,23 +7,23 @@ import '../graphql/__generated__/works.data.gql.dart';
 import '../graphql/__generated__/works.req.gql.dart';
 import '../graphql/__generated__/works.var.gql.dart';
 
+part 'query_search_works_provider.freezed.dart';
 part 'query_search_works_provider.g.dart';
 
-class SearchWorksProps extends Equatable {
-  const SearchWorksProps({
-    required this.search,
-  });
-
-  final String search;
-
-  @override
-  List<Object> get props => [search];
+@freezed
+class SearchWorksProps with _$SearchWorksProps {
+  const factory SearchWorksProps({
+    required String search,
+  }) = _SearchWorksProps;
 }
 
-typedef State = Stream<OperationResponse<GWorksData, GWorksVars>>;
+typedef State = OperationResponse<GWorksData, GWorksVars>;
 
 @riverpod
-State querySearchWorks(QuerySearchWorksRef ref, SearchWorksProps props) {
+Stream<State> querySearchWorks(
+  QuerySearchWorksRef ref,
+  SearchWorksProps props,
+) {
   final client = createClient();
   final req = GWorksReq((builder) {
     return builder

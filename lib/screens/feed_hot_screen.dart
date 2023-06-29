@@ -3,7 +3,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../providers/query_works_provider.dart';
+import '../providers/query_hot_works_provider.dart';
 
 class FeedHotScreen extends HookConsumerWidget {
   const FeedHotScreen({
@@ -12,7 +12,7 @@ class FeedHotScreen extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
-    final queryWorks = ref.watch(queryWorksProvider);
+    final queryWorks = ref.watch(queryHotWorksProvider);
 
     return SafeArea(
       key: const PageStorageKey("feed_hot"),
@@ -23,9 +23,9 @@ class FeedHotScreen extends HookConsumerWidget {
             crossAxisCount: 2,
             mainAxisSpacing: 8,
             crossAxisSpacing: 8,
-            itemCount: data.data!.works!.length,
+            itemCount: data.data!.hotWorks.length,
             itemBuilder: (context, index) {
-              final work = data.data!.works![index];
+              final work = data.data!.hotWorks[index];
               return GestureDetector(
                 onTap: () {
                   context.push("/works/${work.id}");

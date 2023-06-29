@@ -1,5 +1,5 @@
-import 'package:equatable/equatable.dart';
 import 'package:ferry/ferry.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../client.dart';
@@ -7,23 +7,20 @@ import '../graphql/__generated__/daily_theme.data.gql.dart';
 import '../graphql/__generated__/daily_theme.req.gql.dart';
 import '../graphql/__generated__/daily_theme.var.gql.dart';
 
+part 'query_daily_theme_provider.freezed.dart';
 part 'query_daily_theme_provider.g.dart';
 
-class QueryDailyThemeProps extends Equatable {
-  const QueryDailyThemeProps({
-    required this.id,
-  });
-
-  final String id;
-
-  @override
-  List<Object> get props => [id];
+@freezed
+class QueryDailyThemeProps with _$QueryDailyThemeProps {
+  const factory QueryDailyThemeProps({
+    required String themeId,
+  }) = _QueryDailyThemeProps;
 }
 
-typedef State = Stream<OperationResponse<GDailyThemeData, GDailyThemeVars>>;
+typedef State = OperationResponse<GDailyThemeData, GDailyThemeVars>;
 
 @riverpod
-State queryDailyTheme(
+Stream<State> queryDailyTheme(
   QueryDailyThemeRef ref,
   QueryDailyThemeProps props,
 ) {
@@ -32,7 +29,7 @@ State queryDailyTheme(
     return builder
       ..vars.limit = 16
       ..vars.offset = 0
-      ..vars.id = props.id;
+      ..vars.id = props.themeId;
   });
   return client.request(req);
 }

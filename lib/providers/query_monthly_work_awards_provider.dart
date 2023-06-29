@@ -1,5 +1,5 @@
-import 'package:equatable/equatable.dart';
 import 'package:ferry/ferry.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../client.dart';
@@ -7,26 +7,21 @@ import '../graphql/__generated__/work_awards.data.gql.dart';
 import '../graphql/__generated__/work_awards.req.gql.dart';
 import '../graphql/__generated__/work_awards.var.gql.dart';
 
+part 'query_monthly_work_awards_provider.freezed.dart';
 part 'query_monthly_work_awards_provider.g.dart';
 
-class QueryMonthlyWorkAwardsProps extends Equatable {
-  const QueryMonthlyWorkAwardsProps({
-    required this.year,
-    required this.month,
-  });
-
-  final int year;
-
-  final int month;
-
-  @override
-  List<Object> get props => [year, month];
+@freezed
+class QueryMonthlyWorkAwardsProps with _$QueryMonthlyWorkAwardsProps {
+  const factory QueryMonthlyWorkAwardsProps({
+    required int year,
+    required int month,
+  }) = _QueryMonthlyWorkAwardsProps;
 }
 
-typedef State = Stream<OperationResponse<GWorkAwardsData, GWorkAwardsVars>>;
+typedef State = OperationResponse<GWorkAwardsData, GWorkAwardsVars>;
 
 @riverpod
-State queryMonthlyWorkAwards(
+Stream<State> queryMonthlyWorkAwards(
   QueryMonthlyWorkAwardsRef ref,
   QueryMonthlyWorkAwardsProps props,
 ) {

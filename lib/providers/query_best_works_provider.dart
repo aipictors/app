@@ -8,12 +8,10 @@ import '../graphql/__generated__/best_works.var.gql.dart';
 
 part 'query_best_works_provider.g.dart';
 
-typedef State = Stream<OperationResponse<GBestWorksData, GBestWorksVars>>;
+typedef State = OperationResponse<GBestWorksData, GBestWorksVars>;
 
 @riverpod
-State queryBestWorks(
-  QueryBestWorksRef ref,
-) {
+Stream<State> queryBestWorks(QueryBestWorksRef ref) {
   final client = createClient();
   final req = GBestWorksReq((builder) {
     return builder;
