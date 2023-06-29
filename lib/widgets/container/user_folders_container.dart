@@ -44,7 +44,7 @@ class UserFoldersContainer extends HookConsumerWidget {
           itemCount: works.length,
           itemBuilder: (context, index) {
             final work = works[index];
-            return GestureDetector(
+            return InkWell(
               onTap: () {
                 context.push('/works/${work.id}');
               },

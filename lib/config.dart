@@ -14,8 +14,8 @@ class DefaultConfig {
   }
 
   static String get graphqlURI {
-    // return 'https://subgraph-aipictors-sn4ve5jg4q-an.a.run.app/api';
-    return 'https://any.ngrok.io/api';
+    return 'https://subgraph-aipictors-sn4ve5jg4q-an.a.run.app/api';
+    // return 'https://any.ngrok.io/api';
     // return 'https://federation-jjkihxkmtq-an.a.run.app';
   }
 
@@ -59,6 +59,11 @@ class DefaultConfig {
   static String get sentryDsn {
     final remoteConfig = FirebaseRemoteConfig.instance;
     return remoteConfig.getString('sentry_dsn');
+  }
+
+  static bool get isProduction {
+    final projectId = Firebase.app().options.projectId;
+    return kReleaseMode && projectId == DefaultConfig.productionProjectId;
   }
 
   static String get environment {
