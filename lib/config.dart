@@ -53,12 +53,12 @@ class DefaultConfig {
 
   static String get graphqlSecret {
     final remoteConfig = FirebaseRemoteConfig.instance;
-    return remoteConfig.getString("graphql_secret");
+    return remoteConfig.getString('graphql_secret');
   }
 
   static String get sentryDsn {
     final remoteConfig = FirebaseRemoteConfig.instance;
-    return remoteConfig.getString("sentry_dsn");
+    return remoteConfig.getString('sentry_dsn');
   }
 
   static String get environment {

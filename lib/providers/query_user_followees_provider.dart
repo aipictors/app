@@ -1,11 +1,9 @@
-import 'package:ferry/ferry.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../client.dart';
 import '../graphql/__generated__/user_followees.data.gql.dart';
 import '../graphql/__generated__/user_followees.req.gql.dart';
-import '../graphql/__generated__/user_followees.var.gql.dart';
 
 part 'query_user_followees_provider.freezed.dart';
 part 'query_user_followees_provider.g.dart';
@@ -18,10 +16,8 @@ class QueryUserFolloweesProps with _$QueryUserFolloweesProps {
   }) = _QueryUserFolloweesProps;
 }
 
-typedef State = OperationResponse<GUserFolloweesData, GUserFolloweesVars>;
-
 @riverpod
-Stream<State> queryUserFollowees(
+Stream<GUserFolloweesData?> queryUserFollowees(
   QueryUserFolloweesRef ref,
   QueryUserFolloweesProps props,
 ) {
@@ -32,5 +28,7 @@ Stream<State> queryUserFollowees(
       ..vars.offset = 0
       ..vars.user_id = props.userId;
   });
-  return client.request(req);
+  return client.request(req).map((response) {
+    return response.data;
+  });
 }

@@ -36,10 +36,10 @@ class UserScreen extends HookConsumerWidget {
             return const LoadingContainer();
           },
           data: (data) {
-            if (data.data == null) {
+            if (data == null) {
               return const DataNotFoundErrorContainer();
             }
-            final user = data.data!.user;
+            final user = data.user;
             if (user == null) {
               return const DataNotFoundErrorContainer();
             }

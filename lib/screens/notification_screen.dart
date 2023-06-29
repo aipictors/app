@@ -16,7 +16,7 @@ class NotificationScreen extends HookConsumerWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text("通知"),
+            Text('通知'),
           ],
         ),
       ),

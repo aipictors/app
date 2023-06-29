@@ -10,7 +10,7 @@ class DataNotFoundErrorContainer extends HookConsumerWidget {
   Widget build(context, ref) {
     return const Center(
       child: Text(
-        "データがありません。",
+        'データがありません。',
         style: TextStyle(fontWeight: FontWeight.bold),
       ),
     );

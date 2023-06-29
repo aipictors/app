@@ -10,7 +10,7 @@ class UnexpectedErrorContainer extends HookConsumerWidget {
   Widget build(context, ref) {
     return const Center(
       child: Text(
-        "予期しないエラーが発生しました。",
+        '予期しないエラーが発生しました。',
         style: TextStyle(fontWeight: FontWeight.bold),
       ),
     );

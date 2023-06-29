@@ -12,7 +12,7 @@ class FollowButton extends HookConsumerWidget {
       ),
       onPressed: () {},
       child: const Text(
-        "フォロー",
+        'フォロー',
         style: TextStyle(
           fontWeight: FontWeight.bold,
         ),

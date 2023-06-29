@@ -7,7 +7,7 @@ part of 'query_user_followees_provider.dart';
 // **************************************************************************
 
 String _$queryUserFolloweesHash() =>
-    r'419365d21a7af93f83ae30d4b8878c4e783975bd';
+    r'0960bc320fe68a1c97331d6cec3c771020e9f96c';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -30,16 +30,15 @@ class _SystemHash {
   }
 }
 
-typedef QueryUserFolloweesRef = AutoDisposeStreamProviderRef<
-    OperationResponse<GUserFolloweesData, GUserFolloweesVars>>;
+typedef QueryUserFolloweesRef
+    = AutoDisposeStreamProviderRef<GUserFolloweesData?>;
 
 /// See also [queryUserFollowees].
 @ProviderFor(queryUserFollowees)
 const queryUserFolloweesProvider = QueryUserFolloweesFamily();
 
 /// See also [queryUserFollowees].
-class QueryUserFolloweesFamily extends Family<
-    AsyncValue<OperationResponse<GUserFolloweesData, GUserFolloweesVars>>> {
+class QueryUserFolloweesFamily extends Family<AsyncValue<GUserFolloweesData?>> {
   /// See also [queryUserFollowees].
   const QueryUserFolloweesFamily();
 
@@ -77,8 +76,8 @@ class QueryUserFolloweesFamily extends Family<
 }
 
 /// See also [queryUserFollowees].
-class QueryUserFolloweesProvider extends AutoDisposeStreamProvider<
-    OperationResponse<GUserFolloweesData, GUserFolloweesVars>> {
+class QueryUserFolloweesProvider
+    extends AutoDisposeStreamProvider<GUserFolloweesData?> {
   /// See also [queryUserFollowees].
   QueryUserFolloweesProvider(
     this.props,

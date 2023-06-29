@@ -6,13 +6,13 @@ class HiveRepository {
 
   static activate() async {
     await Hive.initFlutter();
-    final box = await Hive.openBox("graphql");
+    final box = await Hive.openBox('graphql');
     store = HiveStore(box);
   }
 
   static HiveStore getStore() {
     if (store == null) {
-      throw Exception("HiveStore is not activated.");
+      throw Exception('HiveStore is not activated.');
     }
     return store!;
   }

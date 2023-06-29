@@ -39,10 +39,10 @@ class AwardWeeklyScreen extends HookConsumerWidget {
         return const LoadingContainer();
       },
       data: (data) {
-        if (data.data == null) {
+        if (data == null) {
           return const DataNotFoundErrorContainer();
         }
-        final awards = data.data!.workAwards;
+        final awards = data.workAwards;
         if (awards.isEmpty) {
           return const DataNotFoundErrorContainer();
         }

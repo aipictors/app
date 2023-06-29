@@ -6,7 +6,7 @@ part of 'query_work_comments_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$queryWorkCommentsHash() => r'cfd779da07648077ef715dacea71afa3623245df';
+String _$queryWorkCommentsHash() => r'd7621197cc92ca00a3cccb6b35b44b46c50ba634';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -29,16 +29,14 @@ class _SystemHash {
   }
 }
 
-typedef QueryWorkCommentsRef = AutoDisposeStreamProviderRef<
-    OperationResponse<GWorkCommentsData, GWorkCommentsVars>>;
+typedef QueryWorkCommentsRef = AutoDisposeStreamProviderRef<GWorkCommentsData?>;
 
 /// See also [queryWorkComments].
 @ProviderFor(queryWorkComments)
 const queryWorkCommentsProvider = QueryWorkCommentsFamily();
 
 /// See also [queryWorkComments].
-class QueryWorkCommentsFamily extends Family<
-    AsyncValue<OperationResponse<GWorkCommentsData, GWorkCommentsVars>>> {
+class QueryWorkCommentsFamily extends Family<AsyncValue<GWorkCommentsData?>> {
   /// See also [queryWorkComments].
   const QueryWorkCommentsFamily();
 
@@ -76,8 +74,8 @@ class QueryWorkCommentsFamily extends Family<
 }
 
 /// See also [queryWorkComments].
-class QueryWorkCommentsProvider extends AutoDisposeStreamProvider<
-    OperationResponse<GWorkCommentsData, GWorkCommentsVars>> {
+class QueryWorkCommentsProvider
+    extends AutoDisposeStreamProvider<GWorkCommentsData?> {
   /// See also [queryWorkComments].
   QueryWorkCommentsProvider(
     this.props,

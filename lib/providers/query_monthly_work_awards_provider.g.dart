@@ -7,7 +7,7 @@ part of 'query_monthly_work_awards_provider.dart';
 // **************************************************************************
 
 String _$queryMonthlyWorkAwardsHash() =>
-    r'aca655cd0b1306d066d72b4a38afc17d823dc5d7';
+    r'f1f4739745b0f28b0a3807f2b99d6d3cc26530d1';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -30,16 +30,16 @@ class _SystemHash {
   }
 }
 
-typedef QueryMonthlyWorkAwardsRef = AutoDisposeStreamProviderRef<
-    OperationResponse<GWorkAwardsData, GWorkAwardsVars>>;
+typedef QueryMonthlyWorkAwardsRef
+    = AutoDisposeStreamProviderRef<GWorkAwardsData?>;
 
 /// See also [queryMonthlyWorkAwards].
 @ProviderFor(queryMonthlyWorkAwards)
 const queryMonthlyWorkAwardsProvider = QueryMonthlyWorkAwardsFamily();
 
 /// See also [queryMonthlyWorkAwards].
-class QueryMonthlyWorkAwardsFamily extends Family<
-    AsyncValue<OperationResponse<GWorkAwardsData, GWorkAwardsVars>>> {
+class QueryMonthlyWorkAwardsFamily
+    extends Family<AsyncValue<GWorkAwardsData?>> {
   /// See also [queryMonthlyWorkAwards].
   const QueryMonthlyWorkAwardsFamily();
 
@@ -77,8 +77,8 @@ class QueryMonthlyWorkAwardsFamily extends Family<
 }
 
 /// See also [queryMonthlyWorkAwards].
-class QueryMonthlyWorkAwardsProvider extends AutoDisposeStreamProvider<
-    OperationResponse<GWorkAwardsData, GWorkAwardsVars>> {
+class QueryMonthlyWorkAwardsProvider
+    extends AutoDisposeStreamProvider<GWorkAwardsData?> {
   /// See also [queryMonthlyWorkAwards].
   QueryMonthlyWorkAwardsProvider(
     this.props,

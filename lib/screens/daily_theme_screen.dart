@@ -35,10 +35,10 @@ class DailyThemeScreen extends HookConsumerWidget {
           return const LoadingContainer();
         },
         data: (data) {
-          if (data.data == null) {
+          if (data == null) {
             return const DataNotFoundErrorContainer();
           }
-          final dailyTheme = data.data!.dailyTheme;
+          final dailyTheme = data.dailyTheme;
           if (dailyTheme == null) {
             return const DataNotFoundErrorContainer();
           }

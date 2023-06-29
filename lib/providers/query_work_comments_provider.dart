@@ -1,11 +1,9 @@
-import 'package:ferry/ferry.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../client.dart';
 import '../graphql/__generated__/work_comments.data.gql.dart';
 import '../graphql/__generated__/work_comments.req.gql.dart';
-import '../graphql/__generated__/work_comments.var.gql.dart';
 
 part 'query_work_comments_provider.freezed.dart';
 part 'query_work_comments_provider.g.dart';
@@ -17,10 +15,8 @@ class QueryWorkCommentsProps with _$QueryWorkCommentsProps {
   }) = _QueryWorkCommentsProps;
 }
 
-typedef State = OperationResponse<GWorkCommentsData, GWorkCommentsVars>;
-
 @riverpod
-Stream<State> queryWorkComments(
+Stream<GWorkCommentsData?> queryWorkComments(
   QueryWorkCommentsRef ref,
   QueryWorkCommentsProps props,
 ) {
@@ -28,5 +24,7 @@ Stream<State> queryWorkComments(
   final req = GWorkCommentsReq((builder) {
     return builder..vars.workId = props.workId;
   });
-  return client.request(req);
+  return client.request(req).map((response) {
+    return response.data;
+  });
 }

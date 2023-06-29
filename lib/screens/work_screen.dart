@@ -5,6 +5,7 @@ import '../providers/query_work_comments_provider.dart';
 import '../providers/query_work_provider.dart';
 import '../widgets/app_bar/work_bottom_app_bar.dart';
 import '../widgets/button/follow_button.dart';
+import '../widgets/container/data_not_found_error_container.dart';
 import '../widgets/container/loading_container.dart';
 import '../widgets/container/unexpected_error_container.dart';
 import '../widgets/container/work_response_container.dart';
@@ -40,6 +41,7 @@ class WorkScreen extends HookConsumerWidget {
         ),
       ),
       extendBody: true,
+      bottomNavigationBar: const WorkBottomAppContainer(),
       body: SingleChildScrollView(
         child: SafeArea(
           child: queryWork.when(
@@ -50,14 +52,13 @@ class WorkScreen extends HookConsumerWidget {
               return const LoadingContainer();
             },
             data: (data) {
-              if (data.data!.work == null) {
-                return Container(
-                  width: double.infinity,
-                  height: double.infinity,
-                  color: Theme.of(context).disabledColor,
-                );
+              if (data == null) {
+                return const DataNotFoundErrorContainer();
               }
-              final work = data.data!.work!;
+              final work = data.work;
+              if (work == null) {
+                return const DataNotFoundErrorContainer();
+              }
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -91,8 +92,17 @@ class WorkScreen extends HookConsumerWidget {
                   WorkTagsContainer(tagNames: work.tagNames.toList()),
                   const SizedBox(height: 16),
                   queryWorkComments.when(
+                    error: (error, stackTrace) {
+                      return const UnexpectedErrorContainer();
+                    },
+                    loading: () {
+                      return const LoadingContainer();
+                    },
                     data: (data) {
-                      final comments = data.data!.work!.comments;
+                      if (data == null) {
+                        return const DataNotFoundErrorContainer();
+                      }
+                      final comments = data.work!.comments;
                       return Column(
                         children: [
                           for (final comment in comments)
@@ -113,13 +123,6 @@ class WorkScreen extends HookConsumerWidget {
                         ],
                       );
                     },
-                    error: (error, stackTrace) {
-                      return const Text("エラー");
-                    },
-                    loading: () {
-                      return Container();
-                      // const CircularProgressIndicator();
-                    },
                   ),
                   const SizedBox(height: 40),
                 ],
@@ -128,7 +131,6 @@ class WorkScreen extends HookConsumerWidget {
           ),
         ),
       ),
-      bottomNavigationBar: const WorkBottomAppContainer(),
     );
   }
 }

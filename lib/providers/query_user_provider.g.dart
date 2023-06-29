@@ -6,7 +6,7 @@ part of 'query_user_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$queryUserHash() => r'c2ce1d8fc6fc96f0157e63bd21cc4f3f7313681b';
+String _$queryUserHash() => r'5b4d351b789b1818ac767da140dbc37e7806e661';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -29,16 +29,14 @@ class _SystemHash {
   }
 }
 
-typedef QueryUserRef
-    = AutoDisposeStreamProviderRef<OperationResponse<GUserData, GUserVars>>;
+typedef QueryUserRef = AutoDisposeStreamProviderRef<GUserData?>;
 
 /// See also [queryUser].
 @ProviderFor(queryUser)
 const queryUserProvider = QueryUserFamily();
 
 /// See also [queryUser].
-class QueryUserFamily
-    extends Family<AsyncValue<OperationResponse<GUserData, GUserVars>>> {
+class QueryUserFamily extends Family<AsyncValue<GUserData?>> {
   /// See also [queryUser].
   const QueryUserFamily();
 
@@ -76,8 +74,7 @@ class QueryUserFamily
 }
 
 /// See also [queryUser].
-class QueryUserProvider
-    extends AutoDisposeStreamProvider<OperationResponse<GUserData, GUserVars>> {
+class QueryUserProvider extends AutoDisposeStreamProvider<GUserData?> {
   /// See also [queryUser].
   QueryUserProvider(
     this.id,

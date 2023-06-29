@@ -1,11 +1,9 @@
-import 'package:ferry/ferry.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../client.dart';
 import '../graphql/__generated__/work_awards.data.gql.dart';
 import '../graphql/__generated__/work_awards.req.gql.dart';
-import '../graphql/__generated__/work_awards.var.gql.dart';
 
 part 'query_weekly_work_awards_provider.freezed.dart';
 part 'query_weekly_work_awards_provider.g.dart';
@@ -19,10 +17,8 @@ class QueryWeeklyWorkAwardsProps with _$QueryWeeklyWorkAwardsProps {
   }) = _QueryWeeklyWorkAwardsProps;
 }
 
-typedef State = OperationResponse<GWorkAwardsData, GWorkAwardsVars>;
-
 @riverpod
-Stream<State> queryWeeklyWorkAwards(
+Stream<GWorkAwardsData?> queryWeeklyWorkAwards(
   QueryWeeklyWorkAwardsRef ref,
   QueryWeeklyWorkAwardsProps props,
 ) {
@@ -35,5 +31,7 @@ Stream<State> queryWeeklyWorkAwards(
       ..vars.where.month = props.month
       ..vars.where.weekIndex = props.weekIndex;
   });
-  return client.request(req);
+  return client.request(req).map((response) {
+    return response.data;
+  });
 }

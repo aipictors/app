@@ -16,7 +16,7 @@ class WorkTagsContainer extends HookConsumerWidget {
       child: Wrap(
         spacing: 8,
         children: [
-          for (final tagName in tagNames) Text("#$tagName"),
+          for (final tagName in tagNames) Text('#$tagName'),
         ],
       ),
     );

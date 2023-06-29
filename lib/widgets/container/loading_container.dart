@@ -8,8 +8,11 @@ class LoadingContainer extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
-    return const Center(
-      child: CircularProgressIndicator(),
+    return Container(
+      padding: const EdgeInsets.only(top: 40),
+      child: const Center(
+        child: CircularProgressIndicator(),
+      ),
     );
   }
 }

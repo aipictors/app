@@ -39,7 +39,7 @@ class DailyThemeContainer extends HookConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                isCurrent ? "今日" : '${day.toString()}日',
+                isCurrent ? '今日' : '${day.toString()}日',
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                 ),

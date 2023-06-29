@@ -1,11 +1,9 @@
-import 'package:ferry/ferry.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../client.dart';
 import '../graphql/__generated__/daily_themes.data.gql.dart';
 import '../graphql/__generated__/daily_themes.req.gql.dart';
-import '../graphql/__generated__/daily_themes.var.gql.dart';
 
 part 'query_daily_themes_provider.freezed.dart';
 part 'query_daily_themes_provider.g.dart';
@@ -18,10 +16,8 @@ class QueryDailyThemesProps with _$QueryDailyThemesProps {
   }) = _QueryDailyThemesProps;
 }
 
-typedef State = OperationResponse<GDailyThemesData, GDailyThemesVars>;
-
 @riverpod
-Stream<State> queryDailyThemes(
+Stream<GDailyThemesData?> queryDailyThemes(
   QueryDailyThemesRef ref,
   QueryDailyThemesProps props,
 ) {
@@ -34,5 +30,7 @@ Stream<State> queryDailyThemes(
       ..vars.where.month = props.month
       ..vars.where.year = props.year;
   });
-  return client.request(req);
+  return client.request(req).map((response) {
+    return response.data;
+  });
 }
