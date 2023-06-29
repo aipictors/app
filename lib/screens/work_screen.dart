@@ -76,7 +76,7 @@ class WorkScreen extends HookConsumerWidget {
                   ),
                   const SizedBox(height: 8),
                   WorkTextContainer(
-                    title: work.title!,
+                    title: work.title,
                     description: work.description,
                   ),
                   const SizedBox(height: 8),

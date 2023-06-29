@@ -1,6 +1,14 @@
 {
   "editor.formatOnSave": true,
-  "cSpell.words": ["aipictors", "followees", "MMMMEEE", "riverpod", "unfocus"],
+  "cSpell.words": [
+    "aipictors",
+    "Cupertino",
+    "followees",
+    "MMMMEEE",
+    "riverpod",
+    "Subtags",
+    "unfocus"
+  ],
   "files.associations": {
     "*.xml": "html",
     "*.svg": "html"

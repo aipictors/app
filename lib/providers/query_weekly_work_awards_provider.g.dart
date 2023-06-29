@@ -7,7 +7,7 @@ part of 'query_weekly_work_awards_provider.dart';
 // **************************************************************************
 
 String _$queryWeeklyWorkAwardsHash() =>
-    r'56994c218a7280e167bb2366ab343ec2ddec90b4';
+    r'2e2563386a37c466c4cb694f13f1317952f46235';
 
 /// Copied from Dart SDK
 class _SystemHash {

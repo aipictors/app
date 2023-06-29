@@ -1,25 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'query_works_provider.dart';
+part of 'config_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$queryWorksHash() => r'367d167698ec595ccfcf106b13cf4e576ee583f3';
+String _$configHash() => r'04301d4cb3a8533be38148cdaeea500e9732514f';
 
-/// See also [queryWorks].
-@ProviderFor(queryWorks)
-final queryWorksProvider = AutoDisposeStreamProvider<
-    OperationResponse<GWorksData, GWorksVars>>.internal(
-  queryWorks,
-  name: r'queryWorksProvider',
+/// 設定
+///
+/// Copied from [Config].
+@ProviderFor(Config)
+final configProvider =
+    AutoDisposeNotifierProvider<Config, ConfigState>.internal(
+  Config.new,
+  name: r'configProvider',
   debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$queryWorksHash,
+      const bool.fromEnvironment('dart.vm.product') ? null : _$configHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef QueryWorksRef
-    = AutoDisposeStreamProviderRef<OperationResponse<GWorksData, GWorksVars>>;
+typedef _$Config = AutoDisposeNotifier<ConfigState>;
 // ignore_for_file: unnecessary_raw_strings, subtype_of_sealed_class, invalid_use_of_internal_member, do_not_use_environment, prefer_const_constructors, public_member_api_docs, avoid_private_typedef_functions

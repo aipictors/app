@@ -117,7 +117,7 @@ class DailyThemesScreen extends HookConsumerWidget {
                   context.push('/daily_themes/${dailyTheme.id}');
                 },
                 child: DailyThemeContainer(
-                  isCurrent: isCurrent(dailyTheme.day),
+                  isCurrent: isCurrent(year.value, month.value, dailyTheme.day),
                   day: dailyTheme.day,
                   title: dailyTheme.title,
                   worksCount: dailyTheme.worksCount,
@@ -169,8 +169,8 @@ class DailyThemesScreen extends HookConsumerWidget {
     return true;
   }
 
-  bool isCurrent(int day) {
+  bool isCurrent(int year, int month, int day) {
     final now = DateTime.now();
-    return now.day == day;
+    return year == now.year && month == now.month && day == now.day;
   }
 }
