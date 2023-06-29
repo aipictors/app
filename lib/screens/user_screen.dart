@@ -4,6 +4,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../delegates/tab_header_delegate.dart';
 import '../providers/query_user_provider.dart';
 import '../widgets/app_bar/user_app_bar.dart';
+import '../widgets/container/data_not_found_error_container.dart';
+import '../widgets/container/loading_container.dart';
+import '../widgets/container/unexpected_error_container.dart';
 import '../widgets/container/user_folders_container.dart';
 import '../widgets/container/user_header_container.dart';
 import '../widgets/container/user_profile_container.dart';
@@ -21,14 +24,32 @@ class UserScreen extends HookConsumerWidget {
   Widget build(context, ref) {
     final queryUser = ref.watch(queryUserProvider(userId));
 
-    return queryUser.when(
-      data: (data) {
-        final user = data.data!.user!;
-        return Scaffold(
-          extendBody: true,
-          body: DefaultTabController(
-            length: 2,
-            child: NestedScrollView(
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        extendBody: true,
+        body: queryUser.when(
+          error: (error, stackTrace) {
+            return const UnexpectedErrorContainer();
+          },
+          loading: () {
+            return const LoadingContainer();
+          },
+          data: (data) {
+            if (data.data == null) {
+              return const DataNotFoundErrorContainer();
+            }
+            final user = data.data!.user;
+            if (user == null) {
+              return const DataNotFoundErrorContainer();
+            }
+            return NestedScrollView(
+              body: TabBarView(
+                children: [
+                  UserWorksContainer(userId: userId),
+                  UserFoldersContainer(userId: userId),
+                ],
+              ),
               headerSliverBuilder: (context, innerBoxIsScrolled) {
                 return [
                   UserAppBar(
@@ -71,30 +92,10 @@ class UserScreen extends HookConsumerWidget {
                   )
                 ];
               },
-              body: TabBarView(
-                children: [
-                  UserWorksContainer(userId: userId),
-                  UserFoldersContainer(userId: userId),
-                ],
-              ),
-            ),
-          ),
-        );
-      },
-      error: (error, stackTrace) {
-        return Scaffold(
-          appBar: AppBar(
-            title: const Text('ERROR'),
-          ),
-        );
-      },
-      loading: () {
-        return Scaffold(
-          appBar: AppBar(
-            title: const Text(''),
-          ),
-        );
-      },
+            );
+          },
+        ),
+      ),
     );
   }
 }

@@ -4,7 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../providers/query_user_works_provider.dart';
 import '../grid/work_grid_view.dart';
-import 'grid_work_image_container.dart';
+import '../image/grid_work_image.dart';
 
 class UserWorksContainer extends HookConsumerWidget {
   const UserWorksContainer({
@@ -42,10 +42,10 @@ class UserWorksContainer extends HookConsumerWidget {
             final work = works[index];
             return GestureDetector(
               onTap: () {
-                context.push("/works/${work.id}");
+                context.push('/works/${work.id}');
               },
-              child: GridWorkImageContainer(
-                downloadURL: work.image!.downloadURL,
+              child: GridWorkImage(
+                imageUrl: work.image!.downloadURL,
               ),
             );
           },

@@ -24,7 +24,7 @@ class UserStatusContainer extends HookConsumerWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "$followersCount人のユーザにフォローされています。",
+          '$followersCount人のユーザにフォローされています。',
           style: TextStyle(
             color: Theme.of(context).primaryColor,
             fontWeight: FontWeight.bold,
@@ -34,17 +34,17 @@ class UserStatusContainer extends HookConsumerWidget {
         Row(
           children: [
             Text(
-              "貰ったいいね $likesCount件",
+              'いいね $likesCount件',
               style: TextStyle(color: Theme.of(context).dividerColor),
             ),
             const SizedBox(width: 12),
             Text(
-              "閲覧 $viewsCount回",
+              '閲覧 $viewsCount回',
               style: TextStyle(color: Theme.of(context).dividerColor),
             ),
             const SizedBox(width: 12),
             Text(
-              "入賞回数 $awardsCount回",
+              '入賞回数 $awardsCount回',
               style: TextStyle(color: Theme.of(context).dividerColor),
             ),
           ],

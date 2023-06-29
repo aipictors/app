@@ -1,9 +1,11 @@
+import 'package:aipictors/widgets/container/loading_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../providers/query_daily_themes_provider.dart';
+import '../widgets/app_bar/daily_themes_app_bar.dart';
 import '../widgets/container/daily_theme_container.dart';
 import '../widgets/container/data_not_found_error_container.dart';
 import '../widgets/container/unexpected_error_container.dart';
@@ -26,92 +28,42 @@ class DailyThemesScreen extends HookConsumerWidget {
     );
 
     return Scaffold(
-      key: const PageStorageKey("daily_themes"),
-      appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            FilledButton.tonal(
-              onPressed: hasPrev(year.value, month.value)
-                  ? () {
-                      onPrev(year, month);
-                    }
-                  : null,
-              child: const Text(
-                "前月",
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ),
-            Row(children: [
-              SizedBox(
-                width: 60,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text(
-                      year.value.toString(),
-                      style: Theme.of(context).textTheme.headlineSmall,
-                    ),
-                  ],
-                ),
-              ),
-              Text(
-                "年",
-                style: Theme.of(context).textTheme.headlineSmall,
-              ),
-              const SizedBox(width: 4),
-              SizedBox(
-                width: 28,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text(
-                      month.value.toString(),
-                      style: Theme.of(context).textTheme.headlineSmall,
-                    ),
-                  ],
-                ),
-              ),
-              Text(
-                "月",
-                style: Theme.of(context).textTheme.headlineSmall,
-              ),
-            ]),
-            FilledButton.tonal(
-              onPressed: hasNext(year.value, month.value)
-                  ? () {
-                      onNext(year, month);
-                    }
-                  : null,
-              child: const Text(
-                "来月",
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ),
-          ],
-        ),
+      key: const PageStorageKey('daily_themes'),
+      appBar: DailyThemesAppBar(
+        month: month.value,
+        year: year.value,
+        hasPrev: hasPrev(year.value, month.value),
+        onPrev: () {
+          onPrev(year, month);
+        },
+        hasNext: hasNext(year.value, month.value),
+        onNext: () {
+          onNext(year, month);
+        },
       ),
       body: dailyThemes.when(
         error: (error, stackTrace) {
           return const UnexpectedErrorContainer();
         },
         loading: () {
-          return const Center(child: CircularProgressIndicator());
+          return const LoadingContainer();
         },
         data: (data) {
           if (data.data == null) {
             return const DataNotFoundErrorContainer();
           }
-          if (data.data!.dailyThemes.isEmpty) {
+          final dailyThemes = data.data!.dailyThemes;
+          if (dailyThemes.isEmpty) {
             return const DataNotFoundErrorContainer();
           }
           return ListView.builder(
             physics: const ClampingScrollPhysics(),
             padding: const EdgeInsets.only(bottom: 16, left: 0, right: 0),
             cacheExtent: 0.0,
-            itemCount: data.data!.dailyThemes.length,
+            itemCount: dailyThemes.length,
             itemBuilder: (context, index) {
-              final dailyTheme = data.data!.dailyThemes[index];
+              final dailyTheme = dailyThemes[index];
+              final firstWork = dailyTheme.firstWork;
               return InkWell(
                 onTap: () {
                   context.push('/daily_themes/${dailyTheme.id}');
@@ -121,8 +73,7 @@ class DailyThemesScreen extends HookConsumerWidget {
                   day: dailyTheme.day,
                   title: dailyTheme.title,
                   worksCount: dailyTheme.worksCount,
-                  thumbnailImageURL:
-                      dailyTheme.firstWork?.thumbnailImage?.downloadURL,
+                  thumbnailImageURL: firstWork?.thumbnailImage?.downloadURL,
                 ),
               );
             },

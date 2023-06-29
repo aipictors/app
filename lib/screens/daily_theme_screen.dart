@@ -3,11 +3,12 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../providers/query_daily_theme_provider.dart';
+import '../widgets/app_bar/daily_theme_app_bar.dart';
 import '../widgets/container/data_not_found_error_container.dart';
-import '../widgets/container/grid_work_image_container.dart';
 import '../widgets/container/loading_container.dart';
 import '../widgets/container/unexpected_error_container.dart';
 import '../widgets/grid/work_grid_view.dart';
+import '../widgets/image/grid_work_image.dart';
 
 class DailyThemeScreen extends HookConsumerWidget {
   const DailyThemeScreen({
@@ -37,36 +38,13 @@ class DailyThemeScreen extends HookConsumerWidget {
           if (data.data == null) {
             return const DataNotFoundErrorContainer();
           }
-          final dailyTheme = data.data?.dailyTheme;
+          final dailyTheme = data.data!.dailyTheme;
           if (dailyTheme == null) {
             return const DataNotFoundErrorContainer();
           }
           return CustomScrollView(
             slivers: [
-              SliverAppBar(
-                pinned: true,
-                leading: IconButton.filledTonal(
-                  icon: const Icon(Icons.arrow_back),
-                  onPressed: () {
-                    context.pop();
-                  },
-                ),
-                backgroundColor: Theme.of(context).primaryColorLight,
-                stretch: true,
-                expandedHeight: 128,
-                flexibleSpace: FlexibleSpaceBar(
-                  title: Text(
-                    dailyTheme.title,
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  stretchModes: const [
-                    StretchMode.zoomBackground,
-                    StretchMode.blurBackground,
-                    StretchMode.fadeTitle,
-                  ],
-                  // background: ,
-                ),
-              ),
+              DailyThemeAppBar(title: dailyTheme.title),
               SliverToBoxAdapter(
                 child: WorkGridView(
                   itemCount: dailyTheme.works.length,
@@ -74,10 +52,10 @@ class DailyThemeScreen extends HookConsumerWidget {
                     final work = dailyTheme.works[index];
                     return GestureDetector(
                       onTap: () {
-                        context.push("/works/${work.id}");
+                        context.push('/works/${work.id}');
                       },
-                      child: GridWorkImageContainer(
-                        downloadURL: work.image!.downloadURL,
+                      child: GridWorkImage(
+                        imageUrl: work.image!.downloadURL,
                       ),
                     );
                   },

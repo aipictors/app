@@ -5,6 +5,8 @@ import '../providers/query_work_comments_provider.dart';
 import '../providers/query_work_provider.dart';
 import '../widgets/app_bar/work_bottom_app_bar.dart';
 import '../widgets/button/follow_button.dart';
+import '../widgets/container/loading_container.dart';
+import '../widgets/container/unexpected_error_container.dart';
 import '../widgets/container/work_response_container.dart';
 import '../widgets/container/work_status_container.dart';
 import '../widgets/container/work_tags_container.dart';
@@ -33,7 +35,7 @@ class WorkScreen extends HookConsumerWidget {
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
         title: const Text(
-          "作品",
+          '作品',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
@@ -41,6 +43,12 @@ class WorkScreen extends HookConsumerWidget {
       body: SingleChildScrollView(
         child: SafeArea(
           child: queryWork.when(
+            error: (error, stackTrace) {
+              return const UnexpectedErrorContainer();
+            },
+            loading: () {
+              return const LoadingContainer();
+            },
             data: (data) {
               if (data.data!.work == null) {
                 return Container(
@@ -116,13 +124,6 @@ class WorkScreen extends HookConsumerWidget {
                   const SizedBox(height: 40),
                 ],
               );
-            },
-            error: (error, stackTrace) {
-              return const Text("エラー");
-            },
-            loading: () {
-              return Container();
-              // const CircularProgressIndicator();
             },
           ),
         ),

@@ -6,12 +6,12 @@ part of 'query_popular_works_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$queryPopularWorksHash() => r'a98c418785129f2b92399c1ae30f6b357f0efe07';
+String _$queryPopularWorksHash() => r'4d27b2a6f849ca90d3fe9509dded8536f3b2fb3d';
 
 /// See also [queryPopularWorks].
 @ProviderFor(queryPopularWorks)
-final queryPopularWorksProvider = AutoDisposeStreamProvider<
-    OperationResponse<GPopularWorksData, GPopularWorksVars>>.internal(
+final queryPopularWorksProvider =
+    AutoDisposeStreamProvider<GPopularWorksData?>.internal(
   queryPopularWorks,
   name: r'queryPopularWorksProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -21,6 +21,5 @@ final queryPopularWorksProvider = AutoDisposeStreamProvider<
   allTransitiveDependencies: null,
 );
 
-typedef QueryPopularWorksRef = AutoDisposeStreamProviderRef<
-    OperationResponse<GPopularWorksData, GPopularWorksVars>>;
+typedef QueryPopularWorksRef = AutoDisposeStreamProviderRef<GPopularWorksData?>;
 // ignore_for_file: unnecessary_raw_strings, subtype_of_sealed_class, invalid_use_of_internal_member, do_not_use_environment, prefer_const_constructors, public_member_api_docs, avoid_private_typedef_functions

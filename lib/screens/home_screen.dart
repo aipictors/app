@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'awards_screen.dart';
+import 'award_screen.dart';
+import 'explorer_screen.dart';
 import 'notification_screen.dart';
-import 'search_screen.dart';
 
 class HomeScreen extends HookConsumerWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -18,8 +18,8 @@ class HomeScreen extends HookConsumerWidget {
 
     const screens = [
       DailyThemesScreen(),
-      SearchScreen(),
-      AwardsScreen(),
+      ExplorerScreen(),
+      AwardScreen(),
       NotificationScreen(),
       ViewerScreen()
     ];

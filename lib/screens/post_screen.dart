@@ -16,7 +16,7 @@ class PostScreen extends HookConsumerWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text("投稿"),
+            Text('投稿'),
           ],
         ),
       ),
