@@ -1,9 +1,9 @@
-import 'package:aipictors/config.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
+import '../config.dart';
 import '../models/app_version.dart';
 
 part 'config_state.freezed.dart';

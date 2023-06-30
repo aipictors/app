@@ -1,12 +1,12 @@
-import 'package:aipictors/screens/daily_themes_screen.dart';
-import 'package:aipictors/screens/viewer_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'award_screen.dart';
+import 'daily_themes_screen.dart';
 import 'explorer_screen.dart';
 import 'notification_screen.dart';
+import 'viewer_screen.dart';
 
 class HomeScreen extends HookConsumerWidget {
   const HomeScreen({Key? key}) : super(key: key);

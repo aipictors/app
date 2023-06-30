@@ -239,42 +239,6 @@ PODS:
   - sqflite (0.0.3):
     - Flutter
     - FMDB (>= 2.7.5)
-  - Stripe (23.7.1):
-    - StripeApplePay (= 23.7.1)
-    - StripeCore (= 23.7.1)
-    - StripePayments (= 23.7.1)
-    - StripePaymentsUI (= 23.7.1)
-    - StripeUICore (= 23.7.1)
-  - stripe_ios (0.0.1):
-    - Flutter
-    - Stripe (~> 23.7.0)
-    - StripeApplePay (~> 23.7.0)
-    - StripeFinancialConnections (~> 23.7.0)
-    - StripePayments (~> 23.7.0)
-    - StripePaymentSheet (~> 23.7.0)
-    - StripePaymentsUI (~> 23.7.0)
-  - StripeApplePay (23.7.1):
-    - StripeCore (= 23.7.1)
-  - StripeCore (23.7.1)
-  - StripeFinancialConnections (23.7.1):
-    - StripeCore (= 23.7.1)
-    - StripeUICore (= 23.7.1)
-  - StripePayments (23.7.1):
-    - StripeCore (= 23.7.1)
-    - StripePayments/Stripe3DS2 (= 23.7.1)
-  - StripePayments/Stripe3DS2 (23.7.1):
-    - StripeCore (= 23.7.1)
-  - StripePaymentSheet (23.7.1):
-    - StripeApplePay (= 23.7.1)
-    - StripeCore (= 23.7.1)
-    - StripePayments (= 23.7.1)
-    - StripePaymentsUI (= 23.7.1)
-  - StripePaymentsUI (23.7.1):
-    - StripeCore (= 23.7.1)
-    - StripePayments (= 23.7.1)
-    - StripeUICore (= 23.7.1)
-  - StripeUICore (23.7.1):
-    - StripeCore (= 23.7.1)
   - uni_links (0.0.1):
     - Flutter
   - url_launcher_ios (0.0.1):
@@ -303,7 +267,6 @@ DEPENDENCIES:
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
   - sign_in_with_apple (from `.symlinks/plugins/sign_in_with_apple/ios`)
   - sqflite (from `.symlinks/plugins/sqflite/ios`)
-  - stripe_ios (from `.symlinks/plugins/stripe_ios/ios`)
   - uni_links (from `.symlinks/plugins/uni_links/ios`)
   - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
   - webview_flutter_wkwebview (from `.symlinks/plugins/webview_flutter_wkwebview/ios`)
@@ -338,14 +301,6 @@ SPEC REPOS:
     - PromisesSwift
     - Sentry
     - SentryPrivate
-    - Stripe
-    - StripeApplePay
-    - StripeCore
-    - StripeFinancialConnections
-    - StripePayments
-    - StripePaymentSheet
-    - StripePaymentsUI
-    - StripeUICore
 
 EXTERNAL SOURCES:
   device_info_plus:
@@ -388,8 +343,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/sign_in_with_apple/ios"
   sqflite:
     :path: ".symlinks/plugins/sqflite/ios"
-  stripe_ios:
-    :path: ".symlinks/plugins/stripe_ios/ios"
   uni_links:
     :path: ".symlinks/plugins/uni_links/ios"
   url_launcher_ios:
@@ -446,19 +399,10 @@ SPEC CHECKSUMS:
   shared_preferences_foundation: e2dae3258e06f44cc55f49d42024fd8dd03c590c
   sign_in_with_apple: f3bf75217ea4c2c8b91823f225d70230119b8440
   sqflite: 31f7eba61e3074736dff8807a9b41581e4f7f15a
-  Stripe: fbe3d1d61cba70ac7a920c6097222ba9525352c4
-  stripe_ios: 8e0be46c31e1758756e5fdc1613f751d4d945ae0
-  StripeApplePay: 06e3899c9db102567804b77c41cec2861b5e2c39
-  StripeCore: 9b331e5f9d4067ef7296718c680a73ad6f2d1066
-  StripeFinancialConnections: 7d8116c4dcd3b034f13a181b4d96e6991b594cfc
-  StripePayments: 46fbd561312cb300c93dd855b9c896285c8eb1fb
-  StripePaymentSheet: 016fd1c6053efff1f348fc6f44babecacda9d0af
-  StripePaymentsUI: cb06c01d3c9efde91ebce218f9e4e94e902dd676
-  StripeUICore: a9db3f2a82c932d5ca58dd8fc4ac0a6b72f1ccee
   uni_links: d97da20c7701486ba192624d99bffaaffcfc298a
   url_launcher_ios: 08a3dfac5fb39e8759aeb0abbd5d9480f30fc8b4
   webview_flutter_wkwebview: 2e2d318f21a5e036e2c3f26171342e95908bd60a
 
-PODFILE CHECKSUM: 9c46fd01abff66081b39f5fa5767b3f1d0b11d76
+PODFILE CHECKSUM: 70d9d25280d0dd177a5f637cdb0f0b0b12c6a189
 
 COCOAPODS: 1.12.1

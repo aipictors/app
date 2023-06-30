@@ -1,4 +1,3 @@
-import 'package:aipictors/repositories/storage_repository.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
@@ -15,6 +14,7 @@ import 'app.dart';
 import 'config.dart';
 import 'handlers/background_message_handler.dart';
 import 'repositories/hive_repository.dart';
+import 'repositories/storage_repository.dart';
 import 'utils/to_locale.dart';
 
 void main() async {
@@ -61,6 +61,8 @@ void main() async {
   // FlutterのエラーをSentryに送信する
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
 
+  final language = const StorageRepository().language;
+
   // Analyticsを初期化する
   FirebaseAnalytics.instance.setUserProperty(
     name: 'is_release_mode',
@@ -82,24 +84,23 @@ void main() async {
     value: DefaultConfig.buildNumber,
   );
 
-  // await initializeDateFormatting('ja_JP');
+  FirebaseAnalytics.instance.setUserProperty(
+    name: 'language',
+    value: language,
+  );
 
   await SentryFlutter.init(
     (options) {
       options.environment = DefaultConfig.environment;
       options.dsn = DefaultConfig.sentryDsn;
-      options.useFlutterBreadcrumbTracking();
       options.release = DefaultConfig.version;
+      options.useFlutterBreadcrumbTracking();
       if (options.environment == 'production') {
         options.tracesSampleRate = 1.0;
       }
     },
     appRunner: () {
-      final language = const StorageRepository().language;
       Sentry.configureScope((scope) {
-        scope.setTag('package_name', DefaultConfig.packageName);
-        scope.setTag('version', DefaultConfig.version);
-        scope.setTag('build_number', DefaultConfig.buildNumber);
         scope.setTag('language', language);
       });
       runApp(
