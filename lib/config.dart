@@ -66,17 +66,6 @@ class DefaultConfig {
     return kReleaseMode && projectId == DefaultConfig.productionProjectId;
   }
 
-  static String get environment {
-    final projectId = Firebase.app().options.projectId;
-    if (kReleaseMode && projectId == DefaultConfig.stagingProjectId) {
-      return 'staging';
-    }
-    if (kReleaseMode && projectId == DefaultConfig.productionProjectId) {
-      return 'production';
-    }
-    return 'development';
-  }
-
   static String get version {
     return packageInfo!.version;
   }
@@ -91,5 +80,10 @@ class DefaultConfig {
 
   static String get versionText {
     return '$version+$buildNumber';
+  }
+
+  /// dart_define
+  static String get sentryEnvironment {
+    return const String.fromEnvironment('environment');
   }
 }

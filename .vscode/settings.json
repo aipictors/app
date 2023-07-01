@@ -35,7 +35,7 @@
     "build": true,
     "ios/.symlinks": true,
     "ios/Pods": true,
-    "ios/Runner.xcodeproj": true,
+    "ios/Runner.xcodeproj": false,
     "ios/Runner.xcworkspace": true,
     "ios/Runner/GeneratedPluginRegistrant.h": true,
     "ios/Runner/GeneratedPluginRegistrant.m": true,

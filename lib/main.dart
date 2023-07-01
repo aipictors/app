@@ -74,7 +74,7 @@ void main() async {
 
   FirebaseAnalytics.instance.setUserProperty(
     name: 'environment',
-    value: DefaultConfig.environment,
+    value: DefaultConfig.sentryEnvironment,
   );
 
   FirebaseAnalytics.instance.setUserProperty(
@@ -94,7 +94,7 @@ void main() async {
 
   await SentryFlutter.init(
     (options) {
-      options.environment = DefaultConfig.environment;
+      options.environment = DefaultConfig.sentryEnvironment;
       options.dsn = DefaultConfig.sentryDsn;
       options.release = DefaultConfig.version;
       options.useFlutterBreadcrumbTracking();
