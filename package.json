@@ -1,9 +1,10 @@
 {
   "name": "aipictors-flutter",
   "scripts": {
-    "dev": "dart run build_runner watch",
-    "build": "dart run build_runner build",
-    "build:icons": "flutter pub run flutter_launcher_icons:main"
+    "build:ios": "flutter build ios --release --dart-define-from-file=dart_defines/release_production.json",
+    "build:icons": "flutter pub run flutter_launcher_icons:main",
+    "build:runner": "dart run build_runner build",
+    "build:runner:watch": "dart run build_runner watch"
   },
   "devDependencies": {
     "prettier": "^2.8.8"
