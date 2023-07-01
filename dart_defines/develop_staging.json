@@ -1,6 +1,6 @@
 {
-  "flavor": "develop_staging",
+  "flavor": "develop-staging",
   "appName": "Aipictors D:S",
-  "appIdSuffix": ".develop_staging",
+  "appIdSuffix": ".develop-staging",
   "sentryEnvironment": "development"
 }

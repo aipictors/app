@@ -1,6 +1,6 @@
 {
-  "flavor": "release_staging",
+  "flavor": "release-staging",
   "appName": "Aipictors STG",
-  "appIdSuffix": ".release_staging",
+  "appIdSuffix": ".release-staging",
   "sentryEnvironment": "staging"
 }
