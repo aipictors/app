@@ -1,9 +1,8 @@
+import 'package:aipictors/client.dart';
+import 'package:aipictors/graphql/__generated__/user_followees.data.gql.dart';
+import 'package:aipictors/graphql/__generated__/user_followees.req.gql.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-
-import '../client.dart';
-import '../graphql/__generated__/user_followees.data.gql.dart';
-import '../graphql/__generated__/user_followees.req.gql.dart';
 
 part 'query_user_followees_provider.freezed.dart';
 part 'query_user_followees_provider.g.dart';

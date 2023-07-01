@@ -1,8 +1,7 @@
+import 'package:aipictors/widgets/avatar/user_profile_avatar.dart';
+import 'package:aipictors/widgets/button/follow_button.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-import '../avatar/user_profile_avatar.dart';
-import '../button/follow_button.dart';
 
 class UserHeaderContainer extends HookConsumerWidget {
   const UserHeaderContainer({

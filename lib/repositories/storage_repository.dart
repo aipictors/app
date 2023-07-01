@@ -39,18 +39,22 @@ class StorageRepository {
     await instance!.setString('language', value);
   }
 
-  String? get colorScheme {
-    final value = instance!.getString('color_scheme');
+  String? get themeColor {
+    final value = instance!.getString('theme_color');
     return value;
   }
 
-  Future<void> setColorScheme(String value) async {
-    await instance!.setString('color_scheme', value);
+  Future<void> setThemeColor(String? value) async {
+    if (value == null) {
+      instance!.remove('theme_color');
+      return;
+    }
+    await instance!.setString('theme_color', value);
   }
 
-  String get themeMode {
+  String? get themeMode {
     final value = instance!.getString('theme_mode');
-    return value ?? 'light';
+    return value;
   }
 
   Future<void> setThemeMode(String value) async {

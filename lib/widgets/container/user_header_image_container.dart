@@ -14,7 +14,7 @@ class UserHeaderImageContainer extends HookConsumerWidget {
     if (downloadURL == null) {
       return Container(
         width: double.infinity,
-        color: Theme.of(context).primaryColorLight,
+        color: Theme.of(context).colorScheme.primaryContainer,
       );
     }
 
@@ -25,7 +25,7 @@ class UserHeaderImageContainer extends HookConsumerWidget {
         if (event == null) return child;
         return Container(
           width: double.infinity,
-          color: Theme.of(context).primaryColorLight,
+          color: Theme.of(context).colorScheme.primaryContainer,
         );
       },
       errorBuilder: (context, uri, error) {

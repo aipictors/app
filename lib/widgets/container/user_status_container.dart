@@ -1,3 +1,4 @@
+import 'package:aipictors/utils/to_readable_number.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -24,9 +25,9 @@ class UserStatusContainer extends HookConsumerWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          '$followersCount人のユーザにフォローされています。',
+          '${toReadableNumber(followersCount)}人のユーザにフォローされています。',
           style: TextStyle(
-            color: Theme.of(context).primaryColor,
+            color: Theme.of(context).colorScheme.primaryContainer,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -34,17 +35,17 @@ class UserStatusContainer extends HookConsumerWidget {
         Row(
           children: [
             Text(
-              'いいね $likesCount件',
+              'いいね $toReadableNumber(likesCount)件',
               style: TextStyle(color: Theme.of(context).dividerColor),
             ),
             const SizedBox(width: 12),
             Text(
-              '閲覧 $viewsCount回',
+              '閲覧 ${toReadableNumber(viewsCount)}回',
               style: TextStyle(color: Theme.of(context).dividerColor),
             ),
             const SizedBox(width: 12),
             Text(
-              '入賞回数 $awardsCount回',
+              '入賞回数 $toReadableNumber{awardsCount}回',
               style: TextStyle(color: Theme.of(context).dividerColor),
             ),
           ],

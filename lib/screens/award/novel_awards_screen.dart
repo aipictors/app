@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class AwardNovelMonthlyScreen extends HookConsumerWidget {
-  const AwardNovelMonthlyScreen({
+class NovelAwardsScreen extends HookConsumerWidget {
+  const NovelAwardsScreen({
     Key? key,
   }) : super(key: key);
 

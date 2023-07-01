@@ -13,7 +13,7 @@ class UserProfileAvatar extends HookConsumerWidget {
   Widget build(context, ref) {
     return CircleAvatar(
       radius: 44,
-      backgroundColor: Theme.of(context).primaryColorLight,
+      backgroundColor: Theme.of(context).colorScheme.primaryContainer,
       child: CircleAvatar(
         radius: 40,
         backgroundImage: NetworkImage(downloadURL),

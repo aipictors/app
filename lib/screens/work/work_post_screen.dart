@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class PostScreen extends HookConsumerWidget {
-  const PostScreen({
+class WorkPostScreen extends HookConsumerWidget {
+  const WorkPostScreen({
     Key? key,
   }) : super(key: key);
 

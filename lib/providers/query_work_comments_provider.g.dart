@@ -29,14 +29,14 @@ class _SystemHash {
   }
 }
 
-typedef QueryWorkCommentsRef = AutoDisposeStreamProviderRef<GWorkCommentsData?>;
+typedef QueryWorkCommentsRef = AutoDisposeStreamProviderRef<dynamic>;
 
 /// See also [queryWorkComments].
 @ProviderFor(queryWorkComments)
 const queryWorkCommentsProvider = QueryWorkCommentsFamily();
 
 /// See also [queryWorkComments].
-class QueryWorkCommentsFamily extends Family<AsyncValue<GWorkCommentsData?>> {
+class QueryWorkCommentsFamily extends Family<AsyncValue<dynamic>> {
   /// See also [queryWorkComments].
   const QueryWorkCommentsFamily();
 
@@ -74,8 +74,7 @@ class QueryWorkCommentsFamily extends Family<AsyncValue<GWorkCommentsData?>> {
 }
 
 /// See also [queryWorkComments].
-class QueryWorkCommentsProvider
-    extends AutoDisposeStreamProvider<GWorkCommentsData?> {
+class QueryWorkCommentsProvider extends AutoDisposeStreamProvider<dynamic> {
   /// See also [queryWorkComments].
   QueryWorkCommentsProvider(
     this.props,

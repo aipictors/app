@@ -1,21 +1,20 @@
+import 'package:aipictors/providers/query_best_works_provider.dart';
+import 'package:aipictors/widgets/container/data_not_found_error_container.dart';
+import 'package:aipictors/widgets/container/loading_container.dart';
+import 'package:aipictors/widgets/container/unexpected_error_container.dart';
+import 'package:aipictors/widgets/image/grid_work_image.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../providers/query_popular_works_provider.dart';
-import '../widgets/container/data_not_found_error_container.dart';
-import '../widgets/container/loading_container.dart';
-import '../widgets/container/unexpected_error_container.dart';
-import '../widgets/image/grid_work_image.dart';
-
-class ExplorerPopularScreen extends HookConsumerWidget {
-  const ExplorerPopularScreen({
+class ExplorerBestWorksScreen extends HookConsumerWidget {
+  const ExplorerBestWorksScreen({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(context, ref) {
-    final queryWorks = ref.watch(queryPopularWorksProvider);
+    final queryWorks = ref.watch(queryBestWorksProvider);
 
     return queryWorks.when(
       error: (error, stackTrace) {
@@ -28,7 +27,7 @@ class ExplorerPopularScreen extends HookConsumerWidget {
         if (data == null) {
           return const DataNotFoundErrorContainer();
         }
-        final works = data.popularWorks;
+        final works = data.bestWorks;
         if (works.isEmpty) {
           return const DataNotFoundErrorContainer();
         }

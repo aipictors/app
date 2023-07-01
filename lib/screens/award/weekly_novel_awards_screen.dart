@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class ConfigScreen extends HookConsumerWidget {
-  const ConfigScreen({
+class WeeklyNovelAwardsScreen extends HookConsumerWidget {
+  const WeeklyNovelAwardsScreen({
     Key? key,
   }) : super(key: key);
 
@@ -10,7 +10,7 @@ class ConfigScreen extends HookConsumerWidget {
   Widget build(context, ref) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('設定'),
+        title: const Text(''),
       ),
     );
   }

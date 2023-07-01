@@ -1,11 +1,18 @@
+import 'package:aipictors/screens/account/account_create_screen.dart';
+import 'package:aipictors/screens/account/account_delete_screen.dart';
+import 'package:aipictors/screens/award/novel_awards_screen.dart';
+import 'package:aipictors/screens/award/work_awards_screen.dart';
+import 'package:aipictors/screens/config/config_code_screen.dart';
+import 'package:aipictors/screens/config/config_theme_screen.dart';
+import 'package:aipictors/screens/daily_theme/daily_theme_screen.dart';
+import 'package:aipictors/screens/home_screen.dart';
+import 'package:aipictors/screens/privacy_screen.dart';
+import 'package:aipictors/screens/terms_screen%20.dart';
+import 'package:aipictors/screens/user/user_screen.dart';
+import 'package:aipictors/screens/work/work_screen.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
-import 'screens/daily_theme_screen.dart';
-import 'screens/home_screen.dart';
-import 'screens/user_screen.dart';
-import 'screens/work_screen.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
 
@@ -18,14 +25,12 @@ final router = GoRouter(
   routes: [
     GoRoute(
       path: '/',
-      name: 'home',
       pageBuilder: (context, state) {
         return const NoTransitionPage(child: HomeScreen());
       },
     ),
     GoRoute(
       path: '/daily_themes/:theme_id',
-      name: 'daily_theme',
       builder: (context, state) {
         final themeId = state.pathParameters['theme_id'];
         return DailyThemeScreen(themeId: themeId!);
@@ -33,7 +38,6 @@ final router = GoRouter(
     ),
     GoRoute(
       path: '/works/:work_id',
-      name: 'work',
       builder: (context, state) {
         final workId = state.pathParameters['work_id'];
         return WorkScreen(workId: workId!);
@@ -41,10 +45,57 @@ final router = GoRouter(
     ),
     GoRoute(
       path: '/users/:user_id',
-      name: 'user',
       builder: (context, state) {
         final userId = state.pathParameters['user_id'];
         return UserScreen(userId: userId!);
+      },
+    ),
+    GoRoute(
+      path: '/config/theme',
+      builder: (context, state) {
+        return const ConfigThemeScreen();
+      },
+    ),
+    GoRoute(
+      path: '/config/code',
+      builder: (context, state) {
+        return const ConfigCodeScreen();
+      },
+    ),
+    GoRoute(
+      path: '/awards/novels',
+      builder: (context, state) {
+        return const NovelAwardsScreen();
+      },
+    ),
+    GoRoute(
+      path: '/awards/works',
+      builder: (context, state) {
+        return const WorkAwardsScreen();
+      },
+    ),
+    GoRoute(
+      path: '/account/create',
+      builder: (context, state) {
+        return const AccountCreateScreen();
+      },
+    ),
+    GoRoute(
+      path: '/account/delete',
+      builder: (context, state) {
+        return const AccountDeleteScreen();
+      },
+    ),
+    GoRoute(
+      path: '/terms',
+      builder: (context, state) {
+        return const TermsScreen();
+      },
+    ),
+    GoRoute(
+      path: '/privacy',
+      builder: (context, state) {
+        return const PrivacyScreen();
       },
     ),
   ],

@@ -1,8 +1,7 @@
+import 'package:aipictors/client.dart';
+import 'package:aipictors/graphql/__generated__/hot_works.data.gql.dart';
+import 'package:aipictors/graphql/__generated__/hot_works.req.gql.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-
-import '../client.dart';
-import '../graphql/__generated__/hot_works.data.gql.dart';
-import '../graphql/__generated__/hot_works.req.gql.dart';
 
 part 'query_hot_works_provider.g.dart';
 

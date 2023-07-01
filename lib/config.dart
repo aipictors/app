@@ -39,8 +39,8 @@ class DefaultConfig {
     };
   }
 
-  static ColorScheme get defaultColorScheme {
-    return ColorScheme.fromSeed(seedColor: Colors.lightBlue);
+  static Color get defaultThemeColor {
+    return Colors.lightBlue;
   }
 
   static String get productionProjectId {

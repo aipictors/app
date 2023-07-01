@@ -19,7 +19,7 @@ mixin _$ConfigState {
   bool get isFirstTime => throw _privateConstructorUsedError;
   String get language => throw _privateConstructorUsedError;
   ThemeMode get themeMode => throw _privateConstructorUsedError;
-  Color? get color => throw _privateConstructorUsedError;
+  Color? get themeColor => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ConfigStateCopyWith<ConfigState> get copyWith =>
@@ -33,7 +33,10 @@ abstract class $ConfigStateCopyWith<$Res> {
       _$ConfigStateCopyWithImpl<$Res, ConfigState>;
   @useResult
   $Res call(
-      {bool isFirstTime, String language, ThemeMode themeMode, Color? color});
+      {bool isFirstTime,
+      String language,
+      ThemeMode themeMode,
+      Color? themeColor});
 }
 
 /// @nodoc
@@ -52,7 +55,7 @@ class _$ConfigStateCopyWithImpl<$Res, $Val extends ConfigState>
     Object? isFirstTime = null,
     Object? language = null,
     Object? themeMode = null,
-    Object? color = freezed,
+    Object? themeColor = freezed,
   }) {
     return _then(_value.copyWith(
       isFirstTime: null == isFirstTime
@@ -67,9 +70,9 @@ class _$ConfigStateCopyWithImpl<$Res, $Val extends ConfigState>
           ? _value.themeMode
           : themeMode // ignore: cast_nullable_to_non_nullable
               as ThemeMode,
-      color: freezed == color
-          ? _value.color
-          : color // ignore: cast_nullable_to_non_nullable
+      themeColor: freezed == themeColor
+          ? _value.themeColor
+          : themeColor // ignore: cast_nullable_to_non_nullable
               as Color?,
     ) as $Val);
   }
@@ -84,7 +87,10 @@ abstract class _$$_ConfigStateCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {bool isFirstTime, String language, ThemeMode themeMode, Color? color});
+      {bool isFirstTime,
+      String language,
+      ThemeMode themeMode,
+      Color? themeColor});
 }
 
 /// @nodoc
@@ -101,7 +107,7 @@ class __$$_ConfigStateCopyWithImpl<$Res>
     Object? isFirstTime = null,
     Object? language = null,
     Object? themeMode = null,
-    Object? color = freezed,
+    Object? themeColor = freezed,
   }) {
     return _then(_$_ConfigState(
       isFirstTime: null == isFirstTime
@@ -116,9 +122,9 @@ class __$$_ConfigStateCopyWithImpl<$Res>
           ? _value.themeMode
           : themeMode // ignore: cast_nullable_to_non_nullable
               as ThemeMode,
-      color: freezed == color
-          ? _value.color
-          : color // ignore: cast_nullable_to_non_nullable
+      themeColor: freezed == themeColor
+          ? _value.themeColor
+          : themeColor // ignore: cast_nullable_to_non_nullable
               as Color?,
     ));
   }
@@ -131,7 +137,7 @@ class _$_ConfigState extends _ConfigState {
       {required this.isFirstTime,
       required this.language,
       required this.themeMode,
-      required this.color})
+      required this.themeColor})
       : super._();
 
   @override
@@ -141,11 +147,11 @@ class _$_ConfigState extends _ConfigState {
   @override
   final ThemeMode themeMode;
   @override
-  final Color? color;
+  final Color? themeColor;
 
   @override
   String toString() {
-    return 'ConfigState(isFirstTime: $isFirstTime, language: $language, themeMode: $themeMode, color: $color)';
+    return 'ConfigState(isFirstTime: $isFirstTime, language: $language, themeMode: $themeMode, themeColor: $themeColor)';
   }
 
   @override
@@ -159,12 +165,13 @@ class _$_ConfigState extends _ConfigState {
                 other.language == language) &&
             (identical(other.themeMode, themeMode) ||
                 other.themeMode == themeMode) &&
-            (identical(other.color, color) || other.color == color));
+            (identical(other.themeColor, themeColor) ||
+                other.themeColor == themeColor));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, isFirstTime, language, themeMode, color);
+      Object.hash(runtimeType, isFirstTime, language, themeMode, themeColor);
 
   @JsonKey(ignore: true)
   @override
@@ -178,7 +185,7 @@ abstract class _ConfigState extends ConfigState {
       {required final bool isFirstTime,
       required final String language,
       required final ThemeMode themeMode,
-      required final Color? color}) = _$_ConfigState;
+      required final Color? themeColor}) = _$_ConfigState;
   const _ConfigState._() : super._();
 
   @override
@@ -188,7 +195,7 @@ abstract class _ConfigState extends ConfigState {
   @override
   ThemeMode get themeMode;
   @override
-  Color? get color;
+  Color? get themeColor;
   @override
   @JsonKey(ignore: true)
   _$$_ConfigStateCopyWith<_$_ConfigState> get copyWith =>

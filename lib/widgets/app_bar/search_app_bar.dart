@@ -6,10 +6,16 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 class SearchContainer extends HookConsumerWidget {
   SearchContainer({
     Key? key,
+    required this.isFilled,
     required this.onSubmit,
+    required this.onFill,
   }) : super(key: key);
 
+  final bool isFilled;
+
   final Function(String search) onSubmit;
+
+  final Function(bool value) onFill;
 
   final _controller = useTextEditingController();
 
@@ -26,8 +32,6 @@ class SearchContainer extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
-    final isFilled = useState(false);
-
     return Row(
       children: [
         Flexible(
@@ -47,39 +51,22 @@ class SearchContainer extends HookConsumerWidget {
                 focusedBorder: InputBorder.none,
               ),
               onChanged: (value) {
-                if (isFilled.value == false && value.isNotEmpty) {
-                  isFilled.value = true;
+                if (isFilled == false && value.isNotEmpty) {
+                  onFill(true);
                 }
-                if (isFilled.value == true && value.isEmpty) {
-                  isFilled.value = false;
+                if (isFilled == true && value.isEmpty) {
+                  onFill(false);
                 }
               },
               onSubmitted: (text) {
                 if (text.isEmpty) {
-                  isFilled.value = false;
+                  onFill(false);
                 }
                 _onSubmit(context, text);
               },
             ),
           ),
         ),
-        const SizedBox(width: 8),
-        if (isFilled.value == true)
-          IconButton(
-            icon: const Icon(Icons.clear_rounded),
-            onPressed: () {
-              isFilled.value = false;
-              _onSubmit(context, '');
-            },
-          ),
-        if (isFilled.value == false)
-          IconButton(
-            icon: const Icon(Icons.settings_rounded),
-            onPressed: () {
-              isFilled.value = false;
-              _onSubmit(context, '');
-            },
-          ),
       ],
     );
   }

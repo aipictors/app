@@ -1,8 +1,7 @@
+import 'package:aipictors/graphql/fragments/__generated__/work_user_fields_fragment.data.gql.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-import '../../graphql/fragments/__generated__/work_user_fields_fragment.data.gql.dart';
 
 class WorkUserProfileContainer extends HookConsumerWidget {
   const WorkUserProfileContainer({

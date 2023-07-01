@@ -1,9 +1,8 @@
+import 'package:aipictors/client.dart';
+import 'package:aipictors/graphql/__generated__/works.data.gql.dart';
+import 'package:aipictors/graphql/__generated__/works.req.gql.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-
-import '../client.dart';
-import '../graphql/__generated__/works.data.gql.dart';
-import '../graphql/__generated__/works.req.gql.dart';
 
 part 'query_search_works_provider.freezed.dart';
 part 'query_search_works_provider.g.dart';

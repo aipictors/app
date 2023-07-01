@@ -1,9 +1,8 @@
+import 'package:aipictors/client.dart';
+import 'package:aipictors/graphql/__generated__/work_awards.data.gql.dart';
+import 'package:aipictors/graphql/__generated__/work_awards.req.gql.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-
-import '../client.dart';
-import '../graphql/__generated__/work_awards.data.gql.dart';
-import '../graphql/__generated__/work_awards.req.gql.dart';
 
 part 'query_daily_work_awards_provider.freezed.dart';
 part 'query_daily_work_awards_provider.g.dart';

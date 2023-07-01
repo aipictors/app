@@ -26,7 +26,7 @@ class DailyThemeContainer extends HookConsumerWidget {
   Widget build(context, ref) {
     return Container(
       color: isCurrent
-          ? Theme.of(context).secondaryHeaderColor
+          ? Theme.of(context).colorScheme.primaryContainer
           : Colors.transparent,
       padding: const EdgeInsets.symmetric(
         horizontal: 16,
@@ -77,7 +77,7 @@ class DailyThemeContainer extends HookConsumerWidget {
                   return Container(
                     width: double.infinity,
                     height: double.infinity,
-                    color: Theme.of(context).primaryColorLight,
+                    color: Theme.of(context).colorScheme.primaryContainer,
                   );
                 },
                 errorWidget: (context, uri, error) {

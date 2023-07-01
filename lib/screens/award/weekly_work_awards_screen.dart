@@ -1,15 +1,14 @@
+import 'package:aipictors/providers/query_weekly_work_awards_provider.dart';
+import 'package:aipictors/widgets/container/data_not_found_error_container.dart';
+import 'package:aipictors/widgets/container/loading_container.dart';
+import 'package:aipictors/widgets/container/unexpected_error_container.dart';
+import 'package:aipictors/widgets/image/grid_work_image.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../providers/query_weekly_work_awards_provider.dart';
-import '../widgets/container/data_not_found_error_container.dart';
-import '../widgets/container/loading_container.dart';
-import '../widgets/container/unexpected_error_container.dart';
-import '../widgets/image/grid_work_image.dart';
-
-class AwardWeeklyScreen extends HookConsumerWidget {
-  const AwardWeeklyScreen({
+class WeeklyWorkAwardsScreen extends HookConsumerWidget {
+  const WeeklyWorkAwardsScreen({
     Key? key,
     required this.year,
     required this.month,
@@ -21,15 +20,15 @@ class AwardWeeklyScreen extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
-    final queryWorks = ref.watch(
-      queryWeeklyWorkAwardsProvider(
-        QueryWeeklyWorkAwardsProps(
-          year: year,
-          month: month,
-          weekIndex: 0,
-        ),
+    final provider = queryWeeklyWorkAwardsProvider(
+      QueryWeeklyWorkAwardsProps(
+        year: year,
+        month: month,
+        weekIndex: 0,
       ),
     );
+
+    final queryWorks = ref.watch(provider);
 
     return queryWorks.when(
       error: (error, stackTrace) {

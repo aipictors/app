@@ -1,26 +1,26 @@
+import 'package:aipictors/delegates/tab_header_delegate.dart';
+import 'package:aipictors/providers/query_user_provider.dart';
+import 'package:aipictors/widgets/app_bar/user_app_bar.dart';
+import 'package:aipictors/widgets/container/data_not_found_error_container.dart';
+import 'package:aipictors/widgets/container/loading_container.dart';
+import 'package:aipictors/widgets/container/unexpected_error_container.dart';
+import 'package:aipictors/widgets/container/user_folders_container.dart';
+import 'package:aipictors/widgets/container/user_header_container.dart';
+import 'package:aipictors/widgets/container/user_profile_container.dart';
+import 'package:aipictors/widgets/container/user_works_container.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../delegates/tab_header_delegate.dart';
-import '../providers/query_user_provider.dart';
-import '../widgets/app_bar/user_app_bar.dart';
-import '../widgets/container/data_not_found_error_container.dart';
-import '../widgets/container/loading_container.dart';
-import '../widgets/container/unexpected_error_container.dart';
-import '../widgets/container/user_folders_container.dart';
-import '../widgets/container/user_header_container.dart';
-import '../widgets/container/user_profile_container.dart';
-import '../widgets/container/user_works_container.dart';
-
-class ViewerScreen extends HookConsumerWidget {
-  const ViewerScreen({
+class UserScreen extends HookConsumerWidget {
+  const UserScreen({
     Key? key,
+    required this.userId,
   }) : super(key: key);
+
+  final String userId;
 
   @override
   Widget build(context, ref) {
-    const userId = '3293';
-
     final queryUser = ref.watch(queryUserProvider(userId));
 
     return DefaultTabController(
@@ -43,7 +43,7 @@ class ViewerScreen extends HookConsumerWidget {
               return const DataNotFoundErrorContainer();
             }
             return NestedScrollView(
-              body: const TabBarView(
+              body: TabBarView(
                 children: [
                   UserWorksContainer(userId: userId),
                   UserFoldersContainer(userId: userId),

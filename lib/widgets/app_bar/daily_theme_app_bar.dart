@@ -21,7 +21,7 @@ class DailyThemeAppBar extends HookConsumerWidget {
           context.pop();
         },
       ),
-      backgroundColor: Theme.of(context).primaryColorLight,
+      backgroundColor: Theme.of(context).colorScheme.primaryContainer,
       stretch: true,
       expandedHeight: 128,
       flexibleSpace: FlexibleSpaceBar(

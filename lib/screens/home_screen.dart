@@ -1,12 +1,11 @@
+import 'package:aipictors/screens/award/work_awards_screen.dart';
+import 'package:aipictors/screens/config/config_screen.dart';
+import 'package:aipictors/screens/daily_theme/daily_themes_screen.dart';
+import 'package:aipictors/screens/explorer/explorer_works_screen.dart';
+import 'package:aipictors/screens/notification_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-import 'award_screen.dart';
-import 'daily_themes_screen.dart';
-import 'explorer_screen.dart';
-import 'notification_screen.dart';
-import 'viewer_screen.dart';
 
 class HomeScreen extends HookConsumerWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -18,16 +17,17 @@ class HomeScreen extends HookConsumerWidget {
 
     const screens = [
       DailyThemesScreen(),
-      ExplorerScreen(),
-      AwardScreen(),
+      ExplorerWorksScreen(),
+      WorkAwardsScreen(),
       NotificationScreen(),
-      ViewerScreen()
+      ConfigScreen()
     ];
 
     return Scaffold(
       body: screens[pageIndex.value],
       bottomNavigationBar: NavigationBar(
         selectedIndex: pageIndex.value,
+        labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
         destinations: const [
           NavigationDestination(
             icon: Icon(Icons.home_rounded),
@@ -46,8 +46,8 @@ class HomeScreen extends HookConsumerWidget {
             label: '通知',
           ),
           NavigationDestination(
-            icon: Icon(Icons.person_rounded),
-            label: 'マイページ',
+            icon: Icon(Icons.more_horiz_rounded),
+            label: 'その他',
           ),
         ],
         onDestinationSelected: (index) {

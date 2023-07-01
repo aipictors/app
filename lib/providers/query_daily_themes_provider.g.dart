@@ -29,14 +29,14 @@ class _SystemHash {
   }
 }
 
-typedef QueryDailyThemesRef = AutoDisposeStreamProviderRef<GDailyThemesData?>;
+typedef QueryDailyThemesRef = AutoDisposeStreamProviderRef<dynamic>;
 
 /// See also [queryDailyThemes].
 @ProviderFor(queryDailyThemes)
 const queryDailyThemesProvider = QueryDailyThemesFamily();
 
 /// See also [queryDailyThemes].
-class QueryDailyThemesFamily extends Family<AsyncValue<GDailyThemesData?>> {
+class QueryDailyThemesFamily extends Family<AsyncValue<dynamic>> {
   /// See also [queryDailyThemes].
   const QueryDailyThemesFamily();
 
@@ -74,8 +74,7 @@ class QueryDailyThemesFamily extends Family<AsyncValue<GDailyThemesData?>> {
 }
 
 /// See also [queryDailyThemes].
-class QueryDailyThemesProvider
-    extends AutoDisposeStreamProvider<GDailyThemesData?> {
+class QueryDailyThemesProvider extends AutoDisposeStreamProvider<dynamic> {
   /// See also [queryDailyThemes].
   QueryDailyThemesProvider(
     this.props,

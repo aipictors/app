@@ -10,8 +10,7 @@ String _$queryPopularWorksHash() => r'4d27b2a6f849ca90d3fe9509dded8536f3b2fb3d';
 
 /// See also [queryPopularWorks].
 @ProviderFor(queryPopularWorks)
-final queryPopularWorksProvider =
-    AutoDisposeStreamProvider<GPopularWorksData?>.internal(
+final queryPopularWorksProvider = AutoDisposeStreamProvider<dynamic>.internal(
   queryPopularWorks,
   name: r'queryPopularWorksProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -21,5 +20,5 @@ final queryPopularWorksProvider =
   allTransitiveDependencies: null,
 );
 
-typedef QueryPopularWorksRef = AutoDisposeStreamProviderRef<GPopularWorksData?>;
+typedef QueryPopularWorksRef = AutoDisposeStreamProviderRef<dynamic>;
 // ignore_for_file: unnecessary_raw_strings, subtype_of_sealed_class, invalid_use_of_internal_member, do_not_use_environment, prefer_const_constructors, public_member_api_docs, avoid_private_typedef_functions

@@ -1,10 +1,9 @@
 import 'dart:ui';
 
+import 'package:aipictors/widgets/container/user_header_image_container.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-import '../container/user_header_image_container.dart';
 
 class UserAppBar extends HookConsumerWidget {
   const UserAppBar({

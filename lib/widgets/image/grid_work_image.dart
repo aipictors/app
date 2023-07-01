@@ -19,7 +19,7 @@ class GridWorkImage extends HookConsumerWidget {
         return Container(
           width: double.infinity,
           height: double.infinity,
-          color: Theme.of(context).primaryColorLight,
+          color: Theme.of(context).colorScheme.primaryContainer,
         );
       },
       errorWidget: (context, uri, error) {

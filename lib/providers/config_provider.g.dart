@@ -6,7 +6,7 @@ part of 'config_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$configHash() => r'04301d4cb3a8533be38148cdaeea500e9732514f';
+String _$configHash() => r'd979646849cb0c1c09171ae5298650cf9ab9669f';
 
 /// 設定
 ///

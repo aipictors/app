@@ -12,6 +12,7 @@ environment:
 dependencies:
   built_collection: ^5.1.1
   cached_network_image: ^3.2.3
+  connectivity_plus: ^4.0.1
   device_info_plus: ^9.0.2
   dynamic_color: ^1.6.5
   ferry: ^0.14.0+1

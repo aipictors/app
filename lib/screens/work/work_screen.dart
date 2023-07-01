@@ -1,18 +1,17 @@
+import 'package:aipictors/providers/query_work_comments_provider.dart';
+import 'package:aipictors/providers/query_work_provider.dart';
+import 'package:aipictors/widgets/app_bar/work_bottom_app_bar.dart';
+import 'package:aipictors/widgets/button/follow_button.dart';
+import 'package:aipictors/widgets/container/data_not_found_error_container.dart';
+import 'package:aipictors/widgets/container/loading_container.dart';
+import 'package:aipictors/widgets/container/unexpected_error_container.dart';
+import 'package:aipictors/widgets/container/work_response_container.dart';
+import 'package:aipictors/widgets/container/work_status_container.dart';
+import 'package:aipictors/widgets/container/work_tags_container.dart';
+import 'package:aipictors/widgets/container/work_text_container.dart';
+import 'package:aipictors/widgets/container/work_user_profile_container.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-import '../providers/query_work_comments_provider.dart';
-import '../providers/query_work_provider.dart';
-import '../widgets/app_bar/work_bottom_app_bar.dart';
-import '../widgets/button/follow_button.dart';
-import '../widgets/container/data_not_found_error_container.dart';
-import '../widgets/container/loading_container.dart';
-import '../widgets/container/unexpected_error_container.dart';
-import '../widgets/container/work_response_container.dart';
-import '../widgets/container/work_status_container.dart';
-import '../widgets/container/work_tags_container.dart';
-import '../widgets/container/work_text_container.dart';
-import '../widgets/container/work_user_profile_container.dart';
 
 class WorkScreen extends HookConsumerWidget {
   const WorkScreen({

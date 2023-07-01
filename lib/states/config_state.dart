@@ -1,10 +1,9 @@
+import 'package:aipictors/config.dart';
+import 'package:aipictors/models/app_version.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
-
-import '../config.dart';
-import '../models/app_version.dart';
 
 part 'config_state.freezed.dart';
 
@@ -16,7 +15,7 @@ class ConfigState with _$ConfigState {
     required bool isFirstTime,
     required String language,
     required ThemeMode themeMode,
-    required Color? color,
+    required Color? themeColor,
   }) = _ConfigState;
 
   /// ダークモードである
@@ -134,14 +133,14 @@ class ConfigState with _$ConfigState {
 
   /// RemoteConfig
   /// URL「利用規約」
-  String termsURL(String langCode) {
+  String get termsURL {
     final instance = FirebaseRemoteConfig.instance;
     return instance.getString('page_url_terms');
   }
 
   /// RemoteConfig
   /// URL「プライバシーポリシー」
-  String privacyURL(String langCode) {
+  String get privacyURL {
     final instance = FirebaseRemoteConfig.instance;
     return instance.getString('page_url_privacy');
   }
@@ -158,12 +157,5 @@ class ConfigState with _$ConfigState {
   String get versionSupport {
     final remoteConfig = FirebaseRemoteConfig.instance;
     return remoteConfig.getString('version_support');
-  }
-
-  ColorScheme? get colorScheme {
-    if (color == null) {
-      return null;
-    }
-    return ColorScheme.fromSeed(seedColor: color!);
   }
 }

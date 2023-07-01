@@ -1,3 +1,9 @@
+import 'package:aipictors/app.dart';
+import 'package:aipictors/config.dart';
+import 'package:aipictors/handlers/background_message_handler.dart';
+import 'package:aipictors/repositories/hive_repository.dart';
+import 'package:aipictors/repositories/storage_repository.dart';
+import 'package:aipictors/utils/to_locale.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
@@ -9,13 +15,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:i18n_extension/i18n_widget.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
-
-import 'app.dart';
-import 'config.dart';
-import 'handlers/background_message_handler.dart';
-import 'repositories/hive_repository.dart';
-import 'repositories/storage_repository.dart';
-import 'utils/to_locale.dart';
 
 void main() async {
   // runAppより前にFlutterEngineを使用する

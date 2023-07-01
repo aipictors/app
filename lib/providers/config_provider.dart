@@ -1,9 +1,10 @@
+import 'package:aipictors/repositories/storage_repository.dart';
+import 'package:aipictors/states/config_state.dart';
+import 'package:aipictors/utils/to_color.dart';
+import 'package:aipictors/utils/to_theme_mode.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-
-import '../repositories/storage_repository.dart';
-import '../states/config_state.dart';
 
 part 'config_provider.g.dart';
 
@@ -12,23 +13,23 @@ part 'config_provider.g.dart';
 class Config extends _$Config {
   @override
   ConfigState build() {
-    return refetch();
+    return _refetch();
   }
 
-  ConfigState refetch() {
+  ConfigState _refetch() {
     const repository = StorageRepository();
     return ConfigState(
       isFirstTime: repository.isTutorial,
       language: repository.language,
-      themeMode: _toThemeMode(repository.themeMode),
-      color: _toColor(repository.colorScheme),
+      themeMode: toThemeMode(repository.themeMode),
+      themeColor: toColor(repository.themeColor),
     );
   }
 
   /// 初回起動が完了したとして記録する
   void updateTutorial() async {
     const StorageRepository().setTutorial(false);
-    state = refetch();
+    state = _refetch();
   }
 
   /// 言語を変更する
@@ -38,7 +39,7 @@ class Config extends _$Config {
       value: language,
     );
     const StorageRepository().setLanguage(language);
-    state = refetch();
+    state = _refetch();
   }
 
   /// テーマを変更する
@@ -49,35 +50,11 @@ class Config extends _$Config {
     } else {
       const StorageRepository().setThemeMode(ThemeMode.dark.name);
     }
-    state = refetch();
+    state = _refetch();
   }
 
-  void updateColorScheme(String value) async {
-    const StorageRepository().setColorScheme(value);
-    state = refetch();
-  }
-
-  /// 文字列からThemeModeに変換する
-  ThemeMode _toThemeMode(String? text) {
-    if (text == ThemeMode.light.name) {
-      return ThemeMode.light;
-    }
-    if (text == ThemeMode.dark.name) {
-      return ThemeMode.dark;
-    }
-    return ThemeMode.light;
-  }
-
-  Color? _toColor(String? text) {
-    if (text == 'blue') {
-      return Colors.lightBlue;
-    }
-    if (text == 'white') {
-      return Colors.white;
-    }
-    if (text == 'purple') {
-      return Colors.purple;
-    }
-    return null;
+  void updateColorScheme(String? value) async {
+    const StorageRepository().setThemeColor(value);
+    state = _refetch();
   }
 }

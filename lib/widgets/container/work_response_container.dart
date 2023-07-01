@@ -1,9 +1,8 @@
+import 'package:aipictors/graphql/fragments/__generated__/comment_fields_fragment.data.gql.dart';
+import 'package:aipictors/widgets/image/sticker_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
-
-import '../../graphql/fragments/__generated__/comment_fields_fragment.data.gql.dart';
-import '../image/sticker_image.dart';
 
 class WorkResponseContainer extends HookConsumerWidget {
   const WorkResponseContainer({
