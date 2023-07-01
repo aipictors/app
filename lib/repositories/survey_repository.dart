@@ -14,16 +14,20 @@ class SurveyRepository {
   /// 性別
   SurveySex get sex {
     final value = instance!.getString('survey_sex');
-    if (value == 'male') {
+    if (value == SurveySex.female.value) {
       return SurveySex.female;
     }
-    if (value == 'female') {
-      return SurveySex.female;
+    if (value == SurveySex.male.value) {
+      return SurveySex.male;
     }
     return SurveySex.other;
   }
 
-  Future<void> updateSex(SurveySex value) async {
-    await instance!.setString('survey_sex', value.toString());
+  Future updateSex(SurveySex? value) async {
+    if (value == null) {
+      await instance!.remove('survey_sex');
+      return;
+    }
+    await instance!.setString('survey_sex', value.value);
   }
 }

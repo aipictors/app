@@ -20,7 +20,7 @@ class Survey extends _$Survey {
     );
   }
 
-  void updateSex(SurveySex value) async {
+  void updateSex(SurveySex? value) async {
     const SurveyRepository().updateSex(value);
     state = _refetch();
   }

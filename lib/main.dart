@@ -3,6 +3,7 @@ import 'package:aipictors/config.dart';
 import 'package:aipictors/handlers/background_message_handler.dart';
 import 'package:aipictors/repositories/config_repository.dart';
 import 'package:aipictors/repositories/hive_repository.dart';
+import 'package:aipictors/repositories/survey_repository.dart';
 import 'package:aipictors/repositories/translation_repository.dart';
 import 'package:aipictors/utils/to_locale.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -29,6 +30,9 @@ void main() async {
 
   // ローカルストレージを初期化する
   await ConfigRepository.activate();
+
+  // ローカルストレージを初期化する
+  await SurveyRepository.activate();
 
   // キャッシュを初期化する
   await HiveRepository.activate();

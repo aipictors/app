@@ -12,6 +12,8 @@ class SurveysScreen extends HookConsumerWidget {
   Widget build(context, ref) {
     final survey = ref.watch(surveyProvider);
 
+    final notifier = ref.read(surveyProvider.notifier);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('アンケート'),
@@ -29,22 +31,26 @@ class SurveysScreen extends HookConsumerWidget {
                     children: [
                       Row(
                         children: [
-                          const Text('男性'),
+                          const Text('女性'),
                           Radio<SurveySex>(
-                            value: SurveySex.male,
+                            value: SurveySex.female,
                             groupValue: survey.sex,
-                            onChanged: (value) {},
+                            onChanged: (value) {
+                              notifier.updateSex(value);
+                            },
                           ),
                         ],
                       ),
                       const SizedBox(width: 16),
                       Row(
                         children: [
-                          const Text('女性'),
+                          const Text('男性'),
                           Radio<SurveySex>(
-                            value: SurveySex.female,
+                            value: SurveySex.male,
                             groupValue: survey.sex,
-                            onChanged: (value) {},
+                            onChanged: (value) {
+                              notifier.updateSex(value);
+                            },
                           ),
                         ],
                       ),
@@ -55,7 +61,9 @@ class SurveysScreen extends HookConsumerWidget {
                           Radio<SurveySex>(
                             value: SurveySex.other,
                             groupValue: survey.sex,
-                            onChanged: (value) {},
+                            onChanged: (value) {
+                              notifier.updateSex(value);
+                            },
                           ),
                         ],
                       ),

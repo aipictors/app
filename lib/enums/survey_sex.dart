@@ -3,7 +3,7 @@ enum SurveySex {
   female('FEMALE'),
   other('OTHER');
 
-  const SurveySex(this.displayName);
+  const SurveySex(this.value);
 
-  final String displayName;
+  final String value;
 }
