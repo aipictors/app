@@ -3,6 +3,7 @@ import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/widgets/container/theme_color_container.dart';
 import 'package:aipictors/widgets/dialog/about_discord_dialog.dart';
+import 'package:aipictors/widgets/dialog/about_twitter_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
@@ -147,11 +148,21 @@ class ConfigScreen extends HookConsumerWidget {
           ListTile(
             trailing: const Icon(Icons.open_in_new_rounded),
             title: const Text(
-              '私たちのディスコに参加する',
+              'ディスコに参加する',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             onTap: () {
               onShowDiscordDialog(context, ref);
+            },
+          ),
+          ListTile(
+            trailing: const Icon(Icons.open_in_new_rounded),
+            title: const Text(
+              'ツイッターをフォローする',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            onTap: () {
+              onShowTwitterDialog(context, ref);
             },
           ),
           ListTile(
@@ -191,7 +202,7 @@ class ConfigScreen extends HookConsumerWidget {
             applicationVersion: DefaultConfig.version,
             applicationIcon: const Icon(Icons.flutter_dash_rounded),
             aboutBoxChildren: const [
-              Text('Aipictorsをダウンロードいただきありがとうございます。'),
+              Text('この度はアプリをダウンロードいただきありがとうございます。このアプリに関するライセンスを確認いただけます。'),
             ],
           ),
           const SizedBox(height: 8),
@@ -218,12 +229,54 @@ class ConfigScreen extends HookConsumerWidget {
     );
   }
 
+  onShowTwitterDialog(BuildContext context, WidgetRef ref) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) {
+        return AboutTwitterDialog(
+          onCancel: () {
+            context.pop();
+          },
+          onOpen: () {
+            context.pop();
+            onOpenTwitter(context, ref);
+          },
+          onOpenPrompton: () {
+            context.pop();
+            onOpenTwitterPrompton(context, ref);
+          },
+        );
+      },
+    );
+  }
+
   Future onOpenDiscord(BuildContext context, WidgetRef ref) async {
     final config = ref.read(configProvider);
     final isAvailable = await canLaunchUrl(config.discordURL);
     if (!isAvailable) return;
     await launchUrl(
       config.discordURL,
+      mode: LaunchMode.externalApplication,
+    );
+  }
+
+  Future onOpenTwitter(BuildContext context, WidgetRef ref) async {
+    final config = ref.read(configProvider);
+    final isAvailable = await canLaunchUrl(config.twitterURL);
+    if (!isAvailable) return;
+    await launchUrl(
+      config.twitterURL,
+      mode: LaunchMode.externalApplication,
+    );
+  }
+
+  Future onOpenTwitterPrompton(BuildContext context, WidgetRef ref) async {
+    final config = ref.read(configProvider);
+    final isAvailable = await canLaunchUrl(config.twitterPromptonURL);
+    if (!isAvailable) return;
+    await launchUrl(
+      config.twitterPromptonURL,
       mode: LaunchMode.externalApplication,
     );
   }

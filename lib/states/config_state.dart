@@ -125,6 +125,20 @@ class ConfigState with _$ConfigState {
   }
 
   /// RemoteConfig
+  /// ツイッターのURL
+  Uri get twitterURL {
+    final remoteConfig = FirebaseRemoteConfig.instance;
+    return Uri.parse(remoteConfig.getString('page_url_twitter'));
+  }
+
+  /// RemoteConfig
+  /// ツイッターのURL
+  Uri get twitterPromptonURL {
+    final remoteConfig = FirebaseRemoteConfig.instance;
+    return Uri.parse(remoteConfig.getString('page_url_twitter_prompton'));
+  }
+
+  /// RemoteConfig
   /// 運営のメールアドレス
   String get customerSupportEmail {
     final remoteConfig = FirebaseRemoteConfig.instance;
