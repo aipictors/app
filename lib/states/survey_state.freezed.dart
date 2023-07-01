@@ -16,7 +16,8 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$SurveyState {
-  SurveySex get sex => throw _privateConstructorUsedError;
+  SurveySex? get sex => throw _privateConstructorUsedError;
+  SurveyTouchPoint? get touchPoint => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $SurveyStateCopyWith<SurveyState> get copyWith =>
@@ -29,7 +30,7 @@ abstract class $SurveyStateCopyWith<$Res> {
           SurveyState value, $Res Function(SurveyState) then) =
       _$SurveyStateCopyWithImpl<$Res, SurveyState>;
   @useResult
-  $Res call({SurveySex sex});
+  $Res call({SurveySex? sex, SurveyTouchPoint? touchPoint});
 }
 
 /// @nodoc
@@ -45,13 +46,18 @@ class _$SurveyStateCopyWithImpl<$Res, $Val extends SurveyState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? sex = null,
+    Object? sex = freezed,
+    Object? touchPoint = freezed,
   }) {
     return _then(_value.copyWith(
-      sex: null == sex
+      sex: freezed == sex
           ? _value.sex
           : sex // ignore: cast_nullable_to_non_nullable
-              as SurveySex,
+              as SurveySex?,
+      touchPoint: freezed == touchPoint
+          ? _value.touchPoint
+          : touchPoint // ignore: cast_nullable_to_non_nullable
+              as SurveyTouchPoint?,
     ) as $Val);
   }
 }
@@ -64,7 +70,7 @@ abstract class _$$_SurveyStateCopyWith<$Res>
       __$$_SurveyStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({SurveySex sex});
+  $Res call({SurveySex? sex, SurveyTouchPoint? touchPoint});
 }
 
 /// @nodoc
@@ -78,13 +84,18 @@ class __$$_SurveyStateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? sex = null,
+    Object? sex = freezed,
+    Object? touchPoint = freezed,
   }) {
     return _then(_$_SurveyState(
-      sex: null == sex
+      sex: freezed == sex
           ? _value.sex
           : sex // ignore: cast_nullable_to_non_nullable
-              as SurveySex,
+              as SurveySex?,
+      touchPoint: freezed == touchPoint
+          ? _value.touchPoint
+          : touchPoint // ignore: cast_nullable_to_non_nullable
+              as SurveyTouchPoint?,
     ));
   }
 }
@@ -92,14 +103,17 @@ class __$$_SurveyStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_SurveyState extends _SurveyState {
-  const _$_SurveyState({required this.sex}) : super._();
+  const _$_SurveyState({required this.sex, required this.touchPoint})
+      : super._();
 
   @override
-  final SurveySex sex;
+  final SurveySex? sex;
+  @override
+  final SurveyTouchPoint? touchPoint;
 
   @override
   String toString() {
-    return 'SurveyState(sex: $sex)';
+    return 'SurveyState(sex: $sex, touchPoint: $touchPoint)';
   }
 
   @override
@@ -107,11 +121,13 @@ class _$_SurveyState extends _SurveyState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_SurveyState &&
-            (identical(other.sex, sex) || other.sex == sex));
+            (identical(other.sex, sex) || other.sex == sex) &&
+            (identical(other.touchPoint, touchPoint) ||
+                other.touchPoint == touchPoint));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, sex);
+  int get hashCode => Object.hash(runtimeType, sex, touchPoint);
 
   @JsonKey(ignore: true)
   @override
@@ -121,11 +137,15 @@ class _$_SurveyState extends _SurveyState {
 }
 
 abstract class _SurveyState extends SurveyState {
-  const factory _SurveyState({required final SurveySex sex}) = _$_SurveyState;
+  const factory _SurveyState(
+      {required final SurveySex? sex,
+      required final SurveyTouchPoint? touchPoint}) = _$_SurveyState;
   const _SurveyState._() : super._();
 
   @override
-  SurveySex get sex;
+  SurveySex? get sex;
+  @override
+  SurveyTouchPoint? get touchPoint;
   @override
   @JsonKey(ignore: true)
   _$$_SurveyStateCopyWith<_$_SurveyState> get copyWith =>

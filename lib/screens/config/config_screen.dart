@@ -26,6 +26,7 @@ class ConfigScreen extends HookConsumerWidget {
       body: ListView(
         children: [
           ListTile(
+            leading: const Icon(Icons.person_rounded),
             trailing: const Icon(Icons.chevron_right_rounded),
             title: Text(
               'アカウント'.i18n,
@@ -34,6 +35,7 @@ class ConfigScreen extends HookConsumerWidget {
             onTap: () {},
           ),
           ListTile(
+            leading: const Icon(Icons.image_rounded),
             trailing: const Icon(Icons.chevron_right_rounded),
             title: Text(
               '作品'.i18n,
@@ -48,6 +50,7 @@ class ConfigScreen extends HookConsumerWidget {
             },
           ),
           ListTile(
+            leading: const Icon(Icons.folder_rounded),
             trailing: const Icon(Icons.chevron_right_rounded),
             title: Text(
               'シリーズ'.i18n,
@@ -62,6 +65,7 @@ class ConfigScreen extends HookConsumerWidget {
             },
           ),
           ListTile(
+            leading: const Icon(Icons.block_rounded),
             trailing: const Icon(Icons.chevron_right_rounded),
             title: Text(
               'ミュートしたタグ'.i18n,
@@ -76,6 +80,7 @@ class ConfigScreen extends HookConsumerWidget {
             },
           ),
           ListTile(
+            leading: const Icon(Icons.block_rounded),
             trailing: const Icon(Icons.chevron_right_rounded),
             title: Text(
               'ミュートしたユーザ'.i18n,
@@ -91,16 +96,7 @@ class ConfigScreen extends HookConsumerWidget {
           ),
           const Divider(),
           ListTile(
-            trailing: const Icon(Icons.chevron_right_rounded),
-            title: Text(
-              'アンケート'.i18n,
-              style: const TextStyle(fontWeight: FontWeight.bold),
-            ),
-            onTap: () {
-              context.push('/surveys');
-            },
-          ),
-          ListTile(
+            leading: const Icon(Icons.translate_rounded),
             trailing: const Icon(Icons.chevron_right_rounded),
             title: Text(
               '言語切り替え'.i18n,
@@ -108,6 +104,17 @@ class ConfigScreen extends HookConsumerWidget {
             ),
             onTap: () {
               context.push('/config/language');
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.interests_rounded),
+            trailing: const Icon(Icons.chevron_right_rounded),
+            title: Text(
+              '調査協力'.i18n,
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+            onTap: () {
+              context.push('/surveys');
             },
           ),
           const Divider(),
@@ -160,11 +167,22 @@ class ConfigScreen extends HookConsumerWidget {
               notifier.toggleThemeMode();
             },
           ),
+          const SizedBox(height: 8),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: const ThemeColorContainer(),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 12),
+          const Divider(),
+          AboutListTile(
+            applicationName: DefaultConfig.appName,
+            applicationVersion: DefaultConfig.version,
+            applicationIcon: const Icon(Icons.flutter_dash_rounded),
+            aboutBoxChildren: const [
+              Text('Aipictorsをダウンロードいただきありがとうございます。'),
+            ],
+          ),
+          const SizedBox(height: 8),
         ],
       ),
     );

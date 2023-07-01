@@ -1,6 +1,7 @@
 import 'package:aipictors/config.dart';
 import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/router.dart';
+import 'package:aipictors/utils/extend_theme.dart';
 import 'package:aipictors/utils/to_dark_color_scheme.dart';
 import 'package:aipictors/utils/to_light_color_scheme.dart';
 import 'package:dynamic_color/dynamic_color.dart';
@@ -16,26 +17,28 @@ class App extends HookConsumerWidget {
     final config = ref.watch(configProvider);
 
     return DynamicColorBuilder(builder: (lightDynamic, darkDynamic) {
+      final theme = ThemeData(
+        useMaterial3: true,
+        colorScheme: toLightColorScheme(
+          defaultThemeColor: DefaultConfig.defaultThemeColor,
+          themeColor: config.themeColor,
+          lightDynamic: lightDynamic,
+        ),
+      );
+      final darkTheme = ThemeData(
+        useMaterial3: true,
+        colorScheme: toDarkColorScheme(
+          defaultThemeColor: DefaultConfig.defaultThemeColor,
+          themeColor: config.themeColor,
+          darkDynamic: darkDynamic,
+        ),
+      );
       return MaterialApp.router(
         title: 'Aipictors',
         routerConfig: router,
         themeMode: config.themeMode,
-        theme: ThemeData(
-          useMaterial3: true,
-          colorScheme: toLightColorScheme(
-            defaultThemeColor: DefaultConfig.defaultThemeColor,
-            themeColor: config.themeColor,
-            lightDynamic: lightDynamic,
-          ),
-        ),
-        darkTheme: ThemeData(
-          useMaterial3: true,
-          colorScheme: toDarkColorScheme(
-            defaultThemeColor: DefaultConfig.defaultThemeColor,
-            themeColor: config.themeColor,
-            darkDynamic: darkDynamic,
-          ),
-        ),
+        theme: extendThemeData(theme),
+        darkTheme: extendThemeData(darkTheme),
         supportedLocales: const [
           Locale('en', ''),
           Locale('ja', ''),

@@ -44,7 +44,7 @@ class DailyThemesAppBar extends HookConsumerWidget
           ),
           Row(children: [
             SizedBox(
-              width: 60,
+              width: 64,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [

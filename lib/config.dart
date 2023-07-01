@@ -1,9 +1,8 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
+@immutable
 class DefaultConfig {
   const DefaultConfig();
 
@@ -43,14 +42,6 @@ class DefaultConfig {
     return Colors.lightBlue;
   }
 
-  static String get productionProjectId {
-    return 'kwkjsui8ghyt93ai5feb';
-  }
-
-  static String get stagingProjectId {
-    return 'hawbu33t65irr2uy3j8a';
-  }
-
   static String get graphqlSecret {
     final remoteConfig = FirebaseRemoteConfig.instance;
     return remoteConfig.getString('graphql_secret');
@@ -62,8 +53,7 @@ class DefaultConfig {
   }
 
   static bool get isProduction {
-    final projectId = Firebase.app().options.projectId;
-    return kReleaseMode && projectId == DefaultConfig.productionProjectId;
+    return const String.fromEnvironment('environment') == 'production';
   }
 
   static String get version {
@@ -85,5 +75,10 @@ class DefaultConfig {
   /// dart_define
   static String get sentryEnvironment {
     return const String.fromEnvironment('environment');
+  }
+
+  /// dart_define
+  static String get appName {
+    return const String.fromEnvironment('appName');
   }
 }

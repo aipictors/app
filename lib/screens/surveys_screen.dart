@@ -1,8 +1,16 @@
+import 'dart:io';
+
 import 'package:aipictors/enums/survey_sex.dart';
+import 'package:aipictors/enums/survey_touch_point.dart';
+import 'package:aipictors/models/survey_radio_option.dart';
 import 'package:aipictors/providers/survey_provider.dart';
+import 'package:aipictors/widgets/dialog/survey_reset_dialog.dart';
+import 'package:aipictors/widgets/list/survey_radio_list_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+@immutable
 class SurveysScreen extends HookConsumerWidget {
   const SurveysScreen({
     Key? key,
@@ -16,65 +24,109 @@ class SurveysScreen extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('アンケート'),
+        title: const Text('調査協力'),
       ),
       body: SafeArea(
         child: ListView(
           children: [
+            const SizedBox(height: 16),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              child: const Column(
                 children: [
-                  const Text('あなたの性別を教えてください'),
-                  Row(
-                    children: [
-                      Row(
-                        children: [
-                          const Text('女性'),
-                          Radio<SurveySex>(
-                            value: SurveySex.female,
-                            groupValue: survey.sex,
-                            onChanged: (value) {
-                              notifier.updateSex(value);
-                            },
-                          ),
-                        ],
-                      ),
-                      const SizedBox(width: 16),
-                      Row(
-                        children: [
-                          const Text('男性'),
-                          Radio<SurveySex>(
-                            value: SurveySex.male,
-                            groupValue: survey.sex,
-                            onChanged: (value) {
-                              notifier.updateSex(value);
-                            },
-                          ),
-                        ],
-                      ),
-                      const SizedBox(width: 16),
-                      Row(
-                        children: [
-                          const Text('それ以外'),
-                          Radio<SurveySex>(
-                            value: SurveySex.other,
-                            groupValue: survey.sex,
-                            onChanged: (value) {
-                              notifier.updateSex(value);
-                            },
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                  Text('アンケート調査にご協力いただきありがとうございます。この内容はアプリの改善に使用されます。'),
                 ],
+              ),
+            ),
+            const SizedBox(height: 16),
+            ExpansionTile(
+              initiallyExpanded: survey.sex == null,
+              title: const Text('性別はどれに該当しますか？'),
+              children: [
+                SurveyRadioListTile<SurveySex>(
+                  groupValue: survey.sex,
+                  options: const [
+                    SurveyRadioOption(label: '女性', value: SurveySex.female),
+                    SurveyRadioOption(label: '男性', value: SurveySex.male),
+                    SurveyRadioOption(label: 'それ以外', value: SurveySex.other),
+                  ],
+                  onChanged: notifier.updateSex,
+                ),
+              ],
+            ),
+            ExpansionTile(
+              initiallyExpanded: survey.touchPoint == null,
+              title: const Text('どこでアプリを知りましたか？'),
+              children: [
+                SurveyRadioListTile<SurveyTouchPoint>(
+                  groupValue: survey.touchPoint,
+                  options: [
+                    const SurveyRadioOption(
+                      label: 'Twitter',
+                      value: SurveyTouchPoint.twitter,
+                    ),
+                    const SurveyRadioOption(
+                      label: 'Twitterの広告',
+                      value: SurveyTouchPoint.twitterAdvertisement,
+                    ),
+                    const SurveyRadioOption(
+                      label: '知人からの紹介',
+                      value: SurveyTouchPoint.friend,
+                    ),
+                    const SurveyRadioOption(
+                      label: 'Google検索',
+                      value: SurveyTouchPoint.googleSearch,
+                    ),
+                    if (Platform.isAndroid)
+                      const SurveyRadioOption(
+                        label: 'Google Play Store',
+                        value: SurveyTouchPoint.googlePlayStore,
+                      ),
+                    if (Platform.isIOS)
+                      const SurveyRadioOption(
+                        label: 'App Store',
+                        value: SurveyTouchPoint.appStore,
+                      ),
+                    const SurveyRadioOption(
+                      label: 'その他',
+                      value: SurveyTouchPoint.other,
+                    ),
+                  ],
+                  onChanged: notifier.updateTouchPoint,
+                ),
+              ],
+            ),
+            ListTile(
+              title: const Text('全ての回答をリセットする'),
+              trailing: FilledButton.tonal(
+                child: const Text('リセット'),
+                onPressed: () {
+                  onResetSurvey(context, ref);
+                },
               ),
             ),
           ],
         ),
       ),
+    );
+  }
+
+  onResetSurvey(BuildContext context, WidgetRef ref) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) {
+        return SurveyResetDialog(
+          onCancel: () {
+            context.pop();
+          },
+          onAccept: () {
+            context.pop();
+            final notifier = ref.read(surveyProvider.notifier);
+            notifier.reset();
+          },
+        );
+      },
     );
   }
 }

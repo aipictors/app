@@ -30,7 +30,7 @@ class HomeScreen extends HookConsumerWidget {
         labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
         destinations: const [
           NavigationDestination(
-            icon: Icon(Icons.home_rounded),
+            icon: Icon(Icons.today_rounded),
             label: 'お題',
           ),
           NavigationDestination(

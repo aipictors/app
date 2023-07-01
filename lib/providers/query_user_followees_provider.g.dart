@@ -30,14 +30,15 @@ class _SystemHash {
   }
 }
 
-typedef QueryUserFolloweesRef = AutoDisposeStreamProviderRef<dynamic>;
+typedef QueryUserFolloweesRef
+    = AutoDisposeStreamProviderRef<GUserFolloweesData?>;
 
 /// See also [queryUserFollowees].
 @ProviderFor(queryUserFollowees)
 const queryUserFolloweesProvider = QueryUserFolloweesFamily();
 
 /// See also [queryUserFollowees].
-class QueryUserFolloweesFamily extends Family<AsyncValue<dynamic>> {
+class QueryUserFolloweesFamily extends Family<AsyncValue<GUserFolloweesData?>> {
   /// See also [queryUserFollowees].
   const QueryUserFolloweesFamily();
 
@@ -75,7 +76,8 @@ class QueryUserFolloweesFamily extends Family<AsyncValue<dynamic>> {
 }
 
 /// See also [queryUserFollowees].
-class QueryUserFolloweesProvider extends AutoDisposeStreamProvider<dynamic> {
+class QueryUserFolloweesProvider
+    extends AutoDisposeStreamProvider<GUserFolloweesData?> {
   /// See also [queryUserFollowees].
   QueryUserFolloweesProvider(
     this.props,

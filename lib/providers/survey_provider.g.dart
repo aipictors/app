@@ -6,7 +6,7 @@ part of 'survey_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$surveyHash() => r'50b890555340e8979834c9aefb3fbc1d8b77f54c';
+String _$surveyHash() => r'4757cf75e80958e59032c246ea62869b503d3742';
 
 /// 設定
 ///
