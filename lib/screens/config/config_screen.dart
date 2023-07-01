@@ -2,10 +2,12 @@ import 'package:aipictors/config.dart';
 import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/widgets/container/theme_color_container.dart';
+import 'package:aipictors/widgets/dialog/about_discord_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ConfigScreen extends HookConsumerWidget {
   const ConfigScreen({
@@ -107,7 +109,7 @@ class ConfigScreen extends HookConsumerWidget {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.interests_rounded),
+            leading: const Icon(Icons.favorite_rounded),
             trailing: const Icon(Icons.chevron_right_rounded),
             title: Text(
               '調査協力'.i18n,
@@ -140,6 +142,16 @@ class ConfigScreen extends HookConsumerWidget {
             ),
             onTap: () {
               // context.push('/privacy');
+            },
+          ),
+          ListTile(
+            trailing: const Icon(Icons.open_in_new_rounded),
+            title: const Text(
+              '私たちのディスコに参加する',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            onTap: () {
+              onShowDiscordDialog(context, ref);
             },
           ),
           ListTile(
@@ -185,6 +197,34 @@ class ConfigScreen extends HookConsumerWidget {
           const SizedBox(height: 8),
         ],
       ),
+    );
+  }
+
+  onShowDiscordDialog(BuildContext context, WidgetRef ref) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) {
+        return AboutDiscordDialog(
+          onCancel: () {
+            context.pop();
+          },
+          onAccept: () {
+            context.pop();
+            onOpenDiscord(context, ref);
+          },
+        );
+      },
+    );
+  }
+
+  Future onOpenDiscord(BuildContext context, WidgetRef ref) async {
+    final config = ref.read(configProvider);
+    final isAvailable = await canLaunchUrl(config.discordURL);
+    if (!isAvailable) return;
+    await launchUrl(
+      config.discordURL,
+      mode: LaunchMode.externalApplication,
     );
   }
 }

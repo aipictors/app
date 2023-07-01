@@ -119,9 +119,9 @@ class ConfigState with _$ConfigState {
 
   /// RemoteConfig
   /// ディスコの招待URL
-  String get customerSupportLineURL {
+  Uri get discordURL {
     final remoteConfig = FirebaseRemoteConfig.instance;
-    return remoteConfig.getString('page_url_discord');
+    return Uri.parse(remoteConfig.getString('page_url_discord'));
   }
 
   /// RemoteConfig
