@@ -1,3 +1,4 @@
+import 'package:aipictors/providers/config_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -14,10 +15,11 @@ class AboutDiscordDialog extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
+    final config = ref.watch(configProvider);
+
     return AlertDialog(
       title: const Text('ディスコへの招待'),
-      content:
-          const Text('私たちのサーバ「Aipictors」では、製品に関する情報交換が日々行われています。ぜひ参加ください！'),
+      content: Text(config.messageAboutDiscord),
       actions: [
         TextButton(
           onPressed: onCancel,

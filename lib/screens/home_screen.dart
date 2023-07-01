@@ -1,5 +1,7 @@
+import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/screens/award/work_awards_screen.dart';
 import 'package:aipictors/screens/config/config_screen.dart';
+import 'package:aipictors/screens/config_error_screen.dart';
 import 'package:aipictors/screens/daily_theme/daily_themes_screen.dart';
 import 'package:aipictors/screens/explorer/explorer_works_screen.dart';
 import 'package:aipictors/screens/notification_screen.dart';
@@ -12,6 +14,8 @@ class HomeScreen extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
+    final config = ref.watch(configProvider);
+
     // タブの位置
     final pageIndex = useState(0);
 
@@ -22,6 +26,10 @@ class HomeScreen extends HookConsumerWidget {
       NotificationScreen(),
       ConfigScreen()
     ];
+
+    if (config.isFailed) {
+      return const ConfigErrorScreen();
+    }
 
     return Scaffold(
       body: screens[pageIndex.value],

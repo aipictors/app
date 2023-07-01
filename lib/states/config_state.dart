@@ -16,6 +16,7 @@ class ConfigState with _$ConfigState {
     required String language,
     required ThemeMode themeMode,
     required Color? themeColor,
+    required RemoteConfigFetchStatus lastFetchStatus,
   }) = _ConfigState;
 
   /// ダークモードである
@@ -171,5 +172,43 @@ class ConfigState with _$ConfigState {
   String get versionSupport {
     final remoteConfig = FirebaseRemoteConfig.instance;
     return remoteConfig.getString('version_support');
+  }
+
+  /// RemoteConfig
+  String get messageUnexpectedErrorA {
+    final remoteConfig = FirebaseRemoteConfig.instance;
+    return remoteConfig.getString('message_unexpected_error_a');
+  }
+
+  /// RemoteConfig
+  String get messageAboutTwitter {
+    final remoteConfig = FirebaseRemoteConfig.instance;
+    return remoteConfig.getString('message_about_twitter');
+  }
+
+  /// RemoteConfig
+  String get messageAboutDiscord {
+    final remoteConfig = FirebaseRemoteConfig.instance;
+    return remoteConfig.getString('message_about_discord');
+  }
+
+  /// RemoteConfig
+  String get messageAboutSurvey {
+    final remoteConfig = FirebaseRemoteConfig.instance;
+    return remoteConfig.getString('message_about_survey');
+  }
+
+  /// RemoteConfig
+  String get messageSurveyReset {
+    final remoteConfig = FirebaseRemoteConfig.instance;
+    return remoteConfig.getString('message_survey_reset');
+  }
+
+  bool get isFailed {
+    return lastFetchStatus == RemoteConfigFetchStatus.failure;
+  }
+
+  bool get isDebugMode {
+    return const String.fromEnvironment('environment') != 'production';
   }
 }

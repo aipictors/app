@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:aipictors/enums/survey_sex.dart';
 import 'package:aipictors/enums/survey_touch_point.dart';
 import 'package:aipictors/models/survey_radio_option.dart';
+import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/providers/survey_provider.dart';
 import 'package:aipictors/widgets/dialog/survey_reset_dialog.dart';
 import 'package:aipictors/widgets/list/survey_radio_list_tile.dart';
@@ -18,6 +19,8 @@ class SurveysScreen extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
+    final config = ref.watch(configProvider);
+
     final survey = ref.watch(surveyProvider);
 
     final notifier = ref.read(surveyProvider.notifier);
@@ -32,11 +35,7 @@ class SurveysScreen extends HookConsumerWidget {
             const SizedBox(height: 16),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: const Column(
-                children: [
-                  Text('アンケート調査にご協力いただきありがとうございます。この内容はアプリの改善に使用されます。'),
-                ],
-              ),
+              child: Text(config.messageAboutSurvey),
             ),
             const SizedBox(height: 16),
             ExpansionTile(

@@ -1,3 +1,4 @@
+import 'package:aipictors/widgets/container/unexpected_error_container.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -12,14 +13,7 @@ class NotificationScreen extends HookConsumerWidget {
       appBar: AppBar(
         title: const Text('通知'),
       ),
-      body: const Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text('通知'),
-          ],
-        ),
-      ),
+      body: const UnexpectedErrorContainer(),
     );
   }
 }

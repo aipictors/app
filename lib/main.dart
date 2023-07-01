@@ -48,15 +48,10 @@ void main() async {
   ));
 
   // RemoteConfigの初期値を設定する
-  await remoteConfig.setDefaults(DefaultConfig.remoteConfigDefaultConfig);
+  // await remoteConfig.setDefaults(DefaultConfig.remoteConfigDefaultConfig);
 
   // RemoteConfigを取得して初期化する
   await remoteConfig.fetchAndActivate();
-
-  // RemoteConfigの変更を受信する
-  remoteConfig.onConfigUpdated.listen((_) async {
-    await remoteConfig.fetchAndActivate();
-  });
 
   FirebaseInAppMessaging.instance.setAutomaticDataCollectionEnabled(true);
 

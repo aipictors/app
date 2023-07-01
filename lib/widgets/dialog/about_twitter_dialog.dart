@@ -1,3 +1,4 @@
+import 'package:aipictors/providers/config_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -17,14 +18,14 @@ class AboutTwitterDialog extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
+    final config = ref.watch(configProvider);
+
     return AlertDialog(
       title: const Text('Twitter'),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Text(
-            'ツイッターでは、製品のアップデートや不具合に関する情報を配信しています。フォローいただけると嬉しいです！',
-          ),
+          Text(config.messageAboutTwitter),
           const SizedBox(height: 16),
           FilledButton.tonal(
             style: const ButtonStyle(

@@ -1,5 +1,7 @@
 import 'package:aipictors/config.dart';
+import 'package:aipictors/handlers/config_update_handler.dart';
 import 'package:aipictors/providers/config_provider.dart';
+import 'package:aipictors/providers/config_update_provider.dart';
 import 'package:aipictors/router.dart';
 import 'package:aipictors/utils/extend_theme.dart';
 import 'package:aipictors/utils/to_dark_color_scheme.dart';
@@ -15,6 +17,11 @@ class App extends HookConsumerWidget {
   @override
   Widget build(context, ref) {
     final config = ref.watch(configProvider);
+
+    ref.listen(
+      configUpdateProvider,
+      buildRemoteConfigListener(context, ref),
+    );
 
     return DynamicColorBuilder(builder: (lightDynamic, darkDynamic) {
       final theme = ThemeData(

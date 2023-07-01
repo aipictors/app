@@ -8,6 +8,7 @@ import 'package:aipictors/screens/config/config_muted_tags_screen.dart';
 import 'package:aipictors/screens/config/config_muted_users_screen.dart';
 import 'package:aipictors/screens/config/config_theme_screen.dart';
 import 'package:aipictors/screens/daily_theme/daily_theme_screen.dart';
+import 'package:aipictors/screens/debug_screen.dart';
 import 'package:aipictors/screens/home_screen.dart';
 import 'package:aipictors/screens/privacy_screen.dart';
 import 'package:aipictors/screens/surveys_screen.dart';
@@ -91,12 +92,6 @@ final router = GoRouter(
       },
     ),
     GoRoute(
-      path: '/surveys',
-      builder: (context, state) {
-        return const SurveysScreen();
-      },
-    ),
-    GoRoute(
       path: '/awards/novels',
       builder: (context, state) {
         return const NovelAwardsScreen();
@@ -118,6 +113,18 @@ final router = GoRouter(
       path: '/account/delete',
       builder: (context, state) {
         return const AccountDeleteScreen();
+      },
+    ),
+    GoRoute(
+      path: '/surveys',
+      builder: (context, state) {
+        return const SurveysScreen();
+      },
+    ),
+    GoRoute(
+      path: '/debug',
+      builder: (context, state) {
+        return const DebugScreen();
       },
     ),
     GoRoute(

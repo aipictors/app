@@ -1,3 +1,4 @@
+import 'package:aipictors/providers/config_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -14,9 +15,11 @@ class SurveyResetDialog extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
+    final config = ref.watch(configProvider);
+
     return AlertDialog(
-      title: const Text('リセットしますか？ 😢'),
-      content: const Text('何があったのでしょう。本当に全ての回答をリセットしますか？'),
+      title: const Text('リセットしますか？'),
+      content: Text(config.messageSurveyReset),
       actions: [
         FilledButton.tonal(
           style: FilledButton.styleFrom(

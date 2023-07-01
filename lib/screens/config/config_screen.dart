@@ -120,6 +120,18 @@ class ConfigScreen extends HookConsumerWidget {
               context.push('/surveys');
             },
           ),
+          if (config.isDebugMode)
+            ListTile(
+              leading: const Icon(Icons.code_rounded),
+              trailing: const Icon(Icons.chevron_right_rounded),
+              title: const Text(
+                'デバッグモード',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              onTap: () {
+                context.push('/debug');
+              },
+            ),
           const Divider(),
           ListTile(
             trailing: const Icon(Icons.chevron_right_rounded),
