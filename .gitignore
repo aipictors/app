@@ -5,7 +5,7 @@
 # Flavor
 **/android/app/src/main/res/mipmap*/
 **/android/app/google-services.json
-**/ios/GoogleService-Info.plist
+ios/GoogleService-Info.plist
 
 # Ferry
 /lib/**/__generated__
