@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:aipictors/utils/to_locale_code.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// ローカルストレージ
@@ -24,15 +25,7 @@ class StorageRepository {
 
   String get language {
     final value = instance!.getString('language');
-    return value ?? Platform.localeName;
-  }
-
-  String get languageCode {
-    final value = language;
-    if (value == 'ja_JP') {
-      return 'ja';
-    }
-    return value;
+    return value ?? toLocaleCode(Platform.localeName);
   }
 
   Future<void> setLanguage(String value) async {

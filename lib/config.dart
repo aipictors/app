@@ -88,4 +88,8 @@ class DefaultConfig {
   static String get packageName {
     return packageInfo!.packageName;
   }
+
+  static String get versionText {
+    return '$version+$buildNumber';
+  }
 }

@@ -5,6 +5,9 @@ PODS:
   - AppAuth/Core (1.6.2)
   - AppAuth/ExternalUserAgent (1.6.2):
     - AppAuth/Core
+  - connectivity_plus (0.0.1):
+    - Flutter
+    - ReachabilitySwift
   - device_info_plus (0.0.1):
     - Flutter
   - Firebase/Analytics (10.10.0):
@@ -224,6 +227,7 @@ PODS:
   - PromisesObjC (2.2.0)
   - PromisesSwift (2.2.0):
     - PromisesObjC (= 2.2.0)
+  - ReachabilitySwift (5.0.0)
   - Sentry/HybridSDK (8.8.0):
     - SentryPrivate (= 8.8.0)
   - sentry_flutter (0.0.1):
@@ -247,6 +251,7 @@ PODS:
     - Flutter
 
 DEPENDENCIES:
+  - connectivity_plus (from `.symlinks/plugins/connectivity_plus/ios`)
   - device_info_plus (from `.symlinks/plugins/device_info_plus/ios`)
   - firebase_analytics (from `.symlinks/plugins/firebase_analytics/ios`)
   - firebase_app_installations (from `.symlinks/plugins/firebase_app_installations/ios`)
@@ -299,10 +304,13 @@ SPEC REPOS:
     - nanopb
     - PromisesObjC
     - PromisesSwift
+    - ReachabilitySwift
     - Sentry
     - SentryPrivate
 
 EXTERNAL SOURCES:
+  connectivity_plus:
+    :path: ".symlinks/plugins/connectivity_plus/ios"
   device_info_plus:
     :path: ".symlinks/plugins/device_info_plus/ios"
   firebase_analytics:
@@ -352,6 +360,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AppAuth: 3bb1d1cd9340bd09f5ed189fb00b1cc28e1e8570
+  connectivity_plus: 07c49e96d7fc92bc9920617b83238c4d178b446a
   device_info_plus: 7545d84d8d1b896cb16a4ff98c19f07ec4b298ea
   Firebase: facd334e557a979bd03a0b58d90fd56b52b8aba0
   firebase_analytics: 1a5ad75876257318ba5fdc6bf7aae73b6e98d0cf
@@ -393,6 +402,7 @@ SPEC CHECKSUMS:
   path_provider_foundation: eaf5b3e458fc0e5fbb9940fb09980e853fe058b8
   PromisesObjC: 09985d6d70fbe7878040aa746d78236e6946d2ef
   PromisesSwift: cf9eb58666a43bbe007302226e510b16c1e10959
+  ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
   Sentry: 927dfb29d18a14d924229a59cc2ad149f43349f2
   sentry_flutter: cf7da03b65520b631330ecb498deb592aa7640be
   SentryPrivate: 4350d865f898224ab9fa02b37d6ee7fbb623f47e

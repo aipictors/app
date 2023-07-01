@@ -1,20 +1,20 @@
 import 'package:flutter/widgets.dart';
 
-// 言語コードをLocaleに変換する
-Locale toLocale(String language) {
-  if (language.startsWith('en')) {
+/// 言語コードをLocaleに変換する
+Locale toLocale(String code) {
+  if (code.startsWith('en')) {
     return const Locale('en');
   }
 
-  if (language.startsWith('vi')) {
+  if (code.startsWith('vi')) {
     return const Locale('vi');
   }
 
-  if (language.startsWith('zh_tw')) {
+  if (code.startsWith('zh_tw')) {
     return const Locale('zh', 'tw');
   }
 
-  if (language.startsWith('zh_cn')) {
+  if (code.startsWith('zh_cn')) {
     return const Locale('zh', 'cn');
   }
 

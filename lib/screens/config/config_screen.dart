@@ -1,7 +1,9 @@
 import 'package:aipictors/config.dart';
+import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/widgets/container/theme_color_container.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -34,6 +36,16 @@ class ConfigScreen extends HookConsumerWidget {
             ),
             ListTile(
               trailing: const Icon(Icons.chevron_right_rounded),
+              title: Text(
+                '言語'.i18n,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+              onTap: () {
+                context.push('/config/language');
+              },
+            ),
+            ListTile(
+              trailing: const Icon(Icons.chevron_right_rounded),
               title: const Text(
                 'ミュートしたタグ',
                 style: TextStyle(
@@ -42,7 +54,7 @@ class ConfigScreen extends HookConsumerWidget {
                 ),
               ),
               onTap: () {
-                // context.push('config/muted_tags');
+                // context.push('/config/muted_tags');
               },
             ),
             ListTile(
@@ -65,7 +77,7 @@ class ConfigScreen extends HookConsumerWidget {
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               onTap: () {
-                context.push('config/surveys');
+                context.push('/surveys');
               },
             ),
             ListTile(
@@ -75,7 +87,7 @@ class ConfigScreen extends HookConsumerWidget {
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               onTap: () {
-                context.push('terms');
+                context.push('/terms');
               },
             ),
             ListTile(
@@ -88,14 +100,21 @@ class ConfigScreen extends HookConsumerWidget {
                 ),
               ),
               onTap: () {
-                // context.push('privacy');
+                // context.push('/privacy');
               },
             ),
             ListTile(
               title: Text(
-                'バージョン ${DefaultConfig.version}',
+                'バージョン ${DefaultConfig.versionText}',
                 style: const TextStyle(fontWeight: FontWeight.bold),
               ),
+              onLongPress: () {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('クリップボードにコピーしました。')),
+                );
+                final data = ClipboardData(text: DefaultConfig.versionText);
+                Clipboard.setData(data);
+              },
             ),
             SwitchListTile(
               title: const Text(

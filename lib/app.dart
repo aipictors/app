@@ -16,8 +16,6 @@ class App extends HookConsumerWidget {
     final config = ref.watch(configProvider);
 
     return DynamicColorBuilder(builder: (lightDynamic, darkDynamic) {
-      final defaultThemeColor = DefaultConfig.defaultThemeColor;
-      final themeColor = config.themeColor;
       return MaterialApp.router(
         title: 'Aipictors',
         routerConfig: router,
@@ -25,16 +23,16 @@ class App extends HookConsumerWidget {
         theme: ThemeData(
           useMaterial3: true,
           colorScheme: toLightColorScheme(
-            defaultThemeColor: defaultThemeColor,
-            themeColor: themeColor,
+            defaultThemeColor: DefaultConfig.defaultThemeColor,
+            themeColor: config.themeColor,
             lightDynamic: lightDynamic,
           ),
         ),
         darkTheme: ThemeData(
           useMaterial3: true,
           colorScheme: toDarkColorScheme(
-            defaultThemeColor: defaultThemeColor,
-            themeColor: themeColor,
+            defaultThemeColor: DefaultConfig.defaultThemeColor,
+            themeColor: config.themeColor,
             darkDynamic: darkDynamic,
           ),
         ),

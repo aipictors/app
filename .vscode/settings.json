@@ -27,6 +27,7 @@
     ".flutter-plugins-dependencies": true,
     ".idea": true,
     ".metadata": true,
+    ".yarn": true,
     "android/aipictors_android.iml": true,
     "android/gradlew": true,
     "android/gradlew.bat": true,
@@ -40,6 +41,10 @@
     "ios/Runner/GeneratedPluginRegistrant.m": true,
     "lib/**/*.freezed.dart": true,
     "lib/**/*.g.dart": true,
+    "node_modules": true,
     "pubspec.lock": true
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   }
 }

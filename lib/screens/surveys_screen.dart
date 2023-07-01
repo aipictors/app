@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class ConfigSurveyScreen extends HookConsumerWidget {
-  const ConfigSurveyScreen({
+class SurveysScreen extends HookConsumerWidget {
+  const SurveysScreen({
     Key? key,
   }) : super(key: key);
 

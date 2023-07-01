@@ -3,10 +3,14 @@ import 'package:aipictors/screens/account/account_delete_screen.dart';
 import 'package:aipictors/screens/award/novel_awards_screen.dart';
 import 'package:aipictors/screens/award/work_awards_screen.dart';
 import 'package:aipictors/screens/config/config_code_screen.dart';
+import 'package:aipictors/screens/config/config_language_screen.dart';
+import 'package:aipictors/screens/config/config_muted_tags_screen.dart';
+import 'package:aipictors/screens/config/config_muted_users_screen.dart';
 import 'package:aipictors/screens/config/config_theme_screen.dart';
 import 'package:aipictors/screens/daily_theme/daily_theme_screen.dart';
 import 'package:aipictors/screens/home_screen.dart';
 import 'package:aipictors/screens/privacy_screen.dart';
+import 'package:aipictors/screens/surveys_screen.dart';
 import 'package:aipictors/screens/terms_screen%20.dart';
 import 'package:aipictors/screens/user/user_screen.dart';
 import 'package:aipictors/screens/work/work_screen.dart';
@@ -60,6 +64,36 @@ final router = GoRouter(
       path: '/config/code',
       builder: (context, state) {
         return const ConfigCodeScreen();
+      },
+    ),
+    GoRoute(
+      path: '/config/code',
+      builder: (context, state) {
+        return const ConfigCodeScreen();
+      },
+    ),
+    GoRoute(
+      path: '/config/language',
+      builder: (context, state) {
+        return const ConfigLanguageScreen();
+      },
+    ),
+    GoRoute(
+      path: '/config/muted_tags',
+      builder: (context, state) {
+        return const ConfigMutedTagsScreen();
+      },
+    ),
+    GoRoute(
+      path: '/config/muted_users',
+      builder: (context, state) {
+        return const ConfigMutedUsersScreen();
+      },
+    ),
+    GoRoute(
+      path: '/surveys',
+      builder: (context, state) {
+        return const SurveysScreen();
       },
     ),
     GoRoute(

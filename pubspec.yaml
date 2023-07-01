@@ -73,6 +73,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/
+    - assets/i18n.json
 
 flutter_launcher_icons:
   android: true

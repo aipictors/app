@@ -3,6 +3,7 @@ import 'package:aipictors/config.dart';
 import 'package:aipictors/handlers/background_message_handler.dart';
 import 'package:aipictors/repositories/hive_repository.dart';
 import 'package:aipictors/repositories/storage_repository.dart';
+import 'package:aipictors/repositories/translation_repository.dart';
 import 'package:aipictors/utils/to_locale.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -31,6 +32,9 @@ void main() async {
 
   // キャッシュを初期化する
   await HiveRepository.activate();
+
+  // 翻訳を初期化する
+  await TranslationRepository.activate();
 
   final remoteConfig = FirebaseRemoteConfig.instance;
 

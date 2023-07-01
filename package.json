@@ -1,0 +1,10 @@
+{
+  "name": "aipictors-flutter",
+  "scripts": {
+    "dev": "dart run build_runner watch",
+    "build": "dart run build_runner build"
+  },
+  "devDependencies": {
+    "prettier": "^2.8.8"
+  }
+}

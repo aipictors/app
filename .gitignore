@@ -1,3 +1,7 @@
+# Node.js
+/node_modules
+/.yarn
+
 # Flavor
 **/android/app/src/main/res/mipmap*/
 **/android/app/google-services.json
