@@ -1,0 +1,27 @@
+import 'package:aipictors/enums/survey_sex.dart';
+import 'package:aipictors/repositories/survey_repository.dart';
+import 'package:aipictors/states/survey_state.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+part 'survey_provider.g.dart';
+
+/// 設定
+@riverpod
+class Survey extends _$Survey {
+  @override
+  SurveyState build() {
+    return _refetch();
+  }
+
+  SurveyState _refetch() {
+    const repository = SurveyRepository();
+    return SurveyState(
+      sex: repository.sex,
+    );
+  }
+
+  void updateSex(SurveySex value) async {
+    const SurveyRepository().updateSex(value);
+    state = _refetch();
+  }
+}

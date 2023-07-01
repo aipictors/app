@@ -4,8 +4,8 @@ import 'package:aipictors/utils/to_locale_code.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// ローカルストレージ
-class StorageRepository {
-  const StorageRepository();
+class ConfigRepository {
+  const ConfigRepository();
 
   static SharedPreferences? instance;
 
@@ -15,52 +15,52 @@ class StorageRepository {
 
   /// 初回起動である
   bool get isTutorial {
-    final value = instance!.getBool('tutorial');
+    final value = instance!.getBool('config_tutorial');
     return value ?? true;
   }
 
   Future<void> setTutorial(bool value) async {
-    await instance!.setBool('tutorial', value);
+    await instance!.setBool('config_tutorial', value);
   }
 
   String get language {
-    final value = instance!.getString('language');
+    final value = instance!.getString('config_language');
     return value ?? toLocaleCode(Platform.localeName);
   }
 
   Future<void> setLanguage(String value) async {
-    await instance!.setString('language', value);
+    await instance!.setString('config_language', value);
   }
 
   String? get themeColor {
-    final value = instance!.getString('theme_color');
+    final value = instance!.getString('config_theme_color');
     return value;
   }
 
   Future<void> setThemeColor(String? value) async {
     if (value == null) {
-      instance!.remove('theme_color');
+      instance!.remove('config_theme_color');
       return;
     }
-    await instance!.setString('theme_color', value);
+    await instance!.setString('config_theme_color', value);
   }
 
   String? get themeMode {
-    final value = instance!.getString('theme_mode');
+    final value = instance!.getString('config_theme_mode');
     return value;
   }
 
   Future<void> setThemeMode(String value) async {
-    await instance!.setString('theme_mode', value);
+    await instance!.setString('config_theme_mode', value);
   }
 
   bool get topicCampaign {
-    final value = instance!.getBool('topic_campaign');
+    final value = instance!.getBool('config_topic_campaign');
     return value ?? true;
   }
 
   Future<void> setTopicCampaign(bool value) async {
-    await instance!.setBool('topic_campaign', value);
+    await instance!.setBool('config_topic_campaign', value);
   }
 
   /// カウント（xxx）

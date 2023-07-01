@@ -1,6 +1,50 @@
 [
   {
-    "ja": "言語",
+    "ja": "設定",
+    "en": "Settings"
+  },
+  {
+    "ja": "アンケート",
+    "en": "Surveys"
+  },
+  {
+    "ja": "言語切り替え",
     "en": "Language"
+  },
+  {
+    "ja": "利用規約",
+    "en": "Terms"
+  },
+  {
+    "ja": "プライバシーポリシー",
+    "en": "Privacy Policy"
+  },
+  {
+    "ja": "バージョン",
+    "en": "Version"
+  },
+  {
+    "ja": "ダークモード",
+    "en": "Dark Mode"
+  },
+  {
+    "ja": "ミュートしたユーザ",
+    "en": "Muted Users"
+  },
+  {
+    "ja": "ミュートしたタグ",
+    "en": "Muted Tags"
+  },
+  {
+    "ja": "作品",
+    "en": "Works"
+  },
+  {
+    "ja": "シリーズ",
+    "en": "Folders"
+  },
+  {
+    "ja": "アカウント",
+    "en": "Account"
   }
 ]

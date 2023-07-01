@@ -1,8 +1,8 @@
 import 'package:aipictors/app.dart';
 import 'package:aipictors/config.dart';
 import 'package:aipictors/handlers/background_message_handler.dart';
+import 'package:aipictors/repositories/config_repository.dart';
 import 'package:aipictors/repositories/hive_repository.dart';
-import 'package:aipictors/repositories/storage_repository.dart';
 import 'package:aipictors/repositories/translation_repository.dart';
 import 'package:aipictors/utils/to_locale.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -28,7 +28,7 @@ void main() async {
   await DefaultConfig.activate();
 
   // ローカルストレージを初期化する
-  await StorageRepository.activate();
+  await ConfigRepository.activate();
 
   // キャッシュを初期化する
   await HiveRepository.activate();
@@ -62,9 +62,9 @@ void main() async {
   FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
 
   // FlutterのエラーをSentryに送信する
-  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+  // FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
 
-  final language = const StorageRepository().language;
+  final language = const ConfigRepository().language;
 
   // Analyticsを初期化する
   FirebaseAnalytics.instance.setUserProperty(

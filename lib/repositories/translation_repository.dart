@@ -7,11 +7,11 @@ class TranslationRepository {
   const TranslationRepository();
 
   // 翻訳データ
-  static Translations translations = Translations('ja');
+  static var translations = Translations('ja');
 
   static Future activate() async {
     final extensionText = await rootBundle.loadString('assets/i18n.json');
-    final List<dynamic> jsonTranslations = jsonDecode(extensionText);
+    final List jsonTranslations = jsonDecode(extensionText);
     for (final jsonTranslation in jsonTranslations) {
       translations += Map<String, String>.from(jsonTranslation);
     }

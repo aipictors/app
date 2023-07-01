@@ -1,4 +1,4 @@
-import 'package:aipictors/repositories/storage_repository.dart';
+import 'package:aipictors/repositories/config_repository.dart';
 import 'package:aipictors/states/config_state.dart';
 import 'package:aipictors/utils/to_color.dart';
 import 'package:aipictors/utils/to_theme_mode.dart';
@@ -17,7 +17,7 @@ class Config extends _$Config {
   }
 
   ConfigState _refetch() {
-    const repository = StorageRepository();
+    const repository = ConfigRepository();
     return ConfigState(
       isFirstTime: repository.isTutorial,
       language: repository.language,
@@ -28,7 +28,7 @@ class Config extends _$Config {
 
   /// 初回起動が完了したとして記録する
   void updateTutorial() async {
-    const StorageRepository().setTutorial(false);
+    const ConfigRepository().setTutorial(false);
     state = _refetch();
   }
 
@@ -38,23 +38,23 @@ class Config extends _$Config {
       name: 'language',
       value: language,
     );
-    const StorageRepository().setLanguage(language);
+    const ConfigRepository().setLanguage(language);
     state = _refetch();
   }
 
   /// テーマを変更する
   void toggleThemeMode() async {
-    final themeMode = const StorageRepository().themeMode;
+    final themeMode = const ConfigRepository().themeMode;
     if (themeMode == ThemeMode.dark.name) {
-      const StorageRepository().setThemeMode(ThemeMode.light.name);
+      const ConfigRepository().setThemeMode(ThemeMode.light.name);
     } else {
-      const StorageRepository().setThemeMode(ThemeMode.dark.name);
+      const ConfigRepository().setThemeMode(ThemeMode.dark.name);
     }
     state = _refetch();
   }
 
   void updateColorScheme(String? value) async {
-    const StorageRepository().setThemeColor(value);
+    const ConfigRepository().setThemeColor(value);
     state = _refetch();
   }
 }

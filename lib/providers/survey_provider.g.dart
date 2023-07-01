@@ -1,26 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'config_provider.dart';
+part of 'survey_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$configHash() => r'86257c65ca1eb1c47ab9aae8abbc30db153474bc';
+String _$surveyHash() => r'50b890555340e8979834c9aefb3fbc1d8b77f54c';
 
 /// 設定
 ///
-/// Copied from [Config].
-@ProviderFor(Config)
-final configProvider =
-    AutoDisposeNotifierProvider<Config, ConfigState>.internal(
-  Config.new,
-  name: r'configProvider',
+/// Copied from [Survey].
+@ProviderFor(Survey)
+final surveyProvider =
+    AutoDisposeNotifierProvider<Survey, SurveyState>.internal(
+  Survey.new,
+  name: r'surveyProvider',
   debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$configHash,
+      const bool.fromEnvironment('dart.vm.product') ? null : _$surveyHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$Config = AutoDisposeNotifier<ConfigState>;
+typedef _$Survey = AutoDisposeNotifier<SurveyState>;
 // ignore_for_file: unnecessary_raw_strings, subtype_of_sealed_class, invalid_use_of_internal_member, do_not_use_environment, prefer_const_constructors, public_member_api_docs, avoid_private_typedef_functions

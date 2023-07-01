@@ -16,7 +16,7 @@ class ConfigLanguageScreen extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('言語'.i18n),
+        title: Text('言語切り替え'.i18n),
       ),
       body: ListView(
         children: [
