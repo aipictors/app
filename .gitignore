@@ -8,7 +8,7 @@
 ios/GoogleService-Info.plist
 
 # Ferry
-/lib/**/__generated__
+# /lib/**/__generated__
 
 # Miscellaneous
 *.class

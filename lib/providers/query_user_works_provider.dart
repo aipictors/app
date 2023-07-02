@@ -8,7 +8,9 @@ part 'query_user_works_provider.g.dart';
 
 @riverpod
 Future<GUserWorksData?> queryUserWorks(
-    QueryUserWorksRef ref, String userId) async {
+  QueryUserWorksRef ref,
+  String userId,
+) async {
   final client = await createClient();
   final req = GUserWorksReq((builder) {
     return builder

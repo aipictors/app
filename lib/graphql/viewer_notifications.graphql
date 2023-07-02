@@ -1,0 +1,11 @@
+query ViewerNotifications($offset: Int!, $limit: Int!) {
+  viewer {
+    notifications(offset: $offset, limit: $limit) {
+      id
+      type
+      createdAt
+      message
+      workId
+    }
+  }
+}

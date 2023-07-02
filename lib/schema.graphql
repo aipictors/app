@@ -26,7 +26,7 @@ directive @specifiedBy(
 
 scalar _Any
 
-union _Entity = CommentNode | DailyThemeNode | FolderLikeNode | FolderNode | FriendshipNode | ImageNode | MutedTagNode | MutedUserNode | NotificationNode | StickerNode | SubWorkNode | TagNode | UserNode | UserSettingNode | Viewer | WorkAwardNode | WorkBookmarkNode | WorkEventNode | WorkLikeNode | WorkNode
+union _Entity = CommentNode | DailyThemeNode | FolderLikeNode | FolderNode | FriendshipNode | ImageNode | MutedTagNode | MutedUserNode | NotificationNode | StickerNode | SubWorkNode | TagNode | UserNode | UserSettingNode | WorkAwardNode | WorkBookmarkNode | WorkEventNode | WorkLikeNode | WorkNode
 
 type _Service {
   sdl: String
@@ -372,13 +372,22 @@ type NotificationNode implements Node {
   id: ID!
   userId: ID
   user: UserNode
+  message: String!
   relatedUserId: ID
   relatedUser: UserNode
-  comment: String
+  workId: ID
+  work: WorkNode
   stickerId: ID
   sticker: StickerNode
-  type: String!
+  type: NotificationType!
   createdAt: Int
+}
+
+enum NotificationType {
+  LIKE
+  COMMENT
+  COMMENT_REPLY
+  FOLLOW
 }
 
 input PopularWorksWhereInput {
@@ -443,6 +452,9 @@ type Query {
 
   """全期間の人気作品"""
   popularWorks(where: PopularWorksWhereInput!): [WorkNode!]!
+
+  """ログイン中のユーザ"""
+  viewer: Viewer
   _entities(representations: [_Any!]!): [_Entity]!
   _service: _Service!
 }
@@ -612,12 +624,10 @@ input UserWorksWhereInput {
 }
 
 """ログイン中のユーザ"""
-type Viewer implements Node {
-  id: ID!
-  workBookmarks(offset: Int!, limit: Int!): [WorkBookmarkNode!]!
-  workLikes(offset: Int!, limit: Int!): [WorkLikeNode!]!
-  followers(offset: Int!, limit: Int!): [FriendshipNode!]!
-  followees(offset: Int!, limit: Int!): [FriendshipNode!]!
+type Viewer {
+  user: UserNode!
+  bookmarkedWorks(offset: Int!, limit: Int!): [WorkNode!]!
+  notifications(offset: Int!, limit: Int!): [NotificationNode!]!
 }
 
 """アワード（作品）"""
