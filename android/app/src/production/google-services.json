@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "698114764060-7jp76cborn2fi84qhrdbb5gv9eks0ke4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.aipictors.flutter",
+            "certificate_hash": "3a215957647e242ab1e9ac98bb7736ac29c3e58a"
+          }
+        },
+        {
           "client_id": "698114764060-5rpjtdi5goec2gjnrs72bptrjpjl81ug.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -31,10 +39,46 @@
               "client_type": 3
             },
             {
-              "client_id": "698114764060-51l6sm5os9tvst8r1klmv1pt8lkspld3.apps.googleusercontent.com",
+              "client_id": "698114764060-4plp8qbu1r1dv5dg1ua7ljibejkibdmd.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.aipictors.flutter"
+                "bundle_id": "com.aipictors.flutter.develop"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:698114764060:android:3d6cdd4ecf3c2c54b49ed9",
+        "android_client_info": {
+          "package_name": "com.aipictors.flutter.develop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "698114764060-5rpjtdi5goec2gjnrs72bptrjpjl81ug.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBx7oKnrmpfuktHivvbndam_MqrNzRMr6k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "698114764060-5rpjtdi5goec2gjnrs72bptrjpjl81ug.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "698114764060-4plp8qbu1r1dv5dg1ua7ljibejkibdmd.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.aipictors.flutter.develop"
               }
             }
           ]
