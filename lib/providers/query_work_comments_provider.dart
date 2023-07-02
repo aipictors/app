@@ -1,6 +1,7 @@
 import 'package:aipictors/client.dart';
 import 'package:aipictors/graphql/__generated__/work_comments.data.gql.dart';
 import 'package:aipictors/graphql/__generated__/work_comments.req.gql.dart';
+import 'package:aipictors/utils/to_response_data.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -15,7 +16,7 @@ class QueryWorkCommentsProps with _$QueryWorkCommentsProps {
 }
 
 @riverpod
-Stream<GWorkCommentsData?> queryWorkComments(
+Future<GWorkCommentsData?> queryWorkComments(
   QueryWorkCommentsRef ref,
   QueryWorkCommentsProps props,
 ) {
@@ -23,7 +24,6 @@ Stream<GWorkCommentsData?> queryWorkComments(
   final req = GWorkCommentsReq((builder) {
     return builder..vars.workId = props.workId;
   });
-  return client.request(req).map((response) {
-    return response.data;
-  });
+  final stream = client.request(req).map(toResponseData);
+  return stream.first;
 }

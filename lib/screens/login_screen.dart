@@ -1,4 +1,4 @@
-import 'package:aipictors/mutations/loginWithPassword.dart';
+import 'package:aipictors/mutations/login_with_password.dart';
 import 'package:aipictors/utils/to_exception_message.dart';
 import 'package:aipictors/widgets/container/loading_container.dart';
 import 'package:flutter/material.dart';
@@ -130,7 +130,9 @@ class LoginScreen extends HookConsumerWidget {
           SnackBar(content: Text(toExceptionMessage(exception))),
         );
     }
+    // ignore: use_build_context_synchronously
     if (context.canPop()) {
+      // ignore: use_build_context_synchronously
       context.pop();
     }
   }

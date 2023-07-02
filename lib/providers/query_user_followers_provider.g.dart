@@ -7,7 +7,7 @@ part of 'query_user_followers_provider.dart';
 // **************************************************************************
 
 String _$queryUserFollowersHash() =>
-    r'72fe97366039cbf902d7f3830583edeaa799e4c9';
+    r'288b67705b1d71a8d6b18e1a915f6634ac248b24';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -30,14 +30,15 @@ class _SystemHash {
   }
 }
 
-typedef QueryUserFollowersRef = AutoDisposeStreamProviderRef<dynamic>;
+typedef QueryUserFollowersRef
+    = AutoDisposeFutureProviderRef<GUserFollowersData?>;
 
 /// See also [queryUserFollowers].
 @ProviderFor(queryUserFollowers)
 const queryUserFollowersProvider = QueryUserFollowersFamily();
 
 /// See also [queryUserFollowers].
-class QueryUserFollowersFamily extends Family<AsyncValue<dynamic>> {
+class QueryUserFollowersFamily extends Family<AsyncValue<GUserFollowersData?>> {
   /// See also [queryUserFollowers].
   const QueryUserFollowersFamily();
 
@@ -75,7 +76,8 @@ class QueryUserFollowersFamily extends Family<AsyncValue<dynamic>> {
 }
 
 /// See also [queryUserFollowers].
-class QueryUserFollowersProvider extends AutoDisposeStreamProvider<dynamic> {
+class QueryUserFollowersProvider
+    extends AutoDisposeFutureProvider<GUserFollowersData?> {
   /// See also [queryUserFollowers].
   QueryUserFollowersProvider(
     this.props,

@@ -6,7 +6,7 @@ part of 'query_daily_themes_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$queryDailyThemesHash() => r'366d83b731980e64faa54730a1f08e00f1e7a10c';
+String _$queryDailyThemesHash() => r'c8db1136bc4aca5fea21c17885e2d74bbac99651';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -29,14 +29,14 @@ class _SystemHash {
   }
 }
 
-typedef QueryDailyThemesRef = AutoDisposeStreamProviderRef<dynamic>;
+typedef QueryDailyThemesRef = AutoDisposeFutureProviderRef<GDailyThemesData?>;
 
 /// See also [queryDailyThemes].
 @ProviderFor(queryDailyThemes)
 const queryDailyThemesProvider = QueryDailyThemesFamily();
 
 /// See also [queryDailyThemes].
-class QueryDailyThemesFamily extends Family<AsyncValue<dynamic>> {
+class QueryDailyThemesFamily extends Family<AsyncValue<GDailyThemesData?>> {
   /// See also [queryDailyThemes].
   const QueryDailyThemesFamily();
 
@@ -74,7 +74,8 @@ class QueryDailyThemesFamily extends Family<AsyncValue<dynamic>> {
 }
 
 /// See also [queryDailyThemes].
-class QueryDailyThemesProvider extends AutoDisposeStreamProvider<dynamic> {
+class QueryDailyThemesProvider
+    extends AutoDisposeFutureProvider<GDailyThemesData?> {
   /// See also [queryDailyThemes].
   QueryDailyThemesProvider(
     this.props,

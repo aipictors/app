@@ -1,6 +1,7 @@
 import 'package:aipictors/client.dart';
 import 'package:aipictors/graphql/__generated__/login.data.gql.dart';
 import 'package:aipictors/graphql/__generated__/login.req.gql.dart';
+import 'package:aipictors/utils/to_response_data.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 
@@ -16,12 +17,7 @@ Future<GLoginWithPasswordData?> loginWithPassword({
       ..vars.input.password = password;
   });
 
-  final stream = client.request(req).map((response) {
-    if (response.hasErrors) {
-      throw response.graphqlErrors!.first;
-    }
-    return response.data;
-  });
+  final stream = client.request(req).map(toResponseData);
 
   final data = await stream.first;
 

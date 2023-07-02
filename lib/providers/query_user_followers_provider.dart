@@ -1,6 +1,7 @@
 import 'package:aipictors/client.dart';
 import 'package:aipictors/graphql/__generated__/user_followers.data.gql.dart';
 import 'package:aipictors/graphql/__generated__/user_followers.req.gql.dart';
+import 'package:aipictors/utils/to_response_data.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -16,7 +17,7 @@ class QueryUserFollowersProps with _$QueryUserFollowersProps {
 }
 
 @riverpod
-Stream<GUserFollowersData?> queryUserFollowers(
+Future<GUserFollowersData?> queryUserFollowers(
   QueryUserFollowersRef ref,
   QueryUserFollowersProps props,
 ) {
@@ -27,7 +28,6 @@ Stream<GUserFollowersData?> queryUserFollowers(
       ..vars.offset = 0
       ..vars.user_id = props.userId;
   });
-  return client.request(req).map((response) {
-    return response.data;
-  });
+  final stream = client.request(req).map(toResponseData);
+  return stream.first;
 }

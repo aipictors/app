@@ -12,7 +12,7 @@ import 'package:aipictors/screens/debug_screen.dart';
 import 'package:aipictors/screens/home_screen.dart';
 import 'package:aipictors/screens/privacy_screen.dart';
 import 'package:aipictors/screens/surveys_screen.dart';
-import 'package:aipictors/screens/terms_screen%20.dart';
+import 'package:aipictors/screens/terms_screen.dart';
 import 'package:aipictors/screens/user/user_screen.dart';
 import 'package:aipictors/screens/work/work_screen.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';

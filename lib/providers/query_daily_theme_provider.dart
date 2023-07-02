@@ -1,6 +1,7 @@
 import 'package:aipictors/client.dart';
 import 'package:aipictors/graphql/__generated__/daily_theme.data.gql.dart';
 import 'package:aipictors/graphql/__generated__/daily_theme.req.gql.dart';
+import 'package:aipictors/utils/to_response_data.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -15,7 +16,7 @@ class QueryDailyThemeProps with _$QueryDailyThemeProps {
 }
 
 @riverpod
-Stream<GDailyThemeData?> queryDailyTheme(
+Future<GDailyThemeData?> queryDailyTheme(
   QueryDailyThemeRef ref,
   QueryDailyThemeProps props,
 ) {
@@ -26,7 +27,6 @@ Stream<GDailyThemeData?> queryDailyTheme(
       ..vars.offset = 0
       ..vars.id = props.themeId;
   });
-  return client.request(req).map((response) {
-    return response.data;
-  });
+  final stream = client.request(req).map(toResponseData);
+  return stream.first;
 }

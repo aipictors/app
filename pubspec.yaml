@@ -15,8 +15,8 @@ dependencies:
   connectivity_plus: ^4.0.1
   device_info_plus: ^9.0.2
   dynamic_color: ^1.6.5
-  ferry: ^0.14.0+1
-  ferry_flutter: ^0.8.0+1
+  ferry: ^0.14.2+1
+  ferry_flutter: ^0.8.1
   ferry_hive_store: ^0.5.1
   firebase_analytics: ^10.4.3
   firebase_app_installations: ^0.2.3+3
@@ -42,7 +42,9 @@ dependencies:
   freezed_annotation: 2.2.0
   go_router: ^9.0.0
   google_sign_in: ^6.1.0
+  gql_error_link: ^0.2.3+1
   gql_http_link: ^0.4.5
+  gql_exec: ^0.4.3
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   hooks_riverpod: ^2.3.6

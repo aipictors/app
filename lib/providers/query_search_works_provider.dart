@@ -1,6 +1,7 @@
 import 'package:aipictors/client.dart';
 import 'package:aipictors/graphql/__generated__/works.data.gql.dart';
 import 'package:aipictors/graphql/__generated__/works.req.gql.dart';
+import 'package:aipictors/utils/to_response_data.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -15,7 +16,7 @@ class SearchWorksProps with _$SearchWorksProps {
 }
 
 @riverpod
-Stream<GWorksData?> querySearchWorks(
+Future<GWorksData?> querySearchWorks(
   QuerySearchWorksRef ref,
   SearchWorksProps props,
 ) {
@@ -27,7 +28,6 @@ Stream<GWorksData?> querySearchWorks(
       ..vars.offset = 0
       ..vars.where.search = props.search;
   });
-  return client.request(req).map((response) {
-    return response.data;
-  });
+  final stream = client.request(req).map(toResponseData);
+  return stream.first;
 }

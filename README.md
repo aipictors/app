@@ -22,6 +22,8 @@ $ dart run build_runner watch
 
 ## 不具合
 
+- https://github.com/rrousselGit/riverpod/issues/2273
+
 殆どの場合はこれで解決する。
 
 ```

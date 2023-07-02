@@ -1,6 +1,7 @@
 import 'package:aipictors/client.dart';
 import 'package:aipictors/graphql/__generated__/work_awards.data.gql.dart';
 import 'package:aipictors/graphql/__generated__/work_awards.req.gql.dart';
+import 'package:aipictors/utils/to_response_data.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -16,7 +17,7 @@ class QueryMonthlyWorkAwardsProps with _$QueryMonthlyWorkAwardsProps {
 }
 
 @riverpod
-Stream<GWorkAwardsData?> queryMonthlyWorkAwards(
+Future<GWorkAwardsData?> queryMonthlyWorkAwards(
   QueryMonthlyWorkAwardsRef ref,
   QueryMonthlyWorkAwardsProps props,
 ) {
@@ -28,7 +29,6 @@ Stream<GWorkAwardsData?> queryMonthlyWorkAwards(
       ..vars.where.year = props.year
       ..vars.where.month = props.month;
   });
-  return client.request(req).map((response) {
-    return response.data;
-  });
+  final stream = client.request(req).map(toResponseData);
+  return stream.first;
 }

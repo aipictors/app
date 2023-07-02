@@ -5,7 +5,7 @@ import 'package:gql_http_link/gql_http_link.dart';
 
 Client? client;
 
-Client createClient() {
+Client createClient({String? token}) {
   if (client != null) {
     return client!;
   }
@@ -14,15 +14,18 @@ Client createClient() {
 
   final cache = DefaultConfig.isProduction ? Cache(store: store) : null;
 
-  final link = HttpLink(
+  // final token = await FirebaseAuth.instance.currentUser?.getIdToken(true);
+
+  final httpLink = HttpLink(
     DefaultConfig.graphqlURI,
     defaultHeaders: {
       'secret': DefaultConfig.graphqlSecret,
+      if (token != null) 'authentication': 'Bearer $token',
     },
   );
 
   client = Client(
-    link: link,
+    link: httpLink,
     cache: cache,
   );
 

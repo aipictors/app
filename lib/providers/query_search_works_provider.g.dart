@@ -6,7 +6,7 @@ part of 'query_search_works_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$querySearchWorksHash() => r'dcaefe4a6ccd6f8dbaabd4516af996bb397d50ce';
+String _$querySearchWorksHash() => r'88297c4b2052c1ebd544f2adfd87918d17b5be3b';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -29,14 +29,14 @@ class _SystemHash {
   }
 }
 
-typedef QuerySearchWorksRef = AutoDisposeStreamProviderRef<dynamic>;
+typedef QuerySearchWorksRef = AutoDisposeFutureProviderRef<GWorksData?>;
 
 /// See also [querySearchWorks].
 @ProviderFor(querySearchWorks)
 const querySearchWorksProvider = QuerySearchWorksFamily();
 
 /// See also [querySearchWorks].
-class QuerySearchWorksFamily extends Family<AsyncValue<dynamic>> {
+class QuerySearchWorksFamily extends Family<AsyncValue<GWorksData?>> {
   /// See also [querySearchWorks].
   const QuerySearchWorksFamily();
 
@@ -74,7 +74,7 @@ class QuerySearchWorksFamily extends Family<AsyncValue<dynamic>> {
 }
 
 /// See also [querySearchWorks].
-class QuerySearchWorksProvider extends AutoDisposeStreamProvider<dynamic> {
+class QuerySearchWorksProvider extends AutoDisposeFutureProvider<GWorksData?> {
   /// See also [querySearchWorks].
   QuerySearchWorksProvider(
     this.props,

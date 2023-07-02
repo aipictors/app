@@ -6,7 +6,7 @@ part of 'query_user_works_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$queryUserWorksHash() => r'a1e78086e3b4e01b965b600ad7abbf6dd464168e';
+String _$queryUserWorksHash() => r'bb4ff2cbec1ba26a0b05ba3c7e9313228d290375';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -29,14 +29,14 @@ class _SystemHash {
   }
 }
 
-typedef QueryUserWorksRef = AutoDisposeStreamProviderRef<dynamic>;
+typedef QueryUserWorksRef = AutoDisposeFutureProviderRef<GUserWorksData?>;
 
 /// See also [queryUserWorks].
 @ProviderFor(queryUserWorks)
 const queryUserWorksProvider = QueryUserWorksFamily();
 
 /// See also [queryUserWorks].
-class QueryUserWorksFamily extends Family<AsyncValue<dynamic>> {
+class QueryUserWorksFamily extends Family<AsyncValue<GUserWorksData?>> {
   /// See also [queryUserWorks].
   const QueryUserWorksFamily();
 
@@ -74,7 +74,8 @@ class QueryUserWorksFamily extends Family<AsyncValue<dynamic>> {
 }
 
 /// See also [queryUserWorks].
-class QueryUserWorksProvider extends AutoDisposeStreamProvider<dynamic> {
+class QueryUserWorksProvider
+    extends AutoDisposeFutureProvider<GUserWorksData?> {
   /// See also [queryUserWorks].
   QueryUserWorksProvider(
     this.userId,
