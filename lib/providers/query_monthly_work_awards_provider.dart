@@ -21,6 +21,7 @@ Future<GWorkAwardsData?> queryMonthlyWorkAwards(
   QueryMonthlyWorkAwardsRef ref,
   QueryMonthlyWorkAwardsProps props,
 ) async {
+  ref.keepAlive();
   final client = await createClient();
   final req = GWorkAwardsReq((builder) {
     return builder

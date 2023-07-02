@@ -6,7 +6,7 @@ part of 'query_popular_works_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$queryPopularWorksHash() => r'e6db07cc2375e3c63ba11da74909dcf8301f116b';
+String _$queryPopularWorksHash() => r'29d7300bf4d463ddebf73a9e69c0ffb3e770c7c2';
 
 /// See also [queryPopularWorks].
 @ProviderFor(queryPopularWorks)

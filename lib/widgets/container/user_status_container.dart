@@ -27,7 +27,7 @@ class UserStatusContainer extends HookConsumerWidget {
         Text(
           '${toReadableNumber(followersCount)}人のユーザにフォローされています。',
           style: TextStyle(
-            color: Theme.of(context).colorScheme.primaryContainer,
+            color: Theme.of(context).colorScheme.primary,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -35,7 +35,7 @@ class UserStatusContainer extends HookConsumerWidget {
         Row(
           children: [
             Text(
-              'いいね $toReadableNumber(likesCount)件',
+              'いいね ${toReadableNumber(likesCount)}件',
               style: TextStyle(color: Theme.of(context).dividerColor),
             ),
             const SizedBox(width: 12),
@@ -45,7 +45,7 @@ class UserStatusContainer extends HookConsumerWidget {
             ),
             const SizedBox(width: 12),
             Text(
-              '入賞回数 $toReadableNumber{awardsCount}回',
+              '入賞回数 ${toReadableNumber(awardsCount)}回',
               style: TextStyle(color: Theme.of(context).dividerColor),
             ),
           ],

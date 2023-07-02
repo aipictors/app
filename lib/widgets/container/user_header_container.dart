@@ -26,11 +26,10 @@ class UserHeaderContainer extends HookConsumerWidget {
             Row(
               children: [
                 const SizedBox(width: 8),
-                if (iconImageURL != null)
-                  Transform.scale(
-                    scale: 1,
-                    child: UserProfileAvatar(downloadURL: iconImageURL!),
-                  ),
+                Transform.scale(
+                  scale: 1,
+                  child: UserProfileAvatar(imageURL: iconImageURL),
+                ),
               ],
             ),
             const Row(

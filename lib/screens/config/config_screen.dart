@@ -1,6 +1,7 @@
 import 'package:aipictors/config.dart';
 import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/mutations/logout.dart';
+import 'package:aipictors/providers/auth_state_provider.dart';
 import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/widgets/container/theme_color_container.dart';
 import 'package:aipictors/widgets/dialog/about_discord_dialog.dart';
@@ -21,6 +22,8 @@ class ConfigScreen extends HookConsumerWidget {
   Widget build(context, ref) {
     final config = ref.watch(configProvider);
 
+    final authState = ref.watch(authStateProvider);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -30,76 +33,83 @@ class ConfigScreen extends HookConsumerWidget {
       ),
       body: ListView(
         children: [
-          ListTile(
-            leading: const Icon(Icons.person_rounded),
-            trailing: const Icon(Icons.chevron_right_rounded),
-            title: Text(
-              'アカウント'.i18n,
-              style: const TextStyle(fontWeight: FontWeight.bold),
-            ),
-            onTap: () {},
-          ),
-          ListTile(
-            leading: const Icon(Icons.image_rounded),
-            trailing: const Icon(Icons.chevron_right_rounded),
-            title: Text(
-              '作品'.i18n,
-              style: TextStyle(
-                color: Theme.of(context).disabledColor,
-                fontWeight: FontWeight.bold,
-                decoration: TextDecoration.lineThrough,
+          if (authState.value != null)
+            ListTile(
+              leading: const Icon(Icons.person_rounded),
+              trailing: const Icon(Icons.chevron_right_rounded),
+              title: Text(
+                'アカウント'.i18n,
+                style: const TextStyle(fontWeight: FontWeight.bold),
               ),
+              onTap: () {
+                context.push('/viewer');
+              },
             ),
-            onTap: () {
-              // context.push('/config/muted_tags');
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.folder_rounded),
-            trailing: const Icon(Icons.chevron_right_rounded),
-            title: Text(
-              'シリーズ'.i18n,
-              style: TextStyle(
-                color: Theme.of(context).disabledColor,
-                fontWeight: FontWeight.bold,
-                decoration: TextDecoration.lineThrough,
+          if (authState.value != null)
+            ListTile(
+              leading: const Icon(Icons.image_rounded),
+              trailing: const Icon(Icons.chevron_right_rounded),
+              title: Text(
+                '作品'.i18n,
+                style: TextStyle(
+                  color: Theme.of(context).disabledColor,
+                  fontWeight: FontWeight.bold,
+                  decoration: TextDecoration.lineThrough,
+                ),
               ),
+              onTap: () {
+                // context.push('/config/muted_tags');
+              },
             ),
-            onTap: () {
-              // context.push('/config/muted_tags');
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.block_rounded),
-            trailing: const Icon(Icons.chevron_right_rounded),
-            title: Text(
-              'ミュートしたタグ'.i18n,
-              style: TextStyle(
-                color: Theme.of(context).disabledColor,
-                fontWeight: FontWeight.bold,
-                decoration: TextDecoration.lineThrough,
+          if (authState.value != null)
+            ListTile(
+              leading: const Icon(Icons.folder_rounded),
+              trailing: const Icon(Icons.chevron_right_rounded),
+              title: Text(
+                'シリーズ'.i18n,
+                style: TextStyle(
+                  color: Theme.of(context).disabledColor,
+                  fontWeight: FontWeight.bold,
+                  decoration: TextDecoration.lineThrough,
+                ),
               ),
+              onTap: () {
+                // context.push('/config/muted_tags');
+              },
             ),
-            onTap: () {
-              // context.push('/config/muted_tags');
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.block_rounded),
-            trailing: const Icon(Icons.chevron_right_rounded),
-            title: Text(
-              'ミュートしたユーザ'.i18n,
-              style: TextStyle(
-                color: Theme.of(context).disabledColor,
-                fontWeight: FontWeight.bold,
-                decoration: TextDecoration.lineThrough,
+          if (authState.value != null)
+            ListTile(
+              leading: const Icon(Icons.block_rounded),
+              trailing: const Icon(Icons.chevron_right_rounded),
+              title: Text(
+                'ミュートしたタグ'.i18n,
+                style: TextStyle(
+                  color: Theme.of(context).disabledColor,
+                  fontWeight: FontWeight.bold,
+                  decoration: TextDecoration.lineThrough,
+                ),
               ),
+              onTap: () {
+                // context.push('/config/muted_tags');
+              },
             ),
-            onTap: () {
-              // context.push('config/muted_users');
-            },
-          ),
-          const Divider(),
+          if (authState.value != null)
+            ListTile(
+              leading: const Icon(Icons.block_rounded),
+              trailing: const Icon(Icons.chevron_right_rounded),
+              title: Text(
+                'ミュートしたユーザ'.i18n,
+                style: TextStyle(
+                  color: Theme.of(context).disabledColor,
+                  fontWeight: FontWeight.bold,
+                  decoration: TextDecoration.lineThrough,
+                ),
+              ),
+              onTap: () {
+                // context.push('config/muted_users');
+              },
+            ),
+          if (authState.value != null) const Divider(),
           ListTile(
             leading: const Icon(Icons.translate_rounded),
             trailing: const Icon(Icons.chevron_right_rounded),
@@ -134,16 +144,17 @@ class ConfigScreen extends HookConsumerWidget {
                 context.push('/debug');
               },
             ),
-          ListTile(
-            leading: const Icon(Icons.logout_rounded),
-            title: const Text(
-              'ログアウト',
-              style: TextStyle(fontWeight: FontWeight.bold),
+          if (authState.value != null)
+            ListTile(
+              leading: const Icon(Icons.logout_rounded),
+              title: const Text(
+                'ログアウト',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              onTap: () {
+                onShowLogoutDialog(context, ref);
+              },
             ),
-            onTap: () {
-              onShowLogoutDialog(context, ref);
-            },
-          ),
           const Divider(),
           ListTile(
             trailing: const Icon(Icons.chevron_right_rounded),

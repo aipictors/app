@@ -1,3 +1,5 @@
+import 'package:aipictors/providers/auth_user_id_provider.dart';
+import 'package:aipictors/screens/loading_screen.dart';
 import 'package:aipictors/screens/user/user_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -9,8 +11,12 @@ class ViewerScreen extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
-    const userId = '3293';
+    final authUserId = ref.watch(authUserIdProvider);
 
-    return const UserScreen(userId: userId);
+    if (authUserId.value == null) {
+      return const LoadingScreen();
+    }
+
+    return UserScreen(userId: authUserId.value!);
   }
 }

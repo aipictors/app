@@ -6,7 +6,7 @@ part of 'query_best_works_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$queryBestWorksHash() => r'0f9063e83a490821f0d5745c93d63fe5563e41db';
+String _$queryBestWorksHash() => r'6ddab7e609a340904c0c8ce9cf9f87ed67ca9eea';
 
 /// See also [queryBestWorks].
 @ProviderFor(queryBestWorks)

@@ -14,6 +14,7 @@ import 'package:aipictors/screens/privacy_screen.dart';
 import 'package:aipictors/screens/surveys_screen.dart';
 import 'package:aipictors/screens/terms_screen.dart';
 import 'package:aipictors/screens/user/user_screen.dart';
+import 'package:aipictors/screens/viewer/viewer_screen.dart';
 import 'package:aipictors/screens/work/work_screen.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
@@ -32,6 +33,12 @@ final router = GoRouter(
       path: '/',
       pageBuilder: (context, state) {
         return const NoTransitionPage(child: HomeScreen());
+      },
+    ),
+    GoRoute(
+      path: '/viewer',
+      builder: (context, state) {
+        return const ViewerScreen();
       },
     ),
     GoRoute(

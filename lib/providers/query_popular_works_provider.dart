@@ -8,6 +8,7 @@ part 'query_popular_works_provider.g.dart';
 
 @riverpod
 Future<GPopularWorksData?> queryPopularWorks(QueryPopularWorksRef ref) async {
+  ref.keepAlive();
   final client = await createClient();
   final req = GPopularWorksReq((builder) {
     return builder;
