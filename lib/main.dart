@@ -47,9 +47,6 @@ void main() async {
     minimumFetchInterval: const Duration(hours: 1),
   ));
 
-  // RemoteConfigの初期値を設定する
-  // await remoteConfig.setDefaults(DefaultConfig.remoteConfigDefaultConfig);
-
   // RemoteConfigを取得して初期化する
   await remoteConfig.fetchAndActivate();
 

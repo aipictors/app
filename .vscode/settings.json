@@ -19,6 +19,8 @@
   "files.exclude": {
     "**/*.ast.gql.dart": true,
     "**/*.data.gql.dart": true,
+    "**/*.freezed.dart": true,
+    "**/*.g.dart": true,
     "**/*.gql.g.dart": true,
     "**/*.req.gql.dart": true,
     "**/*.var.gql.dart": true,
@@ -44,11 +46,17 @@
     "ios/Runner.xcworkspace": true,
     "ios/Runner/GeneratedPluginRegistrant.h": true,
     "ios/Runner/GeneratedPluginRegistrant.m": true,
-    "lib/**/*.freezed.dart": true,
-    "lib/**/*.g.dart": true,
     "node_modules": true,
     "pubspec.lock": true
   },
+  "cSpell.ignorePaths": [
+    ".vscode",
+    "android",
+    "ios",
+    "linux",
+    "web",
+    "windows"
+  ],
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   }
