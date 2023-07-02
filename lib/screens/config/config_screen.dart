@@ -1,9 +1,11 @@
 import 'package:aipictors/config.dart';
 import 'package:aipictors/default.i18n.dart';
+import 'package:aipictors/mutations/logout.dart';
 import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/widgets/container/theme_color_container.dart';
 import 'package:aipictors/widgets/dialog/about_discord_dialog.dart';
 import 'package:aipictors/widgets/dialog/about_twitter_dialog.dart';
+import 'package:aipictors/widgets/dialog/logout_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
@@ -132,6 +134,16 @@ class ConfigScreen extends HookConsumerWidget {
                 context.push('/debug');
               },
             ),
+          ListTile(
+            leading: const Icon(Icons.logout_rounded),
+            title: const Text(
+              'ログアウト',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            onTap: () {
+              onShowLogoutDialog(context, ref);
+            },
+          ),
           const Divider(),
           ListTile(
             trailing: const Icon(Icons.chevron_right_rounded),
@@ -291,5 +303,32 @@ class ConfigScreen extends HookConsumerWidget {
       config.twitterPromptonURL,
       mode: LaunchMode.externalApplication,
     );
+  }
+
+  Future onShowLogoutDialog(BuildContext context, WidgetRef ref) async {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) {
+        return LogoutDialog(
+          onCancel: () {
+            context.pop();
+          },
+          onAccept: () {
+            context.pop();
+            onLogout(context, ref);
+          },
+        );
+      },
+    );
+  }
+
+  Future onLogout(BuildContext context, WidgetRef ref) async {
+    logout();
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(
+        const SnackBar(content: Text('ログアウトしました。')),
+      );
   }
 }

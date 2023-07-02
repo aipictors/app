@@ -29,14 +29,14 @@ class _SystemHash {
   }
 }
 
-typedef QueryWorkRef = AutoDisposeStreamProviderRef<GWorkData?>;
+typedef QueryWorkRef = AutoDisposeStreamProviderRef<dynamic>;
 
 /// See also [queryWork].
 @ProviderFor(queryWork)
 const queryWorkProvider = QueryWorkFamily();
 
 /// See also [queryWork].
-class QueryWorkFamily extends Family<AsyncValue<GWorkData?>> {
+class QueryWorkFamily extends Family<AsyncValue<dynamic>> {
   /// See also [queryWork].
   const QueryWorkFamily();
 
@@ -74,7 +74,7 @@ class QueryWorkFamily extends Family<AsyncValue<GWorkData?>> {
 }
 
 /// See also [queryWork].
-class QueryWorkProvider extends AutoDisposeStreamProvider<GWorkData?> {
+class QueryWorkProvider extends AutoDisposeStreamProvider<dynamic> {
   /// See also [queryWork].
   QueryWorkProvider(
     this.id,

@@ -29,14 +29,14 @@ class _SystemHash {
   }
 }
 
-typedef QueryUserWorksRef = AutoDisposeStreamProviderRef<GUserWorksData?>;
+typedef QueryUserWorksRef = AutoDisposeStreamProviderRef<dynamic>;
 
 /// See also [queryUserWorks].
 @ProviderFor(queryUserWorks)
 const queryUserWorksProvider = QueryUserWorksFamily();
 
 /// See also [queryUserWorks].
-class QueryUserWorksFamily extends Family<AsyncValue<GUserWorksData?>> {
+class QueryUserWorksFamily extends Family<AsyncValue<dynamic>> {
   /// See also [queryUserWorks].
   const QueryUserWorksFamily();
 
@@ -74,8 +74,7 @@ class QueryUserWorksFamily extends Family<AsyncValue<GUserWorksData?>> {
 }
 
 /// See also [queryUserWorks].
-class QueryUserWorksProvider
-    extends AutoDisposeStreamProvider<GUserWorksData?> {
+class QueryUserWorksProvider extends AutoDisposeStreamProvider<dynamic> {
   /// See also [queryUserWorks].
   QueryUserWorksProvider(
     this.userId,

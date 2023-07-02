@@ -1,0 +1,5 @@
+mutation LoginWithPassword($input: LoginWithPasswordInput!) {
+  loginWithPassword(input: $input) {
+    token
+  }
+}

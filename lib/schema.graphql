@@ -258,7 +258,19 @@ enum link__Purpose {
   EXECUTION
 }
 
+type LoginResult {
+  token: String!
+}
+
+input LoginWithPasswordInput {
+  login: String!
+  password: String!
+}
+
 type Mutation {
+  loginWithPassword(input: LoginWithPasswordInput!): LoginResult!
+
+  """ユーザを作成する"""
   createUser(input: CreateUserInput!): UserNode!
 
   """ユーザーのプロフィールを作成する"""
