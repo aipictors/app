@@ -9,13 +9,13 @@ Future<Client> createClient() async {
 
   final cache = DefaultConfig.isProduction ? Cache(store: store) : null;
 
-  final token = await FirebaseAuth.instance.currentUser?.getIdToken(true);
+  final token = await FirebaseAuth.instance.currentUser?.getIdToken(false);
 
   final httpLink = HttpLink(
     DefaultConfig.graphqlURI,
     defaultHeaders: {
       'secret': DefaultConfig.graphqlSecret,
-      if (token != null) 'authentication': 'Bearer $token',
+      if (token != null) 'authorization': 'Bearer $token',
     },
   );
 

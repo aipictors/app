@@ -30,14 +30,15 @@ class _SystemHash {
   }
 }
 
-typedef QueryWeeklyWorkAwardsRef = AutoDisposeFutureProviderRef<dynamic>;
+typedef QueryWeeklyWorkAwardsRef
+    = AutoDisposeFutureProviderRef<GWorkAwardsData?>;
 
 /// See also [queryWeeklyWorkAwards].
 @ProviderFor(queryWeeklyWorkAwards)
 const queryWeeklyWorkAwardsProvider = QueryWeeklyWorkAwardsFamily();
 
 /// See also [queryWeeklyWorkAwards].
-class QueryWeeklyWorkAwardsFamily extends Family<AsyncValue<dynamic>> {
+class QueryWeeklyWorkAwardsFamily extends Family<AsyncValue<GWorkAwardsData?>> {
   /// See also [queryWeeklyWorkAwards].
   const QueryWeeklyWorkAwardsFamily();
 
@@ -75,7 +76,8 @@ class QueryWeeklyWorkAwardsFamily extends Family<AsyncValue<dynamic>> {
 }
 
 /// See also [queryWeeklyWorkAwards].
-class QueryWeeklyWorkAwardsProvider extends AutoDisposeFutureProvider<dynamic> {
+class QueryWeeklyWorkAwardsProvider
+    extends AutoDisposeFutureProvider<GWorkAwardsData?> {
   /// See also [queryWeeklyWorkAwards].
   QueryWeeklyWorkAwardsProvider(
     this.props,
