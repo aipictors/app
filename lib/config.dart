@@ -15,34 +15,7 @@ class DefaultConfig {
   static String get graphqlURI {
     return 'https://subgraph-aipictors-sn4ve5jg4q-an.a.run.app/api';
     // return 'https://any.ngrok.io/api';
-    // return 'https://federation-jjkihxkmtq-an.a.run.app';
   }
-
-  // static get remoteConfigDefaultConfig {
-  //   return {
-  //     'sentry_dsn':
-  //         'https://3859848e502e4ad689a4f7d6d3827866@o4505182281465856.ingest.sentry.io/4505443918413824',
-  //     'graphql_secret': 'xwzkbm237trfs3y9j4j9cui8e2setaj4',
-  //     'graphql_endpoint':
-  //         'https://subgraph-aipictors-sn4ve5jg4q-an.a.run.app/api',
-  //     'is_unavailable': false,
-  //     'is_unavailable_post': false,
-  //     'is_maintenance_mode': false,
-  //     'version_latest': '1.0.0',
-  //     'version_support': '1.0.0',
-  //     'support_email': 'hello@aipictors.com',
-  //     'page_url_discord': 'https://discord.gg/WPJFSbUNwt',
-  //     'page_url_twitter': 'https://twitter.com/aipictors',
-  //     'page_url_twitter_prompton': 'https://twitter.com/promptonio',
-  //     'page_url_terms': 'https://www.aipictors.com/terms/',
-  //     'page_url_privacy': 'https://www.aipictors.com/terms/',
-  //     'message_unexpected_error_a': '',
-  //     'message_about_discord': '',
-  //     'message_about_twitter': '',
-  //     'message_about_survey': '',
-  //     'message_survey_reset': '',
-  //   };
-  // }
 
   static Color get defaultThemeColor {
     return Colors.lightBlue;

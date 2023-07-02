@@ -1,0 +1,6 @@
+{
+  "flavor": "staging",
+  "appName": "Aipictors",
+  "appIdSuffix": ".staging",
+  "sentryEnvironment": "staging"
+}

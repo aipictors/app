@@ -1,0 +1,6 @@
+{
+  "flavor": "develop",
+  "appName": "Aipictors",
+  "appIdSuffix": ".develop",
+  "sentryEnvironment": "development"
+}

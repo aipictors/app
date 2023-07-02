@@ -1,6 +1,0 @@
-{
-  "flavor": "release-production",
-  "appName": "Aipictors",
-  "appIdSuffix": "",
-  "sentryEnvironment": "production"
-}

@@ -1,0 +1,6 @@
+{
+  "flavor": "debug",
+  "appName": "Debug",
+  "appIdSuffix": ".debug",
+  "sentryEnvironment": "development"
+}

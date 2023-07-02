@@ -2,32 +2,32 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Develop:Staging",
+      "name": "Debug",
       "request": "launch",
       "type": "dart",
       "flutterMode": "debug",
-      "args": ["--dart-define-from-file=dart_defines/develop_staging.json"]
+      "args": ["--dart-define-from-file=dart_defines/debug.json"]
     },
     {
-      "name": "Develop:Production",
+      "name": "Develop",
       "request": "launch",
       "type": "dart",
       "flutterMode": "debug",
-      "args": ["--dart-define-from-file=dart_defines/develop_production.json"]
+      "args": ["--dart-define-from-file=dart_defines/develop.json"]
     },
     {
-      "name": "Release:Staging",
+      "name": "Staging",
       "request": "launch",
       "type": "dart",
       "flutterMode": "release",
-      "args": ["--dart-define-from-file=dart_defines/release_staging.json"]
+      "args": ["--dart-define-from-file=dart_defines/staging.json"]
     },
     {
-      "name": "Release:Production",
+      "name": "Production",
       "request": "launch",
       "type": "dart",
       "flutterMode": "release",
-      "args": ["--dart-define-from-file=dart_defines/release_production.json"]
+      "args": ["--dart-define-from-file=dart_defines/production.json"]
     }
   ]
 }

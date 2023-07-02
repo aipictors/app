@@ -22,6 +22,7 @@
     "**/*.gql.g.dart": true,
     "**/*.req.gql.dart": true,
     "**/*.var.gql.dart": true,
+    "**/.idea": true,
     "**/__generated__": true,
     "*.iml": true,
     ".dart_tool": true,

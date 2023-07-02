@@ -46,7 +46,7 @@ PODS:
     - Firebase/Installations (= 10.10.0)
     - firebase_core
     - Flutter
-  - firebase_auth (4.6.2):
+  - firebase_auth (4.6.3):
     - Firebase/Auth (= 10.10.0)
     - firebase_core
     - Flutter
@@ -365,7 +365,7 @@ SPEC CHECKSUMS:
   Firebase: facd334e557a979bd03a0b58d90fd56b52b8aba0
   firebase_analytics: 1a5ad75876257318ba5fdc6bf7aae73b6e98d0cf
   firebase_app_installations: 7760f9fa8a1089d88830fae3eb731d837b64adbd
-  firebase_auth: 27829de4f51a06d305467eebc237157adc145571
+  firebase_auth: 9905bc3d82328b5050a8b7cb410a959f150b6549
   firebase_core: 85b6664038311940ad60584eaabc73103c61f5de
   firebase_crashlytics: cd12245f604099a4ef6557fb36490abe309a118a
   firebase_dynamic_links: 8e1ef5000616eb1004f06ec5cdd5e679ef199c29
@@ -406,7 +406,7 @@ SPEC CHECKSUMS:
   Sentry: 927dfb29d18a14d924229a59cc2ad149f43349f2
   sentry_flutter: cf7da03b65520b631330ecb498deb592aa7640be
   SentryPrivate: 4350d865f898224ab9fa02b37d6ee7fbb623f47e
-  shared_preferences_foundation: e2dae3258e06f44cc55f49d42024fd8dd03c590c
+  shared_preferences_foundation: 5b919d13b803cadd15ed2dc053125c68730e5126
   sign_in_with_apple: f3bf75217ea4c2c8b91823f225d70230119b8440
   sqflite: 31f7eba61e3074736dff8807a9b41581e4f7f15a
   uni_links: d97da20c7701486ba192624d99bffaaffcfc298a

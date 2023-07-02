@@ -3,9 +3,10 @@
 /.yarn
 
 # Flavor
-**/android/app/src/main/res/mipmap*/
-**/android/app/google-services.json
-ios/GoogleService-Info.plist
+/android/app/src/main/res/mipmap*/
+/android/app/google-services.json
+/android/app/src/main/res/*/ic_launcher.png
+/ios/GoogleService-Info.plist
 
 # Ferry
 # /lib/**/__generated__

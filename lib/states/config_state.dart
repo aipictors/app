@@ -209,6 +209,6 @@ class ConfigState with _$ConfigState {
   }
 
   bool get isDebugMode {
-    return const String.fromEnvironment('environment') != 'production';
+    return const String.fromEnvironment('sentryEnvironment') != 'production';
   }
 }
