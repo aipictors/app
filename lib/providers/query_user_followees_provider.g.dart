@@ -7,7 +7,7 @@ part of 'query_user_followees_provider.dart';
 // **************************************************************************
 
 String _$queryUserFolloweesHash() =>
-    r'3eb02cb920d6adbd371c29b1d3713fa37b96f675';
+    r'14ac3574f5653b0ae9f9bcb5e1963311fb25b675';
 
 /// Copied from Dart SDK
 class _SystemHash {

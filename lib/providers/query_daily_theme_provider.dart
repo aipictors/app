@@ -19,8 +19,8 @@ class QueryDailyThemeProps with _$QueryDailyThemeProps {
 Future<GDailyThemeData?> queryDailyTheme(
   QueryDailyThemeRef ref,
   QueryDailyThemeProps props,
-) {
-  final client = createClient();
+) async {
+  final client = await createClient();
   final req = GDailyThemeReq((builder) {
     return builder
       ..vars.limit = 16

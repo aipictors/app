@@ -7,8 +7,8 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'query_popular_works_provider.g.dart';
 
 @riverpod
-Future<GPopularWorksData?> queryPopularWorks(QueryPopularWorksRef ref) {
-  final client = createClient();
+Future<GPopularWorksData?> queryPopularWorks(QueryPopularWorksRef ref) async {
+  final client = await createClient();
   final req = GPopularWorksReq((builder) {
     return builder;
   });

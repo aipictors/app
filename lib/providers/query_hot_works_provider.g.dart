@@ -6,7 +6,7 @@ part of 'query_hot_works_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$queryHotWorksHash() => r'73ea7c24e69b1c83ed3e45888d566a4798761287';
+String _$queryHotWorksHash() => r'fa13e3397cfc7d931f92022d2bceedf2b794ca58';
 
 /// See also [queryHotWorks].
 @ProviderFor(queryHotWorks)

@@ -20,8 +20,8 @@ class QueryUserFolloweesProps with _$QueryUserFolloweesProps {
 Future<GUserFolloweesData?> queryUserFollowees(
   QueryUserFolloweesRef ref,
   QueryUserFolloweesProps props,
-) {
-  final client = createClient();
+) async {
+  final client = await createClient();
   final req = GUserFolloweesReq((builder) {
     return builder
       ..vars.limit = 16

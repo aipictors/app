@@ -6,7 +6,7 @@ part of 'query_user_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$queryUserHash() => r'9b5cfb6fee0dacadbbace9aebbe16057b56da827';
+String _$queryUserHash() => r'df17690ad02701c878b63be2aed0793ed411aa66';
 
 /// Copied from Dart SDK
 class _SystemHash {

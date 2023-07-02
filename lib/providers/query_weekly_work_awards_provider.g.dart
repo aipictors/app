@@ -7,7 +7,7 @@ part of 'query_weekly_work_awards_provider.dart';
 // **************************************************************************
 
 String _$queryWeeklyWorkAwardsHash() =>
-    r'0d8fc7c7863fda07d23fb43f5353cef7480acd34';
+    r'dafc334be0e9790f568fe75b58bbf9b55df5be90';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -30,15 +30,14 @@ class _SystemHash {
   }
 }
 
-typedef QueryWeeklyWorkAwardsRef
-    = AutoDisposeFutureProviderRef<GWorkAwardsData?>;
+typedef QueryWeeklyWorkAwardsRef = AutoDisposeFutureProviderRef<dynamic>;
 
 /// See also [queryWeeklyWorkAwards].
 @ProviderFor(queryWeeklyWorkAwards)
 const queryWeeklyWorkAwardsProvider = QueryWeeklyWorkAwardsFamily();
 
 /// See also [queryWeeklyWorkAwards].
-class QueryWeeklyWorkAwardsFamily extends Family<AsyncValue<GWorkAwardsData?>> {
+class QueryWeeklyWorkAwardsFamily extends Family<AsyncValue<dynamic>> {
   /// See also [queryWeeklyWorkAwards].
   const QueryWeeklyWorkAwardsFamily();
 
@@ -76,8 +75,7 @@ class QueryWeeklyWorkAwardsFamily extends Family<AsyncValue<GWorkAwardsData?>> {
 }
 
 /// See also [queryWeeklyWorkAwards].
-class QueryWeeklyWorkAwardsProvider
-    extends AutoDisposeFutureProvider<GWorkAwardsData?> {
+class QueryWeeklyWorkAwardsProvider extends AutoDisposeFutureProvider<dynamic> {
   /// See also [queryWeeklyWorkAwards].
   QueryWeeklyWorkAwardsProvider(
     this.props,

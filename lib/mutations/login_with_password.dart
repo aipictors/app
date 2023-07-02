@@ -9,7 +9,7 @@ Future<GLoginWithPasswordData?> loginWithPassword({
   required String login,
   required String password,
 }) async {
-  final client = createClient();
+  final client = await createClient();
 
   final req = GLoginWithPasswordReq((builder) {
     return builder

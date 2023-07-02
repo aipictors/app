@@ -7,8 +7,8 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'query_hot_works_provider.g.dart';
 
 @riverpod
-Future<GHotWorksData?> queryHotWorks(QueryHotWorksRef ref) {
-  final client = createClient();
+Future<GHotWorksData?> queryHotWorks(QueryHotWorksRef ref) async {
+  final client = await createClient();
   final req = GHotWorksReq((builder) {
     return builder;
   });

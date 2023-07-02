@@ -19,8 +19,8 @@ class QueryWorkCommentsProps with _$QueryWorkCommentsProps {
 Future<GWorkCommentsData?> queryWorkComments(
   QueryWorkCommentsRef ref,
   QueryWorkCommentsProps props,
-) {
-  final client = createClient();
+) async {
+  final client = await createClient();
   final req = GWorkCommentsReq((builder) {
     return builder..vars.workId = props.workId;
   });

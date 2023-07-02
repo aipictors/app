@@ -21,9 +21,9 @@ class QueryDailyWorkAwardsProps with _$QueryDailyWorkAwardsProps {
 Future<GWorkAwardsData?> queryDailyWorkAwards(
   QueryDailyWorkAwardsRef ref,
   QueryDailyWorkAwardsProps props,
-) {
+) async {
   ref.keepAlive();
-  final client = createClient();
+  final client = await createClient();
   final req = GWorkAwardsReq((builder) {
     return builder
       ..vars.limit = 128

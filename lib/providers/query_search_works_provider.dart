@@ -19,9 +19,9 @@ class SearchWorksProps with _$SearchWorksProps {
 Future<GWorksData?> querySearchWorks(
   QuerySearchWorksRef ref,
   SearchWorksProps props,
-) {
+) async {
   if (props.search.isEmpty) {}
-  final client = createClient();
+  final client = await createClient();
   final req = GWorksReq((builder) {
     return builder
       ..vars.limit = 40

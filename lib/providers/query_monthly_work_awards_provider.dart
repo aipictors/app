@@ -20,8 +20,8 @@ class QueryMonthlyWorkAwardsProps with _$QueryMonthlyWorkAwardsProps {
 Future<GWorkAwardsData?> queryMonthlyWorkAwards(
   QueryMonthlyWorkAwardsRef ref,
   QueryMonthlyWorkAwardsProps props,
-) {
-  final client = createClient();
+) async {
+  final client = await createClient();
   final req = GWorkAwardsReq((builder) {
     return builder
       ..vars.limit = 128

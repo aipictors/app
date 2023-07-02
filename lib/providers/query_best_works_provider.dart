@@ -7,8 +7,8 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'query_best_works_provider.g.dart';
 
 @riverpod
-Future<GBestWorksData?> queryBestWorks(QueryBestWorksRef ref) {
-  final client = createClient();
+Future<GBestWorksData?> queryBestWorks(QueryBestWorksRef ref) async {
+  final client = await createClient();
   final req = GBestWorksReq((builder) {
     return builder;
   });

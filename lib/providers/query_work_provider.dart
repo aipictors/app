@@ -7,8 +7,8 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'query_work_provider.g.dart';
 
 @riverpod
-Future<GWorkData?> queryWork(QueryWorkRef ref, String id) {
-  final client = createClient();
+Future<GWorkData?> queryWork(QueryWorkRef ref, String id) async {
+  final client = await createClient();
   final req = GWorkReq((builder) {
     return builder..vars.id = id;
   });
