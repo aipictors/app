@@ -81,6 +81,20 @@ class GAwardType extends EnumClass {
   static GAwardType valueOf(String name) => _$gAwardTypeValueOf(name);
 }
 
+class GCacheControlScope extends EnumClass {
+  const GCacheControlScope._(String name) : super(name);
+
+  static const GCacheControlScope PUBLIC = _$gCacheControlScopePUBLIC;
+
+  static const GCacheControlScope PRIVATE = _$gCacheControlScopePRIVATE;
+
+  static Serializer<GCacheControlScope> get serializer =>
+      _$gCacheControlScopeSerializer;
+  static BuiltSet<GCacheControlScope> get values => _$gCacheControlScopeValues;
+  static GCacheControlScope valueOf(String name) =>
+      _$gCacheControlScopeValueOf(name);
+}
+
 abstract class GCreateCommentInput
     implements Built<GCreateCommentInput, GCreateCommentInputBuilder> {
   GCreateCommentInput._();

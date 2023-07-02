@@ -63,6 +63,28 @@ final BuiltSet<GAwardType> _$gAwardTypeValues =
   _$gAwardTypeDAILY_NO_THEME,
 ]);
 
+const GCacheControlScope _$gCacheControlScopePUBLIC =
+    const GCacheControlScope._('PUBLIC');
+const GCacheControlScope _$gCacheControlScopePRIVATE =
+    const GCacheControlScope._('PRIVATE');
+
+GCacheControlScope _$gCacheControlScopeValueOf(String name) {
+  switch (name) {
+    case 'PUBLIC':
+      return _$gCacheControlScopePUBLIC;
+    case 'PRIVATE':
+      return _$gCacheControlScopePRIVATE;
+    default:
+      throw new ArgumentError(name);
+  }
+}
+
+final BuiltSet<GCacheControlScope> _$gCacheControlScopeValues =
+    new BuiltSet<GCacheControlScope>(const <GCacheControlScope>[
+  _$gCacheControlScopePUBLIC,
+  _$gCacheControlScopePRIVATE,
+]);
+
 const Glink__Purpose _$glinkPurposeSECURITY =
     const Glink__Purpose._('SECURITY');
 const Glink__Purpose _$glinkPurposeEXECUTION =
@@ -172,6 +194,8 @@ Serializer<GAccessType> _$gAccessTypeSerializer = new _$GAccessTypeSerializer();
 Serializer<GAwardsWhereInput> _$gAwardsWhereInputSerializer =
     new _$GAwardsWhereInputSerializer();
 Serializer<GAwardType> _$gAwardTypeSerializer = new _$GAwardTypeSerializer();
+Serializer<GCacheControlScope> _$gCacheControlScopeSerializer =
+    new _$GCacheControlScopeSerializer();
 Serializer<GCreateCommentInput> _$gCreateCommentInputSerializer =
     new _$GCreateCommentInputSerializer();
 Serializer<GCreateFolderInput> _$gCreateFolderInputSerializer =
@@ -374,6 +398,24 @@ class _$GAwardTypeSerializer implements PrimitiveSerializer<GAwardType> {
   GAwardType deserialize(Serializers serializers, Object serialized,
           {FullType specifiedType = FullType.unspecified}) =>
       GAwardType.valueOf(serialized as String);
+}
+
+class _$GCacheControlScopeSerializer
+    implements PrimitiveSerializer<GCacheControlScope> {
+  @override
+  final Iterable<Type> types = const <Type>[GCacheControlScope];
+  @override
+  final String wireName = 'GCacheControlScope';
+
+  @override
+  Object serialize(Serializers serializers, GCacheControlScope object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      object.name;
+
+  @override
+  GCacheControlScope deserialize(Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      GCacheControlScope.valueOf(serialized as String);
 }
 
 class _$GCreateCommentInputSerializer

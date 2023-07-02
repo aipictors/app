@@ -1,0 +1,8 @@
+fragment PartialStickerFields on StickerNode {
+  id
+  title
+  image {
+    id
+    downloadURL
+  }
+}

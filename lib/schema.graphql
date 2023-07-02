@@ -1,3 +1,5 @@
+directive @cacheControl(maxAge: Int, scope: CacheControlScope, inheritMaxAge: Boolean) on FIELD_DEFINITION | OBJECT | INTERFACE | UNION
+
 directive @link(url: String, as: String, for: link__Purpose, import: [link__Import]) on SCHEMA
 
 directive @key(fields: federation__FieldSet!, resolvable: Boolean = true) on OBJECT | INTERFACE
@@ -60,6 +62,11 @@ enum AwardType {
   WEEKLY
   DAILY
   DAILY_NO_THEME
+}
+
+enum CacheControlScope {
+  PUBLIC
+  PRIVATE
 }
 
 """コメント"""
@@ -380,7 +387,7 @@ type NotificationNode implements Node {
   stickerId: ID
   sticker: StickerNode
   type: NotificationType!
-  createdAt: Int
+  createdAt: Int!
 }
 
 enum NotificationType {

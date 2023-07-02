@@ -91,8 +91,6 @@ abstract class GDailyThemeData_dailyTheme_works
   @override
   String get title;
   @override
-  GDailyThemeData_dailyTheme_works_image? get image;
-  @override
   GDailyThemeData_dailyTheme_works_thumbnailImage? get thumbnailImage;
   static Serializer<GDailyThemeData_dailyTheme_works> get serializer =>
       _$gDailyThemeDataDailyThemeWorksSerializer;
@@ -105,42 +103,6 @@ abstract class GDailyThemeData_dailyTheme_works
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GDailyThemeData_dailyTheme_works.serializer,
-        json,
-      );
-}
-
-abstract class GDailyThemeData_dailyTheme_works_image
-    implements
-        Built<GDailyThemeData_dailyTheme_works_image,
-            GDailyThemeData_dailyTheme_works_imageBuilder>,
-        _i2.GPartialWorkFields_image {
-  GDailyThemeData_dailyTheme_works_image._();
-
-  factory GDailyThemeData_dailyTheme_works_image(
-          [Function(GDailyThemeData_dailyTheme_works_imageBuilder b) updates]) =
-      _$GDailyThemeData_dailyTheme_works_image;
-
-  static void _initializeBuilder(
-          GDailyThemeData_dailyTheme_works_imageBuilder b) =>
-      b..G__typename = 'ImageNode';
-  @override
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  @override
-  String get id;
-  @override
-  String get downloadURL;
-  static Serializer<GDailyThemeData_dailyTheme_works_image> get serializer =>
-      _$gDailyThemeDataDailyThemeWorksImageSerializer;
-  @override
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GDailyThemeData_dailyTheme_works_image.serializer,
-        this,
-      ) as Map<String, dynamic>);
-  static GDailyThemeData_dailyTheme_works_image? fromJson(
-          Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GDailyThemeData_dailyTheme_works_image.serializer,
         json,
       );
 }

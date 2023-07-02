@@ -4,11 +4,11 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:gql/ast.dart' as _i1;
 
-const PartialWorkFields = _i1.FragmentDefinitionNode(
-  name: _i1.NameNode(value: 'PartialWorkFields'),
+const PartialStickerFields = _i1.FragmentDefinitionNode(
+  name: _i1.NameNode(value: 'PartialStickerFields'),
   typeCondition: _i1.TypeConditionNode(
       on: _i1.NamedTypeNode(
-    name: _i1.NameNode(value: 'WorkNode'),
+    name: _i1.NameNode(value: 'StickerNode'),
     isNonNull: false,
   )),
   directives: [],
@@ -28,7 +28,7 @@ const PartialWorkFields = _i1.FragmentDefinitionNode(
       selectionSet: null,
     ),
     _i1.FieldNode(
-      name: _i1.NameNode(value: 'thumbnailImage'),
+      name: _i1.NameNode(value: 'image'),
       alias: null,
       arguments: [],
       directives: [],
@@ -51,4 +51,4 @@ const PartialWorkFields = _i1.FragmentDefinitionNode(
     ),
   ]),
 );
-const document = _i1.DocumentNode(definitions: [PartialWorkFields]);
+const document = _i1.DocumentNode(definitions: [PartialStickerFields]);

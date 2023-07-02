@@ -86,8 +86,6 @@ abstract class GUserLikedWorksData_user_likedWorks
   @override
   String get title;
   @override
-  GUserLikedWorksData_user_likedWorks_image? get image;
-  @override
   GUserLikedWorksData_user_likedWorks_thumbnailImage? get thumbnailImage;
   static Serializer<GUserLikedWorksData_user_likedWorks> get serializer =>
       _$gUserLikedWorksDataUserLikedWorksSerializer;
@@ -100,42 +98,6 @@ abstract class GUserLikedWorksData_user_likedWorks
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUserLikedWorksData_user_likedWorks.serializer,
-        json,
-      );
-}
-
-abstract class GUserLikedWorksData_user_likedWorks_image
-    implements
-        Built<GUserLikedWorksData_user_likedWorks_image,
-            GUserLikedWorksData_user_likedWorks_imageBuilder>,
-        _i2.GPartialWorkFields_image {
-  GUserLikedWorksData_user_likedWorks_image._();
-
-  factory GUserLikedWorksData_user_likedWorks_image(
-      [Function(GUserLikedWorksData_user_likedWorks_imageBuilder b)
-          updates]) = _$GUserLikedWorksData_user_likedWorks_image;
-
-  static void _initializeBuilder(
-          GUserLikedWorksData_user_likedWorks_imageBuilder b) =>
-      b..G__typename = 'ImageNode';
-  @override
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  @override
-  String get id;
-  @override
-  String get downloadURL;
-  static Serializer<GUserLikedWorksData_user_likedWorks_image> get serializer =>
-      _$gUserLikedWorksDataUserLikedWorksImageSerializer;
-  @override
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GUserLikedWorksData_user_likedWorks_image.serializer,
-        this,
-      ) as Map<String, dynamic>);
-  static GUserLikedWorksData_user_likedWorks_image? fromJson(
-          Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GUserLikedWorksData_user_likedWorks_image.serializer,
         json,
       );
 }

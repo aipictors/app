@@ -55,8 +55,6 @@ abstract class GHotWorksData_hotWorks
   @override
   String get title;
   @override
-  GHotWorksData_hotWorks_image? get image;
-  @override
   GHotWorksData_hotWorks_thumbnailImage? get thumbnailImage;
   static Serializer<GHotWorksData_hotWorks> get serializer =>
       _$gHotWorksDataHotWorksSerializer;
@@ -68,40 +66,6 @@ abstract class GHotWorksData_hotWorks
   static GHotWorksData_hotWorks? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GHotWorksData_hotWorks.serializer,
-        json,
-      );
-}
-
-abstract class GHotWorksData_hotWorks_image
-    implements
-        Built<GHotWorksData_hotWorks_image,
-            GHotWorksData_hotWorks_imageBuilder>,
-        _i2.GPartialWorkFields_image {
-  GHotWorksData_hotWorks_image._();
-
-  factory GHotWorksData_hotWorks_image(
-          [Function(GHotWorksData_hotWorks_imageBuilder b) updates]) =
-      _$GHotWorksData_hotWorks_image;
-
-  static void _initializeBuilder(GHotWorksData_hotWorks_imageBuilder b) =>
-      b..G__typename = 'ImageNode';
-  @override
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  @override
-  String get id;
-  @override
-  String get downloadURL;
-  static Serializer<GHotWorksData_hotWorks_image> get serializer =>
-      _$gHotWorksDataHotWorksImageSerializer;
-  @override
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GHotWorksData_hotWorks_image.serializer,
-        this,
-      ) as Map<String, dynamic>);
-  static GHotWorksData_hotWorks_image? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GHotWorksData_hotWorks_image.serializer,
         json,
       );
 }

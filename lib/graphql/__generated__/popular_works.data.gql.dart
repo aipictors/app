@@ -57,8 +57,6 @@ abstract class GPopularWorksData_popularWorks
   @override
   String get title;
   @override
-  GPopularWorksData_popularWorks_image? get image;
-  @override
   GPopularWorksData_popularWorks_thumbnailImage? get thumbnailImage;
   static Serializer<GPopularWorksData_popularWorks> get serializer =>
       _$gPopularWorksDataPopularWorksSerializer;
@@ -70,42 +68,6 @@ abstract class GPopularWorksData_popularWorks
   static GPopularWorksData_popularWorks? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GPopularWorksData_popularWorks.serializer,
-        json,
-      );
-}
-
-abstract class GPopularWorksData_popularWorks_image
-    implements
-        Built<GPopularWorksData_popularWorks_image,
-            GPopularWorksData_popularWorks_imageBuilder>,
-        _i2.GPartialWorkFields_image {
-  GPopularWorksData_popularWorks_image._();
-
-  factory GPopularWorksData_popularWorks_image(
-          [Function(GPopularWorksData_popularWorks_imageBuilder b) updates]) =
-      _$GPopularWorksData_popularWorks_image;
-
-  static void _initializeBuilder(
-          GPopularWorksData_popularWorks_imageBuilder b) =>
-      b..G__typename = 'ImageNode';
-  @override
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  @override
-  String get id;
-  @override
-  String get downloadURL;
-  static Serializer<GPopularWorksData_popularWorks_image> get serializer =>
-      _$gPopularWorksDataPopularWorksImageSerializer;
-  @override
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GPopularWorksData_popularWorks_image.serializer,
-        this,
-      ) as Map<String, dynamic>);
-  static GPopularWorksData_popularWorks_image? fromJson(
-          Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GPopularWorksData_popularWorks_image.serializer,
         json,
       );
 }

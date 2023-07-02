@@ -56,8 +56,6 @@ abstract class GBestWorksData_bestWorks
   @override
   String get title;
   @override
-  GBestWorksData_bestWorks_image? get image;
-  @override
   GBestWorksData_bestWorks_thumbnailImage? get thumbnailImage;
   static Serializer<GBestWorksData_bestWorks> get serializer =>
       _$gBestWorksDataBestWorksSerializer;
@@ -69,40 +67,6 @@ abstract class GBestWorksData_bestWorks
   static GBestWorksData_bestWorks? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GBestWorksData_bestWorks.serializer,
-        json,
-      );
-}
-
-abstract class GBestWorksData_bestWorks_image
-    implements
-        Built<GBestWorksData_bestWorks_image,
-            GBestWorksData_bestWorks_imageBuilder>,
-        _i2.GPartialWorkFields_image {
-  GBestWorksData_bestWorks_image._();
-
-  factory GBestWorksData_bestWorks_image(
-          [Function(GBestWorksData_bestWorks_imageBuilder b) updates]) =
-      _$GBestWorksData_bestWorks_image;
-
-  static void _initializeBuilder(GBestWorksData_bestWorks_imageBuilder b) =>
-      b..G__typename = 'ImageNode';
-  @override
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  @override
-  String get id;
-  @override
-  String get downloadURL;
-  static Serializer<GBestWorksData_bestWorks_image> get serializer =>
-      _$gBestWorksDataBestWorksImageSerializer;
-  @override
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GBestWorksData_bestWorks_image.serializer,
-        this,
-      ) as Map<String, dynamic>);
-  static GBestWorksData_bestWorks_image? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GBestWorksData_bestWorks_image.serializer,
         json,
       );
 }

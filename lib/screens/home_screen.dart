@@ -61,7 +61,7 @@ class HomeScreen extends HookConsumerWidget {
             label: 'お題',
           ),
           const NavigationDestination(
-            icon: Icon(Icons.search_rounded),
+            icon: Icon(Icons.explore_rounded),
             label: '検索',
           ),
           const NavigationDestination(

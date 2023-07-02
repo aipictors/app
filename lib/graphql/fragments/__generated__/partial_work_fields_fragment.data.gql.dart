@@ -12,15 +12,7 @@ abstract class GPartialWorkFields {
   String get G__typename;
   String get id;
   String get title;
-  GPartialWorkFields_image? get image;
   GPartialWorkFields_thumbnailImage? get thumbnailImage;
-  Map<String, dynamic> toJson();
-}
-
-abstract class GPartialWorkFields_image {
-  String get G__typename;
-  String get id;
-  String get downloadURL;
   Map<String, dynamic> toJson();
 }
 
@@ -51,8 +43,6 @@ abstract class GPartialWorkFieldsData
   @override
   String get title;
   @override
-  GPartialWorkFieldsData_image? get image;
-  @override
   GPartialWorkFieldsData_thumbnailImage? get thumbnailImage;
   static Serializer<GPartialWorkFieldsData> get serializer =>
       _$gPartialWorkFieldsDataSerializer;
@@ -64,40 +54,6 @@ abstract class GPartialWorkFieldsData
   static GPartialWorkFieldsData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GPartialWorkFieldsData.serializer,
-        json,
-      );
-}
-
-abstract class GPartialWorkFieldsData_image
-    implements
-        Built<GPartialWorkFieldsData_image,
-            GPartialWorkFieldsData_imageBuilder>,
-        GPartialWorkFields_image {
-  GPartialWorkFieldsData_image._();
-
-  factory GPartialWorkFieldsData_image(
-          [Function(GPartialWorkFieldsData_imageBuilder b) updates]) =
-      _$GPartialWorkFieldsData_image;
-
-  static void _initializeBuilder(GPartialWorkFieldsData_imageBuilder b) =>
-      b..G__typename = 'ImageNode';
-  @override
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  @override
-  String get id;
-  @override
-  String get downloadURL;
-  static Serializer<GPartialWorkFieldsData_image> get serializer =>
-      _$gPartialWorkFieldsDataImageSerializer;
-  @override
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GPartialWorkFieldsData_image.serializer,
-        this,
-      ) as Map<String, dynamic>);
-  static GPartialWorkFieldsData_image? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GPartialWorkFieldsData_image.serializer,
         json,
       );
 }

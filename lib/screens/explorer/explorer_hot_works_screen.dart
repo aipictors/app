@@ -43,7 +43,7 @@ class ExplorerHotWorksScreen extends HookConsumerWidget {
               onTap: () {
                 context.push('/works/${work.id}');
               },
-              child: GridWorkImage(imageUrl: work.image!.downloadURL),
+              child: GridWorkImage(imageUrl: work.thumbnailImage!.downloadURL),
             );
           },
         );

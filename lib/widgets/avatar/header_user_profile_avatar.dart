@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class UserProfileAvatar extends HookConsumerWidget {
-  const UserProfileAvatar({
+class HeaderUserProfileAvatar extends HookConsumerWidget {
+  const HeaderUserProfileAvatar({
     Key? key,
     required this.imageURL,
   }) : super(key: key);
@@ -13,15 +13,19 @@ class UserProfileAvatar extends HookConsumerWidget {
   Widget build(context, ref) {
     if (imageURL == null) {
       return CircleAvatar(
-        radius: 16,
+        radius: 44,
         backgroundColor: Theme.of(context).colorScheme.primary,
         child: const CircleAvatar(radius: 40),
       );
     }
 
     return CircleAvatar(
-      radius: 16,
-      backgroundImage: NetworkImage(imageURL!),
+      radius: 44,
+      backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+      child: CircleAvatar(
+        radius: 40,
+        backgroundImage: NetworkImage(imageURL!),
+      ),
     );
   }
 }

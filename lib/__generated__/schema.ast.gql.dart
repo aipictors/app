@@ -4,6 +4,45 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:gql/ast.dart' as _i1;
 
+const cacheControl = _i1.DirectiveDefinitionNode(
+  name: _i1.NameNode(value: 'cacheControl'),
+  args: [
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'maxAge'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Int'),
+        isNonNull: false,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'scope'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'CacheControlScope'),
+        isNonNull: false,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'inheritMaxAge'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Boolean'),
+        isNonNull: false,
+      ),
+      defaultValue: null,
+    ),
+  ],
+  locations: [
+    _i1.DirectiveLocation.fieldDefinition,
+    _i1.DirectiveLocation.object,
+    _i1.DirectiveLocation.interface,
+    _i1.DirectiveLocation.union,
+  ],
+  repeatable: false,
+);
 const link = _i1.DirectiveDefinitionNode(
   name: _i1.NameNode(value: 'link'),
   args: [
@@ -425,6 +464,20 @@ const AwardType = _i1.EnumTypeDefinitionNode(
     ),
     _i1.EnumValueDefinitionNode(
       name: _i1.NameNode(value: 'DAILY_NO_THEME'),
+      directives: [],
+    ),
+  ],
+);
+const CacheControlScope = _i1.EnumTypeDefinitionNode(
+  name: _i1.NameNode(value: 'CacheControlScope'),
+  directives: [],
+  values: [
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'PUBLIC'),
+      directives: [],
+    ),
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'PRIVATE'),
       directives: [],
     ),
   ],
@@ -2056,7 +2109,7 @@ const NotificationNode = _i1.ObjectTypeDefinitionNode(
       args: [],
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'Int'),
-        isNonNull: false,
+        isNonNull: true,
       ),
     ),
   ],
@@ -4372,6 +4425,7 @@ const WorksWhereInput = _i1.InputObjectTypeDefinitionNode(
   ],
 );
 const document = _i1.DocumentNode(definitions: [
+  cacheControl,
   link,
   key,
   federation__requires,
@@ -4389,6 +4443,7 @@ const document = _i1.DocumentNode(definitions: [
   AccessType,
   AwardsWhereInput,
   AwardType,
+  CacheControlScope,
   CommentNode,
   CreateCommentInput,
   CreateFolderInput,

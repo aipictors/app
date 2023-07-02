@@ -1,10 +1,6 @@
 fragment PartialWorkFields on WorkNode {
   id
   title
-  image {
-    id
-    downloadURL
-  }
   thumbnailImage {
     id
     downloadURL
