@@ -48,7 +48,7 @@ class DefaultConfig {
   }
 
   static String get versionText {
-    return '$version+$buildNumber';
+    return packageInfo!.version;
   }
 
   /// dart_define

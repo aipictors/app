@@ -216,15 +216,27 @@ class ConfigScreen extends HookConsumerWidget {
           const Divider(),
           SwitchListTile(
             title: Text(
-              'ダークモード'.i18n,
+              'システムカラーモード'.i18n,
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
-            value: config.isDarkMode,
+            value: config.isSystemColorMode,
             onChanged: (value) {
               final notifier = ref.read(configProvider.notifier);
-              notifier.toggleThemeMode();
+              notifier.toggleSystemColorThemeMode();
             },
           ),
+          if (!config.isSystemColorMode)
+            SwitchListTile(
+              title: Text(
+                'ダークモード'.i18n,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+              value: config.isDarkMode,
+              onChanged: (value) {
+                final notifier = ref.read(configProvider.notifier);
+                notifier.toggleThemeMode();
+              },
+            ),
           const SizedBox(height: 8),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 10),

@@ -55,6 +55,17 @@ class Config extends _$Config {
     state = build();
   }
 
+  /// テーマを変更する
+  void toggleSystemColorThemeMode() async {
+    final themeMode = const ConfigRepository().themeMode;
+    if (themeMode == ThemeMode.system.name) {
+      const ConfigRepository().setThemeMode(ThemeMode.dark.name);
+    } else {
+      const ConfigRepository().setThemeMode(ThemeMode.system.name);
+    }
+    state = build();
+  }
+
   void updateColorScheme(String? value) async {
     const ConfigRepository().setThemeColor(value);
     state = build();

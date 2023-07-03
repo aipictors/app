@@ -233,8 +233,6 @@ class _$GViewerNotificationsData_viewer_notificationsSerializer
   GViewerNotificationsData_viewer_notifications deserialize(
       Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    T $cast<T>(dynamic any) => any as T;
-
     final result = new GViewerNotificationsData_viewer_notificationsBuilder();
 
     final iterator = serialized.iterator;
@@ -289,16 +287,10 @@ class _$GViewerNotificationsData_viewer_notificationsSerializer
               specifiedType: const FullType(String)) as String?;
           break;
         case 'sticker':
-          var maybeBuilder = result.sticker;
-          var fieldValue = serializers.deserialize(value,
+          result.sticker.replace(serializers.deserialize(value,
                   specifiedType: const FullType(
                       GViewerNotificationsData_viewer_notifications_sticker))!
-              as GViewerNotificationsData_viewer_notifications_sticker;
-          if (maybeBuilder == null) {
-            result.sticker = $cast(fieldValue.toBuilder());
-          } else {
-            maybeBuilder.replace(fieldValue);
-          }
+              as GViewerNotificationsData_viewer_notifications_sticker);
           break;
       }
     }
@@ -1558,7 +1550,7 @@ class GViewerNotificationsData_viewer_notifications_work_thumbnailImageBuilder
   _$GViewerNotificationsData_viewer_notifications_work_thumbnailImage _build() {
     final _$result = _$v ??
         new _$GViewerNotificationsData_viewer_notifications_work_thumbnailImage
-                ._(
+            ._(
             G__typename: BuiltValueNullFieldError.checkNotNull(
                 G__typename,
                 r'GViewerNotificationsData_viewer_notifications_work_thumbnailImage',
@@ -1911,7 +1903,7 @@ class GViewerNotificationsData_viewer_notifications_relatedUser_iconImageBuilder
       _build() {
     final _$result = _$v ??
         new _$GViewerNotificationsData_viewer_notifications_relatedUser_iconImage
-                ._(
+            ._(
             G__typename: BuiltValueNullFieldError.checkNotNull(
                 G__typename,
                 r'GViewerNotificationsData_viewer_notifications_relatedUser_iconImage',

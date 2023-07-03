@@ -53,6 +53,7 @@ class SurveysScreen extends HookConsumerWidget {
                 ),
               ],
             ),
+            const SizedBox(height: 16),
             ExpansionTile(
               initiallyExpanded: survey.touchPoint == null,
               title: const Text('どこでアプリを知りましたか？'),
@@ -95,6 +96,7 @@ class SurveysScreen extends HookConsumerWidget {
                 ),
               ],
             ),
+            const SizedBox(height: 16),
             ListTile(
               title: const Text('全ての回答をリセットする'),
               trailing: FilledButton.tonal(
@@ -104,6 +106,7 @@ class SurveysScreen extends HookConsumerWidget {
                 },
               ),
             ),
+            const SizedBox(height: 32),
           ],
         ),
       ),
