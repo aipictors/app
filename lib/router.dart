@@ -19,6 +19,7 @@ import 'package:aipictors/screens/work/work_screen.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
 
@@ -26,6 +27,7 @@ final router = GoRouter(
   navigatorKey: _rootNavigatorKey,
   observers: [
     FirebaseAnalyticsObserver(analytics: FirebaseAnalytics.instance),
+    SentryNavigatorObserver(),
   ],
   initialLocation: '/',
   routes: [

@@ -1,4 +1,5 @@
 import 'package:aipictors/providers/config_provider.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -18,6 +19,10 @@ class DebugScreen extends HookConsumerWidget {
       body: SafeArea(
         child: ListView(
           children: [
+            ListTile(
+              title: const Text('projectId'),
+              subtitle: Text(Firebase.app().options.projectId),
+            ),
             ListTile(
               title: const Text('lastFetchStatus'),
               subtitle: Text(config.lastFetchStatus.toString()),

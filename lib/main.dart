@@ -93,10 +93,18 @@ void main() async {
       options.environment = DefaultConfig.sentryEnvironment;
       options.dsn = DefaultConfig.sentryDsn;
       options.release = DefaultConfig.version;
+      options.debug = DefaultConfig.isNotProduction;
       options.useFlutterBreadcrumbTracking();
-      if (options.environment == 'production') {
+      if (DefaultConfig.isProduction) {
         options.tracesSampleRate = 1.0;
       }
+      options.beforeSend = (event, {hint}) {
+        if (DefaultConfig.isProduction) {
+          // ignore: avoid_print
+          print(event);
+        }
+        return event;
+      };
     },
     appRunner: () {
       Sentry.configureScope((scope) {
