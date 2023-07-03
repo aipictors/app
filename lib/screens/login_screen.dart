@@ -41,6 +41,7 @@ class LoginScreen extends HookConsumerWidget {
                     const SizedBox(height: 40),
                     TextField(
                       readOnly: isLoading.value,
+                      keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
                         hintText: 'ID',
                         contentPadding: const EdgeInsets.symmetric(
@@ -61,6 +62,7 @@ class LoginScreen extends HookConsumerWidget {
                     ),
                     const SizedBox(height: 16),
                     TextField(
+                      keyboardType: TextInputType.visiblePassword,
                       obscureText: true,
                       readOnly: isLoading.value,
                       decoration: InputDecoration(
