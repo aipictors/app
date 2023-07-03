@@ -14,7 +14,6 @@ class DefaultConfig {
 
   static String get graphqlURI {
     return 'https://subgraph-aipictors-sn4ve5jg4q-an.a.run.app/api';
-    // return 'https://any.ngrok.io/api';
   }
 
   static Color get defaultThemeColor {
@@ -32,7 +31,11 @@ class DefaultConfig {
   }
 
   static bool get isProduction {
-    return const String.fromEnvironment('environment') == 'production';
+    return const String.fromEnvironment('sentryEnvironment') == 'production';
+  }
+
+  static bool get isNotProduction {
+    return const String.fromEnvironment('sentryEnvironment') != 'production';
   }
 
   static String get version {
@@ -53,7 +56,7 @@ class DefaultConfig {
 
   /// dart_define
   static String get sentryEnvironment {
-    return const String.fromEnvironment('environment');
+    return const String.fromEnvironment('sentryEnvironment');
   }
 
   /// dart_define

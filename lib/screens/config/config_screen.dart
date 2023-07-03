@@ -200,19 +200,6 @@ class ConfigScreen extends HookConsumerWidget {
               onShowTwitterDialog(context, ref);
             },
           ),
-          ListTile(
-            title: Text(
-              '${'バージョン'.i18n} ${DefaultConfig.versionText}',
-              style: const TextStyle(fontWeight: FontWeight.bold),
-            ),
-            onLongPress: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('クリップボードにコピーしました。')),
-              );
-              final data = ClipboardData(text: DefaultConfig.versionText);
-              Clipboard.setData(data);
-            },
-          ),
           const Divider(),
           SwitchListTile(
             title: Text(
@@ -244,13 +231,26 @@ class ConfigScreen extends HookConsumerWidget {
           ),
           const SizedBox(height: 12),
           const Divider(),
-          AboutListTile(
-            applicationName: DefaultConfig.appName,
-            applicationVersion: DefaultConfig.version,
-            applicationIcon: const Icon(Icons.flutter_dash_rounded),
-            aboutBoxChildren: const [
-              Text('この度はアプリをダウンロードいただきありがとうございます。このアプリに関するライセンスを確認いただけます。'),
-            ],
+          // AboutListTile(
+          //   applicationName: DefaultConfig.appName,
+          //   applicationVersion: DefaultConfig.version,
+          //   applicationIcon: const Icon(Icons.flutter_dash_rounded),
+          //   aboutBoxChildren: const [
+          //     Text('この度はアプリをダウンロードいただきありがとうございます。このアプリに関するライセンスを確認いただけます。'),
+          //   ],
+          // ),
+          ListTile(
+            title: Text(
+              '${'バージョン'.i18n} ${DefaultConfig.versionText}',
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+            onLongPress: () {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('クリップボードにコピーしました。')),
+              );
+              final data = ClipboardData(text: DefaultConfig.versionText);
+              Clipboard.setData(data);
+            },
           ),
           const SizedBox(height: 8),
         ],
