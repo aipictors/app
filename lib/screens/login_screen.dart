@@ -1,6 +1,8 @@
 import 'package:aipictors/mutations/login_with_password.dart';
+import 'package:aipictors/mutations/login_with_twitter.dart';
 import 'package:aipictors/utils/to_exception_message.dart';
 import 'package:aipictors/widgets/container/loading_container.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -89,7 +91,7 @@ class LoginScreen extends HookConsumerWidget {
                             ? null
                             : () async {
                                 isLoading.value = true;
-                                await onLogin(
+                                await onLoginWithPassword(
                                   context,
                                   ref,
                                   idInput.value,
@@ -98,6 +100,25 @@ class LoginScreen extends HookConsumerWidget {
                                 isLoading.value = false;
                               },
                         child: const Text('ログイン'),
+                      ),
+                    ),
+                    const SizedBox(height: 40),
+                    const Divider(height: 0),
+                    const SizedBox(height: 40),
+                    SizedBox(
+                      width: double.infinity,
+                      child: FilledButton(
+                        style: FilledButton.styleFrom(
+                          fixedSize: const Size.fromHeight(48),
+                        ),
+                        onPressed: isLoading.value
+                            ? null
+                            : () async {
+                                isLoading.value = true;
+                                await onLoginWithTwitter(context, ref);
+                                isLoading.value = false;
+                              },
+                        child: const Text('Twitterでログイン'),
                       ),
                     ),
                   ],
@@ -110,7 +131,7 @@ class LoginScreen extends HookConsumerWidget {
     );
   }
 
-  onLogin(
+  onLoginWithPassword(
     BuildContext context,
     WidgetRef ref,
     String id,
@@ -125,6 +146,47 @@ class LoginScreen extends HookConsumerWidget {
     );
     try {
       await loginWithPassword(login: id, password: password);
+      FirebaseAnalytics.instance.logLogin();
+      // ignore: use_build_context_synchronously
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(
+          const SnackBar(content: Text('ログインしました')),
+        );
+    } catch (exception) {
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(
+          SnackBar(content: Text(toExceptionMessage(exception))),
+        );
+    }
+    // ignore: use_build_context_synchronously
+    if (context.canPop()) {
+      // ignore: use_build_context_synchronously
+      context.pop();
+    }
+  }
+
+  onLoginWithTwitter(
+    BuildContext context,
+    WidgetRef ref,
+  ) async {
+    FocusManager.instance.primaryFocus?.unfocus();
+    showDialog<void>(
+      context: context,
+      builder: (_) {
+        return const LoadingContainer();
+      },
+    );
+    try {
+      await loginWithTwitter();
+      FirebaseAnalytics.instance.logLogin(loginMethod: 'twitter');
+      // ignore: use_build_context_synchronously
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(
+          const SnackBar(content: Text('ログインしました')),
+        );
     } catch (exception) {
       ScaffoldMessenger.of(context)
         ..hideCurrentSnackBar()

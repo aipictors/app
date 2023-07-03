@@ -1,4 +1,5 @@
 import 'package:aipictors/widgets/container/notification_user_container.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -27,6 +28,10 @@ class NotificationFollowListTile extends HookConsumerWidget {
   Widget build(context, ref) {
     return ListTile(
       onTap: () {
+        FirebaseAnalytics.instance.logSelectContent(
+          contentType: 'user',
+          itemId: userId!,
+        );
         context.push('/users/$userId');
       },
       leading: Icon(

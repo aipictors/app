@@ -28,7 +28,7 @@ class AboutTwitterDialog extends HookConsumerWidget {
           Text(config.messageAboutTwitter),
           const SizedBox(height: 16),
           FilledButton.tonal(
-            style: const ButtonStyle(
+            style: FilledButton.styleFrom(
               tapTargetSize: MaterialTapTargetSize.shrinkWrap,
             ),
             onPressed: onOpen,

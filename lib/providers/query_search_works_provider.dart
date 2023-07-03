@@ -2,6 +2,7 @@ import 'package:aipictors/client.dart';
 import 'package:aipictors/graphql/__generated__/works.data.gql.dart';
 import 'package:aipictors/graphql/__generated__/works.req.gql.dart';
 import 'package:aipictors/utils/to_response_data.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -20,7 +21,10 @@ Future<GWorksData?> querySearchWorks(
   QuerySearchWorksRef ref,
   SearchWorksProps props,
 ) async {
-  if (props.search.isEmpty) {}
+  if (props.search.isEmpty) {
+    return null;
+  }
+  FirebaseAnalytics.instance.logSearch(searchTerm: props.search);
   final client = await createClient();
   final req = GWorksReq((builder) {
     return builder

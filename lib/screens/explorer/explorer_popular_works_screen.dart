@@ -3,6 +3,7 @@ import 'package:aipictors/widgets/container/data_not_found_error_container.dart'
 import 'package:aipictors/widgets/container/loading_container.dart';
 import 'package:aipictors/widgets/container/unexpected_error_container.dart';
 import 'package:aipictors/widgets/image/grid_work_image.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -41,6 +42,10 @@ class ExplorerPopularWorksScreen extends HookConsumerWidget {
             final work = works[index];
             return InkWell(
               onTap: () {
+                FirebaseAnalytics.instance.logSelectContent(
+                  contentType: 'work',
+                  itemId: work.id,
+                );
                 context.push('/works/${work.id}');
               },
               child: GridWorkImage(imageUrl: work.thumbnailImage!.downloadURL),

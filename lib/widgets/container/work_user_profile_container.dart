@@ -1,4 +1,5 @@
 import 'package:aipictors/graphql/fragments/__generated__/work_user_fields_fragment.data.gql.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -22,6 +23,10 @@ class WorkUserProfileContainer extends HookConsumerWidget {
             ),
           ),
           onTap: () {
+            FirebaseAnalytics.instance.logSelectContent(
+              contentType: 'user',
+              itemId: user.id,
+            );
             context.push('/users/${user.id}');
           },
         ),
@@ -40,6 +45,10 @@ class WorkUserProfileContainer extends HookConsumerWidget {
                 ),
               ),
               onTap: () {
+                FirebaseAnalytics.instance.logSelectContent(
+                  contentType: 'user',
+                  itemId: user.id,
+                );
                 context.push('/users/${user.id}');
               },
             ),

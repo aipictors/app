@@ -4,6 +4,7 @@ import 'package:aipictors/widgets/container/daily_theme_container.dart';
 import 'package:aipictors/widgets/container/data_not_found_error_container.dart';
 import 'package:aipictors/widgets/container/loading_container.dart';
 import 'package:aipictors/widgets/container/unexpected_error_container.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
@@ -65,6 +66,10 @@ class DailyThemesScreen extends HookConsumerWidget {
               final firstWork = dailyTheme.firstWork;
               return InkWell(
                 onTap: () {
+                  FirebaseAnalytics.instance.logSelectContent(
+                    contentType: 'daily_theme',
+                    itemId: dailyTheme.id,
+                  );
                   context.push('/daily_themes/${dailyTheme.id}');
                 },
                 child: DailyThemeContainer(

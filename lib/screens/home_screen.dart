@@ -8,7 +8,6 @@ import 'package:aipictors/screens/explorer/explorer_works_screen.dart';
 import 'package:aipictors/screens/loading_screen.dart';
 import 'package:aipictors/screens/login_screen.dart';
 import 'package:aipictors/screens/notification_screen.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -26,7 +25,7 @@ class HomeScreen extends HookConsumerWidget {
     final pageIndex = useState(0);
 
     // ログイン状態が変わった際にホームに戻す
-    ref.listen<AsyncValue<User?>>(
+    ref.listen(
       authStateProvider,
       (_, next) {
         pageIndex.value = 0;

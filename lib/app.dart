@@ -1,5 +1,7 @@
 import 'package:aipictors/config.dart';
+import 'package:aipictors/handlers/auth_state_listener.dart';
 import 'package:aipictors/handlers/config_update_handler.dart';
+import 'package:aipictors/providers/auth_state_provider.dart';
 import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/providers/config_update_provider.dart';
 import 'package:aipictors/router.dart';
@@ -21,6 +23,11 @@ class App extends HookConsumerWidget {
     ref.listen(
       configUpdateProvider,
       buildRemoteConfigListener(context, ref),
+    );
+
+    ref.listen(
+      authStateProvider,
+      buildAuthStateListener(context, ref),
     );
 
     return DynamicColorBuilder(builder: (lightDynamic, darkDynamic) {

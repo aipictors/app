@@ -88,6 +88,11 @@ void main() async {
     value: language,
   );
 
+  FirebaseAnalytics.instance.setDefaultEventParameters({
+    'version': DefaultConfig.version,
+    'language': language,
+  });
+
   await SentryFlutter.init(
     (options) {
       options.environment = DefaultConfig.sentryEnvironment;
