@@ -1,25 +1,61 @@
+import 'package:aipictors/mutations/create_work_like.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:like_button/like_button.dart';
 
 class WorkBottomAppContainer extends HookConsumerWidget {
-  const WorkBottomAppContainer({Key? key}) : super(key: key);
+  const WorkBottomAppContainer({
+    Key? key,
+    required this.workId,
+    required this.isLiked,
+  }) : super(key: key);
+
+  final String workId;
+
+  final bool isLiked;
 
   @override
   Widget build(context, ref) {
+    final isLikedInMemory = useState(isLiked);
+
     return BottomAppBar(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
             children: [
-              IconButton.filledTonal(
-                icon: const Icon(Icons.favorite_rounded),
-                onPressed: () {},
+              LikeButton(
+                isLiked: isLikedInMemory.value,
+                likeBuilder: (bool isLiked) {
+                  return Icon(
+                    Icons.favorite_rounded,
+                    size: 28,
+                    color: isLikedInMemory.value
+                        ? Theme.of(context).colorScheme.error
+                        : null,
+                  );
+                },
+                onTap: (isLiked) async {
+                  onCreateWorkLike();
+                  isLikedInMemory.value = !isLikedInMemory.value;
+                  return !isLiked;
+                },
               ),
-              const SizedBox(width: 8),
-              IconButton.filledTonal(
-                icon: const Icon(Icons.bookmark_rounded),
-                onPressed: () {},
+              const SizedBox(width: 16),
+              LikeButton(
+                isLiked: isLiked,
+                likeBuilder: (bool isLiked) {
+                  return Icon(
+                    Icons.bookmark_rounded,
+                    size: 28,
+                    color:
+                        isLiked ? Theme.of(context).colorScheme.primary : null,
+                  );
+                },
+                onTap: (isLiked) async {
+                  return !isLiked;
+                },
               ),
             ],
           ),
@@ -36,5 +72,9 @@ class WorkBottomAppContainer extends HookConsumerWidget {
         ],
       ),
     );
+  }
+
+  onCreateWorkLike() {
+    createWorkLike(workId: workId);
   }
 }

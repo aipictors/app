@@ -346,6 +346,10 @@ const G_Entity = _i1.UnionTypeDefinitionNode(
       name: _i1.NameNode(value: 'WorkNode'),
       isNonNull: false,
     ),
+    _i1.NamedTypeNode(
+      name: _i1.NameNode(value: 'WorkViewerNode'),
+      isNonNull: false,
+    ),
   ],
 );
 const G_Service = _i1.ObjectTypeDefinitionNode(
@@ -1953,10 +1957,10 @@ const MuteTagInput = _i1.InputObjectTypeDefinitionNode(
   directives: [],
   fields: [
     _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'tagId'),
+      name: _i1.NameNode(value: 'tagName'),
       directives: [],
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'ID'),
+        name: _i1.NameNode(value: 'String'),
         isNonNull: true,
       ),
       defaultValue: null,
@@ -2229,46 +2233,6 @@ const Query = _i1.ObjectTypeDefinitionNode(
           directives: [],
           type: _i1.NamedTypeNode(
             name: _i1.NameNode(value: 'WorksWhereInput'),
-            isNonNull: false,
-          ),
-          defaultValue: null,
-        ),
-      ],
-      type: _i1.ListTypeNode(
-        type: _i1.NamedTypeNode(
-          name: _i1.NameNode(value: 'WorkNode'),
-          isNonNull: true,
-        ),
-        isNonNull: false,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'tabWorks'),
-      directives: [],
-      args: [
-        _i1.InputValueDefinitionNode(
-          name: _i1.NameNode(value: 'offset'),
-          directives: [],
-          type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'Int'),
-            isNonNull: true,
-          ),
-          defaultValue: null,
-        ),
-        _i1.InputValueDefinitionNode(
-          name: _i1.NameNode(value: 'limit'),
-          directives: [],
-          type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'Int'),
-            isNonNull: true,
-          ),
-          defaultValue: null,
-        ),
-        _i1.InputValueDefinitionNode(
-          name: _i1.NameNode(value: 'where'),
-          directives: [],
-          type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'TabWorksWhereInput'),
             isNonNull: false,
           ),
           defaultValue: null,
@@ -2923,21 +2887,6 @@ const SubWorkNode = _i1.ObjectTypeDefinitionNode(
     ),
   ],
 );
-const TabWorksWhereInput = _i1.InputObjectTypeDefinitionNode(
-  name: _i1.NameNode(value: 'TabWorksWhereInput'),
-  directives: [],
-  fields: [
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'slug'),
-      directives: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'String'),
-        isNonNull: false,
-      ),
-      defaultValue: null,
-    )
-  ],
-);
 const TagNode = _i1.ObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'TagNode'),
   directives: [],
@@ -3034,10 +2983,10 @@ const UnmuteTagInput = _i1.InputObjectTypeDefinitionNode(
   directives: [],
   fields: [
     _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'tagId'),
+      name: _i1.NameNode(value: 'tagName'),
       directives: [],
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'ID'),
+        name: _i1.NameNode(value: 'String'),
         isNonNull: true,
       ),
       defaultValue: null,
@@ -4407,6 +4356,15 @@ const WorkNode = _i1.ObjectTypeDefinitionNode(
         isNonNull: true,
       ),
     ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'viewer'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'WorkViewerNode'),
+        isNonNull: true,
+      ),
+    ),
   ],
 );
 const WorksWhereInput = _i1.InputObjectTypeDefinitionNode(
@@ -4422,6 +4380,45 @@ const WorksWhereInput = _i1.InputObjectTypeDefinitionNode(
       ),
       defaultValue: null,
     )
+  ],
+);
+const WorkViewerNode = _i1.ObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'WorkViewerNode'),
+  directives: [],
+  interfaces: [
+    _i1.NamedTypeNode(
+      name: _i1.NameNode(value: 'Node'),
+      isNonNull: false,
+    )
+  ],
+  fields: [
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'id'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'ID'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'isLiked'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Boolean'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'isBookmarked'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Boolean'),
+        isNonNull: true,
+      ),
+    ),
   ],
 );
 const document = _i1.DocumentNode(definitions: [
@@ -4486,7 +4483,6 @@ const document = _i1.DocumentNode(definitions: [
   StickerNode,
   StickersWhereInput,
   SubWorkNode,
-  TabWorksWhereInput,
   TagNode,
   TagsWhereInput,
   UnfollowUserInput,
@@ -4507,4 +4503,5 @@ const document = _i1.DocumentNode(definitions: [
   WorkLikeNode,
   WorkNode,
   WorksWhereInput,
+  WorkViewerNode,
 ]);

@@ -244,8 +244,6 @@ Serializer<GPostType> _$gPostTypeSerializer = new _$GPostTypeSerializer();
 Serializer<GRating> _$gRatingSerializer = new _$GRatingSerializer();
 Serializer<GStickersWhereInput> _$gStickersWhereInputSerializer =
     new _$GStickersWhereInputSerializer();
-Serializer<GTabWorksWhereInput> _$gTabWorksWhereInputSerializer =
-    new _$GTabWorksWhereInputSerializer();
 Serializer<GTagsWhereInput> _$gTagsWhereInputSerializer =
     new _$GTagsWhereInputSerializer();
 Serializer<GUnfollowUserInput> _$gUnfollowUserInputSerializer =
@@ -1268,8 +1266,8 @@ class _$GMuteTagInputSerializer implements StructuredSerializer<GMuteTagInput> {
   Iterable<Object?> serialize(Serializers serializers, GMuteTagInput object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
-      'tagId',
-      serializers.serialize(object.tagId,
+      'tagName',
+      serializers.serialize(object.tagName,
           specifiedType: const FullType(String)),
     ];
 
@@ -1288,8 +1286,8 @@ class _$GMuteTagInputSerializer implements StructuredSerializer<GMuteTagInput> {
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
-        case 'tagId':
-          result.tagId = serializers.deserialize(value,
+        case 'tagName':
+          result.tagName = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
       }
@@ -1502,55 +1500,6 @@ class _$GStickersWhereInputSerializer
   }
 }
 
-class _$GTabWorksWhereInputSerializer
-    implements StructuredSerializer<GTabWorksWhereInput> {
-  @override
-  final Iterable<Type> types = const [
-    GTabWorksWhereInput,
-    _$GTabWorksWhereInput
-  ];
-  @override
-  final String wireName = 'GTabWorksWhereInput';
-
-  @override
-  Iterable<Object?> serialize(
-      Serializers serializers, GTabWorksWhereInput object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[];
-    Object? value;
-    value = object.slug;
-    if (value != null) {
-      result
-        ..add('slug')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
-    }
-    return result;
-  }
-
-  @override
-  GTabWorksWhereInput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GTabWorksWhereInputBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case 'slug':
-          result.slug = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
 class _$GTagsWhereInputSerializer
     implements StructuredSerializer<GTagsWhereInput> {
   @override
@@ -1650,8 +1599,8 @@ class _$GUnmuteTagInputSerializer
   Iterable<Object?> serialize(Serializers serializers, GUnmuteTagInput object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
-      'tagId',
-      serializers.serialize(object.tagId,
+      'tagName',
+      serializers.serialize(object.tagName,
           specifiedType: const FullType(String)),
     ];
 
@@ -1670,8 +1619,8 @@ class _$GUnmuteTagInputSerializer
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
-        case 'tagId':
-          result.tagId = serializers.deserialize(value,
+        case 'tagName':
+          result.tagName = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
       }
@@ -4042,13 +3991,13 @@ class GLoginWithPasswordInputBuilder
 
 class _$GMuteTagInput extends GMuteTagInput {
   @override
-  final String tagId;
+  final String tagName;
 
   factory _$GMuteTagInput([void Function(GMuteTagInputBuilder)? updates]) =>
       (new GMuteTagInputBuilder()..update(updates))._build();
 
-  _$GMuteTagInput._({required this.tagId}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(tagId, r'GMuteTagInput', 'tagId');
+  _$GMuteTagInput._({required this.tagName}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(tagName, r'GMuteTagInput', 'tagName');
   }
 
   @override
@@ -4061,20 +4010,21 @@ class _$GMuteTagInput extends GMuteTagInput {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GMuteTagInput && tagId == other.tagId;
+    return other is GMuteTagInput && tagName == other.tagName;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, tagId.hashCode);
+    _$hash = $jc(_$hash, tagName.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'GMuteTagInput')..add('tagId', tagId))
+    return (newBuiltValueToStringHelper(r'GMuteTagInput')
+          ..add('tagName', tagName))
         .toString();
   }
 }
@@ -4083,16 +4033,16 @@ class GMuteTagInputBuilder
     implements Builder<GMuteTagInput, GMuteTagInputBuilder> {
   _$GMuteTagInput? _$v;
 
-  String? _tagId;
-  String? get tagId => _$this._tagId;
-  set tagId(String? tagId) => _$this._tagId = tagId;
+  String? _tagName;
+  String? get tagName => _$this._tagName;
+  set tagName(String? tagName) => _$this._tagName = tagName;
 
   GMuteTagInputBuilder();
 
   GMuteTagInputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _tagId = $v.tagId;
+      _tagName = $v.tagName;
       _$v = null;
     }
     return this;
@@ -4115,8 +4065,8 @@ class GMuteTagInputBuilder
   _$GMuteTagInput _build() {
     final _$result = _$v ??
         new _$GMuteTagInput._(
-            tagId: BuiltValueNullFieldError.checkNotNull(
-                tagId, r'GMuteTagInput', 'tagId'));
+            tagName: BuiltValueNullFieldError.checkNotNull(
+                tagName, r'GMuteTagInput', 'tagName'));
     replace(_$result);
     return _$result;
   }
@@ -4381,87 +4331,6 @@ class GStickersWhereInputBuilder
   }
 }
 
-class _$GTabWorksWhereInput extends GTabWorksWhereInput {
-  @override
-  final String? slug;
-
-  factory _$GTabWorksWhereInput(
-          [void Function(GTabWorksWhereInputBuilder)? updates]) =>
-      (new GTabWorksWhereInputBuilder()..update(updates))._build();
-
-  _$GTabWorksWhereInput._({this.slug}) : super._();
-
-  @override
-  GTabWorksWhereInput rebuild(
-          void Function(GTabWorksWhereInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GTabWorksWhereInputBuilder toBuilder() =>
-      new GTabWorksWhereInputBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GTabWorksWhereInput && slug == other.slug;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, slug.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(r'GTabWorksWhereInput')
-          ..add('slug', slug))
-        .toString();
-  }
-}
-
-class GTabWorksWhereInputBuilder
-    implements Builder<GTabWorksWhereInput, GTabWorksWhereInputBuilder> {
-  _$GTabWorksWhereInput? _$v;
-
-  String? _slug;
-  String? get slug => _$this._slug;
-  set slug(String? slug) => _$this._slug = slug;
-
-  GTabWorksWhereInputBuilder();
-
-  GTabWorksWhereInputBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _slug = $v.slug;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GTabWorksWhereInput other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GTabWorksWhereInput;
-  }
-
-  @override
-  void update(void Function(GTabWorksWhereInputBuilder)? updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GTabWorksWhereInput build() => _build();
-
-  _$GTabWorksWhereInput _build() {
-    final _$result = _$v ?? new _$GTabWorksWhereInput._(slug: slug);
-    replace(_$result);
-    return _$result;
-  }
-}
-
 class _$GTagsWhereInput extends GTagsWhereInput {
   @override
   final String? search;
@@ -4630,13 +4499,14 @@ class GUnfollowUserInputBuilder
 
 class _$GUnmuteTagInput extends GUnmuteTagInput {
   @override
-  final String tagId;
+  final String tagName;
 
   factory _$GUnmuteTagInput([void Function(GUnmuteTagInputBuilder)? updates]) =>
       (new GUnmuteTagInputBuilder()..update(updates))._build();
 
-  _$GUnmuteTagInput._({required this.tagId}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(tagId, r'GUnmuteTagInput', 'tagId');
+  _$GUnmuteTagInput._({required this.tagName}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        tagName, r'GUnmuteTagInput', 'tagName');
   }
 
   @override
@@ -4650,13 +4520,13 @@ class _$GUnmuteTagInput extends GUnmuteTagInput {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GUnmuteTagInput && tagId == other.tagId;
+    return other is GUnmuteTagInput && tagName == other.tagName;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, tagId.hashCode);
+    _$hash = $jc(_$hash, tagName.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -4664,7 +4534,7 @@ class _$GUnmuteTagInput extends GUnmuteTagInput {
   @override
   String toString() {
     return (newBuiltValueToStringHelper(r'GUnmuteTagInput')
-          ..add('tagId', tagId))
+          ..add('tagName', tagName))
         .toString();
   }
 }
@@ -4673,16 +4543,16 @@ class GUnmuteTagInputBuilder
     implements Builder<GUnmuteTagInput, GUnmuteTagInputBuilder> {
   _$GUnmuteTagInput? _$v;
 
-  String? _tagId;
-  String? get tagId => _$this._tagId;
-  set tagId(String? tagId) => _$this._tagId = tagId;
+  String? _tagName;
+  String? get tagName => _$this._tagName;
+  set tagName(String? tagName) => _$this._tagName = tagName;
 
   GUnmuteTagInputBuilder();
 
   GUnmuteTagInputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _tagId = $v.tagId;
+      _tagName = $v.tagName;
       _$v = null;
     }
     return this;
@@ -4705,8 +4575,8 @@ class GUnmuteTagInputBuilder
   _$GUnmuteTagInput _build() {
     final _$result = _$v ??
         new _$GUnmuteTagInput._(
-            tagId: BuiltValueNullFieldError.checkNotNull(
-                tagId, r'GUnmuteTagInput', 'tagId'));
+            tagName: BuiltValueNullFieldError.checkNotNull(
+                tagName, r'GUnmuteTagInput', 'tagName'));
     replace(_$result);
     return _$result;
   }

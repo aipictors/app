@@ -28,7 +28,7 @@ directive @specifiedBy(
 
 scalar _Any
 
-union _Entity = CommentNode | DailyThemeNode | FolderLikeNode | FolderNode | FriendshipNode | ImageNode | MutedTagNode | MutedUserNode | NotificationNode | StickerNode | SubWorkNode | TagNode | UserNode | UserSettingNode | WorkAwardNode | WorkBookmarkNode | WorkEventNode | WorkLikeNode | WorkNode
+union _Entity = CommentNode | DailyThemeNode | FolderLikeNode | FolderNode | FriendshipNode | ImageNode | MutedTagNode | MutedUserNode | NotificationNode | StickerNode | SubWorkNode | TagNode | UserNode | UserSettingNode | WorkAwardNode | WorkBookmarkNode | WorkEventNode | WorkLikeNode | WorkNode | WorkViewerNode
 
 type _Service {
   sdl: String
@@ -280,7 +280,7 @@ type Mutation {
   """ユーザを作成する"""
   createUser(input: CreateUserInput!): UserNode!
 
-  """ユーザーのプロフィールを作成する"""
+  """ユーザのプロフィールを作成する"""
   updateUserProfile(input: UpdateUserProfileInput!): UserNode!
 
   """作品を作成する"""
@@ -363,7 +363,7 @@ type MutedUserNode implements Node {
 }
 
 input MuteTagInput {
-  tagId: ID!
+  tagName: String!
 }
 
 input MuteUserInput {
@@ -414,9 +414,6 @@ type Query {
 
   """作品"""
   works(offset: Int!, limit: Int!, where: WorksWhereInput): [WorkNode!]
-
-  """作品"""
-  tabWorks(offset: Int!, limit: Int!, where: TabWorksWhereInput): [WorkNode!]
 
   """ユーザ"""
   user(id: ID!): UserNode
@@ -522,10 +519,6 @@ type SubWorkNode implements Node {
   thumbnailImage: ImageNode!
 }
 
-input TabWorksWhereInput {
-  slug: String
-}
-
 """タグ"""
 type TagNode implements Node {
   id: ID!
@@ -542,7 +535,7 @@ input UnfollowUserInput {
 }
 
 input UnmuteTagInput {
-  tagId: ID!
+  tagName: String!
 }
 
 input UnmuteUserInput {
@@ -789,9 +782,18 @@ type WorkNode implements Node {
 
   """作品"""
   subWorks: [SubWorkNode!]!
+
+  """ログイン"""
+  viewer: WorkViewerNode!
 }
 
 input WorksWhereInput {
   search: String
+}
+
+type WorkViewerNode implements Node {
+  id: ID!
+  isLiked: Boolean!
+  isBookmarked: Boolean!
 }
 

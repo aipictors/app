@@ -16,5 +16,10 @@ query Work($id: ID!) {
     createdAt
     likesCount
     viewsCount
+    viewer {
+      id
+      isLiked
+      isBookmarked
+    }
   }
 }

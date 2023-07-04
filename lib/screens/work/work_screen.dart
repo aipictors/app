@@ -1,15 +1,19 @@
-import 'package:aipictors/providers/query_work_comments_provider.dart';
-import 'package:aipictors/providers/query_work_provider.dart';
+import 'package:aipictors/graphql/__generated__/work.req.gql.dart';
+import 'package:aipictors/graphql/__generated__/work_comments.req.gql.dart';
+import 'package:aipictors/providers/client_provider.dart';
+import 'package:aipictors/screens/data_not_found_error_screen.dart';
+import 'package:aipictors/screens/loading_screen.dart';
+import 'package:aipictors/screens/operation_error_screen.dart';
+import 'package:aipictors/screens/unexpected_error_screen.dart';
 import 'package:aipictors/widgets/app_bar/work_bottom_app_bar.dart';
 import 'package:aipictors/widgets/button/follow_button.dart';
-import 'package:aipictors/widgets/container/data_not_found_error_container.dart';
 import 'package:aipictors/widgets/container/loading_container.dart';
-import 'package:aipictors/widgets/container/unexpected_error_container.dart';
 import 'package:aipictors/widgets/container/work_response_container.dart';
 import 'package:aipictors/widgets/container/work_status_container.dart';
 import 'package:aipictors/widgets/container/work_tags_container.dart';
 import 'package:aipictors/widgets/container/work_text_container.dart';
 import 'package:aipictors/widgets/container/work_user_profile_container.dart';
+import 'package:ferry_flutter/ferry_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -23,42 +27,49 @@ class WorkScreen extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
-    final queryWork = ref.watch(queryWorkProvider(workId));
+    final client = ref.watch(clientProvider);
 
-    final queryWorkComments = ref.watch(
-      queryWorkCommentsProvider(
-        QueryWorkCommentsProps(workId: workId),
-      ),
-    );
+    if (client.value == null) {
+      return const LoadingScreen();
+    }
 
-    return Scaffold(
-      resizeToAvoidBottomInset: true,
-      appBar: AppBar(
-        title: const Text(
-          '作品',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-      ),
-      extendBody: true,
-      bottomNavigationBar: const WorkBottomAppContainer(),
-      body: SingleChildScrollView(
-        child: SafeArea(
-          child: queryWork.when(
-            error: (error, stackTrace) {
-              return const UnexpectedErrorContainer();
-            },
-            loading: () {
-              return const LoadingContainer();
-            },
-            data: (data) {
-              if (data == null) {
-                return const DataNotFoundErrorContainer();
-              }
-              final work = data.work;
-              if (work == null) {
-                return const DataNotFoundErrorContainer();
-              }
-              return Column(
+    return Operation(
+      client: client.value!,
+      operationRequest: GWorkReq((builder) {
+        return builder
+          ..vars.id = workId
+          ..executeOnListen;
+      }),
+      builder: (context, response, error) {
+        if (error != null) {
+          return const UnexpectedErrorScreen();
+        }
+        if (response == null || response.loading) {
+          return const LoadingScreen();
+        }
+        if (response.graphqlErrors != null) {
+          return OperationErrorScreen(errors: response.graphqlErrors!);
+        }
+        final work = response.data?.work;
+        if (work == null) {
+          return const DataNotFoundErrorScreen();
+        }
+        return Scaffold(
+          resizeToAvoidBottomInset: true,
+          appBar: AppBar(
+            title: const Text(
+              '作品',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ),
+          extendBody: true,
+          bottomNavigationBar: WorkBottomAppContainer(
+            workId: workId,
+            isLiked: work.viewer.isLiked,
+          ),
+          body: SingleChildScrollView(
+            child: SafeArea(
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
@@ -90,18 +101,25 @@ class WorkScreen extends HookConsumerWidget {
                   const SizedBox(height: 8),
                   WorkTagsContainer(tagNames: work.tagNames.toList()),
                   const SizedBox(height: 16),
-                  queryWorkComments.when(
-                    error: (error, stackTrace) {
-                      return const UnexpectedErrorContainer();
-                    },
-                    loading: () {
-                      return const LoadingContainer();
-                    },
-                    data: (data) {
-                      if (data == null) {
-                        return const DataNotFoundErrorContainer();
+                  Operation(
+                    client: client.value!,
+                    operationRequest: GWorkCommentsReq((builder) {
+                      return builder..vars.workId = workId;
+                    }),
+                    builder: (context, response, error) {
+                      if (error != null) {
+                        return const SizedBox();
                       }
-                      final comments = data.work!.comments;
+                      if (response == null || response.loading) {
+                        return const LoadingContainer();
+                      }
+                      if (response.graphqlErrors != null) {
+                        return const SizedBox();
+                      }
+                      final comments = response.data?.work?.comments;
+                      if (comments == null) {
+                        return const SizedBox();
+                      }
                       return Column(
                         children: [
                           for (final comment in comments)
@@ -125,11 +143,11 @@ class WorkScreen extends HookConsumerWidget {
                   ),
                   const SizedBox(height: 40),
                 ],
-              );
-            },
+              ),
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

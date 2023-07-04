@@ -16,6 +16,8 @@ Serializer<GWorkData_work_user> _$gWorkDataWorkUserSerializer =
 Serializer<GWorkData_work_user_iconImage>
     _$gWorkDataWorkUserIconImageSerializer =
     new _$GWorkData_work_user_iconImageSerializer();
+Serializer<GWorkData_work_viewer> _$gWorkDataWorkViewerSerializer =
+    new _$GWorkData_work_viewerSerializer();
 
 class _$GWorkDataSerializer implements StructuredSerializer<GWorkData> {
   @override
@@ -104,6 +106,9 @@ class _$GWorkData_workSerializer
       'viewsCount',
       serializers.serialize(object.viewsCount,
           specifiedType: const FullType(int)),
+      'viewer',
+      serializers.serialize(object.viewer,
+          specifiedType: const FullType(GWorkData_work_viewer)),
     ];
     Object? value;
     value = object.description;
@@ -178,6 +183,11 @@ class _$GWorkData_workSerializer
         case 'viewsCount':
           result.viewsCount = serializers.deserialize(value,
               specifiedType: const FullType(int))! as int;
+          break;
+        case 'viewer':
+          result.viewer.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(GWorkData_work_viewer))!
+              as GWorkData_work_viewer);
           break;
       }
     }
@@ -381,6 +391,72 @@ class _$GWorkData_work_user_iconImageSerializer
   }
 }
 
+class _$GWorkData_work_viewerSerializer
+    implements StructuredSerializer<GWorkData_work_viewer> {
+  @override
+  final Iterable<Type> types = const [
+    GWorkData_work_viewer,
+    _$GWorkData_work_viewer
+  ];
+  @override
+  final String wireName = 'GWorkData_work_viewer';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GWorkData_work_viewer object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      '__typename',
+      serializers.serialize(object.G__typename,
+          specifiedType: const FullType(String)),
+      'id',
+      serializers.serialize(object.id, specifiedType: const FullType(String)),
+      'isLiked',
+      serializers.serialize(object.isLiked,
+          specifiedType: const FullType(bool)),
+      'isBookmarked',
+      serializers.serialize(object.isBookmarked,
+          specifiedType: const FullType(bool)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GWorkData_work_viewer deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GWorkData_work_viewerBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case '__typename':
+          result.G__typename = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'id':
+          result.id = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'isLiked':
+          result.isLiked = serializers.deserialize(value,
+              specifiedType: const FullType(bool))! as bool;
+          break;
+        case 'isBookmarked':
+          result.isBookmarked = serializers.deserialize(value,
+              specifiedType: const FullType(bool))! as bool;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$GWorkData extends GWorkData {
   @override
   final String G__typename;
@@ -513,6 +589,8 @@ class _$GWorkData_work extends GWorkData_work {
   final int likesCount;
   @override
   final int viewsCount;
+  @override
+  final GWorkData_work_viewer viewer;
 
   factory _$GWorkData_work([void Function(GWorkData_workBuilder)? updates]) =>
       (new GWorkData_workBuilder()..update(updates))._build();
@@ -527,7 +605,8 @@ class _$GWorkData_work extends GWorkData_work {
       required this.tagNames,
       required this.createdAt,
       required this.likesCount,
-      required this.viewsCount})
+      required this.viewsCount,
+      required this.viewer})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename, r'GWorkData_work', 'G__typename');
@@ -542,6 +621,7 @@ class _$GWorkData_work extends GWorkData_work {
         likesCount, r'GWorkData_work', 'likesCount');
     BuiltValueNullFieldError.checkNotNull(
         viewsCount, r'GWorkData_work', 'viewsCount');
+    BuiltValueNullFieldError.checkNotNull(viewer, r'GWorkData_work', 'viewer');
   }
 
   @override
@@ -565,7 +645,8 @@ class _$GWorkData_work extends GWorkData_work {
         tagNames == other.tagNames &&
         createdAt == other.createdAt &&
         likesCount == other.likesCount &&
-        viewsCount == other.viewsCount;
+        viewsCount == other.viewsCount &&
+        viewer == other.viewer;
   }
 
   @override
@@ -581,6 +662,7 @@ class _$GWorkData_work extends GWorkData_work {
     _$hash = $jc(_$hash, createdAt.hashCode);
     _$hash = $jc(_$hash, likesCount.hashCode);
     _$hash = $jc(_$hash, viewsCount.hashCode);
+    _$hash = $jc(_$hash, viewer.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -597,7 +679,8 @@ class _$GWorkData_work extends GWorkData_work {
           ..add('tagNames', tagNames)
           ..add('createdAt', createdAt)
           ..add('likesCount', likesCount)
-          ..add('viewsCount', viewsCount))
+          ..add('viewsCount', viewsCount)
+          ..add('viewer', viewer))
         .toString();
   }
 }
@@ -649,6 +732,11 @@ class GWorkData_workBuilder
   int? get viewsCount => _$this._viewsCount;
   set viewsCount(int? viewsCount) => _$this._viewsCount = viewsCount;
 
+  GWorkData_work_viewerBuilder? _viewer;
+  GWorkData_work_viewerBuilder get viewer =>
+      _$this._viewer ??= new GWorkData_work_viewerBuilder();
+  set viewer(GWorkData_work_viewerBuilder? viewer) => _$this._viewer = viewer;
+
   GWorkData_workBuilder() {
     GWorkData_work._initializeBuilder(this);
   }
@@ -666,6 +754,7 @@ class GWorkData_workBuilder
       _createdAt = $v.createdAt;
       _likesCount = $v.likesCount;
       _viewsCount = $v.viewsCount;
+      _viewer = $v.viewer.toBuilder();
       _$v = null;
     }
     return this;
@@ -705,7 +794,8 @@ class GWorkData_workBuilder
               likesCount: BuiltValueNullFieldError.checkNotNull(
                   likesCount, r'GWorkData_work', 'likesCount'),
               viewsCount: BuiltValueNullFieldError.checkNotNull(
-                  viewsCount, r'GWorkData_work', 'viewsCount'));
+                  viewsCount, r'GWorkData_work', 'viewsCount'),
+              viewer: viewer.build());
     } catch (_) {
       late String _$failedField;
       try {
@@ -715,6 +805,9 @@ class GWorkData_workBuilder
         user.build();
         _$failedField = 'tagNames';
         tagNames.build();
+
+        _$failedField = 'viewer';
+        viewer.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'GWorkData_work', _$failedField, e.toString());
@@ -1124,6 +1217,142 @@ class GWorkData_work_user_iconImageBuilder
                 id, r'GWorkData_work_user_iconImage', 'id'),
             downloadURL: BuiltValueNullFieldError.checkNotNull(
                 downloadURL, r'GWorkData_work_user_iconImage', 'downloadURL'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GWorkData_work_viewer extends GWorkData_work_viewer {
+  @override
+  final String G__typename;
+  @override
+  final String id;
+  @override
+  final bool isLiked;
+  @override
+  final bool isBookmarked;
+
+  factory _$GWorkData_work_viewer(
+          [void Function(GWorkData_work_viewerBuilder)? updates]) =>
+      (new GWorkData_work_viewerBuilder()..update(updates))._build();
+
+  _$GWorkData_work_viewer._(
+      {required this.G__typename,
+      required this.id,
+      required this.isLiked,
+      required this.isBookmarked})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        G__typename, r'GWorkData_work_viewer', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(id, r'GWorkData_work_viewer', 'id');
+    BuiltValueNullFieldError.checkNotNull(
+        isLiked, r'GWorkData_work_viewer', 'isLiked');
+    BuiltValueNullFieldError.checkNotNull(
+        isBookmarked, r'GWorkData_work_viewer', 'isBookmarked');
+  }
+
+  @override
+  GWorkData_work_viewer rebuild(
+          void Function(GWorkData_work_viewerBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GWorkData_work_viewerBuilder toBuilder() =>
+      new GWorkData_work_viewerBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GWorkData_work_viewer &&
+        G__typename == other.G__typename &&
+        id == other.id &&
+        isLiked == other.isLiked &&
+        isBookmarked == other.isBookmarked;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, G__typename.hashCode);
+    _$hash = $jc(_$hash, id.hashCode);
+    _$hash = $jc(_$hash, isLiked.hashCode);
+    _$hash = $jc(_$hash, isBookmarked.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GWorkData_work_viewer')
+          ..add('G__typename', G__typename)
+          ..add('id', id)
+          ..add('isLiked', isLiked)
+          ..add('isBookmarked', isBookmarked))
+        .toString();
+  }
+}
+
+class GWorkData_work_viewerBuilder
+    implements Builder<GWorkData_work_viewer, GWorkData_work_viewerBuilder> {
+  _$GWorkData_work_viewer? _$v;
+
+  String? _G__typename;
+  String? get G__typename => _$this._G__typename;
+  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
+
+  String? _id;
+  String? get id => _$this._id;
+  set id(String? id) => _$this._id = id;
+
+  bool? _isLiked;
+  bool? get isLiked => _$this._isLiked;
+  set isLiked(bool? isLiked) => _$this._isLiked = isLiked;
+
+  bool? _isBookmarked;
+  bool? get isBookmarked => _$this._isBookmarked;
+  set isBookmarked(bool? isBookmarked) => _$this._isBookmarked = isBookmarked;
+
+  GWorkData_work_viewerBuilder() {
+    GWorkData_work_viewer._initializeBuilder(this);
+  }
+
+  GWorkData_work_viewerBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _G__typename = $v.G__typename;
+      _id = $v.id;
+      _isLiked = $v.isLiked;
+      _isBookmarked = $v.isBookmarked;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GWorkData_work_viewer other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GWorkData_work_viewer;
+  }
+
+  @override
+  void update(void Function(GWorkData_work_viewerBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GWorkData_work_viewer build() => _build();
+
+  _$GWorkData_work_viewer _build() {
+    final _$result = _$v ??
+        new _$GWorkData_work_viewer._(
+            G__typename: BuiltValueNullFieldError.checkNotNull(
+                G__typename, r'GWorkData_work_viewer', 'G__typename'),
+            id: BuiltValueNullFieldError.checkNotNull(
+                id, r'GWorkData_work_viewer', 'id'),
+            isLiked: BuiltValueNullFieldError.checkNotNull(
+                isLiked, r'GWorkData_work_viewer', 'isLiked'),
+            isBookmarked: BuiltValueNullFieldError.checkNotNull(
+                isBookmarked, r'GWorkData_work_viewer', 'isBookmarked'));
     replace(_$result);
     return _$result;
   }

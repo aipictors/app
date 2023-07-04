@@ -31,7 +31,6 @@ import 'package:aipictors/__generated__/schema.schema.gql.dart'
         GPostType,
         GRating,
         GStickersWhereInput,
-        GTabWorksWhereInput,
         GTagsWhereInput,
         GUnfollowUserInput,
         GUnmuteTagInput,
@@ -56,6 +55,15 @@ import 'package:aipictors/graphql/__generated__/best_works.req.gql.dart'
     show GBestWorksReq;
 import 'package:aipictors/graphql/__generated__/best_works.var.gql.dart'
     show GBestWorksVars;
+import 'package:aipictors/graphql/__generated__/create_work_like.data.gql.dart'
+    show
+        GCreateWorkLikeData,
+        GCreateWorkLikeData_createWorkLike,
+        GCreateWorkLikeData_createWorkLike_viewer;
+import 'package:aipictors/graphql/__generated__/create_work_like.req.gql.dart'
+    show GCreateWorkLikeReq;
+import 'package:aipictors/graphql/__generated__/create_work_like.var.gql.dart'
+    show GCreateWorkLikeVars;
 import 'package:aipictors/graphql/__generated__/daily_theme.data.gql.dart'
     show
         GDailyThemeData,
@@ -171,7 +179,8 @@ import 'package:aipictors/graphql/__generated__/work.data.gql.dart'
         GWorkData_work,
         GWorkData_work_image,
         GWorkData_work_user,
-        GWorkData_work_user_iconImage;
+        GWorkData_work_user_iconImage,
+        GWorkData_work_viewer;
 import 'package:aipictors/graphql/__generated__/work.req.gql.dart'
     show GWorkReq;
 import 'package:aipictors/graphql/__generated__/work.var.gql.dart'
@@ -289,7 +298,12 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GCreateUserInput,
   GCreateWorkBookmarkInput,
   GCreateWorkInput,
+  GCreateWorkLikeData,
+  GCreateWorkLikeData_createWorkLike,
+  GCreateWorkLikeData_createWorkLike_viewer,
   GCreateWorkLikeInput,
+  GCreateWorkLikeReq,
+  GCreateWorkLikeVars,
   GDailyThemeData,
   GDailyThemeData_dailyTheme,
   GDailyThemeData_dailyTheme_works,
@@ -345,7 +359,6 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GPostType,
   GRating,
   GStickersWhereInput,
-  GTabWorksWhereInput,
   GTagsWhereInput,
   GUnfollowUserInput,
   GUnmuteTagInput,
@@ -427,6 +440,7 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GWorkData_work_image,
   GWorkData_work_user,
   GWorkData_work_user_iconImage,
+  GWorkData_work_viewer,
   GWorkReq,
   GWorkUserFieldsData,
   GWorkUserFieldsData_iconImage,

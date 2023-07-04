@@ -12,11 +12,13 @@ typedef Listener = void Function(
 
 Listener buildAuthStateListener(BuildContext context, WidgetRef ref) {
   return (_, state) async {
-    if (state.value == null) {
-      await FirebaseAnalytics.instance.setUserId(id: null);
-      return;
-    }
+    // ログイン状態を更新する
+    FirebaseAnalytics.instance.setUserProperty(
+      name: 'is_logged_in',
+      value: state.value != null ? 'true' : 'false',
+    );
 
-    await FirebaseAnalytics.instance.setUserId(id: state.value!.uid);
+    // ユーザIDを記録する
+    await FirebaseAnalytics.instance.setUserId(id: state.value?.uid);
   };
 }

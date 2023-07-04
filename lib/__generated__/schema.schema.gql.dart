@@ -513,7 +513,7 @@ abstract class GMuteTagInput
   factory GMuteTagInput([Function(GMuteTagInputBuilder b) updates]) =
       _$GMuteTagInput;
 
-  String get tagId;
+  String get tagName;
   static Serializer<GMuteTagInput> get serializer => _$gMuteTagInputSerializer;
   Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
         GMuteTagInput.serializer,
@@ -640,27 +640,6 @@ abstract class GStickersWhereInput
       );
 }
 
-abstract class GTabWorksWhereInput
-    implements Built<GTabWorksWhereInput, GTabWorksWhereInputBuilder> {
-  GTabWorksWhereInput._();
-
-  factory GTabWorksWhereInput(
-      [Function(GTabWorksWhereInputBuilder b) updates]) = _$GTabWorksWhereInput;
-
-  String? get slug;
-  static Serializer<GTabWorksWhereInput> get serializer =>
-      _$gTabWorksWhereInputSerializer;
-  Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
-        GTabWorksWhereInput.serializer,
-        this,
-      ) as Map<String, dynamic>);
-  static GTabWorksWhereInput? fromJson(Map<String, dynamic> json) =>
-      _i2.serializers.deserializeWith(
-        GTabWorksWhereInput.serializer,
-        json,
-      );
-}
-
 abstract class GTagsWhereInput
     implements Built<GTagsWhereInput, GTagsWhereInputBuilder> {
   GTagsWhereInput._();
@@ -710,7 +689,7 @@ abstract class GUnmuteTagInput
   factory GUnmuteTagInput([Function(GUnmuteTagInputBuilder b) updates]) =
       _$GUnmuteTagInput;
 
-  String get tagId;
+  String get tagName;
   static Serializer<GUnmuteTagInput> get serializer =>
       _$gUnmuteTagInputSerializer;
   Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
@@ -922,6 +901,7 @@ const Map<String, Set<String>> possibleTypesMap = {
     'WorkEventNode',
     'WorkLikeNode',
     'WorkNode',
+    'WorkViewerNode',
   },
   'Node': {
     'CommentNode',
@@ -943,5 +923,6 @@ const Map<String, Set<String>> possibleTypesMap = {
     'WorkEventNode',
     'WorkLikeNode',
     'WorkNode',
+    'WorkViewerNode',
   },
 };
