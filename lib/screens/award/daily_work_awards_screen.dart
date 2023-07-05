@@ -1,8 +1,11 @@
-import 'package:aipictors/providers/query_daily_work_awards_provider.dart';
+import 'package:aipictors/graphql/__generated__/work_awards.req.gql.dart';
+import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/widgets/container/data_not_found_error_container.dart';
+import 'package:aipictors/widgets/container/empty_error_container.dart';
 import 'package:aipictors/widgets/container/loading_container.dart';
 import 'package:aipictors/widgets/container/unexpected_error_container.dart';
 import 'package:aipictors/widgets/image/grid_work_image.dart';
+import 'package:ferry_flutter/ferry_flutter.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -24,30 +27,38 @@ class DailyWorkAwardsScreen extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
-    final queryWorks = ref.watch(
-      queryDailyWorkAwardsProvider(
-        QueryDailyWorkAwardsProps(
-          year: year,
-          month: month,
-          day: day,
-        ),
-      ),
-    );
+    final client = ref.watch(clientProvider);
 
-    return queryWorks.when(
-      error: (error, stackTrace) {
-        return const UnexpectedErrorContainer();
-      },
-      loading: () {
-        return const LoadingContainer();
-      },
-      data: (data) {
-        if (data == null) {
+    if (client.value == null) {
+      return const LoadingContainer();
+    }
+
+    return Operation(
+      client: client.value!,
+      operationRequest: GWorkAwardsReq((builder) {
+        return builder
+          ..vars.limit = 128
+          ..vars.offset = 0
+          ..vars.where.year = year
+          ..vars.where.month = month
+          ..vars.where.day = day;
+      }),
+      builder: (context, response, error) {
+        if (error != null) {
+          return const UnexpectedErrorContainer();
+        }
+        if (response == null || response.loading) {
+          return const LoadingContainer();
+        }
+        if (response.graphqlErrors != null) {
+          return const UnexpectedErrorContainer();
+        }
+        final awards = response.data?.workAwards;
+        if (awards == null) {
           return const DataNotFoundErrorContainer();
         }
-        final awards = data.workAwards;
         if (awards.isEmpty) {
-          return const DataNotFoundErrorContainer();
+          return const EmptyErrorContainer();
         }
         return GridView.builder(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

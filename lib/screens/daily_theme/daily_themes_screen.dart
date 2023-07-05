@@ -1,9 +1,12 @@
-import 'package:aipictors/providers/query_daily_themes_provider.dart';
+import 'package:aipictors/graphql/__generated__/daily_themes.req.gql.dart';
+import 'package:aipictors/providers/client_provider.dart';
+import 'package:aipictors/screens/loading_screen.dart';
 import 'package:aipictors/widgets/app_bar/daily_themes_app_bar.dart';
 import 'package:aipictors/widgets/container/daily_theme_container.dart';
-import 'package:aipictors/widgets/container/data_not_found_error_container.dart';
+import 'package:aipictors/widgets/container/empty_error_container.dart';
 import 'package:aipictors/widgets/container/loading_container.dart';
 import 'package:aipictors/widgets/container/unexpected_error_container.dart';
+import 'package:ferry_flutter/ferry_flutter.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -17,15 +20,15 @@ class DailyThemesScreen extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
+    final client = ref.watch(clientProvider);
+
     final year = useState(DateTime.now().year);
 
     final month = useState(DateTime.now().month);
 
-    final dailyThemes = ref.watch(
-      queryDailyThemesProvider(
-        QueryDailyThemesProps(year: year.value, month: month.value),
-      ),
-    );
+    if (client.value == null) {
+      return const LoadingScreen();
+    }
 
     return Scaffold(
       key: const PageStorageKey('daily_themes'),
@@ -41,25 +44,35 @@ class DailyThemesScreen extends HookConsumerWidget {
           onNext(year, month);
         },
       ),
-      body: dailyThemes.when(
-        error: (error, stackTrace) {
-          return const UnexpectedErrorContainer();
-        },
-        loading: () {
-          return const LoadingContainer();
-        },
-        data: (data) {
-          if (data == null) {
-            return const DataNotFoundErrorContainer();
+      body: Operation(
+        client: client.value!,
+        operationRequest: GDailyThemesReq((builder) {
+          return builder
+            ..vars.limit = 40
+            ..vars.offset = 0
+            ..vars.where.month = month.value
+            ..vars.where.year = year.value;
+        }),
+        builder: (context, response, error) {
+          if (error != null) {
+            return const UnexpectedErrorContainer();
           }
-          final dailyThemes = data.dailyThemes;
+          if (response == null || response.loading) {
+            return const LoadingContainer();
+          }
+          if (response.graphqlErrors != null) {
+            return const UnexpectedErrorContainer();
+          }
+          final dailyThemes = response.data?.dailyThemes;
+          if (dailyThemes == null) {
+            return const EmptyErrorContainer();
+          }
           if (dailyThemes.isEmpty) {
-            return const DataNotFoundErrorContainer();
+            return const EmptyErrorContainer();
           }
           return ListView.builder(
-            physics: const ClampingScrollPhysics(),
+            // physics: const ClampingScrollPhysics(),
             padding: const EdgeInsets.only(bottom: 16, left: 0, right: 0),
-            cacheExtent: 0.0,
             itemCount: dailyThemes.length,
             itemBuilder: (context, index) {
               final dailyTheme = dailyThemes[index];
@@ -98,6 +111,7 @@ class DailyThemesScreen extends HookConsumerWidget {
     month.value -= 1;
   }
 
+  /// 先月が存在する
   bool hasPrev(int year, int month) {
     if (year == 2023 && month < 3) return false;
     return true;
@@ -113,6 +127,7 @@ class DailyThemesScreen extends HookConsumerWidget {
     month.value += 1;
   }
 
+  /// 来月が存在する
   bool hasNext(int year, int month) {
     final now = DateTime.now();
     if (year == now.year && month == now.month) {

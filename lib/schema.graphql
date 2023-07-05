@@ -446,6 +446,7 @@ type Query {
   tags(offset: Int!, limit: Int!, where: TagsWhereInput): [TagNode!]!
 
   """ランキング履歴"""
+  homeTags: [TagNode!]!
   workAwards(offset: Int!, limit: Int!, where: WorkAwardsWhereInput!): [WorkAwardNode!]!
 
   """1日以内の人気の作品"""

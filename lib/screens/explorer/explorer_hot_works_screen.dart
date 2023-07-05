@@ -1,8 +1,11 @@
-import 'package:aipictors/providers/query_hot_works_provider.dart';
+import 'package:aipictors/graphql/__generated__/hot_works.req.gql.dart';
+import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/widgets/container/data_not_found_error_container.dart';
+import 'package:aipictors/widgets/container/empty_error_container.dart';
 import 'package:aipictors/widgets/container/loading_container.dart';
 import 'package:aipictors/widgets/container/unexpected_error_container.dart';
 import 'package:aipictors/widgets/image/grid_work_image.dart';
+import 'package:ferry_flutter/ferry_flutter.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -15,22 +18,33 @@ class ExplorerHotWorksScreen extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
-    final queryWorks = ref.watch(queryHotWorksProvider);
+    final client = ref.watch(clientProvider);
 
-    return queryWorks.when(
-      error: (error, stackTrace) {
-        return const UnexpectedErrorContainer();
-      },
-      loading: () {
-        return const LoadingContainer();
-      },
-      data: (data) {
-        if (data == null) {
+    if (client.value == null) {
+      return const LoadingContainer();
+    }
+
+    return Operation(
+      client: client.value!,
+      operationRequest: GHotWorksReq((builder) {
+        return builder;
+      }),
+      builder: (context, response, error) {
+        if (error != null) {
+          return const UnexpectedErrorContainer();
+        }
+        if (response == null || response.loading) {
+          return const LoadingContainer();
+        }
+        if (response.graphqlErrors != null) {
+          return const UnexpectedErrorContainer();
+        }
+        final works = response.data?.hotWorks;
+        if (works == null) {
           return const DataNotFoundErrorContainer();
         }
-        final works = data.hotWorks;
         if (works.isEmpty) {
-          return const DataNotFoundErrorContainer();
+          return const EmptyErrorContainer();
         }
         return GridView.builder(
           physics: const ClampingScrollPhysics(),

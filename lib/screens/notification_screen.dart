@@ -1,5 +1,6 @@
 import 'package:aipictors/__generated__/schema.schema.gql.dart';
-import 'package:aipictors/providers/query_viewer_notifications_provider.dart';
+import 'package:aipictors/graphql/__generated__/viewer_notifications.req.gql.dart';
+import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/widgets/container/data_not_found_error_container.dart';
 import 'package:aipictors/widgets/container/empty_error_container.dart';
 import 'package:aipictors/widgets/container/loading_container.dart';
@@ -8,6 +9,7 @@ import 'package:aipictors/widgets/list/notification_comment_list_tile.dart';
 import 'package:aipictors/widgets/list/notification_follow_list_tile.dart';
 import 'package:aipictors/widgets/list/notification_like_list_tile.dart';
 import 'package:aipictors/widgets/list/notification_reply_list_tile.dart';
+import 'package:ferry_flutter/ferry_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -18,7 +20,17 @@ class NotificationScreen extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
-    final query = ref.watch(queryViewerNotificationsProvider);
+    final client = ref.watch(clientProvider);
+
+    if (client.value == null) {
+      return const LoadingContainer();
+    }
+
+    final request = GViewerNotificationsReq((builder) {
+      return builder
+        ..vars.offset = 0
+        ..vars.limit = 64;
+    });
 
     return Scaffold(
       appBar: AppBar(
@@ -26,24 +38,30 @@ class NotificationScreen extends HookConsumerWidget {
       ),
       body: RefreshIndicator(
         onRefresh: () async {
-          return await ref.refresh(queryViewerNotificationsProvider.future);
+          final req = request.rebuild((builder) {
+            return builder
+              ..vars.offset = 0
+              ..vars.limit = 64;
+          });
+          return client.value?.requestController.add(req);
         },
-        child: query.when(
-          error: (error, stackTrace) {
-            return const UnexpectedErrorContainer();
-          },
-          loading: () {
-            return const LoadingContainer();
-          },
-          data: (data) {
-            if (data == null) {
+        child: Operation(
+          client: client.value!,
+          operationRequest: request,
+          builder: (context, response, error) {
+            if (error != null) {
+              return const UnexpectedErrorContainer();
+            }
+            if (response == null || response.loading) {
+              return const LoadingContainer();
+            }
+            if (response.graphqlErrors != null) {
+              return const UnexpectedErrorContainer();
+            }
+            final notifications = response.data?.viewer?.notifications;
+            if (notifications == null) {
               return const DataNotFoundErrorContainer();
             }
-            final viewer = data.viewer;
-            if (viewer == null) {
-              return const DataNotFoundErrorContainer();
-            }
-            final notifications = viewer.notifications;
             if (notifications.isEmpty) {
               return const EmptyErrorContainer();
             }

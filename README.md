@@ -42,5 +42,5 @@ $ npx get-graphql-schema http://localhost:3000/api > lib/schema.graphql
 ## ビルド
 
 ```
-flutter build ios --release --dart-define-from-file=dart_defines/release_production.json
+flutter build ios --release --dart-define-from-file=dart_defines/production.json
 ```
