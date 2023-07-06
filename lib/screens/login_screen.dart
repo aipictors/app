@@ -55,7 +55,7 @@ class LoginScreen extends HookConsumerWidget {
                       ),
                       inputFormatters: [
                         FilteringTextInputFormatter.allow(
-                          RegExp('[0-9a-zA-Z]'),
+                          RegExp('[0-9a-zA-Z@]'),
                         ),
                       ],
                       onChanged: (value) {
