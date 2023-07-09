@@ -53,11 +53,14 @@ class ExplorerWorksScreen extends HookConsumerWidget {
               ),
           ],
           bottom: search.value.isEmpty
-              ? const TabBar(tabs: [
-                  Tab(text: 'ホット'),
-                  Tab(text: '人気'),
-                  Tab(text: 'ベスト'),
-                ])
+              ? const TabBar(
+                  isScrollable: true,
+                  tabs: [
+                    Tab(text: 'ホット'),
+                    Tab(text: '人気'),
+                    Tab(text: 'ベスト'),
+                  ],
+                )
               : null,
         ),
         body: search.value.isNotEmpty

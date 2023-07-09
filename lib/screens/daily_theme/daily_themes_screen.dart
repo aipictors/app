@@ -2,10 +2,10 @@ import 'package:aipictors/graphql/__generated__/daily_themes.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/screens/loading_screen.dart';
 import 'package:aipictors/widgets/app_bar/daily_themes_app_bar.dart';
-import 'package:aipictors/widgets/container/daily_theme_container.dart';
 import 'package:aipictors/widgets/container/empty_error_container.dart';
 import 'package:aipictors/widgets/container/loading_container.dart';
 import 'package:aipictors/widgets/container/unexpected_error_container.dart';
+import 'package:aipictors/widgets/list/daily_theme_list_tile.dart';
 import 'package:ferry_flutter/ferry_flutter.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
@@ -77,7 +77,12 @@ class DailyThemesScreen extends HookConsumerWidget {
             itemBuilder: (context, index) {
               final dailyTheme = dailyThemes[index];
               final firstWork = dailyTheme.firstWork;
-              return InkWell(
+              return DailyThemeListTile(
+                isCurrent: isCurrent(year.value, month.value, dailyTheme.day),
+                day: dailyTheme.day,
+                title: dailyTheme.title,
+                worksCount: dailyTheme.worksCount,
+                imageURL: firstWork?.thumbnailImage?.downloadURL,
                 onTap: () {
                   FirebaseAnalytics.instance.logSelectContent(
                     contentType: 'daily_theme',
@@ -85,13 +90,6 @@ class DailyThemesScreen extends HookConsumerWidget {
                   );
                   context.push('/daily_themes/${dailyTheme.id}');
                 },
-                child: DailyThemeContainer(
-                  isCurrent: isCurrent(year.value, month.value, dailyTheme.day),
-                  day: dailyTheme.day,
-                  title: dailyTheme.title,
-                  worksCount: dailyTheme.worksCount,
-                  thumbnailImageURL: firstWork?.thumbnailImage?.downloadURL,
-                ),
               );
             },
           );

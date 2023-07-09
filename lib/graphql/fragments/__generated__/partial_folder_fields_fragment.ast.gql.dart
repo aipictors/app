@@ -49,7 +49,7 @@ const PartialFolderFields = _i1.FragmentDefinitionNode(
       selectionSet: null,
     ),
     _i1.FieldNode(
-      name: _i1.NameNode(value: 'user'),
+      name: _i1.NameNode(value: 'thumbnailImage'),
       alias: null,
       arguments: [],
       directives: [],
@@ -62,7 +62,7 @@ const PartialFolderFields = _i1.FragmentDefinitionNode(
           selectionSet: null,
         ),
         _i1.FieldNode(
-          name: _i1.NameNode(value: 'name'),
+          name: _i1.NameNode(value: 'downloadURL'),
           alias: null,
           arguments: [],
           directives: [],

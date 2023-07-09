@@ -10,8 +10,14 @@ Serializer<GFoldersData> _$gFoldersDataSerializer =
     new _$GFoldersDataSerializer();
 Serializer<GFoldersData_folders> _$gFoldersDataFoldersSerializer =
     new _$GFoldersData_foldersSerializer();
+Serializer<GFoldersData_folders_thumbnailImage>
+    _$gFoldersDataFoldersThumbnailImageSerializer =
+    new _$GFoldersData_folders_thumbnailImageSerializer();
 Serializer<GFoldersData_folders_user> _$gFoldersDataFoldersUserSerializer =
     new _$GFoldersData_folders_userSerializer();
+Serializer<GFoldersData_folders_user_iconImage>
+    _$gFoldersDataFoldersUserIconImageSerializer =
+    new _$GFoldersData_folders_user_iconImageSerializer();
 
 class _$GFoldersDataSerializer implements StructuredSerializer<GFoldersData> {
   @override
@@ -43,8 +49,6 @@ class _$GFoldersDataSerializer implements StructuredSerializer<GFoldersData> {
   GFoldersData deserialize(
       Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    T $cast<T>(dynamic any) => any as T;
-
     final result = new GFoldersDataBuilder();
 
     final iterator = serialized.iterator;
@@ -58,16 +62,10 @@ class _$GFoldersDataSerializer implements StructuredSerializer<GFoldersData> {
               specifiedType: const FullType(String))! as String;
           break;
         case 'folders':
-          var maybeBuilder = result.folders;
-          var fieldValue = serializers.deserialize(value,
+          result.folders.replace(serializers.deserialize(value,
                   specifiedType: const FullType(
                       BuiltList, const [const FullType(GFoldersData_folders)]))!
-              as BuiltList<GFoldersData_folders>;
-          if (maybeBuilder == null) {
-            result.folders = $cast(fieldValue.toBuilder());
-          } else {
-            maybeBuilder.replace(fieldValue);
-          }
+              as BuiltList<Object?>);
           break;
       }
     }
@@ -100,7 +98,8 @@ class _$GFoldersData_foldersSerializer
       serializers.serialize(object.title,
           specifiedType: const FullType(String)),
       'rating',
-      serializers.serialize(object.rating, specifiedType: const FullType(int)),
+      serializers.serialize(object.rating,
+          specifiedType: const FullType(_i3.GRating)),
       'likesCount',
       serializers.serialize(object.likesCount,
           specifiedType: const FullType(int)),
@@ -111,7 +110,15 @@ class _$GFoldersData_foldersSerializer
       serializers.serialize(object.user,
           specifiedType: const FullType(GFoldersData_folders_user)),
     ];
-
+    Object? value;
+    value = object.thumbnailImage;
+    if (value != null) {
+      result
+        ..add('thumbnailImage')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(GFoldersData_folders_thumbnailImage)));
+    }
     return result;
   }
 
@@ -141,7 +148,7 @@ class _$GFoldersData_foldersSerializer
           break;
         case 'rating':
           result.rating = serializers.deserialize(value,
-              specifiedType: const FullType(int))! as int;
+              specifiedType: const FullType(_i3.GRating))! as _i3.GRating;
           break;
         case 'likesCount':
           result.likesCount = serializers.deserialize(value,
@@ -151,10 +158,75 @@ class _$GFoldersData_foldersSerializer
           result.viewsCount = serializers.deserialize(value,
               specifiedType: const FullType(int))! as int;
           break;
+        case 'thumbnailImage':
+          result.thumbnailImage.replace(serializers.deserialize(value,
+                  specifiedType:
+                      const FullType(GFoldersData_folders_thumbnailImage))!
+              as GFoldersData_folders_thumbnailImage);
+          break;
         case 'user':
           result.user.replace(serializers.deserialize(value,
                   specifiedType: const FullType(GFoldersData_folders_user))!
               as GFoldersData_folders_user);
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GFoldersData_folders_thumbnailImageSerializer
+    implements StructuredSerializer<GFoldersData_folders_thumbnailImage> {
+  @override
+  final Iterable<Type> types = const [
+    GFoldersData_folders_thumbnailImage,
+    _$GFoldersData_folders_thumbnailImage
+  ];
+  @override
+  final String wireName = 'GFoldersData_folders_thumbnailImage';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GFoldersData_folders_thumbnailImage object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      '__typename',
+      serializers.serialize(object.G__typename,
+          specifiedType: const FullType(String)),
+      'id',
+      serializers.serialize(object.id, specifiedType: const FullType(String)),
+      'downloadURL',
+      serializers.serialize(object.downloadURL,
+          specifiedType: const FullType(String)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GFoldersData_folders_thumbnailImage deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GFoldersData_folders_thumbnailImageBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case '__typename':
+          result.G__typename = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'id':
+          result.id = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'downloadURL':
+          result.downloadURL = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
           break;
       }
     }
@@ -183,10 +255,21 @@ class _$GFoldersData_folders_userSerializer
           specifiedType: const FullType(String)),
       'id',
       serializers.serialize(object.id, specifiedType: const FullType(String)),
+      'login',
+      serializers.serialize(object.login,
+          specifiedType: const FullType(String)),
       'name',
       serializers.serialize(object.name, specifiedType: const FullType(String)),
     ];
-
+    Object? value;
+    value = object.iconImage;
+    if (value != null) {
+      result
+        ..add('iconImage')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(GFoldersData_folders_user_iconImage)));
+    }
     return result;
   }
 
@@ -210,8 +293,77 @@ class _$GFoldersData_folders_userSerializer
           result.id = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
+        case 'login':
+          result.login = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
         case 'name':
           result.name = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'iconImage':
+          result.iconImage.replace(serializers.deserialize(value,
+                  specifiedType:
+                      const FullType(GFoldersData_folders_user_iconImage))!
+              as GFoldersData_folders_user_iconImage);
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GFoldersData_folders_user_iconImageSerializer
+    implements StructuredSerializer<GFoldersData_folders_user_iconImage> {
+  @override
+  final Iterable<Type> types = const [
+    GFoldersData_folders_user_iconImage,
+    _$GFoldersData_folders_user_iconImage
+  ];
+  @override
+  final String wireName = 'GFoldersData_folders_user_iconImage';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GFoldersData_folders_user_iconImage object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      '__typename',
+      serializers.serialize(object.G__typename,
+          specifiedType: const FullType(String)),
+      'id',
+      serializers.serialize(object.id, specifiedType: const FullType(String)),
+      'downloadURL',
+      serializers.serialize(object.downloadURL,
+          specifiedType: const FullType(String)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GFoldersData_folders_user_iconImage deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GFoldersData_folders_user_iconImageBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case '__typename':
+          result.G__typename = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'id':
+          result.id = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'downloadURL':
+          result.downloadURL = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
       }
@@ -342,11 +494,13 @@ class _$GFoldersData_folders extends GFoldersData_folders {
   @override
   final String title;
   @override
-  final int rating;
+  final _i3.GRating rating;
   @override
   final int likesCount;
   @override
   final int viewsCount;
+  @override
+  final GFoldersData_folders_thumbnailImage? thumbnailImage;
   @override
   final GFoldersData_folders_user user;
 
@@ -361,6 +515,7 @@ class _$GFoldersData_folders extends GFoldersData_folders {
       required this.rating,
       required this.likesCount,
       required this.viewsCount,
+      this.thumbnailImage,
       required this.user})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
@@ -397,6 +552,7 @@ class _$GFoldersData_folders extends GFoldersData_folders {
         rating == other.rating &&
         likesCount == other.likesCount &&
         viewsCount == other.viewsCount &&
+        thumbnailImage == other.thumbnailImage &&
         user == other.user;
   }
 
@@ -409,6 +565,7 @@ class _$GFoldersData_folders extends GFoldersData_folders {
     _$hash = $jc(_$hash, rating.hashCode);
     _$hash = $jc(_$hash, likesCount.hashCode);
     _$hash = $jc(_$hash, viewsCount.hashCode);
+    _$hash = $jc(_$hash, thumbnailImage.hashCode);
     _$hash = $jc(_$hash, user.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -423,6 +580,7 @@ class _$GFoldersData_folders extends GFoldersData_folders {
           ..add('rating', rating)
           ..add('likesCount', likesCount)
           ..add('viewsCount', viewsCount)
+          ..add('thumbnailImage', thumbnailImage)
           ..add('user', user))
         .toString();
   }
@@ -444,9 +602,9 @@ class GFoldersData_foldersBuilder
   String? get title => _$this._title;
   set title(String? title) => _$this._title = title;
 
-  int? _rating;
-  int? get rating => _$this._rating;
-  set rating(int? rating) => _$this._rating = rating;
+  _i3.GRating? _rating;
+  _i3.GRating? get rating => _$this._rating;
+  set rating(_i3.GRating? rating) => _$this._rating = rating;
 
   int? _likesCount;
   int? get likesCount => _$this._likesCount;
@@ -455,6 +613,14 @@ class GFoldersData_foldersBuilder
   int? _viewsCount;
   int? get viewsCount => _$this._viewsCount;
   set viewsCount(int? viewsCount) => _$this._viewsCount = viewsCount;
+
+  GFoldersData_folders_thumbnailImageBuilder? _thumbnailImage;
+  GFoldersData_folders_thumbnailImageBuilder get thumbnailImage =>
+      _$this._thumbnailImage ??=
+          new GFoldersData_folders_thumbnailImageBuilder();
+  set thumbnailImage(
+          GFoldersData_folders_thumbnailImageBuilder? thumbnailImage) =>
+      _$this._thumbnailImage = thumbnailImage;
 
   GFoldersData_folders_userBuilder? _user;
   GFoldersData_folders_userBuilder get user =>
@@ -474,6 +640,7 @@ class GFoldersData_foldersBuilder
       _rating = $v.rating;
       _likesCount = $v.likesCount;
       _viewsCount = $v.viewsCount;
+      _thumbnailImage = $v.thumbnailImage?.toBuilder();
       _user = $v.user.toBuilder();
       _$v = null;
     }
@@ -511,10 +678,13 @@ class GFoldersData_foldersBuilder
                   likesCount, r'GFoldersData_folders', 'likesCount'),
               viewsCount: BuiltValueNullFieldError.checkNotNull(
                   viewsCount, r'GFoldersData_folders', 'viewsCount'),
+              thumbnailImage: _thumbnailImage?.build(),
               user: user.build());
     } catch (_) {
       late String _$failedField;
       try {
+        _$failedField = 'thumbnailImage';
+        _thumbnailImage?.build();
         _$failedField = 'user';
         user.build();
       } catch (e) {
@@ -528,25 +698,161 @@ class GFoldersData_foldersBuilder
   }
 }
 
+class _$GFoldersData_folders_thumbnailImage
+    extends GFoldersData_folders_thumbnailImage {
+  @override
+  final String G__typename;
+  @override
+  final String id;
+  @override
+  final String downloadURL;
+
+  factory _$GFoldersData_folders_thumbnailImage(
+          [void Function(GFoldersData_folders_thumbnailImageBuilder)?
+              updates]) =>
+      (new GFoldersData_folders_thumbnailImageBuilder()..update(updates))
+          ._build();
+
+  _$GFoldersData_folders_thumbnailImage._(
+      {required this.G__typename, required this.id, required this.downloadURL})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        G__typename, r'GFoldersData_folders_thumbnailImage', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(
+        id, r'GFoldersData_folders_thumbnailImage', 'id');
+    BuiltValueNullFieldError.checkNotNull(
+        downloadURL, r'GFoldersData_folders_thumbnailImage', 'downloadURL');
+  }
+
+  @override
+  GFoldersData_folders_thumbnailImage rebuild(
+          void Function(GFoldersData_folders_thumbnailImageBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GFoldersData_folders_thumbnailImageBuilder toBuilder() =>
+      new GFoldersData_folders_thumbnailImageBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GFoldersData_folders_thumbnailImage &&
+        G__typename == other.G__typename &&
+        id == other.id &&
+        downloadURL == other.downloadURL;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, G__typename.hashCode);
+    _$hash = $jc(_$hash, id.hashCode);
+    _$hash = $jc(_$hash, downloadURL.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GFoldersData_folders_thumbnailImage')
+          ..add('G__typename', G__typename)
+          ..add('id', id)
+          ..add('downloadURL', downloadURL))
+        .toString();
+  }
+}
+
+class GFoldersData_folders_thumbnailImageBuilder
+    implements
+        Builder<GFoldersData_folders_thumbnailImage,
+            GFoldersData_folders_thumbnailImageBuilder> {
+  _$GFoldersData_folders_thumbnailImage? _$v;
+
+  String? _G__typename;
+  String? get G__typename => _$this._G__typename;
+  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
+
+  String? _id;
+  String? get id => _$this._id;
+  set id(String? id) => _$this._id = id;
+
+  String? _downloadURL;
+  String? get downloadURL => _$this._downloadURL;
+  set downloadURL(String? downloadURL) => _$this._downloadURL = downloadURL;
+
+  GFoldersData_folders_thumbnailImageBuilder() {
+    GFoldersData_folders_thumbnailImage._initializeBuilder(this);
+  }
+
+  GFoldersData_folders_thumbnailImageBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _G__typename = $v.G__typename;
+      _id = $v.id;
+      _downloadURL = $v.downloadURL;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GFoldersData_folders_thumbnailImage other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GFoldersData_folders_thumbnailImage;
+  }
+
+  @override
+  void update(
+      void Function(GFoldersData_folders_thumbnailImageBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GFoldersData_folders_thumbnailImage build() => _build();
+
+  _$GFoldersData_folders_thumbnailImage _build() {
+    final _$result = _$v ??
+        new _$GFoldersData_folders_thumbnailImage._(
+            G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
+                r'GFoldersData_folders_thumbnailImage', 'G__typename'),
+            id: BuiltValueNullFieldError.checkNotNull(
+                id, r'GFoldersData_folders_thumbnailImage', 'id'),
+            downloadURL: BuiltValueNullFieldError.checkNotNull(downloadURL,
+                r'GFoldersData_folders_thumbnailImage', 'downloadURL'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
 class _$GFoldersData_folders_user extends GFoldersData_folders_user {
   @override
   final String G__typename;
   @override
   final String id;
   @override
+  final String login;
+  @override
   final String name;
+  @override
+  final GFoldersData_folders_user_iconImage? iconImage;
 
   factory _$GFoldersData_folders_user(
           [void Function(GFoldersData_folders_userBuilder)? updates]) =>
       (new GFoldersData_folders_userBuilder()..update(updates))._build();
 
   _$GFoldersData_folders_user._(
-      {required this.G__typename, required this.id, required this.name})
+      {required this.G__typename,
+      required this.id,
+      required this.login,
+      required this.name,
+      this.iconImage})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename, r'GFoldersData_folders_user', 'G__typename');
     BuiltValueNullFieldError.checkNotNull(
         id, r'GFoldersData_folders_user', 'id');
+    BuiltValueNullFieldError.checkNotNull(
+        login, r'GFoldersData_folders_user', 'login');
     BuiltValueNullFieldError.checkNotNull(
         name, r'GFoldersData_folders_user', 'name');
   }
@@ -566,7 +872,9 @@ class _$GFoldersData_folders_user extends GFoldersData_folders_user {
     return other is GFoldersData_folders_user &&
         G__typename == other.G__typename &&
         id == other.id &&
-        name == other.name;
+        login == other.login &&
+        name == other.name &&
+        iconImage == other.iconImage;
   }
 
   @override
@@ -574,7 +882,9 @@ class _$GFoldersData_folders_user extends GFoldersData_folders_user {
     var _$hash = 0;
     _$hash = $jc(_$hash, G__typename.hashCode);
     _$hash = $jc(_$hash, id.hashCode);
+    _$hash = $jc(_$hash, login.hashCode);
     _$hash = $jc(_$hash, name.hashCode);
+    _$hash = $jc(_$hash, iconImage.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -584,7 +894,9 @@ class _$GFoldersData_folders_user extends GFoldersData_folders_user {
     return (newBuiltValueToStringHelper(r'GFoldersData_folders_user')
           ..add('G__typename', G__typename)
           ..add('id', id)
-          ..add('name', name))
+          ..add('login', login)
+          ..add('name', name)
+          ..add('iconImage', iconImage))
         .toString();
   }
 }
@@ -602,9 +914,19 @@ class GFoldersData_folders_userBuilder
   String? get id => _$this._id;
   set id(String? id) => _$this._id = id;
 
+  String? _login;
+  String? get login => _$this._login;
+  set login(String? login) => _$this._login = login;
+
   String? _name;
   String? get name => _$this._name;
   set name(String? name) => _$this._name = name;
+
+  GFoldersData_folders_user_iconImageBuilder? _iconImage;
+  GFoldersData_folders_user_iconImageBuilder get iconImage =>
+      _$this._iconImage ??= new GFoldersData_folders_user_iconImageBuilder();
+  set iconImage(GFoldersData_folders_user_iconImageBuilder? iconImage) =>
+      _$this._iconImage = iconImage;
 
   GFoldersData_folders_userBuilder() {
     GFoldersData_folders_user._initializeBuilder(this);
@@ -615,7 +937,9 @@ class GFoldersData_folders_userBuilder
     if ($v != null) {
       _G__typename = $v.G__typename;
       _id = $v.id;
+      _login = $v.login;
       _name = $v.name;
+      _iconImage = $v.iconImage?.toBuilder();
       _$v = null;
     }
     return this;
@@ -636,14 +960,156 @@ class GFoldersData_folders_userBuilder
   GFoldersData_folders_user build() => _build();
 
   _$GFoldersData_folders_user _build() {
+    _$GFoldersData_folders_user _$result;
+    try {
+      _$result = _$v ??
+          new _$GFoldersData_folders_user._(
+              G__typename: BuiltValueNullFieldError.checkNotNull(
+                  G__typename, r'GFoldersData_folders_user', 'G__typename'),
+              id: BuiltValueNullFieldError.checkNotNull(
+                  id, r'GFoldersData_folders_user', 'id'),
+              login: BuiltValueNullFieldError.checkNotNull(
+                  login, r'GFoldersData_folders_user', 'login'),
+              name: BuiltValueNullFieldError.checkNotNull(
+                  name, r'GFoldersData_folders_user', 'name'),
+              iconImage: _iconImage?.build());
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'iconImage';
+        _iconImage?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'GFoldersData_folders_user', _$failedField, e.toString());
+      }
+      rethrow;
+    }
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GFoldersData_folders_user_iconImage
+    extends GFoldersData_folders_user_iconImage {
+  @override
+  final String G__typename;
+  @override
+  final String id;
+  @override
+  final String downloadURL;
+
+  factory _$GFoldersData_folders_user_iconImage(
+          [void Function(GFoldersData_folders_user_iconImageBuilder)?
+              updates]) =>
+      (new GFoldersData_folders_user_iconImageBuilder()..update(updates))
+          ._build();
+
+  _$GFoldersData_folders_user_iconImage._(
+      {required this.G__typename, required this.id, required this.downloadURL})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        G__typename, r'GFoldersData_folders_user_iconImage', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(
+        id, r'GFoldersData_folders_user_iconImage', 'id');
+    BuiltValueNullFieldError.checkNotNull(
+        downloadURL, r'GFoldersData_folders_user_iconImage', 'downloadURL');
+  }
+
+  @override
+  GFoldersData_folders_user_iconImage rebuild(
+          void Function(GFoldersData_folders_user_iconImageBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GFoldersData_folders_user_iconImageBuilder toBuilder() =>
+      new GFoldersData_folders_user_iconImageBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GFoldersData_folders_user_iconImage &&
+        G__typename == other.G__typename &&
+        id == other.id &&
+        downloadURL == other.downloadURL;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, G__typename.hashCode);
+    _$hash = $jc(_$hash, id.hashCode);
+    _$hash = $jc(_$hash, downloadURL.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GFoldersData_folders_user_iconImage')
+          ..add('G__typename', G__typename)
+          ..add('id', id)
+          ..add('downloadURL', downloadURL))
+        .toString();
+  }
+}
+
+class GFoldersData_folders_user_iconImageBuilder
+    implements
+        Builder<GFoldersData_folders_user_iconImage,
+            GFoldersData_folders_user_iconImageBuilder> {
+  _$GFoldersData_folders_user_iconImage? _$v;
+
+  String? _G__typename;
+  String? get G__typename => _$this._G__typename;
+  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
+
+  String? _id;
+  String? get id => _$this._id;
+  set id(String? id) => _$this._id = id;
+
+  String? _downloadURL;
+  String? get downloadURL => _$this._downloadURL;
+  set downloadURL(String? downloadURL) => _$this._downloadURL = downloadURL;
+
+  GFoldersData_folders_user_iconImageBuilder() {
+    GFoldersData_folders_user_iconImage._initializeBuilder(this);
+  }
+
+  GFoldersData_folders_user_iconImageBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _G__typename = $v.G__typename;
+      _id = $v.id;
+      _downloadURL = $v.downloadURL;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GFoldersData_folders_user_iconImage other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GFoldersData_folders_user_iconImage;
+  }
+
+  @override
+  void update(
+      void Function(GFoldersData_folders_user_iconImageBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GFoldersData_folders_user_iconImage build() => _build();
+
+  _$GFoldersData_folders_user_iconImage _build() {
     final _$result = _$v ??
-        new _$GFoldersData_folders_user._(
-            G__typename: BuiltValueNullFieldError.checkNotNull(
-                G__typename, r'GFoldersData_folders_user', 'G__typename'),
+        new _$GFoldersData_folders_user_iconImage._(
+            G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
+                r'GFoldersData_folders_user_iconImage', 'G__typename'),
             id: BuiltValueNullFieldError.checkNotNull(
-                id, r'GFoldersData_folders_user', 'id'),
-            name: BuiltValueNullFieldError.checkNotNull(
-                name, r'GFoldersData_folders_user', 'name'));
+                id, r'GFoldersData_folders_user_iconImage', 'id'),
+            downloadURL: BuiltValueNullFieldError.checkNotNull(downloadURL,
+                r'GFoldersData_folders_user_iconImage', 'downloadURL'));
     replace(_$result);
     return _$result;
   }

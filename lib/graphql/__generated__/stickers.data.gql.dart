@@ -22,7 +22,7 @@ abstract class GStickersData
       b..G__typename = 'Query';
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
-  BuiltList<GStickersData_works>? get works;
+  BuiltList<GStickersData_stickers> get stickers;
   static Serializer<GStickersData> get serializer => _$gStickersDataSerializer;
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GStickersData.serializer,
@@ -35,17 +35,18 @@ abstract class GStickersData
       );
 }
 
-abstract class GStickersData_works
+abstract class GStickersData_stickers
     implements
-        Built<GStickersData_works, GStickersData_worksBuilder>,
+        Built<GStickersData_stickers, GStickersData_stickersBuilder>,
         _i2.GPartialStickerFields {
-  GStickersData_works._();
+  GStickersData_stickers._();
 
-  factory GStickersData_works(
-      [Function(GStickersData_worksBuilder b) updates]) = _$GStickersData_works;
+  factory GStickersData_stickers(
+          [Function(GStickersData_stickersBuilder b) updates]) =
+      _$GStickersData_stickers;
 
-  static void _initializeBuilder(GStickersData_worksBuilder b) =>
-      b..G__typename = 'WorkNode';
+  static void _initializeBuilder(GStickersData_stickersBuilder b) =>
+      b..G__typename = 'StickerNode';
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -54,32 +55,33 @@ abstract class GStickersData_works
   @override
   String get title;
   @override
-  GStickersData_works_image? get image;
-  static Serializer<GStickersData_works> get serializer =>
-      _$gStickersDataWorksSerializer;
+  GStickersData_stickers_image get image;
+  static Serializer<GStickersData_stickers> get serializer =>
+      _$gStickersDataStickersSerializer;
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GStickersData_works.serializer,
+        GStickersData_stickers.serializer,
         this,
       ) as Map<String, dynamic>);
-  static GStickersData_works? fromJson(Map<String, dynamic> json) =>
+  static GStickersData_stickers? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
-        GStickersData_works.serializer,
+        GStickersData_stickers.serializer,
         json,
       );
 }
 
-abstract class GStickersData_works_image
+abstract class GStickersData_stickers_image
     implements
-        Built<GStickersData_works_image, GStickersData_works_imageBuilder>,
+        Built<GStickersData_stickers_image,
+            GStickersData_stickers_imageBuilder>,
         _i2.GPartialStickerFields_image {
-  GStickersData_works_image._();
+  GStickersData_stickers_image._();
 
-  factory GStickersData_works_image(
-          [Function(GStickersData_works_imageBuilder b) updates]) =
-      _$GStickersData_works_image;
+  factory GStickersData_stickers_image(
+          [Function(GStickersData_stickers_imageBuilder b) updates]) =
+      _$GStickersData_stickers_image;
 
-  static void _initializeBuilder(GStickersData_works_imageBuilder b) =>
+  static void _initializeBuilder(GStickersData_stickers_imageBuilder b) =>
       b..G__typename = 'ImageNode';
   @override
   @BuiltValueField(wireName: '__typename')
@@ -88,16 +90,16 @@ abstract class GStickersData_works_image
   String get id;
   @override
   String get downloadURL;
-  static Serializer<GStickersData_works_image> get serializer =>
-      _$gStickersDataWorksImageSerializer;
+  static Serializer<GStickersData_stickers_image> get serializer =>
+      _$gStickersDataStickersImageSerializer;
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GStickersData_works_image.serializer,
+        GStickersData_stickers_image.serializer,
         this,
       ) as Map<String, dynamic>);
-  static GStickersData_works_image? fromJson(Map<String, dynamic> json) =>
+  static GStickersData_stickers_image? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
-        GStickersData_works_image.serializer,
+        GStickersData_stickers_image.serializer,
         json,
       );
 }

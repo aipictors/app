@@ -21,7 +21,7 @@ class NotificationUserContainer extends HookConsumerWidget {
         const SizedBox(width: 12),
         Text(
           userName,
-          style: Theme.of(context).textTheme.titleMedium,
+          style: Theme.of(context).textTheme.titleSmall,
         ),
       ],
     );

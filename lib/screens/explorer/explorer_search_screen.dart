@@ -1,5 +1,6 @@
 import 'package:aipictors/graphql/__generated__/works.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
+import 'package:aipictors/screens/loading_screen.dart';
 import 'package:aipictors/widgets/container/data_not_found_error_container.dart';
 import 'package:aipictors/widgets/container/empty_error_container.dart';
 import 'package:aipictors/widgets/container/loading_container.dart';
@@ -24,7 +25,7 @@ class ExplorerSearchScreen extends HookConsumerWidget {
     final client = ref.watch(clientProvider);
 
     if (client.value == null) {
-      return const LoadingContainer();
+      return const LoadingScreen();
     }
 
     return Operation(

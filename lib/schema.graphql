@@ -225,6 +225,9 @@ type FolderNode implements Node {
   id: ID!
   createdAt: Int!
 
+  """スラッグ"""
+  slug: String
+
   """タイトル"""
   title: String!
 
@@ -242,10 +245,16 @@ type FolderNode implements Node {
   viewsCount: Int!
 
   """年齢制限"""
-  rating: Int!
+  rating: Rating!
 
   """作品"""
   works(offset: Int!, limit: Int!): [WorkNode!]
+
+  """サムネイル"""
+  thumbnailImageId: ID
+
+  """サムネイル"""
+  thumbnailImage: ImageNode
 }
 
 input FoldersWhereInput {
@@ -556,6 +565,7 @@ type TagNode implements Node {
   id: ID!
   name: String!
   works(offset: Int!, limit: Int!): [WorkNode!]!
+  firstWork: WorkNode
 }
 
 input TagsWhereInput {

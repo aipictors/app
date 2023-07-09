@@ -1,10 +1,10 @@
 import 'package:aipictors/providers/auth_state_provider.dart';
 import 'package:aipictors/providers/config_provider.dart';
-import 'package:aipictors/screens/award/work_awards_screen.dart';
 import 'package:aipictors/screens/config/config_screen.dart';
 import 'package:aipictors/screens/config_error_screen.dart';
 import 'package:aipictors/screens/daily_theme/daily_themes_screen.dart';
-import 'package:aipictors/screens/explorer/explorer_works_screen.dart';
+import 'package:aipictors/screens/explorer/explorer_screen.dart';
+import 'package:aipictors/screens/feed_screen.dart';
 import 'package:aipictors/screens/loading_screen.dart';
 import 'package:aipictors/screens/login_screen.dart';
 import 'package:aipictors/screens/notification_screen.dart';
@@ -12,8 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class HomeScreen extends HookConsumerWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class RootScreen extends HookConsumerWidget {
+  const RootScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(context, ref) {
@@ -41,9 +41,9 @@ class HomeScreen extends HookConsumerWidget {
     }
 
     final screens = [
+      const FeedScreen(),
       const DailyThemesScreen(),
-      const ExplorerWorksScreen(),
-      const WorkAwardsScreen(),
+      const ExplorerScreen(),
       if (authState.value == null) const LoginScreen(),
       if (authState.value != null) const NotificationScreen(),
       const ConfigScreen()
@@ -56,16 +56,16 @@ class HomeScreen extends HookConsumerWidget {
         labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
         destinations: [
           const NavigationDestination(
+            icon: Icon(Icons.home),
+            label: 'ホーム',
+          ),
+          const NavigationDestination(
             icon: Icon(Icons.today_rounded),
             label: 'お題',
           ),
           const NavigationDestination(
             icon: Icon(Icons.explore_rounded),
-            label: '検索',
-          ),
-          const NavigationDestination(
-            icon: Icon(Icons.emoji_events_rounded),
-            label: 'ランキング',
+            label: '見つける',
           ),
           if (authState.value == null)
             const NavigationDestination(

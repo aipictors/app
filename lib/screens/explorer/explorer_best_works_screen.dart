@@ -47,6 +47,7 @@ class ExplorerBestWorksScreen extends HookConsumerWidget {
           return const DataNotFoundErrorContainer();
         }
         return GridView.builder(
+          key: const PageStorageKey('explorer_best_works'),
           physics: const ClampingScrollPhysics(),
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,

@@ -8,10 +8,11 @@ part of 'stickers.data.gql.dart';
 
 Serializer<GStickersData> _$gStickersDataSerializer =
     new _$GStickersDataSerializer();
-Serializer<GStickersData_works> _$gStickersDataWorksSerializer =
-    new _$GStickersData_worksSerializer();
-Serializer<GStickersData_works_image> _$gStickersDataWorksImageSerializer =
-    new _$GStickersData_works_imageSerializer();
+Serializer<GStickersData_stickers> _$gStickersDataStickersSerializer =
+    new _$GStickersData_stickersSerializer();
+Serializer<GStickersData_stickers_image>
+    _$gStickersDataStickersImageSerializer =
+    new _$GStickersData_stickers_imageSerializer();
 
 class _$GStickersDataSerializer implements StructuredSerializer<GStickersData> {
   @override
@@ -26,16 +27,12 @@ class _$GStickersDataSerializer implements StructuredSerializer<GStickersData> {
       '__typename',
       serializers.serialize(object.G__typename,
           specifiedType: const FullType(String)),
+      'stickers',
+      serializers.serialize(object.stickers,
+          specifiedType: const FullType(
+              BuiltList, const [const FullType(GStickersData_stickers)])),
     ];
-    Object? value;
-    value = object.works;
-    if (value != null) {
-      result
-        ..add('works')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(
-                BuiltList, const [const FullType(GStickersData_works)])));
-    }
+
     return result;
   }
 
@@ -55,11 +52,11 @@ class _$GStickersDataSerializer implements StructuredSerializer<GStickersData> {
           result.G__typename = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
-        case 'works':
-          result.works.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      BuiltList, const [const FullType(GStickersData_works)]))!
-              as BuiltList<Object?>);
+        case 'stickers':
+          result.stickers.replace(serializers.deserialize(value,
+              specifiedType: const FullType(BuiltList, const [
+                const FullType(GStickersData_stickers)
+              ]))! as BuiltList<Object?>);
           break;
       }
     }
@@ -68,19 +65,19 @@ class _$GStickersDataSerializer implements StructuredSerializer<GStickersData> {
   }
 }
 
-class _$GStickersData_worksSerializer
-    implements StructuredSerializer<GStickersData_works> {
+class _$GStickersData_stickersSerializer
+    implements StructuredSerializer<GStickersData_stickers> {
   @override
   final Iterable<Type> types = const [
-    GStickersData_works,
-    _$GStickersData_works
+    GStickersData_stickers,
+    _$GStickersData_stickers
   ];
   @override
-  final String wireName = 'GStickersData_works';
+  final String wireName = 'GStickersData_stickers';
 
   @override
   Iterable<Object?> serialize(
-      Serializers serializers, GStickersData_works object,
+      Serializers serializers, GStickersData_stickers object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
       '__typename',
@@ -91,23 +88,19 @@ class _$GStickersData_worksSerializer
       'title',
       serializers.serialize(object.title,
           specifiedType: const FullType(String)),
+      'image',
+      serializers.serialize(object.image,
+          specifiedType: const FullType(GStickersData_stickers_image)),
     ];
-    Object? value;
-    value = object.image;
-    if (value != null) {
-      result
-        ..add('image')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(GStickersData_works_image)));
-    }
+
     return result;
   }
 
   @override
-  GStickersData_works deserialize(
+  GStickersData_stickers deserialize(
       Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new GStickersData_worksBuilder();
+    final result = new GStickersData_stickersBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -129,8 +122,8 @@ class _$GStickersData_worksSerializer
           break;
         case 'image':
           result.image.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(GStickersData_works_image))!
-              as GStickersData_works_image);
+                  specifiedType: const FullType(GStickersData_stickers_image))!
+              as GStickersData_stickers_image);
           break;
       }
     }
@@ -139,19 +132,19 @@ class _$GStickersData_worksSerializer
   }
 }
 
-class _$GStickersData_works_imageSerializer
-    implements StructuredSerializer<GStickersData_works_image> {
+class _$GStickersData_stickers_imageSerializer
+    implements StructuredSerializer<GStickersData_stickers_image> {
   @override
   final Iterable<Type> types = const [
-    GStickersData_works_image,
-    _$GStickersData_works_image
+    GStickersData_stickers_image,
+    _$GStickersData_stickers_image
   ];
   @override
-  final String wireName = 'GStickersData_works_image';
+  final String wireName = 'GStickersData_stickers_image';
 
   @override
   Iterable<Object?> serialize(
-      Serializers serializers, GStickersData_works_image object,
+      Serializers serializers, GStickersData_stickers_image object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
       '__typename',
@@ -168,10 +161,10 @@ class _$GStickersData_works_imageSerializer
   }
 
   @override
-  GStickersData_works_image deserialize(
+  GStickersData_stickers_image deserialize(
       Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new GStickersData_works_imageBuilder();
+    final result = new GStickersData_stickers_imageBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -202,14 +195,17 @@ class _$GStickersData extends GStickersData {
   @override
   final String G__typename;
   @override
-  final BuiltList<GStickersData_works>? works;
+  final BuiltList<GStickersData_stickers> stickers;
 
   factory _$GStickersData([void Function(GStickersDataBuilder)? updates]) =>
       (new GStickersDataBuilder()..update(updates))._build();
 
-  _$GStickersData._({required this.G__typename, this.works}) : super._() {
+  _$GStickersData._({required this.G__typename, required this.stickers})
+      : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename, r'GStickersData', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(
+        stickers, r'GStickersData', 'stickers');
   }
 
   @override
@@ -224,14 +220,14 @@ class _$GStickersData extends GStickersData {
     if (identical(other, this)) return true;
     return other is GStickersData &&
         G__typename == other.G__typename &&
-        works == other.works;
+        stickers == other.stickers;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, works.hashCode);
+    _$hash = $jc(_$hash, stickers.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -240,7 +236,7 @@ class _$GStickersData extends GStickersData {
   String toString() {
     return (newBuiltValueToStringHelper(r'GStickersData')
           ..add('G__typename', G__typename)
-          ..add('works', works))
+          ..add('stickers', stickers))
         .toString();
   }
 }
@@ -253,10 +249,11 @@ class GStickersDataBuilder
   String? get G__typename => _$this._G__typename;
   set G__typename(String? G__typename) => _$this._G__typename = G__typename;
 
-  ListBuilder<GStickersData_works>? _works;
-  ListBuilder<GStickersData_works> get works =>
-      _$this._works ??= new ListBuilder<GStickersData_works>();
-  set works(ListBuilder<GStickersData_works>? works) => _$this._works = works;
+  ListBuilder<GStickersData_stickers>? _stickers;
+  ListBuilder<GStickersData_stickers> get stickers =>
+      _$this._stickers ??= new ListBuilder<GStickersData_stickers>();
+  set stickers(ListBuilder<GStickersData_stickers>? stickers) =>
+      _$this._stickers = stickers;
 
   GStickersDataBuilder() {
     GStickersData._initializeBuilder(this);
@@ -266,7 +263,7 @@ class GStickersDataBuilder
     final $v = _$v;
     if ($v != null) {
       _G__typename = $v.G__typename;
-      _works = $v.works?.toBuilder();
+      _stickers = $v.stickers.toBuilder();
       _$v = null;
     }
     return this;
@@ -293,12 +290,12 @@ class GStickersDataBuilder
           new _$GStickersData._(
               G__typename: BuiltValueNullFieldError.checkNotNull(
                   G__typename, r'GStickersData', 'G__typename'),
-              works: _works?.build());
+              stickers: stickers.build());
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'works';
-        _works?.build();
+        _$failedField = 'stickers';
+        stickers.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'GStickersData', _$failedField, e.toString());
@@ -310,7 +307,7 @@ class GStickersDataBuilder
   }
 }
 
-class _$GStickersData_works extends GStickersData_works {
+class _$GStickersData_stickers extends GStickersData_stickers {
   @override
   final String G__typename;
   @override
@@ -318,38 +315,40 @@ class _$GStickersData_works extends GStickersData_works {
   @override
   final String title;
   @override
-  final GStickersData_works_image? image;
+  final GStickersData_stickers_image image;
 
-  factory _$GStickersData_works(
-          [void Function(GStickersData_worksBuilder)? updates]) =>
-      (new GStickersData_worksBuilder()..update(updates))._build();
+  factory _$GStickersData_stickers(
+          [void Function(GStickersData_stickersBuilder)? updates]) =>
+      (new GStickersData_stickersBuilder()..update(updates))._build();
 
-  _$GStickersData_works._(
+  _$GStickersData_stickers._(
       {required this.G__typename,
       required this.id,
       required this.title,
-      this.image})
+      required this.image})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        G__typename, r'GStickersData_works', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(id, r'GStickersData_works', 'id');
+        G__typename, r'GStickersData_stickers', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(id, r'GStickersData_stickers', 'id');
     BuiltValueNullFieldError.checkNotNull(
-        title, r'GStickersData_works', 'title');
+        title, r'GStickersData_stickers', 'title');
+    BuiltValueNullFieldError.checkNotNull(
+        image, r'GStickersData_stickers', 'image');
   }
 
   @override
-  GStickersData_works rebuild(
-          void Function(GStickersData_worksBuilder) updates) =>
+  GStickersData_stickers rebuild(
+          void Function(GStickersData_stickersBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GStickersData_worksBuilder toBuilder() =>
-      new GStickersData_worksBuilder()..replace(this);
+  GStickersData_stickersBuilder toBuilder() =>
+      new GStickersData_stickersBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GStickersData_works &&
+    return other is GStickersData_stickers &&
         G__typename == other.G__typename &&
         id == other.id &&
         title == other.title &&
@@ -369,7 +368,7 @@ class _$GStickersData_works extends GStickersData_works {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'GStickersData_works')
+    return (newBuiltValueToStringHelper(r'GStickersData_stickers')
           ..add('G__typename', G__typename)
           ..add('id', id)
           ..add('title', title)
@@ -378,9 +377,9 @@ class _$GStickersData_works extends GStickersData_works {
   }
 }
 
-class GStickersData_worksBuilder
-    implements Builder<GStickersData_works, GStickersData_worksBuilder> {
-  _$GStickersData_works? _$v;
+class GStickersData_stickersBuilder
+    implements Builder<GStickersData_stickers, GStickersData_stickersBuilder> {
+  _$GStickersData_stickers? _$v;
 
   String? _G__typename;
   String? get G__typename => _$this._G__typename;
@@ -394,61 +393,62 @@ class GStickersData_worksBuilder
   String? get title => _$this._title;
   set title(String? title) => _$this._title = title;
 
-  GStickersData_works_imageBuilder? _image;
-  GStickersData_works_imageBuilder get image =>
-      _$this._image ??= new GStickersData_works_imageBuilder();
-  set image(GStickersData_works_imageBuilder? image) => _$this._image = image;
+  GStickersData_stickers_imageBuilder? _image;
+  GStickersData_stickers_imageBuilder get image =>
+      _$this._image ??= new GStickersData_stickers_imageBuilder();
+  set image(GStickersData_stickers_imageBuilder? image) =>
+      _$this._image = image;
 
-  GStickersData_worksBuilder() {
-    GStickersData_works._initializeBuilder(this);
+  GStickersData_stickersBuilder() {
+    GStickersData_stickers._initializeBuilder(this);
   }
 
-  GStickersData_worksBuilder get _$this {
+  GStickersData_stickersBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _G__typename = $v.G__typename;
       _id = $v.id;
       _title = $v.title;
-      _image = $v.image?.toBuilder();
+      _image = $v.image.toBuilder();
       _$v = null;
     }
     return this;
   }
 
   @override
-  void replace(GStickersData_works other) {
+  void replace(GStickersData_stickers other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GStickersData_works;
+    _$v = other as _$GStickersData_stickers;
   }
 
   @override
-  void update(void Function(GStickersData_worksBuilder)? updates) {
+  void update(void Function(GStickersData_stickersBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  GStickersData_works build() => _build();
+  GStickersData_stickers build() => _build();
 
-  _$GStickersData_works _build() {
-    _$GStickersData_works _$result;
+  _$GStickersData_stickers _build() {
+    _$GStickersData_stickers _$result;
     try {
       _$result = _$v ??
-          new _$GStickersData_works._(
+          new _$GStickersData_stickers._(
               G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, r'GStickersData_works', 'G__typename'),
+                  G__typename, r'GStickersData_stickers', 'G__typename'),
               id: BuiltValueNullFieldError.checkNotNull(
-                  id, r'GStickersData_works', 'id'),
+                  id, r'GStickersData_stickers', 'id'),
               title: BuiltValueNullFieldError.checkNotNull(
-                  title, r'GStickersData_works', 'title'),
-              image: _image?.build());
+                  title, r'GStickersData_stickers', 'title'),
+              image: image.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'image';
-        _image?.build();
+        image.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'GStickersData_works', _$failedField, e.toString());
+            r'GStickersData_stickers', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -457,7 +457,7 @@ class GStickersData_worksBuilder
   }
 }
 
-class _$GStickersData_works_image extends GStickersData_works_image {
+class _$GStickersData_stickers_image extends GStickersData_stickers_image {
   @override
   final String G__typename;
   @override
@@ -465,34 +465,34 @@ class _$GStickersData_works_image extends GStickersData_works_image {
   @override
   final String downloadURL;
 
-  factory _$GStickersData_works_image(
-          [void Function(GStickersData_works_imageBuilder)? updates]) =>
-      (new GStickersData_works_imageBuilder()..update(updates))._build();
+  factory _$GStickersData_stickers_image(
+          [void Function(GStickersData_stickers_imageBuilder)? updates]) =>
+      (new GStickersData_stickers_imageBuilder()..update(updates))._build();
 
-  _$GStickersData_works_image._(
+  _$GStickersData_stickers_image._(
       {required this.G__typename, required this.id, required this.downloadURL})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        G__typename, r'GStickersData_works_image', 'G__typename');
+        G__typename, r'GStickersData_stickers_image', 'G__typename');
     BuiltValueNullFieldError.checkNotNull(
-        id, r'GStickersData_works_image', 'id');
+        id, r'GStickersData_stickers_image', 'id');
     BuiltValueNullFieldError.checkNotNull(
-        downloadURL, r'GStickersData_works_image', 'downloadURL');
+        downloadURL, r'GStickersData_stickers_image', 'downloadURL');
   }
 
   @override
-  GStickersData_works_image rebuild(
-          void Function(GStickersData_works_imageBuilder) updates) =>
+  GStickersData_stickers_image rebuild(
+          void Function(GStickersData_stickers_imageBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GStickersData_works_imageBuilder toBuilder() =>
-      new GStickersData_works_imageBuilder()..replace(this);
+  GStickersData_stickers_imageBuilder toBuilder() =>
+      new GStickersData_stickers_imageBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GStickersData_works_image &&
+    return other is GStickersData_stickers_image &&
         G__typename == other.G__typename &&
         id == other.id &&
         downloadURL == other.downloadURL;
@@ -510,7 +510,7 @@ class _$GStickersData_works_image extends GStickersData_works_image {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'GStickersData_works_image')
+    return (newBuiltValueToStringHelper(r'GStickersData_stickers_image')
           ..add('G__typename', G__typename)
           ..add('id', id)
           ..add('downloadURL', downloadURL))
@@ -518,10 +518,11 @@ class _$GStickersData_works_image extends GStickersData_works_image {
   }
 }
 
-class GStickersData_works_imageBuilder
+class GStickersData_stickers_imageBuilder
     implements
-        Builder<GStickersData_works_image, GStickersData_works_imageBuilder> {
-  _$GStickersData_works_image? _$v;
+        Builder<GStickersData_stickers_image,
+            GStickersData_stickers_imageBuilder> {
+  _$GStickersData_stickers_image? _$v;
 
   String? _G__typename;
   String? get G__typename => _$this._G__typename;
@@ -535,11 +536,11 @@ class GStickersData_works_imageBuilder
   String? get downloadURL => _$this._downloadURL;
   set downloadURL(String? downloadURL) => _$this._downloadURL = downloadURL;
 
-  GStickersData_works_imageBuilder() {
-    GStickersData_works_image._initializeBuilder(this);
+  GStickersData_stickers_imageBuilder() {
+    GStickersData_stickers_image._initializeBuilder(this);
   }
 
-  GStickersData_works_imageBuilder get _$this {
+  GStickersData_stickers_imageBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _G__typename = $v.G__typename;
@@ -551,28 +552,28 @@ class GStickersData_works_imageBuilder
   }
 
   @override
-  void replace(GStickersData_works_image other) {
+  void replace(GStickersData_stickers_image other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GStickersData_works_image;
+    _$v = other as _$GStickersData_stickers_image;
   }
 
   @override
-  void update(void Function(GStickersData_works_imageBuilder)? updates) {
+  void update(void Function(GStickersData_stickers_imageBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  GStickersData_works_image build() => _build();
+  GStickersData_stickers_image build() => _build();
 
-  _$GStickersData_works_image _build() {
+  _$GStickersData_stickers_image _build() {
     final _$result = _$v ??
-        new _$GStickersData_works_image._(
+        new _$GStickersData_stickers_image._(
             G__typename: BuiltValueNullFieldError.checkNotNull(
-                G__typename, r'GStickersData_works_image', 'G__typename'),
+                G__typename, r'GStickersData_stickers_image', 'G__typename'),
             id: BuiltValueNullFieldError.checkNotNull(
-                id, r'GStickersData_works_image', 'id'),
+                id, r'GStickersData_stickers_image', 'id'),
             downloadURL: BuiltValueNullFieldError.checkNotNull(
-                downloadURL, r'GStickersData_works_image', 'downloadURL'));
+                downloadURL, r'GStickersData_stickers_image', 'downloadURL'));
     replace(_$result);
     return _$result;
   }

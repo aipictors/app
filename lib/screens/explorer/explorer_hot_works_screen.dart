@@ -47,7 +47,8 @@ class ExplorerHotWorksScreen extends HookConsumerWidget {
           return const EmptyErrorContainer();
         }
         return GridView.builder(
-          physics: const ClampingScrollPhysics(),
+          key: const PageStorageKey('explorer_hot_works'),
+          // physics: const ClampingScrollPhysics(),
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
           ),

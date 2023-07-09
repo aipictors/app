@@ -86,13 +86,22 @@ import 'package:aipictors/graphql/__generated__/daily_themes.req.gql.dart'
 import 'package:aipictors/graphql/__generated__/daily_themes.var.gql.dart'
     show GDailyThemesVars;
 import 'package:aipictors/graphql/__generated__/folders.data.gql.dart'
-    show GFoldersData, GFoldersData_folders, GFoldersData_folders_user;
+    show
+        GFoldersData,
+        GFoldersData_folders,
+        GFoldersData_folders_thumbnailImage,
+        GFoldersData_folders_user,
+        GFoldersData_folders_user_iconImage;
 import 'package:aipictors/graphql/__generated__/folders.req.gql.dart'
     show GFoldersReq;
 import 'package:aipictors/graphql/__generated__/folders.var.gql.dart'
     show GFoldersVars;
 import 'package:aipictors/graphql/__generated__/hot_tags.data.gql.dart'
-    show GHotTagsData, GHotTagsData_hotTags;
+    show
+        GHotTagsData,
+        GHotTagsData_hotTags,
+        GHotTagsData_hotTags_firstWork,
+        GHotTagsData_hotTags_firstWork_thumbnailImage;
 import 'package:aipictors/graphql/__generated__/hot_tags.req.gql.dart'
     show GHotTagsReq;
 import 'package:aipictors/graphql/__generated__/hot_tags.var.gql.dart'
@@ -122,7 +131,7 @@ import 'package:aipictors/graphql/__generated__/popular_works.req.gql.dart'
 import 'package:aipictors/graphql/__generated__/popular_works.var.gql.dart'
     show GPopularWorksVars;
 import 'package:aipictors/graphql/__generated__/stickers.data.gql.dart'
-    show GStickersData, GStickersData_works, GStickersData_works_image;
+    show GStickersData, GStickersData_stickers, GStickersData_stickers_image;
 import 'package:aipictors/graphql/__generated__/stickers.req.gql.dart'
     show GStickersReq;
 import 'package:aipictors/graphql/__generated__/stickers.var.gql.dart'
@@ -250,7 +259,7 @@ import 'package:aipictors/graphql/fragments/__generated__/comment_fields_fragmen
 import 'package:aipictors/graphql/fragments/__generated__/comment_fields_fragment.var.gql.dart'
     show GCommentFieldsVars;
 import 'package:aipictors/graphql/fragments/__generated__/partial_folder_fields_fragment.data.gql.dart'
-    show GPartialFolderFieldsData, GPartialFolderFieldsData_user;
+    show GPartialFolderFieldsData, GPartialFolderFieldsData_thumbnailImage;
 import 'package:aipictors/graphql/fragments/__generated__/partial_folder_fields_fragment.req.gql.dart'
     show GPartialFolderFieldsReq;
 import 'package:aipictors/graphql/fragments/__generated__/partial_folder_fields_fragment.var.gql.dart'
@@ -357,13 +366,17 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GDeleteWorkLikeInput,
   GFoldersData,
   GFoldersData_folders,
+  GFoldersData_folders_thumbnailImage,
   GFoldersData_folders_user,
+  GFoldersData_folders_user_iconImage,
   GFoldersReq,
   GFoldersVars,
   GFoldersWhereInput,
   GFollowUserInput,
   GHotTagsData,
   GHotTagsData_hotTags,
+  GHotTagsData_hotTags_firstWork,
+  GHotTagsData_hotTags_firstWork_thumbnailImage,
   GHotTagsReq,
   GHotTagsVars,
   GHotWorksData,
@@ -380,7 +393,7 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GMuteUserInput,
   GNotificationType,
   GPartialFolderFieldsData,
-  GPartialFolderFieldsData_user,
+  GPartialFolderFieldsData_thumbnailImage,
   GPartialFolderFieldsReq,
   GPartialFolderFieldsVars,
   GPartialStickerFieldsData,
@@ -407,8 +420,8 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GPostType,
   GRating,
   GStickersData,
-  GStickersData_works,
-  GStickersData_works_image,
+  GStickersData_stickers,
+  GStickersData_stickers_image,
   GStickersReq,
   GStickersVars,
   GStickersWhereInput,

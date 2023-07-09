@@ -1,4 +1,4 @@
-import 'package:aipictors/graphql/__generated__/popular_works.req.gql.dart';
+import 'package:aipictors/graphql/__generated__/works.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/widgets/container/data_not_found_error_container.dart';
 import 'package:aipictors/widgets/container/empty_error_container.dart';
@@ -11,8 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class ExplorerPopularWorksScreen extends HookConsumerWidget {
-  const ExplorerPopularWorksScreen({
+class ExplorerLatestWorksScreen extends HookConsumerWidget {
+  const ExplorerLatestWorksScreen({
     Key? key,
   }) : super(key: key);
 
@@ -26,8 +26,10 @@ class ExplorerPopularWorksScreen extends HookConsumerWidget {
 
     return Operation(
       client: client.value!,
-      operationRequest: GPopularWorksReq((builder) {
-        return builder;
+      operationRequest: GWorksReq((builder) {
+        return builder
+          ..vars.limit = 32
+          ..vars.offset = 0;
       }),
       builder: (context, response, error) {
         if (error != null) {
@@ -39,7 +41,7 @@ class ExplorerPopularWorksScreen extends HookConsumerWidget {
         if (response.graphqlErrors != null) {
           return const UnexpectedErrorContainer();
         }
-        final works = response.data?.popularWorks;
+        final works = response.data?.works;
         if (works == null) {
           return const DataNotFoundErrorContainer();
         }
@@ -47,7 +49,7 @@ class ExplorerPopularWorksScreen extends HookConsumerWidget {
           return const EmptyErrorContainer();
         }
         return GridView.builder(
-          key: const PageStorageKey('explorer_popular_works'),
+          key: const PageStorageKey('explorer_latest_works'),
           // physics: const ClampingScrollPhysics(),
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,

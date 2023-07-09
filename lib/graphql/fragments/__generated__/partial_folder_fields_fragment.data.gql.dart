@@ -2,7 +2,8 @@
 // ignore_for_file: type=lint
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:aipictors/__generated__/serializers.gql.dart' as _i1;
+import 'package:aipictors/__generated__/schema.schema.gql.dart' as _i1;
+import 'package:aipictors/__generated__/serializers.gql.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -12,17 +13,17 @@ abstract class GPartialFolderFields {
   String get G__typename;
   String get id;
   String get title;
-  int get rating;
+  _i1.GRating get rating;
   int get likesCount;
   int get viewsCount;
-  GPartialFolderFields_user get user;
+  GPartialFolderFields_thumbnailImage? get thumbnailImage;
   Map<String, dynamic> toJson();
 }
 
-abstract class GPartialFolderFields_user {
+abstract class GPartialFolderFields_thumbnailImage {
   String get G__typename;
   String get id;
-  String get name;
+  String get downloadURL;
   Map<String, dynamic> toJson();
 }
 
@@ -46,57 +47,59 @@ abstract class GPartialFolderFieldsData
   @override
   String get title;
   @override
-  int get rating;
+  _i1.GRating get rating;
   @override
   int get likesCount;
   @override
   int get viewsCount;
   @override
-  GPartialFolderFieldsData_user get user;
+  GPartialFolderFieldsData_thumbnailImage? get thumbnailImage;
   static Serializer<GPartialFolderFieldsData> get serializer =>
       _$gPartialFolderFieldsDataSerializer;
   @override
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+  Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
         GPartialFolderFieldsData.serializer,
         this,
       ) as Map<String, dynamic>);
   static GPartialFolderFieldsData? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
+      _i2.serializers.deserializeWith(
         GPartialFolderFieldsData.serializer,
         json,
       );
 }
 
-abstract class GPartialFolderFieldsData_user
+abstract class GPartialFolderFieldsData_thumbnailImage
     implements
-        Built<GPartialFolderFieldsData_user,
-            GPartialFolderFieldsData_userBuilder>,
-        GPartialFolderFields_user {
-  GPartialFolderFieldsData_user._();
+        Built<GPartialFolderFieldsData_thumbnailImage,
+            GPartialFolderFieldsData_thumbnailImageBuilder>,
+        GPartialFolderFields_thumbnailImage {
+  GPartialFolderFieldsData_thumbnailImage._();
 
-  factory GPartialFolderFieldsData_user(
-          [Function(GPartialFolderFieldsData_userBuilder b) updates]) =
-      _$GPartialFolderFieldsData_user;
+  factory GPartialFolderFieldsData_thumbnailImage(
+      [Function(GPartialFolderFieldsData_thumbnailImageBuilder b)
+          updates]) = _$GPartialFolderFieldsData_thumbnailImage;
 
-  static void _initializeBuilder(GPartialFolderFieldsData_userBuilder b) =>
-      b..G__typename = 'UserNode';
+  static void _initializeBuilder(
+          GPartialFolderFieldsData_thumbnailImageBuilder b) =>
+      b..G__typename = 'ImageNode';
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   @override
   String get id;
   @override
-  String get name;
-  static Serializer<GPartialFolderFieldsData_user> get serializer =>
-      _$gPartialFolderFieldsDataUserSerializer;
+  String get downloadURL;
+  static Serializer<GPartialFolderFieldsData_thumbnailImage> get serializer =>
+      _$gPartialFolderFieldsDataThumbnailImageSerializer;
   @override
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GPartialFolderFieldsData_user.serializer,
+  Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
+        GPartialFolderFieldsData_thumbnailImage.serializer,
         this,
       ) as Map<String, dynamic>);
-  static GPartialFolderFieldsData_user? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GPartialFolderFieldsData_user.serializer,
+  static GPartialFolderFieldsData_thumbnailImage? fromJson(
+          Map<String, dynamic> json) =>
+      _i2.serializers.deserializeWith(
+        GPartialFolderFieldsData_thumbnailImage.serializer,
         json,
       );
 }

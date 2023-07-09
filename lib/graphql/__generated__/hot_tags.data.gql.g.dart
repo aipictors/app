@@ -10,6 +10,12 @@ Serializer<GHotTagsData> _$gHotTagsDataSerializer =
     new _$GHotTagsDataSerializer();
 Serializer<GHotTagsData_hotTags> _$gHotTagsDataHotTagsSerializer =
     new _$GHotTagsData_hotTagsSerializer();
+Serializer<GHotTagsData_hotTags_firstWork>
+    _$gHotTagsDataHotTagsFirstWorkSerializer =
+    new _$GHotTagsData_hotTags_firstWorkSerializer();
+Serializer<GHotTagsData_hotTags_firstWork_thumbnailImage>
+    _$gHotTagsDataHotTagsFirstWorkThumbnailImageSerializer =
+    new _$GHotTagsData_hotTags_firstWork_thumbnailImageSerializer();
 
 class _$GHotTagsDataSerializer implements StructuredSerializer<GHotTagsData> {
   @override
@@ -85,7 +91,14 @@ class _$GHotTagsData_hotTagsSerializer
       'name',
       serializers.serialize(object.name, specifiedType: const FullType(String)),
     ];
-
+    Object? value;
+    value = object.firstWork;
+    if (value != null) {
+      result
+        ..add('firstWork')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(GHotTagsData_hotTags_firstWork)));
+    }
     return result;
   }
 
@@ -93,6 +106,8 @@ class _$GHotTagsData_hotTagsSerializer
   GHotTagsData_hotTags deserialize(
       Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
+    T $cast<T>(dynamic any) => any as T;
+
     final result = new GHotTagsData_hotTagsBuilder();
 
     final iterator = serialized.iterator;
@@ -111,6 +126,151 @@ class _$GHotTagsData_hotTagsSerializer
           break;
         case 'name':
           result.name = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'firstWork':
+          var maybeBuilder = result.firstWork;
+          var fieldValue = serializers.deserialize(value,
+                  specifiedType:
+                      const FullType(GHotTagsData_hotTags_firstWork))!
+              as GHotTagsData_hotTags_firstWork;
+          if (maybeBuilder == null) {
+            result.firstWork = $cast(fieldValue.toBuilder());
+          } else {
+            maybeBuilder.replace(fieldValue);
+          }
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GHotTagsData_hotTags_firstWorkSerializer
+    implements StructuredSerializer<GHotTagsData_hotTags_firstWork> {
+  @override
+  final Iterable<Type> types = const [
+    GHotTagsData_hotTags_firstWork,
+    _$GHotTagsData_hotTags_firstWork
+  ];
+  @override
+  final String wireName = 'GHotTagsData_hotTags_firstWork';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GHotTagsData_hotTags_firstWork object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      '__typename',
+      serializers.serialize(object.G__typename,
+          specifiedType: const FullType(String)),
+      'id',
+      serializers.serialize(object.id, specifiedType: const FullType(String)),
+      'title',
+      serializers.serialize(object.title,
+          specifiedType: const FullType(String)),
+    ];
+    Object? value;
+    value = object.thumbnailImage;
+    if (value != null) {
+      result
+        ..add('thumbnailImage')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(GHotTagsData_hotTags_firstWork_thumbnailImage)));
+    }
+    return result;
+  }
+
+  @override
+  GHotTagsData_hotTags_firstWork deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GHotTagsData_hotTags_firstWorkBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case '__typename':
+          result.G__typename = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'id':
+          result.id = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'title':
+          result.title = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'thumbnailImage':
+          result.thumbnailImage.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      GHotTagsData_hotTags_firstWork_thumbnailImage))!
+              as GHotTagsData_hotTags_firstWork_thumbnailImage);
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GHotTagsData_hotTags_firstWork_thumbnailImageSerializer
+    implements
+        StructuredSerializer<GHotTagsData_hotTags_firstWork_thumbnailImage> {
+  @override
+  final Iterable<Type> types = const [
+    GHotTagsData_hotTags_firstWork_thumbnailImage,
+    _$GHotTagsData_hotTags_firstWork_thumbnailImage
+  ];
+  @override
+  final String wireName = 'GHotTagsData_hotTags_firstWork_thumbnailImage';
+
+  @override
+  Iterable<Object?> serialize(Serializers serializers,
+      GHotTagsData_hotTags_firstWork_thumbnailImage object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      '__typename',
+      serializers.serialize(object.G__typename,
+          specifiedType: const FullType(String)),
+      'id',
+      serializers.serialize(object.id, specifiedType: const FullType(String)),
+      'downloadURL',
+      serializers.serialize(object.downloadURL,
+          specifiedType: const FullType(String)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GHotTagsData_hotTags_firstWork_thumbnailImage deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GHotTagsData_hotTags_firstWork_thumbnailImageBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case '__typename':
+          result.G__typename = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'id':
+          result.id = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'downloadURL':
+          result.downloadURL = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
       }
@@ -242,13 +402,18 @@ class _$GHotTagsData_hotTags extends GHotTagsData_hotTags {
   final String id;
   @override
   final String name;
+  @override
+  final GHotTagsData_hotTags_firstWork? firstWork;
 
   factory _$GHotTagsData_hotTags(
           [void Function(GHotTagsData_hotTagsBuilder)? updates]) =>
       (new GHotTagsData_hotTagsBuilder()..update(updates))._build();
 
   _$GHotTagsData_hotTags._(
-      {required this.G__typename, required this.id, required this.name})
+      {required this.G__typename,
+      required this.id,
+      required this.name,
+      this.firstWork})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename, r'GHotTagsData_hotTags', 'G__typename');
@@ -272,7 +437,8 @@ class _$GHotTagsData_hotTags extends GHotTagsData_hotTags {
     return other is GHotTagsData_hotTags &&
         G__typename == other.G__typename &&
         id == other.id &&
-        name == other.name;
+        name == other.name &&
+        firstWork == other.firstWork;
   }
 
   @override
@@ -281,6 +447,7 @@ class _$GHotTagsData_hotTags extends GHotTagsData_hotTags {
     _$hash = $jc(_$hash, G__typename.hashCode);
     _$hash = $jc(_$hash, id.hashCode);
     _$hash = $jc(_$hash, name.hashCode);
+    _$hash = $jc(_$hash, firstWork.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -290,7 +457,8 @@ class _$GHotTagsData_hotTags extends GHotTagsData_hotTags {
     return (newBuiltValueToStringHelper(r'GHotTagsData_hotTags')
           ..add('G__typename', G__typename)
           ..add('id', id)
-          ..add('name', name))
+          ..add('name', name)
+          ..add('firstWork', firstWork))
         .toString();
   }
 }
@@ -311,6 +479,12 @@ class GHotTagsData_hotTagsBuilder
   String? get name => _$this._name;
   set name(String? name) => _$this._name = name;
 
+  GHotTagsData_hotTags_firstWorkBuilder? _firstWork;
+  GHotTagsData_hotTags_firstWorkBuilder get firstWork =>
+      _$this._firstWork ??= new GHotTagsData_hotTags_firstWorkBuilder();
+  set firstWork(GHotTagsData_hotTags_firstWorkBuilder? firstWork) =>
+      _$this._firstWork = firstWork;
+
   GHotTagsData_hotTagsBuilder() {
     GHotTagsData_hotTags._initializeBuilder(this);
   }
@@ -321,6 +495,7 @@ class GHotTagsData_hotTagsBuilder
       _G__typename = $v.G__typename;
       _id = $v.id;
       _name = $v.name;
+      _firstWork = $v.firstWork?.toBuilder();
       _$v = null;
     }
     return this;
@@ -341,14 +516,316 @@ class GHotTagsData_hotTagsBuilder
   GHotTagsData_hotTags build() => _build();
 
   _$GHotTagsData_hotTags _build() {
+    _$GHotTagsData_hotTags _$result;
+    try {
+      _$result = _$v ??
+          new _$GHotTagsData_hotTags._(
+              G__typename: BuiltValueNullFieldError.checkNotNull(
+                  G__typename, r'GHotTagsData_hotTags', 'G__typename'),
+              id: BuiltValueNullFieldError.checkNotNull(
+                  id, r'GHotTagsData_hotTags', 'id'),
+              name: BuiltValueNullFieldError.checkNotNull(
+                  name, r'GHotTagsData_hotTags', 'name'),
+              firstWork: _firstWork?.build());
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'firstWork';
+        _firstWork?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'GHotTagsData_hotTags', _$failedField, e.toString());
+      }
+      rethrow;
+    }
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GHotTagsData_hotTags_firstWork extends GHotTagsData_hotTags_firstWork {
+  @override
+  final String G__typename;
+  @override
+  final String id;
+  @override
+  final String title;
+  @override
+  final GHotTagsData_hotTags_firstWork_thumbnailImage? thumbnailImage;
+
+  factory _$GHotTagsData_hotTags_firstWork(
+          [void Function(GHotTagsData_hotTags_firstWorkBuilder)? updates]) =>
+      (new GHotTagsData_hotTags_firstWorkBuilder()..update(updates))._build();
+
+  _$GHotTagsData_hotTags_firstWork._(
+      {required this.G__typename,
+      required this.id,
+      required this.title,
+      this.thumbnailImage})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        G__typename, r'GHotTagsData_hotTags_firstWork', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(
+        id, r'GHotTagsData_hotTags_firstWork', 'id');
+    BuiltValueNullFieldError.checkNotNull(
+        title, r'GHotTagsData_hotTags_firstWork', 'title');
+  }
+
+  @override
+  GHotTagsData_hotTags_firstWork rebuild(
+          void Function(GHotTagsData_hotTags_firstWorkBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GHotTagsData_hotTags_firstWorkBuilder toBuilder() =>
+      new GHotTagsData_hotTags_firstWorkBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GHotTagsData_hotTags_firstWork &&
+        G__typename == other.G__typename &&
+        id == other.id &&
+        title == other.title &&
+        thumbnailImage == other.thumbnailImage;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, G__typename.hashCode);
+    _$hash = $jc(_$hash, id.hashCode);
+    _$hash = $jc(_$hash, title.hashCode);
+    _$hash = $jc(_$hash, thumbnailImage.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GHotTagsData_hotTags_firstWork')
+          ..add('G__typename', G__typename)
+          ..add('id', id)
+          ..add('title', title)
+          ..add('thumbnailImage', thumbnailImage))
+        .toString();
+  }
+}
+
+class GHotTagsData_hotTags_firstWorkBuilder
+    implements
+        Builder<GHotTagsData_hotTags_firstWork,
+            GHotTagsData_hotTags_firstWorkBuilder> {
+  _$GHotTagsData_hotTags_firstWork? _$v;
+
+  String? _G__typename;
+  String? get G__typename => _$this._G__typename;
+  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
+
+  String? _id;
+  String? get id => _$this._id;
+  set id(String? id) => _$this._id = id;
+
+  String? _title;
+  String? get title => _$this._title;
+  set title(String? title) => _$this._title = title;
+
+  GHotTagsData_hotTags_firstWork_thumbnailImageBuilder? _thumbnailImage;
+  GHotTagsData_hotTags_firstWork_thumbnailImageBuilder get thumbnailImage =>
+      _$this._thumbnailImage ??=
+          new GHotTagsData_hotTags_firstWork_thumbnailImageBuilder();
+  set thumbnailImage(
+          GHotTagsData_hotTags_firstWork_thumbnailImageBuilder?
+              thumbnailImage) =>
+      _$this._thumbnailImage = thumbnailImage;
+
+  GHotTagsData_hotTags_firstWorkBuilder() {
+    GHotTagsData_hotTags_firstWork._initializeBuilder(this);
+  }
+
+  GHotTagsData_hotTags_firstWorkBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _G__typename = $v.G__typename;
+      _id = $v.id;
+      _title = $v.title;
+      _thumbnailImage = $v.thumbnailImage?.toBuilder();
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GHotTagsData_hotTags_firstWork other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GHotTagsData_hotTags_firstWork;
+  }
+
+  @override
+  void update(void Function(GHotTagsData_hotTags_firstWorkBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GHotTagsData_hotTags_firstWork build() => _build();
+
+  _$GHotTagsData_hotTags_firstWork _build() {
+    _$GHotTagsData_hotTags_firstWork _$result;
+    try {
+      _$result = _$v ??
+          new _$GHotTagsData_hotTags_firstWork._(
+              G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
+                  r'GHotTagsData_hotTags_firstWork', 'G__typename'),
+              id: BuiltValueNullFieldError.checkNotNull(
+                  id, r'GHotTagsData_hotTags_firstWork', 'id'),
+              title: BuiltValueNullFieldError.checkNotNull(
+                  title, r'GHotTagsData_hotTags_firstWork', 'title'),
+              thumbnailImage: _thumbnailImage?.build());
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'thumbnailImage';
+        _thumbnailImage?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'GHotTagsData_hotTags_firstWork', _$failedField, e.toString());
+      }
+      rethrow;
+    }
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GHotTagsData_hotTags_firstWork_thumbnailImage
+    extends GHotTagsData_hotTags_firstWork_thumbnailImage {
+  @override
+  final String G__typename;
+  @override
+  final String id;
+  @override
+  final String downloadURL;
+
+  factory _$GHotTagsData_hotTags_firstWork_thumbnailImage(
+          [void Function(GHotTagsData_hotTags_firstWork_thumbnailImageBuilder)?
+              updates]) =>
+      (new GHotTagsData_hotTags_firstWork_thumbnailImageBuilder()
+            ..update(updates))
+          ._build();
+
+  _$GHotTagsData_hotTags_firstWork_thumbnailImage._(
+      {required this.G__typename, required this.id, required this.downloadURL})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(G__typename,
+        r'GHotTagsData_hotTags_firstWork_thumbnailImage', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(
+        id, r'GHotTagsData_hotTags_firstWork_thumbnailImage', 'id');
+    BuiltValueNullFieldError.checkNotNull(downloadURL,
+        r'GHotTagsData_hotTags_firstWork_thumbnailImage', 'downloadURL');
+  }
+
+  @override
+  GHotTagsData_hotTags_firstWork_thumbnailImage rebuild(
+          void Function(GHotTagsData_hotTags_firstWork_thumbnailImageBuilder)
+              updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GHotTagsData_hotTags_firstWork_thumbnailImageBuilder toBuilder() =>
+      new GHotTagsData_hotTags_firstWork_thumbnailImageBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GHotTagsData_hotTags_firstWork_thumbnailImage &&
+        G__typename == other.G__typename &&
+        id == other.id &&
+        downloadURL == other.downloadURL;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, G__typename.hashCode);
+    _$hash = $jc(_$hash, id.hashCode);
+    _$hash = $jc(_$hash, downloadURL.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(
+            r'GHotTagsData_hotTags_firstWork_thumbnailImage')
+          ..add('G__typename', G__typename)
+          ..add('id', id)
+          ..add('downloadURL', downloadURL))
+        .toString();
+  }
+}
+
+class GHotTagsData_hotTags_firstWork_thumbnailImageBuilder
+    implements
+        Builder<GHotTagsData_hotTags_firstWork_thumbnailImage,
+            GHotTagsData_hotTags_firstWork_thumbnailImageBuilder> {
+  _$GHotTagsData_hotTags_firstWork_thumbnailImage? _$v;
+
+  String? _G__typename;
+  String? get G__typename => _$this._G__typename;
+  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
+
+  String? _id;
+  String? get id => _$this._id;
+  set id(String? id) => _$this._id = id;
+
+  String? _downloadURL;
+  String? get downloadURL => _$this._downloadURL;
+  set downloadURL(String? downloadURL) => _$this._downloadURL = downloadURL;
+
+  GHotTagsData_hotTags_firstWork_thumbnailImageBuilder() {
+    GHotTagsData_hotTags_firstWork_thumbnailImage._initializeBuilder(this);
+  }
+
+  GHotTagsData_hotTags_firstWork_thumbnailImageBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _G__typename = $v.G__typename;
+      _id = $v.id;
+      _downloadURL = $v.downloadURL;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GHotTagsData_hotTags_firstWork_thumbnailImage other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GHotTagsData_hotTags_firstWork_thumbnailImage;
+  }
+
+  @override
+  void update(
+      void Function(GHotTagsData_hotTags_firstWork_thumbnailImageBuilder)?
+          updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GHotTagsData_hotTags_firstWork_thumbnailImage build() => _build();
+
+  _$GHotTagsData_hotTags_firstWork_thumbnailImage _build() {
     final _$result = _$v ??
-        new _$GHotTagsData_hotTags._(
+        new _$GHotTagsData_hotTags_firstWork_thumbnailImage._(
             G__typename: BuiltValueNullFieldError.checkNotNull(
-                G__typename, r'GHotTagsData_hotTags', 'G__typename'),
+                G__typename,
+                r'GHotTagsData_hotTags_firstWork_thumbnailImage',
+                'G__typename'),
             id: BuiltValueNullFieldError.checkNotNull(
-                id, r'GHotTagsData_hotTags', 'id'),
-            name: BuiltValueNullFieldError.checkNotNull(
-                name, r'GHotTagsData_hotTags', 'name'));
+                id, r'GHotTagsData_hotTags_firstWork_thumbnailImage', 'id'),
+            downloadURL: BuiltValueNullFieldError.checkNotNull(
+                downloadURL,
+                r'GHotTagsData_hotTags_firstWork_thumbnailImage',
+                'downloadURL'));
     replace(_$result);
     return _$result;
   }

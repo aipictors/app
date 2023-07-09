@@ -9,8 +9,8 @@ import 'package:aipictors/screens/config/config_muted_users_screen.dart';
 import 'package:aipictors/screens/config/config_theme_screen.dart';
 import 'package:aipictors/screens/daily_theme/daily_theme_screen.dart';
 import 'package:aipictors/screens/debug_screen.dart';
-import 'package:aipictors/screens/home_screen.dart';
 import 'package:aipictors/screens/privacy_screen.dart';
+import 'package:aipictors/screens/root_screen.dart';
 import 'package:aipictors/screens/surveys_screen.dart';
 import 'package:aipictors/screens/terms_screen.dart';
 import 'package:aipictors/screens/user/user_screen.dart';
@@ -34,7 +34,7 @@ final router = GoRouter(
     GoRoute(
       path: '/',
       pageBuilder: (context, state) {
-        return const NoTransitionPage(child: HomeScreen());
+        return const NoTransitionPage(child: RootScreen());
       },
     ),
     GoRoute(
