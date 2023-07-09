@@ -24,6 +24,7 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GCommentFieldsData_user_iconImage.serializer)
       ..add(GCommentFieldsReq.serializer)
       ..add(GCommentFieldsVars.serializer)
+      ..add(GContributorType.serializer)
       ..add(GCreateCommentInput.serializer)
       ..add(GCreateFolderInput.serializer)
       ..add(GCreateStickerInput.serializer)
@@ -55,8 +56,17 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GDeleteWorkBookmarkInput.serializer)
       ..add(GDeleteWorkInput.serializer)
       ..add(GDeleteWorkLikeInput.serializer)
+      ..add(GFoldersData.serializer)
+      ..add(GFoldersData_folders.serializer)
+      ..add(GFoldersData_folders_user.serializer)
+      ..add(GFoldersReq.serializer)
+      ..add(GFoldersVars.serializer)
       ..add(GFoldersWhereInput.serializer)
       ..add(GFollowUserInput.serializer)
+      ..add(GHotTagsData.serializer)
+      ..add(GHotTagsData_hotTags.serializer)
+      ..add(GHotTagsReq.serializer)
+      ..add(GHotTagsVars.serializer)
       ..add(GHotWorksData.serializer)
       ..add(GHotWorksData_hotWorks.serializer)
       ..add(GHotWorksData_hotWorks_thumbnailImage.serializer)
@@ -70,10 +80,17 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GMuteTagInput.serializer)
       ..add(GMuteUserInput.serializer)
       ..add(GNotificationType.serializer)
+      ..add(GPartialFolderFieldsData.serializer)
+      ..add(GPartialFolderFieldsData_user.serializer)
+      ..add(GPartialFolderFieldsReq.serializer)
+      ..add(GPartialFolderFieldsVars.serializer)
       ..add(GPartialStickerFieldsData.serializer)
       ..add(GPartialStickerFieldsData_image.serializer)
       ..add(GPartialStickerFieldsReq.serializer)
       ..add(GPartialStickerFieldsVars.serializer)
+      ..add(GPartialTagFieldsData.serializer)
+      ..add(GPartialTagFieldsReq.serializer)
+      ..add(GPartialTagFieldsVars.serializer)
       ..add(GPartialUserFieldsData.serializer)
       ..add(GPartialUserFieldsData_iconImage.serializer)
       ..add(GPartialUserFieldsReq.serializer)
@@ -90,6 +107,11 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GPopularWorksWhereInput.serializer)
       ..add(GPostType.serializer)
       ..add(GRating.serializer)
+      ..add(GStickersData.serializer)
+      ..add(GStickersData_works.serializer)
+      ..add(GStickersData_works_image.serializer)
+      ..add(GStickersReq.serializer)
+      ..add(GStickersVars.serializer)
       ..add(GStickersWhereInput.serializer)
       ..add(GTagsWhereInput.serializer)
       ..add(GUnfollowUserInput.serializer)
@@ -207,12 +229,24 @@ Serializers _$serializers = (new Serializers().toBuilder()
           () => new ListBuilder<GDailyThemesData_dailyThemes>())
       ..addBuilderFactory(
           const FullType(
+              BuiltList, const [const FullType(GFoldersData_folders)]),
+          () => new ListBuilder<GFoldersData_folders>())
+      ..addBuilderFactory(
+          const FullType(
+              BuiltList, const [const FullType(GHotTagsData_hotTags)]),
+          () => new ListBuilder<GHotTagsData_hotTags>())
+      ..addBuilderFactory(
+          const FullType(
               BuiltList, const [const FullType(GHotWorksData_hotWorks)]),
           () => new ListBuilder<GHotWorksData_hotWorks>())
       ..addBuilderFactory(
           const FullType(BuiltList,
               const [const FullType(GPopularWorksData_popularWorks)]),
           () => new ListBuilder<GPopularWorksData_popularWorks>())
+      ..addBuilderFactory(
+          const FullType(
+              BuiltList, const [const FullType(GStickersData_works)]),
+          () => new ListBuilder<GStickersData_works>())
       ..addBuilderFactory(
           const FullType(BuiltList,
               const [const FullType(GUserFolloweesData_user_followees)]),

@@ -1,0 +1,11 @@
+fragment PartialFolderFields on FolderNode {
+  id
+  title
+  rating
+  likesCount
+  viewsCount
+  user {
+    id
+    name
+  }
+}

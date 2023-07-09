@@ -95,6 +95,28 @@ class GCacheControlScope extends EnumClass {
       _$gCacheControlScopeValueOf(name);
 }
 
+class GContributorType extends EnumClass {
+  const GContributorType._(String name) : super(name);
+
+  static const GContributorType WIKI_EDITOR = _$gContributorTypeWIKI_EDITOR;
+
+  static const GContributorType WEB_DEVELOPER = _$gContributorTypeWEB_DEVELOPER;
+
+  static const GContributorType FLUTTER_DEVELOPER =
+      _$gContributorTypeFLUTTER_DEVELOPER;
+
+  static const GContributorType PRODUCT_DESIGNER =
+      _$gContributorTypePRODUCT_DESIGNER;
+
+  static const GContributorType SUPPORTER = _$gContributorTypeSUPPORTER;
+
+  static Serializer<GContributorType> get serializer =>
+      _$gContributorTypeSerializer;
+  static BuiltSet<GContributorType> get values => _$gContributorTypeValues;
+  static GContributorType valueOf(String name) =>
+      _$gContributorTypeValueOf(name);
+}
+
 abstract class GCreateCommentInput
     implements Built<GCreateCommentInput, GCreateCommentInputBuilder> {
   GCreateCommentInput._();
@@ -883,6 +905,7 @@ abstract class GWorksWhereInput
 const Map<String, Set<String>> possibleTypesMap = {
   '_Entity': {
     'CommentNode',
+    'ContributorNode',
     'DailyThemeNode',
     'FolderLikeNode',
     'FolderNode',
@@ -905,6 +928,7 @@ const Map<String, Set<String>> possibleTypesMap = {
   },
   'Node': {
     'CommentNode',
+    'ContributorNode',
     'DailyThemeNode',
     'FolderLikeNode',
     'FolderNode',

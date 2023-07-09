@@ -275,6 +275,10 @@ const G_Entity = _i1.UnionTypeDefinitionNode(
       isNonNull: false,
     ),
     _i1.NamedTypeNode(
+      name: _i1.NameNode(value: 'ContributorNode'),
+      isNonNull: false,
+    ),
+    _i1.NamedTypeNode(
       name: _i1.NameNode(value: 'DailyThemeNode'),
       isNonNull: false,
     ),
@@ -616,6 +620,83 @@ const CommentNode = _i1.ObjectTypeDefinitionNode(
         ),
         isNonNull: true,
       ),
+    ),
+  ],
+);
+const ContributorNode = _i1.ObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'ContributorNode'),
+  directives: [],
+  interfaces: [
+    _i1.NamedTypeNode(
+      name: _i1.NameNode(value: 'Node'),
+      isNonNull: false,
+    )
+  ],
+  fields: [
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'id'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'ID'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'userId'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'ID'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'user'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'UserNode'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'types'),
+      directives: [],
+      args: [],
+      type: _i1.ListTypeNode(
+        type: _i1.NamedTypeNode(
+          name: _i1.NameNode(value: 'ContributorType'),
+          isNonNull: true,
+        ),
+        isNonNull: true,
+      ),
+    ),
+  ],
+);
+const ContributorType = _i1.EnumTypeDefinitionNode(
+  name: _i1.NameNode(value: 'ContributorType'),
+  directives: [],
+  values: [
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'WIKI_EDITOR'),
+      directives: [],
+    ),
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'WEB_DEVELOPER'),
+      directives: [],
+    ),
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'FLUTTER_DEVELOPER'),
+      directives: [],
+    ),
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'PRODUCT_DESIGNER'),
+      directives: [],
+    ),
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'SUPPORTER'),
+      directives: [],
     ),
   ],
 );
@@ -2306,6 +2387,18 @@ const Query = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'contributors'),
+      directives: [],
+      args: [],
+      type: _i1.ListTypeNode(
+        type: _i1.NamedTypeNode(
+          name: _i1.NameNode(value: 'ContributorNode'),
+          isNonNull: true,
+        ),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
       name: _i1.NameNode(value: 'folder'),
       directives: [],
       args: [
@@ -2542,7 +2635,7 @@ const Query = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'homeTags'),
+      name: _i1.NameNode(value: 'hotTags'),
       directives: [],
       args: [],
       type: _i1.ListTypeNode(
@@ -4454,6 +4547,8 @@ const document = _i1.DocumentNode(definitions: [
   AwardType,
   CacheControlScope,
   CommentNode,
+  ContributorNode,
+  ContributorType,
   CreateCommentInput,
   CreateFolderInput,
   CreateStickerInput,

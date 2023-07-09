@@ -28,14 +28,14 @@ directive @specifiedBy(
 
 scalar _Any
 
-union _Entity = CommentNode | DailyThemeNode | FolderLikeNode | FolderNode | FriendshipNode | ImageNode | MutedTagNode | MutedUserNode | NotificationNode | StickerNode | SubWorkNode | TagNode | UserNode | UserSettingNode | WorkAwardNode | WorkBookmarkNode | WorkEventNode | WorkLikeNode | WorkNode | WorkViewerNode
+union _Entity = CommentNode | ContributorNode | DailyThemeNode | FolderLikeNode | FolderNode | FriendshipNode | ImageNode | MutedTagNode | MutedUserNode | NotificationNode | StickerNode | SubWorkNode | TagNode | UserNode | UserSettingNode | WorkAwardNode | WorkBookmarkNode | WorkEventNode | WorkLikeNode | WorkNode | WorkViewerNode
 
 type _Service {
   sdl: String
 }
 
 enum AccessType {
-  """下書き"""
+  """公開"""
   PUBLIC
 
   """公開"""
@@ -82,6 +82,32 @@ type CommentNode implements Node {
   createdAt: Int!
   text: String!
   responses(offset: Int!, limit: Int!): [CommentNode!]!
+}
+
+"""コントリビューター"""
+type ContributorNode implements Node {
+  id: ID!
+  userId: ID!
+  user: UserNode!
+  types: [ContributorType!]!
+}
+
+"""コントリビューターの種類"""
+enum ContributorType {
+  """Wiki編集者"""
+  WIKI_EDITOR
+
+  """Webサイト開発者"""
+  WEB_DEVELOPER
+
+  """Flutterアプリ開発者"""
+  FLUTTER_DEVELOPER
+
+  """考案"""
+  PRODUCT_DESIGNER
+
+  """支援"""
+  SUPPORTER
 }
 
 input CreateCommentInput {
@@ -421,6 +447,9 @@ type Query {
   """ユーザ"""
   users(offset: Int!, limit: Int!, where: UsersWhereInput): [UserNode!]
 
+  """コントリビューター"""
+  contributors: [ContributorNode!]!
+
   """フォルダ"""
   folder(id: ID!): FolderNode
 
@@ -445,8 +474,10 @@ type Query {
   """ステッカー"""
   tags(offset: Int!, limit: Int!, where: TagsWhereInput): [TagNode!]!
 
+  """トレンドのタグ"""
+  hotTags: [TagNode!]!
+
   """ランキング履歴"""
-  homeTags: [TagNode!]!
   workAwards(offset: Int!, limit: Int!, where: WorkAwardsWhereInput!): [WorkAwardNode!]!
 
   """1日以内の人気の作品"""

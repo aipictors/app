@@ -1,0 +1,7 @@
+# import './fragments/partial_folder_fields_fragment.graphql'
+
+query Folders($offset: Int!, $limit: Int!, $where: FoldersWhereInput) {
+  folders(offset: $offset, limit: $limit, where: $where) {
+    ...PartialFolderFields
+  }
+}

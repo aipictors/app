@@ -85,6 +85,43 @@ final BuiltSet<GCacheControlScope> _$gCacheControlScopeValues =
   _$gCacheControlScopePRIVATE,
 ]);
 
+const GContributorType _$gContributorTypeWIKI_EDITOR =
+    const GContributorType._('WIKI_EDITOR');
+const GContributorType _$gContributorTypeWEB_DEVELOPER =
+    const GContributorType._('WEB_DEVELOPER');
+const GContributorType _$gContributorTypeFLUTTER_DEVELOPER =
+    const GContributorType._('FLUTTER_DEVELOPER');
+const GContributorType _$gContributorTypePRODUCT_DESIGNER =
+    const GContributorType._('PRODUCT_DESIGNER');
+const GContributorType _$gContributorTypeSUPPORTER =
+    const GContributorType._('SUPPORTER');
+
+GContributorType _$gContributorTypeValueOf(String name) {
+  switch (name) {
+    case 'WIKI_EDITOR':
+      return _$gContributorTypeWIKI_EDITOR;
+    case 'WEB_DEVELOPER':
+      return _$gContributorTypeWEB_DEVELOPER;
+    case 'FLUTTER_DEVELOPER':
+      return _$gContributorTypeFLUTTER_DEVELOPER;
+    case 'PRODUCT_DESIGNER':
+      return _$gContributorTypePRODUCT_DESIGNER;
+    case 'SUPPORTER':
+      return _$gContributorTypeSUPPORTER;
+    default:
+      throw new ArgumentError(name);
+  }
+}
+
+final BuiltSet<GContributorType> _$gContributorTypeValues =
+    new BuiltSet<GContributorType>(const <GContributorType>[
+  _$gContributorTypeWIKI_EDITOR,
+  _$gContributorTypeWEB_DEVELOPER,
+  _$gContributorTypeFLUTTER_DEVELOPER,
+  _$gContributorTypePRODUCT_DESIGNER,
+  _$gContributorTypeSUPPORTER,
+]);
+
 const Glink__Purpose _$glinkPurposeSECURITY =
     const Glink__Purpose._('SECURITY');
 const Glink__Purpose _$glinkPurposeEXECUTION =
@@ -196,6 +233,8 @@ Serializer<GAwardsWhereInput> _$gAwardsWhereInputSerializer =
 Serializer<GAwardType> _$gAwardTypeSerializer = new _$GAwardTypeSerializer();
 Serializer<GCacheControlScope> _$gCacheControlScopeSerializer =
     new _$GCacheControlScopeSerializer();
+Serializer<GContributorType> _$gContributorTypeSerializer =
+    new _$GContributorTypeSerializer();
 Serializer<GCreateCommentInput> _$gCreateCommentInputSerializer =
     new _$GCreateCommentInputSerializer();
 Serializer<GCreateFolderInput> _$gCreateFolderInputSerializer =
@@ -414,6 +453,24 @@ class _$GCacheControlScopeSerializer
   GCacheControlScope deserialize(Serializers serializers, Object serialized,
           {FullType specifiedType = FullType.unspecified}) =>
       GCacheControlScope.valueOf(serialized as String);
+}
+
+class _$GContributorTypeSerializer
+    implements PrimitiveSerializer<GContributorType> {
+  @override
+  final Iterable<Type> types = const <Type>[GContributorType];
+  @override
+  final String wireName = 'GContributorType';
+
+  @override
+  Object serialize(Serializers serializers, GContributorType object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      object.name;
+
+  @override
+  GContributorType deserialize(Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      GContributorType.valueOf(serialized as String);
 }
 
 class _$GCreateCommentInputSerializer
