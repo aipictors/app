@@ -1,4 +1,4 @@
-import 'package:aipictors/widgets/container/data_not_found_error_container.dart';
+import 'package:aipictors/widgets/container/error/unexpected_error_container.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -10,7 +10,7 @@ class UnexpectedErrorScreen extends HookConsumerWidget {
   @override
   Widget build(context, ref) {
     return const Scaffold(
-      body: DataNotFoundErrorContainer(),
+      body: UnexpectedErrorContainer(),
     );
   }
 }

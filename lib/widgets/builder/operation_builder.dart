@@ -1,8 +1,8 @@
-import 'package:aipictors/widgets/container/data_not_found_error_container.dart';
-import 'package:aipictors/widgets/container/empty_error_container.dart';
+import 'package:aipictors/widgets/container/error/data_not_found_error_container.dart';
+import 'package:aipictors/widgets/container/error/empty_error_container.dart';
+import 'package:aipictors/widgets/container/error/operation_error_container.dart';
+import 'package:aipictors/widgets/container/error/unexpected_error_container.dart';
 import 'package:aipictors/widgets/container/loading_container.dart';
-import 'package:aipictors/widgets/container/operation_error_container.dart';
-import 'package:aipictors/widgets/container/unexpected_error_container.dart';
 import 'package:ferry/ferry.dart';
 import 'package:ferry_flutter/ferry_flutter.dart';
 import 'package:flutter/material.dart';
@@ -13,8 +13,9 @@ class OperationBuilder<T, U> extends HookConsumerWidget {
     Key? key,
     required this.client,
     required this.operationRequest,
-    required this.isEmpty,
     required this.builder,
+    this.isEmpty,
+    this.notFound,
   }) : super(key: key);
 
   final Client client;

@@ -1,10 +1,10 @@
 import 'package:aipictors/graphql/__generated__/folder.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
-import 'package:aipictors/screens/data_not_found_error_screen.dart';
+import 'package:aipictors/screens/error/data_not_found_error_screen.dart';
+import 'package:aipictors/screens/error/operation_error_screen.dart';
+import 'package:aipictors/screens/error/unexpected_error_screen.dart';
 import 'package:aipictors/screens/loading_screen.dart';
-import 'package:aipictors/screens/operation_error_screen.dart';
-import 'package:aipictors/screens/unexpected_error_screen.dart';
-import 'package:aipictors/widgets/grid/folder_works_view.dart';
+import 'package:aipictors/widgets/view/folder_works_view.dart';
 import 'package:ferry_flutter/ferry_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';

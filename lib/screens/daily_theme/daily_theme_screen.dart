@@ -1,10 +1,10 @@
 import 'package:aipictors/graphql/__generated__/daily_theme.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/widgets/app_bar/daily_theme_app_bar.dart';
-import 'package:aipictors/widgets/container/data_not_found_error_container.dart';
-import 'package:aipictors/widgets/container/empty_error_container.dart';
+import 'package:aipictors/widgets/container/error/data_not_found_error_container.dart';
+import 'package:aipictors/widgets/container/error/empty_error_container.dart';
+import 'package:aipictors/widgets/container/error/unexpected_error_container.dart';
 import 'package:aipictors/widgets/container/loading_container.dart';
-import 'package:aipictors/widgets/container/unexpected_error_container.dart';
 import 'package:aipictors/widgets/image/grid_work_image.dart';
 import 'package:aipictors/widgets/view/works_grid_view.dart';
 import 'package:ferry_flutter/ferry_flutter.dart';

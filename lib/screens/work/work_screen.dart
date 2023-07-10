@@ -1,10 +1,10 @@
 import 'package:aipictors/graphql/__generated__/work.req.gql.dart';
 import 'package:aipictors/graphql/__generated__/work_comments.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
-import 'package:aipictors/screens/data_not_found_error_screen.dart';
+import 'package:aipictors/screens/error/data_not_found_error_screen.dart';
+import 'package:aipictors/screens/error/operation_error_screen.dart';
+import 'package:aipictors/screens/error/unexpected_error_screen.dart';
 import 'package:aipictors/screens/loading_screen.dart';
-import 'package:aipictors/screens/operation_error_screen.dart';
-import 'package:aipictors/screens/unexpected_error_screen.dart';
 import 'package:aipictors/widgets/app_bar/work_bottom_app_bar.dart';
 import 'package:aipictors/widgets/button/follow_button.dart';
 import 'package:aipictors/widgets/container/loading_container.dart';

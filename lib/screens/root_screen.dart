@@ -1,10 +1,10 @@
 import 'package:aipictors/providers/auth_state_provider.dart';
 import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/screens/config/config_screen.dart';
-import 'package:aipictors/screens/config_error_screen.dart';
 import 'package:aipictors/screens/daily_theme/daily_themes_screen.dart';
+import 'package:aipictors/screens/error/config_error_screen.dart';
 import 'package:aipictors/screens/explorer/explorer_screen.dart';
-import 'package:aipictors/screens/feed_screen.dart';
+import 'package:aipictors/screens/feed/feed_screen.dart';
 import 'package:aipictors/screens/loading_screen.dart';
 import 'package:aipictors/screens/login_screen.dart';
 import 'package:aipictors/screens/notification_screen.dart';
