@@ -110,12 +110,13 @@ enum ContributorType {
   SUPPORTER
 }
 
-input CreateCommentInput {
-  commentId: ID!
-}
-
 input CreateFolderInput {
   title: String!
+}
+
+input CreateResponseCommentInput {
+  commentId: ID!
+  text: String!
 }
 
 input CreateStickerInput {
@@ -128,6 +129,11 @@ input CreateUserInput {
 
 input CreateWorkBookmarkInput {
   workId: ID!
+}
+
+input CreateWorkCommentInput {
+  workId: ID!
+  text: String!
 }
 
 input CreateWorkInput {
@@ -325,9 +331,12 @@ type Mutation {
   deleteWork(input: DeleteWorkInput!): WorkNode!
 
   """作品のコメントを作成する"""
-  createComment(input: CreateCommentInput!): CommentNode!
+  createWorkComment(input: CreateWorkCommentInput!): CommentNode!
 
-  """作品のコメントを作成する"""
+  """リプライのコメントを作成する"""
+  createResponseComment(input: CreateResponseCommentInput!): CommentNode!
+
+  """作品のコメントを削除する"""
   deleteComment(input: DeleteCommentInput!): CommentNode!
 
   """作品のスキを作成する"""

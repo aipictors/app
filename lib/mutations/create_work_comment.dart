@@ -1,17 +1,20 @@
 import 'package:aipictors/client.dart';
-import 'package:aipictors/graphql/mutations/__generated__/create_work_like.data.gql.dart';
-import 'package:aipictors/graphql/mutations/__generated__/create_work_like.req.gql.dart';
+import 'package:aipictors/graphql/mutations/__generated__/create_work_comment.data.gql.dart';
+import 'package:aipictors/graphql/mutations/__generated__/create_work_comment.req.gql.dart';
 import 'package:aipictors/utils/to_response_data.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
-Future<GCreateWorkLikeData?> createWorkLike({
+Future<GCreateWorkCommentData?> createWorkComment({
   required String workId,
+  required String text,
 }) async {
   try {
     final client = await createClient();
 
-    final req = GCreateWorkLikeReq((builder) {
-      return builder..vars.input.workId = workId;
+    final req = GCreateWorkCommentReq((builder) {
+      return builder
+        ..vars.input.workId = workId
+        ..vars.input.text = text;
     });
 
     final stream = client.request(req).map(toResponseData);

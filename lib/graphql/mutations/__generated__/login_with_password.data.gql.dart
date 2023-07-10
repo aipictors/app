@@ -6,7 +6,7 @@ import 'package:aipictors/__generated__/serializers.gql.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'login.data.gql.g.dart';
+part 'login_with_password.data.gql.g.dart';
 
 abstract class GLoginWithPasswordData
     implements Built<GLoginWithPasswordData, GLoginWithPasswordDataBuilder> {

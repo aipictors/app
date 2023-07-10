@@ -41,14 +41,14 @@ class FeedHomeView extends HookConsumerWidget {
             return FeedWorkListTile(
               workId: work.id,
               workTitle: work.title,
+              workImageURL: work.thumbnailImage!.downloadURL,
               workCreatedAt: work.createdAt,
               userName: work.user.name,
               userIconImageURL: work.user.iconImage?.downloadURL,
               likesCount: work.likesCount,
+              commentsCount: work.commentsCount,
               isLiked: work.viewer.isLiked,
               isBookmarked: work.viewer.isBookmarked,
-              commentsCount: work.commentsCount,
-              workImageURL: work.thumbnailImage!.downloadURL,
             );
           },
         );

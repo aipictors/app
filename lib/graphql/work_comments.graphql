@@ -4,7 +4,6 @@ query WorkComments($workId: ID!) {
   work(id: $workId) {
     id
     comments(offset: 0, limit: 128) {
-      id
       ...CommentFields
       responses(offset: 0, limit: 128) {
         ...CommentFields

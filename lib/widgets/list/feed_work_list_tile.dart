@@ -64,9 +64,11 @@ class FeedWorkListTile extends HookConsumerWidget {
         children: [
           const SizedBox(height: 8),
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            NotificationUserContainer(
-              userName: userName,
-              userIconImageURL: userIconImageURL,
+            Expanded(
+              child: NotificationUserContainer(
+                userName: userName,
+                userIconImageURL: userIconImageURL,
+              ),
             ),
             IconButton(
               style: IconButton.styleFrom(

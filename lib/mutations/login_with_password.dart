@@ -1,6 +1,6 @@
 import 'package:aipictors/client.dart';
-import 'package:aipictors/graphql/__generated__/login.data.gql.dart';
-import 'package:aipictors/graphql/__generated__/login.req.gql.dart';
+import 'package:aipictors/graphql/mutations/__generated__/login_with_password.data.gql.dart';
+import 'package:aipictors/graphql/mutations/__generated__/login_with_password.req.gql.dart';
 import 'package:aipictors/utils/to_response_data.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';

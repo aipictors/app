@@ -700,21 +700,6 @@ const ContributorType = _i1.EnumTypeDefinitionNode(
     ),
   ],
 );
-const CreateCommentInput = _i1.InputObjectTypeDefinitionNode(
-  name: _i1.NameNode(value: 'CreateCommentInput'),
-  directives: [],
-  fields: [
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'commentId'),
-      directives: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'ID'),
-        isNonNull: true,
-      ),
-      defaultValue: null,
-    )
-  ],
-);
 const CreateFolderInput = _i1.InputObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'CreateFolderInput'),
   directives: [],
@@ -728,6 +713,30 @@ const CreateFolderInput = _i1.InputObjectTypeDefinitionNode(
       ),
       defaultValue: null,
     )
+  ],
+);
+const CreateResponseCommentInput = _i1.InputObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'CreateResponseCommentInput'),
+  directives: [],
+  fields: [
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'commentId'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'ID'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'text'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    ),
   ],
 );
 const CreateStickerInput = _i1.InputObjectTypeDefinitionNode(
@@ -773,6 +782,30 @@ const CreateWorkBookmarkInput = _i1.InputObjectTypeDefinitionNode(
       ),
       defaultValue: null,
     )
+  ],
+);
+const CreateWorkCommentInput = _i1.InputObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'CreateWorkCommentInput'),
+  directives: [],
+  fields: [
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'workId'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'ID'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'text'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    ),
   ],
 );
 const CreateWorkInput = _i1.InputObjectTypeDefinitionNode(
@@ -1603,14 +1636,33 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'createComment'),
+      name: _i1.NameNode(value: 'createWorkComment'),
       directives: [],
       args: [
         _i1.InputValueDefinitionNode(
           name: _i1.NameNode(value: 'input'),
           directives: [],
           type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'CreateCommentInput'),
+            name: _i1.NameNode(value: 'CreateWorkCommentInput'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        )
+      ],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'CommentNode'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'createResponseComment'),
+      directives: [],
+      args: [
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'input'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'CreateResponseCommentInput'),
             isNonNull: true,
           ),
           defaultValue: null,
@@ -4652,11 +4704,12 @@ const document = _i1.DocumentNode(definitions: [
   CommentNode,
   ContributorNode,
   ContributorType,
-  CreateCommentInput,
   CreateFolderInput,
+  CreateResponseCommentInput,
   CreateStickerInput,
   CreateUserInput,
   CreateWorkBookmarkInput,
+  CreateWorkCommentInput,
   CreateWorkInput,
   CreateWorkLikeInput,
   DailyThemeNode,

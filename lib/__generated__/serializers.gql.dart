@@ -8,11 +8,12 @@ import 'package:aipictors/__generated__/schema.schema.gql.dart'
         GAwardsWhereInput,
         GCacheControlScope,
         GContributorType,
-        GCreateCommentInput,
         GCreateFolderInput,
+        GCreateResponseCommentInput,
         GCreateStickerInput,
         GCreateUserInput,
         GCreateWorkBookmarkInput,
+        GCreateWorkCommentInput,
         GCreateWorkInput,
         GCreateWorkLikeInput,
         GDailyThemesWhereInput,
@@ -56,15 +57,6 @@ import 'package:aipictors/graphql/__generated__/best_works.req.gql.dart'
     show GBestWorksReq;
 import 'package:aipictors/graphql/__generated__/best_works.var.gql.dart'
     show GBestWorksVars;
-import 'package:aipictors/graphql/__generated__/create_work_like.data.gql.dart'
-    show
-        GCreateWorkLikeData,
-        GCreateWorkLikeData_createWorkLike,
-        GCreateWorkLikeData_createWorkLike_viewer;
-import 'package:aipictors/graphql/__generated__/create_work_like.req.gql.dart'
-    show GCreateWorkLikeReq;
-import 'package:aipictors/graphql/__generated__/create_work_like.var.gql.dart'
-    show GCreateWorkLikeVars;
 import 'package:aipictors/graphql/__generated__/daily_theme.data.gql.dart'
     show
         GDailyThemeData,
@@ -136,12 +128,6 @@ import 'package:aipictors/graphql/__generated__/hot_works.req.gql.dart'
     show GHotWorksReq;
 import 'package:aipictors/graphql/__generated__/hot_works.var.gql.dart'
     show GHotWorksVars;
-import 'package:aipictors/graphql/__generated__/login.data.gql.dart'
-    show GLoginWithPasswordData, GLoginWithPasswordData_loginWithPassword;
-import 'package:aipictors/graphql/__generated__/login.req.gql.dart'
-    show GLoginWithPasswordReq;
-import 'package:aipictors/graphql/__generated__/login.var.gql.dart'
-    show GLoginWithPasswordVars;
 import 'package:aipictors/graphql/__generated__/popular_works.data.gql.dart'
     show
         GPopularWorksData,
@@ -351,6 +337,35 @@ import 'package:aipictors/graphql/fragments/__generated__/work_user_fields_fragm
     show GWorkUserFieldsReq;
 import 'package:aipictors/graphql/fragments/__generated__/work_user_fields_fragment.var.gql.dart'
     show GWorkUserFieldsVars;
+import 'package:aipictors/graphql/mutations/__generated__/create_response_comment.data.gql.dart'
+    show
+        GCreateResponseCommentData,
+        GCreateResponseCommentData_createResponseComment;
+import 'package:aipictors/graphql/mutations/__generated__/create_response_comment.req.gql.dart'
+    show GCreateResponseCommentReq;
+import 'package:aipictors/graphql/mutations/__generated__/create_response_comment.var.gql.dart'
+    show GCreateResponseCommentVars;
+import 'package:aipictors/graphql/mutations/__generated__/create_work_comment.data.gql.dart'
+    show GCreateWorkCommentData, GCreateWorkCommentData_createWorkComment;
+import 'package:aipictors/graphql/mutations/__generated__/create_work_comment.req.gql.dart'
+    show GCreateWorkCommentReq;
+import 'package:aipictors/graphql/mutations/__generated__/create_work_comment.var.gql.dart'
+    show GCreateWorkCommentVars;
+import 'package:aipictors/graphql/mutations/__generated__/create_work_like.data.gql.dart'
+    show
+        GCreateWorkLikeData,
+        GCreateWorkLikeData_createWorkLike,
+        GCreateWorkLikeData_createWorkLike_viewer;
+import 'package:aipictors/graphql/mutations/__generated__/create_work_like.req.gql.dart'
+    show GCreateWorkLikeReq;
+import 'package:aipictors/graphql/mutations/__generated__/create_work_like.var.gql.dart'
+    show GCreateWorkLikeVars;
+import 'package:aipictors/graphql/mutations/__generated__/login_with_password.data.gql.dart'
+    show GLoginWithPasswordData, GLoginWithPasswordData_loginWithPassword;
+import 'package:aipictors/graphql/mutations/__generated__/login_with_password.req.gql.dart'
+    show GLoginWithPasswordReq;
+import 'package:aipictors/graphql/mutations/__generated__/login_with_password.var.gql.dart'
+    show GLoginWithPasswordVars;
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/serializer.dart';
 import 'package:built_value/standard_json_plugin.dart' show StandardJsonPlugin;
@@ -381,11 +396,20 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GCommentFieldsReq,
   GCommentFieldsVars,
   GContributorType,
-  GCreateCommentInput,
   GCreateFolderInput,
+  GCreateResponseCommentData,
+  GCreateResponseCommentData_createResponseComment,
+  GCreateResponseCommentInput,
+  GCreateResponseCommentReq,
+  GCreateResponseCommentVars,
   GCreateStickerInput,
   GCreateUserInput,
   GCreateWorkBookmarkInput,
+  GCreateWorkCommentData,
+  GCreateWorkCommentData_createWorkComment,
+  GCreateWorkCommentInput,
+  GCreateWorkCommentReq,
+  GCreateWorkCommentVars,
   GCreateWorkInput,
   GCreateWorkLikeData,
   GCreateWorkLikeData_createWorkLike,

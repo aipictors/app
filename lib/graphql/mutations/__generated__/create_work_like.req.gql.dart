@@ -3,11 +3,11 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:aipictors/__generated__/serializers.gql.dart' as _i6;
-import 'package:aipictors/graphql/__generated__/create_work_like.ast.gql.dart'
+import 'package:aipictors/graphql/mutations/__generated__/create_work_like.ast.gql.dart'
     as _i5;
-import 'package:aipictors/graphql/__generated__/create_work_like.data.gql.dart'
+import 'package:aipictors/graphql/mutations/__generated__/create_work_like.data.gql.dart'
     as _i2;
-import 'package:aipictors/graphql/__generated__/create_work_like.var.gql.dart'
+import 'package:aipictors/graphql/mutations/__generated__/create_work_like.var.gql.dart'
     as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';

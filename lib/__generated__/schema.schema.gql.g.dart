@@ -235,16 +235,19 @@ Serializer<GCacheControlScope> _$gCacheControlScopeSerializer =
     new _$GCacheControlScopeSerializer();
 Serializer<GContributorType> _$gContributorTypeSerializer =
     new _$GContributorTypeSerializer();
-Serializer<GCreateCommentInput> _$gCreateCommentInputSerializer =
-    new _$GCreateCommentInputSerializer();
 Serializer<GCreateFolderInput> _$gCreateFolderInputSerializer =
     new _$GCreateFolderInputSerializer();
+Serializer<GCreateResponseCommentInput>
+    _$gCreateResponseCommentInputSerializer =
+    new _$GCreateResponseCommentInputSerializer();
 Serializer<GCreateStickerInput> _$gCreateStickerInputSerializer =
     new _$GCreateStickerInputSerializer();
 Serializer<GCreateUserInput> _$gCreateUserInputSerializer =
     new _$GCreateUserInputSerializer();
 Serializer<GCreateWorkBookmarkInput> _$gCreateWorkBookmarkInputSerializer =
     new _$GCreateWorkBookmarkInputSerializer();
+Serializer<GCreateWorkCommentInput> _$gCreateWorkCommentInputSerializer =
+    new _$GCreateWorkCommentInputSerializer();
 Serializer<GCreateWorkInput> _$gCreateWorkInputSerializer =
     new _$GCreateWorkInputSerializer();
 Serializer<GCreateWorkLikeInput> _$gCreateWorkLikeInputSerializer =
@@ -473,52 +476,6 @@ class _$GContributorTypeSerializer
       GContributorType.valueOf(serialized as String);
 }
 
-class _$GCreateCommentInputSerializer
-    implements StructuredSerializer<GCreateCommentInput> {
-  @override
-  final Iterable<Type> types = const [
-    GCreateCommentInput,
-    _$GCreateCommentInput
-  ];
-  @override
-  final String wireName = 'GCreateCommentInput';
-
-  @override
-  Iterable<Object?> serialize(
-      Serializers serializers, GCreateCommentInput object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      'commentId',
-      serializers.serialize(object.commentId,
-          specifiedType: const FullType(String)),
-    ];
-
-    return result;
-  }
-
-  @override
-  GCreateCommentInput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GCreateCommentInputBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case 'commentId':
-          result.commentId = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
 class _$GCreateFolderInputSerializer
     implements StructuredSerializer<GCreateFolderInput> {
   @override
@@ -553,6 +510,58 @@ class _$GCreateFolderInputSerializer
       switch (key) {
         case 'title':
           result.title = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GCreateResponseCommentInputSerializer
+    implements StructuredSerializer<GCreateResponseCommentInput> {
+  @override
+  final Iterable<Type> types = const [
+    GCreateResponseCommentInput,
+    _$GCreateResponseCommentInput
+  ];
+  @override
+  final String wireName = 'GCreateResponseCommentInput';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GCreateResponseCommentInput object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'commentId',
+      serializers.serialize(object.commentId,
+          specifiedType: const FullType(String)),
+      'text',
+      serializers.serialize(object.text, specifiedType: const FullType(String)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GCreateResponseCommentInput deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GCreateResponseCommentInputBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'commentId':
+          result.commentId = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'text':
+          result.text = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
       }
@@ -687,6 +696,58 @@ class _$GCreateWorkBookmarkInputSerializer
       switch (key) {
         case 'workId':
           result.workId = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GCreateWorkCommentInputSerializer
+    implements StructuredSerializer<GCreateWorkCommentInput> {
+  @override
+  final Iterable<Type> types = const [
+    GCreateWorkCommentInput,
+    _$GCreateWorkCommentInput
+  ];
+  @override
+  final String wireName = 'GCreateWorkCommentInput';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GCreateWorkCommentInput object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'workId',
+      serializers.serialize(object.workId,
+          specifiedType: const FullType(String)),
+      'text',
+      serializers.serialize(object.text, specifiedType: const FullType(String)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GCreateWorkCommentInput deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GCreateWorkCommentInputBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'workId':
+          result.workId = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'text':
+          result.text = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
       }
@@ -2342,93 +2403,6 @@ class GAwardsWhereInputBuilder
   }
 }
 
-class _$GCreateCommentInput extends GCreateCommentInput {
-  @override
-  final String commentId;
-
-  factory _$GCreateCommentInput(
-          [void Function(GCreateCommentInputBuilder)? updates]) =>
-      (new GCreateCommentInputBuilder()..update(updates))._build();
-
-  _$GCreateCommentInput._({required this.commentId}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        commentId, r'GCreateCommentInput', 'commentId');
-  }
-
-  @override
-  GCreateCommentInput rebuild(
-          void Function(GCreateCommentInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GCreateCommentInputBuilder toBuilder() =>
-      new GCreateCommentInputBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GCreateCommentInput && commentId == other.commentId;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, commentId.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(r'GCreateCommentInput')
-          ..add('commentId', commentId))
-        .toString();
-  }
-}
-
-class GCreateCommentInputBuilder
-    implements Builder<GCreateCommentInput, GCreateCommentInputBuilder> {
-  _$GCreateCommentInput? _$v;
-
-  String? _commentId;
-  String? get commentId => _$this._commentId;
-  set commentId(String? commentId) => _$this._commentId = commentId;
-
-  GCreateCommentInputBuilder();
-
-  GCreateCommentInputBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _commentId = $v.commentId;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GCreateCommentInput other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GCreateCommentInput;
-  }
-
-  @override
-  void update(void Function(GCreateCommentInputBuilder)? updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GCreateCommentInput build() => _build();
-
-  _$GCreateCommentInput _build() {
-    final _$result = _$v ??
-        new _$GCreateCommentInput._(
-            commentId: BuiltValueNullFieldError.checkNotNull(
-                commentId, r'GCreateCommentInput', 'commentId'));
-    replace(_$result);
-    return _$result;
-  }
-}
-
 class _$GCreateFolderInput extends GCreateFolderInput {
   @override
   final String title;
@@ -2511,6 +2485,111 @@ class GCreateFolderInputBuilder
         new _$GCreateFolderInput._(
             title: BuiltValueNullFieldError.checkNotNull(
                 title, r'GCreateFolderInput', 'title'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GCreateResponseCommentInput extends GCreateResponseCommentInput {
+  @override
+  final String commentId;
+  @override
+  final String text;
+
+  factory _$GCreateResponseCommentInput(
+          [void Function(GCreateResponseCommentInputBuilder)? updates]) =>
+      (new GCreateResponseCommentInputBuilder()..update(updates))._build();
+
+  _$GCreateResponseCommentInput._({required this.commentId, required this.text})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        commentId, r'GCreateResponseCommentInput', 'commentId');
+    BuiltValueNullFieldError.checkNotNull(
+        text, r'GCreateResponseCommentInput', 'text');
+  }
+
+  @override
+  GCreateResponseCommentInput rebuild(
+          void Function(GCreateResponseCommentInputBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GCreateResponseCommentInputBuilder toBuilder() =>
+      new GCreateResponseCommentInputBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GCreateResponseCommentInput &&
+        commentId == other.commentId &&
+        text == other.text;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, commentId.hashCode);
+    _$hash = $jc(_$hash, text.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GCreateResponseCommentInput')
+          ..add('commentId', commentId)
+          ..add('text', text))
+        .toString();
+  }
+}
+
+class GCreateResponseCommentInputBuilder
+    implements
+        Builder<GCreateResponseCommentInput,
+            GCreateResponseCommentInputBuilder> {
+  _$GCreateResponseCommentInput? _$v;
+
+  String? _commentId;
+  String? get commentId => _$this._commentId;
+  set commentId(String? commentId) => _$this._commentId = commentId;
+
+  String? _text;
+  String? get text => _$this._text;
+  set text(String? text) => _$this._text = text;
+
+  GCreateResponseCommentInputBuilder();
+
+  GCreateResponseCommentInputBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _commentId = $v.commentId;
+      _text = $v.text;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GCreateResponseCommentInput other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GCreateResponseCommentInput;
+  }
+
+  @override
+  void update(void Function(GCreateResponseCommentInputBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GCreateResponseCommentInput build() => _build();
+
+  _$GCreateResponseCommentInput _build() {
+    final _$result = _$v ??
+        new _$GCreateResponseCommentInput._(
+            commentId: BuiltValueNullFieldError.checkNotNull(
+                commentId, r'GCreateResponseCommentInput', 'commentId'),
+            text: BuiltValueNullFieldError.checkNotNull(
+                text, r'GCreateResponseCommentInput', 'text'));
     replace(_$result);
     return _$result;
   }
@@ -2772,6 +2851,110 @@ class GCreateWorkBookmarkInputBuilder
         new _$GCreateWorkBookmarkInput._(
             workId: BuiltValueNullFieldError.checkNotNull(
                 workId, r'GCreateWorkBookmarkInput', 'workId'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GCreateWorkCommentInput extends GCreateWorkCommentInput {
+  @override
+  final String workId;
+  @override
+  final String text;
+
+  factory _$GCreateWorkCommentInput(
+          [void Function(GCreateWorkCommentInputBuilder)? updates]) =>
+      (new GCreateWorkCommentInputBuilder()..update(updates))._build();
+
+  _$GCreateWorkCommentInput._({required this.workId, required this.text})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        workId, r'GCreateWorkCommentInput', 'workId');
+    BuiltValueNullFieldError.checkNotNull(
+        text, r'GCreateWorkCommentInput', 'text');
+  }
+
+  @override
+  GCreateWorkCommentInput rebuild(
+          void Function(GCreateWorkCommentInputBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GCreateWorkCommentInputBuilder toBuilder() =>
+      new GCreateWorkCommentInputBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GCreateWorkCommentInput &&
+        workId == other.workId &&
+        text == other.text;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, workId.hashCode);
+    _$hash = $jc(_$hash, text.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GCreateWorkCommentInput')
+          ..add('workId', workId)
+          ..add('text', text))
+        .toString();
+  }
+}
+
+class GCreateWorkCommentInputBuilder
+    implements
+        Builder<GCreateWorkCommentInput, GCreateWorkCommentInputBuilder> {
+  _$GCreateWorkCommentInput? _$v;
+
+  String? _workId;
+  String? get workId => _$this._workId;
+  set workId(String? workId) => _$this._workId = workId;
+
+  String? _text;
+  String? get text => _$this._text;
+  set text(String? text) => _$this._text = text;
+
+  GCreateWorkCommentInputBuilder();
+
+  GCreateWorkCommentInputBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _workId = $v.workId;
+      _text = $v.text;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GCreateWorkCommentInput other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GCreateWorkCommentInput;
+  }
+
+  @override
+  void update(void Function(GCreateWorkCommentInputBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GCreateWorkCommentInput build() => _build();
+
+  _$GCreateWorkCommentInput _build() {
+    final _$result = _$v ??
+        new _$GCreateWorkCommentInput._(
+            workId: BuiltValueNullFieldError.checkNotNull(
+                workId, r'GCreateWorkCommentInput', 'workId'),
+            text: BuiltValueNullFieldError.checkNotNull(
+                text, r'GCreateWorkCommentInput', 'text'));
     replace(_$result);
     return _$result;
   }

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'login.var.gql.dart';
+part of 'login_with_password.var.gql.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

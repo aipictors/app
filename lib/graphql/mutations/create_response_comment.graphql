@@ -1,0 +1,5 @@
+mutation CreateResponseComment($input: CreateResponseCommentInput!) {
+  createResponseComment(input: $input) {
+    id
+  }
+}

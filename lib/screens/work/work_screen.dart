@@ -8,11 +8,11 @@ import 'package:aipictors/screens/loading_screen.dart';
 import 'package:aipictors/widgets/app_bar/work_bottom_app_bar.dart';
 import 'package:aipictors/widgets/button/follow_button.dart';
 import 'package:aipictors/widgets/container/loading_container.dart';
-import 'package:aipictors/widgets/container/work_response_container.dart';
 import 'package:aipictors/widgets/container/work_status_container.dart';
 import 'package:aipictors/widgets/container/work_tags_container.dart';
 import 'package:aipictors/widgets/container/work_text_container.dart';
 import 'package:aipictors/widgets/container/work_user_profile_container.dart';
+import 'package:aipictors/widgets/list/work_comment_list_tile.dart';
 import 'package:ferry_flutter/ferry_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -118,25 +118,23 @@ class WorkScreen extends HookConsumerWidget {
                       if (comments == null) {
                         return const SizedBox();
                       }
-                      return Column(
-                        children: [
-                          for (final comment in comments)
-                            Column(
-                              children: [
-                                const Divider(height: 0),
-                                WorkResponseContainer(
-                                  comment: comment,
-                                  isResponse: false,
+                      return Column(children: [
+                        for (final comment in comments)
+                          Column(
+                            children: [
+                              const Divider(height: 0),
+                              WorkCommentListTile(
+                                comment: comment,
+                                isResponse: false,
+                              ),
+                              for (final response in comment.responses)
+                                WorkCommentListTile(
+                                  comment: response,
+                                  isResponse: true,
                                 ),
-                                for (final response in comment.responses)
-                                  WorkResponseContainer(
-                                    comment: response,
-                                    isResponse: true,
-                                  ),
-                              ],
-                            )
-                        ],
-                      );
+                            ],
+                          )
+                      ]);
                     },
                   ),
                   const SizedBox(height: 40),

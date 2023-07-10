@@ -117,27 +117,6 @@ class GContributorType extends EnumClass {
       _$gContributorTypeValueOf(name);
 }
 
-abstract class GCreateCommentInput
-    implements Built<GCreateCommentInput, GCreateCommentInputBuilder> {
-  GCreateCommentInput._();
-
-  factory GCreateCommentInput(
-      [Function(GCreateCommentInputBuilder b) updates]) = _$GCreateCommentInput;
-
-  String get commentId;
-  static Serializer<GCreateCommentInput> get serializer =>
-      _$gCreateCommentInputSerializer;
-  Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
-        GCreateCommentInput.serializer,
-        this,
-      ) as Map<String, dynamic>);
-  static GCreateCommentInput? fromJson(Map<String, dynamic> json) =>
-      _i2.serializers.deserializeWith(
-        GCreateCommentInput.serializer,
-        json,
-      );
-}
-
 abstract class GCreateFolderInput
     implements Built<GCreateFolderInput, GCreateFolderInputBuilder> {
   GCreateFolderInput._();
@@ -155,6 +134,30 @@ abstract class GCreateFolderInput
   static GCreateFolderInput? fromJson(Map<String, dynamic> json) =>
       _i2.serializers.deserializeWith(
         GCreateFolderInput.serializer,
+        json,
+      );
+}
+
+abstract class GCreateResponseCommentInput
+    implements
+        Built<GCreateResponseCommentInput, GCreateResponseCommentInputBuilder> {
+  GCreateResponseCommentInput._();
+
+  factory GCreateResponseCommentInput(
+          [Function(GCreateResponseCommentInputBuilder b) updates]) =
+      _$GCreateResponseCommentInput;
+
+  String get commentId;
+  String get text;
+  static Serializer<GCreateResponseCommentInput> get serializer =>
+      _$gCreateResponseCommentInputSerializer;
+  Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
+        GCreateResponseCommentInput.serializer,
+        this,
+      ) as Map<String, dynamic>);
+  static GCreateResponseCommentInput? fromJson(Map<String, dynamic> json) =>
+      _i2.serializers.deserializeWith(
+        GCreateResponseCommentInput.serializer,
         json,
       );
 }
@@ -220,6 +223,29 @@ abstract class GCreateWorkBookmarkInput
   static GCreateWorkBookmarkInput? fromJson(Map<String, dynamic> json) =>
       _i2.serializers.deserializeWith(
         GCreateWorkBookmarkInput.serializer,
+        json,
+      );
+}
+
+abstract class GCreateWorkCommentInput
+    implements Built<GCreateWorkCommentInput, GCreateWorkCommentInputBuilder> {
+  GCreateWorkCommentInput._();
+
+  factory GCreateWorkCommentInput(
+          [Function(GCreateWorkCommentInputBuilder b) updates]) =
+      _$GCreateWorkCommentInput;
+
+  String get workId;
+  String get text;
+  static Serializer<GCreateWorkCommentInput> get serializer =>
+      _$gCreateWorkCommentInputSerializer;
+  Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
+        GCreateWorkCommentInput.serializer,
+        this,
+      ) as Map<String, dynamic>);
+  static GCreateWorkCommentInput? fromJson(Map<String, dynamic> json) =>
+      _i2.serializers.deserializeWith(
+        GCreateWorkCommentInput.serializer,
         json,
       );
 }
