@@ -5,22 +5,25 @@ class UserProfileAvatar extends HookConsumerWidget {
   const UserProfileAvatar({
     Key? key,
     required this.imageURL,
+    this.radius,
   }) : super(key: key);
 
   final String? imageURL;
+
+  final double? radius;
 
   @override
   Widget build(context, ref) {
     if (imageURL == null) {
       return CircleAvatar(
-        radius: 14,
+        radius: radius ?? 14,
         backgroundColor: Theme.of(context).colorScheme.primary,
         child: const CircleAvatar(radius: 40),
       );
     }
 
     return CircleAvatar(
-      radius: 14,
+      radius: radius ?? 14,
       backgroundImage: NetworkImage(imageURL!),
     );
   }

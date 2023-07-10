@@ -27,7 +27,7 @@ class WorkTextContainer extends HookConsumerWidget {
                 ?.copyWith(fontWeight: FontWeight.bold),
           ),
         ),
-        if (description != null) const SizedBox(height: 4),
+        if (description != null) const SizedBox(height: 8),
         if (description != null)
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16),

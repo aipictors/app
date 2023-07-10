@@ -96,9 +96,9 @@ class WorkScreen extends HookConsumerWidget {
                     title: work.title,
                     description: work.description,
                   ),
-                  const SizedBox(height: 8),
+                  const SizedBox(height: 8 * 2),
                   WorkTagsContainer(tagNames: work.tagNames.toList()),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 8 * 2),
                   Operation(
                     client: client.value!,
                     operationRequest: GWorkCommentsReq((builder) {
@@ -122,7 +122,6 @@ class WorkScreen extends HookConsumerWidget {
                         for (final comment in comments)
                           Column(
                             children: [
-                              const Divider(height: 0),
                               WorkCommentListTile(
                                 comment: comment,
                                 isResponse: false,
@@ -137,7 +136,7 @@ class WorkScreen extends HookConsumerWidget {
                       ]);
                     },
                   ),
-                  const SizedBox(height: 40),
+                  const SizedBox(height: 8 * 2),
                 ],
               ),
             ),

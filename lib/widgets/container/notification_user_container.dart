@@ -19,7 +19,7 @@ class NotificationUserContainer extends HookConsumerWidget {
       children: [
         UserProfileAvatar(imageURL: userIconImageURL),
         const SizedBox(width: 12),
-        // ユーザ名が長い場合は省略したい
+        // TODO: ユーザ名が長い場合は省略したい
         Text(
           userName,
           overflow: TextOverflow.ellipsis,

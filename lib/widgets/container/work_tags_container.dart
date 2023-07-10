@@ -11,12 +11,21 @@ class WorkTagsContainer extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
       child: Wrap(
-        spacing: 8,
+        spacing: 4,
         children: [
-          for (final tagName in tagNames) Text('#$tagName'),
+          const SizedBox(width: 16),
+          for (final tagName in tagNames)
+            FilledButton.tonal(
+              style: FilledButton.styleFrom(
+                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              ),
+              child: Text(tagName),
+              onPressed: () {},
+            ),
+          const SizedBox(width: 16),
         ],
       ),
     );

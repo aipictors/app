@@ -31,6 +31,7 @@ class FeedHomeView extends HookConsumerWidget {
       },
       builder: (data) {
         return ListView.separated(
+          shrinkWrap: true,
           key: const PageStorageKey('feed_home'),
           separatorBuilder: (context, index) {
             return const Divider(height: 0);

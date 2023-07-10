@@ -25,6 +25,7 @@ class FeedImageContainer extends HookConsumerWidget {
       );
     }
 
+    // TODO: AspectRatioを使用する
     return ClipRRect(
       borderRadius: BorderRadius.circular(8.0),
       child: CachedNetworkImage(

@@ -1,8 +1,6 @@
 import 'package:aipictors/screens/explorer/explorer_best_works_screen.dart';
 import 'package:aipictors/screens/explorer/explorer_hot_tags_screen.dart';
-import 'package:aipictors/screens/explorer/explorer_hot_works_screen.dart';
 import 'package:aipictors/screens/explorer/explorer_latest_folders_screen.dart';
-import 'package:aipictors/screens/explorer/explorer_latest_works_screen.dart';
 import 'package:aipictors/screens/explorer/explorer_popular_works_screen.dart';
 import 'package:aipictors/screens/explorer/explorer_search_screen.dart';
 import 'package:aipictors/widgets/app_bar/search_app_bar.dart';
@@ -59,12 +57,10 @@ class ExplorerScreen extends HookConsumerWidget {
           ],
           bottom: search.value.isEmpty
               ? const TabBar(
-                  isScrollable: true,
+                  // isScrollable: true,
                   tabs: [
                     Tab(text: 'シリーズ'),
                     Tab(text: 'タグ'),
-                    Tab(text: '新着'),
-                    Tab(text: 'ホット'),
                     Tab(text: '人気'),
                     Tab(text: 'ベスト'),
                   ],
@@ -76,8 +72,6 @@ class ExplorerScreen extends HookConsumerWidget {
             : const TabBarView(children: [
                 ExplorerFoldersScreen(),
                 ExplorerHotTagsScreen(),
-                ExplorerLatestWorksScreen(),
-                ExplorerHotWorksScreen(),
                 ExplorerPopularWorksScreen(),
                 ExplorerBestWorksScreen(),
               ]),

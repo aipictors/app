@@ -82,7 +82,7 @@ class FeedWorkListTile extends HookConsumerWidget {
           ]),
           const SizedBox(height: 8),
           FeedImageContainer(imageURL: workImageURL),
-          const SizedBox(height: 8),
+          const SizedBox(height: 12),
           Text(
             workTitle,
             style: Theme.of(context).textTheme.bodyMedium,
@@ -179,6 +179,24 @@ class FeedWorkListTile extends HookConsumerWidget {
         return UserActionModalContainer(
           userName: userName,
           userIconImageURL: userIconImageURL,
+        );
+      },
+    );
+  }
+
+  void onOpenImage(BuildContext context) {
+    showGeneralDialog(
+      barrierDismissible: true,
+      barrierLabel: '',
+      context: context,
+      pageBuilder: (context, animation1, animation2) {
+        return Center(
+          child: SingleChildScrollView(
+              child: Image.network(
+            workImageURL ?? '',
+            fit: BoxFit.cover,
+            width: double.infinity,
+          )),
         );
       },
     );

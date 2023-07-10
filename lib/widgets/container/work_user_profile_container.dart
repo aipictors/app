@@ -1,4 +1,5 @@
 import 'package:aipictors/graphql/fragments/__generated__/work_user_fields_fragment.data.gql.dart';
+import 'package:aipictors/widgets/avatar/user_profile_avatar.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -17,10 +18,9 @@ class WorkUserProfileContainer extends HookConsumerWidget {
     return Row(
       children: [
         InkWell(
-          child: CircleAvatar(
-            backgroundImage: NetworkImage(
-              user.iconImage!.downloadURL,
-            ),
+          child: UserProfileAvatar(
+            imageURL: user.iconImage?.downloadURL,
+            radius: null,
           ),
           onTap: () {
             FirebaseAnalytics.instance.logSelectContent(
