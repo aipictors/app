@@ -248,7 +248,7 @@ type FolderNode implements Node {
   rating: Rating!
 
   """作品"""
-  works(offset: Int!, limit: Int!): [WorkNode!]
+  works(offset: Int!, limit: Int!): [WorkNode!]!
 
   """サムネイル"""
   thumbnailImageId: ID
@@ -565,6 +565,8 @@ type TagNode implements Node {
   id: ID!
   name: String!
   works(offset: Int!, limit: Int!): [WorkNode!]!
+  worksCount: Int!
+  likesCount: Int!
   firstWork: WorkNode
 }
 
@@ -830,6 +832,7 @@ type WorkNode implements Node {
 }
 
 input WorksWhereInput {
+  rating: Rating
   search: String
 }
 

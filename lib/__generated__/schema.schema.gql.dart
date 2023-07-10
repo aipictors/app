@@ -888,6 +888,7 @@ abstract class GWorksWhereInput
   factory GWorksWhereInput([Function(GWorksWhereInputBuilder b) updates]) =
       _$GWorksWhereInput;
 
+  GRating? get rating;
   String? get search;
   static Serializer<GWorksWhereInput> get serializer =>
       _$gWorksWhereInputSerializer;

@@ -1,0 +1,10 @@
+# import './fragments/partial_work_fields_fragment.graphql'
+
+query FolderWorks($folderId: ID!, $offset: Int!, $limit: Int!) {
+  folder(id: $folderId) {
+    id
+    works(offset: $offset, limit: $limit) {
+      ...PartialWorkFields
+    }
+  }
+}

@@ -2077,6 +2077,13 @@ class _$GWorksWhereInputSerializer
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[];
     Object? value;
+    value = object.rating;
+    if (value != null) {
+      result
+        ..add('rating')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(GRating)));
+    }
     value = object.search;
     if (value != null) {
       result
@@ -2099,6 +2106,10 @@ class _$GWorksWhereInputSerializer
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
+        case 'rating':
+          result.rating = serializers.deserialize(value,
+              specifiedType: const FullType(GRating)) as GRating?;
+          break;
         case 'search':
           result.search = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
@@ -5307,13 +5318,15 @@ class GWorkAwardsWhereInputBuilder
 
 class _$GWorksWhereInput extends GWorksWhereInput {
   @override
+  final GRating? rating;
+  @override
   final String? search;
 
   factory _$GWorksWhereInput(
           [void Function(GWorksWhereInputBuilder)? updates]) =>
       (new GWorksWhereInputBuilder()..update(updates))._build();
 
-  _$GWorksWhereInput._({this.search}) : super._();
+  _$GWorksWhereInput._({this.rating, this.search}) : super._();
 
   @override
   GWorksWhereInput rebuild(void Function(GWorksWhereInputBuilder) updates) =>
@@ -5326,12 +5339,15 @@ class _$GWorksWhereInput extends GWorksWhereInput {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GWorksWhereInput && search == other.search;
+    return other is GWorksWhereInput &&
+        rating == other.rating &&
+        search == other.search;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, rating.hashCode);
     _$hash = $jc(_$hash, search.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -5340,6 +5356,7 @@ class _$GWorksWhereInput extends GWorksWhereInput {
   @override
   String toString() {
     return (newBuiltValueToStringHelper(r'GWorksWhereInput')
+          ..add('rating', rating)
           ..add('search', search))
         .toString();
   }
@@ -5348,6 +5365,10 @@ class _$GWorksWhereInput extends GWorksWhereInput {
 class GWorksWhereInputBuilder
     implements Builder<GWorksWhereInput, GWorksWhereInputBuilder> {
   _$GWorksWhereInput? _$v;
+
+  GRating? _rating;
+  GRating? get rating => _$this._rating;
+  set rating(GRating? rating) => _$this._rating = rating;
 
   String? _search;
   String? get search => _$this._search;
@@ -5358,6 +5379,7 @@ class GWorksWhereInputBuilder
   GWorksWhereInputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _rating = $v.rating;
       _search = $v.search;
       _$v = null;
     }
@@ -5379,7 +5401,8 @@ class GWorksWhereInputBuilder
   GWorksWhereInput build() => _build();
 
   _$GWorksWhereInput _build() {
-    final _$result = _$v ?? new _$GWorksWhereInput._(search: search);
+    final _$result =
+        _$v ?? new _$GWorksWhereInput._(rating: rating, search: search);
     replace(_$result);
     return _$result;
   }

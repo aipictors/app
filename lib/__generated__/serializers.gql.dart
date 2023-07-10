@@ -85,6 +85,27 @@ import 'package:aipictors/graphql/__generated__/daily_themes.req.gql.dart'
     show GDailyThemesReq;
 import 'package:aipictors/graphql/__generated__/daily_themes.var.gql.dart'
     show GDailyThemesVars;
+import 'package:aipictors/graphql/__generated__/folder.data.gql.dart'
+    show
+        GFolderData,
+        GFolderData_folder,
+        GFolderData_folder_thumbnailImage,
+        GFolderData_folder_user,
+        GFolderData_folder_user_iconImage;
+import 'package:aipictors/graphql/__generated__/folder.req.gql.dart'
+    show GFolderReq;
+import 'package:aipictors/graphql/__generated__/folder.var.gql.dart'
+    show GFolderVars;
+import 'package:aipictors/graphql/__generated__/folder_works.data.gql.dart'
+    show
+        GFolderWorksData,
+        GFolderWorksData_folder,
+        GFolderWorksData_folder_works,
+        GFolderWorksData_folder_works_thumbnailImage;
+import 'package:aipictors/graphql/__generated__/folder_works.req.gql.dart'
+    show GFolderWorksReq;
+import 'package:aipictors/graphql/__generated__/folder_works.var.gql.dart'
+    show GFolderWorksVars;
 import 'package:aipictors/graphql/__generated__/folders.data.gql.dart'
     show
         GFoldersData,
@@ -136,6 +157,20 @@ import 'package:aipictors/graphql/__generated__/stickers.req.gql.dart'
     show GStickersReq;
 import 'package:aipictors/graphql/__generated__/stickers.var.gql.dart'
     show GStickersVars;
+import 'package:aipictors/graphql/__generated__/tag.data.gql.dart'
+    show GTagData, GTagData_tag;
+import 'package:aipictors/graphql/__generated__/tag.req.gql.dart' show GTagReq;
+import 'package:aipictors/graphql/__generated__/tag.var.gql.dart' show GTagVars;
+import 'package:aipictors/graphql/__generated__/tag_works.data.gql.dart'
+    show
+        GTagWorksData,
+        GTagWorksData_tag,
+        GTagWorksData_tag_works,
+        GTagWorksData_tag_works_thumbnailImage;
+import 'package:aipictors/graphql/__generated__/tag_works.req.gql.dart'
+    show GTagWorksReq;
+import 'package:aipictors/graphql/__generated__/tag_works.var.gql.dart'
+    show GTagWorksVars;
 import 'package:aipictors/graphql/__generated__/user.data.gql.dart'
     show
         GUserData,
@@ -364,6 +399,19 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GDeleteWorkBookmarkInput,
   GDeleteWorkInput,
   GDeleteWorkLikeInput,
+  GFolderData,
+  GFolderData_folder,
+  GFolderData_folder_thumbnailImage,
+  GFolderData_folder_user,
+  GFolderData_folder_user_iconImage,
+  GFolderReq,
+  GFolderVars,
+  GFolderWorksData,
+  GFolderWorksData_folder,
+  GFolderWorksData_folder_works,
+  GFolderWorksData_folder_works_thumbnailImage,
+  GFolderWorksReq,
+  GFolderWorksVars,
   GFoldersData,
   GFoldersData_folders,
   GFoldersData_folders_thumbnailImage,
@@ -425,6 +473,16 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GStickersReq,
   GStickersVars,
   GStickersWhereInput,
+  GTagData,
+  GTagData_tag,
+  GTagReq,
+  GTagVars,
+  GTagWorksData,
+  GTagWorksData_tag,
+  GTagWorksData_tag_works,
+  GTagWorksData_tag_works_thumbnailImage,
+  GTagWorksReq,
+  GTagWorksVars,
   GTagsWhereInput,
   GUnfollowUserInput,
   GUnmuteTagInput,

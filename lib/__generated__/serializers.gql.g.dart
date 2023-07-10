@@ -56,6 +56,19 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GDeleteWorkBookmarkInput.serializer)
       ..add(GDeleteWorkInput.serializer)
       ..add(GDeleteWorkLikeInput.serializer)
+      ..add(GFolderData.serializer)
+      ..add(GFolderData_folder.serializer)
+      ..add(GFolderData_folder_thumbnailImage.serializer)
+      ..add(GFolderData_folder_user.serializer)
+      ..add(GFolderData_folder_user_iconImage.serializer)
+      ..add(GFolderReq.serializer)
+      ..add(GFolderVars.serializer)
+      ..add(GFolderWorksData.serializer)
+      ..add(GFolderWorksData_folder.serializer)
+      ..add(GFolderWorksData_folder_works.serializer)
+      ..add(GFolderWorksData_folder_works_thumbnailImage.serializer)
+      ..add(GFolderWorksReq.serializer)
+      ..add(GFolderWorksVars.serializer)
       ..add(GFoldersData.serializer)
       ..add(GFoldersData_folders.serializer)
       ..add(GFoldersData_folders_thumbnailImage.serializer)
@@ -117,6 +130,16 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GStickersReq.serializer)
       ..add(GStickersVars.serializer)
       ..add(GStickersWhereInput.serializer)
+      ..add(GTagData.serializer)
+      ..add(GTagData_tag.serializer)
+      ..add(GTagReq.serializer)
+      ..add(GTagVars.serializer)
+      ..add(GTagWorksData.serializer)
+      ..add(GTagWorksData_tag.serializer)
+      ..add(GTagWorksData_tag_works.serializer)
+      ..add(GTagWorksData_tag_works_thumbnailImage.serializer)
+      ..add(GTagWorksReq.serializer)
+      ..add(GTagWorksVars.serializer)
       ..add(GTagsWhereInput.serializer)
       ..add(GUnfollowUserInput.serializer)
       ..add(GUnmuteTagInput.serializer)
@@ -233,6 +256,10 @@ Serializers _$serializers = (new Serializers().toBuilder()
           () => new ListBuilder<GDailyThemesData_dailyThemes>())
       ..addBuilderFactory(
           const FullType(
+              BuiltList, const [const FullType(GFolderWorksData_folder_works)]),
+          () => new ListBuilder<GFolderWorksData_folder_works>())
+      ..addBuilderFactory(
+          const FullType(
               BuiltList, const [const FullType(GFoldersData_folders)]),
           () => new ListBuilder<GFoldersData_folders>())
       ..addBuilderFactory(
@@ -251,6 +278,10 @@ Serializers _$serializers = (new Serializers().toBuilder()
           const FullType(
               BuiltList, const [const FullType(GStickersData_stickers)]),
           () => new ListBuilder<GStickersData_stickers>())
+      ..addBuilderFactory(
+          const FullType(
+              BuiltList, const [const FullType(GTagWorksData_tag_works)]),
+          () => new ListBuilder<GTagWorksData_tag_works>())
       ..addBuilderFactory(
           const FullType(BuiltList,
               const [const FullType(GUserFolloweesData_user_followees)]),

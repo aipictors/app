@@ -1,0 +1,19 @@
+# import './fragments/work_user_fields_fragment.graphql'
+
+query Folder($id: ID!) {
+  folder(id: $id) {
+    id
+    title
+    description
+    user {
+      ...WorkUserFields
+    }
+    createdAt
+    likesCount
+    viewsCount
+    thumbnailImage {
+      id
+      downloadURL
+    }
+  }
+}

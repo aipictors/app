@@ -9,9 +9,11 @@ import 'package:aipictors/screens/config/config_muted_users_screen.dart';
 import 'package:aipictors/screens/config/config_theme_screen.dart';
 import 'package:aipictors/screens/daily_theme/daily_theme_screen.dart';
 import 'package:aipictors/screens/debug_screen.dart';
+import 'package:aipictors/screens/folder/folder_screen.dart';
 import 'package:aipictors/screens/privacy_screen.dart';
 import 'package:aipictors/screens/root_screen.dart';
 import 'package:aipictors/screens/surveys_screen.dart';
+import 'package:aipictors/screens/tag/tag_screen.dart';
 import 'package:aipictors/screens/terms_screen.dart';
 import 'package:aipictors/screens/user/user_screen.dart';
 import 'package:aipictors/screens/viewer/viewer_screen.dart';
@@ -55,6 +57,20 @@ final router = GoRouter(
       builder: (context, state) {
         final workId = state.pathParameters['work_id'];
         return WorkScreen(workId: workId!);
+      },
+    ),
+    GoRoute(
+      path: '/folders/:folder_id',
+      builder: (context, state) {
+        final folderId = state.pathParameters['folder_id'];
+        return FolderScreen(folderId: folderId!);
+      },
+    ),
+    GoRoute(
+      path: '/tags/:tag_name',
+      builder: (context, state) {
+        final tagName = state.pathParameters['tag_name'];
+        return TagScreen(tagName: tagName!);
       },
     ),
     GoRoute(

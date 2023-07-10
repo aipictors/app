@@ -1,49 +1,53 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'hot_tags.data.gql.dart';
+part of 'folder_works.data.gql.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<GHotTagsData> _$gHotTagsDataSerializer =
-    new _$GHotTagsDataSerializer();
-Serializer<GHotTagsData_hotTags> _$gHotTagsDataHotTagsSerializer =
-    new _$GHotTagsData_hotTagsSerializer();
-Serializer<GHotTagsData_hotTags_firstWork>
-    _$gHotTagsDataHotTagsFirstWorkSerializer =
-    new _$GHotTagsData_hotTags_firstWorkSerializer();
-Serializer<GHotTagsData_hotTags_firstWork_thumbnailImage>
-    _$gHotTagsDataHotTagsFirstWorkThumbnailImageSerializer =
-    new _$GHotTagsData_hotTags_firstWork_thumbnailImageSerializer();
+Serializer<GFolderWorksData> _$gFolderWorksDataSerializer =
+    new _$GFolderWorksDataSerializer();
+Serializer<GFolderWorksData_folder> _$gFolderWorksDataFolderSerializer =
+    new _$GFolderWorksData_folderSerializer();
+Serializer<GFolderWorksData_folder_works>
+    _$gFolderWorksDataFolderWorksSerializer =
+    new _$GFolderWorksData_folder_worksSerializer();
+Serializer<GFolderWorksData_folder_works_thumbnailImage>
+    _$gFolderWorksDataFolderWorksThumbnailImageSerializer =
+    new _$GFolderWorksData_folder_works_thumbnailImageSerializer();
 
-class _$GHotTagsDataSerializer implements StructuredSerializer<GHotTagsData> {
+class _$GFolderWorksDataSerializer
+    implements StructuredSerializer<GFolderWorksData> {
   @override
-  final Iterable<Type> types = const [GHotTagsData, _$GHotTagsData];
+  final Iterable<Type> types = const [GFolderWorksData, _$GFolderWorksData];
   @override
-  final String wireName = 'GHotTagsData';
+  final String wireName = 'GFolderWorksData';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, GHotTagsData object,
+  Iterable<Object?> serialize(Serializers serializers, GFolderWorksData object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
       '__typename',
       serializers.serialize(object.G__typename,
           specifiedType: const FullType(String)),
-      'hotTags',
-      serializers.serialize(object.hotTags,
-          specifiedType: const FullType(
-              BuiltList, const [const FullType(GHotTagsData_hotTags)])),
     ];
-
+    Object? value;
+    value = object.folder;
+    if (value != null) {
+      result
+        ..add('folder')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(GFolderWorksData_folder)));
+    }
     return result;
   }
 
   @override
-  GHotTagsData deserialize(
+  GFolderWorksData deserialize(
       Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new GHotTagsDataBuilder();
+    final result = new GFolderWorksDataBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -55,11 +59,10 @@ class _$GHotTagsDataSerializer implements StructuredSerializer<GHotTagsData> {
           result.G__typename = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
-        case 'hotTags':
-          result.hotTags.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      BuiltList, const [const FullType(GHotTagsData_hotTags)]))!
-              as BuiltList<Object?>);
+        case 'folder':
+          result.folder.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(GFolderWorksData_folder))!
+              as GFolderWorksData_folder);
           break;
       }
     }
@@ -68,19 +71,19 @@ class _$GHotTagsDataSerializer implements StructuredSerializer<GHotTagsData> {
   }
 }
 
-class _$GHotTagsData_hotTagsSerializer
-    implements StructuredSerializer<GHotTagsData_hotTags> {
+class _$GFolderWorksData_folderSerializer
+    implements StructuredSerializer<GFolderWorksData_folder> {
   @override
   final Iterable<Type> types = const [
-    GHotTagsData_hotTags,
-    _$GHotTagsData_hotTags
+    GFolderWorksData_folder,
+    _$GFolderWorksData_folder
   ];
   @override
-  final String wireName = 'GHotTagsData_hotTags';
+  final String wireName = 'GFolderWorksData_folder';
 
   @override
   Iterable<Object?> serialize(
-      Serializers serializers, GHotTagsData_hotTags object,
+      Serializers serializers, GFolderWorksData_folder object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
       '__typename',
@@ -88,25 +91,20 @@ class _$GHotTagsData_hotTagsSerializer
           specifiedType: const FullType(String)),
       'id',
       serializers.serialize(object.id, specifiedType: const FullType(String)),
-      'name',
-      serializers.serialize(object.name, specifiedType: const FullType(String)),
+      'works',
+      serializers.serialize(object.works,
+          specifiedType: const FullType(BuiltList,
+              const [const FullType(GFolderWorksData_folder_works)])),
     ];
-    Object? value;
-    value = object.firstWork;
-    if (value != null) {
-      result
-        ..add('firstWork')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(GHotTagsData_hotTags_firstWork)));
-    }
+
     return result;
   }
 
   @override
-  GHotTagsData_hotTags deserialize(
+  GFolderWorksData_folder deserialize(
       Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new GHotTagsData_hotTagsBuilder();
+    final result = new GFolderWorksData_folderBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -122,15 +120,11 @@ class _$GHotTagsData_hotTagsSerializer
           result.id = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
-        case 'name':
-          result.name = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'firstWork':
-          result.firstWork.replace(serializers.deserialize(value,
-                  specifiedType:
-                      const FullType(GHotTagsData_hotTags_firstWork))!
-              as GHotTagsData_hotTags_firstWork);
+        case 'works':
+          result.works.replace(serializers.deserialize(value,
+              specifiedType: const FullType(BuiltList, const [
+                const FullType(GFolderWorksData_folder_works)
+              ]))! as BuiltList<Object?>);
           break;
       }
     }
@@ -139,19 +133,19 @@ class _$GHotTagsData_hotTagsSerializer
   }
 }
 
-class _$GHotTagsData_hotTags_firstWorkSerializer
-    implements StructuredSerializer<GHotTagsData_hotTags_firstWork> {
+class _$GFolderWorksData_folder_worksSerializer
+    implements StructuredSerializer<GFolderWorksData_folder_works> {
   @override
   final Iterable<Type> types = const [
-    GHotTagsData_hotTags_firstWork,
-    _$GHotTagsData_hotTags_firstWork
+    GFolderWorksData_folder_works,
+    _$GFolderWorksData_folder_works
   ];
   @override
-  final String wireName = 'GHotTagsData_hotTags_firstWork';
+  final String wireName = 'GFolderWorksData_folder_works';
 
   @override
   Iterable<Object?> serialize(
-      Serializers serializers, GHotTagsData_hotTags_firstWork object,
+      Serializers serializers, GFolderWorksData_folder_works object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
       '__typename',
@@ -170,16 +164,16 @@ class _$GHotTagsData_hotTags_firstWorkSerializer
         ..add('thumbnailImage')
         ..add(serializers.serialize(value,
             specifiedType:
-                const FullType(GHotTagsData_hotTags_firstWork_thumbnailImage)));
+                const FullType(GFolderWorksData_folder_works_thumbnailImage)));
     }
     return result;
   }
 
   @override
-  GHotTagsData_hotTags_firstWork deserialize(
+  GFolderWorksData_folder_works deserialize(
       Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new GHotTagsData_hotTags_firstWorkBuilder();
+    final result = new GFolderWorksData_folder_worksBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -202,8 +196,8 @@ class _$GHotTagsData_hotTags_firstWorkSerializer
         case 'thumbnailImage':
           result.thumbnailImage.replace(serializers.deserialize(value,
                   specifiedType: const FullType(
-                      GHotTagsData_hotTags_firstWork_thumbnailImage))!
-              as GHotTagsData_hotTags_firstWork_thumbnailImage);
+                      GFolderWorksData_folder_works_thumbnailImage))!
+              as GFolderWorksData_folder_works_thumbnailImage);
           break;
       }
     }
@@ -212,20 +206,20 @@ class _$GHotTagsData_hotTags_firstWorkSerializer
   }
 }
 
-class _$GHotTagsData_hotTags_firstWork_thumbnailImageSerializer
+class _$GFolderWorksData_folder_works_thumbnailImageSerializer
     implements
-        StructuredSerializer<GHotTagsData_hotTags_firstWork_thumbnailImage> {
+        StructuredSerializer<GFolderWorksData_folder_works_thumbnailImage> {
   @override
   final Iterable<Type> types = const [
-    GHotTagsData_hotTags_firstWork_thumbnailImage,
-    _$GHotTagsData_hotTags_firstWork_thumbnailImage
+    GFolderWorksData_folder_works_thumbnailImage,
+    _$GFolderWorksData_folder_works_thumbnailImage
   ];
   @override
-  final String wireName = 'GHotTagsData_hotTags_firstWork_thumbnailImage';
+  final String wireName = 'GFolderWorksData_folder_works_thumbnailImage';
 
   @override
   Iterable<Object?> serialize(Serializers serializers,
-      GHotTagsData_hotTags_firstWork_thumbnailImage object,
+      GFolderWorksData_folder_works_thumbnailImage object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
       '__typename',
@@ -242,10 +236,10 @@ class _$GHotTagsData_hotTags_firstWork_thumbnailImageSerializer
   }
 
   @override
-  GHotTagsData_hotTags_firstWork_thumbnailImage deserialize(
+  GFolderWorksData_folder_works_thumbnailImage deserialize(
       Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new GHotTagsData_hotTags_firstWork_thumbnailImageBuilder();
+    final result = new GFolderWorksData_folder_works_thumbnailImageBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -272,113 +266,112 @@ class _$GHotTagsData_hotTags_firstWork_thumbnailImageSerializer
   }
 }
 
-class _$GHotTagsData extends GHotTagsData {
+class _$GFolderWorksData extends GFolderWorksData {
   @override
   final String G__typename;
   @override
-  final BuiltList<GHotTagsData_hotTags> hotTags;
+  final GFolderWorksData_folder? folder;
 
-  factory _$GHotTagsData([void Function(GHotTagsDataBuilder)? updates]) =>
-      (new GHotTagsDataBuilder()..update(updates))._build();
+  factory _$GFolderWorksData(
+          [void Function(GFolderWorksDataBuilder)? updates]) =>
+      (new GFolderWorksDataBuilder()..update(updates))._build();
 
-  _$GHotTagsData._({required this.G__typename, required this.hotTags})
-      : super._() {
+  _$GFolderWorksData._({required this.G__typename, this.folder}) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        G__typename, r'GHotTagsData', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(hotTags, r'GHotTagsData', 'hotTags');
+        G__typename, r'GFolderWorksData', 'G__typename');
   }
 
   @override
-  GHotTagsData rebuild(void Function(GHotTagsDataBuilder) updates) =>
+  GFolderWorksData rebuild(void Function(GFolderWorksDataBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GHotTagsDataBuilder toBuilder() => new GHotTagsDataBuilder()..replace(this);
+  GFolderWorksDataBuilder toBuilder() =>
+      new GFolderWorksDataBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GHotTagsData &&
+    return other is GFolderWorksData &&
         G__typename == other.G__typename &&
-        hotTags == other.hotTags;
+        folder == other.folder;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, hotTags.hashCode);
+    _$hash = $jc(_$hash, folder.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'GHotTagsData')
+    return (newBuiltValueToStringHelper(r'GFolderWorksData')
           ..add('G__typename', G__typename)
-          ..add('hotTags', hotTags))
+          ..add('folder', folder))
         .toString();
   }
 }
 
-class GHotTagsDataBuilder
-    implements Builder<GHotTagsData, GHotTagsDataBuilder> {
-  _$GHotTagsData? _$v;
+class GFolderWorksDataBuilder
+    implements Builder<GFolderWorksData, GFolderWorksDataBuilder> {
+  _$GFolderWorksData? _$v;
 
   String? _G__typename;
   String? get G__typename => _$this._G__typename;
   set G__typename(String? G__typename) => _$this._G__typename = G__typename;
 
-  ListBuilder<GHotTagsData_hotTags>? _hotTags;
-  ListBuilder<GHotTagsData_hotTags> get hotTags =>
-      _$this._hotTags ??= new ListBuilder<GHotTagsData_hotTags>();
-  set hotTags(ListBuilder<GHotTagsData_hotTags>? hotTags) =>
-      _$this._hotTags = hotTags;
+  GFolderWorksData_folderBuilder? _folder;
+  GFolderWorksData_folderBuilder get folder =>
+      _$this._folder ??= new GFolderWorksData_folderBuilder();
+  set folder(GFolderWorksData_folderBuilder? folder) => _$this._folder = folder;
 
-  GHotTagsDataBuilder() {
-    GHotTagsData._initializeBuilder(this);
+  GFolderWorksDataBuilder() {
+    GFolderWorksData._initializeBuilder(this);
   }
 
-  GHotTagsDataBuilder get _$this {
+  GFolderWorksDataBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _G__typename = $v.G__typename;
-      _hotTags = $v.hotTags.toBuilder();
+      _folder = $v.folder?.toBuilder();
       _$v = null;
     }
     return this;
   }
 
   @override
-  void replace(GHotTagsData other) {
+  void replace(GFolderWorksData other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GHotTagsData;
+    _$v = other as _$GFolderWorksData;
   }
 
   @override
-  void update(void Function(GHotTagsDataBuilder)? updates) {
+  void update(void Function(GFolderWorksDataBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  GHotTagsData build() => _build();
+  GFolderWorksData build() => _build();
 
-  _$GHotTagsData _build() {
-    _$GHotTagsData _$result;
+  _$GFolderWorksData _build() {
+    _$GFolderWorksData _$result;
     try {
       _$result = _$v ??
-          new _$GHotTagsData._(
+          new _$GFolderWorksData._(
               G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, r'GHotTagsData', 'G__typename'),
-              hotTags: hotTags.build());
+                  G__typename, r'GFolderWorksData', 'G__typename'),
+              folder: _folder?.build());
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'hotTags';
-        hotTags.build();
+        _$failedField = 'folder';
+        _folder?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'GHotTagsData', _$failedField, e.toString());
+            r'GFolderWorksData', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -387,50 +380,44 @@ class GHotTagsDataBuilder
   }
 }
 
-class _$GHotTagsData_hotTags extends GHotTagsData_hotTags {
+class _$GFolderWorksData_folder extends GFolderWorksData_folder {
   @override
   final String G__typename;
   @override
   final String id;
   @override
-  final String name;
-  @override
-  final GHotTagsData_hotTags_firstWork? firstWork;
+  final BuiltList<GFolderWorksData_folder_works> works;
 
-  factory _$GHotTagsData_hotTags(
-          [void Function(GHotTagsData_hotTagsBuilder)? updates]) =>
-      (new GHotTagsData_hotTagsBuilder()..update(updates))._build();
+  factory _$GFolderWorksData_folder(
+          [void Function(GFolderWorksData_folderBuilder)? updates]) =>
+      (new GFolderWorksData_folderBuilder()..update(updates))._build();
 
-  _$GHotTagsData_hotTags._(
-      {required this.G__typename,
-      required this.id,
-      required this.name,
-      this.firstWork})
+  _$GFolderWorksData_folder._(
+      {required this.G__typename, required this.id, required this.works})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        G__typename, r'GHotTagsData_hotTags', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(id, r'GHotTagsData_hotTags', 'id');
+        G__typename, r'GFolderWorksData_folder', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(id, r'GFolderWorksData_folder', 'id');
     BuiltValueNullFieldError.checkNotNull(
-        name, r'GHotTagsData_hotTags', 'name');
+        works, r'GFolderWorksData_folder', 'works');
   }
 
   @override
-  GHotTagsData_hotTags rebuild(
-          void Function(GHotTagsData_hotTagsBuilder) updates) =>
+  GFolderWorksData_folder rebuild(
+          void Function(GFolderWorksData_folderBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GHotTagsData_hotTagsBuilder toBuilder() =>
-      new GHotTagsData_hotTagsBuilder()..replace(this);
+  GFolderWorksData_folderBuilder toBuilder() =>
+      new GFolderWorksData_folderBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GHotTagsData_hotTags &&
+    return other is GFolderWorksData_folder &&
         G__typename == other.G__typename &&
         id == other.id &&
-        name == other.name &&
-        firstWork == other.firstWork;
+        works == other.works;
   }
 
   @override
@@ -438,26 +425,25 @@ class _$GHotTagsData_hotTags extends GHotTagsData_hotTags {
     var _$hash = 0;
     _$hash = $jc(_$hash, G__typename.hashCode);
     _$hash = $jc(_$hash, id.hashCode);
-    _$hash = $jc(_$hash, name.hashCode);
-    _$hash = $jc(_$hash, firstWork.hashCode);
+    _$hash = $jc(_$hash, works.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'GHotTagsData_hotTags')
+    return (newBuiltValueToStringHelper(r'GFolderWorksData_folder')
           ..add('G__typename', G__typename)
           ..add('id', id)
-          ..add('name', name)
-          ..add('firstWork', firstWork))
+          ..add('works', works))
         .toString();
   }
 }
 
-class GHotTagsData_hotTagsBuilder
-    implements Builder<GHotTagsData_hotTags, GHotTagsData_hotTagsBuilder> {
-  _$GHotTagsData_hotTags? _$v;
+class GFolderWorksData_folderBuilder
+    implements
+        Builder<GFolderWorksData_folder, GFolderWorksData_folderBuilder> {
+  _$GFolderWorksData_folder? _$v;
 
   String? _G__typename;
   String? get G__typename => _$this._G__typename;
@@ -467,66 +453,59 @@ class GHotTagsData_hotTagsBuilder
   String? get id => _$this._id;
   set id(String? id) => _$this._id = id;
 
-  String? _name;
-  String? get name => _$this._name;
-  set name(String? name) => _$this._name = name;
+  ListBuilder<GFolderWorksData_folder_works>? _works;
+  ListBuilder<GFolderWorksData_folder_works> get works =>
+      _$this._works ??= new ListBuilder<GFolderWorksData_folder_works>();
+  set works(ListBuilder<GFolderWorksData_folder_works>? works) =>
+      _$this._works = works;
 
-  GHotTagsData_hotTags_firstWorkBuilder? _firstWork;
-  GHotTagsData_hotTags_firstWorkBuilder get firstWork =>
-      _$this._firstWork ??= new GHotTagsData_hotTags_firstWorkBuilder();
-  set firstWork(GHotTagsData_hotTags_firstWorkBuilder? firstWork) =>
-      _$this._firstWork = firstWork;
-
-  GHotTagsData_hotTagsBuilder() {
-    GHotTagsData_hotTags._initializeBuilder(this);
+  GFolderWorksData_folderBuilder() {
+    GFolderWorksData_folder._initializeBuilder(this);
   }
 
-  GHotTagsData_hotTagsBuilder get _$this {
+  GFolderWorksData_folderBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _G__typename = $v.G__typename;
       _id = $v.id;
-      _name = $v.name;
-      _firstWork = $v.firstWork?.toBuilder();
+      _works = $v.works.toBuilder();
       _$v = null;
     }
     return this;
   }
 
   @override
-  void replace(GHotTagsData_hotTags other) {
+  void replace(GFolderWorksData_folder other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GHotTagsData_hotTags;
+    _$v = other as _$GFolderWorksData_folder;
   }
 
   @override
-  void update(void Function(GHotTagsData_hotTagsBuilder)? updates) {
+  void update(void Function(GFolderWorksData_folderBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  GHotTagsData_hotTags build() => _build();
+  GFolderWorksData_folder build() => _build();
 
-  _$GHotTagsData_hotTags _build() {
-    _$GHotTagsData_hotTags _$result;
+  _$GFolderWorksData_folder _build() {
+    _$GFolderWorksData_folder _$result;
     try {
       _$result = _$v ??
-          new _$GHotTagsData_hotTags._(
+          new _$GFolderWorksData_folder._(
               G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, r'GHotTagsData_hotTags', 'G__typename'),
+                  G__typename, r'GFolderWorksData_folder', 'G__typename'),
               id: BuiltValueNullFieldError.checkNotNull(
-                  id, r'GHotTagsData_hotTags', 'id'),
-              name: BuiltValueNullFieldError.checkNotNull(
-                  name, r'GHotTagsData_hotTags', 'name'),
-              firstWork: _firstWork?.build());
+                  id, r'GFolderWorksData_folder', 'id'),
+              works: works.build());
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'firstWork';
-        _firstWork?.build();
+        _$failedField = 'works';
+        works.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'GHotTagsData_hotTags', _$failedField, e.toString());
+            r'GFolderWorksData_folder', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -535,7 +514,7 @@ class GHotTagsData_hotTagsBuilder
   }
 }
 
-class _$GHotTagsData_hotTags_firstWork extends GHotTagsData_hotTags_firstWork {
+class _$GFolderWorksData_folder_works extends GFolderWorksData_folder_works {
   @override
   final String G__typename;
   @override
@@ -543,39 +522,39 @@ class _$GHotTagsData_hotTags_firstWork extends GHotTagsData_hotTags_firstWork {
   @override
   final String title;
   @override
-  final GHotTagsData_hotTags_firstWork_thumbnailImage? thumbnailImage;
+  final GFolderWorksData_folder_works_thumbnailImage? thumbnailImage;
 
-  factory _$GHotTagsData_hotTags_firstWork(
-          [void Function(GHotTagsData_hotTags_firstWorkBuilder)? updates]) =>
-      (new GHotTagsData_hotTags_firstWorkBuilder()..update(updates))._build();
+  factory _$GFolderWorksData_folder_works(
+          [void Function(GFolderWorksData_folder_worksBuilder)? updates]) =>
+      (new GFolderWorksData_folder_worksBuilder()..update(updates))._build();
 
-  _$GHotTagsData_hotTags_firstWork._(
+  _$GFolderWorksData_folder_works._(
       {required this.G__typename,
       required this.id,
       required this.title,
       this.thumbnailImage})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        G__typename, r'GHotTagsData_hotTags_firstWork', 'G__typename');
+        G__typename, r'GFolderWorksData_folder_works', 'G__typename');
     BuiltValueNullFieldError.checkNotNull(
-        id, r'GHotTagsData_hotTags_firstWork', 'id');
+        id, r'GFolderWorksData_folder_works', 'id');
     BuiltValueNullFieldError.checkNotNull(
-        title, r'GHotTagsData_hotTags_firstWork', 'title');
+        title, r'GFolderWorksData_folder_works', 'title');
   }
 
   @override
-  GHotTagsData_hotTags_firstWork rebuild(
-          void Function(GHotTagsData_hotTags_firstWorkBuilder) updates) =>
+  GFolderWorksData_folder_works rebuild(
+          void Function(GFolderWorksData_folder_worksBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GHotTagsData_hotTags_firstWorkBuilder toBuilder() =>
-      new GHotTagsData_hotTags_firstWorkBuilder()..replace(this);
+  GFolderWorksData_folder_worksBuilder toBuilder() =>
+      new GFolderWorksData_folder_worksBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GHotTagsData_hotTags_firstWork &&
+    return other is GFolderWorksData_folder_works &&
         G__typename == other.G__typename &&
         id == other.id &&
         title == other.title &&
@@ -595,7 +574,7 @@ class _$GHotTagsData_hotTags_firstWork extends GHotTagsData_hotTags_firstWork {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'GHotTagsData_hotTags_firstWork')
+    return (newBuiltValueToStringHelper(r'GFolderWorksData_folder_works')
           ..add('G__typename', G__typename)
           ..add('id', id)
           ..add('title', title)
@@ -604,11 +583,11 @@ class _$GHotTagsData_hotTags_firstWork extends GHotTagsData_hotTags_firstWork {
   }
 }
 
-class GHotTagsData_hotTags_firstWorkBuilder
+class GFolderWorksData_folder_worksBuilder
     implements
-        Builder<GHotTagsData_hotTags_firstWork,
-            GHotTagsData_hotTags_firstWorkBuilder> {
-  _$GHotTagsData_hotTags_firstWork? _$v;
+        Builder<GFolderWorksData_folder_works,
+            GFolderWorksData_folder_worksBuilder> {
+  _$GFolderWorksData_folder_works? _$v;
 
   String? _G__typename;
   String? get G__typename => _$this._G__typename;
@@ -622,20 +601,20 @@ class GHotTagsData_hotTags_firstWorkBuilder
   String? get title => _$this._title;
   set title(String? title) => _$this._title = title;
 
-  GHotTagsData_hotTags_firstWork_thumbnailImageBuilder? _thumbnailImage;
-  GHotTagsData_hotTags_firstWork_thumbnailImageBuilder get thumbnailImage =>
+  GFolderWorksData_folder_works_thumbnailImageBuilder? _thumbnailImage;
+  GFolderWorksData_folder_works_thumbnailImageBuilder get thumbnailImage =>
       _$this._thumbnailImage ??=
-          new GHotTagsData_hotTags_firstWork_thumbnailImageBuilder();
+          new GFolderWorksData_folder_works_thumbnailImageBuilder();
   set thumbnailImage(
-          GHotTagsData_hotTags_firstWork_thumbnailImageBuilder?
+          GFolderWorksData_folder_works_thumbnailImageBuilder?
               thumbnailImage) =>
       _$this._thumbnailImage = thumbnailImage;
 
-  GHotTagsData_hotTags_firstWorkBuilder() {
-    GHotTagsData_hotTags_firstWork._initializeBuilder(this);
+  GFolderWorksData_folder_worksBuilder() {
+    GFolderWorksData_folder_works._initializeBuilder(this);
   }
 
-  GHotTagsData_hotTags_firstWorkBuilder get _$this {
+  GFolderWorksData_folder_worksBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _G__typename = $v.G__typename;
@@ -648,30 +627,30 @@ class GHotTagsData_hotTags_firstWorkBuilder
   }
 
   @override
-  void replace(GHotTagsData_hotTags_firstWork other) {
+  void replace(GFolderWorksData_folder_works other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GHotTagsData_hotTags_firstWork;
+    _$v = other as _$GFolderWorksData_folder_works;
   }
 
   @override
-  void update(void Function(GHotTagsData_hotTags_firstWorkBuilder)? updates) {
+  void update(void Function(GFolderWorksData_folder_worksBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  GHotTagsData_hotTags_firstWork build() => _build();
+  GFolderWorksData_folder_works build() => _build();
 
-  _$GHotTagsData_hotTags_firstWork _build() {
-    _$GHotTagsData_hotTags_firstWork _$result;
+  _$GFolderWorksData_folder_works _build() {
+    _$GFolderWorksData_folder_works _$result;
     try {
       _$result = _$v ??
-          new _$GHotTagsData_hotTags_firstWork._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
-                  r'GHotTagsData_hotTags_firstWork', 'G__typename'),
+          new _$GFolderWorksData_folder_works._(
+              G__typename: BuiltValueNullFieldError.checkNotNull(
+                  G__typename, r'GFolderWorksData_folder_works', 'G__typename'),
               id: BuiltValueNullFieldError.checkNotNull(
-                  id, r'GHotTagsData_hotTags_firstWork', 'id'),
+                  id, r'GFolderWorksData_folder_works', 'id'),
               title: BuiltValueNullFieldError.checkNotNull(
-                  title, r'GHotTagsData_hotTags_firstWork', 'title'),
+                  title, r'GFolderWorksData_folder_works', 'title'),
               thumbnailImage: _thumbnailImage?.build());
     } catch (_) {
       late String _$failedField;
@@ -680,7 +659,7 @@ class GHotTagsData_hotTags_firstWorkBuilder
         _thumbnailImage?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'GHotTagsData_hotTags_firstWork', _$failedField, e.toString());
+            r'GFolderWorksData_folder_works', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -689,8 +668,8 @@ class GHotTagsData_hotTags_firstWorkBuilder
   }
 }
 
-class _$GHotTagsData_hotTags_firstWork_thumbnailImage
-    extends GHotTagsData_hotTags_firstWork_thumbnailImage {
+class _$GFolderWorksData_folder_works_thumbnailImage
+    extends GFolderWorksData_folder_works_thumbnailImage {
   @override
   final String G__typename;
   @override
@@ -698,38 +677,38 @@ class _$GHotTagsData_hotTags_firstWork_thumbnailImage
   @override
   final String downloadURL;
 
-  factory _$GHotTagsData_hotTags_firstWork_thumbnailImage(
-          [void Function(GHotTagsData_hotTags_firstWork_thumbnailImageBuilder)?
+  factory _$GFolderWorksData_folder_works_thumbnailImage(
+          [void Function(GFolderWorksData_folder_works_thumbnailImageBuilder)?
               updates]) =>
-      (new GHotTagsData_hotTags_firstWork_thumbnailImageBuilder()
+      (new GFolderWorksData_folder_works_thumbnailImageBuilder()
             ..update(updates))
           ._build();
 
-  _$GHotTagsData_hotTags_firstWork_thumbnailImage._(
+  _$GFolderWorksData_folder_works_thumbnailImage._(
       {required this.G__typename, required this.id, required this.downloadURL})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(G__typename,
-        r'GHotTagsData_hotTags_firstWork_thumbnailImage', 'G__typename');
+        r'GFolderWorksData_folder_works_thumbnailImage', 'G__typename');
     BuiltValueNullFieldError.checkNotNull(
-        id, r'GHotTagsData_hotTags_firstWork_thumbnailImage', 'id');
+        id, r'GFolderWorksData_folder_works_thumbnailImage', 'id');
     BuiltValueNullFieldError.checkNotNull(downloadURL,
-        r'GHotTagsData_hotTags_firstWork_thumbnailImage', 'downloadURL');
+        r'GFolderWorksData_folder_works_thumbnailImage', 'downloadURL');
   }
 
   @override
-  GHotTagsData_hotTags_firstWork_thumbnailImage rebuild(
-          void Function(GHotTagsData_hotTags_firstWork_thumbnailImageBuilder)
+  GFolderWorksData_folder_works_thumbnailImage rebuild(
+          void Function(GFolderWorksData_folder_works_thumbnailImageBuilder)
               updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GHotTagsData_hotTags_firstWork_thumbnailImageBuilder toBuilder() =>
-      new GHotTagsData_hotTags_firstWork_thumbnailImageBuilder()..replace(this);
+  GFolderWorksData_folder_works_thumbnailImageBuilder toBuilder() =>
+      new GFolderWorksData_folder_works_thumbnailImageBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GHotTagsData_hotTags_firstWork_thumbnailImage &&
+    return other is GFolderWorksData_folder_works_thumbnailImage &&
         G__typename == other.G__typename &&
         id == other.id &&
         downloadURL == other.downloadURL;
@@ -748,7 +727,7 @@ class _$GHotTagsData_hotTags_firstWork_thumbnailImage
   @override
   String toString() {
     return (newBuiltValueToStringHelper(
-            r'GHotTagsData_hotTags_firstWork_thumbnailImage')
+            r'GFolderWorksData_folder_works_thumbnailImage')
           ..add('G__typename', G__typename)
           ..add('id', id)
           ..add('downloadURL', downloadURL))
@@ -756,11 +735,11 @@ class _$GHotTagsData_hotTags_firstWork_thumbnailImage
   }
 }
 
-class GHotTagsData_hotTags_firstWork_thumbnailImageBuilder
+class GFolderWorksData_folder_works_thumbnailImageBuilder
     implements
-        Builder<GHotTagsData_hotTags_firstWork_thumbnailImage,
-            GHotTagsData_hotTags_firstWork_thumbnailImageBuilder> {
-  _$GHotTagsData_hotTags_firstWork_thumbnailImage? _$v;
+        Builder<GFolderWorksData_folder_works_thumbnailImage,
+            GFolderWorksData_folder_works_thumbnailImageBuilder> {
+  _$GFolderWorksData_folder_works_thumbnailImage? _$v;
 
   String? _G__typename;
   String? get G__typename => _$this._G__typename;
@@ -774,11 +753,11 @@ class GHotTagsData_hotTags_firstWork_thumbnailImageBuilder
   String? get downloadURL => _$this._downloadURL;
   set downloadURL(String? downloadURL) => _$this._downloadURL = downloadURL;
 
-  GHotTagsData_hotTags_firstWork_thumbnailImageBuilder() {
-    GHotTagsData_hotTags_firstWork_thumbnailImage._initializeBuilder(this);
+  GFolderWorksData_folder_works_thumbnailImageBuilder() {
+    GFolderWorksData_folder_works_thumbnailImage._initializeBuilder(this);
   }
 
-  GHotTagsData_hotTags_firstWork_thumbnailImageBuilder get _$this {
+  GFolderWorksData_folder_works_thumbnailImageBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _G__typename = $v.G__typename;
@@ -790,33 +769,31 @@ class GHotTagsData_hotTags_firstWork_thumbnailImageBuilder
   }
 
   @override
-  void replace(GHotTagsData_hotTags_firstWork_thumbnailImage other) {
+  void replace(GFolderWorksData_folder_works_thumbnailImage other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GHotTagsData_hotTags_firstWork_thumbnailImage;
+    _$v = other as _$GFolderWorksData_folder_works_thumbnailImage;
   }
 
   @override
   void update(
-      void Function(GHotTagsData_hotTags_firstWork_thumbnailImageBuilder)?
+      void Function(GFolderWorksData_folder_works_thumbnailImageBuilder)?
           updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  GHotTagsData_hotTags_firstWork_thumbnailImage build() => _build();
+  GFolderWorksData_folder_works_thumbnailImage build() => _build();
 
-  _$GHotTagsData_hotTags_firstWork_thumbnailImage _build() {
+  _$GFolderWorksData_folder_works_thumbnailImage _build() {
     final _$result = _$v ??
-        new _$GHotTagsData_hotTags_firstWork_thumbnailImage._(
-            G__typename: BuiltValueNullFieldError.checkNotNull(
-                G__typename,
-                r'GHotTagsData_hotTags_firstWork_thumbnailImage',
-                'G__typename'),
+        new _$GFolderWorksData_folder_works_thumbnailImage._(
+            G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
+                r'GFolderWorksData_folder_works_thumbnailImage', 'G__typename'),
             id: BuiltValueNullFieldError.checkNotNull(
-                id, r'GHotTagsData_hotTags_firstWork_thumbnailImage', 'id'),
+                id, r'GFolderWorksData_folder_works_thumbnailImage', 'id'),
             downloadURL: BuiltValueNullFieldError.checkNotNull(
                 downloadURL,
-                r'GHotTagsData_hotTags_firstWork_thumbnailImage',
+                r'GFolderWorksData_folder_works_thumbnailImage',
                 'downloadURL'));
     replace(_$result);
     return _$result;

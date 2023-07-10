@@ -4,8 +4,8 @@ import 'package:aipictors/widgets/container/data_not_found_error_container.dart'
 import 'package:aipictors/widgets/container/empty_error_container.dart';
 import 'package:aipictors/widgets/container/loading_container.dart';
 import 'package:aipictors/widgets/container/unexpected_error_container.dart';
-import 'package:aipictors/widgets/grid/work_grid_view.dart';
 import 'package:aipictors/widgets/image/grid_work_image.dart';
+import 'package:aipictors/widgets/view/works_grid_view.dart';
 import 'package:ferry_flutter/ferry_flutter.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
@@ -53,7 +53,7 @@ class UserWorksContainer extends HookConsumerWidget {
         if (works.isEmpty) {
           return const EmptyErrorContainer();
         }
-        return WorkGridView(
+        return WorksGridView(
           itemCount: works.length,
           itemBuilder: (context, index) {
             final work = works[index];

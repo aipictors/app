@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class WorkGridView extends HookConsumerWidget {
-  const WorkGridView({
+class WorksGridView extends HookConsumerWidget {
+  const WorksGridView({
     Key? key,
     required this.itemCount,
     required this.itemBuilder,

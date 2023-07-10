@@ -36,9 +36,7 @@ class WorkScreen extends HookConsumerWidget {
     return Operation(
       client: client.value!,
       operationRequest: GWorkReq((builder) {
-        return builder
-          ..vars.id = workId
-          ..executeOnListen;
+        return builder..vars.id = workId;
       }),
       builder: (context, response, error) {
         if (error != null) {
