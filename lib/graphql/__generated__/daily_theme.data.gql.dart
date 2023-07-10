@@ -91,6 +91,12 @@ abstract class GDailyThemeData_dailyTheme_works
   @override
   String get title;
   @override
+  int get likesCount;
+  @override
+  int get commentsCount;
+  @override
+  int get createdAt;
+  @override
   GDailyThemeData_dailyTheme_works_thumbnailImage? get thumbnailImage;
   static Serializer<GDailyThemeData_dailyTheme_works> get serializer =>
       _$gDailyThemeDataDailyThemeWorksSerializer;

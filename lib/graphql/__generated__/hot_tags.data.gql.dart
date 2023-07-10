@@ -92,6 +92,12 @@ abstract class GHotTagsData_hotTags_firstWork
   @override
   String get title;
   @override
+  int get likesCount;
+  @override
+  int get commentsCount;
+  @override
+  int get createdAt;
+  @override
   GHotTagsData_hotTags_firstWork_thumbnailImage? get thumbnailImage;
   static Serializer<GHotTagsData_hotTags_firstWork> get serializer =>
       _$gHotTagsDataHotTagsFirstWorkSerializer;

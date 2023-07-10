@@ -25,6 +25,7 @@ class ConfigScreen extends HookConsumerWidget {
     final authState = ref.watch(authStateProvider);
 
     return Scaffold(
+      key: const PageStorageKey('config'),
       appBar: AppBar(
         title: const Text(
           '設定',

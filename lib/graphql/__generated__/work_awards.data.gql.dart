@@ -87,6 +87,12 @@ abstract class GWorkAwardsData_workAwards_work
   @override
   String get title;
   @override
+  int get likesCount;
+  @override
+  int get commentsCount;
+  @override
+  int get createdAt;
+  @override
   GWorkAwardsData_workAwards_work_thumbnailImage? get thumbnailImage;
   static Serializer<GWorkAwardsData_workAwards_work> get serializer =>
       _$gWorkAwardsDataWorkAwardsWorkSerializer;

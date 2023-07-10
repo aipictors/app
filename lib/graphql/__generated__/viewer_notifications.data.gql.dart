@@ -132,6 +132,12 @@ abstract class GViewerNotificationsData_viewer_notifications_work
   @override
   String get title;
   @override
+  int get likesCount;
+  @override
+  int get commentsCount;
+  @override
+  int get createdAt;
+  @override
   GViewerNotificationsData_viewer_notifications_work_thumbnailImage?
       get thumbnailImage;
   static Serializer<GViewerNotificationsData_viewer_notifications_work>

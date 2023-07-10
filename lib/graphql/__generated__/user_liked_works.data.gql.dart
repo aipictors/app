@@ -86,6 +86,12 @@ abstract class GUserLikedWorksData_user_likedWorks
   @override
   String get title;
   @override
+  int get likesCount;
+  @override
+  int get commentsCount;
+  @override
+  int get createdAt;
+  @override
   GUserLikedWorksData_user_likedWorks_thumbnailImage? get thumbnailImage;
   static Serializer<GUserLikedWorksData_user_likedWorks> get serializer =>
       _$gUserLikedWorksDataUserLikedWorksSerializer;

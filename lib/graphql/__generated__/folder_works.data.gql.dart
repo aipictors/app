@@ -84,6 +84,12 @@ abstract class GFolderWorksData_folder_works
   @override
   String get title;
   @override
+  int get likesCount;
+  @override
+  int get commentsCount;
+  @override
+  int get createdAt;
+  @override
   GFolderWorksData_folder_works_thumbnailImage? get thumbnailImage;
   static Serializer<GFolderWorksData_folder_works> get serializer =>
       _$gFolderWorksDataFolderWorksSerializer;

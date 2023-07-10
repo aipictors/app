@@ -162,6 +162,15 @@ class _$GHotTagsData_hotTags_firstWorkSerializer
       'title',
       serializers.serialize(object.title,
           specifiedType: const FullType(String)),
+      'likesCount',
+      serializers.serialize(object.likesCount,
+          specifiedType: const FullType(int)),
+      'commentsCount',
+      serializers.serialize(object.commentsCount,
+          specifiedType: const FullType(int)),
+      'createdAt',
+      serializers.serialize(object.createdAt,
+          specifiedType: const FullType(int)),
     ];
     Object? value;
     value = object.thumbnailImage;
@@ -198,6 +207,18 @@ class _$GHotTagsData_hotTags_firstWorkSerializer
         case 'title':
           result.title = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
+          break;
+        case 'likesCount':
+          result.likesCount = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'commentsCount':
+          result.commentsCount = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'createdAt':
+          result.createdAt = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
           break;
         case 'thumbnailImage':
           result.thumbnailImage.replace(serializers.deserialize(value,
@@ -543,6 +564,12 @@ class _$GHotTagsData_hotTags_firstWork extends GHotTagsData_hotTags_firstWork {
   @override
   final String title;
   @override
+  final int likesCount;
+  @override
+  final int commentsCount;
+  @override
+  final int createdAt;
+  @override
   final GHotTagsData_hotTags_firstWork_thumbnailImage? thumbnailImage;
 
   factory _$GHotTagsData_hotTags_firstWork(
@@ -553,6 +580,9 @@ class _$GHotTagsData_hotTags_firstWork extends GHotTagsData_hotTags_firstWork {
       {required this.G__typename,
       required this.id,
       required this.title,
+      required this.likesCount,
+      required this.commentsCount,
+      required this.createdAt,
       this.thumbnailImage})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
@@ -561,6 +591,12 @@ class _$GHotTagsData_hotTags_firstWork extends GHotTagsData_hotTags_firstWork {
         id, r'GHotTagsData_hotTags_firstWork', 'id');
     BuiltValueNullFieldError.checkNotNull(
         title, r'GHotTagsData_hotTags_firstWork', 'title');
+    BuiltValueNullFieldError.checkNotNull(
+        likesCount, r'GHotTagsData_hotTags_firstWork', 'likesCount');
+    BuiltValueNullFieldError.checkNotNull(
+        commentsCount, r'GHotTagsData_hotTags_firstWork', 'commentsCount');
+    BuiltValueNullFieldError.checkNotNull(
+        createdAt, r'GHotTagsData_hotTags_firstWork', 'createdAt');
   }
 
   @override
@@ -579,6 +615,9 @@ class _$GHotTagsData_hotTags_firstWork extends GHotTagsData_hotTags_firstWork {
         G__typename == other.G__typename &&
         id == other.id &&
         title == other.title &&
+        likesCount == other.likesCount &&
+        commentsCount == other.commentsCount &&
+        createdAt == other.createdAt &&
         thumbnailImage == other.thumbnailImage;
   }
 
@@ -588,6 +627,9 @@ class _$GHotTagsData_hotTags_firstWork extends GHotTagsData_hotTags_firstWork {
     _$hash = $jc(_$hash, G__typename.hashCode);
     _$hash = $jc(_$hash, id.hashCode);
     _$hash = $jc(_$hash, title.hashCode);
+    _$hash = $jc(_$hash, likesCount.hashCode);
+    _$hash = $jc(_$hash, commentsCount.hashCode);
+    _$hash = $jc(_$hash, createdAt.hashCode);
     _$hash = $jc(_$hash, thumbnailImage.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -599,6 +641,9 @@ class _$GHotTagsData_hotTags_firstWork extends GHotTagsData_hotTags_firstWork {
           ..add('G__typename', G__typename)
           ..add('id', id)
           ..add('title', title)
+          ..add('likesCount', likesCount)
+          ..add('commentsCount', commentsCount)
+          ..add('createdAt', createdAt)
           ..add('thumbnailImage', thumbnailImage))
         .toString();
   }
@@ -622,6 +667,19 @@ class GHotTagsData_hotTags_firstWorkBuilder
   String? get title => _$this._title;
   set title(String? title) => _$this._title = title;
 
+  int? _likesCount;
+  int? get likesCount => _$this._likesCount;
+  set likesCount(int? likesCount) => _$this._likesCount = likesCount;
+
+  int? _commentsCount;
+  int? get commentsCount => _$this._commentsCount;
+  set commentsCount(int? commentsCount) =>
+      _$this._commentsCount = commentsCount;
+
+  int? _createdAt;
+  int? get createdAt => _$this._createdAt;
+  set createdAt(int? createdAt) => _$this._createdAt = createdAt;
+
   GHotTagsData_hotTags_firstWork_thumbnailImageBuilder? _thumbnailImage;
   GHotTagsData_hotTags_firstWork_thumbnailImageBuilder get thumbnailImage =>
       _$this._thumbnailImage ??=
@@ -641,6 +699,9 @@ class GHotTagsData_hotTags_firstWorkBuilder
       _G__typename = $v.G__typename;
       _id = $v.id;
       _title = $v.title;
+      _likesCount = $v.likesCount;
+      _commentsCount = $v.commentsCount;
+      _createdAt = $v.createdAt;
       _thumbnailImage = $v.thumbnailImage?.toBuilder();
       _$v = null;
     }
@@ -672,6 +733,14 @@ class GHotTagsData_hotTags_firstWorkBuilder
                   id, r'GHotTagsData_hotTags_firstWork', 'id'),
               title: BuiltValueNullFieldError.checkNotNull(
                   title, r'GHotTagsData_hotTags_firstWork', 'title'),
+              likesCount: BuiltValueNullFieldError.checkNotNull(
+                  likesCount, r'GHotTagsData_hotTags_firstWork', 'likesCount'),
+              commentsCount: BuiltValueNullFieldError.checkNotNull(
+                  commentsCount,
+                  r'GHotTagsData_hotTags_firstWork',
+                  'commentsCount'),
+              createdAt: BuiltValueNullFieldError.checkNotNull(
+                  createdAt, r'GHotTagsData_hotTags_firstWork', 'createdAt'),
               thumbnailImage: _thumbnailImage?.build());
     } catch (_) {
       late String _$failedField;

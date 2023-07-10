@@ -57,6 +57,12 @@ abstract class GPopularWorksData_popularWorks
   @override
   String get title;
   @override
+  int get likesCount;
+  @override
+  int get commentsCount;
+  @override
+  int get createdAt;
+  @override
   GPopularWorksData_popularWorks_thumbnailImage? get thumbnailImage;
   static Serializer<GPopularWorksData_popularWorks> get serializer =>
       _$gPopularWorksDataPopularWorksSerializer;

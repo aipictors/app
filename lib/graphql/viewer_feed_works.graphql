@@ -1,0 +1,18 @@
+# import './fragments/partial_work_fields_fragment.graphql'
+# import './fragments/partial_user_fields_fragment.graphql'
+
+query ViewerFeedWorks($offset: Int!, $limit: Int!) {
+  viewer {
+    feedWorks(offset: $offset, limit: $limit) {
+      ...PartialWorkFields
+      user {
+        ...PartialUserFields
+      }
+      viewer {
+        id
+        isLiked
+        isBookmarked
+      }
+    }
+  }
+}

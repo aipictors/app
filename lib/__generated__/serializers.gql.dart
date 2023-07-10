@@ -221,6 +221,19 @@ import 'package:aipictors/graphql/__generated__/user_works.req.gql.dart'
     show GUserWorksReq;
 import 'package:aipictors/graphql/__generated__/user_works.var.gql.dart'
     show GUserWorksVars;
+import 'package:aipictors/graphql/__generated__/viewer_feed_works.data.gql.dart'
+    show
+        GViewerFeedWorksData,
+        GViewerFeedWorksData_viewer,
+        GViewerFeedWorksData_viewer_feedWorks,
+        GViewerFeedWorksData_viewer_feedWorks_thumbnailImage,
+        GViewerFeedWorksData_viewer_feedWorks_user,
+        GViewerFeedWorksData_viewer_feedWorks_user_iconImage,
+        GViewerFeedWorksData_viewer_feedWorks_viewer;
+import 'package:aipictors/graphql/__generated__/viewer_feed_works.req.gql.dart'
+    show GViewerFeedWorksReq;
+import 'package:aipictors/graphql/__generated__/viewer_feed_works.var.gql.dart'
+    show GViewerFeedWorksVars;
 import 'package:aipictors/graphql/__generated__/viewer_notifications.data.gql.dart'
     show
         GViewerNotificationsData,
@@ -527,6 +540,15 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GUserWorksVars,
   GUserWorksWhereInput,
   GUsersWhereInput,
+  GViewerFeedWorksData,
+  GViewerFeedWorksData_viewer,
+  GViewerFeedWorksData_viewer_feedWorks,
+  GViewerFeedWorksData_viewer_feedWorks_thumbnailImage,
+  GViewerFeedWorksData_viewer_feedWorks_user,
+  GViewerFeedWorksData_viewer_feedWorks_user_iconImage,
+  GViewerFeedWorksData_viewer_feedWorks_viewer,
+  GViewerFeedWorksReq,
+  GViewerFeedWorksVars,
   GViewerNotificationsData,
   GViewerNotificationsData_viewer,
   GViewerNotificationsData_viewer_notifications,

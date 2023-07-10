@@ -672,6 +672,7 @@ type Viewer {
   user: UserNode!
   bookmarkedWorks(offset: Int!, limit: Int!): [WorkNode!]!
   notifications(offset: Int!, limit: Int!): [NotificationNode!]!
+  feedWorks(offset: Int!, limit: Int!): [WorkNode!]!
 }
 
 """アワード（作品）"""
@@ -764,6 +765,9 @@ type WorkNode implements Node {
 
   """いいね数"""
   likesCount: Int!
+
+  """いいね数"""
+  commentsCount: Int!
 
   """閲覧数"""
   viewsCount: Int!

@@ -1,8 +1,8 @@
 import 'package:aipictors/graphql/fragments/__generated__/comment_fields_fragment.data.gql.dart';
+import 'package:aipictors/utils/to_readable_date_time.dart';
 import 'package:aipictors/widgets/image/sticker_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:intl/intl.dart';
 
 class WorkResponseContainer extends HookConsumerWidget {
   const WorkResponseContainer({
@@ -60,13 +60,7 @@ class WorkResponseContainer extends HookConsumerWidget {
                         ),
                       ),
                       Text(
-                        DateFormat.yMMMMd('ja')
-                            .format(
-                              DateTime.fromMillisecondsSinceEpoch(
-                                comment.createdAt * 1000,
-                              ),
-                            )
-                            .toString(),
+                        toReadableDateTime(comment.createdAt),
                         style: TextStyle(
                           color: Theme.of(context).dividerColor,
                         ),

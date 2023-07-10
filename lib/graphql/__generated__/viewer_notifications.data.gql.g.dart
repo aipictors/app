@@ -324,6 +324,15 @@ class _$GViewerNotificationsData_viewer_notifications_workSerializer
       'title',
       serializers.serialize(object.title,
           specifiedType: const FullType(String)),
+      'likesCount',
+      serializers.serialize(object.likesCount,
+          specifiedType: const FullType(int)),
+      'commentsCount',
+      serializers.serialize(object.commentsCount,
+          specifiedType: const FullType(int)),
+      'createdAt',
+      serializers.serialize(object.createdAt,
+          specifiedType: const FullType(int)),
     ];
     Object? value;
     value = object.thumbnailImage;
@@ -361,6 +370,18 @@ class _$GViewerNotificationsData_viewer_notifications_workSerializer
         case 'title':
           result.title = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
+          break;
+        case 'likesCount':
+          result.likesCount = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'commentsCount':
+          result.commentsCount = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'createdAt':
+          result.createdAt = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
           break;
         case 'thumbnailImage':
           result.thumbnailImage.replace(serializers.deserialize(value,
@@ -1249,6 +1270,12 @@ class _$GViewerNotificationsData_viewer_notifications_work
   @override
   final String title;
   @override
+  final int likesCount;
+  @override
+  final int commentsCount;
+  @override
+  final int createdAt;
+  @override
   final GViewerNotificationsData_viewer_notifications_work_thumbnailImage?
       thumbnailImage;
 
@@ -1264,6 +1291,9 @@ class _$GViewerNotificationsData_viewer_notifications_work
       {required this.G__typename,
       required this.id,
       required this.title,
+      required this.likesCount,
+      required this.commentsCount,
+      required this.createdAt,
       this.thumbnailImage})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(G__typename,
@@ -1272,6 +1302,12 @@ class _$GViewerNotificationsData_viewer_notifications_work
         id, r'GViewerNotificationsData_viewer_notifications_work', 'id');
     BuiltValueNullFieldError.checkNotNull(
         title, r'GViewerNotificationsData_viewer_notifications_work', 'title');
+    BuiltValueNullFieldError.checkNotNull(likesCount,
+        r'GViewerNotificationsData_viewer_notifications_work', 'likesCount');
+    BuiltValueNullFieldError.checkNotNull(commentsCount,
+        r'GViewerNotificationsData_viewer_notifications_work', 'commentsCount');
+    BuiltValueNullFieldError.checkNotNull(createdAt,
+        r'GViewerNotificationsData_viewer_notifications_work', 'createdAt');
   }
 
   @override
@@ -1293,6 +1329,9 @@ class _$GViewerNotificationsData_viewer_notifications_work
         G__typename == other.G__typename &&
         id == other.id &&
         title == other.title &&
+        likesCount == other.likesCount &&
+        commentsCount == other.commentsCount &&
+        createdAt == other.createdAt &&
         thumbnailImage == other.thumbnailImage;
   }
 
@@ -1302,6 +1341,9 @@ class _$GViewerNotificationsData_viewer_notifications_work
     _$hash = $jc(_$hash, G__typename.hashCode);
     _$hash = $jc(_$hash, id.hashCode);
     _$hash = $jc(_$hash, title.hashCode);
+    _$hash = $jc(_$hash, likesCount.hashCode);
+    _$hash = $jc(_$hash, commentsCount.hashCode);
+    _$hash = $jc(_$hash, createdAt.hashCode);
     _$hash = $jc(_$hash, thumbnailImage.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -1314,6 +1356,9 @@ class _$GViewerNotificationsData_viewer_notifications_work
           ..add('G__typename', G__typename)
           ..add('id', id)
           ..add('title', title)
+          ..add('likesCount', likesCount)
+          ..add('commentsCount', commentsCount)
+          ..add('createdAt', createdAt)
           ..add('thumbnailImage', thumbnailImage))
         .toString();
   }
@@ -1337,6 +1382,19 @@ class GViewerNotificationsData_viewer_notifications_workBuilder
   String? get title => _$this._title;
   set title(String? title) => _$this._title = title;
 
+  int? _likesCount;
+  int? get likesCount => _$this._likesCount;
+  set likesCount(int? likesCount) => _$this._likesCount = likesCount;
+
+  int? _commentsCount;
+  int? get commentsCount => _$this._commentsCount;
+  set commentsCount(int? commentsCount) =>
+      _$this._commentsCount = commentsCount;
+
+  int? _createdAt;
+  int? get createdAt => _$this._createdAt;
+  set createdAt(int? createdAt) => _$this._createdAt = createdAt;
+
   GViewerNotificationsData_viewer_notifications_work_thumbnailImageBuilder?
       _thumbnailImage;
   GViewerNotificationsData_viewer_notifications_work_thumbnailImageBuilder
@@ -1357,6 +1415,9 @@ class GViewerNotificationsData_viewer_notifications_workBuilder
       _G__typename = $v.G__typename;
       _id = $v.id;
       _title = $v.title;
+      _likesCount = $v.likesCount;
+      _commentsCount = $v.commentsCount;
+      _createdAt = $v.createdAt;
       _thumbnailImage = $v.thumbnailImage?.toBuilder();
       _$v = null;
     }
@@ -1388,12 +1449,18 @@ class GViewerNotificationsData_viewer_notifications_workBuilder
                   G__typename,
                   r'GViewerNotificationsData_viewer_notifications_work',
                   'G__typename'),
-              id: BuiltValueNullFieldError.checkNotNull(id,
-                  r'GViewerNotificationsData_viewer_notifications_work', 'id'),
+              id: BuiltValueNullFieldError.checkNotNull(
+                  id, r'GViewerNotificationsData_viewer_notifications_work', 'id'),
               title: BuiltValueNullFieldError.checkNotNull(
-                  title,
+                  title, r'GViewerNotificationsData_viewer_notifications_work', 'title'),
+              likesCount: BuiltValueNullFieldError.checkNotNull(
+                  likesCount, r'GViewerNotificationsData_viewer_notifications_work', 'likesCount'),
+              commentsCount: BuiltValueNullFieldError.checkNotNull(
+                  commentsCount,
                   r'GViewerNotificationsData_viewer_notifications_work',
-                  'title'),
+                  'commentsCount'),
+              createdAt: BuiltValueNullFieldError.checkNotNull(
+                  createdAt, r'GViewerNotificationsData_viewer_notifications_work', 'createdAt'),
               thumbnailImage: _thumbnailImage?.build());
     } catch (_) {
       late String _$failedField;

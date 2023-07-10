@@ -12,6 +12,9 @@ abstract class GPartialWorkFields {
   String get G__typename;
   String get id;
   String get title;
+  int get likesCount;
+  int get commentsCount;
+  int get createdAt;
   GPartialWorkFields_thumbnailImage? get thumbnailImage;
   Map<String, dynamic> toJson();
 }
@@ -42,6 +45,12 @@ abstract class GPartialWorkFieldsData
   String get id;
   @override
   String get title;
+  @override
+  int get likesCount;
+  @override
+  int get commentsCount;
+  @override
+  int get createdAt;
   @override
   GPartialWorkFieldsData_thumbnailImage? get thumbnailImage;
   static Serializer<GPartialWorkFieldsData> get serializer =>

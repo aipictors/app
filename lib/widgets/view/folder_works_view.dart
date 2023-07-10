@@ -21,21 +21,21 @@ class FolderWorksView extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
-    return SingleChildScrollView(
-      child: OperationBuilder(
-        client: client,
-        operationRequest: GFolderWorksReq((builder) {
-          return builder
-            ..vars.folderId = folderId
-            ..vars.limit = 16
-            ..vars.offset = 0;
-        }),
-        isEmpty: (data) {
-          return data?.folder?.works.isEmpty;
-        },
-        builder: (data) {
-          final works = data.folder!.works;
-          return WorksGridView(
+    return OperationBuilder(
+      client: client,
+      operationRequest: GFolderWorksReq((builder) {
+        return builder
+          ..vars.folderId = folderId
+          ..vars.limit = 16
+          ..vars.offset = 0;
+      }),
+      isEmpty: (data) {
+        return data?.folder?.works.isEmpty;
+      },
+      builder: (data) {
+        final works = data.folder!.works;
+        return SingleChildScrollView(
+          child: WorksGridView(
             itemCount: works.length,
             itemBuilder: (context, index) {
               final work = works[index];
@@ -50,9 +50,9 @@ class FolderWorksView extends HookConsumerWidget {
                 },
               );
             },
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }

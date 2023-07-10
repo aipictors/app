@@ -27,7 +27,7 @@ class WorkBottomAppContainer extends HookConsumerWidget {
             children: [
               LikeButton(
                 isLiked: isLikedInMemory.value,
-                likeBuilder: (bool isLiked) {
+                likeBuilder: (isLiked) {
                   return Icon(
                     Icons.favorite_rounded,
                     size: 28,

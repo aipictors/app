@@ -55,6 +55,12 @@ abstract class GHotWorksData_hotWorks
   @override
   String get title;
   @override
+  int get likesCount;
+  @override
+  int get commentsCount;
+  @override
+  int get createdAt;
+  @override
   GHotWorksData_hotWorks_thumbnailImage? get thumbnailImage;
   static Serializer<GHotWorksData_hotWorks> get serializer =>
       _$gHotWorksDataHotWorksSerializer;

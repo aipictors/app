@@ -1,6 +1,9 @@
 fragment PartialWorkFields on WorkNode {
   id
   title
+  likesCount
+  commentsCount
+  createdAt
   thumbnailImage {
     id
     downloadURL

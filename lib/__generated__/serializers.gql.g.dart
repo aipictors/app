@@ -184,6 +184,15 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GUserWorksVars.serializer)
       ..add(GUserWorksWhereInput.serializer)
       ..add(GUsersWhereInput.serializer)
+      ..add(GViewerFeedWorksData.serializer)
+      ..add(GViewerFeedWorksData_viewer.serializer)
+      ..add(GViewerFeedWorksData_viewer_feedWorks.serializer)
+      ..add(GViewerFeedWorksData_viewer_feedWorks_thumbnailImage.serializer)
+      ..add(GViewerFeedWorksData_viewer_feedWorks_user.serializer)
+      ..add(GViewerFeedWorksData_viewer_feedWorks_user_iconImage.serializer)
+      ..add(GViewerFeedWorksData_viewer_feedWorks_viewer.serializer)
+      ..add(GViewerFeedWorksReq.serializer)
+      ..add(GViewerFeedWorksVars.serializer)
       ..add(GViewerNotificationsData.serializer)
       ..add(GViewerNotificationsData_viewer.serializer)
       ..add(GViewerNotificationsData_viewer_notifications.serializer)
@@ -298,6 +307,10 @@ Serializers _$serializers = (new Serializers().toBuilder()
           const FullType(
               BuiltList, const [const FullType(GUserWorksData_user_works)]),
           () => new ListBuilder<GUserWorksData_user_works>())
+      ..addBuilderFactory(
+          const FullType(BuiltList,
+              const [const FullType(GViewerFeedWorksData_viewer_feedWorks)]),
+          () => new ListBuilder<GViewerFeedWorksData_viewer_feedWorks>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [
             const FullType(GViewerNotificationsData_viewer_notifications)

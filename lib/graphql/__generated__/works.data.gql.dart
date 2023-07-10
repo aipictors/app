@@ -52,6 +52,12 @@ abstract class GWorksData_works
   @override
   String get title;
   @override
+  int get likesCount;
+  @override
+  int get commentsCount;
+  @override
+  int get createdAt;
+  @override
   GWorksData_works_thumbnailImage? get thumbnailImage;
   static Serializer<GWorksData_works> get serializer =>
       _$gWorksDataWorksSerializer;

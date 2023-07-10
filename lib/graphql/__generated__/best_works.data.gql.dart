@@ -56,6 +56,12 @@ abstract class GBestWorksData_bestWorks
   @override
   String get title;
   @override
+  int get likesCount;
+  @override
+  int get commentsCount;
+  @override
+  int get createdAt;
+  @override
   GBestWorksData_bestWorks_thumbnailImage? get thumbnailImage;
   static Serializer<GBestWorksData_bestWorks> get serializer =>
       _$gBestWorksDataBestWorksSerializer;

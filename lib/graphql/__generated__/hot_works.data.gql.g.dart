@@ -88,6 +88,15 @@ class _$GHotWorksData_hotWorksSerializer
       'title',
       serializers.serialize(object.title,
           specifiedType: const FullType(String)),
+      'likesCount',
+      serializers.serialize(object.likesCount,
+          specifiedType: const FullType(int)),
+      'commentsCount',
+      serializers.serialize(object.commentsCount,
+          specifiedType: const FullType(int)),
+      'createdAt',
+      serializers.serialize(object.createdAt,
+          specifiedType: const FullType(int)),
     ];
     Object? value;
     value = object.thumbnailImage;
@@ -124,6 +133,18 @@ class _$GHotWorksData_hotWorksSerializer
         case 'title':
           result.title = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
+          break;
+        case 'likesCount':
+          result.likesCount = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'commentsCount':
+          result.commentsCount = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'createdAt':
+          result.createdAt = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
           break;
         case 'thumbnailImage':
           result.thumbnailImage.replace(serializers.deserialize(value,
@@ -321,6 +342,12 @@ class _$GHotWorksData_hotWorks extends GHotWorksData_hotWorks {
   @override
   final String title;
   @override
+  final int likesCount;
+  @override
+  final int commentsCount;
+  @override
+  final int createdAt;
+  @override
   final GHotWorksData_hotWorks_thumbnailImage? thumbnailImage;
 
   factory _$GHotWorksData_hotWorks(
@@ -331,6 +358,9 @@ class _$GHotWorksData_hotWorks extends GHotWorksData_hotWorks {
       {required this.G__typename,
       required this.id,
       required this.title,
+      required this.likesCount,
+      required this.commentsCount,
+      required this.createdAt,
       this.thumbnailImage})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
@@ -338,6 +368,12 @@ class _$GHotWorksData_hotWorks extends GHotWorksData_hotWorks {
     BuiltValueNullFieldError.checkNotNull(id, r'GHotWorksData_hotWorks', 'id');
     BuiltValueNullFieldError.checkNotNull(
         title, r'GHotWorksData_hotWorks', 'title');
+    BuiltValueNullFieldError.checkNotNull(
+        likesCount, r'GHotWorksData_hotWorks', 'likesCount');
+    BuiltValueNullFieldError.checkNotNull(
+        commentsCount, r'GHotWorksData_hotWorks', 'commentsCount');
+    BuiltValueNullFieldError.checkNotNull(
+        createdAt, r'GHotWorksData_hotWorks', 'createdAt');
   }
 
   @override
@@ -356,6 +392,9 @@ class _$GHotWorksData_hotWorks extends GHotWorksData_hotWorks {
         G__typename == other.G__typename &&
         id == other.id &&
         title == other.title &&
+        likesCount == other.likesCount &&
+        commentsCount == other.commentsCount &&
+        createdAt == other.createdAt &&
         thumbnailImage == other.thumbnailImage;
   }
 
@@ -365,6 +404,9 @@ class _$GHotWorksData_hotWorks extends GHotWorksData_hotWorks {
     _$hash = $jc(_$hash, G__typename.hashCode);
     _$hash = $jc(_$hash, id.hashCode);
     _$hash = $jc(_$hash, title.hashCode);
+    _$hash = $jc(_$hash, likesCount.hashCode);
+    _$hash = $jc(_$hash, commentsCount.hashCode);
+    _$hash = $jc(_$hash, createdAt.hashCode);
     _$hash = $jc(_$hash, thumbnailImage.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -376,6 +418,9 @@ class _$GHotWorksData_hotWorks extends GHotWorksData_hotWorks {
           ..add('G__typename', G__typename)
           ..add('id', id)
           ..add('title', title)
+          ..add('likesCount', likesCount)
+          ..add('commentsCount', commentsCount)
+          ..add('createdAt', createdAt)
           ..add('thumbnailImage', thumbnailImage))
         .toString();
   }
@@ -397,6 +442,19 @@ class GHotWorksData_hotWorksBuilder
   String? get title => _$this._title;
   set title(String? title) => _$this._title = title;
 
+  int? _likesCount;
+  int? get likesCount => _$this._likesCount;
+  set likesCount(int? likesCount) => _$this._likesCount = likesCount;
+
+  int? _commentsCount;
+  int? get commentsCount => _$this._commentsCount;
+  set commentsCount(int? commentsCount) =>
+      _$this._commentsCount = commentsCount;
+
+  int? _createdAt;
+  int? get createdAt => _$this._createdAt;
+  set createdAt(int? createdAt) => _$this._createdAt = createdAt;
+
   GHotWorksData_hotWorks_thumbnailImageBuilder? _thumbnailImage;
   GHotWorksData_hotWorks_thumbnailImageBuilder get thumbnailImage =>
       _$this._thumbnailImage ??=
@@ -415,6 +473,9 @@ class GHotWorksData_hotWorksBuilder
       _G__typename = $v.G__typename;
       _id = $v.id;
       _title = $v.title;
+      _likesCount = $v.likesCount;
+      _commentsCount = $v.commentsCount;
+      _createdAt = $v.createdAt;
       _thumbnailImage = $v.thumbnailImage?.toBuilder();
       _$v = null;
     }
@@ -446,6 +507,12 @@ class GHotWorksData_hotWorksBuilder
                   id, r'GHotWorksData_hotWorks', 'id'),
               title: BuiltValueNullFieldError.checkNotNull(
                   title, r'GHotWorksData_hotWorks', 'title'),
+              likesCount: BuiltValueNullFieldError.checkNotNull(
+                  likesCount, r'GHotWorksData_hotWorks', 'likesCount'),
+              commentsCount: BuiltValueNullFieldError.checkNotNull(
+                  commentsCount, r'GHotWorksData_hotWorks', 'commentsCount'),
+              createdAt: BuiltValueNullFieldError.checkNotNull(
+                  createdAt, r'GHotWorksData_hotWorks', 'createdAt'),
               thumbnailImage: _thumbnailImage?.build());
     } catch (_) {
       late String _$failedField;

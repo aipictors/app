@@ -89,6 +89,15 @@ class _$GBestWorksData_bestWorksSerializer
       'title',
       serializers.serialize(object.title,
           specifiedType: const FullType(String)),
+      'likesCount',
+      serializers.serialize(object.likesCount,
+          specifiedType: const FullType(int)),
+      'commentsCount',
+      serializers.serialize(object.commentsCount,
+          specifiedType: const FullType(int)),
+      'createdAt',
+      serializers.serialize(object.createdAt,
+          specifiedType: const FullType(int)),
     ];
     Object? value;
     value = object.thumbnailImage;
@@ -125,6 +134,18 @@ class _$GBestWorksData_bestWorksSerializer
         case 'title':
           result.title = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
+          break;
+        case 'likesCount':
+          result.likesCount = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'commentsCount':
+          result.commentsCount = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'createdAt':
+          result.createdAt = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
           break;
         case 'thumbnailImage':
           result.thumbnailImage.replace(serializers.deserialize(value,
@@ -323,6 +344,12 @@ class _$GBestWorksData_bestWorks extends GBestWorksData_bestWorks {
   @override
   final String title;
   @override
+  final int likesCount;
+  @override
+  final int commentsCount;
+  @override
+  final int createdAt;
+  @override
   final GBestWorksData_bestWorks_thumbnailImage? thumbnailImage;
 
   factory _$GBestWorksData_bestWorks(
@@ -333,6 +360,9 @@ class _$GBestWorksData_bestWorks extends GBestWorksData_bestWorks {
       {required this.G__typename,
       required this.id,
       required this.title,
+      required this.likesCount,
+      required this.commentsCount,
+      required this.createdAt,
       this.thumbnailImage})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
@@ -341,6 +371,12 @@ class _$GBestWorksData_bestWorks extends GBestWorksData_bestWorks {
         id, r'GBestWorksData_bestWorks', 'id');
     BuiltValueNullFieldError.checkNotNull(
         title, r'GBestWorksData_bestWorks', 'title');
+    BuiltValueNullFieldError.checkNotNull(
+        likesCount, r'GBestWorksData_bestWorks', 'likesCount');
+    BuiltValueNullFieldError.checkNotNull(
+        commentsCount, r'GBestWorksData_bestWorks', 'commentsCount');
+    BuiltValueNullFieldError.checkNotNull(
+        createdAt, r'GBestWorksData_bestWorks', 'createdAt');
   }
 
   @override
@@ -359,6 +395,9 @@ class _$GBestWorksData_bestWorks extends GBestWorksData_bestWorks {
         G__typename == other.G__typename &&
         id == other.id &&
         title == other.title &&
+        likesCount == other.likesCount &&
+        commentsCount == other.commentsCount &&
+        createdAt == other.createdAt &&
         thumbnailImage == other.thumbnailImage;
   }
 
@@ -368,6 +407,9 @@ class _$GBestWorksData_bestWorks extends GBestWorksData_bestWorks {
     _$hash = $jc(_$hash, G__typename.hashCode);
     _$hash = $jc(_$hash, id.hashCode);
     _$hash = $jc(_$hash, title.hashCode);
+    _$hash = $jc(_$hash, likesCount.hashCode);
+    _$hash = $jc(_$hash, commentsCount.hashCode);
+    _$hash = $jc(_$hash, createdAt.hashCode);
     _$hash = $jc(_$hash, thumbnailImage.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -379,6 +421,9 @@ class _$GBestWorksData_bestWorks extends GBestWorksData_bestWorks {
           ..add('G__typename', G__typename)
           ..add('id', id)
           ..add('title', title)
+          ..add('likesCount', likesCount)
+          ..add('commentsCount', commentsCount)
+          ..add('createdAt', createdAt)
           ..add('thumbnailImage', thumbnailImage))
         .toString();
   }
@@ -401,6 +446,19 @@ class GBestWorksData_bestWorksBuilder
   String? get title => _$this._title;
   set title(String? title) => _$this._title = title;
 
+  int? _likesCount;
+  int? get likesCount => _$this._likesCount;
+  set likesCount(int? likesCount) => _$this._likesCount = likesCount;
+
+  int? _commentsCount;
+  int? get commentsCount => _$this._commentsCount;
+  set commentsCount(int? commentsCount) =>
+      _$this._commentsCount = commentsCount;
+
+  int? _createdAt;
+  int? get createdAt => _$this._createdAt;
+  set createdAt(int? createdAt) => _$this._createdAt = createdAt;
+
   GBestWorksData_bestWorks_thumbnailImageBuilder? _thumbnailImage;
   GBestWorksData_bestWorks_thumbnailImageBuilder get thumbnailImage =>
       _$this._thumbnailImage ??=
@@ -419,6 +477,9 @@ class GBestWorksData_bestWorksBuilder
       _G__typename = $v.G__typename;
       _id = $v.id;
       _title = $v.title;
+      _likesCount = $v.likesCount;
+      _commentsCount = $v.commentsCount;
+      _createdAt = $v.createdAt;
       _thumbnailImage = $v.thumbnailImage?.toBuilder();
       _$v = null;
     }
@@ -450,6 +511,12 @@ class GBestWorksData_bestWorksBuilder
                   id, r'GBestWorksData_bestWorks', 'id'),
               title: BuiltValueNullFieldError.checkNotNull(
                   title, r'GBestWorksData_bestWorks', 'title'),
+              likesCount: BuiltValueNullFieldError.checkNotNull(
+                  likesCount, r'GBestWorksData_bestWorks', 'likesCount'),
+              commentsCount: BuiltValueNullFieldError.checkNotNull(
+                  commentsCount, r'GBestWorksData_bestWorks', 'commentsCount'),
+              createdAt: BuiltValueNullFieldError.checkNotNull(
+                  createdAt, r'GBestWorksData_bestWorks', 'createdAt'),
               thumbnailImage: _thumbnailImage?.build());
     } catch (_) {
       late String _$failedField;

@@ -7,7 +7,7 @@ class FollowButton extends HookConsumerWidget {
   @override
   Widget build(context, ref) {
     return FilledButton.tonal(
-      style: const ButtonStyle(
+      style: FilledButton.styleFrom(
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
       ),
       onPressed: () {},

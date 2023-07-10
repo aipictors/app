@@ -81,6 +81,12 @@ abstract class GTagWorksData_tag_works
   @override
   String get title;
   @override
+  int get likesCount;
+  @override
+  int get commentsCount;
+  @override
+  int get createdAt;
+  @override
   GTagWorksData_tag_works_thumbnailImage? get thumbnailImage;
   static Serializer<GTagWorksData_tag_works> get serializer =>
       _$gTagWorksDataTagWorksSerializer;
