@@ -50,6 +50,9 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GDailyThemeData_dailyTheme.serializer)
       ..add(GDailyThemeData_dailyTheme_works.serializer)
       ..add(GDailyThemeData_dailyTheme_works_thumbnailImage.serializer)
+      ..add(GDailyThemeData_dailyTheme_works_user.serializer)
+      ..add(GDailyThemeData_dailyTheme_works_user_iconImage.serializer)
+      ..add(GDailyThemeData_dailyTheme_works_viewer.serializer)
       ..add(GDailyThemeReq.serializer)
       ..add(GDailyThemeVars.serializer)
       ..add(GDailyThemesData.serializer)
@@ -65,6 +68,22 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GDeleteWorkBookmarkInput.serializer)
       ..add(GDeleteWorkInput.serializer)
       ..add(GDeleteWorkLikeInput.serializer)
+      ..add(GFeedHotWorksData.serializer)
+      ..add(GFeedHotWorksData_hotWorks.serializer)
+      ..add(GFeedHotWorksData_hotWorks_thumbnailImage.serializer)
+      ..add(GFeedHotWorksData_hotWorks_user.serializer)
+      ..add(GFeedHotWorksData_hotWorks_user_iconImage.serializer)
+      ..add(GFeedHotWorksData_hotWorks_viewer.serializer)
+      ..add(GFeedHotWorksReq.serializer)
+      ..add(GFeedHotWorksVars.serializer)
+      ..add(GFeedWorksData.serializer)
+      ..add(GFeedWorksData_works.serializer)
+      ..add(GFeedWorksData_works_thumbnailImage.serializer)
+      ..add(GFeedWorksData_works_user.serializer)
+      ..add(GFeedWorksData_works_user_iconImage.serializer)
+      ..add(GFeedWorksData_works_viewer.serializer)
+      ..add(GFeedWorksReq.serializer)
+      ..add(GFeedWorksVars.serializer)
       ..add(GFolderData.serializer)
       ..add(GFolderData_folder.serializer)
       ..add(GFolderData_folder_thumbnailImage.serializer)
@@ -272,6 +291,14 @@ Serializers _$serializers = (new Serializers().toBuilder()
           const FullType(
               BuiltList, const [const FullType(GDailyThemesData_dailyThemes)]),
           () => new ListBuilder<GDailyThemesData_dailyThemes>())
+      ..addBuilderFactory(
+          const FullType(
+              BuiltList, const [const FullType(GFeedHotWorksData_hotWorks)]),
+          () => new ListBuilder<GFeedHotWorksData_hotWorks>())
+      ..addBuilderFactory(
+          const FullType(
+              BuiltList, const [const FullType(GFeedWorksData_works)]),
+          () => new ListBuilder<GFeedWorksData_works>())
       ..addBuilderFactory(
           const FullType(
               BuiltList, const [const FullType(GFolderWorksData_folder_works)]),

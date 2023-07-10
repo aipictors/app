@@ -1,14 +1,10 @@
-import 'package:aipictors/graphql/__generated__/hot_works.req.gql.dart';
+import 'package:aipictors/__generated__/schema.schema.gql.dart';
+import 'package:aipictors/graphql/__generated__/feed_works.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
-import 'package:aipictors/widgets/container/error/data_not_found_error_container.dart';
-import 'package:aipictors/widgets/container/error/empty_error_container.dart';
-import 'package:aipictors/widgets/container/error/unexpected_error_container.dart';
+import 'package:aipictors/widgets/builder/operation_builder.dart';
 import 'package:aipictors/widgets/container/loading_container.dart';
-import 'package:aipictors/widgets/image/grid_work_image.dart';
-import 'package:ferry_flutter/ferry_flutter.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:aipictors/widgets/list/feed_work_list_tile.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class FeedLatestWorksScreen extends HookConsumerWidget {
@@ -24,46 +20,39 @@ class FeedLatestWorksScreen extends HookConsumerWidget {
       return const LoadingContainer();
     }
 
-    return Operation(
+    final request = GFeedWorksReq((builder) {
+      return builder
+        ..vars.limit = 16
+        ..vars.offset = 0
+        ..vars.where.rating = GRating.G;
+    });
+
+    return OperationBuilder(
       client: client.value!,
-      operationRequest: GHotWorksReq((builder) {
-        return builder;
-      }),
-      builder: (context, response, error) {
-        if (error != null) {
-          return const UnexpectedErrorContainer();
-        }
-        if (response == null || response.loading) {
-          return const LoadingContainer();
-        }
-        if (response.graphqlErrors != null) {
-          return const UnexpectedErrorContainer();
-        }
-        final works = response.data?.hotWorks;
-        if (works == null) {
-          return const DataNotFoundErrorContainer();
-        }
-        if (works.isEmpty) {
-          return const EmptyErrorContainer();
-        }
-        return GridView.builder(
-          key: const PageStorageKey('feed_latest_works'),
-          // physics: const ClampingScrollPhysics(),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-          ),
-          itemCount: works.length,
+      operationRequest: request,
+      isEmpty: (data) {
+        return data?.works?.isEmpty;
+      },
+      builder: (data) {
+        return ListView.separated(
+          key: const PageStorageKey('feed_home'),
+          separatorBuilder: (context, index) {
+            return const Divider(height: 0);
+          },
+          itemCount: data.works!.length,
           itemBuilder: (context, index) {
-            final work = works[index];
-            return InkWell(
-              onTap: () {
-                FirebaseAnalytics.instance.logSelectContent(
-                  contentType: 'work',
-                  itemId: work.id,
-                );
-                context.push('/works/${work.id}');
-              },
-              child: GridWorkImage(imageUrl: work.thumbnailImage!.downloadURL),
+            final work = data.works![index];
+            return FeedWorkListTile(
+              workId: work.id,
+              workTitle: work.title,
+              workImageURL: work.thumbnailImage!.downloadURL,
+              workCreatedAt: work.createdAt,
+              userName: work.user.name,
+              userIconImageURL: work.user.iconImage?.downloadURL,
+              likesCount: work.likesCount,
+              commentsCount: work.commentsCount,
+              isLiked: work.viewer.isLiked,
+              isBookmarked: work.viewer.isBookmarked,
             );
           },
         );

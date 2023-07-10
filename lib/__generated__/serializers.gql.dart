@@ -77,6 +77,35 @@ import 'package:aipictors/graphql/__generated__/daily_themes.req.gql.dart'
     show GDailyThemesReq;
 import 'package:aipictors/graphql/__generated__/daily_themes.var.gql.dart'
     show GDailyThemesVars;
+import 'package:aipictors/graphql/__generated__/feed_daily_theme_works.data.gql.dart'
+    show
+        GDailyThemeData_dailyTheme_works_user,
+        GDailyThemeData_dailyTheme_works_user_iconImage,
+        GDailyThemeData_dailyTheme_works_viewer;
+import 'package:aipictors/graphql/__generated__/feed_hot_works.data.gql.dart'
+    show
+        GFeedHotWorksData,
+        GFeedHotWorksData_hotWorks,
+        GFeedHotWorksData_hotWorks_thumbnailImage,
+        GFeedHotWorksData_hotWorks_user,
+        GFeedHotWorksData_hotWorks_user_iconImage,
+        GFeedHotWorksData_hotWorks_viewer;
+import 'package:aipictors/graphql/__generated__/feed_hot_works.req.gql.dart'
+    show GFeedHotWorksReq;
+import 'package:aipictors/graphql/__generated__/feed_hot_works.var.gql.dart'
+    show GFeedHotWorksVars;
+import 'package:aipictors/graphql/__generated__/feed_works.data.gql.dart'
+    show
+        GFeedWorksData,
+        GFeedWorksData_works,
+        GFeedWorksData_works_thumbnailImage,
+        GFeedWorksData_works_user,
+        GFeedWorksData_works_user_iconImage,
+        GFeedWorksData_works_viewer;
+import 'package:aipictors/graphql/__generated__/feed_works.req.gql.dart'
+    show GFeedWorksReq;
+import 'package:aipictors/graphql/__generated__/feed_works.var.gql.dart'
+    show GFeedWorksVars;
 import 'package:aipictors/graphql/__generated__/folder.data.gql.dart'
     show
         GFolderData,
@@ -421,6 +450,9 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GDailyThemeData_dailyTheme,
   GDailyThemeData_dailyTheme_works,
   GDailyThemeData_dailyTheme_works_thumbnailImage,
+  GDailyThemeData_dailyTheme_works_user,
+  GDailyThemeData_dailyTheme_works_user_iconImage,
+  GDailyThemeData_dailyTheme_works_viewer,
   GDailyThemeReq,
   GDailyThemeVars,
   GDailyThemesData,
@@ -436,6 +468,22 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GDeleteWorkBookmarkInput,
   GDeleteWorkInput,
   GDeleteWorkLikeInput,
+  GFeedHotWorksData,
+  GFeedHotWorksData_hotWorks,
+  GFeedHotWorksData_hotWorks_thumbnailImage,
+  GFeedHotWorksData_hotWorks_user,
+  GFeedHotWorksData_hotWorks_user_iconImage,
+  GFeedHotWorksData_hotWorks_viewer,
+  GFeedHotWorksReq,
+  GFeedHotWorksVars,
+  GFeedWorksData,
+  GFeedWorksData_works,
+  GFeedWorksData_works_thumbnailImage,
+  GFeedWorksData_works_user,
+  GFeedWorksData_works_user_iconImage,
+  GFeedWorksData_works_viewer,
+  GFeedWorksReq,
+  GFeedWorksVars,
   GFolderData,
   GFolderData_folder,
   GFolderData_folder_thumbnailImage,
