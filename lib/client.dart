@@ -7,7 +7,7 @@ import 'package:gql_http_link/gql_http_link.dart';
 Future<Client> createClient() async {
   final cache = createCache();
 
-  final token = await FirebaseAuth.instance.currentUser?.getIdToken(false);
+  final token = await FirebaseAuth.instance.currentUser?.getIdToken(true);
 
   final httpLink = HttpLink(
     DefaultConfig.graphqlURI,

@@ -28,13 +28,13 @@ class DailyThemeListTile extends HookConsumerWidget {
   @override
   Widget build(context, ref) {
     return ListTile(
-      minVerticalPadding: 16,
-      // contentPadding: const EdgeInsets.only(
-      //   right: 24,
-      //   left: 16,
-      //   top: 8,
-      //   bottom: 8,
-      // ),
+      minVerticalPadding: 0,
+      contentPadding: const EdgeInsets.only(
+        right: 16,
+        left: 16,
+        top: 0,
+        bottom: 0,
+      ),
       tileColor: isCurrent
           ? Theme.of(context).colorScheme.primaryContainer
           : Colors.transparent,

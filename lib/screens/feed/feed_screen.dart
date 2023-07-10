@@ -1,4 +1,4 @@
-import 'package:aipictors/screens/feed/feed_daily_theme_screen.dart';
+import 'package:aipictors/screens/feed/feed_daily_theme_works_screen.dart';
 import 'package:aipictors/screens/feed/feed_home_view.dart';
 import 'package:aipictors/screens/feed/feed_hot_works_screen.dart';
 import 'package:aipictors/screens/feed/feed_latest_works_screen.dart';
@@ -35,7 +35,7 @@ class FeedScreen extends HookConsumerWidget {
         resizeToAvoidBottomInset: true,
         body: const TabBarView(children: [
           FeedHomeView(),
-          FeedDailyThemeScreen(),
+          FeedDailyThemeWorksScreen(),
           FeedLatestWorksScreen(),
           FeedHotWorksScreen(),
         ]),

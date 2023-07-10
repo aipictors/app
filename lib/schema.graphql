@@ -475,7 +475,7 @@ type Query {
   folders(offset: Int!, limit: Int!, where: FoldersWhereInput): [FolderNode!]
 
   """日別テーマ"""
-  dailyTheme(id: ID!): DailyThemeNode
+  dailyTheme(id: ID, year: Int, month: Int, day: Int): DailyThemeNode
 
   """日別テーマ"""
   dailyThemes(offset: Int!, limit: Int!, where: DailyThemesWhereInput): [DailyThemeNode!]!
