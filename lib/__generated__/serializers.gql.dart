@@ -57,16 +57,6 @@ import 'package:aipictors/graphql/__generated__/best_works.req.gql.dart'
     show GBestWorksReq;
 import 'package:aipictors/graphql/__generated__/best_works.var.gql.dart'
     show GBestWorksVars;
-import 'package:aipictors/graphql/__generated__/daily_theme.data.gql.dart'
-    show
-        GDailyThemeData,
-        GDailyThemeData_dailyTheme,
-        GDailyThemeData_dailyTheme_works,
-        GDailyThemeData_dailyTheme_works_thumbnailImage;
-import 'package:aipictors/graphql/__generated__/daily_theme.req.gql.dart'
-    show GDailyThemeReq;
-import 'package:aipictors/graphql/__generated__/daily_theme.var.gql.dart'
-    show GDailyThemeVars;
 import 'package:aipictors/graphql/__generated__/daily_themes.data.gql.dart'
     show
         GDailyThemesData,
@@ -79,9 +69,17 @@ import 'package:aipictors/graphql/__generated__/daily_themes.var.gql.dart'
     show GDailyThemesVars;
 import 'package:aipictors/graphql/__generated__/feed_daily_theme_works.data.gql.dart'
     show
+        GDailyThemeData,
+        GDailyThemeData_dailyTheme,
+        GDailyThemeData_dailyTheme_works,
+        GDailyThemeData_dailyTheme_works_thumbnailImage,
         GDailyThemeData_dailyTheme_works_user,
         GDailyThemeData_dailyTheme_works_user_iconImage,
         GDailyThemeData_dailyTheme_works_viewer;
+import 'package:aipictors/graphql/__generated__/feed_daily_theme_works.req.gql.dart'
+    show GDailyThemeReq;
+import 'package:aipictors/graphql/__generated__/feed_daily_theme_works.var.gql.dart'
+    show GDailyThemeVars;
 import 'package:aipictors/graphql/__generated__/feed_hot_works.data.gql.dart'
     show
         GFeedHotWorksData,
