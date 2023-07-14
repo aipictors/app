@@ -1,24 +1,4 @@
-directive @cacheControl(maxAge: Int, scope: CacheControlScope, inheritMaxAge: Boolean) on FIELD_DEFINITION | OBJECT | INTERFACE | UNION
-
-directive @link(url: String, as: String, for: link__Purpose, import: [link__Import]) on SCHEMA
-
-directive @key(fields: federation__FieldSet!, resolvable: Boolean = true) on OBJECT | INTERFACE
-
-directive @federation__requires(fields: federation__FieldSet!) on FIELD_DEFINITION
-
-directive @federation__provides(fields: federation__FieldSet!) on FIELD_DEFINITION
-
-directive @federation__external(reason: String) on OBJECT | FIELD_DEFINITION
-
-directive @federation__tag(name: String!) on FIELD_DEFINITION | OBJECT | INTERFACE | UNION | ARGUMENT_DEFINITION | SCALAR | ENUM | ENUM_VALUE | INPUT_OBJECT | INPUT_FIELD_DEFINITION
-
-directive @federation__extends on OBJECT | INTERFACE
-
-directive @shareable on OBJECT | FIELD_DEFINITION
-
-directive @federation__inaccessible on FIELD_DEFINITION | OBJECT | INTERFACE | UNION | ARGUMENT_DEFINITION | SCALAR | ENUM | ENUM_VALUE | INPUT_OBJECT | INPUT_FIELD_DEFINITION
-
-directive @federation__override(from: String!) on FIELD_DEFINITION
+directive @defer(label: String, if: Boolean! = true) on FRAGMENT_SPREAD | INLINE_FRAGMENT
 
 """Exposes a URL that specifies the behavior of this scalar."""
 directive @specifiedBy(
@@ -26,12 +6,8 @@ directive @specifiedBy(
   url: String!
 ) on SCALAR
 
-scalar _Any
-
-union _Entity = CommentNode | ContributorNode | DailyThemeNode | FolderLikeNode | FolderNode | FriendshipNode | ImageNode | MutedTagNode | MutedUserNode | NotificationNode | StickerNode | SubWorkNode | TagNode | UserNode | UserSettingNode | WorkAwardNode | WorkBookmarkNode | WorkEventNode | WorkLikeNode | WorkNode | WorkViewerNode
-
-type _Service {
-  sdl: String
+input AcceptPromptonRequestInput {
+  requestId: String!
 }
 
 enum AccessType {
@@ -46,6 +22,16 @@ enum AccessType {
 
   """限定公開"""
   LIMITED
+}
+
+input AddPromptonTagToWorkInput {
+  workId: String!
+  tagNameJA: String!
+}
+
+input AddPromptonWorkToFolderInput {
+  folderId: String!
+  workId: String!
 }
 
 input AwardsWhereInput {
@@ -64,9 +50,27 @@ enum AwardType {
   DAILY_NO_THEME
 }
 
+input BlockPromptonUserInput {
+  userId: String!
+}
+
 enum CacheControlScope {
   PUBLIC
   PRIVATE
+}
+
+input CancelPromptonRequestInput {
+  requestId: String!
+}
+
+input ChangePromptonFolderToPaidInput {
+  folderId: String!
+  price: Int!
+  featureCommercialUse: Boolean!
+}
+
+input ClosePromptonRequestInput {
+  requestId: String!
 }
 
 """コメント"""
@@ -82,6 +86,12 @@ type CommentNode implements Node {
   createdAt: Int!
   text: String!
   responses(offset: Int!, limit: Int!): [CommentNode!]!
+}
+
+interface Connection {
+  totalCount: Int
+  pageInfo: PageInfo!
+  edges: [Edge!]!
 }
 
 """コントリビューター"""
@@ -112,6 +122,156 @@ enum ContributorType {
 
 input CreateFolderInput {
   title: String!
+}
+
+input CreatePromptonChatMessageInput {
+  text: String!
+}
+
+input CreatePromptonCoffeeRequestInput {
+  note: String!
+  recipientId: String!
+}
+
+input CreatePromptonDeliverableInput {
+  requestId: String!
+  fileId: String!
+  name: String
+  description: String
+  fileType: String!
+}
+
+input CreatePromptonFileInput {
+  fileId: String!
+  fileType: String!
+  width: Int
+  height: Int
+  path: String!
+}
+
+input CreatePromptonFolderInput {
+  name: String!
+  description: String!
+  isPublic: Boolean!
+}
+
+input CreatePromptonFolderKeyInput {
+  folderId: String!
+}
+
+input CreatePromptonFolderViewInput {
+  folderId: String!
+}
+
+input CreatePromptonInquiryInput {
+  name: String!
+  companyName: String
+  email: String!
+  phoneNumber: String
+  body: String!
+}
+
+input CreatePromptonPaymentMethodInput {
+  redirectURL: String
+}
+
+type CreatePromptonPaymentMethodResult {
+  checkoutURL: String!
+}
+
+input CreatePromptonPlanInput {
+  category: String!
+  name: String!
+  description: String!
+  message: String!
+  unitPrice: Int!
+  minimumQuantity: Int!
+  maximumQuantity: Int!
+  styleSlugs: [String!]!
+  objectSlugs: [String!]!
+  featurePrivate: Boolean!
+  featureCopyrightFree: Boolean!
+  featureCommercialUse: Boolean!
+  featureFanFiction: Boolean!
+  imageFileId: String
+}
+
+input CreatePromptonPlanRequestInput {
+  planId: String!
+  quantity: Int!
+  note: String!
+  recipientId: String!
+  fileIds: [String!]!
+}
+
+input CreatePromptonPlanViewInput {
+  planId: String!
+}
+
+input CreatePromptonProfileBlockInput {
+  siteURL: String
+  title: String
+  description: String
+}
+
+input CreatePromptonPromptCategoryInput {
+  name: String!
+  description: String
+  slug: String!
+}
+
+input CreatePromptonPromptInput {
+  name: String
+  description: String
+  text: String!
+  isNsfw: Boolean!
+  isBase: Boolean!
+  isSingle: Boolean!
+}
+
+input CreatePromptonPromptWorkInput {
+  fileId: String!
+  fileName: String!
+  isPublic: Boolean!
+  promptId: String!
+}
+
+input CreatePromptonReactionInput {
+  workId: String!
+  text: String!
+}
+
+input CreatePromptonThumbnailFileInput {
+  fileId: String!
+  originalFileId: String!
+}
+
+input CreatePromptonUserInput {
+  name: String!
+}
+
+input CreatePromptonUserViewInput {
+  userId: String!
+}
+
+input CreatePromptonWorkBookmarkInput {
+  workId: String!
+}
+
+input CreatePromptonWorkInput {
+  fileId: String!
+  fileName: String!
+  folderId: String
+  tagNameJA: String
+  fileType: String!
+}
+
+input CreatePromptonWorkLikeInput {
+  workId: String!
+}
+
+input CreatePromptonWorkViewInput {
+  workId: String!
 }
 
 input CreateResponseCommentInput {
@@ -186,12 +346,61 @@ input DailyThemesWhereInput {
   endDate: String
 }
 
+input DecrementPromptonPlanSort {
+  planId: String!
+}
+
+input DecrementPromptonProfileBlockIndexInput {
+  profileBlockId: String!
+}
+
 input DeleteCommentInput {
   commentId: ID!
 }
 
 input DeleteFolderInput {
   folderId: ID!
+}
+
+input DeletePromptonFolderInput {
+  folderId: String!
+}
+
+input DeletePromptonIntegrationInput {
+  integrationId: String!
+}
+
+input DeletePromptonPlanInput {
+  planId: String!
+}
+
+input DeletePromptonProfileBlockInput {
+  profileBlockId: String!
+}
+
+input DeletePromptonPromptCategoryInput {
+  promptCategoryId: String!
+}
+
+input DeletePromptonPromptInput {
+  promptId: String!
+}
+
+input DeletePromptonReactionInput {
+  workId: String!
+  text: String!
+}
+
+input DeletePromptonWorkBookmarkInput {
+  workId: String!
+}
+
+input DeletePromptonWorkInput {
+  workId: String!
+}
+
+input DeletePromptonWorkLikeInput {
+  workId: String!
 }
 
 input DeleteStickerInput {
@@ -210,7 +419,16 @@ input DeleteWorkLikeInput {
   workId: ID!
 }
 
-scalar federation__FieldSet
+interface Edge {
+  cursor: String!
+  node: Node!
+}
+
+input FlipPromptonFolderWorkIndexInput {
+  folderId: String!
+  workId: String!
+  nextWorkId: String!
+}
 
 """作品のフォルダのイイネ"""
 type FolderLikeNode implements Node {
@@ -224,6 +442,12 @@ type FolderLikeNode implements Node {
 
   """フォルダ"""
   folder: FolderNode!
+}
+
+enum FolderMode {
+  NORMAL
+  COMIC_VERTICAL
+  COMIC_HORIZONTAL
 }
 
 """作品のフォルダ"""
@@ -267,6 +491,10 @@ input FoldersWhereInput {
   search: String
 }
 
+input FollowPromptonUserInput {
+  userId: String!
+}
+
 input FollowUserInput {
   userId: ID!
 }
@@ -292,18 +520,12 @@ type ImageNode implements Node {
   type: String!
 }
 
-scalar link__Import
+input IncrementPromptonProfileBlockIndexInput {
+  profileBlockId: String!
+}
 
-enum link__Purpose {
-  """
-  `SECURITY` features provide metadata necessary to securely resolve fields.
-  """
-  SECURITY
-
-  """
-  `EXECUTION` features provide metadata necessary for operation execution.
-  """
-  EXECUTION
+input LoginPromptonInput {
+  token: String!
 }
 
 type LoginResult {
@@ -313,6 +535,34 @@ type LoginResult {
 input LoginWithPasswordInput {
   login: String!
   password: String!
+}
+
+input MarkPromptonFolderAsPrivateInput {
+  folderId: String!
+}
+
+input MarkPromptonFolderAsPublicInput {
+  folderId: String!
+}
+
+input MarkPromptonPlanAsPrivateInput {
+  planId: String!
+}
+
+input MarkPromptonPlanAsPublicInput {
+  planId: String!
+}
+
+input MarkPromptonWorkAsPrivateInput {
+  workId: String!
+}
+
+input MarkPromptonWorkAsPublicInput {
+  workId: String!
+}
+
+input MarkPromptonWorkAsUserHeaderInput {
+  workId: String!
 }
 
 type Mutation {
@@ -386,6 +636,204 @@ type Mutation {
 
   """フォルダを削除する"""
   deleteFolder(input: DeleteFolderInput!): FolderNode!
+
+  """ユーザを作成する"""
+  createPromptonChatMessage(input: CreatePromptonChatMessageInput!): [PromptonMessageNode!]!
+
+  """ユーザを作成する"""
+  createPromptonUser(input: CreatePromptonUserInput!): Boolean
+
+  """ユーザのアイコンを更新する"""
+  updatePromptonUserAvatar(input: UpdatePromptonUserAvatarInput!): PromptonUserNode!
+
+  """ユーザのヘッダー画像を更新する"""
+  updatePromptonUserHeaderImage(input: UpdatePromptonUserHeaderImageInput!): PromptonUserNode!
+
+  """ユーザのプロフィールを更新する"""
+  updatePromptonUserProfile(input: UpdatePromptonUserProfileInput!): PromptonUserNode!
+
+  """ユーザのユーザ名を更新する"""
+  updatePromptonUserLogin(input: UpdatePromptonUserLoginInput!): PromptonUserNode!
+
+  """ファイルを作成する"""
+  createPromptonFile(input: CreatePromptonFileInput!): PromptonFileNode!
+
+  """サムネイル用のファイルを作成する"""
+  createPromptonThumbnailFile(input: CreatePromptonThumbnailFileInput!): PromptonFileNode!
+
+  """作品を作成する"""
+  createPromptonWork(input: CreatePromptonWorkInput!): PromptonWorkNode!
+
+  """作品を削除する"""
+  deletePromptonWork(input: DeletePromptonWorkInput!): PromptonWorkNode!
+
+  """作品を更新する"""
+  updatePromptonWork(input: UpdatePromptonWorkInput!): PromptonWorkNode!
+
+  """作品を公開にする"""
+  markPromptonWorkAsPublic(input: MarkPromptonWorkAsPublicInput!): PromptonWorkNode!
+
+  """作品を非公開にする"""
+  markPromptonWorkAsPrivate(input: MarkPromptonWorkAsPrivateInput!): PromptonWorkNode!
+
+  """作品をピン留めする"""
+  pinPromptonWork(input: PinPromptonWorkInput!): PromptonWorkNode!
+
+  """作品のピン留めを解除する"""
+  unpinPromptonWork(input: UnpinPromptonWorkInput!): PromptonWorkNode!
+
+  """作品をフォルダに追加する"""
+  addPromptonTagToWork(input: AddPromptonTagToWorkInput!): PromptonWorkNode!
+
+  """作品をフォルダから削除する"""
+  removePromptonTagFromWork(input: RemovePromptonTagFromWorkInput!): PromptonWorkNode!
+
+  """作品のスキを作成する"""
+  createPromptonWorkLike(input: CreatePromptonWorkLikeInput!): PromptonWorkNode!
+
+  """作品のスキを削除する"""
+  deletePromptonWorkLike(input: DeletePromptonWorkLikeInput!): PromptonWorkNode!
+
+  """作品のブックマークを作成する"""
+  createPromptonWorkBookmark(input: CreatePromptonWorkBookmarkInput!): PromptonWorkNode
+
+  """作品のブックマークを削除する"""
+  deletePromptonWorkBookmark(input: DeletePromptonWorkBookmarkInput!): PromptonWorkNode
+
+  """作品をユーザのヘッダーに設定する"""
+  markPromptonWorkAsUserHeader(input: MarkPromptonWorkAsUserHeaderInput!): PromptonUserNode
+
+  """ユーザのプロフィールのインデックスを更新する"""
+  flipPromptonFolderWorkIndex(input: FlipPromptonFolderWorkIndexInput!): [PromptonWorkNode!]!
+
+  """ユーザをフォローする"""
+  followPromptonUser(input: FollowPromptonUserInput!): PromptonUserNode
+
+  """ユーザのフォローは解除する"""
+  unfollowPromptonUser(input: UnfollowPromptonUserInput!): PromptonUserNode
+
+  """ユーザのプロフィールを作成する"""
+  createPromptonProfileBlock(input: CreatePromptonProfileBlockInput!): PromptonUserNode!
+
+  """ユーザのプロフィールを更新する"""
+  updatePromptonProfileBlock(input: UpdatePromptonProfileBlockInput!): PromptonUserNode!
+
+  """ユーザのプロフィールのインデックスを更新する"""
+  incrementPromptonProfileBlockIndex(input: IncrementPromptonProfileBlockIndexInput!): PromptonUserNode!
+
+  """ユーザのプロフィールのインデックスを更新する"""
+  decrementPromptonProfileBlockIndex(input: DecrementPromptonProfileBlockIndexInput!): PromptonUserNode!
+
+  """ユーザのプロフィールのインデックスを更新する"""
+  deletePromptonProfileBlock(input: DeletePromptonProfileBlockInput!): PromptonUserNode!
+
+  """フォルダを作成する"""
+  createPromptonFolder(input: CreatePromptonFolderInput!): PromptonFolderNode!
+
+  """フォルダを更新する"""
+  updatePromptonFolder(input: UpdatePromptonFolderInput!): PromptonFolderNode!
+
+  """フォルダを削除する"""
+  deletePromptonFolder(input: DeletePromptonFolderInput!): PromptonFolderNode!
+
+  """フォルダを公開する"""
+  markPromptonFolderAsPublic(input: MarkPromptonFolderAsPublicInput!): PromptonFolderNode!
+
+  """フォルダを非公開にする"""
+  markPromptonFolderAsPrivate(input: MarkPromptonFolderAsPrivateInput!): PromptonFolderNode!
+
+  """フォルダを有償化にする"""
+  changePromptonFolderToPaid(input: ChangePromptonFolderToPaidInput!): PromptonFolderNode!
+
+  """作品をフォルダに追加する"""
+  addPromptonWorkToFolder(input: AddPromptonWorkToFolderInput!): PromptonFolderNode!
+
+  """作品をフォルダから削除する"""
+  removePromptonWorkFromFolder(input: RemovePromptonWorkFromFolderInput!): PromptonFolderNode!
+
+  """フォルダの鍵を作成する"""
+  createPromptonFolderKey(input: CreatePromptonFolderKeyInput!): PromptonFolderKeyNode!
+
+  """プランを作成する"""
+  createPromptonPlan(input: CreatePromptonPlanInput!): PromptonPlanNode!
+
+  """プランを更新する"""
+  updatePromptonPlan(input: UpdatePromptonPlanInput!): PromptonPlanNode!
+
+  """プランを順序を上げる"""
+  updatePromptonPlanSort(input: UpdatePromptonPlanSortInput!): PromptonPlanNode!
+
+  """プランを削除する"""
+  deletePromptonPlan(input: DeletePromptonPlanInput!): PromptonPlanNode!
+
+  """プランを公開する"""
+  markPromptonPlanAsPublic(input: MarkPromptonPlanAsPublicInput!): PromptonPlanNode!
+
+  """プランを非公開にする"""
+  markPromptonPlanAsPrivate(input: MarkPromptonPlanAsPrivateInput!): PromptonPlanNode!
+
+  """プランリクエストを作成する"""
+  createPromptonPlanRequest(input: CreatePromptonPlanRequestInput!): PromptonRequestNode!
+
+  """コーヒーリクエストを作成する"""
+  createPromptonCoffeeRequest(input: CreatePromptonCoffeeRequestInput!): PromptonRequestNode!
+
+  """リクエストを受諾する"""
+  acceptPromptonRequest(input: AcceptPromptonRequestInput!): PromptonRequestNode!
+
+  """リクエストを拒否する"""
+  rejectPromptonRequest(input: RejectPromptonRequestInput!): PromptonRequestNode!
+
+  """リクエストをキャンセルする"""
+  cancelPromptonRequest(input: CancelPromptonRequestInput!): PromptonRequestNode!
+
+  """リクエストを完了とする"""
+  closePromptonRequest(input: ClosePromptonRequestInput!): PromptonRequestNode!
+
+  """納品物を作成する"""
+  createPromptonDeliverable(input: CreatePromptonDeliverableInput!): PromptonWorkNode!
+
+  """決済方法を登録する"""
+  createPromptonPaymentMethod(input: CreatePromptonPaymentMethodInput!): CreatePromptonPaymentMethodResult
+
+  """決済方法を削除する"""
+  deletePromptonPaymentMethod: Boolean
+
+  """プロンプトを作成する"""
+  createPromptonPrompt(input: CreatePromptonPromptInput!): PromptonPromptNode!
+
+  """プロンプトを更新する"""
+  updatePromptonPrompt(input: UpdatePromptonPromptInput!): PromptonPromptNode!
+
+  """プロンプトを削除する"""
+  deletePromptonPrompt(input: DeletePromptonPromptInput!): PromptonPromptNode!
+
+  """プロンプトの作品を追加する"""
+  createPromptonPromptWork(input: CreatePromptonPromptWorkInput!): PromptonPromptNode!
+
+  """お問い合わせを作成する"""
+  createPromptonInquiry(input: CreatePromptonInquiryInput!): Boolean
+
+  """閲覧を記録する"""
+  createPromptonWorkView(input: CreatePromptonWorkViewInput!): Boolean
+
+  """閲覧を記録する"""
+  createPromptonUserView(input: CreatePromptonUserViewInput!): Boolean
+
+  """閲覧を記録する"""
+  createPromptonFolderView(input: CreatePromptonFolderViewInput!): Boolean
+
+  """閲覧を記録する"""
+  createPromptonPlanView(input: CreatePromptonPlanViewInput!): Boolean
+
+  """インテグレーション（LINE）を削除する"""
+  deletePromptonIntegration(input: DeletePromptonIntegrationInput!): PromptonViewer!
+
+  """テスト通知を送信する"""
+  testPromptonIntegration(input: TestPromptonIntegrationInput!): Boolean
+
+  """ユーザをブロックする"""
+  blockPromptonUser(input: BlockPromptonUserInput!): PromptonUserNode!
 }
 
 """ミュートされたタグ"""
@@ -441,6 +889,15 @@ enum NotificationType {
   FOLLOW
 }
 
+type PageInfo {
+  endCursor: String
+  hasNextPage: Boolean!
+}
+
+input PinPromptonWorkInput {
+  workId: String!
+}
+
 input PopularWorksWhereInput {
   date: String
   rating: Rating
@@ -450,6 +907,777 @@ enum PostType {
   WORK
   NOVEL
   NOTE
+}
+
+"""Stripeのアカウント"""
+type PromptonAccountNode implements Node {
+  id: ID!
+  detailsSubmitted: Boolean!
+  payoutsEnabled: Boolean!
+  chargesEnabled: Boolean!
+  loginLink: String
+}
+
+"""ブックマーク"""
+type PromptonBookmarkNode implements Node {
+  id: ID!
+
+  """作成日"""
+  createdAt: Int!
+
+  """作品"""
+  work: PromptonWorkNode
+
+  """フォルダ"""
+  folder: PromptonFolderNode
+}
+
+"""Stripeの顧客"""
+type PromptonCustomerNode implements Node {
+  id: ID!
+}
+
+"""納品物"""
+type PromptonDeliverableNode implements Node {
+  id: ID!
+  createdAt: Int!
+  name: String
+  description: String
+  user: PromptonUserNode!
+  request: PromptonRequestNode!
+  work: PromptonWorkNode
+  file: PromptonFileNode!
+}
+
+"""ファイル"""
+type PromptonFileNode implements Node {
+  id: ID!
+  createdAt: Int!
+  path: String!
+  height: Int
+  width: Int
+  type: String!
+  downloadURL: String
+  name: String!
+
+  """画像URL"""
+  imageURL: String!
+
+  """画像URL"""
+  rectangleImageURL: String!
+
+  """サムネイルのURL"""
+  thumbnailURL: String!
+
+  """サムネイルのURL"""
+  squareThumbnailURL: String!
+
+  """サムネイルのURL"""
+  rectangleThumbnailURL: String!
+}
+
+type PromptonFolderKeyNode implements Node {
+  id: ID!
+  createdAt: Int!
+  folderId: ID!
+  folder: PromptonFolderNode!
+  userId: ID!
+  user: PromptonUserNode!
+  payments: [PromptonPaymentNode!]!
+}
+
+"""フォルダ"""
+type PromptonFolderNode implements Node {
+  id: ID!
+
+  """作成日"""
+  createdAt: Int!
+
+  """作成日"""
+  updatedAt: Int!
+
+  """名前"""
+  name: String!
+
+  """説明"""
+  description: String
+
+  """作品"""
+  works(offset: Int!, limit: Int!): [PromptonWorkNode!]!
+
+  """作品数"""
+  worksCount: Int!
+
+  """関連するタグ"""
+  tags: [PromptonTagNode!]!
+  tagsCount: Int!
+
+  """色"""
+  color: String
+
+  """公開されているかどうか"""
+  isPublic: Boolean!
+
+  """ユーザID"""
+  userId: ID!
+
+  """ユーザ"""
+  user: PromptonUserNode!
+
+  """プラン"""
+  plans: [PromptonPlanNode!]!
+
+  """削除済み"""
+  isDeleted: Boolean!
+
+  """有償"""
+  isPaid: Boolean!
+
+  """NSFW"""
+  isNSFW: Boolean!
+
+  """NSFW理由"""
+  nsfwReason: String
+
+  """値段"""
+  price: Int!
+
+  """商用利用"""
+  featureCommercialUse: Boolean
+
+  """ログインユーザ"""
+  viewer: PromptonFolderViewerNode
+
+  """画像ファイルのID"""
+  imageFileId: String
+
+  """画像ファイル"""
+  imageFile: PromptonFileNode!
+
+  """表示形式"""
+  mode: FolderMode!
+}
+
+input PromptonFoldersWhereInput {
+  userId: String
+}
+
+type PromptonFolderViewerNode implements Node {
+  id: ID!
+  folderId: ID!
+  folderKey: PromptonFolderKeyNode
+}
+
+"""ユーザの関係"""
+type PromptonFriendshipNode implements Node {
+  id: ID!
+  createdAt: Int!
+  followeeId: ID!
+  followee: PromptonUserNode!
+  followerId: ID!
+  follower: PromptonUserNode!
+  status: String!
+}
+
+type PromptonIntegrationNode implements Node {
+  id: ID!
+  applicationId: ID!
+  userId: ID!
+  user: PromptonUserNode!
+  createdAt: Int!
+}
+
+type PromptonLabelEdge implements Edge {
+  cursor: String!
+  node: PromptonLabelNode!
+}
+
+"""ラベル"""
+type PromptonLabelNode implements Node {
+  id: ID!
+  name: String!
+  nameJA: String!
+  count: Int!
+  firstWork: PromptonWorkNode
+  works(offset: Int!, limit: Int!): [PromptonWorkNode!]!
+}
+
+type PromptonLabelsConnection implements Connection {
+  totalCount: Int
+  pageInfo: PageInfo!
+  edges: [PromptonLabelEdge!]!
+}
+
+input PromptonLabelsWhereInput {
+  search: String
+}
+
+"""スキ"""
+type PromptonLikeNode implements Node {
+  id: ID!
+  createdAt: Int!
+
+  """作品"""
+  work: PromptonWorkNode
+
+  """フォルダ"""
+  folder: PromptonFolderNode
+}
+
+"""チャット"""
+type PromptonMessageNode implements Node {
+  id: ID!
+  createdAt: Int!
+  role: String!
+  text: String!
+  senderId: ID
+  sender: PromptonUserNode
+  recipientId: ID
+  recipient: PromptonUserNode
+  isDeleted: Boolean!
+  type: String!
+  contextId: ID
+}
+
+"""決済履歴"""
+type PromptonPaymentIntentNode implements Node {
+  id: ID!
+}
+
+type PromptonPaymentMethodNode implements Node {
+  id: ID!
+  type: String!
+  cardBrand: String!
+  cardLast4: String!
+  cardExpMonth: String!
+  cardExpYear: String!
+  cardFunding: String!
+  isLiveMode: Boolean!
+}
+
+"""決済"""
+type PromptonPaymentNode implements Node {
+  id: ID!
+  createdAt: Int!
+  user: PromptonUserNode!
+  purpose: String!
+  purposeText: String!
+  request: PromptonRequestNode
+  amount: Int!
+  isError: Boolean!
+  transactionId: String
+}
+
+"""出金履歴"""
+type PromptonPayoutNode implements Node {
+  id: ID!
+}
+
+"""プラン"""
+type PromptonPlanNode implements Node {
+  id: ID!
+  createdAt: Int!
+  updatedAt: Int!
+  name: String!
+  message: String
+  unitPrice: Int!
+  description: String!
+  category: String!
+  categoryText: String!
+  categoryDescription: String!
+  sort: Int!
+  userId: ID!
+  user: PromptonUserNode!
+  minimumQuantity: Int!
+  maximumQuantity: Int!
+  minimumFee: Int!
+  maximumFee: Int!
+  isFlexible: Boolean!
+  isDeleted: Boolean!
+  isPublic: Boolean!
+  isActive: Boolean!
+  requests: [PromptonRequestNode!]!
+  requestsCount: Int!
+  styleSlugs: [PromptonSlug!]!
+  objectSlugs: [PromptonSlug!]!
+  featurePrivate: Boolean!
+  featureCopyrightFree: Boolean!
+  featureCommercialUse: Boolean!
+  featureFanFiction: Boolean!
+  folders: [PromptonFolderNode!]!
+
+  """画像ファイルのID"""
+  imageFileId: String
+
+  """画像ファイル"""
+  imageFile: PromptonFileNode!
+}
+
+input PromptonPlansWhereInput {
+  search: String
+  objectSlug: String
+  isUnique: Boolean
+}
+
+type PromptonProfileBlockNode {
+  id: ID!
+  index: Int!
+  type: String!
+  title: String
+  description: String
+  siteURL: String
+  imageURL: String
+  userId: ID!
+}
+
+"""プロンプト"""
+type PromptonPromptNode implements Node {
+  id: ID!
+  createdAt: Int!
+  updatedAt: Int!
+  text: String!
+  texts: [String!]!
+  title: String
+  titleJA: String
+  description: String
+  user: PromptonUserNode
+  likesCount: Int!
+  isPublic: Boolean!
+  isNsfw: Boolean!
+  isDeleted: Boolean!
+  isSingle: Boolean!
+  isBase: Boolean!
+  firstWork: PromptonWorkNode
+  secondWork: PromptonWorkNode
+  works: [PromptonWorkNode!]!
+}
+
+"""リアクション"""
+type PromptonReactionNode implements Node {
+  id: ID!
+  text: String!
+  count: Int!
+  secretCount: Int!
+  isConnected: Boolean!
+}
+
+"""リクエスト"""
+type PromptonRequestNode implements Node {
+  id: ID!
+  createdAt: Int!
+  folder: PromptonFolderNode
+  senderId: ID!
+
+  """送ったユーザ"""
+  sender: PromptonUserNode!
+  recipientId: ID!
+
+  """受け取ったユーザ"""
+  recipient: PromptonUserNode!
+
+  """納品物"""
+  deliverables: [PromptonWorkNode!]!
+  firstDeliverable: PromptonWorkNode
+  files: [PromptonFileNode!]!
+  note: String!
+  noteTruncated: String!
+  fee: Int!
+  isPending: Boolean!
+  isAccepted: Boolean!
+  isRejected: Boolean!
+  isCompleted: Boolean!
+  isCanceled: Boolean!
+  isCanceledBySender: Boolean!
+  isCanceledByRecipient: Boolean!
+  isTimeout: Boolean!
+
+  """公開されているかどうか"""
+  isPublic: Boolean!
+
+  """関連する決済"""
+  payments: [PromptonPaymentNode!]!
+  hasSignature: Boolean!
+  signature: String
+
+  """手数料"""
+  commission: Int!
+  quantity: Int!
+  unitPrice: Int!
+  planId: String
+  plan: PromptonPlanNode
+  planName: String
+  planDescription: String
+  planUnitPrice: Int
+  planFeaturePrivate: Boolean
+  planFeatureCopyrightFree: Boolean
+  planFeatureCommercialUse: Boolean
+  planFeatureFanFiction: Boolean
+  featurePrivate: Boolean!
+  featureCopyrightFree: Boolean!
+  featureCommercialUse: Boolean!
+  featureFanFiction: Boolean!
+  isCoffee: Boolean!
+}
+
+input PromptonRequestsWhereInput {
+  status: String
+}
+
+type PromptonSlug {
+  name: String!
+  value: String!
+}
+
+type PromptonTagNode implements Node {
+  id: ID!
+  updatedAt: Int!
+  name: String!
+  nameJA: String!
+  slug: String
+  firstWork: PromptonWorkNode
+  worksCount: Int!
+  folders: [PromptonFolderNode!]!
+  foldersCount: Int!
+  users: [PromptonUserNode!]!
+  usersCount: Int!
+  works(offset: Int!, limit: Int!): [PromptonWorkNode!]!
+}
+
+input PromptonTagsWhereInput {
+  search: String
+  isPinned: Boolean
+}
+
+"""ユーザ"""
+type PromptonUserNode implements Node {
+  id: ID!
+  updatedAt: Int!
+
+  """名前（日本語の使用が可能）"""
+  name: String!
+
+  """ログイン名（英数字のみ）"""
+  login: String!
+
+  """作品"""
+  firstWork: PromptonWorkNode
+
+  """アイコンの画像URL"""
+  avatarImageURL: String
+
+  """アイコンのID"""
+  avatarImageId: String
+
+  """アイコンのファイル"""
+  avatarImageFile: PromptonFileNode!
+  headerImageFileId: String
+
+  """マイページのヘッダー画像のファイル"""
+  headerImageFile: PromptonFileNode!
+
+  """自己紹介"""
+  biography: String!
+
+  """メッセージ"""
+  message: String!
+  hasProfileURL: Boolean!
+
+  """ユーザ名"""
+  twitterUsername: String
+  twitterURL: String
+
+  """ユーザ名"""
+  githubUsername: String
+  githubURL: String
+
+  """ユーザ名"""
+  instagramUsername: String
+  instagramURL: String
+
+  """ユーザ名"""
+  pixivUsername: String
+  pixivURL: String
+
+  """ユーザ名"""
+  tumblrUsername: String
+  tumblrURL: String
+
+  """ユーザ名"""
+  deviantartUsername: String
+  deviantartURL: String
+
+  """サイトURL"""
+  siteURL: String
+  siteTitle: String
+  siteDescription: String
+  siteImageURL: String
+
+  """関連する作品"""
+  works(offset: Int!, limit: Int!, where: PromptonUserWorksWhereInput): [PromptonWorkNode!]!
+
+  """最新の作品"""
+  latestWork: PromptonWorkNode
+
+  """リクエストされた作品"""
+  latestRequestedWork: PromptonWorkNode
+
+  """リクエストされた作品"""
+  requestedWorks: [PromptonWorkNode!]!
+
+  """フォローされている数"""
+  followersCount: Int
+
+  """フォローしている数"""
+  followeesCount: Int
+
+  """依頼した数"""
+  requestsCount: Int!
+
+  """依頼された数"""
+  acceptedRequestsCount: Int!
+
+  """対応中のリクエスト数"""
+  queueRequestsCount: Int!
+
+  """作品の数"""
+  worksCount: Int!
+
+  """ログインしているユーザにフォローされているかどうか"""
+  isFollower: Boolean!
+
+  """ログインしているユーザをフォローしているかどうか"""
+  isFollowee: Boolean!
+
+  """関係"""
+  friendships: [PromptonFriendshipNode!]!
+
+  """制作依頼を受け付けているかどうか"""
+  isRequestable: Boolean!
+
+  """Stripeの決済方法"""
+  paymentMethod: PromptonPaymentMethodNode
+
+  """プラン"""
+  plans: [PromptonPlanNode!]!
+
+  """フォルダ"""
+  firstFolder: PromptonFolderNode
+
+  """フォルダ"""
+  folders(offset: Int!, limit: Int!): [PromptonFolderNode!]!
+
+  """関連するタグ"""
+  tags: [PromptonTagNode!]!
+  tagsCount: Int!
+
+  """Stripeの顧客ID"""
+  customerId: String
+
+  """Stripeの顧客"""
+  customer: PromptonCustomerNode
+
+  """StripeのアカウントID"""
+  accountId: String
+
+  """Stripeのアカウントの登録のリンク"""
+  accountLink: String
+
+  """Stripeのアカウントのトークンを取得する"""
+  accountSessionClientSecret: String
+
+  """Stripeのアカウント"""
+  account: PromptonAccountNode
+
+  """Stripeの決済履歴"""
+  payments(offset: Int!, limit: Int!): [PromptonPaymentNode!]!
+
+  """Stripeの決済履歴"""
+  paymentIntents(offset: Int!, limit: Int!): [PromptonPaymentIntentNode!]!
+
+  """Stripeの出金履歴"""
+  payouts(offset: Int!, limit: Int!): [PromptonPayoutNode!]!
+
+  """プロフィール"""
+  profileBlocks: [PromptonProfileBlockNode!]!
+
+  """削除済みかどうか"""
+  isDeleted: Boolean!
+
+  """承認済みのリクエスト"""
+  acceptedRequests: [PromptonRequestNode!]!
+
+  """リクエスト作品"""
+  requestWorks(offset: Int!, limit: Int!): [PromptonWorkNode!]!
+
+  """ユーザー"""
+  rootUser: UserNode!
+}
+
+input PromptonUsersWhereInput {
+  search: String
+}
+
+input PromptonUserWorksWhereInput {
+  isUncategorized: Boolean
+}
+
+"""ログインしているユーザ"""
+type PromptonViewer {
+  id: ID!
+  user: PromptonUserNode!
+  likedWorks(offset: Int!, limit: Int!): [PromptonWorkNode!]!
+  bookmarkedWorks(offset: Int!, limit: Int!): [PromptonWorkNode!]!
+  followees(offset: Int!, limit: Int!): [PromptonUserNode!]!
+  requests(offset: Int!, limit: Int!): [PromptonRequestNode!]!
+  sentRequests(offset: Int!, limit: Int!): [PromptonRequestNode!]!
+  receivedRequests(offset: Int!, limit: Int!): [PromptonRequestNode!]!
+  pendingRequests(offset: Int!, limit: Int!): [PromptonRequestNode!]!
+  currentRequests(offset: Int!, limit: Int!): [PromptonRequestNode!]!
+  deliverables(offset: Int!, limit: Int!): [PromptonWorkNode!]!
+  prompts(offset: Int!, limit: Int!): [PromptonPromptNode!]!
+  nextRequests: [PromptonRequestNode!]!
+  hasNextRequests: Boolean!
+  chatMessages: [PromptonMessageNode!]!
+  integrations(offset: Int!, limit: Int!): [PromptonIntegrationNode!]!
+}
+
+input PromptonViewerWorksWhereInput {
+  isUncategorized: Boolean
+}
+
+type PromptonWorkEdge implements Edge {
+  cursor: String!
+  node: PromptonWorkNode!
+}
+
+"""作品"""
+type PromptonWorkNode implements Node {
+  id: ID!
+  createdAt: Int!
+  updatedAt: Int!
+
+  """タイトル"""
+  title: String
+
+  """説明"""
+  body: String
+
+  """ファイルのID"""
+  fileId: String
+
+  """ファイルのID"""
+  file: PromptonFileNode!
+
+  """プロンプト"""
+  inputtedPrompt: String
+
+  """検出されたプロンプト"""
+  detectedPrompt: String
+
+  """プロンプト"""
+  runtimePrompt: String
+
+  """ソフトウェア"""
+  software: String
+
+  """検出されたソフトウェア"""
+  detectedSoftware: String
+
+  """シード値"""
+  seed: String
+
+  """検出されたシード値"""
+  detectedSeed: String
+
+  """いいね数"""
+  likesCount: Int!
+
+  """ユーザ"""
+  user: PromptonUserNode!
+  folderIndex: Int!
+  homeIndex: Int!
+
+  """関連する色"""
+  colors: [String!]!
+
+  """関連するWebカラー"""
+  webColors: [String!]!
+
+  """関連するラベル"""
+  labels: [PromptonLabelNode!]!
+
+  """関連するタグ"""
+  tags: [PromptonTagNode!]!
+  tagsCount: Int!
+
+  """セーフサーチ・アダルト関連の内容である可能性"""
+  annotationAdult: String
+
+  """セーフサーチ・悪ふざけの内容である可能性"""
+  annotationSpoof: String
+
+  """セーフサーチ・医療関連の内容である可能性"""
+  annotationMedical: String
+
+  """セーフサーチ・性的な内容である可能性"""
+  annotationRacy: String
+
+  """セーフサーチ・暴力的な内容である可能性"""
+  annotationViolence: String
+
+  """関連するリクエスト"""
+  request: PromptonRequestNode
+
+  """ログインしているユーザが作品に対していいね済みかどうか"""
+  isLiked: Boolean!
+
+  """ログインしているユーザが作品に対してブックマーク済みかどうか"""
+  isBookmarked: Boolean!
+
+  """削除されているかどうか"""
+  isDeleted: Boolean!
+
+  """自分の作品かどうか"""
+  isMine: Boolean!
+
+  """公開されているかどうか"""
+  isPublic: Boolean!
+
+  """ピン留めされているかどうか"""
+  isPinned: Boolean!
+
+  """プライベートリクエストかどうか"""
+  isPrivateRequest: Boolean!
+
+  """著作権を譲渡しているかどうか"""
+  isCopyrightFreeRequest: Boolean!
+
+  """リクエスト作品かどうか"""
+  isRequest: Boolean!
+
+  """NSFW作品かどうか"""
+  isNSFW: Boolean!
+
+  """閲覧数"""
+  viewsCount: Int!
+
+  """NSFW理由"""
+  nsfwReason: String
+
+  """関連する作品"""
+  relatedWorks(offset: Int!, limit: Int!): [PromptonWorkNode!]!
+}
+
+type PromptonWorksConnection implements Connection {
+  totalCount: Int
+  pageInfo: PageInfo!
+  edges: [PromptonWorkEdge!]!
+}
+
+input PromptonWorksWhereInput {
+  tagSlugs: [String!]
+  search: String
+  color: String
 }
 
 type Query {
@@ -509,8 +1737,20 @@ type Query {
 
   """ログイン中のユーザ"""
   viewer: Viewer
-  _entities(representations: [_Any!]!): [_Entity]!
-  _service: _Service!
+  promptonViewer: PromptonViewer!
+  promptonFolder(id: ID!): PromptonFolderNode
+  promptonFolders(offset: Int!, limit: Int!, where: PromptonFoldersWhereInput): [PromptonFolderNode!]!
+  promptonLabel(id: ID, name: String): PromptonLabelNode
+  promptonLabels(offset: Int!, limit: Int!, where: PromptonLabelsWhereInput): [PromptonLabelNode!]!
+  promptonPlan(id: ID!): PromptonPlanNode
+  promptonPlans(offset: Int!, limit: Int!, where: PromptonPlansWhereInput): [PromptonPlanNode!]!
+  promptonRequest(id: ID!): PromptonRequestNode
+  promptonTag(id: ID, slug: String): PromptonTagNode
+  promptonTags(offset: Int!, limit: Int!, where: PromptonTagsWhereInput): [PromptonTagNode!]!
+  promptonUser(id: ID!): PromptonUserNode
+  promptonUsers(offset: Int!, limit: Int!, where: PromptonUsersWhereInput): [PromptonUserNode!]!
+  promptonWork(id: ID!): PromptonWorkNode
+  promptonWorks(offset: Int!, limit: Int!, where: PromptonWorksWhereInput): [PromptonWorkNode!]!
 }
 
 """年齢制限"""
@@ -526,6 +1766,20 @@ enum Rating {
 
   """R18+"""
   R18G
+}
+
+input RejectPromptonRequestInput {
+  requestId: String!
+}
+
+input RemovePromptonTagFromWorkInput {
+  workId: String!
+  tagId: String!
+}
+
+input RemovePromptonWorkFromFolderInput {
+  folderId: String!
+  workId: String!
 }
 
 """ステッカー"""
@@ -583,6 +1837,14 @@ input TagsWhereInput {
   search: String
 }
 
+input TestPromptonIntegrationInput {
+  integrationId: String!
+}
+
+input UnfollowPromptonUserInput {
+  userId: String!
+}
+
 input UnfollowUserInput {
   userId: ID!
 }
@@ -595,8 +1857,96 @@ input UnmuteUserInput {
   userId: ID!
 }
 
+input UnpinPromptonWorkInput {
+  workId: String!
+}
+
 input UpdateFolderInput {
   folderId: ID!
+}
+
+input UpdatePromptonFolderInput {
+  folderId: String!
+  name: String!
+  description: String!
+  imageFileId: String
+}
+
+input UpdatePromptonFolderSortInput {
+  folderId: String!
+}
+
+input UpdatePromptonPlanInput {
+  planId: String!
+  category: String!
+  name: String!
+  message: String!
+  description: String!
+  unitPrice: Int!
+  minimumQuantity: Int!
+  maximumQuantity: Int!
+  styleSlugs: [String!]!
+  objectSlugs: [String!]!
+  featurePrivate: Boolean!
+  featureCopyrightFree: Boolean!
+  featureCommercialUse: Boolean!
+  featureFanFiction: Boolean!
+  imageFileId: String
+}
+
+input UpdatePromptonPlanSortInput {
+  planId: String!
+}
+
+input UpdatePromptonProfileBlockInput {
+  profileBlockId: String!
+  siteURL: String
+  title: String
+  description: String
+}
+
+input UpdatePromptonPromptCategoryInput {
+  promptCategoryId: String!
+  name: String!
+  description: String
+}
+
+input UpdatePromptonPromptInput {
+  promptId: String!
+  name: String!
+  description: String
+  isNsfw: Boolean!
+  isBase: Boolean!
+  isSingle: Boolean!
+}
+
+input UpdatePromptonUserAvatarInput {
+  avatarFileId: String
+}
+
+input UpdatePromptonUserHeaderImageInput {
+  imageFileId: String!
+}
+
+input UpdatePromptonUserLoginInput {
+  login: String!
+}
+
+input UpdatePromptonUserProfileInput {
+  name: String!
+  biography: String
+  twitterUsername: String
+  githubUsername: String
+  instagramUsername: String
+  pixivUsername: String
+  tumblrUsername: String
+  deviantartUsername: String
+}
+
+input UpdatePromptonWorkInput {
+  workId: String!
+  title: String
+  body: String
 }
 
 input UpdateStickerInput {
@@ -791,9 +2141,18 @@ type WorkNode implements Node {
 
   """画像URL"""
   image: ImageNode
-  thumbnailImageId: ID!
+
+  """画像の幅"""
+  imageWith: Int!
+
+  """画像の高さ"""
+  imageHeight: Int!
+
+  """画像の比率"""
+  imageAspectRatio: Float!
 
   """画像URL（サムネイル）"""
+  thumbnailImageId: ID!
   thumbnailImage: ImageNode
   largeThumbnailImageId: ID!
 
