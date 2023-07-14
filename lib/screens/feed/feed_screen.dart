@@ -1,3 +1,4 @@
+import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/screens/feed/feed_daily_theme_works_view.dart';
 import 'package:aipictors/screens/feed/feed_home_view.dart';
 import 'package:aipictors/screens/feed/feed_hot_works_view.dart';
@@ -18,25 +19,25 @@ class FeedScreen extends HookConsumerWidget {
       length: tabSize,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('フィード'),
+          title: Text('フィード'.i18n),
           actions: [
             IconButton(
               icon: const Icon(Icons.clear_rounded),
               onPressed: () {},
             ),
           ],
-          bottom: const TabBar(tabs: [
-            Tab(text: 'ホーム'),
-            Tab(text: '新着'),
-            Tab(text: 'お題'),
-            Tab(text: 'おすすめ'),
+          bottom: TabBar(tabs: [
+            Tab(text: 'ホーム'.i18n),
+            Tab(text: 'お題'.i18n),
+            Tab(text: '新着'.i18n),
+            Tab(text: 'おすすめ'.i18n),
           ]),
         ),
         resizeToAvoidBottomInset: true,
         body: const TabBarView(children: [
           FeedHomeView(),
-          FeedLatestWorksView(),
           FeedDailyThemeWorksView(),
+          FeedLatestWorksView(),
           FeedHotWorksView(),
         ]),
       ),
