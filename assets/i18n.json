@@ -50,5 +50,26 @@
   {
     "ja": "アカウント",
     "en": "Account"
+  },
+  {
+    "ja": "フィード",
+    "en": "Feed"
+  },
+  {
+      "ja": "ホーム",
+      "en": "Home"
+  },
+  {
+      "ja": "お題",
+      "en": "Daily Theme"
+  },
+  {
+      "ja": "新着",
+      "en": "Latest Works"
+  },
+  {
+      "ja": "おすすめ",
+      "en": "Recommended Works"
   }
 ]
+
