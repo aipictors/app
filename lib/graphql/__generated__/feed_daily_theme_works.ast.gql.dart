@@ -8,9 +8,9 @@ import 'package:aipictors/graphql/fragments/__generated__/partial_work_fields_fr
     as _i2;
 import 'package:gql/ast.dart' as _i1;
 
-const DailyTheme = _i1.OperationDefinitionNode(
+const FeedDailyThemeWorks = _i1.OperationDefinitionNode(
   type: _i1.OperationType.query,
-  name: _i1.NameNode(value: 'DailyTheme'),
+  name: _i1.NameNode(value: 'FeedDailyThemeWorks'),
   variableDefinitions: [
     _i1.VariableDefinitionNode(
       variable: _i1.VariableNode(name: _i1.NameNode(value: 'year')),
@@ -160,7 +160,7 @@ const DailyTheme = _i1.OperationDefinitionNode(
   ]),
 );
 const document = _i1.DocumentNode(definitions: [
-  DailyTheme,
+  FeedDailyThemeWorks,
   _i2.PartialWorkFields,
   _i3.PartialUserFields,
 ]);

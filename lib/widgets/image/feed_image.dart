@@ -2,8 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class FeedImageContainer extends HookConsumerWidget {
-  const FeedImageContainer({
+class FeedImage extends HookConsumerWidget {
+  const FeedImage({
     Key? key,
     required this.imageURL,
   }) : super(key: key);

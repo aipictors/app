@@ -17,7 +17,7 @@ class WorkGridItemContainer extends HookConsumerWidget {
   Widget build(context, ref) {
     return InkWell(
       onTap: onTap,
-      child: GridWorkImage(imageUrl: imageUrl),
+      child: GridWorkImage(imageURL: imageUrl),
     );
   }
 }

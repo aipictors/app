@@ -6,8 +6,8 @@ import 'package:aipictors/widgets/list/feed_work_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class FeedDailyThemeWorksScreen extends HookConsumerWidget {
-  const FeedDailyThemeWorksScreen({
+class FeedDailyThemeWorksView extends HookConsumerWidget {
+  const FeedDailyThemeWorksView({
     Key? key,
   }) : super(key: key);
 

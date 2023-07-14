@@ -6,23 +6,27 @@ part of 'feed_daily_theme_works.req.gql.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<GDailyThemeReq> _$gDailyThemeReqSerializer =
-    new _$GDailyThemeReqSerializer();
+Serializer<GFeedDailyThemeWorksReq> _$gFeedDailyThemeWorksReqSerializer =
+    new _$GFeedDailyThemeWorksReqSerializer();
 
-class _$GDailyThemeReqSerializer
-    implements StructuredSerializer<GDailyThemeReq> {
+class _$GFeedDailyThemeWorksReqSerializer
+    implements StructuredSerializer<GFeedDailyThemeWorksReq> {
   @override
-  final Iterable<Type> types = const [GDailyThemeReq, _$GDailyThemeReq];
+  final Iterable<Type> types = const [
+    GFeedDailyThemeWorksReq,
+    _$GFeedDailyThemeWorksReq
+  ];
   @override
-  final String wireName = 'GDailyThemeReq';
+  final String wireName = 'GFeedDailyThemeWorksReq';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, GDailyThemeReq object,
+  Iterable<Object?> serialize(
+      Serializers serializers, GFeedDailyThemeWorksReq object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
-          specifiedType: const FullType(_i3.GDailyThemeVars)),
+          specifiedType: const FullType(_i3.GFeedDailyThemeWorksVars)),
       'operation',
       serializers.serialize(object.operation,
           specifiedType: const FullType(_i4.Operation)),
@@ -43,7 +47,7 @@ class _$GDailyThemeReqSerializer
       result
         ..add('optimisticResponse')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(_i2.GDailyThemeData)));
+            specifiedType: const FullType(_i2.GFeedDailyThemeWorksData)));
     }
     value = object.updateCacheHandlerKey;
     if (value != null) {
@@ -71,10 +75,10 @@ class _$GDailyThemeReqSerializer
   }
 
   @override
-  GDailyThemeReq deserialize(
+  GFeedDailyThemeWorksReq deserialize(
       Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new GDailyThemeReqBuilder();
+    final result = new GFeedDailyThemeWorksReqBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -84,8 +88,8 @@ class _$GDailyThemeReqSerializer
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GDailyThemeVars))!
-              as _i3.GDailyThemeVars);
+                  specifiedType: const FullType(_i3.GFeedDailyThemeWorksVars))!
+              as _i3.GFeedDailyThemeWorksVars);
           break;
         case 'operation':
           result.operation = serializers.deserialize(value,
@@ -97,8 +101,8 @@ class _$GDailyThemeReqSerializer
           break;
         case 'optimisticResponse':
           result.optimisticResponse.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i2.GDailyThemeData))!
-              as _i2.GDailyThemeData);
+                  specifiedType: const FullType(_i2.GFeedDailyThemeWorksData))!
+              as _i2.GFeedDailyThemeWorksData);
           break;
         case 'updateCacheHandlerKey':
           result.updateCacheHandlerKey = serializers.deserialize(value,
@@ -127,18 +131,19 @@ class _$GDailyThemeReqSerializer
   }
 }
 
-class _$GDailyThemeReq extends GDailyThemeReq {
+class _$GFeedDailyThemeWorksReq extends GFeedDailyThemeWorksReq {
   @override
-  final _i3.GDailyThemeVars vars;
+  final _i3.GFeedDailyThemeWorksVars vars;
   @override
   final _i4.Operation operation;
   @override
   final String? requestId;
   @override
-  final _i2.GDailyThemeData? Function(
-      _i2.GDailyThemeData?, _i2.GDailyThemeData?)? updateResult;
+  final _i2.GFeedDailyThemeWorksData? Function(
+          _i2.GFeedDailyThemeWorksData?, _i2.GFeedDailyThemeWorksData?)?
+      updateResult;
   @override
-  final _i2.GDailyThemeData? optimisticResponse;
+  final _i2.GFeedDailyThemeWorksData? optimisticResponse;
   @override
   final String? updateCacheHandlerKey;
   @override
@@ -148,10 +153,11 @@ class _$GDailyThemeReq extends GDailyThemeReq {
   @override
   final bool executeOnListen;
 
-  factory _$GDailyThemeReq([void Function(GDailyThemeReqBuilder)? updates]) =>
-      (new GDailyThemeReqBuilder()..update(updates))._build();
+  factory _$GFeedDailyThemeWorksReq(
+          [void Function(GFeedDailyThemeWorksReqBuilder)? updates]) =>
+      (new GFeedDailyThemeWorksReqBuilder()..update(updates))._build();
 
-  _$GDailyThemeReq._(
+  _$GFeedDailyThemeWorksReq._(
       {required this.vars,
       required this.operation,
       this.requestId,
@@ -162,26 +168,28 @@ class _$GDailyThemeReq extends GDailyThemeReq {
       this.fetchPolicy,
       required this.executeOnListen})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(vars, r'GDailyThemeReq', 'vars');
     BuiltValueNullFieldError.checkNotNull(
-        operation, r'GDailyThemeReq', 'operation');
+        vars, r'GFeedDailyThemeWorksReq', 'vars');
     BuiltValueNullFieldError.checkNotNull(
-        executeOnListen, r'GDailyThemeReq', 'executeOnListen');
+        operation, r'GFeedDailyThemeWorksReq', 'operation');
+    BuiltValueNullFieldError.checkNotNull(
+        executeOnListen, r'GFeedDailyThemeWorksReq', 'executeOnListen');
   }
 
   @override
-  GDailyThemeReq rebuild(void Function(GDailyThemeReqBuilder) updates) =>
+  GFeedDailyThemeWorksReq rebuild(
+          void Function(GFeedDailyThemeWorksReqBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GDailyThemeReqBuilder toBuilder() =>
-      new GDailyThemeReqBuilder()..replace(this);
+  GFeedDailyThemeWorksReqBuilder toBuilder() =>
+      new GFeedDailyThemeWorksReqBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     final dynamic _$dynamicOther = other;
-    return other is GDailyThemeReq &&
+    return other is GFeedDailyThemeWorksReq &&
         vars == other.vars &&
         operation == other.operation &&
         requestId == other.requestId &&
@@ -211,7 +219,7 @@ class _$GDailyThemeReq extends GDailyThemeReq {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'GDailyThemeReq')
+    return (newBuiltValueToStringHelper(r'GFeedDailyThemeWorksReq')
           ..add('vars', vars)
           ..add('operation', operation)
           ..add('requestId', requestId)
@@ -225,14 +233,15 @@ class _$GDailyThemeReq extends GDailyThemeReq {
   }
 }
 
-class GDailyThemeReqBuilder
-    implements Builder<GDailyThemeReq, GDailyThemeReqBuilder> {
-  _$GDailyThemeReq? _$v;
+class GFeedDailyThemeWorksReqBuilder
+    implements
+        Builder<GFeedDailyThemeWorksReq, GFeedDailyThemeWorksReqBuilder> {
+  _$GFeedDailyThemeWorksReq? _$v;
 
-  _i3.GDailyThemeVarsBuilder? _vars;
-  _i3.GDailyThemeVarsBuilder get vars =>
-      _$this._vars ??= new _i3.GDailyThemeVarsBuilder();
-  set vars(_i3.GDailyThemeVarsBuilder? vars) => _$this._vars = vars;
+  _i3.GFeedDailyThemeWorksVarsBuilder? _vars;
+  _i3.GFeedDailyThemeWorksVarsBuilder get vars =>
+      _$this._vars ??= new _i3.GFeedDailyThemeWorksVarsBuilder();
+  set vars(_i3.GFeedDailyThemeWorksVarsBuilder? vars) => _$this._vars = vars;
 
   _i4.Operation? _operation;
   _i4.Operation? get operation => _$this._operation;
@@ -242,20 +251,23 @@ class GDailyThemeReqBuilder
   String? get requestId => _$this._requestId;
   set requestId(String? requestId) => _$this._requestId = requestId;
 
-  _i2.GDailyThemeData? Function(_i2.GDailyThemeData?, _i2.GDailyThemeData?)?
+  _i2.GFeedDailyThemeWorksData? Function(
+          _i2.GFeedDailyThemeWorksData?, _i2.GFeedDailyThemeWorksData?)?
       _updateResult;
-  _i2.GDailyThemeData? Function(_i2.GDailyThemeData?, _i2.GDailyThemeData?)?
+  _i2.GFeedDailyThemeWorksData? Function(
+          _i2.GFeedDailyThemeWorksData?, _i2.GFeedDailyThemeWorksData?)?
       get updateResult => _$this._updateResult;
   set updateResult(
-          _i2.GDailyThemeData? Function(
-                  _i2.GDailyThemeData?, _i2.GDailyThemeData?)?
+          _i2.GFeedDailyThemeWorksData? Function(
+                  _i2.GFeedDailyThemeWorksData?, _i2.GFeedDailyThemeWorksData?)?
               updateResult) =>
       _$this._updateResult = updateResult;
 
-  _i2.GDailyThemeDataBuilder? _optimisticResponse;
-  _i2.GDailyThemeDataBuilder get optimisticResponse =>
-      _$this._optimisticResponse ??= new _i2.GDailyThemeDataBuilder();
-  set optimisticResponse(_i2.GDailyThemeDataBuilder? optimisticResponse) =>
+  _i2.GFeedDailyThemeWorksDataBuilder? _optimisticResponse;
+  _i2.GFeedDailyThemeWorksDataBuilder get optimisticResponse =>
+      _$this._optimisticResponse ??= new _i2.GFeedDailyThemeWorksDataBuilder();
+  set optimisticResponse(
+          _i2.GFeedDailyThemeWorksDataBuilder? optimisticResponse) =>
       _$this._optimisticResponse = optimisticResponse;
 
   String? _updateCacheHandlerKey;
@@ -280,11 +292,11 @@ class GDailyThemeReqBuilder
   set executeOnListen(bool? executeOnListen) =>
       _$this._executeOnListen = executeOnListen;
 
-  GDailyThemeReqBuilder() {
-    GDailyThemeReq._initializeBuilder(this);
+  GFeedDailyThemeWorksReqBuilder() {
+    GFeedDailyThemeWorksReq._initializeBuilder(this);
   }
 
-  GDailyThemeReqBuilder get _$this {
+  GFeedDailyThemeWorksReqBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _vars = $v.vars.toBuilder();
@@ -302,27 +314,27 @@ class GDailyThemeReqBuilder
   }
 
   @override
-  void replace(GDailyThemeReq other) {
+  void replace(GFeedDailyThemeWorksReq other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GDailyThemeReq;
+    _$v = other as _$GFeedDailyThemeWorksReq;
   }
 
   @override
-  void update(void Function(GDailyThemeReqBuilder)? updates) {
+  void update(void Function(GFeedDailyThemeWorksReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  GDailyThemeReq build() => _build();
+  GFeedDailyThemeWorksReq build() => _build();
 
-  _$GDailyThemeReq _build() {
-    _$GDailyThemeReq _$result;
+  _$GFeedDailyThemeWorksReq _build() {
+    _$GFeedDailyThemeWorksReq _$result;
     try {
       _$result = _$v ??
-          new _$GDailyThemeReq._(
+          new _$GFeedDailyThemeWorksReq._(
               vars: vars.build(),
               operation: BuiltValueNullFieldError.checkNotNull(
-                  operation, r'GDailyThemeReq', 'operation'),
+                  operation, r'GFeedDailyThemeWorksReq', 'operation'),
               requestId: requestId,
               updateResult: updateResult,
               optimisticResponse: _optimisticResponse?.build(),
@@ -330,7 +342,9 @@ class GDailyThemeReqBuilder
               updateCacheHandlerContext: updateCacheHandlerContext,
               fetchPolicy: fetchPolicy,
               executeOnListen: BuiltValueNullFieldError.checkNotNull(
-                  executeOnListen, r'GDailyThemeReq', 'executeOnListen'));
+                  executeOnListen,
+                  r'GFeedDailyThemeWorksReq',
+                  'executeOnListen'));
     } catch (_) {
       late String _$failedField;
       try {
@@ -341,7 +355,7 @@ class GDailyThemeReqBuilder
         _optimisticResponse?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'GDailyThemeReq', _$failedField, e.toString());
+            r'GFeedDailyThemeWorksReq', _$failedField, e.toString());
       }
       rethrow;
     }

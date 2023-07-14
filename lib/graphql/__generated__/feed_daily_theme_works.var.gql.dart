@@ -8,27 +8,29 @@ import 'package:built_value/serializer.dart';
 
 part 'feed_daily_theme_works.var.gql.g.dart';
 
-abstract class GDailyThemeVars
-    implements Built<GDailyThemeVars, GDailyThemeVarsBuilder> {
-  GDailyThemeVars._();
+abstract class GFeedDailyThemeWorksVars
+    implements
+        Built<GFeedDailyThemeWorksVars, GFeedDailyThemeWorksVarsBuilder> {
+  GFeedDailyThemeWorksVars._();
 
-  factory GDailyThemeVars([Function(GDailyThemeVarsBuilder b) updates]) =
-      _$GDailyThemeVars;
+  factory GFeedDailyThemeWorksVars(
+          [Function(GFeedDailyThemeWorksVarsBuilder b) updates]) =
+      _$GFeedDailyThemeWorksVars;
 
   int get year;
   int get month;
   int get day;
   int get offset;
   int get limit;
-  static Serializer<GDailyThemeVars> get serializer =>
-      _$gDailyThemeVarsSerializer;
+  static Serializer<GFeedDailyThemeWorksVars> get serializer =>
+      _$gFeedDailyThemeWorksVarsSerializer;
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GDailyThemeVars.serializer,
+        GFeedDailyThemeWorksVars.serializer,
         this,
       ) as Map<String, dynamic>);
-  static GDailyThemeVars? fromJson(Map<String, dynamic> json) =>
+  static GFeedDailyThemeWorksVars? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
-        GDailyThemeVars.serializer,
+        GFeedDailyThemeWorksVars.serializer,
         json,
       );
 }

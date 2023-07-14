@@ -63,7 +63,7 @@ class ExplorerHotWorksScreen extends HookConsumerWidget {
                 );
                 context.push('/works/${work.id}');
               },
-              child: GridWorkImage(imageUrl: work.thumbnailImage!.downloadURL),
+              child: GridWorkImage(imageURL: work.thumbnailImage!.downloadURL),
             );
           },
         );

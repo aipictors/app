@@ -6,18 +6,22 @@ part of 'feed_daily_theme_works.var.gql.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<GDailyThemeVars> _$gDailyThemeVarsSerializer =
-    new _$GDailyThemeVarsSerializer();
+Serializer<GFeedDailyThemeWorksVars> _$gFeedDailyThemeWorksVarsSerializer =
+    new _$GFeedDailyThemeWorksVarsSerializer();
 
-class _$GDailyThemeVarsSerializer
-    implements StructuredSerializer<GDailyThemeVars> {
+class _$GFeedDailyThemeWorksVarsSerializer
+    implements StructuredSerializer<GFeedDailyThemeWorksVars> {
   @override
-  final Iterable<Type> types = const [GDailyThemeVars, _$GDailyThemeVars];
+  final Iterable<Type> types = const [
+    GFeedDailyThemeWorksVars,
+    _$GFeedDailyThemeWorksVars
+  ];
   @override
-  final String wireName = 'GDailyThemeVars';
+  final String wireName = 'GFeedDailyThemeWorksVars';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, GDailyThemeVars object,
+  Iterable<Object?> serialize(
+      Serializers serializers, GFeedDailyThemeWorksVars object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
       'year',
@@ -36,10 +40,10 @@ class _$GDailyThemeVarsSerializer
   }
 
   @override
-  GDailyThemeVars deserialize(
+  GFeedDailyThemeWorksVars deserialize(
       Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new GDailyThemeVarsBuilder();
+    final result = new GFeedDailyThemeWorksVarsBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -74,7 +78,7 @@ class _$GDailyThemeVarsSerializer
   }
 }
 
-class _$GDailyThemeVars extends GDailyThemeVars {
+class _$GFeedDailyThemeWorksVars extends GFeedDailyThemeWorksVars {
   @override
   final int year;
   @override
@@ -86,35 +90,42 @@ class _$GDailyThemeVars extends GDailyThemeVars {
   @override
   final int limit;
 
-  factory _$GDailyThemeVars([void Function(GDailyThemeVarsBuilder)? updates]) =>
-      (new GDailyThemeVarsBuilder()..update(updates))._build();
+  factory _$GFeedDailyThemeWorksVars(
+          [void Function(GFeedDailyThemeWorksVarsBuilder)? updates]) =>
+      (new GFeedDailyThemeWorksVarsBuilder()..update(updates))._build();
 
-  _$GDailyThemeVars._(
+  _$GFeedDailyThemeWorksVars._(
       {required this.year,
       required this.month,
       required this.day,
       required this.offset,
       required this.limit})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(year, r'GDailyThemeVars', 'year');
-    BuiltValueNullFieldError.checkNotNull(month, r'GDailyThemeVars', 'month');
-    BuiltValueNullFieldError.checkNotNull(day, r'GDailyThemeVars', 'day');
-    BuiltValueNullFieldError.checkNotNull(offset, r'GDailyThemeVars', 'offset');
-    BuiltValueNullFieldError.checkNotNull(limit, r'GDailyThemeVars', 'limit');
+    BuiltValueNullFieldError.checkNotNull(
+        year, r'GFeedDailyThemeWorksVars', 'year');
+    BuiltValueNullFieldError.checkNotNull(
+        month, r'GFeedDailyThemeWorksVars', 'month');
+    BuiltValueNullFieldError.checkNotNull(
+        day, r'GFeedDailyThemeWorksVars', 'day');
+    BuiltValueNullFieldError.checkNotNull(
+        offset, r'GFeedDailyThemeWorksVars', 'offset');
+    BuiltValueNullFieldError.checkNotNull(
+        limit, r'GFeedDailyThemeWorksVars', 'limit');
   }
 
   @override
-  GDailyThemeVars rebuild(void Function(GDailyThemeVarsBuilder) updates) =>
+  GFeedDailyThemeWorksVars rebuild(
+          void Function(GFeedDailyThemeWorksVarsBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GDailyThemeVarsBuilder toBuilder() =>
-      new GDailyThemeVarsBuilder()..replace(this);
+  GFeedDailyThemeWorksVarsBuilder toBuilder() =>
+      new GFeedDailyThemeWorksVarsBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GDailyThemeVars &&
+    return other is GFeedDailyThemeWorksVars &&
         year == other.year &&
         month == other.month &&
         day == other.day &&
@@ -136,7 +147,7 @@ class _$GDailyThemeVars extends GDailyThemeVars {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'GDailyThemeVars')
+    return (newBuiltValueToStringHelper(r'GFeedDailyThemeWorksVars')
           ..add('year', year)
           ..add('month', month)
           ..add('day', day)
@@ -146,9 +157,10 @@ class _$GDailyThemeVars extends GDailyThemeVars {
   }
 }
 
-class GDailyThemeVarsBuilder
-    implements Builder<GDailyThemeVars, GDailyThemeVarsBuilder> {
-  _$GDailyThemeVars? _$v;
+class GFeedDailyThemeWorksVarsBuilder
+    implements
+        Builder<GFeedDailyThemeWorksVars, GFeedDailyThemeWorksVarsBuilder> {
+  _$GFeedDailyThemeWorksVars? _$v;
 
   int? _year;
   int? get year => _$this._year;
@@ -170,9 +182,9 @@ class GDailyThemeVarsBuilder
   int? get limit => _$this._limit;
   set limit(int? limit) => _$this._limit = limit;
 
-  GDailyThemeVarsBuilder();
+  GFeedDailyThemeWorksVarsBuilder();
 
-  GDailyThemeVarsBuilder get _$this {
+  GFeedDailyThemeWorksVarsBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _year = $v.year;
@@ -186,32 +198,32 @@ class GDailyThemeVarsBuilder
   }
 
   @override
-  void replace(GDailyThemeVars other) {
+  void replace(GFeedDailyThemeWorksVars other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GDailyThemeVars;
+    _$v = other as _$GFeedDailyThemeWorksVars;
   }
 
   @override
-  void update(void Function(GDailyThemeVarsBuilder)? updates) {
+  void update(void Function(GFeedDailyThemeWorksVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  GDailyThemeVars build() => _build();
+  GFeedDailyThemeWorksVars build() => _build();
 
-  _$GDailyThemeVars _build() {
+  _$GFeedDailyThemeWorksVars _build() {
     final _$result = _$v ??
-        new _$GDailyThemeVars._(
+        new _$GFeedDailyThemeWorksVars._(
             year: BuiltValueNullFieldError.checkNotNull(
-                year, r'GDailyThemeVars', 'year'),
+                year, r'GFeedDailyThemeWorksVars', 'year'),
             month: BuiltValueNullFieldError.checkNotNull(
-                month, r'GDailyThemeVars', 'month'),
+                month, r'GFeedDailyThemeWorksVars', 'month'),
             day: BuiltValueNullFieldError.checkNotNull(
-                day, r'GDailyThemeVars', 'day'),
+                day, r'GFeedDailyThemeWorksVars', 'day'),
             offset: BuiltValueNullFieldError.checkNotNull(
-                offset, r'GDailyThemeVars', 'offset'),
+                offset, r'GFeedDailyThemeWorksVars', 'offset'),
             limit: BuiltValueNullFieldError.checkNotNull(
-                limit, r'GDailyThemeVars', 'limit'));
+                limit, r'GFeedDailyThemeWorksVars', 'limit'));
     replace(_$result);
     return _$result;
   }

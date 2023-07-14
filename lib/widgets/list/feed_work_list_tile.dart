@@ -2,10 +2,10 @@ import 'package:aipictors/mutations/create_work_like.dart';
 import 'package:aipictors/utils/to_readable_date_time.dart';
 import 'package:aipictors/widgets/button/feed_bookmark_button.dart';
 import 'package:aipictors/widgets/button/feed_like_button.dart';
-import 'package:aipictors/widgets/container/image/feed_image_container.dart';
 import 'package:aipictors/widgets/container/modal/comment_modal_container.dart';
 import 'package:aipictors/widgets/container/modal/user_action_modal_container.dart';
 import 'package:aipictors/widgets/container/notification_user_container.dart';
+import 'package:aipictors/widgets/image/feed_image.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -81,7 +81,7 @@ class FeedWorkListTile extends HookConsumerWidget {
             )
           ]),
           const SizedBox(height: 8),
-          FeedImageContainer(imageURL: workImageURL),
+          FeedImage(imageURL: workImageURL),
           const SizedBox(height: 12),
           Text(
             workTitle,

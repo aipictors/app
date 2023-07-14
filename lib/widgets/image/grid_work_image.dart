@@ -5,15 +5,23 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 class GridWorkImage extends HookConsumerWidget {
   const GridWorkImage({
     Key? key,
-    required this.imageUrl,
+    required this.imageURL,
   }) : super(key: key);
 
-  final String imageUrl;
+  final String? imageURL;
 
   @override
   Widget build(context, ref) {
+    if (imageURL == null) {
+      return Container(
+        width: double.infinity,
+        height: double.infinity,
+        color: Theme.of(context).disabledColor,
+      );
+    }
+
     return CachedNetworkImage(
-      imageUrl: imageUrl,
+      imageUrl: imageURL!,
       fit: BoxFit.cover,
       progressIndicatorBuilder: (context, url, downloadProgress) {
         return Container(

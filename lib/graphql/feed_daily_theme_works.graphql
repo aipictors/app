@@ -1,7 +1,7 @@
 # import './fragments/partial_work_fields_fragment.graphql'
 # import './fragments/partial_user_fields_fragment.graphql'
 
-query DailyTheme(
+query FeedDailyThemeWorks(
   $year: Int!
   $month: Int!
   $day: Int!

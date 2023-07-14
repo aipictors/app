@@ -7,8 +7,8 @@ import 'package:aipictors/widgets/list/feed_work_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class FeedLatestWorksScreen extends HookConsumerWidget {
-  const FeedLatestWorksScreen({
+class FeedLatestWorksView extends HookConsumerWidget {
+  const FeedLatestWorksView({
     Key? key,
   }) : super(key: key);
 

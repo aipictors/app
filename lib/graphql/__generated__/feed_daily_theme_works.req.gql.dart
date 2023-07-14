@@ -16,23 +16,25 @@ import 'package:gql_exec/gql_exec.dart' as _i4;
 
 part 'feed_daily_theme_works.req.gql.g.dart';
 
-abstract class GDailyThemeReq
+abstract class GFeedDailyThemeWorksReq
     implements
-        Built<GDailyThemeReq, GDailyThemeReqBuilder>,
-        _i1.OperationRequest<_i2.GDailyThemeData, _i3.GDailyThemeVars> {
-  GDailyThemeReq._();
+        Built<GFeedDailyThemeWorksReq, GFeedDailyThemeWorksReqBuilder>,
+        _i1.OperationRequest<_i2.GFeedDailyThemeWorksData,
+            _i3.GFeedDailyThemeWorksVars> {
+  GFeedDailyThemeWorksReq._();
 
-  factory GDailyThemeReq([Function(GDailyThemeReqBuilder b) updates]) =
-      _$GDailyThemeReq;
+  factory GFeedDailyThemeWorksReq(
+          [Function(GFeedDailyThemeWorksReqBuilder b) updates]) =
+      _$GFeedDailyThemeWorksReq;
 
-  static void _initializeBuilder(GDailyThemeReqBuilder b) => b
+  static void _initializeBuilder(GFeedDailyThemeWorksReqBuilder b) => b
     ..operation = _i4.Operation(
       document: _i5.document,
-      operationName: 'DailyTheme',
+      operationName: 'FeedDailyThemeWorks',
     )
     ..executeOnListen = true;
   @override
-  _i3.GDailyThemeVars get vars;
+  _i3.GFeedDailyThemeWorksVars get vars;
   @override
   _i4.Operation get operation;
   @override
@@ -44,12 +46,12 @@ abstract class GDailyThemeReq
   String? get requestId;
   @override
   @BuiltValueField(serialize: false)
-  _i2.GDailyThemeData? Function(
-    _i2.GDailyThemeData?,
-    _i2.GDailyThemeData?,
+  _i2.GFeedDailyThemeWorksData? Function(
+    _i2.GFeedDailyThemeWorksData?,
+    _i2.GFeedDailyThemeWorksData?,
   )? get updateResult;
   @override
-  _i2.GDailyThemeData? get optimisticResponse;
+  _i2.GFeedDailyThemeWorksData? get optimisticResponse;
   @override
   String? get updateCacheHandlerKey;
   @override
@@ -59,17 +61,17 @@ abstract class GDailyThemeReq
   @override
   bool get executeOnListen;
   @override
-  _i2.GDailyThemeData? parseData(Map<String, dynamic> json) =>
-      _i2.GDailyThemeData.fromJson(json);
-  static Serializer<GDailyThemeReq> get serializer =>
-      _$gDailyThemeReqSerializer;
+  _i2.GFeedDailyThemeWorksData? parseData(Map<String, dynamic> json) =>
+      _i2.GFeedDailyThemeWorksData.fromJson(json);
+  static Serializer<GFeedDailyThemeWorksReq> get serializer =>
+      _$gFeedDailyThemeWorksReqSerializer;
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
-        GDailyThemeReq.serializer,
+        GFeedDailyThemeWorksReq.serializer,
         this,
       ) as Map<String, dynamic>);
-  static GDailyThemeReq? fromJson(Map<String, dynamic> json) =>
+  static GFeedDailyThemeWorksReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
-        GDailyThemeReq.serializer,
+        GFeedDailyThemeWorksReq.serializer,
         json,
       );
 }

@@ -6,8 +6,8 @@ import 'package:aipictors/widgets/list/feed_work_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class FeedHotWorksScreen extends HookConsumerWidget {
-  const FeedHotWorksScreen({
+class FeedHotWorksView extends HookConsumerWidget {
+  const FeedHotWorksView({
     Key? key,
   }) : super(key: key);
 
@@ -31,7 +31,7 @@ class FeedHotWorksScreen extends HookConsumerWidget {
       },
       builder: (data) {
         return ListView.separated(
-          key: const PageStorageKey('feed_home'),
+          key: const PageStorageKey('feed_hot_works'),
           separatorBuilder: (context, index) {
             return const Divider(height: 0);
           },

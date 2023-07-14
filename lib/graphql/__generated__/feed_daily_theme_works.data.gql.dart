@@ -13,72 +13,78 @@ import 'package:built_value/serializer.dart';
 
 part 'feed_daily_theme_works.data.gql.g.dart';
 
-abstract class GDailyThemeData
-    implements Built<GDailyThemeData, GDailyThemeDataBuilder> {
-  GDailyThemeData._();
+abstract class GFeedDailyThemeWorksData
+    implements
+        Built<GFeedDailyThemeWorksData, GFeedDailyThemeWorksDataBuilder> {
+  GFeedDailyThemeWorksData._();
 
-  factory GDailyThemeData([Function(GDailyThemeDataBuilder b) updates]) =
-      _$GDailyThemeData;
+  factory GFeedDailyThemeWorksData(
+          [Function(GFeedDailyThemeWorksDataBuilder b) updates]) =
+      _$GFeedDailyThemeWorksData;
 
-  static void _initializeBuilder(GDailyThemeDataBuilder b) =>
+  static void _initializeBuilder(GFeedDailyThemeWorksDataBuilder b) =>
       b..G__typename = 'Query';
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
-  GDailyThemeData_dailyTheme? get dailyTheme;
-  static Serializer<GDailyThemeData> get serializer =>
-      _$gDailyThemeDataSerializer;
+  GFeedDailyThemeWorksData_dailyTheme? get dailyTheme;
+  static Serializer<GFeedDailyThemeWorksData> get serializer =>
+      _$gFeedDailyThemeWorksDataSerializer;
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GDailyThemeData.serializer,
+        GFeedDailyThemeWorksData.serializer,
         this,
       ) as Map<String, dynamic>);
-  static GDailyThemeData? fromJson(Map<String, dynamic> json) =>
+  static GFeedDailyThemeWorksData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
-        GDailyThemeData.serializer,
+        GFeedDailyThemeWorksData.serializer,
         json,
       );
 }
 
-abstract class GDailyThemeData_dailyTheme
+abstract class GFeedDailyThemeWorksData_dailyTheme
     implements
-        Built<GDailyThemeData_dailyTheme, GDailyThemeData_dailyThemeBuilder> {
-  GDailyThemeData_dailyTheme._();
+        Built<GFeedDailyThemeWorksData_dailyTheme,
+            GFeedDailyThemeWorksData_dailyThemeBuilder> {
+  GFeedDailyThemeWorksData_dailyTheme._();
 
-  factory GDailyThemeData_dailyTheme(
-          [Function(GDailyThemeData_dailyThemeBuilder b) updates]) =
-      _$GDailyThemeData_dailyTheme;
+  factory GFeedDailyThemeWorksData_dailyTheme(
+          [Function(GFeedDailyThemeWorksData_dailyThemeBuilder b) updates]) =
+      _$GFeedDailyThemeWorksData_dailyTheme;
 
-  static void _initializeBuilder(GDailyThemeData_dailyThemeBuilder b) =>
+  static void _initializeBuilder(
+          GFeedDailyThemeWorksData_dailyThemeBuilder b) =>
       b..G__typename = 'DailyThemeNode';
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get id;
   String get title;
-  BuiltList<GDailyThemeData_dailyTheme_works> get works;
-  static Serializer<GDailyThemeData_dailyTheme> get serializer =>
-      _$gDailyThemeDataDailyThemeSerializer;
+  BuiltList<GFeedDailyThemeWorksData_dailyTheme_works> get works;
+  static Serializer<GFeedDailyThemeWorksData_dailyTheme> get serializer =>
+      _$gFeedDailyThemeWorksDataDailyThemeSerializer;
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GDailyThemeData_dailyTheme.serializer,
+        GFeedDailyThemeWorksData_dailyTheme.serializer,
         this,
       ) as Map<String, dynamic>);
-  static GDailyThemeData_dailyTheme? fromJson(Map<String, dynamic> json) =>
+  static GFeedDailyThemeWorksData_dailyTheme? fromJson(
+          Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
-        GDailyThemeData_dailyTheme.serializer,
+        GFeedDailyThemeWorksData_dailyTheme.serializer,
         json,
       );
 }
 
-abstract class GDailyThemeData_dailyTheme_works
+abstract class GFeedDailyThemeWorksData_dailyTheme_works
     implements
-        Built<GDailyThemeData_dailyTheme_works,
-            GDailyThemeData_dailyTheme_worksBuilder>,
+        Built<GFeedDailyThemeWorksData_dailyTheme_works,
+            GFeedDailyThemeWorksData_dailyTheme_worksBuilder>,
         _i2.GPartialWorkFields {
-  GDailyThemeData_dailyTheme_works._();
+  GFeedDailyThemeWorksData_dailyTheme_works._();
 
-  factory GDailyThemeData_dailyTheme_works(
-          [Function(GDailyThemeData_dailyTheme_worksBuilder b) updates]) =
-      _$GDailyThemeData_dailyTheme_works;
+  factory GFeedDailyThemeWorksData_dailyTheme_works(
+      [Function(GFeedDailyThemeWorksData_dailyTheme_worksBuilder b)
+          updates]) = _$GFeedDailyThemeWorksData_dailyTheme_works;
 
-  static void _initializeBuilder(GDailyThemeData_dailyTheme_worksBuilder b) =>
+  static void _initializeBuilder(
+          GFeedDailyThemeWorksData_dailyTheme_worksBuilder b) =>
       b..G__typename = 'WorkNode';
   @override
   @BuiltValueField(wireName: '__typename')
@@ -94,37 +100,38 @@ abstract class GDailyThemeData_dailyTheme_works
   @override
   int get createdAt;
   @override
-  GDailyThemeData_dailyTheme_works_thumbnailImage? get thumbnailImage;
-  GDailyThemeData_dailyTheme_works_user get user;
-  GDailyThemeData_dailyTheme_works_viewer get viewer;
-  static Serializer<GDailyThemeData_dailyTheme_works> get serializer =>
-      _$gDailyThemeDataDailyThemeWorksSerializer;
+  GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImage? get thumbnailImage;
+  GFeedDailyThemeWorksData_dailyTheme_works_user get user;
+  GFeedDailyThemeWorksData_dailyTheme_works_viewer get viewer;
+  static Serializer<GFeedDailyThemeWorksData_dailyTheme_works> get serializer =>
+      _$gFeedDailyThemeWorksDataDailyThemeWorksSerializer;
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GDailyThemeData_dailyTheme_works.serializer,
+        GFeedDailyThemeWorksData_dailyTheme_works.serializer,
         this,
       ) as Map<String, dynamic>);
-  static GDailyThemeData_dailyTheme_works? fromJson(
+  static GFeedDailyThemeWorksData_dailyTheme_works? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
-        GDailyThemeData_dailyTheme_works.serializer,
+        GFeedDailyThemeWorksData_dailyTheme_works.serializer,
         json,
       );
 }
 
-abstract class GDailyThemeData_dailyTheme_works_thumbnailImage
+abstract class GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImage
     implements
-        Built<GDailyThemeData_dailyTheme_works_thumbnailImage,
-            GDailyThemeData_dailyTheme_works_thumbnailImageBuilder>,
+        Built<GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImage,
+            GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImageBuilder>,
         _i2.GPartialWorkFields_thumbnailImage {
-  GDailyThemeData_dailyTheme_works_thumbnailImage._();
+  GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImage._();
 
-  factory GDailyThemeData_dailyTheme_works_thumbnailImage(
-      [Function(GDailyThemeData_dailyTheme_works_thumbnailImageBuilder b)
-          updates]) = _$GDailyThemeData_dailyTheme_works_thumbnailImage;
+  factory GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImage(
+      [Function(
+              GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImageBuilder b)
+          updates]) = _$GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImage;
 
   static void _initializeBuilder(
-          GDailyThemeData_dailyTheme_works_thumbnailImageBuilder b) =>
+          GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImageBuilder b) =>
       b..G__typename = 'ImageNode';
   @override
   @BuiltValueField(wireName: '__typename')
@@ -133,35 +140,35 @@ abstract class GDailyThemeData_dailyTheme_works_thumbnailImage
   String get id;
   @override
   String get downloadURL;
-  static Serializer<GDailyThemeData_dailyTheme_works_thumbnailImage>
+  static Serializer<GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImage>
       get serializer =>
-          _$gDailyThemeDataDailyThemeWorksThumbnailImageSerializer;
+          _$gFeedDailyThemeWorksDataDailyThemeWorksThumbnailImageSerializer;
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GDailyThemeData_dailyTheme_works_thumbnailImage.serializer,
+        GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImage.serializer,
         this,
       ) as Map<String, dynamic>);
-  static GDailyThemeData_dailyTheme_works_thumbnailImage? fromJson(
+  static GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImage? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
-        GDailyThemeData_dailyTheme_works_thumbnailImage.serializer,
+        GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImage.serializer,
         json,
       );
 }
 
-abstract class GDailyThemeData_dailyTheme_works_user
+abstract class GFeedDailyThemeWorksData_dailyTheme_works_user
     implements
-        Built<GDailyThemeData_dailyTheme_works_user,
-            GDailyThemeData_dailyTheme_works_userBuilder>,
+        Built<GFeedDailyThemeWorksData_dailyTheme_works_user,
+            GFeedDailyThemeWorksData_dailyTheme_works_userBuilder>,
         _i3.GPartialUserFields {
-  GDailyThemeData_dailyTheme_works_user._();
+  GFeedDailyThemeWorksData_dailyTheme_works_user._();
 
-  factory GDailyThemeData_dailyTheme_works_user(
-          [Function(GDailyThemeData_dailyTheme_works_userBuilder b) updates]) =
-      _$GDailyThemeData_dailyTheme_works_user;
+  factory GFeedDailyThemeWorksData_dailyTheme_works_user(
+      [Function(GFeedDailyThemeWorksData_dailyTheme_works_userBuilder b)
+          updates]) = _$GFeedDailyThemeWorksData_dailyTheme_works_user;
 
   static void _initializeBuilder(
-          GDailyThemeData_dailyTheme_works_userBuilder b) =>
+          GFeedDailyThemeWorksData_dailyTheme_works_userBuilder b) =>
       b..G__typename = 'UserNode';
   @override
   @BuiltValueField(wireName: '__typename')
@@ -173,35 +180,36 @@ abstract class GDailyThemeData_dailyTheme_works_user
   @override
   String get name;
   @override
-  GDailyThemeData_dailyTheme_works_user_iconImage? get iconImage;
-  static Serializer<GDailyThemeData_dailyTheme_works_user> get serializer =>
-      _$gDailyThemeDataDailyThemeWorksUserSerializer;
+  GFeedDailyThemeWorksData_dailyTheme_works_user_iconImage? get iconImage;
+  static Serializer<GFeedDailyThemeWorksData_dailyTheme_works_user>
+      get serializer => _$gFeedDailyThemeWorksDataDailyThemeWorksUserSerializer;
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GDailyThemeData_dailyTheme_works_user.serializer,
+        GFeedDailyThemeWorksData_dailyTheme_works_user.serializer,
         this,
       ) as Map<String, dynamic>);
-  static GDailyThemeData_dailyTheme_works_user? fromJson(
+  static GFeedDailyThemeWorksData_dailyTheme_works_user? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
-        GDailyThemeData_dailyTheme_works_user.serializer,
+        GFeedDailyThemeWorksData_dailyTheme_works_user.serializer,
         json,
       );
 }
 
-abstract class GDailyThemeData_dailyTheme_works_user_iconImage
+abstract class GFeedDailyThemeWorksData_dailyTheme_works_user_iconImage
     implements
-        Built<GDailyThemeData_dailyTheme_works_user_iconImage,
-            GDailyThemeData_dailyTheme_works_user_iconImageBuilder>,
+        Built<GFeedDailyThemeWorksData_dailyTheme_works_user_iconImage,
+            GFeedDailyThemeWorksData_dailyTheme_works_user_iconImageBuilder>,
         _i3.GPartialUserFields_iconImage {
-  GDailyThemeData_dailyTheme_works_user_iconImage._();
+  GFeedDailyThemeWorksData_dailyTheme_works_user_iconImage._();
 
-  factory GDailyThemeData_dailyTheme_works_user_iconImage(
-      [Function(GDailyThemeData_dailyTheme_works_user_iconImageBuilder b)
-          updates]) = _$GDailyThemeData_dailyTheme_works_user_iconImage;
+  factory GFeedDailyThemeWorksData_dailyTheme_works_user_iconImage(
+      [Function(
+              GFeedDailyThemeWorksData_dailyTheme_works_user_iconImageBuilder b)
+          updates]) = _$GFeedDailyThemeWorksData_dailyTheme_works_user_iconImage;
 
   static void _initializeBuilder(
-          GDailyThemeData_dailyTheme_works_user_iconImageBuilder b) =>
+          GFeedDailyThemeWorksData_dailyTheme_works_user_iconImageBuilder b) =>
       b..G__typename = 'ImageNode';
   @override
   @BuiltValueField(wireName: '__typename')
@@ -210,49 +218,51 @@ abstract class GDailyThemeData_dailyTheme_works_user_iconImage
   String get id;
   @override
   String get downloadURL;
-  static Serializer<GDailyThemeData_dailyTheme_works_user_iconImage>
-      get serializer => _$gDailyThemeDataDailyThemeWorksUserIconImageSerializer;
+  static Serializer<GFeedDailyThemeWorksData_dailyTheme_works_user_iconImage>
+      get serializer =>
+          _$gFeedDailyThemeWorksDataDailyThemeWorksUserIconImageSerializer;
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GDailyThemeData_dailyTheme_works_user_iconImage.serializer,
+        GFeedDailyThemeWorksData_dailyTheme_works_user_iconImage.serializer,
         this,
       ) as Map<String, dynamic>);
-  static GDailyThemeData_dailyTheme_works_user_iconImage? fromJson(
+  static GFeedDailyThemeWorksData_dailyTheme_works_user_iconImage? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
-        GDailyThemeData_dailyTheme_works_user_iconImage.serializer,
+        GFeedDailyThemeWorksData_dailyTheme_works_user_iconImage.serializer,
         json,
       );
 }
 
-abstract class GDailyThemeData_dailyTheme_works_viewer
+abstract class GFeedDailyThemeWorksData_dailyTheme_works_viewer
     implements
-        Built<GDailyThemeData_dailyTheme_works_viewer,
-            GDailyThemeData_dailyTheme_works_viewerBuilder> {
-  GDailyThemeData_dailyTheme_works_viewer._();
+        Built<GFeedDailyThemeWorksData_dailyTheme_works_viewer,
+            GFeedDailyThemeWorksData_dailyTheme_works_viewerBuilder> {
+  GFeedDailyThemeWorksData_dailyTheme_works_viewer._();
 
-  factory GDailyThemeData_dailyTheme_works_viewer(
-      [Function(GDailyThemeData_dailyTheme_works_viewerBuilder b)
-          updates]) = _$GDailyThemeData_dailyTheme_works_viewer;
+  factory GFeedDailyThemeWorksData_dailyTheme_works_viewer(
+      [Function(GFeedDailyThemeWorksData_dailyTheme_works_viewerBuilder b)
+          updates]) = _$GFeedDailyThemeWorksData_dailyTheme_works_viewer;
 
   static void _initializeBuilder(
-          GDailyThemeData_dailyTheme_works_viewerBuilder b) =>
+          GFeedDailyThemeWorksData_dailyTheme_works_viewerBuilder b) =>
       b..G__typename = 'WorkViewerNode';
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get id;
   bool get isLiked;
   bool get isBookmarked;
-  static Serializer<GDailyThemeData_dailyTheme_works_viewer> get serializer =>
-      _$gDailyThemeDataDailyThemeWorksViewerSerializer;
+  static Serializer<GFeedDailyThemeWorksData_dailyTheme_works_viewer>
+      get serializer =>
+          _$gFeedDailyThemeWorksDataDailyThemeWorksViewerSerializer;
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GDailyThemeData_dailyTheme_works_viewer.serializer,
+        GFeedDailyThemeWorksData_dailyTheme_works_viewer.serializer,
         this,
       ) as Map<String, dynamic>);
-  static GDailyThemeData_dailyTheme_works_viewer? fromJson(
+  static GFeedDailyThemeWorksData_dailyTheme_works_viewer? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
-        GDailyThemeData_dailyTheme_works_viewer.serializer,
+        GFeedDailyThemeWorksData_dailyTheme_works_viewer.serializer,
         json,
       );
 }

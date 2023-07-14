@@ -81,9 +81,6 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GDailyThemeData_dailyTheme.serializer)
       ..add(GDailyThemeData_dailyTheme_works.serializer)
       ..add(GDailyThemeData_dailyTheme_works_thumbnailImage.serializer)
-      ..add(GDailyThemeData_dailyTheme_works_user.serializer)
-      ..add(GDailyThemeData_dailyTheme_works_user_iconImage.serializer)
-      ..add(GDailyThemeData_dailyTheme_works_viewer.serializer)
       ..add(GDailyThemeReq.serializer)
       ..add(GDailyThemeVars.serializer)
       ..add(GDailyThemesData.serializer)
@@ -111,6 +108,15 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GDeleteWorkBookmarkInput.serializer)
       ..add(GDeleteWorkInput.serializer)
       ..add(GDeleteWorkLikeInput.serializer)
+      ..add(GFeedDailyThemeWorksData.serializer)
+      ..add(GFeedDailyThemeWorksData_dailyTheme.serializer)
+      ..add(GFeedDailyThemeWorksData_dailyTheme_works.serializer)
+      ..add(GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImage.serializer)
+      ..add(GFeedDailyThemeWorksData_dailyTheme_works_user.serializer)
+      ..add(GFeedDailyThemeWorksData_dailyTheme_works_user_iconImage.serializer)
+      ..add(GFeedDailyThemeWorksData_dailyTheme_works_viewer.serializer)
+      ..add(GFeedDailyThemeWorksReq.serializer)
+      ..add(GFeedDailyThemeWorksVars.serializer)
       ..add(GFeedHotWorksData.serializer)
       ..add(GFeedHotWorksData_hotWorks.serializer)
       ..add(GFeedHotWorksData_hotWorks_thumbnailImage.serializer)
@@ -370,6 +376,11 @@ Serializers _$serializers = (new Serializers().toBuilder()
           const FullType(
               BuiltList, const [const FullType(GDailyThemesData_dailyThemes)]),
           () => new ListBuilder<GDailyThemesData_dailyThemes>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [
+            const FullType(GFeedDailyThemeWorksData_dailyTheme_works)
+          ]),
+          () => new ListBuilder<GFeedDailyThemeWorksData_dailyTheme_works>())
       ..addBuilderFactory(
           const FullType(
               BuiltList, const [const FullType(GFeedHotWorksData_hotWorks)]),
