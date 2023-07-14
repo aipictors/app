@@ -13,7 +13,7 @@ class DefaultConfig {
   }
 
   static String get graphqlURI {
-    return 'https://subgraph-aipictors-sn4ve5jg4q-an.a.run.app/graphql';
+    return 'https://router-6ouzjmdzha-an.a.run.app';
   }
 
   static Color get defaultThemeColor {
