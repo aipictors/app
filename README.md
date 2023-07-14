@@ -53,8 +53,8 @@ Tools • Dart 3.0.5 • DevTools 2.23.1
 更新があった場合は取得する。
 
 ```
-$ npx get-graphql-schema http://localhost:3000/api > lib/schema.graphql
-// $ npx get-graphql-schema https://federation-jjkihxkmtq-an.a.run.app > lib/schema.graphql
+$ npx get-graphql-schema http://localhost:4000/graphql > lib/schema.graphql
+// $ npx get-graphql-schema https://router-6ouzjmdzha-an.a.run.app > lib/schema.graphql
 ```
 
 ## ビルド

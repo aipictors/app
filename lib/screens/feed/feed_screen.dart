@@ -28,16 +28,16 @@ class FeedScreen extends HookConsumerWidget {
           ],
           bottom: TabBar(tabs: [
             Tab(text: 'ホーム'.i18n),
-            Tab(text: 'お題'.i18n),
             Tab(text: '新着'.i18n),
+            Tab(text: 'お題'.i18n),
             Tab(text: 'おすすめ'.i18n),
           ]),
         ),
         resizeToAvoidBottomInset: true,
         body: const TabBarView(children: [
           FeedHomeView(),
-          FeedDailyThemeWorksView(),
           FeedLatestWorksView(),
+          FeedDailyThemeWorksView(),
           FeedHotWorksView(),
         ]),
       ),
