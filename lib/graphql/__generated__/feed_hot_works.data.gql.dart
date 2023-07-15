@@ -3,10 +3,10 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:aipictors/__generated__/serializers.gql.dart' as _i1;
+import 'package:aipictors/graphql/fragments/__generated__/partial_feed_work_fields_fragment.data.gql.dart'
+    as _i2;
 import 'package:aipictors/graphql/fragments/__generated__/partial_user_fields_fragment.data.gql.dart'
     as _i3;
-import 'package:aipictors/graphql/fragments/__generated__/partial_work_fields_fragment.data.gql.dart'
-    as _i2;
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
@@ -41,7 +41,7 @@ abstract class GFeedHotWorksData
 abstract class GFeedHotWorksData_hotWorks
     implements
         Built<GFeedHotWorksData_hotWorks, GFeedHotWorksData_hotWorksBuilder>,
-        _i2.GPartialWorkFields {
+        _i2.GPartialFeedWorkFields {
   GFeedHotWorksData_hotWorks._();
 
   factory GFeedHotWorksData_hotWorks(
@@ -64,7 +64,9 @@ abstract class GFeedHotWorksData_hotWorks
   @override
   int get createdAt;
   @override
-  GFeedHotWorksData_hotWorks_thumbnailImage? get thumbnailImage;
+  double get imageAspectRatio;
+  @override
+  GFeedHotWorksData_hotWorks_image? get image;
   GFeedHotWorksData_hotWorks_user get user;
   GFeedHotWorksData_hotWorks_viewer get viewer;
   static Serializer<GFeedHotWorksData_hotWorks> get serializer =>
@@ -81,19 +83,18 @@ abstract class GFeedHotWorksData_hotWorks
       );
 }
 
-abstract class GFeedHotWorksData_hotWorks_thumbnailImage
+abstract class GFeedHotWorksData_hotWorks_image
     implements
-        Built<GFeedHotWorksData_hotWorks_thumbnailImage,
-            GFeedHotWorksData_hotWorks_thumbnailImageBuilder>,
-        _i2.GPartialWorkFields_thumbnailImage {
-  GFeedHotWorksData_hotWorks_thumbnailImage._();
+        Built<GFeedHotWorksData_hotWorks_image,
+            GFeedHotWorksData_hotWorks_imageBuilder>,
+        _i2.GPartialFeedWorkFields_image {
+  GFeedHotWorksData_hotWorks_image._();
 
-  factory GFeedHotWorksData_hotWorks_thumbnailImage(
-      [Function(GFeedHotWorksData_hotWorks_thumbnailImageBuilder b)
-          updates]) = _$GFeedHotWorksData_hotWorks_thumbnailImage;
+  factory GFeedHotWorksData_hotWorks_image(
+          [Function(GFeedHotWorksData_hotWorks_imageBuilder b) updates]) =
+      _$GFeedHotWorksData_hotWorks_image;
 
-  static void _initializeBuilder(
-          GFeedHotWorksData_hotWorks_thumbnailImageBuilder b) =>
+  static void _initializeBuilder(GFeedHotWorksData_hotWorks_imageBuilder b) =>
       b..G__typename = 'ImageNode';
   @override
   @BuiltValueField(wireName: '__typename')
@@ -102,17 +103,17 @@ abstract class GFeedHotWorksData_hotWorks_thumbnailImage
   String get id;
   @override
   String get downloadURL;
-  static Serializer<GFeedHotWorksData_hotWorks_thumbnailImage> get serializer =>
-      _$gFeedHotWorksDataHotWorksThumbnailImageSerializer;
+  static Serializer<GFeedHotWorksData_hotWorks_image> get serializer =>
+      _$gFeedHotWorksDataHotWorksImageSerializer;
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GFeedHotWorksData_hotWorks_thumbnailImage.serializer,
+        GFeedHotWorksData_hotWorks_image.serializer,
         this,
       ) as Map<String, dynamic>);
-  static GFeedHotWorksData_hotWorks_thumbnailImage? fromJson(
+  static GFeedHotWorksData_hotWorks_image? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
-        GFeedHotWorksData_hotWorks_thumbnailImage.serializer,
+        GFeedHotWorksData_hotWorks_image.serializer,
         json,
       );
 }

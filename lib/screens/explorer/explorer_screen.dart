@@ -1,8 +1,8 @@
-import 'package:aipictors/screens/explorer/explorer_best_works_screen.dart';
-import 'package:aipictors/screens/explorer/explorer_hot_tags_screen.dart';
-import 'package:aipictors/screens/explorer/explorer_latest_folders_screen.dart';
-import 'package:aipictors/screens/explorer/explorer_popular_works_screen.dart';
-import 'package:aipictors/screens/explorer/explorer_search_screen.dart';
+import 'package:aipictors/screens/explorer/explorer_best_works_view.dart';
+import 'package:aipictors/screens/explorer/explorer_hot_tags_view.dart';
+import 'package:aipictors/screens/explorer/explorer_latest_folders_view.dart';
+import 'package:aipictors/screens/explorer/explorer_popular_works_view.dart';
+import 'package:aipictors/screens/explorer/explorer_search_view.dart';
 import 'package:aipictors/widgets/app_bar/search_app_bar.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +20,7 @@ class ExplorerScreen extends HookConsumerWidget {
 
     final isFilled = useState(false);
 
-    const tabSize = 6;
+    const tabSize = 4;
 
     return DefaultTabController(
       length: tabSize,
@@ -68,12 +68,12 @@ class ExplorerScreen extends HookConsumerWidget {
               : null,
         ),
         body: search.value.isNotEmpty
-            ? ExplorerSearchScreen(search: search.value)
+            ? ExplorerSearchView(search: search.value)
             : const TabBarView(children: [
-                ExplorerFoldersScreen(),
-                ExplorerHotTagsScreen(),
-                ExplorerPopularWorksScreen(),
-                ExplorerBestWorksScreen(),
+                ExplorerFoldersView(),
+                ExplorerHotTagsView(),
+                ExplorerPopularWorksView(),
+                ExplorerBestWorksView(),
               ]),
       ),
     );

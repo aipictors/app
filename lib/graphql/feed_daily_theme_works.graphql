@@ -1,4 +1,4 @@
-# import './fragments/partial_work_fields_fragment.graphql'
+# import './fragments/partial_feed_work_fields_fragment.graphql'
 # import './fragments/partial_user_fields_fragment.graphql'
 
 query FeedDailyThemeWorks(
@@ -12,7 +12,7 @@ query FeedDailyThemeWorks(
     id
     title
     works(offset: $offset, limit: $limit) {
-      ...PartialWorkFields
+      ...PartialFeedWorkFields
       user {
         ...PartialUserFields
       }

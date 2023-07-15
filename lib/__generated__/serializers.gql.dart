@@ -161,7 +161,7 @@ import 'package:aipictors/graphql/__generated__/feed_daily_theme_works.data.gql.
         GFeedDailyThemeWorksData,
         GFeedDailyThemeWorksData_dailyTheme,
         GFeedDailyThemeWorksData_dailyTheme_works,
-        GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImage,
+        GFeedDailyThemeWorksData_dailyTheme_works_image,
         GFeedDailyThemeWorksData_dailyTheme_works_user,
         GFeedDailyThemeWorksData_dailyTheme_works_user_iconImage,
         GFeedDailyThemeWorksData_dailyTheme_works_viewer;
@@ -173,7 +173,7 @@ import 'package:aipictors/graphql/__generated__/feed_hot_works.data.gql.dart'
     show
         GFeedHotWorksData,
         GFeedHotWorksData_hotWorks,
-        GFeedHotWorksData_hotWorks_thumbnailImage,
+        GFeedHotWorksData_hotWorks_image,
         GFeedHotWorksData_hotWorks_user,
         GFeedHotWorksData_hotWorks_user_iconImage,
         GFeedHotWorksData_hotWorks_viewer;
@@ -181,18 +181,18 @@ import 'package:aipictors/graphql/__generated__/feed_hot_works.req.gql.dart'
     show GFeedHotWorksReq;
 import 'package:aipictors/graphql/__generated__/feed_hot_works.var.gql.dart'
     show GFeedHotWorksVars;
-import 'package:aipictors/graphql/__generated__/feed_works.data.gql.dart'
+import 'package:aipictors/graphql/__generated__/feed_latest_works.data.gql.dart'
     show
-        GFeedWorksData,
-        GFeedWorksData_works,
-        GFeedWorksData_works_thumbnailImage,
-        GFeedWorksData_works_user,
-        GFeedWorksData_works_user_iconImage,
-        GFeedWorksData_works_viewer;
-import 'package:aipictors/graphql/__generated__/feed_works.req.gql.dart'
-    show GFeedWorksReq;
-import 'package:aipictors/graphql/__generated__/feed_works.var.gql.dart'
-    show GFeedWorksVars;
+        GFeedLatestWorksData,
+        GFeedLatestWorksData_works,
+        GFeedLatestWorksData_works_image,
+        GFeedLatestWorksData_works_user,
+        GFeedLatestWorksData_works_user_iconImage,
+        GFeedLatestWorksData_works_viewer;
+import 'package:aipictors/graphql/__generated__/feed_latest_works.req.gql.dart'
+    show GFeedLatestWorksReq;
+import 'package:aipictors/graphql/__generated__/feed_latest_works.var.gql.dart'
+    show GFeedLatestWorksVars;
 import 'package:aipictors/graphql/__generated__/folder.data.gql.dart'
     show
         GFolderData,
@@ -328,7 +328,7 @@ import 'package:aipictors/graphql/__generated__/viewer_feed_works.data.gql.dart'
         GViewerFeedWorksData,
         GViewerFeedWorksData_viewer,
         GViewerFeedWorksData_viewer_feedWorks,
-        GViewerFeedWorksData_viewer_feedWorks_thumbnailImage,
+        GViewerFeedWorksData_viewer_feedWorks_image,
         GViewerFeedWorksData_viewer_feedWorks_user,
         GViewerFeedWorksData_viewer_feedWorks_user_iconImage,
         GViewerFeedWorksData_viewer_feedWorks_viewer;
@@ -408,6 +408,12 @@ import 'package:aipictors/graphql/fragments/__generated__/comment_fields_fragmen
     show GCommentFieldsReq;
 import 'package:aipictors/graphql/fragments/__generated__/comment_fields_fragment.var.gql.dart'
     show GCommentFieldsVars;
+import 'package:aipictors/graphql/fragments/__generated__/partial_feed_work_fields_fragment.data.gql.dart'
+    show GPartialFeedWorkFieldsData, GPartialFeedWorkFieldsData_image;
+import 'package:aipictors/graphql/fragments/__generated__/partial_feed_work_fields_fragment.req.gql.dart'
+    show GPartialFeedWorkFieldsReq;
+import 'package:aipictors/graphql/fragments/__generated__/partial_feed_work_fields_fragment.var.gql.dart'
+    show GPartialFeedWorkFieldsVars;
 import 'package:aipictors/graphql/fragments/__generated__/partial_folder_fields_fragment.data.gql.dart'
     show GPartialFolderFieldsData, GPartialFolderFieldsData_thumbnailImage;
 import 'package:aipictors/graphql/fragments/__generated__/partial_folder_fields_fragment.req.gql.dart'
@@ -598,7 +604,7 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GFeedDailyThemeWorksData,
   GFeedDailyThemeWorksData_dailyTheme,
   GFeedDailyThemeWorksData_dailyTheme_works,
-  GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImage,
+  GFeedDailyThemeWorksData_dailyTheme_works_image,
   GFeedDailyThemeWorksData_dailyTheme_works_user,
   GFeedDailyThemeWorksData_dailyTheme_works_user_iconImage,
   GFeedDailyThemeWorksData_dailyTheme_works_viewer,
@@ -606,20 +612,20 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GFeedDailyThemeWorksVars,
   GFeedHotWorksData,
   GFeedHotWorksData_hotWorks,
-  GFeedHotWorksData_hotWorks_thumbnailImage,
+  GFeedHotWorksData_hotWorks_image,
   GFeedHotWorksData_hotWorks_user,
   GFeedHotWorksData_hotWorks_user_iconImage,
   GFeedHotWorksData_hotWorks_viewer,
   GFeedHotWorksReq,
   GFeedHotWorksVars,
-  GFeedWorksData,
-  GFeedWorksData_works,
-  GFeedWorksData_works_thumbnailImage,
-  GFeedWorksData_works_user,
-  GFeedWorksData_works_user_iconImage,
-  GFeedWorksData_works_viewer,
-  GFeedWorksReq,
-  GFeedWorksVars,
+  GFeedLatestWorksData,
+  GFeedLatestWorksData_works,
+  GFeedLatestWorksData_works_image,
+  GFeedLatestWorksData_works_user,
+  GFeedLatestWorksData_works_user_iconImage,
+  GFeedLatestWorksData_works_viewer,
+  GFeedLatestWorksReq,
+  GFeedLatestWorksVars,
   GFlipPromptonFolderWorkIndexInput,
   GFolderData,
   GFolderData_folder,
@@ -673,6 +679,10 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GMuteTagInput,
   GMuteUserInput,
   GNotificationType,
+  GPartialFeedWorkFieldsData,
+  GPartialFeedWorkFieldsData_image,
+  GPartialFeedWorkFieldsReq,
+  GPartialFeedWorkFieldsVars,
   GPartialFolderFieldsData,
   GPartialFolderFieldsData_thumbnailImage,
   GPartialFolderFieldsReq,
@@ -791,7 +801,7 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GViewerFeedWorksData,
   GViewerFeedWorksData_viewer,
   GViewerFeedWorksData_viewer_feedWorks,
-  GViewerFeedWorksData_viewer_feedWorks_thumbnailImage,
+  GViewerFeedWorksData_viewer_feedWorks_image,
   GViewerFeedWorksData_viewer_feedWorks_user,
   GViewerFeedWorksData_viewer_feedWorks_user_iconImage,
   GViewerFeedWorksData_viewer_feedWorks_viewer,

@@ -7,27 +7,28 @@ import 'package:aipictors/__generated__/serializers.gql.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'feed_works.var.gql.g.dart';
+part 'feed_latest_works.var.gql.g.dart';
 
-abstract class GFeedWorksVars
-    implements Built<GFeedWorksVars, GFeedWorksVarsBuilder> {
-  GFeedWorksVars._();
+abstract class GFeedLatestWorksVars
+    implements Built<GFeedLatestWorksVars, GFeedLatestWorksVarsBuilder> {
+  GFeedLatestWorksVars._();
 
-  factory GFeedWorksVars([Function(GFeedWorksVarsBuilder b) updates]) =
-      _$GFeedWorksVars;
+  factory GFeedLatestWorksVars(
+          [Function(GFeedLatestWorksVarsBuilder b) updates]) =
+      _$GFeedLatestWorksVars;
 
   int get offset;
   int get limit;
   _i1.GWorksWhereInput? get where;
-  static Serializer<GFeedWorksVars> get serializer =>
-      _$gFeedWorksVarsSerializer;
+  static Serializer<GFeedLatestWorksVars> get serializer =>
+      _$gFeedLatestWorksVarsSerializer;
   Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
-        GFeedWorksVars.serializer,
+        GFeedLatestWorksVars.serializer,
         this,
       ) as Map<String, dynamic>);
-  static GFeedWorksVars? fromJson(Map<String, dynamic> json) =>
+  static GFeedLatestWorksVars? fromJson(Map<String, dynamic> json) =>
       _i2.serializers.deserializeWith(
-        GFeedWorksVars.serializer,
+        GFeedLatestWorksVars.serializer,
         json,
       );
 }

@@ -10,9 +10,9 @@ Serializer<GFeedHotWorksData> _$gFeedHotWorksDataSerializer =
     new _$GFeedHotWorksDataSerializer();
 Serializer<GFeedHotWorksData_hotWorks> _$gFeedHotWorksDataHotWorksSerializer =
     new _$GFeedHotWorksData_hotWorksSerializer();
-Serializer<GFeedHotWorksData_hotWorks_thumbnailImage>
-    _$gFeedHotWorksDataHotWorksThumbnailImageSerializer =
-    new _$GFeedHotWorksData_hotWorks_thumbnailImageSerializer();
+Serializer<GFeedHotWorksData_hotWorks_image>
+    _$gFeedHotWorksDataHotWorksImageSerializer =
+    new _$GFeedHotWorksData_hotWorks_imageSerializer();
 Serializer<GFeedHotWorksData_hotWorks_user>
     _$gFeedHotWorksDataHotWorksUserSerializer =
     new _$GFeedHotWorksData_hotWorks_userSerializer();
@@ -107,6 +107,9 @@ class _$GFeedHotWorksData_hotWorksSerializer
       'createdAt',
       serializers.serialize(object.createdAt,
           specifiedType: const FullType(int)),
+      'imageAspectRatio',
+      serializers.serialize(object.imageAspectRatio,
+          specifiedType: const FullType(double)),
       'user',
       serializers.serialize(object.user,
           specifiedType: const FullType(GFeedHotWorksData_hotWorks_user)),
@@ -115,13 +118,12 @@ class _$GFeedHotWorksData_hotWorksSerializer
           specifiedType: const FullType(GFeedHotWorksData_hotWorks_viewer)),
     ];
     Object? value;
-    value = object.thumbnailImage;
+    value = object.image;
     if (value != null) {
       result
-        ..add('thumbnailImage')
+        ..add('image')
         ..add(serializers.serialize(value,
-            specifiedType:
-                const FullType(GFeedHotWorksData_hotWorks_thumbnailImage)));
+            specifiedType: const FullType(GFeedHotWorksData_hotWorks_image)));
     }
     return result;
   }
@@ -162,11 +164,15 @@ class _$GFeedHotWorksData_hotWorksSerializer
           result.createdAt = serializers.deserialize(value,
               specifiedType: const FullType(int))! as int;
           break;
-        case 'thumbnailImage':
-          result.thumbnailImage.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      GFeedHotWorksData_hotWorks_thumbnailImage))!
-              as GFeedHotWorksData_hotWorks_thumbnailImage);
+        case 'imageAspectRatio':
+          result.imageAspectRatio = serializers.deserialize(value,
+              specifiedType: const FullType(double))! as double;
+          break;
+        case 'image':
+          result.image.replace(serializers.deserialize(value,
+                  specifiedType:
+                      const FullType(GFeedHotWorksData_hotWorks_image))!
+              as GFeedHotWorksData_hotWorks_image);
           break;
         case 'user':
           result.user.replace(serializers.deserialize(value,
@@ -187,19 +193,19 @@ class _$GFeedHotWorksData_hotWorksSerializer
   }
 }
 
-class _$GFeedHotWorksData_hotWorks_thumbnailImageSerializer
-    implements StructuredSerializer<GFeedHotWorksData_hotWorks_thumbnailImage> {
+class _$GFeedHotWorksData_hotWorks_imageSerializer
+    implements StructuredSerializer<GFeedHotWorksData_hotWorks_image> {
   @override
   final Iterable<Type> types = const [
-    GFeedHotWorksData_hotWorks_thumbnailImage,
-    _$GFeedHotWorksData_hotWorks_thumbnailImage
+    GFeedHotWorksData_hotWorks_image,
+    _$GFeedHotWorksData_hotWorks_image
   ];
   @override
-  final String wireName = 'GFeedHotWorksData_hotWorks_thumbnailImage';
+  final String wireName = 'GFeedHotWorksData_hotWorks_image';
 
   @override
   Iterable<Object?> serialize(
-      Serializers serializers, GFeedHotWorksData_hotWorks_thumbnailImage object,
+      Serializers serializers, GFeedHotWorksData_hotWorks_image object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
       '__typename',
@@ -216,10 +222,10 @@ class _$GFeedHotWorksData_hotWorks_thumbnailImageSerializer
   }
 
   @override
-  GFeedHotWorksData_hotWorks_thumbnailImage deserialize(
+  GFeedHotWorksData_hotWorks_image deserialize(
       Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new GFeedHotWorksData_hotWorks_thumbnailImageBuilder();
+    final result = new GFeedHotWorksData_hotWorks_imageBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -582,7 +588,9 @@ class _$GFeedHotWorksData_hotWorks extends GFeedHotWorksData_hotWorks {
   @override
   final int createdAt;
   @override
-  final GFeedHotWorksData_hotWorks_thumbnailImage? thumbnailImage;
+  final double imageAspectRatio;
+  @override
+  final GFeedHotWorksData_hotWorks_image? image;
   @override
   final GFeedHotWorksData_hotWorks_user user;
   @override
@@ -599,7 +607,8 @@ class _$GFeedHotWorksData_hotWorks extends GFeedHotWorksData_hotWorks {
       required this.likesCount,
       required this.commentsCount,
       required this.createdAt,
-      this.thumbnailImage,
+      required this.imageAspectRatio,
+      this.image,
       required this.user,
       required this.viewer})
       : super._() {
@@ -615,6 +624,8 @@ class _$GFeedHotWorksData_hotWorks extends GFeedHotWorksData_hotWorks {
         commentsCount, r'GFeedHotWorksData_hotWorks', 'commentsCount');
     BuiltValueNullFieldError.checkNotNull(
         createdAt, r'GFeedHotWorksData_hotWorks', 'createdAt');
+    BuiltValueNullFieldError.checkNotNull(
+        imageAspectRatio, r'GFeedHotWorksData_hotWorks', 'imageAspectRatio');
     BuiltValueNullFieldError.checkNotNull(
         user, r'GFeedHotWorksData_hotWorks', 'user');
     BuiltValueNullFieldError.checkNotNull(
@@ -640,7 +651,8 @@ class _$GFeedHotWorksData_hotWorks extends GFeedHotWorksData_hotWorks {
         likesCount == other.likesCount &&
         commentsCount == other.commentsCount &&
         createdAt == other.createdAt &&
-        thumbnailImage == other.thumbnailImage &&
+        imageAspectRatio == other.imageAspectRatio &&
+        image == other.image &&
         user == other.user &&
         viewer == other.viewer;
   }
@@ -654,7 +666,8 @@ class _$GFeedHotWorksData_hotWorks extends GFeedHotWorksData_hotWorks {
     _$hash = $jc(_$hash, likesCount.hashCode);
     _$hash = $jc(_$hash, commentsCount.hashCode);
     _$hash = $jc(_$hash, createdAt.hashCode);
-    _$hash = $jc(_$hash, thumbnailImage.hashCode);
+    _$hash = $jc(_$hash, imageAspectRatio.hashCode);
+    _$hash = $jc(_$hash, image.hashCode);
     _$hash = $jc(_$hash, user.hashCode);
     _$hash = $jc(_$hash, viewer.hashCode);
     _$hash = $jf(_$hash);
@@ -670,7 +683,8 @@ class _$GFeedHotWorksData_hotWorks extends GFeedHotWorksData_hotWorks {
           ..add('likesCount', likesCount)
           ..add('commentsCount', commentsCount)
           ..add('createdAt', createdAt)
-          ..add('thumbnailImage', thumbnailImage)
+          ..add('imageAspectRatio', imageAspectRatio)
+          ..add('image', image)
           ..add('user', user)
           ..add('viewer', viewer))
         .toString();
@@ -707,13 +721,16 @@ class GFeedHotWorksData_hotWorksBuilder
   int? get createdAt => _$this._createdAt;
   set createdAt(int? createdAt) => _$this._createdAt = createdAt;
 
-  GFeedHotWorksData_hotWorks_thumbnailImageBuilder? _thumbnailImage;
-  GFeedHotWorksData_hotWorks_thumbnailImageBuilder get thumbnailImage =>
-      _$this._thumbnailImage ??=
-          new GFeedHotWorksData_hotWorks_thumbnailImageBuilder();
-  set thumbnailImage(
-          GFeedHotWorksData_hotWorks_thumbnailImageBuilder? thumbnailImage) =>
-      _$this._thumbnailImage = thumbnailImage;
+  double? _imageAspectRatio;
+  double? get imageAspectRatio => _$this._imageAspectRatio;
+  set imageAspectRatio(double? imageAspectRatio) =>
+      _$this._imageAspectRatio = imageAspectRatio;
+
+  GFeedHotWorksData_hotWorks_imageBuilder? _image;
+  GFeedHotWorksData_hotWorks_imageBuilder get image =>
+      _$this._image ??= new GFeedHotWorksData_hotWorks_imageBuilder();
+  set image(GFeedHotWorksData_hotWorks_imageBuilder? image) =>
+      _$this._image = image;
 
   GFeedHotWorksData_hotWorks_userBuilder? _user;
   GFeedHotWorksData_hotWorks_userBuilder get user =>
@@ -739,7 +756,8 @@ class GFeedHotWorksData_hotWorksBuilder
       _likesCount = $v.likesCount;
       _commentsCount = $v.commentsCount;
       _createdAt = $v.createdAt;
-      _thumbnailImage = $v.thumbnailImage?.toBuilder();
+      _imageAspectRatio = $v.imageAspectRatio;
+      _image = $v.image?.toBuilder();
       _user = $v.user.toBuilder();
       _viewer = $v.viewer.toBuilder();
       _$v = null;
@@ -775,19 +793,21 @@ class GFeedHotWorksData_hotWorksBuilder
               likesCount: BuiltValueNullFieldError.checkNotNull(
                   likesCount, r'GFeedHotWorksData_hotWorks', 'likesCount'),
               commentsCount: BuiltValueNullFieldError.checkNotNull(
-                  commentsCount,
-                  r'GFeedHotWorksData_hotWorks',
-                  'commentsCount'),
+                  commentsCount, r'GFeedHotWorksData_hotWorks', 'commentsCount'),
               createdAt: BuiltValueNullFieldError.checkNotNull(
                   createdAt, r'GFeedHotWorksData_hotWorks', 'createdAt'),
-              thumbnailImage: _thumbnailImage?.build(),
+              imageAspectRatio: BuiltValueNullFieldError.checkNotNull(
+                  imageAspectRatio,
+                  r'GFeedHotWorksData_hotWorks',
+                  'imageAspectRatio'),
+              image: _image?.build(),
               user: user.build(),
               viewer: viewer.build());
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'thumbnailImage';
-        _thumbnailImage?.build();
+        _$failedField = 'image';
+        _image?.build();
         _$failedField = 'user';
         user.build();
         _$failedField = 'viewer';
@@ -803,8 +823,8 @@ class GFeedHotWorksData_hotWorksBuilder
   }
 }
 
-class _$GFeedHotWorksData_hotWorks_thumbnailImage
-    extends GFeedHotWorksData_hotWorks_thumbnailImage {
+class _$GFeedHotWorksData_hotWorks_image
+    extends GFeedHotWorksData_hotWorks_image {
   @override
   final String G__typename;
   @override
@@ -812,37 +832,34 @@ class _$GFeedHotWorksData_hotWorks_thumbnailImage
   @override
   final String downloadURL;
 
-  factory _$GFeedHotWorksData_hotWorks_thumbnailImage(
-          [void Function(GFeedHotWorksData_hotWorks_thumbnailImageBuilder)?
-              updates]) =>
-      (new GFeedHotWorksData_hotWorks_thumbnailImageBuilder()..update(updates))
-          ._build();
+  factory _$GFeedHotWorksData_hotWorks_image(
+          [void Function(GFeedHotWorksData_hotWorks_imageBuilder)? updates]) =>
+      (new GFeedHotWorksData_hotWorks_imageBuilder()..update(updates))._build();
 
-  _$GFeedHotWorksData_hotWorks_thumbnailImage._(
+  _$GFeedHotWorksData_hotWorks_image._(
       {required this.G__typename, required this.id, required this.downloadURL})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(G__typename,
-        r'GFeedHotWorksData_hotWorks_thumbnailImage', 'G__typename');
     BuiltValueNullFieldError.checkNotNull(
-        id, r'GFeedHotWorksData_hotWorks_thumbnailImage', 'id');
-    BuiltValueNullFieldError.checkNotNull(downloadURL,
-        r'GFeedHotWorksData_hotWorks_thumbnailImage', 'downloadURL');
+        G__typename, r'GFeedHotWorksData_hotWorks_image', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(
+        id, r'GFeedHotWorksData_hotWorks_image', 'id');
+    BuiltValueNullFieldError.checkNotNull(
+        downloadURL, r'GFeedHotWorksData_hotWorks_image', 'downloadURL');
   }
 
   @override
-  GFeedHotWorksData_hotWorks_thumbnailImage rebuild(
-          void Function(GFeedHotWorksData_hotWorks_thumbnailImageBuilder)
-              updates) =>
+  GFeedHotWorksData_hotWorks_image rebuild(
+          void Function(GFeedHotWorksData_hotWorks_imageBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GFeedHotWorksData_hotWorks_thumbnailImageBuilder toBuilder() =>
-      new GFeedHotWorksData_hotWorks_thumbnailImageBuilder()..replace(this);
+  GFeedHotWorksData_hotWorks_imageBuilder toBuilder() =>
+      new GFeedHotWorksData_hotWorks_imageBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GFeedHotWorksData_hotWorks_thumbnailImage &&
+    return other is GFeedHotWorksData_hotWorks_image &&
         G__typename == other.G__typename &&
         id == other.id &&
         downloadURL == other.downloadURL;
@@ -860,8 +877,7 @@ class _$GFeedHotWorksData_hotWorks_thumbnailImage
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(
-            r'GFeedHotWorksData_hotWorks_thumbnailImage')
+    return (newBuiltValueToStringHelper(r'GFeedHotWorksData_hotWorks_image')
           ..add('G__typename', G__typename)
           ..add('id', id)
           ..add('downloadURL', downloadURL))
@@ -869,11 +885,11 @@ class _$GFeedHotWorksData_hotWorks_thumbnailImage
   }
 }
 
-class GFeedHotWorksData_hotWorks_thumbnailImageBuilder
+class GFeedHotWorksData_hotWorks_imageBuilder
     implements
-        Builder<GFeedHotWorksData_hotWorks_thumbnailImage,
-            GFeedHotWorksData_hotWorks_thumbnailImageBuilder> {
-  _$GFeedHotWorksData_hotWorks_thumbnailImage? _$v;
+        Builder<GFeedHotWorksData_hotWorks_image,
+            GFeedHotWorksData_hotWorks_imageBuilder> {
+  _$GFeedHotWorksData_hotWorks_image? _$v;
 
   String? _G__typename;
   String? get G__typename => _$this._G__typename;
@@ -887,11 +903,11 @@ class GFeedHotWorksData_hotWorks_thumbnailImageBuilder
   String? get downloadURL => _$this._downloadURL;
   set downloadURL(String? downloadURL) => _$this._downloadURL = downloadURL;
 
-  GFeedHotWorksData_hotWorks_thumbnailImageBuilder() {
-    GFeedHotWorksData_hotWorks_thumbnailImage._initializeBuilder(this);
+  GFeedHotWorksData_hotWorks_imageBuilder() {
+    GFeedHotWorksData_hotWorks_image._initializeBuilder(this);
   }
 
-  GFeedHotWorksData_hotWorks_thumbnailImageBuilder get _$this {
+  GFeedHotWorksData_hotWorks_imageBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _G__typename = $v.G__typename;
@@ -903,30 +919,28 @@ class GFeedHotWorksData_hotWorks_thumbnailImageBuilder
   }
 
   @override
-  void replace(GFeedHotWorksData_hotWorks_thumbnailImage other) {
+  void replace(GFeedHotWorksData_hotWorks_image other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GFeedHotWorksData_hotWorks_thumbnailImage;
+    _$v = other as _$GFeedHotWorksData_hotWorks_image;
   }
 
   @override
-  void update(
-      void Function(GFeedHotWorksData_hotWorks_thumbnailImageBuilder)?
-          updates) {
+  void update(void Function(GFeedHotWorksData_hotWorks_imageBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  GFeedHotWorksData_hotWorks_thumbnailImage build() => _build();
+  GFeedHotWorksData_hotWorks_image build() => _build();
 
-  _$GFeedHotWorksData_hotWorks_thumbnailImage _build() {
+  _$GFeedHotWorksData_hotWorks_image _build() {
     final _$result = _$v ??
-        new _$GFeedHotWorksData_hotWorks_thumbnailImage._(
+        new _$GFeedHotWorksData_hotWorks_image._(
             G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
-                r'GFeedHotWorksData_hotWorks_thumbnailImage', 'G__typename'),
+                r'GFeedHotWorksData_hotWorks_image', 'G__typename'),
             id: BuiltValueNullFieldError.checkNotNull(
-                id, r'GFeedHotWorksData_hotWorks_thumbnailImage', 'id'),
+                id, r'GFeedHotWorksData_hotWorks_image', 'id'),
             downloadURL: BuiltValueNullFieldError.checkNotNull(downloadURL,
-                r'GFeedHotWorksData_hotWorks_thumbnailImage', 'downloadURL'));
+                r'GFeedHotWorksData_hotWorks_image', 'downloadURL'));
     replace(_$result);
     return _$result;
   }

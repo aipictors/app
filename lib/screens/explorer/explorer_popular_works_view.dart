@@ -1,6 +1,5 @@
-import 'package:aipictors/graphql/__generated__/works.req.gql.dart';
+import 'package:aipictors/graphql/__generated__/popular_works.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
-import 'package:aipictors/screens/loading_screen.dart';
 import 'package:aipictors/widgets/container/error/data_not_found_error_container.dart';
 import 'package:aipictors/widgets/container/error/empty_error_container.dart';
 import 'package:aipictors/widgets/container/error/unexpected_error_container.dart';
@@ -12,29 +11,23 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class ExplorerSearchScreen extends HookConsumerWidget {
-  const ExplorerSearchScreen({
+class ExplorerPopularWorksView extends HookConsumerWidget {
+  const ExplorerPopularWorksView({
     Key? key,
-    required this.search,
   }) : super(key: key);
-
-  final String search;
 
   @override
   Widget build(context, ref) {
     final client = ref.watch(clientProvider);
 
     if (client.value == null) {
-      return const LoadingScreen();
+      return const LoadingContainer();
     }
 
     return Operation(
       client: client.value!,
-      operationRequest: GWorksReq((builder) {
-        return builder
-          ..vars.limit = 40
-          ..vars.offset = 0
-          ..vars.where.search = search;
+      operationRequest: GPopularWorksReq((builder) {
+        return builder;
       }),
       builder: (context, response, error) {
         if (error != null) {
@@ -46,7 +39,7 @@ class ExplorerSearchScreen extends HookConsumerWidget {
         if (response.graphqlErrors != null) {
           return const UnexpectedErrorContainer();
         }
-        final works = response.data?.works;
+        final works = response.data?.popularWorks;
         if (works == null) {
           return const DataNotFoundErrorContainer();
         }
@@ -54,7 +47,8 @@ class ExplorerSearchScreen extends HookConsumerWidget {
           return const EmptyErrorContainer();
         }
         return GridView.builder(
-          physics: const ClampingScrollPhysics(),
+          key: const PageStorageKey('explorer_popular_works'),
+          // physics: const ClampingScrollPhysics(),
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
           ),
@@ -69,9 +63,7 @@ class ExplorerSearchScreen extends HookConsumerWidget {
                 );
                 context.push('/works/${work.id}');
               },
-              child: GridWorkImage(
-                imageURL: work.thumbnailImage!.downloadURL,
-              ),
+              child: GridWorkImage(imageURL: work.thumbnailImage!.downloadURL),
             );
           },
         );

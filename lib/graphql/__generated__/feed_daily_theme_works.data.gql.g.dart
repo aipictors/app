@@ -14,9 +14,9 @@ Serializer<GFeedDailyThemeWorksData_dailyTheme>
 Serializer<GFeedDailyThemeWorksData_dailyTheme_works>
     _$gFeedDailyThemeWorksDataDailyThemeWorksSerializer =
     new _$GFeedDailyThemeWorksData_dailyTheme_worksSerializer();
-Serializer<GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImage>
-    _$gFeedDailyThemeWorksDataDailyThemeWorksThumbnailImageSerializer =
-    new _$GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImageSerializer();
+Serializer<GFeedDailyThemeWorksData_dailyTheme_works_image>
+    _$gFeedDailyThemeWorksDataDailyThemeWorksImageSerializer =
+    new _$GFeedDailyThemeWorksData_dailyTheme_works_imageSerializer();
 Serializer<GFeedDailyThemeWorksData_dailyTheme_works_user>
     _$gFeedDailyThemeWorksDataDailyThemeWorksUserSerializer =
     new _$GFeedDailyThemeWorksData_dailyTheme_works_userSerializer();
@@ -189,6 +189,9 @@ class _$GFeedDailyThemeWorksData_dailyTheme_worksSerializer
       'createdAt',
       serializers.serialize(object.createdAt,
           specifiedType: const FullType(int)),
+      'imageAspectRatio',
+      serializers.serialize(object.imageAspectRatio,
+          specifiedType: const FullType(double)),
       'user',
       serializers.serialize(object.user,
           specifiedType:
@@ -199,13 +202,13 @@ class _$GFeedDailyThemeWorksData_dailyTheme_worksSerializer
               const FullType(GFeedDailyThemeWorksData_dailyTheme_works_viewer)),
     ];
     Object? value;
-    value = object.thumbnailImage;
+    value = object.image;
     if (value != null) {
       result
-        ..add('thumbnailImage')
+        ..add('image')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(
-                GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImage)));
+                GFeedDailyThemeWorksData_dailyTheme_works_image)));
     }
     return result;
   }
@@ -246,11 +249,15 @@ class _$GFeedDailyThemeWorksData_dailyTheme_worksSerializer
           result.createdAt = serializers.deserialize(value,
               specifiedType: const FullType(int))! as int;
           break;
-        case 'thumbnailImage':
-          result.thumbnailImage.replace(serializers.deserialize(value,
+        case 'imageAspectRatio':
+          result.imageAspectRatio = serializers.deserialize(value,
+              specifiedType: const FullType(double))! as double;
+          break;
+        case 'image':
+          result.image.replace(serializers.deserialize(value,
                   specifiedType: const FullType(
-                      GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImage))!
-              as GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImage);
+                      GFeedDailyThemeWorksData_dailyTheme_works_image))!
+              as GFeedDailyThemeWorksData_dailyTheme_works_image);
           break;
         case 'user':
           result.user.replace(serializers.deserialize(value,
@@ -271,22 +278,20 @@ class _$GFeedDailyThemeWorksData_dailyTheme_worksSerializer
   }
 }
 
-class _$GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImageSerializer
+class _$GFeedDailyThemeWorksData_dailyTheme_works_imageSerializer
     implements
-        StructuredSerializer<
-            GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImage> {
+        StructuredSerializer<GFeedDailyThemeWorksData_dailyTheme_works_image> {
   @override
   final Iterable<Type> types = const [
-    GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImage,
-    _$GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImage
+    GFeedDailyThemeWorksData_dailyTheme_works_image,
+    _$GFeedDailyThemeWorksData_dailyTheme_works_image
   ];
   @override
-  final String wireName =
-      'GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImage';
+  final String wireName = 'GFeedDailyThemeWorksData_dailyTheme_works_image';
 
   @override
   Iterable<Object?> serialize(Serializers serializers,
-      GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImage object,
+      GFeedDailyThemeWorksData_dailyTheme_works_image object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
       '__typename',
@@ -303,11 +308,10 @@ class _$GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImageSerializer
   }
 
   @override
-  GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImage deserialize(
+  GFeedDailyThemeWorksData_dailyTheme_works_image deserialize(
       Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result =
-        new GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImageBuilder();
+    final result = new GFeedDailyThemeWorksData_dailyTheme_works_imageBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -838,8 +842,9 @@ class _$GFeedDailyThemeWorksData_dailyTheme_works
   @override
   final int createdAt;
   @override
-  final GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImage?
-      thumbnailImage;
+  final double imageAspectRatio;
+  @override
+  final GFeedDailyThemeWorksData_dailyTheme_works_image? image;
   @override
   final GFeedDailyThemeWorksData_dailyTheme_works_user user;
   @override
@@ -858,7 +863,8 @@ class _$GFeedDailyThemeWorksData_dailyTheme_works
       required this.likesCount,
       required this.commentsCount,
       required this.createdAt,
-      this.thumbnailImage,
+      required this.imageAspectRatio,
+      this.image,
       required this.user,
       required this.viewer})
       : super._() {
@@ -874,6 +880,8 @@ class _$GFeedDailyThemeWorksData_dailyTheme_works
         r'GFeedDailyThemeWorksData_dailyTheme_works', 'commentsCount');
     BuiltValueNullFieldError.checkNotNull(
         createdAt, r'GFeedDailyThemeWorksData_dailyTheme_works', 'createdAt');
+    BuiltValueNullFieldError.checkNotNull(imageAspectRatio,
+        r'GFeedDailyThemeWorksData_dailyTheme_works', 'imageAspectRatio');
     BuiltValueNullFieldError.checkNotNull(
         user, r'GFeedDailyThemeWorksData_dailyTheme_works', 'user');
     BuiltValueNullFieldError.checkNotNull(
@@ -900,7 +908,8 @@ class _$GFeedDailyThemeWorksData_dailyTheme_works
         likesCount == other.likesCount &&
         commentsCount == other.commentsCount &&
         createdAt == other.createdAt &&
-        thumbnailImage == other.thumbnailImage &&
+        imageAspectRatio == other.imageAspectRatio &&
+        image == other.image &&
         user == other.user &&
         viewer == other.viewer;
   }
@@ -914,7 +923,8 @@ class _$GFeedDailyThemeWorksData_dailyTheme_works
     _$hash = $jc(_$hash, likesCount.hashCode);
     _$hash = $jc(_$hash, commentsCount.hashCode);
     _$hash = $jc(_$hash, createdAt.hashCode);
-    _$hash = $jc(_$hash, thumbnailImage.hashCode);
+    _$hash = $jc(_$hash, imageAspectRatio.hashCode);
+    _$hash = $jc(_$hash, image.hashCode);
     _$hash = $jc(_$hash, user.hashCode);
     _$hash = $jc(_$hash, viewer.hashCode);
     _$hash = $jf(_$hash);
@@ -931,7 +941,8 @@ class _$GFeedDailyThemeWorksData_dailyTheme_works
           ..add('likesCount', likesCount)
           ..add('commentsCount', commentsCount)
           ..add('createdAt', createdAt)
-          ..add('thumbnailImage', thumbnailImage)
+          ..add('imageAspectRatio', imageAspectRatio)
+          ..add('image', image)
           ..add('user', user)
           ..add('viewer', viewer))
         .toString();
@@ -969,15 +980,17 @@ class GFeedDailyThemeWorksData_dailyTheme_worksBuilder
   int? get createdAt => _$this._createdAt;
   set createdAt(int? createdAt) => _$this._createdAt = createdAt;
 
-  GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImageBuilder?
-      _thumbnailImage;
-  GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImageBuilder
-      get thumbnailImage => _$this._thumbnailImage ??=
-          new GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImageBuilder();
-  set thumbnailImage(
-          GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImageBuilder?
-              thumbnailImage) =>
-      _$this._thumbnailImage = thumbnailImage;
+  double? _imageAspectRatio;
+  double? get imageAspectRatio => _$this._imageAspectRatio;
+  set imageAspectRatio(double? imageAspectRatio) =>
+      _$this._imageAspectRatio = imageAspectRatio;
+
+  GFeedDailyThemeWorksData_dailyTheme_works_imageBuilder? _image;
+  GFeedDailyThemeWorksData_dailyTheme_works_imageBuilder get image =>
+      _$this._image ??=
+          new GFeedDailyThemeWorksData_dailyTheme_works_imageBuilder();
+  set image(GFeedDailyThemeWorksData_dailyTheme_works_imageBuilder? image) =>
+      _$this._image = image;
 
   GFeedDailyThemeWorksData_dailyTheme_works_userBuilder? _user;
   GFeedDailyThemeWorksData_dailyTheme_works_userBuilder get user =>
@@ -1006,7 +1019,8 @@ class GFeedDailyThemeWorksData_dailyTheme_worksBuilder
       _likesCount = $v.likesCount;
       _commentsCount = $v.commentsCount;
       _createdAt = $v.createdAt;
-      _thumbnailImage = $v.thumbnailImage?.toBuilder();
+      _imageAspectRatio = $v.imageAspectRatio;
+      _image = $v.image?.toBuilder();
       _user = $v.user.toBuilder();
       _viewer = $v.viewer.toBuilder();
       _$v = null;
@@ -1035,8 +1049,8 @@ class GFeedDailyThemeWorksData_dailyTheme_worksBuilder
     try {
       _$result = _$v ??
           new _$GFeedDailyThemeWorksData_dailyTheme_works._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
-                  r'GFeedDailyThemeWorksData_dailyTheme_works', 'G__typename'),
+              G__typename: BuiltValueNullFieldError.checkNotNull(
+                  G__typename, r'GFeedDailyThemeWorksData_dailyTheme_works', 'G__typename'),
               id: BuiltValueNullFieldError.checkNotNull(
                   id, r'GFeedDailyThemeWorksData_dailyTheme_works', 'id'),
               title: BuiltValueNullFieldError.checkNotNull(
@@ -1044,19 +1058,19 @@ class GFeedDailyThemeWorksData_dailyTheme_worksBuilder
               likesCount: BuiltValueNullFieldError.checkNotNull(
                   likesCount, r'GFeedDailyThemeWorksData_dailyTheme_works', 'likesCount'),
               commentsCount: BuiltValueNullFieldError.checkNotNull(
-                  commentsCount,
-                  r'GFeedDailyThemeWorksData_dailyTheme_works',
-                  'commentsCount'),
+                  commentsCount, r'GFeedDailyThemeWorksData_dailyTheme_works', 'commentsCount'),
               createdAt: BuiltValueNullFieldError.checkNotNull(
                   createdAt, r'GFeedDailyThemeWorksData_dailyTheme_works', 'createdAt'),
-              thumbnailImage: _thumbnailImage?.build(),
+              imageAspectRatio: BuiltValueNullFieldError.checkNotNull(
+                  imageAspectRatio, r'GFeedDailyThemeWorksData_dailyTheme_works', 'imageAspectRatio'),
+              image: _image?.build(),
               user: user.build(),
               viewer: viewer.build());
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'thumbnailImage';
-        _thumbnailImage?.build();
+        _$failedField = 'image';
+        _image?.build();
         _$failedField = 'user';
         user.build();
         _$failedField = 'viewer';
@@ -1074,8 +1088,8 @@ class GFeedDailyThemeWorksData_dailyTheme_worksBuilder
   }
 }
 
-class _$GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImage
-    extends GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImage {
+class _$GFeedDailyThemeWorksData_dailyTheme_works_image
+    extends GFeedDailyThemeWorksData_dailyTheme_works_image {
   @override
   final String G__typename;
   @override
@@ -1083,45 +1097,40 @@ class _$GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImage
   @override
   final String downloadURL;
 
-  factory _$GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImage(
+  factory _$GFeedDailyThemeWorksData_dailyTheme_works_image(
           [void Function(
-                  GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImageBuilder)?
+                  GFeedDailyThemeWorksData_dailyTheme_works_imageBuilder)?
               updates]) =>
-      (new GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImageBuilder()
+      (new GFeedDailyThemeWorksData_dailyTheme_works_imageBuilder()
             ..update(updates))
           ._build();
 
-  _$GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImage._(
+  _$GFeedDailyThemeWorksData_dailyTheme_works_image._(
       {required this.G__typename, required this.id, required this.downloadURL})
       : super._() {
+    BuiltValueNullFieldError.checkNotNull(G__typename,
+        r'GFeedDailyThemeWorksData_dailyTheme_works_image', 'G__typename');
     BuiltValueNullFieldError.checkNotNull(
-        G__typename,
-        r'GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImage',
-        'G__typename');
-    BuiltValueNullFieldError.checkNotNull(
-        id, r'GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImage', 'id');
-    BuiltValueNullFieldError.checkNotNull(
-        downloadURL,
-        r'GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImage',
-        'downloadURL');
+        id, r'GFeedDailyThemeWorksData_dailyTheme_works_image', 'id');
+    BuiltValueNullFieldError.checkNotNull(downloadURL,
+        r'GFeedDailyThemeWorksData_dailyTheme_works_image', 'downloadURL');
   }
 
   @override
-  GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImage rebuild(
-          void Function(
-                  GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImageBuilder)
+  GFeedDailyThemeWorksData_dailyTheme_works_image rebuild(
+          void Function(GFeedDailyThemeWorksData_dailyTheme_works_imageBuilder)
               updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImageBuilder toBuilder() =>
-      new GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImageBuilder()
+  GFeedDailyThemeWorksData_dailyTheme_works_imageBuilder toBuilder() =>
+      new GFeedDailyThemeWorksData_dailyTheme_works_imageBuilder()
         ..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImage &&
+    return other is GFeedDailyThemeWorksData_dailyTheme_works_image &&
         G__typename == other.G__typename &&
         id == other.id &&
         downloadURL == other.downloadURL;
@@ -1140,7 +1149,7 @@ class _$GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImage
   @override
   String toString() {
     return (newBuiltValueToStringHelper(
-            r'GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImage')
+            r'GFeedDailyThemeWorksData_dailyTheme_works_image')
           ..add('G__typename', G__typename)
           ..add('id', id)
           ..add('downloadURL', downloadURL))
@@ -1148,11 +1157,11 @@ class _$GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImage
   }
 }
 
-class GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImageBuilder
+class GFeedDailyThemeWorksData_dailyTheme_works_imageBuilder
     implements
-        Builder<GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImage,
-            GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImageBuilder> {
-  _$GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImage? _$v;
+        Builder<GFeedDailyThemeWorksData_dailyTheme_works_image,
+            GFeedDailyThemeWorksData_dailyTheme_works_imageBuilder> {
+  _$GFeedDailyThemeWorksData_dailyTheme_works_image? _$v;
 
   String? _G__typename;
   String? get G__typename => _$this._G__typename;
@@ -1166,12 +1175,11 @@ class GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImageBuilder
   String? get downloadURL => _$this._downloadURL;
   set downloadURL(String? downloadURL) => _$this._downloadURL = downloadURL;
 
-  GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImageBuilder() {
-    GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImage._initializeBuilder(
-        this);
+  GFeedDailyThemeWorksData_dailyTheme_works_imageBuilder() {
+    GFeedDailyThemeWorksData_dailyTheme_works_image._initializeBuilder(this);
   }
 
-  GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImageBuilder get _$this {
+  GFeedDailyThemeWorksData_dailyTheme_works_imageBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _G__typename = $v.G__typename;
@@ -1183,36 +1191,33 @@ class GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImageBuilder
   }
 
   @override
-  void replace(GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImage other) {
+  void replace(GFeedDailyThemeWorksData_dailyTheme_works_image other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImage;
+    _$v = other as _$GFeedDailyThemeWorksData_dailyTheme_works_image;
   }
 
   @override
   void update(
-      void Function(
-              GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImageBuilder)?
+      void Function(GFeedDailyThemeWorksData_dailyTheme_works_imageBuilder)?
           updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImage build() => _build();
+  GFeedDailyThemeWorksData_dailyTheme_works_image build() => _build();
 
-  _$GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImage _build() {
+  _$GFeedDailyThemeWorksData_dailyTheme_works_image _build() {
     final _$result = _$v ??
-        new _$GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImage._(
+        new _$GFeedDailyThemeWorksData_dailyTheme_works_image._(
             G__typename: BuiltValueNullFieldError.checkNotNull(
                 G__typename,
-                r'GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImage',
+                r'GFeedDailyThemeWorksData_dailyTheme_works_image',
                 'G__typename'),
             id: BuiltValueNullFieldError.checkNotNull(
-                id,
-                r'GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImage',
-                'id'),
+                id, r'GFeedDailyThemeWorksData_dailyTheme_works_image', 'id'),
             downloadURL: BuiltValueNullFieldError.checkNotNull(
                 downloadURL,
-                r'GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImage',
+                r'GFeedDailyThemeWorksData_dailyTheme_works_image',
                 'downloadURL'));
     replace(_$result);
     return _$result;

@@ -41,8 +41,9 @@ class FeedHotWorksView extends HookConsumerWidget {
             return FeedWorkListTile(
               workId: work.id,
               workTitle: work.title,
-              workImageURL: work.thumbnailImage!.downloadURL,
+              workImageURL: work.image?.downloadURL,
               workCreatedAt: work.createdAt,
+              workImageAspectRatio: work.imageAspectRatio,
               userName: work.user.name,
               userIconImageURL: work.user.iconImage?.downloadURL,
               likesCount: work.likesCount,

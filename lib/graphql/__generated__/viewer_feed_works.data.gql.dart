@@ -3,10 +3,10 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:aipictors/__generated__/serializers.gql.dart' as _i1;
+import 'package:aipictors/graphql/fragments/__generated__/partial_feed_work_fields_fragment.data.gql.dart'
+    as _i2;
 import 'package:aipictors/graphql/fragments/__generated__/partial_user_fields_fragment.data.gql.dart'
     as _i3;
-import 'package:aipictors/graphql/fragments/__generated__/partial_work_fields_fragment.data.gql.dart'
-    as _i2;
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
@@ -70,7 +70,7 @@ abstract class GViewerFeedWorksData_viewer_feedWorks
     implements
         Built<GViewerFeedWorksData_viewer_feedWorks,
             GViewerFeedWorksData_viewer_feedWorksBuilder>,
-        _i2.GPartialWorkFields {
+        _i2.GPartialFeedWorkFields {
   GViewerFeedWorksData_viewer_feedWorks._();
 
   factory GViewerFeedWorksData_viewer_feedWorks(
@@ -94,7 +94,9 @@ abstract class GViewerFeedWorksData_viewer_feedWorks
   @override
   int get createdAt;
   @override
-  GViewerFeedWorksData_viewer_feedWorks_thumbnailImage? get thumbnailImage;
+  double get imageAspectRatio;
+  @override
+  GViewerFeedWorksData_viewer_feedWorks_image? get image;
   GViewerFeedWorksData_viewer_feedWorks_user get user;
   GViewerFeedWorksData_viewer_feedWorks_viewer get viewer;
   static Serializer<GViewerFeedWorksData_viewer_feedWorks> get serializer =>
@@ -112,19 +114,19 @@ abstract class GViewerFeedWorksData_viewer_feedWorks
       );
 }
 
-abstract class GViewerFeedWorksData_viewer_feedWorks_thumbnailImage
+abstract class GViewerFeedWorksData_viewer_feedWorks_image
     implements
-        Built<GViewerFeedWorksData_viewer_feedWorks_thumbnailImage,
-            GViewerFeedWorksData_viewer_feedWorks_thumbnailImageBuilder>,
-        _i2.GPartialWorkFields_thumbnailImage {
-  GViewerFeedWorksData_viewer_feedWorks_thumbnailImage._();
+        Built<GViewerFeedWorksData_viewer_feedWorks_image,
+            GViewerFeedWorksData_viewer_feedWorks_imageBuilder>,
+        _i2.GPartialFeedWorkFields_image {
+  GViewerFeedWorksData_viewer_feedWorks_image._();
 
-  factory GViewerFeedWorksData_viewer_feedWorks_thumbnailImage(
-      [Function(GViewerFeedWorksData_viewer_feedWorks_thumbnailImageBuilder b)
-          updates]) = _$GViewerFeedWorksData_viewer_feedWorks_thumbnailImage;
+  factory GViewerFeedWorksData_viewer_feedWorks_image(
+      [Function(GViewerFeedWorksData_viewer_feedWorks_imageBuilder b)
+          updates]) = _$GViewerFeedWorksData_viewer_feedWorks_image;
 
   static void _initializeBuilder(
-          GViewerFeedWorksData_viewer_feedWorks_thumbnailImageBuilder b) =>
+          GViewerFeedWorksData_viewer_feedWorks_imageBuilder b) =>
       b..G__typename = 'ImageNode';
   @override
   @BuiltValueField(wireName: '__typename')
@@ -133,18 +135,17 @@ abstract class GViewerFeedWorksData_viewer_feedWorks_thumbnailImage
   String get id;
   @override
   String get downloadURL;
-  static Serializer<GViewerFeedWorksData_viewer_feedWorks_thumbnailImage>
-      get serializer =>
-          _$gViewerFeedWorksDataViewerFeedWorksThumbnailImageSerializer;
+  static Serializer<GViewerFeedWorksData_viewer_feedWorks_image>
+      get serializer => _$gViewerFeedWorksDataViewerFeedWorksImageSerializer;
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GViewerFeedWorksData_viewer_feedWorks_thumbnailImage.serializer,
+        GViewerFeedWorksData_viewer_feedWorks_image.serializer,
         this,
       ) as Map<String, dynamic>);
-  static GViewerFeedWorksData_viewer_feedWorks_thumbnailImage? fromJson(
+  static GViewerFeedWorksData_viewer_feedWorks_image? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
-        GViewerFeedWorksData_viewer_feedWorks_thumbnailImage.serializer,
+        GViewerFeedWorksData_viewer_feedWorks_image.serializer,
         json,
       );
 }

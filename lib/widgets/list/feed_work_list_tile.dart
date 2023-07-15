@@ -18,6 +18,7 @@ class FeedWorkListTile extends HookConsumerWidget {
     required this.workTitle,
     required this.workImageURL,
     required this.workCreatedAt,
+    required this.workImageAspectRatio,
     required this.userName,
     required this.userIconImageURL,
     required this.isLiked,
@@ -31,6 +32,8 @@ class FeedWorkListTile extends HookConsumerWidget {
   final String workTitle;
 
   final int workCreatedAt;
+
+  final double workImageAspectRatio;
 
   final String userName;
 
@@ -81,7 +84,10 @@ class FeedWorkListTile extends HookConsumerWidget {
             )
           ]),
           const SizedBox(height: 8),
-          FeedImage(imageURL: workImageURL),
+          FeedImage(
+            imageURL: workImageURL,
+            imageAspectRatio: workImageAspectRatio,
+          ),
           const SizedBox(height: 12),
           Text(
             workTitle,

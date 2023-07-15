@@ -1,5 +1,6 @@
-import 'package:aipictors/graphql/__generated__/best_works.req.gql.dart';
+import 'package:aipictors/graphql/__generated__/works.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
+import 'package:aipictors/screens/loading_screen.dart';
 import 'package:aipictors/widgets/container/error/data_not_found_error_container.dart';
 import 'package:aipictors/widgets/container/error/empty_error_container.dart';
 import 'package:aipictors/widgets/container/error/unexpected_error_container.dart';
@@ -11,23 +12,29 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class ExplorerBestWorksScreen extends HookConsumerWidget {
-  const ExplorerBestWorksScreen({
+class ExplorerSearchView extends HookConsumerWidget {
+  const ExplorerSearchView({
     Key? key,
+    required this.search,
   }) : super(key: key);
+
+  final String search;
 
   @override
   Widget build(context, ref) {
     final client = ref.watch(clientProvider);
 
     if (client.value == null) {
-      return const LoadingContainer();
+      return const LoadingScreen();
     }
 
     return Operation(
       client: client.value!,
-      operationRequest: GBestWorksReq((builder) {
-        return builder;
+      operationRequest: GWorksReq((builder) {
+        return builder
+          ..vars.limit = 40
+          ..vars.offset = 0
+          ..vars.where.search = search;
       }),
       builder: (context, response, error) {
         if (error != null) {
@@ -39,15 +46,14 @@ class ExplorerBestWorksScreen extends HookConsumerWidget {
         if (response.graphqlErrors != null) {
           return const UnexpectedErrorContainer();
         }
-        final works = response.data?.bestWorks;
+        final works = response.data?.works;
         if (works == null) {
-          return const EmptyErrorContainer();
-        }
-        if (works.isEmpty) {
           return const DataNotFoundErrorContainer();
         }
+        if (works.isEmpty) {
+          return const EmptyErrorContainer();
+        }
         return GridView.builder(
-          key: const PageStorageKey('explorer_best_works'),
           physics: const ClampingScrollPhysics(),
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
@@ -63,7 +69,9 @@ class ExplorerBestWorksScreen extends HookConsumerWidget {
                 );
                 context.push('/works/${work.id}');
               },
-              child: GridWorkImage(imageURL: work.thumbnailImage!.downloadURL),
+              child: GridWorkImage(
+                imageURL: work.thumbnailImage!.downloadURL,
+              ),
             );
           },
         );

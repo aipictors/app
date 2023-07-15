@@ -1,19 +1,18 @@
-import 'package:aipictors/graphql/__generated__/folders.req.gql.dart';
+import 'package:aipictors/graphql/__generated__/hot_works.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
-import 'package:aipictors/screens/loading_screen.dart';
 import 'package:aipictors/widgets/container/error/data_not_found_error_container.dart';
 import 'package:aipictors/widgets/container/error/empty_error_container.dart';
 import 'package:aipictors/widgets/container/error/unexpected_error_container.dart';
 import 'package:aipictors/widgets/container/loading_container.dart';
-import 'package:aipictors/widgets/list/folder_list_tile.dart';
+import 'package:aipictors/widgets/image/grid_work_image.dart';
 import 'package:ferry_flutter/ferry_flutter.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class ExplorerFoldersScreen extends HookConsumerWidget {
-  const ExplorerFoldersScreen({
+class ExplorerHotWorksView extends HookConsumerWidget {
+  const ExplorerHotWorksView({
     Key? key,
   }) : super(key: key);
 
@@ -22,15 +21,13 @@ class ExplorerFoldersScreen extends HookConsumerWidget {
     final client = ref.watch(clientProvider);
 
     if (client.value == null) {
-      return const LoadingScreen();
+      return const LoadingContainer();
     }
 
     return Operation(
       client: client.value!,
-      operationRequest: GFoldersReq((builder) {
-        return builder
-          ..vars.limit = 32
-          ..vars.offset = 0;
+      operationRequest: GHotWorksReq((builder) {
+        return builder;
       }),
       builder: (context, response, error) {
         if (error != null) {
@@ -42,32 +39,31 @@ class ExplorerFoldersScreen extends HookConsumerWidget {
         if (response.graphqlErrors != null) {
           return const UnexpectedErrorContainer();
         }
-        final folders = response.data?.folders;
-        if (folders == null) {
+        final works = response.data?.hotWorks;
+        if (works == null) {
           return const DataNotFoundErrorContainer();
         }
-        if (folders.isEmpty) {
+        if (works.isEmpty) {
           return const EmptyErrorContainer();
         }
-        return ListView.builder(
-          key: const PageStorageKey('explorer_latest_folders'),
+        return GridView.builder(
+          key: const PageStorageKey('explorer_hot_works'),
           // physics: const ClampingScrollPhysics(),
-          padding: const EdgeInsets.only(bottom: 16, top: 8),
-          itemCount: folders.length,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+          ),
+          itemCount: works.length,
           itemBuilder: (context, index) {
-            final folder = folders[index];
-            return FolderListTile(
-              title: folder.title,
-              userName: folder.user.name,
-              userIconImageURL: folder.user.iconImage?.downloadURL,
-              imageURL: folder.thumbnailImage?.downloadURL,
+            final work = works[index];
+            return InkWell(
               onTap: () {
                 FirebaseAnalytics.instance.logSelectContent(
-                  contentType: 'folder',
-                  itemId: folder.id,
+                  contentType: 'work',
+                  itemId: work.id,
                 );
-                context.push('/folders/${folder.id}');
+                context.push('/works/${work.id}');
               },
+              child: GridWorkImage(imageURL: work.thumbnailImage!.downloadURL),
             );
           },
         );

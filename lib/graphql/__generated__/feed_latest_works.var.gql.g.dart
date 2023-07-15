@@ -1,23 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'feed_works.var.gql.dart';
+part of 'feed_latest_works.var.gql.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<GFeedWorksVars> _$gFeedWorksVarsSerializer =
-    new _$GFeedWorksVarsSerializer();
+Serializer<GFeedLatestWorksVars> _$gFeedLatestWorksVarsSerializer =
+    new _$GFeedLatestWorksVarsSerializer();
 
-class _$GFeedWorksVarsSerializer
-    implements StructuredSerializer<GFeedWorksVars> {
+class _$GFeedLatestWorksVarsSerializer
+    implements StructuredSerializer<GFeedLatestWorksVars> {
   @override
-  final Iterable<Type> types = const [GFeedWorksVars, _$GFeedWorksVars];
+  final Iterable<Type> types = const [
+    GFeedLatestWorksVars,
+    _$GFeedLatestWorksVars
+  ];
   @override
-  final String wireName = 'GFeedWorksVars';
+  final String wireName = 'GFeedLatestWorksVars';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, GFeedWorksVars object,
+  Iterable<Object?> serialize(
+      Serializers serializers, GFeedLatestWorksVars object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
       'offset',
@@ -37,10 +41,10 @@ class _$GFeedWorksVarsSerializer
   }
 
   @override
-  GFeedWorksVars deserialize(
+  GFeedLatestWorksVars deserialize(
       Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new GFeedWorksVarsBuilder();
+    final result = new GFeedLatestWorksVarsBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -68,7 +72,7 @@ class _$GFeedWorksVarsSerializer
   }
 }
 
-class _$GFeedWorksVars extends GFeedWorksVars {
+class _$GFeedLatestWorksVars extends GFeedLatestWorksVars {
   @override
   final int offset;
   @override
@@ -76,27 +80,32 @@ class _$GFeedWorksVars extends GFeedWorksVars {
   @override
   final _i1.GWorksWhereInput? where;
 
-  factory _$GFeedWorksVars([void Function(GFeedWorksVarsBuilder)? updates]) =>
-      (new GFeedWorksVarsBuilder()..update(updates))._build();
+  factory _$GFeedLatestWorksVars(
+          [void Function(GFeedLatestWorksVarsBuilder)? updates]) =>
+      (new GFeedLatestWorksVarsBuilder()..update(updates))._build();
 
-  _$GFeedWorksVars._({required this.offset, required this.limit, this.where})
+  _$GFeedLatestWorksVars._(
+      {required this.offset, required this.limit, this.where})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(offset, r'GFeedWorksVars', 'offset');
-    BuiltValueNullFieldError.checkNotNull(limit, r'GFeedWorksVars', 'limit');
+    BuiltValueNullFieldError.checkNotNull(
+        offset, r'GFeedLatestWorksVars', 'offset');
+    BuiltValueNullFieldError.checkNotNull(
+        limit, r'GFeedLatestWorksVars', 'limit');
   }
 
   @override
-  GFeedWorksVars rebuild(void Function(GFeedWorksVarsBuilder) updates) =>
+  GFeedLatestWorksVars rebuild(
+          void Function(GFeedLatestWorksVarsBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GFeedWorksVarsBuilder toBuilder() =>
-      new GFeedWorksVarsBuilder()..replace(this);
+  GFeedLatestWorksVarsBuilder toBuilder() =>
+      new GFeedLatestWorksVarsBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GFeedWorksVars &&
+    return other is GFeedLatestWorksVars &&
         offset == other.offset &&
         limit == other.limit &&
         where == other.where;
@@ -114,7 +123,7 @@ class _$GFeedWorksVars extends GFeedWorksVars {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'GFeedWorksVars')
+    return (newBuiltValueToStringHelper(r'GFeedLatestWorksVars')
           ..add('offset', offset)
           ..add('limit', limit)
           ..add('where', where))
@@ -122,9 +131,9 @@ class _$GFeedWorksVars extends GFeedWorksVars {
   }
 }
 
-class GFeedWorksVarsBuilder
-    implements Builder<GFeedWorksVars, GFeedWorksVarsBuilder> {
-  _$GFeedWorksVars? _$v;
+class GFeedLatestWorksVarsBuilder
+    implements Builder<GFeedLatestWorksVars, GFeedLatestWorksVarsBuilder> {
+  _$GFeedLatestWorksVars? _$v;
 
   int? _offset;
   int? get offset => _$this._offset;
@@ -139,9 +148,9 @@ class GFeedWorksVarsBuilder
       _$this._where ??= new _i1.GWorksWhereInputBuilder();
   set where(_i1.GWorksWhereInputBuilder? where) => _$this._where = where;
 
-  GFeedWorksVarsBuilder();
+  GFeedLatestWorksVarsBuilder();
 
-  GFeedWorksVarsBuilder get _$this {
+  GFeedLatestWorksVarsBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _offset = $v.offset;
@@ -153,28 +162,28 @@ class GFeedWorksVarsBuilder
   }
 
   @override
-  void replace(GFeedWorksVars other) {
+  void replace(GFeedLatestWorksVars other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GFeedWorksVars;
+    _$v = other as _$GFeedLatestWorksVars;
   }
 
   @override
-  void update(void Function(GFeedWorksVarsBuilder)? updates) {
+  void update(void Function(GFeedLatestWorksVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  GFeedWorksVars build() => _build();
+  GFeedLatestWorksVars build() => _build();
 
-  _$GFeedWorksVars _build() {
-    _$GFeedWorksVars _$result;
+  _$GFeedLatestWorksVars _build() {
+    _$GFeedLatestWorksVars _$result;
     try {
       _$result = _$v ??
-          new _$GFeedWorksVars._(
+          new _$GFeedLatestWorksVars._(
               offset: BuiltValueNullFieldError.checkNotNull(
-                  offset, r'GFeedWorksVars', 'offset'),
+                  offset, r'GFeedLatestWorksVars', 'offset'),
               limit: BuiltValueNullFieldError.checkNotNull(
-                  limit, r'GFeedWorksVars', 'limit'),
+                  limit, r'GFeedLatestWorksVars', 'limit'),
               where: _where?.build());
     } catch (_) {
       late String _$failedField;
@@ -183,7 +192,7 @@ class GFeedWorksVarsBuilder
         _where?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'GFeedWorksVars', _$failedField, e.toString());
+            r'GFeedLatestWorksVars', _$failedField, e.toString());
       }
       rethrow;
     }

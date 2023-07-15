@@ -1,4 +1,4 @@
-import 'package:aipictors/graphql/__generated__/works.req.gql.dart';
+import 'package:aipictors/graphql/__generated__/best_works.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/widgets/container/error/data_not_found_error_container.dart';
 import 'package:aipictors/widgets/container/error/empty_error_container.dart';
@@ -11,8 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class ExplorerLatestWorksScreen extends HookConsumerWidget {
-  const ExplorerLatestWorksScreen({
+class ExplorerBestWorksView extends HookConsumerWidget {
+  const ExplorerBestWorksView({
     Key? key,
   }) : super(key: key);
 
@@ -26,10 +26,8 @@ class ExplorerLatestWorksScreen extends HookConsumerWidget {
 
     return Operation(
       client: client.value!,
-      operationRequest: GWorksReq((builder) {
-        return builder
-          ..vars.limit = 32
-          ..vars.offset = 0;
+      operationRequest: GBestWorksReq((builder) {
+        return builder;
       }),
       builder: (context, response, error) {
         if (error != null) {
@@ -41,16 +39,16 @@ class ExplorerLatestWorksScreen extends HookConsumerWidget {
         if (response.graphqlErrors != null) {
           return const UnexpectedErrorContainer();
         }
-        final works = response.data?.works;
+        final works = response.data?.bestWorks;
         if (works == null) {
-          return const DataNotFoundErrorContainer();
-        }
-        if (works.isEmpty) {
           return const EmptyErrorContainer();
         }
+        if (works.isEmpty) {
+          return const DataNotFoundErrorContainer();
+        }
         return GridView.builder(
-          key: const PageStorageKey('explorer_latest_works'),
-          // physics: const ClampingScrollPhysics(),
+          key: const PageStorageKey('explorer_best_works'),
+          physics: const ClampingScrollPhysics(),
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
           ),

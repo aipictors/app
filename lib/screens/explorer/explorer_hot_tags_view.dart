@@ -1,18 +1,18 @@
-import 'package:aipictors/graphql/__generated__/hot_works.req.gql.dart';
+import 'package:aipictors/graphql/__generated__/hot_tags.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/widgets/container/error/data_not_found_error_container.dart';
 import 'package:aipictors/widgets/container/error/empty_error_container.dart';
 import 'package:aipictors/widgets/container/error/unexpected_error_container.dart';
 import 'package:aipictors/widgets/container/loading_container.dart';
-import 'package:aipictors/widgets/image/grid_work_image.dart';
+import 'package:aipictors/widgets/list/tag_list_tile.dart';
 import 'package:ferry_flutter/ferry_flutter.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class ExplorerHotWorksScreen extends HookConsumerWidget {
-  const ExplorerHotWorksScreen({
+class ExplorerHotTagsView extends HookConsumerWidget {
+  const ExplorerHotTagsView({
     Key? key,
   }) : super(key: key);
 
@@ -26,7 +26,7 @@ class ExplorerHotWorksScreen extends HookConsumerWidget {
 
     return Operation(
       client: client.value!,
-      operationRequest: GHotWorksReq((builder) {
+      operationRequest: GHotTagsReq((builder) {
         return builder;
       }),
       builder: (context, response, error) {
@@ -39,31 +39,30 @@ class ExplorerHotWorksScreen extends HookConsumerWidget {
         if (response.graphqlErrors != null) {
           return const UnexpectedErrorContainer();
         }
-        final works = response.data?.hotWorks;
-        if (works == null) {
+        final tags = response.data?.hotTags;
+        if (tags == null) {
           return const DataNotFoundErrorContainer();
         }
-        if (works.isEmpty) {
+        if (tags.isEmpty) {
           return const EmptyErrorContainer();
         }
-        return GridView.builder(
-          key: const PageStorageKey('explorer_hot_works'),
+        return ListView.builder(
+          key: const PageStorageKey('explorer_hot_tags'),
           // physics: const ClampingScrollPhysics(),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-          ),
-          itemCount: works.length,
+          padding: const EdgeInsets.only(bottom: 16, top: 8),
+          itemCount: tags.length,
           itemBuilder: (context, index) {
-            final work = works[index];
-            return InkWell(
+            final tag = tags[index];
+            return TagListTile(
+              title: tag.name,
+              imageURL: tag.firstWork?.thumbnailImage?.downloadURL,
               onTap: () {
                 FirebaseAnalytics.instance.logSelectContent(
-                  contentType: 'work',
-                  itemId: work.id,
+                  contentType: 'tag',
+                  itemId: tag.id,
                 );
-                context.push('/works/${work.id}');
+                context.push('/tags/${tag.id}');
               },
-              child: GridWorkImage(imageURL: work.thumbnailImage!.downloadURL),
             );
           },
         );

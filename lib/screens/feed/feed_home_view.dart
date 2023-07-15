@@ -31,8 +31,8 @@ class FeedHomeView extends HookConsumerWidget {
       },
       builder: (data) {
         return ListView.separated(
-          shrinkWrap: true,
           key: const PageStorageKey('feed_home'),
+          shrinkWrap: true,
           separatorBuilder: (context, index) {
             return const Divider(height: 0);
           },
@@ -42,8 +42,9 @@ class FeedHomeView extends HookConsumerWidget {
             return FeedWorkListTile(
               workId: work.id,
               workTitle: work.title,
-              workImageURL: work.thumbnailImage!.downloadURL,
+              workImageURL: work.image?.downloadURL,
               workCreatedAt: work.createdAt,
+              workImageAspectRatio: work.imageAspectRatio,
               userName: work.user.name,
               userIconImageURL: work.user.iconImage?.downloadURL,
               likesCount: work.likesCount,

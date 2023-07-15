@@ -3,10 +3,10 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:aipictors/__generated__/serializers.gql.dart' as _i1;
+import 'package:aipictors/graphql/fragments/__generated__/partial_feed_work_fields_fragment.data.gql.dart'
+    as _i2;
 import 'package:aipictors/graphql/fragments/__generated__/partial_user_fields_fragment.data.gql.dart'
     as _i3;
-import 'package:aipictors/graphql/fragments/__generated__/partial_work_fields_fragment.data.gql.dart'
-    as _i2;
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
@@ -76,7 +76,7 @@ abstract class GFeedDailyThemeWorksData_dailyTheme_works
     implements
         Built<GFeedDailyThemeWorksData_dailyTheme_works,
             GFeedDailyThemeWorksData_dailyTheme_worksBuilder>,
-        _i2.GPartialWorkFields {
+        _i2.GPartialFeedWorkFields {
   GFeedDailyThemeWorksData_dailyTheme_works._();
 
   factory GFeedDailyThemeWorksData_dailyTheme_works(
@@ -100,7 +100,9 @@ abstract class GFeedDailyThemeWorksData_dailyTheme_works
   @override
   int get createdAt;
   @override
-  GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImage? get thumbnailImage;
+  double get imageAspectRatio;
+  @override
+  GFeedDailyThemeWorksData_dailyTheme_works_image? get image;
   GFeedDailyThemeWorksData_dailyTheme_works_user get user;
   GFeedDailyThemeWorksData_dailyTheme_works_viewer get viewer;
   static Serializer<GFeedDailyThemeWorksData_dailyTheme_works> get serializer =>
@@ -118,20 +120,19 @@ abstract class GFeedDailyThemeWorksData_dailyTheme_works
       );
 }
 
-abstract class GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImage
+abstract class GFeedDailyThemeWorksData_dailyTheme_works_image
     implements
-        Built<GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImage,
-            GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImageBuilder>,
-        _i2.GPartialWorkFields_thumbnailImage {
-  GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImage._();
+        Built<GFeedDailyThemeWorksData_dailyTheme_works_image,
+            GFeedDailyThemeWorksData_dailyTheme_works_imageBuilder>,
+        _i2.GPartialFeedWorkFields_image {
+  GFeedDailyThemeWorksData_dailyTheme_works_image._();
 
-  factory GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImage(
-      [Function(
-              GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImageBuilder b)
-          updates]) = _$GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImage;
+  factory GFeedDailyThemeWorksData_dailyTheme_works_image(
+      [Function(GFeedDailyThemeWorksData_dailyTheme_works_imageBuilder b)
+          updates]) = _$GFeedDailyThemeWorksData_dailyTheme_works_image;
 
   static void _initializeBuilder(
-          GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImageBuilder b) =>
+          GFeedDailyThemeWorksData_dailyTheme_works_imageBuilder b) =>
       b..G__typename = 'ImageNode';
   @override
   @BuiltValueField(wireName: '__typename')
@@ -140,18 +141,18 @@ abstract class GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImage
   String get id;
   @override
   String get downloadURL;
-  static Serializer<GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImage>
+  static Serializer<GFeedDailyThemeWorksData_dailyTheme_works_image>
       get serializer =>
-          _$gFeedDailyThemeWorksDataDailyThemeWorksThumbnailImageSerializer;
+          _$gFeedDailyThemeWorksDataDailyThemeWorksImageSerializer;
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImage.serializer,
+        GFeedDailyThemeWorksData_dailyTheme_works_image.serializer,
         this,
       ) as Map<String, dynamic>);
-  static GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImage? fromJson(
+  static GFeedDailyThemeWorksData_dailyTheme_works_image? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
-        GFeedDailyThemeWorksData_dailyTheme_works_thumbnailImage.serializer,
+        GFeedDailyThemeWorksData_dailyTheme_works_image.serializer,
         json,
       );
 }

@@ -1,18 +1,19 @@
-import 'package:aipictors/graphql/__generated__/hot_tags.req.gql.dart';
+import 'package:aipictors/graphql/__generated__/folders.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
+import 'package:aipictors/screens/loading_screen.dart';
 import 'package:aipictors/widgets/container/error/data_not_found_error_container.dart';
 import 'package:aipictors/widgets/container/error/empty_error_container.dart';
 import 'package:aipictors/widgets/container/error/unexpected_error_container.dart';
 import 'package:aipictors/widgets/container/loading_container.dart';
-import 'package:aipictors/widgets/list/tag_list_tile.dart';
+import 'package:aipictors/widgets/list/folder_list_tile.dart';
 import 'package:ferry_flutter/ferry_flutter.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class ExplorerHotTagsScreen extends HookConsumerWidget {
-  const ExplorerHotTagsScreen({
+class ExplorerFoldersView extends HookConsumerWidget {
+  const ExplorerFoldersView({
     Key? key,
   }) : super(key: key);
 
@@ -21,13 +22,15 @@ class ExplorerHotTagsScreen extends HookConsumerWidget {
     final client = ref.watch(clientProvider);
 
     if (client.value == null) {
-      return const LoadingContainer();
+      return const LoadingScreen();
     }
 
     return Operation(
       client: client.value!,
-      operationRequest: GHotTagsReq((builder) {
-        return builder;
+      operationRequest: GFoldersReq((builder) {
+        return builder
+          ..vars.limit = 32
+          ..vars.offset = 0;
       }),
       builder: (context, response, error) {
         if (error != null) {
@@ -39,29 +42,31 @@ class ExplorerHotTagsScreen extends HookConsumerWidget {
         if (response.graphqlErrors != null) {
           return const UnexpectedErrorContainer();
         }
-        final tags = response.data?.hotTags;
-        if (tags == null) {
+        final folders = response.data?.folders;
+        if (folders == null) {
           return const DataNotFoundErrorContainer();
         }
-        if (tags.isEmpty) {
+        if (folders.isEmpty) {
           return const EmptyErrorContainer();
         }
         return ListView.builder(
-          key: const PageStorageKey('explorer_hot_tags'),
+          key: const PageStorageKey('explorer_latest_folders'),
           // physics: const ClampingScrollPhysics(),
           padding: const EdgeInsets.only(bottom: 16, top: 8),
-          itemCount: tags.length,
+          itemCount: folders.length,
           itemBuilder: (context, index) {
-            final tag = tags[index];
-            return TagListTile(
-              title: tag.name,
-              imageURL: tag.firstWork?.thumbnailImage?.downloadURL,
+            final folder = folders[index];
+            return FolderListTile(
+              title: folder.title,
+              userName: folder.user.name,
+              userIconImageURL: folder.user.iconImage?.downloadURL,
+              imageURL: folder.thumbnailImage?.downloadURL,
               onTap: () {
                 FirebaseAnalytics.instance.logSelectContent(
-                  contentType: 'tag',
-                  itemId: tag.id,
+                  contentType: 'folder',
+                  itemId: folder.id,
                 );
-                context.push('/tags/${tag.id}');
+                context.push('/folders/${folder.id}');
               },
             );
           },

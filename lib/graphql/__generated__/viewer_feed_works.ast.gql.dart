@@ -2,10 +2,10 @@
 // ignore_for_file: type=lint
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'package:aipictors/graphql/fragments/__generated__/partial_feed_work_fields_fragment.ast.gql.dart'
+    as _i2;
 import 'package:aipictors/graphql/fragments/__generated__/partial_user_fields_fragment.ast.gql.dart'
     as _i3;
-import 'package:aipictors/graphql/fragments/__generated__/partial_work_fields_fragment.ast.gql.dart'
-    as _i2;
 import 'package:gql/ast.dart' as _i1;
 
 const ViewerFeedWorks = _i1.OperationDefinitionNode(
@@ -55,7 +55,7 @@ const ViewerFeedWorks = _i1.OperationDefinitionNode(
           directives: [],
           selectionSet: _i1.SelectionSetNode(selections: [
             _i1.FragmentSpreadNode(
-              name: _i1.NameNode(value: 'PartialWorkFields'),
+              name: _i1.NameNode(value: 'PartialFeedWorkFields'),
               directives: [],
             ),
             _i1.FieldNode(
@@ -107,6 +107,6 @@ const ViewerFeedWorks = _i1.OperationDefinitionNode(
 );
 const document = _i1.DocumentNode(definitions: [
   ViewerFeedWorks,
-  _i2.PartialWorkFields,
+  _i2.PartialFeedWorkFields,
   _i3.PartialUserFields,
 ]);

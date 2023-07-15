@@ -1,27 +1,32 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'feed_works.req.gql.dart';
+part of 'feed_latest_works.req.gql.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<GFeedWorksReq> _$gFeedWorksReqSerializer =
-    new _$GFeedWorksReqSerializer();
+Serializer<GFeedLatestWorksReq> _$gFeedLatestWorksReqSerializer =
+    new _$GFeedLatestWorksReqSerializer();
 
-class _$GFeedWorksReqSerializer implements StructuredSerializer<GFeedWorksReq> {
+class _$GFeedLatestWorksReqSerializer
+    implements StructuredSerializer<GFeedLatestWorksReq> {
   @override
-  final Iterable<Type> types = const [GFeedWorksReq, _$GFeedWorksReq];
+  final Iterable<Type> types = const [
+    GFeedLatestWorksReq,
+    _$GFeedLatestWorksReq
+  ];
   @override
-  final String wireName = 'GFeedWorksReq';
+  final String wireName = 'GFeedLatestWorksReq';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, GFeedWorksReq object,
+  Iterable<Object?> serialize(
+      Serializers serializers, GFeedLatestWorksReq object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
-          specifiedType: const FullType(_i3.GFeedWorksVars)),
+          specifiedType: const FullType(_i3.GFeedLatestWorksVars)),
       'operation',
       serializers.serialize(object.operation,
           specifiedType: const FullType(_i4.Operation)),
@@ -42,7 +47,7 @@ class _$GFeedWorksReqSerializer implements StructuredSerializer<GFeedWorksReq> {
       result
         ..add('optimisticResponse')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(_i2.GFeedWorksData)));
+            specifiedType: const FullType(_i2.GFeedLatestWorksData)));
     }
     value = object.updateCacheHandlerKey;
     if (value != null) {
@@ -70,10 +75,10 @@ class _$GFeedWorksReqSerializer implements StructuredSerializer<GFeedWorksReq> {
   }
 
   @override
-  GFeedWorksReq deserialize(
+  GFeedLatestWorksReq deserialize(
       Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new GFeedWorksReqBuilder();
+    final result = new GFeedLatestWorksReqBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -83,8 +88,8 @@ class _$GFeedWorksReqSerializer implements StructuredSerializer<GFeedWorksReq> {
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GFeedWorksVars))!
-              as _i3.GFeedWorksVars);
+                  specifiedType: const FullType(_i3.GFeedLatestWorksVars))!
+              as _i3.GFeedLatestWorksVars);
           break;
         case 'operation':
           result.operation = serializers.deserialize(value,
@@ -96,8 +101,8 @@ class _$GFeedWorksReqSerializer implements StructuredSerializer<GFeedWorksReq> {
           break;
         case 'optimisticResponse':
           result.optimisticResponse.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i2.GFeedWorksData))!
-              as _i2.GFeedWorksData);
+                  specifiedType: const FullType(_i2.GFeedLatestWorksData))!
+              as _i2.GFeedLatestWorksData);
           break;
         case 'updateCacheHandlerKey':
           result.updateCacheHandlerKey = serializers.deserialize(value,
@@ -126,18 +131,18 @@ class _$GFeedWorksReqSerializer implements StructuredSerializer<GFeedWorksReq> {
   }
 }
 
-class _$GFeedWorksReq extends GFeedWorksReq {
+class _$GFeedLatestWorksReq extends GFeedLatestWorksReq {
   @override
-  final _i3.GFeedWorksVars vars;
+  final _i3.GFeedLatestWorksVars vars;
   @override
   final _i4.Operation operation;
   @override
   final String? requestId;
   @override
-  final _i2.GFeedWorksData? Function(_i2.GFeedWorksData?, _i2.GFeedWorksData?)?
-      updateResult;
+  final _i2.GFeedLatestWorksData? Function(
+      _i2.GFeedLatestWorksData?, _i2.GFeedLatestWorksData?)? updateResult;
   @override
-  final _i2.GFeedWorksData? optimisticResponse;
+  final _i2.GFeedLatestWorksData? optimisticResponse;
   @override
   final String? updateCacheHandlerKey;
   @override
@@ -147,10 +152,11 @@ class _$GFeedWorksReq extends GFeedWorksReq {
   @override
   final bool executeOnListen;
 
-  factory _$GFeedWorksReq([void Function(GFeedWorksReqBuilder)? updates]) =>
-      (new GFeedWorksReqBuilder()..update(updates))._build();
+  factory _$GFeedLatestWorksReq(
+          [void Function(GFeedLatestWorksReqBuilder)? updates]) =>
+      (new GFeedLatestWorksReqBuilder()..update(updates))._build();
 
-  _$GFeedWorksReq._(
+  _$GFeedLatestWorksReq._(
       {required this.vars,
       required this.operation,
       this.requestId,
@@ -161,25 +167,27 @@ class _$GFeedWorksReq extends GFeedWorksReq {
       this.fetchPolicy,
       required this.executeOnListen})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(vars, r'GFeedWorksReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(vars, r'GFeedLatestWorksReq', 'vars');
     BuiltValueNullFieldError.checkNotNull(
-        operation, r'GFeedWorksReq', 'operation');
+        operation, r'GFeedLatestWorksReq', 'operation');
     BuiltValueNullFieldError.checkNotNull(
-        executeOnListen, r'GFeedWorksReq', 'executeOnListen');
+        executeOnListen, r'GFeedLatestWorksReq', 'executeOnListen');
   }
 
   @override
-  GFeedWorksReq rebuild(void Function(GFeedWorksReqBuilder) updates) =>
+  GFeedLatestWorksReq rebuild(
+          void Function(GFeedLatestWorksReqBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GFeedWorksReqBuilder toBuilder() => new GFeedWorksReqBuilder()..replace(this);
+  GFeedLatestWorksReqBuilder toBuilder() =>
+      new GFeedLatestWorksReqBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     final dynamic _$dynamicOther = other;
-    return other is GFeedWorksReq &&
+    return other is GFeedLatestWorksReq &&
         vars == other.vars &&
         operation == other.operation &&
         requestId == other.requestId &&
@@ -209,7 +217,7 @@ class _$GFeedWorksReq extends GFeedWorksReq {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'GFeedWorksReq')
+    return (newBuiltValueToStringHelper(r'GFeedLatestWorksReq')
           ..add('vars', vars)
           ..add('operation', operation)
           ..add('requestId', requestId)
@@ -223,14 +231,14 @@ class _$GFeedWorksReq extends GFeedWorksReq {
   }
 }
 
-class GFeedWorksReqBuilder
-    implements Builder<GFeedWorksReq, GFeedWorksReqBuilder> {
-  _$GFeedWorksReq? _$v;
+class GFeedLatestWorksReqBuilder
+    implements Builder<GFeedLatestWorksReq, GFeedLatestWorksReqBuilder> {
+  _$GFeedLatestWorksReq? _$v;
 
-  _i3.GFeedWorksVarsBuilder? _vars;
-  _i3.GFeedWorksVarsBuilder get vars =>
-      _$this._vars ??= new _i3.GFeedWorksVarsBuilder();
-  set vars(_i3.GFeedWorksVarsBuilder? vars) => _$this._vars = vars;
+  _i3.GFeedLatestWorksVarsBuilder? _vars;
+  _i3.GFeedLatestWorksVarsBuilder get vars =>
+      _$this._vars ??= new _i3.GFeedLatestWorksVarsBuilder();
+  set vars(_i3.GFeedLatestWorksVarsBuilder? vars) => _$this._vars = vars;
 
   _i4.Operation? _operation;
   _i4.Operation? get operation => _$this._operation;
@@ -240,20 +248,21 @@ class GFeedWorksReqBuilder
   String? get requestId => _$this._requestId;
   set requestId(String? requestId) => _$this._requestId = requestId;
 
-  _i2.GFeedWorksData? Function(_i2.GFeedWorksData?, _i2.GFeedWorksData?)?
-      _updateResult;
-  _i2.GFeedWorksData? Function(_i2.GFeedWorksData?, _i2.GFeedWorksData?)?
+  _i2.GFeedLatestWorksData? Function(
+      _i2.GFeedLatestWorksData?, _i2.GFeedLatestWorksData?)? _updateResult;
+  _i2.GFeedLatestWorksData? Function(
+          _i2.GFeedLatestWorksData?, _i2.GFeedLatestWorksData?)?
       get updateResult => _$this._updateResult;
   set updateResult(
-          _i2.GFeedWorksData? Function(
-                  _i2.GFeedWorksData?, _i2.GFeedWorksData?)?
+          _i2.GFeedLatestWorksData? Function(
+                  _i2.GFeedLatestWorksData?, _i2.GFeedLatestWorksData?)?
               updateResult) =>
       _$this._updateResult = updateResult;
 
-  _i2.GFeedWorksDataBuilder? _optimisticResponse;
-  _i2.GFeedWorksDataBuilder get optimisticResponse =>
-      _$this._optimisticResponse ??= new _i2.GFeedWorksDataBuilder();
-  set optimisticResponse(_i2.GFeedWorksDataBuilder? optimisticResponse) =>
+  _i2.GFeedLatestWorksDataBuilder? _optimisticResponse;
+  _i2.GFeedLatestWorksDataBuilder get optimisticResponse =>
+      _$this._optimisticResponse ??= new _i2.GFeedLatestWorksDataBuilder();
+  set optimisticResponse(_i2.GFeedLatestWorksDataBuilder? optimisticResponse) =>
       _$this._optimisticResponse = optimisticResponse;
 
   String? _updateCacheHandlerKey;
@@ -278,11 +287,11 @@ class GFeedWorksReqBuilder
   set executeOnListen(bool? executeOnListen) =>
       _$this._executeOnListen = executeOnListen;
 
-  GFeedWorksReqBuilder() {
-    GFeedWorksReq._initializeBuilder(this);
+  GFeedLatestWorksReqBuilder() {
+    GFeedLatestWorksReq._initializeBuilder(this);
   }
 
-  GFeedWorksReqBuilder get _$this {
+  GFeedLatestWorksReqBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _vars = $v.vars.toBuilder();
@@ -300,27 +309,27 @@ class GFeedWorksReqBuilder
   }
 
   @override
-  void replace(GFeedWorksReq other) {
+  void replace(GFeedLatestWorksReq other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GFeedWorksReq;
+    _$v = other as _$GFeedLatestWorksReq;
   }
 
   @override
-  void update(void Function(GFeedWorksReqBuilder)? updates) {
+  void update(void Function(GFeedLatestWorksReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  GFeedWorksReq build() => _build();
+  GFeedLatestWorksReq build() => _build();
 
-  _$GFeedWorksReq _build() {
-    _$GFeedWorksReq _$result;
+  _$GFeedLatestWorksReq _build() {
+    _$GFeedLatestWorksReq _$result;
     try {
       _$result = _$v ??
-          new _$GFeedWorksReq._(
+          new _$GFeedLatestWorksReq._(
               vars: vars.build(),
               operation: BuiltValueNullFieldError.checkNotNull(
-                  operation, r'GFeedWorksReq', 'operation'),
+                  operation, r'GFeedLatestWorksReq', 'operation'),
               requestId: requestId,
               updateResult: updateResult,
               optimisticResponse: _optimisticResponse?.build(),
@@ -328,7 +337,7 @@ class GFeedWorksReqBuilder
               updateCacheHandlerContext: updateCacheHandlerContext,
               fetchPolicy: fetchPolicy,
               executeOnListen: BuiltValueNullFieldError.checkNotNull(
-                  executeOnListen, r'GFeedWorksReq', 'executeOnListen'));
+                  executeOnListen, r'GFeedLatestWorksReq', 'executeOnListen'));
     } catch (_) {
       late String _$failedField;
       try {
@@ -339,7 +348,7 @@ class GFeedWorksReqBuilder
         _optimisticResponse?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'GFeedWorksReq', _$failedField, e.toString());
+            r'GFeedLatestWorksReq', _$failedField, e.toString());
       }
       rethrow;
     }

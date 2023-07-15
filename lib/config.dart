@@ -13,7 +13,8 @@ class DefaultConfig {
   }
 
   static String get graphqlURI {
-    return 'https://router-6ouzjmdzha-an.a.run.app';
+    final remoteConfig = FirebaseRemoteConfig.instance;
+    return remoteConfig.getString('graphql_endpoint');
   }
 
   static Color get defaultThemeColor {

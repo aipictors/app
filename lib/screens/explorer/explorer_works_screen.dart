@@ -1,7 +1,7 @@
-import 'package:aipictors/screens/explorer/explorer_best_works_screen.dart';
-import 'package:aipictors/screens/explorer/explorer_hot_works_screen.dart';
-import 'package:aipictors/screens/explorer/explorer_popular_works_screen.dart';
-import 'package:aipictors/screens/explorer/explorer_search_screen.dart';
+import 'package:aipictors/screens/explorer/explorer_best_works_view.dart';
+import 'package:aipictors/screens/explorer/explorer_hot_works_view.dart';
+import 'package:aipictors/screens/explorer/explorer_popular_works_view.dart';
+import 'package:aipictors/screens/explorer/explorer_search_view.dart';
 import 'package:aipictors/widgets/app_bar/search_app_bar.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
@@ -64,11 +64,11 @@ class ExplorerWorksScreen extends HookConsumerWidget {
               : null,
         ),
         body: search.value.isNotEmpty
-            ? ExplorerSearchScreen(search: search.value)
+            ? ExplorerSearchView(search: search.value)
             : const TabBarView(children: [
-                ExplorerHotWorksScreen(),
-                ExplorerPopularWorksScreen(),
-                ExplorerBestWorksScreen(),
+                ExplorerHotWorksView(),
+                ExplorerPopularWorksView(),
+                ExplorerBestWorksView(),
               ]),
       ),
     );

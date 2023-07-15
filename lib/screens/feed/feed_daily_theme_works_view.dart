@@ -31,7 +31,7 @@ class FeedDailyThemeWorksView extends HookConsumerWidget {
       },
       builder: (data) {
         return ListView.separated(
-          key: const PageStorageKey('feed_home'),
+          key: const PageStorageKey('feed_daily_theme_works'),
           separatorBuilder: (context, index) {
             return const Divider(height: 0);
           },
@@ -41,8 +41,9 @@ class FeedDailyThemeWorksView extends HookConsumerWidget {
             return FeedWorkListTile(
               workId: work.id,
               workTitle: work.title,
-              workImageURL: work.thumbnailImage!.downloadURL,
+              workImageURL: work.image!.downloadURL,
               workCreatedAt: work.createdAt,
+              workImageAspectRatio: work.imageAspectRatio,
               userName: work.user.name,
               userIconImageURL: work.user.iconImage?.downloadURL,
               likesCount: work.likesCount,
