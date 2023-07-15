@@ -1,11 +1,8 @@
 import 'package:aipictors/graphql/__generated__/folder.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
-import 'package:aipictors/screens/error/data_not_found_error_screen.dart';
-import 'package:aipictors/screens/error/operation_error_screen.dart';
-import 'package:aipictors/screens/error/unexpected_error_screen.dart';
 import 'package:aipictors/screens/loading_screen.dart';
+import 'package:aipictors/widgets/builder/operation_screen_builder.dart';
 import 'package:aipictors/widgets/view/folder_works_view.dart';
-import 'package:ferry_flutter/ferry_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -25,30 +22,20 @@ class FolderScreen extends HookConsumerWidget {
       return const LoadingScreen();
     }
 
-    return Operation(
+    return OperationScreenBuilder(
       client: client.value!,
       operationRequest: GFolderReq((builder) {
         return builder..vars.id = folderId;
       }),
-      builder: (context, response, error) {
-        if (error != null) {
-          return const UnexpectedErrorScreen();
-        }
-        if (response == null || response.loading) {
-          return const LoadingScreen();
-        }
-        if (response.graphqlErrors != null) {
-          return OperationErrorScreen(errors: response.graphqlErrors!);
-        }
-        final folder = response.data?.folder;
-        if (folder == null) {
-          return const DataNotFoundErrorScreen();
-        }
+      notFound: (data) {
+        return data?.folder == null;
+      },
+      builder: (data) {
         return Scaffold(
           resizeToAvoidBottomInset: true,
           appBar: AppBar(
             title: Text(
-              folder.title,
+              data.folder?.title ?? '-',
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
