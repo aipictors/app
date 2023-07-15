@@ -47,9 +47,9 @@ class FolderScreen extends HookConsumerWidget {
         return Scaffold(
           resizeToAvoidBottomInset: true,
           appBar: AppBar(
-            title: const Text(
-              'フォルダ',
-              style: TextStyle(fontWeight: FontWeight.bold),
+            title: Text(
+              folder.title,
+              style: const TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
           extendBody: true,
