@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class WorkTagsContainer extends HookConsumerWidget {
@@ -23,7 +25,13 @@ class WorkTagsContainer extends HookConsumerWidget {
                 tapTargetSize: MaterialTapTargetSize.shrinkWrap,
               ),
               child: Text(tagName),
-              onPressed: () {},
+              onPressed: () {
+                FirebaseAnalytics.instance.logSelectContent(
+                  contentType: 'tag',
+                  itemId: tagName,
+                );
+                context.push('/tags/$tagName');
+              },
             ),
           const SizedBox(width: 16),
         ],
