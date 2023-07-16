@@ -2,7 +2,7 @@ import 'package:aipictors/graphql/__generated__/tag.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/screens/error/data_not_found_error_screen.dart';
 import 'package:aipictors/screens/loading_screen.dart';
-import 'package:aipictors/widgets/builder/operation_builder.dart';
+import 'package:aipictors/widgets/builder/operation_screen_builder.dart';
 import 'package:aipictors/widgets/view/tag_works_view.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -23,7 +23,7 @@ class TagScreen extends HookConsumerWidget {
       return const LoadingScreen();
     }
 
-    return OperationBuilder(
+    return OperationScreenBuilder(
       client: client.value!,
       operationRequest: GTagReq((builder) {
         return builder..vars.name = tagName;
