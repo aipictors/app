@@ -20,6 +20,15 @@ $ flutter pub run build_runner build
 $ dart run build_runner watch
 ```
 
+## アップデート
+
+定期的にFlutterを更新する必要がある。
+
+```
+$ flutter channel stable
+$ flutter upgrade
+```
+
 ## 不具合
 
 以下の不具合が確認されている。
