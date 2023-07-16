@@ -25,7 +25,7 @@ class AccountScreen extends HookConsumerWidget {
         ),
         ListTile(
           title: Text('パスワードの変更'.i18n),
-          subtitle: Text('ログインに使用するパスワードを変更できます。'.i18n),
+          subtitle: Text('ログインに使用するパスワードを変更します。'.i18n),
           onTap: () {
             context.push('/account/password');
           },
