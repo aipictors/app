@@ -1,6 +1,8 @@
 import 'package:aipictors/graphql/__generated__/viewer_feed_works.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
+import 'package:aipictors/widgets/container/error/data_empty_error_container.dart';
+import 'package:aipictors/widgets/container/error/data_not_found_error_container.dart';
 import 'package:aipictors/widgets/container/loading_container.dart';
 import 'package:aipictors/widgets/list/feed_work_list_tile.dart';
 import 'package:flutter/material.dart';
@@ -26,19 +28,23 @@ class FeedHomeView extends HookConsumerWidget {
           ..vars.limit = 16
           ..vars.offset = 0;
       }),
-      isEmpty: (data) {
-        return data?.viewer?.feedWorks.isEmpty;
-      },
-      builder: (data) {
+      builder: (context, response) {
+        final feedWorks = response.data?.viewer?.feedWorks;
+        if (feedWorks == null) {
+          return const DataNotFoundErrorContainer();
+        }
+        if (feedWorks.isEmpty) {
+          return const DataEmptyErrorContainer();
+        }
         return ListView.separated(
           key: const PageStorageKey('feed_home'),
           shrinkWrap: true,
           separatorBuilder: (context, index) {
             return const Divider(height: 0);
           },
-          itemCount: data.viewer!.feedWorks.length,
+          itemCount: feedWorks.length,
           itemBuilder: (context, index) {
-            final work = data.viewer!.feedWorks[index];
+            final work = feedWorks[index];
             return FeedWorkListTile(
               workId: work.id,
               workTitle: work.title,

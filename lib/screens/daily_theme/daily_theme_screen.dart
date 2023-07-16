@@ -34,11 +34,8 @@ class DailyThemeScreen extends HookConsumerWidget {
           ..vars.offset = 0
           ..vars.id = themeId;
       }),
-      notFound: (data) {
-        return data?.dailyTheme == null;
-      },
-      builder: (data) {
-        final dailyTheme = data.dailyTheme;
+      builder: (context, response) {
+        final dailyTheme = response.data?.dailyTheme;
         if (dailyTheme == null) {
           return const DataNotFoundErrorScreen();
         }

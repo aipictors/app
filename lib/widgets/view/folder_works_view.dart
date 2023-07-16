@@ -29,11 +29,11 @@ class FolderWorksView extends HookConsumerWidget {
           ..vars.limit = 16
           ..vars.offset = 0;
       }),
-      isEmpty: (data) {
-        return data?.folder?.works.isEmpty;
-      },
-      builder: (data) {
-        final works = data.folder!.works;
+      builder: (context, response) {
+        final works = response.data?.folder?.works;
+        if (works == null) {
+          return const SizedBox();
+        }
         return SingleChildScrollView(
           child: WorksGridView(
             itemCount: works.length,

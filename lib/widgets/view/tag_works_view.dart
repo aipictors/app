@@ -1,5 +1,7 @@
 import 'package:aipictors/graphql/__generated__/tag_works.req.gql.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
+import 'package:aipictors/widgets/container/error/data_empty_error_container.dart';
+import 'package:aipictors/widgets/container/error/data_not_found_error_container.dart';
 import 'package:aipictors/widgets/container/work_grid_item_container.dart';
 import 'package:aipictors/widgets/view/works_grid_view.dart';
 import 'package:ferry/ferry.dart';
@@ -30,11 +32,14 @@ class TagWorksView extends HookConsumerWidget {
             ..vars.limit = 16
             ..vars.offset = 0;
         }),
-        isEmpty: (data) {
-          return data?.tag?.works.isEmpty;
-        },
-        builder: (data) {
-          final works = data.tag!.works;
+        builder: (context, response) {
+          final works = response.data?.tag?.works;
+          if (works == null) {
+            return const DataNotFoundErrorContainer();
+          }
+          if (works.isEmpty) {
+            return const DataEmptyErrorContainer();
+          }
           return WorksGridView(
             itemCount: works.length,
             itemBuilder: (context, index) {

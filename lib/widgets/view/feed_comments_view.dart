@@ -22,11 +22,11 @@ class FeedCommentsView extends HookConsumerWidget {
       operationRequest: GWorkCommentsReq((builder) {
         return builder..vars.workId = workId;
       }),
-      isEmpty: (data) {
-        return data?.work?.comments.isEmpty;
-      },
-      builder: (data) {
-        final comments = data.work!.comments;
+      builder: (context, response) {
+        final comments = response.data?.work?.comments;
+        if (comments == null) {
+          return const SizedBox();
+        }
         return SingleChildScrollView(
           child: ListView.builder(
             itemCount: comments.length,

@@ -1,15 +1,14 @@
 import 'package:aipictors/__generated__/schema.schema.gql.dart';
 import 'package:aipictors/graphql/__generated__/viewer_notifications.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
+import 'package:aipictors/widgets/builder/operation_builder.dart';
+import 'package:aipictors/widgets/container/error/data_empty_error_container.dart';
 import 'package:aipictors/widgets/container/error/data_not_found_error_container.dart';
-import 'package:aipictors/widgets/container/error/empty_error_container.dart';
-import 'package:aipictors/widgets/container/error/unexpected_error_container.dart';
 import 'package:aipictors/widgets/container/loading_container.dart';
 import 'package:aipictors/widgets/list/notification_comment_list_tile.dart';
 import 'package:aipictors/widgets/list/notification_follow_list_tile.dart';
 import 'package:aipictors/widgets/list/notification_like_list_tile.dart';
 import 'package:aipictors/widgets/list/notification_reply_list_tile.dart';
-import 'package:ferry_flutter/ferry_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -45,25 +44,16 @@ class NotificationScreen extends HookConsumerWidget {
           });
           return client.value?.requestController.add(req);
         },
-        child: Operation(
+        child: OperationBuilder(
           client: client.value!,
           operationRequest: request,
-          builder: (context, response, error) {
-            if (error != null) {
-              return const UnexpectedErrorContainer();
-            }
-            if (response == null || response.loading) {
-              return const LoadingContainer();
-            }
-            if (response.graphqlErrors != null) {
-              return const UnexpectedErrorContainer();
-            }
+          builder: (context, response) {
             final notifications = response.data?.viewer?.notifications;
             if (notifications == null) {
               return const DataNotFoundErrorContainer();
             }
             if (notifications.isEmpty) {
-              return const EmptyErrorContainer();
+              return const DataEmptyErrorContainer();
             }
             return ListView.separated(
               separatorBuilder: (context, index) {

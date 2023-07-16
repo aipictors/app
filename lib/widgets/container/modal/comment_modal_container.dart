@@ -3,6 +3,7 @@ import 'package:aipictors/graphql/__generated__/work_comments.req.gql.dart';
 import 'package:aipictors/mutations/create_work_comment.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
+import 'package:aipictors/widgets/container/error/data_not_found_error_container.dart';
 import 'package:aipictors/widgets/container/loading_container.dart';
 import 'package:aipictors/widgets/container/modal_header_container.dart';
 import 'package:aipictors/widgets/list/work_comment_list_tile.dart';
@@ -55,11 +56,11 @@ class CommentModalContainer extends HookConsumerWidget {
                 child: OperationBuilder(
                   client: client.value!,
                   operationRequest: request,
-                  isEmpty: (data) {
-                    return data?.work?.comments.isEmpty;
-                  },
-                  builder: (data) {
-                    final comments = data.work!.comments;
+                  builder: (context, response) {
+                    final comments = response.data?.work?.comments;
+                    if (comments == null) {
+                      return const DataNotFoundErrorContainer();
+                    }
                     return SingleChildScrollView(
                       child: Column(children: [
                         for (final comment in comments)

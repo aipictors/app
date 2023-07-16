@@ -1,5 +1,4 @@
 import 'package:aipictors/screens/error/data_not_found_error_screen.dart';
-import 'package:aipictors/screens/error/empty_data_error_screen.dart';
 import 'package:aipictors/screens/error/operation_error_screen.dart';
 import 'package:aipictors/screens/error/unexpected_error_screen.dart';
 import 'package:aipictors/screens/loading_screen.dart';
@@ -14,19 +13,16 @@ class OperationScreenBuilder<T, U> extends HookConsumerWidget {
     required this.client,
     required this.operationRequest,
     required this.builder,
-    this.isEmpty,
-    this.notFound,
   }) : super(key: key);
 
   final Client client;
 
   final OperationRequest<T, U> operationRequest;
 
-  final bool? Function(T? data)? isEmpty;
-
-  final bool? Function(T? data)? notFound;
-
-  final Widget Function(T data) builder;
+  final Widget Function(
+    BuildContext context,
+    OperationResponse<T, U> response,
+  ) builder;
 
   @override
   Widget build(context, ref) {
@@ -52,27 +48,7 @@ class OperationScreenBuilder<T, U> extends HookConsumerWidget {
           return const DataNotFoundErrorScreen();
         }
 
-        if (notFound != null) {
-          final bool = notFound!(data);
-          if (bool == null) {
-            return const DataNotFoundErrorScreen();
-          }
-          if (bool) {
-            return const DataNotFoundErrorScreen();
-          }
-        }
-
-        if (isEmpty != null) {
-          final bool = isEmpty!(data);
-          if (bool == null) {
-            return const DataNotFoundErrorScreen();
-          }
-          if (bool) {
-            return const EmptyDataErrorScreen();
-          }
-        }
-
-        return builder(data);
+        return builder(context, response);
       },
     );
   }

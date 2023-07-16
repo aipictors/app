@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class EmptyErrorContainer extends HookConsumerWidget {
-  const EmptyErrorContainer({
+class DataEmptyErrorContainer extends HookConsumerWidget {
+  const DataEmptyErrorContainer({
     Key? key,
   }) : super(key: key);
 

@@ -1,11 +1,10 @@
 import 'package:aipictors/graphql/__generated__/works.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
+import 'package:aipictors/widgets/builder/operation_builder.dart';
+import 'package:aipictors/widgets/container/error/data_empty_error_container.dart';
 import 'package:aipictors/widgets/container/error/data_not_found_error_container.dart';
-import 'package:aipictors/widgets/container/error/empty_error_container.dart';
-import 'package:aipictors/widgets/container/error/unexpected_error_container.dart';
 import 'package:aipictors/widgets/container/loading_container.dart';
 import 'package:aipictors/widgets/image/grid_work_image.dart';
-import 'package:ferry_flutter/ferry_flutter.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -24,29 +23,20 @@ class ExplorerLatestWorksView extends HookConsumerWidget {
       return const LoadingContainer();
     }
 
-    return Operation(
+    return OperationBuilder(
       client: client.value!,
       operationRequest: GWorksReq((builder) {
         return builder
           ..vars.limit = 32
           ..vars.offset = 0;
       }),
-      builder: (context, response, error) {
-        if (error != null) {
-          return const UnexpectedErrorContainer();
-        }
-        if (response == null || response.loading) {
-          return const LoadingContainer();
-        }
-        if (response.graphqlErrors != null) {
-          return const UnexpectedErrorContainer();
-        }
+      builder: (context, response) {
         final works = response.data?.works;
         if (works == null) {
           return const DataNotFoundErrorContainer();
         }
         if (works.isEmpty) {
-          return const EmptyErrorContainer();
+          return const DataEmptyErrorContainer();
         }
         return GridView.builder(
           key: const PageStorageKey('explorer_latest_works'),

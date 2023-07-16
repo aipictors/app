@@ -1,11 +1,9 @@
 import 'package:aipictors/graphql/__generated__/tag.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/screens/error/data_not_found_error_screen.dart';
-import 'package:aipictors/screens/error/operation_error_screen.dart';
-import 'package:aipictors/screens/error/unexpected_error_screen.dart';
 import 'package:aipictors/screens/loading_screen.dart';
+import 'package:aipictors/widgets/builder/operation_builder.dart';
 import 'package:aipictors/widgets/view/tag_works_view.dart';
-import 'package:ferry_flutter/ferry_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -25,21 +23,12 @@ class TagScreen extends HookConsumerWidget {
       return const LoadingScreen();
     }
 
-    return Operation(
+    return OperationBuilder(
       client: client.value!,
       operationRequest: GTagReq((builder) {
         return builder..vars.name = tagName;
       }),
-      builder: (context, response, error) {
-        if (error != null) {
-          return const UnexpectedErrorScreen();
-        }
-        if (response == null || response.loading) {
-          return const LoadingScreen();
-        }
-        if (response.graphqlErrors != null) {
-          return OperationErrorScreen(errors: response.graphqlErrors!);
-        }
+      builder: (context, response) {
         final tag = response.data?.tag;
         if (tag == null) {
           return const DataNotFoundErrorScreen();

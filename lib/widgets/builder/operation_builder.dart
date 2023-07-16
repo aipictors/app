@@ -1,5 +1,4 @@
 import 'package:aipictors/widgets/container/error/data_not_found_error_container.dart';
-import 'package:aipictors/widgets/container/error/empty_error_container.dart';
 import 'package:aipictors/widgets/container/error/operation_error_container.dart';
 import 'package:aipictors/widgets/container/error/unexpected_error_container.dart';
 import 'package:aipictors/widgets/container/loading_container.dart';
@@ -14,19 +13,16 @@ class OperationBuilder<T, U> extends HookConsumerWidget {
     required this.client,
     required this.operationRequest,
     required this.builder,
-    this.isEmpty,
-    this.notFound,
   }) : super(key: key);
 
   final Client client;
 
   final OperationRequest<T, U> operationRequest;
 
-  final bool? Function(T? data)? isEmpty;
-
-  final bool? Function(T? data)? notFound;
-
-  final Widget Function(T data) builder;
+  final Widget Function(
+    BuildContext context,
+    OperationResponse<T, U> response,
+  ) builder;
 
   @override
   Widget build(context, ref) {
@@ -52,27 +48,7 @@ class OperationBuilder<T, U> extends HookConsumerWidget {
           return const DataNotFoundErrorContainer();
         }
 
-        if (notFound != null) {
-          final bool = notFound!(data);
-          if (bool == null) {
-            return const DataNotFoundErrorContainer();
-          }
-          if (bool) {
-            return const DataNotFoundErrorContainer();
-          }
-        }
-
-        if (isEmpty != null) {
-          final bool = isEmpty!(data);
-          if (bool == null) {
-            return const DataNotFoundErrorContainer();
-          }
-          if (bool) {
-            return const EmptyErrorContainer();
-          }
-        }
-
-        return builder(data);
+        return builder(context, response);
       },
     );
   }

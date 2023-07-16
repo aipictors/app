@@ -1,11 +1,9 @@
 import 'package:aipictors/graphql/__generated__/user_followees.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/screens/loading_screen.dart';
+import 'package:aipictors/widgets/builder/operation_builder.dart';
+import 'package:aipictors/widgets/container/error/data_empty_error_container.dart';
 import 'package:aipictors/widgets/container/error/data_not_found_error_container.dart';
-import 'package:aipictors/widgets/container/error/empty_error_container.dart';
-import 'package:aipictors/widgets/container/error/unexpected_error_container.dart';
-import 'package:aipictors/widgets/container/loading_container.dart';
-import 'package:ferry_flutter/ferry_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -29,7 +27,7 @@ class UserFolloweesScreen extends HookConsumerWidget {
       appBar: AppBar(
         title: const Text('フォロー'),
       ),
-      body: Operation(
+      body: OperationBuilder(
         client: client.value!,
         operationRequest: GUserFolloweesReq((builder) {
           return builder
@@ -37,22 +35,13 @@ class UserFolloweesScreen extends HookConsumerWidget {
             ..vars.offset = 0
             ..vars.user_id = userId;
         }),
-        builder: (context, response, error) {
-          if (error != null) {
-            return const UnexpectedErrorContainer();
-          }
-          if (response == null || response.loading) {
-            return const LoadingContainer();
-          }
-          if (response.graphqlErrors != null) {
-            return const UnexpectedErrorContainer();
-          }
+        builder: (context, response) {
           final followees = response.data?.user?.followees;
           if (followees == null) {
             return const DataNotFoundErrorContainer();
           }
           if (followees.isEmpty) {
-            return const EmptyErrorContainer();
+            return const DataEmptyErrorContainer();
           }
           return GridView.builder(
             physics: const ClampingScrollPhysics(),

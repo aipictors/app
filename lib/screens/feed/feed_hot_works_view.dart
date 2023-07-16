@@ -1,6 +1,8 @@
 import 'package:aipictors/graphql/__generated__/feed_hot_works.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
+import 'package:aipictors/widgets/container/error/data_empty_error_container.dart';
+import 'package:aipictors/widgets/container/error/data_not_found_error_container.dart';
 import 'package:aipictors/widgets/container/loading_container.dart';
 import 'package:aipictors/widgets/list/feed_work_list_tile.dart';
 import 'package:flutter/material.dart';
@@ -26,18 +28,22 @@ class FeedHotWorksView extends HookConsumerWidget {
     return OperationBuilder(
       client: client.value!,
       operationRequest: request,
-      isEmpty: (data) {
-        return data?.hotWorks.isEmpty;
-      },
-      builder: (data) {
+      builder: (context, response) {
+        final hotWorks = response.data?.hotWorks;
+        if (hotWorks == null) {
+          return const DataNotFoundErrorContainer();
+        }
+        if (hotWorks.isEmpty) {
+          return const DataEmptyErrorContainer();
+        }
         return ListView.separated(
           key: const PageStorageKey('feed_hot_works'),
           separatorBuilder: (context, index) {
             return const Divider(height: 0);
           },
-          itemCount: data.hotWorks.length,
+          itemCount: hotWorks.length,
           itemBuilder: (context, index) {
-            final work = data.hotWorks[index];
+            final work = hotWorks[index];
             return FeedWorkListTile(
               workId: work.id,
               workTitle: work.title,

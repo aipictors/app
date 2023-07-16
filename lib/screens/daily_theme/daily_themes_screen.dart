@@ -2,11 +2,10 @@ import 'package:aipictors/graphql/__generated__/daily_themes.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/screens/loading_screen.dart';
 import 'package:aipictors/widgets/app_bar/daily_themes_app_bar.dart';
-import 'package:aipictors/widgets/container/error/empty_error_container.dart';
-import 'package:aipictors/widgets/container/error/unexpected_error_container.dart';
-import 'package:aipictors/widgets/container/loading_container.dart';
+import 'package:aipictors/widgets/builder/operation_builder.dart';
+import 'package:aipictors/widgets/container/error/data_empty_error_container.dart';
+import 'package:aipictors/widgets/container/error/data_not_found_error_container.dart';
 import 'package:aipictors/widgets/list/daily_theme_list_tile.dart';
-import 'package:ferry_flutter/ferry_flutter.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -44,7 +43,7 @@ class DailyThemesScreen extends HookConsumerWidget {
           onNext(year, month);
         },
       ),
-      body: Operation(
+      body: OperationBuilder(
         client: client.value!,
         operationRequest: GDailyThemesReq((builder) {
           return builder
@@ -53,25 +52,15 @@ class DailyThemesScreen extends HookConsumerWidget {
             ..vars.where.month = month.value
             ..vars.where.year = year.value;
         }),
-        builder: (context, response, error) {
-          if (error != null) {
-            return const UnexpectedErrorContainer();
-          }
-          if (response == null || response.loading) {
-            return const LoadingContainer();
-          }
-          if (response.graphqlErrors != null) {
-            return const UnexpectedErrorContainer();
-          }
+        builder: (context, response) {
           final dailyThemes = response.data?.dailyThemes;
           if (dailyThemes == null) {
-            return const EmptyErrorContainer();
+            return const DataNotFoundErrorContainer();
           }
           if (dailyThemes.isEmpty) {
-            return const EmptyErrorContainer();
+            return const DataEmptyErrorContainer();
           }
           return ListView.builder(
-            // physics: const ClampingScrollPhysics(),
             padding: const EdgeInsets.only(bottom: 16, left: 0, right: 0),
             itemCount: dailyThemes.length,
             itemBuilder: (context, index) {

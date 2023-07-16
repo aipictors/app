@@ -3,14 +3,12 @@ import 'package:aipictors/graphql/__generated__/user.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/screens/loading_screen.dart';
 import 'package:aipictors/widgets/app_bar/user_app_bar.dart';
+import 'package:aipictors/widgets/builder/operation_builder.dart';
 import 'package:aipictors/widgets/container/error/data_not_found_error_container.dart';
-import 'package:aipictors/widgets/container/error/unexpected_error_container.dart';
-import 'package:aipictors/widgets/container/loading_container.dart';
 import 'package:aipictors/widgets/container/user_folders_container.dart';
 import 'package:aipictors/widgets/container/user_header_container.dart';
 import 'package:aipictors/widgets/container/user_profile_container.dart';
 import 'package:aipictors/widgets/container/user_works_container.dart';
-import 'package:ferry_flutter/ferry_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -34,21 +32,12 @@ class UserScreen extends HookConsumerWidget {
       length: 2,
       child: Scaffold(
         extendBody: true,
-        body: Operation(
+        body: OperationBuilder(
           client: client.value!,
           operationRequest: GUserReq((builder) {
             return builder..vars.userId = userId;
           }),
-          builder: (context, response, error) {
-            if (error != null) {
-              return const UnexpectedErrorContainer();
-            }
-            if (response == null || response.loading) {
-              return const LoadingContainer();
-            }
-            if (response.graphqlErrors != null) {
-              return const UnexpectedErrorContainer();
-            }
+          builder: (context, response) {
             final user = response.data?.user;
             if (user == null) {
               return const DataNotFoundErrorContainer();
