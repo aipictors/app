@@ -1,7 +1,9 @@
 import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/graphql/__generated__/work_comments.req.gql.dart';
 import 'package:aipictors/mutations/create_work_comment.dart';
+import 'package:aipictors/providers/auth_state_provider.dart';
 import 'package:aipictors/providers/client_provider.dart';
+import 'package:aipictors/utils/show_error_snack_bar.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
 import 'package:aipictors/widgets/container/error/data_not_found_error_container.dart';
 import 'package:aipictors/widgets/container/loading_container.dart';
@@ -21,6 +23,8 @@ class CommentModalContainer extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
+    final authState = ref.watch(authStateProvider);
+
     final client = ref.watch(clientProvider);
 
     // https://qiita.com/SoarTec-lab/items/809aed85eb4253de8165
@@ -83,42 +87,61 @@ class CommentModalContainer extends HookConsumerWidget {
                 ),
               ),
               const Divider(height: 0),
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 8 * 2,
-                  vertical: 8,
+              if (authState.value?.uid == null)
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8 * 2,
+                    vertical: 8,
+                  ),
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: FilledButton.tonal(
+                      onPressed: null,
+                      child: Text('ログインするとコメントできます'.i18n),
+                    ),
+                  ),
                 ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Expanded(
-                      child: TextField(
-                        controller: controller,
-                        keyboardType: TextInputType.multiline,
-                        maxLines: null,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'コメントを入力'.i18n,
+              if (authState.value?.uid != null)
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8 * 2,
+                    vertical: 8,
+                  ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Expanded(
+                        child: TextField(
+                          controller: controller,
+                          keyboardType: TextInputType.multiline,
+                          maxLines: null,
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: 'コメントを入力'.i18n,
+                          ),
                         ),
                       ),
-                    ),
-                    const SizedBox(width: 8),
-                    FilledButton.tonal(
-                      onPressed: () async {
-                        FocusManager.instance.primaryFocus?.unfocus();
-                        final text = controller.text;
-                        controller.clear();
-                        await createWorkComment(
-                          workId: workId,
-                          text: text,
-                        );
-                        client.value?.requestController.add(request);
-                      },
-                      child: const Text('送信'),
-                    ),
-                  ],
+                      const SizedBox(width: 8),
+                      FilledButton.tonal(
+                        onPressed: () async {
+                          try {
+                            FocusManager.instance.primaryFocus?.unfocus();
+                            final text = controller.text;
+                            controller.clear();
+                            await createWorkComment(
+                              workId: workId,
+                              text: text,
+                            );
+                            client.value?.requestController.add(request);
+                          } catch (exception) {
+                            showErrorSnackBar(context, exception);
+                          }
+                        },
+                        child: const Text('送信'),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
             ],
           ),
         ),

@@ -15,5 +15,5 @@ String toExceptionMessage(dynamic exception) {
     return exception.message;
   }
 
-  return '予期しないエラーが発生しました。'.i18n;
+  return '不明なエラーが発生しました。'.i18n;
 }
