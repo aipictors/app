@@ -2,6 +2,7 @@ import 'package:aipictors/screens/account/account_create_screen.dart';
 import 'package:aipictors/screens/account/account_delete_screen.dart';
 import 'package:aipictors/screens/account/account_login_screen.dart';
 import 'package:aipictors/screens/account/account_password_screen.dart';
+import 'package:aipictors/screens/account/account_screen.dart';
 import 'package:aipictors/screens/award/novel_awards_screen.dart';
 import 'package:aipictors/screens/award/work_awards_screen.dart';
 import 'package:aipictors/screens/comment/comment_report_screen.dart';
@@ -57,6 +58,12 @@ final router = GoRouter(
       },
     ),
     GoRoute(
+      path: '/account',
+      builder: (context, state) {
+        return const AccountScreen();
+      },
+    ),
+    GoRoute(
       path: '/account/create',
       builder: (context, state) {
         return const AccountCreateScreen();
@@ -75,9 +82,9 @@ final router = GoRouter(
       },
     ),
     GoRoute(
-      path: '/account/username',
+      path: '/account/login',
       builder: (context, state) {
-        return const AccountUsernameScreen();
+        return const AccountLoginScreen();
       },
     ),
     GoRoute(

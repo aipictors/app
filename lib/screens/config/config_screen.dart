@@ -28,21 +28,15 @@ class ConfigScreen extends HookConsumerWidget {
     return Scaffold(
       key: const PageStorageKey('config'),
       appBar: AppBar(
-        title: const Text(
-          '設定',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
+        title: Text('設定'.i18n),
       ),
       body: ListView(
         children: [
           if (authState.value != null)
             ListTile(
-              leading: const Icon(Icons.person_rounded),
+              leading: const Icon(Icons.wysiwyg_rounded),
               trailing: const Icon(Icons.chevron_right_rounded),
-              title: Text(
-                'アカウント'.i18n,
-                style: const TextStyle(fontWeight: FontWeight.bold),
-              ),
+              title: Text('マイページ'.i18n),
               onTap: () {
                 context.push('/viewer');
               },
@@ -55,7 +49,6 @@ class ConfigScreen extends HookConsumerWidget {
                 '作品'.i18n,
                 style: TextStyle(
                   color: Theme.of(context).disabledColor,
-                  fontWeight: FontWeight.bold,
                   decoration: TextDecoration.lineThrough,
                 ),
               ),
@@ -71,7 +64,6 @@ class ConfigScreen extends HookConsumerWidget {
                 'シリーズ'.i18n,
                 style: TextStyle(
                   color: Theme.of(context).disabledColor,
-                  fontWeight: FontWeight.bold,
                   decoration: TextDecoration.lineThrough,
                 ),
               ),
@@ -87,7 +79,6 @@ class ConfigScreen extends HookConsumerWidget {
                 'ミュートしたタグ'.i18n,
                 style: TextStyle(
                   color: Theme.of(context).disabledColor,
-                  fontWeight: FontWeight.bold,
                   decoration: TextDecoration.lineThrough,
                 ),
               ),
@@ -103,7 +94,6 @@ class ConfigScreen extends HookConsumerWidget {
                 'ミュートしたユーザ'.i18n,
                 style: TextStyle(
                   color: Theme.of(context).disabledColor,
-                  fontWeight: FontWeight.bold,
                   decoration: TextDecoration.lineThrough,
                 ),
               ),
@@ -112,13 +102,19 @@ class ConfigScreen extends HookConsumerWidget {
               },
             ),
           if (authState.value != null) const Divider(),
+          if (authState.value != null)
+            ListTile(
+              leading: const Icon(Icons.person_rounded),
+              trailing: const Icon(Icons.chevron_right_rounded),
+              title: Text('アカウント'.i18n),
+              onTap: () {
+                context.push('/account');
+              },
+            ),
           ListTile(
             leading: const Icon(Icons.translate_rounded),
             trailing: const Icon(Icons.chevron_right_rounded),
-            title: Text(
-              '言語切り替え'.i18n,
-              style: const TextStyle(fontWeight: FontWeight.bold),
-            ),
+            title: Text('言語切り替え'.i18n),
             onTap: () {
               context.push('/config/language');
             },
@@ -126,10 +122,7 @@ class ConfigScreen extends HookConsumerWidget {
           ListTile(
             leading: const Icon(Icons.favorite_rounded),
             trailing: const Icon(Icons.chevron_right_rounded),
-            title: Text(
-              '調査協力'.i18n,
-              style: const TextStyle(fontWeight: FontWeight.bold),
-            ),
+            title: Text('調査協力'.i18n),
             onTap: () {
               context.push('/surveys');
             },
@@ -138,10 +131,7 @@ class ConfigScreen extends HookConsumerWidget {
             ListTile(
               leading: const Icon(Icons.code_rounded),
               trailing: const Icon(Icons.chevron_right_rounded),
-              title: const Text(
-                'デバッグモード',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
+              title: Text('デバッグモード'.i18n),
               onTap: () {
                 context.push('/debug');
               },
@@ -149,10 +139,7 @@ class ConfigScreen extends HookConsumerWidget {
           if (authState.value != null)
             ListTile(
               leading: const Icon(Icons.logout_rounded),
-              title: const Text(
-                'ログアウト',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
+              title: Text('ログアウト'.i18n),
               onTap: () {
                 onShowLogoutDialog(context, ref);
               },
@@ -160,10 +147,7 @@ class ConfigScreen extends HookConsumerWidget {
           const Divider(),
           ListTile(
             trailing: const Icon(Icons.chevron_right_rounded),
-            title: Text(
-              '利用規約'.i18n,
-              style: const TextStyle(fontWeight: FontWeight.bold),
-            ),
+            title: Text('利用規約'.i18n),
             onTap: () {
               context.push('/terms');
             },
@@ -174,7 +158,6 @@ class ConfigScreen extends HookConsumerWidget {
               'プライバシーポリシー'.i18n,
               style: TextStyle(
                 color: Theme.of(context).disabledColor,
-                fontWeight: FontWeight.bold,
                 decoration: TextDecoration.lineThrough,
               ),
             ),
@@ -184,30 +167,21 @@ class ConfigScreen extends HookConsumerWidget {
           ),
           ListTile(
             trailing: const Icon(Icons.open_in_new_rounded),
-            title: const Text(
-              'ディスコに参加する',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
+            title: Text('ディスコに参加する'.i18n),
             onTap: () {
               onShowDiscordDialog(context, ref);
             },
           ),
           ListTile(
             trailing: const Icon(Icons.open_in_new_rounded),
-            title: const Text(
-              'ツイッターをフォローする',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
+            title: Text('ツイッターをフォローする'.i18n),
             onTap: () {
               onShowTwitterDialog(context, ref);
             },
           ),
           const Divider(),
           SwitchListTile(
-            title: Text(
-              'システムカラーモード'.i18n,
-              style: const TextStyle(fontWeight: FontWeight.bold),
-            ),
+            title: Text('システムカラーモード'.i18n),
             value: config.isSystemColorMode,
             onChanged: (value) {
               final notifier = ref.read(configProvider.notifier);
@@ -216,10 +190,7 @@ class ConfigScreen extends HookConsumerWidget {
           ),
           if (!config.isSystemColorMode)
             SwitchListTile(
-              title: Text(
-                'ダークモード'.i18n,
-                style: const TextStyle(fontWeight: FontWeight.bold),
-              ),
+              title: Text('ダークモード'.i18n),
               value: config.isDarkMode,
               onChanged: (value) {
                 final notifier = ref.read(configProvider.notifier);
@@ -236,11 +207,10 @@ class ConfigScreen extends HookConsumerWidget {
           ListTile(
             title: Text(
               '${'バージョン'.i18n} ${DefaultConfig.versionText}',
-              style: const TextStyle(fontWeight: FontWeight.bold),
             ),
             onLongPress: () {
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('クリップボードにコピーしました。')),
+                SnackBar(content: Text('クリップボードにコピーしました。'.i18n)),
               );
               final data = ClipboardData(text: DefaultConfig.versionText);
               Clipboard.setData(data);

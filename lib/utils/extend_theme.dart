@@ -53,23 +53,16 @@ ThemeData extendThemeData(ThemeData themeData) {
 
   return themeData.copyWith(
     textTheme: textTheme,
-    outlinedButtonTheme: OutlinedButtonThemeData(
-      style: OutlinedButton.styleFrom(
-        textStyle: textTheme.labelLarge!.copyWith(fontWeight: FontWeight.bold),
-      ),
-    ),
-    elevatedButtonTheme: ElevatedButtonThemeData(
-      style: ElevatedButton.styleFrom(
-        textStyle: textTheme.labelLarge!.copyWith(fontWeight: FontWeight.bold),
-      ),
-    ),
-    textButtonTheme: TextButtonThemeData(
+    filledButtonTheme: FilledButtonThemeData(
       style: TextButton.styleFrom(
         textStyle: textTheme.labelLarge!.copyWith(fontWeight: FontWeight.bold),
       ),
     ),
     dialogTheme: DialogTheme(
       titleTextStyle: textTheme.headlineSmall!.copyWith(fontSize: 20),
+    ),
+    listTileTheme: const ListTileThemeData(
+      titleTextStyle: TextStyle(fontWeight: FontWeight.bold),
     ),
   );
 }

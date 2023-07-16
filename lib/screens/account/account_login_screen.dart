@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// 設定・ログインIDの変更
-class AccountUsernameScreen extends HookConsumerWidget {
-  const AccountUsernameScreen({
+class AccountLoginScreen extends HookConsumerWidget {
+  const AccountLoginScreen({
     Key? key,
   }) : super(key: key);
 
