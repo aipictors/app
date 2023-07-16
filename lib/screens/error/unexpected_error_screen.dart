@@ -2,6 +2,7 @@ import 'package:aipictors/widgets/container/error/unexpected_error_container.dar
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+/// エラー（不明）
 class UnexpectedErrorScreen extends HookConsumerWidget {
   const UnexpectedErrorScreen({
     Key? key,

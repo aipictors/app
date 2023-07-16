@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+/// アプリの読み込み中
 class LoadingScreen extends HookConsumerWidget {
   const LoadingScreen({
     Key? key,

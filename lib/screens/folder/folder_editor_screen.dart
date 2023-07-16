@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+/// フォルダ・編集
 class ViewerEditorScreen extends HookConsumerWidget {
   const ViewerEditorScreen({
     Key? key,
@@ -8,10 +9,6 @@ class ViewerEditorScreen extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('シリーズ'),
-      ),
-    );
+    return const Scaffold();
   }
 }

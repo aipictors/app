@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+/// 探索・ベスト作品
 class ExplorerBestWorksView extends HookConsumerWidget {
   const ExplorerBestWorksView({
     Key? key,

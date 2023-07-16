@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+/// 探索・人気の作品
 class ExplorerPopularWorksView extends HookConsumerWidget {
   const ExplorerPopularWorksView({
     Key? key,

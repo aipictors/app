@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+/// アカウントの削除
 class AccountDeleteScreen extends HookConsumerWidget {
   const AccountDeleteScreen({
     Key? key,

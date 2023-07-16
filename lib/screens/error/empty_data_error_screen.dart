@@ -2,6 +2,7 @@ import 'package:aipictors/widgets/container/error/data_empty_error_container.dar
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+/// エラー（データが空）
 class EmptyDataErrorScreen extends HookConsumerWidget {
   const EmptyDataErrorScreen({
     Key? key,

@@ -6,7 +6,6 @@ import 'package:aipictors/screens/config/config_code_screen.dart';
 import 'package:aipictors/screens/config/config_language_screen.dart';
 import 'package:aipictors/screens/config/config_muted_tags_screen.dart';
 import 'package:aipictors/screens/config/config_muted_users_screen.dart';
-import 'package:aipictors/screens/config/config_theme_screen.dart';
 import 'package:aipictors/screens/daily_theme/daily_theme_screen.dart';
 import 'package:aipictors/screens/debug_screen.dart';
 import 'package:aipictors/screens/folder/folder_screen.dart';
@@ -78,12 +77,6 @@ final router = GoRouter(
       builder: (context, state) {
         final userId = state.pathParameters['user_id'];
         return UserScreen(userId: userId!);
-      },
-    ),
-    GoRoute(
-      path: '/config/theme',
-      builder: (context, state) {
-        return const ConfigThemeScreen();
       },
     ),
     GoRoute(

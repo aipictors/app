@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
+/// プライバシーポリシー
 class PrivacyScreen extends HookConsumerWidget {
   const PrivacyScreen({Key? key}) : super(key: key);
 

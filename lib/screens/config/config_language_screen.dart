@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:i18n_extension/i18n_widget.dart';
 
+/// 設定・言語
 class ConfigLanguageScreen extends HookConsumerWidget {
   const ConfigLanguageScreen({
     Key? key,

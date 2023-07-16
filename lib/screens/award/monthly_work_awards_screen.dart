@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+/// 作品ランキング（月別）
 class MonthlyWorkAwardsScreen extends HookConsumerWidget {
   const MonthlyWorkAwardsScreen({
     Key? key,

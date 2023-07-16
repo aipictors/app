@@ -13,6 +13,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+/// 設定
 class ConfigScreen extends HookConsumerWidget {
   const ConfigScreen({
     Key? key,
@@ -232,14 +233,6 @@ class ConfigScreen extends HookConsumerWidget {
           ),
           const SizedBox(height: 12),
           const Divider(),
-          // AboutListTile(
-          //   applicationName: DefaultConfig.appName,
-          //   applicationVersion: DefaultConfig.version,
-          //   applicationIcon: const Icon(Icons.flutter_dash_rounded),
-          //   aboutBoxChildren: const [
-          //     Text('この度はアプリをダウンロードいただきありがとうございます。このアプリに関するライセンスを確認いただけます。'),
-          //   ],
-          // ),
           ListTile(
             title: Text(
               '${'バージョン'.i18n} ${DefaultConfig.versionText}',

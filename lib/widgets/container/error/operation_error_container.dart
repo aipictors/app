@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:gql_exec/gql_exec.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-@immutable
 class OperationErrorContainer extends HookConsumerWidget {
   const OperationErrorContainer({
     Key? key,

@@ -17,6 +17,7 @@ import 'package:ferry_flutter/ferry_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+/// 作品の詳細
 class WorkScreen extends HookConsumerWidget {
   const WorkScreen({
     Key? key,

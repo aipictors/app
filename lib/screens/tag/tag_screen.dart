@@ -7,6 +7,7 @@ import 'package:aipictors/widgets/view/tag_works_view.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+/// タグの詳細
 class TagScreen extends HookConsumerWidget {
   const TagScreen({
     Key? key,

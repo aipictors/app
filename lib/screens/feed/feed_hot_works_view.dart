@@ -8,6 +8,7 @@ import 'package:aipictors/widgets/list/feed_work_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+/// フィード・ホットな作品の一覧
 class FeedHotWorksView extends HookConsumerWidget {
   const FeedHotWorksView({
     Key? key,

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gql_exec/gql_exec.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-@immutable
+/// エラー（通信エラー）
 class OperationErrorScreen extends HookConsumerWidget {
   const OperationErrorScreen({
     Key? key,

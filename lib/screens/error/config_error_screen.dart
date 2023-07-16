@@ -3,6 +3,7 @@ import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+/// 設定エラー
 class ConfigErrorScreen extends HookConsumerWidget {
   const ConfigErrorScreen({
     Key? key,

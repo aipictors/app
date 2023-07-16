@@ -7,6 +7,7 @@ import 'package:aipictors/widgets/view/folder_works_view.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+/// フォルダの詳細
 class FolderScreen extends HookConsumerWidget {
   const FolderScreen({
     Key? key,

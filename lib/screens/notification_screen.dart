@@ -12,6 +12,7 @@ import 'package:aipictors/widgets/list/notification_reply_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+/// 通知
 class NotificationScreen extends HookConsumerWidget {
   const NotificationScreen({
     Key? key,

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
+/// 利用規約
 class TermsScreen extends HookConsumerWidget {
   const TermsScreen({Key? key}) : super(key: key);
 

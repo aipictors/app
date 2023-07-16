@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+/// 作品ランキング（週別）
 class WeeklyWorkAwardsScreen extends HookConsumerWidget {
   const WeeklyWorkAwardsScreen({
     Key? key,

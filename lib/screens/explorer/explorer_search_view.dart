@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+/// 探索・検索結果
 class ExplorerSearchView extends HookConsumerWidget {
   const ExplorerSearchView({
     Key? key,

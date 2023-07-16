@@ -7,6 +7,7 @@ import 'package:aipictors/widgets/container/error/data_not_found_error_container
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+/// ユーザのフォローの一覧
 class UserFolloweesScreen extends HookConsumerWidget {
   const UserFolloweesScreen({
     Key? key,
