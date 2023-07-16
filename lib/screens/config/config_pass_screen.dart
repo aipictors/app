@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-/// フォルダ・編集
-class ViewerEditorScreen extends HookConsumerWidget {
-  const ViewerEditorScreen({
+/// 設定・パス
+class ConfigPassScreen extends HookConsumerWidget {
+  const ConfigPassScreen({
     Key? key,
   }) : super(key: key);
 

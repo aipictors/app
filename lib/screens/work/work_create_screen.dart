@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// 作品の投稿
-class WorkPostScreen extends HookConsumerWidget {
-  const WorkPostScreen({
+class WorkCreateScreen extends HookConsumerWidget {
+  const WorkCreateScreen({
     Key? key,
   }) : super(key: key);
 

@@ -1,22 +1,40 @@
 import 'package:aipictors/screens/account/account_create_screen.dart';
 import 'package:aipictors/screens/account/account_delete_screen.dart';
+import 'package:aipictors/screens/account/account_login_screen.dart';
+import 'package:aipictors/screens/account/account_password_screen.dart';
 import 'package:aipictors/screens/award/novel_awards_screen.dart';
 import 'package:aipictors/screens/award/work_awards_screen.dart';
+import 'package:aipictors/screens/comment/comment_report_screen.dart';
 import 'package:aipictors/screens/config/config_code_screen.dart';
 import 'package:aipictors/screens/config/config_language_screen.dart';
 import 'package:aipictors/screens/config/config_muted_tags_screen.dart';
 import 'package:aipictors/screens/config/config_muted_users_screen.dart';
+import 'package:aipictors/screens/config/config_pass_screen.dart';
+import 'package:aipictors/screens/config/config_profile_screen.dart';
 import 'package:aipictors/screens/daily_theme/daily_theme_screen.dart';
 import 'package:aipictors/screens/debug_screen.dart';
+import 'package:aipictors/screens/feedback_screen.dart';
+import 'package:aipictors/screens/folder/folder_create_screen.dart';
+import 'package:aipictors/screens/folder/folder_report_screen.dart';
 import 'package:aipictors/screens/folder/folder_screen.dart';
+import 'package:aipictors/screens/folder/folder_update_screen.dart';
 import 'package:aipictors/screens/privacy_screen.dart';
 import 'package:aipictors/screens/root_screen.dart';
+import 'package:aipictors/screens/sticker/sticker_report_screen.dart';
+import 'package:aipictors/screens/sticker/stickers_screen.dart';
 import 'package:aipictors/screens/surveys_screen.dart';
 import 'package:aipictors/screens/tag/tag_screen.dart';
 import 'package:aipictors/screens/terms_screen.dart';
+import 'package:aipictors/screens/tutorial_screen.dart';
+import 'package:aipictors/screens/user/user_followees_screen.dart';
+import 'package:aipictors/screens/user/user_followers_screen.dart';
+import 'package:aipictors/screens/user/user_report_screen.dart';
 import 'package:aipictors/screens/user/user_screen.dart';
 import 'package:aipictors/screens/viewer/viewer_screen.dart';
+import 'package:aipictors/screens/work/work_create_screen.dart';
+import 'package:aipictors/screens/work/work_report_screen.dart';
 import 'package:aipictors/screens/work/work_screen.dart';
+import 'package:aipictors/screens/work/work_update_screen.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -39,44 +57,46 @@ final router = GoRouter(
       },
     ),
     GoRoute(
-      path: '/viewer',
+      path: '/account/create',
       builder: (context, state) {
-        return const ViewerScreen();
+        return const AccountCreateScreen();
       },
     ),
     GoRoute(
-      path: '/daily_themes/:theme_id',
+      path: '/account/delete',
       builder: (context, state) {
-        final themeId = state.pathParameters['theme_id'];
-        return DailyThemeScreen(themeId: themeId!);
+        return const AccountDeleteScreen();
       },
     ),
     GoRoute(
-      path: '/works/:work_id',
+      path: '/account/password',
       builder: (context, state) {
-        final workId = state.pathParameters['work_id'];
-        return WorkScreen(workId: workId!);
+        return const AccountPasswordScreen();
       },
     ),
     GoRoute(
-      path: '/folders/:folder_id',
+      path: '/account/username',
       builder: (context, state) {
-        final folderId = state.pathParameters['folder_id'];
-        return FolderScreen(folderId: folderId!);
+        return const AccountUsernameScreen();
       },
     ),
     GoRoute(
-      path: '/tags/:tag_name',
+      path: '/awards/novels',
       builder: (context, state) {
-        final tagName = state.pathParameters['tag_name'];
-        return TagScreen(tagName: tagName!);
+        return const NovelAwardsScreen();
       },
     ),
     GoRoute(
-      path: '/users/:user_id',
+      path: '/awards/works',
       builder: (context, state) {
-        final userId = state.pathParameters['user_id'];
-        return UserScreen(userId: userId!);
+        return const WorkAwardsScreen();
+      },
+    ),
+    GoRoute(
+      path: '/comment/:comment_id/report',
+      builder: (context, state) {
+        final commentId = state.pathParameters['comment_id'];
+        return CommentReportScreen(commentId: commentId!);
       },
     ),
     GoRoute(
@@ -110,33 +130,130 @@ final router = GoRouter(
       },
     ),
     GoRoute(
-      path: '/awards/novels',
+      path: '/config/pass',
       builder: (context, state) {
-        return const NovelAwardsScreen();
+        return const ConfigPassScreen();
       },
     ),
     GoRoute(
-      path: '/awards/works',
+      path: '/config/profile',
       builder: (context, state) {
-        return const WorkAwardsScreen();
+        return const ConfigProfileScreen();
       },
     ),
     GoRoute(
-      path: '/account/create',
+      path: '/daily_themes/:theme_id',
       builder: (context, state) {
-        return const AccountCreateScreen();
+        final themeId = state.pathParameters['theme_id'];
+        return DailyThemeScreen(themeId: themeId!);
       },
     ),
     GoRoute(
-      path: '/account/delete',
+      path: '/folders/create',
       builder: (context, state) {
-        return const AccountDeleteScreen();
+        return const FolderCreateScreen();
       },
     ),
     GoRoute(
-      path: '/surveys',
+      path: '/folders/:folder_id',
       builder: (context, state) {
-        return const SurveysScreen();
+        final folderId = state.pathParameters['folder_id'];
+        return FolderScreen(folderId: folderId!);
+      },
+    ),
+    GoRoute(
+      path: '/folders/:folder_id/report',
+      builder: (context, state) {
+        final folderId = state.pathParameters['folder_id'];
+        return FolderReportScreen(folderId: folderId!);
+      },
+    ),
+    GoRoute(
+      path: '/folders/:folder_id/update',
+      builder: (context, state) {
+        final folderId = state.pathParameters['folder_id'];
+        return FolderUpdateScreen(folderId: folderId!);
+      },
+    ),
+    GoRoute(
+      path: '/stickers',
+      builder: (context, state) {
+        return const StickersScreen();
+      },
+    ),
+    GoRoute(
+      path: '/stickers/:sticker_id/report',
+      builder: (context, state) {
+        final stickerId = state.pathParameters['sticker_id'];
+        return StickerReportScreen(stickerId: stickerId!);
+      },
+    ),
+    GoRoute(
+      path: '/tags/:tag_name',
+      builder: (context, state) {
+        final tagName = state.pathParameters['tag_name'];
+        return TagScreen(tagName: tagName!);
+      },
+    ),
+    GoRoute(
+      path: '/users/:user_id',
+      builder: (context, state) {
+        final userId = state.pathParameters['user_id'];
+        return UserScreen(userId: userId!);
+      },
+    ),
+    GoRoute(
+      path: '/users/:user_id/followees',
+      builder: (context, state) {
+        final userId = state.pathParameters['user_id'];
+        return UserFolloweesScreen(userId: userId!);
+      },
+    ),
+    GoRoute(
+      path: '/users/:user_id/followers',
+      builder: (context, state) {
+        final userId = state.pathParameters['user_id'];
+        return UserFollowersScreen(userId: userId!);
+      },
+    ),
+    GoRoute(
+      path: '/users/:user_id/report',
+      builder: (context, state) {
+        final userId = state.pathParameters['user_id'];
+        return UserReportScreen(userId: userId!);
+      },
+    ),
+    GoRoute(
+      path: '/viewer',
+      builder: (context, state) {
+        return const ViewerScreen();
+      },
+    ),
+    GoRoute(
+      path: '/works/create',
+      builder: (context, state) {
+        return const WorkCreateScreen();
+      },
+    ),
+    GoRoute(
+      path: '/works/:work_id',
+      builder: (context, state) {
+        final workId = state.pathParameters['work_id'];
+        return WorkScreen(workId: workId!);
+      },
+    ),
+    GoRoute(
+      path: '/works/:work_id/report',
+      builder: (context, state) {
+        final workId = state.pathParameters['work_id'];
+        return WorkReportScreen(workId: workId!);
+      },
+    ),
+    GoRoute(
+      path: '/works/:work_id/update',
+      builder: (context, state) {
+        final workId = state.pathParameters['work_id'];
+        return WorkUpdateScreen(workId: workId!);
       },
     ),
     GoRoute(
@@ -146,15 +263,33 @@ final router = GoRouter(
       },
     ),
     GoRoute(
-      path: '/terms',
+      path: '/feedback',
       builder: (context, state) {
-        return const TermsScreen();
+        return const FeedbackScreen();
       },
     ),
     GoRoute(
       path: '/privacy',
       builder: (context, state) {
         return const PrivacyScreen();
+      },
+    ),
+    GoRoute(
+      path: '/surveys',
+      builder: (context, state) {
+        return const SurveysScreen();
+      },
+    ),
+    GoRoute(
+      path: '/terms',
+      builder: (context, state) {
+        return const TermsScreen();
+      },
+    ),
+    GoRoute(
+      path: '/tutorial',
+      builder: (context, state) {
+        return const TutorialScreen();
       },
     ),
   ],
