@@ -38,7 +38,8 @@ class LoginScreen extends HookConsumerWidget {
                   children: [
                     const SizedBox(height: 120),
                     SizedBox(
-                      width: 180,
+                      width: 128,
+                      height: 128,
                       child: Image.asset('assets/images/aipictors.png'),
                     ),
                     const SizedBox(height: 40),
