@@ -1,0 +1,3 @@
+mutation ReportWork($input: ReportWorkInput!) {
+  reportWork(input: $input)
+}

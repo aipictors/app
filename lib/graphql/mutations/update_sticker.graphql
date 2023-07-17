@@ -1,0 +1,6 @@
+mutation UpdateSticker($input: UpdateStickerInput!) {
+  updateSticker(input: $input) {
+    id
+    title
+  }
+}

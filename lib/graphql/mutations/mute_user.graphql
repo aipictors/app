@@ -1,0 +1,5 @@
+mutation MuteUser($input: MuteUserInput!) {
+  muteUser(input: $input) {
+    id
+  }
+}

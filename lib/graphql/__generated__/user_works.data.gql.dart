@@ -3,6 +3,8 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:aipictors/__generated__/serializers.gql.dart' as _i1;
+import 'package:aipictors/graphql/fragments/__generated__/partial_work_fields_fragment.data.gql.dart'
+    as _i2;
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
@@ -62,7 +64,8 @@ abstract class GUserWorksData_user
 
 abstract class GUserWorksData_user_works
     implements
-        Built<GUserWorksData_user_works, GUserWorksData_user_worksBuilder> {
+        Built<GUserWorksData_user_works, GUserWorksData_user_worksBuilder>,
+        _i2.GPartialWorkFields {
   GUserWorksData_user_works._();
 
   factory GUserWorksData_user_works(
@@ -71,13 +74,24 @@ abstract class GUserWorksData_user_works
 
   static void _initializeBuilder(GUserWorksData_user_worksBuilder b) =>
       b..G__typename = 'WorkNode';
+  @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
+  @override
   String get id;
+  @override
   String get title;
-  GUserWorksData_user_works_image? get image;
+  @override
+  int get likesCount;
+  @override
+  int get commentsCount;
+  @override
+  int get createdAt;
+  @override
+  GUserWorksData_user_works_thumbnailImage? get thumbnailImage;
   static Serializer<GUserWorksData_user_works> get serializer =>
       _$gUserWorksDataUserWorksSerializer;
+  @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUserWorksData_user_works.serializer,
         this,
@@ -89,31 +103,38 @@ abstract class GUserWorksData_user_works
       );
 }
 
-abstract class GUserWorksData_user_works_image
+abstract class GUserWorksData_user_works_thumbnailImage
     implements
-        Built<GUserWorksData_user_works_image,
-            GUserWorksData_user_works_imageBuilder> {
-  GUserWorksData_user_works_image._();
+        Built<GUserWorksData_user_works_thumbnailImage,
+            GUserWorksData_user_works_thumbnailImageBuilder>,
+        _i2.GPartialWorkFields_thumbnailImage {
+  GUserWorksData_user_works_thumbnailImage._();
 
-  factory GUserWorksData_user_works_image(
-          [Function(GUserWorksData_user_works_imageBuilder b) updates]) =
-      _$GUserWorksData_user_works_image;
+  factory GUserWorksData_user_works_thumbnailImage(
+      [Function(GUserWorksData_user_works_thumbnailImageBuilder b)
+          updates]) = _$GUserWorksData_user_works_thumbnailImage;
 
-  static void _initializeBuilder(GUserWorksData_user_works_imageBuilder b) =>
+  static void _initializeBuilder(
+          GUserWorksData_user_works_thumbnailImageBuilder b) =>
       b..G__typename = 'ImageNode';
+  @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
+  @override
   String get id;
+  @override
   String get downloadURL;
-  static Serializer<GUserWorksData_user_works_image> get serializer =>
-      _$gUserWorksDataUserWorksImageSerializer;
+  static Serializer<GUserWorksData_user_works_thumbnailImage> get serializer =>
+      _$gUserWorksDataUserWorksThumbnailImageSerializer;
+  @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GUserWorksData_user_works_image.serializer,
+        GUserWorksData_user_works_thumbnailImage.serializer,
         this,
       ) as Map<String, dynamic>);
-  static GUserWorksData_user_works_image? fromJson(Map<String, dynamic> json) =>
+  static GUserWorksData_user_works_thumbnailImage? fromJson(
+          Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
-        GUserWorksData_user_works_image.serializer,
+        GUserWorksData_user_works_thumbnailImage.serializer,
         json,
       );
 }

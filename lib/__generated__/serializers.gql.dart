@@ -3,130 +3,62 @@
 
 import 'package:aipictors/__generated__/schema.schema.gql.dart'
     show
-        GAcceptPromptonRequestInput,
         GAccessType,
-        GAddPromptonTagToWorkInput,
-        GAddPromptonWorkToFolderInput,
         GAwardType,
         GAwardsWhereInput,
-        GBlockPromptonUserInput,
         GCacheControlScope,
-        GCancelPromptonRequestInput,
-        GChangePromptonFolderToPaidInput,
-        GClosePromptonRequestInput,
         GContributorType,
+        GCreateAccountInput,
         GCreateFolderInput,
-        GCreatePromptonChatMessageInput,
-        GCreatePromptonCoffeeRequestInput,
-        GCreatePromptonDeliverableInput,
-        GCreatePromptonFileInput,
-        GCreatePromptonFolderInput,
-        GCreatePromptonFolderKeyInput,
-        GCreatePromptonFolderViewInput,
-        GCreatePromptonInquiryInput,
-        GCreatePromptonPaymentMethodInput,
-        GCreatePromptonPlanInput,
-        GCreatePromptonPlanRequestInput,
-        GCreatePromptonPlanViewInput,
-        GCreatePromptonProfileBlockInput,
-        GCreatePromptonPromptCategoryInput,
-        GCreatePromptonPromptInput,
-        GCreatePromptonPromptWorkInput,
-        GCreatePromptonReactionInput,
-        GCreatePromptonThumbnailFileInput,
-        GCreatePromptonUserInput,
-        GCreatePromptonUserViewInput,
-        GCreatePromptonWorkBookmarkInput,
-        GCreatePromptonWorkInput,
-        GCreatePromptonWorkLikeInput,
-        GCreatePromptonWorkViewInput,
         GCreateResponseCommentInput,
         GCreateStickerInput,
-        GCreateUserInput,
         GCreateWorkBookmarkInput,
         GCreateWorkCommentInput,
         GCreateWorkInput,
         GCreateWorkLikeInput,
         GDailyThemesWhereInput,
-        GDecrementPromptonPlanSort,
-        GDecrementPromptonProfileBlockIndexInput,
         GDeleteCommentInput,
         GDeleteFolderInput,
-        GDeletePromptonFolderInput,
-        GDeletePromptonIntegrationInput,
-        GDeletePromptonPlanInput,
-        GDeletePromptonProfileBlockInput,
-        GDeletePromptonPromptCategoryInput,
-        GDeletePromptonPromptInput,
-        GDeletePromptonReactionInput,
-        GDeletePromptonWorkBookmarkInput,
-        GDeletePromptonWorkInput,
-        GDeletePromptonWorkLikeInput,
         GDeleteStickerInput,
         GDeleteWorkBookmarkInput,
         GDeleteWorkInput,
         GDeleteWorkLikeInput,
-        GFlipPromptonFolderWorkIndexInput,
-        GFolderMode,
         GFoldersWhereInput,
-        GFollowPromptonUserInput,
         GFollowUserInput,
-        GIncrementPromptonProfileBlockIndexInput,
-        GLoginPromptonInput,
         GLoginWithPasswordInput,
-        GMarkPromptonFolderAsPrivateInput,
-        GMarkPromptonFolderAsPublicInput,
-        GMarkPromptonPlanAsPrivateInput,
-        GMarkPromptonPlanAsPublicInput,
-        GMarkPromptonWorkAsPrivateInput,
-        GMarkPromptonWorkAsPublicInput,
-        GMarkPromptonWorkAsUserHeaderInput,
         GMuteTagInput,
         GMuteUserInput,
         GNotificationType,
-        GPinPromptonWorkInput,
         GPopularWorksWhereInput,
         GPostType,
-        GPromptonFoldersWhereInput,
-        GPromptonLabelsWhereInput,
-        GPromptonPlansWhereInput,
-        GPromptonRequestsWhereInput,
-        GPromptonTagsWhereInput,
-        GPromptonUserWorksWhereInput,
-        GPromptonUsersWhereInput,
-        GPromptonViewerWorksWhereInput,
-        GPromptonWorksWhereInput,
         GRating,
-        GRejectPromptonRequestInput,
-        GRemovePromptonTagFromWorkInput,
-        GRemovePromptonWorkFromFolderInput,
+        GReportCommentInput,
+        GReportFolderInput,
+        GReportReason,
+        GReportStickerInput,
+        GReportUserInput,
+        GReportWorkInput,
         GStickersWhereInput,
         GTagsWhereInput,
-        GTestPromptonIntegrationInput,
-        GUnfollowPromptonUserInput,
         GUnfollowUserInput,
         GUnmuteTagInput,
         GUnmuteUserInput,
-        GUnpinPromptonWorkInput,
+        GUpdateAccountLoginInput,
+        GUpdateAccountPasswordInput,
         GUpdateFolderInput,
-        GUpdatePromptonFolderInput,
-        GUpdatePromptonFolderSortInput,
-        GUpdatePromptonPlanInput,
-        GUpdatePromptonPlanSortInput,
-        GUpdatePromptonProfileBlockInput,
-        GUpdatePromptonPromptCategoryInput,
-        GUpdatePromptonPromptInput,
-        GUpdatePromptonUserAvatarInput,
-        GUpdatePromptonUserHeaderImageInput,
-        GUpdatePromptonUserLoginInput,
-        GUpdatePromptonUserProfileInput,
-        GUpdatePromptonWorkInput,
         GUpdateStickerInput,
+        GUpdateUserLoginInput,
+        GUpdateUserPasswordInput,
         GUpdateUserProfileInput,
+        GUpdateWorkInput,
         GUserWorksWhereInput,
         GUsersWhereInput,
         GWorkAwardsWhereInput,
-        GWorksWhereInput;
+        GWorksWhereInput,
+        G_Any,
+        Gfederation__FieldSet,
+        Glink__Import,
+        Glink__Purpose;
 import 'package:aipictors/graphql/__generated__/best_works.data.gql.dart'
     show
         GBestWorksData,
@@ -136,6 +68,16 @@ import 'package:aipictors/graphql/__generated__/best_works.req.gql.dart'
     show GBestWorksReq;
 import 'package:aipictors/graphql/__generated__/best_works.var.gql.dart'
     show GBestWorksVars;
+import 'package:aipictors/graphql/__generated__/contributors.data.gql.dart'
+    show
+        GContributorsData,
+        GContributorsData_contributors,
+        GContributorsData_contributors_user,
+        GContributorsData_contributors_user_iconImage;
+import 'package:aipictors/graphql/__generated__/contributors.req.gql.dart'
+    show GContributorsReq;
+import 'package:aipictors/graphql/__generated__/contributors.var.gql.dart'
+    show GContributorsVars;
 import 'package:aipictors/graphql/__generated__/daily_theme.data.gql.dart'
     show
         GDailyThemeData,
@@ -253,6 +195,12 @@ import 'package:aipictors/graphql/__generated__/popular_works.req.gql.dart'
     show GPopularWorksReq;
 import 'package:aipictors/graphql/__generated__/popular_works.var.gql.dart'
     show GPopularWorksVars;
+import 'package:aipictors/graphql/__generated__/sticker.data.gql.dart'
+    show GStickerData, GStickerData_sticker, GStickerData_sticker_image;
+import 'package:aipictors/graphql/__generated__/sticker.req.gql.dart'
+    show GStickerReq;
+import 'package:aipictors/graphql/__generated__/sticker.var.gql.dart'
+    show GStickerVars;
 import 'package:aipictors/graphql/__generated__/stickers.data.gql.dart'
     show GStickersData, GStickersData_stickers, GStickersData_stickers_image;
 import 'package:aipictors/graphql/__generated__/stickers.req.gql.dart'
@@ -273,6 +221,12 @@ import 'package:aipictors/graphql/__generated__/tag_works.req.gql.dart'
     show GTagWorksReq;
 import 'package:aipictors/graphql/__generated__/tag_works.var.gql.dart'
     show GTagWorksVars;
+import 'package:aipictors/graphql/__generated__/tags.data.gql.dart'
+    show GTagsData, GTagsData_tags;
+import 'package:aipictors/graphql/__generated__/tags.req.gql.dart'
+    show GTagsReq;
+import 'package:aipictors/graphql/__generated__/tags.var.gql.dart'
+    show GTagsVars;
 import 'package:aipictors/graphql/__generated__/user.data.gql.dart'
     show
         GUserData,
@@ -283,6 +237,16 @@ import 'package:aipictors/graphql/__generated__/user.req.gql.dart'
     show GUserReq;
 import 'package:aipictors/graphql/__generated__/user.var.gql.dart'
     show GUserVars;
+import 'package:aipictors/graphql/__generated__/user_folders.data.gql.dart'
+    show
+        GUserFolderData,
+        GUserFolderData_user,
+        GUserFolderData_user_folders,
+        GUserFolderData_user_folders_thumbnailImage;
+import 'package:aipictors/graphql/__generated__/user_folders.req.gql.dart'
+    show GUserFolderReq;
+import 'package:aipictors/graphql/__generated__/user_folders.var.gql.dart'
+    show GUserFolderVars;
 import 'package:aipictors/graphql/__generated__/user_followees.data.gql.dart'
     show
         GUserFolloweesData,
@@ -313,16 +277,42 @@ import 'package:aipictors/graphql/__generated__/user_liked_works.req.gql.dart'
     show GUserLikedWorksReq;
 import 'package:aipictors/graphql/__generated__/user_liked_works.var.gql.dart'
     show GUserLikedWorksVars;
+import 'package:aipictors/graphql/__generated__/user_stickers.data.gql.dart'
+    show
+        GUserStickersData,
+        GUserStickersData_user,
+        GUserStickersData_user_stickers,
+        GUserStickersData_user_stickers_image;
+import 'package:aipictors/graphql/__generated__/user_stickers.req.gql.dart'
+    show GUserStickersReq;
+import 'package:aipictors/graphql/__generated__/user_stickers.var.gql.dart'
+    show GUserStickersVars;
 import 'package:aipictors/graphql/__generated__/user_works.data.gql.dart'
     show
         GUserWorksData,
         GUserWorksData_user,
         GUserWorksData_user_works,
-        GUserWorksData_user_works_image;
+        GUserWorksData_user_works_thumbnailImage;
 import 'package:aipictors/graphql/__generated__/user_works.req.gql.dart'
     show GUserWorksReq;
 import 'package:aipictors/graphql/__generated__/user_works.var.gql.dart'
     show GUserWorksVars;
+import 'package:aipictors/graphql/__generated__/users.data.gql.dart'
+    show GUsersData, GUsersData_users, GUsersData_users_iconImage;
+import 'package:aipictors/graphql/__generated__/users.req.gql.dart'
+    show GUsersReq;
+import 'package:aipictors/graphql/__generated__/users.var.gql.dart'
+    show GUsersVars;
+import 'package:aipictors/graphql/__generated__/viewer_bookmarked_works.data.gql.dart'
+    show
+        GViewerBookmarkedWorksData,
+        GViewerBookmarkedWorksData_viewer,
+        GViewerBookmarkedWorksData_viewer_bookmarkedWorks,
+        GViewerBookmarkedWorksData_viewer_bookmarkedWorks_thumbnailImage;
+import 'package:aipictors/graphql/__generated__/viewer_bookmarked_works.req.gql.dart'
+    show GViewerBookmarkedWorksReq;
+import 'package:aipictors/graphql/__generated__/viewer_bookmarked_works.var.gql.dart'
+    show GViewerBookmarkedWorksVars;
 import 'package:aipictors/graphql/__generated__/viewer_feed_works.data.gql.dart'
     show
         GViewerFeedWorksData,
@@ -336,6 +326,16 @@ import 'package:aipictors/graphql/__generated__/viewer_feed_works.req.gql.dart'
     show GViewerFeedWorksReq;
 import 'package:aipictors/graphql/__generated__/viewer_feed_works.var.gql.dart'
     show GViewerFeedWorksVars;
+import 'package:aipictors/graphql/__generated__/viewer_liked_works.data.gql.dart'
+    show
+        GViewerLikedWorksData,
+        GViewerLikedWorksData_viewer,
+        GViewerLikedWorksData_viewer_likedWorks,
+        GViewerLikedWorksData_viewer_likedWorks_thumbnailImage;
+import 'package:aipictors/graphql/__generated__/viewer_liked_works.req.gql.dart'
+    show GViewerLikedWorksReq;
+import 'package:aipictors/graphql/__generated__/viewer_liked_works.var.gql.dart'
+    show GViewerLikedWorksVars;
 import 'package:aipictors/graphql/__generated__/viewer_notifications.data.gql.dart'
     show
         GViewerNotificationsData,
@@ -351,6 +351,16 @@ import 'package:aipictors/graphql/__generated__/viewer_notifications.req.gql.dar
     show GViewerNotificationsReq;
 import 'package:aipictors/graphql/__generated__/viewer_notifications.var.gql.dart'
     show GViewerNotificationsVars;
+import 'package:aipictors/graphql/__generated__/viewer_works.data.gql.dart'
+    show
+        GViewerWorksData,
+        GViewerWorksData_viewer,
+        GViewerWorksData_viewer_works,
+        GViewerWorksData_viewer_works_thumbnailImage;
+import 'package:aipictors/graphql/__generated__/viewer_works.req.gql.dart'
+    show GViewerWorksReq;
+import 'package:aipictors/graphql/__generated__/viewer_works.var.gql.dart'
+    show GViewerWorksVars;
 import 'package:aipictors/graphql/__generated__/work.data.gql.dart'
     show
         GWorkData,
@@ -459,6 +469,18 @@ import 'package:aipictors/graphql/fragments/__generated__/work_user_fields_fragm
     show GWorkUserFieldsReq;
 import 'package:aipictors/graphql/fragments/__generated__/work_user_fields_fragment.var.gql.dart'
     show GWorkUserFieldsVars;
+import 'package:aipictors/graphql/mutations/__generated__/create_account.data.gql.dart'
+    show GCreateAccountData, GCreateAccountData_createAccount;
+import 'package:aipictors/graphql/mutations/__generated__/create_account.req.gql.dart'
+    show GCreateAccountReq;
+import 'package:aipictors/graphql/mutations/__generated__/create_account.var.gql.dart'
+    show GCreateAccountVars;
+import 'package:aipictors/graphql/mutations/__generated__/create_folder.data.gql.dart'
+    show GCreateFolderData, GCreateFolderData_createFolder;
+import 'package:aipictors/graphql/mutations/__generated__/create_folder.req.gql.dart'
+    show GCreateFolderReq;
+import 'package:aipictors/graphql/mutations/__generated__/create_folder.var.gql.dart'
+    show GCreateFolderVars;
 import 'package:aipictors/graphql/mutations/__generated__/create_response_comment.data.gql.dart'
     show
         GCreateResponseCommentData,
@@ -467,6 +489,27 @@ import 'package:aipictors/graphql/mutations/__generated__/create_response_commen
     show GCreateResponseCommentReq;
 import 'package:aipictors/graphql/mutations/__generated__/create_response_comment.var.gql.dart'
     show GCreateResponseCommentVars;
+import 'package:aipictors/graphql/mutations/__generated__/create_sticker.data.gql.dart'
+    show GCreateStickerData, GCreateStickerData_createSticker;
+import 'package:aipictors/graphql/mutations/__generated__/create_sticker.req.gql.dart'
+    show GCreateStickerReq;
+import 'package:aipictors/graphql/mutations/__generated__/create_sticker.var.gql.dart'
+    show GCreateStickerVars;
+import 'package:aipictors/graphql/mutations/__generated__/create_work.data.gql.dart'
+    show GCreateWorkData, GCreateWorkData_createWork;
+import 'package:aipictors/graphql/mutations/__generated__/create_work.req.gql.dart'
+    show GCreateWorkReq;
+import 'package:aipictors/graphql/mutations/__generated__/create_work.var.gql.dart'
+    show GCreateWorkVars;
+import 'package:aipictors/graphql/mutations/__generated__/create_work_bookmark.data.gql.dart'
+    show
+        GCreateWorkBookmarkData,
+        GCreateWorkBookmarkData_createWorkBookmark,
+        GCreateWorkBookmarkData_createWorkBookmark_viewer;
+import 'package:aipictors/graphql/mutations/__generated__/create_work_bookmark.req.gql.dart'
+    show GCreateWorkBookmarkReq;
+import 'package:aipictors/graphql/mutations/__generated__/create_work_bookmark.var.gql.dart'
+    show GCreateWorkBookmarkVars;
 import 'package:aipictors/graphql/mutations/__generated__/create_work_comment.data.gql.dart'
     show GCreateWorkCommentData, GCreateWorkCommentData_createWorkComment;
 import 'package:aipictors/graphql/mutations/__generated__/create_work_comment.req.gql.dart'
@@ -482,12 +525,122 @@ import 'package:aipictors/graphql/mutations/__generated__/create_work_like.req.g
     show GCreateWorkLikeReq;
 import 'package:aipictors/graphql/mutations/__generated__/create_work_like.var.gql.dart'
     show GCreateWorkLikeVars;
+import 'package:aipictors/graphql/mutations/__generated__/delete_comment.data.gql.dart'
+    show GDeleteCommentData, GDeleteCommentData_deleteComment;
+import 'package:aipictors/graphql/mutations/__generated__/delete_comment.req.gql.dart'
+    show GDeleteCommentReq;
+import 'package:aipictors/graphql/mutations/__generated__/delete_comment.var.gql.dart'
+    show GDeleteCommentVars;
+import 'package:aipictors/graphql/mutations/__generated__/delete_folder.data.gql.dart'
+    show GDeleteFolderData, GDeleteFolderData_deleteFolder;
+import 'package:aipictors/graphql/mutations/__generated__/delete_folder.req.gql.dart'
+    show GDeleteFolderReq;
+import 'package:aipictors/graphql/mutations/__generated__/delete_folder.var.gql.dart'
+    show GDeleteFolderVars;
+import 'package:aipictors/graphql/mutations/__generated__/delete_sticker.data.gql.dart'
+    show GDeleteStickerData, GDeleteStickerData_deleteSticker;
+import 'package:aipictors/graphql/mutations/__generated__/delete_sticker.req.gql.dart'
+    show GDeleteStickerReq;
+import 'package:aipictors/graphql/mutations/__generated__/delete_sticker.var.gql.dart'
+    show GDeleteStickerVars;
+import 'package:aipictors/graphql/mutations/__generated__/delete_work.data.gql.dart'
+    show GDeleteWorkData, GDeleteWorkData_deleteWork;
+import 'package:aipictors/graphql/mutations/__generated__/delete_work.req.gql.dart'
+    show GDeleteWorkReq;
+import 'package:aipictors/graphql/mutations/__generated__/delete_work.var.gql.dart'
+    show GDeleteWorkVars;
+import 'package:aipictors/graphql/mutations/__generated__/follow_user.data.gql.dart'
+    show GFollowUserData, GFollowUserData_followUser;
+import 'package:aipictors/graphql/mutations/__generated__/follow_user.req.gql.dart'
+    show GFollowUserReq;
+import 'package:aipictors/graphql/mutations/__generated__/follow_user.var.gql.dart'
+    show GFollowUserVars;
 import 'package:aipictors/graphql/mutations/__generated__/login_with_password.data.gql.dart'
     show GLoginWithPasswordData, GLoginWithPasswordData_loginWithPassword;
 import 'package:aipictors/graphql/mutations/__generated__/login_with_password.req.gql.dart'
     show GLoginWithPasswordReq;
 import 'package:aipictors/graphql/mutations/__generated__/login_with_password.var.gql.dart'
     show GLoginWithPasswordVars;
+import 'package:aipictors/graphql/mutations/__generated__/mute_tag.data.gql.dart'
+    show GMuteTagData, GMuteTagData_muteTag;
+import 'package:aipictors/graphql/mutations/__generated__/mute_tag.req.gql.dart'
+    show GMuteTagReq;
+import 'package:aipictors/graphql/mutations/__generated__/mute_tag.var.gql.dart'
+    show GMuteTagVars;
+import 'package:aipictors/graphql/mutations/__generated__/mute_user.data.gql.dart'
+    show GMuteUserData, GMuteUserData_muteUser;
+import 'package:aipictors/graphql/mutations/__generated__/mute_user.req.gql.dart'
+    show GMuteUserReq;
+import 'package:aipictors/graphql/mutations/__generated__/mute_user.var.gql.dart'
+    show GMuteUserVars;
+import 'package:aipictors/graphql/mutations/__generated__/report_comment.data.gql.dart'
+    show GReportCommentData;
+import 'package:aipictors/graphql/mutations/__generated__/report_comment.req.gql.dart'
+    show GReportCommentReq;
+import 'package:aipictors/graphql/mutations/__generated__/report_comment.var.gql.dart'
+    show GReportCommentVars;
+import 'package:aipictors/graphql/mutations/__generated__/report_folder.data.gql.dart'
+    show GReportFolderData;
+import 'package:aipictors/graphql/mutations/__generated__/report_folder.req.gql.dart'
+    show GReportFolderReq;
+import 'package:aipictors/graphql/mutations/__generated__/report_folder.var.gql.dart'
+    show GReportFolderVars;
+import 'package:aipictors/graphql/mutations/__generated__/report_sticker.data.gql.dart'
+    show GReportStickerData;
+import 'package:aipictors/graphql/mutations/__generated__/report_sticker.req.gql.dart'
+    show GReportStickerReq;
+import 'package:aipictors/graphql/mutations/__generated__/report_sticker.var.gql.dart'
+    show GReportStickerVars;
+import 'package:aipictors/graphql/mutations/__generated__/report_user.data.gql.dart'
+    show GReportUserData;
+import 'package:aipictors/graphql/mutations/__generated__/report_user.req.gql.dart'
+    show GReportUserReq;
+import 'package:aipictors/graphql/mutations/__generated__/report_user.var.gql.dart'
+    show GReportUserVars;
+import 'package:aipictors/graphql/mutations/__generated__/report_work.data.gql.dart'
+    show GReportWorkData;
+import 'package:aipictors/graphql/mutations/__generated__/report_work.req.gql.dart'
+    show GReportWorkReq;
+import 'package:aipictors/graphql/mutations/__generated__/report_work.var.gql.dart'
+    show GReportWorkVars;
+import 'package:aipictors/graphql/mutations/__generated__/update_account_login.data.gql.dart'
+    show GUpdateAccountLoginData, GUpdateAccountLoginData_updateAccountLogin;
+import 'package:aipictors/graphql/mutations/__generated__/update_account_login.req.gql.dart'
+    show GUpdateAccountLoginReq;
+import 'package:aipictors/graphql/mutations/__generated__/update_account_login.var.gql.dart'
+    show GUpdateAccountLoginVars;
+import 'package:aipictors/graphql/mutations/__generated__/update_account_password.data.gql.dart'
+    show
+        GUpdateAccountPasswordData,
+        GUpdateAccountPasswordData_updateAccountPassword;
+import 'package:aipictors/graphql/mutations/__generated__/update_account_password.req.gql.dart'
+    show GUpdateAccountPasswordReq;
+import 'package:aipictors/graphql/mutations/__generated__/update_account_password.var.gql.dart'
+    show GUpdateAccountPasswordVars;
+import 'package:aipictors/graphql/mutations/__generated__/update_folder.data.gql.dart'
+    show GUpdateFolderData, GUpdateFolderData_updateFolder;
+import 'package:aipictors/graphql/mutations/__generated__/update_folder.req.gql.dart'
+    show GUpdateFolderReq;
+import 'package:aipictors/graphql/mutations/__generated__/update_folder.var.gql.dart'
+    show GUpdateFolderVars;
+import 'package:aipictors/graphql/mutations/__generated__/update_sticker.data.gql.dart'
+    show GUpdateStickerData, GUpdateStickerData_updateSticker;
+import 'package:aipictors/graphql/mutations/__generated__/update_sticker.req.gql.dart'
+    show GUpdateStickerReq;
+import 'package:aipictors/graphql/mutations/__generated__/update_sticker.var.gql.dart'
+    show GUpdateStickerVars;
+import 'package:aipictors/graphql/mutations/__generated__/update_user.data.gql.dart'
+    show GUpdateUserProfileData, GUpdateUserProfileData_updateUserProfile;
+import 'package:aipictors/graphql/mutations/__generated__/update_user.req.gql.dart'
+    show GUpdateUserProfileReq;
+import 'package:aipictors/graphql/mutations/__generated__/update_user.var.gql.dart'
+    show GUpdateUserProfileVars;
+import 'package:aipictors/graphql/mutations/__generated__/update_work.data.gql.dart'
+    show GUpdateWorkData, GUpdateWorkData_updateWork;
+import 'package:aipictors/graphql/mutations/__generated__/update_work.req.gql.dart'
+    show GUpdateWorkReq;
+import 'package:aipictors/graphql/mutations/__generated__/update_work.var.gql.dart'
+    show GUpdateWorkVars;
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/serializer.dart';
 import 'package:built_value/standard_json_plugin.dart' show StandardJsonPlugin;
@@ -501,10 +654,7 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   ..add(OperationSerializer())
   ..addPlugin(StandardJsonPlugin());
 @SerializersFor([
-  GAcceptPromptonRequestInput,
   GAccessType,
-  GAddPromptonTagToWorkInput,
-  GAddPromptonWorkToFolderInput,
   GAwardType,
   GAwardsWhereInput,
   GBestWorksData,
@@ -512,11 +662,7 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GBestWorksData_bestWorks_thumbnailImage,
   GBestWorksReq,
   GBestWorksVars,
-  GBlockPromptonUserInput,
   GCacheControlScope,
-  GCancelPromptonRequestInput,
-  GChangePromptonFolderToPaidInput,
-  GClosePromptonRequestInput,
   GCommentFieldsData,
   GCommentFieldsData_sticker,
   GCommentFieldsData_sticker_image,
@@ -525,44 +671,45 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GCommentFieldsReq,
   GCommentFieldsVars,
   GContributorType,
+  GContributorsData,
+  GContributorsData_contributors,
+  GContributorsData_contributors_user,
+  GContributorsData_contributors_user_iconImage,
+  GContributorsReq,
+  GContributorsVars,
+  GCreateAccountData,
+  GCreateAccountData_createAccount,
+  GCreateAccountInput,
+  GCreateAccountReq,
+  GCreateAccountVars,
+  GCreateFolderData,
+  GCreateFolderData_createFolder,
   GCreateFolderInput,
-  GCreatePromptonChatMessageInput,
-  GCreatePromptonCoffeeRequestInput,
-  GCreatePromptonDeliverableInput,
-  GCreatePromptonFileInput,
-  GCreatePromptonFolderInput,
-  GCreatePromptonFolderKeyInput,
-  GCreatePromptonFolderViewInput,
-  GCreatePromptonInquiryInput,
-  GCreatePromptonPaymentMethodInput,
-  GCreatePromptonPlanInput,
-  GCreatePromptonPlanRequestInput,
-  GCreatePromptonPlanViewInput,
-  GCreatePromptonProfileBlockInput,
-  GCreatePromptonPromptCategoryInput,
-  GCreatePromptonPromptInput,
-  GCreatePromptonPromptWorkInput,
-  GCreatePromptonReactionInput,
-  GCreatePromptonThumbnailFileInput,
-  GCreatePromptonUserInput,
-  GCreatePromptonUserViewInput,
-  GCreatePromptonWorkBookmarkInput,
-  GCreatePromptonWorkInput,
-  GCreatePromptonWorkLikeInput,
-  GCreatePromptonWorkViewInput,
+  GCreateFolderReq,
+  GCreateFolderVars,
   GCreateResponseCommentData,
   GCreateResponseCommentData_createResponseComment,
   GCreateResponseCommentInput,
   GCreateResponseCommentReq,
   GCreateResponseCommentVars,
+  GCreateStickerData,
+  GCreateStickerData_createSticker,
   GCreateStickerInput,
-  GCreateUserInput,
+  GCreateStickerReq,
+  GCreateStickerVars,
+  GCreateWorkBookmarkData,
+  GCreateWorkBookmarkData_createWorkBookmark,
+  GCreateWorkBookmarkData_createWorkBookmark_viewer,
   GCreateWorkBookmarkInput,
+  GCreateWorkBookmarkReq,
+  GCreateWorkBookmarkVars,
   GCreateWorkCommentData,
   GCreateWorkCommentData_createWorkComment,
   GCreateWorkCommentInput,
   GCreateWorkCommentReq,
   GCreateWorkCommentVars,
+  GCreateWorkData,
+  GCreateWorkData_createWork,
   GCreateWorkInput,
   GCreateWorkLikeData,
   GCreateWorkLikeData_createWorkLike,
@@ -570,6 +717,8 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GCreateWorkLikeInput,
   GCreateWorkLikeReq,
   GCreateWorkLikeVars,
+  GCreateWorkReq,
+  GCreateWorkVars,
   GDailyThemeData,
   GDailyThemeData_dailyTheme,
   GDailyThemeData_dailyTheme_works,
@@ -583,24 +732,28 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GDailyThemesReq,
   GDailyThemesVars,
   GDailyThemesWhereInput,
-  GDecrementPromptonPlanSort,
-  GDecrementPromptonProfileBlockIndexInput,
+  GDeleteCommentData,
+  GDeleteCommentData_deleteComment,
   GDeleteCommentInput,
+  GDeleteCommentReq,
+  GDeleteCommentVars,
+  GDeleteFolderData,
+  GDeleteFolderData_deleteFolder,
   GDeleteFolderInput,
-  GDeletePromptonFolderInput,
-  GDeletePromptonIntegrationInput,
-  GDeletePromptonPlanInput,
-  GDeletePromptonProfileBlockInput,
-  GDeletePromptonPromptCategoryInput,
-  GDeletePromptonPromptInput,
-  GDeletePromptonReactionInput,
-  GDeletePromptonWorkBookmarkInput,
-  GDeletePromptonWorkInput,
-  GDeletePromptonWorkLikeInput,
+  GDeleteFolderReq,
+  GDeleteFolderVars,
+  GDeleteStickerData,
+  GDeleteStickerData_deleteSticker,
   GDeleteStickerInput,
+  GDeleteStickerReq,
+  GDeleteStickerVars,
   GDeleteWorkBookmarkInput,
+  GDeleteWorkData,
+  GDeleteWorkData_deleteWork,
   GDeleteWorkInput,
   GDeleteWorkLikeInput,
+  GDeleteWorkReq,
+  GDeleteWorkVars,
   GFeedDailyThemeWorksData,
   GFeedDailyThemeWorksData_dailyTheme,
   GFeedDailyThemeWorksData_dailyTheme_works,
@@ -626,13 +779,11 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GFeedLatestWorksData_works_viewer,
   GFeedLatestWorksReq,
   GFeedLatestWorksVars,
-  GFlipPromptonFolderWorkIndexInput,
   GFolderData,
   GFolderData_folder,
   GFolderData_folder_thumbnailImage,
   GFolderData_folder_user,
   GFolderData_folder_user_iconImage,
-  GFolderMode,
   GFolderReq,
   GFolderVars,
   GFolderWorksData,
@@ -649,8 +800,11 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GFoldersReq,
   GFoldersVars,
   GFoldersWhereInput,
-  GFollowPromptonUserInput,
+  GFollowUserData,
+  GFollowUserData_followUser,
   GFollowUserInput,
+  GFollowUserReq,
+  GFollowUserVars,
   GHotTagsData,
   GHotTagsData_hotTags,
   GHotTagsData_hotTags_firstWork,
@@ -662,22 +816,21 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GHotWorksData_hotWorks_thumbnailImage,
   GHotWorksReq,
   GHotWorksVars,
-  GIncrementPromptonProfileBlockIndexInput,
-  GLoginPromptonInput,
   GLoginWithPasswordData,
   GLoginWithPasswordData_loginWithPassword,
   GLoginWithPasswordInput,
   GLoginWithPasswordReq,
   GLoginWithPasswordVars,
-  GMarkPromptonFolderAsPrivateInput,
-  GMarkPromptonFolderAsPublicInput,
-  GMarkPromptonPlanAsPrivateInput,
-  GMarkPromptonPlanAsPublicInput,
-  GMarkPromptonWorkAsPrivateInput,
-  GMarkPromptonWorkAsPublicInput,
-  GMarkPromptonWorkAsUserHeaderInput,
+  GMuteTagData,
+  GMuteTagData_muteTag,
   GMuteTagInput,
+  GMuteTagReq,
+  GMuteTagVars,
+  GMuteUserData,
+  GMuteUserData_muteUser,
   GMuteUserInput,
+  GMuteUserReq,
+  GMuteUserVars,
   GNotificationType,
   GPartialFeedWorkFieldsData,
   GPartialFeedWorkFieldsData_image,
@@ -702,7 +855,6 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GPartialWorkFieldsData_thumbnailImage,
   GPartialWorkFieldsReq,
   GPartialWorkFieldsVars,
-  GPinPromptonWorkInput,
   GPopularWorksData,
   GPopularWorksData_popularWorks,
   GPopularWorksData_popularWorks_thumbnailImage,
@@ -710,19 +862,33 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GPopularWorksVars,
   GPopularWorksWhereInput,
   GPostType,
-  GPromptonFoldersWhereInput,
-  GPromptonLabelsWhereInput,
-  GPromptonPlansWhereInput,
-  GPromptonRequestsWhereInput,
-  GPromptonTagsWhereInput,
-  GPromptonUserWorksWhereInput,
-  GPromptonUsersWhereInput,
-  GPromptonViewerWorksWhereInput,
-  GPromptonWorksWhereInput,
   GRating,
-  GRejectPromptonRequestInput,
-  GRemovePromptonTagFromWorkInput,
-  GRemovePromptonWorkFromFolderInput,
+  GReportCommentData,
+  GReportCommentInput,
+  GReportCommentReq,
+  GReportCommentVars,
+  GReportFolderData,
+  GReportFolderInput,
+  GReportFolderReq,
+  GReportFolderVars,
+  GReportReason,
+  GReportStickerData,
+  GReportStickerInput,
+  GReportStickerReq,
+  GReportStickerVars,
+  GReportUserData,
+  GReportUserInput,
+  GReportUserReq,
+  GReportUserVars,
+  GReportWorkData,
+  GReportWorkInput,
+  GReportWorkReq,
+  GReportWorkVars,
+  GStickerData,
+  GStickerData_sticker,
+  GStickerData_sticker_image,
+  GStickerReq,
+  GStickerVars,
   GStickersData,
   GStickersData_stickers,
   GStickersData_stickers_image,
@@ -739,28 +905,46 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GTagWorksData_tag_works_thumbnailImage,
   GTagWorksReq,
   GTagWorksVars,
+  GTagsData,
+  GTagsData_tags,
+  GTagsReq,
+  GTagsVars,
   GTagsWhereInput,
-  GTestPromptonIntegrationInput,
-  GUnfollowPromptonUserInput,
   GUnfollowUserInput,
   GUnmuteTagInput,
   GUnmuteUserInput,
-  GUnpinPromptonWorkInput,
+  GUpdateAccountLoginData,
+  GUpdateAccountLoginData_updateAccountLogin,
+  GUpdateAccountLoginInput,
+  GUpdateAccountLoginReq,
+  GUpdateAccountLoginVars,
+  GUpdateAccountPasswordData,
+  GUpdateAccountPasswordData_updateAccountPassword,
+  GUpdateAccountPasswordInput,
+  GUpdateAccountPasswordReq,
+  GUpdateAccountPasswordVars,
+  GUpdateFolderData,
+  GUpdateFolderData_updateFolder,
   GUpdateFolderInput,
-  GUpdatePromptonFolderInput,
-  GUpdatePromptonFolderSortInput,
-  GUpdatePromptonPlanInput,
-  GUpdatePromptonPlanSortInput,
-  GUpdatePromptonProfileBlockInput,
-  GUpdatePromptonPromptCategoryInput,
-  GUpdatePromptonPromptInput,
-  GUpdatePromptonUserAvatarInput,
-  GUpdatePromptonUserHeaderImageInput,
-  GUpdatePromptonUserLoginInput,
-  GUpdatePromptonUserProfileInput,
-  GUpdatePromptonWorkInput,
+  GUpdateFolderReq,
+  GUpdateFolderVars,
+  GUpdateStickerData,
+  GUpdateStickerData_updateSticker,
   GUpdateStickerInput,
+  GUpdateStickerReq,
+  GUpdateStickerVars,
+  GUpdateUserLoginInput,
+  GUpdateUserPasswordInput,
+  GUpdateUserProfileData,
+  GUpdateUserProfileData_updateUserProfile,
   GUpdateUserProfileInput,
+  GUpdateUserProfileReq,
+  GUpdateUserProfileVars,
+  GUpdateWorkData,
+  GUpdateWorkData_updateWork,
+  GUpdateWorkInput,
+  GUpdateWorkReq,
+  GUpdateWorkVars,
   GUserData,
   GUserData_user,
   GUserData_user_headerImage,
@@ -770,6 +954,12 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GUserFieldsData_iconImage,
   GUserFieldsReq,
   GUserFieldsVars,
+  GUserFolderData,
+  GUserFolderData_user,
+  GUserFolderData_user_folders,
+  GUserFolderData_user_folders_thumbnailImage,
+  GUserFolderReq,
+  GUserFolderVars,
   GUserFolloweesData,
   GUserFolloweesData_user,
   GUserFolloweesData_user_followees,
@@ -789,15 +979,32 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GUserLikedWorksReq,
   GUserLikedWorksVars,
   GUserReq,
+  GUserStickersData,
+  GUserStickersData_user,
+  GUserStickersData_user_stickers,
+  GUserStickersData_user_stickers_image,
+  GUserStickersReq,
+  GUserStickersVars,
   GUserVars,
   GUserWorksData,
   GUserWorksData_user,
   GUserWorksData_user_works,
-  GUserWorksData_user_works_image,
+  GUserWorksData_user_works_thumbnailImage,
   GUserWorksReq,
   GUserWorksVars,
   GUserWorksWhereInput,
+  GUsersData,
+  GUsersData_users,
+  GUsersData_users_iconImage,
+  GUsersReq,
+  GUsersVars,
   GUsersWhereInput,
+  GViewerBookmarkedWorksData,
+  GViewerBookmarkedWorksData_viewer,
+  GViewerBookmarkedWorksData_viewer_bookmarkedWorks,
+  GViewerBookmarkedWorksData_viewer_bookmarkedWorks_thumbnailImage,
+  GViewerBookmarkedWorksReq,
+  GViewerBookmarkedWorksVars,
   GViewerFeedWorksData,
   GViewerFeedWorksData_viewer,
   GViewerFeedWorksData_viewer_feedWorks,
@@ -807,6 +1014,12 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GViewerFeedWorksData_viewer_feedWorks_viewer,
   GViewerFeedWorksReq,
   GViewerFeedWorksVars,
+  GViewerLikedWorksData,
+  GViewerLikedWorksData_viewer,
+  GViewerLikedWorksData_viewer_likedWorks,
+  GViewerLikedWorksData_viewer_likedWorks_thumbnailImage,
+  GViewerLikedWorksReq,
+  GViewerLikedWorksVars,
   GViewerNotificationsData,
   GViewerNotificationsData_viewer,
   GViewerNotificationsData_viewer_notifications,
@@ -818,6 +1031,12 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GViewerNotificationsData_viewer_notifications_work_thumbnailImage,
   GViewerNotificationsReq,
   GViewerNotificationsVars,
+  GViewerWorksData,
+  GViewerWorksData_viewer,
+  GViewerWorksData_viewer_works,
+  GViewerWorksData_viewer_works_thumbnailImage,
+  GViewerWorksReq,
+  GViewerWorksVars,
   GWorkAwardsData,
   GWorkAwardsData_workAwards,
   GWorkAwardsData_workAwards_work,
@@ -857,5 +1076,9 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GWorksReq,
   GWorksVars,
   GWorksWhereInput,
+  G_Any,
+  Gfederation__FieldSet,
+  Glink__Import,
+  Glink__Purpose,
 ])
 final Serializers serializers = _serializersBuilder.build();

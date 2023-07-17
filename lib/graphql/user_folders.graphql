@@ -1,0 +1,10 @@
+# import './fragments/partial_folder_fields_fragment.graphql'
+
+query UserFolder($user_id: ID!, $offset: Int!, $limit: Int!) {
+  user(id: $user_id) {
+    id
+    folders(offset: $offset, limit: $limit) {
+      ...PartialFolderFields
+    }
+  }
+}

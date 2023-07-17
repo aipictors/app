@@ -1,0 +1,16 @@
+# import './fragments/user_fields_fragment.graphql'
+
+query Sticker($id: ID!) {
+  sticker(id: $id) {
+    id
+    createdAt
+    title
+    image {
+      id
+      downloadURL
+    }
+    downloadsCount
+    likesCount
+    usesCount
+  }
+}

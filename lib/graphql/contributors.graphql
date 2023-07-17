@@ -1,0 +1,11 @@
+# import './fragments/partial_user_fields_fragment.graphql'
+
+query Contributors($user_id: ID!, $offset: Int!, $limit: Int!) {
+  contributors {
+    id
+    types
+    user {
+      ...PartialUserFields
+    }
+  }
+}

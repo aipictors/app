@@ -1,0 +1,5 @@
+mutation CreateWork($input: CreateWorkInput!) {
+  createWork(input: $input) {
+    title
+  }
+}

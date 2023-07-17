@@ -1,0 +1,6 @@
+mutation DeleteSticker($input: DeleteStickerInput!) {
+  deleteSticker(input: $input) {
+    id
+    title
+  }
+}

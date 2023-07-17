@@ -1,0 +1,3 @@
+mutation ReportSticker($input: ReportStickerInput!) {
+  reportSticker(input: $input)
+}

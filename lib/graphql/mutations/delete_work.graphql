@@ -1,0 +1,5 @@
+mutation DeleteWork($input: DeleteWorkInput!) {
+  deleteWork(input: $input) {
+    id
+  }
+}

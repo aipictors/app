@@ -1,0 +1,3 @@
+mutation ReportFolder($input: ReportFolderInput!) {
+  reportFolder(input: $input)
+}

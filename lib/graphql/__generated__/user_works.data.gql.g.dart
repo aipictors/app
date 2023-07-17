@@ -12,9 +12,9 @@ Serializer<GUserWorksData_user> _$gUserWorksDataUserSerializer =
     new _$GUserWorksData_userSerializer();
 Serializer<GUserWorksData_user_works> _$gUserWorksDataUserWorksSerializer =
     new _$GUserWorksData_user_worksSerializer();
-Serializer<GUserWorksData_user_works_image>
-    _$gUserWorksDataUserWorksImageSerializer =
-    new _$GUserWorksData_user_works_imageSerializer();
+Serializer<GUserWorksData_user_works_thumbnailImage>
+    _$gUserWorksDataUserWorksThumbnailImageSerializer =
+    new _$GUserWorksData_user_works_thumbnailImageSerializer();
 
 class _$GUserWorksDataSerializer
     implements StructuredSerializer<GUserWorksData> {
@@ -155,14 +155,24 @@ class _$GUserWorksData_user_worksSerializer
       'title',
       serializers.serialize(object.title,
           specifiedType: const FullType(String)),
+      'likesCount',
+      serializers.serialize(object.likesCount,
+          specifiedType: const FullType(int)),
+      'commentsCount',
+      serializers.serialize(object.commentsCount,
+          specifiedType: const FullType(int)),
+      'createdAt',
+      serializers.serialize(object.createdAt,
+          specifiedType: const FullType(int)),
     ];
     Object? value;
-    value = object.image;
+    value = object.thumbnailImage;
     if (value != null) {
       result
-        ..add('image')
+        ..add('thumbnailImage')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(GUserWorksData_user_works_image)));
+            specifiedType:
+                const FullType(GUserWorksData_user_works_thumbnailImage)));
     }
     return result;
   }
@@ -191,11 +201,23 @@ class _$GUserWorksData_user_worksSerializer
           result.title = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
-        case 'image':
-          result.image.replace(serializers.deserialize(value,
+        case 'likesCount':
+          result.likesCount = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'commentsCount':
+          result.commentsCount = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'createdAt':
+          result.createdAt = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'thumbnailImage':
+          result.thumbnailImage.replace(serializers.deserialize(value,
                   specifiedType:
-                      const FullType(GUserWorksData_user_works_image))!
-              as GUserWorksData_user_works_image);
+                      const FullType(GUserWorksData_user_works_thumbnailImage))!
+              as GUserWorksData_user_works_thumbnailImage);
           break;
       }
     }
@@ -204,19 +226,19 @@ class _$GUserWorksData_user_worksSerializer
   }
 }
 
-class _$GUserWorksData_user_works_imageSerializer
-    implements StructuredSerializer<GUserWorksData_user_works_image> {
+class _$GUserWorksData_user_works_thumbnailImageSerializer
+    implements StructuredSerializer<GUserWorksData_user_works_thumbnailImage> {
   @override
   final Iterable<Type> types = const [
-    GUserWorksData_user_works_image,
-    _$GUserWorksData_user_works_image
+    GUserWorksData_user_works_thumbnailImage,
+    _$GUserWorksData_user_works_thumbnailImage
   ];
   @override
-  final String wireName = 'GUserWorksData_user_works_image';
+  final String wireName = 'GUserWorksData_user_works_thumbnailImage';
 
   @override
   Iterable<Object?> serialize(
-      Serializers serializers, GUserWorksData_user_works_image object,
+      Serializers serializers, GUserWorksData_user_works_thumbnailImage object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
       '__typename',
@@ -233,10 +255,10 @@ class _$GUserWorksData_user_works_imageSerializer
   }
 
   @override
-  GUserWorksData_user_works_image deserialize(
+  GUserWorksData_user_works_thumbnailImage deserialize(
       Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new GUserWorksData_user_works_imageBuilder();
+    final result = new GUserWorksData_user_works_thumbnailImageBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -517,7 +539,13 @@ class _$GUserWorksData_user_works extends GUserWorksData_user_works {
   @override
   final String title;
   @override
-  final GUserWorksData_user_works_image? image;
+  final int likesCount;
+  @override
+  final int commentsCount;
+  @override
+  final int createdAt;
+  @override
+  final GUserWorksData_user_works_thumbnailImage? thumbnailImage;
 
   factory _$GUserWorksData_user_works(
           [void Function(GUserWorksData_user_worksBuilder)? updates]) =>
@@ -527,7 +555,10 @@ class _$GUserWorksData_user_works extends GUserWorksData_user_works {
       {required this.G__typename,
       required this.id,
       required this.title,
-      this.image})
+      required this.likesCount,
+      required this.commentsCount,
+      required this.createdAt,
+      this.thumbnailImage})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename, r'GUserWorksData_user_works', 'G__typename');
@@ -535,6 +566,12 @@ class _$GUserWorksData_user_works extends GUserWorksData_user_works {
         id, r'GUserWorksData_user_works', 'id');
     BuiltValueNullFieldError.checkNotNull(
         title, r'GUserWorksData_user_works', 'title');
+    BuiltValueNullFieldError.checkNotNull(
+        likesCount, r'GUserWorksData_user_works', 'likesCount');
+    BuiltValueNullFieldError.checkNotNull(
+        commentsCount, r'GUserWorksData_user_works', 'commentsCount');
+    BuiltValueNullFieldError.checkNotNull(
+        createdAt, r'GUserWorksData_user_works', 'createdAt');
   }
 
   @override
@@ -553,7 +590,10 @@ class _$GUserWorksData_user_works extends GUserWorksData_user_works {
         G__typename == other.G__typename &&
         id == other.id &&
         title == other.title &&
-        image == other.image;
+        likesCount == other.likesCount &&
+        commentsCount == other.commentsCount &&
+        createdAt == other.createdAt &&
+        thumbnailImage == other.thumbnailImage;
   }
 
   @override
@@ -562,7 +602,10 @@ class _$GUserWorksData_user_works extends GUserWorksData_user_works {
     _$hash = $jc(_$hash, G__typename.hashCode);
     _$hash = $jc(_$hash, id.hashCode);
     _$hash = $jc(_$hash, title.hashCode);
-    _$hash = $jc(_$hash, image.hashCode);
+    _$hash = $jc(_$hash, likesCount.hashCode);
+    _$hash = $jc(_$hash, commentsCount.hashCode);
+    _$hash = $jc(_$hash, createdAt.hashCode);
+    _$hash = $jc(_$hash, thumbnailImage.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -573,7 +616,10 @@ class _$GUserWorksData_user_works extends GUserWorksData_user_works {
           ..add('G__typename', G__typename)
           ..add('id', id)
           ..add('title', title)
-          ..add('image', image))
+          ..add('likesCount', likesCount)
+          ..add('commentsCount', commentsCount)
+          ..add('createdAt', createdAt)
+          ..add('thumbnailImage', thumbnailImage))
         .toString();
   }
 }
@@ -595,11 +641,26 @@ class GUserWorksData_user_worksBuilder
   String? get title => _$this._title;
   set title(String? title) => _$this._title = title;
 
-  GUserWorksData_user_works_imageBuilder? _image;
-  GUserWorksData_user_works_imageBuilder get image =>
-      _$this._image ??= new GUserWorksData_user_works_imageBuilder();
-  set image(GUserWorksData_user_works_imageBuilder? image) =>
-      _$this._image = image;
+  int? _likesCount;
+  int? get likesCount => _$this._likesCount;
+  set likesCount(int? likesCount) => _$this._likesCount = likesCount;
+
+  int? _commentsCount;
+  int? get commentsCount => _$this._commentsCount;
+  set commentsCount(int? commentsCount) =>
+      _$this._commentsCount = commentsCount;
+
+  int? _createdAt;
+  int? get createdAt => _$this._createdAt;
+  set createdAt(int? createdAt) => _$this._createdAt = createdAt;
+
+  GUserWorksData_user_works_thumbnailImageBuilder? _thumbnailImage;
+  GUserWorksData_user_works_thumbnailImageBuilder get thumbnailImage =>
+      _$this._thumbnailImage ??=
+          new GUserWorksData_user_works_thumbnailImageBuilder();
+  set thumbnailImage(
+          GUserWorksData_user_works_thumbnailImageBuilder? thumbnailImage) =>
+      _$this._thumbnailImage = thumbnailImage;
 
   GUserWorksData_user_worksBuilder() {
     GUserWorksData_user_works._initializeBuilder(this);
@@ -611,7 +672,10 @@ class GUserWorksData_user_worksBuilder
       _G__typename = $v.G__typename;
       _id = $v.id;
       _title = $v.title;
-      _image = $v.image?.toBuilder();
+      _likesCount = $v.likesCount;
+      _commentsCount = $v.commentsCount;
+      _createdAt = $v.createdAt;
+      _thumbnailImage = $v.thumbnailImage?.toBuilder();
       _$v = null;
     }
     return this;
@@ -642,12 +706,18 @@ class GUserWorksData_user_worksBuilder
                   id, r'GUserWorksData_user_works', 'id'),
               title: BuiltValueNullFieldError.checkNotNull(
                   title, r'GUserWorksData_user_works', 'title'),
-              image: _image?.build());
+              likesCount: BuiltValueNullFieldError.checkNotNull(
+                  likesCount, r'GUserWorksData_user_works', 'likesCount'),
+              commentsCount: BuiltValueNullFieldError.checkNotNull(
+                  commentsCount, r'GUserWorksData_user_works', 'commentsCount'),
+              createdAt: BuiltValueNullFieldError.checkNotNull(
+                  createdAt, r'GUserWorksData_user_works', 'createdAt'),
+              thumbnailImage: _thumbnailImage?.build());
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'image';
-        _image?.build();
+        _$failedField = 'thumbnailImage';
+        _thumbnailImage?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'GUserWorksData_user_works', _$failedField, e.toString());
@@ -659,8 +729,8 @@ class GUserWorksData_user_worksBuilder
   }
 }
 
-class _$GUserWorksData_user_works_image
-    extends GUserWorksData_user_works_image {
+class _$GUserWorksData_user_works_thumbnailImage
+    extends GUserWorksData_user_works_thumbnailImage {
   @override
   final String G__typename;
   @override
@@ -668,34 +738,37 @@ class _$GUserWorksData_user_works_image
   @override
   final String downloadURL;
 
-  factory _$GUserWorksData_user_works_image(
-          [void Function(GUserWorksData_user_works_imageBuilder)? updates]) =>
-      (new GUserWorksData_user_works_imageBuilder()..update(updates))._build();
+  factory _$GUserWorksData_user_works_thumbnailImage(
+          [void Function(GUserWorksData_user_works_thumbnailImageBuilder)?
+              updates]) =>
+      (new GUserWorksData_user_works_thumbnailImageBuilder()..update(updates))
+          ._build();
 
-  _$GUserWorksData_user_works_image._(
+  _$GUserWorksData_user_works_thumbnailImage._(
       {required this.G__typename, required this.id, required this.downloadURL})
       : super._() {
+    BuiltValueNullFieldError.checkNotNull(G__typename,
+        r'GUserWorksData_user_works_thumbnailImage', 'G__typename');
     BuiltValueNullFieldError.checkNotNull(
-        G__typename, r'GUserWorksData_user_works_image', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(
-        id, r'GUserWorksData_user_works_image', 'id');
-    BuiltValueNullFieldError.checkNotNull(
-        downloadURL, r'GUserWorksData_user_works_image', 'downloadURL');
+        id, r'GUserWorksData_user_works_thumbnailImage', 'id');
+    BuiltValueNullFieldError.checkNotNull(downloadURL,
+        r'GUserWorksData_user_works_thumbnailImage', 'downloadURL');
   }
 
   @override
-  GUserWorksData_user_works_image rebuild(
-          void Function(GUserWorksData_user_works_imageBuilder) updates) =>
+  GUserWorksData_user_works_thumbnailImage rebuild(
+          void Function(GUserWorksData_user_works_thumbnailImageBuilder)
+              updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GUserWorksData_user_works_imageBuilder toBuilder() =>
-      new GUserWorksData_user_works_imageBuilder()..replace(this);
+  GUserWorksData_user_works_thumbnailImageBuilder toBuilder() =>
+      new GUserWorksData_user_works_thumbnailImageBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GUserWorksData_user_works_image &&
+    return other is GUserWorksData_user_works_thumbnailImage &&
         G__typename == other.G__typename &&
         id == other.id &&
         downloadURL == other.downloadURL;
@@ -713,7 +786,8 @@ class _$GUserWorksData_user_works_image
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'GUserWorksData_user_works_image')
+    return (newBuiltValueToStringHelper(
+            r'GUserWorksData_user_works_thumbnailImage')
           ..add('G__typename', G__typename)
           ..add('id', id)
           ..add('downloadURL', downloadURL))
@@ -721,11 +795,11 @@ class _$GUserWorksData_user_works_image
   }
 }
 
-class GUserWorksData_user_works_imageBuilder
+class GUserWorksData_user_works_thumbnailImageBuilder
     implements
-        Builder<GUserWorksData_user_works_image,
-            GUserWorksData_user_works_imageBuilder> {
-  _$GUserWorksData_user_works_image? _$v;
+        Builder<GUserWorksData_user_works_thumbnailImage,
+            GUserWorksData_user_works_thumbnailImageBuilder> {
+  _$GUserWorksData_user_works_thumbnailImage? _$v;
 
   String? _G__typename;
   String? get G__typename => _$this._G__typename;
@@ -739,11 +813,11 @@ class GUserWorksData_user_works_imageBuilder
   String? get downloadURL => _$this._downloadURL;
   set downloadURL(String? downloadURL) => _$this._downloadURL = downloadURL;
 
-  GUserWorksData_user_works_imageBuilder() {
-    GUserWorksData_user_works_image._initializeBuilder(this);
+  GUserWorksData_user_works_thumbnailImageBuilder() {
+    GUserWorksData_user_works_thumbnailImage._initializeBuilder(this);
   }
 
-  GUserWorksData_user_works_imageBuilder get _$this {
+  GUserWorksData_user_works_thumbnailImageBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _G__typename = $v.G__typename;
@@ -755,28 +829,29 @@ class GUserWorksData_user_works_imageBuilder
   }
 
   @override
-  void replace(GUserWorksData_user_works_image other) {
+  void replace(GUserWorksData_user_works_thumbnailImage other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GUserWorksData_user_works_image;
+    _$v = other as _$GUserWorksData_user_works_thumbnailImage;
   }
 
   @override
-  void update(void Function(GUserWorksData_user_works_imageBuilder)? updates) {
+  void update(
+      void Function(GUserWorksData_user_works_thumbnailImageBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  GUserWorksData_user_works_image build() => _build();
+  GUserWorksData_user_works_thumbnailImage build() => _build();
 
-  _$GUserWorksData_user_works_image _build() {
+  _$GUserWorksData_user_works_thumbnailImage _build() {
     final _$result = _$v ??
-        new _$GUserWorksData_user_works_image._(
-            G__typename: BuiltValueNullFieldError.checkNotNull(
-                G__typename, r'GUserWorksData_user_works_image', 'G__typename'),
+        new _$GUserWorksData_user_works_thumbnailImage._(
+            G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
+                r'GUserWorksData_user_works_thumbnailImage', 'G__typename'),
             id: BuiltValueNullFieldError.checkNotNull(
-                id, r'GUserWorksData_user_works_image', 'id'),
+                id, r'GUserWorksData_user_works_thumbnailImage', 'id'),
             downloadURL: BuiltValueNullFieldError.checkNotNull(downloadURL,
-                r'GUserWorksData_user_works_image', 'downloadURL'));
+                r'GUserWorksData_user_works_thumbnailImage', 'downloadURL'));
     replace(_$result);
     return _$result;
   }

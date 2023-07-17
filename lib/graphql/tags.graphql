@@ -1,0 +1,7 @@
+# import './fragments/partial_tag_fields_fragment.graphql'
+
+query Tags($offset: Int!, $limit: Int!, $where: TagsWhereInput) {
+  tags(offset: $offset, limit: $limit, where: $where) {
+    ...PartialTagFields
+  }
+}
