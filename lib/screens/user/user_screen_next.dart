@@ -2,17 +2,18 @@ import 'package:aipictors/delegates/tab_header_delegate.dart';
 import 'package:aipictors/graphql/__generated__/user.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/screens/loading_screen.dart';
-import 'package:aipictors/widgets/builder/operation_screen_builder.dart';
+import 'package:aipictors/widgets/app_bar/user_app_bar.dart';
+import 'package:aipictors/widgets/builder/operation_builder.dart';
 import 'package:aipictors/widgets/container/error/data_not_found_error_container.dart';
-import 'package:aipictors/widgets/container/modal/user_action_modal_container.dart';
 import 'package:aipictors/widgets/container/user_folders_container.dart';
-import 'package:aipictors/widgets/container/user_header_action_container.dart';
+import 'package:aipictors/widgets/container/user_header_container.dart';
 import 'package:aipictors/widgets/container/user_profile_container.dart';
 import 'package:aipictors/widgets/container/user_works_container.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// ユーザの詳細
+/// ヘッダーが表示される
 class UserScreen extends HookConsumerWidget {
   const UserScreen({
     Key? key,
@@ -29,32 +30,21 @@ class UserScreen extends HookConsumerWidget {
       return const LoadingScreen();
     }
 
-    return OperationScreenBuilder(
-      client: client.value!,
-      operationRequest: GUserReq((builder) {
-        return builder..vars.userId = userId;
-      }),
-      builder: (context, response) {
-        final user = response.data?.user;
-        if (user == null) {
-          return const DataNotFoundErrorContainer();
-        }
-        return DefaultTabController(
-          length: 2,
-          child: Scaffold(
-            appBar: AppBar(
-              title: Text('@${user.login}'),
-              actions: [
-                IconButton(
-                  icon: const Icon(Icons.more_horiz_rounded),
-                  onPressed: () {
-                    onOpenActionModal(context);
-                  },
-                ),
-              ],
-            ),
-            extendBody: true,
-            body: NestedScrollView(
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        extendBody: true,
+        body: OperationBuilder(
+          client: client.value!,
+          operationRequest: GUserReq((builder) {
+            return builder..vars.userId = userId;
+          }),
+          builder: (context, response) {
+            final user = response.data?.user;
+            if (user == null) {
+              return const DataNotFoundErrorContainer();
+            }
+            return NestedScrollView(
               body: TabBarView(
                 children: [
                   UserWorksContainer(userId: userId),
@@ -63,14 +53,18 @@ class UserScreen extends HookConsumerWidget {
               ),
               headerSliverBuilder: (context, innerBoxIsScrolled) {
                 return [
+                  UserAppBar(
+                    headerImageURL: user.headerImage?.downloadURL ?? '',
+                    innerBoxIsScrolled: innerBoxIsScrolled,
+                    userName: user.name,
+                  ),
                   SliverList(
                     delegate: SliverChildListDelegate([
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          UserHeaderActionContainer(
+                          UserHeaderContainer(
                             iconImageURL: user.iconImage?.downloadURL,
-                            userName: user.name,
                           ),
                           const SizedBox(height: 8),
                           UserProfileContainer(
@@ -96,21 +90,10 @@ class UserScreen extends HookConsumerWidget {
                   )
                 ];
               },
-            ),
-          ),
-        );
-      },
-    );
-  }
-
-  onOpenActionModal(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      builder: (context) {
-        return UserActionModalContainer(
-          userId: userId,
-        );
-      },
+            );
+          },
+        ),
+      ),
     );
   }
 }

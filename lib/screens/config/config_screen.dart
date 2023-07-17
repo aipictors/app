@@ -264,30 +264,30 @@ class ConfigScreen extends HookConsumerWidget {
 
   Future onOpenDiscord(BuildContext context, WidgetRef ref) async {
     final config = ref.read(configProvider);
-    final isAvailable = await canLaunchUrl(config.discordURL);
+    final isAvailable = await canLaunchUrl(config.pageDiscordURL);
     if (!isAvailable) return;
     await launchUrl(
-      config.discordURL,
+      config.pageDiscordURL,
       mode: LaunchMode.externalApplication,
     );
   }
 
   Future onOpenTwitter(BuildContext context, WidgetRef ref) async {
     final config = ref.read(configProvider);
-    final isAvailable = await canLaunchUrl(config.twitterURL);
+    final isAvailable = await canLaunchUrl(config.pageTwitterURL);
     if (!isAvailable) return;
     await launchUrl(
-      config.twitterURL,
+      config.pageTwitterURL,
       mode: LaunchMode.externalApplication,
     );
   }
 
   Future onOpenTwitterPrompton(BuildContext context, WidgetRef ref) async {
     final config = ref.read(configProvider);
-    final isAvailable = await canLaunchUrl(config.twitterPromptonURL);
+    final isAvailable = await canLaunchUrl(config.pageTwitterPromptonURL);
     if (!isAvailable) return;
     await launchUrl(
-      config.twitterPromptonURL,
+      config.pageTwitterPromptonURL,
       mode: LaunchMode.externalApplication,
     );
   }

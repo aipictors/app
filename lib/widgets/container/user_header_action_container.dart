@@ -3,13 +3,16 @@ import 'package:aipictors/widgets/button/follow_button.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class UserHeaderContainer extends HookConsumerWidget {
-  const UserHeaderContainer({
+class UserHeaderActionContainer extends HookConsumerWidget {
+  const UserHeaderActionContainer({
     Key? key,
     required this.iconImageURL,
+    required this.userName,
   }) : super(key: key);
 
   final String? iconImageURL;
+
+  final String userName;
 
   @override
   Widget build(context, ref) {
@@ -29,11 +32,19 @@ class UserHeaderContainer extends HookConsumerWidget {
                 ),
               ],
             ),
-            const Row(
-              children: [
-                FollowButton(),
-                SizedBox(width: 8),
-              ],
+            SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                children: [
+                  const Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      FollowButton(),
+                      SizedBox(width: 8),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ],
         ),

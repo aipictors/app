@@ -3,7 +3,7 @@ import 'package:aipictors/utils/to_readable_date_time.dart';
 import 'package:aipictors/widgets/button/feed_bookmark_button.dart';
 import 'package:aipictors/widgets/button/feed_like_button.dart';
 import 'package:aipictors/widgets/container/modal/comment_modal_container.dart';
-import 'package:aipictors/widgets/container/modal/user_action_modal_container.dart';
+import 'package:aipictors/widgets/container/modal/feed_action_modal_container.dart';
 import 'package:aipictors/widgets/container/notification_user_container.dart';
 import 'package:aipictors/widgets/image/feed_image.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -19,6 +19,7 @@ class FeedWorkListTile extends HookConsumerWidget {
     required this.workImageURL,
     required this.workCreatedAt,
     required this.workImageAspectRatio,
+    required this.userId,
     required this.userName,
     required this.userIconImageURL,
     required this.isLiked,
@@ -34,6 +35,8 @@ class FeedWorkListTile extends HookConsumerWidget {
   final int workCreatedAt;
 
   final double workImageAspectRatio;
+
+  final String userId;
 
   final String userName;
 
@@ -68,9 +71,14 @@ class FeedWorkListTile extends HookConsumerWidget {
           const SizedBox(height: 8),
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
             Expanded(
-              child: NotificationUserContainer(
-                userName: userName,
-                userIconImageURL: userIconImageURL,
+              child: GestureDetector(
+                onTap: () {
+                  context.push('/users/$userId');
+                },
+                child: NotificationUserContainer(
+                  userName: userName,
+                  userIconImageURL: userIconImageURL,
+                ),
               ),
             ),
             IconButton(
@@ -78,7 +86,7 @@ class FeedWorkListTile extends HookConsumerWidget {
                 tapTargetSize: MaterialTapTargetSize.shrinkWrap,
               ),
               onPressed: () {
-                onOpenAction(context);
+                onOpenActionModal(context);
               },
               icon: const Icon(Icons.more_horiz_rounded),
             )
@@ -178,31 +186,13 @@ class FeedWorkListTile extends HookConsumerWidget {
     );
   }
 
-  void onOpenAction(BuildContext context) {
+  void onOpenActionModal(BuildContext context) {
     showModalBottomSheet(
       context: context,
       builder: (context) {
-        return UserActionModalContainer(
+        return FeedActionModalContainer(
           userName: userName,
           userIconImageURL: userIconImageURL,
-        );
-      },
-    );
-  }
-
-  void onOpenImage(BuildContext context) {
-    showGeneralDialog(
-      barrierDismissible: true,
-      barrierLabel: '',
-      context: context,
-      pageBuilder: (context, animation1, animation2) {
-        return Center(
-          child: SingleChildScrollView(
-              child: Image.network(
-            workImageURL ?? '',
-            fit: BoxFit.cover,
-            width: double.infinity,
-          )),
         );
       },
     );

@@ -12,7 +12,7 @@ class TermsScreen extends HookConsumerWidget {
     final config = ref.watch(configProvider);
 
     final controller = WebViewController()
-      ..loadRequest(Uri.parse(config.termsURL))
+      ..loadRequest(config.pageTermsURL)
       ..setJavaScriptMode(JavaScriptMode.unrestricted);
 
     return Scaffold(

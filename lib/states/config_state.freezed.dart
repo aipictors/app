@@ -16,7 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$ConfigState {
-  bool get isFirstTime => throw _privateConstructorUsedError;
+  bool get isTutorial => throw _privateConstructorUsedError;
   String get language => throw _privateConstructorUsedError;
   ThemeMode get themeMode => throw _privateConstructorUsedError;
   Color? get themeColor => throw _privateConstructorUsedError;
@@ -35,7 +35,7 @@ abstract class $ConfigStateCopyWith<$Res> {
       _$ConfigStateCopyWithImpl<$Res, ConfigState>;
   @useResult
   $Res call(
-      {bool isFirstTime,
+      {bool isTutorial,
       String language,
       ThemeMode themeMode,
       Color? themeColor,
@@ -55,16 +55,16 @@ class _$ConfigStateCopyWithImpl<$Res, $Val extends ConfigState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? isFirstTime = null,
+    Object? isTutorial = null,
     Object? language = null,
     Object? themeMode = null,
     Object? themeColor = freezed,
     Object? lastFetchStatus = null,
   }) {
     return _then(_value.copyWith(
-      isFirstTime: null == isFirstTime
-          ? _value.isFirstTime
-          : isFirstTime // ignore: cast_nullable_to_non_nullable
+      isTutorial: null == isTutorial
+          ? _value.isTutorial
+          : isTutorial // ignore: cast_nullable_to_non_nullable
               as bool,
       language: null == language
           ? _value.language
@@ -95,7 +95,7 @@ abstract class _$$_ConfigStateCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {bool isFirstTime,
+      {bool isTutorial,
       String language,
       ThemeMode themeMode,
       Color? themeColor,
@@ -113,16 +113,16 @@ class __$$_ConfigStateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? isFirstTime = null,
+    Object? isTutorial = null,
     Object? language = null,
     Object? themeMode = null,
     Object? themeColor = freezed,
     Object? lastFetchStatus = null,
   }) {
     return _then(_$_ConfigState(
-      isFirstTime: null == isFirstTime
-          ? _value.isFirstTime
-          : isFirstTime // ignore: cast_nullable_to_non_nullable
+      isTutorial: null == isTutorial
+          ? _value.isTutorial
+          : isTutorial // ignore: cast_nullable_to_non_nullable
               as bool,
       language: null == language
           ? _value.language
@@ -148,7 +148,7 @@ class __$$_ConfigStateCopyWithImpl<$Res>
 
 class _$_ConfigState extends _ConfigState {
   const _$_ConfigState(
-      {required this.isFirstTime,
+      {required this.isTutorial,
       required this.language,
       required this.themeMode,
       required this.themeColor,
@@ -156,7 +156,7 @@ class _$_ConfigState extends _ConfigState {
       : super._();
 
   @override
-  final bool isFirstTime;
+  final bool isTutorial;
   @override
   final String language;
   @override
@@ -168,7 +168,7 @@ class _$_ConfigState extends _ConfigState {
 
   @override
   String toString() {
-    return 'ConfigState(isFirstTime: $isFirstTime, language: $language, themeMode: $themeMode, themeColor: $themeColor, lastFetchStatus: $lastFetchStatus)';
+    return 'ConfigState(isTutorial: $isTutorial, language: $language, themeMode: $themeMode, themeColor: $themeColor, lastFetchStatus: $lastFetchStatus)';
   }
 
   @override
@@ -176,8 +176,8 @@ class _$_ConfigState extends _ConfigState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ConfigState &&
-            (identical(other.isFirstTime, isFirstTime) ||
-                other.isFirstTime == isFirstTime) &&
+            (identical(other.isTutorial, isTutorial) ||
+                other.isTutorial == isTutorial) &&
             (identical(other.language, language) ||
                 other.language == language) &&
             (identical(other.themeMode, themeMode) ||
@@ -189,7 +189,7 @@ class _$_ConfigState extends _ConfigState {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isFirstTime, language, themeMode,
+  int get hashCode => Object.hash(runtimeType, isTutorial, language, themeMode,
       themeColor, lastFetchStatus);
 
   @JsonKey(ignore: true)
@@ -201,7 +201,7 @@ class _$_ConfigState extends _ConfigState {
 
 abstract class _ConfigState extends ConfigState {
   const factory _ConfigState(
-      {required final bool isFirstTime,
+      {required final bool isTutorial,
       required final String language,
       required final ThemeMode themeMode,
       required final Color? themeColor,
@@ -209,7 +209,7 @@ abstract class _ConfigState extends ConfigState {
   const _ConfigState._() : super._();
 
   @override
-  bool get isFirstTime;
+  bool get isTutorial;
   @override
   String get language;
   @override

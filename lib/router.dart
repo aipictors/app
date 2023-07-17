@@ -19,6 +19,7 @@ import 'package:aipictors/screens/folder/folder_create_screen.dart';
 import 'package:aipictors/screens/folder/folder_report_screen.dart';
 import 'package:aipictors/screens/folder/folder_screen.dart';
 import 'package:aipictors/screens/folder/folder_update_screen.dart';
+import 'package:aipictors/screens/guideline_screen.dart';
 import 'package:aipictors/screens/privacy_screen.dart';
 import 'package:aipictors/screens/root_screen.dart';
 import 'package:aipictors/screens/sticker/sticker_report_screen.dart';
@@ -32,6 +33,7 @@ import 'package:aipictors/screens/user/user_followers_screen.dart';
 import 'package:aipictors/screens/user/user_report_screen.dart';
 import 'package:aipictors/screens/user/user_screen.dart';
 import 'package:aipictors/screens/viewer/viewer_screen.dart';
+import 'package:aipictors/screens/wiki_screen.dart';
 import 'package:aipictors/screens/work/work_create_screen.dart';
 import 'package:aipictors/screens/work/work_report_screen.dart';
 import 'package:aipictors/screens/work/work_screen.dart';
@@ -276,6 +278,12 @@ final router = GoRouter(
       },
     ),
     GoRoute(
+      path: '/guideline',
+      builder: (context, state) {
+        return const GuidelineScreen();
+      },
+    ),
+    GoRoute(
       path: '/privacy',
       builder: (context, state) {
         return const PrivacyScreen();
@@ -297,6 +305,12 @@ final router = GoRouter(
       path: '/tutorial',
       builder: (context, state) {
         return const TutorialScreen();
+      },
+    ),
+    GoRoute(
+      path: '/wiki',
+      builder: (context, state) {
+        return const WikiScreen();
       },
     ),
   ],

@@ -10,7 +10,7 @@ typedef Listener = void Function(
   AsyncValue<RemoteConfigUpdate> state,
 );
 
-/// RemoteConfigの変更を監視する
+/// Remote Configの変更を監視する
 Listener buildRemoteConfigListener(BuildContext context, WidgetRef ref) {
   return (_, state) async {
     await FirebaseRemoteConfig.instance.fetchAndActivate();

@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class UserActionModalContainer extends HookConsumerWidget {
-  const UserActionModalContainer({
+class StickerActionModalContainer extends HookConsumerWidget {
+  const StickerActionModalContainer({
     Key? key,
-    required this.userId,
+    required this.userName,
   }) : super(key: key);
 
-  final String userId;
+  final String userName;
 
   @override
   Widget build(context, ref) {
@@ -20,11 +20,13 @@ class UserActionModalContainer extends HookConsumerWidget {
         child: ListView(
           physics: const NeverScrollableScrollPhysics(),
           children: [
-            ModalHeaderContainer(title: Container()),
+            ModalHeaderContainer(
+              title: Text('スタンプ'.i18n),
+            ),
             ListTile(
-              leading: const Icon(Icons.block_rounded),
+              leading: const Icon(Icons.gpp_maybe_rounded),
               title: Text(
-                'ユーザをミュートする'.i18n,
+                'スタンプを通報する'.i18n,
                 style: const TextStyle(fontWeight: FontWeight.bold),
               ),
               onTap: () {

@@ -16,7 +16,7 @@ class Config extends _$Config {
   ConfigState build() {
     const repository = ConfigRepository();
     return ConfigState(
-      isFirstTime: repository.isTutorial,
+      isTutorial: repository.isTutorial,
       language: repository.language,
       themeMode: toThemeMode(repository.themeMode),
       themeColor: toColor(repository.themeColor),

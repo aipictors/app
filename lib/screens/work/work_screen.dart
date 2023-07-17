@@ -8,6 +8,7 @@ import 'package:aipictors/screens/loading_screen.dart';
 import 'package:aipictors/widgets/app_bar/work_bottom_app_bar.dart';
 import 'package:aipictors/widgets/button/follow_button.dart';
 import 'package:aipictors/widgets/container/loading_container.dart';
+import 'package:aipictors/widgets/container/modal/work_action_modal_container.dart';
 import 'package:aipictors/widgets/container/work_status_container.dart';
 import 'package:aipictors/widgets/container/work_tags_container.dart';
 import 'package:aipictors/widgets/container/work_text_container.dart';
@@ -56,10 +57,15 @@ class WorkScreen extends HookConsumerWidget {
         return Scaffold(
           resizeToAvoidBottomInset: true,
           appBar: AppBar(
-            title: const Text(
-              '作品',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
+            title: const Text('作品'),
+            actions: [
+              IconButton(
+                icon: const Icon(Icons.more_horiz_rounded),
+                onPressed: () {
+                  onOpenActionModal(context);
+                },
+              ),
+            ],
           ),
           extendBody: true,
           bottomNavigationBar: WorkBottomAppContainer(
@@ -142,6 +148,17 @@ class WorkScreen extends HookConsumerWidget {
               ),
             ),
           ),
+        );
+      },
+    );
+  }
+
+  onOpenActionModal(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return WorkActionModalContainer(
+          workId: workId,
         );
       },
     );

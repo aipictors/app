@@ -12,12 +12,22 @@ class ConfigState with _$ConfigState {
   const ConfigState._();
 
   const factory ConfigState({
-    required bool isFirstTime,
+    required bool isTutorial,
     required String language,
     required ThemeMode themeMode,
     required Color? themeColor,
     required RemoteConfigFetchStatus lastFetchStatus,
   }) = _ConfigState;
+
+  /// 初期化に失敗した
+  bool get isFailed {
+    return lastFetchStatus == RemoteConfigFetchStatus.failure;
+  }
+
+  /// デバッグモードである
+  bool get isDebugMode {
+    return const String.fromEnvironment('sentryEnvironment') != 'production';
+  }
 
   /// ダークモードである
   bool get isDarkMode {
@@ -34,16 +44,33 @@ class ConfigState with _$ConfigState {
     return themeMode == ThemeMode.system;
   }
 
-  /// 緊急事態 - アプリが使用できない
-  bool get isEnabledEmergencyUnavailable {
+  /// Remote Config
+  /// メンテナンスモード
+  bool get isMaintenanceMode {
     final remoteConfig = FirebaseRemoteConfig.instance;
-    return remoteConfig.getBool('is_unavailable');
+    return remoteConfig.getBool('is_maintenance_mode');
   }
 
-  /// 緊急事態 - 投稿機能が使用できない
-  bool get isEnabledEmergencyUnavailablePost {
+  /// Remote Config
+  /// 最新のリリースノートのID
+  String get latestReleaseNoteId {
     final remoteConfig = FirebaseRemoteConfig.instance;
-    return remoteConfig.getBool('is_unavailable_post');
+    return remoteConfig.getString('latest_release_note_id');
+  }
+
+  /// ホームに表示するメッセージ
+  String? get homeMessage {
+    try {
+      final remoteConfig = FirebaseRemoteConfig.instance;
+      final value = remoteConfig.getString('home_message');
+      if (value.isEmpty) {
+        return null;
+      }
+      return value;
+    } catch (exception, stackTrace) {
+      Sentry.captureException(exception, stackTrace: stackTrace);
+      return '';
+    }
   }
 
   /// 最新バージョン
@@ -103,112 +130,257 @@ class ConfigState with _$ConfigState {
     return !isVersionSupport;
   }
 
-  /// ホームに表示するメッセージ
-  String? get notificationHomeMessage {
-    try {
-      final remoteConfig = FirebaseRemoteConfig.instance;
-      final value = remoteConfig.getString('notification_home_message');
-      if (value.isEmpty) {
-        return null;
-      }
-      return value;
-    } catch (exception, stackTrace) {
-      Sentry.captureException(exception, stackTrace: stackTrace);
-      return '';
-    }
-  }
-
-  /// RemoteConfig
-  /// ディスコの招待URL
-  Uri get discordURL {
-    final remoteConfig = FirebaseRemoteConfig.instance;
-    return Uri.parse(remoteConfig.getString('page_url_discord'));
-  }
-
-  /// RemoteConfig
-  /// ツイッターのURL
-  Uri get twitterURL {
-    final remoteConfig = FirebaseRemoteConfig.instance;
-    return Uri.parse(remoteConfig.getString('page_url_twitter'));
-  }
-
-  /// RemoteConfig
-  /// ツイッターのURL
-  Uri get twitterPromptonURL {
-    final remoteConfig = FirebaseRemoteConfig.instance;
-    return Uri.parse(remoteConfig.getString('page_url_twitter_prompton'));
-  }
-
-  /// RemoteConfig
-  /// 運営のメールアドレス
-  String get customerSupportEmail {
-    final remoteConfig = FirebaseRemoteConfig.instance;
-    return remoteConfig.getString('support_email');
-  }
-
-  /// RemoteConfig
-  /// URL「利用規約」
-  String get termsURL {
-    final instance = FirebaseRemoteConfig.instance;
-    return instance.getString('page_url_terms');
-  }
-
-  /// RemoteConfig
-  /// URL「プライバシーポリシー」
-  String get privacyURL {
-    final instance = FirebaseRemoteConfig.instance;
-    return instance.getString('page_url_privacy');
-  }
-
-  /// RemoteConfig
+  /// Remote Config
   /// 最新のバージョン
   String get versionLatest {
     final remoteConfig = FirebaseRemoteConfig.instance;
     return remoteConfig.getString('version_latest');
   }
 
-  /// RemoteConfig
+  /// Remote Config
   /// サポートされるバージョン
   String get versionSupport {
     final remoteConfig = FirebaseRemoteConfig.instance;
     return remoteConfig.getString('version_support');
   }
 
-  /// RemoteConfig
+  /// Remote Config
   String get messageUnexpectedErrorA {
     final remoteConfig = FirebaseRemoteConfig.instance;
     return remoteConfig.getString('message_unexpected_error_a');
   }
 
-  /// RemoteConfig
+  /// Remote Config
+  String? get campaignId {
+    final remoteConfig = FirebaseRemoteConfig.instance;
+    final value = remoteConfig.getString('campaign_id');
+    return value.isNotEmpty ? value : null;
+  }
+
+  /// Remote Config
+  /// キャンペーンの画像URL
+  String? get campaignImageURL {
+    final remoteConfig = FirebaseRemoteConfig.instance;
+    final value = remoteConfig.getString('campaign_image_url');
+    return value.isNotEmpty ? value : null;
+  }
+
+  /// Remote Config
+  /// キャンペーンのメッセージ
+  String? get campaignMessage {
+    final remoteConfig = FirebaseRemoteConfig.instance;
+    final value = remoteConfig.getString('campaign_message');
+    return value.isNotEmpty ? value : null;
+  }
+
+  /// Remote Config
+  /// キャンペーンのタイトル
+  String? get campaignTitle {
+    final remoteConfig = FirebaseRemoteConfig.instance;
+    final value = remoteConfig.getString('campaign_title');
+    return value.isNotEmpty ? value : null;
+  }
+
+  /// Remote Config
+  /// URL・ディスコの招待
+  Uri get pageDiscordURL {
+    final remoteConfig = FirebaseRemoteConfig.instance;
+    return Uri.parse(remoteConfig.getString('page_url_discord'));
+  }
+
+  /// Remote Config
+  /// URL・ガイドライン
+  Uri get pageGuidelineURL {
+    final remoteConfig = FirebaseRemoteConfig.instance;
+    return Uri.parse(remoteConfig.getString('page_url_guideline'));
+  }
+
+  /// Remote Config
+  /// URL・組織について
+  Uri get pageOrganizationURL {
+    final instance = FirebaseRemoteConfig.instance;
+    return Uri.parse(instance.getString('page_url_organization'));
+  }
+
+  /// Remote Config
+  /// URL・プライバシーポリシー
+  Uri get pagePrivacyURL {
+    final instance = FirebaseRemoteConfig.instance;
+    return Uri.parse(instance.getString('page_url_privacy'));
+  }
+
+  /// Remote Config
+  /// URL・リポジトリ
+  Uri get pageRepositoryURL {
+    final instance = FirebaseRemoteConfig.instance;
+    return Uri.parse(instance.getString('page_url_repository'));
+  }
+
+  /// Remote Config
+  /// URL・利用規約
+  Uri get pageTermsURL {
+    final instance = FirebaseRemoteConfig.instance;
+    return Uri.parse(instance.getString('page_url_terms'));
+  }
+
+  /// Remote Config
+  /// URL・Threads
+  Uri get pageThreadsURL {
+    final instance = FirebaseRemoteConfig.instance;
+    return Uri.parse(instance.getString('page_url_threads'));
+  }
+
+  /// Remote Config
+  /// URL・ツイッター（Aipictors）
+  Uri get pageTwitterURL {
+    final remoteConfig = FirebaseRemoteConfig.instance;
+    return Uri.parse(remoteConfig.getString('page_url_twitter'));
+  }
+
+  /// Remote Config
+  /// URL・ツイッター（Prompton）
+  Uri get pageTwitterPromptonURL {
+    final remoteConfig = FirebaseRemoteConfig.instance;
+    return Uri.parse(remoteConfig.getString('page_url_twitter_prompton'));
+  }
+
+  /// Remote Config
+  /// URL・Wiki
+  Uri get pageWikiURL {
+    final remoteConfig = FirebaseRemoteConfig.instance;
+    return Uri.parse(remoteConfig.getString('page_url_wiki'));
+  }
+
+  /// Remote Config
+  /// 運営のメールアドレス
+  String get supportEmail {
+    final remoteConfig = FirebaseRemoteConfig.instance;
+    return remoteConfig.getString('support_email');
+  }
+
+  /// Remote Config
   String get messageAboutTwitter {
     final remoteConfig = FirebaseRemoteConfig.instance;
     return remoteConfig.getString('message_about_twitter');
   }
 
-  /// RemoteConfig
+  /// Remote Config
   String get messageAboutDiscord {
     final remoteConfig = FirebaseRemoteConfig.instance;
     return remoteConfig.getString('message_about_discord');
   }
 
-  /// RemoteConfig
+  /// Remote Config
   String get messageAboutSurvey {
     final remoteConfig = FirebaseRemoteConfig.instance;
     return remoteConfig.getString('message_about_survey');
   }
 
-  /// RemoteConfig
+  /// Remote Config
   String get messageSurveyReset {
     final remoteConfig = FirebaseRemoteConfig.instance;
     return remoteConfig.getString('message_survey_reset');
   }
 
-  bool get isFailed {
-    return lastFetchStatus == RemoteConfigFetchStatus.failure;
+  /// Remote Config
+  bool get featureCreateComment {
+    final remoteConfig = FirebaseRemoteConfig.instance;
+    return remoteConfig.getBool('feature_create_comment');
   }
 
-  bool get isDebugMode {
-    return const String.fromEnvironment('sentryEnvironment') != 'production';
+  /// Remote Config
+  bool get featureCreateFolder {
+    final remoteConfig = FirebaseRemoteConfig.instance;
+    return remoteConfig.getBool('feature_create_folder');
+  }
+
+  /// Remote Config
+  bool get featureCreateSticker {
+    final remoteConfig = FirebaseRemoteConfig.instance;
+    return remoteConfig.getBool('feature_create_sticker');
+  }
+
+  /// Remote Config
+  bool get featureCreateWork {
+    final remoteConfig = FirebaseRemoteConfig.instance;
+    return remoteConfig.getBool('feature_create_work');
+  }
+
+  /// Remote Config
+  bool get featureDeleteComment {
+    final remoteConfig = FirebaseRemoteConfig.instance;
+    return remoteConfig.getBool('feature_delete_comment');
+  }
+
+  /// Remote Config
+  bool get featureDeleteFolder {
+    final remoteConfig = FirebaseRemoteConfig.instance;
+    return remoteConfig.getBool('feature_delete_folder');
+  }
+
+  /// Remote Config
+  bool get featureDeleteSticker {
+    final remoteConfig = FirebaseRemoteConfig.instance;
+    return remoteConfig.getBool('feature_delete_sticker');
+  }
+
+  /// Remote Config
+  bool get featureDeleteWork {
+    final remoteConfig = FirebaseRemoteConfig.instance;
+    return remoteConfig.getBool('feature_delete_work');
+  }
+
+  /// Remote Config
+  bool get featureFollowUser {
+    final remoteConfig = FirebaseRemoteConfig.instance;
+    return remoteConfig.getBool('feature_follow_user');
+  }
+
+  /// Remote Config
+  bool get featureLogin {
+    final remoteConfig = FirebaseRemoteConfig.instance;
+    return remoteConfig.getBool('feature_login');
+  }
+
+  /// Remote Config
+  bool get featureMuteTag {
+    final remoteConfig = FirebaseRemoteConfig.instance;
+    return remoteConfig.getBool('feature_mute_tag');
+  }
+
+  /// Remote Config
+  bool get featureMuteUser {
+    final remoteConfig = FirebaseRemoteConfig.instance;
+    return remoteConfig.getBool('feature_mute_user');
+  }
+
+  /// Remote Config
+  bool get featureUpdateComment {
+    final remoteConfig = FirebaseRemoteConfig.instance;
+    return remoteConfig.getBool('feature_update_comment');
+  }
+
+  /// Remote Config
+  bool get featureUpdateFolder {
+    final remoteConfig = FirebaseRemoteConfig.instance;
+    return remoteConfig.getBool('feature_update_folder');
+  }
+
+  /// Remote Config
+  bool get featureUpdateSticker {
+    final remoteConfig = FirebaseRemoteConfig.instance;
+    return remoteConfig.getBool('feature_update_sticker');
+  }
+
+  /// Remote Config
+  bool get featureUpdateUser {
+    final remoteConfig = FirebaseRemoteConfig.instance;
+    return remoteConfig.getBool('feature_update_user');
+  }
+
+  /// Remote Config
+  bool get featureUpdateWork {
+    final remoteConfig = FirebaseRemoteConfig.instance;
+    return remoteConfig.getBool('feature_update_work');
   }
 }

@@ -51,6 +51,7 @@ class FeedDailyThemeWorksView extends HookConsumerWidget {
               workImageURL: work.image!.downloadURL,
               workCreatedAt: work.createdAt,
               workImageAspectRatio: work.imageAspectRatio,
+              userId: work.user.id,
               userName: work.user.name,
               userIconImageURL: work.user.iconImage?.downloadURL,
               likesCount: work.likesCount,
