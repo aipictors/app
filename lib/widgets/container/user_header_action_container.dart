@@ -8,47 +8,57 @@ class UserHeaderActionContainer extends HookConsumerWidget {
     Key? key,
     required this.iconImageURL,
     required this.userName,
+    required this.userLogin,
   }) : super(key: key);
 
   final String? iconImageURL;
 
   final String userName;
 
+  final String userLogin;
+
   @override
   Widget build(context, ref) {
-    return Column(
-      children: [
-        const SizedBox(height: 8),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                const SizedBox(width: 8),
-                Transform.scale(
-                  scale: 1,
-                  child: HeaderUserProfileAvatar(imageURL: iconImageURL),
-                ),
-              ],
-            ),
-            SizedBox(width: 16),
-            Expanded(
-              child: Column(
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      FollowButton(),
-                      SizedBox(width: 8),
-                    ],
+                  Text(
+                    userName,
+                    softWrap: true,
+                    style: const TextStyle(
+                      overflow: TextOverflow.ellipsis,
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    '@$userLogin',
+                    style: TextStyle(color: Theme.of(context).dividerColor),
                   ),
                 ],
               ),
-            ),
-          ],
-        ),
-      ],
+              const SizedBox(width: 16),
+              Transform.scale(
+                scale: 1,
+                child: HeaderUserProfileAvatar(imageURL: iconImageURL),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          const SizedBox(
+            width: double.infinity,
+            child: FollowButton(),
+          ),
+        ],
+      ),
     );
   }
 }

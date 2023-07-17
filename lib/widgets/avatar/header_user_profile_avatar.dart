@@ -11,19 +11,21 @@ class HeaderUserProfileAvatar extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
+    const double size = 30;
+
     if (imageURL == null) {
       return CircleAvatar(
-        radius: 44,
+        radius: size,
         backgroundColor: Theme.of(context).colorScheme.primary,
-        child: const CircleAvatar(radius: 40),
+        child: const CircleAvatar(radius: size - 2),
       );
     }
 
     return CircleAvatar(
-      radius: 44,
+      radius: size,
       backgroundColor: Theme.of(context).colorScheme.primaryContainer,
       child: CircleAvatar(
-        radius: 40,
+        radius: size,
         backgroundImage: NetworkImage(imageURL!),
       ),
     );

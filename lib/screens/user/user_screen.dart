@@ -70,9 +70,10 @@ class UserScreen extends HookConsumerWidget {
                         children: [
                           UserHeaderActionContainer(
                             iconImageURL: user.iconImage?.downloadURL,
+                            userLogin: user.login,
                             userName: user.name,
                           ),
-                          const SizedBox(height: 8),
+                          const SizedBox(height: 16),
                           UserProfileContainer(
                             name: user.name,
                             login: user.login,
