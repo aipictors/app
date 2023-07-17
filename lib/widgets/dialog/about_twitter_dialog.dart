@@ -42,7 +42,7 @@ class AboutTwitterDialog extends HookConsumerWidget {
             style: FilledButton.styleFrom(
               tapTargetSize: MaterialTapTargetSize.shrinkWrap,
             ),
-            onPressed: onOpen,
+            onPressed: onOpenPrompton,
             child: const Align(
               alignment: Alignment.topLeft,
               child: Text('@promptonio'),
