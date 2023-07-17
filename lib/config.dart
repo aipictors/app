@@ -12,18 +12,13 @@ class DefaultConfig {
     packageInfo = await PackageInfo.fromPlatform();
   }
 
-  static String get graphqlURI {
+  static String get graphqlEndpoint {
     final remoteConfig = FirebaseRemoteConfig.instance;
     return remoteConfig.getString('graphql_endpoint');
   }
 
   static Color get defaultThemeColor {
     return Colors.lightBlue;
-  }
-
-  static String get graphqlSecret {
-    final remoteConfig = FirebaseRemoteConfig.instance;
-    return remoteConfig.getString('graphql_secret');
   }
 
   static String get sentryDsn {
