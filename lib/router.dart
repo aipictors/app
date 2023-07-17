@@ -102,7 +102,7 @@ final router = GoRouter(
       },
     ),
     GoRoute(
-      path: '/comment/:comment_id/report',
+      path: '/comments/:comment_id/report',
       builder: (context, state) {
         final commentId = state.pathParameters['comment_id'];
         return CommentReportScreen(commentId: commentId!);

@@ -15,7 +15,7 @@ class FolderReportScreen extends HookConsumerWidget {
   Widget build(context, ref) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('報告'.i18n),
+        title: Text('フォルダの報告'.i18n),
       ),
     );
   }

@@ -8,7 +8,13 @@ class StickerActionModalContainer extends HookConsumerWidget {
   const StickerActionModalContainer({
     Key? key,
     required this.userName,
+    required this.stickerId,
+    required this.userId,
   }) : super(key: key);
+
+  final String stickerId;
+
+  final String userId;
 
   final String userName;
 
@@ -31,6 +37,7 @@ class StickerActionModalContainer extends HookConsumerWidget {
               ),
               onTap: () {
                 context.pop();
+                context.push('/stickers/$stickerId/report');
               },
             ),
             ListTile(
@@ -41,6 +48,7 @@ class StickerActionModalContainer extends HookConsumerWidget {
               ),
               onTap: () {
                 context.pop();
+                context.push('/users/$userId/report');
               },
             ),
           ],

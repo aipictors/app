@@ -8,9 +8,15 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 class FeedActionModalContainer extends HookConsumerWidget {
   const FeedActionModalContainer({
     Key? key,
+    required this.workId,
+    required this.userId,
     required this.userName,
     required this.userIconImageURL,
   }) : super(key: key);
+
+  final String workId;
+
+  final String userId;
 
   final String userName;
 
@@ -69,6 +75,7 @@ class FeedActionModalContainer extends HookConsumerWidget {
               ),
               onTap: () {
                 context.pop();
+                context.push('/users/$userId/report');
               },
             ),
             ListTile(
@@ -79,6 +86,7 @@ class FeedActionModalContainer extends HookConsumerWidget {
               ),
               onTap: () {
                 context.pop();
+                context.push('/works/$workId/report');
               },
             ),
           ],

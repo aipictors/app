@@ -39,6 +39,7 @@ class UserActionModalContainer extends HookConsumerWidget {
               ),
               onTap: () {
                 context.pop();
+                context.push('/users/$userId/report');
               },
             ),
           ],

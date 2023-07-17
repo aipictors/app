@@ -15,7 +15,7 @@ class StickerReportScreen extends HookConsumerWidget {
   Widget build(context, ref) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('報告'.i18n),
+        title: Text('スタンプの報告'.i18n),
       ),
     );
   }

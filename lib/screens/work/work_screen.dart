@@ -62,7 +62,7 @@ class WorkScreen extends HookConsumerWidget {
               IconButton(
                 icon: const Icon(Icons.more_horiz_rounded),
                 onPressed: () {
-                  onOpenActionModal(context);
+                  onOpenActionModal(context, userId: work.user.id);
                 },
               ),
             ],
@@ -153,12 +153,16 @@ class WorkScreen extends HookConsumerWidget {
     );
   }
 
-  onOpenActionModal(BuildContext context) {
+  onOpenActionModal(
+    BuildContext context, {
+    required String userId,
+  }) {
     showModalBottomSheet(
       context: context,
       builder: (context) {
         return WorkActionModalContainer(
           workId: workId,
+          userId: userId,
         );
       },
     );

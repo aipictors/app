@@ -1,4 +1,5 @@
 import 'package:aipictors/default.i18n.dart';
+import 'package:aipictors/widgets/container/unavailable_container.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -11,17 +12,8 @@ class WorkCreateScreen extends HookConsumerWidget {
   @override
   Widget build(context, ref) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('新しい作品'.i18n),
-      ),
-      body: const Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text('投稿'),
-          ],
-        ),
-      ),
+      appBar: AppBar(title: Text('新しい作品'.i18n)),
+      body: const UnavailableContainer(),
     );
   }
 }

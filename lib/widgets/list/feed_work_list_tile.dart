@@ -191,6 +191,8 @@ class FeedWorkListTile extends HookConsumerWidget {
       context: context,
       builder: (context) {
         return FeedActionModalContainer(
+          workId: workId,
+          userId: userId,
           userName: userName,
           userIconImageURL: userIconImageURL,
         );

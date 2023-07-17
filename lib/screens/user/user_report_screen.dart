@@ -15,7 +15,7 @@ class UserReportScreen extends HookConsumerWidget {
   Widget build(context, ref) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('報告'.i18n),
+        title: Text('ユーザの報告'.i18n),
       ),
     );
   }

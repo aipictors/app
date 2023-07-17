@@ -7,10 +7,13 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 class CommentActionModalContainer extends HookConsumerWidget {
   const CommentActionModalContainer({
     Key? key,
-    required this.userName,
+    required this.commentId,
+    required this.userId,
   }) : super(key: key);
 
-  final String userName;
+  final String commentId;
+
+  final String userId;
 
   @override
   Widget build(context, ref) {
@@ -41,6 +44,7 @@ class CommentActionModalContainer extends HookConsumerWidget {
               ),
               onTap: () {
                 context.pop();
+                context.push('/comments/$commentId/report');
               },
             ),
             ListTile(
@@ -51,6 +55,7 @@ class CommentActionModalContainer extends HookConsumerWidget {
               ),
               onTap: () {
                 context.pop();
+                context.push('/users/$userId/report');
               },
             ),
           ],

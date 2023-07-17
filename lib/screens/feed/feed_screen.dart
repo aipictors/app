@@ -4,6 +4,7 @@ import 'package:aipictors/screens/feed/feed_home_view.dart';
 import 'package:aipictors/screens/feed/feed_hot_works_view.dart';
 import 'package:aipictors/screens/feed/feed_latest_works_view.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// フィード
@@ -20,13 +21,12 @@ class FeedScreen extends HookConsumerWidget {
       length: tabSize,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('フィード'.i18n),
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.clear_rounded),
-              onPressed: () {},
-            ),
-          ],
+          title: ImageIcon(
+            const AssetImage('assets/images/aipictors.png'),
+            color: Theme.of(context).colorScheme.primary,
+            size: 32,
+          ),
+          actions: const [],
           bottom: TabBar(tabs: [
             Tab(text: 'ホーム'.i18n),
             Tab(text: '新着'.i18n),
@@ -41,6 +41,13 @@ class FeedScreen extends HookConsumerWidget {
           FeedDailyThemeWorksView(),
           FeedHotWorksView(),
         ]),
+        floatingActionButton: FloatingActionButton.extended(
+          icon: const Icon(Icons.add),
+          label: Text('投稿'.i18n),
+          onPressed: () {
+            context.push('/works/create');
+          },
+        ),
       ),
     );
   }

@@ -1,3 +1,4 @@
+import 'package:aipictors/widgets/container/unavailable_container.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -13,6 +14,7 @@ class AccountCreateScreen extends HookConsumerWidget {
       appBar: AppBar(
         title: const Text('アカウント作成'),
       ),
+      body: const UnavailableContainer(),
     );
   }
 }

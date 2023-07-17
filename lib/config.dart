@@ -13,6 +13,7 @@ class DefaultConfig {
   }
 
   static String get graphqlEndpoint {
+    return 'https://any.ngrok.io/graphql';
     final remoteConfig = FirebaseRemoteConfig.instance;
     return remoteConfig.getString('graphql_endpoint');
   }

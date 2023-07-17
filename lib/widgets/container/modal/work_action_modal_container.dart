@@ -8,9 +8,12 @@ class WorkActionModalContainer extends HookConsumerWidget {
   const WorkActionModalContainer({
     Key? key,
     required this.workId,
+    required this.userId,
   }) : super(key: key);
 
   final String workId;
+
+  final String userId;
 
   @override
   Widget build(context, ref) {
@@ -41,6 +44,7 @@ class WorkActionModalContainer extends HookConsumerWidget {
               ),
               onTap: () {
                 context.pop();
+                context.push('/works/$workId/report');
               },
             ),
             ListTile(
@@ -51,6 +55,7 @@ class WorkActionModalContainer extends HookConsumerWidget {
               ),
               onTap: () {
                 context.pop();
+                context.push('/users/$userId/report');
               },
             ),
           ],
