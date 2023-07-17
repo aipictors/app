@@ -50,20 +50,23 @@ class NotificationLikeListTile extends HookConsumerWidget {
           Icons.favorite_rounded,
           color: Theme.of(context).colorScheme.error,
         ),
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
+        title: Row(
           children: [
-            NotificationUserContainer(
-              userName: userName!,
-              userIconImageURL: userIconImageURL,
-            ),
-            const SizedBox(height: 8),
-            Text(
-              message,
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
-            const SizedBox(height: 8),
+            Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  NotificationUserContainer(
+                    userName: userName!,
+                    userIconImageURL: userIconImageURL,
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    message,
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                ]),
+            const Spacer(),
             NotificationImageContainer(
               workImageURL: workImageURL!,
               workTitle: workTitle!,
@@ -87,15 +90,18 @@ class NotificationLikeListTile extends HookConsumerWidget {
           Icons.favorite_rounded,
           color: Theme.of(context).colorScheme.primary,
         ),
-        title: Column(
+        title: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Text(
-              message,
-              style: Theme.of(context).textTheme.bodyMedium,
+            Expanded(
+              child: Text(
+                message,
+                maxLines: 5,
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
             ),
-            const SizedBox(height: 8),
+            const Spacer(),
             NotificationImageContainer(
               workImageURL: workImageURL!,
               workTitle: workTitle!,

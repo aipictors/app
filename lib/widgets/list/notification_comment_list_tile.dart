@@ -50,33 +50,31 @@ class NotificationCommentListTile extends HookConsumerWidget {
           context.push('/works/$workId');
         },
         leading: const Icon(Icons.chat_bubble_rounded),
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
+        title: Row(
           children: [
-            NotificationUserContainer(
-              userName: userName!,
-              userIconImageURL: userIconImageURL,
-            ),
-            const SizedBox(height: 8),
-            Text(
-              message,
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
-            const SizedBox(height: 8),
-            NotificationStickerCommentContainer(
-              stickerImageURL: stickerImageURL!,
-              workImageURL: workImageURL!,
-            ),
-            const SizedBox(height: 8),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
+                NotificationUserContainer(
+                  userName: userName!,
+                  userIconImageURL: userIconImageURL,
+                ),
+                const SizedBox(height: 8),
                 Text(
-                  workTitle!,
-                  style: Theme.of(context).textTheme.labelSmall,
+                  message,
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
+                NotificationStickerCommentContainer(
+                  stickerImageURL: stickerImageURL!,
+                  workImageURL: workImageURL!,
                 ),
               ],
+            ),
+            const Spacer(),
+            NotificationImageContainer(
+              workImageURL: workImageURL!,
+              workTitle: workTitle!,
             ),
           ],
         ),
@@ -93,20 +91,26 @@ class NotificationCommentListTile extends HookConsumerWidget {
           context.push('/works/$workId');
         },
         leading: const Icon(Icons.chat_bubble_rounded),
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
+        title: Row(
           children: [
-            NotificationUserContainer(
-              userName: userName!,
-              userIconImageURL: userIconImageURL,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                NotificationUserContainer(
+                  userName: userName!,
+                  userIconImageURL: userIconImageURL,
+                ),
+                const SizedBox(height: 8),
+                Expanded(
+                  child: Text(
+                    message,
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                )
+              ],
             ),
-            const SizedBox(height: 8),
-            Text(
-              message,
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
-            const SizedBox(height: 8),
+            const Spacer(),
             NotificationImageContainer(
               workImageURL: workImageURL!,
               workTitle: workTitle!,
@@ -126,15 +130,16 @@ class NotificationCommentListTile extends HookConsumerWidget {
           context.push('/works/$workId');
         },
         leading: const Icon(Icons.emoji_events_rounded),
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
+        title: Row(
           children: [
-            Text(
-              message,
-              style: Theme.of(context).textTheme.bodyMedium,
+            Expanded(
+              child: Text(
+                message,
+                maxLines: 5,
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
             ),
-            const SizedBox(height: 8),
+            const Spacer(),
             NotificationImageContainer(
               workImageURL: workImageURL!,
               workTitle: workTitle!,

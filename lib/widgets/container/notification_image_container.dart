@@ -15,7 +15,7 @@ class NotificationImageContainer extends HookConsumerWidget {
   @override
   Widget build(context, ref) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.end,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         ClipRRect(
@@ -23,19 +23,14 @@ class NotificationImageContainer extends HookConsumerWidget {
           child: Image.network(
             workImageURL!,
             fit: BoxFit.cover,
-            width: double.infinity,
+            width: 80,
             height: 80,
           ),
         ),
         const SizedBox(height: 8),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Text(
-              workTitle!,
-              style: Theme.of(context).textTheme.labelSmall,
-            ),
-          ],
+        Text(
+          workTitle!,
+          style: Theme.of(context).textTheme.labelSmall,
         ),
       ],
     );

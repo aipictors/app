@@ -24,19 +24,7 @@ class NotificationStickerCommentContainer extends HookConsumerWidget {
             width: 80,
             height: 80,
           ),
-        ),
-        const SizedBox(width: 8),
-        Expanded(
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(8.0),
-            child: Image.network(
-              workImageURL!,
-              fit: BoxFit.cover,
-              width: double.infinity,
-              height: 80,
-            ),
-          ),
-        ),
+        )
       ],
     );
   }
