@@ -1,9 +1,6 @@
-import 'package:aipictors/widgets/container/notification_image_container.dart';
-import 'package:aipictors/widgets/container/notification_sticker_comment_container.dart';
-import 'package:aipictors/widgets/container/notification_user_container.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:aipictors/widgets/list/notification_comment_list_tile_compact.dart';
+import 'package:aipictors/widgets/list/notification_comment_list_tile_medium.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class NotificationCommentListTile extends HookConsumerWidget {
@@ -37,124 +34,31 @@ class NotificationCommentListTile extends HookConsumerWidget {
   final String? workImageURL;
 
   final String? stickerImageURL;
-
   @override
   Widget build(context, ref) {
-    if (workId != null && userId != null && stickerImageURL != null) {
-      return ListTile(
-        onTap: () {
-          FirebaseAnalytics.instance.logSelectContent(
-            contentType: 'work',
-            itemId: workId!,
-          );
-          context.push('/works/$workId');
-        },
-        leading: const Icon(Icons.chat_bubble_rounded),
-        title: Row(
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                NotificationUserContainer(
-                  userName: userName!,
-                  userIconImageURL: userIconImageURL,
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  message,
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
-                NotificationStickerCommentContainer(
-                  stickerImageURL: stickerImageURL!,
-                  workImageURL: workImageURL!,
-                ),
-              ],
-            ),
-            const Spacer(),
-            NotificationImageContainer(
-              workImageURL: workImageURL!,
-              workTitle: workTitle!,
-            ),
-          ],
-        ),
+    if (MediaQuery.of(context).size.width >= 600) {
+      return NotificationCommentListTileMedium(
+        createdAt: createdAt,
+        message: message,
+        userId: userId,
+        userName: userName,
+        userIconImageURL: userIconImageURL,
+        workId: workId,
+        workTitle: workTitle,
+        workImageURL: workImageURL,
+        stickerImageURL: stickerImageURL,
       );
     }
-
-    if (workId != null && userId != null && stickerImageURL == null) {
-      return ListTile(
-        onTap: () {
-          FirebaseAnalytics.instance.logSelectContent(
-            contentType: 'work',
-            itemId: workId!,
-          );
-          context.push('/works/$workId');
-        },
-        leading: const Icon(Icons.chat_bubble_rounded),
-        title: Row(
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                NotificationUserContainer(
-                  userName: userName!,
-                  userIconImageURL: userIconImageURL,
-                ),
-                const SizedBox(height: 8),
-                Expanded(
-                  child: Text(
-                    message,
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
-                )
-              ],
-            ),
-            const Spacer(),
-            NotificationImageContainer(
-              workImageURL: workImageURL!,
-              workTitle: workTitle!,
-            ),
-          ],
-        ),
-      );
-    }
-
-    if (workId != null && userId == null) {
-      return ListTile(
-        onTap: () {
-          FirebaseAnalytics.instance.logSelectContent(
-            contentType: 'work',
-            itemId: workId!,
-          );
-          context.push('/works/$workId');
-        },
-        leading: const Icon(Icons.emoji_events_rounded),
-        title: Row(
-          children: [
-            Expanded(
-              child: Text(
-                message,
-                maxLines: 5,
-                style: Theme.of(context).textTheme.bodyMedium,
-              ),
-            ),
-            const Spacer(),
-            NotificationImageContainer(
-              workImageURL: workImageURL!,
-              workTitle: workTitle!,
-            ),
-          ],
-        ),
-      );
-    }
-
-    return ListTile(
-      leading: const Icon(Icons.mail_rounded),
-      title: Text(
-        message,
-        style: Theme.of(context).textTheme.bodyMedium,
-      ),
+    return NotificationCommentListTileCompact(
+      createdAt: createdAt,
+      message: message,
+      userId: userId,
+      userName: userName,
+      userIconImageURL: userIconImageURL,
+      workId: workId,
+      workTitle: workTitle,
+      workImageURL: workImageURL,
+      stickerImageURL: stickerImageURL,
     );
   }
 }

@@ -1,8 +1,6 @@
-import 'package:aipictors/widgets/container/notification_image_container.dart';
-import 'package:aipictors/widgets/container/notification_user_container.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:aipictors/widgets/list/notification_like_list_tile_compact.dart';
+import 'package:aipictors/widgets/list/notification_like_list_tile_medium.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class NotificationLikeListTile extends HookConsumerWidget {
@@ -36,90 +34,27 @@ class NotificationLikeListTile extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
-    // ユーザによるいいね
-    if (workId != null && userId != null) {
-      return ListTile(
-        onTap: () {
-          FirebaseAnalytics.instance.logSelectContent(
-            contentType: 'work',
-            itemId: workId!,
-          );
-          context.push('/works/$workId');
-        },
-        leading: Icon(
-          Icons.favorite_rounded,
-          color: Theme.of(context).colorScheme.error,
-        ),
-        title: Row(
-          children: [
-            Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  NotificationUserContainer(
-                    userName: userName!,
-                    userIconImageURL: userIconImageURL,
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    message,
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
-                ]),
-            const Spacer(),
-            NotificationImageContainer(
-              workImageURL: workImageURL!,
-              workTitle: workTitle!,
-            ),
-          ],
-        ),
+    if (MediaQuery.of(context).size.width >= 600) {
+      return NotificationLikeListTileMedium(
+        createdAt: createdAt,
+        message: message,
+        workId: workId,
+        workTitle: workTitle,
+        workImageURL: workImageURL,
+        userId: userId,
+        userName: userName,
+        userIconImageURL: userIconImageURL,
       );
     }
-
-    // いいねの集計
-    if (workId != null && userId == null) {
-      return ListTile(
-        onTap: () {
-          FirebaseAnalytics.instance.logSelectContent(
-            contentType: 'work',
-            itemId: workId!,
-          );
-          context.push('/works/$workId');
-        },
-        leading: Icon(
-          Icons.favorite_rounded,
-          color: Theme.of(context).colorScheme.primary,
-        ),
-        title: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Expanded(
-              child: Text(
-                message,
-                maxLines: 5,
-                style: Theme.of(context).textTheme.bodyMedium,
-              ),
-            ),
-            const Spacer(),
-            NotificationImageContainer(
-              workImageURL: workImageURL!,
-              workTitle: workTitle!,
-            ),
-          ],
-        ),
-      );
-    }
-
-    return ListTile(
-      leading: Icon(
-        Icons.favorite_rounded,
-        color: Theme.of(context).colorScheme.primary,
-      ),
-      title: Text(
-        message,
-        style: Theme.of(context).textTheme.bodyMedium,
-      ),
+    return NotificationLikeListTileCompact(
+      createdAt: createdAt,
+      message: message,
+      workId: workId,
+      workTitle: workTitle,
+      workImageURL: workImageURL,
+      userId: userId,
+      userName: userName,
+      userIconImageURL: userIconImageURL,
     );
   }
 }

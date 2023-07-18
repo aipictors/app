@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:aipictors/widgets/container/notification_sticker_comment_container_compact.dart';
+import 'package:aipictors/widgets/container/notification_sticker_comment_container_medium.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class NotificationStickerCommentContainer extends HookConsumerWidget {
@@ -14,18 +16,11 @@ class NotificationStickerCommentContainer extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
-    return Row(
-      children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(8.0),
-          child: Image.network(
-            stickerImageURL!,
-            fit: BoxFit.cover,
-            width: 80,
-            height: 80,
-          ),
-        )
-      ],
-    );
+    if (MediaQuery.of(context).size.width >= 600) {
+      return NotificationStickerCommentContainerMedium(
+          stickerImageURL: stickerImageURL, workImageURL: workImageURL);
+    }
+    return NotificationStickerCommentContainerCompact(
+        stickerImageURL: stickerImageURL, workImageURL: workImageURL);
   }
 }
