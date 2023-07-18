@@ -179,10 +179,6 @@ class _$GViewerFeedWorksData_viewer_feedWorksSerializer
       serializers.serialize(object.user,
           specifiedType:
               const FullType(GViewerFeedWorksData_viewer_feedWorks_user)),
-      'viewer',
-      serializers.serialize(object.viewer,
-          specifiedType:
-              const FullType(GViewerFeedWorksData_viewer_feedWorks_viewer)),
     ];
     Object? value;
     value = object.image;
@@ -192,6 +188,14 @@ class _$GViewerFeedWorksData_viewer_feedWorksSerializer
         ..add(serializers.serialize(value,
             specifiedType:
                 const FullType(GViewerFeedWorksData_viewer_feedWorks_image)));
+    }
+    value = object.viewer;
+    if (value != null) {
+      result
+        ..add('viewer')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(GViewerFeedWorksData_viewer_feedWorks_viewer)));
     }
     return result;
   }
@@ -793,7 +797,7 @@ class _$GViewerFeedWorksData_viewer_feedWorks
   @override
   final GViewerFeedWorksData_viewer_feedWorks_user user;
   @override
-  final GViewerFeedWorksData_viewer_feedWorks_viewer viewer;
+  final GViewerFeedWorksData_viewer_feedWorks_viewer? viewer;
 
   factory _$GViewerFeedWorksData_viewer_feedWorks(
           [void Function(GViewerFeedWorksData_viewer_feedWorksBuilder)?
@@ -811,7 +815,7 @@ class _$GViewerFeedWorksData_viewer_feedWorks
       required this.imageAspectRatio,
       this.image,
       required this.user,
-      required this.viewer})
+      this.viewer})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename, r'GViewerFeedWorksData_viewer_feedWorks', 'G__typename');
@@ -829,8 +833,6 @@ class _$GViewerFeedWorksData_viewer_feedWorks
         r'GViewerFeedWorksData_viewer_feedWorks', 'imageAspectRatio');
     BuiltValueNullFieldError.checkNotNull(
         user, r'GViewerFeedWorksData_viewer_feedWorks', 'user');
-    BuiltValueNullFieldError.checkNotNull(
-        viewer, r'GViewerFeedWorksData_viewer_feedWorks', 'viewer');
   }
 
   @override
@@ -966,7 +968,7 @@ class GViewerFeedWorksData_viewer_feedWorksBuilder
       _imageAspectRatio = $v.imageAspectRatio;
       _image = $v.image?.toBuilder();
       _user = $v.user.toBuilder();
-      _viewer = $v.viewer.toBuilder();
+      _viewer = $v.viewer?.toBuilder();
       _$v = null;
     }
     return this;
@@ -1008,7 +1010,7 @@ class GViewerFeedWorksData_viewer_feedWorksBuilder
                   imageAspectRatio, r'GViewerFeedWorksData_viewer_feedWorks', 'imageAspectRatio'),
               image: _image?.build(),
               user: user.build(),
-              viewer: viewer.build());
+              viewer: _viewer?.build());
     } catch (_) {
       late String _$failedField;
       try {
@@ -1017,7 +1019,7 @@ class GViewerFeedWorksData_viewer_feedWorksBuilder
         _$failedField = 'user';
         user.build();
         _$failedField = 'viewer';
-        viewer.build();
+        _viewer?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'GViewerFeedWorksData_viewer_feedWorks',

@@ -1,4 +1,7 @@
+import 'package:aipictors/default.i18n.dart';
+import 'package:aipictors/utils/show_error_snack_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class FollowButton extends HookConsumerWidget {
@@ -7,21 +10,37 @@ class FollowButton extends HookConsumerWidget {
     required this.onPressed,
   }) : super(key: key);
 
-  final VoidCallback onPressed;
+  final Future Function() onPressed;
 
   @override
   Widget build(context, ref) {
+    final isLoading = useState(false);
+
     return FilledButton.tonal(
       style: FilledButton.styleFrom(
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
       ),
-      onPressed: onPressed,
-      child: const Text(
-        'フォロー',
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-        ),
-      ),
+      onPressed: isLoading.value
+          ? null
+          : () async {
+              try {
+                isLoading.value = true;
+                await onPressed();
+              } catch (exception) {
+                showErrorSnackBar(context, exception);
+              }
+              isLoading.value = false;
+            },
+      child: isLoading.value
+          ? const SizedBox(
+              width: 16,
+              height: 16,
+              child: CircularProgressIndicator(),
+            )
+          : Text(
+              'フォロー'.i18n,
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
     );
   }
 }

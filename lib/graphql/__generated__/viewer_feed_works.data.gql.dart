@@ -98,7 +98,7 @@ abstract class GViewerFeedWorksData_viewer_feedWorks
   @override
   GViewerFeedWorksData_viewer_feedWorks_image? get image;
   GViewerFeedWorksData_viewer_feedWorks_user get user;
-  GViewerFeedWorksData_viewer_feedWorks_viewer get viewer;
+  GViewerFeedWorksData_viewer_feedWorks_viewer? get viewer;
   static Serializer<GViewerFeedWorksData_viewer_feedWorks> get serializer =>
       _$gViewerFeedWorksDataViewerFeedWorksSerializer;
   @override

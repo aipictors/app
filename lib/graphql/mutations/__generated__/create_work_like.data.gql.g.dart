@@ -93,12 +93,16 @@ class _$GCreateWorkLikeData_createWorkLikeSerializer
       'likesCount',
       serializers.serialize(object.likesCount,
           specifiedType: const FullType(int)),
-      'viewer',
-      serializers.serialize(object.viewer,
-          specifiedType:
-              const FullType(GCreateWorkLikeData_createWorkLike_viewer)),
     ];
-
+    Object? value;
+    value = object.viewer;
+    if (value != null) {
+      result
+        ..add('viewer')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(GCreateWorkLikeData_createWorkLike_viewer)));
+    }
     return result;
   }
 
@@ -329,7 +333,7 @@ class _$GCreateWorkLikeData_createWorkLike
   @override
   final int likesCount;
   @override
-  final GCreateWorkLikeData_createWorkLike_viewer viewer;
+  final GCreateWorkLikeData_createWorkLike_viewer? viewer;
 
   factory _$GCreateWorkLikeData_createWorkLike(
           [void Function(GCreateWorkLikeData_createWorkLikeBuilder)?
@@ -341,7 +345,7 @@ class _$GCreateWorkLikeData_createWorkLike
       {required this.G__typename,
       required this.id,
       required this.likesCount,
-      required this.viewer})
+      this.viewer})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename, r'GCreateWorkLikeData_createWorkLike', 'G__typename');
@@ -349,8 +353,6 @@ class _$GCreateWorkLikeData_createWorkLike
         id, r'GCreateWorkLikeData_createWorkLike', 'id');
     BuiltValueNullFieldError.checkNotNull(
         likesCount, r'GCreateWorkLikeData_createWorkLike', 'likesCount');
-    BuiltValueNullFieldError.checkNotNull(
-        viewer, r'GCreateWorkLikeData_createWorkLike', 'viewer');
   }
 
   @override
@@ -428,7 +430,7 @@ class GCreateWorkLikeData_createWorkLikeBuilder
       _G__typename = $v.G__typename;
       _id = $v.id;
       _likesCount = $v.likesCount;
-      _viewer = $v.viewer.toBuilder();
+      _viewer = $v.viewer?.toBuilder();
       _$v = null;
     }
     return this;
@@ -460,12 +462,12 @@ class GCreateWorkLikeData_createWorkLikeBuilder
                   id, r'GCreateWorkLikeData_createWorkLike', 'id'),
               likesCount: BuiltValueNullFieldError.checkNotNull(likesCount,
                   r'GCreateWorkLikeData_createWorkLike', 'likesCount'),
-              viewer: viewer.build());
+              viewer: _viewer?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'viewer';
-        viewer.build();
+        _viewer?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'GCreateWorkLikeData_createWorkLike', _$failedField, e.toString());

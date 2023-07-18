@@ -121,9 +121,6 @@ class _$GFeedLatestWorksData_worksSerializer
       'user',
       serializers.serialize(object.user,
           specifiedType: const FullType(GFeedLatestWorksData_works_user)),
-      'viewer',
-      serializers.serialize(object.viewer,
-          specifiedType: const FullType(GFeedLatestWorksData_works_viewer)),
     ];
     Object? value;
     value = object.image;
@@ -132,6 +129,13 @@ class _$GFeedLatestWorksData_worksSerializer
         ..add('image')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(GFeedLatestWorksData_works_image)));
+    }
+    value = object.viewer;
+    if (value != null) {
+      result
+        ..add('viewer')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(GFeedLatestWorksData_works_viewer)));
     }
     return result;
   }
@@ -601,7 +605,7 @@ class _$GFeedLatestWorksData_works extends GFeedLatestWorksData_works {
   @override
   final GFeedLatestWorksData_works_user user;
   @override
-  final GFeedLatestWorksData_works_viewer viewer;
+  final GFeedLatestWorksData_works_viewer? viewer;
 
   factory _$GFeedLatestWorksData_works(
           [void Function(GFeedLatestWorksData_worksBuilder)? updates]) =>
@@ -617,7 +621,7 @@ class _$GFeedLatestWorksData_works extends GFeedLatestWorksData_works {
       required this.imageAspectRatio,
       this.image,
       required this.user,
-      required this.viewer})
+      this.viewer})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename, r'GFeedLatestWorksData_works', 'G__typename');
@@ -635,8 +639,6 @@ class _$GFeedLatestWorksData_works extends GFeedLatestWorksData_works {
         imageAspectRatio, r'GFeedLatestWorksData_works', 'imageAspectRatio');
     BuiltValueNullFieldError.checkNotNull(
         user, r'GFeedLatestWorksData_works', 'user');
-    BuiltValueNullFieldError.checkNotNull(
-        viewer, r'GFeedLatestWorksData_works', 'viewer');
   }
 
   @override
@@ -766,7 +768,7 @@ class GFeedLatestWorksData_worksBuilder
       _imageAspectRatio = $v.imageAspectRatio;
       _image = $v.image?.toBuilder();
       _user = $v.user.toBuilder();
-      _viewer = $v.viewer.toBuilder();
+      _viewer = $v.viewer?.toBuilder();
       _$v = null;
     }
     return this;
@@ -809,7 +811,7 @@ class GFeedLatestWorksData_worksBuilder
                   'imageAspectRatio'),
               image: _image?.build(),
               user: user.build(),
-              viewer: viewer.build());
+              viewer: _viewer?.build());
     } catch (_) {
       late String _$failedField;
       try {
@@ -818,7 +820,7 @@ class GFeedLatestWorksData_worksBuilder
         _$failedField = 'user';
         user.build();
         _$failedField = 'viewer';
-        viewer.build();
+        _viewer?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'GFeedLatestWorksData_works', _$failedField, e.toString());

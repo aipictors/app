@@ -113,9 +113,6 @@ class _$GFeedHotWorksData_hotWorksSerializer
       'user',
       serializers.serialize(object.user,
           specifiedType: const FullType(GFeedHotWorksData_hotWorks_user)),
-      'viewer',
-      serializers.serialize(object.viewer,
-          specifiedType: const FullType(GFeedHotWorksData_hotWorks_viewer)),
     ];
     Object? value;
     value = object.image;
@@ -124,6 +121,13 @@ class _$GFeedHotWorksData_hotWorksSerializer
         ..add('image')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(GFeedHotWorksData_hotWorks_image)));
+    }
+    value = object.viewer;
+    if (value != null) {
+      result
+        ..add('viewer')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(GFeedHotWorksData_hotWorks_viewer)));
     }
     return result;
   }
@@ -594,7 +598,7 @@ class _$GFeedHotWorksData_hotWorks extends GFeedHotWorksData_hotWorks {
   @override
   final GFeedHotWorksData_hotWorks_user user;
   @override
-  final GFeedHotWorksData_hotWorks_viewer viewer;
+  final GFeedHotWorksData_hotWorks_viewer? viewer;
 
   factory _$GFeedHotWorksData_hotWorks(
           [void Function(GFeedHotWorksData_hotWorksBuilder)? updates]) =>
@@ -610,7 +614,7 @@ class _$GFeedHotWorksData_hotWorks extends GFeedHotWorksData_hotWorks {
       required this.imageAspectRatio,
       this.image,
       required this.user,
-      required this.viewer})
+      this.viewer})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename, r'GFeedHotWorksData_hotWorks', 'G__typename');
@@ -628,8 +632,6 @@ class _$GFeedHotWorksData_hotWorks extends GFeedHotWorksData_hotWorks {
         imageAspectRatio, r'GFeedHotWorksData_hotWorks', 'imageAspectRatio');
     BuiltValueNullFieldError.checkNotNull(
         user, r'GFeedHotWorksData_hotWorks', 'user');
-    BuiltValueNullFieldError.checkNotNull(
-        viewer, r'GFeedHotWorksData_hotWorks', 'viewer');
   }
 
   @override
@@ -759,7 +761,7 @@ class GFeedHotWorksData_hotWorksBuilder
       _imageAspectRatio = $v.imageAspectRatio;
       _image = $v.image?.toBuilder();
       _user = $v.user.toBuilder();
-      _viewer = $v.viewer.toBuilder();
+      _viewer = $v.viewer?.toBuilder();
       _$v = null;
     }
     return this;
@@ -802,7 +804,7 @@ class GFeedHotWorksData_hotWorksBuilder
                   'imageAspectRatio'),
               image: _image?.build(),
               user: user.build(),
-              viewer: viewer.build());
+              viewer: _viewer?.build());
     } catch (_) {
       late String _$failedField;
       try {
@@ -811,7 +813,7 @@ class GFeedHotWorksData_hotWorksBuilder
         _$failedField = 'user';
         user.build();
         _$failedField = 'viewer';
-        viewer.build();
+        _viewer?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'GFeedHotWorksData_hotWorks', _$failedField, e.toString());

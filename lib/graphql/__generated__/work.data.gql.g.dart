@@ -106,9 +106,6 @@ class _$GWorkData_workSerializer
       'viewsCount',
       serializers.serialize(object.viewsCount,
           specifiedType: const FullType(int)),
-      'viewer',
-      serializers.serialize(object.viewer,
-          specifiedType: const FullType(GWorkData_work_viewer)),
     ];
     Object? value;
     value = object.description;
@@ -124,6 +121,13 @@ class _$GWorkData_workSerializer
         ..add('image')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(GWorkData_work_image)));
+    }
+    value = object.viewer;
+    if (value != null) {
+      result
+        ..add('viewer')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(GWorkData_work_viewer)));
     }
     return result;
   }
@@ -590,7 +594,7 @@ class _$GWorkData_work extends GWorkData_work {
   @override
   final int viewsCount;
   @override
-  final GWorkData_work_viewer viewer;
+  final GWorkData_work_viewer? viewer;
 
   factory _$GWorkData_work([void Function(GWorkData_workBuilder)? updates]) =>
       (new GWorkData_workBuilder()..update(updates))._build();
@@ -606,7 +610,7 @@ class _$GWorkData_work extends GWorkData_work {
       required this.createdAt,
       required this.likesCount,
       required this.viewsCount,
-      required this.viewer})
+      this.viewer})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename, r'GWorkData_work', 'G__typename');
@@ -621,7 +625,6 @@ class _$GWorkData_work extends GWorkData_work {
         likesCount, r'GWorkData_work', 'likesCount');
     BuiltValueNullFieldError.checkNotNull(
         viewsCount, r'GWorkData_work', 'viewsCount');
-    BuiltValueNullFieldError.checkNotNull(viewer, r'GWorkData_work', 'viewer');
   }
 
   @override
@@ -754,7 +757,7 @@ class GWorkData_workBuilder
       _createdAt = $v.createdAt;
       _likesCount = $v.likesCount;
       _viewsCount = $v.viewsCount;
-      _viewer = $v.viewer.toBuilder();
+      _viewer = $v.viewer?.toBuilder();
       _$v = null;
     }
     return this;
@@ -795,7 +798,7 @@ class GWorkData_workBuilder
                   likesCount, r'GWorkData_work', 'likesCount'),
               viewsCount: BuiltValueNullFieldError.checkNotNull(
                   viewsCount, r'GWorkData_work', 'viewsCount'),
-              viewer: viewer.build());
+              viewer: _viewer?.build());
     } catch (_) {
       late String _$failedField;
       try {
@@ -807,7 +810,7 @@ class GWorkData_workBuilder
         tagNames.build();
 
         _$failedField = 'viewer';
-        viewer.build();
+        _viewer?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'GWorkData_work', _$failedField, e.toString());

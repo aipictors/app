@@ -92,12 +92,16 @@ class _$GCreateWorkBookmarkData_createWorkBookmarkSerializer
           specifiedType: const FullType(String)),
       'id',
       serializers.serialize(object.id, specifiedType: const FullType(String)),
-      'viewer',
-      serializers.serialize(object.viewer,
-          specifiedType: const FullType(
-              GCreateWorkBookmarkData_createWorkBookmark_viewer)),
     ];
-
+    Object? value;
+    value = object.viewer;
+    if (value != null) {
+      result
+        ..add('viewer')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(
+                GCreateWorkBookmarkData_createWorkBookmark_viewer)));
+    }
     return result;
   }
 
@@ -327,7 +331,7 @@ class _$GCreateWorkBookmarkData_createWorkBookmark
   @override
   final String id;
   @override
-  final GCreateWorkBookmarkData_createWorkBookmark_viewer viewer;
+  final GCreateWorkBookmarkData_createWorkBookmark_viewer? viewer;
 
   factory _$GCreateWorkBookmarkData_createWorkBookmark(
           [void Function(GCreateWorkBookmarkData_createWorkBookmarkBuilder)?
@@ -336,14 +340,12 @@ class _$GCreateWorkBookmarkData_createWorkBookmark
           ._build();
 
   _$GCreateWorkBookmarkData_createWorkBookmark._(
-      {required this.G__typename, required this.id, required this.viewer})
+      {required this.G__typename, required this.id, this.viewer})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(G__typename,
         r'GCreateWorkBookmarkData_createWorkBookmark', 'G__typename');
     BuiltValueNullFieldError.checkNotNull(
         id, r'GCreateWorkBookmarkData_createWorkBookmark', 'id');
-    BuiltValueNullFieldError.checkNotNull(
-        viewer, r'GCreateWorkBookmarkData_createWorkBookmark', 'viewer');
   }
 
   @override
@@ -417,7 +419,7 @@ class GCreateWorkBookmarkData_createWorkBookmarkBuilder
     if ($v != null) {
       _G__typename = $v.G__typename;
       _id = $v.id;
-      _viewer = $v.viewer.toBuilder();
+      _viewer = $v.viewer?.toBuilder();
       _$v = null;
     }
     return this;
@@ -448,12 +450,12 @@ class GCreateWorkBookmarkData_createWorkBookmarkBuilder
                   r'GCreateWorkBookmarkData_createWorkBookmark', 'G__typename'),
               id: BuiltValueNullFieldError.checkNotNull(
                   id, r'GCreateWorkBookmarkData_createWorkBookmark', 'id'),
-              viewer: viewer.build());
+              viewer: _viewer?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'viewer';
-        viewer.build();
+        _viewer?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'GCreateWorkBookmarkData_createWorkBookmark',

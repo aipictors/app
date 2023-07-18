@@ -53,7 +53,7 @@ abstract class GWorkData_work
   int get createdAt;
   int get likesCount;
   int get viewsCount;
-  GWorkData_work_viewer get viewer;
+  GWorkData_work_viewer? get viewer;
   static Serializer<GWorkData_work> get serializer => _$gWorkDataWorkSerializer;
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GWorkData_work.serializer,

@@ -6,7 +6,6 @@ import 'package:aipictors/screens/error/data_not_found_error_screen.dart';
 import 'package:aipictors/screens/error/operation_error_screen.dart';
 import 'package:aipictors/screens/error/unexpected_error_screen.dart';
 import 'package:aipictors/screens/loading_screen.dart';
-import 'package:aipictors/utils/show_error_snack_bar.dart';
 import 'package:aipictors/widgets/app_bar/work_bottom_app_bar.dart';
 import 'package:aipictors/widgets/button/follow_button.dart';
 import 'package:aipictors/widgets/container/loading_container.dart';
@@ -87,7 +86,7 @@ class WorkScreen extends HookConsumerWidget {
                       children: [
                         WorkUserProfileContainer(user: work.user),
                         FollowButton(onPressed: () {
-                          onFollowUser(context, userId: work.user.id);
+                          return onFollowUser(context, userId: work.user.id);
                         }),
                       ],
                     ),
@@ -173,13 +172,9 @@ class WorkScreen extends HookConsumerWidget {
   }
 
   /// フォローする
-  onFollowUser(BuildContext context, {required String userId}) async {
-    try {
-      await followUser((builder) {
-        return builder..vars.input.userId = userId;
-      });
-    } catch (exception) {
-      showErrorSnackBar(context, exception);
-    }
+  onFollowUser(BuildContext context, {required String userId}) {
+    return followUser((builder) {
+      return builder..vars.input.userId = userId;
+    });
   }
 }

@@ -28,7 +28,7 @@ directive @specifiedBy(
 
 scalar _Any
 
-union _Entity = CommentNode | ContributorNode | DailyThemeNode | FolderLikeNode | FolderNode | FriendshipNode | ImageNode | MutedTagNode | MutedUserNode | NotificationNode | StickerNode | SubWorkNode | TagNode | UserNode | UserSettingNode | WorkAwardNode | WorkBookmarkNode | WorkEventNode | WorkLikeNode | WorkNode | WorkViewerNode
+union _Entity = CommentNode | ContributorNode | DailyThemeNode | FolderLikeNode | FolderNode | FolderViewerNode | FriendshipNode | ImageNode | MutedTagNode | MutedUserNode | NotificationNode | StickerNode | StickerViewerNode | SubWorkNode | TagNode | TagViewerNode | UserNode | UserSettingNode | UserViewerNode | WorkAwardNode | WorkBookmarkNode | WorkEventNode | WorkLikeNode | WorkNode | WorkViewerNode
 
 type _Service {
   sdl: String
@@ -262,10 +262,17 @@ type FolderNode implements Node {
 
   """サムネイル"""
   thumbnailImage: ImageNode
+  viewer: FolderViewerNode
 }
 
 input FoldersWhereInput {
   search: String
+}
+
+type FolderViewerNode implements Node {
+  id: ID!
+  isLiked: Boolean!
+  isWatched: Boolean!
 }
 
 input FollowUserInput {
@@ -626,10 +633,16 @@ type StickerNode implements Node {
 
   """ダウンロード数"""
   downloadsCount: Int!
+  viewer: StickerViewerNode
 }
 
 input StickersWhereInput {
   search: String
+}
+
+type StickerViewerNode implements Node {
+  id: ID!
+  isLiked: Boolean!
 }
 
 type SubWorkNode implements Node {
@@ -648,10 +661,17 @@ type TagNode implements Node {
   worksCount: Int!
   likesCount: Int!
   firstWork: WorkNode
+  viewer: TagViewerNode
 }
 
 input TagsWhereInput {
   search: String
+}
+
+type TagViewerNode implements Node {
+  id: ID!
+  isLiked: Boolean!
+  isWatched: Boolean!
 }
 
 input UnfollowUserInput {
@@ -753,6 +773,7 @@ type UserNode implements Node {
   biographyEN: String
   workCreatedAt: Int
   likedWorks(offset: Int!, limit: Int!): [WorkNode!]!
+  viewer: UserViewerNode
 }
 
 """ユーザの設定"""
@@ -765,6 +786,12 @@ type UserSettingNode implements Node {
 
 input UsersWhereInput {
   search: String
+}
+
+type UserViewerNode implements Node {
+  id: ID!
+  isFollower: Boolean!
+  isFollowee: Boolean!
 }
 
 input UserWorksWhereInput {
@@ -947,7 +974,7 @@ type WorkNode implements Node {
   subWorks: [SubWorkNode!]!
 
   """ログイン"""
-  viewer: WorkViewerNode!
+  viewer: WorkViewerNode
 }
 
 input WorksWhereInput {

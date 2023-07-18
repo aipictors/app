@@ -68,7 +68,7 @@ abstract class GFeedHotWorksData_hotWorks
   @override
   GFeedHotWorksData_hotWorks_image? get image;
   GFeedHotWorksData_hotWorks_user get user;
-  GFeedHotWorksData_hotWorks_viewer get viewer;
+  GFeedHotWorksData_hotWorks_viewer? get viewer;
   static Serializer<GFeedHotWorksData_hotWorks> get serializer =>
       _$gFeedHotWorksDataHotWorksSerializer;
   @override

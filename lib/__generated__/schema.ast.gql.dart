@@ -291,6 +291,10 @@ const G_Entity = _i1.UnionTypeDefinitionNode(
       isNonNull: false,
     ),
     _i1.NamedTypeNode(
+      name: _i1.NameNode(value: 'FolderViewerNode'),
+      isNonNull: false,
+    ),
+    _i1.NamedTypeNode(
       name: _i1.NameNode(value: 'FriendshipNode'),
       isNonNull: false,
     ),
@@ -315,6 +319,10 @@ const G_Entity = _i1.UnionTypeDefinitionNode(
       isNonNull: false,
     ),
     _i1.NamedTypeNode(
+      name: _i1.NameNode(value: 'StickerViewerNode'),
+      isNonNull: false,
+    ),
+    _i1.NamedTypeNode(
       name: _i1.NameNode(value: 'SubWorkNode'),
       isNonNull: false,
     ),
@@ -323,11 +331,19 @@ const G_Entity = _i1.UnionTypeDefinitionNode(
       isNonNull: false,
     ),
     _i1.NamedTypeNode(
+      name: _i1.NameNode(value: 'TagViewerNode'),
+      isNonNull: false,
+    ),
+    _i1.NamedTypeNode(
       name: _i1.NameNode(value: 'UserNode'),
       isNonNull: false,
     ),
     _i1.NamedTypeNode(
       name: _i1.NameNode(value: 'UserSettingNode'),
+      isNonNull: false,
+    ),
+    _i1.NamedTypeNode(
+      name: _i1.NameNode(value: 'UserViewerNode'),
       isNonNull: false,
     ),
     _i1.NamedTypeNode(
@@ -1340,6 +1356,15 @@ const FolderNode = _i1.ObjectTypeDefinitionNode(
         isNonNull: false,
       ),
     ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'viewer'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'FolderViewerNode'),
+        isNonNull: false,
+      ),
+    ),
   ],
 );
 const FoldersWhereInput = _i1.InputObjectTypeDefinitionNode(
@@ -1355,6 +1380,45 @@ const FoldersWhereInput = _i1.InputObjectTypeDefinitionNode(
       ),
       defaultValue: null,
     )
+  ],
+);
+const FolderViewerNode = _i1.ObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'FolderViewerNode'),
+  directives: [],
+  interfaces: [
+    _i1.NamedTypeNode(
+      name: _i1.NameNode(value: 'Node'),
+      isNonNull: false,
+    )
+  ],
+  fields: [
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'id'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'ID'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'isLiked'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Boolean'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'isWatched'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Boolean'),
+        isNonNull: true,
+      ),
+    ),
   ],
 );
 const FollowUserInput = _i1.InputObjectTypeDefinitionNode(
@@ -3322,6 +3386,15 @@ const StickerNode = _i1.ObjectTypeDefinitionNode(
         isNonNull: true,
       ),
     ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'viewer'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'StickerViewerNode'),
+        isNonNull: false,
+      ),
+    ),
   ],
 );
 const StickersWhereInput = _i1.InputObjectTypeDefinitionNode(
@@ -3337,6 +3410,36 @@ const StickersWhereInput = _i1.InputObjectTypeDefinitionNode(
       ),
       defaultValue: null,
     )
+  ],
+);
+const StickerViewerNode = _i1.ObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'StickerViewerNode'),
+  directives: [],
+  interfaces: [
+    _i1.NamedTypeNode(
+      name: _i1.NameNode(value: 'Node'),
+      isNonNull: false,
+    )
+  ],
+  fields: [
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'id'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'ID'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'isLiked'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Boolean'),
+        isNonNull: true,
+      ),
+    ),
   ],
 );
 const SubWorkNode = _i1.ObjectTypeDefinitionNode(
@@ -3482,6 +3585,15 @@ const TagNode = _i1.ObjectTypeDefinitionNode(
         isNonNull: false,
       ),
     ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'viewer'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'TagViewerNode'),
+        isNonNull: false,
+      ),
+    ),
   ],
 );
 const TagsWhereInput = _i1.InputObjectTypeDefinitionNode(
@@ -3497,6 +3609,45 @@ const TagsWhereInput = _i1.InputObjectTypeDefinitionNode(
       ),
       defaultValue: null,
     )
+  ],
+);
+const TagViewerNode = _i1.ObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'TagViewerNode'),
+  directives: [],
+  interfaces: [
+    _i1.NamedTypeNode(
+      name: _i1.NameNode(value: 'Node'),
+      isNonNull: false,
+    )
+  ],
+  fields: [
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'id'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'ID'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'isLiked'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Boolean'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'isWatched'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Boolean'),
+        isNonNull: true,
+      ),
+    ),
   ],
 );
 const UnfollowUserInput = _i1.InputObjectTypeDefinitionNode(
@@ -4125,6 +4276,15 @@ const UserNode = _i1.ObjectTypeDefinitionNode(
         isNonNull: true,
       ),
     ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'viewer'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'UserViewerNode'),
+        isNonNull: false,
+      ),
+    ),
   ],
 );
 const UserSettingNode = _i1.ObjectTypeDefinitionNode(
@@ -4188,6 +4348,45 @@ const UsersWhereInput = _i1.InputObjectTypeDefinitionNode(
       ),
       defaultValue: null,
     )
+  ],
+);
+const UserViewerNode = _i1.ObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'UserViewerNode'),
+  directives: [],
+  interfaces: [
+    _i1.NamedTypeNode(
+      name: _i1.NameNode(value: 'Node'),
+      isNonNull: false,
+    )
+  ],
+  fields: [
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'id'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'ID'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'isFollower'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Boolean'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'isFollowee'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Boolean'),
+        isNonNull: true,
+      ),
+    ),
   ],
 );
 const UserWorksWhereInput = _i1.InputObjectTypeDefinitionNode(
@@ -5138,7 +5337,7 @@ const WorkNode = _i1.ObjectTypeDefinitionNode(
       args: [],
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'WorkViewerNode'),
-        isNonNull: true,
+        isNonNull: false,
       ),
     ),
   ],
@@ -5249,6 +5448,7 @@ const document = _i1.DocumentNode(definitions: [
   FolderLikeNode,
   FolderNode,
   FoldersWhereInput,
+  FolderViewerNode,
   FollowUserInput,
   FriendshipNode,
   ImageNode,
@@ -5276,9 +5476,11 @@ const document = _i1.DocumentNode(definitions: [
   ReportWorkInput,
   StickerNode,
   StickersWhereInput,
+  StickerViewerNode,
   SubWorkNode,
   TagNode,
   TagsWhereInput,
+  TagViewerNode,
   UnfollowUserInput,
   UnmuteTagInput,
   UnmuteUserInput,
@@ -5293,6 +5495,7 @@ const document = _i1.DocumentNode(definitions: [
   UserNode,
   UserSettingNode,
   UsersWhereInput,
+  UserViewerNode,
   UserWorksWhereInput,
   Viewer,
   WorkAwardNode,

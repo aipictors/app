@@ -49,7 +49,7 @@ abstract class GCreateWorkLikeData_createWorkLike
   String get G__typename;
   String get id;
   int get likesCount;
-  GCreateWorkLikeData_createWorkLike_viewer get viewer;
+  GCreateWorkLikeData_createWorkLike_viewer? get viewer;
   static Serializer<GCreateWorkLikeData_createWorkLike> get serializer =>
       _$gCreateWorkLikeDataCreateWorkLikeSerializer;
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(

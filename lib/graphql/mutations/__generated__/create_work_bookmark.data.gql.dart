@@ -50,7 +50,7 @@ abstract class GCreateWorkBookmarkData_createWorkBookmark
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get id;
-  GCreateWorkBookmarkData_createWorkBookmark_viewer get viewer;
+  GCreateWorkBookmarkData_createWorkBookmark_viewer? get viewer;
   static Serializer<GCreateWorkBookmarkData_createWorkBookmark>
       get serializer => _$gCreateWorkBookmarkDataCreateWorkBookmarkSerializer;
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(

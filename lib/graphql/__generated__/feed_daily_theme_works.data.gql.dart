@@ -104,7 +104,7 @@ abstract class GFeedDailyThemeWorksData_dailyTheme_works
   @override
   GFeedDailyThemeWorksData_dailyTheme_works_image? get image;
   GFeedDailyThemeWorksData_dailyTheme_works_user get user;
-  GFeedDailyThemeWorksData_dailyTheme_works_viewer get viewer;
+  GFeedDailyThemeWorksData_dailyTheme_works_viewer? get viewer;
   static Serializer<GFeedDailyThemeWorksData_dailyTheme_works> get serializer =>
       _$gFeedDailyThemeWorksDataDailyThemeWorksSerializer;
   @override

@@ -69,7 +69,7 @@ abstract class GFeedLatestWorksData_works
   @override
   GFeedLatestWorksData_works_image? get image;
   GFeedLatestWorksData_works_user get user;
-  GFeedLatestWorksData_works_viewer get viewer;
+  GFeedLatestWorksData_works_viewer? get viewer;
   static Serializer<GFeedLatestWorksData_works> get serializer =>
       _$gFeedLatestWorksDataWorksSerializer;
   @override

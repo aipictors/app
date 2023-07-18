@@ -196,10 +196,6 @@ class _$GFeedDailyThemeWorksData_dailyTheme_worksSerializer
       serializers.serialize(object.user,
           specifiedType:
               const FullType(GFeedDailyThemeWorksData_dailyTheme_works_user)),
-      'viewer',
-      serializers.serialize(object.viewer,
-          specifiedType:
-              const FullType(GFeedDailyThemeWorksData_dailyTheme_works_viewer)),
     ];
     Object? value;
     value = object.image;
@@ -209,6 +205,14 @@ class _$GFeedDailyThemeWorksData_dailyTheme_worksSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(
                 GFeedDailyThemeWorksData_dailyTheme_works_image)));
+    }
+    value = object.viewer;
+    if (value != null) {
+      result
+        ..add('viewer')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(
+                GFeedDailyThemeWorksData_dailyTheme_works_viewer)));
     }
     return result;
   }
@@ -848,7 +852,7 @@ class _$GFeedDailyThemeWorksData_dailyTheme_works
   @override
   final GFeedDailyThemeWorksData_dailyTheme_works_user user;
   @override
-  final GFeedDailyThemeWorksData_dailyTheme_works_viewer viewer;
+  final GFeedDailyThemeWorksData_dailyTheme_works_viewer? viewer;
 
   factory _$GFeedDailyThemeWorksData_dailyTheme_works(
           [void Function(GFeedDailyThemeWorksData_dailyTheme_worksBuilder)?
@@ -866,7 +870,7 @@ class _$GFeedDailyThemeWorksData_dailyTheme_works
       required this.imageAspectRatio,
       this.image,
       required this.user,
-      required this.viewer})
+      this.viewer})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(G__typename,
         r'GFeedDailyThemeWorksData_dailyTheme_works', 'G__typename');
@@ -884,8 +888,6 @@ class _$GFeedDailyThemeWorksData_dailyTheme_works
         r'GFeedDailyThemeWorksData_dailyTheme_works', 'imageAspectRatio');
     BuiltValueNullFieldError.checkNotNull(
         user, r'GFeedDailyThemeWorksData_dailyTheme_works', 'user');
-    BuiltValueNullFieldError.checkNotNull(
-        viewer, r'GFeedDailyThemeWorksData_dailyTheme_works', 'viewer');
   }
 
   @override
@@ -1022,7 +1024,7 @@ class GFeedDailyThemeWorksData_dailyTheme_worksBuilder
       _imageAspectRatio = $v.imageAspectRatio;
       _image = $v.image?.toBuilder();
       _user = $v.user.toBuilder();
-      _viewer = $v.viewer.toBuilder();
+      _viewer = $v.viewer?.toBuilder();
       _$v = null;
     }
     return this;
@@ -1065,7 +1067,7 @@ class GFeedDailyThemeWorksData_dailyTheme_worksBuilder
                   imageAspectRatio, r'GFeedDailyThemeWorksData_dailyTheme_works', 'imageAspectRatio'),
               image: _image?.build(),
               user: user.build(),
-              viewer: viewer.build());
+              viewer: _viewer?.build());
     } catch (_) {
       late String _$failedField;
       try {
@@ -1074,7 +1076,7 @@ class GFeedDailyThemeWorksData_dailyTheme_worksBuilder
         _$failedField = 'user';
         user.build();
         _$failedField = 'viewer';
-        viewer.build();
+        _viewer?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'GFeedDailyThemeWorksData_dailyTheme_works',
