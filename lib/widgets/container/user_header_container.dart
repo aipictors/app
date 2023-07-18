@@ -1,3 +1,5 @@
+import 'package:aipictors/mutations/follow_user.dart';
+import 'package:aipictors/utils/show_error_snack_bar.dart';
 import 'package:aipictors/widgets/avatar/header_user_profile_avatar.dart';
 import 'package:aipictors/widgets/button/follow_button.dart';
 import 'package:flutter/material.dart';
@@ -6,8 +8,11 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 class UserHeaderContainer extends HookConsumerWidget {
   const UserHeaderContainer({
     Key? key,
+    required this.userId,
     required this.iconImageURL,
   }) : super(key: key);
+
+  final String userId;
 
   final String? iconImageURL;
 
@@ -29,15 +34,28 @@ class UserHeaderContainer extends HookConsumerWidget {
                 ),
               ],
             ),
-            const Row(
+            Row(
               children: [
-                FollowButton(),
-                SizedBox(width: 8),
+                FollowButton(onPressed: () {
+                  onFollowUser(context);
+                }),
+                const SizedBox(width: 8),
               ],
             ),
           ],
         ),
       ],
     );
+  }
+
+  /// フォローする
+  onFollowUser(BuildContext context) async {
+    try {
+      await followUser((builder) {
+        return builder..vars.input.userId = userId;
+      });
+    } catch (exception) {
+      showErrorSnackBar(context, exception);
+    }
   }
 }

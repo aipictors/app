@@ -1,10 +1,12 @@
 import 'package:aipictors/graphql/__generated__/work.req.gql.dart';
 import 'package:aipictors/graphql/__generated__/work_comments.req.gql.dart';
+import 'package:aipictors/mutations/follow_user.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/screens/error/data_not_found_error_screen.dart';
 import 'package:aipictors/screens/error/operation_error_screen.dart';
 import 'package:aipictors/screens/error/unexpected_error_screen.dart';
 import 'package:aipictors/screens/loading_screen.dart';
+import 'package:aipictors/utils/show_error_snack_bar.dart';
 import 'package:aipictors/widgets/app_bar/work_bottom_app_bar.dart';
 import 'package:aipictors/widgets/button/follow_button.dart';
 import 'package:aipictors/widgets/container/loading_container.dart';
@@ -84,7 +86,9 @@ class WorkScreen extends HookConsumerWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         WorkUserProfileContainer(user: work.user),
-                        const FollowButton(),
+                        FollowButton(onPressed: () {
+                          onFollowUser(context, userId: work.user.id);
+                        }),
                       ],
                     ),
                   ),
@@ -166,5 +170,16 @@ class WorkScreen extends HookConsumerWidget {
         );
       },
     );
+  }
+
+  /// フォローする
+  onFollowUser(BuildContext context, {required String userId}) async {
+    try {
+      await followUser((builder) {
+        return builder..vars.input.userId = userId;
+      });
+    } catch (exception) {
+      showErrorSnackBar(context, exception);
+    }
   }
 }

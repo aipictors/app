@@ -64,6 +64,7 @@ class UserScreen extends HookConsumerWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           UserHeaderContainer(
+                            userId: userId,
                             iconImageURL: user.iconImage?.downloadURL,
                           ),
                           const SizedBox(height: 8),

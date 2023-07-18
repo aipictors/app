@@ -1,11 +1,11 @@
-import 'package:aipictors/graphql/mutations/__generated__/delete_work.data.gql.dart';
-import 'package:aipictors/graphql/mutations/__generated__/delete_work.req.gql.dart';
+import 'package:aipictors/graphql/mutations/__generated__/follow_user.data.gql.dart';
+import 'package:aipictors/graphql/mutations/__generated__/follow_user.req.gql.dart';
 import 'package:aipictors/mutations/mutate.dart';
 
 typedef Fn<T> = T Function(T);
 
-typedef Builder = Fn<GDeleteWorkReqBuilder>;
+typedef Builder = Fn<GFollowUserReqBuilder>;
 
-Future<GDeleteWorkData?> followUser(Builder b) {
-  return mutate(GDeleteWorkReq(b));
+Future<GFollowUserData?> followUser(Builder b) {
+  return mutate(GFollowUserReq(b));
 }

@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class FollowButton extends HookConsumerWidget {
-  const FollowButton({Key? key}) : super(key: key);
+  const FollowButton({
+    Key? key,
+    required this.onPressed,
+  }) : super(key: key);
+
+  final VoidCallback onPressed;
 
   @override
   Widget build(context, ref) {
@@ -10,7 +15,7 @@ class FollowButton extends HookConsumerWidget {
       style: FilledButton.styleFrom(
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
       ),
-      onPressed: () {},
+      onPressed: onPressed,
       child: const Text(
         'フォロー',
         style: TextStyle(

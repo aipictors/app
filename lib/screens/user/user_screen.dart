@@ -70,6 +70,7 @@ class UserScreen extends HookConsumerWidget {
                         children: [
                           UserHeaderActionContainer(
                             iconImageURL: user.iconImage?.downloadURL,
+                            userId: user.id,
                             userLogin: user.login,
                             userName: user.name,
                           ),
