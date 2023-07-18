@@ -64,7 +64,7 @@ class MonthlyWorkAwardsScreen extends HookConsumerWidget {
                 context.push('/works/${work.id}');
               },
               child: GridWorkImage(
-                imageURL: work.thumbnailImage!.downloadURL,
+                imageURL: work.thumbnailImage?.downloadURL,
               ),
             );
           },

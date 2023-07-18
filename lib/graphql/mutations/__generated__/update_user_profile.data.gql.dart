@@ -6,7 +6,7 @@ import 'package:aipictors/__generated__/serializers.gql.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'update_user.data.gql.g.dart';
+part 'update_user_profile.data.gql.g.dart';
 
 abstract class GUpdateUserProfileData
     implements Built<GUpdateUserProfileData, GUpdateUserProfileDataBuilder> {

@@ -128,10 +128,11 @@ class CommentModalContainer extends HookConsumerWidget {
                             FocusManager.instance.primaryFocus?.unfocus();
                             final text = controller.text;
                             controller.clear();
-                            await createWorkComment(
-                              workId: workId,
-                              text: text,
-                            );
+                            await createWorkComment((builder) {
+                              return builder
+                                ..vars.input.workId = workId
+                                ..vars.input.text = text;
+                            });
                             client.value?.requestController.add(request);
                           } catch (exception) {
                             showErrorSnackBar(context, exception);

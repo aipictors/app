@@ -56,7 +56,7 @@ class UserWorksContainer extends HookConsumerWidget {
                 context.push('/works/${work.id}');
               },
               child: GridWorkImage(
-                imageURL: work.image!.downloadURL,
+                imageURL: work.thumbnailImage?.downloadURL,
               ),
             );
           },

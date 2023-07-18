@@ -629,11 +629,11 @@ import 'package:aipictors/graphql/mutations/__generated__/update_sticker.req.gql
     show GUpdateStickerReq;
 import 'package:aipictors/graphql/mutations/__generated__/update_sticker.var.gql.dart'
     show GUpdateStickerVars;
-import 'package:aipictors/graphql/mutations/__generated__/update_user.data.gql.dart'
+import 'package:aipictors/graphql/mutations/__generated__/update_user_profile.data.gql.dart'
     show GUpdateUserProfileData, GUpdateUserProfileData_updateUserProfile;
-import 'package:aipictors/graphql/mutations/__generated__/update_user.req.gql.dart'
+import 'package:aipictors/graphql/mutations/__generated__/update_user_profile.req.gql.dart'
     show GUpdateUserProfileReq;
-import 'package:aipictors/graphql/mutations/__generated__/update_user.var.gql.dart'
+import 'package:aipictors/graphql/mutations/__generated__/update_user_profile.var.gql.dart'
     show GUpdateUserProfileVars;
 import 'package:aipictors/graphql/mutations/__generated__/update_work.data.gql.dart'
     show GUpdateWorkData, GUpdateWorkData_updateWork;

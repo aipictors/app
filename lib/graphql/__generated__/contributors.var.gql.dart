@@ -15,9 +15,6 @@ abstract class GContributorsVars
   factory GContributorsVars([Function(GContributorsVarsBuilder b) updates]) =
       _$GContributorsVars;
 
-  String get user_id;
-  int get offset;
-  int get limit;
   static Serializer<GContributorsVars> get serializer =>
       _$gContributorsVarsSerializer;
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(

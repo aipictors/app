@@ -3,18 +3,18 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:aipictors/__generated__/serializers.gql.dart' as _i6;
-import 'package:aipictors/graphql/mutations/__generated__/update_user.ast.gql.dart'
+import 'package:aipictors/graphql/mutations/__generated__/update_user_profile.ast.gql.dart'
     as _i5;
-import 'package:aipictors/graphql/mutations/__generated__/update_user.data.gql.dart'
+import 'package:aipictors/graphql/mutations/__generated__/update_user_profile.data.gql.dart'
     as _i2;
-import 'package:aipictors/graphql/mutations/__generated__/update_user.var.gql.dart'
+import 'package:aipictors/graphql/mutations/__generated__/update_user_profile.var.gql.dart'
     as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:ferry_exec/ferry_exec.dart' as _i1;
 import 'package:gql_exec/gql_exec.dart' as _i4;
 
-part 'update_user.req.gql.g.dart';
+part 'update_user_profile.req.gql.g.dart';
 
 abstract class GUpdateUserProfileReq
     implements

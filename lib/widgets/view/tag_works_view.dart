@@ -45,7 +45,7 @@ class TagWorksView extends HookConsumerWidget {
             itemBuilder: (context, index) {
               final work = works[index];
               return WorkGridItemContainer(
-                imageUrl: work.thumbnailImage!.downloadURL,
+                imageUrl: work.thumbnailImage?.downloadURL,
                 onTap: () {
                   FirebaseAnalytics.instance.logSelectContent(
                     contentType: 'work',

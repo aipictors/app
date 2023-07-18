@@ -75,6 +75,8 @@ class WorkBottomAppContainer extends HookConsumerWidget {
   }
 
   onCreateWorkLike() {
-    createWorkLike(workId: workId);
+    createWorkLike((builder) {
+      return builder..vars.input.workId = workId;
+    });
   }
 }

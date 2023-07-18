@@ -155,7 +155,9 @@ class FeedWorkListTile extends HookConsumerWidget {
         'item_id': workId,
       },
     );
-    createWorkLike(workId: workId);
+    createWorkLike((builder) {
+      return builder..vars.input.workId = workId;
+    });
   }
 
   void onCreateBookmark(BuildContext context) {
@@ -165,7 +167,9 @@ class FeedWorkListTile extends HookConsumerWidget {
         'item_id': workId,
       },
     );
-    createWorkLike(workId: workId);
+    createWorkLike((builder) {
+      return builder..vars.input.workId = workId;
+    });
   }
 
   void onOpenWork(BuildContext context) {

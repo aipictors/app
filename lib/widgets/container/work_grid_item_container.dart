@@ -9,7 +9,7 @@ class WorkGridItemContainer extends HookConsumerWidget {
     required this.onTap,
   }) : super(key: key);
 
-  final String imageUrl;
+  final String? imageUrl;
 
   final VoidCallback onTap;
 

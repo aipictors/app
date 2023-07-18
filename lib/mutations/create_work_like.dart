@@ -1,24 +1,11 @@
-import 'package:aipictors/client.dart';
 import 'package:aipictors/graphql/mutations/__generated__/create_work_like.data.gql.dart';
 import 'package:aipictors/graphql/mutations/__generated__/create_work_like.req.gql.dart';
-import 'package:aipictors/utils/to_response_data.dart';
-import 'package:sentry_flutter/sentry_flutter.dart';
+import 'package:aipictors/mutations/mutate.dart';
 
-Future<GCreateWorkLikeData?> createWorkLike({
-  required String workId,
-}) async {
-  try {
-    final client = await createClient();
+typedef Fn<T> = T Function(T);
 
-    final req = GCreateWorkLikeReq((builder) {
-      return builder..vars.input.workId = workId;
-    });
+typedef Builder = Fn<GCreateWorkLikeReqBuilder>;
 
-    final stream = client.request(req).map(toResponseData);
-
-    return stream.first;
-  } catch (exception, stackTrace) {
-    Sentry.captureException(exception, stackTrace: stackTrace);
-    rethrow;
-  }
+Future<GCreateWorkLikeData?> createWorkLike(Builder b) {
+  return mutate(GCreateWorkLikeReq(b));
 }
