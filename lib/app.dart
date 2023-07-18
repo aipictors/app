@@ -53,10 +53,11 @@ class App extends HookConsumerWidget {
         themeMode: config.themeMode,
         theme: extendThemeData(theme),
         darkTheme: extendThemeData(darkTheme),
+        locale: const Locale('ja'),
         supportedLocales: const [
-          Locale('en', ''),
-          Locale('ja', ''),
-          Locale('vi', ''),
+          Locale('en'),
+          Locale('ja'),
+          Locale('vi'),
           Locale.fromSubtags(
             languageCode: 'zh',
             scriptCode: 'Hans',

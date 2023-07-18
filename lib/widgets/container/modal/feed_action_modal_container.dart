@@ -4,6 +4,7 @@ import 'package:aipictors/widgets/container/notification_user_container.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:share_plus/share_plus.dart';
 
 class FeedActionModalContainer extends HookConsumerWidget {
   const FeedActionModalContainer({
@@ -44,6 +45,7 @@ class FeedActionModalContainer extends HookConsumerWidget {
               ),
               onTap: () {
                 context.pop();
+                Share.share('check out! https://aipictors.com/works/$workId');
               },
             ),
             ListTile(

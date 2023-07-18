@@ -7,6 +7,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   dynamic_color
   firebase_core
   sentry_flutter
+  share_plus
   url_launcher_windows
 )
 
