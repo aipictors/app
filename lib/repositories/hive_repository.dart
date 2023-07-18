@@ -1,6 +1,7 @@
 import 'package:ferry_hive_store/ferry_hive_store.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
+/// キャッシュ
 class HiveRepository {
   static HiveStore? store;
 
@@ -15,5 +16,10 @@ class HiveRepository {
       throw Exception('HiveStore is not activated.');
     }
     return store!;
+  }
+
+  /// キャッシュを削除する
+  static clear() {
+    return store?.clear();
   }
 }

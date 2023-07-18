@@ -3,6 +3,7 @@ import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/mutations/logout.dart';
 import 'package:aipictors/providers/auth_state_provider.dart';
 import 'package:aipictors/providers/config_provider.dart';
+import 'package:aipictors/repositories/hive_repository.dart';
 import 'package:aipictors/widgets/container/theme_color_container.dart';
 import 'package:aipictors/widgets/dialog/about_discord_dialog.dart';
 import 'package:aipictors/widgets/dialog/about_twitter_dialog.dart';
@@ -136,6 +137,13 @@ class ConfigScreen extends HookConsumerWidget {
                 context.push('/debug');
               },
             ),
+          ListTile(
+            leading: const Icon(Icons.delete_rounded),
+            title: Text('キャッシュクリア'.i18n),
+            onTap: () {
+              onClearCache(context);
+            },
+          ),
           if (authState.value != null)
             ListTile(
               leading: const Icon(Icons.logout_rounded),
@@ -197,12 +205,13 @@ class ConfigScreen extends HookConsumerWidget {
                 notifier.toggleThemeMode();
               },
             ),
-          const SizedBox(height: 8),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: const ThemeColorContainer(),
-          ),
-          const SizedBox(height: 12),
+          if (!config.isSystemColorMode) const SizedBox(height: 8),
+          if (!config.isSystemColorMode)
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: const ThemeColorContainer(),
+            ),
+          if (!config.isSystemColorMode) const SizedBox(height: 12),
           const Divider(),
           ListTile(
             title: Text(
@@ -303,19 +312,28 @@ class ConfigScreen extends HookConsumerWidget {
           },
           onAccept: () {
             context.pop();
-            onLogout(context, ref);
+            onLogout(context);
           },
         );
       },
     );
   }
 
-  Future onLogout(BuildContext context, WidgetRef ref) async {
+  Future onLogout(BuildContext context) async {
     logout();
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
       ..showSnackBar(
         const SnackBar(content: Text('ログアウトしました。')),
+      );
+  }
+
+  Future onClearCache(BuildContext context) async {
+    HiveRepository.clear();
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(
+        const SnackBar(content: Text('キャッシュを削除しました。')),
       );
   }
 }

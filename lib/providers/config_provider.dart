@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:aipictors/repositories/config_repository.dart';
 import 'package:aipictors/states/config_state.dart';
 import 'package:aipictors/utils/to_color.dart';
@@ -60,8 +62,13 @@ class Config extends _$Config {
     final themeMode = const ConfigRepository().themeMode;
     if (themeMode == ThemeMode.system.name) {
       const ConfigRepository().setThemeMode(ThemeMode.dark.name);
-    } else {
+    }
+    if (themeMode != ThemeMode.system.name) {
       const ConfigRepository().setThemeMode(ThemeMode.system.name);
+      // OSのカラーパレットを使用する
+      if (Platform.isAndroid) {
+        const ConfigRepository().setThemeColor(null);
+      }
     }
     state = build();
   }

@@ -61,8 +61,9 @@ ThemeData extendThemeData(ThemeData themeData) {
     dialogTheme: DialogTheme(
       titleTextStyle: textTheme.headlineSmall!.copyWith(fontSize: 20),
     ),
-    listTileTheme: const ListTileThemeData(
-      titleTextStyle: TextStyle(fontWeight: FontWeight.bold),
-    ),
+    // ダークモードが適用されない
+    // listTileTheme: themeData.listTileTheme.copyWith(
+    //   titleTextStyle: const TextStyle(fontWeight: FontWeight.bold),
+    // ),
   );
 }
