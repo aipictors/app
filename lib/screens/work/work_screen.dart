@@ -3,10 +3,9 @@ import 'package:aipictors/graphql/__generated__/work_comments.req.gql.dart';
 import 'package:aipictors/mutations/follow_user.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/screens/error/data_not_found_error_screen.dart';
-import 'package:aipictors/screens/error/operation_error_screen.dart';
-import 'package:aipictors/screens/error/unexpected_error_screen.dart';
 import 'package:aipictors/screens/loading_screen.dart';
 import 'package:aipictors/widgets/app_bar/work_bottom_app_bar.dart';
+import 'package:aipictors/widgets/builder/operation_screen_builder.dart';
 import 'package:aipictors/widgets/button/follow_button.dart';
 import 'package:aipictors/widgets/container/loading_container.dart';
 import 'package:aipictors/widgets/container/modal/work_action_modal_container.dart';
@@ -36,21 +35,12 @@ class WorkScreen extends HookConsumerWidget {
       return const LoadingScreen();
     }
 
-    return Operation(
+    return OperationScreenBuilder(
       client: client.value!,
       operationRequest: GWorkReq((builder) {
         return builder..vars.id = workId;
       }),
-      builder: (context, response, error) {
-        if (error != null) {
-          return const UnexpectedErrorScreen();
-        }
-        if (response == null || response.loading) {
-          return const LoadingScreen();
-        }
-        if (response.graphqlErrors != null) {
-          return OperationErrorScreen(errors: response.graphqlErrors!);
-        }
+      builder: (context, response) {
         final work = response.data?.work;
         if (work == null) {
           return const DataNotFoundErrorScreen();
