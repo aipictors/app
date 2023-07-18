@@ -1,4 +1,4 @@
-import 'package:aipictors/graphql/__generated__/viewer_feed_works.req.gql.dart';
+import 'package:aipictors/graphql/__generated__/feed_daily_theme_works.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
 import 'package:aipictors/widgets/container/error/data_empty_error_container.dart';
@@ -24,13 +24,16 @@ class FeedDailyThemeWorksView extends HookConsumerWidget {
 
     return OperationBuilder(
       client: client.value!,
-      operationRequest: GViewerFeedWorksReq((builder) {
+      operationRequest: GFeedDailyThemeWorksReq((builder) {
         return builder
           ..vars.limit = 16
-          ..vars.offset = 0;
+          ..vars.offset = 0
+          ..vars.year = DateTime.now().year
+          ..vars.month = DateTime.now().month
+          ..vars.day = DateTime.now().day;
       }),
       builder: (context, response) {
-        final feedWorks = response.data?.viewer?.feedWorks;
+        final feedWorks = response.data?.dailyTheme?.works;
         if (feedWorks == null) {
           return const DataNotFoundErrorContainer();
         }
@@ -56,8 +59,8 @@ class FeedDailyThemeWorksView extends HookConsumerWidget {
               userIconImageURL: work.user.iconImage?.downloadURL,
               likesCount: work.likesCount,
               commentsCount: work.commentsCount,
-              isLiked: work.viewer.isLiked,
-              isBookmarked: work.viewer.isBookmarked,
+              isLiked: work.viewer?.isLiked == true,
+              isBookmarked: work.viewer?.isBookmarked == true,
             );
           },
         );

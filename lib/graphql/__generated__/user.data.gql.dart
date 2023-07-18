@@ -64,6 +64,7 @@ abstract class GUserData_user
   GUserData_user_iconImage? get iconImage;
   @override
   GUserData_user_headerImage? get headerImage;
+  GUserData_user_viewer? get viewer;
   static Serializer<GUserData_user> get serializer => _$gUserDataUserSerializer;
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
@@ -139,6 +140,34 @@ abstract class GUserData_user_headerImage
   static GUserData_user_headerImage? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUserData_user_headerImage.serializer,
+        json,
+      );
+}
+
+abstract class GUserData_user_viewer
+    implements Built<GUserData_user_viewer, GUserData_user_viewerBuilder> {
+  GUserData_user_viewer._();
+
+  factory GUserData_user_viewer(
+          [Function(GUserData_user_viewerBuilder b) updates]) =
+      _$GUserData_user_viewer;
+
+  static void _initializeBuilder(GUserData_user_viewerBuilder b) =>
+      b..G__typename = 'UserViewerNode';
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  String get id;
+  bool get isFollower;
+  bool get isFollowee;
+  static Serializer<GUserData_user_viewer> get serializer =>
+      _$gUserDataUserViewerSerializer;
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GUserData_user_viewer.serializer,
+        this,
+      ) as Map<String, dynamic>);
+  static GUserData_user_viewer? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GUserData_user_viewer.serializer,
         json,
       );
 }

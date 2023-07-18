@@ -232,7 +232,8 @@ import 'package:aipictors/graphql/__generated__/user.data.gql.dart'
         GUserData,
         GUserData_user,
         GUserData_user_headerImage,
-        GUserData_user_iconImage;
+        GUserData_user_iconImage,
+        GUserData_user_viewer;
 import 'package:aipictors/graphql/__generated__/user.req.gql.dart'
     show GUserReq;
 import 'package:aipictors/graphql/__generated__/user.var.gql.dart'
@@ -949,6 +950,7 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GUserData_user,
   GUserData_user_headerImage,
   GUserData_user_iconImage,
+  GUserData_user_viewer,
   GUserFieldsData,
   GUserFieldsData_headerImage,
   GUserFieldsData_iconImage,

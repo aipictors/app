@@ -56,8 +56,8 @@ class FeedHotWorksView extends HookConsumerWidget {
               userIconImageURL: work.user.iconImage?.downloadURL,
               likesCount: work.likesCount,
               commentsCount: work.commentsCount,
-              isLiked: work.viewer.isLiked,
-              isBookmarked: work.viewer.isBookmarked,
+              isLiked: work.viewer?.isLiked == true,
+              isBookmarked: work.viewer?.isBookmarked == true,
             );
           },
         );

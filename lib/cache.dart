@@ -19,7 +19,91 @@ Cache createCache() {
       'Query': TypePolicy(
         fields: {
           'works': FieldPolicy(
-            keyArgs: const ['where'],
+            keyArgs: const [],
+            merge: (existing, incoming, options) {
+              final linkedHashSet = LinkedHashSet<dynamic>(
+                equals: jsonMapEquals,
+                hashCode: const DeepCollectionEquality().hash,
+              )
+                ..addAll(existing ?? [])
+                ..addAll(incoming ?? []);
+              return linkedHashSet.toList().toList();
+            },
+          ),
+          'users': FieldPolicy(
+            keyArgs: const [],
+            merge: (existing, incoming, options) {
+              final linkedHashSet = LinkedHashSet<dynamic>(
+                equals: jsonMapEquals,
+                hashCode: const DeepCollectionEquality().hash,
+              )
+                ..addAll(existing ?? [])
+                ..addAll(incoming ?? []);
+              return linkedHashSet.toList().toList();
+            },
+          ),
+          'contributors': FieldPolicy(
+            keyArgs: const [],
+            merge: (existing, incoming, options) {
+              final linkedHashSet = LinkedHashSet<dynamic>(
+                equals: jsonMapEquals,
+                hashCode: const DeepCollectionEquality().hash,
+              )
+                ..addAll(existing ?? [])
+                ..addAll(incoming ?? []);
+              return linkedHashSet.toList().toList();
+            },
+          ),
+          'folders': FieldPolicy(
+            keyArgs: const [],
+            merge: (existing, incoming, options) {
+              final linkedHashSet = LinkedHashSet<dynamic>(
+                equals: jsonMapEquals,
+                hashCode: const DeepCollectionEquality().hash,
+              )
+                ..addAll(existing ?? [])
+                ..addAll(incoming ?? []);
+              return linkedHashSet.toList().toList();
+            },
+          ),
+          'dailyThemes': FieldPolicy(
+            keyArgs: const [],
+            merge: (existing, incoming, options) {
+              final linkedHashSet = LinkedHashSet<dynamic>(
+                equals: jsonMapEquals,
+                hashCode: const DeepCollectionEquality().hash,
+              )
+                ..addAll(existing ?? [])
+                ..addAll(incoming ?? []);
+              return linkedHashSet.toList().toList();
+            },
+          ),
+          'stickers': FieldPolicy(
+            keyArgs: const [],
+            merge: (existing, incoming, options) {
+              final linkedHashSet = LinkedHashSet<dynamic>(
+                equals: jsonMapEquals,
+                hashCode: const DeepCollectionEquality().hash,
+              )
+                ..addAll(existing ?? [])
+                ..addAll(incoming ?? []);
+              return linkedHashSet.toList().toList();
+            },
+          ),
+          'tags': FieldPolicy(
+            keyArgs: const [],
+            merge: (existing, incoming, options) {
+              final linkedHashSet = LinkedHashSet<dynamic>(
+                equals: jsonMapEquals,
+                hashCode: const DeepCollectionEquality().hash,
+              )
+                ..addAll(existing ?? [])
+                ..addAll(incoming ?? []);
+              return linkedHashSet.toList().toList();
+            },
+          ),
+          'workAwards': FieldPolicy(
+            keyArgs: const [],
             merge: (existing, incoming, options) {
               final linkedHashSet = LinkedHashSet<dynamic>(
                 equals: jsonMapEquals,

@@ -61,7 +61,7 @@ class WorkScreen extends HookConsumerWidget {
           extendBody: true,
           bottomNavigationBar: WorkBottomAppContainer(
             workId: workId,
-            isLiked: work.viewer.isLiked,
+            isLiked: work.viewer?.isLiked == true,
           ),
           body: SingleChildScrollView(
             child: SafeArea(
