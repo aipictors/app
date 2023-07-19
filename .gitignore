@@ -6,6 +6,7 @@
 /android/app/src/main/res/mipmap*/
 /android/app/google-services.json
 /android/app/src/main/res/*/ic_launcher.png
+/android/app/src/main/res/*/ic_launcher_foreground.png
 /ios/GoogleService-Info.plist
 
 # Ferry

@@ -62,6 +62,26 @@ https://www.apollographql.com/docs/rover/commands/supergraphs
 
 ## ビルド
 
+アイコンを生成する。
+
 ```
-flutter build ios --release --dart-define-from-file=dart_defines/production.json
+$ flutter pub run flutter_launcher_icons:main
+```
+
+### ビルド（iOS）
+
+```
+$ flutter build ios --release --dart-define-from-file=dart_defines/production.json
+```
+
+### ビルド（Android）
+
+```
+$ flutter build appbundle --dart-define-from-file=dart_defines/production.json
+```
+
+Apkファイルの場合は以下。
+
+```
+$ flutter build apk --dart-define-from-file=dart_defines/production.json
 ```

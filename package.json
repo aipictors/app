@@ -1,12 +1,5 @@
 {
-  "name": "aipictors-flutter",
-  "scripts": {
-    "build:ios": "flutter build ios --release --dart-define-from-file=dart_defines/release_production.json",
-    "build:icons": "flutter pub run flutter_launcher_icons:main",
-    "build:runner": "dart run build_runner build",
-    "dev": "dart run build_runner watch --delete-conflicting-outputs",
-    "introspect": "rover graph introspect https://router-6ouzjmdzha-an.a.run.app -o lib/schema.graphql"
-  },
+  "name": "aipictors",
   "devDependencies": {
     "prettier": "^2.8.8"
   }
