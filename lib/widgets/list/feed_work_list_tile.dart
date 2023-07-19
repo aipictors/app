@@ -1,3 +1,4 @@
+import 'package:aipictors/mutations/create_work_bookmark.dart';
 import 'package:aipictors/mutations/create_work_like.dart';
 import 'package:aipictors/utils/to_readable_date_time.dart';
 import 'package:aipictors/widgets/button/feed_bookmark_button.dart';
@@ -175,7 +176,7 @@ class FeedWorkListTile extends HookConsumerWidget {
         'item_id': workId,
       },
     );
-    createWorkLike((builder) {
+    createWorkBookmark((builder) {
       return builder..vars.input.workId = workId;
     });
   }
