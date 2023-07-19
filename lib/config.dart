@@ -50,6 +50,10 @@ class DefaultConfig {
     return packageInfo!.version;
   }
 
+  static int get mediumUIThreshold {
+    return 600;
+  }
+
   /// dart_define
   static String get sentryEnvironment {
     return const String.fromEnvironment('sentryEnvironment');

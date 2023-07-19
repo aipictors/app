@@ -1,3 +1,6 @@
+import 'package:aipictors/widgets/container/notification_image_container_compact.dart';
+import 'package:aipictors/widgets/container/notification_image_container_medium.dart';
+import 'package:aipictors/config.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -14,30 +17,15 @@ class NotificationImageContainer extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(8.0),
-          child: Image.network(
-            workImageURL!,
-            fit: BoxFit.cover,
-            width: double.infinity,
-            height: 80,
-          ),
-        ),
-        const SizedBox(height: 8),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Text(
-              workTitle!,
-              style: Theme.of(context).textTheme.labelSmall,
-            ),
-          ],
-        ),
-      ],
+    if (MediaQuery.of(context).size.width >= DefaultConfig.mediumUIThreshold) {
+      return NotificationImageContainerMedium(
+        workTitle: workTitle,
+        workImageURL: workImageURL,
+      );
+    }
+    return NotificationImageContainerCompact(
+      workTitle: workTitle,
+      workImageURL: workImageURL,
     );
   }
 }
