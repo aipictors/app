@@ -39,7 +39,7 @@ class OperationBuilder<T, U> extends HookConsumerWidget {
         }
 
         if (response.graphqlErrors != null) {
-          return OperationErrorContainer(errors: response.graphqlErrors!);
+          return OperationErrorContainer(errorList: response.graphqlErrors!);
         }
 
         final data = response.data;

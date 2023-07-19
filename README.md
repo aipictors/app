@@ -1,17 +1,9 @@
-A new Flutter project.
+## コード生成
 
-## はじめに
-
-コードを生成する。
+必要な場合はコードを生成する。
 
 ```bash
 $ dart run build_runner build
-```
-
-or
-
-```bash
-$ flutter pub run build_runner build
 ```
 
 監視する場合は
@@ -62,9 +54,11 @@ Tools • Dart 3.0.5 • DevTools 2.23.1
 更新があった場合は取得する。
 
 ```
-$ npx get-graphql-schema http://localhost:4000/graphql > lib/schema.graphql
-// $ npx get-graphql-schema https://router-6ouzjmdzha-an.a.run.app > lib/schema.graphql
+$ rover graph introspect https://router-6ouzjmdzha-an.a.run.app -o lib/schema.graphql
+$ rover graph introspect http://localhost:4000/graphql -o lib/schema.graphql
 ```
+
+https://www.apollographql.com/docs/rover/commands/supergraphs
 
 ## ビルド
 

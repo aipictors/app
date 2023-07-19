@@ -45,7 +45,6 @@ class FeedBookmarkButton extends HookConsumerWidget {
     if (count == null) {
       return null;
     }
-
     return count! + (inMemory ? 1 : 0);
   }
 }

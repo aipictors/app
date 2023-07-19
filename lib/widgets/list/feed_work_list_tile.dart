@@ -125,7 +125,7 @@ class FeedWorkListTile extends HookConsumerWidget {
                 FeedBookmarkButton(
                   isActive: isBookmarked,
                   onTap: () async {
-                    onCreateLike(context);
+                    onCreateBookmark(context);
                   },
                 ),
                 const SizedBox(width: 8),
@@ -133,7 +133,7 @@ class FeedWorkListTile extends HookConsumerWidget {
                   count: likesCount,
                   isActive: isLiked,
                   onTap: () async {
-                    onCreateBookmark(context);
+                    onCreateLike(context);
                   },
                 ),
               ]),

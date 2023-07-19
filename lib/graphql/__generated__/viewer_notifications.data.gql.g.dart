@@ -181,13 +181,6 @@ class _$GViewerNotificationsData_viewer_notificationsSerializer
           specifiedType: const FullType(String)),
     ];
     Object? value;
-    value = object.workId;
-    if (value != null) {
-      result
-        ..add('workId')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
-    }
     value = object.work;
     if (value != null) {
       result
@@ -196,13 +189,6 @@ class _$GViewerNotificationsData_viewer_notificationsSerializer
             specifiedType: const FullType(
                 GViewerNotificationsData_viewer_notifications_work)));
     }
-    value = object.relatedUserId;
-    if (value != null) {
-      result
-        ..add('relatedUserId')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
-    }
     value = object.relatedUser;
     if (value != null) {
       result
@@ -210,13 +196,6 @@ class _$GViewerNotificationsData_viewer_notificationsSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(
                 GViewerNotificationsData_viewer_notifications_relatedUser)));
-    }
-    value = object.stickerId;
-    if (value != null) {
-      result
-        ..add('stickerId')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
     }
     value = object.sticker;
     if (value != null) {
@@ -262,29 +241,17 @@ class _$GViewerNotificationsData_viewer_notificationsSerializer
           result.message = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
-        case 'workId':
-          result.workId = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
-          break;
         case 'work':
           result.work.replace(serializers.deserialize(value,
                   specifiedType: const FullType(
                       GViewerNotificationsData_viewer_notifications_work))!
               as GViewerNotificationsData_viewer_notifications_work);
           break;
-        case 'relatedUserId':
-          result.relatedUserId = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
-          break;
         case 'relatedUser':
           result.relatedUser.replace(serializers.deserialize(value,
                   specifiedType: const FullType(
                       GViewerNotificationsData_viewer_notifications_relatedUser))!
               as GViewerNotificationsData_viewer_notifications_relatedUser);
-          break;
-        case 'stickerId':
-          result.stickerId = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
           break;
         case 'sticker':
           result.sticker.replace(serializers.deserialize(value,
@@ -633,12 +600,16 @@ class _$GViewerNotificationsData_viewer_notifications_stickerSerializer
       'title',
       serializers.serialize(object.title,
           specifiedType: const FullType(String)),
-      'image',
-      serializers.serialize(object.image,
-          specifiedType: const FullType(
-              GViewerNotificationsData_viewer_notifications_sticker_image)),
     ];
-
+    Object? value;
+    value = object.image;
+    if (value != null) {
+      result
+        ..add('image')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(
+                GViewerNotificationsData_viewer_notifications_sticker_image)));
+    }
     return result;
   }
 
@@ -1000,15 +971,9 @@ class _$GViewerNotificationsData_viewer_notifications
   @override
   final String message;
   @override
-  final String? workId;
-  @override
   final GViewerNotificationsData_viewer_notifications_work? work;
   @override
-  final String? relatedUserId;
-  @override
   final GViewerNotificationsData_viewer_notifications_relatedUser? relatedUser;
-  @override
-  final String? stickerId;
   @override
   final GViewerNotificationsData_viewer_notifications_sticker? sticker;
 
@@ -1025,11 +990,8 @@ class _$GViewerNotificationsData_viewer_notifications
       required this.type,
       required this.createdAt,
       required this.message,
-      this.workId,
       this.work,
-      this.relatedUserId,
       this.relatedUser,
-      this.stickerId,
       this.sticker})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(G__typename,
@@ -1063,11 +1025,8 @@ class _$GViewerNotificationsData_viewer_notifications
         type == other.type &&
         createdAt == other.createdAt &&
         message == other.message &&
-        workId == other.workId &&
         work == other.work &&
-        relatedUserId == other.relatedUserId &&
         relatedUser == other.relatedUser &&
-        stickerId == other.stickerId &&
         sticker == other.sticker;
   }
 
@@ -1079,11 +1038,8 @@ class _$GViewerNotificationsData_viewer_notifications
     _$hash = $jc(_$hash, type.hashCode);
     _$hash = $jc(_$hash, createdAt.hashCode);
     _$hash = $jc(_$hash, message.hashCode);
-    _$hash = $jc(_$hash, workId.hashCode);
     _$hash = $jc(_$hash, work.hashCode);
-    _$hash = $jc(_$hash, relatedUserId.hashCode);
     _$hash = $jc(_$hash, relatedUser.hashCode);
-    _$hash = $jc(_$hash, stickerId.hashCode);
     _$hash = $jc(_$hash, sticker.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -1098,11 +1054,8 @@ class _$GViewerNotificationsData_viewer_notifications
           ..add('type', type)
           ..add('createdAt', createdAt)
           ..add('message', message)
-          ..add('workId', workId)
           ..add('work', work)
-          ..add('relatedUserId', relatedUserId)
           ..add('relatedUser', relatedUser)
-          ..add('stickerId', stickerId)
           ..add('sticker', sticker))
         .toString();
   }
@@ -1134,21 +1087,12 @@ class GViewerNotificationsData_viewer_notificationsBuilder
   String? get message => _$this._message;
   set message(String? message) => _$this._message = message;
 
-  String? _workId;
-  String? get workId => _$this._workId;
-  set workId(String? workId) => _$this._workId = workId;
-
   GViewerNotificationsData_viewer_notifications_workBuilder? _work;
   GViewerNotificationsData_viewer_notifications_workBuilder get work =>
       _$this._work ??=
           new GViewerNotificationsData_viewer_notifications_workBuilder();
   set work(GViewerNotificationsData_viewer_notifications_workBuilder? work) =>
       _$this._work = work;
-
-  String? _relatedUserId;
-  String? get relatedUserId => _$this._relatedUserId;
-  set relatedUserId(String? relatedUserId) =>
-      _$this._relatedUserId = relatedUserId;
 
   GViewerNotificationsData_viewer_notifications_relatedUserBuilder?
       _relatedUser;
@@ -1159,10 +1103,6 @@ class GViewerNotificationsData_viewer_notificationsBuilder
           GViewerNotificationsData_viewer_notifications_relatedUserBuilder?
               relatedUser) =>
       _$this._relatedUser = relatedUser;
-
-  String? _stickerId;
-  String? get stickerId => _$this._stickerId;
-  set stickerId(String? stickerId) => _$this._stickerId = stickerId;
 
   GViewerNotificationsData_viewer_notifications_stickerBuilder? _sticker;
   GViewerNotificationsData_viewer_notifications_stickerBuilder get sticker =>
@@ -1185,11 +1125,8 @@ class GViewerNotificationsData_viewer_notificationsBuilder
       _type = $v.type;
       _createdAt = $v.createdAt;
       _message = $v.message;
-      _workId = $v.workId;
       _work = $v.work?.toBuilder();
-      _relatedUserId = $v.relatedUserId;
       _relatedUser = $v.relatedUser?.toBuilder();
-      _stickerId = $v.stickerId;
       _sticker = $v.sticker?.toBuilder();
       _$v = null;
     }
@@ -1231,21 +1168,16 @@ class GViewerNotificationsData_viewer_notificationsBuilder
                   'createdAt'),
               message: BuiltValueNullFieldError.checkNotNull(message,
                   r'GViewerNotificationsData_viewer_notifications', 'message'),
-              workId: workId,
               work: _work?.build(),
-              relatedUserId: relatedUserId,
               relatedUser: _relatedUser?.build(),
-              stickerId: stickerId,
               sticker: _sticker?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'work';
         _work?.build();
-
         _$failedField = 'relatedUser';
         _relatedUser?.build();
-
         _$failedField = 'sticker';
         _sticker?.build();
       } catch (e) {
@@ -1997,7 +1929,7 @@ class _$GViewerNotificationsData_viewer_notifications_sticker
   @override
   final String title;
   @override
-  final GViewerNotificationsData_viewer_notifications_sticker_image image;
+  final GViewerNotificationsData_viewer_notifications_sticker_image? image;
 
   factory _$GViewerNotificationsData_viewer_notifications_sticker(
           [void Function(
@@ -2011,7 +1943,7 @@ class _$GViewerNotificationsData_viewer_notifications_sticker
       {required this.G__typename,
       required this.id,
       required this.title,
-      required this.image})
+      this.image})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename,
@@ -2021,8 +1953,6 @@ class _$GViewerNotificationsData_viewer_notifications_sticker
         id, r'GViewerNotificationsData_viewer_notifications_sticker', 'id');
     BuiltValueNullFieldError.checkNotNull(title,
         r'GViewerNotificationsData_viewer_notifications_sticker', 'title');
-    BuiltValueNullFieldError.checkNotNull(image,
-        r'GViewerNotificationsData_viewer_notifications_sticker', 'image');
   }
 
   @override
@@ -2108,7 +2038,7 @@ class GViewerNotificationsData_viewer_notifications_stickerBuilder
       _G__typename = $v.G__typename;
       _id = $v.id;
       _title = $v.title;
-      _image = $v.image.toBuilder();
+      _image = $v.image?.toBuilder();
       _$v = null;
     }
     return this;
@@ -2148,12 +2078,12 @@ class GViewerNotificationsData_viewer_notifications_stickerBuilder
                   title,
                   r'GViewerNotificationsData_viewer_notifications_sticker',
                   'title'),
-              image: image.build());
+              image: _image?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'image';
-        image.build();
+        _image?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'GViewerNotificationsData_viewer_notifications_sticker',

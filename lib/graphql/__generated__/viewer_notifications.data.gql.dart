@@ -90,11 +90,8 @@ abstract class GViewerNotificationsData_viewer_notifications
   _i2.GNotificationType get type;
   int get createdAt;
   String get message;
-  String? get workId;
   GViewerNotificationsData_viewer_notifications_work? get work;
-  String? get relatedUserId;
   GViewerNotificationsData_viewer_notifications_relatedUser? get relatedUser;
-  String? get stickerId;
   GViewerNotificationsData_viewer_notifications_sticker? get sticker;
   static Serializer<GViewerNotificationsData_viewer_notifications>
       get serializer => _$gViewerNotificationsDataViewerNotificationsSerializer;
@@ -309,7 +306,7 @@ abstract class GViewerNotificationsData_viewer_notifications_sticker
   @override
   String get title;
   @override
-  GViewerNotificationsData_viewer_notifications_sticker_image get image;
+  GViewerNotificationsData_viewer_notifications_sticker_image? get image;
   static Serializer<GViewerNotificationsData_viewer_notifications_sticker>
       get serializer =>
           _$gViewerNotificationsDataViewerNotificationsStickerSerializer;

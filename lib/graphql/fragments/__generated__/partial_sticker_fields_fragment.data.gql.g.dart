@@ -35,11 +35,15 @@ class _$GPartialStickerFieldsDataSerializer
       'title',
       serializers.serialize(object.title,
           specifiedType: const FullType(String)),
-      'image',
-      serializers.serialize(object.image,
-          specifiedType: const FullType(GPartialStickerFieldsData_image)),
     ];
-
+    Object? value;
+    value = object.image;
+    if (value != null) {
+      result
+        ..add('image')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(GPartialStickerFieldsData_image)));
+    }
     return result;
   }
 
@@ -147,7 +151,7 @@ class _$GPartialStickerFieldsData extends GPartialStickerFieldsData {
   @override
   final String title;
   @override
-  final GPartialStickerFieldsData_image image;
+  final GPartialStickerFieldsData_image? image;
 
   factory _$GPartialStickerFieldsData(
           [void Function(GPartialStickerFieldsDataBuilder)? updates]) =>
@@ -157,7 +161,7 @@ class _$GPartialStickerFieldsData extends GPartialStickerFieldsData {
       {required this.G__typename,
       required this.id,
       required this.title,
-      required this.image})
+      this.image})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename, r'GPartialStickerFieldsData', 'G__typename');
@@ -165,8 +169,6 @@ class _$GPartialStickerFieldsData extends GPartialStickerFieldsData {
         id, r'GPartialStickerFieldsData', 'id');
     BuiltValueNullFieldError.checkNotNull(
         title, r'GPartialStickerFieldsData', 'title');
-    BuiltValueNullFieldError.checkNotNull(
-        image, r'GPartialStickerFieldsData', 'image');
   }
 
   @override
@@ -243,7 +245,7 @@ class GPartialStickerFieldsDataBuilder
       _G__typename = $v.G__typename;
       _id = $v.id;
       _title = $v.title;
-      _image = $v.image.toBuilder();
+      _image = $v.image?.toBuilder();
       _$v = null;
     }
     return this;
@@ -274,12 +276,12 @@ class GPartialStickerFieldsDataBuilder
                   id, r'GPartialStickerFieldsData', 'id'),
               title: BuiltValueNullFieldError.checkNotNull(
                   title, r'GPartialStickerFieldsData', 'title'),
-              image: image.build());
+              image: _image?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'image';
-        image.build();
+        _image?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'GPartialStickerFieldsData', _$failedField, e.toString());

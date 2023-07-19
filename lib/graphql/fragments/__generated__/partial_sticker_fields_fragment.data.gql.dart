@@ -12,7 +12,7 @@ abstract class GPartialStickerFields {
   String get G__typename;
   String get id;
   String get title;
-  GPartialStickerFields_image get image;
+  GPartialStickerFields_image? get image;
   Map<String, dynamic> toJson();
 }
 
@@ -43,7 +43,7 @@ abstract class GPartialStickerFieldsData
   @override
   String get title;
   @override
-  GPartialStickerFieldsData_image get image;
+  GPartialStickerFieldsData_image? get image;
   static Serializer<GPartialStickerFieldsData> get serializer =>
       _$gPartialStickerFieldsDataSerializer;
   @override

@@ -92,9 +92,6 @@ class _$GStickerData_stickerSerializer
       'title',
       serializers.serialize(object.title,
           specifiedType: const FullType(String)),
-      'image',
-      serializers.serialize(object.image,
-          specifiedType: const FullType(GStickerData_sticker_image)),
       'downloadsCount',
       serializers.serialize(object.downloadsCount,
           specifiedType: const FullType(int)),
@@ -105,7 +102,14 @@ class _$GStickerData_stickerSerializer
       serializers.serialize(object.usesCount,
           specifiedType: const FullType(int)),
     ];
-
+    Object? value;
+    value = object.image;
+    if (value != null) {
+      result
+        ..add('image')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(GStickerData_sticker_image)));
+    }
     return result;
   }
 
@@ -343,7 +347,7 @@ class _$GStickerData_sticker extends GStickerData_sticker {
   @override
   final String title;
   @override
-  final GStickerData_sticker_image image;
+  final GStickerData_sticker_image? image;
   @override
   final int downloadsCount;
   @override
@@ -360,7 +364,7 @@ class _$GStickerData_sticker extends GStickerData_sticker {
       required this.id,
       required this.createdAt,
       required this.title,
-      required this.image,
+      this.image,
       required this.downloadsCount,
       required this.likesCount,
       required this.usesCount})
@@ -372,8 +376,6 @@ class _$GStickerData_sticker extends GStickerData_sticker {
         createdAt, r'GStickerData_sticker', 'createdAt');
     BuiltValueNullFieldError.checkNotNull(
         title, r'GStickerData_sticker', 'title');
-    BuiltValueNullFieldError.checkNotNull(
-        image, r'GStickerData_sticker', 'image');
     BuiltValueNullFieldError.checkNotNull(
         downloadsCount, r'GStickerData_sticker', 'downloadsCount');
     BuiltValueNullFieldError.checkNotNull(
@@ -484,7 +486,7 @@ class GStickerData_stickerBuilder
       _id = $v.id;
       _createdAt = $v.createdAt;
       _title = $v.title;
-      _image = $v.image.toBuilder();
+      _image = $v.image?.toBuilder();
       _downloadsCount = $v.downloadsCount;
       _likesCount = $v.likesCount;
       _usesCount = $v.usesCount;
@@ -520,7 +522,7 @@ class GStickerData_stickerBuilder
                   createdAt, r'GStickerData_sticker', 'createdAt'),
               title: BuiltValueNullFieldError.checkNotNull(
                   title, r'GStickerData_sticker', 'title'),
-              image: image.build(),
+              image: _image?.build(),
               downloadsCount: BuiltValueNullFieldError.checkNotNull(
                   downloadsCount, r'GStickerData_sticker', 'downloadsCount'),
               likesCount: BuiltValueNullFieldError.checkNotNull(
@@ -531,7 +533,7 @@ class GStickerData_stickerBuilder
       late String _$failedField;
       try {
         _$failedField = 'image';
-        image.build();
+        _image?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'GStickerData_sticker', _$failedField, e.toString());

@@ -88,11 +88,15 @@ class _$GStickersData_stickersSerializer
       'title',
       serializers.serialize(object.title,
           specifiedType: const FullType(String)),
-      'image',
-      serializers.serialize(object.image,
-          specifiedType: const FullType(GStickersData_stickers_image)),
     ];
-
+    Object? value;
+    value = object.image;
+    if (value != null) {
+      result
+        ..add('image')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(GStickersData_stickers_image)));
+    }
     return result;
   }
 
@@ -315,7 +319,7 @@ class _$GStickersData_stickers extends GStickersData_stickers {
   @override
   final String title;
   @override
-  final GStickersData_stickers_image image;
+  final GStickersData_stickers_image? image;
 
   factory _$GStickersData_stickers(
           [void Function(GStickersData_stickersBuilder)? updates]) =>
@@ -325,15 +329,13 @@ class _$GStickersData_stickers extends GStickersData_stickers {
       {required this.G__typename,
       required this.id,
       required this.title,
-      required this.image})
+      this.image})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename, r'GStickersData_stickers', 'G__typename');
     BuiltValueNullFieldError.checkNotNull(id, r'GStickersData_stickers', 'id');
     BuiltValueNullFieldError.checkNotNull(
         title, r'GStickersData_stickers', 'title');
-    BuiltValueNullFieldError.checkNotNull(
-        image, r'GStickersData_stickers', 'image');
   }
 
   @override
@@ -409,7 +411,7 @@ class GStickersData_stickersBuilder
       _G__typename = $v.G__typename;
       _id = $v.id;
       _title = $v.title;
-      _image = $v.image.toBuilder();
+      _image = $v.image?.toBuilder();
       _$v = null;
     }
     return this;
@@ -440,12 +442,12 @@ class GStickersData_stickersBuilder
                   id, r'GStickersData_stickers', 'id'),
               title: BuiltValueNullFieldError.checkNotNull(
                   title, r'GStickersData_stickers', 'title'),
-              image: image.build());
+              image: _image?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'image';
-        image.build();
+        _image?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'GStickersData_stickers', _$failedField, e.toString());

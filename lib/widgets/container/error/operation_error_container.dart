@@ -5,19 +5,22 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 class OperationErrorContainer extends HookConsumerWidget {
   const OperationErrorContainer({
     Key? key,
-    required this.errors,
+    required this.errorList,
   }) : super(key: key);
 
-  final List<GraphQLError> errors;
+  final List<GraphQLError> errorList;
 
   @override
   Widget build(context, ref) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        for (final error in errors) Text(error.message),
-      ],
+    return Container(
+      padding: const EdgeInsets.all(32),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          for (final error in errorList) Text(error.message),
+        ],
+      ),
     );
   }
 }

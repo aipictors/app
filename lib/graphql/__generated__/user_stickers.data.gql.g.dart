@@ -156,11 +156,16 @@ class _$GUserStickersData_user_stickersSerializer
       'title',
       serializers.serialize(object.title,
           specifiedType: const FullType(String)),
-      'image',
-      serializers.serialize(object.image,
-          specifiedType: const FullType(GUserStickersData_user_stickers_image)),
     ];
-
+    Object? value;
+    value = object.image;
+    if (value != null) {
+      result
+        ..add('image')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(GUserStickersData_user_stickers_image)));
+    }
     return result;
   }
 
@@ -516,7 +521,7 @@ class _$GUserStickersData_user_stickers
   @override
   final String title;
   @override
-  final GUserStickersData_user_stickers_image image;
+  final GUserStickersData_user_stickers_image? image;
 
   factory _$GUserStickersData_user_stickers(
           [void Function(GUserStickersData_user_stickersBuilder)? updates]) =>
@@ -526,7 +531,7 @@ class _$GUserStickersData_user_stickers
       {required this.G__typename,
       required this.id,
       required this.title,
-      required this.image})
+      this.image})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename, r'GUserStickersData_user_stickers', 'G__typename');
@@ -534,8 +539,6 @@ class _$GUserStickersData_user_stickers
         id, r'GUserStickersData_user_stickers', 'id');
     BuiltValueNullFieldError.checkNotNull(
         title, r'GUserStickersData_user_stickers', 'title');
-    BuiltValueNullFieldError.checkNotNull(
-        image, r'GUserStickersData_user_stickers', 'image');
   }
 
   @override
@@ -613,7 +616,7 @@ class GUserStickersData_user_stickersBuilder
       _G__typename = $v.G__typename;
       _id = $v.id;
       _title = $v.title;
-      _image = $v.image.toBuilder();
+      _image = $v.image?.toBuilder();
       _$v = null;
     }
     return this;
@@ -644,12 +647,12 @@ class GUserStickersData_user_stickersBuilder
                   id, r'GUserStickersData_user_stickers', 'id'),
               title: BuiltValueNullFieldError.checkNotNull(
                   title, r'GUserStickersData_user_stickers', 'title'),
-              image: image.build());
+              image: _image?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'image';
-        image.build();
+        _image?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'GUserStickersData_user_stickers', _$failedField, e.toString());

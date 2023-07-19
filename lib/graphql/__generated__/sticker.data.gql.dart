@@ -47,7 +47,7 @@ abstract class GStickerData_sticker
   String get id;
   int get createdAt;
   String get title;
-  GStickerData_sticker_image get image;
+  GStickerData_sticker_image? get image;
   int get downloadsCount;
   int get likesCount;
   int get usesCount;

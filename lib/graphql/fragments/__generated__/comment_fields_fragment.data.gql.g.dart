@@ -258,11 +258,15 @@ class _$GCommentFieldsData_stickerSerializer
           specifiedType: const FullType(String)),
       'id',
       serializers.serialize(object.id, specifiedType: const FullType(String)),
-      'image',
-      serializers.serialize(object.image,
-          specifiedType: const FullType(GCommentFieldsData_sticker_image)),
     ];
-
+    Object? value;
+    value = object.image;
+    if (value != null) {
+      result
+        ..add('image')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(GCommentFieldsData_sticker_image)));
+    }
     return result;
   }
 
@@ -831,21 +835,19 @@ class _$GCommentFieldsData_sticker extends GCommentFieldsData_sticker {
   @override
   final String id;
   @override
-  final GCommentFieldsData_sticker_image image;
+  final GCommentFieldsData_sticker_image? image;
 
   factory _$GCommentFieldsData_sticker(
           [void Function(GCommentFieldsData_stickerBuilder)? updates]) =>
       (new GCommentFieldsData_stickerBuilder()..update(updates))._build();
 
   _$GCommentFieldsData_sticker._(
-      {required this.G__typename, required this.id, required this.image})
+      {required this.G__typename, required this.id, this.image})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename, r'GCommentFieldsData_sticker', 'G__typename');
     BuiltValueNullFieldError.checkNotNull(
         id, r'GCommentFieldsData_sticker', 'id');
-    BuiltValueNullFieldError.checkNotNull(
-        image, r'GCommentFieldsData_sticker', 'image');
   }
 
   @override
@@ -914,7 +916,7 @@ class GCommentFieldsData_stickerBuilder
     if ($v != null) {
       _G__typename = $v.G__typename;
       _id = $v.id;
-      _image = $v.image.toBuilder();
+      _image = $v.image?.toBuilder();
       _$v = null;
     }
     return this;
@@ -943,12 +945,12 @@ class GCommentFieldsData_stickerBuilder
                   G__typename, r'GCommentFieldsData_sticker', 'G__typename'),
               id: BuiltValueNullFieldError.checkNotNull(
                   id, r'GCommentFieldsData_sticker', 'id'),
-              image: image.build());
+              image: _image?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'image';
-        image.build();
+        _image?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'GCommentFieldsData_sticker', _$failedField, e.toString());

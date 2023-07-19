@@ -29,7 +29,7 @@ class ConfigScreen extends HookConsumerWidget {
     return Scaffold(
       key: const PageStorageKey('config'),
       appBar: AppBar(
-        title: Text('設定'.i18n),
+        title: Text('その他'.i18n),
       ),
       body: ListView(
         children: [
@@ -37,7 +37,10 @@ class ConfigScreen extends HookConsumerWidget {
             ListTile(
               leading: const Icon(Icons.wysiwyg_rounded),
               trailing: const Icon(Icons.chevron_right_rounded),
-              title: Text('マイページ'.i18n),
+              title: Text(
+                'マイページ'.i18n,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
               onTap: () {
                 context.push('/viewer');
               },
@@ -48,13 +51,10 @@ class ConfigScreen extends HookConsumerWidget {
               trailing: const Icon(Icons.chevron_right_rounded),
               title: Text(
                 '作品'.i18n,
-                style: TextStyle(
-                  color: Theme.of(context).disabledColor,
-                  decoration: TextDecoration.lineThrough,
-                ),
+                style: const TextStyle(fontWeight: FontWeight.bold),
               ),
               onTap: () {
-                context.push('/config/muted_tags');
+                context.push('/viewer/works');
               },
             ),
           if (authState.value != null)
@@ -63,13 +63,22 @@ class ConfigScreen extends HookConsumerWidget {
               trailing: const Icon(Icons.chevron_right_rounded),
               title: Text(
                 'シリーズ'.i18n,
-                style: TextStyle(
-                  color: Theme.of(context).disabledColor,
-                  decoration: TextDecoration.lineThrough,
-                ),
+                style: const TextStyle(fontWeight: FontWeight.bold),
               ),
               onTap: () {
-                // context.push('/config/muted_tags');
+                context.push('/viewer/folders');
+              },
+            ),
+          if (authState.value != null)
+            ListTile(
+              leading: const Icon(Icons.bookmark_rounded),
+              trailing: const Icon(Icons.chevron_right_rounded),
+              title: Text(
+                'ブックマーク'.i18n,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+              onTap: () {
+                context.push('/viewer/bookmarked_works');
               },
             ),
           if (authState.value != null)
@@ -78,13 +87,10 @@ class ConfigScreen extends HookConsumerWidget {
               trailing: const Icon(Icons.chevron_right_rounded),
               title: Text(
                 'ミュートしたタグ'.i18n,
-                style: TextStyle(
-                  color: Theme.of(context).disabledColor,
-                  decoration: TextDecoration.lineThrough,
-                ),
+                style: const TextStyle(fontWeight: FontWeight.bold),
               ),
               onTap: () {
-                // context.push('/config/muted_tags');
+                context.push('/config/muted_tags');
               },
             ),
           if (authState.value != null)
@@ -93,13 +99,10 @@ class ConfigScreen extends HookConsumerWidget {
               trailing: const Icon(Icons.chevron_right_rounded),
               title: Text(
                 'ミュートしたユーザ'.i18n,
-                style: TextStyle(
-                  color: Theme.of(context).disabledColor,
-                  decoration: TextDecoration.lineThrough,
-                ),
+                style: const TextStyle(fontWeight: FontWeight.bold),
               ),
               onTap: () {
-                // context.push('config/muted_users');
+                context.push('/config/muted_users');
               },
             ),
           if (authState.value != null) const Divider(),
@@ -107,7 +110,10 @@ class ConfigScreen extends HookConsumerWidget {
             ListTile(
               leading: const Icon(Icons.person_rounded),
               trailing: const Icon(Icons.chevron_right_rounded),
-              title: Text('アカウント'.i18n),
+              title: Text(
+                'アカウント'.i18n,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
               onTap: () {
                 context.push('/account');
               },
@@ -115,7 +121,10 @@ class ConfigScreen extends HookConsumerWidget {
           ListTile(
             leading: const Icon(Icons.translate_rounded),
             trailing: const Icon(Icons.chevron_right_rounded),
-            title: Text('言語切り替え'.i18n),
+            title: Text(
+              '言語切り替え'.i18n,
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
             onTap: () {
               context.push('/config/language');
             },
@@ -123,7 +132,10 @@ class ConfigScreen extends HookConsumerWidget {
           ListTile(
             leading: const Icon(Icons.favorite_rounded),
             trailing: const Icon(Icons.chevron_right_rounded),
-            title: Text('調査協力'.i18n),
+            title: Text(
+              '調査協力'.i18n,
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
             onTap: () {
               context.push('/surveys');
             },
@@ -132,14 +144,20 @@ class ConfigScreen extends HookConsumerWidget {
             ListTile(
               leading: const Icon(Icons.code_rounded),
               trailing: const Icon(Icons.chevron_right_rounded),
-              title: Text('デバッグモード'.i18n),
+              title: Text(
+                'デバッグモード'.i18n,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
               onTap: () {
                 context.push('/debug');
               },
             ),
           ListTile(
             leading: const Icon(Icons.delete_rounded),
-            title: Text('キャッシュクリア'.i18n),
+            title: Text(
+              'キャッシュクリア'.i18n,
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
             onTap: () {
               onClearCache(context);
             },
@@ -147,7 +165,10 @@ class ConfigScreen extends HookConsumerWidget {
           if (authState.value != null)
             ListTile(
               leading: const Icon(Icons.logout_rounded),
-              title: Text('ログアウト'.i18n),
+              title: Text(
+                'ログアウト'.i18n,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
               onTap: () {
                 onShowLogoutDialog(context, ref);
               },
@@ -155,7 +176,10 @@ class ConfigScreen extends HookConsumerWidget {
           const Divider(),
           ListTile(
             trailing: const Icon(Icons.chevron_right_rounded),
-            title: Text('利用規約'.i18n),
+            title: Text(
+              '利用規約'.i18n,
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
             onTap: () {
               context.push('/terms');
             },
@@ -164,32 +188,38 @@ class ConfigScreen extends HookConsumerWidget {
             trailing: const Icon(Icons.chevron_right_rounded),
             title: Text(
               'プライバシーポリシー'.i18n,
-              style: TextStyle(
-                color: Theme.of(context).disabledColor,
-                decoration: TextDecoration.lineThrough,
-              ),
+              style: const TextStyle(fontWeight: FontWeight.bold),
             ),
             onTap: () {
-              // context.push('/privacy');
+              context.push('/privacy');
             },
           ),
           ListTile(
             trailing: const Icon(Icons.open_in_new_rounded),
-            title: Text('ディスコに参加する'.i18n),
+            title: Text(
+              'ディスコに参加する'.i18n,
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
             onTap: () {
               onShowDiscordDialog(context, ref);
             },
           ),
           ListTile(
             trailing: const Icon(Icons.open_in_new_rounded),
-            title: Text('ツイッターをフォローする'.i18n),
+            title: Text(
+              'ツイッターをフォローする'.i18n,
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
             onTap: () {
               onShowTwitterDialog(context, ref);
             },
           ),
           const Divider(),
           SwitchListTile(
-            title: Text('システムカラーモード'.i18n),
+            title: Text(
+              'システムカラーモード'.i18n,
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
             value: config.isSystemColorMode,
             onChanged: (value) {
               final notifier = ref.read(configProvider.notifier);
@@ -198,7 +228,10 @@ class ConfigScreen extends HookConsumerWidget {
           ),
           if (!config.isSystemColorMode)
             SwitchListTile(
-              title: Text('ダークモード'.i18n),
+              title: Text(
+                'ダークモード'.i18n,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
               value: config.isDarkMode,
               onChanged: (value) {
                 final notifier = ref.read(configProvider.notifier);

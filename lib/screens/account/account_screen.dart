@@ -17,21 +17,30 @@ class AccountScreen extends HookConsumerWidget {
       ),
       body: ListView(children: [
         ListTile(
-          title: Text('ログインIDの変更'.i18n),
+          title: Text(
+            'ログインIDの変更'.i18n,
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          ),
           subtitle: Text('ログインに使用するIDを変更します。'.i18n),
           onTap: () {
             context.push('/account/login');
           },
         ),
         ListTile(
-          title: Text('パスワードの変更'.i18n),
+          title: Text(
+            'パスワードの変更'.i18n,
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          ),
           subtitle: Text('ログインに使用するパスワードを変更します。'.i18n),
           onTap: () {
             context.push('/account/password');
           },
         ),
         ListTile(
-          title: Text('アカウントの削除'.i18n),
+          title: Text(
+            'アカウントの削除'.i18n,
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          ),
           subtitle: Text('現在ログインしているアカウントを削除します。'.i18n),
           onTap: () {
             context.push('/account/delete');

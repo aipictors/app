@@ -3,10 +3,13 @@ import 'package:aipictors/mutations/follow_user.dart';
 import 'package:aipictors/mutations/mute_user.dart';
 import 'package:aipictors/widgets/container/modal_header_container.dart';
 import 'package:aipictors/widgets/container/notification_user_container.dart';
+import 'package:aipictors/widgets/list/modal_follow_user_list_tile.dart';
+import 'package:aipictors/widgets/list/modal_mute_user_list_tile.dart';
+import 'package:aipictors/widgets/list/modal_report_list_tile.dart';
+import 'package:aipictors/widgets/list/modal_share_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:share_plus/share_plus.dart';
 
 class FeedActionModalContainer extends HookConsumerWidget {
   const FeedActionModalContainer({
@@ -45,61 +48,35 @@ class FeedActionModalContainer extends HookConsumerWidget {
                 userIconImageURL: userIconImageURL,
               ),
             ),
-            ListTile(
-              leading: const Icon(Icons.share_rounded),
-              title: Text(
-                '作品をシェアする'.i18n,
-                style: const TextStyle(fontWeight: FontWeight.bold),
-              ),
+            ModalShareListTile(
+              titleText: '作品をシェアする'.i18n,
+              shareText: 'check out! https://aipictors.com/works/$workId',
               onTap: () {
                 context.pop();
-                Share.share('check out! https://aipictors.com/works/$workId');
               },
             ),
-            ListTile(
-              leading: Icon(
-                Icons.favorite_rounded,
-                color: isFollowee ? Theme.of(context).colorScheme.error : null,
-              ),
-              title: Text(
-                isFollowee ? 'ユーザをフォロー中'.i18n : 'ユーザをフォローする'.i18n,
-                style: const TextStyle(fontWeight: FontWeight.bold),
-              ),
+            ModalFollowUserListTile(
+              isActive: isFollowee,
               onTap: () {
-                onFollowUser(context);
+                return onFollowUser(context);
               },
             ),
-            ListTile(
-              leading: Icon(
-                Icons.block_rounded,
-                color: isMutedUser ? Theme.of(context).colorScheme.error : null,
-              ),
-              title: Text(
-                isMutedUser ? 'ユーザをミュート中'.i18n : 'ユーザをミュートする'.i18n,
-                style: const TextStyle(fontWeight: FontWeight.bold),
-              ),
+            ModalMuteUserListTile(
+              isActive: isMutedUser,
               onTap: () {
-                onMuteUser(context);
+                return onMuteUser(context);
               },
             ),
             const Divider(),
-            ListTile(
-              leading: const Icon(Icons.gpp_maybe_rounded),
-              title: Text(
-                'ユーザを通報する'.i18n,
-                style: const TextStyle(fontWeight: FontWeight.bold),
-              ),
+            ModalReportListTile(
+              titleText: 'ユーザを通報する'.i18n,
               onTap: () {
                 context.pop();
                 context.push('/users/$userId/report');
               },
             ),
-            ListTile(
-              leading: const Icon(Icons.gpp_maybe_rounded),
-              title: Text(
-                '作品を通報する'.i18n,
-                style: const TextStyle(fontWeight: FontWeight.bold),
-              ),
+            ModalReportListTile(
+              titleText: '作品を通報する'.i18n,
               onTap: () {
                 context.pop();
                 context.push('/works/$workId/report');

@@ -85,13 +85,6 @@ const ViewerNotifications = _i1.OperationDefinitionNode(
               selectionSet: null,
             ),
             _i1.FieldNode(
-              name: _i1.NameNode(value: 'workId'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: null,
-            ),
-            _i1.FieldNode(
               name: _i1.NameNode(value: 'work'),
               alias: null,
               arguments: [],
@@ -104,13 +97,6 @@ const ViewerNotifications = _i1.OperationDefinitionNode(
               ]),
             ),
             _i1.FieldNode(
-              name: _i1.NameNode(value: 'relatedUserId'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: null,
-            ),
-            _i1.FieldNode(
               name: _i1.NameNode(value: 'relatedUser'),
               alias: null,
               arguments: [],
@@ -121,13 +107,6 @@ const ViewerNotifications = _i1.OperationDefinitionNode(
                   directives: [],
                 )
               ]),
-            ),
-            _i1.FieldNode(
-              name: _i1.NameNode(value: 'stickerId'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: null,
             ),
             _i1.FieldNode(
               name: _i1.NameNode(value: 'sticker'),

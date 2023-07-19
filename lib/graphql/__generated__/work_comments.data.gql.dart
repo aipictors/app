@@ -204,7 +204,7 @@ abstract class GWorkCommentsData_work_comments_sticker
   @override
   String get id;
   @override
-  GWorkCommentsData_work_comments_sticker_image get image;
+  GWorkCommentsData_work_comments_sticker_image? get image;
   static Serializer<GWorkCommentsData_work_comments_sticker> get serializer =>
       _$gWorkCommentsDataWorkCommentsStickerSerializer;
   @override
@@ -398,7 +398,7 @@ abstract class GWorkCommentsData_work_comments_responses_sticker
   @override
   String get id;
   @override
-  GWorkCommentsData_work_comments_responses_sticker_image get image;
+  GWorkCommentsData_work_comments_responses_sticker_image? get image;
   static Serializer<GWorkCommentsData_work_comments_responses_sticker>
       get serializer =>
           _$gWorkCommentsDataWorkCommentsResponsesStickerSerializer;

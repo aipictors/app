@@ -32,7 +32,10 @@ import 'package:aipictors/screens/user/user_followees_screen.dart';
 import 'package:aipictors/screens/user/user_followers_screen.dart';
 import 'package:aipictors/screens/user/user_report_screen.dart';
 import 'package:aipictors/screens/user/user_screen.dart';
+import 'package:aipictors/screens/viewer/viewer_bookmarked_works_screen.dart';
+import 'package:aipictors/screens/viewer/viewer_folders_screen.dart';
 import 'package:aipictors/screens/viewer/viewer_screen.dart';
+import 'package:aipictors/screens/viewer/viewer_works_screen.dart';
 import 'package:aipictors/screens/wiki_screen.dart';
 import 'package:aipictors/screens/work/work_create_screen.dart';
 import 'package:aipictors/screens/work/work_report_screen.dart';
@@ -236,6 +239,24 @@ final router = GoRouter(
       path: '/viewer',
       builder: (context, state) {
         return const ViewerScreen();
+      },
+    ),
+    GoRoute(
+      path: '/viewer/works',
+      builder: (context, state) {
+        return const ViewerWorksScreen();
+      },
+    ),
+    GoRoute(
+      path: '/viewer/folders',
+      builder: (context, state) {
+        return const ViewerFoldersScreen();
+      },
+    ),
+    GoRoute(
+      path: '/viewer/bookmarked_works',
+      builder: (context, state) {
+        return const ViewerBookmarkedWorksScreen();
       },
     ),
     GoRoute(

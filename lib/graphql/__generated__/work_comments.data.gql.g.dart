@@ -415,12 +415,16 @@ class _$GWorkCommentsData_work_comments_stickerSerializer
           specifiedType: const FullType(String)),
       'id',
       serializers.serialize(object.id, specifiedType: const FullType(String)),
-      'image',
-      serializers.serialize(object.image,
-          specifiedType:
-              const FullType(GWorkCommentsData_work_comments_sticker_image)),
     ];
-
+    Object? value;
+    value = object.image;
+    if (value != null) {
+      result
+        ..add('image')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(GWorkCommentsData_work_comments_sticker_image)));
+    }
     return result;
   }
 
@@ -771,12 +775,16 @@ class _$GWorkCommentsData_work_comments_responses_stickerSerializer
           specifiedType: const FullType(String)),
       'id',
       serializers.serialize(object.id, specifiedType: const FullType(String)),
-      'image',
-      serializers.serialize(object.image,
-          specifiedType: const FullType(
-              GWorkCommentsData_work_comments_responses_sticker_image)),
     ];
-
+    Object? value;
+    value = object.image;
+    if (value != null) {
+      result
+        ..add('image')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(
+                GWorkCommentsData_work_comments_responses_sticker_image)));
+    }
     return result;
   }
 
@@ -1645,7 +1653,7 @@ class _$GWorkCommentsData_work_comments_sticker
   @override
   final String id;
   @override
-  final GWorkCommentsData_work_comments_sticker_image image;
+  final GWorkCommentsData_work_comments_sticker_image? image;
 
   factory _$GWorkCommentsData_work_comments_sticker(
           [void Function(GWorkCommentsData_work_comments_stickerBuilder)?
@@ -1654,14 +1662,12 @@ class _$GWorkCommentsData_work_comments_sticker
           ._build();
 
   _$GWorkCommentsData_work_comments_sticker._(
-      {required this.G__typename, required this.id, required this.image})
+      {required this.G__typename, required this.id, this.image})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename, r'GWorkCommentsData_work_comments_sticker', 'G__typename');
     BuiltValueNullFieldError.checkNotNull(
         id, r'GWorkCommentsData_work_comments_sticker', 'id');
-    BuiltValueNullFieldError.checkNotNull(
-        image, r'GWorkCommentsData_work_comments_sticker', 'image');
   }
 
   @override
@@ -1734,7 +1740,7 @@ class GWorkCommentsData_work_comments_stickerBuilder
     if ($v != null) {
       _G__typename = $v.G__typename;
       _id = $v.id;
-      _image = $v.image.toBuilder();
+      _image = $v.image?.toBuilder();
       _$v = null;
     }
     return this;
@@ -1764,12 +1770,12 @@ class GWorkCommentsData_work_comments_stickerBuilder
                   r'GWorkCommentsData_work_comments_sticker', 'G__typename'),
               id: BuiltValueNullFieldError.checkNotNull(
                   id, r'GWorkCommentsData_work_comments_sticker', 'id'),
-              image: image.build());
+              image: _image?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'image';
-        image.build();
+        _image?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'GWorkCommentsData_work_comments_sticker',
@@ -2447,7 +2453,7 @@ class _$GWorkCommentsData_work_comments_responses_sticker
   @override
   final String id;
   @override
-  final GWorkCommentsData_work_comments_responses_sticker_image image;
+  final GWorkCommentsData_work_comments_responses_sticker_image? image;
 
   factory _$GWorkCommentsData_work_comments_responses_sticker(
           [void Function(
@@ -2458,14 +2464,12 @@ class _$GWorkCommentsData_work_comments_responses_sticker
           ._build();
 
   _$GWorkCommentsData_work_comments_responses_sticker._(
-      {required this.G__typename, required this.id, required this.image})
+      {required this.G__typename, required this.id, this.image})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(G__typename,
         r'GWorkCommentsData_work_comments_responses_sticker', 'G__typename');
     BuiltValueNullFieldError.checkNotNull(
         id, r'GWorkCommentsData_work_comments_responses_sticker', 'id');
-    BuiltValueNullFieldError.checkNotNull(
-        image, r'GWorkCommentsData_work_comments_responses_sticker', 'image');
   }
 
   @override
@@ -2542,7 +2546,7 @@ class GWorkCommentsData_work_comments_responses_stickerBuilder
     if ($v != null) {
       _G__typename = $v.G__typename;
       _id = $v.id;
-      _image = $v.image.toBuilder();
+      _image = $v.image?.toBuilder();
       _$v = null;
     }
     return this;
@@ -2575,12 +2579,12 @@ class GWorkCommentsData_work_comments_responses_stickerBuilder
                   'G__typename'),
               id: BuiltValueNullFieldError.checkNotNull(id,
                   r'GWorkCommentsData_work_comments_responses_sticker', 'id'),
-              image: image.build());
+              image: _image?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'image';
-        image.build();
+        _image?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'GWorkCommentsData_work_comments_responses_sticker',

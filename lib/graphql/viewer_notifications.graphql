@@ -9,15 +9,12 @@ query ViewerNotifications($offset: Int!, $limit: Int!) {
       type
       createdAt
       message
-      workId
       work {
         ...PartialWorkFields
       }
-      relatedUserId
       relatedUser {
         ...PartialUserFields
       }
-      stickerId
       sticker {
         ...PartialStickerFields
       }

@@ -50,7 +50,7 @@ abstract class GCommentFields_user_iconImage
 abstract class GCommentFields_sticker {
   String get G__typename;
   String get id;
-  GCommentFields_sticker_image get image;
+  GCommentFields_sticker_image? get image;
   Map<String, dynamic> toJson();
 }
 
@@ -191,7 +191,7 @@ abstract class GCommentFieldsData_sticker
   @override
   String get id;
   @override
-  GCommentFieldsData_sticker_image get image;
+  GCommentFieldsData_sticker_image? get image;
   static Serializer<GCommentFieldsData_sticker> get serializer =>
       _$gCommentFieldsDataStickerSerializer;
   @override

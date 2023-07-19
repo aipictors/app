@@ -84,7 +84,7 @@ abstract class GUserStickersData_user_stickers
   @override
   String get title;
   @override
-  GUserStickersData_user_stickers_image get image;
+  GUserStickersData_user_stickers_image? get image;
   static Serializer<GUserStickersData_user_stickers> get serializer =>
       _$gUserStickersDataUserStickersSerializer;
   @override

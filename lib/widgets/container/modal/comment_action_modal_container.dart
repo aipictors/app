@@ -1,6 +1,8 @@
 import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/mutations/mute_user.dart';
 import 'package:aipictors/widgets/container/modal_header_container.dart';
+import 'package:aipictors/widgets/list/modal_mute_user_list_tile.dart';
+import 'package:aipictors/widgets/list/modal_report_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -27,40 +29,23 @@ class CommentActionModalContainer extends HookConsumerWidget {
         child: ListView(
           physics: const NeverScrollableScrollPhysics(),
           children: [
-            ModalHeaderContainer(
-              title: Container(),
-            ),
-            ListTile(
-              leading: Icon(
-                Icons.block_rounded,
-                color: isMutedUser ? Theme.of(context).colorScheme.error : null,
-              ),
-              title: Text(
-                isMutedUser ? 'ユーザをミュート中'.i18n : 'ユーザをミュートする'.i18n,
-                style: const TextStyle(fontWeight: FontWeight.bold),
-              ),
+            const ModalHeaderContainer(title: SizedBox()),
+            ModalMuteUserListTile(
+              isActive: isMutedUser,
               onTap: () {
-                onMuteUser(context);
+                return onMuteUser(context);
               },
             ),
             const Divider(),
-            ListTile(
-              leading: const Icon(Icons.gpp_maybe_rounded),
-              title: Text(
-                'コメントを通報する'.i18n,
-                style: const TextStyle(fontWeight: FontWeight.bold),
-              ),
+            ModalReportListTile(
+              titleText: 'コメントを通報する'.i18n,
               onTap: () {
                 context.pop();
                 context.push('/comments/$commentId/report');
               },
             ),
-            ListTile(
-              leading: const Icon(Icons.gpp_maybe_rounded),
-              title: Text(
-                'ユーザを通報する'.i18n,
-                style: const TextStyle(fontWeight: FontWeight.bold),
-              ),
+            ModalReportListTile(
+              titleText: 'ユーザを通報する'.i18n,
               onTap: () {
                 context.pop();
                 context.push('/users/$userId/report');
