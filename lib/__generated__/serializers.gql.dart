@@ -223,7 +223,9 @@ import 'package:aipictors/graphql/__generated__/folder.data.gql.dart'
         GFolderData_folder,
         GFolderData_folder_thumbnailImage,
         GFolderData_folder_user,
-        GFolderData_folder_user_iconImage;
+        GFolderData_folder_user_iconImage,
+        GFolderData_folder_user_viewer,
+        GFolderData_folder_viewer;
 import 'package:aipictors/graphql/__generated__/folder.req.gql.dart'
     show GFolderReq;
 import 'package:aipictors/graphql/__generated__/folder.var.gql.dart'
@@ -290,7 +292,7 @@ import 'package:aipictors/graphql/__generated__/stickers.req.gql.dart'
 import 'package:aipictors/graphql/__generated__/stickers.var.gql.dart'
     show GStickersVars;
 import 'package:aipictors/graphql/__generated__/tag.data.gql.dart'
-    show GTagData, GTagData_tag;
+    show GTagData, GTagData_tag, GTagData_tag_viewer;
 import 'package:aipictors/graphql/__generated__/tag.req.gql.dart' show GTagReq;
 import 'package:aipictors/graphql/__generated__/tag.var.gql.dart' show GTagVars;
 import 'package:aipictors/graphql/__generated__/tag_works.data.gql.dart'
@@ -304,7 +306,7 @@ import 'package:aipictors/graphql/__generated__/tag_works.req.gql.dart'
 import 'package:aipictors/graphql/__generated__/tag_works.var.gql.dart'
     show GTagWorksVars;
 import 'package:aipictors/graphql/__generated__/tags.data.gql.dart'
-    show GTagsData, GTagsData_tags;
+    show GTagsData, GTagsData_tags, GTagsData_tags_viewer;
 import 'package:aipictors/graphql/__generated__/tags.req.gql.dart'
     show GTagsReq;
 import 'package:aipictors/graphql/__generated__/tags.var.gql.dart'
@@ -948,6 +950,8 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GFolderData_folder_thumbnailImage,
   GFolderData_folder_user,
   GFolderData_folder_user_iconImage,
+  GFolderData_folder_user_viewer,
+  GFolderData_folder_viewer,
   GFolderMode,
   GFolderReq,
   GFolderVars,
@@ -1088,6 +1092,7 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GStickersWhereInput,
   GTagData,
   GTagData_tag,
+  GTagData_tag_viewer,
   GTagReq,
   GTagVars,
   GTagWorksData,
@@ -1098,6 +1103,7 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GTagWorksVars,
   GTagsData,
   GTagsData_tags,
+  GTagsData_tags_viewer,
   GTagsReq,
   GTagsVars,
   GTagsWhereInput,

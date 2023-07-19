@@ -348,6 +348,9 @@ class _$GUserData_user_viewerSerializer
       'isFollowee',
       serializers.serialize(object.isFollowee,
           specifiedType: const FullType(bool)),
+      'isMuted',
+      serializers.serialize(object.isMuted,
+          specifiedType: const FullType(bool)),
     ];
 
     return result;
@@ -379,6 +382,10 @@ class _$GUserData_user_viewerSerializer
           break;
         case 'isFollowee':
           result.isFollowee = serializers.deserialize(value,
+              specifiedType: const FullType(bool))! as bool;
+          break;
+        case 'isMuted':
+          result.isMuted = serializers.deserialize(value,
               specifiedType: const FullType(bool))! as bool;
           break;
       }
@@ -1015,6 +1022,8 @@ class _$GUserData_user_viewer extends GUserData_user_viewer {
   final bool isFollower;
   @override
   final bool isFollowee;
+  @override
+  final bool isMuted;
 
   factory _$GUserData_user_viewer(
           [void Function(GUserData_user_viewerBuilder)? updates]) =>
@@ -1024,7 +1033,8 @@ class _$GUserData_user_viewer extends GUserData_user_viewer {
       {required this.G__typename,
       required this.id,
       required this.isFollower,
-      required this.isFollowee})
+      required this.isFollowee,
+      required this.isMuted})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename, r'GUserData_user_viewer', 'G__typename');
@@ -1033,6 +1043,8 @@ class _$GUserData_user_viewer extends GUserData_user_viewer {
         isFollower, r'GUserData_user_viewer', 'isFollower');
     BuiltValueNullFieldError.checkNotNull(
         isFollowee, r'GUserData_user_viewer', 'isFollowee');
+    BuiltValueNullFieldError.checkNotNull(
+        isMuted, r'GUserData_user_viewer', 'isMuted');
   }
 
   @override
@@ -1051,7 +1063,8 @@ class _$GUserData_user_viewer extends GUserData_user_viewer {
         G__typename == other.G__typename &&
         id == other.id &&
         isFollower == other.isFollower &&
-        isFollowee == other.isFollowee;
+        isFollowee == other.isFollowee &&
+        isMuted == other.isMuted;
   }
 
   @override
@@ -1061,6 +1074,7 @@ class _$GUserData_user_viewer extends GUserData_user_viewer {
     _$hash = $jc(_$hash, id.hashCode);
     _$hash = $jc(_$hash, isFollower.hashCode);
     _$hash = $jc(_$hash, isFollowee.hashCode);
+    _$hash = $jc(_$hash, isMuted.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -1071,7 +1085,8 @@ class _$GUserData_user_viewer extends GUserData_user_viewer {
           ..add('G__typename', G__typename)
           ..add('id', id)
           ..add('isFollower', isFollower)
-          ..add('isFollowee', isFollowee))
+          ..add('isFollowee', isFollowee)
+          ..add('isMuted', isMuted))
         .toString();
   }
 }
@@ -1096,6 +1111,10 @@ class GUserData_user_viewerBuilder
   bool? get isFollowee => _$this._isFollowee;
   set isFollowee(bool? isFollowee) => _$this._isFollowee = isFollowee;
 
+  bool? _isMuted;
+  bool? get isMuted => _$this._isMuted;
+  set isMuted(bool? isMuted) => _$this._isMuted = isMuted;
+
   GUserData_user_viewerBuilder() {
     GUserData_user_viewer._initializeBuilder(this);
   }
@@ -1107,6 +1126,7 @@ class GUserData_user_viewerBuilder
       _id = $v.id;
       _isFollower = $v.isFollower;
       _isFollowee = $v.isFollowee;
+      _isMuted = $v.isMuted;
       _$v = null;
     }
     return this;
@@ -1136,7 +1156,9 @@ class GUserData_user_viewerBuilder
             isFollower: BuiltValueNullFieldError.checkNotNull(
                 isFollower, r'GUserData_user_viewer', 'isFollower'),
             isFollowee: BuiltValueNullFieldError.checkNotNull(
-                isFollowee, r'GUserData_user_viewer', 'isFollowee'));
+                isFollowee, r'GUserData_user_viewer', 'isFollowee'),
+            isMuted: BuiltValueNullFieldError.checkNotNull(
+                isMuted, r'GUserData_user_viewer', 'isMuted'));
     replace(_$result);
     return _$result;
   }

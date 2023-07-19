@@ -14,9 +14,14 @@ Serializer<GFolderData_folder_user> _$gFolderDataFolderUserSerializer =
 Serializer<GFolderData_folder_user_iconImage>
     _$gFolderDataFolderUserIconImageSerializer =
     new _$GFolderData_folder_user_iconImageSerializer();
+Serializer<GFolderData_folder_user_viewer>
+    _$gFolderDataFolderUserViewerSerializer =
+    new _$GFolderData_folder_user_viewerSerializer();
 Serializer<GFolderData_folder_thumbnailImage>
     _$gFolderDataFolderThumbnailImageSerializer =
     new _$GFolderData_folder_thumbnailImageSerializer();
+Serializer<GFolderData_folder_viewer> _$gFolderDataFolderViewerSerializer =
+    new _$GFolderData_folder_viewerSerializer();
 
 class _$GFolderDataSerializer implements StructuredSerializer<GFolderData> {
   @override
@@ -114,6 +119,13 @@ class _$GFolderData_folderSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(GFolderData_folder_thumbnailImage)));
     }
+    value = object.viewer;
+    if (value != null) {
+      result
+        ..add('viewer')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(GFolderData_folder_viewer)));
+    }
     return result;
   }
 
@@ -168,6 +180,11 @@ class _$GFolderData_folderSerializer
                       const FullType(GFolderData_folder_thumbnailImage))!
               as GFolderData_folder_thumbnailImage);
           break;
+        case 'viewer':
+          result.viewer.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(GFolderData_folder_viewer))!
+              as GFolderData_folder_viewer);
+          break;
       }
     }
 
@@ -209,6 +226,13 @@ class _$GFolderData_folder_userSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(GFolderData_folder_user_iconImage)));
     }
+    value = object.viewer;
+    if (value != null) {
+      result
+        ..add('viewer')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(GFolderData_folder_user_viewer)));
+    }
     return result;
   }
 
@@ -245,6 +269,12 @@ class _$GFolderData_folder_userSerializer
                   specifiedType:
                       const FullType(GFolderData_folder_user_iconImage))!
               as GFolderData_folder_user_iconImage);
+          break;
+        case 'viewer':
+          result.viewer.replace(serializers.deserialize(value,
+                  specifiedType:
+                      const FullType(GFolderData_folder_user_viewer))!
+              as GFolderData_folder_user_viewer);
           break;
       }
     }
@@ -312,6 +342,66 @@ class _$GFolderData_folder_user_iconImageSerializer
   }
 }
 
+class _$GFolderData_folder_user_viewerSerializer
+    implements StructuredSerializer<GFolderData_folder_user_viewer> {
+  @override
+  final Iterable<Type> types = const [
+    GFolderData_folder_user_viewer,
+    _$GFolderData_folder_user_viewer
+  ];
+  @override
+  final String wireName = 'GFolderData_folder_user_viewer';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GFolderData_folder_user_viewer object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      '__typename',
+      serializers.serialize(object.G__typename,
+          specifiedType: const FullType(String)),
+      'isFollowee',
+      serializers.serialize(object.isFollowee,
+          specifiedType: const FullType(bool)),
+      'isMuted',
+      serializers.serialize(object.isMuted,
+          specifiedType: const FullType(bool)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GFolderData_folder_user_viewer deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GFolderData_folder_user_viewerBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case '__typename':
+          result.G__typename = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'isFollowee':
+          result.isFollowee = serializers.deserialize(value,
+              specifiedType: const FullType(bool))! as bool;
+          break;
+        case 'isMuted':
+          result.isMuted = serializers.deserialize(value,
+              specifiedType: const FullType(bool))! as bool;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$GFolderData_folder_thumbnailImageSerializer
     implements StructuredSerializer<GFolderData_folder_thumbnailImage> {
   @override
@@ -363,6 +453,66 @@ class _$GFolderData_folder_thumbnailImageSerializer
         case 'downloadURL':
           result.downloadURL = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GFolderData_folder_viewerSerializer
+    implements StructuredSerializer<GFolderData_folder_viewer> {
+  @override
+  final Iterable<Type> types = const [
+    GFolderData_folder_viewer,
+    _$GFolderData_folder_viewer
+  ];
+  @override
+  final String wireName = 'GFolderData_folder_viewer';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GFolderData_folder_viewer object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      '__typename',
+      serializers.serialize(object.G__typename,
+          specifiedType: const FullType(String)),
+      'isLiked',
+      serializers.serialize(object.isLiked,
+          specifiedType: const FullType(bool)),
+      'isWatched',
+      serializers.serialize(object.isWatched,
+          specifiedType: const FullType(bool)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GFolderData_folder_viewer deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GFolderData_folder_viewerBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case '__typename':
+          result.G__typename = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'isLiked':
+          result.isLiked = serializers.deserialize(value,
+              specifiedType: const FullType(bool))! as bool;
+          break;
+        case 'isWatched':
+          result.isWatched = serializers.deserialize(value,
+              specifiedType: const FullType(bool))! as bool;
           break;
       }
     }
@@ -501,6 +651,8 @@ class _$GFolderData_folder extends GFolderData_folder {
   final int viewsCount;
   @override
   final GFolderData_folder_thumbnailImage? thumbnailImage;
+  @override
+  final GFolderData_folder_viewer? viewer;
 
   factory _$GFolderData_folder(
           [void Function(GFolderData_folderBuilder)? updates]) =>
@@ -515,7 +667,8 @@ class _$GFolderData_folder extends GFolderData_folder {
       required this.createdAt,
       required this.likesCount,
       required this.viewsCount,
-      this.thumbnailImage})
+      this.thumbnailImage,
+      this.viewer})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename, r'GFolderData_folder', 'G__typename');
@@ -554,7 +707,8 @@ class _$GFolderData_folder extends GFolderData_folder {
         createdAt == other.createdAt &&
         likesCount == other.likesCount &&
         viewsCount == other.viewsCount &&
-        thumbnailImage == other.thumbnailImage;
+        thumbnailImage == other.thumbnailImage &&
+        viewer == other.viewer;
   }
 
   @override
@@ -569,6 +723,7 @@ class _$GFolderData_folder extends GFolderData_folder {
     _$hash = $jc(_$hash, likesCount.hashCode);
     _$hash = $jc(_$hash, viewsCount.hashCode);
     _$hash = $jc(_$hash, thumbnailImage.hashCode);
+    _$hash = $jc(_$hash, viewer.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -584,7 +739,8 @@ class _$GFolderData_folder extends GFolderData_folder {
           ..add('createdAt', createdAt)
           ..add('likesCount', likesCount)
           ..add('viewsCount', viewsCount)
-          ..add('thumbnailImage', thumbnailImage))
+          ..add('thumbnailImage', thumbnailImage)
+          ..add('viewer', viewer))
         .toString();
   }
 }
@@ -633,6 +789,12 @@ class GFolderData_folderBuilder
           GFolderData_folder_thumbnailImageBuilder? thumbnailImage) =>
       _$this._thumbnailImage = thumbnailImage;
 
+  GFolderData_folder_viewerBuilder? _viewer;
+  GFolderData_folder_viewerBuilder get viewer =>
+      _$this._viewer ??= new GFolderData_folder_viewerBuilder();
+  set viewer(GFolderData_folder_viewerBuilder? viewer) =>
+      _$this._viewer = viewer;
+
   GFolderData_folderBuilder() {
     GFolderData_folder._initializeBuilder(this);
   }
@@ -649,6 +811,7 @@ class GFolderData_folderBuilder
       _likesCount = $v.likesCount;
       _viewsCount = $v.viewsCount;
       _thumbnailImage = $v.thumbnailImage?.toBuilder();
+      _viewer = $v.viewer?.toBuilder();
       _$v = null;
     }
     return this;
@@ -688,7 +851,8 @@ class GFolderData_folderBuilder
                   likesCount, r'GFolderData_folder', 'likesCount'),
               viewsCount: BuiltValueNullFieldError.checkNotNull(
                   viewsCount, r'GFolderData_folder', 'viewsCount'),
-              thumbnailImage: _thumbnailImage?.build());
+              thumbnailImage: _thumbnailImage?.build(),
+              viewer: _viewer?.build());
     } catch (_) {
       late String _$failedField;
       try {
@@ -697,6 +861,8 @@ class GFolderData_folderBuilder
 
         _$failedField = 'thumbnailImage';
         _thumbnailImage?.build();
+        _$failedField = 'viewer';
+        _viewer?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'GFolderData_folder', _$failedField, e.toString());
@@ -719,6 +885,8 @@ class _$GFolderData_folder_user extends GFolderData_folder_user {
   final String login;
   @override
   final GFolderData_folder_user_iconImage? iconImage;
+  @override
+  final GFolderData_folder_user_viewer? viewer;
 
   factory _$GFolderData_folder_user(
           [void Function(GFolderData_folder_userBuilder)? updates]) =>
@@ -729,7 +897,8 @@ class _$GFolderData_folder_user extends GFolderData_folder_user {
       required this.id,
       required this.name,
       required this.login,
-      this.iconImage})
+      this.iconImage,
+      this.viewer})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename, r'GFolderData_folder_user', 'G__typename');
@@ -757,7 +926,8 @@ class _$GFolderData_folder_user extends GFolderData_folder_user {
         id == other.id &&
         name == other.name &&
         login == other.login &&
-        iconImage == other.iconImage;
+        iconImage == other.iconImage &&
+        viewer == other.viewer;
   }
 
   @override
@@ -768,6 +938,7 @@ class _$GFolderData_folder_user extends GFolderData_folder_user {
     _$hash = $jc(_$hash, name.hashCode);
     _$hash = $jc(_$hash, login.hashCode);
     _$hash = $jc(_$hash, iconImage.hashCode);
+    _$hash = $jc(_$hash, viewer.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -779,7 +950,8 @@ class _$GFolderData_folder_user extends GFolderData_folder_user {
           ..add('id', id)
           ..add('name', name)
           ..add('login', login)
-          ..add('iconImage', iconImage))
+          ..add('iconImage', iconImage)
+          ..add('viewer', viewer))
         .toString();
   }
 }
@@ -811,6 +983,12 @@ class GFolderData_folder_userBuilder
   set iconImage(GFolderData_folder_user_iconImageBuilder? iconImage) =>
       _$this._iconImage = iconImage;
 
+  GFolderData_folder_user_viewerBuilder? _viewer;
+  GFolderData_folder_user_viewerBuilder get viewer =>
+      _$this._viewer ??= new GFolderData_folder_user_viewerBuilder();
+  set viewer(GFolderData_folder_user_viewerBuilder? viewer) =>
+      _$this._viewer = viewer;
+
   GFolderData_folder_userBuilder() {
     GFolderData_folder_user._initializeBuilder(this);
   }
@@ -823,6 +1001,7 @@ class GFolderData_folder_userBuilder
       _name = $v.name;
       _login = $v.login;
       _iconImage = $v.iconImage?.toBuilder();
+      _viewer = $v.viewer?.toBuilder();
       _$v = null;
     }
     return this;
@@ -855,12 +1034,15 @@ class GFolderData_folder_userBuilder
                   name, r'GFolderData_folder_user', 'name'),
               login: BuiltValueNullFieldError.checkNotNull(
                   login, r'GFolderData_folder_user', 'login'),
-              iconImage: _iconImage?.build());
+              iconImage: _iconImage?.build(),
+              viewer: _viewer?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'iconImage';
         _iconImage?.build();
+        _$failedField = 'viewer';
+        _viewer?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'GFolderData_folder_user', _$failedField, e.toString());
@@ -997,6 +1179,130 @@ class GFolderData_folder_user_iconImageBuilder
   }
 }
 
+class _$GFolderData_folder_user_viewer extends GFolderData_folder_user_viewer {
+  @override
+  final String G__typename;
+  @override
+  final bool isFollowee;
+  @override
+  final bool isMuted;
+
+  factory _$GFolderData_folder_user_viewer(
+          [void Function(GFolderData_folder_user_viewerBuilder)? updates]) =>
+      (new GFolderData_folder_user_viewerBuilder()..update(updates))._build();
+
+  _$GFolderData_folder_user_viewer._(
+      {required this.G__typename,
+      required this.isFollowee,
+      required this.isMuted})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        G__typename, r'GFolderData_folder_user_viewer', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(
+        isFollowee, r'GFolderData_folder_user_viewer', 'isFollowee');
+    BuiltValueNullFieldError.checkNotNull(
+        isMuted, r'GFolderData_folder_user_viewer', 'isMuted');
+  }
+
+  @override
+  GFolderData_folder_user_viewer rebuild(
+          void Function(GFolderData_folder_user_viewerBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GFolderData_folder_user_viewerBuilder toBuilder() =>
+      new GFolderData_folder_user_viewerBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GFolderData_folder_user_viewer &&
+        G__typename == other.G__typename &&
+        isFollowee == other.isFollowee &&
+        isMuted == other.isMuted;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, G__typename.hashCode);
+    _$hash = $jc(_$hash, isFollowee.hashCode);
+    _$hash = $jc(_$hash, isMuted.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GFolderData_folder_user_viewer')
+          ..add('G__typename', G__typename)
+          ..add('isFollowee', isFollowee)
+          ..add('isMuted', isMuted))
+        .toString();
+  }
+}
+
+class GFolderData_folder_user_viewerBuilder
+    implements
+        Builder<GFolderData_folder_user_viewer,
+            GFolderData_folder_user_viewerBuilder> {
+  _$GFolderData_folder_user_viewer? _$v;
+
+  String? _G__typename;
+  String? get G__typename => _$this._G__typename;
+  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
+
+  bool? _isFollowee;
+  bool? get isFollowee => _$this._isFollowee;
+  set isFollowee(bool? isFollowee) => _$this._isFollowee = isFollowee;
+
+  bool? _isMuted;
+  bool? get isMuted => _$this._isMuted;
+  set isMuted(bool? isMuted) => _$this._isMuted = isMuted;
+
+  GFolderData_folder_user_viewerBuilder() {
+    GFolderData_folder_user_viewer._initializeBuilder(this);
+  }
+
+  GFolderData_folder_user_viewerBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _G__typename = $v.G__typename;
+      _isFollowee = $v.isFollowee;
+      _isMuted = $v.isMuted;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GFolderData_folder_user_viewer other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GFolderData_folder_user_viewer;
+  }
+
+  @override
+  void update(void Function(GFolderData_folder_user_viewerBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GFolderData_folder_user_viewer build() => _build();
+
+  _$GFolderData_folder_user_viewer _build() {
+    final _$result = _$v ??
+        new _$GFolderData_folder_user_viewer._(
+            G__typename: BuiltValueNullFieldError.checkNotNull(
+                G__typename, r'GFolderData_folder_user_viewer', 'G__typename'),
+            isFollowee: BuiltValueNullFieldError.checkNotNull(
+                isFollowee, r'GFolderData_folder_user_viewer', 'isFollowee'),
+            isMuted: BuiltValueNullFieldError.checkNotNull(
+                isMuted, r'GFolderData_folder_user_viewer', 'isMuted'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
 class _$GFolderData_folder_thumbnailImage
     extends GFolderData_folder_thumbnailImage {
   @override
@@ -1117,6 +1423,129 @@ class GFolderData_folder_thumbnailImageBuilder
                 id, r'GFolderData_folder_thumbnailImage', 'id'),
             downloadURL: BuiltValueNullFieldError.checkNotNull(downloadURL,
                 r'GFolderData_folder_thumbnailImage', 'downloadURL'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GFolderData_folder_viewer extends GFolderData_folder_viewer {
+  @override
+  final String G__typename;
+  @override
+  final bool isLiked;
+  @override
+  final bool isWatched;
+
+  factory _$GFolderData_folder_viewer(
+          [void Function(GFolderData_folder_viewerBuilder)? updates]) =>
+      (new GFolderData_folder_viewerBuilder()..update(updates))._build();
+
+  _$GFolderData_folder_viewer._(
+      {required this.G__typename,
+      required this.isLiked,
+      required this.isWatched})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        G__typename, r'GFolderData_folder_viewer', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(
+        isLiked, r'GFolderData_folder_viewer', 'isLiked');
+    BuiltValueNullFieldError.checkNotNull(
+        isWatched, r'GFolderData_folder_viewer', 'isWatched');
+  }
+
+  @override
+  GFolderData_folder_viewer rebuild(
+          void Function(GFolderData_folder_viewerBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GFolderData_folder_viewerBuilder toBuilder() =>
+      new GFolderData_folder_viewerBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GFolderData_folder_viewer &&
+        G__typename == other.G__typename &&
+        isLiked == other.isLiked &&
+        isWatched == other.isWatched;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, G__typename.hashCode);
+    _$hash = $jc(_$hash, isLiked.hashCode);
+    _$hash = $jc(_$hash, isWatched.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GFolderData_folder_viewer')
+          ..add('G__typename', G__typename)
+          ..add('isLiked', isLiked)
+          ..add('isWatched', isWatched))
+        .toString();
+  }
+}
+
+class GFolderData_folder_viewerBuilder
+    implements
+        Builder<GFolderData_folder_viewer, GFolderData_folder_viewerBuilder> {
+  _$GFolderData_folder_viewer? _$v;
+
+  String? _G__typename;
+  String? get G__typename => _$this._G__typename;
+  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
+
+  bool? _isLiked;
+  bool? get isLiked => _$this._isLiked;
+  set isLiked(bool? isLiked) => _$this._isLiked = isLiked;
+
+  bool? _isWatched;
+  bool? get isWatched => _$this._isWatched;
+  set isWatched(bool? isWatched) => _$this._isWatched = isWatched;
+
+  GFolderData_folder_viewerBuilder() {
+    GFolderData_folder_viewer._initializeBuilder(this);
+  }
+
+  GFolderData_folder_viewerBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _G__typename = $v.G__typename;
+      _isLiked = $v.isLiked;
+      _isWatched = $v.isWatched;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GFolderData_folder_viewer other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GFolderData_folder_viewer;
+  }
+
+  @override
+  void update(void Function(GFolderData_folder_viewerBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GFolderData_folder_viewer build() => _build();
+
+  _$GFolderData_folder_viewer _build() {
+    final _$result = _$v ??
+        new _$GFolderData_folder_viewer._(
+            G__typename: BuiltValueNullFieldError.checkNotNull(
+                G__typename, r'GFolderData_folder_viewer', 'G__typename'),
+            isLiked: BuiltValueNullFieldError.checkNotNull(
+                isLiked, r'GFolderData_folder_viewer', 'isLiked'),
+            isWatched: BuiltValueNullFieldError.checkNotNull(
+                isWatched, r'GFolderData_folder_viewer', 'isWatched'));
     replace(_$result);
     return _$result;
   }

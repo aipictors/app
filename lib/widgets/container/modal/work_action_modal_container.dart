@@ -26,7 +26,7 @@ class WorkActionModalContainer extends HookConsumerWidget {
   Widget build(context, ref) {
     return SafeArea(
       child: SizedBox(
-        height: MediaQuery.of(context).size.height * 0.4,
+        height: MediaQuery.of(context).size.height * 0.6,
         child: ListView(
           physics: const NeverScrollableScrollPhysics(),
           children: [

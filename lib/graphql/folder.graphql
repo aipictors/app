@@ -7,6 +7,11 @@ query Folder($id: ID!) {
     description
     user {
       ...WorkUserFields
+      viewer {
+        isFollowee
+        isFollowee
+        isMuted
+      }
     }
     createdAt
     likesCount
@@ -14,6 +19,10 @@ query Folder($id: ID!) {
     thumbnailImage {
       id
       downloadURL
+    }
+    viewer {
+      isLiked
+      isWatched
     }
   }
 }

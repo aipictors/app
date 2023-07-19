@@ -63,7 +63,36 @@ const Folder = _i1.OperationDefinitionNode(
             _i1.FragmentSpreadNode(
               name: _i1.NameNode(value: 'WorkUserFields'),
               directives: [],
-            )
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'viewer'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: _i1.SelectionSetNode(selections: [
+                _i1.FieldNode(
+                  name: _i1.NameNode(value: 'isFollowee'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+                _i1.FieldNode(
+                  name: _i1.NameNode(value: 'isFollowee'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+                _i1.FieldNode(
+                  name: _i1.NameNode(value: 'isMuted'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+              ]),
+            ),
           ]),
         ),
         _i1.FieldNode(
@@ -102,6 +131,28 @@ const Folder = _i1.OperationDefinitionNode(
             ),
             _i1.FieldNode(
               name: _i1.NameNode(value: 'downloadURL'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+          ]),
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'viewer'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: _i1.SelectionSetNode(selections: [
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'isLiked'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'isWatched'),
               alias: null,
               arguments: [],
               directives: [],

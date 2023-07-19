@@ -159,6 +159,7 @@ abstract class GUserData_user_viewer
   String get id;
   bool get isFollower;
   bool get isFollowee;
+  bool get isMuted;
   static Serializer<GUserData_user_viewer> get serializer =>
       _$gUserDataUserViewerSerializer;
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
