@@ -30,22 +30,21 @@ class FeedHomeView extends HookConsumerWidget {
           ..vars.offset = 0;
       }),
       builder: (context, response) {
-        final feedWorks = response.data?.viewer?.feedWorks;
-        if (feedWorks == null) {
+        final feedWorkList = response.data?.viewer?.feedWorks;
+        if (feedWorkList == null) {
           return const DataNotFoundErrorContainer();
         }
-        if (feedWorks.isEmpty) {
+        if (feedWorkList.isEmpty) {
           return const DataEmptyErrorContainer();
         }
         return ListView.separated(
-          key: const PageStorageKey('feed_home'),
           shrinkWrap: true,
           separatorBuilder: (context, index) {
             return const Divider(height: 0);
           },
-          itemCount: feedWorks.length,
+          itemCount: feedWorkList.length,
           itemBuilder: (context, index) {
-            final work = feedWorks[index];
+            final work = feedWorkList[index];
             return FeedWorkListTile(
               workId: work.id,
               workTitle: work.title,

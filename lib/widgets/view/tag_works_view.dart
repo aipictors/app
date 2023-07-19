@@ -33,17 +33,17 @@ class TagWorksView extends HookConsumerWidget {
             ..vars.offset = 0;
         }),
         builder: (context, response) {
-          final works = response.data?.tag?.works;
-          if (works == null) {
+          final workList = response.data?.tag?.works;
+          if (workList == null) {
             return const DataNotFoundErrorContainer();
           }
-          if (works.isEmpty) {
+          if (workList.isEmpty) {
             return const DataEmptyErrorContainer();
           }
           return WorksGridView(
-            itemCount: works.length,
+            itemCount: workList.length,
             itemBuilder: (context, index) {
-              final work = works[index];
+              final work = workList[index];
               return WorkGridItemContainer(
                 imageUrl: work.thumbnailImage?.downloadURL,
                 onTap: () {

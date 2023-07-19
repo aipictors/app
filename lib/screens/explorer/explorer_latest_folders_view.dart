@@ -32,20 +32,18 @@ class ExplorerFoldersView extends HookConsumerWidget {
           ..vars.offset = 0;
       }),
       builder: (context, response) {
-        final folders = response.data?.folders;
-        if (folders == null) {
+        final folderList = response.data?.folders;
+        if (folderList == null) {
           return const DataNotFoundErrorContainer();
         }
-        if (folders.isEmpty) {
+        if (folderList.isEmpty) {
           return const DataEmptyErrorContainer();
         }
         return ListView.builder(
-          key: const PageStorageKey('explorer_latest_folders'),
-          // physics: const ClampingScrollPhysics(),
           padding: const EdgeInsets.only(bottom: 16, top: 8),
-          itemCount: folders.length,
+          itemCount: folderList.length,
           itemBuilder: (context, index) {
-            final folder = folders[index];
+            final folder = folderList[index];
             return FolderListTile(
               title: folder.title,
               userName: folder.user.name,

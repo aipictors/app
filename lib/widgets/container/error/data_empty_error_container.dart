@@ -4,14 +4,17 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 class DataEmptyErrorContainer extends HookConsumerWidget {
   const DataEmptyErrorContainer({
     Key? key,
+    this.message,
   }) : super(key: key);
+
+  final String? message;
 
   @override
   Widget build(context, ref) {
-    return const Center(
+    return Center(
       child: Text(
-        'まだデータが空です。',
-        style: TextStyle(fontWeight: FontWeight.bold),
+        message ?? '何もデータが無いみたい。',
+        style: const TextStyle(fontWeight: FontWeight.bold),
       ),
     );
   }

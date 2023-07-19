@@ -121,12 +121,12 @@ class WorkScreen extends HookConsumerWidget {
                       if (response.graphqlErrors != null) {
                         return const SizedBox();
                       }
-                      final comments = response.data?.work?.comments;
-                      if (comments == null) {
+                      final commentList = response.data?.work?.comments;
+                      if (commentList == null) {
                         return const SizedBox();
                       }
                       return Column(children: [
-                        for (final comment in comments)
+                        for (final comment in commentList)
                           Column(
                             children: [
                               WorkCommentListTile(

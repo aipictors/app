@@ -30,20 +30,18 @@ class ExplorerHotTagsView extends HookConsumerWidget {
         return builder;
       }),
       builder: (context, response) {
-        final tags = response.data?.hotTags;
-        if (tags == null) {
+        final tagList = response.data?.hotTags;
+        if (tagList == null) {
           return const DataNotFoundErrorContainer();
         }
-        if (tags.isEmpty) {
+        if (tagList.isEmpty) {
           return const DataEmptyErrorContainer();
         }
         return ListView.builder(
-          key: const PageStorageKey('explorer_hot_tags'),
-          // physics: const ClampingScrollPhysics(),
           padding: const EdgeInsets.only(bottom: 16, top: 8),
-          itemCount: tags.length,
+          itemCount: tagList.length,
           itemBuilder: (context, index) {
-            final tag = tags[index];
+            final tag = tagList[index];
             return TagListTile(
               title: tag.name,
               imageURL: tag.firstWork?.thumbnailImage?.downloadURL,

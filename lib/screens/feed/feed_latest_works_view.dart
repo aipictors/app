@@ -34,21 +34,20 @@ class FeedLatestWorksView extends HookConsumerWidget {
       client: client.value!,
       operationRequest: request,
       builder: (context, response) {
-        final works = response.data?.works;
-        if (works == null) {
+        final workList = response.data?.works;
+        if (workList == null) {
           return const DataNotFoundErrorContainer();
         }
-        if (works.isEmpty) {
+        if (workList.isEmpty) {
           return const DataEmptyErrorContainer();
         }
         return ListView.separated(
-          key: const PageStorageKey('feed_latest_works'),
           separatorBuilder: (context, index) {
             return const Divider(height: 0);
           },
-          itemCount: works.length,
+          itemCount: workList.length,
           itemBuilder: (context, index) {
-            final work = works[index];
+            final work = workList[index];
             return FeedWorkListTile(
               workId: work.id,
               workTitle: work.title,

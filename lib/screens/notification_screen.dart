@@ -49,30 +49,30 @@ class NotificationScreen extends HookConsumerWidget {
           client: client.value!,
           operationRequest: request,
           builder: (context, response) {
-            final notifications = response.data?.viewer?.notifications;
-            if (notifications == null) {
+            final notificationList = response.data?.viewer?.notifications;
+            if (notificationList == null) {
               return const DataNotFoundErrorContainer();
             }
-            if (notifications.isEmpty) {
+            if (notificationList.isEmpty) {
               return const DataEmptyErrorContainer();
             }
             return ListView.separated(
               separatorBuilder: (context, index) {
                 return const Divider();
               },
-              itemCount: notifications.length,
+              itemCount: notificationList.length,
               itemBuilder: (context, index) {
-                final notification = notifications[index];
+                final notification = notificationList[index];
                 if (notification.type == GNotificationType.LIKE) {
                   final user = notification.relatedUser;
                   final work = notification.work;
                   return NotificationLikeListTile(
                     createdAt: notification.createdAt,
                     message: notification.message,
-                    userId: notification.relatedUserId,
+                    userId: notification.relatedUser?.id,
                     userName: user?.name,
                     userIconImageURL: user?.iconImage?.downloadURL,
-                    workId: notification.workId,
+                    workId: notification.work?.id,
                     workTitle: work?.title,
                     workImageURL: work?.thumbnailImage?.downloadURL,
                   );
@@ -84,13 +84,13 @@ class NotificationScreen extends HookConsumerWidget {
                   return NotificationCommentListTile(
                     createdAt: notification.createdAt,
                     message: notification.message,
-                    userId: notification.relatedUserId,
+                    userId: notification.relatedUser?.id,
                     userName: user?.name,
                     userIconImageURL: user?.iconImage?.downloadURL,
-                    workId: notification.workId,
+                    workId: notification.work?.id,
                     workTitle: work?.title,
                     workImageURL: work?.thumbnailImage?.downloadURL,
-                    stickerImageURL: sticker?.image.downloadURL,
+                    stickerImageURL: sticker?.image?.downloadURL,
                   );
                 }
                 if (notification.type == GNotificationType.COMMENT_REPLY) {
@@ -100,13 +100,13 @@ class NotificationScreen extends HookConsumerWidget {
                   return NotificationReplyListTile(
                     createdAt: notification.createdAt,
                     message: notification.message,
-                    userId: notification.relatedUserId,
+                    userId: notification.relatedUser?.id,
                     userName: user?.name,
                     userIconImageURL: user?.iconImage?.downloadURL,
-                    workId: notification.workId,
+                    workId: notification.work?.id,
                     workTitle: work?.title,
                     workImageURL: work?.thumbnailImage?.downloadURL,
-                    stickerImageURL: sticker?.image.downloadURL,
+                    stickerImageURL: sticker?.image?.downloadURL,
                   );
                 }
                 if (notification.type == GNotificationType.FOLLOW) {
@@ -114,7 +114,7 @@ class NotificationScreen extends HookConsumerWidget {
                   return NotificationFollowListTile(
                     createdAt: notification.createdAt,
                     message: notification.message,
-                    userId: notification.relatedUserId,
+                    userId: notification.relatedUser?.id,
                     userName: user?.name,
                     userIconImageURL: user?.iconImage?.downloadURL,
                   );

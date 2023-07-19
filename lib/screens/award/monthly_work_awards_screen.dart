@@ -40,20 +40,20 @@ class MonthlyWorkAwardsScreen extends HookConsumerWidget {
           ..vars.where.month = month;
       }),
       builder: (context, response) {
-        final awards = response.data?.workAwards;
-        if (awards == null) {
+        final awardList = response.data?.workAwards;
+        if (awardList == null) {
           return const DataNotFoundErrorContainer();
         }
-        if (awards.isEmpty) {
+        if (awardList.isEmpty) {
           return const DataEmptyErrorContainer();
         }
         return GridView.builder(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
           ),
-          itemCount: awards.length,
+          itemCount: awardList.length,
           itemBuilder: (context, index) {
-            final award = awards[index];
+            final award = awardList[index];
             final work = award.work;
             return InkWell(
               onTap: () {

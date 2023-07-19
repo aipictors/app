@@ -33,21 +33,20 @@ class FeedDailyThemeWorksView extends HookConsumerWidget {
           ..vars.day = DateTime.now().day;
       }),
       builder: (context, response) {
-        final feedWorks = response.data?.dailyTheme?.works;
-        if (feedWorks == null) {
+        final feedWorkList = response.data?.dailyTheme?.works;
+        if (feedWorkList == null) {
           return const DataNotFoundErrorContainer();
         }
-        if (feedWorks.isEmpty) {
+        if (feedWorkList.isEmpty) {
           return const DataEmptyErrorContainer();
         }
         return ListView.separated(
-          key: const PageStorageKey('feed_daily_theme_works'),
           separatorBuilder: (context, index) {
             return const Divider(height: 0);
           },
-          itemCount: feedWorks.length,
+          itemCount: feedWorkList.length,
           itemBuilder: (context, index) {
-            final work = feedWorks[index];
+            final work = feedWorkList[index];
             return FeedWorkListTile(
               workId: work.id,
               workTitle: work.title,

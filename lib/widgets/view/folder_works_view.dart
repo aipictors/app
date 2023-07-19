@@ -30,15 +30,15 @@ class FolderWorksView extends HookConsumerWidget {
           ..vars.offset = 0;
       }),
       builder: (context, response) {
-        final works = response.data?.folder?.works;
-        if (works == null) {
+        final workList = response.data?.folder?.works;
+        if (workList == null) {
           return const SizedBox();
         }
         return SingleChildScrollView(
           child: WorksGridView(
-            itemCount: works.length,
+            itemCount: workList.length,
             itemBuilder: (context, index) {
-              final work = works[index];
+              final work = workList[index];
               return WorkGridItemContainer(
                 imageUrl: work.thumbnailImage?.downloadURL,
                 onTap: () {

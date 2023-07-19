@@ -36,10 +36,18 @@ class FeedScreen extends HookConsumerWidget {
         ),
         resizeToAvoidBottomInset: true,
         body: const TabBarView(children: [
-          FeedHomeView(),
-          FeedLatestWorksView(),
-          FeedDailyThemeWorksView(),
-          FeedHotWorksView(),
+          FeedHomeView(
+            key: PageStorageKey('feed_home'),
+          ),
+          FeedLatestWorksView(
+            key: PageStorageKey('feed_latest_works'),
+          ),
+          FeedDailyThemeWorksView(
+            key: PageStorageKey('feed_daily_theme_works'),
+          ),
+          FeedHotWorksView(
+            key: PageStorageKey('feed_hot_works'),
+          ),
         ]),
         floatingActionButton: FloatingActionButton.extended(
           icon: const Icon(Icons.add),

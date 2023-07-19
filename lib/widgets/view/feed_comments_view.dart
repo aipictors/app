@@ -23,15 +23,15 @@ class FeedCommentsView extends HookConsumerWidget {
         return builder..vars.workId = workId;
       }),
       builder: (context, response) {
-        final comments = response.data?.work?.comments;
-        if (comments == null) {
+        final commentList = response.data?.work?.comments;
+        if (commentList == null) {
           return const SizedBox();
         }
         return SingleChildScrollView(
           child: ListView.builder(
-            itemCount: comments.length,
+            itemCount: commentList.length,
             itemBuilder: (context, index) {
-              final comment = comments[index];
+              final comment = commentList[index];
               return ListTile(
                 title: Text(comment.user.name),
                 subtitle: Text(comment.text),

@@ -4,14 +4,17 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 class DataNotFoundErrorContainer extends HookConsumerWidget {
   const DataNotFoundErrorContainer({
     Key? key,
+    this.message,
   }) : super(key: key);
+
+  final String? message;
 
   @override
   Widget build(context, ref) {
-    return const Center(
+    return Center(
       child: Text(
-        'データがありません。',
-        style: TextStyle(fontWeight: FontWeight.bold),
+        message ?? 'データが無いみたい。',
+        style: const TextStyle(fontWeight: FontWeight.bold),
       ),
     );
   }

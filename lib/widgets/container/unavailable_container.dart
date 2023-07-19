@@ -15,7 +15,10 @@ class UnavailableContainer extends HookConsumerWidget {
         children: [
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Text('現在、この機能は使用できません。'.i18n),
+            child: Text(
+              'この機能は使用できないみたい。'.i18n,
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
           ),
         ],
       ),

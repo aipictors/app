@@ -53,18 +53,18 @@ class DailyThemesScreen extends HookConsumerWidget {
             ..vars.where.year = year.value;
         }),
         builder: (context, response) {
-          final dailyThemes = response.data?.dailyThemes;
-          if (dailyThemes == null) {
+          final dailyThemeList = response.data?.dailyThemes;
+          if (dailyThemeList == null) {
             return const DataNotFoundErrorContainer();
           }
-          if (dailyThemes.isEmpty) {
+          if (dailyThemeList.isEmpty) {
             return const DataEmptyErrorContainer();
           }
           return ListView.builder(
             padding: const EdgeInsets.only(bottom: 16, left: 0, right: 0),
-            itemCount: dailyThemes.length,
+            itemCount: dailyThemeList.length,
             itemBuilder: (context, index) {
-              final dailyTheme = dailyThemes[index];
+              final dailyTheme = dailyThemeList[index];
               final firstWork = dailyTheme.firstWork;
               return DailyThemeListTile(
                 isCurrent: isCurrent(year.value, month.value, dailyTheme.day),

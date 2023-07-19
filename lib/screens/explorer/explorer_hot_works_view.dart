@@ -30,11 +30,11 @@ class ExplorerHotWorksView extends HookConsumerWidget {
         return builder;
       }),
       builder: (context, response) {
-        final works = response.data?.hotWorks;
-        if (works == null) {
+        final workList = response.data?.hotWorks;
+        if (workList == null) {
           return const DataNotFoundErrorContainer();
         }
-        if (works.isEmpty) {
+        if (workList.isEmpty) {
           return const DataEmptyErrorContainer();
         }
         return GridView.builder(
@@ -43,9 +43,9 @@ class ExplorerHotWorksView extends HookConsumerWidget {
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
           ),
-          itemCount: works.length,
+          itemCount: workList.length,
           itemBuilder: (context, index) {
-            final work = works[index];
+            final work = workList[index];
             return InkWell(
               onTap: () {
                 FirebaseAnalytics.instance.logSelectContent(

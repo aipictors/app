@@ -71,10 +71,18 @@ class ExplorerScreen extends HookConsumerWidget {
         body: search.value.isNotEmpty
             ? ExplorerSearchView(search: search.value)
             : const TabBarView(children: [
-                ExplorerFoldersView(),
-                ExplorerHotTagsView(),
-                ExplorerPopularWorksView(),
-                ExplorerBestWorksView(),
+                ExplorerFoldersView(
+                  key: PageStorageKey('explorer_latest_folders'),
+                ),
+                ExplorerHotTagsView(
+                  key: PageStorageKey('explorer_hot_tags'),
+                ),
+                ExplorerPopularWorksView(
+                  key: PageStorageKey('explorer_popular_works'),
+                ),
+                ExplorerBestWorksView(
+                  key: PageStorageKey('explorer_best_works'),
+                ),
               ]),
       ),
     );

@@ -30,22 +30,20 @@ class ExplorerPopularWorksView extends HookConsumerWidget {
         return builder;
       }),
       builder: (context, response) {
-        final works = response.data?.popularWorks;
-        if (works == null) {
+        final workList = response.data?.popularWorks;
+        if (workList == null) {
           return const DataNotFoundErrorContainer();
         }
-        if (works.isEmpty) {
+        if (workList.isEmpty) {
           return const DataEmptyErrorContainer();
         }
         return GridView.builder(
-          key: const PageStorageKey('explorer_popular_works'),
-          // physics: const ClampingScrollPhysics(),
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
           ),
-          itemCount: works.length,
+          itemCount: workList.length,
           itemBuilder: (context, index) {
-            final work = works[index];
+            final work = workList[index];
             return InkWell(
               onTap: () {
                 FirebaseAnalytics.instance.logSelectContent(

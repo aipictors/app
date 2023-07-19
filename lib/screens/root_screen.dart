@@ -40,17 +40,19 @@ class RootScreen extends HookConsumerWidget {
       return const LoadingScreen();
     }
 
-    final screens = [
-      const FeedScreen(),
-      const DailyThemesScreen(),
-      const ExplorerScreen(),
-      if (authState.value == null) const LoginScreen(),
-      if (authState.value != null) const NotificationScreen(),
-      const ConfigScreen()
+    final screenList = [
+      const FeedScreen(key: PageStorageKey('root_feed')),
+      const DailyThemesScreen(key: PageStorageKey('root_daily_theme')),
+      const ExplorerScreen(key: PageStorageKey('root_explorer')),
+      if (authState.value == null)
+        const LoginScreen(key: PageStorageKey('root_login')),
+      if (authState.value != null)
+        const NotificationScreen(key: PageStorageKey('root_notification')),
+      const ConfigScreen(key: PageStorageKey('root_config'))
     ];
 
     return Scaffold(
-      body: screens[pageIndex.value],
+      body: screenList[pageIndex.value],
       bottomNavigationBar: NavigationBar(
         selectedIndex: pageIndex.value,
         labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,

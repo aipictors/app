@@ -30,21 +30,20 @@ class FeedHotWorksView extends HookConsumerWidget {
       client: client.value!,
       operationRequest: request,
       builder: (context, response) {
-        final hotWorks = response.data?.hotWorks;
-        if (hotWorks == null) {
+        final hotWorkList = response.data?.hotWorks;
+        if (hotWorkList == null) {
           return const DataNotFoundErrorContainer();
         }
-        if (hotWorks.isEmpty) {
+        if (hotWorkList.isEmpty) {
           return const DataEmptyErrorContainer();
         }
         return ListView.separated(
-          key: const PageStorageKey('feed_hot_works'),
           separatorBuilder: (context, index) {
             return const Divider(height: 0);
           },
-          itemCount: hotWorks.length,
+          itemCount: hotWorkList.length,
           itemBuilder: (context, index) {
-            final work = hotWorks[index];
+            final work = hotWorkList[index];
             return FeedWorkListTile(
               workId: work.id,
               workTitle: work.title,

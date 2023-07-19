@@ -37,11 +37,11 @@ class UserFolloweesScreen extends HookConsumerWidget {
             ..vars.user_id = userId;
         }),
         builder: (context, response) {
-          final followees = response.data?.user?.followees;
-          if (followees == null) {
+          final followeeList = response.data?.user?.followees;
+          if (followeeList == null) {
             return const DataNotFoundErrorContainer();
           }
-          if (followees.isEmpty) {
+          if (followeeList.isEmpty) {
             return const DataEmptyErrorContainer();
           }
           return GridView.builder(
@@ -49,9 +49,9 @@ class UserFolloweesScreen extends HookConsumerWidget {
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
             ),
-            itemCount: followees.length,
+            itemCount: followeeList.length,
             itemBuilder: (context, index) {
-              final user = followees[index];
+              final user = followeeList[index];
               return Text(user.name);
             },
           );

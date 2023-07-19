@@ -61,13 +61,13 @@ class CommentModalContainer extends HookConsumerWidget {
                   client: client.value!,
                   operationRequest: request,
                   builder: (context, response) {
-                    final comments = response.data?.work?.comments;
-                    if (comments == null) {
+                    final commentList = response.data?.work?.comments;
+                    if (commentList == null) {
                       return const DataNotFoundErrorContainer();
                     }
                     return SingleChildScrollView(
                       child: Column(children: [
-                        for (final comment in comments)
+                        for (final comment in commentList)
                           Column(
                             children: [
                               WorkCommentListTile(

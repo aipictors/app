@@ -30,22 +30,20 @@ class ExplorerBestWorksView extends HookConsumerWidget {
         return builder;
       }),
       builder: (context, response) {
-        final works = response.data?.bestWorks;
-        if (works == null) {
+        final workList = response.data?.bestWorks;
+        if (workList == null) {
           return const DataEmptyErrorContainer();
         }
-        if (works.isEmpty) {
+        if (workList.isEmpty) {
           return const DataNotFoundErrorContainer();
         }
         return GridView.builder(
-          key: const PageStorageKey('explorer_best_works'),
-          physics: const ClampingScrollPhysics(),
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
           ),
-          itemCount: works.length,
+          itemCount: workList.length,
           itemBuilder: (context, index) {
-            final work = works[index];
+            final work = workList[index];
             return InkWell(
               onTap: () {
                 FirebaseAnalytics.instance.logSelectContent(
