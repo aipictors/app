@@ -74,6 +74,17 @@ class ConfigRepository {
     await instance!.setInt('count_xxx', count);
   }
 
+  String get uiMode {
+    final value = instance!.getString('config_uimode');
+    return value ?? 'Auto';
+  }
+
+  /// カウント（xxx）を更新する
+  Future<void> setUIMode(String mode) async {
+    /* Auto Compact Medium*/
+    await instance!.setString('config_uimode', mode);
+  }
+
   int get badgeCount {
     return 0;
   }
