@@ -1,9 +1,9 @@
 import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/graphql/fragments/__generated__/partial_user_fields_fragment.data.gql.dart';
+import 'package:aipictors/mutations/mute_tag.dart';
 import 'package:aipictors/widgets/container/dismissible_background_container.dart';
 import 'package:aipictors/widgets/list/muted_tag_list_tile.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class DismissibleMutedTagList extends HookConsumerWidget {
@@ -16,12 +16,10 @@ class DismissibleMutedTagList extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
-    final state = useState(tagList);
-
     return ListView.builder(
       itemCount: tagList.length,
       itemBuilder: (context, index) {
-        final tag = state.value[index];
+        final tag = tagList[index];
         return Dismissible(
           key: ValueKey(tag.id),
           background: DismissibleBackgroundContainer(
@@ -31,8 +29,18 @@ class DismissibleMutedTagList extends HookConsumerWidget {
             tagName: tag.name,
             onTap: null,
           ),
+          onDismissed: (direction) {
+            onDismissed(tag.name);
+          },
         );
       },
     );
+  }
+
+  /// ミュートを解除する
+  onDismissed(String tagName) {
+    return muteTag((builder) {
+      return builder..vars.input.tagName = tagName;
+    });
   }
 }

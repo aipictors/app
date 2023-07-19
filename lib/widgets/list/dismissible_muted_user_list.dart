@@ -1,9 +1,10 @@
 import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/graphql/fragments/__generated__/partial_user_fields_fragment.data.gql.dart';
+import 'package:aipictors/mutations/mute_user.dart';
 import 'package:aipictors/widgets/container/dismissible_background_container.dart';
 import 'package:aipictors/widgets/list/muted_user_list_tile.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class DismissibleMutedUserList extends HookConsumerWidget {
@@ -16,13 +17,12 @@ class DismissibleMutedUserList extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
-    final state = useState(userList);
-
     return ListView.builder(
       itemCount: userList.length,
       itemBuilder: (context, index) {
-        final user = state.value[index];
+        final user = userList[index];
         return Dismissible(
+          direction: DismissDirection.endToStart,
           key: ValueKey(user.id),
           background: DismissibleBackgroundContainer(
             text: 'ミュートを解除する'.i18n,
@@ -31,10 +31,22 @@ class DismissibleMutedUserList extends HookConsumerWidget {
             userName: user.name,
             userLogin: user.login,
             userIconImageURL: user.iconImage?.downloadURL,
-            onTap: null,
+            onTap: () {
+              context.push('/users/${user.id}');
+            },
           ),
+          onDismissed: (direction) {
+            onDismissed(user.id);
+          },
         );
       },
     );
+  }
+
+  /// ミュートを解除する
+  onDismissed(String userId) {
+    return muteUser((builder) {
+      return builder..vars.input.userId = userId;
+    });
   }
 }
