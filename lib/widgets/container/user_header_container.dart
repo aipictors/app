@@ -9,7 +9,10 @@ class UserHeaderContainer extends HookConsumerWidget {
     Key? key,
     required this.userId,
     required this.iconImageURL,
+    required this.isFollowee,
   }) : super(key: key);
+
+  final bool isFollowee;
 
   final String userId;
 
@@ -35,9 +38,12 @@ class UserHeaderContainer extends HookConsumerWidget {
             ),
             Row(
               children: [
-                FollowButton(onPressed: () {
-                  return onFollowUser(context);
-                }),
+                FollowButton(
+                  isActive: isFollowee,
+                  onPressed: () {
+                    return onFollowUser(context);
+                  },
+                ),
                 const SizedBox(width: 8),
               ],
             ),

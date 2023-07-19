@@ -6,6 +6,12 @@ query FeedHotWorks {
     ...PartialFeedWorkFields
     user {
       ...PartialUserFields
+      viewer {
+        id
+        isFollower
+        isFollowee
+        isMuted
+      }
     }
     viewer {
       id

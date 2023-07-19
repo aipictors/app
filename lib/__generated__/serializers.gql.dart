@@ -106,6 +106,7 @@ import 'package:aipictors/graphql/__generated__/feed_daily_theme_works.data.gql.
         GFeedDailyThemeWorksData_dailyTheme_works_image,
         GFeedDailyThemeWorksData_dailyTheme_works_user,
         GFeedDailyThemeWorksData_dailyTheme_works_user_iconImage,
+        GFeedDailyThemeWorksData_dailyTheme_works_user_viewer,
         GFeedDailyThemeWorksData_dailyTheme_works_viewer;
 import 'package:aipictors/graphql/__generated__/feed_daily_theme_works.req.gql.dart'
     show GFeedDailyThemeWorksReq;
@@ -118,6 +119,7 @@ import 'package:aipictors/graphql/__generated__/feed_hot_works.data.gql.dart'
         GFeedHotWorksData_hotWorks_image,
         GFeedHotWorksData_hotWorks_user,
         GFeedHotWorksData_hotWorks_user_iconImage,
+        GFeedHotWorksData_hotWorks_user_viewer,
         GFeedHotWorksData_hotWorks_viewer;
 import 'package:aipictors/graphql/__generated__/feed_hot_works.req.gql.dart'
     show GFeedHotWorksReq;
@@ -130,6 +132,7 @@ import 'package:aipictors/graphql/__generated__/feed_latest_works.data.gql.dart'
         GFeedLatestWorksData_works_image,
         GFeedLatestWorksData_works_user,
         GFeedLatestWorksData_works_user_iconImage,
+        GFeedLatestWorksData_works_user_viewer,
         GFeedLatestWorksData_works_viewer;
 import 'package:aipictors/graphql/__generated__/feed_latest_works.req.gql.dart'
     show GFeedLatestWorksReq;
@@ -322,6 +325,7 @@ import 'package:aipictors/graphql/__generated__/viewer_feed_works.data.gql.dart'
         GViewerFeedWorksData_viewer_feedWorks_image,
         GViewerFeedWorksData_viewer_feedWorks_user,
         GViewerFeedWorksData_viewer_feedWorks_user_iconImage,
+        GViewerFeedWorksData_viewer_feedWorks_user_viewer,
         GViewerFeedWorksData_viewer_feedWorks_viewer;
 import 'package:aipictors/graphql/__generated__/viewer_feed_works.req.gql.dart'
     show GViewerFeedWorksReq;
@@ -337,6 +341,25 @@ import 'package:aipictors/graphql/__generated__/viewer_liked_works.req.gql.dart'
     show GViewerLikedWorksReq;
 import 'package:aipictors/graphql/__generated__/viewer_liked_works.var.gql.dart'
     show GViewerLikedWorksVars;
+import 'package:aipictors/graphql/__generated__/viewer_muted_tags.data.gql.dart'
+    show
+        GViewerMutedTagsData,
+        GViewerMutedTagsData_viewer,
+        GViewerMutedTagsData_viewer_mutedTags;
+import 'package:aipictors/graphql/__generated__/viewer_muted_tags.req.gql.dart'
+    show GViewerMutedTagsReq;
+import 'package:aipictors/graphql/__generated__/viewer_muted_tags.var.gql.dart'
+    show GViewerMutedTagsVars;
+import 'package:aipictors/graphql/__generated__/viewer_muted_users.data.gql.dart'
+    show
+        GViewerMutedUsersData,
+        GViewerMutedUsersData_viewer,
+        GViewerMutedUsersData_viewer_mutedUsers,
+        GViewerMutedUsersData_viewer_mutedUsers_iconImage;
+import 'package:aipictors/graphql/__generated__/viewer_muted_users.req.gql.dart'
+    show GViewerMutedUsersReq;
+import 'package:aipictors/graphql/__generated__/viewer_muted_users.var.gql.dart'
+    show GViewerMutedUsersVars;
 import 'package:aipictors/graphql/__generated__/viewer_notifications.data.gql.dart'
     show
         GViewerNotificationsData,
@@ -369,6 +392,7 @@ import 'package:aipictors/graphql/__generated__/work.data.gql.dart'
         GWorkData_work_image,
         GWorkData_work_user,
         GWorkData_work_user_iconImage,
+        GWorkData_work_user_viewer,
         GWorkData_work_viewer;
 import 'package:aipictors/graphql/__generated__/work.req.gql.dart'
     show GWorkReq;
@@ -551,7 +575,10 @@ import 'package:aipictors/graphql/mutations/__generated__/delete_work.req.gql.da
 import 'package:aipictors/graphql/mutations/__generated__/delete_work.var.gql.dart'
     show GDeleteWorkVars;
 import 'package:aipictors/graphql/mutations/__generated__/follow_user.data.gql.dart'
-    show GFollowUserData, GFollowUserData_followUser;
+    show
+        GFollowUserData,
+        GFollowUserData_followUser,
+        GFollowUserData_followUser_viewer;
 import 'package:aipictors/graphql/mutations/__generated__/follow_user.req.gql.dart'
     show GFollowUserReq;
 import 'package:aipictors/graphql/mutations/__generated__/follow_user.var.gql.dart'
@@ -563,13 +590,13 @@ import 'package:aipictors/graphql/mutations/__generated__/login_with_password.re
 import 'package:aipictors/graphql/mutations/__generated__/login_with_password.var.gql.dart'
     show GLoginWithPasswordVars;
 import 'package:aipictors/graphql/mutations/__generated__/mute_tag.data.gql.dart'
-    show GMuteTagData, GMuteTagData_muteTag;
+    show GMuteTagData, GMuteTagData_muteTag, GMuteTagData_muteTag_viewer;
 import 'package:aipictors/graphql/mutations/__generated__/mute_tag.req.gql.dart'
     show GMuteTagReq;
 import 'package:aipictors/graphql/mutations/__generated__/mute_tag.var.gql.dart'
     show GMuteTagVars;
 import 'package:aipictors/graphql/mutations/__generated__/mute_user.data.gql.dart'
-    show GMuteUserData, GMuteUserData_muteUser;
+    show GMuteUserData, GMuteUserData_muteUser, GMuteUserData_muteUser_viewer;
 import 'package:aipictors/graphql/mutations/__generated__/mute_user.req.gql.dart'
     show GMuteUserReq;
 import 'package:aipictors/graphql/mutations/__generated__/mute_user.var.gql.dart'
@@ -761,6 +788,7 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GFeedDailyThemeWorksData_dailyTheme_works_image,
   GFeedDailyThemeWorksData_dailyTheme_works_user,
   GFeedDailyThemeWorksData_dailyTheme_works_user_iconImage,
+  GFeedDailyThemeWorksData_dailyTheme_works_user_viewer,
   GFeedDailyThemeWorksData_dailyTheme_works_viewer,
   GFeedDailyThemeWorksReq,
   GFeedDailyThemeWorksVars,
@@ -769,6 +797,7 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GFeedHotWorksData_hotWorks_image,
   GFeedHotWorksData_hotWorks_user,
   GFeedHotWorksData_hotWorks_user_iconImage,
+  GFeedHotWorksData_hotWorks_user_viewer,
   GFeedHotWorksData_hotWorks_viewer,
   GFeedHotWorksReq,
   GFeedHotWorksVars,
@@ -777,6 +806,7 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GFeedLatestWorksData_works_image,
   GFeedLatestWorksData_works_user,
   GFeedLatestWorksData_works_user_iconImage,
+  GFeedLatestWorksData_works_user_viewer,
   GFeedLatestWorksData_works_viewer,
   GFeedLatestWorksReq,
   GFeedLatestWorksVars,
@@ -803,6 +833,7 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GFoldersWhereInput,
   GFollowUserData,
   GFollowUserData_followUser,
+  GFollowUserData_followUser_viewer,
   GFollowUserInput,
   GFollowUserReq,
   GFollowUserVars,
@@ -824,11 +855,13 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GLoginWithPasswordVars,
   GMuteTagData,
   GMuteTagData_muteTag,
+  GMuteTagData_muteTag_viewer,
   GMuteTagInput,
   GMuteTagReq,
   GMuteTagVars,
   GMuteUserData,
   GMuteUserData_muteUser,
+  GMuteUserData_muteUser_viewer,
   GMuteUserInput,
   GMuteUserReq,
   GMuteUserVars,
@@ -1013,6 +1046,7 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GViewerFeedWorksData_viewer_feedWorks_image,
   GViewerFeedWorksData_viewer_feedWorks_user,
   GViewerFeedWorksData_viewer_feedWorks_user_iconImage,
+  GViewerFeedWorksData_viewer_feedWorks_user_viewer,
   GViewerFeedWorksData_viewer_feedWorks_viewer,
   GViewerFeedWorksReq,
   GViewerFeedWorksVars,
@@ -1022,6 +1056,17 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GViewerLikedWorksData_viewer_likedWorks_thumbnailImage,
   GViewerLikedWorksReq,
   GViewerLikedWorksVars,
+  GViewerMutedTagsData,
+  GViewerMutedTagsData_viewer,
+  GViewerMutedTagsData_viewer_mutedTags,
+  GViewerMutedTagsReq,
+  GViewerMutedTagsVars,
+  GViewerMutedUsersData,
+  GViewerMutedUsersData_viewer,
+  GViewerMutedUsersData_viewer_mutedUsers,
+  GViewerMutedUsersData_viewer_mutedUsers_iconImage,
+  GViewerMutedUsersReq,
+  GViewerMutedUsersVars,
   GViewerNotificationsData,
   GViewerNotificationsData_viewer,
   GViewerNotificationsData_viewer_notifications,
@@ -1065,6 +1110,7 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GWorkData_work_image,
   GWorkData_work_user,
   GWorkData_work_user_iconImage,
+  GWorkData_work_user_viewer,
   GWorkData_work_viewer,
   GWorkReq,
   GWorkUserFieldsData,

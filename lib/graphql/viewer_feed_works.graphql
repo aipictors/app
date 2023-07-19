@@ -7,6 +7,12 @@ query ViewerFeedWorks($offset: Int!, $limit: Int!) {
       ...PartialFeedWorkFields
       user {
         ...PartialUserFields
+        viewer {
+          id
+          isFollower
+          isFollowee
+          isMuted
+        }
       }
       viewer {
         id

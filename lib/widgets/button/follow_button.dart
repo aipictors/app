@@ -7,8 +7,11 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 class FollowButton extends HookConsumerWidget {
   const FollowButton({
     Key? key,
+    required this.isActive,
     required this.onPressed,
   }) : super(key: key);
+
+  final bool isActive;
 
   final Future Function() onPressed;
 
@@ -38,7 +41,7 @@ class FollowButton extends HookConsumerWidget {
               child: CircularProgressIndicator(),
             )
           : Text(
-              'フォロー'.i18n,
+              isActive ? 'フォロー中' : 'フォローする'.i18n,
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
     );

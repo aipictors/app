@@ -6,6 +6,12 @@ query FeedLatestWorks($offset: Int!, $limit: Int!, $where: WorksWhereInput) {
     ...PartialFeedWorkFields
     user {
       ...PartialUserFields
+      viewer {
+        id
+        isFollower
+        isFollowee
+        isMuted
+      }
     }
     viewer {
       id

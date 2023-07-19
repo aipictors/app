@@ -48,7 +48,12 @@ class UserScreen extends HookConsumerWidget {
                 IconButton(
                   icon: const Icon(Icons.more_horiz_rounded),
                   onPressed: () {
-                    onOpenActionModal(context);
+                    onOpenActionModal(
+                      context,
+                      userName: user.name,
+                      userIconImageURL: user.iconImage?.downloadURL,
+                      isMutedUser: user.viewer?.isFollowee == true,
+                    );
                   },
                 ),
               ],
@@ -73,6 +78,7 @@ class UserScreen extends HookConsumerWidget {
                             userId: user.id,
                             userLogin: user.login,
                             userName: user.name,
+                            isFollowee: user.viewer?.isFollowee == true,
                           ),
                           const SizedBox(height: 16),
                           UserProfileContainer(
@@ -105,12 +111,20 @@ class UserScreen extends HookConsumerWidget {
     );
   }
 
-  onOpenActionModal(BuildContext context) {
+  onOpenActionModal(
+    BuildContext context, {
+    required String userName,
+    required String? userIconImageURL,
+    required bool isMutedUser,
+  }) {
     showModalBottomSheet(
       context: context,
       builder: (context) {
         return UserActionModalContainer(
           userId: userId,
+          userName: userName,
+          userIconImageURL: userIconImageURL,
+          isMutedUser: isMutedUser,
         );
       },
     );

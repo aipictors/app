@@ -175,6 +175,7 @@ abstract class GViewerFeedWorksData_viewer_feedWorks_user
   String get name;
   @override
   GViewerFeedWorksData_viewer_feedWorks_user_iconImage? get iconImage;
+  GViewerFeedWorksData_viewer_feedWorks_user_viewer? get viewer;
   static Serializer<GViewerFeedWorksData_viewer_feedWorks_user>
       get serializer => _$gViewerFeedWorksDataViewerFeedWorksUserSerializer;
   @override
@@ -223,6 +224,40 @@ abstract class GViewerFeedWorksData_viewer_feedWorks_user_iconImage
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GViewerFeedWorksData_viewer_feedWorks_user_iconImage.serializer,
+        json,
+      );
+}
+
+abstract class GViewerFeedWorksData_viewer_feedWorks_user_viewer
+    implements
+        Built<GViewerFeedWorksData_viewer_feedWorks_user_viewer,
+            GViewerFeedWorksData_viewer_feedWorks_user_viewerBuilder> {
+  GViewerFeedWorksData_viewer_feedWorks_user_viewer._();
+
+  factory GViewerFeedWorksData_viewer_feedWorks_user_viewer(
+      [Function(GViewerFeedWorksData_viewer_feedWorks_user_viewerBuilder b)
+          updates]) = _$GViewerFeedWorksData_viewer_feedWorks_user_viewer;
+
+  static void _initializeBuilder(
+          GViewerFeedWorksData_viewer_feedWorks_user_viewerBuilder b) =>
+      b..G__typename = 'UserViewerNode';
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  String get id;
+  bool get isFollower;
+  bool get isFollowee;
+  bool get isMuted;
+  static Serializer<GViewerFeedWorksData_viewer_feedWorks_user_viewer>
+      get serializer =>
+          _$gViewerFeedWorksDataViewerFeedWorksUserViewerSerializer;
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GViewerFeedWorksData_viewer_feedWorks_user_viewer.serializer,
+        this,
+      ) as Map<String, dynamic>);
+  static GViewerFeedWorksData_viewer_feedWorks_user_viewer? fromJson(
+          Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GViewerFeedWorksData_viewer_feedWorks_user_viewer.serializer,
         json,
       );
 }

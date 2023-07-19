@@ -1,4 +1,5 @@
 import 'package:aipictors/default.i18n.dart';
+import 'package:aipictors/mutations/mute_user.dart';
 import 'package:aipictors/widgets/container/modal_header_container.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -9,11 +10,14 @@ class CommentActionModalContainer extends HookConsumerWidget {
     Key? key,
     required this.commentId,
     required this.userId,
+    required this.isMutedUser,
   }) : super(key: key);
 
   final String commentId;
 
   final String userId;
+
+  final bool isMutedUser;
 
   @override
   Widget build(context, ref) {
@@ -27,15 +31,19 @@ class CommentActionModalContainer extends HookConsumerWidget {
               title: Container(),
             ),
             ListTile(
-              leading: const Icon(Icons.block_rounded),
+              leading: Icon(
+                Icons.block_rounded,
+                color: isMutedUser ? Theme.of(context).colorScheme.error : null,
+              ),
               title: Text(
-                'ユーザをミュートする'.i18n,
+                isMutedUser ? 'ユーザをミュート中'.i18n : 'ユーザをミュートする'.i18n,
                 style: const TextStyle(fontWeight: FontWeight.bold),
               ),
               onTap: () {
-                context.pop();
+                onMuteUser(context);
               },
             ),
+            const Divider(),
             ListTile(
               leading: const Icon(Icons.gpp_maybe_rounded),
               title: Text(
@@ -62,5 +70,12 @@ class CommentActionModalContainer extends HookConsumerWidget {
         ),
       ),
     );
+  }
+
+  /// ユーザをミュートする
+  onMuteUser(BuildContext context) {
+    return muteUser((builder) {
+      return builder..vars.input.userId = userId;
+    });
   }
 }

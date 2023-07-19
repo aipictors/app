@@ -59,6 +59,8 @@ class FeedHomeView extends HookConsumerWidget {
               commentsCount: work.commentsCount,
               isLiked: work.viewer?.isLiked == true,
               isBookmarked: work.viewer?.isBookmarked == true,
+              isFollowee: work.user.viewer?.isFollowee == true,
+              isMutedUser: work.user.viewer?.isMuted == true,
             );
           },
         );

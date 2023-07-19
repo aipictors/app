@@ -26,6 +26,8 @@ class FeedWorkListTile extends HookConsumerWidget {
     required this.isBookmarked,
     required this.likesCount,
     required this.commentsCount,
+    required this.isMutedUser,
+    required this.isFollowee,
   }) : super(key: key);
 
   final String workId;
@@ -51,6 +53,10 @@ class FeedWorkListTile extends HookConsumerWidget {
   final bool isLiked;
 
   final bool isBookmarked;
+
+  final bool isMutedUser;
+
+  final bool isFollowee;
 
   @override
   Widget build(context, ref) {
@@ -148,6 +154,7 @@ class FeedWorkListTile extends HookConsumerWidget {
     );
   }
 
+  /// 作品をいいねする
   void onCreateLike(BuildContext context) {
     FirebaseAnalytics.instance.logEvent(
       name: 'create_work_like',
@@ -160,6 +167,7 @@ class FeedWorkListTile extends HookConsumerWidget {
     });
   }
 
+  /// 作品をブックマークする
   void onCreateBookmark(BuildContext context) {
     FirebaseAnalytics.instance.logEvent(
       name: 'create_work_bookmark',
@@ -172,6 +180,7 @@ class FeedWorkListTile extends HookConsumerWidget {
     });
   }
 
+  /// 作品の詳細を開く
   void onOpenWork(BuildContext context) {
     FirebaseAnalytics.instance.logSelectContent(
       contentType: 'work',
@@ -180,6 +189,7 @@ class FeedWorkListTile extends HookConsumerWidget {
     context.push('/works/$workId');
   }
 
+  /// 作品のコメントを開く
   void onOpenComment(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -190,6 +200,7 @@ class FeedWorkListTile extends HookConsumerWidget {
     );
   }
 
+  /// モーダルを開く
   void onOpenActionModal(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -199,6 +210,8 @@ class FeedWorkListTile extends HookConsumerWidget {
           userId: userId,
           userName: userName,
           userIconImageURL: userIconImageURL,
+          isFollowee: isFollowee,
+          isMutedUser: isMutedUser,
         );
       },
     );

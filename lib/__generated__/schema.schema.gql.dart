@@ -1175,6 +1175,8 @@ abstract class GWorksWhereInput
 
 const Map<String, Set<String>> possibleTypesMap = {
   '_Entity': {
+    'CategoryNode',
+    'CategoryViewerNode',
     'CommentNode',
     'ContributorNode',
     'DailyThemeNode',
@@ -1202,6 +1204,8 @@ const Map<String, Set<String>> possibleTypesMap = {
     'WorkViewerNode',
   },
   'Node': {
+    'CategoryNode',
+    'CategoryViewerNode',
     'CommentNode',
     'ContributorNode',
     'DailyThemeNode',

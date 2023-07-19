@@ -53,7 +53,11 @@ class WorkScreen extends HookConsumerWidget {
               IconButton(
                 icon: const Icon(Icons.more_horiz_rounded),
                 onPressed: () {
-                  onOpenActionModal(context, userId: work.user.id);
+                  onOpenActionModal(
+                    context,
+                    userId: work.user.id,
+                    isMutedUser: work.user.viewer?.isMuted == true,
+                  );
                 },
               ),
             ],
@@ -75,9 +79,12 @@ class WorkScreen extends HookConsumerWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         WorkUserProfileContainer(user: work.user),
-                        FollowButton(onPressed: () {
-                          return onFollowUser(context, userId: work.user.id);
-                        }),
+                        FollowButton(
+                          isActive: work.user.viewer?.isFollowee == true,
+                          onPressed: () {
+                            return onFollowUser(context, userId: work.user.id);
+                          },
+                        ),
                       ],
                     ),
                   ),
@@ -149,6 +156,7 @@ class WorkScreen extends HookConsumerWidget {
   onOpenActionModal(
     BuildContext context, {
     required String userId,
+    required bool isMutedUser,
   }) {
     showModalBottomSheet(
       context: context,
@@ -156,6 +164,7 @@ class WorkScreen extends HookConsumerWidget {
         return WorkActionModalContainer(
           workId: workId,
           userId: userId,
+          isMutedUser: isMutedUser,
         );
       },
     );

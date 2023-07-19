@@ -28,7 +28,7 @@ directive @specifiedBy(
 
 scalar _Any
 
-union _Entity = CommentNode | ContributorNode | DailyThemeNode | FolderLikeNode | FolderNode | FolderViewerNode | FriendshipNode | ImageNode | MutedTagNode | MutedUserNode | NotificationNode | StickerNode | StickerViewerNode | SubWorkNode | TagNode | TagViewerNode | UserNode | UserSettingNode | UserViewerNode | WorkAwardNode | WorkBookmarkNode | WorkEventNode | WorkLikeNode | WorkNode | WorkViewerNode
+union _Entity = CategoryNode | CategoryViewerNode | CommentNode | ContributorNode | DailyThemeNode | FolderLikeNode | FolderNode | FolderViewerNode | FriendshipNode | ImageNode | MutedTagNode | MutedUserNode | NotificationNode | StickerNode | StickerViewerNode | SubWorkNode | TagNode | TagViewerNode | UserNode | UserSettingNode | UserViewerNode | WorkAwardNode | WorkBookmarkNode | WorkEventNode | WorkLikeNode | WorkNode | WorkViewerNode
 
 type _Service {
   sdl: String
@@ -68,6 +68,18 @@ enum AwardType {
 enum CacheControlScope {
   PUBLIC
   PRIVATE
+}
+
+"""カテゴリ"""
+type CategoryNode implements Node {
+  id: ID!
+  name: String!
+  viewer: CategoryViewerNode
+}
+
+type CategoryViewerNode implements Node {
+  id: ID!
+  isWatched: Boolean!
 }
 
 """コメント"""
@@ -521,10 +533,10 @@ type Query {
   """ステッカー"""
   stickers(offset: Int!, limit: Int!, where: StickersWhereInput): [StickerNode!]!
 
-  """ステッカー"""
+  """タグ"""
   tag(name: String!): TagNode
 
-  """ステッカー"""
+  """全てのタグ"""
   tags(offset: Int!, limit: Int!, where: TagsWhereInput): [TagNode!]!
 
   """トレンドのタグ"""
@@ -541,6 +553,12 @@ type Query {
 
   """全期間の人気作品"""
   popularWorks(where: PopularWorksWhereInput!): [WorkNode!]!
+
+  """カテゴリ"""
+  categories: [CategoryNode!]!
+
+  """カテゴリ"""
+  category: CategoryNode!
 
   """ログイン中のユーザ"""
   viewer: Viewer
@@ -672,6 +690,7 @@ type TagViewerNode implements Node {
   id: ID!
   isLiked: Boolean!
   isWatched: Boolean!
+  isMuted: Boolean!
 }
 
 input UnfollowUserInput {
@@ -792,6 +811,7 @@ type UserViewerNode implements Node {
   id: ID!
   isFollower: Boolean!
   isFollowee: Boolean!
+  isMuted: Boolean!
 }
 
 input UserWorksWhereInput {
@@ -806,6 +826,8 @@ type Viewer {
   bookmarkedWorks(offset: Int!, limit: Int!): [WorkNode!]!
   notifications(offset: Int!, limit: Int!): [NotificationNode!]!
   feedWorks(offset: Int!, limit: Int!): [WorkNode!]!
+  mutedUsers(offset: Int!, limit: Int!): [UserNode!]!
+  mutedTags(offset: Int!, limit: Int!): [TagNode!]!
 }
 
 """アワード（作品）"""

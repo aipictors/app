@@ -11,6 +11,12 @@ query Work($id: ID!) {
     }
     user {
       ...WorkUserFields
+      viewer {
+        id
+        isFollower
+        isFollowee
+        isMuted
+      }
     }
     tagNames
     createdAt

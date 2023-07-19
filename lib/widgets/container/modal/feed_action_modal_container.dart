@@ -1,4 +1,6 @@
 import 'package:aipictors/default.i18n.dart';
+import 'package:aipictors/mutations/follow_user.dart';
+import 'package:aipictors/mutations/mute_user.dart';
 import 'package:aipictors/widgets/container/modal_header_container.dart';
 import 'package:aipictors/widgets/container/notification_user_container.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +15,8 @@ class FeedActionModalContainer extends HookConsumerWidget {
     required this.userId,
     required this.userName,
     required this.userIconImageURL,
+    required this.isFollowee,
+    required this.isMutedUser,
   }) : super(key: key);
 
   final String workId;
@@ -22,6 +26,10 @@ class FeedActionModalContainer extends HookConsumerWidget {
   final String userName;
 
   final String? userIconImageURL;
+
+  final bool isFollowee;
+
+  final bool isMutedUser;
 
   @override
   Widget build(context, ref) {
@@ -49,23 +57,29 @@ class FeedActionModalContainer extends HookConsumerWidget {
               },
             ),
             ListTile(
-              leading: const Icon(Icons.favorite_rounded),
+              leading: Icon(
+                Icons.favorite_rounded,
+                color: isFollowee ? Theme.of(context).colorScheme.error : null,
+              ),
               title: Text(
-                'ユーザをフォローする'.i18n,
+                isFollowee ? 'ユーザをフォロー中'.i18n : 'ユーザをフォローする'.i18n,
                 style: const TextStyle(fontWeight: FontWeight.bold),
               ),
               onTap: () {
-                context.pop();
+                onFollowUser(context);
               },
             ),
             ListTile(
-              leading: const Icon(Icons.block_rounded),
+              leading: Icon(
+                Icons.block_rounded,
+                color: isMutedUser ? Theme.of(context).colorScheme.error : null,
+              ),
               title: Text(
-                'ユーザをミュートする'.i18n,
+                isMutedUser ? 'ユーザをミュート中'.i18n : 'ユーザをミュートする'.i18n,
                 style: const TextStyle(fontWeight: FontWeight.bold),
               ),
               onTap: () {
-                context.pop();
+                onMuteUser(context);
               },
             ),
             const Divider(),
@@ -95,5 +109,19 @@ class FeedActionModalContainer extends HookConsumerWidget {
         ),
       ),
     );
+  }
+
+  /// ユーザをフォローする
+  onFollowUser(BuildContext context) {
+    return followUser((builder) {
+      return builder..vars.input.userId = userId;
+    });
+  }
+
+  /// ユーザをミュートする
+  onMuteUser(BuildContext context) {
+    return muteUser((builder) {
+      return builder..vars.input.userId = userId;
+    });
   }
 }

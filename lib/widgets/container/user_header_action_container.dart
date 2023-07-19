@@ -11,6 +11,7 @@ class UserHeaderActionContainer extends HookConsumerWidget {
     required this.userId,
     required this.userName,
     required this.userLogin,
+    required this.isFollowee,
   }) : super(key: key);
 
   final String? iconImageURL;
@@ -20,6 +21,8 @@ class UserHeaderActionContainer extends HookConsumerWidget {
   final String userName;
 
   final String userLogin;
+
+  final bool isFollowee;
 
   @override
   Widget build(context, ref) {
@@ -59,9 +62,12 @@ class UserHeaderActionContainer extends HookConsumerWidget {
           const SizedBox(height: 16),
           SizedBox(
             width: double.infinity,
-            child: FollowButton(onPressed: () {
-              return onFollowUser(context);
-            }),
+            child: FollowButton(
+              isActive: isFollowee,
+              onPressed: () {
+                return onFollowUser(context);
+              },
+            ),
           ),
         ],
       ),

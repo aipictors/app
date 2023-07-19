@@ -54,7 +54,7 @@ class ConfigScreen extends HookConsumerWidget {
                 ),
               ),
               onTap: () {
-                // context.push('/config/muted_tags');
+                context.push('/config/muted_tags');
               },
             ),
           if (authState.value != null)

@@ -115,6 +115,7 @@ abstract class GWorkData_work_user
   String get login;
   @override
   GWorkData_work_user_iconImage? get iconImage;
+  GWorkData_work_user_viewer? get viewer;
   static Serializer<GWorkData_work_user> get serializer =>
       _$gWorkDataWorkUserSerializer;
   @override
@@ -159,6 +160,36 @@ abstract class GWorkData_work_user_iconImage
   static GWorkData_work_user_iconImage? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GWorkData_work_user_iconImage.serializer,
+        json,
+      );
+}
+
+abstract class GWorkData_work_user_viewer
+    implements
+        Built<GWorkData_work_user_viewer, GWorkData_work_user_viewerBuilder> {
+  GWorkData_work_user_viewer._();
+
+  factory GWorkData_work_user_viewer(
+          [Function(GWorkData_work_user_viewerBuilder b) updates]) =
+      _$GWorkData_work_user_viewer;
+
+  static void _initializeBuilder(GWorkData_work_user_viewerBuilder b) =>
+      b..G__typename = 'UserViewerNode';
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  String get id;
+  bool get isFollower;
+  bool get isFollowee;
+  bool get isMuted;
+  static Serializer<GWorkData_work_user_viewer> get serializer =>
+      _$gWorkDataWorkUserViewerSerializer;
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GWorkData_work_user_viewer.serializer,
+        this,
+      ) as Map<String, dynamic>);
+  static GWorkData_work_user_viewer? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GWorkData_work_user_viewer.serializer,
         json,
       );
 }
