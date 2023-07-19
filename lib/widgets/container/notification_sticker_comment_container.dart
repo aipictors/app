@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:aipictors/widgets/container/notification_sticker_comment_container_compact.dart';
 import 'package:aipictors/widgets/container/notification_sticker_comment_container_medium.dart';
+import 'package:aipictors/config.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class NotificationStickerCommentContainer extends HookConsumerWidget {
@@ -16,7 +17,7 @@ class NotificationStickerCommentContainer extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
-    if (MediaQuery.of(context).size.width >= 600) {
+    if (MediaQuery.of(context).size.width >= DefaultConfig.mediumUIThreshold) {
       return NotificationStickerCommentContainerMedium(
           stickerImageURL: stickerImageURL, workImageURL: workImageURL);
     }

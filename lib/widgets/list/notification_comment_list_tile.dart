@@ -1,5 +1,6 @@
 import 'package:aipictors/widgets/list/notification_comment_list_tile_compact.dart';
 import 'package:aipictors/widgets/list/notification_comment_list_tile_medium.dart';
+import 'package:aipictors/config.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -36,7 +37,7 @@ class NotificationCommentListTile extends HookConsumerWidget {
   final String? stickerImageURL;
   @override
   Widget build(context, ref) {
-    if (MediaQuery.of(context).size.width >= 600) {
+    if (MediaQuery.of(context).size.width >= DefaultConfig.mediumUIThreshold) {
       return NotificationCommentListTileMedium(
         createdAt: createdAt,
         message: message,
