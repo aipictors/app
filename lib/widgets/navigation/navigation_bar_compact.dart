@@ -1,3 +1,4 @@
+import 'package:aipictors/default.i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -25,31 +26,31 @@ class NavigationBarCompact extends HookConsumerWidget {
       selectedIndex: pageIndex.value,
       labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
       destinations: [
-        const NavigationDestination(
-          icon: Icon(Icons.home),
-          label: 'ホーム',
+        NavigationDestination(
+          icon: const Icon(Icons.home),
+          label: 'ホーム'.i18n,
         ),
-        const NavigationDestination(
-          icon: Icon(Icons.today_rounded),
-          label: 'お題',
+        NavigationDestination(
+          icon: const Icon(Icons.today_rounded),
+          label: 'お題'.i18n,
         ),
-        const NavigationDestination(
-          icon: Icon(Icons.explore_rounded),
-          label: '見つける',
+        NavigationDestination(
+          icon: const Icon(Icons.explore_rounded),
+          label: '見つける'.i18n,
         ),
         if (authState.value == null)
-          const NavigationDestination(
-            icon: Icon(Icons.login_rounded),
-            label: 'ログイン',
+          NavigationDestination(
+            icon: const Icon(Icons.login_rounded),
+            label: 'ログイン'.i18n,
           ),
         if (authState.value != null)
-          const NavigationDestination(
-            icon: Icon(Icons.notifications_rounded),
-            label: '通知',
+          NavigationDestination(
+            icon: const Icon(Icons.notifications_rounded),
+            label: '通知'.i18n,
           ),
-        const NavigationDestination(
-          icon: Icon(Icons.more_horiz_rounded),
-          label: 'その他',
+        NavigationDestination(
+          icon: const Icon(Icons.more_horiz_rounded),
+          label: 'その他'.i18n,
         ),
       ],
       onDestinationSelected: (index) {
