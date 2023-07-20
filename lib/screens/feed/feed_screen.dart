@@ -3,6 +3,7 @@ import 'package:aipictors/screens/feed/feed_daily_theme_works_view.dart';
 import 'package:aipictors/screens/feed/feed_home_view.dart';
 import 'package:aipictors/screens/feed/feed_hot_works_view.dart';
 import 'package:aipictors/screens/feed/feed_latest_works_view.dart';
+import 'package:aipictors/widgets/controller/feed_tab_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -17,7 +18,7 @@ class FeedScreen extends HookConsumerWidget {
   Widget build(context, ref) {
     const tabSize = 4;
 
-    return DefaultTabController(
+    return FeedTabController(
       length: tabSize,
       child: Scaffold(
         appBar: AppBar(
@@ -30,7 +31,7 @@ class FeedScreen extends HookConsumerWidget {
           bottom: TabBar(tabs: [
             Tab(text: 'ホーム'.i18n),
             Tab(text: '新着'.i18n),
-            Tab(text: 'お題'.i18n),
+            Tab(text: 'テーマ'.i18n),
             Tab(text: 'おすすめ'.i18n),
           ]),
         ),

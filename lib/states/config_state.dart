@@ -145,9 +145,10 @@ class ConfigState with _$ConfigState {
   }
 
   /// Remote Config
-  String get messageUnexpectedErrorA {
+  /// フィードの終わりの画像URL
+  String get endOfFeedImageURL {
     final remoteConfig = FirebaseRemoteConfig.instance;
-    return remoteConfig.getString('message_unexpected_error_a');
+    return remoteConfig.getString('end_of_feed_image_url');
   }
 
   /// Remote Config
@@ -280,6 +281,12 @@ class ConfigState with _$ConfigState {
   String get messageSurveyReset {
     final remoteConfig = FirebaseRemoteConfig.instance;
     return remoteConfig.getString('message_survey_reset');
+  }
+
+  /// Remote Config
+  String get messageUnexpectedErrorA {
+    final remoteConfig = FirebaseRemoteConfig.instance;
+    return remoteConfig.getString('message_unexpected_error_a');
   }
 
   /// Remote Config
