@@ -8,6 +8,9 @@ import 'package:aipictors/screens/feed/feed_screen.dart';
 import 'package:aipictors/screens/loading_screen.dart';
 import 'package:aipictors/screens/login_screen.dart';
 import 'package:aipictors/screens/notification_screen.dart';
+import 'package:aipictors/widgets/navigation/navigation_bar_compact.dart';
+import 'package:aipictors/widgets/navigation/navigation_rail_medium.dart';
+import 'package:aipictors/config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -50,44 +53,24 @@ class RootScreen extends HookConsumerWidget {
         const NotificationScreen(key: PageStorageKey('root_notification')),
       const ConfigScreen(key: PageStorageKey('root_config'))
     ];
-
+    if (MediaQuery.of(context).size.width >= DefaultConfig.mediumUIThreshold) {
+      return Scaffold(
+        body: Row(
+          children: [
+            NavigationRailMedium(
+              authStateProvider: authStateProvider,
+              pageIndex: pageIndex,
+            ),
+            Expanded(child: screenList[pageIndex.value])
+          ],
+        ),
+      );
+    }
     return Scaffold(
-      body: screenList[pageIndex.value],
-      bottomNavigationBar: NavigationBar(
-        selectedIndex: pageIndex.value,
-        labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
-        destinations: [
-          const NavigationDestination(
-            icon: Icon(Icons.home),
-            label: 'ホーム',
-          ),
-          const NavigationDestination(
-            icon: Icon(Icons.today_rounded),
-            label: 'お題',
-          ),
-          const NavigationDestination(
-            icon: Icon(Icons.explore_rounded),
-            label: '見つける',
-          ),
-          if (authState.value == null)
-            const NavigationDestination(
-              icon: Icon(Icons.login_rounded),
-              label: 'ログイン',
-            ),
-          if (authState.value != null)
-            const NavigationDestination(
-              icon: Icon(Icons.notifications_rounded),
-              label: '通知',
-            ),
-          const NavigationDestination(
-            icon: Icon(Icons.more_horiz_rounded),
-            label: 'その他',
-          ),
-        ],
-        onDestinationSelected: (index) {
-          pageIndex.value = index;
-        },
-      ),
-    );
+        body: screenList[pageIndex.value],
+        bottomNavigationBar: NavigationBarCompact(
+          authStateProvider: authStateProvider,
+          pageIndex: pageIndex,
+        ));
   }
 }
