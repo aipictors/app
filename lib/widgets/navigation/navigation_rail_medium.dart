@@ -1,3 +1,4 @@
+import 'package:aipictors/default.i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -23,21 +24,21 @@ class NavigationRailMedium extends HookConsumerWidget {
 
     NavigationRailDestination loginORNotification() {
       if (authState.value == null) {
-        return const NavigationRailDestination(
-            icon: Icon(
+        return NavigationRailDestination(
+            icon: const Icon(
               Icons.login_rounded,
               size: 30,
             ),
-            label: Text('ログイン'),
-            padding: EdgeInsets.symmetric(vertical: 10));
+            label: Text('ログイン'.i18n),
+            padding: const EdgeInsets.symmetric(vertical: 10));
       }
-      return const NavigationRailDestination(
-          icon: Icon(
+      return NavigationRailDestination(
+          icon: const Icon(
             Icons.notifications_rounded,
             size: 30,
           ),
-          label: Text('通知'),
-          padding: EdgeInsets.symmetric(vertical: 10));
+          label: Text('通知'.i18n),
+          padding: const EdgeInsets.symmetric(vertical: 10));
     }
 
     return NavigationRail(
@@ -45,35 +46,35 @@ class NavigationRailMedium extends HookConsumerWidget {
       labelType: NavigationRailLabelType.all,
       minWidth: 100,
       destinations: [
-        const NavigationRailDestination(
-            icon: Icon(
+        NavigationRailDestination(
+            icon: const Icon(
               Icons.home,
               size: 30,
             ),
-            label: Text('ホーム'),
-            padding: EdgeInsets.symmetric(vertical: 10)),
-        const NavigationRailDestination(
-            icon: Icon(
+            label: Text('ホーム'.i18n),
+            padding: const EdgeInsets.symmetric(vertical: 10)),
+        NavigationRailDestination(
+            icon: const Icon(
               Icons.today_rounded,
               size: 30,
             ),
-            label: Text('お題'),
-            padding: EdgeInsets.symmetric(vertical: 10)),
-        const NavigationRailDestination(
-            icon: Icon(
+            label: Text('お題'.i18n),
+            padding: const EdgeInsets.symmetric(vertical: 10)),
+        NavigationRailDestination(
+            icon: const Icon(
               Icons.explore_rounded,
               size: 30,
             ),
-            label: Text('見つける'),
-            padding: EdgeInsets.symmetric(vertical: 10)),
+            label: Text('見つける'.i18n),
+            padding: const EdgeInsets.symmetric(vertical: 10)),
         loginORNotification(),
-        const NavigationRailDestination(
-            icon: Icon(
+        NavigationRailDestination(
+            icon: const Icon(
               Icons.more_horiz_rounded,
               size: 30,
             ),
-            label: Text('その他'),
-            padding: EdgeInsets.symmetric(vertical: 10)),
+            label: Text('その他'.i18n),
+            padding: const EdgeInsets.symmetric(vertical: 10)),
       ],
       onDestinationSelected: (index) {
         pageIndex.value = index;
