@@ -42,7 +42,7 @@ class NavigationRailMedium extends HookConsumerWidget {
 
     return NavigationRail(
       selectedIndex: pageIndex.value,
-      labelType: NavigationRailLabelType.selected,
+      labelType: NavigationRailLabelType.all,
       minWidth: 100,
       destinations: [
         const NavigationRailDestination(
