@@ -53,6 +53,8 @@ class RootScreen extends HookConsumerWidget {
         const NotificationScreen(key: PageStorageKey('root_notification')),
       const ConfigScreen(key: PageStorageKey('root_config'))
     ];
+
+    //タブレット用
     if (MediaQuery.of(context).size.width >= DefaultConfig.mediumUIThreshold) {
       return Scaffold(
         body: Row(
@@ -66,6 +68,7 @@ class RootScreen extends HookConsumerWidget {
         ),
       );
     }
+    //スマホ用
     return Scaffold(
         body: screenList[pageIndex.value],
         bottomNavigationBar: NavigationBarCompact(

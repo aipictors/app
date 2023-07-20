@@ -22,6 +22,7 @@ class NavigationRailMedium extends HookConsumerWidget {
       },
     );
 
+    //destinations内ではif文が使えない
     NavigationRailDestination loginORNotification() {
       if (authState.value == null) {
         return NavigationRailDestination(
