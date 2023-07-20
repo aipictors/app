@@ -215,6 +215,16 @@ class ConfigScreen extends HookConsumerWidget {
             },
           ),
           const Divider(),
+          ListTile(
+            trailing: const Icon(Icons.chevron_right_rounded),
+            title: Text(
+              'UIモード切り替え'.i18n,
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+            onTap: () {
+              context.push('/config/ui_mode');
+            },
+          ),
           SwitchListTile(
             title: Text(
               'システムカラーモード'.i18n,

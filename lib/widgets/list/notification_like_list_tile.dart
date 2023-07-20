@@ -1,3 +1,4 @@
+import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/widgets/list/notification_like_list_tile_compact.dart';
 import 'package:aipictors/widgets/list/notification_like_list_tile_medium.dart';
 import 'package:aipictors/config.dart';
@@ -35,7 +36,10 @@ class NotificationLikeListTile extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
-    if (MediaQuery.of(context).size.width >= DefaultConfig.mediumUIThreshold) {
+    final config = ref.watch(configProvider);
+    if (MediaQuery.of(context).size.width >= DefaultConfig.mediumUIThreshold &&
+            config.uiMode == 'Auto' ||
+        config.uiMode == 'Medium') {
       return NotificationLikeListTileMedium(
         createdAt: createdAt,
         message: message,

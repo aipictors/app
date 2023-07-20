@@ -1,3 +1,4 @@
+import 'package:aipictors/providers/config_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:aipictors/widgets/container/notification_sticker_comment_container_compact.dart';
 import 'package:aipictors/widgets/container/notification_sticker_comment_container_medium.dart';
@@ -17,7 +18,10 @@ class NotificationStickerCommentContainer extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
-    if (MediaQuery.of(context).size.width >= DefaultConfig.mediumUIThreshold) {
+    final config = ref.watch(configProvider);
+    if (MediaQuery.of(context).size.width >= DefaultConfig.mediumUIThreshold &&
+            config.uiMode == 'Auto' ||
+        config.uiMode == 'Medium') {
       return NotificationStickerCommentContainerMedium(
           stickerImageURL: stickerImageURL, workImageURL: workImageURL);
     }
