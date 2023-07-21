@@ -8,7 +8,7 @@ import 'package:aipictors/widgets/builder/operation_builder.dart';
 import 'package:aipictors/widgets/container/error/data_not_found_error_container.dart';
 import 'package:aipictors/widgets/container/loading_container.dart';
 import 'package:aipictors/widgets/container/modal_header_container.dart';
-import 'package:aipictors/widgets/list/work_comment_list_tile.dart';
+import 'package:aipictors/widgets/list_tile/work_comment_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';

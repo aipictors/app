@@ -1,14 +1,16 @@
-import 'package:aipictors/__generated__/schema.schema.gql.dart';
+import 'package:aipictors/graphql/__generated__/viewer_notifications.data.gql.dart';
 import 'package:aipictors/graphql/__generated__/viewer_notifications.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
 import 'package:aipictors/widgets/container/error/data_empty_error_container.dart';
 import 'package:aipictors/widgets/container/error/data_not_found_error_container.dart';
 import 'package:aipictors/widgets/container/loading_container.dart';
-import 'package:aipictors/widgets/list/notification_comment_list_tile.dart';
-import 'package:aipictors/widgets/list/notification_follow_list_tile.dart';
-import 'package:aipictors/widgets/list/notification_like_list_tile.dart';
-import 'package:aipictors/widgets/list/notification_reply_list_tile.dart';
+import 'package:aipictors/widgets/list_tile/notification/notification_follow_list_tile.dart';
+import 'package:aipictors/widgets/list_tile/notification/notification_liked_work_list_tile.dart';
+import 'package:aipictors/widgets/list_tile/notification/notification_liked_works_summary_list_tile.dart';
+import 'package:aipictors/widgets/list_tile/notification/notification_work_award_list_tile.dart';
+import 'package:aipictors/widgets/list_tile/notification/notification_work_comment_list_tile.dart';
+import 'package:aipictors/widgets/list_tile/notification/notification_work_comment_reply_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -43,7 +45,8 @@ class NotificationScreen extends HookConsumerWidget {
               ..vars.offset = 0
               ..vars.limit = 64;
           });
-          return client.value?.requestController.add(req);
+          client.value?.requestController.add(req);
+          await Future.delayed(const Duration(seconds: 2));
         },
         child: OperationBuilder(
           client: client.value!,
@@ -57,19 +60,20 @@ class NotificationScreen extends HookConsumerWidget {
               return const DataEmptyErrorContainer();
             }
             return ListView.separated(
+              padding: const EdgeInsets.only(bottom: 8),
               separatorBuilder: (context, index) {
                 return const Divider();
               },
               itemCount: notificationList.length,
               itemBuilder: (context, index) {
                 final notification = notificationList[index];
-                if (notification.type == GNotificationType.LIKE) {
-                  final user = notification.relatedUser;
+                if (notification
+                    is GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNode) {
+                  final user = notification.user;
                   final work = notification.work;
-                  return NotificationLikeListTile(
+                  return NotificationLikedWorkListTile(
                     createdAt: notification.createdAt,
-                    message: notification.message,
-                    userId: notification.relatedUser?.id,
+                    userId: user?.id,
                     userName: user?.name,
                     userIconImageURL: user?.iconImage?.downloadURL,
                     workId: notification.work?.id,
@@ -77,14 +81,33 @@ class NotificationScreen extends HookConsumerWidget {
                     workImageURL: work?.thumbnailImage?.downloadURL,
                   );
                 }
-                if (notification.type == GNotificationType.COMMENT) {
-                  final user = notification.relatedUser;
-                  final work = notification.work;
-                  final sticker = notification.sticker;
-                  return NotificationCommentListTile(
+                if (notification
+                    is GViewerNotificationsData_viewer_notifications__asLikedWorksSummaryNotificationNode) {
+                  return NotificationLikedWorksSummaryListTile(
                     createdAt: notification.createdAt,
                     message: notification.message,
-                    userId: notification.relatedUser?.id,
+                  );
+                }
+                if (notification
+                    is GViewerNotificationsData_viewer_notifications__asWorkAwardNotificationNode) {
+                  final work = notification.work;
+                  return NotificationWorkAwardListTile(
+                    createdAt: notification.createdAt,
+                    message: notification.message,
+                    workId: notification.work?.id,
+                    workTitle: work?.title,
+                    workImageURL: work?.thumbnailImage?.downloadURL,
+                  );
+                }
+                if (notification
+                    is GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode) {
+                  final user = notification.user;
+                  final work = notification.work;
+                  final sticker = notification.sticker;
+                  return NotificationWorkCommentListTile(
+                    createdAt: notification.createdAt,
+                    message: notification.message,
+                    userId: user?.id,
                     userName: user?.name,
                     userIconImageURL: user?.iconImage?.downloadURL,
                     workId: notification.work?.id,
@@ -93,14 +116,15 @@ class NotificationScreen extends HookConsumerWidget {
                     stickerImageURL: sticker?.image?.downloadURL,
                   );
                 }
-                if (notification.type == GNotificationType.COMMENT_REPLY) {
-                  final user = notification.relatedUser;
+                if (notification
+                    is GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode) {
+                  final user = notification.user;
                   final work = notification.work;
                   final sticker = notification.sticker;
-                  return NotificationReplyListTile(
+                  return NotificationWorkCommentReplyListTile(
                     createdAt: notification.createdAt,
                     message: notification.message,
-                    userId: notification.relatedUser?.id,
+                    userId: user?.id,
                     userName: user?.name,
                     userIconImageURL: user?.iconImage?.downloadURL,
                     workId: notification.work?.id,
@@ -109,12 +133,12 @@ class NotificationScreen extends HookConsumerWidget {
                     stickerImageURL: sticker?.image?.downloadURL,
                   );
                 }
-                if (notification.type == GNotificationType.FOLLOW) {
-                  final user = notification.relatedUser;
+                if (notification
+                    is GViewerNotificationsData_viewer_notifications__asFollowNotificationNode) {
+                  final user = notification.user;
                   return NotificationFollowListTile(
                     createdAt: notification.createdAt,
-                    message: notification.message,
-                    userId: notification.relatedUser?.id,
+                    userId: user?.id,
                     userName: user?.name,
                     userIconImageURL: user?.iconImage?.downloadURL,
                   );

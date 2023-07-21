@@ -14,6 +14,10 @@ class NotificationStickerCommentContainerMedium extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
+    if (stickerImageURL == null || workImageURL == null) {
+      return const SizedBox();
+    }
+
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [

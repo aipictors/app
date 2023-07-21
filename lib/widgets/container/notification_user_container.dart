@@ -9,7 +9,7 @@ class NotificationUserContainer extends HookConsumerWidget {
     required this.userIconImageURL,
   }) : super(key: key);
 
-  final String userName;
+  final String? userName;
 
   final String? userIconImageURL;
 
@@ -21,7 +21,7 @@ class NotificationUserContainer extends HookConsumerWidget {
         const SizedBox(width: 12),
         // TODO: ユーザ名が長い場合は省略したい
         Text(
-          userName,
+          userName ?? '-',
           overflow: TextOverflow.ellipsis,
           style: Theme.of(context).textTheme.titleSmall,
         ),

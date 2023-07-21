@@ -1,0 +1,5 @@
+fragment LikedWorksSummaryNotificationFields on LikedWorksSummaryNotificationNode {
+  id
+  createdAt
+  message
+}

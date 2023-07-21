@@ -4,7 +4,7 @@ import 'package:aipictors/screens/loading_screen.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
 import 'package:aipictors/widgets/container/error/data_empty_error_container.dart';
 import 'package:aipictors/widgets/container/error/data_not_found_error_container.dart';
-import 'package:aipictors/widgets/list/folder_list_tile.dart';
+import 'package:aipictors/widgets/list_tile/folder_list_tile.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';

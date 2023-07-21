@@ -8,10 +8,7 @@ part of 'serializers.gql.dart';
 
 Serializers _$serializers = (new Serializers().toBuilder()
       ..add(FetchPolicy.serializer)
-      ..add(GAcceptPromptonRequestInput.serializer)
       ..add(GAccessType.serializer)
-      ..add(GAddPromptonTagToWorkInput.serializer)
-      ..add(GAddPromptonWorkToFolderInput.serializer)
       ..add(GAwardType.serializer)
       ..add(GAwardsWhereInput.serializer)
       ..add(GBestWorksData.serializer)
@@ -19,11 +16,7 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GBestWorksData_bestWorks_thumbnailImage.serializer)
       ..add(GBestWorksReq.serializer)
       ..add(GBestWorksVars.serializer)
-      ..add(GBlockPromptonUserInput.serializer)
       ..add(GCacheControlScope.serializer)
-      ..add(GCancelPromptonRequestInput.serializer)
-      ..add(GChangePromptonFolderToPaidInput.serializer)
-      ..add(GClosePromptonRequestInput.serializer)
       ..add(GCommentFieldsData.serializer)
       ..add(GCommentFieldsData_sticker.serializer)
       ..add(GCommentFieldsData_sticker_image.serializer)
@@ -48,30 +41,6 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GCreateFolderInput.serializer)
       ..add(GCreateFolderReq.serializer)
       ..add(GCreateFolderVars.serializer)
-      ..add(GCreatePromptonChatMessageInput.serializer)
-      ..add(GCreatePromptonCoffeeRequestInput.serializer)
-      ..add(GCreatePromptonDeliverableInput.serializer)
-      ..add(GCreatePromptonFileInput.serializer)
-      ..add(GCreatePromptonFolderInput.serializer)
-      ..add(GCreatePromptonFolderKeyInput.serializer)
-      ..add(GCreatePromptonFolderViewInput.serializer)
-      ..add(GCreatePromptonInquiryInput.serializer)
-      ..add(GCreatePromptonPaymentMethodInput.serializer)
-      ..add(GCreatePromptonPlanInput.serializer)
-      ..add(GCreatePromptonPlanRequestInput.serializer)
-      ..add(GCreatePromptonPlanViewInput.serializer)
-      ..add(GCreatePromptonProfileBlockInput.serializer)
-      ..add(GCreatePromptonPromptCategoryInput.serializer)
-      ..add(GCreatePromptonPromptInput.serializer)
-      ..add(GCreatePromptonPromptWorkInput.serializer)
-      ..add(GCreatePromptonReactionInput.serializer)
-      ..add(GCreatePromptonThumbnailFileInput.serializer)
-      ..add(GCreatePromptonUserInput.serializer)
-      ..add(GCreatePromptonUserViewInput.serializer)
-      ..add(GCreatePromptonWorkBookmarkInput.serializer)
-      ..add(GCreatePromptonWorkInput.serializer)
-      ..add(GCreatePromptonWorkLikeInput.serializer)
-      ..add(GCreatePromptonWorkViewInput.serializer)
       ..add(GCreateResponseCommentData.serializer)
       ..add(GCreateResponseCommentData_createResponseComment.serializer)
       ..add(GCreateResponseCommentInput.serializer)
@@ -117,8 +86,6 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GDailyThemesReq.serializer)
       ..add(GDailyThemesVars.serializer)
       ..add(GDailyThemesWhereInput.serializer)
-      ..add(GDecrementPromptonPlanSort.serializer)
-      ..add(GDecrementPromptonProfileBlockIndexInput.serializer)
       ..add(GDeleteCommentData.serializer)
       ..add(GDeleteCommentData_deleteComment.serializer)
       ..add(GDeleteCommentInput.serializer)
@@ -129,16 +96,6 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GDeleteFolderInput.serializer)
       ..add(GDeleteFolderReq.serializer)
       ..add(GDeleteFolderVars.serializer)
-      ..add(GDeletePromptonFolderInput.serializer)
-      ..add(GDeletePromptonIntegrationInput.serializer)
-      ..add(GDeletePromptonPlanInput.serializer)
-      ..add(GDeletePromptonProfileBlockInput.serializer)
-      ..add(GDeletePromptonPromptCategoryInput.serializer)
-      ..add(GDeletePromptonPromptInput.serializer)
-      ..add(GDeletePromptonReactionInput.serializer)
-      ..add(GDeletePromptonWorkBookmarkInput.serializer)
-      ..add(GDeletePromptonWorkInput.serializer)
-      ..add(GDeletePromptonWorkLikeInput.serializer)
       ..add(GDeleteStickerData.serializer)
       ..add(GDeleteStickerData_deleteSticker.serializer)
       ..add(GDeleteStickerInput.serializer)
@@ -179,7 +136,6 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GFeedLatestWorksData_works_viewer.serializer)
       ..add(GFeedLatestWorksReq.serializer)
       ..add(GFeedLatestWorksVars.serializer)
-      ..add(GFlipPromptonFolderWorkIndexInput.serializer)
       ..add(GFolderData.serializer)
       ..add(GFolderData_folder.serializer)
       ..add(GFolderData_folder_thumbnailImage.serializer)
@@ -187,7 +143,6 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GFolderData_folder_user_iconImage.serializer)
       ..add(GFolderData_folder_user_viewer.serializer)
       ..add(GFolderData_folder_viewer.serializer)
-      ..add(GFolderMode.serializer)
       ..add(GFolderReq.serializer)
       ..add(GFolderVars.serializer)
       ..add(GFolderWorksData.serializer)
@@ -204,7 +159,11 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GFoldersReq.serializer)
       ..add(GFoldersVars.serializer)
       ..add(GFoldersWhereInput.serializer)
-      ..add(GFollowPromptonUserInput.serializer)
+      ..add(GFollowNotificationFieldsData.serializer)
+      ..add(GFollowNotificationFieldsData_user.serializer)
+      ..add(GFollowNotificationFieldsData_user_iconImage.serializer)
+      ..add(GFollowNotificationFieldsReq.serializer)
+      ..add(GFollowNotificationFieldsVars.serializer)
       ..add(GFollowUserData.serializer)
       ..add(GFollowUserData_followUser.serializer)
       ..add(GFollowUserData_followUser_viewer.serializer)
@@ -222,20 +181,21 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GHotWorksData_hotWorks_thumbnailImage.serializer)
       ..add(GHotWorksReq.serializer)
       ..add(GHotWorksVars.serializer)
-      ..add(GIncrementPromptonProfileBlockIndexInput.serializer)
-      ..add(GLoginPromptonInput.serializer)
+      ..add(GLikedWorkNotificationFieldsData.serializer)
+      ..add(GLikedWorkNotificationFieldsData_user.serializer)
+      ..add(GLikedWorkNotificationFieldsData_user_iconImage.serializer)
+      ..add(GLikedWorkNotificationFieldsData_work.serializer)
+      ..add(GLikedWorkNotificationFieldsData_work_thumbnailImage.serializer)
+      ..add(GLikedWorkNotificationFieldsReq.serializer)
+      ..add(GLikedWorkNotificationFieldsVars.serializer)
+      ..add(GLikedWorksSummaryNotificationFieldsData.serializer)
+      ..add(GLikedWorksSummaryNotificationFieldsReq.serializer)
+      ..add(GLikedWorksSummaryNotificationFieldsVars.serializer)
       ..add(GLoginWithPasswordData.serializer)
       ..add(GLoginWithPasswordData_loginWithPassword.serializer)
       ..add(GLoginWithPasswordInput.serializer)
       ..add(GLoginWithPasswordReq.serializer)
       ..add(GLoginWithPasswordVars.serializer)
-      ..add(GMarkPromptonFolderAsPrivateInput.serializer)
-      ..add(GMarkPromptonFolderAsPublicInput.serializer)
-      ..add(GMarkPromptonPlanAsPrivateInput.serializer)
-      ..add(GMarkPromptonPlanAsPublicInput.serializer)
-      ..add(GMarkPromptonWorkAsPrivateInput.serializer)
-      ..add(GMarkPromptonWorkAsPublicInput.serializer)
-      ..add(GMarkPromptonWorkAsUserHeaderInput.serializer)
       ..add(GMuteTagData.serializer)
       ..add(GMuteTagData_muteTag.serializer)
       ..add(GMuteTagData_muteTag_viewer.serializer)
@@ -272,7 +232,6 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GPartialWorkFieldsData_thumbnailImage.serializer)
       ..add(GPartialWorkFieldsReq.serializer)
       ..add(GPartialWorkFieldsVars.serializer)
-      ..add(GPinPromptonWorkInput.serializer)
       ..add(GPopularWorksData.serializer)
       ..add(GPopularWorksData_popularWorks.serializer)
       ..add(GPopularWorksData_popularWorks_thumbnailImage.serializer)
@@ -280,19 +239,7 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GPopularWorksVars.serializer)
       ..add(GPopularWorksWhereInput.serializer)
       ..add(GPostType.serializer)
-      ..add(GPromptonFoldersWhereInput.serializer)
-      ..add(GPromptonLabelsWhereInput.serializer)
-      ..add(GPromptonPlansWhereInput.serializer)
-      ..add(GPromptonRequestsWhereInput.serializer)
-      ..add(GPromptonTagsWhereInput.serializer)
-      ..add(GPromptonUserWorksWhereInput.serializer)
-      ..add(GPromptonUsersWhereInput.serializer)
-      ..add(GPromptonViewerWorksWhereInput.serializer)
-      ..add(GPromptonWorksWhereInput.serializer)
       ..add(GRating.serializer)
-      ..add(GRejectPromptonRequestInput.serializer)
-      ..add(GRemovePromptonTagFromWorkInput.serializer)
-      ..add(GRemovePromptonWorkFromFolderInput.serializer)
       ..add(GReportCommentData.serializer)
       ..add(GReportCommentInput.serializer)
       ..add(GReportCommentReq.serializer)
@@ -342,12 +289,9 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GTagsReq.serializer)
       ..add(GTagsVars.serializer)
       ..add(GTagsWhereInput.serializer)
-      ..add(GTestPromptonIntegrationInput.serializer)
-      ..add(GUnfollowPromptonUserInput.serializer)
       ..add(GUnfollowUserInput.serializer)
       ..add(GUnmuteTagInput.serializer)
       ..add(GUnmuteUserInput.serializer)
-      ..add(GUnpinPromptonWorkInput.serializer)
       ..add(GUpdateAccountLoginData.serializer)
       ..add(GUpdateAccountLoginData_updateAccountLogin.serializer)
       ..add(GUpdateAccountLoginInput.serializer)
@@ -363,18 +307,6 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GUpdateFolderInput.serializer)
       ..add(GUpdateFolderReq.serializer)
       ..add(GUpdateFolderVars.serializer)
-      ..add(GUpdatePromptonFolderInput.serializer)
-      ..add(GUpdatePromptonFolderSortInput.serializer)
-      ..add(GUpdatePromptonPlanInput.serializer)
-      ..add(GUpdatePromptonPlanSortInput.serializer)
-      ..add(GUpdatePromptonProfileBlockInput.serializer)
-      ..add(GUpdatePromptonPromptCategoryInput.serializer)
-      ..add(GUpdatePromptonPromptInput.serializer)
-      ..add(GUpdatePromptonUserAvatarInput.serializer)
-      ..add(GUpdatePromptonUserHeaderImageInput.serializer)
-      ..add(GUpdatePromptonUserLoginInput.serializer)
-      ..add(GUpdatePromptonUserProfileInput.serializer)
-      ..add(GUpdatePromptonWorkInput.serializer)
       ..add(GUpdateStickerData.serializer)
       ..add(GUpdateStickerData_updateSticker.serializer)
       ..add(GUpdateStickerInput.serializer)
@@ -489,17 +421,85 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GViewerMutedUsersVars.serializer)
       ..add(GViewerNotificationsData.serializer)
       ..add(GViewerNotificationsData_viewer.serializer)
-      ..add(GViewerNotificationsData_viewer_notifications.serializer)
       ..add(
-          GViewerNotificationsData_viewer_notifications_relatedUser.serializer)
-      ..add(GViewerNotificationsData_viewer_notifications_relatedUser_iconImage
-          .serializer)
-      ..add(GViewerNotificationsData_viewer_notifications_sticker.serializer)
-      ..add(GViewerNotificationsData_viewer_notifications_sticker_image
-          .serializer)
-      ..add(GViewerNotificationsData_viewer_notifications_work.serializer)
-      ..add(GViewerNotificationsData_viewer_notifications_work_thumbnailImage
-          .serializer)
+          GViewerNotificationsData_viewer_notifications__asFollowNotificationNode
+              .serializer)
+      ..add(
+          GViewerNotificationsData_viewer_notifications__asFollowNotificationNode_user
+              .serializer)
+      ..add(
+          GViewerNotificationsData_viewer_notifications__asFollowNotificationNode_user_iconImage
+              .serializer)
+      ..add(
+          GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNode
+              .serializer)
+      ..add(
+          GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNode_user
+              .serializer)
+      ..add(
+          GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNode_user_iconImage
+              .serializer)
+      ..add(
+          GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNode_work
+              .serializer)
+      ..add(
+          GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNode_work_thumbnailImage
+              .serializer)
+      ..add(
+          GViewerNotificationsData_viewer_notifications__asLikedWorksSummaryNotificationNode
+              .serializer)
+      ..add(
+          GViewerNotificationsData_viewer_notifications__asWorkAwardNotificationNode
+              .serializer)
+      ..add(
+          GViewerNotificationsData_viewer_notifications__asWorkAwardNotificationNode_work
+              .serializer)
+      ..add(
+          GViewerNotificationsData_viewer_notifications__asWorkAwardNotificationNode_work_thumbnailImage
+              .serializer)
+      ..add(
+          GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode
+              .serializer)
+      ..add(
+          GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_sticker
+              .serializer)
+      ..add(
+          GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_sticker_image
+              .serializer)
+      ..add(
+          GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_user
+              .serializer)
+      ..add(
+          GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_user_iconImage
+              .serializer)
+      ..add(
+          GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_work
+              .serializer)
+      ..add(
+          GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_work_thumbnailImage
+              .serializer)
+      ..add(
+          GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode
+              .serializer)
+      ..add(
+          GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_sticker
+              .serializer)
+      ..add(
+          GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_sticker_image
+              .serializer)
+      ..add(
+          GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_user
+              .serializer)
+      ..add(
+          GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_user_iconImage
+              .serializer)
+      ..add(
+          GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_work
+              .serializer)
+      ..add(
+          GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_work_thumbnailImage
+              .serializer)
+      ..add(GViewerNotificationsData_viewer_notifications__base.serializer)
       ..add(GViewerNotificationsReq.serializer)
       ..add(GViewerNotificationsVars.serializer)
       ..add(GViewerWorksData.serializer)
@@ -508,6 +508,11 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GViewerWorksData_viewer_works_thumbnailImage.serializer)
       ..add(GViewerWorksReq.serializer)
       ..add(GViewerWorksVars.serializer)
+      ..add(GWorkAwardNotificationFieldsData.serializer)
+      ..add(GWorkAwardNotificationFieldsData_work.serializer)
+      ..add(GWorkAwardNotificationFieldsData_work_thumbnailImage.serializer)
+      ..add(GWorkAwardNotificationFieldsReq.serializer)
+      ..add(GWorkAwardNotificationFieldsVars.serializer)
       ..add(GWorkAwardsData.serializer)
       ..add(GWorkAwardsData_workAwards.serializer)
       ..add(GWorkAwardsData_workAwards_work.serializer)
@@ -515,6 +520,25 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GWorkAwardsReq.serializer)
       ..add(GWorkAwardsVars.serializer)
       ..add(GWorkAwardsWhereInput.serializer)
+      ..add(GWorkCommentNotificationFieldsData.serializer)
+      ..add(GWorkCommentNotificationFieldsData_sticker.serializer)
+      ..add(GWorkCommentNotificationFieldsData_sticker_image.serializer)
+      ..add(GWorkCommentNotificationFieldsData_user.serializer)
+      ..add(GWorkCommentNotificationFieldsData_user_iconImage.serializer)
+      ..add(GWorkCommentNotificationFieldsData_work.serializer)
+      ..add(GWorkCommentNotificationFieldsData_work_thumbnailImage.serializer)
+      ..add(GWorkCommentNotificationFieldsReq.serializer)
+      ..add(GWorkCommentNotificationFieldsVars.serializer)
+      ..add(GWorkCommentReplyNotificationFieldsData.serializer)
+      ..add(GWorkCommentReplyNotificationFieldsData_sticker.serializer)
+      ..add(GWorkCommentReplyNotificationFieldsData_sticker_image.serializer)
+      ..add(GWorkCommentReplyNotificationFieldsData_user.serializer)
+      ..add(GWorkCommentReplyNotificationFieldsData_user_iconImage.serializer)
+      ..add(GWorkCommentReplyNotificationFieldsData_work.serializer)
+      ..add(GWorkCommentReplyNotificationFieldsData_work_thumbnailImage
+          .serializer)
+      ..add(GWorkCommentReplyNotificationFieldsReq.serializer)
+      ..add(GWorkCommentReplyNotificationFieldsVars.serializer)
       ..add(GWorkCommentsData.serializer)
       ..add(GWorkCommentsData_work.serializer)
       ..add(GWorkCommentsData_work_comments.serializer)
@@ -548,6 +572,10 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GWorksReq.serializer)
       ..add(GWorksVars.serializer)
       ..add(GWorksWhereInput.serializer)
+      ..add(G_Any.serializer)
+      ..add(Gfederation__FieldSet.serializer)
+      ..add(Glink__Import.serializer)
+      ..add(Glink__Purpose.serializer)
       ..addBuilderFactory(
           const FullType(
               BuiltList, const [const FullType(GBestWorksData_bestWorks)]),
@@ -690,24 +718,6 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(GWorksData_works)]),
           () => new ListBuilder<GWorksData_works>())
-      ..addBuilderFactory(
-          const FullType(BuiltList, const [const FullType(String)]),
-          () => new ListBuilder<String>())
-      ..addBuilderFactory(
-          const FullType(BuiltList, const [const FullType(String)]),
-          () => new ListBuilder<String>())
-      ..addBuilderFactory(
-          const FullType(BuiltList, const [const FullType(String)]),
-          () => new ListBuilder<String>())
-      ..addBuilderFactory(
-          const FullType(BuiltList, const [const FullType(String)]),
-          () => new ListBuilder<String>())
-      ..addBuilderFactory(
-          const FullType(BuiltList, const [const FullType(String)]),
-          () => new ListBuilder<String>())
-      ..addBuilderFactory(
-          const FullType(BuiltList, const [const FullType(String)]),
-          () => new ListBuilder<String>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(String)]),
           () => new ListBuilder<String>()))

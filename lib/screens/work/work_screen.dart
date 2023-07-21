@@ -13,7 +13,7 @@ import 'package:aipictors/widgets/container/work_status_container.dart';
 import 'package:aipictors/widgets/container/work_tags_container.dart';
 import 'package:aipictors/widgets/container/work_text_container.dart';
 import 'package:aipictors/widgets/container/work_user_profile_container.dart';
-import 'package:aipictors/widgets/list/work_comment_list_tile.dart';
+import 'package:aipictors/widgets/list_tile/work_comment_list_tile.dart';
 import 'package:ferry_flutter/ferry_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';

@@ -1,0 +1,10 @@
+# import './partial_work_fields_fragment.graphql'
+
+fragment WorkAwardNotificationFields on WorkAwardNotificationNode {
+  id
+  createdAt
+  message
+  work {
+    ...PartialWorkFields
+  }
+}

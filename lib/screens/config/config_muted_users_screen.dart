@@ -5,7 +5,7 @@ import 'package:aipictors/screens/loading_screen.dart';
 import 'package:aipictors/widgets/builder/operation_screen_builder.dart';
 import 'package:aipictors/widgets/container/error/data_empty_error_container.dart';
 import 'package:aipictors/widgets/container/error/unexpected_error_container.dart';
-import 'package:aipictors/widgets/list/dismissible_muted_user_list.dart';
+import 'package:aipictors/widgets/list_view/dismissible_muted_user_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -44,7 +44,7 @@ class ConfigMutedUsersScreen extends HookConsumerWidget {
               message: 'ミュートしたユーザは居ないみたい。'.i18n,
             );
           }
-          return DismissibleMutedUserList(
+          return DismissibleMutedUserListView(
             userList: userList.toList(),
           );
         },

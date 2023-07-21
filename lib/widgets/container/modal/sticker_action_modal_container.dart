@@ -1,6 +1,6 @@
 import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/widgets/container/modal_header_container.dart';
-import 'package:aipictors/widgets/list/modal_report_list_tile.dart';
+import 'package:aipictors/widgets/list_tile/modal_report_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';

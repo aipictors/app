@@ -6,13 +6,13 @@ part of 'explorer_tab_index_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$explorerTabIndexHash() => r'8b6284d5de025b72c95b1fe302d0f7c106f05f70';
+String _$explorerTabIndexHash() => r'a703bce2d95a21953e8cf1815934d0b8471dc64a';
 
-/// See also [explorerTabIndex].
-@ProviderFor(explorerTabIndex)
+/// See also [ExplorerTabIndex].
+@ProviderFor(ExplorerTabIndex)
 final explorerTabIndexProvider =
-    AutoDisposeProvider<ValueNotifier<int>>.internal(
-  explorerTabIndex,
+    AutoDisposeNotifierProvider<ExplorerTabIndex, int>.internal(
+  ExplorerTabIndex.new,
   name: r'explorerTabIndexProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
@@ -21,5 +21,5 @@ final explorerTabIndexProvider =
   allTransitiveDependencies: null,
 );
 
-typedef ExplorerTabIndexRef = AutoDisposeProviderRef<ValueNotifier<int>>;
+typedef _$ExplorerTabIndex = AutoDisposeNotifier<int>;
 // ignore_for_file: unnecessary_raw_strings, subtype_of_sealed_class, invalid_use_of_internal_member, do_not_use_environment, prefer_const_constructors, public_member_api_docs, avoid_private_typedef_functions

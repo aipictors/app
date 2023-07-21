@@ -6,7 +6,7 @@ import 'package:aipictors/models/survey_radio_option.dart';
 import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/providers/survey_provider.dart';
 import 'package:aipictors/widgets/dialog/survey_reset_dialog.dart';
-import 'package:aipictors/widgets/list/survey_radio_list_tile.dart';
+import 'package:aipictors/widgets/list_tile/survey_radio_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';

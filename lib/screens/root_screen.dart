@@ -1,5 +1,9 @@
+import 'package:aipictors/handlers/explorer_tab_index_handler.dart';
+import 'package:aipictors/handlers/feed_tab_index_handler.dart';
 import 'package:aipictors/providers/auth_state_provider.dart';
 import 'package:aipictors/providers/config_provider.dart';
+import 'package:aipictors/providers/explorer_tab_index_provider.dart';
+import 'package:aipictors/providers/feed_tab_index_provider.dart';
 import 'package:aipictors/screens/config/config_screen.dart';
 import 'package:aipictors/screens/daily_theme/daily_themes_screen.dart';
 import 'package:aipictors/screens/error/config_error_screen.dart';
@@ -23,6 +27,16 @@ class RootScreen extends HookConsumerWidget {
 
     // タブの位置
     final pageIndex = useState(0);
+
+    ref.listen(
+      feedTabIndexProvider,
+      feedTabIndexListener(context, ref),
+    );
+
+    ref.listen(
+      explorerTabIndexProvider,
+      explorerTabIndexListener(context, ref),
+    );
 
     // ログイン状態が変わった際にホームに戻す
     ref.listen(

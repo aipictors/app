@@ -12,26 +12,27 @@ class DefaultConfig {
     packageInfo = await PackageInfo.fromPlatform();
   }
 
+  /// ブレークポイント
+  /// https://m3.material.io/foundations/layout/applying-layout/window-size-classes
+  static int get mediumUIThreshold {
+    return 600;
+  }
+
+  /// デフォルトのテーマカラー
+  static Color get defaultThemeColor {
+    return Colors.lightBlue;
+  }
+
+  /// Remote Config
   static String get graphqlEndpoint {
     final remoteConfig = FirebaseRemoteConfig.instance;
     return remoteConfig.getString('graphql_endpoint');
   }
 
-  static Color get defaultThemeColor {
-    return Colors.lightBlue;
-  }
-
+  /// Remote Config
   static String get sentryDsn {
     final remoteConfig = FirebaseRemoteConfig.instance;
     return remoteConfig.getString('sentry_dsn');
-  }
-
-  static bool get isProduction {
-    return const String.fromEnvironment('sentryEnvironment') == 'production';
-  }
-
-  static bool get isNotProduction {
-    return const String.fromEnvironment('sentryEnvironment') != 'production';
   }
 
   static String get version {
@@ -50,8 +51,14 @@ class DefaultConfig {
     return packageInfo!.version;
   }
 
-  static int get mediumUIThreshold {
-    return 600;
+  /// dart_define
+  static bool get isProduction {
+    return const String.fromEnvironment('sentryEnvironment') == 'production';
+  }
+
+  /// dart_define
+  static bool get isNotProduction {
+    return const String.fromEnvironment('sentryEnvironment') != 'production';
   }
 
   /// dart_define

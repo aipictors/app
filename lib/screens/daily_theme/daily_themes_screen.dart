@@ -5,7 +5,7 @@ import 'package:aipictors/widgets/app_bar/daily_themes_app_bar.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
 import 'package:aipictors/widgets/container/error/data_empty_error_container.dart';
 import 'package:aipictors/widgets/container/error/data_not_found_error_container.dart';
-import 'package:aipictors/widgets/list/daily_theme_list_tile.dart';
+import 'package:aipictors/widgets/list_tile/daily_theme_list_tile.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';

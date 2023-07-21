@@ -1,3 +1,4 @@
+import 'package:aipictors/default.i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -14,6 +15,13 @@ class NotificationImageContainerCompact extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
+    if (workImageURL == null) {
+      return Text(
+        'この作品は削除されました。'.i18n,
+        style: Theme.of(context).textTheme.labelMedium,
+      );
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,

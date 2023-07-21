@@ -21,12 +21,13 @@ class FeedTabController extends HookConsumerWidget {
     const tabSize = 4;
 
     return DefaultTabController(
-      initialIndex: tabIndex.value,
+      initialIndex: tabIndex,
       length: tabSize,
       child: Builder(builder: (context) {
         final controller = DefaultTabController.of(context);
         controller.addListener(() {
-          tabIndex.value = controller.index;
+          final notifier = ref.read(feedTabIndexProvider.notifier);
+          notifier.update(controller.index);
         });
         return child;
       }),

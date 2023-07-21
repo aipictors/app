@@ -5,7 +5,7 @@ import 'package:aipictors/screens/loading_screen.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
 import 'package:aipictors/widgets/container/error/data_empty_error_container.dart';
 import 'package:aipictors/widgets/container/error/unexpected_error_container.dart';
-import 'package:aipictors/widgets/list/muted_tag_list_tile.dart';
+import 'package:aipictors/widgets/list_tile/muted_tag_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
