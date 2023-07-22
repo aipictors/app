@@ -101,4 +101,31 @@ class ConfigRepository {
   int get badgeCount {
     return 0;
   }
+
+  int get homeTabIndex {
+    final value = instance!.getInt('config_home_tab_index');
+    return value ?? 0;
+  }
+
+  Future<void> setHomeTabIndex(int index) async {
+    await instance!.setInt('config_home_tab_index', index);
+  }
+
+  int get feedTabIndex {
+    final value = instance!.getInt('config_feed_tab_index');
+    return value ?? 0;
+  }
+
+  Future<void> setFeedTabIndex(int index) async {
+    await instance!.setInt('config_feed_tab_index', index);
+  }
+
+  int get explorerTabIndex {
+    final value = instance!.getInt('config_explorer_tab_index');
+    return value ?? 0;
+  }
+
+  Future<void> setExplorerTabIndex(int index) async {
+    await instance!.setInt('config_explorer_tab_index', index);
+  }
 }

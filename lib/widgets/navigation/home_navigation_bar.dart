@@ -1,29 +1,22 @@
 import 'package:aipictors/default.i18n.dart';
+import 'package:aipictors/providers/auth_state_provider.dart';
+import 'package:aipictors/providers/home_tab_index_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class NavigationBarCompact extends HookConsumerWidget {
-  const NavigationBarCompact(
-      {Key? key, required this.authStateProvider, required this.pageIndex})
-      : super(key: key);
-
-  final AutoDisposeStreamProvider authStateProvider;
-  final ValueNotifier<int> pageIndex;
+class HomeNavigationBar extends HookConsumerWidget {
+  const HomeNavigationBar({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(context, ref) {
     final authState = ref.watch(authStateProvider);
 
-    // ログイン状態が変わった際にホームに戻す
-    ref.listen(
-      authStateProvider,
-      (_, next) {
-        pageIndex.value = 0;
-      },
-    );
+    final pageIndex = ref.watch(homeTabIndexProvider);
 
     return NavigationBar(
-      selectedIndex: pageIndex.value,
+      selectedIndex: pageIndex,
       labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
       destinations: [
         NavigationDestination(
@@ -54,7 +47,8 @@ class NavigationBarCompact extends HookConsumerWidget {
         ),
       ],
       onDestinationSelected: (index) {
-        pageIndex.value = index;
+        final notifier = ref.read(homeTabIndexProvider.notifier);
+        notifier.update(index);
       },
     );
   }

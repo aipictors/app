@@ -6,7 +6,7 @@ part of 'feed_tab_index_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$feedTabIndexHash() => r'6a6c4b5e26facb31d11d8ca98a0c5a4585c05aa2';
+String _$feedTabIndexHash() => r'6d0f68b0611b87c89604c78f294db2ae19cc6a88';
 
 /// See also [FeedTabIndex].
 @ProviderFor(FeedTabIndex)

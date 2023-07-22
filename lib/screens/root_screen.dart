@@ -1,22 +1,22 @@
+import 'package:aipictors/enums/layout.dart';
 import 'package:aipictors/handlers/explorer_tab_index_handler.dart';
 import 'package:aipictors/handlers/feed_tab_index_handler.dart';
 import 'package:aipictors/providers/auth_state_provider.dart';
 import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/providers/explorer_tab_index_provider.dart';
 import 'package:aipictors/providers/feed_tab_index_provider.dart';
+import 'package:aipictors/providers/home_tab_index_provider.dart';
 import 'package:aipictors/screens/config/config_screen.dart';
 import 'package:aipictors/screens/daily_theme/daily_themes_screen.dart';
 import 'package:aipictors/screens/error/config_error_screen.dart';
 import 'package:aipictors/screens/explorer/explorer_screen.dart';
 import 'package:aipictors/screens/feed/feed_screen.dart';
-import 'package:aipictors/screens/loading_screen.dart';
+import 'package:aipictors/screens/home_loading_screen.dart';
 import 'package:aipictors/screens/login_screen.dart';
 import 'package:aipictors/screens/notification_screen.dart';
-import 'package:aipictors/widgets/navigation/navigation_bar_compact.dart';
-import 'package:aipictors/widgets/navigation/navigation_rail_medium.dart';
-import 'package:aipictors/config.dart';
+import 'package:aipictors/widgets/navigation/home_navigation_bar.dart';
+import 'package:aipictors/widgets/navigation/home_navigation_rail.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class RootScreen extends HookConsumerWidget {
@@ -29,7 +29,7 @@ class RootScreen extends HookConsumerWidget {
     final config = ref.watch(configProvider);
 
     // タブの位置
-    final pageIndex = useState(0);
+    final pageIndex = ref.watch(homeTabIndexProvider);
 
     ref.listen(
       feedTabIndexProvider,
@@ -45,7 +45,8 @@ class RootScreen extends HookConsumerWidget {
     ref.listen(
       authStateProvider,
       (_, next) {
-        pageIndex.value = 0;
+        final notifier = ref.read(homeTabIndexProvider.notifier);
+        notifier.update(0);
       },
     );
 
@@ -54,7 +55,7 @@ class RootScreen extends HookConsumerWidget {
     }
 
     if (authState.isLoading) {
-      return const LoadingScreen();
+      return const HomeLoadingScreen();
     }
 
     final screenList = [
@@ -68,26 +69,24 @@ class RootScreen extends HookConsumerWidget {
       const ConfigScreen(key: PageStorageKey('root_config'))
     ];
 
-    //タブレット用
-    if (MediaQuery.of(context).size.width >= DefaultConfig.mediumUIThreshold) {
+    return LayoutBuilder(builder: (context, constraints) {
+      final notCompact = Layout.fromWith(constraints.maxWidth).notCompact;
+      // タブレット
+      if (notCompact) {
+        return Scaffold(
+          body: Row(
+            children: [
+              const HomeNavigationRail(),
+              Expanded(child: screenList[pageIndex])
+            ],
+          ),
+        );
+      }
+      // スマホ用
       return Scaffold(
-        body: Row(
-          children: [
-            NavigationRailMedium(
-              authStateProvider: authStateProvider,
-              pageIndex: pageIndex,
-            ),
-            Expanded(child: screenList[pageIndex.value])
-          ],
-        ),
+        body: screenList[pageIndex],
+        bottomNavigationBar: const HomeNavigationBar(),
       );
-    }
-    //スマホ用
-    return Scaffold(
-        body: screenList[pageIndex.value],
-        bottomNavigationBar: NavigationBarCompact(
-          authStateProvider: authStateProvider,
-          pageIndex: pageIndex,
-        ));
+    });
   }
 }

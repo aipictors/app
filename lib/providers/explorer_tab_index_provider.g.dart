@@ -6,7 +6,7 @@ part of 'explorer_tab_index_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$explorerTabIndexHash() => r'a703bce2d95a21953e8cf1815934d0b8471dc64a';
+String _$explorerTabIndexHash() => r'455dc51bd22f8dc6009ac5bb50fd05a24bd3592d';
 
 /// See also [ExplorerTabIndex].
 @ProviderFor(ExplorerTabIndex)

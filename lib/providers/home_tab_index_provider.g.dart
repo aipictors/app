@@ -1,26 +1,24 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'config_provider.dart';
+part of 'home_tab_index_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$configHash() => r'e59863ecffb5c24fc95ccb1135daf024f5a3ea58';
+String _$homeTabIndexHash() => r'd38fd3a31ac4a6808c38785fcab57e58e5b83f1c';
 
-/// 設定
-///
-/// Copied from [Config].
-@ProviderFor(Config)
-final configProvider =
-    AutoDisposeNotifierProvider<Config, ConfigState>.internal(
-  Config.new,
-  name: r'configProvider',
+/// See also [HomeTabIndex].
+@ProviderFor(HomeTabIndex)
+final homeTabIndexProvider =
+    AutoDisposeNotifierProvider<HomeTabIndex, int>.internal(
+  HomeTabIndex.new,
+  name: r'homeTabIndexProvider',
   debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$configHash,
+      const bool.fromEnvironment('dart.vm.product') ? null : _$homeTabIndexHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$Config = AutoDisposeNotifier<ConfigState>;
+typedef _$HomeTabIndex = AutoDisposeNotifier<int>;
 // ignore_for_file: unnecessary_raw_strings, subtype_of_sealed_class, invalid_use_of_internal_member, do_not_use_environment, prefer_const_constructors, public_member_api_docs, avoid_private_typedef_functions

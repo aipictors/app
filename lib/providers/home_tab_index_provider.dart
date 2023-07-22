@@ -1,17 +1,17 @@
 import 'package:aipictors/repositories/config_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'feed_tab_index_provider.g.dart';
+part 'home_tab_index_provider.g.dart';
 
 @riverpod
-class FeedTabIndex extends _$FeedTabIndex {
+class HomeTabIndex extends _$HomeTabIndex {
   @override
   int build() {
-    return const ConfigRepository().feedTabIndex;
+    return const ConfigRepository().homeTabIndex;
   }
 
   void update(int n) {
-    const ConfigRepository().setFeedTabIndex(n);
+    const ConfigRepository().setHomeTabIndex(n);
     state = n;
   }
 }
