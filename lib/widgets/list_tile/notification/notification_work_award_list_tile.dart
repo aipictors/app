@@ -1,4 +1,5 @@
-import 'package:aipictors/config.dart';
+import 'package:aipictors/enums/layout.dart';
+import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/widgets/list_tile/notification/notification_work_award_list_tile_compact.dart';
 import 'package:aipictors/widgets/list_tile/notification/notification_work_award_list_tile_medium.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +27,11 @@ class NotificationWorkAwardListTile extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
-    if (DefaultConfig.mediumUIThreshold <= MediaQuery.of(context).size.width) {
+    final config = ref.watch(configProvider);
+
+    final layout = Layout.fromWith(MediaQuery.of(context).size.width);
+
+    if (config.themeMediumLayout || layout.notCompact) {
       return NotificationWorkAwardListTileMedium(
         createdAt: createdAt,
         message: message ?? '-',

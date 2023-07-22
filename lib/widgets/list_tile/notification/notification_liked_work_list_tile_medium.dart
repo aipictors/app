@@ -1,6 +1,6 @@
 import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/widgets/avatar/user_profile_avatar.dart';
-import 'package:aipictors/widgets/container/notification_image_container.dart';
+import 'package:aipictors/widgets/container/notification_image_container_medium.dart';
 import 'package:aipictors/widgets/list_tile/notification/notification_deleted_list_tile.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
@@ -40,6 +40,12 @@ class NotificationLikedWorkListTileMedium extends HookConsumerWidget {
     }
 
     return ListTile(
+      contentPadding: const EdgeInsets.only(
+        right: 16,
+        left: 16,
+        top: 0,
+        bottom: 0,
+      ),
       onTap: () {
         if (workId == null) return;
         FirebaseAnalytics.instance.logSelectContent(
@@ -52,37 +58,30 @@ class NotificationLikedWorkListTileMedium extends HookConsumerWidget {
         Icons.favorite_rounded,
         color: Theme.of(context).colorScheme.primary,
       ),
-      title: Row(
+      trailing: NotificationImageContainerMedium(
+        workImageURL: workImageURL,
+        workTitle: workTitle,
+      ),
+      title: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              if (userName == null)
+          if (userName == null)
+            Text(
+              '誰かがあなたの作品をいいねしました。'.i18n,
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
+          if (userName != null)
+            Row(
+              children: [
+                UserProfileAvatar(imageURL: userIconImageURL),
+                const SizedBox(width: 8),
                 Text(
-                  '誰かがあなたの作品をいいねしました。'.i18n,
+                  '$userNameさんがいいねしました。',
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
-              if (userName != null)
-                Row(
-                  children: [
-                    UserProfileAvatar(imageURL: userIconImageURL),
-                    const SizedBox(width: 8),
-                    Flexible(
-                      child: Text(
-                        '$userNameさんがいいねしました。',
-                        style: Theme.of(context).textTheme.bodyMedium,
-                      ),
-                    ),
-                  ],
-                ),
-            ],
-          ),
-          const Spacer(),
-          NotificationImageContainer(
-            workImageURL: workImageURL,
-            workTitle: workTitle,
-          ),
+              ],
+            ),
         ],
       ),
     );

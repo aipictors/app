@@ -143,7 +143,7 @@ class NotificationScreen extends HookConsumerWidget {
                     userIconImageURL: user?.iconImage?.downloadURL,
                   );
                 }
-                return null;
+                return Container();
               },
             );
           },

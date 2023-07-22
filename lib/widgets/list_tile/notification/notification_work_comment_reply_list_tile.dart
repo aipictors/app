@@ -41,22 +41,10 @@ class NotificationWorkCommentReplyListTile extends HookConsumerWidget {
   Widget build(context, ref) {
     final config = ref.watch(configProvider);
 
-    return LayoutBuilder(builder: (context, constraints) {
-      final notCompact = Layout.fromWith(constraints.maxWidth).notCompact;
-      if (config.themeMediumLayout || notCompact) {
-        return NotificationWorkCommentReplyListTileMedium(
-          createdAt: createdAt,
-          message: message,
-          userId: userId,
-          userName: userName,
-          userIconImageURL: userIconImageURL,
-          workId: workId,
-          workTitle: workTitle,
-          workImageURL: workImageURL,
-          stickerImageURL: stickerImageURL,
-        );
-      }
-      return NotificationWorkCommentReplyListTileCompact(
+    final layout = Layout.fromWith(MediaQuery.of(context).size.width);
+
+    if (config.themeMediumLayout || layout.notCompact) {
+      return NotificationWorkCommentReplyListTileMedium(
         createdAt: createdAt,
         message: message,
         userId: userId,
@@ -67,6 +55,18 @@ class NotificationWorkCommentReplyListTile extends HookConsumerWidget {
         workImageURL: workImageURL,
         stickerImageURL: stickerImageURL,
       );
-    });
+    }
+
+    return NotificationWorkCommentReplyListTileCompact(
+      createdAt: createdAt,
+      message: message,
+      userId: userId,
+      userName: userName,
+      userIconImageURL: userIconImageURL,
+      workId: workId,
+      workTitle: workTitle,
+      workImageURL: workImageURL,
+      stickerImageURL: stickerImageURL,
+    );
   }
 }

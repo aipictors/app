@@ -1,4 +1,4 @@
-import 'package:aipictors/widgets/container/notification_image_container.dart';
+import 'package:aipictors/widgets/container/notification_image_container_compact.dart';
 import 'package:aipictors/widgets/container/notification_sticker_comment_container.dart';
 import 'package:aipictors/widgets/container/notification_user_container.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -111,7 +111,7 @@ class NotificationWorkCommentReplyListTileCompact extends HookConsumerWidget {
               style: Theme.of(context).textTheme.bodyMedium,
             ),
           if (message != null) const SizedBox(height: 8),
-          NotificationImageContainer(
+          NotificationImageContainerCompact(
             workImageURL: workImageURL!,
             workTitle: workTitle!,
           ),

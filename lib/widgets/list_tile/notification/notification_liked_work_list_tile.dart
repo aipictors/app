@@ -35,20 +35,10 @@ class NotificationLikedWorkListTile extends HookConsumerWidget {
   Widget build(context, ref) {
     final config = ref.watch(configProvider);
 
-    return LayoutBuilder(builder: (context, constraints) {
-      final notCompact = Layout.fromWith(constraints.maxWidth).notCompact;
-      if (config.themeMediumLayout || notCompact) {
-        return NotificationLikedWorkListTileMedium(
-          createdAt: createdAt,
-          workId: workId,
-          workTitle: workTitle,
-          workImageURL: workImageURL,
-          userId: userId,
-          userName: userName,
-          userIconImageURL: userIconImageURL,
-        );
-      }
-      return NotificationLikedWorkListTileCompact(
+    final layout = Layout.fromWith(MediaQuery.of(context).size.width);
+
+    if (config.themeMediumLayout || layout.notCompact) {
+      return NotificationLikedWorkListTileMedium(
         createdAt: createdAt,
         workId: workId,
         workTitle: workTitle,
@@ -57,6 +47,16 @@ class NotificationLikedWorkListTile extends HookConsumerWidget {
         userName: userName,
         userIconImageURL: userIconImageURL,
       );
-    });
+    }
+
+    return NotificationLikedWorkListTileCompact(
+      createdAt: createdAt,
+      workId: workId,
+      workTitle: workTitle,
+      workImageURL: workImageURL,
+      userId: userId,
+      userName: userName,
+      userIconImageURL: userIconImageURL,
+    );
   }
 }

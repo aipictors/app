@@ -1,7 +1,3 @@
-import 'package:aipictors/enums/layout.dart';
-import 'package:aipictors/providers/config_provider.dart';
-import 'package:aipictors/widgets/container/notification_sticker_comment_container_compact.dart';
-import 'package:aipictors/widgets/container/notification_sticker_comment_container_medium.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -18,20 +14,34 @@ class NotificationStickerCommentContainer extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
-    final config = ref.watch(configProvider);
+    if (stickerImageURL == null || workImageURL == null) {
+      return const SizedBox();
+    }
 
-    return LayoutBuilder(builder: (context, constraints) {
-      final notCompact = Layout.fromWith(constraints.maxWidth).notCompact;
-      if (config.themeMediumLayout || notCompact) {
-        return NotificationStickerCommentContainerMedium(
-          stickerImageURL: stickerImageURL,
-          workImageURL: workImageURL,
-        );
-      }
-      return NotificationStickerCommentContainerCompact(
-        stickerImageURL: stickerImageURL,
-        workImageURL: workImageURL,
-      );
-    });
+    return Row(
+      children: [
+        ClipRRect(
+          borderRadius: BorderRadius.circular(8.0),
+          child: Image.network(
+            stickerImageURL!,
+            fit: BoxFit.cover,
+            width: 80,
+            height: 80,
+          ),
+        ),
+        const SizedBox(width: 8),
+        Expanded(
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(8.0),
+            child: Image.network(
+              workImageURL!,
+              fit: BoxFit.cover,
+              width: double.infinity,
+              height: 80,
+            ),
+          ),
+        ),
+      ],
+    );
   }
 }
