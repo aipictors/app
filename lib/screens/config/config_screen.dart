@@ -218,11 +218,11 @@ class ConfigScreen extends HookConsumerWidget {
           ListTile(
             trailing: const Icon(Icons.chevron_right_rounded),
             title: Text(
-              'UIモード切り替え'.i18n,
+              'テーマ設定'.i18n,
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
             onTap: () {
-              context.push('/config/ui_mode');
+              context.push('/config/theme');
             },
           ),
           SwitchListTile(

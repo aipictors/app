@@ -21,7 +21,7 @@ class Config extends _$Config {
       isTutorial: repository.isTutorial,
       language: repository.language,
       themeMode: toThemeMode(repository.themeMode),
-      uiMode: repository.uiMode,
+      themeMediumLayout: repository.themeMediumLayout,
       themeColor: toColor(repository.themeColor),
       lastFetchStatus: FirebaseRemoteConfig.instance.lastFetchStatus,
     );
@@ -47,9 +47,9 @@ class Config extends _$Config {
     state = build();
   }
 
-  //UIモードを変更する
-  void updateUIMode(String language) async {
-    const ConfigRepository().setUIMode(language);
+  /// UIモードを変更する
+  void updateThemeMediumLayout(bool value) async {
+    const ConfigRepository().setThemeMediumLayout(value);
     state = build();
   }
 

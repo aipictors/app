@@ -23,6 +23,7 @@ class ConfigRepository {
     await instance!.setBool('config_tutorial', value);
   }
 
+  /// アプリ内の言語
   String get language {
     final value = instance!.getString('config_language');
     return value ?? toLocaleCode(Platform.localeName);
@@ -32,11 +33,14 @@ class ConfigRepository {
     await instance!.setString('config_language', value);
   }
 
+  /// テーマ設定
+  /// テーマカラー
   String? get themeColor {
     final value = instance!.getString('config_theme_color');
     return value;
   }
 
+  /// テーマ設定
   Future<void> setThemeColor(String? value) async {
     if (value == null) {
       instance!.remove('config_theme_color');
@@ -45,15 +49,32 @@ class ConfigRepository {
     await instance!.setString('config_theme_color', value);
   }
 
+  /// テーマ設定
+  /// テーマモード
   String? get themeMode {
     final value = instance!.getString('config_theme_mode');
     return value;
   }
 
+  /// テーマ設定
   Future<void> setThemeMode(String value) async {
     await instance!.setString('config_theme_mode', value);
   }
 
+  /// テーマ設定
+  /// 一部のWidgetでMediumサイズのレイアウトを強制的に適用する
+  bool get themeMediumLayout {
+    final value = instance!.getBool('config_theme_medium_layout');
+    return value ?? false;
+  }
+
+  /// テーマ設定
+  Future<void> setThemeMediumLayout(bool mode) async {
+    // Auto Compact Medium
+    await instance!.setBool('config_theme_medium_layout', mode);
+  }
+
+  /// アプリ通知
   bool get topicCampaign {
     final value = instance!.getBool('config_topic_campaign');
     return value ?? true;
@@ -63,27 +84,20 @@ class ConfigRepository {
     await instance!.setBool('config_topic_campaign', value);
   }
 
-  /// カウント（xxx）
+  /// 通知バッジ
+  /// 通知のカウント（xxx）
   int get xxxCount {
     final value = instance!.getInt('count_notification');
     return value ?? 0;
   }
 
+  /// 通知バッジ
   /// カウント（xxx）を更新する
   Future<void> setXxxCount(int count) async {
     await instance!.setInt('count_xxx', count);
   }
 
-  String get uiMode {
-    final value = instance!.getString('config_ui_mode');
-    return value ?? 'Auto';
-  }
-
-  Future<void> setUIMode(String mode) async {
-    /* Auto Compact Medium*/
-    await instance!.setString('config_ui_mode', mode);
-  }
-
+  /// 通知バッジ
   int get badgeCount {
     return 0;
   }

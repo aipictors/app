@@ -12,7 +12,7 @@ import 'package:aipictors/screens/config/config_muted_tags_screen.dart';
 import 'package:aipictors/screens/config/config_muted_users_screen.dart';
 import 'package:aipictors/screens/config/config_pass_screen.dart';
 import 'package:aipictors/screens/config/config_profile_screen.dart';
-import 'package:aipictors/screens/config/config_ui_mode_screen.dart';
+import 'package:aipictors/screens/config/config_theme_screen.dart';
 import 'package:aipictors/screens/daily_theme/daily_theme_screen.dart';
 import 'package:aipictors/screens/debug_screen.dart';
 import 'package:aipictors/screens/feedback_screen.dart';
@@ -155,9 +155,9 @@ final router = GoRouter(
       },
     ),
     GoRoute(
-      path: '/config/ui_mode',
+      path: '/config/theme',
       builder: (context, state) {
-        return const ConfigUIModeScreen();
+        return const ConfigThemeScreen();
       },
     ),
     GoRoute(

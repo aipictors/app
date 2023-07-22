@@ -14,7 +14,7 @@ class ConfigState with _$ConfigState {
   const factory ConfigState({
     required bool isTutorial,
     required String language,
-    required String uiMode,
+    required bool themeMediumLayout,
     required ThemeMode themeMode,
     required Color? themeColor,
     required RemoteConfigFetchStatus lastFetchStatus,

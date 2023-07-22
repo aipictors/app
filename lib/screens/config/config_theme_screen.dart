@@ -3,8 +3,8 @@ import 'package:aipictors/providers/config_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class ConfigUIModeScreen extends HookConsumerWidget {
-  const ConfigUIModeScreen({
+class ConfigThemeScreen extends HookConsumerWidget {
+  const ConfigThemeScreen({
     Key? key,
   }) : super(key: key);
 
@@ -14,38 +14,29 @@ class ConfigUIModeScreen extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('UIモード切り替え'.i18n),
+        title: Text('テーマ設定'.i18n),
       ),
       body: ListView(
         children: [
           ListTile(
-            title: Text('自動'.i18n),
-            trailing: config.uiMode == 'Auto'
+            title: Text('オフ'.i18n),
+            trailing: !config.themeMediumLayout
                 ? const Icon(Icons.check_rounded)
                 : null,
             onTap: () {
               final notifier = ref.read(configProvider.notifier);
-              notifier.updateUIMode('Auto');
+              notifier.updateThemeMediumLayout(false);
             },
           ),
           ListTile(
-            title: Text('コンパクト（スマートフォン向け）'.i18n),
-            trailing: config.uiMode == 'Compact'
+            title: Text('タブレット向けUIを使用する'.i18n),
+            subtitle: Text('一部の画面でタブレット向けのレイアウトが適用されます。'.i18n),
+            trailing: config.themeMediumLayout
                 ? const Icon(Icons.check_rounded)
                 : null,
             onTap: () {
               final notifier = ref.read(configProvider.notifier);
-              notifier.updateUIMode('Compact');
-            },
-          ),
-          ListTile(
-            title: Text('ミディアム（タブレット向け）'.i18n),
-            trailing: config.uiMode == 'Medium'
-                ? const Icon(Icons.check_rounded)
-                : null,
-            onTap: () {
-              final notifier = ref.read(configProvider.notifier);
-              notifier.updateUIMode('Medium');
+              notifier.updateThemeMediumLayout(true);
             },
           ),
         ],

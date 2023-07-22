@@ -1,6 +1,3 @@
-import 'dart:io';
-
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -11,16 +8,10 @@ class DefaultConfig {
 
   static PackageInfo? packageInfo;
 
-  static AndroidDeviceInfo? androidInfo;
-
-  static IosDeviceInfo? iosInfo;
-
   /// 初期化する
   /// アプリが起動する前に呼び出して
   static activate() async {
     packageInfo = await PackageInfo.fromPlatform();
-    androidInfo = await DeviceInfoPlugin().androidInfo;
-    iosInfo = await DeviceInfoPlugin().iosInfo;
   }
 
   /// ブレークポイント
@@ -44,16 +35,6 @@ class DefaultConfig {
   static String get sentryDsn {
     final remoteConfig = FirebaseRemoteConfig.instance;
     return remoteConfig.getString('sentry_dsn');
-  }
-
-  static String? get deviceId {
-    if (Platform.isAndroid) {
-      return androidInfo!.id;
-    }
-    if (Platform.isIOS) {
-      return iosInfo!.identifierForVendor;
-    }
-    return null;
   }
 
   static String get version {

@@ -18,7 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$ConfigState {
   bool get isTutorial => throw _privateConstructorUsedError;
   String get language => throw _privateConstructorUsedError;
-  String get uiMode => throw _privateConstructorUsedError;
+  bool get themeMediumLayout => throw _privateConstructorUsedError;
   ThemeMode get themeMode => throw _privateConstructorUsedError;
   Color? get themeColor => throw _privateConstructorUsedError;
   RemoteConfigFetchStatus get lastFetchStatus =>
@@ -38,7 +38,7 @@ abstract class $ConfigStateCopyWith<$Res> {
   $Res call(
       {bool isTutorial,
       String language,
-      String uiMode,
+      bool themeMediumLayout,
       ThemeMode themeMode,
       Color? themeColor,
       RemoteConfigFetchStatus lastFetchStatus});
@@ -59,7 +59,7 @@ class _$ConfigStateCopyWithImpl<$Res, $Val extends ConfigState>
   $Res call({
     Object? isTutorial = null,
     Object? language = null,
-    Object? uiMode = null,
+    Object? themeMediumLayout = null,
     Object? themeMode = null,
     Object? themeColor = freezed,
     Object? lastFetchStatus = null,
@@ -73,10 +73,10 @@ class _$ConfigStateCopyWithImpl<$Res, $Val extends ConfigState>
           ? _value.language
           : language // ignore: cast_nullable_to_non_nullable
               as String,
-      uiMode: null == uiMode
-          ? _value.uiMode
-          : uiMode // ignore: cast_nullable_to_non_nullable
-              as String,
+      themeMediumLayout: null == themeMediumLayout
+          ? _value.themeMediumLayout
+          : themeMediumLayout // ignore: cast_nullable_to_non_nullable
+              as bool,
       themeMode: null == themeMode
           ? _value.themeMode
           : themeMode // ignore: cast_nullable_to_non_nullable
@@ -104,7 +104,7 @@ abstract class _$$_ConfigStateCopyWith<$Res>
   $Res call(
       {bool isTutorial,
       String language,
-      String uiMode,
+      bool themeMediumLayout,
       ThemeMode themeMode,
       Color? themeColor,
       RemoteConfigFetchStatus lastFetchStatus});
@@ -123,7 +123,7 @@ class __$$_ConfigStateCopyWithImpl<$Res>
   $Res call({
     Object? isTutorial = null,
     Object? language = null,
-    Object? uiMode = null,
+    Object? themeMediumLayout = null,
     Object? themeMode = null,
     Object? themeColor = freezed,
     Object? lastFetchStatus = null,
@@ -137,10 +137,10 @@ class __$$_ConfigStateCopyWithImpl<$Res>
           ? _value.language
           : language // ignore: cast_nullable_to_non_nullable
               as String,
-      uiMode: null == uiMode
-          ? _value.uiMode
-          : uiMode // ignore: cast_nullable_to_non_nullable
-              as String,
+      themeMediumLayout: null == themeMediumLayout
+          ? _value.themeMediumLayout
+          : themeMediumLayout // ignore: cast_nullable_to_non_nullable
+              as bool,
       themeMode: null == themeMode
           ? _value.themeMode
           : themeMode // ignore: cast_nullable_to_non_nullable
@@ -163,7 +163,7 @@ class _$_ConfigState extends _ConfigState {
   const _$_ConfigState(
       {required this.isTutorial,
       required this.language,
-      required this.uiMode,
+      required this.themeMediumLayout,
       required this.themeMode,
       required this.themeColor,
       required this.lastFetchStatus})
@@ -174,7 +174,7 @@ class _$_ConfigState extends _ConfigState {
   @override
   final String language;
   @override
-  final String uiMode;
+  final bool themeMediumLayout;
   @override
   final ThemeMode themeMode;
   @override
@@ -184,7 +184,7 @@ class _$_ConfigState extends _ConfigState {
 
   @override
   String toString() {
-    return 'ConfigState(isTutorial: $isTutorial, language: $language, uiMode: $uiMode, themeMode: $themeMode, themeColor: $themeColor, lastFetchStatus: $lastFetchStatus)';
+    return 'ConfigState(isTutorial: $isTutorial, language: $language, themeMediumLayout: $themeMediumLayout, themeMode: $themeMode, themeColor: $themeColor, lastFetchStatus: $lastFetchStatus)';
   }
 
   @override
@@ -196,7 +196,8 @@ class _$_ConfigState extends _ConfigState {
                 other.isTutorial == isTutorial) &&
             (identical(other.language, language) ||
                 other.language == language) &&
-            (identical(other.uiMode, uiMode) || other.uiMode == uiMode) &&
+            (identical(other.themeMediumLayout, themeMediumLayout) ||
+                other.themeMediumLayout == themeMediumLayout) &&
             (identical(other.themeMode, themeMode) ||
                 other.themeMode == themeMode) &&
             (identical(other.themeColor, themeColor) ||
@@ -206,8 +207,8 @@ class _$_ConfigState extends _ConfigState {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isTutorial, language, uiMode,
-      themeMode, themeColor, lastFetchStatus);
+  int get hashCode => Object.hash(runtimeType, isTutorial, language,
+      themeMediumLayout, themeMode, themeColor, lastFetchStatus);
 
   @JsonKey(ignore: true)
   @override
@@ -220,7 +221,7 @@ abstract class _ConfigState extends ConfigState {
   const factory _ConfigState(
       {required final bool isTutorial,
       required final String language,
-      required final String uiMode,
+      required final bool themeMediumLayout,
       required final ThemeMode themeMode,
       required final Color? themeColor,
       required final RemoteConfigFetchStatus lastFetchStatus}) = _$_ConfigState;
@@ -231,7 +232,7 @@ abstract class _ConfigState extends ConfigState {
   @override
   String get language;
   @override
-  String get uiMode;
+  bool get themeMediumLayout;
   @override
   ThemeMode get themeMode;
   @override

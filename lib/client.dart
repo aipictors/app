@@ -9,13 +9,10 @@ Future<Client> createClient() async {
 
   final token = await FirebaseAuth.instance.currentUser?.getIdToken(true);
 
-  final deviceId = DefaultConfig.deviceId;
-
   final httpLink = HttpLink(
     DefaultConfig.graphqlEndpoint,
     defaultHeaders: {
       if (token != null) 'authorization': 'Bearer $token',
-      if (deviceId != null) 'flutter_device_id': deviceId,
       'flutter_version': DefaultConfig.version,
       'flutter_build_number': DefaultConfig.buildNumber,
     },
