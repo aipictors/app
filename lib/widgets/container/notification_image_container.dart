@@ -1,4 +1,5 @@
-import 'package:aipictors/config.dart';
+import 'package:aipictors/enums/layout.dart';
+import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/widgets/container/notification_image_container_compact.dart';
 import 'package:aipictors/widgets/container/notification_image_container_medium.dart';
 import 'package:flutter/material.dart';
@@ -17,16 +18,20 @@ class NotificationImageContainer extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
-    if (DefaultConfig.mediumUIThreshold <= MediaQuery.of(context).size.width) {
-      return NotificationImageContainerMedium(
+    final config = ref.watch(configProvider);
+
+    return LayoutBuilder(builder: (context, constraints) {
+      final notCompact = Layout.fromWith(constraints.maxWidth).notCompact;
+      if (config.themeMediumLayout || notCompact) {
+        return NotificationImageContainerMedium(
+          workTitle: workTitle,
+          workImageURL: workImageURL,
+        );
+      }
+      return NotificationImageContainerCompact(
         workTitle: workTitle,
         workImageURL: workImageURL,
       );
-    }
-
-    return NotificationImageContainerCompact(
-      workTitle: workTitle,
-      workImageURL: workImageURL,
-    );
+    });
   }
 }

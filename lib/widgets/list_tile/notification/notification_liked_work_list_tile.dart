@@ -1,4 +1,5 @@
-import 'package:aipictors/config.dart';
+import 'package:aipictors/enums/layout.dart';
+import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/widgets/list_tile/notification/notification_liked_work_list_tile_compact.dart';
 import 'package:aipictors/widgets/list_tile/notification/notification_liked_work_list_tile_medium.dart';
 import 'package:flutter/material.dart';
@@ -32,8 +33,22 @@ class NotificationLikedWorkListTile extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
-    if (DefaultConfig.mediumUIThreshold <= MediaQuery.of(context).size.width) {
-      return NotificationLikedWorkListTileMedium(
+    final config = ref.watch(configProvider);
+
+    return LayoutBuilder(builder: (context, constraints) {
+      final notCompact = Layout.fromWith(constraints.maxWidth).notCompact;
+      if (config.themeMediumLayout || notCompact) {
+        return NotificationLikedWorkListTileMedium(
+          createdAt: createdAt,
+          workId: workId,
+          workTitle: workTitle,
+          workImageURL: workImageURL,
+          userId: userId,
+          userName: userName,
+          userIconImageURL: userIconImageURL,
+        );
+      }
+      return NotificationLikedWorkListTileCompact(
         createdAt: createdAt,
         workId: workId,
         workTitle: workTitle,
@@ -42,16 +57,6 @@ class NotificationLikedWorkListTile extends HookConsumerWidget {
         userName: userName,
         userIconImageURL: userIconImageURL,
       );
-    }
-
-    return NotificationLikedWorkListTileCompact(
-      createdAt: createdAt,
-      workId: workId,
-      workTitle: workTitle,
-      workImageURL: workImageURL,
-      userId: userId,
-      userName: userName,
-      userIconImageURL: userIconImageURL,
-    );
+    });
   }
 }

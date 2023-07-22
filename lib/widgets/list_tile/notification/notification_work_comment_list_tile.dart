@@ -1,4 +1,5 @@
-import 'package:aipictors/config.dart';
+import 'package:aipictors/enums/layout.dart';
+import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/widgets/list_tile/notification/notification_work_comment_list_tile_compact.dart';
 import 'package:aipictors/widgets/list_tile/notification/notification_work_comment_list_tile_medium.dart';
 import 'package:flutter/material.dart';
@@ -37,8 +38,24 @@ class NotificationWorkCommentListTile extends HookConsumerWidget {
   final String? stickerImageURL;
   @override
   Widget build(context, ref) {
-    if (DefaultConfig.mediumUIThreshold <= MediaQuery.of(context).size.width) {
-      return NotificationWorkCommentListTileMedium(
+    final config = ref.watch(configProvider);
+
+    return LayoutBuilder(builder: (context, constraints) {
+      final notCompact = Layout.fromWith(constraints.maxWidth).notCompact;
+      if (config.themeMediumLayout || notCompact) {
+        return NotificationWorkCommentListTileMedium(
+          createdAt: createdAt,
+          message: message,
+          userId: userId,
+          userName: userName,
+          userIconImageURL: userIconImageURL,
+          workId: workId,
+          workTitle: workTitle,
+          workImageURL: workImageURL,
+          stickerImageURL: stickerImageURL,
+        );
+      }
+      return NotificationWorkCommentListTileCompact(
         createdAt: createdAt,
         message: message,
         userId: userId,
@@ -49,18 +66,6 @@ class NotificationWorkCommentListTile extends HookConsumerWidget {
         workImageURL: workImageURL,
         stickerImageURL: stickerImageURL,
       );
-    }
-
-    return NotificationWorkCommentListTileCompact(
-      createdAt: createdAt,
-      message: message,
-      userId: userId,
-      userName: userName,
-      userIconImageURL: userIconImageURL,
-      workId: workId,
-      workTitle: workTitle,
-      workImageURL: workImageURL,
-      stickerImageURL: stickerImageURL,
-    );
+    });
   }
 }

@@ -1,4 +1,5 @@
-import 'package:aipictors/config.dart';
+import 'package:aipictors/enums/layout.dart';
+import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/widgets/container/notification_sticker_comment_container_compact.dart';
 import 'package:aipictors/widgets/container/notification_sticker_comment_container_medium.dart';
 import 'package:flutter/material.dart';
@@ -17,16 +18,20 @@ class NotificationStickerCommentContainer extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
-    if (DefaultConfig.mediumUIThreshold <= MediaQuery.of(context).size.width) {
-      return NotificationStickerCommentContainerMedium(
+    final config = ref.watch(configProvider);
+
+    return LayoutBuilder(builder: (context, constraints) {
+      final notCompact = Layout.fromWith(constraints.maxWidth).notCompact;
+      if (config.themeMediumLayout || notCompact) {
+        return NotificationStickerCommentContainerMedium(
+          stickerImageURL: stickerImageURL,
+          workImageURL: workImageURL,
+        );
+      }
+      return NotificationStickerCommentContainerCompact(
         stickerImageURL: stickerImageURL,
         workImageURL: workImageURL,
       );
-    }
-
-    return NotificationStickerCommentContainerCompact(
-      stickerImageURL: stickerImageURL,
-      workImageURL: workImageURL,
-    );
+    });
   }
 }
