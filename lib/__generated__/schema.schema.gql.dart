@@ -1212,6 +1212,7 @@ const Map<String, Set<String>> possibleTypesMap = {
     'DailyThemeNode',
     'CategoryNode',
     'CategoryViewerNode',
+    'PromotionNode',
   },
   'NotificationNode': {
     'LikedWorkNotificationNode',
@@ -1237,6 +1238,7 @@ const Map<String, Set<String>> possibleTypesMap = {
     'LikedWorksSummaryNotificationNode',
     'MutedTagNode',
     'MutedUserNode',
+    'PromotionNode',
     'StickerNode',
     'StickerViewerNode',
     'SubWorkNode',

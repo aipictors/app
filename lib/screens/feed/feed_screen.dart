@@ -30,7 +30,14 @@ class FeedScreen extends HookConsumerWidget {
             color: Theme.of(context).colorScheme.primary,
             size: 32,
           ),
-          actions: const [],
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.newspaper_rounded),
+              onPressed: () {
+                context.push('/promotions');
+              },
+            ),
+          ],
           bottom: TabBar(tabs: [
             Tab(text: 'ホーム'.i18n),
             Tab(text: 'お題'.i18n),

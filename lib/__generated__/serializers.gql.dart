@@ -200,6 +200,18 @@ import 'package:aipictors/graphql/__generated__/popular_works.req.gql.dart'
     show GPopularWorksReq;
 import 'package:aipictors/graphql/__generated__/popular_works.var.gql.dart'
     show GPopularWorksVars;
+import 'package:aipictors/graphql/__generated__/promotion.data.gql.dart'
+    show GPromotionData, GPromotionData_promotion;
+import 'package:aipictors/graphql/__generated__/promotion.req.gql.dart'
+    show GPromotionReq;
+import 'package:aipictors/graphql/__generated__/promotion.var.gql.dart'
+    show GPromotionVars;
+import 'package:aipictors/graphql/__generated__/promotions.data.gql.dart'
+    show GPromotionsData, GPromotionsData_promotions;
+import 'package:aipictors/graphql/__generated__/promotions.req.gql.dart'
+    show GPromotionsReq;
+import 'package:aipictors/graphql/__generated__/promotions.var.gql.dart'
+    show GPromotionsVars;
 import 'package:aipictors/graphql/__generated__/sticker.data.gql.dart'
     show GStickerData, GStickerData_sticker, GStickerData_sticker_image;
 import 'package:aipictors/graphql/__generated__/sticker.req.gql.dart'
@@ -514,6 +526,12 @@ import 'package:aipictors/graphql/fragments/__generated__/partial_folder_fields_
     show GPartialFolderFieldsReq;
 import 'package:aipictors/graphql/fragments/__generated__/partial_folder_fields_fragment.var.gql.dart'
     show GPartialFolderFieldsVars;
+import 'package:aipictors/graphql/fragments/__generated__/partial_promotion_fields_fragment.data.gql.dart'
+    show GPartialPromotionFieldsData;
+import 'package:aipictors/graphql/fragments/__generated__/partial_promotion_fields_fragment.req.gql.dart'
+    show GPartialPromotionFieldsReq;
+import 'package:aipictors/graphql/fragments/__generated__/partial_promotion_fields_fragment.var.gql.dart'
+    show GPartialPromotionFieldsVars;
 import 'package:aipictors/graphql/fragments/__generated__/partial_sticker_fields_fragment.data.gql.dart'
     show GPartialStickerFieldsData, GPartialStickerFieldsData_image;
 import 'package:aipictors/graphql/fragments/__generated__/partial_sticker_fields_fragment.req.gql.dart'
@@ -986,6 +1004,9 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GPartialFolderFieldsData_thumbnailImage,
   GPartialFolderFieldsReq,
   GPartialFolderFieldsVars,
+  GPartialPromotionFieldsData,
+  GPartialPromotionFieldsReq,
+  GPartialPromotionFieldsVars,
   GPartialStickerFieldsData,
   GPartialStickerFieldsData_image,
   GPartialStickerFieldsReq,
@@ -1008,6 +1029,14 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GPopularWorksVars,
   GPopularWorksWhereInput,
   GPostType,
+  GPromotionData,
+  GPromotionData_promotion,
+  GPromotionReq,
+  GPromotionVars,
+  GPromotionsData,
+  GPromotionsData_promotions,
+  GPromotionsReq,
+  GPromotionsVars,
   GRating,
   GReportCommentData,
   GReportCommentInput,

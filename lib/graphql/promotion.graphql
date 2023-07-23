@@ -1,0 +1,13 @@
+# import './fragments/partial_promotion_fields_fragment.graphql'
+
+query Promotion($id: ID!) {
+  promotion(id: $id) {
+    id
+    title
+    description
+    imageURL
+    pageURL
+    startDateTime
+    endDateTime
+  }
+}

@@ -1,0 +1,9 @@
+fragment PartialPromotionFields on PromotionNode {
+  id
+  title
+  description
+  imageURL
+  pageURL
+  startDateTime
+  endDateTime
+}

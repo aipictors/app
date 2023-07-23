@@ -217,6 +217,9 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GPartialFolderFieldsData_thumbnailImage.serializer)
       ..add(GPartialFolderFieldsReq.serializer)
       ..add(GPartialFolderFieldsVars.serializer)
+      ..add(GPartialPromotionFieldsData.serializer)
+      ..add(GPartialPromotionFieldsReq.serializer)
+      ..add(GPartialPromotionFieldsVars.serializer)
       ..add(GPartialStickerFieldsData.serializer)
       ..add(GPartialStickerFieldsData_image.serializer)
       ..add(GPartialStickerFieldsReq.serializer)
@@ -239,6 +242,14 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GPopularWorksVars.serializer)
       ..add(GPopularWorksWhereInput.serializer)
       ..add(GPostType.serializer)
+      ..add(GPromotionData.serializer)
+      ..add(GPromotionData_promotion.serializer)
+      ..add(GPromotionReq.serializer)
+      ..add(GPromotionVars.serializer)
+      ..add(GPromotionsData.serializer)
+      ..add(GPromotionsData_promotions.serializer)
+      ..add(GPromotionsReq.serializer)
+      ..add(GPromotionsVars.serializer)
       ..add(GRating.serializer)
       ..add(GReportCommentData.serializer)
       ..add(GReportCommentInput.serializer)
@@ -628,6 +639,10 @@ Serializers _$serializers = (new Serializers().toBuilder()
           const FullType(BuiltList,
               const [const FullType(GPopularWorksData_popularWorks)]),
           () => new ListBuilder<GPopularWorksData_popularWorks>())
+      ..addBuilderFactory(
+          const FullType(
+              BuiltList, const [const FullType(GPromotionsData_promotions)]),
+          () => new ListBuilder<GPromotionsData_promotions>())
       ..addBuilderFactory(
           const FullType(
               BuiltList, const [const FullType(GStickersData_stickers)]),

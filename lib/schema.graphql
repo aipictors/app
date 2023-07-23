@@ -45,7 +45,11 @@ type Query {
   "カテゴリ"
   categories: [CategoryNode!]!
   "カテゴリ"
-  category: CategoryNode!
+  category(id: ID!): CategoryNode!
+  "イベント"
+  promotions(offset: Int!, limit: Int!): [PromotionNode!]!
+  "イベント"
+  promotion(id: ID!): PromotionNode
   "ログイン中のユーザ"
   viewer: Viewer
   _entities(representations: [_Any!]!): [_Entity]!
@@ -482,6 +486,16 @@ type CategoryViewerNode implements Node {
   id: ID!
   isWatched: Boolean!
 }
+"プロモーション"
+type PromotionNode implements Node {
+  id: ID!
+  title: String!
+  description: String!
+  imageURL: String
+  pageURL: String
+  startDateTime: Int!
+  endDateTime: Int!
+}
 type Mutation {
   "アカウントを作成する"
   createAccount(input: CreateAccountInput!): UserNode!
@@ -559,7 +573,7 @@ interface Node {
 }
 "通知"
 union NotificationNode = LikedWorkNotificationNode | LikedWorksSummaryNotificationNode | WorkAwardNotificationNode | WorkCommentNotificationNode | WorkCommentReplyNotificationNode | FollowNotificationNode
-union _Entity = CategoryNode | CategoryViewerNode | CommentNode | ContributorNode | DailyThemeNode | FolderLikeNode | FolderNode | FolderViewerNode | FollowNotificationNode | FriendshipNode | ImageNode | LikedWorkNotificationNode | LikedWorksSummaryNotificationNode | MutedTagNode | MutedUserNode | StickerNode | StickerViewerNode | SubWorkNode | TagNode | TagViewerNode | UserNode | UserSettingNode | UserViewerNode | WorkAwardNode | WorkAwardNotificationNode | WorkBookmarkNode | WorkCommentNotificationNode | WorkCommentReplyNotificationNode | WorkEventNode | WorkLikeNode | WorkNode | WorkViewerNode
+union _Entity = CategoryNode | CategoryViewerNode | CommentNode | ContributorNode | DailyThemeNode | FolderLikeNode | FolderNode | FolderViewerNode | FollowNotificationNode | FriendshipNode | ImageNode | LikedWorkNotificationNode | LikedWorksSummaryNotificationNode | MutedTagNode | MutedUserNode | PromotionNode | StickerNode | StickerViewerNode | SubWorkNode | TagNode | TagViewerNode | UserNode | UserSettingNode | UserViewerNode | WorkAwardNode | WorkAwardNotificationNode | WorkBookmarkNode | WorkCommentNotificationNode | WorkCommentReplyNotificationNode | WorkEventNode | WorkLikeNode | WorkNode | WorkViewerNode
 "年齢制限"
 enum Rating {
   "全年齢"

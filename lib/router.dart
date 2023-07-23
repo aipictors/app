@@ -22,6 +22,8 @@ import 'package:aipictors/screens/folder/folder_screen.dart';
 import 'package:aipictors/screens/folder/folder_update_screen.dart';
 import 'package:aipictors/screens/guideline_screen.dart';
 import 'package:aipictors/screens/privacy_screen.dart';
+import 'package:aipictors/screens/promotions/promotion_screen.dart';
+import 'package:aipictors/screens/promotions/promotions_screen.dart';
 import 'package:aipictors/screens/root_screen.dart';
 import 'package:aipictors/screens/sticker/sticker_report_screen.dart';
 import 'package:aipictors/screens/sticker/stickers_screen.dart';
@@ -192,6 +194,19 @@ final router = GoRouter(
       builder: (context, state) {
         final folderId = state.pathParameters['folder_id'];
         return FolderUpdateScreen(folderId: folderId!);
+      },
+    ),
+    GoRoute(
+      path: '/promotions',
+      builder: (context, state) {
+        return const PromotionsScreen();
+      },
+    ),
+    GoRoute(
+      path: '/promotions/:promotion_id',
+      builder: (context, state) {
+        final promotionId = state.pathParameters['promotion_id'];
+        return PromotionScreen(promotionId: promotionId!);
       },
     ),
     GoRoute(
