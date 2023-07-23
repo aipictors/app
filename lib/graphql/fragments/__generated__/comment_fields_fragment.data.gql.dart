@@ -15,7 +15,7 @@ abstract class GCommentFields {
   String get id;
   int get createdAt;
   String get text;
-  GCommentFields_user get user;
+  GCommentFields_user? get user;
   GCommentFields_sticker? get sticker;
   Map<String, dynamic> toJson();
 }
@@ -82,7 +82,7 @@ abstract class GCommentFieldsData
   @override
   String get text;
   @override
-  GCommentFieldsData_user get user;
+  GCommentFieldsData_user? get user;
   @override
   GCommentFieldsData_sticker? get sticker;
   static Serializer<GCommentFieldsData> get serializer =>

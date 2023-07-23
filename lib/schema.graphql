@@ -97,8 +97,8 @@ type TagViewerNode implements Node {
 "コメント"
 type CommentNode implements Node {
   id: ID!
-  userId: ID!
-  user: UserNode!
+  userId: ID
+  user: UserNode
   workId: ID
   work: WorkNode
   sticker: StickerNode

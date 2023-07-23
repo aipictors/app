@@ -41,11 +41,15 @@ class _$GCommentFieldsDataSerializer
           specifiedType: const FullType(int)),
       'text',
       serializers.serialize(object.text, specifiedType: const FullType(String)),
-      'user',
-      serializers.serialize(object.user,
-          specifiedType: const FullType(GCommentFieldsData_user)),
     ];
     Object? value;
+    value = object.user;
+    if (value != null) {
+      result
+        ..add('user')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(GCommentFieldsData_user)));
+    }
     value = object.sticker;
     if (value != null) {
       result
@@ -372,7 +376,7 @@ class _$GCommentFieldsData extends GCommentFieldsData {
   @override
   final String text;
   @override
-  final GCommentFieldsData_user user;
+  final GCommentFieldsData_user? user;
   @override
   final GCommentFieldsData_sticker? sticker;
 
@@ -385,7 +389,7 @@ class _$GCommentFieldsData extends GCommentFieldsData {
       required this.id,
       required this.createdAt,
       required this.text,
-      required this.user,
+      this.user,
       this.sticker})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
@@ -394,7 +398,6 @@ class _$GCommentFieldsData extends GCommentFieldsData {
     BuiltValueNullFieldError.checkNotNull(
         createdAt, r'GCommentFieldsData', 'createdAt');
     BuiltValueNullFieldError.checkNotNull(text, r'GCommentFieldsData', 'text');
-    BuiltValueNullFieldError.checkNotNull(user, r'GCommentFieldsData', 'user');
   }
 
   @override
@@ -486,7 +489,7 @@ class GCommentFieldsDataBuilder
       _id = $v.id;
       _createdAt = $v.createdAt;
       _text = $v.text;
-      _user = $v.user.toBuilder();
+      _user = $v.user?.toBuilder();
       _sticker = $v.sticker?.toBuilder();
       _$v = null;
     }
@@ -520,13 +523,13 @@ class GCommentFieldsDataBuilder
                   createdAt, r'GCommentFieldsData', 'createdAt'),
               text: BuiltValueNullFieldError.checkNotNull(
                   text, r'GCommentFieldsData', 'text'),
-              user: user.build(),
+              user: _user?.build(),
               sticker: _sticker?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'user';
-        user.build();
+        _user?.build();
         _$failedField = 'sticker';
         _sticker?.build();
       } catch (e) {

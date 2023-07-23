@@ -88,7 +88,7 @@ abstract class GWorkCommentsData_work_comments
   @override
   String get text;
   @override
-  GWorkCommentsData_work_comments_user get user;
+  GWorkCommentsData_work_comments_user? get user;
   @override
   GWorkCommentsData_work_comments_sticker? get sticker;
   BuiltList<GWorkCommentsData_work_comments_responses> get responses;
@@ -280,7 +280,7 @@ abstract class GWorkCommentsData_work_comments_responses
   @override
   String get text;
   @override
-  GWorkCommentsData_work_comments_responses_user get user;
+  GWorkCommentsData_work_comments_responses_user? get user;
   @override
   GWorkCommentsData_work_comments_responses_sticker? get sticker;
   static Serializer<GWorkCommentsData_work_comments_responses> get serializer =>

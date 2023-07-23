@@ -182,9 +182,6 @@ class _$GWorkCommentsData_work_commentsSerializer
           specifiedType: const FullType(int)),
       'text',
       serializers.serialize(object.text, specifiedType: const FullType(String)),
-      'user',
-      serializers.serialize(object.user,
-          specifiedType: const FullType(GWorkCommentsData_work_comments_user)),
       'responses',
       serializers.serialize(object.responses,
           specifiedType: const FullType(BuiltList, const [
@@ -192,6 +189,14 @@ class _$GWorkCommentsData_work_commentsSerializer
           ])),
     ];
     Object? value;
+    value = object.user;
+    if (value != null) {
+      result
+        ..add('user')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(GWorkCommentsData_work_comments_user)));
+    }
     value = object.sticker;
     if (value != null) {
       result
@@ -546,12 +551,16 @@ class _$GWorkCommentsData_work_comments_responsesSerializer
           specifiedType: const FullType(int)),
       'text',
       serializers.serialize(object.text, specifiedType: const FullType(String)),
-      'user',
-      serializers.serialize(object.user,
-          specifiedType:
-              const FullType(GWorkCommentsData_work_comments_responses_user)),
     ];
     Object? value;
+    value = object.user;
+    if (value != null) {
+      result
+        ..add('user')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(
+                GWorkCommentsData_work_comments_responses_user)));
+    }
     value = object.sticker;
     if (value != null) {
       result
@@ -1143,7 +1152,7 @@ class _$GWorkCommentsData_work_comments
   @override
   final String text;
   @override
-  final GWorkCommentsData_work_comments_user user;
+  final GWorkCommentsData_work_comments_user? user;
   @override
   final GWorkCommentsData_work_comments_sticker? sticker;
   @override
@@ -1158,7 +1167,7 @@ class _$GWorkCommentsData_work_comments
       required this.id,
       required this.createdAt,
       required this.text,
-      required this.user,
+      this.user,
       this.sticker,
       required this.responses})
       : super._() {
@@ -1170,8 +1179,6 @@ class _$GWorkCommentsData_work_comments
         createdAt, r'GWorkCommentsData_work_comments', 'createdAt');
     BuiltValueNullFieldError.checkNotNull(
         text, r'GWorkCommentsData_work_comments', 'text');
-    BuiltValueNullFieldError.checkNotNull(
-        user, r'GWorkCommentsData_work_comments', 'user');
     BuiltValueNullFieldError.checkNotNull(
         responses, r'GWorkCommentsData_work_comments', 'responses');
   }
@@ -1279,7 +1286,7 @@ class GWorkCommentsData_work_commentsBuilder
       _id = $v.id;
       _createdAt = $v.createdAt;
       _text = $v.text;
-      _user = $v.user.toBuilder();
+      _user = $v.user?.toBuilder();
       _sticker = $v.sticker?.toBuilder();
       _responses = $v.responses.toBuilder();
       _$v = null;
@@ -1314,14 +1321,14 @@ class GWorkCommentsData_work_commentsBuilder
                   createdAt, r'GWorkCommentsData_work_comments', 'createdAt'),
               text: BuiltValueNullFieldError.checkNotNull(
                   text, r'GWorkCommentsData_work_comments', 'text'),
-              user: user.build(),
+              user: _user?.build(),
               sticker: _sticker?.build(),
               responses: responses.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'user';
-        user.build();
+        _user?.build();
         _$failedField = 'sticker';
         _sticker?.build();
         _$failedField = 'responses';
@@ -1934,7 +1941,7 @@ class _$GWorkCommentsData_work_comments_responses
   @override
   final String text;
   @override
-  final GWorkCommentsData_work_comments_responses_user user;
+  final GWorkCommentsData_work_comments_responses_user? user;
   @override
   final GWorkCommentsData_work_comments_responses_sticker? sticker;
 
@@ -1949,7 +1956,7 @@ class _$GWorkCommentsData_work_comments_responses
       required this.id,
       required this.createdAt,
       required this.text,
-      required this.user,
+      this.user,
       this.sticker})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(G__typename,
@@ -1960,8 +1967,6 @@ class _$GWorkCommentsData_work_comments_responses
         createdAt, r'GWorkCommentsData_work_comments_responses', 'createdAt');
     BuiltValueNullFieldError.checkNotNull(
         text, r'GWorkCommentsData_work_comments_responses', 'text');
-    BuiltValueNullFieldError.checkNotNull(
-        user, r'GWorkCommentsData_work_comments_responses', 'user');
   }
 
   @override
@@ -2061,7 +2066,7 @@ class GWorkCommentsData_work_comments_responsesBuilder
       _id = $v.id;
       _createdAt = $v.createdAt;
       _text = $v.text;
-      _user = $v.user.toBuilder();
+      _user = $v.user?.toBuilder();
       _sticker = $v.sticker?.toBuilder();
       _$v = null;
     }
@@ -2097,13 +2102,13 @@ class GWorkCommentsData_work_comments_responsesBuilder
                   r'GWorkCommentsData_work_comments_responses', 'createdAt'),
               text: BuiltValueNullFieldError.checkNotNull(
                   text, r'GWorkCommentsData_work_comments_responses', 'text'),
-              user: user.build(),
+              user: _user?.build(),
               sticker: _sticker?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'user';
-        user.build();
+        _user?.build();
         _$failedField = 'sticker';
         _sticker?.build();
       } catch (e) {
