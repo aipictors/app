@@ -1,10 +1,10 @@
-import 'package:aipictors/providers/feed_tab_index_provider.dart';
+import 'package:aipictors/providers/explorer_tab_index_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-/// タブ・フィード
-class FeedTabController extends HookConsumerWidget {
-  const FeedTabController({
+/// タブ・探索
+class ExplorerTabController extends HookConsumerWidget {
+  const ExplorerTabController({
     Key? key,
     required this.child,
     required this.length,
@@ -16,7 +16,7 @@ class FeedTabController extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
-    final tabIndex = ref.watch(feedTabIndexProvider);
+    final tabIndex = ref.watch(explorerTabIndexProvider);
 
     const tabSize = 4;
 
@@ -26,7 +26,7 @@ class FeedTabController extends HookConsumerWidget {
       child: Builder(builder: (context) {
         final controller = DefaultTabController.of(context);
         controller.addListener(() {
-          final notifier = ref.read(feedTabIndexProvider.notifier);
+          final notifier = ref.read(explorerTabIndexProvider.notifier);
           notifier.update(controller.index);
         });
         return child;

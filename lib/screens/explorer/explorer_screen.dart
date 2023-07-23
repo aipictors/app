@@ -4,6 +4,7 @@ import 'package:aipictors/screens/explorer/explorer_latest_folders_view.dart';
 import 'package:aipictors/screens/explorer/explorer_popular_works_view.dart';
 import 'package:aipictors/screens/explorer/explorer_search_view.dart';
 import 'package:aipictors/widgets/app_bar/search_app_bar.dart';
+import 'package:aipictors/widgets/controller/explorer_tab_controller.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -23,7 +24,7 @@ class ExplorerScreen extends HookConsumerWidget {
 
     const tabSize = 4;
 
-    return DefaultTabController(
+    return ExplorerTabController(
       length: tabSize,
       child: Scaffold(
         key: const PageStorageKey('explorer'),
