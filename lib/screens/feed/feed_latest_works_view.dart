@@ -1,5 +1,4 @@
-import 'package:aipictors/default.i18n.dart';
-import 'package:aipictors/graphql/__generated__/viewer_feed_works.req.gql.dart';
+import 'package:aipictors/graphql/__generated__/feed_latest_works.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
 import 'package:aipictors/widgets/container/end_of_content_container.dart';
@@ -8,12 +7,11 @@ import 'package:aipictors/widgets/container/error/data_not_found_error_container
 import 'package:aipictors/widgets/container/loading_container.dart';
 import 'package:aipictors/widgets/list_tile/feed_work_list_tile.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-/// フィード・フォローしているユーザやタグに関連する作品の一覧
-class FeedHomeScreen extends HookConsumerWidget {
-  const FeedHomeScreen({
+/// フィード・最新の作品の一覧
+class FeedLatestWorksView extends HookConsumerWidget {
+  const FeedLatestWorksView({
     Key? key,
   }) : super(key: key);
 
@@ -25,7 +23,7 @@ class FeedHomeScreen extends HookConsumerWidget {
       return const LoadingContainer();
     }
 
-    final request = GViewerFeedWorksReq((builder) {
+    final request = GFeedLatestWorksReq((builder) {
       return builder
         ..vars.limit = 16
         ..vars.offset = 0;
@@ -46,7 +44,7 @@ class FeedHomeScreen extends HookConsumerWidget {
           client: client.value!,
           operationRequest: request,
           builder: (context, response) {
-            final workList = response.data?.viewer?.feedWorks;
+            final workList = response.data?.works;
             if (workList == null) {
               return const DataNotFoundErrorContainer();
             }
@@ -54,7 +52,6 @@ class FeedHomeScreen extends HookConsumerWidget {
               return const DataEmptyErrorContainer();
             }
             return ListView.separated(
-              shrinkWrap: true,
               separatorBuilder: (context, index) {
                 return const Divider(height: 0);
               },
@@ -67,7 +64,7 @@ class FeedHomeScreen extends HookConsumerWidget {
                 return FeedWorkListTile(
                   workId: work.id,
                   workTitle: work.title,
-                  workImageURL: work.image?.downloadURL,
+                  workImageURL: work.image!.downloadURL,
                   workCreatedAt: work.createdAt,
                   workImageAspectRatio: work.imageAspectRatio,
                   userId: work.user.id,
@@ -84,16 +81,6 @@ class FeedHomeScreen extends HookConsumerWidget {
             );
           },
         ),
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(40),
-        ),
-        icon: const Icon(Icons.add),
-        label: Text('投稿'.i18n),
-        onPressed: () {
-          context.push('/works/create');
-        },
       ),
     );
   }

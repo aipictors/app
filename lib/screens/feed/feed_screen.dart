@@ -1,11 +1,12 @@
 import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/providers/feed_tab_index_provider.dart';
-import 'package:aipictors/screens/feed/feed_daily_theme_works_screen.dart';
-import 'package:aipictors/screens/feed/feed_home_screen.dart';
-import 'package:aipictors/screens/feed/feed_hot_works_screen.dart';
-import 'package:aipictors/screens/feed/feed_latest_works_screen.dart';
+import 'package:aipictors/screens/feed/feed_daily_theme_works_view.dart';
+import 'package:aipictors/screens/feed/feed_home_view.dart';
+import 'package:aipictors/screens/feed/feed_hot_works_view.dart';
+import 'package:aipictors/screens/feed/feed_latest_works_view.dart';
 import 'package:aipictors/widgets/controller/feed_tab_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// フィード
@@ -16,7 +17,7 @@ class FeedScreen extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
-    ref.watch(feedTabIndexProvider);
+    final tabIndex = ref.watch(feedTabIndexProvider);
 
     const tabSize = 4;
 
@@ -39,19 +40,42 @@ class FeedScreen extends HookConsumerWidget {
         ),
         resizeToAvoidBottomInset: true,
         body: const TabBarView(children: [
-          FeedHomeScreen(
+          FeedHomeView(
             key: PageStorageKey('feed_home'),
           ),
-          FeedDailyThemeWorksScreen(
+          FeedDailyThemeWorksView(
             key: PageStorageKey('feed_daily_theme_works'),
           ),
-          FeedHotWorksScreen(
+          FeedHotWorksView(
             key: PageStorageKey('feed_hot_works'),
           ),
-          FeedLatestWorksScreen(
+          FeedLatestWorksView(
             key: PageStorageKey('feed_latest_works'),
           ),
         ]),
+        floatingActionButton: Builder(builder: (context) {
+          if (tabIndex == 1) {
+            return FloatingActionButton.extended(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(40),
+              ),
+              icon: const Icon(Icons.add),
+              label: Text('お題の作品'.i18n),
+              onPressed: () {
+                context.push('/works/create');
+              },
+            );
+          }
+          return FloatingActionButton(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(40),
+            ),
+            child: const Icon(Icons.add),
+            onPressed: () {
+              context.push('/works/create');
+            },
+          );
+        }),
       ),
     );
   }
