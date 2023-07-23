@@ -21,7 +21,7 @@ class HomeNavigationRail extends HookConsumerWidget {
       destinations: [
         NavigationRailDestination(
           icon: const Icon(Icons.home),
-          label: Text('ホーム'.i18n),
+          label: Text('フィード'.i18n),
           padding: const EdgeInsets.symmetric(vertical: 4),
         ),
         NavigationRailDestination(

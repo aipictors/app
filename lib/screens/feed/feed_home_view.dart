@@ -1,11 +1,13 @@
 import 'package:aipictors/graphql/__generated__/viewer_feed_works.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
+import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
 import 'package:aipictors/widgets/container/end_of_content_container.dart';
 import 'package:aipictors/widgets/container/error/data_empty_error_container.dart';
 import 'package:aipictors/widgets/container/error/data_not_found_error_container.dart';
 import 'package:aipictors/widgets/container/loading_container.dart';
 import 'package:aipictors/widgets/list_tile/feed_work_list_tile.dart';
+import 'package:aipictors/widgets/list_tile/home_message_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -17,6 +19,8 @@ class FeedHomeView extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
+    final config = ref.watch(configProvider);
+
     final client = ref.watch(clientProvider);
 
     if (client.value == null) {
@@ -28,6 +32,8 @@ class FeedHomeView extends HookConsumerWidget {
         ..vars.limit = 16
         ..vars.offset = 0;
     });
+
+    final indexCount = config.homeMessage != null ? 1 : 0;
 
     return RefreshIndicator(
       onRefresh: () async {
@@ -55,12 +61,15 @@ class FeedHomeView extends HookConsumerWidget {
             separatorBuilder: (context, index) {
               return const Divider(height: 0);
             },
-            itemCount: workList.length + 1,
+            itemCount: workList.length + 1 + indexCount,
             itemBuilder: (context, index) {
-              if (index == workList.length) {
+              if (index == 0 && indexCount == 1) {
+                return HomeMessageListTile(message: config.homeMessage!);
+              }
+              if (index == workList.length + indexCount) {
                 return const EndOfContentContainer();
               }
-              final work = workList[index];
+              final work = workList[index - indexCount];
               return FeedWorkListTile(
                 workId: work.id,
                 workTitle: work.title,

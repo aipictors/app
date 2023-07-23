@@ -70,7 +70,7 @@ class ConfigState with _$ConfigState {
       return value;
     } catch (exception, stackTrace) {
       Sentry.captureException(exception, stackTrace: stackTrace);
-      return '';
+      return null;
     }
   }
 

@@ -39,7 +39,7 @@ class FeedScreen extends HookConsumerWidget {
             ),
           ],
           bottom: TabBar(tabs: [
-            Tab(text: 'ホーム'.i18n),
+            Tab(text: 'フォロー'.i18n),
             Tab(text: 'お題'.i18n),
             Tab(text: 'おすすめ'.i18n),
             Tab(text: '新着'.i18n),
