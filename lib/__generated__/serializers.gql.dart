@@ -245,14 +245,14 @@ import 'package:aipictors/graphql/__generated__/user.var.gql.dart'
     show GUserVars;
 import 'package:aipictors/graphql/__generated__/user_folders.data.gql.dart'
     show
-        GUserFolderData,
-        GUserFolderData_user,
-        GUserFolderData_user_folders,
-        GUserFolderData_user_folders_thumbnailImage;
+        GUserFoldersData,
+        GUserFoldersData_user,
+        GUserFoldersData_user_folders,
+        GUserFoldersData_user_folders_thumbnailImage;
 import 'package:aipictors/graphql/__generated__/user_folders.req.gql.dart'
-    show GUserFolderReq;
+    show GUserFoldersReq;
 import 'package:aipictors/graphql/__generated__/user_folders.var.gql.dart'
-    show GUserFolderVars;
+    show GUserFoldersVars;
 import 'package:aipictors/graphql/__generated__/user_followees.data.gql.dart'
     show
         GUserFolloweesData,
@@ -1103,12 +1103,12 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GUserFieldsData_iconImage,
   GUserFieldsReq,
   GUserFieldsVars,
-  GUserFolderData,
-  GUserFolderData_user,
-  GUserFolderData_user_folders,
-  GUserFolderData_user_folders_thumbnailImage,
-  GUserFolderReq,
-  GUserFolderVars,
+  GUserFoldersData,
+  GUserFoldersData_user,
+  GUserFoldersData_user_folders,
+  GUserFoldersData_user_folders_thumbnailImage,
+  GUserFoldersReq,
+  GUserFoldersVars,
   GUserFolloweesData,
   GUserFolloweesData_user,
   GUserFolloweesData_user_followees,

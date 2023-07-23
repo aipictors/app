@@ -8,25 +8,25 @@ import 'package:built_value/serializer.dart';
 
 part 'user_folders.var.gql.g.dart';
 
-abstract class GUserFolderVars
-    implements Built<GUserFolderVars, GUserFolderVarsBuilder> {
-  GUserFolderVars._();
+abstract class GUserFoldersVars
+    implements Built<GUserFoldersVars, GUserFoldersVarsBuilder> {
+  GUserFoldersVars._();
 
-  factory GUserFolderVars([Function(GUserFolderVarsBuilder b) updates]) =
-      _$GUserFolderVars;
+  factory GUserFoldersVars([Function(GUserFoldersVarsBuilder b) updates]) =
+      _$GUserFoldersVars;
 
   String get user_id;
   int get offset;
   int get limit;
-  static Serializer<GUserFolderVars> get serializer =>
-      _$gUserFolderVarsSerializer;
+  static Serializer<GUserFoldersVars> get serializer =>
+      _$gUserFoldersVarsSerializer;
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GUserFolderVars.serializer,
+        GUserFoldersVars.serializer,
         this,
       ) as Map<String, dynamic>);
-  static GUserFolderVars? fromJson(Map<String, dynamic> json) =>
+  static GUserFoldersVars? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
-        GUserFolderVars.serializer,
+        GUserFoldersVars.serializer,
         json,
       );
 }

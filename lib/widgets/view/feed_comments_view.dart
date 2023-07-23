@@ -33,7 +33,7 @@ class FeedCommentsView extends HookConsumerWidget {
             itemBuilder: (context, index) {
               final comment = commentList[index];
               return ListTile(
-                title: Text(comment.user.name),
+                title: Text(comment.user?.name ?? '-'),
                 subtitle: Text(comment.text),
               );
             },

@@ -34,6 +34,10 @@ class OperationBuilder<T, U> extends HookConsumerWidget {
           return const UnexpectedErrorContainer();
         }
 
+        if (response?.linkException?.originalException != null) {
+          return const UnexpectedErrorContainer();
+        }
+
         if (response == null || response.loading) {
           return const LoadingContainer();
         }

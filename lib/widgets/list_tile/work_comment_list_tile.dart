@@ -31,8 +31,8 @@ class WorkCommentListTile extends HookConsumerWidget {
         children: [
           const SizedBox(height: 16),
           NotificationUserContainer(
-            userName: comment.user.name,
-            userIconImageURL: comment.user.iconImage?.downloadURL,
+            userName: comment.user?.name,
+            userIconImageURL: comment.user?.iconImage?.downloadURL,
           ),
           const SizedBox(height: 8),
         ],

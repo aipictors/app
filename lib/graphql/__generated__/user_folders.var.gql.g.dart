@@ -6,18 +6,18 @@ part of 'user_folders.var.gql.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<GUserFolderVars> _$gUserFolderVarsSerializer =
-    new _$GUserFolderVarsSerializer();
+Serializer<GUserFoldersVars> _$gUserFoldersVarsSerializer =
+    new _$GUserFoldersVarsSerializer();
 
-class _$GUserFolderVarsSerializer
-    implements StructuredSerializer<GUserFolderVars> {
+class _$GUserFoldersVarsSerializer
+    implements StructuredSerializer<GUserFoldersVars> {
   @override
-  final Iterable<Type> types = const [GUserFolderVars, _$GUserFolderVars];
+  final Iterable<Type> types = const [GUserFoldersVars, _$GUserFoldersVars];
   @override
-  final String wireName = 'GUserFolderVars';
+  final String wireName = 'GUserFoldersVars';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, GUserFolderVars object,
+  Iterable<Object?> serialize(Serializers serializers, GUserFoldersVars object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
       'user_id',
@@ -33,10 +33,10 @@ class _$GUserFolderVarsSerializer
   }
 
   @override
-  GUserFolderVars deserialize(
+  GUserFoldersVars deserialize(
       Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new GUserFolderVarsBuilder();
+    final result = new GUserFoldersVarsBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -63,7 +63,7 @@ class _$GUserFolderVarsSerializer
   }
 }
 
-class _$GUserFolderVars extends GUserFolderVars {
+class _$GUserFoldersVars extends GUserFoldersVars {
   @override
   final String user_id;
   @override
@@ -71,30 +71,32 @@ class _$GUserFolderVars extends GUserFolderVars {
   @override
   final int limit;
 
-  factory _$GUserFolderVars([void Function(GUserFolderVarsBuilder)? updates]) =>
-      (new GUserFolderVarsBuilder()..update(updates))._build();
+  factory _$GUserFoldersVars(
+          [void Function(GUserFoldersVarsBuilder)? updates]) =>
+      (new GUserFoldersVarsBuilder()..update(updates))._build();
 
-  _$GUserFolderVars._(
+  _$GUserFoldersVars._(
       {required this.user_id, required this.offset, required this.limit})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        user_id, r'GUserFolderVars', 'user_id');
-    BuiltValueNullFieldError.checkNotNull(offset, r'GUserFolderVars', 'offset');
-    BuiltValueNullFieldError.checkNotNull(limit, r'GUserFolderVars', 'limit');
+        user_id, r'GUserFoldersVars', 'user_id');
+    BuiltValueNullFieldError.checkNotNull(
+        offset, r'GUserFoldersVars', 'offset');
+    BuiltValueNullFieldError.checkNotNull(limit, r'GUserFoldersVars', 'limit');
   }
 
   @override
-  GUserFolderVars rebuild(void Function(GUserFolderVarsBuilder) updates) =>
+  GUserFoldersVars rebuild(void Function(GUserFoldersVarsBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GUserFolderVarsBuilder toBuilder() =>
-      new GUserFolderVarsBuilder()..replace(this);
+  GUserFoldersVarsBuilder toBuilder() =>
+      new GUserFoldersVarsBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GUserFolderVars &&
+    return other is GUserFoldersVars &&
         user_id == other.user_id &&
         offset == other.offset &&
         limit == other.limit;
@@ -112,7 +114,7 @@ class _$GUserFolderVars extends GUserFolderVars {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'GUserFolderVars')
+    return (newBuiltValueToStringHelper(r'GUserFoldersVars')
           ..add('user_id', user_id)
           ..add('offset', offset)
           ..add('limit', limit))
@@ -120,9 +122,9 @@ class _$GUserFolderVars extends GUserFolderVars {
   }
 }
 
-class GUserFolderVarsBuilder
-    implements Builder<GUserFolderVars, GUserFolderVarsBuilder> {
-  _$GUserFolderVars? _$v;
+class GUserFoldersVarsBuilder
+    implements Builder<GUserFoldersVars, GUserFoldersVarsBuilder> {
+  _$GUserFoldersVars? _$v;
 
   String? _user_id;
   String? get user_id => _$this._user_id;
@@ -136,9 +138,9 @@ class GUserFolderVarsBuilder
   int? get limit => _$this._limit;
   set limit(int? limit) => _$this._limit = limit;
 
-  GUserFolderVarsBuilder();
+  GUserFoldersVarsBuilder();
 
-  GUserFolderVarsBuilder get _$this {
+  GUserFoldersVarsBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _user_id = $v.user_id;
@@ -150,28 +152,28 @@ class GUserFolderVarsBuilder
   }
 
   @override
-  void replace(GUserFolderVars other) {
+  void replace(GUserFoldersVars other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GUserFolderVars;
+    _$v = other as _$GUserFoldersVars;
   }
 
   @override
-  void update(void Function(GUserFolderVarsBuilder)? updates) {
+  void update(void Function(GUserFoldersVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  GUserFolderVars build() => _build();
+  GUserFoldersVars build() => _build();
 
-  _$GUserFolderVars _build() {
+  _$GUserFoldersVars _build() {
     final _$result = _$v ??
-        new _$GUserFolderVars._(
+        new _$GUserFoldersVars._(
             user_id: BuiltValueNullFieldError.checkNotNull(
-                user_id, r'GUserFolderVars', 'user_id'),
+                user_id, r'GUserFoldersVars', 'user_id'),
             offset: BuiltValueNullFieldError.checkNotNull(
-                offset, r'GUserFolderVars', 'offset'),
+                offset, r'GUserFoldersVars', 'offset'),
             limit: BuiltValueNullFieldError.checkNotNull(
-                limit, r'GUserFolderVars', 'limit'));
+                limit, r'GUserFoldersVars', 'limit'));
     replace(_$result);
     return _$result;
   }

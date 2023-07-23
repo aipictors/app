@@ -28,7 +28,6 @@ class DailyThemeListTile extends HookConsumerWidget {
   @override
   Widget build(context, ref) {
     return ListTile(
-      minVerticalPadding: 0,
       contentPadding: const EdgeInsets.only(
         right: 16,
         left: 16,

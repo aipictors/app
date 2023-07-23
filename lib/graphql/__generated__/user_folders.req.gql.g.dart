@@ -6,23 +6,23 @@ part of 'user_folders.req.gql.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<GUserFolderReq> _$gUserFolderReqSerializer =
-    new _$GUserFolderReqSerializer();
+Serializer<GUserFoldersReq> _$gUserFoldersReqSerializer =
+    new _$GUserFoldersReqSerializer();
 
-class _$GUserFolderReqSerializer
-    implements StructuredSerializer<GUserFolderReq> {
+class _$GUserFoldersReqSerializer
+    implements StructuredSerializer<GUserFoldersReq> {
   @override
-  final Iterable<Type> types = const [GUserFolderReq, _$GUserFolderReq];
+  final Iterable<Type> types = const [GUserFoldersReq, _$GUserFoldersReq];
   @override
-  final String wireName = 'GUserFolderReq';
+  final String wireName = 'GUserFoldersReq';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, GUserFolderReq object,
+  Iterable<Object?> serialize(Serializers serializers, GUserFoldersReq object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
-          specifiedType: const FullType(_i3.GUserFolderVars)),
+          specifiedType: const FullType(_i3.GUserFoldersVars)),
       'operation',
       serializers.serialize(object.operation,
           specifiedType: const FullType(_i4.Operation)),
@@ -43,7 +43,7 @@ class _$GUserFolderReqSerializer
       result
         ..add('optimisticResponse')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(_i2.GUserFolderData)));
+            specifiedType: const FullType(_i2.GUserFoldersData)));
     }
     value = object.updateCacheHandlerKey;
     if (value != null) {
@@ -71,10 +71,10 @@ class _$GUserFolderReqSerializer
   }
 
   @override
-  GUserFolderReq deserialize(
+  GUserFoldersReq deserialize(
       Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new GUserFolderReqBuilder();
+    final result = new GUserFoldersReqBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -84,8 +84,8 @@ class _$GUserFolderReqSerializer
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GUserFolderVars))!
-              as _i3.GUserFolderVars);
+                  specifiedType: const FullType(_i3.GUserFoldersVars))!
+              as _i3.GUserFoldersVars);
           break;
         case 'operation':
           result.operation = serializers.deserialize(value,
@@ -97,8 +97,8 @@ class _$GUserFolderReqSerializer
           break;
         case 'optimisticResponse':
           result.optimisticResponse.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i2.GUserFolderData))!
-              as _i2.GUserFolderData);
+                  specifiedType: const FullType(_i2.GUserFoldersData))!
+              as _i2.GUserFoldersData);
           break;
         case 'updateCacheHandlerKey':
           result.updateCacheHandlerKey = serializers.deserialize(value,
@@ -127,18 +127,18 @@ class _$GUserFolderReqSerializer
   }
 }
 
-class _$GUserFolderReq extends GUserFolderReq {
+class _$GUserFoldersReq extends GUserFoldersReq {
   @override
-  final _i3.GUserFolderVars vars;
+  final _i3.GUserFoldersVars vars;
   @override
   final _i4.Operation operation;
   @override
   final String? requestId;
   @override
-  final _i2.GUserFolderData? Function(
-      _i2.GUserFolderData?, _i2.GUserFolderData?)? updateResult;
+  final _i2.GUserFoldersData? Function(
+      _i2.GUserFoldersData?, _i2.GUserFoldersData?)? updateResult;
   @override
-  final _i2.GUserFolderData? optimisticResponse;
+  final _i2.GUserFoldersData? optimisticResponse;
   @override
   final String? updateCacheHandlerKey;
   @override
@@ -148,10 +148,10 @@ class _$GUserFolderReq extends GUserFolderReq {
   @override
   final bool executeOnListen;
 
-  factory _$GUserFolderReq([void Function(GUserFolderReqBuilder)? updates]) =>
-      (new GUserFolderReqBuilder()..update(updates))._build();
+  factory _$GUserFoldersReq([void Function(GUserFoldersReqBuilder)? updates]) =>
+      (new GUserFoldersReqBuilder()..update(updates))._build();
 
-  _$GUserFolderReq._(
+  _$GUserFoldersReq._(
       {required this.vars,
       required this.operation,
       this.requestId,
@@ -162,26 +162,26 @@ class _$GUserFolderReq extends GUserFolderReq {
       this.fetchPolicy,
       required this.executeOnListen})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(vars, r'GUserFolderReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(vars, r'GUserFoldersReq', 'vars');
     BuiltValueNullFieldError.checkNotNull(
-        operation, r'GUserFolderReq', 'operation');
+        operation, r'GUserFoldersReq', 'operation');
     BuiltValueNullFieldError.checkNotNull(
-        executeOnListen, r'GUserFolderReq', 'executeOnListen');
+        executeOnListen, r'GUserFoldersReq', 'executeOnListen');
   }
 
   @override
-  GUserFolderReq rebuild(void Function(GUserFolderReqBuilder) updates) =>
+  GUserFoldersReq rebuild(void Function(GUserFoldersReqBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GUserFolderReqBuilder toBuilder() =>
-      new GUserFolderReqBuilder()..replace(this);
+  GUserFoldersReqBuilder toBuilder() =>
+      new GUserFoldersReqBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     final dynamic _$dynamicOther = other;
-    return other is GUserFolderReq &&
+    return other is GUserFoldersReq &&
         vars == other.vars &&
         operation == other.operation &&
         requestId == other.requestId &&
@@ -211,7 +211,7 @@ class _$GUserFolderReq extends GUserFolderReq {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'GUserFolderReq')
+    return (newBuiltValueToStringHelper(r'GUserFoldersReq')
           ..add('vars', vars)
           ..add('operation', operation)
           ..add('requestId', requestId)
@@ -225,14 +225,14 @@ class _$GUserFolderReq extends GUserFolderReq {
   }
 }
 
-class GUserFolderReqBuilder
-    implements Builder<GUserFolderReq, GUserFolderReqBuilder> {
-  _$GUserFolderReq? _$v;
+class GUserFoldersReqBuilder
+    implements Builder<GUserFoldersReq, GUserFoldersReqBuilder> {
+  _$GUserFoldersReq? _$v;
 
-  _i3.GUserFolderVarsBuilder? _vars;
-  _i3.GUserFolderVarsBuilder get vars =>
-      _$this._vars ??= new _i3.GUserFolderVarsBuilder();
-  set vars(_i3.GUserFolderVarsBuilder? vars) => _$this._vars = vars;
+  _i3.GUserFoldersVarsBuilder? _vars;
+  _i3.GUserFoldersVarsBuilder get vars =>
+      _$this._vars ??= new _i3.GUserFoldersVarsBuilder();
+  set vars(_i3.GUserFoldersVarsBuilder? vars) => _$this._vars = vars;
 
   _i4.Operation? _operation;
   _i4.Operation? get operation => _$this._operation;
@@ -242,20 +242,20 @@ class GUserFolderReqBuilder
   String? get requestId => _$this._requestId;
   set requestId(String? requestId) => _$this._requestId = requestId;
 
-  _i2.GUserFolderData? Function(_i2.GUserFolderData?, _i2.GUserFolderData?)?
+  _i2.GUserFoldersData? Function(_i2.GUserFoldersData?, _i2.GUserFoldersData?)?
       _updateResult;
-  _i2.GUserFolderData? Function(_i2.GUserFolderData?, _i2.GUserFolderData?)?
+  _i2.GUserFoldersData? Function(_i2.GUserFoldersData?, _i2.GUserFoldersData?)?
       get updateResult => _$this._updateResult;
   set updateResult(
-          _i2.GUserFolderData? Function(
-                  _i2.GUserFolderData?, _i2.GUserFolderData?)?
+          _i2.GUserFoldersData? Function(
+                  _i2.GUserFoldersData?, _i2.GUserFoldersData?)?
               updateResult) =>
       _$this._updateResult = updateResult;
 
-  _i2.GUserFolderDataBuilder? _optimisticResponse;
-  _i2.GUserFolderDataBuilder get optimisticResponse =>
-      _$this._optimisticResponse ??= new _i2.GUserFolderDataBuilder();
-  set optimisticResponse(_i2.GUserFolderDataBuilder? optimisticResponse) =>
+  _i2.GUserFoldersDataBuilder? _optimisticResponse;
+  _i2.GUserFoldersDataBuilder get optimisticResponse =>
+      _$this._optimisticResponse ??= new _i2.GUserFoldersDataBuilder();
+  set optimisticResponse(_i2.GUserFoldersDataBuilder? optimisticResponse) =>
       _$this._optimisticResponse = optimisticResponse;
 
   String? _updateCacheHandlerKey;
@@ -280,11 +280,11 @@ class GUserFolderReqBuilder
   set executeOnListen(bool? executeOnListen) =>
       _$this._executeOnListen = executeOnListen;
 
-  GUserFolderReqBuilder() {
-    GUserFolderReq._initializeBuilder(this);
+  GUserFoldersReqBuilder() {
+    GUserFoldersReq._initializeBuilder(this);
   }
 
-  GUserFolderReqBuilder get _$this {
+  GUserFoldersReqBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _vars = $v.vars.toBuilder();
@@ -302,27 +302,27 @@ class GUserFolderReqBuilder
   }
 
   @override
-  void replace(GUserFolderReq other) {
+  void replace(GUserFoldersReq other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GUserFolderReq;
+    _$v = other as _$GUserFoldersReq;
   }
 
   @override
-  void update(void Function(GUserFolderReqBuilder)? updates) {
+  void update(void Function(GUserFoldersReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  GUserFolderReq build() => _build();
+  GUserFoldersReq build() => _build();
 
-  _$GUserFolderReq _build() {
-    _$GUserFolderReq _$result;
+  _$GUserFoldersReq _build() {
+    _$GUserFoldersReq _$result;
     try {
       _$result = _$v ??
-          new _$GUserFolderReq._(
+          new _$GUserFoldersReq._(
               vars: vars.build(),
               operation: BuiltValueNullFieldError.checkNotNull(
-                  operation, r'GUserFolderReq', 'operation'),
+                  operation, r'GUserFoldersReq', 'operation'),
               requestId: requestId,
               updateResult: updateResult,
               optimisticResponse: _optimisticResponse?.build(),
@@ -330,7 +330,7 @@ class GUserFolderReqBuilder
               updateCacheHandlerContext: updateCacheHandlerContext,
               fetchPolicy: fetchPolicy,
               executeOnListen: BuiltValueNullFieldError.checkNotNull(
-                  executeOnListen, r'GUserFolderReq', 'executeOnListen'));
+                  executeOnListen, r'GUserFoldersReq', 'executeOnListen'));
     } catch (_) {
       late String _$failedField;
       try {
@@ -341,7 +341,7 @@ class GUserFolderReqBuilder
         _optimisticResponse?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'GUserFolderReq', _$failedField, e.toString());
+            r'GUserFoldersReq', _$failedField, e.toString());
       }
       rethrow;
     }

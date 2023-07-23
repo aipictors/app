@@ -16,23 +16,23 @@ import 'package:gql_exec/gql_exec.dart' as _i4;
 
 part 'user_folders.req.gql.g.dart';
 
-abstract class GUserFolderReq
+abstract class GUserFoldersReq
     implements
-        Built<GUserFolderReq, GUserFolderReqBuilder>,
-        _i1.OperationRequest<_i2.GUserFolderData, _i3.GUserFolderVars> {
-  GUserFolderReq._();
+        Built<GUserFoldersReq, GUserFoldersReqBuilder>,
+        _i1.OperationRequest<_i2.GUserFoldersData, _i3.GUserFoldersVars> {
+  GUserFoldersReq._();
 
-  factory GUserFolderReq([Function(GUserFolderReqBuilder b) updates]) =
-      _$GUserFolderReq;
+  factory GUserFoldersReq([Function(GUserFoldersReqBuilder b) updates]) =
+      _$GUserFoldersReq;
 
-  static void _initializeBuilder(GUserFolderReqBuilder b) => b
+  static void _initializeBuilder(GUserFoldersReqBuilder b) => b
     ..operation = _i4.Operation(
       document: _i5.document,
-      operationName: 'UserFolder',
+      operationName: 'UserFolders',
     )
     ..executeOnListen = true;
   @override
-  _i3.GUserFolderVars get vars;
+  _i3.GUserFoldersVars get vars;
   @override
   _i4.Operation get operation;
   @override
@@ -44,12 +44,12 @@ abstract class GUserFolderReq
   String? get requestId;
   @override
   @BuiltValueField(serialize: false)
-  _i2.GUserFolderData? Function(
-    _i2.GUserFolderData?,
-    _i2.GUserFolderData?,
+  _i2.GUserFoldersData? Function(
+    _i2.GUserFoldersData?,
+    _i2.GUserFoldersData?,
   )? get updateResult;
   @override
-  _i2.GUserFolderData? get optimisticResponse;
+  _i2.GUserFoldersData? get optimisticResponse;
   @override
   String? get updateCacheHandlerKey;
   @override
@@ -59,17 +59,17 @@ abstract class GUserFolderReq
   @override
   bool get executeOnListen;
   @override
-  _i2.GUserFolderData? parseData(Map<String, dynamic> json) =>
-      _i2.GUserFolderData.fromJson(json);
-  static Serializer<GUserFolderReq> get serializer =>
-      _$gUserFolderReqSerializer;
+  _i2.GUserFoldersData? parseData(Map<String, dynamic> json) =>
+      _i2.GUserFoldersData.fromJson(json);
+  static Serializer<GUserFoldersReq> get serializer =>
+      _$gUserFoldersReqSerializer;
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
-        GUserFolderReq.serializer,
+        GUserFoldersReq.serializer,
         this,
       ) as Map<String, dynamic>);
-  static GUserFolderReq? fromJson(Map<String, dynamic> json) =>
+  static GUserFoldersReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
-        GUserFolderReq.serializer,
+        GUserFoldersReq.serializer,
         json,
       );
 }

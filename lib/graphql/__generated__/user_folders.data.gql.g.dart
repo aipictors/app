@@ -6,26 +6,26 @@ part of 'user_folders.data.gql.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<GUserFolderData> _$gUserFolderDataSerializer =
-    new _$GUserFolderDataSerializer();
-Serializer<GUserFolderData_user> _$gUserFolderDataUserSerializer =
-    new _$GUserFolderData_userSerializer();
-Serializer<GUserFolderData_user_folders>
-    _$gUserFolderDataUserFoldersSerializer =
-    new _$GUserFolderData_user_foldersSerializer();
-Serializer<GUserFolderData_user_folders_thumbnailImage>
-    _$gUserFolderDataUserFoldersThumbnailImageSerializer =
-    new _$GUserFolderData_user_folders_thumbnailImageSerializer();
+Serializer<GUserFoldersData> _$gUserFoldersDataSerializer =
+    new _$GUserFoldersDataSerializer();
+Serializer<GUserFoldersData_user> _$gUserFoldersDataUserSerializer =
+    new _$GUserFoldersData_userSerializer();
+Serializer<GUserFoldersData_user_folders>
+    _$gUserFoldersDataUserFoldersSerializer =
+    new _$GUserFoldersData_user_foldersSerializer();
+Serializer<GUserFoldersData_user_folders_thumbnailImage>
+    _$gUserFoldersDataUserFoldersThumbnailImageSerializer =
+    new _$GUserFoldersData_user_folders_thumbnailImageSerializer();
 
-class _$GUserFolderDataSerializer
-    implements StructuredSerializer<GUserFolderData> {
+class _$GUserFoldersDataSerializer
+    implements StructuredSerializer<GUserFoldersData> {
   @override
-  final Iterable<Type> types = const [GUserFolderData, _$GUserFolderData];
+  final Iterable<Type> types = const [GUserFoldersData, _$GUserFoldersData];
   @override
-  final String wireName = 'GUserFolderData';
+  final String wireName = 'GUserFoldersData';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, GUserFolderData object,
+  Iterable<Object?> serialize(Serializers serializers, GUserFoldersData object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
       '__typename',
@@ -38,16 +38,16 @@ class _$GUserFolderDataSerializer
       result
         ..add('user')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(GUserFolderData_user)));
+            specifiedType: const FullType(GUserFoldersData_user)));
     }
     return result;
   }
 
   @override
-  GUserFolderData deserialize(
+  GUserFoldersData deserialize(
       Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new GUserFolderDataBuilder();
+    final result = new GUserFoldersDataBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -61,8 +61,8 @@ class _$GUserFolderDataSerializer
           break;
         case 'user':
           result.user.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(GUserFolderData_user))!
-              as GUserFolderData_user);
+                  specifiedType: const FullType(GUserFoldersData_user))!
+              as GUserFoldersData_user);
           break;
       }
     }
@@ -71,19 +71,19 @@ class _$GUserFolderDataSerializer
   }
 }
 
-class _$GUserFolderData_userSerializer
-    implements StructuredSerializer<GUserFolderData_user> {
+class _$GUserFoldersData_userSerializer
+    implements StructuredSerializer<GUserFoldersData_user> {
   @override
   final Iterable<Type> types = const [
-    GUserFolderData_user,
-    _$GUserFolderData_user
+    GUserFoldersData_user,
+    _$GUserFoldersData_user
   ];
   @override
-  final String wireName = 'GUserFolderData_user';
+  final String wireName = 'GUserFoldersData_user';
 
   @override
   Iterable<Object?> serialize(
-      Serializers serializers, GUserFolderData_user object,
+      Serializers serializers, GUserFoldersData_user object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
       '__typename',
@@ -93,18 +93,18 @@ class _$GUserFolderData_userSerializer
       serializers.serialize(object.id, specifiedType: const FullType(String)),
       'folders',
       serializers.serialize(object.folders,
-          specifiedType: const FullType(
-              BuiltList, const [const FullType(GUserFolderData_user_folders)])),
+          specifiedType: const FullType(BuiltList,
+              const [const FullType(GUserFoldersData_user_folders)])),
     ];
 
     return result;
   }
 
   @override
-  GUserFolderData_user deserialize(
+  GUserFoldersData_user deserialize(
       Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new GUserFolderData_userBuilder();
+    final result = new GUserFoldersData_userBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -123,7 +123,7 @@ class _$GUserFolderData_userSerializer
         case 'folders':
           result.folders.replace(serializers.deserialize(value,
               specifiedType: const FullType(BuiltList, const [
-                const FullType(GUserFolderData_user_folders)
+                const FullType(GUserFoldersData_user_folders)
               ]))! as BuiltList<Object?>);
           break;
       }
@@ -133,19 +133,19 @@ class _$GUserFolderData_userSerializer
   }
 }
 
-class _$GUserFolderData_user_foldersSerializer
-    implements StructuredSerializer<GUserFolderData_user_folders> {
+class _$GUserFoldersData_user_foldersSerializer
+    implements StructuredSerializer<GUserFoldersData_user_folders> {
   @override
   final Iterable<Type> types = const [
-    GUserFolderData_user_folders,
-    _$GUserFolderData_user_folders
+    GUserFoldersData_user_folders,
+    _$GUserFoldersData_user_folders
   ];
   @override
-  final String wireName = 'GUserFolderData_user_folders';
+  final String wireName = 'GUserFoldersData_user_folders';
 
   @override
   Iterable<Object?> serialize(
-      Serializers serializers, GUserFolderData_user_folders object,
+      Serializers serializers, GUserFoldersData_user_folders object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
       '__typename',
@@ -173,16 +173,16 @@ class _$GUserFolderData_user_foldersSerializer
         ..add('thumbnailImage')
         ..add(serializers.serialize(value,
             specifiedType:
-                const FullType(GUserFolderData_user_folders_thumbnailImage)));
+                const FullType(GUserFoldersData_user_folders_thumbnailImage)));
     }
     return result;
   }
 
   @override
-  GUserFolderData_user_folders deserialize(
+  GUserFoldersData_user_folders deserialize(
       Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new GUserFolderData_user_foldersBuilder();
+    final result = new GUserFoldersData_user_foldersBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -217,8 +217,8 @@ class _$GUserFolderData_user_foldersSerializer
         case 'thumbnailImage':
           result.thumbnailImage.replace(serializers.deserialize(value,
                   specifiedType: const FullType(
-                      GUserFolderData_user_folders_thumbnailImage))!
-              as GUserFolderData_user_folders_thumbnailImage);
+                      GUserFoldersData_user_folders_thumbnailImage))!
+              as GUserFoldersData_user_folders_thumbnailImage);
           break;
       }
     }
@@ -227,20 +227,20 @@ class _$GUserFolderData_user_foldersSerializer
   }
 }
 
-class _$GUserFolderData_user_folders_thumbnailImageSerializer
+class _$GUserFoldersData_user_folders_thumbnailImageSerializer
     implements
-        StructuredSerializer<GUserFolderData_user_folders_thumbnailImage> {
+        StructuredSerializer<GUserFoldersData_user_folders_thumbnailImage> {
   @override
   final Iterable<Type> types = const [
-    GUserFolderData_user_folders_thumbnailImage,
-    _$GUserFolderData_user_folders_thumbnailImage
+    GUserFoldersData_user_folders_thumbnailImage,
+    _$GUserFoldersData_user_folders_thumbnailImage
   ];
   @override
-  final String wireName = 'GUserFolderData_user_folders_thumbnailImage';
+  final String wireName = 'GUserFoldersData_user_folders_thumbnailImage';
 
   @override
   Iterable<Object?> serialize(Serializers serializers,
-      GUserFolderData_user_folders_thumbnailImage object,
+      GUserFoldersData_user_folders_thumbnailImage object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
       '__typename',
@@ -257,10 +257,10 @@ class _$GUserFolderData_user_folders_thumbnailImageSerializer
   }
 
   @override
-  GUserFolderData_user_folders_thumbnailImage deserialize(
+  GUserFoldersData_user_folders_thumbnailImage deserialize(
       Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new GUserFolderData_user_folders_thumbnailImageBuilder();
+    final result = new GUserFoldersData_user_folders_thumbnailImageBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -287,32 +287,33 @@ class _$GUserFolderData_user_folders_thumbnailImageSerializer
   }
 }
 
-class _$GUserFolderData extends GUserFolderData {
+class _$GUserFoldersData extends GUserFoldersData {
   @override
   final String G__typename;
   @override
-  final GUserFolderData_user? user;
+  final GUserFoldersData_user? user;
 
-  factory _$GUserFolderData([void Function(GUserFolderDataBuilder)? updates]) =>
-      (new GUserFolderDataBuilder()..update(updates))._build();
+  factory _$GUserFoldersData(
+          [void Function(GUserFoldersDataBuilder)? updates]) =>
+      (new GUserFoldersDataBuilder()..update(updates))._build();
 
-  _$GUserFolderData._({required this.G__typename, this.user}) : super._() {
+  _$GUserFoldersData._({required this.G__typename, this.user}) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        G__typename, r'GUserFolderData', 'G__typename');
+        G__typename, r'GUserFoldersData', 'G__typename');
   }
 
   @override
-  GUserFolderData rebuild(void Function(GUserFolderDataBuilder) updates) =>
+  GUserFoldersData rebuild(void Function(GUserFoldersDataBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GUserFolderDataBuilder toBuilder() =>
-      new GUserFolderDataBuilder()..replace(this);
+  GUserFoldersDataBuilder toBuilder() =>
+      new GUserFoldersDataBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GUserFolderData &&
+    return other is GUserFoldersData &&
         G__typename == other.G__typename &&
         user == other.user;
   }
@@ -328,31 +329,31 @@ class _$GUserFolderData extends GUserFolderData {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'GUserFolderData')
+    return (newBuiltValueToStringHelper(r'GUserFoldersData')
           ..add('G__typename', G__typename)
           ..add('user', user))
         .toString();
   }
 }
 
-class GUserFolderDataBuilder
-    implements Builder<GUserFolderData, GUserFolderDataBuilder> {
-  _$GUserFolderData? _$v;
+class GUserFoldersDataBuilder
+    implements Builder<GUserFoldersData, GUserFoldersDataBuilder> {
+  _$GUserFoldersData? _$v;
 
   String? _G__typename;
   String? get G__typename => _$this._G__typename;
   set G__typename(String? G__typename) => _$this._G__typename = G__typename;
 
-  GUserFolderData_userBuilder? _user;
-  GUserFolderData_userBuilder get user =>
-      _$this._user ??= new GUserFolderData_userBuilder();
-  set user(GUserFolderData_userBuilder? user) => _$this._user = user;
+  GUserFoldersData_userBuilder? _user;
+  GUserFoldersData_userBuilder get user =>
+      _$this._user ??= new GUserFoldersData_userBuilder();
+  set user(GUserFoldersData_userBuilder? user) => _$this._user = user;
 
-  GUserFolderDataBuilder() {
-    GUserFolderData._initializeBuilder(this);
+  GUserFoldersDataBuilder() {
+    GUserFoldersData._initializeBuilder(this);
   }
 
-  GUserFolderDataBuilder get _$this {
+  GUserFoldersDataBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _G__typename = $v.G__typename;
@@ -363,26 +364,26 @@ class GUserFolderDataBuilder
   }
 
   @override
-  void replace(GUserFolderData other) {
+  void replace(GUserFoldersData other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GUserFolderData;
+    _$v = other as _$GUserFoldersData;
   }
 
   @override
-  void update(void Function(GUserFolderDataBuilder)? updates) {
+  void update(void Function(GUserFoldersDataBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  GUserFolderData build() => _build();
+  GUserFoldersData build() => _build();
 
-  _$GUserFolderData _build() {
-    _$GUserFolderData _$result;
+  _$GUserFoldersData _build() {
+    _$GUserFoldersData _$result;
     try {
       _$result = _$v ??
-          new _$GUserFolderData._(
+          new _$GUserFoldersData._(
               G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, r'GUserFolderData', 'G__typename'),
+                  G__typename, r'GUserFoldersData', 'G__typename'),
               user: _user?.build());
     } catch (_) {
       late String _$failedField;
@@ -391,7 +392,7 @@ class GUserFolderDataBuilder
         _user?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'GUserFolderData', _$failedField, e.toString());
+            r'GUserFoldersData', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -400,41 +401,41 @@ class GUserFolderDataBuilder
   }
 }
 
-class _$GUserFolderData_user extends GUserFolderData_user {
+class _$GUserFoldersData_user extends GUserFoldersData_user {
   @override
   final String G__typename;
   @override
   final String id;
   @override
-  final BuiltList<GUserFolderData_user_folders> folders;
+  final BuiltList<GUserFoldersData_user_folders> folders;
 
-  factory _$GUserFolderData_user(
-          [void Function(GUserFolderData_userBuilder)? updates]) =>
-      (new GUserFolderData_userBuilder()..update(updates))._build();
+  factory _$GUserFoldersData_user(
+          [void Function(GUserFoldersData_userBuilder)? updates]) =>
+      (new GUserFoldersData_userBuilder()..update(updates))._build();
 
-  _$GUserFolderData_user._(
+  _$GUserFoldersData_user._(
       {required this.G__typename, required this.id, required this.folders})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        G__typename, r'GUserFolderData_user', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(id, r'GUserFolderData_user', 'id');
+        G__typename, r'GUserFoldersData_user', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(id, r'GUserFoldersData_user', 'id');
     BuiltValueNullFieldError.checkNotNull(
-        folders, r'GUserFolderData_user', 'folders');
+        folders, r'GUserFoldersData_user', 'folders');
   }
 
   @override
-  GUserFolderData_user rebuild(
-          void Function(GUserFolderData_userBuilder) updates) =>
+  GUserFoldersData_user rebuild(
+          void Function(GUserFoldersData_userBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GUserFolderData_userBuilder toBuilder() =>
-      new GUserFolderData_userBuilder()..replace(this);
+  GUserFoldersData_userBuilder toBuilder() =>
+      new GUserFoldersData_userBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GUserFolderData_user &&
+    return other is GUserFoldersData_user &&
         G__typename == other.G__typename &&
         id == other.id &&
         folders == other.folders;
@@ -452,7 +453,7 @@ class _$GUserFolderData_user extends GUserFolderData_user {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'GUserFolderData_user')
+    return (newBuiltValueToStringHelper(r'GUserFoldersData_user')
           ..add('G__typename', G__typename)
           ..add('id', id)
           ..add('folders', folders))
@@ -460,9 +461,9 @@ class _$GUserFolderData_user extends GUserFolderData_user {
   }
 }
 
-class GUserFolderData_userBuilder
-    implements Builder<GUserFolderData_user, GUserFolderData_userBuilder> {
-  _$GUserFolderData_user? _$v;
+class GUserFoldersData_userBuilder
+    implements Builder<GUserFoldersData_user, GUserFoldersData_userBuilder> {
+  _$GUserFoldersData_user? _$v;
 
   String? _G__typename;
   String? get G__typename => _$this._G__typename;
@@ -472,17 +473,17 @@ class GUserFolderData_userBuilder
   String? get id => _$this._id;
   set id(String? id) => _$this._id = id;
 
-  ListBuilder<GUserFolderData_user_folders>? _folders;
-  ListBuilder<GUserFolderData_user_folders> get folders =>
-      _$this._folders ??= new ListBuilder<GUserFolderData_user_folders>();
-  set folders(ListBuilder<GUserFolderData_user_folders>? folders) =>
+  ListBuilder<GUserFoldersData_user_folders>? _folders;
+  ListBuilder<GUserFoldersData_user_folders> get folders =>
+      _$this._folders ??= new ListBuilder<GUserFoldersData_user_folders>();
+  set folders(ListBuilder<GUserFoldersData_user_folders>? folders) =>
       _$this._folders = folders;
 
-  GUserFolderData_userBuilder() {
-    GUserFolderData_user._initializeBuilder(this);
+  GUserFoldersData_userBuilder() {
+    GUserFoldersData_user._initializeBuilder(this);
   }
 
-  GUserFolderData_userBuilder get _$this {
+  GUserFoldersData_userBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _G__typename = $v.G__typename;
@@ -494,28 +495,28 @@ class GUserFolderData_userBuilder
   }
 
   @override
-  void replace(GUserFolderData_user other) {
+  void replace(GUserFoldersData_user other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GUserFolderData_user;
+    _$v = other as _$GUserFoldersData_user;
   }
 
   @override
-  void update(void Function(GUserFolderData_userBuilder)? updates) {
+  void update(void Function(GUserFoldersData_userBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  GUserFolderData_user build() => _build();
+  GUserFoldersData_user build() => _build();
 
-  _$GUserFolderData_user _build() {
-    _$GUserFolderData_user _$result;
+  _$GUserFoldersData_user _build() {
+    _$GUserFoldersData_user _$result;
     try {
       _$result = _$v ??
-          new _$GUserFolderData_user._(
+          new _$GUserFoldersData_user._(
               G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, r'GUserFolderData_user', 'G__typename'),
+                  G__typename, r'GUserFoldersData_user', 'G__typename'),
               id: BuiltValueNullFieldError.checkNotNull(
-                  id, r'GUserFolderData_user', 'id'),
+                  id, r'GUserFoldersData_user', 'id'),
               folders: folders.build());
     } catch (_) {
       late String _$failedField;
@@ -524,7 +525,7 @@ class GUserFolderData_userBuilder
         folders.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'GUserFolderData_user', _$failedField, e.toString());
+            r'GUserFoldersData_user', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -533,7 +534,7 @@ class GUserFolderData_userBuilder
   }
 }
 
-class _$GUserFolderData_user_folders extends GUserFolderData_user_folders {
+class _$GUserFoldersData_user_folders extends GUserFoldersData_user_folders {
   @override
   final String G__typename;
   @override
@@ -547,13 +548,13 @@ class _$GUserFolderData_user_folders extends GUserFolderData_user_folders {
   @override
   final int viewsCount;
   @override
-  final GUserFolderData_user_folders_thumbnailImage? thumbnailImage;
+  final GUserFoldersData_user_folders_thumbnailImage? thumbnailImage;
 
-  factory _$GUserFolderData_user_folders(
-          [void Function(GUserFolderData_user_foldersBuilder)? updates]) =>
-      (new GUserFolderData_user_foldersBuilder()..update(updates))._build();
+  factory _$GUserFoldersData_user_folders(
+          [void Function(GUserFoldersData_user_foldersBuilder)? updates]) =>
+      (new GUserFoldersData_user_foldersBuilder()..update(updates))._build();
 
-  _$GUserFolderData_user_folders._(
+  _$GUserFoldersData_user_folders._(
       {required this.G__typename,
       required this.id,
       required this.title,
@@ -563,32 +564,32 @@ class _$GUserFolderData_user_folders extends GUserFolderData_user_folders {
       this.thumbnailImage})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        G__typename, r'GUserFolderData_user_folders', 'G__typename');
+        G__typename, r'GUserFoldersData_user_folders', 'G__typename');
     BuiltValueNullFieldError.checkNotNull(
-        id, r'GUserFolderData_user_folders', 'id');
+        id, r'GUserFoldersData_user_folders', 'id');
     BuiltValueNullFieldError.checkNotNull(
-        title, r'GUserFolderData_user_folders', 'title');
+        title, r'GUserFoldersData_user_folders', 'title');
     BuiltValueNullFieldError.checkNotNull(
-        rating, r'GUserFolderData_user_folders', 'rating');
+        rating, r'GUserFoldersData_user_folders', 'rating');
     BuiltValueNullFieldError.checkNotNull(
-        likesCount, r'GUserFolderData_user_folders', 'likesCount');
+        likesCount, r'GUserFoldersData_user_folders', 'likesCount');
     BuiltValueNullFieldError.checkNotNull(
-        viewsCount, r'GUserFolderData_user_folders', 'viewsCount');
+        viewsCount, r'GUserFoldersData_user_folders', 'viewsCount');
   }
 
   @override
-  GUserFolderData_user_folders rebuild(
-          void Function(GUserFolderData_user_foldersBuilder) updates) =>
+  GUserFoldersData_user_folders rebuild(
+          void Function(GUserFoldersData_user_foldersBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GUserFolderData_user_foldersBuilder toBuilder() =>
-      new GUserFolderData_user_foldersBuilder()..replace(this);
+  GUserFoldersData_user_foldersBuilder toBuilder() =>
+      new GUserFoldersData_user_foldersBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GUserFolderData_user_folders &&
+    return other is GUserFoldersData_user_folders &&
         G__typename == other.G__typename &&
         id == other.id &&
         title == other.title &&
@@ -614,7 +615,7 @@ class _$GUserFolderData_user_folders extends GUserFolderData_user_folders {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'GUserFolderData_user_folders')
+    return (newBuiltValueToStringHelper(r'GUserFoldersData_user_folders')
           ..add('G__typename', G__typename)
           ..add('id', id)
           ..add('title', title)
@@ -626,11 +627,11 @@ class _$GUserFolderData_user_folders extends GUserFolderData_user_folders {
   }
 }
 
-class GUserFolderData_user_foldersBuilder
+class GUserFoldersData_user_foldersBuilder
     implements
-        Builder<GUserFolderData_user_folders,
-            GUserFolderData_user_foldersBuilder> {
-  _$GUserFolderData_user_folders? _$v;
+        Builder<GUserFoldersData_user_folders,
+            GUserFoldersData_user_foldersBuilder> {
+  _$GUserFoldersData_user_folders? _$v;
 
   String? _G__typename;
   String? get G__typename => _$this._G__typename;
@@ -656,19 +657,20 @@ class GUserFolderData_user_foldersBuilder
   int? get viewsCount => _$this._viewsCount;
   set viewsCount(int? viewsCount) => _$this._viewsCount = viewsCount;
 
-  GUserFolderData_user_folders_thumbnailImageBuilder? _thumbnailImage;
-  GUserFolderData_user_folders_thumbnailImageBuilder get thumbnailImage =>
+  GUserFoldersData_user_folders_thumbnailImageBuilder? _thumbnailImage;
+  GUserFoldersData_user_folders_thumbnailImageBuilder get thumbnailImage =>
       _$this._thumbnailImage ??=
-          new GUserFolderData_user_folders_thumbnailImageBuilder();
+          new GUserFoldersData_user_folders_thumbnailImageBuilder();
   set thumbnailImage(
-          GUserFolderData_user_folders_thumbnailImageBuilder? thumbnailImage) =>
+          GUserFoldersData_user_folders_thumbnailImageBuilder?
+              thumbnailImage) =>
       _$this._thumbnailImage = thumbnailImage;
 
-  GUserFolderData_user_foldersBuilder() {
-    GUserFolderData_user_folders._initializeBuilder(this);
+  GUserFoldersData_user_foldersBuilder() {
+    GUserFoldersData_user_folders._initializeBuilder(this);
   }
 
-  GUserFolderData_user_foldersBuilder get _$this {
+  GUserFoldersData_user_foldersBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _G__typename = $v.G__typename;
@@ -684,36 +686,36 @@ class GUserFolderData_user_foldersBuilder
   }
 
   @override
-  void replace(GUserFolderData_user_folders other) {
+  void replace(GUserFoldersData_user_folders other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GUserFolderData_user_folders;
+    _$v = other as _$GUserFoldersData_user_folders;
   }
 
   @override
-  void update(void Function(GUserFolderData_user_foldersBuilder)? updates) {
+  void update(void Function(GUserFoldersData_user_foldersBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  GUserFolderData_user_folders build() => _build();
+  GUserFoldersData_user_folders build() => _build();
 
-  _$GUserFolderData_user_folders _build() {
-    _$GUserFolderData_user_folders _$result;
+  _$GUserFoldersData_user_folders _build() {
+    _$GUserFoldersData_user_folders _$result;
     try {
       _$result = _$v ??
-          new _$GUserFolderData_user_folders._(
+          new _$GUserFoldersData_user_folders._(
               G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, r'GUserFolderData_user_folders', 'G__typename'),
+                  G__typename, r'GUserFoldersData_user_folders', 'G__typename'),
               id: BuiltValueNullFieldError.checkNotNull(
-                  id, r'GUserFolderData_user_folders', 'id'),
+                  id, r'GUserFoldersData_user_folders', 'id'),
               title: BuiltValueNullFieldError.checkNotNull(
-                  title, r'GUserFolderData_user_folders', 'title'),
+                  title, r'GUserFoldersData_user_folders', 'title'),
               rating: BuiltValueNullFieldError.checkNotNull(
-                  rating, r'GUserFolderData_user_folders', 'rating'),
+                  rating, r'GUserFoldersData_user_folders', 'rating'),
               likesCount: BuiltValueNullFieldError.checkNotNull(
-                  likesCount, r'GUserFolderData_user_folders', 'likesCount'),
+                  likesCount, r'GUserFoldersData_user_folders', 'likesCount'),
               viewsCount: BuiltValueNullFieldError.checkNotNull(
-                  viewsCount, r'GUserFolderData_user_folders', 'viewsCount'),
+                  viewsCount, r'GUserFoldersData_user_folders', 'viewsCount'),
               thumbnailImage: _thumbnailImage?.build());
     } catch (_) {
       late String _$failedField;
@@ -722,7 +724,7 @@ class GUserFolderData_user_foldersBuilder
         _thumbnailImage?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'GUserFolderData_user_folders', _$failedField, e.toString());
+            r'GUserFoldersData_user_folders', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -731,8 +733,8 @@ class GUserFolderData_user_foldersBuilder
   }
 }
 
-class _$GUserFolderData_user_folders_thumbnailImage
-    extends GUserFolderData_user_folders_thumbnailImage {
+class _$GUserFoldersData_user_folders_thumbnailImage
+    extends GUserFoldersData_user_folders_thumbnailImage {
   @override
   final String G__typename;
   @override
@@ -740,38 +742,38 @@ class _$GUserFolderData_user_folders_thumbnailImage
   @override
   final String downloadURL;
 
-  factory _$GUserFolderData_user_folders_thumbnailImage(
-          [void Function(GUserFolderData_user_folders_thumbnailImageBuilder)?
+  factory _$GUserFoldersData_user_folders_thumbnailImage(
+          [void Function(GUserFoldersData_user_folders_thumbnailImageBuilder)?
               updates]) =>
-      (new GUserFolderData_user_folders_thumbnailImageBuilder()
+      (new GUserFoldersData_user_folders_thumbnailImageBuilder()
             ..update(updates))
           ._build();
 
-  _$GUserFolderData_user_folders_thumbnailImage._(
+  _$GUserFoldersData_user_folders_thumbnailImage._(
       {required this.G__typename, required this.id, required this.downloadURL})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(G__typename,
-        r'GUserFolderData_user_folders_thumbnailImage', 'G__typename');
+        r'GUserFoldersData_user_folders_thumbnailImage', 'G__typename');
     BuiltValueNullFieldError.checkNotNull(
-        id, r'GUserFolderData_user_folders_thumbnailImage', 'id');
+        id, r'GUserFoldersData_user_folders_thumbnailImage', 'id');
     BuiltValueNullFieldError.checkNotNull(downloadURL,
-        r'GUserFolderData_user_folders_thumbnailImage', 'downloadURL');
+        r'GUserFoldersData_user_folders_thumbnailImage', 'downloadURL');
   }
 
   @override
-  GUserFolderData_user_folders_thumbnailImage rebuild(
-          void Function(GUserFolderData_user_folders_thumbnailImageBuilder)
+  GUserFoldersData_user_folders_thumbnailImage rebuild(
+          void Function(GUserFoldersData_user_folders_thumbnailImageBuilder)
               updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GUserFolderData_user_folders_thumbnailImageBuilder toBuilder() =>
-      new GUserFolderData_user_folders_thumbnailImageBuilder()..replace(this);
+  GUserFoldersData_user_folders_thumbnailImageBuilder toBuilder() =>
+      new GUserFoldersData_user_folders_thumbnailImageBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GUserFolderData_user_folders_thumbnailImage &&
+    return other is GUserFoldersData_user_folders_thumbnailImage &&
         G__typename == other.G__typename &&
         id == other.id &&
         downloadURL == other.downloadURL;
@@ -790,7 +792,7 @@ class _$GUserFolderData_user_folders_thumbnailImage
   @override
   String toString() {
     return (newBuiltValueToStringHelper(
-            r'GUserFolderData_user_folders_thumbnailImage')
+            r'GUserFoldersData_user_folders_thumbnailImage')
           ..add('G__typename', G__typename)
           ..add('id', id)
           ..add('downloadURL', downloadURL))
@@ -798,11 +800,11 @@ class _$GUserFolderData_user_folders_thumbnailImage
   }
 }
 
-class GUserFolderData_user_folders_thumbnailImageBuilder
+class GUserFoldersData_user_folders_thumbnailImageBuilder
     implements
-        Builder<GUserFolderData_user_folders_thumbnailImage,
-            GUserFolderData_user_folders_thumbnailImageBuilder> {
-  _$GUserFolderData_user_folders_thumbnailImage? _$v;
+        Builder<GUserFoldersData_user_folders_thumbnailImage,
+            GUserFoldersData_user_folders_thumbnailImageBuilder> {
+  _$GUserFoldersData_user_folders_thumbnailImage? _$v;
 
   String? _G__typename;
   String? get G__typename => _$this._G__typename;
@@ -816,11 +818,11 @@ class GUserFolderData_user_folders_thumbnailImageBuilder
   String? get downloadURL => _$this._downloadURL;
   set downloadURL(String? downloadURL) => _$this._downloadURL = downloadURL;
 
-  GUserFolderData_user_folders_thumbnailImageBuilder() {
-    GUserFolderData_user_folders_thumbnailImage._initializeBuilder(this);
+  GUserFoldersData_user_folders_thumbnailImageBuilder() {
+    GUserFoldersData_user_folders_thumbnailImage._initializeBuilder(this);
   }
 
-  GUserFolderData_user_folders_thumbnailImageBuilder get _$this {
+  GUserFoldersData_user_folders_thumbnailImageBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _G__typename = $v.G__typename;
@@ -832,30 +834,32 @@ class GUserFolderData_user_folders_thumbnailImageBuilder
   }
 
   @override
-  void replace(GUserFolderData_user_folders_thumbnailImage other) {
+  void replace(GUserFoldersData_user_folders_thumbnailImage other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GUserFolderData_user_folders_thumbnailImage;
+    _$v = other as _$GUserFoldersData_user_folders_thumbnailImage;
   }
 
   @override
   void update(
-      void Function(GUserFolderData_user_folders_thumbnailImageBuilder)?
+      void Function(GUserFoldersData_user_folders_thumbnailImageBuilder)?
           updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  GUserFolderData_user_folders_thumbnailImage build() => _build();
+  GUserFoldersData_user_folders_thumbnailImage build() => _build();
 
-  _$GUserFolderData_user_folders_thumbnailImage _build() {
+  _$GUserFoldersData_user_folders_thumbnailImage _build() {
     final _$result = _$v ??
-        new _$GUserFolderData_user_folders_thumbnailImage._(
+        new _$GUserFoldersData_user_folders_thumbnailImage._(
             G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
-                r'GUserFolderData_user_folders_thumbnailImage', 'G__typename'),
+                r'GUserFoldersData_user_folders_thumbnailImage', 'G__typename'),
             id: BuiltValueNullFieldError.checkNotNull(
-                id, r'GUserFolderData_user_folders_thumbnailImage', 'id'),
-            downloadURL: BuiltValueNullFieldError.checkNotNull(downloadURL,
-                r'GUserFolderData_user_folders_thumbnailImage', 'downloadURL'));
+                id, r'GUserFoldersData_user_folders_thumbnailImage', 'id'),
+            downloadURL: BuiltValueNullFieldError.checkNotNull(
+                downloadURL,
+                r'GUserFoldersData_user_folders_thumbnailImage',
+                'downloadURL'));
     replace(_$result);
     return _$result;
   }

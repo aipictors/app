@@ -1,5 +1,4 @@
 import 'package:aipictors/widgets/container/list_tile_image_container.dart';
-import 'package:aipictors/widgets/container/notification_user_container.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -26,26 +25,20 @@ class FolderListTile extends HookConsumerWidget {
   @override
   Widget build(context, ref) {
     return ListTile(
-      minVerticalPadding: 0,
       contentPadding: const EdgeInsets.only(
-        right: 16,
-        left: 16,
+        right: 8 * 2,
+        left: 8 * 2,
         top: 0,
         bottom: 0,
       ),
       title: Text(
         title,
-        style: Theme.of(context).textTheme.titleMedium,
+        style: Theme.of(context)
+            .textTheme
+            .titleMedium
+            ?.copyWith(overflow: TextOverflow.ellipsis),
       ),
-      subtitle: userName != null
-          ? Container(
-              padding: const EdgeInsets.only(top: 4),
-              child: NotificationUserContainer(
-                userName: userName!,
-                userIconImageURL: userIconImageURL,
-              ),
-            )
-          : null,
+      subtitle: userName != null ? Text(userName!) : null,
       onTap: onTap,
       trailing: ListTileImageContainer(thumbnailImageURL: imageURL),
     );

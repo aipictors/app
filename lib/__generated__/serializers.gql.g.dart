@@ -334,12 +334,12 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GUserFieldsData_iconImage.serializer)
       ..add(GUserFieldsReq.serializer)
       ..add(GUserFieldsVars.serializer)
-      ..add(GUserFolderData.serializer)
-      ..add(GUserFolderData_user.serializer)
-      ..add(GUserFolderData_user_folders.serializer)
-      ..add(GUserFolderData_user_folders_thumbnailImage.serializer)
-      ..add(GUserFolderReq.serializer)
-      ..add(GUserFolderVars.serializer)
+      ..add(GUserFoldersData.serializer)
+      ..add(GUserFoldersData_user.serializer)
+      ..add(GUserFoldersData_user_folders.serializer)
+      ..add(GUserFoldersData_user_folders_thumbnailImage.serializer)
+      ..add(GUserFoldersReq.serializer)
+      ..add(GUserFoldersVars.serializer)
       ..add(GUserFolloweesData.serializer)
       ..add(GUserFolloweesData_user.serializer)
       ..add(GUserFolloweesData_user_followees.serializer)
@@ -641,8 +641,8 @@ Serializers _$serializers = (new Serializers().toBuilder()
           () => new ListBuilder<GTagsData_tags>())
       ..addBuilderFactory(
           const FullType(
-              BuiltList, const [const FullType(GUserFolderData_user_folders)]),
-          () => new ListBuilder<GUserFolderData_user_folders>())
+              BuiltList, const [const FullType(GUserFoldersData_user_folders)]),
+          () => new ListBuilder<GUserFoldersData_user_folders>())
       ..addBuilderFactory(
           const FullType(BuiltList,
               const [const FullType(GUserFolloweesData_user_followees)]),

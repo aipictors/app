@@ -12,70 +12,70 @@ import 'package:built_value/serializer.dart';
 
 part 'user_folders.data.gql.g.dart';
 
-abstract class GUserFolderData
-    implements Built<GUserFolderData, GUserFolderDataBuilder> {
-  GUserFolderData._();
+abstract class GUserFoldersData
+    implements Built<GUserFoldersData, GUserFoldersDataBuilder> {
+  GUserFoldersData._();
 
-  factory GUserFolderData([Function(GUserFolderDataBuilder b) updates]) =
-      _$GUserFolderData;
+  factory GUserFoldersData([Function(GUserFoldersDataBuilder b) updates]) =
+      _$GUserFoldersData;
 
-  static void _initializeBuilder(GUserFolderDataBuilder b) =>
+  static void _initializeBuilder(GUserFoldersDataBuilder b) =>
       b..G__typename = 'Query';
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
-  GUserFolderData_user? get user;
-  static Serializer<GUserFolderData> get serializer =>
-      _$gUserFolderDataSerializer;
+  GUserFoldersData_user? get user;
+  static Serializer<GUserFoldersData> get serializer =>
+      _$gUserFoldersDataSerializer;
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GUserFolderData.serializer,
+        GUserFoldersData.serializer,
         this,
       ) as Map<String, dynamic>);
-  static GUserFolderData? fromJson(Map<String, dynamic> json) =>
+  static GUserFoldersData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
-        GUserFolderData.serializer,
+        GUserFoldersData.serializer,
         json,
       );
 }
 
-abstract class GUserFolderData_user
-    implements Built<GUserFolderData_user, GUserFolderData_userBuilder> {
-  GUserFolderData_user._();
+abstract class GUserFoldersData_user
+    implements Built<GUserFoldersData_user, GUserFoldersData_userBuilder> {
+  GUserFoldersData_user._();
 
-  factory GUserFolderData_user(
-          [Function(GUserFolderData_userBuilder b) updates]) =
-      _$GUserFolderData_user;
+  factory GUserFoldersData_user(
+          [Function(GUserFoldersData_userBuilder b) updates]) =
+      _$GUserFoldersData_user;
 
-  static void _initializeBuilder(GUserFolderData_userBuilder b) =>
+  static void _initializeBuilder(GUserFoldersData_userBuilder b) =>
       b..G__typename = 'UserNode';
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get id;
-  BuiltList<GUserFolderData_user_folders> get folders;
-  static Serializer<GUserFolderData_user> get serializer =>
-      _$gUserFolderDataUserSerializer;
+  BuiltList<GUserFoldersData_user_folders> get folders;
+  static Serializer<GUserFoldersData_user> get serializer =>
+      _$gUserFoldersDataUserSerializer;
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GUserFolderData_user.serializer,
+        GUserFoldersData_user.serializer,
         this,
       ) as Map<String, dynamic>);
-  static GUserFolderData_user? fromJson(Map<String, dynamic> json) =>
+  static GUserFoldersData_user? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
-        GUserFolderData_user.serializer,
+        GUserFoldersData_user.serializer,
         json,
       );
 }
 
-abstract class GUserFolderData_user_folders
+abstract class GUserFoldersData_user_folders
     implements
-        Built<GUserFolderData_user_folders,
-            GUserFolderData_user_foldersBuilder>,
+        Built<GUserFoldersData_user_folders,
+            GUserFoldersData_user_foldersBuilder>,
         _i2.GPartialFolderFields {
-  GUserFolderData_user_folders._();
+  GUserFoldersData_user_folders._();
 
-  factory GUserFolderData_user_folders(
-          [Function(GUserFolderData_user_foldersBuilder b) updates]) =
-      _$GUserFolderData_user_folders;
+  factory GUserFoldersData_user_folders(
+          [Function(GUserFoldersData_user_foldersBuilder b) updates]) =
+      _$GUserFoldersData_user_folders;
 
-  static void _initializeBuilder(GUserFolderData_user_foldersBuilder b) =>
+  static void _initializeBuilder(GUserFoldersData_user_foldersBuilder b) =>
       b..G__typename = 'FolderNode';
   @override
   @BuiltValueField(wireName: '__typename')
@@ -91,34 +91,34 @@ abstract class GUserFolderData_user_folders
   @override
   int get viewsCount;
   @override
-  GUserFolderData_user_folders_thumbnailImage? get thumbnailImage;
-  static Serializer<GUserFolderData_user_folders> get serializer =>
-      _$gUserFolderDataUserFoldersSerializer;
+  GUserFoldersData_user_folders_thumbnailImage? get thumbnailImage;
+  static Serializer<GUserFoldersData_user_folders> get serializer =>
+      _$gUserFoldersDataUserFoldersSerializer;
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GUserFolderData_user_folders.serializer,
+        GUserFoldersData_user_folders.serializer,
         this,
       ) as Map<String, dynamic>);
-  static GUserFolderData_user_folders? fromJson(Map<String, dynamic> json) =>
+  static GUserFoldersData_user_folders? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
-        GUserFolderData_user_folders.serializer,
+        GUserFoldersData_user_folders.serializer,
         json,
       );
 }
 
-abstract class GUserFolderData_user_folders_thumbnailImage
+abstract class GUserFoldersData_user_folders_thumbnailImage
     implements
-        Built<GUserFolderData_user_folders_thumbnailImage,
-            GUserFolderData_user_folders_thumbnailImageBuilder>,
+        Built<GUserFoldersData_user_folders_thumbnailImage,
+            GUserFoldersData_user_folders_thumbnailImageBuilder>,
         _i2.GPartialFolderFields_thumbnailImage {
-  GUserFolderData_user_folders_thumbnailImage._();
+  GUserFoldersData_user_folders_thumbnailImage._();
 
-  factory GUserFolderData_user_folders_thumbnailImage(
-      [Function(GUserFolderData_user_folders_thumbnailImageBuilder b)
-          updates]) = _$GUserFolderData_user_folders_thumbnailImage;
+  factory GUserFoldersData_user_folders_thumbnailImage(
+      [Function(GUserFoldersData_user_folders_thumbnailImageBuilder b)
+          updates]) = _$GUserFoldersData_user_folders_thumbnailImage;
 
   static void _initializeBuilder(
-          GUserFolderData_user_folders_thumbnailImageBuilder b) =>
+          GUserFoldersData_user_folders_thumbnailImageBuilder b) =>
       b..G__typename = 'ImageNode';
   @override
   @BuiltValueField(wireName: '__typename')
@@ -127,17 +127,17 @@ abstract class GUserFolderData_user_folders_thumbnailImage
   String get id;
   @override
   String get downloadURL;
-  static Serializer<GUserFolderData_user_folders_thumbnailImage>
-      get serializer => _$gUserFolderDataUserFoldersThumbnailImageSerializer;
+  static Serializer<GUserFoldersData_user_folders_thumbnailImage>
+      get serializer => _$gUserFoldersDataUserFoldersThumbnailImageSerializer;
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GUserFolderData_user_folders_thumbnailImage.serializer,
+        GUserFoldersData_user_folders_thumbnailImage.serializer,
         this,
       ) as Map<String, dynamic>);
-  static GUserFolderData_user_folders_thumbnailImage? fromJson(
+  static GUserFoldersData_user_folders_thumbnailImage? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
-        GUserFolderData_user_folders_thumbnailImage.serializer,
+        GUserFoldersData_user_folders_thumbnailImage.serializer,
         json,
       );
 }

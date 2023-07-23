@@ -6,9 +6,9 @@ import 'package:aipictors/graphql/fragments/__generated__/partial_folder_fields_
     as _i2;
 import 'package:gql/ast.dart' as _i1;
 
-const UserFolder = _i1.OperationDefinitionNode(
+const UserFolders = _i1.OperationDefinitionNode(
   type: _i1.OperationType.query,
-  name: _i1.NameNode(value: 'UserFolder'),
+  name: _i1.NameNode(value: 'UserFolders'),
   variableDefinitions: [
     _i1.VariableDefinitionNode(
       variable: _i1.VariableNode(name: _i1.NameNode(value: 'user_id')),
@@ -84,6 +84,6 @@ const UserFolder = _i1.OperationDefinitionNode(
   ]),
 );
 const document = _i1.DocumentNode(definitions: [
-  UserFolder,
+  UserFolders,
   _i2.PartialFolderFields,
 ]);
