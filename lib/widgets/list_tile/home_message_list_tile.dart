@@ -18,24 +18,22 @@ class HomeMessageListTile extends HookConsumerWidget {
         horizontal: 16,
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Icon(
-                Icons.coffee_rounded,
+          Row(children: [
+            Icon(
+              Icons.coffee_rounded,
+              color: Theme.of(context).colorScheme.primary,
+            ),
+            const SizedBox(width: 4),
+            Text(
+              'お知らせ'.i18n,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
                 color: Theme.of(context).colorScheme.primary,
               ),
-              const SizedBox(width: 4),
-              Text(
-                'お知らせ'.i18n,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-              ),
-            ],
-          ),
+            ),
+          ]),
           const SizedBox(height: 4),
           Text(
             message,
