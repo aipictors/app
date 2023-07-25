@@ -1,10 +1,12 @@
 import 'package:aipictors/graphql/__generated__/user_followers.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
+import 'package:aipictors/screens/error/data_not_found_error_screen.dart';
+import 'package:aipictors/screens/error/empty_data_error_screen.dart';
 import 'package:aipictors/screens/loading_screen.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
-import 'package:aipictors/widgets/container/error/data_empty_error_container.dart';
-import 'package:aipictors/widgets/container/error/data_not_found_error_container.dart';
+import 'package:aipictors/widgets/list_tile/follower_list_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// ユーザのフォロワーの一覧
@@ -37,22 +39,26 @@ class UserFollowersScreen extends HookConsumerWidget {
             ..vars.user_id = userId;
         }),
         builder: (context, response) {
-          final followeeList = response.data?.user?.followers;
-          if (followeeList == null) {
-            return const DataNotFoundErrorContainer();
+          final followerList = response.data?.user?.followers;
+          if (followerList == null) {
+            return const DataNotFoundErrorScreen();
           }
-          if (followeeList.isEmpty) {
-            return const DataEmptyErrorContainer();
+          if (followerList.isEmpty) {
+            return const EmptyDataErrorScreen();
           }
-          return GridView.builder(
+          return ListView.builder(
             physics: const ClampingScrollPhysics(),
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-            ),
-            itemCount: followeeList.length,
+            itemCount: followerList.length,
             itemBuilder: (context, index) {
-              final user = followeeList[index];
-              return Text(user.name);
+              final user = followerList[index];
+              return FollowerUserListTile(
+                userName: user.name,
+                userLogin: user.login,
+                userIconImageURL: user.iconImage?.downloadURL,
+                onTap: () {
+                  context.push('/users/${user.id}');
+                },
+              );
             },
           );
         },

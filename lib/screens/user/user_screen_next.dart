@@ -70,6 +70,7 @@ class UserScreen extends HookConsumerWidget {
                           ),
                           const SizedBox(height: 8),
                           UserProfileContainer(
+                            userId: user.id,
                             name: user.name,
                             login: user.login,
                             biography: user.biography,

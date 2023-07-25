@@ -1,9 +1,9 @@
 import 'package:aipictors/delegates/tab_header_delegate.dart';
 import 'package:aipictors/graphql/__generated__/user.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
+import 'package:aipictors/screens/error/data_not_found_error_screen.dart';
 import 'package:aipictors/screens/loading_screen.dart';
 import 'package:aipictors/widgets/builder/operation_screen_builder.dart';
-import 'package:aipictors/widgets/container/error/data_not_found_error_container.dart';
 import 'package:aipictors/widgets/container/modal/user_action_modal_container.dart';
 import 'package:aipictors/widgets/container/user_folders_container.dart';
 import 'package:aipictors/widgets/container/user_header_action_container.dart';
@@ -37,7 +37,7 @@ class UserScreen extends HookConsumerWidget {
       builder: (context, response) {
         final user = response.data?.user;
         if (user == null) {
-          return const DataNotFoundErrorContainer();
+          return const DataNotFoundErrorScreen();
         }
         return DefaultTabController(
           length: 2,
@@ -82,6 +82,7 @@ class UserScreen extends HookConsumerWidget {
                           ),
                           const SizedBox(height: 16),
                           UserProfileContainer(
+                            userId: user.id,
                             name: user.name,
                             login: user.login,
                             biography: user.biography,
