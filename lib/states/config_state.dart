@@ -153,6 +153,7 @@ class ConfigState with _$ConfigState {
   }
 
   /// Remote Config
+  /// 開催中のキャンペーンのID
   String? get campaignId {
     final remoteConfig = FirebaseRemoteConfig.instance;
     final value = remoteConfig.getString('campaign_id');
@@ -181,6 +182,34 @@ class ConfigState with _$ConfigState {
     final remoteConfig = FirebaseRemoteConfig.instance;
     final value = remoteConfig.getString('campaign_title');
     return value.isNotEmpty ? value : null;
+  }
+
+  /// Remote Config
+  /// 未ログイン時のLIMITの値
+  bool get graphqlDefaultLimit {
+    final remoteConfig = FirebaseRemoteConfig.instance;
+    return remoteConfig.getBool('graphql_default_limit');
+  }
+
+  /// Remote Config
+  /// 未ログイン時のOFFSETの最大値
+  bool get graphqlDefaultOffsetMax {
+    final remoteConfig = FirebaseRemoteConfig.instance;
+    return remoteConfig.getBool('graphql_default_offset_max');
+  }
+
+  /// Remote Config
+  /// ログイン時のLIMITの値
+  bool get graphqlLimit {
+    final remoteConfig = FirebaseRemoteConfig.instance;
+    return remoteConfig.getBool('graphql_limit');
+  }
+
+  /// Remote Config
+  /// ログイン時のOFFSETの最大値
+  bool get graphqlOffsetMax {
+    final remoteConfig = FirebaseRemoteConfig.instance;
+    return remoteConfig.getBool('graphql_offset_max');
   }
 
   /// Remote Config
@@ -261,132 +290,154 @@ class ConfigState with _$ConfigState {
   }
 
   /// Remote Config
+  /// Twitterに関する案内
   String get messageAboutTwitter {
     final remoteConfig = FirebaseRemoteConfig.instance;
     return remoteConfig.getString('message_about_twitter');
   }
 
   /// Remote Config
+  /// Discordに関する案内
   String get messageAboutDiscord {
     final remoteConfig = FirebaseRemoteConfig.instance;
     return remoteConfig.getString('message_about_discord');
   }
 
   /// Remote Config
+  /// 調査に関する案内
   String get messageAboutSurvey {
     final remoteConfig = FirebaseRemoteConfig.instance;
     return remoteConfig.getString('message_about_survey');
   }
 
   /// Remote Config
+  /// 調査のリセットに関するメッセージ
   String get messageSurveyReset {
     final remoteConfig = FirebaseRemoteConfig.instance;
     return remoteConfig.getString('message_survey_reset');
   }
 
   /// Remote Config
+  /// 予期しないエラーに関する説明文
   String get messageUnexpectedErrorA {
     final remoteConfig = FirebaseRemoteConfig.instance;
     return remoteConfig.getString('message_unexpected_error_a');
   }
 
   /// Remote Config
+  /// コメントの作成機能
   bool get featureCreateComment {
     final remoteConfig = FirebaseRemoteConfig.instance;
     return remoteConfig.getBool('feature_create_comment');
   }
 
   /// Remote Config
+  /// フォルダーの作成機能
   bool get featureCreateFolder {
     final remoteConfig = FirebaseRemoteConfig.instance;
     return remoteConfig.getBool('feature_create_folder');
   }
 
   /// Remote Config
+  /// スタンプの作成機能
   bool get featureCreateSticker {
     final remoteConfig = FirebaseRemoteConfig.instance;
     return remoteConfig.getBool('feature_create_sticker');
   }
 
   /// Remote Config
+  /// 作品の作成機能
   bool get featureCreateWork {
     final remoteConfig = FirebaseRemoteConfig.instance;
     return remoteConfig.getBool('feature_create_work');
   }
 
   /// Remote Config
+  /// コメントの削除機能
   bool get featureDeleteComment {
     final remoteConfig = FirebaseRemoteConfig.instance;
     return remoteConfig.getBool('feature_delete_comment');
   }
 
   /// Remote Config
+  /// フォルダーの削除機能
   bool get featureDeleteFolder {
     final remoteConfig = FirebaseRemoteConfig.instance;
     return remoteConfig.getBool('feature_delete_folder');
   }
 
   /// Remote Config
+  /// スタンプの削除機能
   bool get featureDeleteSticker {
     final remoteConfig = FirebaseRemoteConfig.instance;
     return remoteConfig.getBool('feature_delete_sticker');
   }
 
   /// Remote Config
+  /// 作品の削除機能
   bool get featureDeleteWork {
     final remoteConfig = FirebaseRemoteConfig.instance;
     return remoteConfig.getBool('feature_delete_work');
   }
 
   /// Remote Config
+  /// ユーザのフォロー機能
   bool get featureFollowUser {
     final remoteConfig = FirebaseRemoteConfig.instance;
     return remoteConfig.getBool('feature_follow_user');
   }
 
   /// Remote Config
+  /// ログイン機能
   bool get featureLogin {
     final remoteConfig = FirebaseRemoteConfig.instance;
     return remoteConfig.getBool('feature_login');
   }
 
   /// Remote Config
+  /// タグのミュート機能
   bool get featureMuteTag {
     final remoteConfig = FirebaseRemoteConfig.instance;
     return remoteConfig.getBool('feature_mute_tag');
   }
 
   /// Remote Config
+  /// ユーザのミュート機能
   bool get featureMuteUser {
     final remoteConfig = FirebaseRemoteConfig.instance;
     return remoteConfig.getBool('feature_mute_user');
   }
 
   /// Remote Config
+  /// コメントの更新機能
   bool get featureUpdateComment {
     final remoteConfig = FirebaseRemoteConfig.instance;
     return remoteConfig.getBool('feature_update_comment');
   }
 
   /// Remote Config
+  /// フォルダーの更新機能
   bool get featureUpdateFolder {
     final remoteConfig = FirebaseRemoteConfig.instance;
     return remoteConfig.getBool('feature_update_folder');
   }
 
   /// Remote Config
+  /// スタンプの更新機能
   bool get featureUpdateSticker {
     final remoteConfig = FirebaseRemoteConfig.instance;
     return remoteConfig.getBool('feature_update_sticker');
   }
 
   /// Remote Config
+  /// ユーザの更新機能
   bool get featureUpdateUser {
     final remoteConfig = FirebaseRemoteConfig.instance;
     return remoteConfig.getBool('feature_update_user');
   }
 
   /// Remote Config
+  /// 作品の更新機能
   bool get featureUpdateWork {
     final remoteConfig = FirebaseRemoteConfig.instance;
     return remoteConfig.getBool('feature_update_work');
