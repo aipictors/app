@@ -2,6 +2,7 @@
   "editor.formatOnSave": true,
   "cSpell.words": [
     "aipictors",
+    "appbundle",
     "cupertino",
     "followee",
     "followees",
@@ -54,6 +55,7 @@
     ".vscode",
     "android",
     "ios",
+    "lib/schema.graphql",
     "linux",
     "web",
     "windows"
