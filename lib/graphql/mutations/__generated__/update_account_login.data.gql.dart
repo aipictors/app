@@ -50,7 +50,7 @@ abstract class GUpdateAccountLoginData_updateAccountLogin
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get id;
-  String get name;
+  String get login;
   static Serializer<GUpdateAccountLoginData_updateAccountLogin>
       get serializer => _$gUpdateAccountLoginDataUpdateAccountLoginSerializer;
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(

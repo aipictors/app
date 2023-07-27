@@ -39,7 +39,7 @@ const UpdateAccountLogin = _i1.OperationDefinitionNode(
           selectionSet: null,
         ),
         _i1.FieldNode(
-          name: _i1.NameNode(value: 'name'),
+          name: _i1.NameNode(value: 'login'),
           alias: null,
           arguments: [],
           directives: [],

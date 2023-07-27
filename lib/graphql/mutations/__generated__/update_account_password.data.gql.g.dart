@@ -89,8 +89,6 @@ class _$GUpdateAccountPasswordData_updateAccountPasswordSerializer
           specifiedType: const FullType(String)),
       'id',
       serializers.serialize(object.id, specifiedType: const FullType(String)),
-      'name',
-      serializers.serialize(object.name, specifiedType: const FullType(String)),
     ];
 
     return result;
@@ -115,10 +113,6 @@ class _$GUpdateAccountPasswordData_updateAccountPasswordSerializer
           break;
         case 'id':
           result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'name':
-          result.name = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
       }
@@ -259,8 +253,6 @@ class _$GUpdateAccountPasswordData_updateAccountPassword
   final String G__typename;
   @override
   final String id;
-  @override
-  final String name;
 
   factory _$GUpdateAccountPasswordData_updateAccountPassword(
           [void Function(
@@ -271,14 +263,12 @@ class _$GUpdateAccountPasswordData_updateAccountPassword
           ._build();
 
   _$GUpdateAccountPasswordData_updateAccountPassword._(
-      {required this.G__typename, required this.id, required this.name})
+      {required this.G__typename, required this.id})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(G__typename,
         r'GUpdateAccountPasswordData_updateAccountPassword', 'G__typename');
     BuiltValueNullFieldError.checkNotNull(
         id, r'GUpdateAccountPasswordData_updateAccountPassword', 'id');
-    BuiltValueNullFieldError.checkNotNull(
-        name, r'GUpdateAccountPasswordData_updateAccountPassword', 'name');
   }
 
   @override
@@ -297,8 +287,7 @@ class _$GUpdateAccountPasswordData_updateAccountPassword
     if (identical(other, this)) return true;
     return other is GUpdateAccountPasswordData_updateAccountPassword &&
         G__typename == other.G__typename &&
-        id == other.id &&
-        name == other.name;
+        id == other.id;
   }
 
   @override
@@ -306,7 +295,6 @@ class _$GUpdateAccountPasswordData_updateAccountPassword
     var _$hash = 0;
     _$hash = $jc(_$hash, G__typename.hashCode);
     _$hash = $jc(_$hash, id.hashCode);
-    _$hash = $jc(_$hash, name.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -316,8 +304,7 @@ class _$GUpdateAccountPasswordData_updateAccountPassword
     return (newBuiltValueToStringHelper(
             r'GUpdateAccountPasswordData_updateAccountPassword')
           ..add('G__typename', G__typename)
-          ..add('id', id)
-          ..add('name', name))
+          ..add('id', id))
         .toString();
   }
 }
@@ -336,10 +323,6 @@ class GUpdateAccountPasswordData_updateAccountPasswordBuilder
   String? get id => _$this._id;
   set id(String? id) => _$this._id = id;
 
-  String? _name;
-  String? get name => _$this._name;
-  set name(String? name) => _$this._name = name;
-
   GUpdateAccountPasswordData_updateAccountPasswordBuilder() {
     GUpdateAccountPasswordData_updateAccountPassword._initializeBuilder(this);
   }
@@ -349,7 +332,6 @@ class GUpdateAccountPasswordData_updateAccountPasswordBuilder
     if ($v != null) {
       _G__typename = $v.G__typename;
       _id = $v.id;
-      _name = $v.name;
       _$v = null;
     }
     return this;
@@ -379,9 +361,7 @@ class GUpdateAccountPasswordData_updateAccountPasswordBuilder
                 r'GUpdateAccountPasswordData_updateAccountPassword',
                 'G__typename'),
             id: BuiltValueNullFieldError.checkNotNull(
-                id, r'GUpdateAccountPasswordData_updateAccountPassword', 'id'),
-            name: BuiltValueNullFieldError.checkNotNull(name,
-                r'GUpdateAccountPasswordData_updateAccountPassword', 'name'));
+                id, r'GUpdateAccountPasswordData_updateAccountPassword', 'id'));
     replace(_$result);
     return _$result;
   }

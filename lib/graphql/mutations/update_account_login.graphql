@@ -1,6 +1,6 @@
 mutation UpdateAccountLogin($input: UpdateAccountLoginInput!) {
   updateAccountLogin(input: $input) {
     id
-    name
+    login
   }
 }

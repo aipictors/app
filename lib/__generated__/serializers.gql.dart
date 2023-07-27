@@ -499,6 +499,17 @@ import 'package:aipictors/graphql/__generated__/viewer_notifications.req.gql.dar
     show GViewerNotificationsReq;
 import 'package:aipictors/graphql/__generated__/viewer_notifications.var.gql.dart'
     show GViewerNotificationsVars;
+import 'package:aipictors/graphql/__generated__/viewer_user.data.gql.dart'
+    show
+        GViewerUserData,
+        GViewerUserData_viewer,
+        GViewerUserData_viewer_user,
+        GViewerUserData_viewer_user_headerImage,
+        GViewerUserData_viewer_user_iconImage;
+import 'package:aipictors/graphql/__generated__/viewer_user.req.gql.dart'
+    show GViewerUserReq;
+import 'package:aipictors/graphql/__generated__/viewer_user.var.gql.dart'
+    show GViewerUserVars;
 import 'package:aipictors/graphql/__generated__/viewer_works.data.gql.dart'
     show
         GViewerWorksData,
@@ -1409,6 +1420,13 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GViewerNotificationsData_viewer_notifications__base,
   GViewerNotificationsReq,
   GViewerNotificationsVars,
+  GViewerUserData,
+  GViewerUserData_viewer,
+  GViewerUserData_viewer_user,
+  GViewerUserData_viewer_user_headerImage,
+  GViewerUserData_viewer_user_iconImage,
+  GViewerUserReq,
+  GViewerUserVars,
   GViewerWorksData,
   GViewerWorksData_viewer,
   GViewerWorksData_viewer_works,

@@ -89,8 +89,9 @@ class _$GUpdateAccountLoginData_updateAccountLoginSerializer
           specifiedType: const FullType(String)),
       'id',
       serializers.serialize(object.id, specifiedType: const FullType(String)),
-      'name',
-      serializers.serialize(object.name, specifiedType: const FullType(String)),
+      'login',
+      serializers.serialize(object.login,
+          specifiedType: const FullType(String)),
     ];
 
     return result;
@@ -116,8 +117,8 @@ class _$GUpdateAccountLoginData_updateAccountLoginSerializer
           result.id = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
-        case 'name':
-          result.name = serializers.deserialize(value,
+        case 'login':
+          result.login = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
       }
@@ -258,7 +259,7 @@ class _$GUpdateAccountLoginData_updateAccountLogin
   @override
   final String id;
   @override
-  final String name;
+  final String login;
 
   factory _$GUpdateAccountLoginData_updateAccountLogin(
           [void Function(GUpdateAccountLoginData_updateAccountLoginBuilder)?
@@ -267,14 +268,14 @@ class _$GUpdateAccountLoginData_updateAccountLogin
           ._build();
 
   _$GUpdateAccountLoginData_updateAccountLogin._(
-      {required this.G__typename, required this.id, required this.name})
+      {required this.G__typename, required this.id, required this.login})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(G__typename,
         r'GUpdateAccountLoginData_updateAccountLogin', 'G__typename');
     BuiltValueNullFieldError.checkNotNull(
         id, r'GUpdateAccountLoginData_updateAccountLogin', 'id');
     BuiltValueNullFieldError.checkNotNull(
-        name, r'GUpdateAccountLoginData_updateAccountLogin', 'name');
+        login, r'GUpdateAccountLoginData_updateAccountLogin', 'login');
   }
 
   @override
@@ -293,7 +294,7 @@ class _$GUpdateAccountLoginData_updateAccountLogin
     return other is GUpdateAccountLoginData_updateAccountLogin &&
         G__typename == other.G__typename &&
         id == other.id &&
-        name == other.name;
+        login == other.login;
   }
 
   @override
@@ -301,7 +302,7 @@ class _$GUpdateAccountLoginData_updateAccountLogin
     var _$hash = 0;
     _$hash = $jc(_$hash, G__typename.hashCode);
     _$hash = $jc(_$hash, id.hashCode);
-    _$hash = $jc(_$hash, name.hashCode);
+    _$hash = $jc(_$hash, login.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -312,7 +313,7 @@ class _$GUpdateAccountLoginData_updateAccountLogin
             r'GUpdateAccountLoginData_updateAccountLogin')
           ..add('G__typename', G__typename)
           ..add('id', id)
-          ..add('name', name))
+          ..add('login', login))
         .toString();
   }
 }
@@ -331,9 +332,9 @@ class GUpdateAccountLoginData_updateAccountLoginBuilder
   String? get id => _$this._id;
   set id(String? id) => _$this._id = id;
 
-  String? _name;
-  String? get name => _$this._name;
-  set name(String? name) => _$this._name = name;
+  String? _login;
+  String? get login => _$this._login;
+  set login(String? login) => _$this._login = login;
 
   GUpdateAccountLoginData_updateAccountLoginBuilder() {
     GUpdateAccountLoginData_updateAccountLogin._initializeBuilder(this);
@@ -344,7 +345,7 @@ class GUpdateAccountLoginData_updateAccountLoginBuilder
     if ($v != null) {
       _G__typename = $v.G__typename;
       _id = $v.id;
-      _name = $v.name;
+      _login = $v.login;
       _$v = null;
     }
     return this;
@@ -373,8 +374,8 @@ class GUpdateAccountLoginData_updateAccountLoginBuilder
                 r'GUpdateAccountLoginData_updateAccountLogin', 'G__typename'),
             id: BuiltValueNullFieldError.checkNotNull(
                 id, r'GUpdateAccountLoginData_updateAccountLogin', 'id'),
-            name: BuiltValueNullFieldError.checkNotNull(
-                name, r'GUpdateAccountLoginData_updateAccountLogin', 'name'));
+            login: BuiltValueNullFieldError.checkNotNull(
+                login, r'GUpdateAccountLoginData_updateAccountLogin', 'login'));
     replace(_$result);
     return _$result;
   }
