@@ -40,6 +40,42 @@
     "en": "Muted Tags"
   },
   {
+    "ja": "その他",
+    "en": "Others"
+  },
+  {
+    "ja": "マイページ",
+    "en": "My Page"
+  },
+  {
+    "ja": "ブックマーク",
+    "en": "Bookmarks"
+  },
+  {
+    "ja": "デバッグモード",
+    "en": "Debug Mode"
+  },
+  {
+    "ja": "キャッシュクリア",
+    "en": "Clear Cache"
+  },
+  {
+    "ja": "ログアウト",
+    "en": "Sign Out"
+  },
+  {
+    "ja": "ディスコに参加する",
+    "en": "Join our Discord"
+  },
+  {
+    "ja": "ツイッターをフォローする",
+    "en": "Follow us on Twitter"
+  },
+  {
+    "ja": "テーマ設定",
+    "en": "Theme Settings"
+  },
+  {
     "ja": "作品",
     "en": "Works"
   },
@@ -56,20 +92,19 @@
     "en": "Feed"
   },
   {
-      "ja": "ホーム",
-      "en": "Home"
+    "ja": "ホーム",
+    "en": "Home"
   },
   {
-      "ja": "お題",
-      "en": "Daily Theme"
+    "ja": "お題",
+    "en": "Daily Theme"
   },
   {
-      "ja": "新着",
-      "en": "Latest Works"
+    "ja": "新着",
+    "en": "Latest Works"
   },
   {
-      "ja": "おすすめ",
-      "en": "Recommended Works"
-  }
+    "ja": "おすすめ",
+    "en": "Recommended Works"
+    }
 ]
-
