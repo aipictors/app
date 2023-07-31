@@ -38,7 +38,7 @@ class DailyThemeScreen extends HookConsumerWidget {
       }),
       builder: (context, response) {
         final dailyTheme = response.data?.dailyTheme;
-        if (dailyTheme == null) {
+        if (dailyTheme == null || dailyTheme.works.isEmpty) {
           return Scaffold(
               appBar: AppBar(title: Text('お題'.i18n)),
               body: const DataNotFoundErrorScreen());
