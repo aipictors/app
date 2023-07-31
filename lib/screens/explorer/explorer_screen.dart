@@ -1,3 +1,4 @@
+import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/screens/explorer/explorer_best_works_view.dart';
 import 'package:aipictors/screens/explorer/explorer_hot_tags_view.dart';
 import 'package:aipictors/screens/explorer/explorer_latest_folders_view.dart';
@@ -58,13 +59,13 @@ class ExplorerScreen extends HookConsumerWidget {
               ),
           ],
           bottom: search.value.isEmpty
-              ? const TabBar(
+              ? TabBar(
                   // isScrollable: true,
                   tabs: [
-                    Tab(text: 'シリーズ'),
-                    Tab(text: 'タグ'),
-                    Tab(text: '人気'),
-                    Tab(text: 'ベスト'),
+                    Tab(text: 'シリーズ'.i18n),
+                    Tab(text: 'タグ'.i18n),
+                    Tab(text: '人気'.i18n),
+                    Tab(text: 'ベスト'.i18n),
                   ],
                 )
               : null,

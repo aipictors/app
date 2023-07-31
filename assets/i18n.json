@@ -122,5 +122,25 @@
   {
     "ja": "来月",
     "en": "Next"
+  },
+  {
+    "ja": "見つける",
+    "en": "Explore"
+  },
+  {
+    "ja": "タグ",
+    "en": "Tags"
+  },
+  {
+    "ja": "人気",
+    "en": "Popular Works"
+  },
+  {
+    "ja": "ベスト",
+    "en": "Best Works"
+  },
+  {
+    "ja": "キーワード検索",
+    "en": "Keyword Search"
   }
 ]
