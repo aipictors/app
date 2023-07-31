@@ -1,3 +1,4 @@
+import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/graphql/__generated__/daily_theme.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/screens/error/data_not_found_error_screen.dart';
@@ -38,7 +39,9 @@ class DailyThemeScreen extends HookConsumerWidget {
       builder: (context, response) {
         final dailyTheme = response.data?.dailyTheme;
         if (dailyTheme == null) {
-          return const DataNotFoundErrorScreen();
+          return Scaffold(
+              appBar: AppBar(title: Text('お題'.i18n)),
+              body: const DataNotFoundErrorScreen());
         }
         return Scaffold(
           appBar: AppBar(title: Text(dailyTheme.title)),
