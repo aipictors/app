@@ -116,11 +116,8 @@ class DailyThemesScreen extends HookConsumerWidget {
 
   /// 来月が存在する
   bool hasNext(int year, int month) {
-    final now = DateTime.now();
-    if (year == now.year && month == now.month) {
-      return false;
-    }
-    if (year == 2023 && month == 12) {
+    final fourDaysLater = DateTime.now().add(const Duration(days: 4));
+    if (year == fourDaysLater.year && month == fourDaysLater.month) {
       return false;
     }
     return true;
