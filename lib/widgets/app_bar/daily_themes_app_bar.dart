@@ -1,3 +1,4 @@
+import 'package:aipictors/default.i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -36,8 +37,8 @@ class DailyThemesAppBar extends HookConsumerWidget
         children: [
           FilledButton.tonal(
             onPressed: hasPrev ? onPrev : null,
-            child: const Text(
-              '前月',
+            child: Text(
+              '前月'.i18n,
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
@@ -78,8 +79,8 @@ class DailyThemesAppBar extends HookConsumerWidget
           ]),
           FilledButton.tonal(
             onPressed: hasNext ? onNext : null,
-            child: const Text(
-              '来月',
+            child: Text(
+              '来月'.i18n,
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
