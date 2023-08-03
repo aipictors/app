@@ -5,7 +5,6 @@ import 'package:aipictors/widgets/container/loading_container.dart';
 import 'package:aipictors/widgets/form/login_id_form.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -48,7 +47,17 @@ class LoginScreen extends HookConsumerWidget {
                     const SizedBox(height: 40),
                     LoginIDForm(
                         readOnly: isLoading.value,
+                        decoration: InputDecoration(
+                          hintText: 'ID',
+                          contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 20,
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(40),
+                          ),
+                        ),
                         onChanged: (value) {
+                          //setState() or markNeedsBuild() called during buildを防ぐため
                           WidgetsBinding.instance.addPostFrameCallback((_) {
                             idInput.value = value;
                           });

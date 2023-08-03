@@ -8,11 +8,13 @@ class LoginIDForm extends StatefulWidget {
     required this.readOnly,
     required this.onChanged,
     required this.onValidate,
+    required this.decoration,
   }) : super(key: key);
 
   final bool readOnly;
   final Function(String value) onChanged;
   final Function(bool valid) onValidate;
+  final InputDecoration decoration;
 
   @override
   State<LoginIDForm> createState() => _LoginIDFormState();
@@ -25,15 +27,7 @@ class _LoginIDFormState extends State<LoginIDForm> {
         child: TextFormField(
       readOnly: widget.readOnly,
       keyboardType: TextInputType.emailAddress,
-      decoration: InputDecoration(
-        hintText: 'ID',
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: 20,
-        ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(40),
-        ),
-      ),
+      decoration: widget.decoration,
       inputFormatters: [
         FilteringTextInputFormatter.allow(
           RegExp('[0-9a-z@_]'),
@@ -47,6 +41,10 @@ class _LoginIDFormState extends State<LoginIDForm> {
         if (value!.length < 4 || 14 < value.length) {
           widget.onValidate(false);
           return 'IDは4文字以上14文字以下である必要があります'.i18n;
+        }
+        if (!value.contains(RegExp(r'[a-z]'))) {
+          widget.onValidate(false);
+          return 'IDにはアルファベットが含まれている必要があります'.i18n;
         }
         widget.onValidate(true);
         return null;
