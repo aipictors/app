@@ -81,15 +81,11 @@ class AccountLoginScreen extends HookConsumerWidget {
                       decoration: InputDecoration(
                         hintText: '新しいログインID'.i18n,
                       ),
-                      onChanged: (value) {
+                      onValidate: (valid, id) {
                         //setState() or markNeedsBuild() called during buildを防ぐため
                         WidgetsBinding.instance.addPostFrameCallback((_) {
-                          newID.value = value;
-                        });
-                      },
-                      onValidate: (valid) {
-                        WidgetsBinding.instance.addPostFrameCallback((_) {
                           isValidID.value = valid;
+                          newID.value = id;
                         });
                       },
                     ),

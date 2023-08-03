@@ -6,14 +6,12 @@ class LoginIDForm extends StatefulWidget {
   const LoginIDForm({
     Key? key,
     required this.readOnly,
-    required this.onChanged,
     required this.onValidate,
     required this.decoration,
   }) : super(key: key);
 
   final bool readOnly;
-  final Function(String value) onChanged;
-  final Function(bool valid) onValidate;
+  final Function(bool valid, String id) onValidate;
   final InputDecoration decoration;
 
   @override
@@ -34,19 +32,16 @@ class _LoginIDFormState extends State<LoginIDForm> {
         ),
       ],
       autovalidateMode: AutovalidateMode.onUserInteraction,
-      onChanged: (value) {
-        widget.onChanged(value);
-      },
       validator: (value) {
         if (value!.length < 4 || 14 < value.length) {
-          widget.onValidate(false);
+          widget.onValidate(false, value);
           return 'IDは4文字以上14文字以下である必要があります'.i18n;
         }
         if (!value.contains(RegExp(r'[a-z]'))) {
-          widget.onValidate(false);
+          widget.onValidate(false, value);
           return 'IDにはアルファベットが含まれている必要があります'.i18n;
         }
-        widget.onValidate(true);
+        widget.onValidate(true, value);
         return null;
       },
     ));

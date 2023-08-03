@@ -56,15 +56,11 @@ class LoginScreen extends HookConsumerWidget {
                             borderRadius: BorderRadius.circular(40),
                           ),
                         ),
-                        onChanged: (value) {
+                        onValidate: (valid, id) {
                           //setState() or markNeedsBuild() called during buildを防ぐため
                           WidgetsBinding.instance.addPostFrameCallback((_) {
-                            idInput.value = value;
-                          });
-                        },
-                        onValidate: (valid) {
-                          WidgetsBinding.instance.addPostFrameCallback((_) {
                             isValidID.value = valid;
+                            idInput.value = id;
                           });
                         }),
                     const SizedBox(height: 16),
