@@ -3,8 +3,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:like_button/like_button.dart';
 
-class FeedBookmarkButton extends HookConsumerWidget {
-  const FeedBookmarkButton({
+class FeedFolderButton extends HookConsumerWidget {
+  const FeedFolderButton({
     Key? key,
     required this.isActive,
     required this.onTap,
@@ -22,11 +22,10 @@ class FeedBookmarkButton extends HookConsumerWidget {
 
     return LikeButton(
       isLiked: isActiveInMemory.value,
-      likeCount: likeCount(isActiveInMemory.value),
       likeCountPadding: const EdgeInsets.only(left: 4),
       likeBuilder: (isLiked) {
         return Icon(
-          Icons.bookmark_rounded,
+          Icons.folder_rounded,
           size: 28,
           color: isActiveInMemory.value
               ? Theme.of(context).colorScheme.primary
@@ -39,12 +38,5 @@ class FeedBookmarkButton extends HookConsumerWidget {
         return !isLiked;
       },
     );
-  }
-
-  int? likeCount(bool inMemory) {
-    if (count == null) {
-      return null;
-    }
-    return count! + (inMemory ? 1 : 0);
   }
 }

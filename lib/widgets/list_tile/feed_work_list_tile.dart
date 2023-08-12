@@ -1,6 +1,6 @@
 import 'package:aipictors/mutations/create_work_like.dart';
 import 'package:aipictors/utils/to_readable_date_time.dart';
-import 'package:aipictors/widgets/button/feed_bookmark_button.dart';
+import 'package:aipictors/widgets/button/feed_folder_button.dart';
 import 'package:aipictors/widgets/button/feed_like_button.dart';
 import 'package:aipictors/widgets/container/modal/comment_modal_container.dart';
 import 'package:aipictors/widgets/container/modal/feed_action_modal_container.dart';
@@ -122,7 +122,7 @@ class FeedWorkListTile extends HookConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(children: [
-                FeedBookmarkButton(
+                FeedFolderButton(
                   isActive: isBookmarked,
                   onTap: () async {
                     onCreateBookmark(context);
