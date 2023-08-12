@@ -125,7 +125,7 @@ class FeedWorkListTile extends HookConsumerWidget {
                 FeedFolderButton(
                   isActive: isBookmarked,
                   onTap: () async {
-                    onCreateBookmark(context);
+                    onAddToFolder(context);
                   },
                 ),
                 const SizedBox(width: 8),
@@ -168,7 +168,7 @@ class FeedWorkListTile extends HookConsumerWidget {
   }
 
   /// 作品をブックマークする
-  void onCreateBookmark(BuildContext context) {}
+  void onAddToFolder(BuildContext context) {}
 
   /// 作品の詳細を開く
   void onOpenWork(BuildContext context) {
