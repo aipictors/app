@@ -1,0 +1,11 @@
+fragment PartialAlbumFields on AlbumNode {
+  id
+  title
+  rating
+  likesCount
+  viewsCount
+  thumbnailImage {
+    id
+    downloadURL
+  }
+}

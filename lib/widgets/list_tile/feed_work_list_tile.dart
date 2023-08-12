@@ -1,4 +1,3 @@
-import 'package:aipictors/mutations/create_work_bookmark.dart';
 import 'package:aipictors/mutations/create_work_like.dart';
 import 'package:aipictors/utils/to_readable_date_time.dart';
 import 'package:aipictors/widgets/button/feed_bookmark_button.dart';
@@ -169,17 +168,7 @@ class FeedWorkListTile extends HookConsumerWidget {
   }
 
   /// 作品をブックマークする
-  void onCreateBookmark(BuildContext context) {
-    FirebaseAnalytics.instance.logEvent(
-      name: 'create_work_bookmark',
-      parameters: {
-        'item_id': workId,
-      },
-    );
-    createWorkBookmark((builder) {
-      return builder..vars.input.workId = workId;
-    });
-  }
+  void onCreateBookmark(BuildContext context) {}
 
   /// 作品の詳細を開く
   void onOpenWork(BuildContext context) {

@@ -3,6 +3,10 @@ import 'package:aipictors/screens/account/account_delete_screen.dart';
 import 'package:aipictors/screens/account/account_login_screen.dart';
 import 'package:aipictors/screens/account/account_password_screen.dart';
 import 'package:aipictors/screens/account/account_screen.dart';
+import 'package:aipictors/screens/album/album_create_screen.dart';
+import 'package:aipictors/screens/album/album_report_screen.dart';
+import 'package:aipictors/screens/album/album_screen.dart';
+import 'package:aipictors/screens/album/album_update_screen.dart';
 import 'package:aipictors/screens/award/novel_awards_screen.dart';
 import 'package:aipictors/screens/award/work_awards_screen.dart';
 import 'package:aipictors/screens/comment/comment_report_screen.dart';
@@ -35,7 +39,7 @@ import 'package:aipictors/screens/user/user_followees_screen.dart';
 import 'package:aipictors/screens/user/user_followers_screen.dart';
 import 'package:aipictors/screens/user/user_report_screen.dart';
 import 'package:aipictors/screens/user/user_screen.dart';
-import 'package:aipictors/screens/viewer/viewer_bookmarked_works_screen.dart';
+import 'package:aipictors/screens/viewer/viewer_albums_screen.dart';
 import 'package:aipictors/screens/viewer/viewer_folders_screen.dart';
 import 'package:aipictors/screens/viewer/viewer_screen.dart';
 import 'package:aipictors/screens/viewer/viewer_works_screen.dart';
@@ -93,6 +97,33 @@ final router = GoRouter(
       path: '/account/login',
       builder: (context, state) {
         return const AccountLoginScreen();
+      },
+    ),
+    GoRoute(
+      path: '/albums/create',
+      builder: (context, state) {
+        return const AlbumCreateScreen();
+      },
+    ),
+    GoRoute(
+      path: '/albums/:album_id',
+      builder: (context, state) {
+        final albumId = state.pathParameters['album_id'];
+        return AlbumScreen(albumId: albumId!);
+      },
+    ),
+    GoRoute(
+      path: '/albums/:album_id/report',
+      builder: (context, state) {
+        final albumId = state.pathParameters['album_id'];
+        return AlbumReportScreen(albumId: albumId!);
+      },
+    ),
+    GoRoute(
+      path: '/albums/:album_id/update',
+      builder: (context, state) {
+        final albumId = state.pathParameters['album_id'];
+        return AlbumUpdateScreen(albumId: albumId!);
       },
     ),
     GoRoute(
@@ -264,6 +295,12 @@ final router = GoRouter(
       },
     ),
     GoRoute(
+      path: '/viewer/albums',
+      builder: (context, state) {
+        return const ViewerAlbumsScreen();
+      },
+    ),
+    GoRoute(
       path: '/viewer/works',
       builder: (context, state) {
         return const ViewerWorksScreen();
@@ -273,12 +310,6 @@ final router = GoRouter(
       path: '/viewer/folders',
       builder: (context, state) {
         return const ViewerFoldersScreen();
-      },
-    ),
-    GoRoute(
-      path: '/viewer/bookmarked_works',
-      builder: (context, state) {
-        return const ViewerBookmarkedWorksScreen();
       },
     ),
     GoRoute(

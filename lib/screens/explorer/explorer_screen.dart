@@ -1,7 +1,7 @@
 import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/screens/explorer/explorer_best_works_view.dart';
 import 'package:aipictors/screens/explorer/explorer_hot_tags_view.dart';
-import 'package:aipictors/screens/explorer/explorer_latest_folders_view.dart';
+import 'package:aipictors/screens/explorer/explorer_latest_albums_view.dart';
 import 'package:aipictors/screens/explorer/explorer_popular_works_view.dart';
 import 'package:aipictors/screens/explorer/explorer_search_view.dart';
 import 'package:aipictors/widgets/app_bar/search_app_bar.dart';
@@ -73,7 +73,7 @@ class ExplorerScreen extends HookConsumerWidget {
         body: search.value.isNotEmpty
             ? ExplorerSearchView(search: search.value)
             : const TabBarView(children: [
-                ExplorerFoldersView(
+                ExplorerAlbumsView(
                   key: PageStorageKey('explorer_latest_folders'),
                 ),
                 ExplorerHotTagsView(

@@ -3,7 +3,9 @@
 query Folder($id: ID!) {
   folder(id: $id) {
     id
+    nanoid
     title
+    isPrivate
     description
     user {
       ...WorkUserFields
@@ -14,15 +16,7 @@ query Folder($id: ID!) {
       }
     }
     createdAt
-    likesCount
-    viewsCount
-    thumbnailImage {
-      id
-      downloadURL
-    }
-    viewer {
-      isLiked
-      isWatched
-    }
+    rating
+    thumbnailImageURL
   }
 }

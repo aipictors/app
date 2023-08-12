@@ -1,0 +1,23 @@
+# import './fragments/work_user_fields_fragment.graphql'
+
+query Album($id: ID!) {
+  album(id: $id) {
+    id
+    title
+    description
+    user {
+      ...WorkUserFields
+      viewer {
+        isFollowee
+        isFollowee
+        isMuted
+      }
+    }
+    createdAt
+    rating
+    thumbnailImage {
+      id
+      downloadURL
+    }
+  }
+}

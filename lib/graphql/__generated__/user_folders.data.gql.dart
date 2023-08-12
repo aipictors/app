@@ -85,13 +85,11 @@ abstract class GUserFoldersData_user_folders
   @override
   String get title;
   @override
-  _i3.GRating get rating;
+  _i3.GRating? get rating;
   @override
-  int get likesCount;
+  String get description;
   @override
-  int get viewsCount;
-  @override
-  GUserFoldersData_user_folders_thumbnailImage? get thumbnailImage;
+  String? get thumbnailImageURL;
   static Serializer<GUserFoldersData_user_folders> get serializer =>
       _$gUserFoldersDataUserFoldersSerializer;
   @override
@@ -102,42 +100,6 @@ abstract class GUserFoldersData_user_folders
   static GUserFoldersData_user_folders? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUserFoldersData_user_folders.serializer,
-        json,
-      );
-}
-
-abstract class GUserFoldersData_user_folders_thumbnailImage
-    implements
-        Built<GUserFoldersData_user_folders_thumbnailImage,
-            GUserFoldersData_user_folders_thumbnailImageBuilder>,
-        _i2.GPartialFolderFields_thumbnailImage {
-  GUserFoldersData_user_folders_thumbnailImage._();
-
-  factory GUserFoldersData_user_folders_thumbnailImage(
-      [Function(GUserFoldersData_user_folders_thumbnailImageBuilder b)
-          updates]) = _$GUserFoldersData_user_folders_thumbnailImage;
-
-  static void _initializeBuilder(
-          GUserFoldersData_user_folders_thumbnailImageBuilder b) =>
-      b..G__typename = 'ImageNode';
-  @override
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  @override
-  String get id;
-  @override
-  String get downloadURL;
-  static Serializer<GUserFoldersData_user_folders_thumbnailImage>
-      get serializer => _$gUserFoldersDataUserFoldersThumbnailImageSerializer;
-  @override
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GUserFoldersData_user_folders_thumbnailImage.serializer,
-        this,
-      ) as Map<String, dynamic>);
-  static GUserFoldersData_user_folders_thumbnailImage? fromJson(
-          Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GUserFoldersData_user_folders_thumbnailImage.serializer,
         json,
       );
 }

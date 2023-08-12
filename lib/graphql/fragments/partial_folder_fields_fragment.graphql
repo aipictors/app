@@ -2,10 +2,6 @@ fragment PartialFolderFields on FolderNode {
   id
   title
   rating
-  likesCount
-  viewsCount
-  thumbnailImage {
-    id
-    downloadURL
-  }
+  description
+  thumbnailImageURL
 }

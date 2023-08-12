@@ -39,7 +39,7 @@ class DailyThemesAppBar extends HookConsumerWidget
             onPressed: hasPrev ? onPrev : null,
             child: Text(
               '前月'.i18n,
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: const TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
           Row(children: [
@@ -81,7 +81,7 @@ class DailyThemesAppBar extends HookConsumerWidget
             onPressed: hasNext ? onNext : null,
             child: Text(
               '来月'.i18n,
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: const TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
         ],

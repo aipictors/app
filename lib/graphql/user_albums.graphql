@@ -1,0 +1,10 @@
+# import './fragments/partial_album_fields_fragment.graphql'
+
+query UserAlbums($user_id: ID!, $offset: Int!, $limit: Int!) {
+  user(id: $user_id) {
+    id
+    albums(offset: $offset, limit: $limit) {
+      ...PartialAlbumFields
+    }
+  }
+}

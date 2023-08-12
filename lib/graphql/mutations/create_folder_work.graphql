@@ -1,0 +1,5 @@
+mutation CreateFolderWork($input: CreateFolderWorkInput!) {
+  createFolderWork(input: $input) {
+    id
+  }
+}

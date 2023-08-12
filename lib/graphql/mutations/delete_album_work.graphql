@@ -1,0 +1,5 @@
+mutation DeleteAlbumWork($input: DeleteAlbumWorkInput!) {
+  deleteAlbumWork(input: $input) {
+    id
+  }
+}

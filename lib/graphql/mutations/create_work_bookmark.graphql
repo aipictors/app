@@ -1,9 +1,0 @@
-mutation CreateWorkBookmark($input: CreateWorkBookmarkInput!) {
-  createWorkBookmark(input: $input) {
-    id
-    viewer {
-      id
-      isBookmarked
-    }
-  }
-}

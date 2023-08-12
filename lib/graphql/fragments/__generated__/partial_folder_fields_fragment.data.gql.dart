@@ -13,17 +13,9 @@ abstract class GPartialFolderFields {
   String get G__typename;
   String get id;
   String get title;
-  _i1.GRating get rating;
-  int get likesCount;
-  int get viewsCount;
-  GPartialFolderFields_thumbnailImage? get thumbnailImage;
-  Map<String, dynamic> toJson();
-}
-
-abstract class GPartialFolderFields_thumbnailImage {
-  String get G__typename;
-  String get id;
-  String get downloadURL;
+  _i1.GRating? get rating;
+  String get description;
+  String? get thumbnailImageURL;
   Map<String, dynamic> toJson();
 }
 
@@ -47,13 +39,11 @@ abstract class GPartialFolderFieldsData
   @override
   String get title;
   @override
-  _i1.GRating get rating;
+  _i1.GRating? get rating;
   @override
-  int get likesCount;
+  String get description;
   @override
-  int get viewsCount;
-  @override
-  GPartialFolderFieldsData_thumbnailImage? get thumbnailImage;
+  String? get thumbnailImageURL;
   static Serializer<GPartialFolderFieldsData> get serializer =>
       _$gPartialFolderFieldsDataSerializer;
   @override
@@ -64,42 +54,6 @@ abstract class GPartialFolderFieldsData
   static GPartialFolderFieldsData? fromJson(Map<String, dynamic> json) =>
       _i2.serializers.deserializeWith(
         GPartialFolderFieldsData.serializer,
-        json,
-      );
-}
-
-abstract class GPartialFolderFieldsData_thumbnailImage
-    implements
-        Built<GPartialFolderFieldsData_thumbnailImage,
-            GPartialFolderFieldsData_thumbnailImageBuilder>,
-        GPartialFolderFields_thumbnailImage {
-  GPartialFolderFieldsData_thumbnailImage._();
-
-  factory GPartialFolderFieldsData_thumbnailImage(
-      [Function(GPartialFolderFieldsData_thumbnailImageBuilder b)
-          updates]) = _$GPartialFolderFieldsData_thumbnailImage;
-
-  static void _initializeBuilder(
-          GPartialFolderFieldsData_thumbnailImageBuilder b) =>
-      b..G__typename = 'ImageNode';
-  @override
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  @override
-  String get id;
-  @override
-  String get downloadURL;
-  static Serializer<GPartialFolderFieldsData_thumbnailImage> get serializer =>
-      _$gPartialFolderFieldsDataThumbnailImageSerializer;
-  @override
-  Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
-        GPartialFolderFieldsData_thumbnailImage.serializer,
-        this,
-      ) as Map<String, dynamic>);
-  static GPartialFolderFieldsData_thumbnailImage? fromJson(
-          Map<String, dynamic> json) =>
-      _i2.serializers.deserializeWith(
-        GPartialFolderFieldsData_thumbnailImage.serializer,
         json,
       );
 }

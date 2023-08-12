@@ -44,7 +44,7 @@ abstract class GCreateFolderData_createFolder
       _$GCreateFolderData_createFolder;
 
   static void _initializeBuilder(GCreateFolderData_createFolderBuilder b) =>
-      b..G__typename = 'FolderNode';
+      b..G__typename = 'WorkNode';
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get id;

@@ -50,7 +50,7 @@ class CommentReportScreen extends HookConsumerWidget {
   /// レポートを送信する
   onReport(BuildContext context, GReportReason reason) async {
     FirebaseAnalytics.instance.logEvent(
-      name: 'report_user',
+      name: 'report_comment',
     );
     reportComment((builder) {
       return builder

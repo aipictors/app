@@ -27,7 +27,7 @@ class ViewerFoldersScreen extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('あなたのシリーズ'.i18n),
+        title: Text('あなたのフォルダ'.i18n),
       ),
       body: OperationBuilder(
         client: client.value!,
@@ -53,7 +53,7 @@ class ViewerFoldersScreen extends HookConsumerWidget {
               final folder = folderList[index];
               return ViewerFolderListTile(
                 title: folder.title,
-                imageURL: folder.thumbnailImage?.downloadURL,
+                imageURL: folder.thumbnailImageURL,
                 onTap: () {
                   FirebaseAnalytics.instance.logSelectContent(
                     contentType: 'folder',

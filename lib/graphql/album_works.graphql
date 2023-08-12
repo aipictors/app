@@ -1,0 +1,10 @@
+# import './fragments/partial_work_fields_fragment.graphql'
+
+query AlbumWorks($albumId: ID!, $offset: Int!, $limit: Int!) {
+  album(id: $albumId) {
+    id
+    works(offset: $offset, limit: $limit) {
+      ...PartialWorkFields
+    }
+  }
+}

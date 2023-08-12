@@ -66,19 +66,7 @@ class ConfigScreen extends HookConsumerWidget {
                 style: const TextStyle(fontWeight: FontWeight.bold),
               ),
               onTap: () {
-                context.push('/viewer/folders');
-              },
-            ),
-          if (authState.value != null)
-            ListTile(
-              leading: const Icon(Icons.bookmark_rounded),
-              trailing: const Icon(Icons.chevron_right_rounded),
-              title: Text(
-                'ブックマーク'.i18n,
-                style: const TextStyle(fontWeight: FontWeight.bold),
-              ),
-              onTap: () {
-                context.push('/viewer/bookmarked_works');
+                context.push('/viewer/albums');
               },
             ),
           if (authState.value != null)

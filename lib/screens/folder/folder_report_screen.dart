@@ -50,7 +50,7 @@ class FolderReportScreen extends HookConsumerWidget {
   /// レポートを送信する
   onReport(BuildContext context, GReportReason reason) async {
     FirebaseAnalytics.instance.logEvent(
-      name: 'report_user',
+      name: 'report_folder',
     );
     reportFolder((builder) {
       return builder

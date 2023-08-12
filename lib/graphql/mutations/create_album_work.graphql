@@ -1,0 +1,5 @@
+mutation CreateAlbumWork($input: CreateAlbumWorkInput!) {
+  createAlbumWork(input: $input) {
+    id
+  }
+}

@@ -50,7 +50,7 @@ class StickerReportScreen extends HookConsumerWidget {
   /// レポートを送信する
   onReport(BuildContext context, GReportReason reason) async {
     FirebaseAnalytics.instance.logEvent(
-      name: 'report_user',
+      name: 'report_sticker',
     );
     reportSticker((builder) {
       return builder

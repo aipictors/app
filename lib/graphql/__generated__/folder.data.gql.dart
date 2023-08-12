@@ -2,9 +2,10 @@
 // ignore_for_file: type=lint
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'package:aipictors/__generated__/schema.schema.gql.dart' as _i2;
 import 'package:aipictors/__generated__/serializers.gql.dart' as _i1;
 import 'package:aipictors/graphql/fragments/__generated__/work_user_fields_fragment.data.gql.dart'
-    as _i2;
+    as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -44,14 +45,14 @@ abstract class GFolderData_folder
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get id;
+  String get nanoid;
   String get title;
+  bool get isPrivate;
   String get description;
-  GFolderData_folder_user get user;
+  GFolderData_folder_user? get user;
   int get createdAt;
-  int get likesCount;
-  int get viewsCount;
-  GFolderData_folder_thumbnailImage? get thumbnailImage;
-  GFolderData_folder_viewer? get viewer;
+  _i2.GRating? get rating;
+  String? get thumbnailImageURL;
   static Serializer<GFolderData_folder> get serializer =>
       _$gFolderDataFolderSerializer;
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
@@ -68,7 +69,7 @@ abstract class GFolderData_folder
 abstract class GFolderData_folder_user
     implements
         Built<GFolderData_folder_user, GFolderData_folder_userBuilder>,
-        _i2.GWorkUserFields {
+        _i3.GWorkUserFields {
   GFolderData_folder_user._();
 
   factory GFolderData_folder_user(
@@ -107,7 +108,7 @@ abstract class GFolderData_folder_user_iconImage
     implements
         Built<GFolderData_folder_user_iconImage,
             GFolderData_folder_user_iconImageBuilder>,
-        _i2.GWorkUserFields_iconImage {
+        _i3.GWorkUserFields_iconImage {
   GFolderData_folder_user_iconImage._();
 
   factory GFolderData_folder_user_iconImage(
@@ -163,64 +164,6 @@ abstract class GFolderData_folder_user_viewer
   static GFolderData_folder_user_viewer? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GFolderData_folder_user_viewer.serializer,
-        json,
-      );
-}
-
-abstract class GFolderData_folder_thumbnailImage
-    implements
-        Built<GFolderData_folder_thumbnailImage,
-            GFolderData_folder_thumbnailImageBuilder> {
-  GFolderData_folder_thumbnailImage._();
-
-  factory GFolderData_folder_thumbnailImage(
-          [Function(GFolderData_folder_thumbnailImageBuilder b) updates]) =
-      _$GFolderData_folder_thumbnailImage;
-
-  static void _initializeBuilder(GFolderData_folder_thumbnailImageBuilder b) =>
-      b..G__typename = 'ImageNode';
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  String get id;
-  String get downloadURL;
-  static Serializer<GFolderData_folder_thumbnailImage> get serializer =>
-      _$gFolderDataFolderThumbnailImageSerializer;
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GFolderData_folder_thumbnailImage.serializer,
-        this,
-      ) as Map<String, dynamic>);
-  static GFolderData_folder_thumbnailImage? fromJson(
-          Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GFolderData_folder_thumbnailImage.serializer,
-        json,
-      );
-}
-
-abstract class GFolderData_folder_viewer
-    implements
-        Built<GFolderData_folder_viewer, GFolderData_folder_viewerBuilder> {
-  GFolderData_folder_viewer._();
-
-  factory GFolderData_folder_viewer(
-          [Function(GFolderData_folder_viewerBuilder b) updates]) =
-      _$GFolderData_folder_viewer;
-
-  static void _initializeBuilder(GFolderData_folder_viewerBuilder b) =>
-      b..G__typename = 'FolderViewerNode';
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  bool get isLiked;
-  bool get isWatched;
-  static Serializer<GFolderData_folder_viewer> get serializer =>
-      _$gFolderDataFolderViewerSerializer;
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GFolderData_folder_viewer.serializer,
-        this,
-      ) as Map<String, dynamic>);
-  static GFolderData_folder_viewer? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GFolderData_folder_viewer.serializer,
         json,
       );
 }

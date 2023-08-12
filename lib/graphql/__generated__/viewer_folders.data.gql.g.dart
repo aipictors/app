@@ -13,9 +13,6 @@ Serializer<GViewerFoldersData_viewer> _$gViewerFoldersDataViewerSerializer =
 Serializer<GViewerFoldersData_viewer_folders>
     _$gViewerFoldersDataViewerFoldersSerializer =
     new _$GViewerFoldersData_viewer_foldersSerializer();
-Serializer<GViewerFoldersData_viewer_folders_thumbnailImage>
-    _$gViewerFoldersDataViewerFoldersThumbnailImageSerializer =
-    new _$GViewerFoldersData_viewer_folders_thumbnailImageSerializer();
 
 class _$GViewerFoldersDataSerializer
     implements StructuredSerializer<GViewerFoldersData> {
@@ -151,24 +148,24 @@ class _$GViewerFoldersData_viewer_foldersSerializer
       'title',
       serializers.serialize(object.title,
           specifiedType: const FullType(String)),
-      'rating',
-      serializers.serialize(object.rating,
-          specifiedType: const FullType(_i3.GRating)),
-      'likesCount',
-      serializers.serialize(object.likesCount,
-          specifiedType: const FullType(int)),
-      'viewsCount',
-      serializers.serialize(object.viewsCount,
-          specifiedType: const FullType(int)),
+      'description',
+      serializers.serialize(object.description,
+          specifiedType: const FullType(String)),
     ];
     Object? value;
-    value = object.thumbnailImage;
+    value = object.rating;
     if (value != null) {
       result
-        ..add('thumbnailImage')
+        ..add('rating')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(
-                GViewerFoldersData_viewer_folders_thumbnailImage)));
+            specifiedType: const FullType(_i3.GRating)));
+    }
+    value = object.thumbnailImageURL;
+    if (value != null) {
+      result
+        ..add('thumbnailImageURL')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
     }
     return result;
   }
@@ -199,82 +196,15 @@ class _$GViewerFoldersData_viewer_foldersSerializer
           break;
         case 'rating':
           result.rating = serializers.deserialize(value,
-              specifiedType: const FullType(_i3.GRating))! as _i3.GRating;
+              specifiedType: const FullType(_i3.GRating)) as _i3.GRating?;
           break;
-        case 'likesCount':
-          result.likesCount = serializers.deserialize(value,
-              specifiedType: const FullType(int))! as int;
-          break;
-        case 'viewsCount':
-          result.viewsCount = serializers.deserialize(value,
-              specifiedType: const FullType(int))! as int;
-          break;
-        case 'thumbnailImage':
-          result.thumbnailImage.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      GViewerFoldersData_viewer_folders_thumbnailImage))!
-              as GViewerFoldersData_viewer_folders_thumbnailImage);
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GViewerFoldersData_viewer_folders_thumbnailImageSerializer
-    implements
-        StructuredSerializer<GViewerFoldersData_viewer_folders_thumbnailImage> {
-  @override
-  final Iterable<Type> types = const [
-    GViewerFoldersData_viewer_folders_thumbnailImage,
-    _$GViewerFoldersData_viewer_folders_thumbnailImage
-  ];
-  @override
-  final String wireName = 'GViewerFoldersData_viewer_folders_thumbnailImage';
-
-  @override
-  Iterable<Object?> serialize(Serializers serializers,
-      GViewerFoldersData_viewer_folders_thumbnailImage object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
-      'id',
-      serializers.serialize(object.id, specifiedType: const FullType(String)),
-      'downloadURL',
-      serializers.serialize(object.downloadURL,
-          specifiedType: const FullType(String)),
-    ];
-
-    return result;
-  }
-
-  @override
-  GViewerFoldersData_viewer_folders_thumbnailImage deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result =
-        new GViewerFoldersData_viewer_folders_thumbnailImageBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case '__typename':
-          result.G__typename = serializers.deserialize(value,
+        case 'description':
+          result.description = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
-        case 'id':
-          result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'downloadURL':
-          result.downloadURL = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
+        case 'thumbnailImageURL':
+          result.thumbnailImageURL = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
           break;
       }
     }
@@ -529,13 +459,11 @@ class _$GViewerFoldersData_viewer_folders
   @override
   final String title;
   @override
-  final _i3.GRating rating;
+  final _i3.GRating? rating;
   @override
-  final int likesCount;
+  final String description;
   @override
-  final int viewsCount;
-  @override
-  final GViewerFoldersData_viewer_folders_thumbnailImage? thumbnailImage;
+  final String? thumbnailImageURL;
 
   factory _$GViewerFoldersData_viewer_folders(
           [void Function(GViewerFoldersData_viewer_foldersBuilder)? updates]) =>
@@ -546,10 +474,9 @@ class _$GViewerFoldersData_viewer_folders
       {required this.G__typename,
       required this.id,
       required this.title,
-      required this.rating,
-      required this.likesCount,
-      required this.viewsCount,
-      this.thumbnailImage})
+      this.rating,
+      required this.description,
+      this.thumbnailImageURL})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename, r'GViewerFoldersData_viewer_folders', 'G__typename');
@@ -558,11 +485,7 @@ class _$GViewerFoldersData_viewer_folders
     BuiltValueNullFieldError.checkNotNull(
         title, r'GViewerFoldersData_viewer_folders', 'title');
     BuiltValueNullFieldError.checkNotNull(
-        rating, r'GViewerFoldersData_viewer_folders', 'rating');
-    BuiltValueNullFieldError.checkNotNull(
-        likesCount, r'GViewerFoldersData_viewer_folders', 'likesCount');
-    BuiltValueNullFieldError.checkNotNull(
-        viewsCount, r'GViewerFoldersData_viewer_folders', 'viewsCount');
+        description, r'GViewerFoldersData_viewer_folders', 'description');
   }
 
   @override
@@ -582,9 +505,8 @@ class _$GViewerFoldersData_viewer_folders
         id == other.id &&
         title == other.title &&
         rating == other.rating &&
-        likesCount == other.likesCount &&
-        viewsCount == other.viewsCount &&
-        thumbnailImage == other.thumbnailImage;
+        description == other.description &&
+        thumbnailImageURL == other.thumbnailImageURL;
   }
 
   @override
@@ -594,9 +516,8 @@ class _$GViewerFoldersData_viewer_folders
     _$hash = $jc(_$hash, id.hashCode);
     _$hash = $jc(_$hash, title.hashCode);
     _$hash = $jc(_$hash, rating.hashCode);
-    _$hash = $jc(_$hash, likesCount.hashCode);
-    _$hash = $jc(_$hash, viewsCount.hashCode);
-    _$hash = $jc(_$hash, thumbnailImage.hashCode);
+    _$hash = $jc(_$hash, description.hashCode);
+    _$hash = $jc(_$hash, thumbnailImageURL.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -608,9 +529,8 @@ class _$GViewerFoldersData_viewer_folders
           ..add('id', id)
           ..add('title', title)
           ..add('rating', rating)
-          ..add('likesCount', likesCount)
-          ..add('viewsCount', viewsCount)
-          ..add('thumbnailImage', thumbnailImage))
+          ..add('description', description)
+          ..add('thumbnailImageURL', thumbnailImageURL))
         .toString();
   }
 }
@@ -637,22 +557,14 @@ class GViewerFoldersData_viewer_foldersBuilder
   _i3.GRating? get rating => _$this._rating;
   set rating(_i3.GRating? rating) => _$this._rating = rating;
 
-  int? _likesCount;
-  int? get likesCount => _$this._likesCount;
-  set likesCount(int? likesCount) => _$this._likesCount = likesCount;
+  String? _description;
+  String? get description => _$this._description;
+  set description(String? description) => _$this._description = description;
 
-  int? _viewsCount;
-  int? get viewsCount => _$this._viewsCount;
-  set viewsCount(int? viewsCount) => _$this._viewsCount = viewsCount;
-
-  GViewerFoldersData_viewer_folders_thumbnailImageBuilder? _thumbnailImage;
-  GViewerFoldersData_viewer_folders_thumbnailImageBuilder get thumbnailImage =>
-      _$this._thumbnailImage ??=
-          new GViewerFoldersData_viewer_folders_thumbnailImageBuilder();
-  set thumbnailImage(
-          GViewerFoldersData_viewer_folders_thumbnailImageBuilder?
-              thumbnailImage) =>
-      _$this._thumbnailImage = thumbnailImage;
+  String? _thumbnailImageURL;
+  String? get thumbnailImageURL => _$this._thumbnailImageURL;
+  set thumbnailImageURL(String? thumbnailImageURL) =>
+      _$this._thumbnailImageURL = thumbnailImageURL;
 
   GViewerFoldersData_viewer_foldersBuilder() {
     GViewerFoldersData_viewer_folders._initializeBuilder(this);
@@ -665,9 +577,8 @@ class GViewerFoldersData_viewer_foldersBuilder
       _id = $v.id;
       _title = $v.title;
       _rating = $v.rating;
-      _likesCount = $v.likesCount;
-      _viewsCount = $v.viewsCount;
-      _thumbnailImage = $v.thumbnailImage?.toBuilder();
+      _description = $v.description;
+      _thumbnailImageURL = $v.thumbnailImageURL;
       _$v = null;
     }
     return this;
@@ -689,170 +600,18 @@ class GViewerFoldersData_viewer_foldersBuilder
   GViewerFoldersData_viewer_folders build() => _build();
 
   _$GViewerFoldersData_viewer_folders _build() {
-    _$GViewerFoldersData_viewer_folders _$result;
-    try {
-      _$result = _$v ??
-          new _$GViewerFoldersData_viewer_folders._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
-                  r'GViewerFoldersData_viewer_folders', 'G__typename'),
-              id: BuiltValueNullFieldError.checkNotNull(
-                  id, r'GViewerFoldersData_viewer_folders', 'id'),
-              title: BuiltValueNullFieldError.checkNotNull(
-                  title, r'GViewerFoldersData_viewer_folders', 'title'),
-              rating: BuiltValueNullFieldError.checkNotNull(
-                  rating, r'GViewerFoldersData_viewer_folders', 'rating'),
-              likesCount: BuiltValueNullFieldError.checkNotNull(likesCount,
-                  r'GViewerFoldersData_viewer_folders', 'likesCount'),
-              viewsCount: BuiltValueNullFieldError.checkNotNull(viewsCount,
-                  r'GViewerFoldersData_viewer_folders', 'viewsCount'),
-              thumbnailImage: _thumbnailImage?.build());
-    } catch (_) {
-      late String _$failedField;
-      try {
-        _$failedField = 'thumbnailImage';
-        _thumbnailImage?.build();
-      } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'GViewerFoldersData_viewer_folders', _$failedField, e.toString());
-      }
-      rethrow;
-    }
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GViewerFoldersData_viewer_folders_thumbnailImage
-    extends GViewerFoldersData_viewer_folders_thumbnailImage {
-  @override
-  final String G__typename;
-  @override
-  final String id;
-  @override
-  final String downloadURL;
-
-  factory _$GViewerFoldersData_viewer_folders_thumbnailImage(
-          [void Function(
-                  GViewerFoldersData_viewer_folders_thumbnailImageBuilder)?
-              updates]) =>
-      (new GViewerFoldersData_viewer_folders_thumbnailImageBuilder()
-            ..update(updates))
-          ._build();
-
-  _$GViewerFoldersData_viewer_folders_thumbnailImage._(
-      {required this.G__typename, required this.id, required this.downloadURL})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(G__typename,
-        r'GViewerFoldersData_viewer_folders_thumbnailImage', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(
-        id, r'GViewerFoldersData_viewer_folders_thumbnailImage', 'id');
-    BuiltValueNullFieldError.checkNotNull(downloadURL,
-        r'GViewerFoldersData_viewer_folders_thumbnailImage', 'downloadURL');
-  }
-
-  @override
-  GViewerFoldersData_viewer_folders_thumbnailImage rebuild(
-          void Function(GViewerFoldersData_viewer_folders_thumbnailImageBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GViewerFoldersData_viewer_folders_thumbnailImageBuilder toBuilder() =>
-      new GViewerFoldersData_viewer_folders_thumbnailImageBuilder()
-        ..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GViewerFoldersData_viewer_folders_thumbnailImage &&
-        G__typename == other.G__typename &&
-        id == other.id &&
-        downloadURL == other.downloadURL;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, id.hashCode);
-    _$hash = $jc(_$hash, downloadURL.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(
-            r'GViewerFoldersData_viewer_folders_thumbnailImage')
-          ..add('G__typename', G__typename)
-          ..add('id', id)
-          ..add('downloadURL', downloadURL))
-        .toString();
-  }
-}
-
-class GViewerFoldersData_viewer_folders_thumbnailImageBuilder
-    implements
-        Builder<GViewerFoldersData_viewer_folders_thumbnailImage,
-            GViewerFoldersData_viewer_folders_thumbnailImageBuilder> {
-  _$GViewerFoldersData_viewer_folders_thumbnailImage? _$v;
-
-  String? _G__typename;
-  String? get G__typename => _$this._G__typename;
-  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
-
-  String? _id;
-  String? get id => _$this._id;
-  set id(String? id) => _$this._id = id;
-
-  String? _downloadURL;
-  String? get downloadURL => _$this._downloadURL;
-  set downloadURL(String? downloadURL) => _$this._downloadURL = downloadURL;
-
-  GViewerFoldersData_viewer_folders_thumbnailImageBuilder() {
-    GViewerFoldersData_viewer_folders_thumbnailImage._initializeBuilder(this);
-  }
-
-  GViewerFoldersData_viewer_folders_thumbnailImageBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _G__typename = $v.G__typename;
-      _id = $v.id;
-      _downloadURL = $v.downloadURL;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GViewerFoldersData_viewer_folders_thumbnailImage other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GViewerFoldersData_viewer_folders_thumbnailImage;
-  }
-
-  @override
-  void update(
-      void Function(GViewerFoldersData_viewer_folders_thumbnailImageBuilder)?
-          updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GViewerFoldersData_viewer_folders_thumbnailImage build() => _build();
-
-  _$GViewerFoldersData_viewer_folders_thumbnailImage _build() {
     final _$result = _$v ??
-        new _$GViewerFoldersData_viewer_folders_thumbnailImage._(
-            G__typename: BuiltValueNullFieldError.checkNotNull(
-                G__typename,
-                r'GViewerFoldersData_viewer_folders_thumbnailImage',
-                'G__typename'),
+        new _$GViewerFoldersData_viewer_folders._(
+            G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
+                r'GViewerFoldersData_viewer_folders', 'G__typename'),
             id: BuiltValueNullFieldError.checkNotNull(
-                id, r'GViewerFoldersData_viewer_folders_thumbnailImage', 'id'),
-            downloadURL: BuiltValueNullFieldError.checkNotNull(
-                downloadURL,
-                r'GViewerFoldersData_viewer_folders_thumbnailImage',
-                'downloadURL'));
+                id, r'GViewerFoldersData_viewer_folders', 'id'),
+            title: BuiltValueNullFieldError.checkNotNull(
+                title, r'GViewerFoldersData_viewer_folders', 'title'),
+            rating: rating,
+            description: BuiltValueNullFieldError.checkNotNull(description,
+                r'GViewerFoldersData_viewer_folders', 'description'),
+            thumbnailImageURL: thumbnailImageURL);
     replace(_$result);
     return _$result;
   }

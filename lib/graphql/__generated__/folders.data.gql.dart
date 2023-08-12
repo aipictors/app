@@ -58,14 +58,12 @@ abstract class GFoldersData_folders
   @override
   String get title;
   @override
-  _i3.GRating get rating;
+  _i3.GRating? get rating;
   @override
-  int get likesCount;
+  String get description;
   @override
-  int get viewsCount;
-  @override
-  GFoldersData_folders_thumbnailImage? get thumbnailImage;
-  GFoldersData_folders_user get user;
+  String? get thumbnailImageURL;
+  GFoldersData_folders_user? get user;
   static Serializer<GFoldersData_folders> get serializer =>
       _$gFoldersDataFoldersSerializer;
   @override
@@ -76,42 +74,6 @@ abstract class GFoldersData_folders
   static GFoldersData_folders? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GFoldersData_folders.serializer,
-        json,
-      );
-}
-
-abstract class GFoldersData_folders_thumbnailImage
-    implements
-        Built<GFoldersData_folders_thumbnailImage,
-            GFoldersData_folders_thumbnailImageBuilder>,
-        _i2.GPartialFolderFields_thumbnailImage {
-  GFoldersData_folders_thumbnailImage._();
-
-  factory GFoldersData_folders_thumbnailImage(
-          [Function(GFoldersData_folders_thumbnailImageBuilder b) updates]) =
-      _$GFoldersData_folders_thumbnailImage;
-
-  static void _initializeBuilder(
-          GFoldersData_folders_thumbnailImageBuilder b) =>
-      b..G__typename = 'ImageNode';
-  @override
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  @override
-  String get id;
-  @override
-  String get downloadURL;
-  static Serializer<GFoldersData_folders_thumbnailImage> get serializer =>
-      _$gFoldersDataFoldersThumbnailImageSerializer;
-  @override
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GFoldersData_folders_thumbnailImage.serializer,
-        this,
-      ) as Map<String, dynamic>);
-  static GFoldersData_folders_thumbnailImage? fromJson(
-          Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GFoldersData_folders_thumbnailImage.serializer,
         json,
       );
 }

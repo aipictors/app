@@ -115,20 +115,6 @@ class GNotificationType extends EnumClass {
       _$gNotificationTypeValueOf(name);
 }
 
-class GPostType extends EnumClass {
-  const GPostType._(String name) : super(name);
-
-  static const GPostType WORK = _$gPostTypeWORK;
-
-  static const GPostType NOVEL = _$gPostTypeNOVEL;
-
-  static const GPostType NOTE = _$gPostTypeNOTE;
-
-  static Serializer<GPostType> get serializer => _$gPostTypeSerializer;
-  static BuiltSet<GPostType> get values => _$gPostTypeValues;
-  static GPostType valueOf(String name) => _$gPostTypeValueOf(name);
-}
-
 class GRating extends EnumClass {
   const GRating._(String name) : super(name);
 
@@ -161,6 +147,20 @@ class GReportReason extends EnumClass {
   static Serializer<GReportReason> get serializer => _$gReportReasonSerializer;
   static BuiltSet<GReportReason> get values => _$gReportReasonValues;
   static GReportReason valueOf(String name) => _$gReportReasonValueOf(name);
+}
+
+class GWorkType extends EnumClass {
+  const GWorkType._(String name) : super(name);
+
+  static const GWorkType WORK = _$gWorkTypeWORK;
+
+  static const GWorkType NOVEL = _$gWorkTypeNOVEL;
+
+  static const GWorkType VIDEO = _$gWorkTypeVIDEO;
+
+  static Serializer<GWorkType> get serializer => _$gWorkTypeSerializer;
+  static BuiltSet<GWorkType> get values => _$gWorkTypeValues;
+  static GWorkType valueOf(String name) => _$gWorkTypeValueOf(name);
 }
 
 abstract class GAcceptPromptonRequestInput
@@ -235,6 +235,27 @@ abstract class GAddPromptonWorkToFolderInput
       );
 }
 
+abstract class GAlbumsWhereInput
+    implements Built<GAlbumsWhereInput, GAlbumsWhereInputBuilder> {
+  GAlbumsWhereInput._();
+
+  factory GAlbumsWhereInput([Function(GAlbumsWhereInputBuilder b) updates]) =
+      _$GAlbumsWhereInput;
+
+  String? get search;
+  static Serializer<GAlbumsWhereInput> get serializer =>
+      _$gAlbumsWhereInputSerializer;
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GAlbumsWhereInput.serializer,
+        this,
+      ) as Map<String, dynamic>);
+  static GAlbumsWhereInput? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GAlbumsWhereInput.serializer,
+        json,
+      );
+}
+
 abstract class GAwardsWhereInput
     implements Built<GAwardsWhereInput, GAwardsWhereInputBuilder> {
   GAwardsWhereInput._();
@@ -243,7 +264,7 @@ abstract class GAwardsWhereInput
       _$GAwardsWhereInput;
 
   GAwardType? get type;
-  GPostType? get postType;
+  GWorkType? get workType;
   String? get date;
   int? get year;
   int? get month;
@@ -377,6 +398,50 @@ abstract class GCreateAccountInput
       );
 }
 
+abstract class GCreateAlbumInput
+    implements Built<GCreateAlbumInput, GCreateAlbumInputBuilder> {
+  GCreateAlbumInput._();
+
+  factory GCreateAlbumInput([Function(GCreateAlbumInputBuilder b) updates]) =
+      _$GCreateAlbumInput;
+
+  String get title;
+  static Serializer<GCreateAlbumInput> get serializer =>
+      _$gCreateAlbumInputSerializer;
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GCreateAlbumInput.serializer,
+        this,
+      ) as Map<String, dynamic>);
+  static GCreateAlbumInput? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GCreateAlbumInput.serializer,
+        json,
+      );
+}
+
+abstract class GCreateAlbumWorkInput
+    implements Built<GCreateAlbumWorkInput, GCreateAlbumWorkInputBuilder> {
+  GCreateAlbumWorkInput._();
+
+  factory GCreateAlbumWorkInput(
+          [Function(GCreateAlbumWorkInputBuilder b) updates]) =
+      _$GCreateAlbumWorkInput;
+
+  String get albumId;
+  String get workId;
+  static Serializer<GCreateAlbumWorkInput> get serializer =>
+      _$gCreateAlbumWorkInputSerializer;
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GCreateAlbumWorkInput.serializer,
+        this,
+      ) as Map<String, dynamic>);
+  static GCreateAlbumWorkInput? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GCreateAlbumWorkInput.serializer,
+        json,
+      );
+}
+
 abstract class GCreateFolderInput
     implements Built<GCreateFolderInput, GCreateFolderInputBuilder> {
   GCreateFolderInput._();
@@ -394,6 +459,29 @@ abstract class GCreateFolderInput
   static GCreateFolderInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GCreateFolderInput.serializer,
+        json,
+      );
+}
+
+abstract class GCreateFolderWorkInput
+    implements Built<GCreateFolderWorkInput, GCreateFolderWorkInputBuilder> {
+  GCreateFolderWorkInput._();
+
+  factory GCreateFolderWorkInput(
+          [Function(GCreateFolderWorkInputBuilder b) updates]) =
+      _$GCreateFolderWorkInput;
+
+  String get folderId;
+  String get workId;
+  static Serializer<GCreateFolderWorkInput> get serializer =>
+      _$gCreateFolderWorkInputSerializer;
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GCreateFolderWorkInput.serializer,
+        this,
+      ) as Map<String, dynamic>);
+  static GCreateFolderWorkInput? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GCreateFolderWorkInput.serializer,
         json,
       );
 }
@@ -876,6 +964,32 @@ abstract class GCreatePromptonThumbnailFileInput
       );
 }
 
+abstract class GCreatePromptonUserFromTokenInput
+    implements
+        Built<GCreatePromptonUserFromTokenInput,
+            GCreatePromptonUserFromTokenInputBuilder> {
+  GCreatePromptonUserFromTokenInput._();
+
+  factory GCreatePromptonUserFromTokenInput(
+          [Function(GCreatePromptonUserFromTokenInputBuilder b) updates]) =
+      _$GCreatePromptonUserFromTokenInput;
+
+  String get token;
+  String get userId;
+  static Serializer<GCreatePromptonUserFromTokenInput> get serializer =>
+      _$gCreatePromptonUserFromTokenInputSerializer;
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GCreatePromptonUserFromTokenInput.serializer,
+        this,
+      ) as Map<String, dynamic>);
+  static GCreatePromptonUserFromTokenInput? fromJson(
+          Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GCreatePromptonUserFromTokenInput.serializer,
+        json,
+      );
+}
+
 abstract class GCreatePromptonUserInput
     implements
         Built<GCreatePromptonUserInput, GCreatePromptonUserInputBuilder> {
@@ -1068,29 +1182,6 @@ abstract class GCreateStickerInput
       );
 }
 
-abstract class GCreateWorkBookmarkInput
-    implements
-        Built<GCreateWorkBookmarkInput, GCreateWorkBookmarkInputBuilder> {
-  GCreateWorkBookmarkInput._();
-
-  factory GCreateWorkBookmarkInput(
-          [Function(GCreateWorkBookmarkInputBuilder b) updates]) =
-      _$GCreateWorkBookmarkInput;
-
-  String get workId;
-  static Serializer<GCreateWorkBookmarkInput> get serializer =>
-      _$gCreateWorkBookmarkInputSerializer;
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GCreateWorkBookmarkInput.serializer,
-        this,
-      ) as Map<String, dynamic>);
-  static GCreateWorkBookmarkInput? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GCreateWorkBookmarkInput.serializer,
-        json,
-      );
-}
-
 abstract class GCreateWorkCommentInput
     implements Built<GCreateWorkCommentInput, GCreateWorkCommentInputBuilder> {
   GCreateWorkCommentInput._();
@@ -1232,6 +1323,50 @@ abstract class GDecrementPromptonProfileBlockIndexInput
       );
 }
 
+abstract class GDeleteAlbumInput
+    implements Built<GDeleteAlbumInput, GDeleteAlbumInputBuilder> {
+  GDeleteAlbumInput._();
+
+  factory GDeleteAlbumInput([Function(GDeleteAlbumInputBuilder b) updates]) =
+      _$GDeleteAlbumInput;
+
+  String get albumId;
+  static Serializer<GDeleteAlbumInput> get serializer =>
+      _$gDeleteAlbumInputSerializer;
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GDeleteAlbumInput.serializer,
+        this,
+      ) as Map<String, dynamic>);
+  static GDeleteAlbumInput? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GDeleteAlbumInput.serializer,
+        json,
+      );
+}
+
+abstract class GDeleteAlbumWorkInput
+    implements Built<GDeleteAlbumWorkInput, GDeleteAlbumWorkInputBuilder> {
+  GDeleteAlbumWorkInput._();
+
+  factory GDeleteAlbumWorkInput(
+          [Function(GDeleteAlbumWorkInputBuilder b) updates]) =
+      _$GDeleteAlbumWorkInput;
+
+  String get albumId;
+  String get workId;
+  static Serializer<GDeleteAlbumWorkInput> get serializer =>
+      _$gDeleteAlbumWorkInputSerializer;
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GDeleteAlbumWorkInput.serializer,
+        this,
+      ) as Map<String, dynamic>);
+  static GDeleteAlbumWorkInput? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GDeleteAlbumWorkInput.serializer,
+        json,
+      );
+}
+
 abstract class GDeleteCommentInput
     implements Built<GDeleteCommentInput, GDeleteCommentInputBuilder> {
   GDeleteCommentInput._();
@@ -1270,6 +1405,29 @@ abstract class GDeleteFolderInput
   static GDeleteFolderInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GDeleteFolderInput.serializer,
+        json,
+      );
+}
+
+abstract class GDeleteFolderWorkInput
+    implements Built<GDeleteFolderWorkInput, GDeleteFolderWorkInputBuilder> {
+  GDeleteFolderWorkInput._();
+
+  factory GDeleteFolderWorkInput(
+          [Function(GDeleteFolderWorkInputBuilder b) updates]) =
+      _$GDeleteFolderWorkInput;
+
+  String get folderId;
+  String get workId;
+  static Serializer<GDeleteFolderWorkInput> get serializer =>
+      _$gDeleteFolderWorkInputSerializer;
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GDeleteFolderWorkInput.serializer,
+        this,
+      ) as Map<String, dynamic>);
+  static GDeleteFolderWorkInput? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GDeleteFolderWorkInput.serializer,
         json,
       );
 }
@@ -1535,29 +1693,6 @@ abstract class GDeleteStickerInput
       );
 }
 
-abstract class GDeleteWorkBookmarkInput
-    implements
-        Built<GDeleteWorkBookmarkInput, GDeleteWorkBookmarkInputBuilder> {
-  GDeleteWorkBookmarkInput._();
-
-  factory GDeleteWorkBookmarkInput(
-          [Function(GDeleteWorkBookmarkInputBuilder b) updates]) =
-      _$GDeleteWorkBookmarkInput;
-
-  String get workId;
-  static Serializer<GDeleteWorkBookmarkInput> get serializer =>
-      _$gDeleteWorkBookmarkInputSerializer;
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GDeleteWorkBookmarkInput.serializer,
-        this,
-      ) as Map<String, dynamic>);
-  static GDeleteWorkBookmarkInput? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GDeleteWorkBookmarkInput.serializer,
-        json,
-      );
-}
-
 abstract class GDeleteWorkInput
     implements Built<GDeleteWorkInput, GDeleteWorkInputBuilder> {
   GDeleteWorkInput._();
@@ -1714,27 +1849,6 @@ abstract class GIncrementPromptonProfileBlockIndexInput
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GIncrementPromptonProfileBlockIndexInput.serializer,
-        json,
-      );
-}
-
-abstract class GLoginPromptonInput
-    implements Built<GLoginPromptonInput, GLoginPromptonInputBuilder> {
-  GLoginPromptonInput._();
-
-  factory GLoginPromptonInput(
-      [Function(GLoginPromptonInputBuilder b) updates]) = _$GLoginPromptonInput;
-
-  String get token;
-  static Serializer<GLoginPromptonInput> get serializer =>
-      _$gLoginPromptonInputSerializer;
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GLoginPromptonInput.serializer,
-        this,
-      ) as Map<String, dynamic>);
-  static GLoginPromptonInput? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GLoginPromptonInput.serializer,
         json,
       );
 }
@@ -2030,6 +2144,7 @@ abstract class GPromptonFoldersWhereInput
 
   String? get userId;
   String? get search;
+  bool? get isPaid;
   static Serializer<GPromptonFoldersWhereInput> get serializer =>
       _$gPromptonFoldersWhereInputSerializer;
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
@@ -2303,6 +2418,28 @@ abstract class GRemovePromptonWorkFromFolderInput
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GRemovePromptonWorkFromFolderInput.serializer,
+        json,
+      );
+}
+
+abstract class GReportAlbumInput
+    implements Built<GReportAlbumInput, GReportAlbumInputBuilder> {
+  GReportAlbumInput._();
+
+  factory GReportAlbumInput([Function(GReportAlbumInputBuilder b) updates]) =
+      _$GReportAlbumInput;
+
+  String get albumId;
+  GReportReason get reason;
+  static Serializer<GReportAlbumInput> get serializer =>
+      _$gReportAlbumInputSerializer;
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GReportAlbumInput.serializer,
+        this,
+      ) as Map<String, dynamic>);
+  static GReportAlbumInput? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GReportAlbumInput.serializer,
         json,
       );
 }
@@ -2591,6 +2728,27 @@ abstract class GUnpinPromptonWorkInput
       );
 }
 
+abstract class GUnwatchFolderInput
+    implements Built<GUnwatchFolderInput, GUnwatchFolderInputBuilder> {
+  GUnwatchFolderInput._();
+
+  factory GUnwatchFolderInput(
+      [Function(GUnwatchFolderInputBuilder b) updates]) = _$GUnwatchFolderInput;
+
+  String get userId;
+  static Serializer<GUnwatchFolderInput> get serializer =>
+      _$gUnwatchFolderInputSerializer;
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GUnwatchFolderInput.serializer,
+        this,
+      ) as Map<String, dynamic>);
+  static GUnwatchFolderInput? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GUnwatchFolderInput.serializer,
+        json,
+      );
+}
+
 abstract class GUpdateAccountLoginInput
     implements
         Built<GUpdateAccountLoginInput, GUpdateAccountLoginInputBuilder> {
@@ -2638,6 +2796,27 @@ abstract class GUpdateAccountPasswordInput
       );
 }
 
+abstract class GUpdateAlbumInput
+    implements Built<GUpdateAlbumInput, GUpdateAlbumInputBuilder> {
+  GUpdateAlbumInput._();
+
+  factory GUpdateAlbumInput([Function(GUpdateAlbumInputBuilder b) updates]) =
+      _$GUpdateAlbumInput;
+
+  String get albumId;
+  static Serializer<GUpdateAlbumInput> get serializer =>
+      _$gUpdateAlbumInputSerializer;
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GUpdateAlbumInput.serializer,
+        this,
+      ) as Map<String, dynamic>);
+  static GUpdateAlbumInput? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GUpdateAlbumInput.serializer,
+        json,
+      );
+}
+
 abstract class GUpdateFolderInput
     implements Built<GUpdateFolderInput, GUpdateFolderInputBuilder> {
   GUpdateFolderInput._();
@@ -2646,6 +2825,7 @@ abstract class GUpdateFolderInput
       _$GUpdateFolderInput;
 
   String get folderId;
+  String get title;
   static Serializer<GUpdateFolderInput> get serializer =>
       _$gUpdateFolderInputSerializer;
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
@@ -3004,52 +3184,6 @@ abstract class GUpdateStickerInput
       );
 }
 
-abstract class GUpdateUserLoginInput
-    implements Built<GUpdateUserLoginInput, GUpdateUserLoginInputBuilder> {
-  GUpdateUserLoginInput._();
-
-  factory GUpdateUserLoginInput(
-          [Function(GUpdateUserLoginInputBuilder b) updates]) =
-      _$GUpdateUserLoginInput;
-
-  String get login;
-  static Serializer<GUpdateUserLoginInput> get serializer =>
-      _$gUpdateUserLoginInputSerializer;
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GUpdateUserLoginInput.serializer,
-        this,
-      ) as Map<String, dynamic>);
-  static GUpdateUserLoginInput? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GUpdateUserLoginInput.serializer,
-        json,
-      );
-}
-
-abstract class GUpdateUserPasswordInput
-    implements
-        Built<GUpdateUserPasswordInput, GUpdateUserPasswordInputBuilder> {
-  GUpdateUserPasswordInput._();
-
-  factory GUpdateUserPasswordInput(
-          [Function(GUpdateUserPasswordInputBuilder b) updates]) =
-      _$GUpdateUserPasswordInput;
-
-  String get password;
-  String get currentPassword;
-  static Serializer<GUpdateUserPasswordInput> get serializer =>
-      _$gUpdateUserPasswordInputSerializer;
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GUpdateUserPasswordInput.serializer,
-        this,
-      ) as Map<String, dynamic>);
-  static GUpdateUserPasswordInput? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GUpdateUserPasswordInput.serializer,
-        json,
-      );
-}
-
 abstract class GUpdateUserProfileInput
     implements Built<GUpdateUserProfileInput, GUpdateUserProfileInputBuilder> {
   GUpdateUserProfileInput._();
@@ -3138,6 +3272,27 @@ abstract class GUserWorksWhereInput
       );
 }
 
+abstract class GWatchFolderInput
+    implements Built<GWatchFolderInput, GWatchFolderInputBuilder> {
+  GWatchFolderInput._();
+
+  factory GWatchFolderInput([Function(GWatchFolderInputBuilder b) updates]) =
+      _$GWatchFolderInput;
+
+  String get folderId;
+  static Serializer<GWatchFolderInput> get serializer =>
+      _$gWatchFolderInputSerializer;
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GWatchFolderInput.serializer,
+        this,
+      ) as Map<String, dynamic>);
+  static GWatchFolderInput? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GWatchFolderInput.serializer,
+        json,
+      );
+}
+
 abstract class GWorkAwardsWhereInput
     implements Built<GWorkAwardsWhereInput, GWorkAwardsWhereInputBuilder> {
   GWorkAwardsWhereInput._();
@@ -3189,16 +3344,16 @@ abstract class GWorksWhereInput
 
 const Map<String, Set<String>> possibleTypesMap = {
   'Node': {
+    'AlbumLikeNode',
+    'AlbumNode',
+    'AlbumViewerNode',
     'CategoryNode',
     'CategoryViewerNode',
     'CommentNode',
     'ContributorNode',
     'DailyThemeNode',
-    'FolderLikeNode',
     'FolderNode',
-    'FolderViewerNode',
     'FollowNotificationNode',
-    'FriendshipNode',
     'ImageGeneratorNode',
     'ImageNode',
     'LikedWorkNotificationNode',
@@ -3240,7 +3395,6 @@ const Map<String, Set<String>> possibleTypesMap = {
     'UserViewerNode',
     'WorkAwardNode',
     'WorkAwardNotificationNode',
-    'WorkBookmarkNode',
     'WorkCommentNotificationNode',
     'WorkCommentReplyNotificationNode',
     'WorkEventNode',

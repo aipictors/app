@@ -190,30 +190,6 @@ final BuiltSet<GNotificationType> _$gNotificationTypeValues =
   _$gNotificationTypeFOLLOW,
 ]);
 
-const GPostType _$gPostTypeWORK = const GPostType._('WORK');
-const GPostType _$gPostTypeNOVEL = const GPostType._('NOVEL');
-const GPostType _$gPostTypeNOTE = const GPostType._('NOTE');
-
-GPostType _$gPostTypeValueOf(String name) {
-  switch (name) {
-    case 'WORK':
-      return _$gPostTypeWORK;
-    case 'NOVEL':
-      return _$gPostTypeNOVEL;
-    case 'NOTE':
-      return _$gPostTypeNOTE;
-    default:
-      throw new ArgumentError(name);
-  }
-}
-
-final BuiltSet<GPostType> _$gPostTypeValues =
-    new BuiltSet<GPostType>(const <GPostType>[
-  _$gPostTypeWORK,
-  _$gPostTypeNOVEL,
-  _$gPostTypeNOTE,
-]);
-
 const GRating _$gRatingG = const GRating._('G');
 const GRating _$gRatingR15 = const GRating._('R15');
 const GRating _$gRatingR18 = const GRating._('R18');
@@ -275,6 +251,30 @@ final BuiltSet<GReportReason> _$gReportReasonValues =
   _$gReportReasonOTHER,
 ]);
 
+const GWorkType _$gWorkTypeWORK = const GWorkType._('WORK');
+const GWorkType _$gWorkTypeNOVEL = const GWorkType._('NOVEL');
+const GWorkType _$gWorkTypeVIDEO = const GWorkType._('VIDEO');
+
+GWorkType _$gWorkTypeValueOf(String name) {
+  switch (name) {
+    case 'WORK':
+      return _$gWorkTypeWORK;
+    case 'NOVEL':
+      return _$gWorkTypeNOVEL;
+    case 'VIDEO':
+      return _$gWorkTypeVIDEO;
+    default:
+      throw new ArgumentError(name);
+  }
+}
+
+final BuiltSet<GWorkType> _$gWorkTypeValues =
+    new BuiltSet<GWorkType>(const <GWorkType>[
+  _$gWorkTypeWORK,
+  _$gWorkTypeNOVEL,
+  _$gWorkTypeVIDEO,
+]);
+
 Serializer<GAccessType> _$gAccessTypeSerializer = new _$GAccessTypeSerializer();
 Serializer<GAwardType> _$gAwardTypeSerializer = new _$GAwardTypeSerializer();
 Serializer<GCacheControlScope> _$gCacheControlScopeSerializer =
@@ -284,10 +284,10 @@ Serializer<GContributorType> _$gContributorTypeSerializer =
 Serializer<GFolderMode> _$gFolderModeSerializer = new _$GFolderModeSerializer();
 Serializer<GNotificationType> _$gNotificationTypeSerializer =
     new _$GNotificationTypeSerializer();
-Serializer<GPostType> _$gPostTypeSerializer = new _$GPostTypeSerializer();
 Serializer<GRating> _$gRatingSerializer = new _$GRatingSerializer();
 Serializer<GReportReason> _$gReportReasonSerializer =
     new _$GReportReasonSerializer();
+Serializer<GWorkType> _$gWorkTypeSerializer = new _$GWorkTypeSerializer();
 Serializer<GAcceptPromptonRequestInput>
     _$gAcceptPromptonRequestInputSerializer =
     new _$GAcceptPromptonRequestInputSerializer();
@@ -296,6 +296,8 @@ Serializer<GAddPromptonTagToWorkInput> _$gAddPromptonTagToWorkInputSerializer =
 Serializer<GAddPromptonWorkToFolderInput>
     _$gAddPromptonWorkToFolderInputSerializer =
     new _$GAddPromptonWorkToFolderInputSerializer();
+Serializer<GAlbumsWhereInput> _$gAlbumsWhereInputSerializer =
+    new _$GAlbumsWhereInputSerializer();
 Serializer<GAwardsWhereInput> _$gAwardsWhereInputSerializer =
     new _$GAwardsWhereInputSerializer();
 Serializer<GBlockPromptonUserInput> _$gBlockPromptonUserInputSerializer =
@@ -310,8 +312,14 @@ Serializer<GClosePromptonRequestInput> _$gClosePromptonRequestInputSerializer =
     new _$GClosePromptonRequestInputSerializer();
 Serializer<GCreateAccountInput> _$gCreateAccountInputSerializer =
     new _$GCreateAccountInputSerializer();
+Serializer<GCreateAlbumInput> _$gCreateAlbumInputSerializer =
+    new _$GCreateAlbumInputSerializer();
+Serializer<GCreateAlbumWorkInput> _$gCreateAlbumWorkInputSerializer =
+    new _$GCreateAlbumWorkInputSerializer();
 Serializer<GCreateFolderInput> _$gCreateFolderInputSerializer =
     new _$GCreateFolderInputSerializer();
+Serializer<GCreateFolderWorkInput> _$gCreateFolderWorkInputSerializer =
+    new _$GCreateFolderWorkInputSerializer();
 Serializer<GCreatePromptonChatMessageInput>
     _$gCreatePromptonChatMessageInputSerializer =
     new _$GCreatePromptonChatMessageInputSerializer();
@@ -362,6 +370,9 @@ Serializer<GCreatePromptonReactionInput>
 Serializer<GCreatePromptonThumbnailFileInput>
     _$gCreatePromptonThumbnailFileInputSerializer =
     new _$GCreatePromptonThumbnailFileInputSerializer();
+Serializer<GCreatePromptonUserFromTokenInput>
+    _$gCreatePromptonUserFromTokenInputSerializer =
+    new _$GCreatePromptonUserFromTokenInputSerializer();
 Serializer<GCreatePromptonUserInput> _$gCreatePromptonUserInputSerializer =
     new _$GCreatePromptonUserInputSerializer();
 Serializer<GCreatePromptonUserViewInput>
@@ -383,8 +394,6 @@ Serializer<GCreateResponseCommentInput>
     new _$GCreateResponseCommentInputSerializer();
 Serializer<GCreateStickerInput> _$gCreateStickerInputSerializer =
     new _$GCreateStickerInputSerializer();
-Serializer<GCreateWorkBookmarkInput> _$gCreateWorkBookmarkInputSerializer =
-    new _$GCreateWorkBookmarkInputSerializer();
 Serializer<GCreateWorkCommentInput> _$gCreateWorkCommentInputSerializer =
     new _$GCreateWorkCommentInputSerializer();
 Serializer<GCreateWorkInput> _$gCreateWorkInputSerializer =
@@ -398,10 +407,16 @@ Serializer<GDecrementPromptonPlanSort> _$gDecrementPromptonPlanSortSerializer =
 Serializer<GDecrementPromptonProfileBlockIndexInput>
     _$gDecrementPromptonProfileBlockIndexInputSerializer =
     new _$GDecrementPromptonProfileBlockIndexInputSerializer();
+Serializer<GDeleteAlbumInput> _$gDeleteAlbumInputSerializer =
+    new _$GDeleteAlbumInputSerializer();
+Serializer<GDeleteAlbumWorkInput> _$gDeleteAlbumWorkInputSerializer =
+    new _$GDeleteAlbumWorkInputSerializer();
 Serializer<GDeleteCommentInput> _$gDeleteCommentInputSerializer =
     new _$GDeleteCommentInputSerializer();
 Serializer<GDeleteFolderInput> _$gDeleteFolderInputSerializer =
     new _$GDeleteFolderInputSerializer();
+Serializer<GDeleteFolderWorkInput> _$gDeleteFolderWorkInputSerializer =
+    new _$GDeleteFolderWorkInputSerializer();
 Serializer<GDeletePromptonFolderInput> _$gDeletePromptonFolderInputSerializer =
     new _$GDeletePromptonFolderInputSerializer();
 Serializer<GDeletePromptonIntegrationInput>
@@ -430,8 +445,6 @@ Serializer<GDeletePromptonWorkLikeInput>
     new _$GDeletePromptonWorkLikeInputSerializer();
 Serializer<GDeleteStickerInput> _$gDeleteStickerInputSerializer =
     new _$GDeleteStickerInputSerializer();
-Serializer<GDeleteWorkBookmarkInput> _$gDeleteWorkBookmarkInputSerializer =
-    new _$GDeleteWorkBookmarkInputSerializer();
 Serializer<GDeleteWorkInput> _$gDeleteWorkInputSerializer =
     new _$GDeleteWorkInputSerializer();
 Serializer<GDeleteWorkLikeInput> _$gDeleteWorkLikeInputSerializer =
@@ -448,8 +461,6 @@ Serializer<GFollowUserInput> _$gFollowUserInputSerializer =
 Serializer<GIncrementPromptonProfileBlockIndexInput>
     _$gIncrementPromptonProfileBlockIndexInputSerializer =
     new _$GIncrementPromptonProfileBlockIndexInputSerializer();
-Serializer<GLoginPromptonInput> _$gLoginPromptonInputSerializer =
-    new _$GLoginPromptonInputSerializer();
 Serializer<GLoginWithPasswordInput> _$gLoginWithPasswordInputSerializer =
     new _$GLoginWithPasswordInputSerializer();
 Serializer<GMarkPromptonFolderAsPrivateInput>
@@ -511,6 +522,8 @@ Serializer<GRemovePromptonTagFromWorkInput>
 Serializer<GRemovePromptonWorkFromFolderInput>
     _$gRemovePromptonWorkFromFolderInputSerializer =
     new _$GRemovePromptonWorkFromFolderInputSerializer();
+Serializer<GReportAlbumInput> _$gReportAlbumInputSerializer =
+    new _$GReportAlbumInputSerializer();
 Serializer<GReportCommentInput> _$gReportCommentInputSerializer =
     new _$GReportCommentInputSerializer();
 Serializer<GReportFolderInput> _$gReportFolderInputSerializer =
@@ -538,11 +551,15 @@ Serializer<GUnmuteUserInput> _$gUnmuteUserInputSerializer =
     new _$GUnmuteUserInputSerializer();
 Serializer<GUnpinPromptonWorkInput> _$gUnpinPromptonWorkInputSerializer =
     new _$GUnpinPromptonWorkInputSerializer();
+Serializer<GUnwatchFolderInput> _$gUnwatchFolderInputSerializer =
+    new _$GUnwatchFolderInputSerializer();
 Serializer<GUpdateAccountLoginInput> _$gUpdateAccountLoginInputSerializer =
     new _$GUpdateAccountLoginInputSerializer();
 Serializer<GUpdateAccountPasswordInput>
     _$gUpdateAccountPasswordInputSerializer =
     new _$GUpdateAccountPasswordInputSerializer();
+Serializer<GUpdateAlbumInput> _$gUpdateAlbumInputSerializer =
+    new _$GUpdateAlbumInputSerializer();
 Serializer<GUpdateFolderInput> _$gUpdateFolderInputSerializer =
     new _$GUpdateFolderInputSerializer();
 Serializer<GUpdatePromptonFolderInput> _$gUpdatePromptonFolderInputSerializer =
@@ -579,10 +596,6 @@ Serializer<GUpdatePromptonWorkInput> _$gUpdatePromptonWorkInputSerializer =
     new _$GUpdatePromptonWorkInputSerializer();
 Serializer<GUpdateStickerInput> _$gUpdateStickerInputSerializer =
     new _$GUpdateStickerInputSerializer();
-Serializer<GUpdateUserLoginInput> _$gUpdateUserLoginInputSerializer =
-    new _$GUpdateUserLoginInputSerializer();
-Serializer<GUpdateUserPasswordInput> _$gUpdateUserPasswordInputSerializer =
-    new _$GUpdateUserPasswordInputSerializer();
 Serializer<GUpdateUserProfileInput> _$gUpdateUserProfileInputSerializer =
     new _$GUpdateUserProfileInputSerializer();
 Serializer<GUpdateWorkInput> _$gUpdateWorkInputSerializer =
@@ -591,6 +604,8 @@ Serializer<GUsersWhereInput> _$gUsersWhereInputSerializer =
     new _$GUsersWhereInputSerializer();
 Serializer<GUserWorksWhereInput> _$gUserWorksWhereInputSerializer =
     new _$GUserWorksWhereInputSerializer();
+Serializer<GWatchFolderInput> _$gWatchFolderInputSerializer =
+    new _$GWatchFolderInputSerializer();
 Serializer<GWorkAwardsWhereInput> _$gWorkAwardsWhereInputSerializer =
     new _$GWorkAwardsWhereInputSerializer();
 Serializer<GWorksWhereInput> _$gWorksWhereInputSerializer =
@@ -701,23 +716,6 @@ class _$GNotificationTypeSerializer
       GNotificationType.valueOf(serialized as String);
 }
 
-class _$GPostTypeSerializer implements PrimitiveSerializer<GPostType> {
-  @override
-  final Iterable<Type> types = const <Type>[GPostType];
-  @override
-  final String wireName = 'GPostType';
-
-  @override
-  Object serialize(Serializers serializers, GPostType object,
-          {FullType specifiedType = FullType.unspecified}) =>
-      object.name;
-
-  @override
-  GPostType deserialize(Serializers serializers, Object serialized,
-          {FullType specifiedType = FullType.unspecified}) =>
-      GPostType.valueOf(serialized as String);
-}
-
 class _$GRatingSerializer implements PrimitiveSerializer<GRating> {
   @override
   final Iterable<Type> types = const <Type>[GRating];
@@ -750,6 +748,23 @@ class _$GReportReasonSerializer implements PrimitiveSerializer<GReportReason> {
   GReportReason deserialize(Serializers serializers, Object serialized,
           {FullType specifiedType = FullType.unspecified}) =>
       GReportReason.valueOf(serialized as String);
+}
+
+class _$GWorkTypeSerializer implements PrimitiveSerializer<GWorkType> {
+  @override
+  final Iterable<Type> types = const <Type>[GWorkType];
+  @override
+  final String wireName = 'GWorkType';
+
+  @override
+  Object serialize(Serializers serializers, GWorkType object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      object.name;
+
+  @override
+  GWorkType deserialize(Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      GWorkType.valueOf(serialized as String);
 }
 
 class _$GAcceptPromptonRequestInputSerializer
@@ -904,6 +919,51 @@ class _$GAddPromptonWorkToFolderInputSerializer
   }
 }
 
+class _$GAlbumsWhereInputSerializer
+    implements StructuredSerializer<GAlbumsWhereInput> {
+  @override
+  final Iterable<Type> types = const [GAlbumsWhereInput, _$GAlbumsWhereInput];
+  @override
+  final String wireName = 'GAlbumsWhereInput';
+
+  @override
+  Iterable<Object?> serialize(Serializers serializers, GAlbumsWhereInput object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[];
+    Object? value;
+    value = object.search;
+    if (value != null) {
+      result
+        ..add('search')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    return result;
+  }
+
+  @override
+  GAlbumsWhereInput deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GAlbumsWhereInputBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'search':
+          result.search = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$GAwardsWhereInputSerializer
     implements StructuredSerializer<GAwardsWhereInput> {
   @override
@@ -923,12 +983,12 @@ class _$GAwardsWhereInputSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(GAwardType)));
     }
-    value = object.postType;
+    value = object.workType;
     if (value != null) {
       result
-        ..add('postType')
+        ..add('workType')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(GPostType)));
+            specifiedType: const FullType(GWorkType)));
     }
     value = object.date;
     if (value != null) {
@@ -974,9 +1034,9 @@ class _$GAwardsWhereInputSerializer
           result.type = serializers.deserialize(value,
               specifiedType: const FullType(GAwardType)) as GAwardType?;
           break;
-        case 'postType':
-          result.postType = serializers.deserialize(value,
-              specifiedType: const FullType(GPostType)) as GPostType?;
+        case 'workType':
+          result.workType = serializers.deserialize(value,
+              specifiedType: const FullType(GWorkType)) as GWorkType?;
           break;
         case 'date':
           result.date = serializers.deserialize(value,
@@ -1244,6 +1304,101 @@ class _$GCreateAccountInputSerializer
   }
 }
 
+class _$GCreateAlbumInputSerializer
+    implements StructuredSerializer<GCreateAlbumInput> {
+  @override
+  final Iterable<Type> types = const [GCreateAlbumInput, _$GCreateAlbumInput];
+  @override
+  final String wireName = 'GCreateAlbumInput';
+
+  @override
+  Iterable<Object?> serialize(Serializers serializers, GCreateAlbumInput object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'title',
+      serializers.serialize(object.title,
+          specifiedType: const FullType(String)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GCreateAlbumInput deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GCreateAlbumInputBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'title':
+          result.title = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GCreateAlbumWorkInputSerializer
+    implements StructuredSerializer<GCreateAlbumWorkInput> {
+  @override
+  final Iterable<Type> types = const [
+    GCreateAlbumWorkInput,
+    _$GCreateAlbumWorkInput
+  ];
+  @override
+  final String wireName = 'GCreateAlbumWorkInput';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GCreateAlbumWorkInput object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'albumId',
+      serializers.serialize(object.albumId,
+          specifiedType: const FullType(String)),
+      'workId',
+      serializers.serialize(object.workId,
+          specifiedType: const FullType(String)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GCreateAlbumWorkInput deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GCreateAlbumWorkInputBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'albumId':
+          result.albumId = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'workId':
+          result.workId = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$GCreateFolderInputSerializer
     implements StructuredSerializer<GCreateFolderInput> {
   @override
@@ -1278,6 +1433,59 @@ class _$GCreateFolderInputSerializer
       switch (key) {
         case 'title':
           result.title = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GCreateFolderWorkInputSerializer
+    implements StructuredSerializer<GCreateFolderWorkInput> {
+  @override
+  final Iterable<Type> types = const [
+    GCreateFolderWorkInput,
+    _$GCreateFolderWorkInput
+  ];
+  @override
+  final String wireName = 'GCreateFolderWorkInput';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GCreateFolderWorkInput object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'folderId',
+      serializers.serialize(object.folderId,
+          specifiedType: const FullType(String)),
+      'workId',
+      serializers.serialize(object.workId,
+          specifiedType: const FullType(String)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GCreateFolderWorkInput deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GCreateFolderWorkInputBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'folderId':
+          result.folderId = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'workId':
+          result.workId = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
       }
@@ -2484,6 +2692,59 @@ class _$GCreatePromptonThumbnailFileInputSerializer
   }
 }
 
+class _$GCreatePromptonUserFromTokenInputSerializer
+    implements StructuredSerializer<GCreatePromptonUserFromTokenInput> {
+  @override
+  final Iterable<Type> types = const [
+    GCreatePromptonUserFromTokenInput,
+    _$GCreatePromptonUserFromTokenInput
+  ];
+  @override
+  final String wireName = 'GCreatePromptonUserFromTokenInput';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GCreatePromptonUserFromTokenInput object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'token',
+      serializers.serialize(object.token,
+          specifiedType: const FullType(String)),
+      'userId',
+      serializers.serialize(object.userId,
+          specifiedType: const FullType(String)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GCreatePromptonUserFromTokenInput deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GCreatePromptonUserFromTokenInputBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'token':
+          result.token = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'userId':
+          result.userId = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$GCreatePromptonUserInputSerializer
     implements StructuredSerializer<GCreatePromptonUserInput> {
   @override
@@ -2893,52 +3154,6 @@ class _$GCreateStickerInputSerializer
   }
 }
 
-class _$GCreateWorkBookmarkInputSerializer
-    implements StructuredSerializer<GCreateWorkBookmarkInput> {
-  @override
-  final Iterable<Type> types = const [
-    GCreateWorkBookmarkInput,
-    _$GCreateWorkBookmarkInput
-  ];
-  @override
-  final String wireName = 'GCreateWorkBookmarkInput';
-
-  @override
-  Iterable<Object?> serialize(
-      Serializers serializers, GCreateWorkBookmarkInput object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      'workId',
-      serializers.serialize(object.workId,
-          specifiedType: const FullType(String)),
-    ];
-
-    return result;
-  }
-
-  @override
-  GCreateWorkBookmarkInput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GCreateWorkBookmarkInputBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case 'workId':
-          result.workId = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
 class _$GCreateWorkCommentInputSerializer
     implements StructuredSerializer<GCreateWorkCommentInput> {
   @override
@@ -3272,6 +3487,101 @@ class _$GDecrementPromptonProfileBlockIndexInputSerializer
   }
 }
 
+class _$GDeleteAlbumInputSerializer
+    implements StructuredSerializer<GDeleteAlbumInput> {
+  @override
+  final Iterable<Type> types = const [GDeleteAlbumInput, _$GDeleteAlbumInput];
+  @override
+  final String wireName = 'GDeleteAlbumInput';
+
+  @override
+  Iterable<Object?> serialize(Serializers serializers, GDeleteAlbumInput object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'albumId',
+      serializers.serialize(object.albumId,
+          specifiedType: const FullType(String)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GDeleteAlbumInput deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GDeleteAlbumInputBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'albumId':
+          result.albumId = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GDeleteAlbumWorkInputSerializer
+    implements StructuredSerializer<GDeleteAlbumWorkInput> {
+  @override
+  final Iterable<Type> types = const [
+    GDeleteAlbumWorkInput,
+    _$GDeleteAlbumWorkInput
+  ];
+  @override
+  final String wireName = 'GDeleteAlbumWorkInput';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GDeleteAlbumWorkInput object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'albumId',
+      serializers.serialize(object.albumId,
+          specifiedType: const FullType(String)),
+      'workId',
+      serializers.serialize(object.workId,
+          specifiedType: const FullType(String)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GDeleteAlbumWorkInput deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GDeleteAlbumWorkInputBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'albumId':
+          result.albumId = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'workId':
+          result.workId = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$GDeleteCommentInputSerializer
     implements StructuredSerializer<GDeleteCommentInput> {
   @override
@@ -3352,6 +3662,59 @@ class _$GDeleteFolderInputSerializer
       switch (key) {
         case 'folderId':
           result.folderId = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GDeleteFolderWorkInputSerializer
+    implements StructuredSerializer<GDeleteFolderWorkInput> {
+  @override
+  final Iterable<Type> types = const [
+    GDeleteFolderWorkInput,
+    _$GDeleteFolderWorkInput
+  ];
+  @override
+  final String wireName = 'GDeleteFolderWorkInput';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GDeleteFolderWorkInput object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'folderId',
+      serializers.serialize(object.folderId,
+          specifiedType: const FullType(String)),
+      'workId',
+      serializers.serialize(object.workId,
+          specifiedType: const FullType(String)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GDeleteFolderWorkInput deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GDeleteFolderWorkInputBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'folderId':
+          result.folderId = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'workId':
+          result.workId = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
       }
@@ -3873,52 +4236,6 @@ class _$GDeleteStickerInputSerializer
   }
 }
 
-class _$GDeleteWorkBookmarkInputSerializer
-    implements StructuredSerializer<GDeleteWorkBookmarkInput> {
-  @override
-  final Iterable<Type> types = const [
-    GDeleteWorkBookmarkInput,
-    _$GDeleteWorkBookmarkInput
-  ];
-  @override
-  final String wireName = 'GDeleteWorkBookmarkInput';
-
-  @override
-  Iterable<Object?> serialize(
-      Serializers serializers, GDeleteWorkBookmarkInput object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      'workId',
-      serializers.serialize(object.workId,
-          specifiedType: const FullType(String)),
-    ];
-
-    return result;
-  }
-
-  @override
-  GDeleteWorkBookmarkInput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GDeleteWorkBookmarkInputBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case 'workId':
-          result.workId = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
 class _$GDeleteWorkInputSerializer
     implements StructuredSerializer<GDeleteWorkInput> {
   @override
@@ -4238,52 +4555,6 @@ class _$GIncrementPromptonProfileBlockIndexInputSerializer
       switch (key) {
         case 'profileBlockId':
           result.profileBlockId = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GLoginPromptonInputSerializer
-    implements StructuredSerializer<GLoginPromptonInput> {
-  @override
-  final Iterable<Type> types = const [
-    GLoginPromptonInput,
-    _$GLoginPromptonInput
-  ];
-  @override
-  final String wireName = 'GLoginPromptonInput';
-
-  @override
-  Iterable<Object?> serialize(
-      Serializers serializers, GLoginPromptonInput object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      'token',
-      serializers.serialize(object.token,
-          specifiedType: const FullType(String)),
-    ];
-
-    return result;
-  }
-
-  @override
-  GLoginPromptonInput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GLoginPromptonInputBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case 'token':
-          result.token = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
       }
@@ -4887,6 +5158,13 @@ class _$GPromptonFoldersWhereInputSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
+    value = object.isPaid;
+    if (value != null) {
+      result
+        ..add('isPaid')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
     return result;
   }
 
@@ -4909,6 +5187,10 @@ class _$GPromptonFoldersWhereInputSerializer
         case 'search':
           result.search = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
+          break;
+        case 'isPaid':
+          result.isPaid = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
           break;
       }
     }
@@ -5511,6 +5793,55 @@ class _$GRemovePromptonWorkFromFolderInputSerializer
         case 'workId':
           result.workId = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GReportAlbumInputSerializer
+    implements StructuredSerializer<GReportAlbumInput> {
+  @override
+  final Iterable<Type> types = const [GReportAlbumInput, _$GReportAlbumInput];
+  @override
+  final String wireName = 'GReportAlbumInput';
+
+  @override
+  Iterable<Object?> serialize(Serializers serializers, GReportAlbumInput object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'albumId',
+      serializers.serialize(object.albumId,
+          specifiedType: const FullType(String)),
+      'reason',
+      serializers.serialize(object.reason,
+          specifiedType: const FullType(GReportReason)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GReportAlbumInput deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GReportAlbumInputBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'albumId':
+          result.albumId = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'reason':
+          result.reason = serializers.deserialize(value,
+              specifiedType: const FullType(GReportReason))! as GReportReason;
           break;
       }
     }
@@ -6132,6 +6463,52 @@ class _$GUnpinPromptonWorkInputSerializer
   }
 }
 
+class _$GUnwatchFolderInputSerializer
+    implements StructuredSerializer<GUnwatchFolderInput> {
+  @override
+  final Iterable<Type> types = const [
+    GUnwatchFolderInput,
+    _$GUnwatchFolderInput
+  ];
+  @override
+  final String wireName = 'GUnwatchFolderInput';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GUnwatchFolderInput object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'userId',
+      serializers.serialize(object.userId,
+          specifiedType: const FullType(String)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GUnwatchFolderInput deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GUnwatchFolderInputBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'userId':
+          result.userId = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$GUpdateAccountLoginInputSerializer
     implements StructuredSerializer<GUpdateAccountLoginInput> {
   @override
@@ -6235,6 +6612,48 @@ class _$GUpdateAccountPasswordInputSerializer
   }
 }
 
+class _$GUpdateAlbumInputSerializer
+    implements StructuredSerializer<GUpdateAlbumInput> {
+  @override
+  final Iterable<Type> types = const [GUpdateAlbumInput, _$GUpdateAlbumInput];
+  @override
+  final String wireName = 'GUpdateAlbumInput';
+
+  @override
+  Iterable<Object?> serialize(Serializers serializers, GUpdateAlbumInput object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'albumId',
+      serializers.serialize(object.albumId,
+          specifiedType: const FullType(String)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GUpdateAlbumInput deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GUpdateAlbumInputBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'albumId':
+          result.albumId = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$GUpdateFolderInputSerializer
     implements StructuredSerializer<GUpdateFolderInput> {
   @override
@@ -6249,6 +6668,9 @@ class _$GUpdateFolderInputSerializer
     final result = <Object?>[
       'folderId',
       serializers.serialize(object.folderId,
+          specifiedType: const FullType(String)),
+      'title',
+      serializers.serialize(object.title,
           specifiedType: const FullType(String)),
     ];
 
@@ -6269,6 +6691,10 @@ class _$GUpdateFolderInputSerializer
       switch (key) {
         case 'folderId':
           result.folderId = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'title':
+          result.title = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
       }
@@ -7201,105 +7627,6 @@ class _$GUpdateStickerInputSerializer
   }
 }
 
-class _$GUpdateUserLoginInputSerializer
-    implements StructuredSerializer<GUpdateUserLoginInput> {
-  @override
-  final Iterable<Type> types = const [
-    GUpdateUserLoginInput,
-    _$GUpdateUserLoginInput
-  ];
-  @override
-  final String wireName = 'GUpdateUserLoginInput';
-
-  @override
-  Iterable<Object?> serialize(
-      Serializers serializers, GUpdateUserLoginInput object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      'login',
-      serializers.serialize(object.login,
-          specifiedType: const FullType(String)),
-    ];
-
-    return result;
-  }
-
-  @override
-  GUpdateUserLoginInput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GUpdateUserLoginInputBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case 'login':
-          result.login = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GUpdateUserPasswordInputSerializer
-    implements StructuredSerializer<GUpdateUserPasswordInput> {
-  @override
-  final Iterable<Type> types = const [
-    GUpdateUserPasswordInput,
-    _$GUpdateUserPasswordInput
-  ];
-  @override
-  final String wireName = 'GUpdateUserPasswordInput';
-
-  @override
-  Iterable<Object?> serialize(
-      Serializers serializers, GUpdateUserPasswordInput object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      'password',
-      serializers.serialize(object.password,
-          specifiedType: const FullType(String)),
-      'currentPassword',
-      serializers.serialize(object.currentPassword,
-          specifiedType: const FullType(String)),
-    ];
-
-    return result;
-  }
-
-  @override
-  GUpdateUserPasswordInput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GUpdateUserPasswordInputBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case 'password':
-          result.password = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'currentPassword':
-          result.currentPassword = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
 class _$GUpdateUserProfileInputSerializer
     implements StructuredSerializer<GUpdateUserProfileInput> {
   @override
@@ -7488,6 +7815,48 @@ class _$GUserWorksWhereInputSerializer
         case 'search':
           result.search = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GWatchFolderInputSerializer
+    implements StructuredSerializer<GWatchFolderInput> {
+  @override
+  final Iterable<Type> types = const [GWatchFolderInput, _$GWatchFolderInput];
+  @override
+  final String wireName = 'GWatchFolderInput';
+
+  @override
+  Iterable<Object?> serialize(Serializers serializers, GWatchFolderInput object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'folderId',
+      serializers.serialize(object.folderId,
+          specifiedType: const FullType(String)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GWatchFolderInput deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GWatchFolderInputBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'folderId':
+          result.folderId = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
           break;
       }
     }
@@ -7952,11 +8321,91 @@ class GAddPromptonWorkToFolderInputBuilder
   }
 }
 
+class _$GAlbumsWhereInput extends GAlbumsWhereInput {
+  @override
+  final String? search;
+
+  factory _$GAlbumsWhereInput(
+          [void Function(GAlbumsWhereInputBuilder)? updates]) =>
+      (new GAlbumsWhereInputBuilder()..update(updates))._build();
+
+  _$GAlbumsWhereInput._({this.search}) : super._();
+
+  @override
+  GAlbumsWhereInput rebuild(void Function(GAlbumsWhereInputBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GAlbumsWhereInputBuilder toBuilder() =>
+      new GAlbumsWhereInputBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GAlbumsWhereInput && search == other.search;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, search.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GAlbumsWhereInput')
+          ..add('search', search))
+        .toString();
+  }
+}
+
+class GAlbumsWhereInputBuilder
+    implements Builder<GAlbumsWhereInput, GAlbumsWhereInputBuilder> {
+  _$GAlbumsWhereInput? _$v;
+
+  String? _search;
+  String? get search => _$this._search;
+  set search(String? search) => _$this._search = search;
+
+  GAlbumsWhereInputBuilder();
+
+  GAlbumsWhereInputBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _search = $v.search;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GAlbumsWhereInput other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GAlbumsWhereInput;
+  }
+
+  @override
+  void update(void Function(GAlbumsWhereInputBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GAlbumsWhereInput build() => _build();
+
+  _$GAlbumsWhereInput _build() {
+    final _$result = _$v ?? new _$GAlbumsWhereInput._(search: search);
+    replace(_$result);
+    return _$result;
+  }
+}
+
 class _$GAwardsWhereInput extends GAwardsWhereInput {
   @override
   final GAwardType? type;
   @override
-  final GPostType? postType;
+  final GWorkType? workType;
   @override
   final String? date;
   @override
@@ -7971,7 +8420,7 @@ class _$GAwardsWhereInput extends GAwardsWhereInput {
       (new GAwardsWhereInputBuilder()..update(updates))._build();
 
   _$GAwardsWhereInput._(
-      {this.type, this.postType, this.date, this.year, this.month, this.day})
+      {this.type, this.workType, this.date, this.year, this.month, this.day})
       : super._();
 
   @override
@@ -7987,7 +8436,7 @@ class _$GAwardsWhereInput extends GAwardsWhereInput {
     if (identical(other, this)) return true;
     return other is GAwardsWhereInput &&
         type == other.type &&
-        postType == other.postType &&
+        workType == other.workType &&
         date == other.date &&
         year == other.year &&
         month == other.month &&
@@ -7998,7 +8447,7 @@ class _$GAwardsWhereInput extends GAwardsWhereInput {
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, type.hashCode);
-    _$hash = $jc(_$hash, postType.hashCode);
+    _$hash = $jc(_$hash, workType.hashCode);
     _$hash = $jc(_$hash, date.hashCode);
     _$hash = $jc(_$hash, year.hashCode);
     _$hash = $jc(_$hash, month.hashCode);
@@ -8011,7 +8460,7 @@ class _$GAwardsWhereInput extends GAwardsWhereInput {
   String toString() {
     return (newBuiltValueToStringHelper(r'GAwardsWhereInput')
           ..add('type', type)
-          ..add('postType', postType)
+          ..add('workType', workType)
           ..add('date', date)
           ..add('year', year)
           ..add('month', month)
@@ -8028,9 +8477,9 @@ class GAwardsWhereInputBuilder
   GAwardType? get type => _$this._type;
   set type(GAwardType? type) => _$this._type = type;
 
-  GPostType? _postType;
-  GPostType? get postType => _$this._postType;
-  set postType(GPostType? postType) => _$this._postType = postType;
+  GWorkType? _workType;
+  GWorkType? get workType => _$this._workType;
+  set workType(GWorkType? workType) => _$this._workType = workType;
 
   String? _date;
   String? get date => _$this._date;
@@ -8054,7 +8503,7 @@ class GAwardsWhereInputBuilder
     final $v = _$v;
     if ($v != null) {
       _type = $v.type;
-      _postType = $v.postType;
+      _workType = $v.workType;
       _date = $v.date;
       _year = $v.year;
       _month = $v.month;
@@ -8082,7 +8531,7 @@ class GAwardsWhereInputBuilder
     final _$result = _$v ??
         new _$GAwardsWhereInput._(
             type: type,
-            postType: postType,
+            workType: workType,
             date: date,
             year: year,
             month: month,
@@ -8570,6 +9019,194 @@ class GCreateAccountInputBuilder
   }
 }
 
+class _$GCreateAlbumInput extends GCreateAlbumInput {
+  @override
+  final String title;
+
+  factory _$GCreateAlbumInput(
+          [void Function(GCreateAlbumInputBuilder)? updates]) =>
+      (new GCreateAlbumInputBuilder()..update(updates))._build();
+
+  _$GCreateAlbumInput._({required this.title}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(title, r'GCreateAlbumInput', 'title');
+  }
+
+  @override
+  GCreateAlbumInput rebuild(void Function(GCreateAlbumInputBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GCreateAlbumInputBuilder toBuilder() =>
+      new GCreateAlbumInputBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GCreateAlbumInput && title == other.title;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, title.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GCreateAlbumInput')
+          ..add('title', title))
+        .toString();
+  }
+}
+
+class GCreateAlbumInputBuilder
+    implements Builder<GCreateAlbumInput, GCreateAlbumInputBuilder> {
+  _$GCreateAlbumInput? _$v;
+
+  String? _title;
+  String? get title => _$this._title;
+  set title(String? title) => _$this._title = title;
+
+  GCreateAlbumInputBuilder();
+
+  GCreateAlbumInputBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _title = $v.title;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GCreateAlbumInput other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GCreateAlbumInput;
+  }
+
+  @override
+  void update(void Function(GCreateAlbumInputBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GCreateAlbumInput build() => _build();
+
+  _$GCreateAlbumInput _build() {
+    final _$result = _$v ??
+        new _$GCreateAlbumInput._(
+            title: BuiltValueNullFieldError.checkNotNull(
+                title, r'GCreateAlbumInput', 'title'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GCreateAlbumWorkInput extends GCreateAlbumWorkInput {
+  @override
+  final String albumId;
+  @override
+  final String workId;
+
+  factory _$GCreateAlbumWorkInput(
+          [void Function(GCreateAlbumWorkInputBuilder)? updates]) =>
+      (new GCreateAlbumWorkInputBuilder()..update(updates))._build();
+
+  _$GCreateAlbumWorkInput._({required this.albumId, required this.workId})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        albumId, r'GCreateAlbumWorkInput', 'albumId');
+    BuiltValueNullFieldError.checkNotNull(
+        workId, r'GCreateAlbumWorkInput', 'workId');
+  }
+
+  @override
+  GCreateAlbumWorkInput rebuild(
+          void Function(GCreateAlbumWorkInputBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GCreateAlbumWorkInputBuilder toBuilder() =>
+      new GCreateAlbumWorkInputBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GCreateAlbumWorkInput &&
+        albumId == other.albumId &&
+        workId == other.workId;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, albumId.hashCode);
+    _$hash = $jc(_$hash, workId.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GCreateAlbumWorkInput')
+          ..add('albumId', albumId)
+          ..add('workId', workId))
+        .toString();
+  }
+}
+
+class GCreateAlbumWorkInputBuilder
+    implements Builder<GCreateAlbumWorkInput, GCreateAlbumWorkInputBuilder> {
+  _$GCreateAlbumWorkInput? _$v;
+
+  String? _albumId;
+  String? get albumId => _$this._albumId;
+  set albumId(String? albumId) => _$this._albumId = albumId;
+
+  String? _workId;
+  String? get workId => _$this._workId;
+  set workId(String? workId) => _$this._workId = workId;
+
+  GCreateAlbumWorkInputBuilder();
+
+  GCreateAlbumWorkInputBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _albumId = $v.albumId;
+      _workId = $v.workId;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GCreateAlbumWorkInput other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GCreateAlbumWorkInput;
+  }
+
+  @override
+  void update(void Function(GCreateAlbumWorkInputBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GCreateAlbumWorkInput build() => _build();
+
+  _$GCreateAlbumWorkInput _build() {
+    final _$result = _$v ??
+        new _$GCreateAlbumWorkInput._(
+            albumId: BuiltValueNullFieldError.checkNotNull(
+                albumId, r'GCreateAlbumWorkInput', 'albumId'),
+            workId: BuiltValueNullFieldError.checkNotNull(
+                workId, r'GCreateAlbumWorkInput', 'workId'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
 class _$GCreateFolderInput extends GCreateFolderInput {
   @override
   final String title;
@@ -8652,6 +9289,109 @@ class GCreateFolderInputBuilder
         new _$GCreateFolderInput._(
             title: BuiltValueNullFieldError.checkNotNull(
                 title, r'GCreateFolderInput', 'title'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GCreateFolderWorkInput extends GCreateFolderWorkInput {
+  @override
+  final String folderId;
+  @override
+  final String workId;
+
+  factory _$GCreateFolderWorkInput(
+          [void Function(GCreateFolderWorkInputBuilder)? updates]) =>
+      (new GCreateFolderWorkInputBuilder()..update(updates))._build();
+
+  _$GCreateFolderWorkInput._({required this.folderId, required this.workId})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        folderId, r'GCreateFolderWorkInput', 'folderId');
+    BuiltValueNullFieldError.checkNotNull(
+        workId, r'GCreateFolderWorkInput', 'workId');
+  }
+
+  @override
+  GCreateFolderWorkInput rebuild(
+          void Function(GCreateFolderWorkInputBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GCreateFolderWorkInputBuilder toBuilder() =>
+      new GCreateFolderWorkInputBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GCreateFolderWorkInput &&
+        folderId == other.folderId &&
+        workId == other.workId;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, folderId.hashCode);
+    _$hash = $jc(_$hash, workId.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GCreateFolderWorkInput')
+          ..add('folderId', folderId)
+          ..add('workId', workId))
+        .toString();
+  }
+}
+
+class GCreateFolderWorkInputBuilder
+    implements Builder<GCreateFolderWorkInput, GCreateFolderWorkInputBuilder> {
+  _$GCreateFolderWorkInput? _$v;
+
+  String? _folderId;
+  String? get folderId => _$this._folderId;
+  set folderId(String? folderId) => _$this._folderId = folderId;
+
+  String? _workId;
+  String? get workId => _$this._workId;
+  set workId(String? workId) => _$this._workId = workId;
+
+  GCreateFolderWorkInputBuilder();
+
+  GCreateFolderWorkInputBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _folderId = $v.folderId;
+      _workId = $v.workId;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GCreateFolderWorkInput other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GCreateFolderWorkInput;
+  }
+
+  @override
+  void update(void Function(GCreateFolderWorkInputBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GCreateFolderWorkInput build() => _build();
+
+  _$GCreateFolderWorkInput _build() {
+    final _$result = _$v ??
+        new _$GCreateFolderWorkInput._(
+            folderId: BuiltValueNullFieldError.checkNotNull(
+                folderId, r'GCreateFolderWorkInput', 'folderId'),
+            workId: BuiltValueNullFieldError.checkNotNull(
+                workId, r'GCreateFolderWorkInput', 'workId'));
     replace(_$result);
     return _$result;
   }
@@ -10982,6 +11722,115 @@ class GCreatePromptonThumbnailFileInputBuilder
   }
 }
 
+class _$GCreatePromptonUserFromTokenInput
+    extends GCreatePromptonUserFromTokenInput {
+  @override
+  final String token;
+  @override
+  final String userId;
+
+  factory _$GCreatePromptonUserFromTokenInput(
+          [void Function(GCreatePromptonUserFromTokenInputBuilder)? updates]) =>
+      (new GCreatePromptonUserFromTokenInputBuilder()..update(updates))
+          ._build();
+
+  _$GCreatePromptonUserFromTokenInput._(
+      {required this.token, required this.userId})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        token, r'GCreatePromptonUserFromTokenInput', 'token');
+    BuiltValueNullFieldError.checkNotNull(
+        userId, r'GCreatePromptonUserFromTokenInput', 'userId');
+  }
+
+  @override
+  GCreatePromptonUserFromTokenInput rebuild(
+          void Function(GCreatePromptonUserFromTokenInputBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GCreatePromptonUserFromTokenInputBuilder toBuilder() =>
+      new GCreatePromptonUserFromTokenInputBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GCreatePromptonUserFromTokenInput &&
+        token == other.token &&
+        userId == other.userId;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, token.hashCode);
+    _$hash = $jc(_$hash, userId.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GCreatePromptonUserFromTokenInput')
+          ..add('token', token)
+          ..add('userId', userId))
+        .toString();
+  }
+}
+
+class GCreatePromptonUserFromTokenInputBuilder
+    implements
+        Builder<GCreatePromptonUserFromTokenInput,
+            GCreatePromptonUserFromTokenInputBuilder> {
+  _$GCreatePromptonUserFromTokenInput? _$v;
+
+  String? _token;
+  String? get token => _$this._token;
+  set token(String? token) => _$this._token = token;
+
+  String? _userId;
+  String? get userId => _$this._userId;
+  set userId(String? userId) => _$this._userId = userId;
+
+  GCreatePromptonUserFromTokenInputBuilder();
+
+  GCreatePromptonUserFromTokenInputBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _token = $v.token;
+      _userId = $v.userId;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GCreatePromptonUserFromTokenInput other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GCreatePromptonUserFromTokenInput;
+  }
+
+  @override
+  void update(
+      void Function(GCreatePromptonUserFromTokenInputBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GCreatePromptonUserFromTokenInput build() => _build();
+
+  _$GCreatePromptonUserFromTokenInput _build() {
+    final _$result = _$v ??
+        new _$GCreatePromptonUserFromTokenInput._(
+            token: BuiltValueNullFieldError.checkNotNull(
+                token, r'GCreatePromptonUserFromTokenInput', 'token'),
+            userId: BuiltValueNullFieldError.checkNotNull(
+                userId, r'GCreatePromptonUserFromTokenInput', 'userId'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
 class _$GCreatePromptonUserInput extends GCreatePromptonUserInput {
   @override
   final String name;
@@ -11764,94 +12613,6 @@ class GCreateStickerInputBuilder
   }
 }
 
-class _$GCreateWorkBookmarkInput extends GCreateWorkBookmarkInput {
-  @override
-  final String workId;
-
-  factory _$GCreateWorkBookmarkInput(
-          [void Function(GCreateWorkBookmarkInputBuilder)? updates]) =>
-      (new GCreateWorkBookmarkInputBuilder()..update(updates))._build();
-
-  _$GCreateWorkBookmarkInput._({required this.workId}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        workId, r'GCreateWorkBookmarkInput', 'workId');
-  }
-
-  @override
-  GCreateWorkBookmarkInput rebuild(
-          void Function(GCreateWorkBookmarkInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GCreateWorkBookmarkInputBuilder toBuilder() =>
-      new GCreateWorkBookmarkInputBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GCreateWorkBookmarkInput && workId == other.workId;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, workId.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(r'GCreateWorkBookmarkInput')
-          ..add('workId', workId))
-        .toString();
-  }
-}
-
-class GCreateWorkBookmarkInputBuilder
-    implements
-        Builder<GCreateWorkBookmarkInput, GCreateWorkBookmarkInputBuilder> {
-  _$GCreateWorkBookmarkInput? _$v;
-
-  String? _workId;
-  String? get workId => _$this._workId;
-  set workId(String? workId) => _$this._workId = workId;
-
-  GCreateWorkBookmarkInputBuilder();
-
-  GCreateWorkBookmarkInputBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _workId = $v.workId;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GCreateWorkBookmarkInput other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GCreateWorkBookmarkInput;
-  }
-
-  @override
-  void update(void Function(GCreateWorkBookmarkInputBuilder)? updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GCreateWorkBookmarkInput build() => _build();
-
-  _$GCreateWorkBookmarkInput _build() {
-    final _$result = _$v ??
-        new _$GCreateWorkBookmarkInput._(
-            workId: BuiltValueNullFieldError.checkNotNull(
-                workId, r'GCreateWorkBookmarkInput', 'workId'));
-    replace(_$result);
-    return _$result;
-  }
-}
-
 class _$GCreateWorkCommentInput extends GCreateWorkCommentInput {
   @override
   final String workId;
@@ -12462,6 +13223,195 @@ class GDecrementPromptonProfileBlockIndexInputBuilder
   }
 }
 
+class _$GDeleteAlbumInput extends GDeleteAlbumInput {
+  @override
+  final String albumId;
+
+  factory _$GDeleteAlbumInput(
+          [void Function(GDeleteAlbumInputBuilder)? updates]) =>
+      (new GDeleteAlbumInputBuilder()..update(updates))._build();
+
+  _$GDeleteAlbumInput._({required this.albumId}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        albumId, r'GDeleteAlbumInput', 'albumId');
+  }
+
+  @override
+  GDeleteAlbumInput rebuild(void Function(GDeleteAlbumInputBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GDeleteAlbumInputBuilder toBuilder() =>
+      new GDeleteAlbumInputBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GDeleteAlbumInput && albumId == other.albumId;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, albumId.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GDeleteAlbumInput')
+          ..add('albumId', albumId))
+        .toString();
+  }
+}
+
+class GDeleteAlbumInputBuilder
+    implements Builder<GDeleteAlbumInput, GDeleteAlbumInputBuilder> {
+  _$GDeleteAlbumInput? _$v;
+
+  String? _albumId;
+  String? get albumId => _$this._albumId;
+  set albumId(String? albumId) => _$this._albumId = albumId;
+
+  GDeleteAlbumInputBuilder();
+
+  GDeleteAlbumInputBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _albumId = $v.albumId;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GDeleteAlbumInput other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GDeleteAlbumInput;
+  }
+
+  @override
+  void update(void Function(GDeleteAlbumInputBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GDeleteAlbumInput build() => _build();
+
+  _$GDeleteAlbumInput _build() {
+    final _$result = _$v ??
+        new _$GDeleteAlbumInput._(
+            albumId: BuiltValueNullFieldError.checkNotNull(
+                albumId, r'GDeleteAlbumInput', 'albumId'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GDeleteAlbumWorkInput extends GDeleteAlbumWorkInput {
+  @override
+  final String albumId;
+  @override
+  final String workId;
+
+  factory _$GDeleteAlbumWorkInput(
+          [void Function(GDeleteAlbumWorkInputBuilder)? updates]) =>
+      (new GDeleteAlbumWorkInputBuilder()..update(updates))._build();
+
+  _$GDeleteAlbumWorkInput._({required this.albumId, required this.workId})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        albumId, r'GDeleteAlbumWorkInput', 'albumId');
+    BuiltValueNullFieldError.checkNotNull(
+        workId, r'GDeleteAlbumWorkInput', 'workId');
+  }
+
+  @override
+  GDeleteAlbumWorkInput rebuild(
+          void Function(GDeleteAlbumWorkInputBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GDeleteAlbumWorkInputBuilder toBuilder() =>
+      new GDeleteAlbumWorkInputBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GDeleteAlbumWorkInput &&
+        albumId == other.albumId &&
+        workId == other.workId;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, albumId.hashCode);
+    _$hash = $jc(_$hash, workId.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GDeleteAlbumWorkInput')
+          ..add('albumId', albumId)
+          ..add('workId', workId))
+        .toString();
+  }
+}
+
+class GDeleteAlbumWorkInputBuilder
+    implements Builder<GDeleteAlbumWorkInput, GDeleteAlbumWorkInputBuilder> {
+  _$GDeleteAlbumWorkInput? _$v;
+
+  String? _albumId;
+  String? get albumId => _$this._albumId;
+  set albumId(String? albumId) => _$this._albumId = albumId;
+
+  String? _workId;
+  String? get workId => _$this._workId;
+  set workId(String? workId) => _$this._workId = workId;
+
+  GDeleteAlbumWorkInputBuilder();
+
+  GDeleteAlbumWorkInputBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _albumId = $v.albumId;
+      _workId = $v.workId;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GDeleteAlbumWorkInput other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GDeleteAlbumWorkInput;
+  }
+
+  @override
+  void update(void Function(GDeleteAlbumWorkInputBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GDeleteAlbumWorkInput build() => _build();
+
+  _$GDeleteAlbumWorkInput _build() {
+    final _$result = _$v ??
+        new _$GDeleteAlbumWorkInput._(
+            albumId: BuiltValueNullFieldError.checkNotNull(
+                albumId, r'GDeleteAlbumWorkInput', 'albumId'),
+            workId: BuiltValueNullFieldError.checkNotNull(
+                workId, r'GDeleteAlbumWorkInput', 'workId'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
 class _$GDeleteCommentInput extends GDeleteCommentInput {
   @override
   final String commentId;
@@ -12631,6 +13581,109 @@ class GDeleteFolderInputBuilder
         new _$GDeleteFolderInput._(
             folderId: BuiltValueNullFieldError.checkNotNull(
                 folderId, r'GDeleteFolderInput', 'folderId'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GDeleteFolderWorkInput extends GDeleteFolderWorkInput {
+  @override
+  final String folderId;
+  @override
+  final String workId;
+
+  factory _$GDeleteFolderWorkInput(
+          [void Function(GDeleteFolderWorkInputBuilder)? updates]) =>
+      (new GDeleteFolderWorkInputBuilder()..update(updates))._build();
+
+  _$GDeleteFolderWorkInput._({required this.folderId, required this.workId})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        folderId, r'GDeleteFolderWorkInput', 'folderId');
+    BuiltValueNullFieldError.checkNotNull(
+        workId, r'GDeleteFolderWorkInput', 'workId');
+  }
+
+  @override
+  GDeleteFolderWorkInput rebuild(
+          void Function(GDeleteFolderWorkInputBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GDeleteFolderWorkInputBuilder toBuilder() =>
+      new GDeleteFolderWorkInputBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GDeleteFolderWorkInput &&
+        folderId == other.folderId &&
+        workId == other.workId;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, folderId.hashCode);
+    _$hash = $jc(_$hash, workId.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GDeleteFolderWorkInput')
+          ..add('folderId', folderId)
+          ..add('workId', workId))
+        .toString();
+  }
+}
+
+class GDeleteFolderWorkInputBuilder
+    implements Builder<GDeleteFolderWorkInput, GDeleteFolderWorkInputBuilder> {
+  _$GDeleteFolderWorkInput? _$v;
+
+  String? _folderId;
+  String? get folderId => _$this._folderId;
+  set folderId(String? folderId) => _$this._folderId = folderId;
+
+  String? _workId;
+  String? get workId => _$this._workId;
+  set workId(String? workId) => _$this._workId = workId;
+
+  GDeleteFolderWorkInputBuilder();
+
+  GDeleteFolderWorkInputBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _folderId = $v.folderId;
+      _workId = $v.workId;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GDeleteFolderWorkInput other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GDeleteFolderWorkInput;
+  }
+
+  @override
+  void update(void Function(GDeleteFolderWorkInputBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GDeleteFolderWorkInput build() => _build();
+
+  _$GDeleteFolderWorkInput _build() {
+    final _$result = _$v ??
+        new _$GDeleteFolderWorkInput._(
+            folderId: BuiltValueNullFieldError.checkNotNull(
+                folderId, r'GDeleteFolderWorkInput', 'folderId'),
+            workId: BuiltValueNullFieldError.checkNotNull(
+                workId, r'GDeleteFolderWorkInput', 'workId'));
     replace(_$result);
     return _$result;
   }
@@ -13645,94 +14698,6 @@ class GDeleteStickerInputBuilder
   }
 }
 
-class _$GDeleteWorkBookmarkInput extends GDeleteWorkBookmarkInput {
-  @override
-  final String workId;
-
-  factory _$GDeleteWorkBookmarkInput(
-          [void Function(GDeleteWorkBookmarkInputBuilder)? updates]) =>
-      (new GDeleteWorkBookmarkInputBuilder()..update(updates))._build();
-
-  _$GDeleteWorkBookmarkInput._({required this.workId}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        workId, r'GDeleteWorkBookmarkInput', 'workId');
-  }
-
-  @override
-  GDeleteWorkBookmarkInput rebuild(
-          void Function(GDeleteWorkBookmarkInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GDeleteWorkBookmarkInputBuilder toBuilder() =>
-      new GDeleteWorkBookmarkInputBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GDeleteWorkBookmarkInput && workId == other.workId;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, workId.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(r'GDeleteWorkBookmarkInput')
-          ..add('workId', workId))
-        .toString();
-  }
-}
-
-class GDeleteWorkBookmarkInputBuilder
-    implements
-        Builder<GDeleteWorkBookmarkInput, GDeleteWorkBookmarkInputBuilder> {
-  _$GDeleteWorkBookmarkInput? _$v;
-
-  String? _workId;
-  String? get workId => _$this._workId;
-  set workId(String? workId) => _$this._workId = workId;
-
-  GDeleteWorkBookmarkInputBuilder();
-
-  GDeleteWorkBookmarkInputBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _workId = $v.workId;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GDeleteWorkBookmarkInput other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GDeleteWorkBookmarkInput;
-  }
-
-  @override
-  void update(void Function(GDeleteWorkBookmarkInputBuilder)? updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GDeleteWorkBookmarkInput build() => _build();
-
-  _$GDeleteWorkBookmarkInput _build() {
-    final _$result = _$v ??
-        new _$GDeleteWorkBookmarkInput._(
-            workId: BuiltValueNullFieldError.checkNotNull(
-                workId, r'GDeleteWorkBookmarkInput', 'workId'));
-    replace(_$result);
-    return _$result;
-  }
-}
-
 class _$GDeleteWorkInput extends GDeleteWorkInput {
   @override
   final String workId;
@@ -14379,93 +15344,6 @@ class GIncrementPromptonProfileBlockIndexInputBuilder
                 profileBlockId,
                 r'GIncrementPromptonProfileBlockIndexInput',
                 'profileBlockId'));
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GLoginPromptonInput extends GLoginPromptonInput {
-  @override
-  final String token;
-
-  factory _$GLoginPromptonInput(
-          [void Function(GLoginPromptonInputBuilder)? updates]) =>
-      (new GLoginPromptonInputBuilder()..update(updates))._build();
-
-  _$GLoginPromptonInput._({required this.token}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        token, r'GLoginPromptonInput', 'token');
-  }
-
-  @override
-  GLoginPromptonInput rebuild(
-          void Function(GLoginPromptonInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GLoginPromptonInputBuilder toBuilder() =>
-      new GLoginPromptonInputBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GLoginPromptonInput && token == other.token;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, token.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(r'GLoginPromptonInput')
-          ..add('token', token))
-        .toString();
-  }
-}
-
-class GLoginPromptonInputBuilder
-    implements Builder<GLoginPromptonInput, GLoginPromptonInputBuilder> {
-  _$GLoginPromptonInput? _$v;
-
-  String? _token;
-  String? get token => _$this._token;
-  set token(String? token) => _$this._token = token;
-
-  GLoginPromptonInputBuilder();
-
-  GLoginPromptonInputBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _token = $v.token;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GLoginPromptonInput other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GLoginPromptonInput;
-  }
-
-  @override
-  void update(void Function(GLoginPromptonInputBuilder)? updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GLoginPromptonInput build() => _build();
-
-  _$GLoginPromptonInput _build() {
-    final _$result = _$v ??
-        new _$GLoginPromptonInput._(
-            token: BuiltValueNullFieldError.checkNotNull(
-                token, r'GLoginPromptonInput', 'token'));
     replace(_$result);
     return _$result;
   }
@@ -15564,12 +16442,15 @@ class _$GPromptonFoldersWhereInput extends GPromptonFoldersWhereInput {
   final String? userId;
   @override
   final String? search;
+  @override
+  final bool? isPaid;
 
   factory _$GPromptonFoldersWhereInput(
           [void Function(GPromptonFoldersWhereInputBuilder)? updates]) =>
       (new GPromptonFoldersWhereInputBuilder()..update(updates))._build();
 
-  _$GPromptonFoldersWhereInput._({this.userId, this.search}) : super._();
+  _$GPromptonFoldersWhereInput._({this.userId, this.search, this.isPaid})
+      : super._();
 
   @override
   GPromptonFoldersWhereInput rebuild(
@@ -15585,7 +16466,8 @@ class _$GPromptonFoldersWhereInput extends GPromptonFoldersWhereInput {
     if (identical(other, this)) return true;
     return other is GPromptonFoldersWhereInput &&
         userId == other.userId &&
-        search == other.search;
+        search == other.search &&
+        isPaid == other.isPaid;
   }
 
   @override
@@ -15593,6 +16475,7 @@ class _$GPromptonFoldersWhereInput extends GPromptonFoldersWhereInput {
     var _$hash = 0;
     _$hash = $jc(_$hash, userId.hashCode);
     _$hash = $jc(_$hash, search.hashCode);
+    _$hash = $jc(_$hash, isPaid.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -15601,7 +16484,8 @@ class _$GPromptonFoldersWhereInput extends GPromptonFoldersWhereInput {
   String toString() {
     return (newBuiltValueToStringHelper(r'GPromptonFoldersWhereInput')
           ..add('userId', userId)
-          ..add('search', search))
+          ..add('search', search)
+          ..add('isPaid', isPaid))
         .toString();
   }
 }
@@ -15619,6 +16503,10 @@ class GPromptonFoldersWhereInputBuilder
   String? get search => _$this._search;
   set search(String? search) => _$this._search = search;
 
+  bool? _isPaid;
+  bool? get isPaid => _$this._isPaid;
+  set isPaid(bool? isPaid) => _$this._isPaid = isPaid;
+
   GPromptonFoldersWhereInputBuilder();
 
   GPromptonFoldersWhereInputBuilder get _$this {
@@ -15626,6 +16514,7 @@ class GPromptonFoldersWhereInputBuilder
     if ($v != null) {
       _userId = $v.userId;
       _search = $v.search;
+      _isPaid = $v.isPaid;
       _$v = null;
     }
     return this;
@@ -15647,7 +16536,8 @@ class GPromptonFoldersWhereInputBuilder
 
   _$GPromptonFoldersWhereInput _build() {
     final _$result = _$v ??
-        new _$GPromptonFoldersWhereInput._(userId: userId, search: search);
+        new _$GPromptonFoldersWhereInput._(
+            userId: userId, search: search, isPaid: isPaid);
     replace(_$result);
     return _$result;
   }
@@ -16694,6 +17584,108 @@ class GRemovePromptonWorkFromFolderInputBuilder
                 folderId, r'GRemovePromptonWorkFromFolderInput', 'folderId'),
             workId: BuiltValueNullFieldError.checkNotNull(
                 workId, r'GRemovePromptonWorkFromFolderInput', 'workId'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GReportAlbumInput extends GReportAlbumInput {
+  @override
+  final String albumId;
+  @override
+  final GReportReason reason;
+
+  factory _$GReportAlbumInput(
+          [void Function(GReportAlbumInputBuilder)? updates]) =>
+      (new GReportAlbumInputBuilder()..update(updates))._build();
+
+  _$GReportAlbumInput._({required this.albumId, required this.reason})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        albumId, r'GReportAlbumInput', 'albumId');
+    BuiltValueNullFieldError.checkNotNull(
+        reason, r'GReportAlbumInput', 'reason');
+  }
+
+  @override
+  GReportAlbumInput rebuild(void Function(GReportAlbumInputBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GReportAlbumInputBuilder toBuilder() =>
+      new GReportAlbumInputBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GReportAlbumInput &&
+        albumId == other.albumId &&
+        reason == other.reason;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, albumId.hashCode);
+    _$hash = $jc(_$hash, reason.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GReportAlbumInput')
+          ..add('albumId', albumId)
+          ..add('reason', reason))
+        .toString();
+  }
+}
+
+class GReportAlbumInputBuilder
+    implements Builder<GReportAlbumInput, GReportAlbumInputBuilder> {
+  _$GReportAlbumInput? _$v;
+
+  String? _albumId;
+  String? get albumId => _$this._albumId;
+  set albumId(String? albumId) => _$this._albumId = albumId;
+
+  GReportReason? _reason;
+  GReportReason? get reason => _$this._reason;
+  set reason(GReportReason? reason) => _$this._reason = reason;
+
+  GReportAlbumInputBuilder();
+
+  GReportAlbumInputBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _albumId = $v.albumId;
+      _reason = $v.reason;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GReportAlbumInput other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GReportAlbumInput;
+  }
+
+  @override
+  void update(void Function(GReportAlbumInputBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GReportAlbumInput build() => _build();
+
+  _$GReportAlbumInput _build() {
+    final _$result = _$v ??
+        new _$GReportAlbumInput._(
+            albumId: BuiltValueNullFieldError.checkNotNull(
+                albumId, r'GReportAlbumInput', 'albumId'),
+            reason: BuiltValueNullFieldError.checkNotNull(
+                reason, r'GReportAlbumInput', 'reason'));
     replace(_$result);
     return _$result;
   }
@@ -17897,6 +18889,93 @@ class GUnpinPromptonWorkInputBuilder
   }
 }
 
+class _$GUnwatchFolderInput extends GUnwatchFolderInput {
+  @override
+  final String userId;
+
+  factory _$GUnwatchFolderInput(
+          [void Function(GUnwatchFolderInputBuilder)? updates]) =>
+      (new GUnwatchFolderInputBuilder()..update(updates))._build();
+
+  _$GUnwatchFolderInput._({required this.userId}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        userId, r'GUnwatchFolderInput', 'userId');
+  }
+
+  @override
+  GUnwatchFolderInput rebuild(
+          void Function(GUnwatchFolderInputBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GUnwatchFolderInputBuilder toBuilder() =>
+      new GUnwatchFolderInputBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GUnwatchFolderInput && userId == other.userId;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, userId.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GUnwatchFolderInput')
+          ..add('userId', userId))
+        .toString();
+  }
+}
+
+class GUnwatchFolderInputBuilder
+    implements Builder<GUnwatchFolderInput, GUnwatchFolderInputBuilder> {
+  _$GUnwatchFolderInput? _$v;
+
+  String? _userId;
+  String? get userId => _$this._userId;
+  set userId(String? userId) => _$this._userId = userId;
+
+  GUnwatchFolderInputBuilder();
+
+  GUnwatchFolderInputBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _userId = $v.userId;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GUnwatchFolderInput other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GUnwatchFolderInput;
+  }
+
+  @override
+  void update(void Function(GUnwatchFolderInputBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GUnwatchFolderInput build() => _build();
+
+  _$GUnwatchFolderInput _build() {
+    final _$result = _$v ??
+        new _$GUnwatchFolderInput._(
+            userId: BuiltValueNullFieldError.checkNotNull(
+                userId, r'GUnwatchFolderInput', 'userId'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
 class _$GUpdateAccountLoginInput extends GUpdateAccountLoginInput {
   @override
   final String login;
@@ -18089,17 +19168,108 @@ class GUpdateAccountPasswordInputBuilder
   }
 }
 
+class _$GUpdateAlbumInput extends GUpdateAlbumInput {
+  @override
+  final String albumId;
+
+  factory _$GUpdateAlbumInput(
+          [void Function(GUpdateAlbumInputBuilder)? updates]) =>
+      (new GUpdateAlbumInputBuilder()..update(updates))._build();
+
+  _$GUpdateAlbumInput._({required this.albumId}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        albumId, r'GUpdateAlbumInput', 'albumId');
+  }
+
+  @override
+  GUpdateAlbumInput rebuild(void Function(GUpdateAlbumInputBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GUpdateAlbumInputBuilder toBuilder() =>
+      new GUpdateAlbumInputBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GUpdateAlbumInput && albumId == other.albumId;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, albumId.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GUpdateAlbumInput')
+          ..add('albumId', albumId))
+        .toString();
+  }
+}
+
+class GUpdateAlbumInputBuilder
+    implements Builder<GUpdateAlbumInput, GUpdateAlbumInputBuilder> {
+  _$GUpdateAlbumInput? _$v;
+
+  String? _albumId;
+  String? get albumId => _$this._albumId;
+  set albumId(String? albumId) => _$this._albumId = albumId;
+
+  GUpdateAlbumInputBuilder();
+
+  GUpdateAlbumInputBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _albumId = $v.albumId;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GUpdateAlbumInput other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GUpdateAlbumInput;
+  }
+
+  @override
+  void update(void Function(GUpdateAlbumInputBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GUpdateAlbumInput build() => _build();
+
+  _$GUpdateAlbumInput _build() {
+    final _$result = _$v ??
+        new _$GUpdateAlbumInput._(
+            albumId: BuiltValueNullFieldError.checkNotNull(
+                albumId, r'GUpdateAlbumInput', 'albumId'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
 class _$GUpdateFolderInput extends GUpdateFolderInput {
   @override
   final String folderId;
+  @override
+  final String title;
 
   factory _$GUpdateFolderInput(
           [void Function(GUpdateFolderInputBuilder)? updates]) =>
       (new GUpdateFolderInputBuilder()..update(updates))._build();
 
-  _$GUpdateFolderInput._({required this.folderId}) : super._() {
+  _$GUpdateFolderInput._({required this.folderId, required this.title})
+      : super._() {
     BuiltValueNullFieldError.checkNotNull(
         folderId, r'GUpdateFolderInput', 'folderId');
+    BuiltValueNullFieldError.checkNotNull(
+        title, r'GUpdateFolderInput', 'title');
   }
 
   @override
@@ -18114,13 +19284,16 @@ class _$GUpdateFolderInput extends GUpdateFolderInput {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GUpdateFolderInput && folderId == other.folderId;
+    return other is GUpdateFolderInput &&
+        folderId == other.folderId &&
+        title == other.title;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, folderId.hashCode);
+    _$hash = $jc(_$hash, title.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -18128,7 +19301,8 @@ class _$GUpdateFolderInput extends GUpdateFolderInput {
   @override
   String toString() {
     return (newBuiltValueToStringHelper(r'GUpdateFolderInput')
-          ..add('folderId', folderId))
+          ..add('folderId', folderId)
+          ..add('title', title))
         .toString();
   }
 }
@@ -18141,12 +19315,17 @@ class GUpdateFolderInputBuilder
   String? get folderId => _$this._folderId;
   set folderId(String? folderId) => _$this._folderId = folderId;
 
+  String? _title;
+  String? get title => _$this._title;
+  set title(String? title) => _$this._title = title;
+
   GUpdateFolderInputBuilder();
 
   GUpdateFolderInputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _folderId = $v.folderId;
+      _title = $v.title;
       _$v = null;
     }
     return this;
@@ -18170,7 +19349,9 @@ class GUpdateFolderInputBuilder
     final _$result = _$v ??
         new _$GUpdateFolderInput._(
             folderId: BuiltValueNullFieldError.checkNotNull(
-                folderId, r'GUpdateFolderInput', 'folderId'));
+                folderId, r'GUpdateFolderInput', 'folderId'),
+            title: BuiltValueNullFieldError.checkNotNull(
+                title, r'GUpdateFolderInput', 'title'));
     replace(_$result);
     return _$result;
   }
@@ -19891,201 +21072,6 @@ class GUpdateStickerInputBuilder
   }
 }
 
-class _$GUpdateUserLoginInput extends GUpdateUserLoginInput {
-  @override
-  final String login;
-
-  factory _$GUpdateUserLoginInput(
-          [void Function(GUpdateUserLoginInputBuilder)? updates]) =>
-      (new GUpdateUserLoginInputBuilder()..update(updates))._build();
-
-  _$GUpdateUserLoginInput._({required this.login}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        login, r'GUpdateUserLoginInput', 'login');
-  }
-
-  @override
-  GUpdateUserLoginInput rebuild(
-          void Function(GUpdateUserLoginInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GUpdateUserLoginInputBuilder toBuilder() =>
-      new GUpdateUserLoginInputBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GUpdateUserLoginInput && login == other.login;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, login.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(r'GUpdateUserLoginInput')
-          ..add('login', login))
-        .toString();
-  }
-}
-
-class GUpdateUserLoginInputBuilder
-    implements Builder<GUpdateUserLoginInput, GUpdateUserLoginInputBuilder> {
-  _$GUpdateUserLoginInput? _$v;
-
-  String? _login;
-  String? get login => _$this._login;
-  set login(String? login) => _$this._login = login;
-
-  GUpdateUserLoginInputBuilder();
-
-  GUpdateUserLoginInputBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _login = $v.login;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GUpdateUserLoginInput other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GUpdateUserLoginInput;
-  }
-
-  @override
-  void update(void Function(GUpdateUserLoginInputBuilder)? updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GUpdateUserLoginInput build() => _build();
-
-  _$GUpdateUserLoginInput _build() {
-    final _$result = _$v ??
-        new _$GUpdateUserLoginInput._(
-            login: BuiltValueNullFieldError.checkNotNull(
-                login, r'GUpdateUserLoginInput', 'login'));
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GUpdateUserPasswordInput extends GUpdateUserPasswordInput {
-  @override
-  final String password;
-  @override
-  final String currentPassword;
-
-  factory _$GUpdateUserPasswordInput(
-          [void Function(GUpdateUserPasswordInputBuilder)? updates]) =>
-      (new GUpdateUserPasswordInputBuilder()..update(updates))._build();
-
-  _$GUpdateUserPasswordInput._(
-      {required this.password, required this.currentPassword})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        password, r'GUpdateUserPasswordInput', 'password');
-    BuiltValueNullFieldError.checkNotNull(
-        currentPassword, r'GUpdateUserPasswordInput', 'currentPassword');
-  }
-
-  @override
-  GUpdateUserPasswordInput rebuild(
-          void Function(GUpdateUserPasswordInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GUpdateUserPasswordInputBuilder toBuilder() =>
-      new GUpdateUserPasswordInputBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GUpdateUserPasswordInput &&
-        password == other.password &&
-        currentPassword == other.currentPassword;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, password.hashCode);
-    _$hash = $jc(_$hash, currentPassword.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(r'GUpdateUserPasswordInput')
-          ..add('password', password)
-          ..add('currentPassword', currentPassword))
-        .toString();
-  }
-}
-
-class GUpdateUserPasswordInputBuilder
-    implements
-        Builder<GUpdateUserPasswordInput, GUpdateUserPasswordInputBuilder> {
-  _$GUpdateUserPasswordInput? _$v;
-
-  String? _password;
-  String? get password => _$this._password;
-  set password(String? password) => _$this._password = password;
-
-  String? _currentPassword;
-  String? get currentPassword => _$this._currentPassword;
-  set currentPassword(String? currentPassword) =>
-      _$this._currentPassword = currentPassword;
-
-  GUpdateUserPasswordInputBuilder();
-
-  GUpdateUserPasswordInputBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _password = $v.password;
-      _currentPassword = $v.currentPassword;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GUpdateUserPasswordInput other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GUpdateUserPasswordInput;
-  }
-
-  @override
-  void update(void Function(GUpdateUserPasswordInputBuilder)? updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GUpdateUserPasswordInput build() => _build();
-
-  _$GUpdateUserPasswordInput _build() {
-    final _$result = _$v ??
-        new _$GUpdateUserPasswordInput._(
-            password: BuiltValueNullFieldError.checkNotNull(
-                password, r'GUpdateUserPasswordInput', 'password'),
-            currentPassword: BuiltValueNullFieldError.checkNotNull(
-                currentPassword,
-                r'GUpdateUserPasswordInput',
-                'currentPassword'));
-    replace(_$result);
-    return _$result;
-  }
-}
-
 class _$GUpdateUserProfileInput extends GUpdateUserProfileInput {
   @override
   final String displayName;
@@ -20448,6 +21434,92 @@ class GUserWorksWhereInputBuilder
 
   _$GUserWorksWhereInput _build() {
     final _$result = _$v ?? new _$GUserWorksWhereInput._(search: search);
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GWatchFolderInput extends GWatchFolderInput {
+  @override
+  final String folderId;
+
+  factory _$GWatchFolderInput(
+          [void Function(GWatchFolderInputBuilder)? updates]) =>
+      (new GWatchFolderInputBuilder()..update(updates))._build();
+
+  _$GWatchFolderInput._({required this.folderId}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        folderId, r'GWatchFolderInput', 'folderId');
+  }
+
+  @override
+  GWatchFolderInput rebuild(void Function(GWatchFolderInputBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GWatchFolderInputBuilder toBuilder() =>
+      new GWatchFolderInputBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GWatchFolderInput && folderId == other.folderId;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, folderId.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GWatchFolderInput')
+          ..add('folderId', folderId))
+        .toString();
+  }
+}
+
+class GWatchFolderInputBuilder
+    implements Builder<GWatchFolderInput, GWatchFolderInputBuilder> {
+  _$GWatchFolderInput? _$v;
+
+  String? _folderId;
+  String? get folderId => _$this._folderId;
+  set folderId(String? folderId) => _$this._folderId = folderId;
+
+  GWatchFolderInputBuilder();
+
+  GWatchFolderInputBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _folderId = $v.folderId;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GWatchFolderInput other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GWatchFolderInput;
+  }
+
+  @override
+  void update(void Function(GWatchFolderInputBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GWatchFolderInput build() => _build();
+
+  _$GWatchFolderInput _build() {
+    final _$result = _$v ??
+        new _$GWatchFolderInput._(
+            folderId: BuiltValueNullFieldError.checkNotNull(
+                folderId, r'GWatchFolderInput', 'folderId'));
     replace(_$result);
     return _$result;
   }

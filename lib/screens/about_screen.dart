@@ -16,7 +16,7 @@ class AboutScreen extends HookConsumerWidget {
       ..setJavaScriptMode(JavaScriptMode.unrestricted);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('組織について')),
+      appBar: AppBar(title: const Text('アプリについて')),
       body: Builder(builder: (context) {
         return WebViewWidget(controller: controller);
       }),

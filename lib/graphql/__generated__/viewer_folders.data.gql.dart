@@ -85,13 +85,11 @@ abstract class GViewerFoldersData_viewer_folders
   @override
   String get title;
   @override
-  _i3.GRating get rating;
+  _i3.GRating? get rating;
   @override
-  int get likesCount;
+  String get description;
   @override
-  int get viewsCount;
-  @override
-  GViewerFoldersData_viewer_folders_thumbnailImage? get thumbnailImage;
+  String? get thumbnailImageURL;
   static Serializer<GViewerFoldersData_viewer_folders> get serializer =>
       _$gViewerFoldersDataViewerFoldersSerializer;
   @override
@@ -103,43 +101,6 @@ abstract class GViewerFoldersData_viewer_folders
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GViewerFoldersData_viewer_folders.serializer,
-        json,
-      );
-}
-
-abstract class GViewerFoldersData_viewer_folders_thumbnailImage
-    implements
-        Built<GViewerFoldersData_viewer_folders_thumbnailImage,
-            GViewerFoldersData_viewer_folders_thumbnailImageBuilder>,
-        _i2.GPartialFolderFields_thumbnailImage {
-  GViewerFoldersData_viewer_folders_thumbnailImage._();
-
-  factory GViewerFoldersData_viewer_folders_thumbnailImage(
-      [Function(GViewerFoldersData_viewer_folders_thumbnailImageBuilder b)
-          updates]) = _$GViewerFoldersData_viewer_folders_thumbnailImage;
-
-  static void _initializeBuilder(
-          GViewerFoldersData_viewer_folders_thumbnailImageBuilder b) =>
-      b..G__typename = 'ImageNode';
-  @override
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  @override
-  String get id;
-  @override
-  String get downloadURL;
-  static Serializer<GViewerFoldersData_viewer_folders_thumbnailImage>
-      get serializer =>
-          _$gViewerFoldersDataViewerFoldersThumbnailImageSerializer;
-  @override
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GViewerFoldersData_viewer_folders_thumbnailImage.serializer,
-        this,
-      ) as Map<String, dynamic>);
-  static GViewerFoldersData_viewer_folders_thumbnailImage? fromJson(
-          Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GViewerFoldersData_viewer_folders_thumbnailImage.serializer,
         json,
       );
 }

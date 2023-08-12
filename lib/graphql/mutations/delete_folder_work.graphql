@@ -1,0 +1,5 @@
+mutation DeleteFolderWork($input: DeleteFolderWorkInput!) {
+  deleteFolderWork(input: $input) {
+    id
+  }
+}

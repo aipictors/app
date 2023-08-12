@@ -51,7 +51,7 @@ class UserFoldersContainer extends HookConsumerWidget {
               title: folder.title,
               userName: null,
               userIconImageURL: null,
-              imageURL: folder.thumbnailImage?.downloadURL,
+              imageURL: folder.thumbnailImageURL,
               onTap: () {
                 FirebaseAnalytics.instance.logSelectContent(
                   contentType: 'folder',
