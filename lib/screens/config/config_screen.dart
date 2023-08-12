@@ -59,7 +59,7 @@ class ConfigScreen extends HookConsumerWidget {
             ),
           if (authState.value != null)
             ListTile(
-              leading: const Icon(Icons.folder_rounded),
+              leading: const Icon(Icons.photo_library_rounded),
               trailing: const Icon(Icons.chevron_right_rounded),
               title: Text(
                 'シリーズ'.i18n,
@@ -67,6 +67,18 @@ class ConfigScreen extends HookConsumerWidget {
               ),
               onTap: () {
                 context.push('/viewer/albums');
+              },
+            ),
+          if (authState.value != null)
+            ListTile(
+              leading: const Icon(Icons.folder_rounded),
+              trailing: const Icon(Icons.chevron_right_rounded),
+              title: Text(
+                'フォルダ'.i18n,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+              onTap: () {
+                context.push('/viewer/folders');
               },
             ),
           if (authState.value != null)
@@ -118,7 +130,7 @@ class ConfigScreen extends HookConsumerWidget {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.favorite_rounded),
+            leading: const Icon(Icons.cookie_rounded),
             trailing: const Icon(Icons.chevron_right_rounded),
             title: Text(
               '調査協力'.i18n,

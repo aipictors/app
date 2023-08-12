@@ -43,7 +43,7 @@ class ViewerFoldersScreen extends HookConsumerWidget {
           }
           if (folderList.isEmpty) {
             return DataEmptyErrorContainer(
-              message: 'あなたのシリーズは無いみたい。'.i18n,
+              message: 'あなたのフォルダは無いみたい。'.i18n,
             );
           }
           return ListView.builder(
