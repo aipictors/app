@@ -7,6 +7,42 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:527103542609:android:bc08305ce165009116ff70",
+        "android_client_info": {
+          "package_name": "com.aipictors.debug"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "527103542609-fllpjglgso95v40u1g1n47n7u9r7e8bq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDOIg6Emos_aMPM6HOk14fAFUeHWisboBQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "527103542609-fllpjglgso95v40u1g1n47n7u9r7e8bq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "527103542609-esd4rc2ihfju1cou4o29q4leqke7vcdm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.aipictors.flutter.debug"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:527103542609:android:56a9a6932ed35fed16ff70",
         "android_client_info": {
           "package_name": "com.aipictors.flutter.debug"
@@ -46,6 +82,42 @@
         "mobilesdk_app_id": "1:527103542609:android:cfb1ccf89902237616ff70",
         "android_client_info": {
           "package_name": "com.aipictors.flutter.staging"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "527103542609-fllpjglgso95v40u1g1n47n7u9r7e8bq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDOIg6Emos_aMPM6HOk14fAFUeHWisboBQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "527103542609-fllpjglgso95v40u1g1n47n7u9r7e8bq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "527103542609-esd4rc2ihfju1cou4o29q4leqke7vcdm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.aipictors.flutter.debug"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:527103542609:android:3fe82bfff1811c1816ff70",
+        "android_client_info": {
+          "package_name": "com.aipictors.staging"
         }
       },
       "oauth_client": [
