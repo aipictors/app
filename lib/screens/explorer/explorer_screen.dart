@@ -4,6 +4,7 @@ import 'package:aipictors/screens/explorer/explorer_hot_tags_view.dart';
 import 'package:aipictors/screens/explorer/explorer_latest_albums_view.dart';
 import 'package:aipictors/screens/explorer/explorer_popular_works_view.dart';
 import 'package:aipictors/screens/explorer/explorer_search_view.dart';
+import 'package:aipictors/utils/show_unavailable_snack_bar.dart';
 import 'package:aipictors/widgets/app_bar/search_app_bar.dart';
 import 'package:aipictors/widgets/controller/explorer_tab_controller.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -55,6 +56,7 @@ class ExplorerScreen extends HookConsumerWidget {
                 onPressed: () {
                   isFilled.value = false;
                   search.value = '';
+                  showUnavailableSnackBar(context);
                 },
               ),
           ],
