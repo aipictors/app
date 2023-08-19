@@ -42,7 +42,7 @@ class UserActionModalContainer extends HookConsumerWidget {
             ),
             ModalShareListTile(
               titleText: 'ユーザをシェアする'.i18n,
-              shareText: 'check out! https://aipictors.com/user/$userId',
+              shareText: 'check out! https://www.aipictors.com/users/$userId',
               onTap: () {
                 context.pop();
               },

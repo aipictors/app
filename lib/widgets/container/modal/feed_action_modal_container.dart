@@ -50,7 +50,7 @@ class FeedActionModalContainer extends HookConsumerWidget {
             ),
             ModalShareListTile(
               titleText: '作品をシェアする'.i18n,
-              shareText: 'check out! https://aipictors.com/works/$workId',
+              shareText: 'check out! https://www.aipictors.com/works/$workId',
               onTap: () {
                 context.pop();
               },
