@@ -17,7 +17,7 @@ class UnFollowDialog extends HookConsumerWidget {
   Widget build(context, ref) {
     return AlertDialog(
       title: const Text('フォローを解除しますか？'),
-      content: const Text('フォローを解除すると、フォロー中タブに表示されなくなります。'),
+      content: const Text('このユーザーの投稿はフォロー中タブに表示されなくなりますが、他のページから見ることができます。'),
       actions: [
         FilledButton.tonal(
           onPressed: onCancel,
