@@ -61,13 +61,13 @@ class FeedActionModalContainer extends HookConsumerWidget {
                 return onFollowUser(context);
               },
             ),
+            const Divider(),
             ModalMuteUserListTile(
               isActive: isMutedUser,
               onTap: () {
                 return onMuteUser(context);
               },
             ),
-            const Divider(),
             ModalReportListTile(
               titleText: 'ユーザを通報する'.i18n,
               onTap: () {
