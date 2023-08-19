@@ -7,6 +7,7 @@ class DailyThemeListTile extends HookConsumerWidget {
     Key? key,
     required this.isCurrent,
     required this.day,
+    required this.weekDay,
     required this.title,
     required this.worksCount,
     required this.imageURL,
@@ -16,6 +17,8 @@ class DailyThemeListTile extends HookConsumerWidget {
   final bool isCurrent;
 
   final int day;
+
+  final String weekDay;
 
   final String title;
 
@@ -45,12 +48,29 @@ class DailyThemeListTile extends HookConsumerWidget {
         '${worksCount.toString()}件',
         style: Theme.of(context).textTheme.labelSmall,
       ),
-      leading: Text(
-        isCurrent ? '今日' : '${day.toString()}日',
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-          color: Theme.of(context).colorScheme.primary,
-        ),
+      leading: Column(
+        children: [
+          const Spacer(),
+          Text(
+            isCurrent ? '今日' : '${day.toString()}日',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Theme.of(context).colorScheme.primary,
+            ),
+          ),
+          SizedBox(
+            width: 40,
+            child: Text(
+              '($weekDay)',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).colorScheme.primary,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+          const Spacer()
+        ],
       ),
       subtitle: Text(
         title,

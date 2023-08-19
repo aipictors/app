@@ -1,6 +1,7 @@
 import 'package:aipictors/graphql/__generated__/daily_themes.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/screens/loading_screen.dart';
+import 'package:aipictors/utils/to_weekday.dart';
 import 'package:aipictors/widgets/app_bar/daily_themes_app_bar.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
 import 'package:aipictors/widgets/container/error/data_empty_error_container.dart';
@@ -69,6 +70,7 @@ class DailyThemesScreen extends HookConsumerWidget {
               return DailyThemeListTile(
                 isCurrent: isCurrent(year.value, month.value, dailyTheme.day),
                 day: dailyTheme.day,
+                weekDay: toWeekday(year.value, month.value, dailyTheme.day),
                 title: dailyTheme.title,
                 worksCount: dailyTheme.worksCount,
                 imageURL: firstWork?.thumbnailImage?.downloadURL,
