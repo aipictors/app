@@ -21,6 +21,8 @@ class LoginScreen extends HookConsumerWidget {
 
     final isValidID = useState(false);
 
+    final hidePassword = useState(true);
+
     final idInput = useState('');
 
     final passwordInput = useState('');
@@ -66,17 +68,23 @@ class LoginScreen extends HookConsumerWidget {
                     const SizedBox(height: 16),
                     TextField(
                       keyboardType: TextInputType.visiblePassword,
-                      obscureText: true,
+                      obscureText: hidePassword.value,
                       readOnly: isLoading.value,
                       decoration: InputDecoration(
-                        hintText: 'パスワード',
-                        contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 20,
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(40),
-                        ),
-                      ),
+                          hintText: 'パスワード',
+                          contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 20,
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(40),
+                          ),
+                          suffixIcon: IconButton(
+                              icon: Icon(hidePassword.value
+                                  ? Icons.visibility
+                                  : Icons.visibility_off),
+                              onPressed: () {
+                                hidePassword.value = !hidePassword.value;
+                              })),
                       onChanged: (value) {
                         passwordInput.value = value;
                       },
