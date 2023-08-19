@@ -2,9 +2,9 @@ import 'package:aipictors/mutations/login_with_password.dart';
 import 'package:aipictors/mutations/login_with_twitter.dart';
 import 'package:aipictors/utils/to_exception_message.dart';
 import 'package:aipictors/widgets/container/loading_container.dart';
+import 'package:aipictors/widgets/form/login_id_form.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -18,6 +18,8 @@ class LoginScreen extends HookConsumerWidget {
   @override
   Widget build(context, ref) {
     final isLoading = useState(false);
+
+    final isValidID = useState(false);
 
     final idInput = useState('');
 
@@ -43,27 +45,24 @@ class LoginScreen extends HookConsumerWidget {
                       child: Image.asset('assets/images/aipictors.png'),
                     ),
                     const SizedBox(height: 40),
-                    TextField(
-                      readOnly: isLoading.value,
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: InputDecoration(
-                        hintText: 'ID',
-                        contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 20,
+                    LoginIDForm(
+                        readOnly: isLoading.value,
+                        decoration: InputDecoration(
+                          hintText: 'ID',
+                          contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 20,
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(40),
+                          ),
                         ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(40),
-                        ),
-                      ),
-                      inputFormatters: [
-                        FilteringTextInputFormatter.allow(
-                          RegExp('[0-9a-zA-Z@]'),
-                        ),
-                      ],
-                      onChanged: (value) {
-                        idInput.value = value;
-                      },
-                    ),
+                        onValidate: (valid, id) {
+                          //setState() or markNeedsBuild() called during buildを防ぐため
+                          WidgetsBinding.instance.addPostFrameCallback((_) {
+                            isValidID.value = valid;
+                            idInput.value = id;
+                          });
+                        }),
                     const SizedBox(height: 16),
                     TextField(
                       keyboardType: TextInputType.visiblePassword,
@@ -89,9 +88,10 @@ class LoginScreen extends HookConsumerWidget {
                         style: FilledButton.styleFrom(
                           fixedSize: const Size.fromHeight(48),
                         ),
-                        onPressed: isLoading.value
-                            ? null
-                            : () async {
+                        onPressed: isValidID.value &&
+                                !isLoading.value &&
+                                passwordInput.value.isNotEmpty
+                            ? () async {
                                 isLoading.value = true;
                                 await onLoginWithPassword(
                                   context,
@@ -100,7 +100,8 @@ class LoginScreen extends HookConsumerWidget {
                                   passwordInput.value,
                                 );
                                 isLoading.value = false;
-                              },
+                              }
+                            : null,
                         child: const Text('ログイン'),
                       ),
                     ),

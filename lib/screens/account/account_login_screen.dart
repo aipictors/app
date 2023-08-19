@@ -6,6 +6,7 @@ import 'package:aipictors/screens/loading_screen.dart';
 import 'package:aipictors/utils/show_error_snack_bar.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
 import 'package:aipictors/widgets/container/error/unexpected_error_container.dart';
+import 'package:aipictors/widgets/form/login_id_form.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -23,7 +24,9 @@ class AccountLoginScreen extends HookConsumerWidget {
   Widget build(context, ref) {
     final isLoading = useState(false);
 
-    final controller = useTextEditingController();
+    final newID = useState('');
+
+    final isValidID = useState(false);
 
     final client = ref.watch(clientProvider);
 
@@ -73,18 +76,18 @@ class AccountLoginScreen extends HookConsumerWidget {
                   const SizedBox(height: 8),
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: TextField(
-                      controller: controller,
-                      keyboardType: TextInputType.emailAddress,
+                    child: LoginIDForm(
                       readOnly: isLoading.value,
-                      inputFormatters: [
-                        FilteringTextInputFormatter.allow(
-                          RegExp('[0-9a-zA-Z@]'),
-                        ),
-                      ],
                       decoration: InputDecoration(
                         hintText: '新しいログインID'.i18n,
                       ),
+                      onValidate: (valid, id) {
+                        //setState() or markNeedsBuild() called during buildを防ぐため
+                        WidgetsBinding.instance.addPostFrameCallback((_) {
+                          isValidID.value = valid;
+                          newID.value = id;
+                        });
+                      },
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -94,17 +97,17 @@ class AccountLoginScreen extends HookConsumerWidget {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         FilledButton(
-                          onPressed: isLoading.value
-                              ? null
-                              : () async {
+                          onPressed: !isLoading.value && isValidID.value
+                              ? () async {
                                   try {
                                     isLoading.value = true;
-                                    await onSubmit(context, controller.text);
+                                    await onSubmit(context, newID.value);
                                     isLoading.value = false;
                                   } catch (exception, _) {
                                     isLoading.value = false;
                                   }
-                                },
+                                }
+                              : null,
                           child: Text('更新'.i18n),
                         ),
                       ],
