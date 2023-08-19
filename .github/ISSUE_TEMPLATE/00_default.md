@@ -1,6 +1,6 @@
 ---
 name: どれにも該当しない
-about: どれにも該当しないIssueをたてる。
+about: アイデアはDiscussionsに投稿してね！
 title: ''
 labels:
 assignees: ''
