@@ -1,3 +1,4 @@
+import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/mutations/create_work_like.dart';
 import 'package:aipictors/mutations/follow_user.dart';
 import 'package:aipictors/utils/to_readable_date_time.dart';
@@ -159,7 +160,10 @@ class FeedWorkListTile extends HookConsumerWidget {
                 onPressed: () {
                   onOpenComment(context);
                 },
-                child: Text('$commentsCount件のコメント'),
+                child: Text('_COMMENTS_COUNT_件のコメント'.i18n.replaceAllMapped(
+                      RegExp(r'_COMMENTS_COUNT_'),
+                      (match) => commentsCount.toString(),
+                    )),
               ),
             ],
           ),
