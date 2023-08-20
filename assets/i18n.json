@@ -422,5 +422,21 @@
   {
     "ja": "利用規約",
     "en": "Terms"
+  },
+  {
+    "ja": "_YEAR_年 _MONTH_月",
+    "en": "_MONTH_/_YEAR_"
+  },
+  {
+    "ja": "今日",
+    "en": "Today"
+  },
+  {
+    "ja": "_DAY_日",
+    "en": "_DAY_"
+  },
+  {
+    "ja": "_WORKS_COUNT_件",
+    "en": "_WORKS_COUNT_ Works"
   }
 ]

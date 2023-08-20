@@ -1,3 +1,4 @@
+import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/widgets/container/list_tile_image_container.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -45,14 +46,18 @@ class DailyThemeListTile extends HookConsumerWidget {
       ),
       onTap: onTap,
       title: Text(
-        '${worksCount.toString()}件',
+        '_WORKS_COUNT_件'.i18n.replaceAllMapped(
+            RegExp(r'_WORKS_COUNT_'), (match) => worksCount.toString()),
         style: Theme.of(context).textTheme.labelSmall,
       ),
       leading: Column(
         children: [
           const Spacer(),
           Text(
-            isCurrent ? '今日' : '${day.toString()}日',
+            isCurrent
+                ? '今日'.i18n
+                : '_DAY_日'.i18n.replaceAllMapped(
+                    RegExp(r'_DAY_'), (match) => day.toString()),
             style: TextStyle(
               fontWeight: FontWeight.bold,
               color: Theme.of(context).colorScheme.primary,
