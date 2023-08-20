@@ -148,7 +148,7 @@ class FeedWorkListTile extends HookConsumerWidget {
                 IconButton(
                     onPressed: () {
                       Share.share(
-                          'Check out! https://www.aipictors.com/users/$workId');
+                          'Check out! https://www.aipictors.com/works/$workId');
                     },
                     icon: const Icon(Icons.share))
               ]),
