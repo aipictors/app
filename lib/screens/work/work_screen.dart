@@ -53,6 +53,7 @@ class WorkScreen extends HookConsumerWidget {
                   onOpenActionModal(
                     context,
                     userId: work.user.id,
+                    workTitle: work.title,
                     isMutedUser: work.user.viewer?.isMuted == true,
                   );
                 },
@@ -124,6 +125,7 @@ class WorkScreen extends HookConsumerWidget {
   onOpenActionModal(
     BuildContext context, {
     required String userId,
+    required String workTitle,
     required bool isMutedUser,
   }) {
     showModalBottomSheet(
@@ -131,6 +133,7 @@ class WorkScreen extends HookConsumerWidget {
       builder: (context) {
         return WorkActionModalContainer(
           workId: workId,
+          workTitle: workTitle,
           userId: userId,
           isMutedUser: isMutedUser,
         );

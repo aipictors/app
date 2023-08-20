@@ -1,5 +1,6 @@
 import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/mutations/mute_user.dart';
+import 'package:aipictors/utils/to_share_text.dart';
 import 'package:aipictors/widgets/container/modal_header_container.dart';
 import 'package:aipictors/widgets/list_tile/modal_mute_user_list_tile.dart';
 import 'package:aipictors/widgets/list_tile/modal_report_list_tile.dart';
@@ -13,12 +14,15 @@ class WorkActionModalContainer extends HookConsumerWidget {
     Key? key,
     required this.workId,
     required this.userId,
+    required this.workTitle,
     required this.isMutedUser,
   }) : super(key: key);
 
   final String workId;
 
   final String userId;
+
+  final String workTitle;
 
   final bool isMutedUser;
 
@@ -33,14 +37,14 @@ class WorkActionModalContainer extends HookConsumerWidget {
             const ModalHeaderContainer(title: SizedBox()),
             ModalShareListTile(
               titleText: '作品をシェアする'.i18n,
-              shareText: 'check out! https://www.aipictors.com/works/$workId',
+              shareText: toShareText(false, userId, workId, workTitle),
               onTap: () {
                 context.pop();
               },
             ),
             ModalShareListTile(
               titleText: 'ユーザをシェアする'.i18n,
-              shareText: 'check out! https://www.aipictors.com/users/$userId',
+              shareText: toShareText(true, userId, workId, null),
               onTap: () {
                 context.pop();
               },
