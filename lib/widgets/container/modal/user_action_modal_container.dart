@@ -55,7 +55,7 @@ class UserActionModalContainer extends HookConsumerWidget {
             ),
             const Divider(),
             ModalReportListTile(
-              titleText: 'ユーザを通報する'.i18n,
+              titleText: 'ユーザを報告する'.i18n,
               onTap: () {
                 context.pop();
                 context.push('/users/$userId/report');

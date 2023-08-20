@@ -38,14 +38,14 @@ class CommentActionModalContainer extends HookConsumerWidget {
             ),
             const Divider(),
             ModalReportListTile(
-              titleText: 'コメントを通報する'.i18n,
+              titleText: 'コメントを報告する'.i18n,
               onTap: () {
                 context.pop();
                 context.push('/comments/$commentId/report');
               },
             ),
             ModalReportListTile(
-              titleText: 'ユーザを通報する'.i18n,
+              titleText: 'ユーザを報告する'.i18n,
               onTap: () {
                 context.pop();
                 context.push('/users/$userId/report');

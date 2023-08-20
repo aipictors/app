@@ -53,14 +53,14 @@ class WorkActionModalContainer extends HookConsumerWidget {
             ),
             const Divider(),
             ModalReportListTile(
-              titleText: '作品を通報する'.i18n,
+              titleText: '作品を報告する'.i18n,
               onTap: () {
                 context.pop();
                 context.push('/works/$workId/report');
               },
             ),
             ModalReportListTile(
-              titleText: 'ユーザを通報する'.i18n,
+              titleText: 'ユーザを報告する'.i18n,
               onTap: () {
                 context.pop();
                 context.push('/users/$userId/report');
