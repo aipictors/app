@@ -1,3 +1,4 @@
+import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/mutations/login_with_password.dart';
 import 'package:aipictors/mutations/login_with_twitter.dart';
 import 'package:aipictors/utils/to_exception_message.dart';
@@ -71,7 +72,7 @@ class LoginScreen extends HookConsumerWidget {
                       obscureText: hidePassword.value,
                       readOnly: isLoading.value,
                       decoration: InputDecoration(
-                          hintText: 'パスワード',
+                          hintText: 'パスワード'.i18n,
                           contentPadding: const EdgeInsets.symmetric(
                             horizontal: 20,
                           ),
@@ -110,7 +111,7 @@ class LoginScreen extends HookConsumerWidget {
                                 isLoading.value = false;
                               }
                             : null,
-                        child: const Text('ログイン'),
+                        child: Text('ログイン'.i18n),
                       ),
                     ),
                     const SizedBox(height: 40),
@@ -129,7 +130,7 @@ class LoginScreen extends HookConsumerWidget {
                                 await onLoginWithTwitter(context, ref);
                                 isLoading.value = false;
                               },
-                        child: const Text('Twitterでログイン'),
+                        child: Text('X(Twitter)でログイン'.i18n),
                       ),
                     ),
                   ],
@@ -162,7 +163,7 @@ class LoginScreen extends HookConsumerWidget {
       ScaffoldMessenger.of(context)
         ..hideCurrentSnackBar()
         ..showSnackBar(
-          const SnackBar(content: Text('ログインしました')),
+          SnackBar(content: Text('ログインしました'.i18n)),
         );
     } catch (exception) {
       ScaffoldMessenger.of(context)
@@ -196,7 +197,7 @@ class LoginScreen extends HookConsumerWidget {
       ScaffoldMessenger.of(context)
         ..hideCurrentSnackBar()
         ..showSnackBar(
-          const SnackBar(content: Text('ログインしました')),
+          SnackBar(content: Text('ログインしました'.i18n)),
         );
     } catch (exception) {
       ScaffoldMessenger.of(context)
