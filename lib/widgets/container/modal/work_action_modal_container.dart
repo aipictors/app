@@ -33,14 +33,14 @@ class WorkActionModalContainer extends HookConsumerWidget {
             const ModalHeaderContainer(title: SizedBox()),
             ModalShareListTile(
               titleText: '作品をシェアする'.i18n,
-              shareText: 'check out! https://aipictors.com/works/$workId',
+              shareText: 'check out! https://www.aipictors.com/works/$workId',
               onTap: () {
                 context.pop();
               },
             ),
             ModalShareListTile(
               titleText: 'ユーザをシェアする'.i18n,
-              shareText: 'check out! https://aipictors.com/user/?id=$userId',
+              shareText: 'check out! https://www.aipictors.com/users/$userId',
               onTap: () {
                 context.pop();
               },
@@ -53,14 +53,14 @@ class WorkActionModalContainer extends HookConsumerWidget {
             ),
             const Divider(),
             ModalReportListTile(
-              titleText: '作品を通報する'.i18n,
+              titleText: '作品を報告する'.i18n,
               onTap: () {
                 context.pop();
                 context.push('/works/$workId/report');
               },
             ),
             ModalReportListTile(
-              titleText: 'ユーザを通報する'.i18n,
+              titleText: 'ユーザを報告する'.i18n,
               onTap: () {
                 context.pop();
                 context.push('/users/$userId/report');

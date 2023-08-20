@@ -142,5 +142,9 @@
   {
     "ja": "キーワード検索",
     "en": "Keyword Search"
+  },
+  {
+    "ja": "_COMMENTS_COUNT_件のコメント",
+    "en": "_COMMENTS_COUNT_ Comments"
   }
 ]

@@ -1,7 +1,10 @@
+import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/mutations/create_work_like.dart';
+import 'package:aipictors/mutations/follow_user.dart';
 import 'package:aipictors/utils/to_readable_date_time.dart';
 import 'package:aipictors/widgets/button/feed_folder_button.dart';
 import 'package:aipictors/widgets/button/feed_like_button.dart';
+import 'package:aipictors/widgets/button/follow_button.dart';
 import 'package:aipictors/widgets/container/modal/comment_modal_container.dart';
 import 'package:aipictors/widgets/container/modal/feed_action_modal_container.dart';
 import 'package:aipictors/widgets/container/notification_user_container.dart';
@@ -10,6 +13,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:share_plus/share_plus.dart';
 
 class FeedWorkListTile extends HookConsumerWidget {
   const FeedWorkListTile({
@@ -87,6 +91,12 @@ class FeedWorkListTile extends HookConsumerWidget {
                 ),
               ),
             ),
+            FollowButton(
+              isActive: isFollowee,
+              onPressed: () {
+                return onFollowUser(context, userId: userId);
+              },
+            ),
             IconButton(
               style: IconButton.styleFrom(
                 tapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -136,6 +146,12 @@ class FeedWorkListTile extends HookConsumerWidget {
                     onCreateLike(context);
                   },
                 ),
+                IconButton(
+                    onPressed: () {
+                      Share.share(
+                          'Check out! https://www.aipictors.com/works/$workId');
+                    },
+                    icon: const Icon(Icons.share))
               ]),
               FilledButton.tonal(
                 style: FilledButton.styleFrom(
@@ -144,7 +160,10 @@ class FeedWorkListTile extends HookConsumerWidget {
                 onPressed: () {
                   onOpenComment(context);
                 },
-                child: Text('$commentsCount件のコメント'),
+                child: Text('_COMMENTS_COUNT_件のコメント'.i18n.replaceAllMapped(
+                      RegExp(r'_COMMENTS_COUNT_'),
+                      (match) => commentsCount.toString(),
+                    )),
               ),
             ],
           ),
@@ -205,5 +224,12 @@ class FeedWorkListTile extends HookConsumerWidget {
         );
       },
     );
+  }
+
+  /// フォローする
+  onFollowUser(BuildContext context, {required String userId}) {
+    return followUser((builder) {
+      return builder..vars.input.userId = userId;
+    });
   }
 }

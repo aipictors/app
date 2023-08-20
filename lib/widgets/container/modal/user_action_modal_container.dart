@@ -42,7 +42,7 @@ class UserActionModalContainer extends HookConsumerWidget {
             ),
             ModalShareListTile(
               titleText: 'ユーザをシェアする'.i18n,
-              shareText: 'check out! https://aipictors.com/user/$userId',
+              shareText: 'check out! https://www.aipictors.com/users/$userId',
               onTap: () {
                 context.pop();
               },
@@ -55,7 +55,7 @@ class UserActionModalContainer extends HookConsumerWidget {
             ),
             const Divider(),
             ModalReportListTile(
-              titleText: 'ユーザを通報する'.i18n,
+              titleText: 'ユーザを報告する'.i18n,
               onTap: () {
                 context.pop();
                 context.push('/users/$userId/report');

@@ -31,14 +31,14 @@ class StickerActionModalContainer extends HookConsumerWidget {
               title: Text('スタンプ'.i18n),
             ),
             ModalReportListTile(
-              titleText: 'スタンプを通報する'.i18n,
+              titleText: 'スタンプを報告する'.i18n,
               onTap: () {
                 context.pop();
                 context.push('/stickers/$stickerId/report');
               },
             ),
             ModalReportListTile(
-              titleText: 'ユーザを通報する'.i18n,
+              titleText: 'ユーザを報告する'.i18n,
               onTap: () {
                 context.pop();
                 context.push('/users/$userId/report');

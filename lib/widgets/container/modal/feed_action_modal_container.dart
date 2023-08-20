@@ -50,7 +50,7 @@ class FeedActionModalContainer extends HookConsumerWidget {
             ),
             ModalShareListTile(
               titleText: '作品をシェアする'.i18n,
-              shareText: 'check out! https://aipictors.com/works/$workId',
+              shareText: 'check out! https://www.aipictors.com/works/$workId',
               onTap: () {
                 context.pop();
               },
@@ -61,22 +61,22 @@ class FeedActionModalContainer extends HookConsumerWidget {
                 return onFollowUser(context);
               },
             ),
+            const Divider(),
             ModalMuteUserListTile(
               isActive: isMutedUser,
               onTap: () {
                 return onMuteUser(context);
               },
             ),
-            const Divider(),
             ModalReportListTile(
-              titleText: 'ユーザを通報する'.i18n,
+              titleText: 'ユーザを報告する'.i18n,
               onTap: () {
                 context.pop();
                 context.push('/users/$userId/report');
               },
             ),
             ModalReportListTile(
-              titleText: '作品を通報する'.i18n,
+              titleText: '作品を報告する'.i18n,
               onTap: () {
                 context.pop();
                 context.push('/works/$workId/report');
