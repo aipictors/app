@@ -67,7 +67,7 @@ class NotificationLikedWorkListTileCompact extends HookConsumerWidget {
                 const SizedBox(width: 8),
                 Flexible(
                   child: Text(
-                    '_USER_NAME_さんがさんがいいねしました。'.i18n.replaceAllMapped(
+                    '_USER_NAME_さんがいいねしました。'.i18n.replaceAllMapped(
                         RegExp(r'_USER_NAME'), (match) => userName!),
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
