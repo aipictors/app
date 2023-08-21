@@ -28,15 +28,6 @@ class RootScreen extends HookConsumerWidget {
     // タブの位置
     final pageIndex = ref.watch(homeTabIndexProvider);
 
-    // ログイン状態が変わった際にホームに戻す
-    ref.listen(
-      authStateProvider,
-      (_, next) {
-        final notifier = ref.read(homeTabIndexProvider.notifier);
-        notifier.update(0);
-      },
-    );
-
     if (config.isFailed) {
       return const ConfigErrorScreen();
     }

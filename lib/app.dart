@@ -27,7 +27,7 @@ class App extends HookConsumerWidget {
 
     ref.listen(
       configUpdateProvider,
-      buildRemoteConfigListener(context, ref),
+      remoteConfigListener(context, ref),
     );
 
     ref.listen(
