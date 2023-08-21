@@ -11,15 +11,19 @@ class WorkBottomAppContainer extends HookConsumerWidget {
     Key? key,
     required this.workId,
     required this.isLiked,
+    required this.isFolded,
   }) : super(key: key);
 
   final String workId;
 
   final bool isLiked;
 
+  final bool isFolded;
+
   @override
   Widget build(context, ref) {
     final isLikedInMemory = useState(isLiked);
+    final isFoldedInMemory = useState(isFolded);
 
     return BottomAppBar(
       child: Row(
@@ -46,17 +50,20 @@ class WorkBottomAppContainer extends HookConsumerWidget {
               ),
               const SizedBox(width: 16),
               LikeButton(
-                isLiked: isLiked,
-                likeBuilder: (bool isLiked) {
+                isLiked: isFoldedInMemory.value,
+                likeBuilder: (bool isFolded) {
                   return Icon(
-                    Icons.bookmark_rounded,
+                    Icons.folder,
                     size: 28,
-                    color:
-                        isLiked ? Theme.of(context).colorScheme.primary : null,
+                    color: isFoldedInMemory.value
+                        ? Theme.of(context).colorScheme.primary
+                        : null,
                   );
                 },
-                onTap: (isLiked) async {
-                  return !isLiked;
+                onTap: (isFolded) async {
+                  onAddToFolder(context);
+                  isFoldedInMemory.value = !isFoldedInMemory.value;
+                  return !isFolded;
                 },
               ),
             ],
@@ -82,5 +89,10 @@ class WorkBottomAppContainer extends HookConsumerWidget {
     createWorkLike((builder) {
       return builder..vars.input.workId = workId;
     });
+  }
+
+  /// 作品をブックマークする
+  void onAddToFolder(BuildContext context) {
+    showUnavailableSnackBar(context);
   }
 }

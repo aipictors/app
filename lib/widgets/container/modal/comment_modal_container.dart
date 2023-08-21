@@ -3,6 +3,8 @@ import 'package:aipictors/graphql/__generated__/work_comments.req.gql.dart';
 import 'package:aipictors/mutations/create_work_comment.dart';
 import 'package:aipictors/providers/auth_state_provider.dart';
 import 'package:aipictors/providers/client_provider.dart';
+import 'package:aipictors/widgets/container/error/data_empty_error_container.dart';
+import 'package:aipictors/widgets/container/error/unexpected_error_container.dart';
 import 'package:aipictors/widgets/container/loading_container.dart';
 import 'package:aipictors/widgets/container/modal_header_container.dart';
 import 'package:aipictors/widgets/container/work_comment_form_container.dart';
@@ -47,7 +49,7 @@ class CommentModalContainer extends HookConsumerWidget {
             children: [
               ModalHeaderContainer(
                 title: Text(
-                  'コメント',
+                  'コメント'.i18n,
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
               ),
@@ -60,17 +62,17 @@ class CommentModalContainer extends HookConsumerWidget {
                     }),
                     builder: (context, response, error) {
                       if (error != null) {
-                        return const SizedBox();
+                        return const Center(child: UnexpectedErrorContainer());
                       }
                       if (response == null || response.loading) {
-                        return const LoadingContainer();
+                        return const Center(child: LoadingContainer());
                       }
                       if (response.graphqlErrors != null) {
-                        return const SizedBox();
+                        return const Center(child: UnexpectedErrorContainer());
                       }
                       final commentList = response.data?.work?.comments;
-                      if (commentList == null) {
-                        return const SizedBox();
+                      if (commentList == null || commentList.isEmpty) {
+                        return const Center(child: DataEmptyErrorContainer());
                       }
                       return Column(children: [
                         for (final comment in commentList)

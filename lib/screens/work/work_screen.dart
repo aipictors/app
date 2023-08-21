@@ -64,6 +64,7 @@ class WorkScreen extends HookConsumerWidget {
           bottomNavigationBar: WorkBottomAppContainer(
             workId: workId,
             isLiked: work.viewer?.isLiked == true,
+            isFolded: work.viewer?.isBookmarked == true,
           ),
           body: GestureDetector(
             onTap: () {
