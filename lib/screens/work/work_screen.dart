@@ -1,3 +1,4 @@
+import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/graphql/__generated__/work.req.gql.dart';
 import 'package:aipictors/mutations/follow_user.dart';
 import 'package:aipictors/providers/client_provider.dart';
@@ -45,7 +46,7 @@ class WorkScreen extends HookConsumerWidget {
         return Scaffold(
           resizeToAvoidBottomInset: true,
           appBar: AppBar(
-            title: const Text('作品'),
+            title: Text('作品'.i18n),
             actions: [
               IconButton(
                 icon: const Icon(Icons.more_horiz_rounded),
