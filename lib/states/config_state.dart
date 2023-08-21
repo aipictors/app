@@ -1,5 +1,6 @@
 import 'package:aipictors/config.dart';
 import 'package:aipictors/models/app_version.dart';
+import 'package:aipictors/utils/to_locale.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -76,17 +77,23 @@ class ConfigState with _$ConfigState {
 
   /// 最新バージョン
   /// 設定のバージョンより大きい場合は最新バージョン
-  bool get isVersionLatest {
+  bool get isLatestVersion {
     try {
       final remoteConfig = FirebaseRemoteConfig.instance;
       final text = remoteConfig.getString('version_latest');
       final remoteVersion = AppVersion(text);
       final localVersion = AppVersion(DefaultConfig.version);
+      print(remoteVersion.major);
       if (remoteVersion.major < localVersion.major) {
         return true;
       }
       if (remoteVersion.major == localVersion.major &&
           remoteVersion.minor <= localVersion.minor) {
+        return true;
+      }
+      if (remoteVersion.major == localVersion.major &&
+          remoteVersion.minor == localVersion.minor &&
+          remoteVersion.patch <= localVersion.patch) {
         return true;
       }
       return false;
@@ -97,16 +104,16 @@ class ConfigState with _$ConfigState {
   }
 
   /// 最新バージョンではない
-  bool get isNotVersionLatest {
+  bool get isNotLatestVersion {
     if (isOutOfDate) {
       return false;
     }
-    return !isVersionLatest;
+    return !isLatestVersion;
   }
 
   /// サポート内
   /// 設定のバージョンより大きい場合はサポート内
-  bool get isVersionSupport {
+  bool get isSupportedVersion {
     try {
       final remoteConfig = FirebaseRemoteConfig.instance;
       final text = remoteConfig.getString('version_support');
@@ -128,7 +135,11 @@ class ConfigState with _$ConfigState {
 
   /// アップデートが必要
   bool get isOutOfDate {
-    return !isVersionSupport;
+    return !isSupportedVersion;
+  }
+
+  Locale get locale {
+    return toLocale(language);
   }
 
   /// Remote Config

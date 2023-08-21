@@ -1,10 +1,6 @@
 import 'package:aipictors/enums/layout.dart';
-import 'package:aipictors/handlers/explorer_tab_index_handler.dart';
-import 'package:aipictors/handlers/feed_tab_index_handler.dart';
 import 'package:aipictors/providers/auth_state_provider.dart';
 import 'package:aipictors/providers/config_provider.dart';
-import 'package:aipictors/providers/explorer_tab_index_provider.dart';
-import 'package:aipictors/providers/feed_tab_index_provider.dart';
 import 'package:aipictors/providers/home_tab_index_provider.dart';
 import 'package:aipictors/screens/config/config_screen.dart';
 import 'package:aipictors/screens/daily_theme/daily_themes_screen.dart';
@@ -14,6 +10,7 @@ import 'package:aipictors/screens/feed/feed_screen.dart';
 import 'package:aipictors/screens/home_loading_screen.dart';
 import 'package:aipictors/screens/login_screen.dart';
 import 'package:aipictors/screens/notification_screen.dart';
+import 'package:aipictors/screens/update_screen.dart';
 import 'package:aipictors/widgets/navigation/home_navigation_bar.dart';
 import 'package:aipictors/widgets/navigation/home_navigation_rail.dart';
 import 'package:flutter/material.dart';
@@ -31,16 +28,6 @@ class RootScreen extends HookConsumerWidget {
     // タブの位置
     final pageIndex = ref.watch(homeTabIndexProvider);
 
-    ref.listen(
-      feedTabIndexProvider,
-      feedTabIndexListener(context, ref),
-    );
-
-    ref.listen(
-      explorerTabIndexProvider,
-      explorerTabIndexListener(context, ref),
-    );
-
     // ログイン状態が変わった際にホームに戻す
     ref.listen(
       authStateProvider,
@@ -52,6 +39,10 @@ class RootScreen extends HookConsumerWidget {
 
     if (config.isFailed) {
       return const ConfigErrorScreen();
+    }
+
+    if (config.isOutOfDate) {
+      return const UpdateScreen();
     }
 
     if (authState.isLoading) {

@@ -3,14 +3,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-var isDuplicated = false;
-
 typedef Listener = void Function(
   AsyncValue<User?>? _,
   AsyncValue<User?> state,
 );
 
-Listener buildAuthStateListener(BuildContext context, WidgetRef ref) {
+Listener authStateListener(BuildContext context, WidgetRef ref) {
   return (_, state) async {
     // ログイン状態を更新する
     FirebaseAnalytics.instance.setUserProperty(

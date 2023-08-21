@@ -3,8 +3,6 @@ import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-var isDuplicated = false;
-
 typedef Listener = void Function(
   AsyncValue<RemoteConfigUpdate>? _,
   AsyncValue<RemoteConfigUpdate> state,
