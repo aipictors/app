@@ -1,5 +1,5 @@
-import 'package:aipictors/widgets/avatar/user_profile_avatar.dart';
 import 'package:aipictors/widgets/container/notification_image_container_medium.dart';
+import 'package:aipictors/widgets/container/notification_user_container.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -61,14 +61,8 @@ class NotificationWorkCommentListTileMedium extends HookConsumerWidget {
       ),
       title: Row(
         children: [
-          UserProfileAvatar(imageURL: userIconImageURL),
-          const SizedBox(width: 8),
-          Flexible(
-            child: Text(
-              '$userNameさんがあなたに返信しました。',
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
-          ),
+          NotificationUserContainer(
+              userName: userName, userIconImageURL: userIconImageURL)
         ],
       ),
       subtitle: Column(
@@ -76,11 +70,10 @@ class NotificationWorkCommentListTileMedium extends HookConsumerWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           if (message != null)
-            Expanded(
-              child: Text(
-                message!,
-                style: Theme.of(context).textTheme.bodyMedium,
-              ),
+            Text(
+              message!,
+              maxLines: 5,
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
           if (message != null) const SizedBox(height: 8),
           if (stickerImageURL != null)
