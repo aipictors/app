@@ -48,7 +48,7 @@ class WorkCommentFormContainer extends HookConsumerWidget {
                 showErrorSnackBar(context, exception);
               }
             },
-            child: const Text('送信'),
+            child: Text('送信'.i18n),
           ),
         ],
       ),

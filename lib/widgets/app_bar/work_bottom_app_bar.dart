@@ -1,3 +1,4 @@
+import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/mutations/create_work_like.dart';
 import 'package:aipictors/utils/show_unavailable_snack_bar.dart';
 import 'package:flutter/material.dart';
@@ -62,9 +63,9 @@ class WorkBottomAppContainer extends HookConsumerWidget {
           ),
           const SizedBox(width: 8),
           FilledButton.tonal(
-            child: const Text(
-              'コメント',
-              style: TextStyle(
+            child: Text(
+              'コメント'.i18n,
+              style: const TextStyle(
                 fontWeight: FontWeight.bold,
               ),
             ),
