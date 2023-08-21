@@ -1,3 +1,4 @@
+import 'package:aipictors/default.i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -15,16 +16,16 @@ class UnFollowDialog extends HookConsumerWidget {
   @override
   Widget build(context, ref) {
     return AlertDialog(
-      title: const Text('フォローを解除しますか？'),
-      content: const Text('このユーザーの投稿はフォロー中タブに表示されなくなりますが、他のページから見ることができます。'),
+      title: Text('フォローを解除しますか？'.i18n),
+      content: Text('このユーザーの投稿はフォロー中タブに表示されなくなりますが、他のページから見ることができます。'.i18n),
       actions: [
         FilledButton.tonal(
           onPressed: onCancel,
-          child: const Text('やめる'),
+          child: Text('やめる'.i18n),
         ),
         TextButton(
           onPressed: onAccept,
-          child: const Text('解除する'),
+          child: Text('解除する'.i18n),
         ),
       ],
     );

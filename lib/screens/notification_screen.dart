@@ -1,3 +1,4 @@
+import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/graphql/__generated__/viewer_notifications.data.gql.dart';
 import 'package:aipictors/graphql/__generated__/viewer_notifications.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
@@ -36,7 +37,7 @@ class NotificationScreen extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('通知'),
+        title: Text('通知'.i18n),
       ),
       body: RefreshIndicator(
         onRefresh: () async {

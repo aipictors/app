@@ -42,41 +42,19 @@ class DailyThemesAppBar extends HookConsumerWidget
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
-          Row(children: [
-            SizedBox(
-              width: 64,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Text(
-                    year.toString(),
-                    style: Theme.of(context).textTheme.headlineSmall,
-                  ),
-                ],
-              ),
-            ),
-            Text(
-              '年',
-              style: Theme.of(context).textTheme.headlineSmall,
-            ),
-            const SizedBox(width: 4),
-            SizedBox(
-              width: 28,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Text(
-                    month.toString(),
-                    style: Theme.of(context).textTheme.headlineSmall,
-                  ),
-                ],
-              ),
-            ),
-            Text(
-              '月',
-              style: Theme.of(context).textTheme.headlineSmall,
-            ),
-          ]),
+          Text(
+            '_YEAR_年 _MONTH_月'
+                .i18n
+                .replaceAllMapped(
+                  RegExp(r'_YEAR_'),
+                  (match) => year.toString(),
+                )
+                .replaceAllMapped(
+                  RegExp(r'_MONTH_'),
+                  (match) => month.toString(),
+                ),
+            style: Theme.of(context).textTheme.headlineSmall,
+          ),
           FilledButton.tonal(
             onPressed: hasNext ? onNext : null,
             child: Text(

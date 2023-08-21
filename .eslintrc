@@ -1,0 +1,11 @@
+{
+  "extends": ["eslint:recommended", "prettier"],
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaVersion": 2015
+  },
+  "rules": {
+    "import/no-duplicates": ["error", { "prefer-inline": true }],
+    "import/order": ["error", { "alphabetize": { "order": "asc" } }]
+  }
+}

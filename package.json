@@ -1,6 +1,15 @@
 {
   "name": "aipictors",
+  "type": "module",
+  "scripts": {
+    "i18n": "node tools/i18n"
+  },
+  "dependencies": {
+    "glob": "^10.3.3"
+  },
   "devDependencies": {
-    "prettier": "^2.8.8"
+    "eslint": "8.43.0",
+    "eslint-config-prettier": "^8.8.0",
+    "prettier": "^3.0.2"
   }
 }

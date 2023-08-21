@@ -59,7 +59,7 @@ class FollowButton extends HookConsumerWidget {
               child: CircularProgressIndicator(),
             )
           : Text(
-              isActive ? 'フォロー中' : 'フォローする'.i18n,
+              isActive ? 'フォロー中'.i18n : 'フォローする'.i18n,
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
     );

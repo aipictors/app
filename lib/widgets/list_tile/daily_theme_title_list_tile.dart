@@ -1,3 +1,4 @@
+import 'package:aipictors/default.i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -17,7 +18,9 @@ class DailyThemeTitleListTile extends HookConsumerWidget {
         horizontal: 16,
       ),
       child: Text(
-        '今日のテーマは「$title」だよ！',
+        '今日のテーマは_TITLE_だよ！'
+            .i18n
+            .replaceAllMapped(RegExp(r'_TITLE_'), (match) => title),
         style: const TextStyle(fontWeight: FontWeight.bold),
       ),
     );

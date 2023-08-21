@@ -7,7 +7,8 @@ extension Localization on String {
   /// https://pub.dev/packages/i18n_extension#strings-themselves-are-the-translation-keys
   String get i18n {
     try {
-      return localize(this, TranslationRepository.translations);
+      final text = localize(this, TranslationRepository.translations);
+      return text.isNotEmpty ? text : this;
     } catch (exception, stackTrace) {
       Sentry.captureException(exception, stackTrace: stackTrace);
       return this;

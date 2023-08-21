@@ -1,6 +1,6 @@
 ---
-name: "✨　UIデザインを改善したい"
-about: UIデザインを改善をしたいので提案する。
+name: "✨　デザインを改善する"
+about: デザインを改善する開発内容を提案する。
 title: ''
 labels: ":sparkles: enhancement"
 assignees: ''
