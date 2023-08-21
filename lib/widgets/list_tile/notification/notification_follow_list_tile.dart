@@ -49,7 +49,7 @@ class NotificationFollowListTile extends HookConsumerWidget {
           Flexible(
             child: Text(
               '_USER_NAME_さんがあなたをフォローしました。'.i18n.replaceAllMapped(
-                  RegExp(r'_USER_NAME'), (match) => userName!),
+                  RegExp(r'_USER_NAME_'), (match) => userName!),
               style: Theme.of(context).textTheme.bodyMedium,
             ),
           ),
