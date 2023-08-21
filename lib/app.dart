@@ -1,6 +1,6 @@
 import 'package:aipictors/config.dart';
 import 'package:aipictors/handlers/auth_state_listener.dart';
-import 'package:aipictors/handlers/config_update_listener.dart';
+import 'package:aipictors/handlers/remote_config_update_listener.dart';
 import 'package:aipictors/providers/auth_state_provider.dart';
 import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/providers/config_update_provider.dart';
