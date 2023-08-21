@@ -15,6 +15,7 @@ Future<Client> createClient() async {
       if (token != null) 'authorization': 'Bearer $token',
       'flutter_version': DefaultConfig.version,
       'flutter_build_number': DefaultConfig.buildNumber,
+      'flutter_secret_token': DefaultConfig.secretToken,
     },
   );
 

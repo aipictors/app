@@ -72,4 +72,9 @@ class DefaultConfig {
   static String get appName {
     return const String.fromEnvironment('appName');
   }
+
+  /// dart_define
+  static String get secretToken {
+    return const String.fromEnvironment('secretToken');
+  }
 }

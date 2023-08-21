@@ -2,10 +2,9 @@
   "extends": ["eslint:recommended", "prettier"],
   "parserOptions": {
     "sourceType": "module",
-    "ecmaVersion": 2015
+    "ecmaVersion": "latest"
   },
-  "rules": {
-    "import/no-duplicates": ["error", { "prefer-inline": true }],
-    "import/order": ["error", { "alphabetize": { "order": "asc" } }]
+  "env": {
+    "es6": true
   }
 }
