@@ -72,7 +72,7 @@ class NotificationWorkCommentListTileMedium extends HookConsumerWidget {
           if (message != null)
             Text(
               message!,
-              overflow: TextOverflow.ellipsis,
+              maxLines: 5,
               style: Theme.of(context).textTheme.bodyMedium,
             ),
           if (message != null) const SizedBox(height: 8),

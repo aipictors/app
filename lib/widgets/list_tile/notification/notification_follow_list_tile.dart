@@ -1,3 +1,4 @@
+import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/widgets/avatar/user_profile_avatar.dart';
 import 'package:aipictors/widgets/list_tile/notification/notification_deleted_list_tile.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -47,7 +48,8 @@ class NotificationFollowListTile extends HookConsumerWidget {
           const SizedBox(width: 8),
           Flexible(
             child: Text(
-              '$userNameさんがあなたをフォローしました。',
+              '_USER_NAME_さんがあなたをフォローしました。'.i18n.replaceAllMapped(
+                  RegExp(r'_USER_NAME'), (match) => userName!),
               style: Theme.of(context).textTheme.bodyMedium,
             ),
           ),

@@ -76,9 +76,13 @@ class NotificationLikedWorkListTileMedium extends HookConsumerWidget {
               children: [
                 UserProfileAvatar(imageURL: userIconImageURL),
                 const SizedBox(width: 8),
-                Text(
-                  '$userNameさんがいいねしました。',
-                  style: Theme.of(context).textTheme.bodyMedium,
+                Expanded(
+                  child: Text(
+                    '_USER_NAME_さんがさんがいいねしました。'.i18n.replaceAllMapped(
+                        RegExp(r'_USER_NAME_'), (match) => userName!),
+                    maxLines: 5,
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
                 ),
               ],
             ),
