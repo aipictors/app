@@ -1,4 +1,3 @@
-import 'package:aipictors/widgets/avatar/user_profile_avatar.dart';
 import 'package:aipictors/widgets/container/notification_image_container_medium.dart';
 import 'package:aipictors/widgets/container/notification_user_container.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
