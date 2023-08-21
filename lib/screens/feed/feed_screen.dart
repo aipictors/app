@@ -4,6 +4,7 @@ import 'package:aipictors/screens/feed/feed_daily_theme_works_view.dart';
 import 'package:aipictors/screens/feed/feed_home_view.dart';
 import 'package:aipictors/screens/feed/feed_hot_works_view.dart';
 import 'package:aipictors/screens/feed/feed_latest_works_view.dart';
+import 'package:aipictors/widgets/container/home_logo_container.dart';
 import 'package:aipictors/widgets/controller/feed_tab_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -25,11 +26,7 @@ class FeedScreen extends HookConsumerWidget {
       length: tabSize,
       child: Scaffold(
         appBar: AppBar(
-          title: ImageIcon(
-            const AssetImage('assets/images/aipictors.png'),
-            color: Theme.of(context).colorScheme.primary,
-            size: 32,
-          ),
+          title: const HomeLogoContainer(),
           actions: [
             IconButton(
               icon: const Icon(Icons.newspaper_rounded),

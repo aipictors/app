@@ -9,7 +9,6 @@ import 'package:aipictors/widgets/container/error/unexpected_error_container.dar
 import 'package:aipictors/widgets/form/login_id_form.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';

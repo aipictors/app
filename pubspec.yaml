@@ -81,7 +81,6 @@ flutter:
   assets:
     - assets/
     - assets/images/
-    - assets/flame/
 
 flutter_launcher_icons:
   android: true

@@ -29,6 +29,7 @@ import 'package:aipictors/screens/privacy_screen.dart';
 import 'package:aipictors/screens/promotions/promotion_screen.dart';
 import 'package:aipictors/screens/promotions/promotions_screen.dart';
 import 'package:aipictors/screens/root_screen.dart';
+import 'package:aipictors/screens/secret_screen.dart';
 import 'package:aipictors/screens/sticker/sticker_report_screen.dart';
 import 'package:aipictors/screens/sticker/stickers_screen.dart';
 import 'package:aipictors/screens/surveys_screen.dart';
@@ -349,6 +350,12 @@ final router = GoRouter(
       path: '/feedback',
       builder: (context, state) {
         return const FeedbackScreen();
+      },
+    ),
+    GoRoute(
+      path: '/secret',
+      builder: (context, state) {
+        return const SecretScreen();
       },
     ),
     GoRoute(
