@@ -23,31 +23,27 @@ class EndOfContentContainer extends HookConsumerWidget {
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 16),
-        ColorFiltered(
-          colorFilter: ColorFilter.mode(
-            Theme.of(context).colorScheme.primary,
-            BlendMode.color,
-          ),
-          child: CachedNetworkImage(
-            width: size,
-            height: size,
-            imageUrl: config.endOfFeedImageURL,
-            fit: BoxFit.cover,
-            progressIndicatorBuilder: (context, url, downloadProgress) {
-              return Container(
-                width: size,
-                height: size,
-                color: Colors.transparent,
-              );
-            },
-            errorWidget: (context, uri, error) {
-              return Container(
-                width: size,
-                height: size,
-                color: Colors.transparent,
-              );
-            },
-          ),
+        CachedNetworkImage(
+          width: size,
+          height: size,
+          imageUrl: config.endOfFeedImageURL,
+          color: Theme.of(context).colorScheme.primary,
+          colorBlendMode: BlendMode.modulate,
+          fit: BoxFit.cover,
+          progressIndicatorBuilder: (context, url, downloadProgress) {
+            return Container(
+              width: size,
+              height: size,
+              color: Colors.transparent,
+            );
+          },
+          errorWidget: (context, uri, error) {
+            return Container(
+              width: size,
+              height: size,
+              color: Colors.transparent,
+            );
+          },
         )
       ]),
     );
