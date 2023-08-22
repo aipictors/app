@@ -2,7 +2,7 @@ import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/graphql/__generated__/viewer_muted_users.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/screens/loading_screen.dart';
-import 'package:aipictors/widgets/builder/operation_screen_builder.dart';
+import 'package:aipictors/widgets/builder/operation_builder.dart';
 import 'package:aipictors/widgets/container/error/data_empty_error_container.dart';
 import 'package:aipictors/widgets/container/error/unexpected_error_container.dart';
 import 'package:aipictors/widgets/list_view/dismissible_muted_user_list_view.dart';
@@ -23,17 +23,19 @@ class ConfigMutedUsersScreen extends HookConsumerWidget {
       return const LoadingScreen();
     }
 
+    final request = GViewerMutedUsersReq((builder) {
+      return builder
+        ..vars.limit = 16
+        ..vars.offset = 0;
+    });
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('ミュートしたユーザ'),
       ),
-      body: OperationScreenBuilder(
+      body: OperationBuilder(
         client: client.value!,
-        operationRequest: GViewerMutedUsersReq((builder) {
-          return builder
-            ..vars.limit = 16
-            ..vars.offset = 0;
-        }),
+        operationRequest: request,
         builder: (context, response) {
           final userList = response.data?.viewer?.mutedUsers;
           if (userList == null) {

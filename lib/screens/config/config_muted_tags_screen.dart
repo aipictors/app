@@ -23,17 +23,19 @@ class ConfigMutedTagsScreen extends HookConsumerWidget {
       return const LoadingScreen();
     }
 
+    final request = GViewerMutedTagsReq((builder) {
+      return builder
+        ..vars.limit = 16
+        ..vars.offset = 0;
+    });
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('ミュートしたタグ'),
       ),
       body: OperationBuilder(
         client: client.value!,
-        operationRequest: GViewerMutedTagsReq((builder) {
-          return builder
-            ..vars.limit = 16
-            ..vars.offset = 0;
-        }),
+        operationRequest: request,
         builder: (context, response) {
           final tagList = response.data?.viewer?.mutedTags;
           if (tagList == null) {
