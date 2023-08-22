@@ -50,7 +50,7 @@ class ConfigScreen extends HookConsumerWidget {
               leading: const Icon(Icons.image_rounded),
               trailing: const Icon(Icons.chevron_right_rounded),
               title: Text(
-                'あなたの作品'.i18n,
+                '作品'.i18n,
                 style: const TextStyle(fontWeight: FontWeight.bold),
               ),
               onTap: () {

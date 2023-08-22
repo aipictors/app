@@ -27,7 +27,7 @@ class ViewerAlbumsScreen extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('あなたのアルバム'.i18n),
+        title: Text('あなたのシリーズ'.i18n),
       ),
       body: OperationBuilder(
         client: client.value!,
@@ -43,7 +43,7 @@ class ViewerAlbumsScreen extends HookConsumerWidget {
           }
           if (albumList.isEmpty) {
             return DataEmptyErrorContainer(
-              message: 'あなたのアルバムは無いみたい。'.i18n,
+              message: 'あなたのシリーズは無いみたい。'.i18n,
             );
           }
           return ListView.builder(

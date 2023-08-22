@@ -97,6 +97,7 @@ class FeedWorkListTile extends HookConsumerWidget {
                 return onFollowUser(context, userId: userId);
               },
             ),
+            const SizedBox(width: 8),
             IconButton(
               style: IconButton.styleFrom(
                 tapTargetSize: MaterialTapTargetSize.shrinkWrap,
