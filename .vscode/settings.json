@@ -12,7 +12,8 @@
     "promptonio",
     "riverpod",
     "subtags",
-    "unfocus"
+    "unfocus",
+    "unfollow"
   ],
   "files.associations": {
     "*.xml": "html",

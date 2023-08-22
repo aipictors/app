@@ -2,8 +2,8 @@ import 'package:aipictors/default.i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class UnFollowDialog extends HookConsumerWidget {
-  const UnFollowDialog({
+class UnfollowDialog extends HookConsumerWidget {
+  const UnfollowDialog({
     Key? key,
     required this.onAccept,
     required this.onCancel,
