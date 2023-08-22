@@ -24,41 +24,54 @@ class ExplorerHotWorksView extends HookConsumerWidget {
       return const LoadingContainer();
     }
 
-    return OperationBuilder(
-      client: client.value!,
-      operationRequest: GHotWorksReq((builder) {
-        return builder;
-      }),
-      builder: (context, response) {
-        final workList = response.data?.hotWorks;
-        if (workList == null) {
-          return const DataNotFoundErrorContainer();
-        }
-        if (workList.isEmpty) {
-          return const DataEmptyErrorContainer();
-        }
-        return GridView.builder(
-          key: const PageStorageKey('explorer_hot_works'),
-          // physics: const ClampingScrollPhysics(),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-          ),
-          itemCount: workList.length,
-          itemBuilder: (context, index) {
-            final work = workList[index];
-            return InkWell(
-              onTap: () {
-                FirebaseAnalytics.instance.logSelectContent(
-                  contentType: 'work',
-                  itemId: work.id,
-                );
-                context.push('/works/${work.id}');
-              },
-              child: GridWorkImage(imageURL: work.thumbnailImage?.downloadURL),
-            );
-          },
-        );
+    final request = GHotWorksReq((builder) {
+      return builder;
+    });
+
+    return RefreshIndicator(
+      onRefresh: () async {
+        final req = request.rebuild((builder) {
+          return builder;
+        });
+        client.value?.requestController.add(req);
+        await Future.delayed(const Duration(seconds: 2));
       },
+      child: OperationBuilder(
+        client: client.value!,
+        operationRequest: request,
+        builder: (context, response) {
+          final workList = response.data?.hotWorks;
+          if (workList == null) {
+            return const DataNotFoundErrorContainer();
+          }
+          if (workList.isEmpty) {
+            return const DataEmptyErrorContainer();
+          }
+          return GridView.builder(
+            key: const PageStorageKey('explorer_hot_works'),
+            // physics: const ClampingScrollPhysics(),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+            ),
+            itemCount: workList.length,
+            itemBuilder: (context, index) {
+              final work = workList[index];
+              return InkWell(
+                onTap: () {
+                  FirebaseAnalytics.instance.logSelectContent(
+                    contentType: 'work',
+                    itemId: work.id,
+                  );
+                  context.push('/works/${work.id}');
+                },
+                child: GridWorkImage(
+                  imageURL: work.thumbnailImage?.downloadURL,
+                ),
+              );
+            },
+          );
+        },
+      ),
     );
   }
 }

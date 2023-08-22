@@ -24,39 +24,52 @@ class ExplorerBestWorksView extends HookConsumerWidget {
       return const LoadingContainer();
     }
 
-    return OperationBuilder(
-      client: client.value!,
-      operationRequest: GBestWorksReq((builder) {
-        return builder;
-      }),
-      builder: (context, response) {
-        final workList = response.data?.bestWorks;
-        if (workList == null) {
-          return const DataEmptyErrorContainer();
-        }
-        if (workList.isEmpty) {
-          return const DataNotFoundErrorContainer();
-        }
-        return GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-          ),
-          itemCount: workList.length,
-          itemBuilder: (context, index) {
-            final work = workList[index];
-            return InkWell(
-              onTap: () {
-                FirebaseAnalytics.instance.logSelectContent(
-                  contentType: 'work',
-                  itemId: work.id,
-                );
-                context.push('/works/${work.id}');
-              },
-              child: GridWorkImage(imageURL: work.thumbnailImage?.downloadURL),
-            );
-          },
-        );
+    final request = GBestWorksReq((builder) {
+      return builder;
+    });
+
+    return RefreshIndicator(
+      onRefresh: () async {
+        final req = request.rebuild((builder) {
+          return builder;
+        });
+        client.value?.requestController.add(req);
+        await Future.delayed(const Duration(seconds: 2));
       },
+      child: OperationBuilder(
+        client: client.value!,
+        operationRequest: request,
+        builder: (context, response) {
+          final workList = response.data?.bestWorks;
+          if (workList == null) {
+            return const DataEmptyErrorContainer();
+          }
+          if (workList.isEmpty) {
+            return const DataNotFoundErrorContainer();
+          }
+          return GridView.builder(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+            ),
+            itemCount: workList.length,
+            itemBuilder: (context, index) {
+              final work = workList[index];
+              return InkWell(
+                onTap: () {
+                  FirebaseAnalytics.instance.logSelectContent(
+                    contentType: 'work',
+                    itemId: work.id,
+                  );
+                  context.push('/works/${work.id}');
+                },
+                child: GridWorkImage(
+                  imageURL: work.thumbnailImage?.downloadURL,
+                ),
+              );
+            },
+          );
+        },
+      ),
     );
   }
 }

@@ -24,38 +24,49 @@ class ExplorerHotTagsView extends HookConsumerWidget {
       return const LoadingContainer();
     }
 
-    return OperationBuilder(
-      client: client.value!,
-      operationRequest: GHotTagsReq((builder) {
-        return builder;
-      }),
-      builder: (context, response) {
-        final tagList = response.data?.hotTags;
-        if (tagList == null) {
-          return const DataNotFoundErrorContainer();
-        }
-        if (tagList.isEmpty) {
-          return const DataEmptyErrorContainer();
-        }
-        return ListView.builder(
-          padding: const EdgeInsets.only(bottom: 16, top: 8),
-          itemCount: tagList.length,
-          itemBuilder: (context, index) {
-            final tag = tagList[index];
-            return TagListTile(
-              title: tag.name,
-              imageURL: tag.firstWork?.thumbnailImage?.downloadURL,
-              onTap: () {
-                FirebaseAnalytics.instance.logSelectContent(
-                  contentType: 'tag',
-                  itemId: tag.id,
-                );
-                context.push('/tags/${tag.id}');
-              },
-            );
-          },
-        );
+    final request = GHotTagsReq((builder) {
+      return builder;
+    });
+
+    return RefreshIndicator(
+      onRefresh: () async {
+        final req = request.rebuild((builder) {
+          return builder;
+        });
+        client.value?.requestController.add(req);
+        await Future.delayed(const Duration(seconds: 2));
       },
+      child: OperationBuilder(
+        client: client.value!,
+        operationRequest: request,
+        builder: (context, response) {
+          final tagList = response.data?.hotTags;
+          if (tagList == null) {
+            return const DataNotFoundErrorContainer();
+          }
+          if (tagList.isEmpty) {
+            return const DataEmptyErrorContainer();
+          }
+          return ListView.builder(
+            padding: const EdgeInsets.only(bottom: 16, top: 8),
+            itemCount: tagList.length,
+            itemBuilder: (context, index) {
+              final tag = tagList[index];
+              return TagListTile(
+                title: tag.name,
+                imageURL: tag.firstWork?.thumbnailImage?.downloadURL,
+                onTap: () {
+                  FirebaseAnalytics.instance.logSelectContent(
+                    contentType: 'tag',
+                    itemId: tag.id,
+                  );
+                  context.push('/tags/${tag.id}');
+                },
+              );
+            },
+          );
+        },
+      ),
     );
   }
 }

@@ -24,42 +24,53 @@ class ExplorerAlbumsView extends HookConsumerWidget {
       return const LoadingScreen();
     }
 
-    return OperationBuilder(
-      client: client.value!,
-      operationRequest: GAlbumsReq((builder) {
-        return builder
-          ..vars.limit = 32
-          ..vars.offset = 0;
-      }),
-      builder: (context, response) {
-        final albumList = response.data?.albums;
-        if (albumList == null) {
-          return const DataNotFoundErrorContainer();
-        }
-        if (albumList.isEmpty) {
-          return const DataEmptyErrorContainer();
-        }
-        return ListView.builder(
-          padding: const EdgeInsets.only(bottom: 16, top: 8),
-          itemCount: albumList.length,
-          itemBuilder: (context, index) {
-            final folder = albumList[index];
-            return FolderListTile(
-              title: folder.title,
-              userName: folder.user.name,
-              userIconImageURL: folder.user.iconImage?.downloadURL,
-              imageURL: folder.thumbnailImage?.downloadURL,
-              onTap: () {
-                FirebaseAnalytics.instance.logSelectContent(
-                  contentType: 'album',
-                  itemId: folder.id,
-                );
-                context.push('/albums/${folder.id}');
-              },
-            );
-          },
-        );
+    final request = GAlbumsReq((builder) {
+      return builder
+        ..vars.limit = 32
+        ..vars.offset = 0;
+    });
+
+    return RefreshIndicator(
+      onRefresh: () async {
+        final req = request.rebuild((builder) {
+          return builder;
+        });
+        client.value?.requestController.add(req);
+        await Future.delayed(const Duration(seconds: 2));
       },
+      child: OperationBuilder(
+        client: client.value!,
+        operationRequest: request,
+        builder: (context, response) {
+          final albumList = response.data?.albums;
+          if (albumList == null) {
+            return const DataNotFoundErrorContainer();
+          }
+          if (albumList.isEmpty) {
+            return const DataEmptyErrorContainer();
+          }
+          return ListView.builder(
+            padding: const EdgeInsets.only(bottom: 16, top: 8),
+            itemCount: albumList.length,
+            itemBuilder: (context, index) {
+              final folder = albumList[index];
+              return FolderListTile(
+                title: folder.title,
+                userName: folder.user.name,
+                userIconImageURL: folder.user.iconImage?.downloadURL,
+                imageURL: folder.thumbnailImage?.downloadURL,
+                onTap: () {
+                  FirebaseAnalytics.instance.logSelectContent(
+                    contentType: 'album',
+                    itemId: folder.id,
+                  );
+                  context.push('/albums/${folder.id}');
+                },
+              );
+            },
+          );
+        },
+      ),
     );
   }
 }
