@@ -2,7 +2,7 @@
 name: "🔥　機能の不具合を見つけた"
 about: 機能の不具合を見つけたので報告する。
 title: ''
-labels: ":sparkles: enhancement"
+labels: ":fire: bug"
 assignees: ''
 
 ---
