@@ -207,6 +207,16 @@ class ConfigScreen extends HookConsumerWidget {
           ListTile(
             trailing: const Icon(Icons.open_in_new_rounded),
             title: Text(
+              'リポジトリ'.i18n,
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+            onTap: () {
+              onOpenRepository(context, ref);
+            },
+          ),
+          ListTile(
+            trailing: const Icon(Icons.open_in_new_rounded),
+            title: Text(
               'ディスコに参加する'.i18n,
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
@@ -321,6 +331,16 @@ class ConfigScreen extends HookConsumerWidget {
           },
         );
       },
+    );
+  }
+
+  Future onOpenRepository(BuildContext context, WidgetRef ref) async {
+    final config = ref.read(configProvider);
+    final isAvailable = await canLaunchUrl(config.pageRepositoryURL);
+    if (!isAvailable) return;
+    await launchUrl(
+      config.pageRepositoryURL,
+      mode: LaunchMode.externalApplication,
     );
   }
 
