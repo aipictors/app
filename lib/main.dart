@@ -14,6 +14,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:i18n_extension/i18n_widget.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
@@ -21,6 +22,11 @@ import 'package:sentry_flutter/sentry_flutter.dart';
 void main() async {
   // runAppより前にFlutterEngineを使用する
   WidgetsFlutterBinding.ensureInitialized();
+
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
 
   // Firebaseを初期化する
   await Firebase.initializeApp();
