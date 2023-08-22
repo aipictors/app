@@ -195,6 +195,16 @@ class ConfigScreen extends HookConsumerWidget {
             },
           ),
           ListTile(
+            trailing: const Icon(Icons.chevron_right_rounded),
+            title: Text(
+              'ライセンス'.i18n,
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+            onTap: () {
+              context.push('/license');
+            },
+          ),
+          ListTile(
             trailing: const Icon(Icons.open_in_new_rounded),
             title: Text(
               'ディスコに参加する'.i18n,

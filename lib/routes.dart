@@ -25,6 +25,7 @@ import 'package:aipictors/screens/folder/folder_report_screen.dart';
 import 'package:aipictors/screens/folder/folder_screen.dart';
 import 'package:aipictors/screens/folder/folder_update_screen.dart';
 import 'package:aipictors/screens/guideline_screen.dart';
+import 'package:aipictors/screens/license_screen.dart';
 import 'package:aipictors/screens/privacy_screen.dart';
 import 'package:aipictors/screens/promotions/promotion_screen.dart';
 import 'package:aipictors/screens/promotions/promotions_screen.dart';
@@ -350,6 +351,12 @@ final routes = [
     path: '/guideline',
     builder: (context, state) {
       return const GuidelineScreen();
+    },
+  ),
+  GoRoute(
+    path: '/license',
+    builder: (context, state) {
+      return const LicenseScreen();
     },
   ),
   GoRoute(
