@@ -26,21 +26,23 @@ class ExplorerScreen extends HookConsumerWidget {
 
     const tabSize = 4;
 
+    final searchContainer = SearchContainer(
+      isFilled: isFilled.value,
+      onSubmit: (text) {
+        FirebaseAnalytics.instance.logSearch(searchTerm: text);
+        search.value = text;
+      },
+      onFill: (value) {
+        isFilled.value = value;
+      },
+    );
+
     return ExplorerTabController(
       length: tabSize,
       child: Scaffold(
         key: const PageStorageKey('explorer'),
         appBar: AppBar(
-          title: SearchContainer(
-            isFilled: isFilled.value,
-            onSubmit: (text) {
-              FirebaseAnalytics.instance.logSearch(searchTerm: text);
-              search.value = text;
-            },
-            onFill: (value) {
-              isFilled.value = value;
-            },
-          ),
+          title: searchContainer,
           actions: [
             if (isFilled.value == true)
               IconButton(
@@ -48,6 +50,7 @@ class ExplorerScreen extends HookConsumerWidget {
                 onPressed: () {
                   isFilled.value = false;
                   search.value = '';
+                  searchContainer.clear();
                 },
               ),
             if (isFilled.value == false)
@@ -56,6 +59,7 @@ class ExplorerScreen extends HookConsumerWidget {
                 onPressed: () {
                   isFilled.value = false;
                   search.value = '';
+                  searchContainer.clear();
                   showUnavailableSnackBar(context);
                 },
               ),

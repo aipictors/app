@@ -30,6 +30,10 @@ class SearchContainer extends HookConsumerWidget {
     }
   }
 
+  void clear() {
+    _controller.clear();
+  }
+
   @override
   Widget build(context, ref) {
     return Row(
