@@ -871,7 +871,9 @@ type PromptonUserNode implements Node {
   "リクエスト作品"
   requestWorks(offset: Int!, limit: Int!): [PromptonWorkNode!]!
   "ユーザー"
-  rootUser: UserNode!
+  rootUser: UserNode
+  "ユーザー"
+  user: UserNode
 }
 "ログインしているユーザ"
 type PromptonViewer {
@@ -1154,6 +1156,8 @@ type UserNode implements Node {
   workCreatedAt: Int
   likedWorks(offset: Int!, limit: Int!): [WorkNode!]!
   viewer: UserViewerNode
+  "プロンプトンのユーザ"
+  promptonUser: PromptonUserNode
 }
 "ユーザの設定"
 type UserSettingNode implements Node {
