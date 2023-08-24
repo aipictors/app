@@ -1,3 +1,4 @@
+import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/graphql/__generated__/folder.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/screens/error/data_not_found_error_screen.dart';
@@ -32,7 +33,11 @@ class FolderScreen extends HookConsumerWidget {
       builder: (context, response) {
         final folder = response.data?.folder;
         if (folder == null) {
-          return const DataNotFoundErrorScreen();
+          return Scaffold(
+              appBar: AppBar(
+                title: Text('フォルダ'.i18n),
+              ),
+              body: const DataNotFoundErrorScreen());
         }
         return Scaffold(
           resizeToAvoidBottomInset: true,
