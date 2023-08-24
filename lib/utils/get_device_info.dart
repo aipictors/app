@@ -19,7 +19,7 @@ Future<String> getDeviceInfo() async {
 getAndroidInfo(AndroidDeviceInfo deviceInfo) {
   return {
     'platform': 'Android',
-    'version': deviceInfo.version.release.toString(),
+    'version': '${deviceInfo.version.release}, Build:${deviceInfo.id}',
     'model': deviceInfo.model,
   };
 }
