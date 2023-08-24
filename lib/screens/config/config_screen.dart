@@ -4,12 +4,14 @@ import 'package:aipictors/mutations/logout.dart';
 import 'package:aipictors/providers/auth_state_provider.dart';
 import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/repositories/hive_repository.dart';
+import 'package:aipictors/utils/get_device_info.dart';
 import 'package:aipictors/widgets/container/theme_color_container.dart';
 import 'package:aipictors/widgets/dialog/about_discord_dialog.dart';
 import 'package:aipictors/widgets/dialog/about_twitter_dialog.dart';
 import 'package:aipictors/widgets/dialog/logout_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -25,6 +27,14 @@ class ConfigScreen extends HookConsumerWidget {
     final config = ref.watch(configProvider);
 
     final authState = ref.watch(authStateProvider);
+
+    final deviceInfo = useState('');
+
+    void setDeviceInfoText() async {
+      deviceInfo.value = await getDeviceInfo();
+    }
+
+    setDeviceInfoText();
 
     return Scaffold(
       key: const PageStorageKey('config'),
@@ -278,13 +288,15 @@ class ConfigScreen extends HookConsumerWidget {
           const Divider(),
           ListTile(
             title: Text(
-              '${'バージョン'.i18n} ${DefaultConfig.versionText}',
+              '${'バージョン'.i18n}:${DefaultConfig.versionText}, ${deviceInfo.value}',
             ),
             onLongPress: () {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text('クリップボードにコピーしました。'.i18n)),
               );
-              final data = ClipboardData(text: DefaultConfig.versionText);
+              final data = ClipboardData(
+                  text:
+                      '${'バージョン'.i18n}: ${DefaultConfig.versionText}, ${deviceInfo.value}');
               Clipboard.setData(data);
             },
           ),
