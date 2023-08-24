@@ -19,7 +19,7 @@ class AlbumReportScreen extends HookConsumerWidget {
   Widget build(context, ref) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('アルバムの報告'.i18n),
+        title: Text('シリーズの報告'.i18n),
       ),
       body: ListView(children: [
         ListTile(title: Text('該当する報告理由を選択してください。'.i18n)),
