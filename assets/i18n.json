@@ -41,7 +41,7 @@
   },
   {
     "ja": "アカウントの削除",
-    "en": ""
+    "en": "Delete Account"
   },
   {
     "ja": "あなたのシリーズ",
@@ -213,7 +213,7 @@
   },
   {
     "ja": "パスワードの変更",
-    "en": ""
+    "en": "Change your password"
   },
   {
     "ja": "パスワードを更新しました。",
@@ -337,11 +337,11 @@
   },
   {
     "ja": "ログインIDの変更",
-    "en": ""
+    "en": "Change Sign in ID"
   },
   {
     "ja": "ログインIDを更新しました。",
-    "en": ""
+    "en": "Sign in ID updated."
   },
   {
     "ja": "ログインしました",
@@ -353,11 +353,11 @@
   },
   {
     "ja": "ログインに使用するIDを変更します。",
-    "en": ""
+    "en": "Change the ID used for sign in."
   },
   {
     "ja": "ログインに使用するパスワードを変更します。",
-    "en": ""
+    "en": "Change the password used for sign in."
   },
   {
     "ja": "一部の画面でタブレット向けのレイアウトが適用されます。",
@@ -377,11 +377,11 @@
   },
   {
     "ja": "現在のログインID",
-    "en": ""
+    "en": "Current Sign in ID"
   },
   {
     "ja": "現在ログインしているアカウントを削除します。",
-    "en": ""
+    "en": "Delete the currently signed-in account."
   },
   {
     "ja": "言語切り替え",
@@ -421,11 +421,11 @@
   },
   {
     "ja": "新しいパスワード",
-    "en": ""
+    "en": "New Password"
   },
   {
     "ja": "新しいログインID",
-    "en": ""
+    "en": "New Sign in ID"
   },
   {
     "ja": "新しい作品",
