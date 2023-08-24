@@ -39,6 +39,7 @@ class AlbumScreen extends HookConsumerWidget {
           appBar: AppBar(
             title: Text(
               album.title,
+              maxLines: 2,
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
           ),

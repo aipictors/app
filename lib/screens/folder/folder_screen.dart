@@ -39,6 +39,7 @@ class FolderScreen extends HookConsumerWidget {
           appBar: AppBar(
             title: Text(
               folder.title,
+              maxLines: 2,
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
