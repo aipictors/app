@@ -24,12 +24,13 @@ class FeedFolderButton extends HookConsumerWidget {
       isLiked: isActiveInMemory.value,
       likeCountPadding: const EdgeInsets.only(left: 4),
       likeBuilder: (isLiked) {
-        return Icon(
-          Icons.folder_rounded,
+        if (isActiveInMemory.value) {
+          return Icon(Icons.folder_rounded,
+              size: 28, color: Theme.of(context).colorScheme.primary);
+        }
+        return const Icon(
+          Icons.folder_outlined,
           size: 28,
-          color: isActiveInMemory.value
-              ? Theme.of(context).colorScheme.primary
-              : null,
         );
       },
       onTap: (isLiked) async {

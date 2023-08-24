@@ -34,12 +34,16 @@ class WorkBottomAppContainer extends HookConsumerWidget {
               LikeButton(
                 isLiked: isLikedInMemory.value,
                 likeBuilder: (isLiked) {
-                  return Icon(
-                    Icons.favorite_rounded,
+                  if (isLikedInMemory.value) {
+                    return Icon(
+                      Icons.favorite_rounded,
+                      size: 28,
+                      color: Theme.of(context).colorScheme.error,
+                    );
+                  }
+                  return const Icon(
+                    Icons.favorite_outline_rounded,
                     size: 28,
-                    color: isLikedInMemory.value
-                        ? Theme.of(context).colorScheme.error
-                        : null,
                   );
                 },
                 onTap: (isLiked) async {
@@ -52,12 +56,14 @@ class WorkBottomAppContainer extends HookConsumerWidget {
               LikeButton(
                 isLiked: isFoldedInMemory.value,
                 likeBuilder: (bool isFolded) {
-                  return Icon(
-                    Icons.folder,
+                  if (isFoldedInMemory.value) {
+                    return Icon(Icons.folder_rounded,
+                        size: 28, color: Theme.of(context).colorScheme.primary);
+                  }
+
+                  return const Icon(
+                    Icons.folder_outlined,
                     size: 28,
-                    color: isFoldedInMemory.value
-                        ? Theme.of(context).colorScheme.primary
-                        : null,
                   );
                 },
                 onTap: (isFolded) async {

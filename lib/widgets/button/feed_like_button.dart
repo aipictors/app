@@ -26,12 +26,13 @@ class FeedLikeButton extends HookConsumerWidget {
       likeCount: count + (isActiveInMemory.value ? 1 : 0),
       likeCountPadding: const EdgeInsets.only(left: 4),
       likeBuilder: (isLiked) {
-        return Icon(
-          Icons.favorite_rounded,
+        if (isActiveInMemory.value) {
+          return Icon(Icons.favorite_rounded,
+              size: 28, color: Theme.of(context).colorScheme.error);
+        }
+        return const Icon(
+          Icons.favorite_outline_rounded,
           size: 28,
-          color: isActiveInMemory.value
-              ? Theme.of(context).colorScheme.error
-              : null,
         );
       },
       onTap: (isLiked) async {
