@@ -1,8 +1,9 @@
 String toShareUserText({
   required String userId,
   required String userName,
+  required String hashtagText,
 }) {
-  final userPageUrl = 'https://www.aipictors.com/users/$userId';
+  final pageURL = 'https://www.aipictors.com/users/$userId';
 
-  return '$userName #Aipictors\n$userPageUrl';
+  return '$userName $hashtagText\n$pageURL';
 }

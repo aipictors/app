@@ -1,6 +1,7 @@
 import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/mutations/follow_user.dart';
 import 'package:aipictors/mutations/mute_user.dart';
+import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/utils/to_share_work_text.dart';
 import 'package:aipictors/widgets/container/modal_header_container.dart';
 import 'package:aipictors/widgets/container/notification_user_container.dart';
@@ -40,6 +41,8 @@ class FeedActionModalContainer extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
+    final config = ref.watch(configProvider);
+
     return SafeArea(
       child: SizedBox(
         height: MediaQuery.of(context).size.height * 0.6,
@@ -58,6 +61,7 @@ class FeedActionModalContainer extends HookConsumerWidget {
                 workId: workId,
                 workTitle: workTitle,
                 userName: userName,
+                hashtagText: config.xPostText,
               ),
               onTap: () {
                 context.pop();
