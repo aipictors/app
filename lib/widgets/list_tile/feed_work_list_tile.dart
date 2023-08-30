@@ -2,7 +2,7 @@ import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/mutations/create_work_like.dart';
 import 'package:aipictors/mutations/follow_user.dart';
 import 'package:aipictors/utils/to_readable_date_time.dart';
-import 'package:aipictors/utils/to_share_text.dart';
+import 'package:aipictors/utils/to_share_work_text.dart';
 import 'package:aipictors/widgets/button/feed_folder_button.dart';
 import 'package:aipictors/widgets/button/feed_like_button.dart';
 import 'package:aipictors/widgets/button/follow_button.dart';
@@ -148,11 +148,16 @@ class FeedWorkListTile extends HookConsumerWidget {
                   },
                 ),
                 IconButton(
-                    onPressed: () {
-                      Share.share(
-                          toShareText(false, workId, userName, workTitle));
-                    },
-                    icon: const Icon(Icons.share))
+                  onPressed: () {
+                    final text = toShareWorkText(
+                      workId: workId,
+                      workTitle: workTitle,
+                      userName: userName,
+                    );
+                    Share.share(text);
+                  },
+                  icon: const Icon(Icons.share),
+                )
               ]),
               FilledButton.tonal(
                 style: FilledButton.styleFrom(
