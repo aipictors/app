@@ -1,7 +1,9 @@
 import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/mutations/create_work_like.dart';
 import 'package:aipictors/mutations/follow_user.dart';
+import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/utils/to_readable_date_time.dart';
+import 'package:aipictors/utils/to_share_work_text.dart';
 import 'package:aipictors/widgets/button/feed_folder_button.dart';
 import 'package:aipictors/widgets/button/feed_like_button.dart';
 import 'package:aipictors/widgets/button/follow_button.dart';
@@ -64,6 +66,8 @@ class FeedWorkListTile extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
+    final config = ref.watch(configProvider);
+
     return ListTile(
       onTap: () {
         context.push('/works/$workId');
@@ -148,11 +152,17 @@ class FeedWorkListTile extends HookConsumerWidget {
                   },
                 ),
                 IconButton(
-                    onPressed: () {
-                      Share.share(
-                          'Check out! https://www.aipictors.com/works/$workId');
-                    },
-                    icon: const Icon(Icons.share))
+                  onPressed: () {
+                    final text = toShareWorkText(
+                      workId: workId,
+                      workTitle: workTitle,
+                      userName: userName,
+                      hashtagText: config.xPostText,
+                    );
+                    Share.share(text);
+                  },
+                  icon: const Icon(Icons.share),
+                )
               ]),
               FilledButton.tonal(
                 style: FilledButton.styleFrom(
@@ -219,6 +229,7 @@ class FeedWorkListTile extends HookConsumerWidget {
           workId: workId,
           userId: userId,
           userName: userName,
+          workTitle: workTitle,
           userIconImageURL: userIconImageURL,
           isFollowee: isFollowee,
           isMutedUser: isMutedUser,

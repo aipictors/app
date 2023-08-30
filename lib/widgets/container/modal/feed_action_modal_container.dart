@@ -1,6 +1,8 @@
 import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/mutations/follow_user.dart';
 import 'package:aipictors/mutations/mute_user.dart';
+import 'package:aipictors/providers/config_provider.dart';
+import 'package:aipictors/utils/to_share_work_text.dart';
 import 'package:aipictors/widgets/container/modal_header_container.dart';
 import 'package:aipictors/widgets/container/notification_user_container.dart';
 import 'package:aipictors/widgets/list_tile/modal_follow_user_list_tile.dart';
@@ -17,6 +19,7 @@ class FeedActionModalContainer extends HookConsumerWidget {
     required this.workId,
     required this.userId,
     required this.userName,
+    required this.workTitle,
     required this.userIconImageURL,
     required this.isFollowee,
     required this.isMutedUser,
@@ -28,6 +31,8 @@ class FeedActionModalContainer extends HookConsumerWidget {
 
   final String userName;
 
+  final String workTitle;
+
   final String? userIconImageURL;
 
   final bool isFollowee;
@@ -36,6 +41,8 @@ class FeedActionModalContainer extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
+    final config = ref.watch(configProvider);
+
     return SafeArea(
       child: SizedBox(
         height: MediaQuery.of(context).size.height * 0.6,
@@ -50,7 +57,12 @@ class FeedActionModalContainer extends HookConsumerWidget {
             ),
             ModalShareListTile(
               titleText: '作品をシェアする'.i18n,
-              shareText: 'check out! https://www.aipictors.com/works/$workId',
+              shareText: toShareWorkText(
+                workId: workId,
+                workTitle: workTitle,
+                userName: userName,
+                hashtagText: config.xPostText,
+              ),
               onTap: () {
                 context.pop();
               },

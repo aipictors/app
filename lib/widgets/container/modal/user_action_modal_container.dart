@@ -1,5 +1,7 @@
 import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/mutations/mute_user.dart';
+import 'package:aipictors/providers/config_provider.dart';
+import 'package:aipictors/utils/to_share_user_text.dart';
 import 'package:aipictors/widgets/container/modal_header_container.dart';
 import 'package:aipictors/widgets/container/notification_user_container.dart';
 import 'package:aipictors/widgets/list_tile/modal_mute_user_list_tile.dart';
@@ -28,6 +30,8 @@ class UserActionModalContainer extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
+    final config = ref.watch(configProvider);
+
     return SafeArea(
       child: SizedBox(
         height: MediaQuery.of(context).size.height * 0.4,
@@ -42,7 +46,11 @@ class UserActionModalContainer extends HookConsumerWidget {
             ),
             ModalShareListTile(
               titleText: 'ユーザをシェアする'.i18n,
-              shareText: 'check out! https://www.aipictors.com/users/$userId',
+              shareText: toShareUserText(
+                userId: userId,
+                userName: userName,
+                hashtagText: config.xPostText,
+              ),
               onTap: () {
                 context.pop();
               },
