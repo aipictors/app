@@ -1,3 +1,4 @@
+import 'package:aipictors/widgets/dialog/interactive_image_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -65,38 +66,7 @@ class FeedImage extends HookConsumerWidget {
           barrierLabel: '',
           context: context,
           pageBuilder: (context, animation1, animation2) {
-            return SafeArea(
-              child: Dismissible(
-                direction: DismissDirection.vertical,
-                key: const Key(''),
-                onDismissed: (_) {
-                  Navigator.of(context).pop();
-                },
-                child: InteractiveViewer(
-                  minScale: 0.8,
-                  maxScale: 5,
-                  child: Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(8.0),
-                        child: CachedNetworkImage(
-                          imageUrl: imageURL!,
-                          fit: BoxFit.contain,
-                          width: double.infinity,
-                          progressIndicatorBuilder: (_, __, ___) {
-                            return const SizedBox();
-                          },
-                          errorWidget: (context, uri, error) {
-                            return const SizedBox();
-                          },
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            );
+            return InteractiveImageDialog(imageURL!);
           },
         );
       },
