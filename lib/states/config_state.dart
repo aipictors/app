@@ -312,6 +312,13 @@ class ConfigState with _$ConfigState {
   }
 
   /// Remote Config
+  /// ツイッターのハッシュタグ
+  String get xPostText {
+    final remoteConfig = FirebaseRemoteConfig.instance;
+    return remoteConfig.getString('x_post_text');
+  }
+
+  /// Remote Config
   /// Twitterに関する案内
   String get messageAboutTwitter {
     final remoteConfig = FirebaseRemoteConfig.instance;

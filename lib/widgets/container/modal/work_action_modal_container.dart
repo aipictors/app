@@ -1,5 +1,8 @@
 import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/mutations/mute_user.dart';
+import 'package:aipictors/providers/config_provider.dart';
+import 'package:aipictors/utils/to_share_user_text.dart';
+import 'package:aipictors/utils/to_share_work_text.dart';
 import 'package:aipictors/widgets/container/modal_header_container.dart';
 import 'package:aipictors/widgets/list_tile/modal_mute_user_list_tile.dart';
 import 'package:aipictors/widgets/list_tile/modal_report_list_tile.dart';
@@ -12,18 +15,26 @@ class WorkActionModalContainer extends HookConsumerWidget {
   const WorkActionModalContainer({
     Key? key,
     required this.workId,
+    required this.workTitle,
     required this.userId,
+    required this.userName,
     required this.isMutedUser,
   }) : super(key: key);
 
   final String workId;
 
+  final String workTitle;
+
   final String userId;
+
+  final String userName;
 
   final bool isMutedUser;
 
   @override
   Widget build(context, ref) {
+    final config = ref.watch(configProvider);
+
     return SafeArea(
       child: SizedBox(
         height: MediaQuery.of(context).size.height * 0.6,
@@ -33,14 +44,23 @@ class WorkActionModalContainer extends HookConsumerWidget {
             const ModalHeaderContainer(title: SizedBox()),
             ModalShareListTile(
               titleText: '作品をシェアする'.i18n,
-              shareText: 'check out! https://www.aipictors.com/works/$workId',
+              shareText: toShareWorkText(
+                workId: workId,
+                workTitle: workTitle,
+                userName: userName,
+                hashtagText: config.xPostText,
+              ),
               onTap: () {
                 context.pop();
               },
             ),
             ModalShareListTile(
               titleText: 'ユーザをシェアする'.i18n,
-              shareText: 'check out! https://www.aipictors.com/users/$userId',
+              shareText: toShareUserText(
+                userId: userId,
+                userName: userName,
+                hashtagText: config.xPostText,
+              ),
               onTap: () {
                 context.pop();
               },
