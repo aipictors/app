@@ -13,6 +13,7 @@ import 'package:aipictors/widgets/container/work_status_container.dart';
 import 'package:aipictors/widgets/container/work_tags_container.dart';
 import 'package:aipictors/widgets/container/work_text_container.dart';
 import 'package:aipictors/widgets/container/work_user_profile_container.dart';
+import 'package:aipictors/widgets/dialog/interactive_image_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -95,9 +96,22 @@ class WorkScreen extends HookConsumerWidget {
                       ),
                     ),
                     const SizedBox(height: 8 * 1.5),
-                    Image.network(
-                      work.image!.downloadURL,
-                      fit: BoxFit.cover,
+                    GestureDetector(
+                      child: Image.network(
+                        work.image!.downloadURL,
+                        fit: BoxFit.cover,
+                      ),
+                      onTap: () {
+                        showGeneralDialog(
+                            barrierColor: Colors.black87,
+                            barrierDismissible: true,
+                            barrierLabel: '',
+                            context: context,
+                            pageBuilder: (context, animation1, animation2) {
+                              return InteractiveImageDialog(
+                                  work.image!.downloadURL);
+                            });
+                      },
                     ),
                     const SizedBox(height: 8 * 2),
                     WorkStatusContainer(
