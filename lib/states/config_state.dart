@@ -1,6 +1,7 @@
 import 'package:aipictors/config.dart';
 import 'package:aipictors/models/app_version.dart';
 import 'package:aipictors/utils/to_locale.dart';
+import 'package:aipictors/utils/to_readable_time.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -83,7 +84,6 @@ class ConfigState with _$ConfigState {
       final text = remoteConfig.getString('version_latest');
       final remoteVersion = AppVersion(text);
       final localVersion = AppVersion(DefaultConfig.version);
-      print(remoteVersion.major);
       if (remoteVersion.major < localVersion.major) {
         return true;
       }
@@ -161,6 +161,17 @@ class ConfigState with _$ConfigState {
   String get endOfFeedImageURL {
     final remoteConfig = FirebaseRemoteConfig.instance;
     return remoteConfig.getString('end_of_feed_image_url');
+  }
+
+  /// Remote Config
+  /// 終了時刻
+  String? get maintenanceEndDate {
+    final remoteConfig = FirebaseRemoteConfig.instance;
+    final time = remoteConfig.getInt('maintenance_end_date');
+    if (time == 0) {
+      return null;
+    }
+    return toReadableTime(time);
   }
 
   /// Remote Config
@@ -305,6 +316,13 @@ class ConfigState with _$ConfigState {
   String get messageAboutTwitter {
     final remoteConfig = FirebaseRemoteConfig.instance;
     return remoteConfig.getString('message_about_twitter');
+  }
+
+  /// Remote Config
+  /// メンテナンスに関する案内
+  String get messageMaintenance {
+    final remoteConfig = FirebaseRemoteConfig.instance;
+    return remoteConfig.getString('message_maintenance');
   }
 
   /// Remote Config

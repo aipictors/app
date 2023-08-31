@@ -148,11 +148,12 @@ class FeedWorkListTile extends HookConsumerWidget {
                   },
                 ),
                 IconButton(
-                    onPressed: () {
-                      Share.share(
-                          'Check out! https://www.aipictors.com/works/$workId');
-                    },
-                    icon: const Icon(Icons.share))
+                  onPressed: () {
+                    Share.share(
+                        'Check out! https://www.aipictors.com/works/$workId');
+                  },
+                  icon: const Icon(Icons.share),
+                )
               ]),
               FilledButton.tonal(
                 style: FilledButton.styleFrom(
@@ -161,10 +162,12 @@ class FeedWorkListTile extends HookConsumerWidget {
                 onPressed: () {
                   onOpenComment(context);
                 },
-                child: Text('_COMMENTS_COUNT_件のコメント'.i18n.replaceAllMapped(
-                      RegExp(r'_COMMENTS_COUNT_'),
-                      (match) => commentsCount.toString(),
-                    )),
+                child: Text(
+                  '_COMMENTS_COUNT_件のコメント'.i18n.replaceAllMapped(
+                        RegExp(r'_COMMENTS_COUNT_'),
+                        (match) => commentsCount.toString(),
+                      ),
+                ),
               ),
             ],
           ),

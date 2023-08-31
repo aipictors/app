@@ -32,18 +32,19 @@ class FollowButton extends HookConsumerWidget {
                 isLoading.value = true;
                 if (isActive) {
                   showDialog(
-                      context: context,
-                      builder: (_) {
-                        return UnfollowDialog(
-                          onAccept: () async {
-                            context.pop();
-                            await onPressed();
-                          },
-                          onCancel: () {
-                            context.pop();
-                          },
-                        );
-                      });
+                    context: context,
+                    builder: (_) {
+                      return UnfollowDialog(
+                        onAccept: () async {
+                          context.pop();
+                          await onPressed();
+                        },
+                        onCancel: () {
+                          context.pop();
+                        },
+                      );
+                    },
+                  );
                 } else {
                   await onPressed();
                 }

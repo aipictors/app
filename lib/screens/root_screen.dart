@@ -9,6 +9,7 @@ import 'package:aipictors/screens/explorer/explorer_screen.dart';
 import 'package:aipictors/screens/feed/feed_screen.dart';
 import 'package:aipictors/screens/home_loading_screen.dart';
 import 'package:aipictors/screens/login_screen.dart';
+import 'package:aipictors/screens/maintenance_screen.dart';
 import 'package:aipictors/screens/notification_screen.dart';
 import 'package:aipictors/screens/update_screen.dart';
 import 'package:aipictors/widgets/navigation/home_navigation_bar.dart';
@@ -34,6 +35,10 @@ class RootScreen extends HookConsumerWidget {
 
     if (config.isOutOfDate) {
       return const UpdateScreen();
+    }
+
+    if (config.isMaintenanceMode) {
+      return const MaintenanceScreen();
     }
 
     if (authState.isLoading) {
