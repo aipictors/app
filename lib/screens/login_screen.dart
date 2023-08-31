@@ -49,43 +49,46 @@ class LoginScreen extends HookConsumerWidget {
                     ),
                     const SizedBox(height: 40),
                     LoginIDForm(
-                        readOnly: isLoading.value,
-                        decoration: InputDecoration(
-                          hintText: 'ID',
-                          contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 20,
-                          ),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(40),
-                          ),
+                      readOnly: isLoading.value,
+                      decoration: InputDecoration(
+                        hintText: 'ユーザID'.i18n,
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 20,
                         ),
-                        onValidate: (valid, id) {
-                          //setState() or markNeedsBuild() called during buildを防ぐため
-                          WidgetsBinding.instance.addPostFrameCallback((_) {
-                            isValidID.value = valid;
-                            idInput.value = id;
-                          });
-                        }),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(40),
+                        ),
+                      ),
+                      onValidate: (valid, id) {
+                        // setState() or markNeedsBuild() called during buildを防ぐため
+                        WidgetsBinding.instance.addPostFrameCallback((_) {
+                          isValidID.value = valid;
+                          idInput.value = id;
+                        });
+                      },
+                    ),
                     const SizedBox(height: 16),
                     TextField(
                       keyboardType: TextInputType.visiblePassword,
                       obscureText: hidePassword.value,
                       readOnly: isLoading.value,
                       decoration: InputDecoration(
-                          hintText: 'パスワード'.i18n,
-                          contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 20,
-                          ),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(40),
-                          ),
-                          suffixIcon: IconButton(
-                              icon: Icon(hidePassword.value
-                                  ? Icons.visibility
-                                  : Icons.visibility_off),
-                              onPressed: () {
-                                hidePassword.value = !hidePassword.value;
-                              })),
+                        hintText: 'パスワード'.i18n,
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 20,
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(40),
+                        ),
+                        suffixIcon: IconButton(
+                          icon: Icon(hidePassword.value
+                              ? Icons.visibility
+                              : Icons.visibility_off),
+                          onPressed: () {
+                            hidePassword.value = !hidePassword.value;
+                          },
+                        ),
+                      ),
                       onChanged: (value) {
                         passwordInput.value = value;
                       },
@@ -114,25 +117,32 @@ class LoginScreen extends HookConsumerWidget {
                         child: Text('ログイン'.i18n),
                       ),
                     ),
-                    const SizedBox(height: 40),
+                    const SizedBox(height: 32),
                     const Divider(height: 0),
-                    const SizedBox(height: 40),
-                    SizedBox(
-                      width: double.infinity,
-                      child: FilledButton(
-                        style: FilledButton.styleFrom(
-                          fixedSize: const Size.fromHeight(48),
-                        ),
-                        onPressed: isLoading.value
-                            ? null
-                            : () async {
-                                isLoading.value = true;
-                                await onLoginWithTwitter(context, ref);
-                                isLoading.value = false;
-                              },
-                        child: Text('X(Twitter)でログイン'.i18n),
-                      ),
+                    const SizedBox(height: 32),
+                    Text(
+                      '現在、アプリでのログインはパスワード認証のみに対応しています。パスワードはサイトから設定または変更できます。'
+                          .i18n,
+                      style: Theme.of(context).textTheme.labelMedium,
                     ),
+                    // const SizedBox(height: 40),
+                    // SizedBox(
+                    //   width: double.infinity,
+                    //   child: FilledButton(
+                    //     style: FilledButton.styleFrom(
+                    //       fixedSize: const Size.fromHeight(48),
+                    //     ),
+                    //     onPressed: null,
+                    //     // onPressed: isLoading.value
+                    //     //     ? null
+                    //     //     : () async {
+                    //     //         isLoading.value = true;
+                    //     //         await onLoginWithTwitter(context, ref);
+                    //     //         isLoading.value = false;
+                    //     //       },
+                    //     child: Text('X(Twitter)でログイン'.i18n),
+                    //   ),
+                    // ),
                   ],
                 ),
               ),
