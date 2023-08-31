@@ -102,8 +102,6 @@ class _$GViewerAlbumsData_viewerSerializer
   GViewerAlbumsData_viewer deserialize(
       Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    T $cast<T>(dynamic any) => any as T;
-
     final result = new GViewerAlbumsData_viewerBuilder();
 
     final iterator = serialized.iterator;
@@ -117,16 +115,10 @@ class _$GViewerAlbumsData_viewerSerializer
               specifiedType: const FullType(String))! as String;
           break;
         case 'albums':
-          var maybeBuilder = result.albums;
-          var fieldValue = serializers.deserialize(value,
+          result.albums.replace(serializers.deserialize(value,
               specifiedType: const FullType(BuiltList, const [
                 const FullType(GViewerAlbumsData_viewer_albums)
-              ]))! as BuiltList<GViewerAlbumsData_viewer_albums>;
-          if (maybeBuilder == null) {
-            result.albums = $cast(fieldValue.toBuilder());
-          } else {
-            maybeBuilder.replace(fieldValue);
-          }
+              ]))! as BuiltList<Object?>);
           break;
       }
     }
@@ -158,9 +150,9 @@ class _$GViewerAlbumsData_viewer_albumsSerializer
       'title',
       serializers.serialize(object.title,
           specifiedType: const FullType(String)),
-      'rating',
-      serializers.serialize(object.rating,
-          specifiedType: const FullType(_i3.GRating)),
+      'isSensitive',
+      serializers.serialize(object.isSensitive,
+          specifiedType: const FullType(bool)),
       'likesCount',
       serializers.serialize(object.likesCount,
           specifiedType: const FullType(int)),
@@ -204,9 +196,9 @@ class _$GViewerAlbumsData_viewer_albumsSerializer
           result.title = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
-        case 'rating':
-          result.rating = serializers.deserialize(value,
-              specifiedType: const FullType(_i3.GRating))! as _i3.GRating;
+        case 'isSensitive':
+          result.isSensitive = serializers.deserialize(value,
+              specifiedType: const FullType(bool))! as bool;
           break;
         case 'likesCount':
           result.likesCount = serializers.deserialize(value,
@@ -534,7 +526,7 @@ class _$GViewerAlbumsData_viewer_albums
   @override
   final String title;
   @override
-  final _i3.GRating rating;
+  final bool isSensitive;
   @override
   final int likesCount;
   @override
@@ -550,7 +542,7 @@ class _$GViewerAlbumsData_viewer_albums
       {required this.G__typename,
       required this.id,
       required this.title,
-      required this.rating,
+      required this.isSensitive,
       required this.likesCount,
       required this.viewsCount,
       this.thumbnailImage})
@@ -562,7 +554,7 @@ class _$GViewerAlbumsData_viewer_albums
     BuiltValueNullFieldError.checkNotNull(
         title, r'GViewerAlbumsData_viewer_albums', 'title');
     BuiltValueNullFieldError.checkNotNull(
-        rating, r'GViewerAlbumsData_viewer_albums', 'rating');
+        isSensitive, r'GViewerAlbumsData_viewer_albums', 'isSensitive');
     BuiltValueNullFieldError.checkNotNull(
         likesCount, r'GViewerAlbumsData_viewer_albums', 'likesCount');
     BuiltValueNullFieldError.checkNotNull(
@@ -585,7 +577,7 @@ class _$GViewerAlbumsData_viewer_albums
         G__typename == other.G__typename &&
         id == other.id &&
         title == other.title &&
-        rating == other.rating &&
+        isSensitive == other.isSensitive &&
         likesCount == other.likesCount &&
         viewsCount == other.viewsCount &&
         thumbnailImage == other.thumbnailImage;
@@ -597,7 +589,7 @@ class _$GViewerAlbumsData_viewer_albums
     _$hash = $jc(_$hash, G__typename.hashCode);
     _$hash = $jc(_$hash, id.hashCode);
     _$hash = $jc(_$hash, title.hashCode);
-    _$hash = $jc(_$hash, rating.hashCode);
+    _$hash = $jc(_$hash, isSensitive.hashCode);
     _$hash = $jc(_$hash, likesCount.hashCode);
     _$hash = $jc(_$hash, viewsCount.hashCode);
     _$hash = $jc(_$hash, thumbnailImage.hashCode);
@@ -611,7 +603,7 @@ class _$GViewerAlbumsData_viewer_albums
           ..add('G__typename', G__typename)
           ..add('id', id)
           ..add('title', title)
-          ..add('rating', rating)
+          ..add('isSensitive', isSensitive)
           ..add('likesCount', likesCount)
           ..add('viewsCount', viewsCount)
           ..add('thumbnailImage', thumbnailImage))
@@ -637,9 +629,9 @@ class GViewerAlbumsData_viewer_albumsBuilder
   String? get title => _$this._title;
   set title(String? title) => _$this._title = title;
 
-  _i3.GRating? _rating;
-  _i3.GRating? get rating => _$this._rating;
-  set rating(_i3.GRating? rating) => _$this._rating = rating;
+  bool? _isSensitive;
+  bool? get isSensitive => _$this._isSensitive;
+  set isSensitive(bool? isSensitive) => _$this._isSensitive = isSensitive;
 
   int? _likesCount;
   int? get likesCount => _$this._likesCount;
@@ -668,7 +660,7 @@ class GViewerAlbumsData_viewer_albumsBuilder
       _G__typename = $v.G__typename;
       _id = $v.id;
       _title = $v.title;
-      _rating = $v.rating;
+      _isSensitive = $v.isSensitive;
       _likesCount = $v.likesCount;
       _viewsCount = $v.viewsCount;
       _thumbnailImage = $v.thumbnailImage?.toBuilder();
@@ -702,8 +694,8 @@ class GViewerAlbumsData_viewer_albumsBuilder
                   id, r'GViewerAlbumsData_viewer_albums', 'id'),
               title: BuiltValueNullFieldError.checkNotNull(
                   title, r'GViewerAlbumsData_viewer_albums', 'title'),
-              rating: BuiltValueNullFieldError.checkNotNull(
-                  rating, r'GViewerAlbumsData_viewer_albums', 'rating'),
+              isSensitive: BuiltValueNullFieldError.checkNotNull(isSensitive,
+                  r'GViewerAlbumsData_viewer_albums', 'isSensitive'),
               likesCount: BuiltValueNullFieldError.checkNotNull(
                   likesCount, r'GViewerAlbumsData_viewer_albums', 'likesCount'),
               viewsCount: BuiltValueNullFieldError.checkNotNull(

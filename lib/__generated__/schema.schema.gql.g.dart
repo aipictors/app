@@ -320,6 +320,9 @@ Serializer<GCreateFolderInput> _$gCreateFolderInputSerializer =
     new _$GCreateFolderInputSerializer();
 Serializer<GCreateFolderWorkInput> _$gCreateFolderWorkInputSerializer =
     new _$GCreateFolderWorkInputSerializer();
+Serializer<GCreatePromptonAipicRequestInput>
+    _$gCreatePromptonAipicRequestInputSerializer =
+    new _$GCreatePromptonAipicRequestInputSerializer();
 Serializer<GCreatePromptonChatMessageInput>
     _$gCreatePromptonChatMessageInputSerializer =
     new _$GCreatePromptonChatMessageInputSerializer();
@@ -1486,6 +1489,58 @@ class _$GCreateFolderWorkInputSerializer
           break;
         case 'workId':
           result.workId = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GCreatePromptonAipicRequestInputSerializer
+    implements StructuredSerializer<GCreatePromptonAipicRequestInput> {
+  @override
+  final Iterable<Type> types = const [
+    GCreatePromptonAipicRequestInput,
+    _$GCreatePromptonAipicRequestInput
+  ];
+  @override
+  final String wireName = 'GCreatePromptonAipicRequestInput';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GCreatePromptonAipicRequestInput object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'note',
+      serializers.serialize(object.note, specifiedType: const FullType(String)),
+      'recipientId',
+      serializers.serialize(object.recipientId,
+          specifiedType: const FullType(String)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GCreatePromptonAipicRequestInput deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GCreatePromptonAipicRequestInputBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'note':
+          result.note = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'recipientId':
+          result.recipientId = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
       }
@@ -9392,6 +9447,113 @@ class GCreateFolderWorkInputBuilder
                 folderId, r'GCreateFolderWorkInput', 'folderId'),
             workId: BuiltValueNullFieldError.checkNotNull(
                 workId, r'GCreateFolderWorkInput', 'workId'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GCreatePromptonAipicRequestInput
+    extends GCreatePromptonAipicRequestInput {
+  @override
+  final String note;
+  @override
+  final String recipientId;
+
+  factory _$GCreatePromptonAipicRequestInput(
+          [void Function(GCreatePromptonAipicRequestInputBuilder)? updates]) =>
+      (new GCreatePromptonAipicRequestInputBuilder()..update(updates))._build();
+
+  _$GCreatePromptonAipicRequestInput._(
+      {required this.note, required this.recipientId})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        note, r'GCreatePromptonAipicRequestInput', 'note');
+    BuiltValueNullFieldError.checkNotNull(
+        recipientId, r'GCreatePromptonAipicRequestInput', 'recipientId');
+  }
+
+  @override
+  GCreatePromptonAipicRequestInput rebuild(
+          void Function(GCreatePromptonAipicRequestInputBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GCreatePromptonAipicRequestInputBuilder toBuilder() =>
+      new GCreatePromptonAipicRequestInputBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GCreatePromptonAipicRequestInput &&
+        note == other.note &&
+        recipientId == other.recipientId;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, note.hashCode);
+    _$hash = $jc(_$hash, recipientId.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GCreatePromptonAipicRequestInput')
+          ..add('note', note)
+          ..add('recipientId', recipientId))
+        .toString();
+  }
+}
+
+class GCreatePromptonAipicRequestInputBuilder
+    implements
+        Builder<GCreatePromptonAipicRequestInput,
+            GCreatePromptonAipicRequestInputBuilder> {
+  _$GCreatePromptonAipicRequestInput? _$v;
+
+  String? _note;
+  String? get note => _$this._note;
+  set note(String? note) => _$this._note = note;
+
+  String? _recipientId;
+  String? get recipientId => _$this._recipientId;
+  set recipientId(String? recipientId) => _$this._recipientId = recipientId;
+
+  GCreatePromptonAipicRequestInputBuilder();
+
+  GCreatePromptonAipicRequestInputBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _note = $v.note;
+      _recipientId = $v.recipientId;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GCreatePromptonAipicRequestInput other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GCreatePromptonAipicRequestInput;
+  }
+
+  @override
+  void update(void Function(GCreatePromptonAipicRequestInputBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GCreatePromptonAipicRequestInput build() => _build();
+
+  _$GCreatePromptonAipicRequestInput _build() {
+    final _$result = _$v ??
+        new _$GCreatePromptonAipicRequestInput._(
+            note: BuiltValueNullFieldError.checkNotNull(
+                note, r'GCreatePromptonAipicRequestInput', 'note'),
+            recipientId: BuiltValueNullFieldError.checkNotNull(recipientId,
+                r'GCreatePromptonAipicRequestInput', 'recipientId'));
     replace(_$result);
     return _$result;
   }

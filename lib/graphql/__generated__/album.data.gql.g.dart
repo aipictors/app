@@ -100,9 +100,9 @@ class _$GAlbumData_albumSerializer
       'createdAt',
       serializers.serialize(object.createdAt,
           specifiedType: const FullType(int)),
-      'rating',
-      serializers.serialize(object.rating,
-          specifiedType: const FullType(_i2.GRating)),
+      'isSensitive',
+      serializers.serialize(object.isSensitive,
+          specifiedType: const FullType(bool)),
     ];
     Object? value;
     value = object.thumbnailImage;
@@ -152,9 +152,9 @@ class _$GAlbumData_albumSerializer
           result.createdAt = serializers.deserialize(value,
               specifiedType: const FullType(int))! as int;
           break;
-        case 'rating':
-          result.rating = serializers.deserialize(value,
-              specifiedType: const FullType(_i2.GRating))! as _i2.GRating;
+        case 'isSensitive':
+          result.isSensitive = serializers.deserialize(value,
+              specifiedType: const FullType(bool))! as bool;
           break;
         case 'thumbnailImage':
           result.thumbnailImage.replace(serializers.deserialize(value,
@@ -562,7 +562,7 @@ class _$GAlbumData_album extends GAlbumData_album {
   @override
   final int createdAt;
   @override
-  final _i2.GRating rating;
+  final bool isSensitive;
   @override
   final GAlbumData_album_thumbnailImage? thumbnailImage;
 
@@ -577,7 +577,7 @@ class _$GAlbumData_album extends GAlbumData_album {
       required this.description,
       required this.user,
       required this.createdAt,
-      required this.rating,
+      required this.isSensitive,
       this.thumbnailImage})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
@@ -590,7 +590,7 @@ class _$GAlbumData_album extends GAlbumData_album {
     BuiltValueNullFieldError.checkNotNull(
         createdAt, r'GAlbumData_album', 'createdAt');
     BuiltValueNullFieldError.checkNotNull(
-        rating, r'GAlbumData_album', 'rating');
+        isSensitive, r'GAlbumData_album', 'isSensitive');
   }
 
   @override
@@ -611,7 +611,7 @@ class _$GAlbumData_album extends GAlbumData_album {
         description == other.description &&
         user == other.user &&
         createdAt == other.createdAt &&
-        rating == other.rating &&
+        isSensitive == other.isSensitive &&
         thumbnailImage == other.thumbnailImage;
   }
 
@@ -624,7 +624,7 @@ class _$GAlbumData_album extends GAlbumData_album {
     _$hash = $jc(_$hash, description.hashCode);
     _$hash = $jc(_$hash, user.hashCode);
     _$hash = $jc(_$hash, createdAt.hashCode);
-    _$hash = $jc(_$hash, rating.hashCode);
+    _$hash = $jc(_$hash, isSensitive.hashCode);
     _$hash = $jc(_$hash, thumbnailImage.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -639,7 +639,7 @@ class _$GAlbumData_album extends GAlbumData_album {
           ..add('description', description)
           ..add('user', user)
           ..add('createdAt', createdAt)
-          ..add('rating', rating)
+          ..add('isSensitive', isSensitive)
           ..add('thumbnailImage', thumbnailImage))
         .toString();
   }
@@ -674,9 +674,9 @@ class GAlbumData_albumBuilder
   int? get createdAt => _$this._createdAt;
   set createdAt(int? createdAt) => _$this._createdAt = createdAt;
 
-  _i2.GRating? _rating;
-  _i2.GRating? get rating => _$this._rating;
-  set rating(_i2.GRating? rating) => _$this._rating = rating;
+  bool? _isSensitive;
+  bool? get isSensitive => _$this._isSensitive;
+  set isSensitive(bool? isSensitive) => _$this._isSensitive = isSensitive;
 
   GAlbumData_album_thumbnailImageBuilder? _thumbnailImage;
   GAlbumData_album_thumbnailImageBuilder get thumbnailImage =>
@@ -697,7 +697,7 @@ class GAlbumData_albumBuilder
       _description = $v.description;
       _user = $v.user.toBuilder();
       _createdAt = $v.createdAt;
-      _rating = $v.rating;
+      _isSensitive = $v.isSensitive;
       _thumbnailImage = $v.thumbnailImage?.toBuilder();
       _$v = null;
     }
@@ -734,8 +734,8 @@ class GAlbumData_albumBuilder
               user: user.build(),
               createdAt: BuiltValueNullFieldError.checkNotNull(
                   createdAt, r'GAlbumData_album', 'createdAt'),
-              rating: BuiltValueNullFieldError.checkNotNull(
-                  rating, r'GAlbumData_album', 'rating'),
+              isSensitive: BuiltValueNullFieldError.checkNotNull(
+                  isSensitive, r'GAlbumData_album', 'isSensitive'),
               thumbnailImage: _thumbnailImage?.build());
     } catch (_) {
       late String _$failedField;

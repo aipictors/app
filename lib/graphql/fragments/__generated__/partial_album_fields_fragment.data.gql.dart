@@ -2,8 +2,7 @@
 // ignore_for_file: type=lint
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:aipictors/__generated__/schema.schema.gql.dart' as _i1;
-import 'package:aipictors/__generated__/serializers.gql.dart' as _i2;
+import 'package:aipictors/__generated__/serializers.gql.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -13,7 +12,7 @@ abstract class GPartialAlbumFields {
   String get G__typename;
   String get id;
   String get title;
-  _i1.GRating get rating;
+  bool get isSensitive;
   int get likesCount;
   int get viewsCount;
   GPartialAlbumFields_thumbnailImage? get thumbnailImage;
@@ -47,7 +46,7 @@ abstract class GPartialAlbumFieldsData
   @override
   String get title;
   @override
-  _i1.GRating get rating;
+  bool get isSensitive;
   @override
   int get likesCount;
   @override
@@ -57,12 +56,12 @@ abstract class GPartialAlbumFieldsData
   static Serializer<GPartialAlbumFieldsData> get serializer =>
       _$gPartialAlbumFieldsDataSerializer;
   @override
-  Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GPartialAlbumFieldsData.serializer,
         this,
       ) as Map<String, dynamic>);
   static GPartialAlbumFieldsData? fromJson(Map<String, dynamic> json) =>
-      _i2.serializers.deserializeWith(
+      _i1.serializers.deserializeWith(
         GPartialAlbumFieldsData.serializer,
         json,
       );
@@ -92,13 +91,13 @@ abstract class GPartialAlbumFieldsData_thumbnailImage
   static Serializer<GPartialAlbumFieldsData_thumbnailImage> get serializer =>
       _$gPartialAlbumFieldsDataThumbnailImageSerializer;
   @override
-  Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GPartialAlbumFieldsData_thumbnailImage.serializer,
         this,
       ) as Map<String, dynamic>);
   static GPartialAlbumFieldsData_thumbnailImage? fromJson(
           Map<String, dynamic> json) =>
-      _i2.serializers.deserializeWith(
+      _i1.serializers.deserializeWith(
         GPartialAlbumFieldsData_thumbnailImage.serializer,
         json,
       );

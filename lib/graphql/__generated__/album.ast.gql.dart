@@ -103,7 +103,7 @@ const Album = _i1.OperationDefinitionNode(
           selectionSet: null,
         ),
         _i1.FieldNode(
-          name: _i1.NameNode(value: 'rating'),
+          name: _i1.NameNode(value: 'isSensitive'),
           alias: null,
           arguments: [],
           directives: [],

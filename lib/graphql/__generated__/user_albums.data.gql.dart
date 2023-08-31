@@ -2,7 +2,6 @@
 // ignore_for_file: type=lint
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:aipictors/__generated__/schema.schema.gql.dart' as _i3;
 import 'package:aipictors/__generated__/serializers.gql.dart' as _i1;
 import 'package:aipictors/graphql/fragments/__generated__/partial_album_fields_fragment.data.gql.dart'
     as _i2;
@@ -84,7 +83,7 @@ abstract class GUserAlbumsData_user_albums
   @override
   String get title;
   @override
-  _i3.GRating get rating;
+  bool get isSensitive;
   @override
   int get likesCount;
   @override

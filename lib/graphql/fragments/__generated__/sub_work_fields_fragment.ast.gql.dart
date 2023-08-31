@@ -4,11 +4,11 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:gql/ast.dart' as _i1;
 
-const PartialAlbumFields = _i1.FragmentDefinitionNode(
-  name: _i1.NameNode(value: 'PartialAlbumFields'),
+const SubWorkFields = _i1.FragmentDefinitionNode(
+  name: _i1.NameNode(value: 'SubWorkFields'),
   typeCondition: _i1.TypeConditionNode(
       on: _i1.NamedTypeNode(
-    name: _i1.NameNode(value: 'AlbumNode'),
+    name: _i1.NameNode(value: 'SubWorkNode'),
     isNonNull: false,
   )),
   directives: [],
@@ -21,32 +21,26 @@ const PartialAlbumFields = _i1.FragmentDefinitionNode(
       selectionSet: null,
     ),
     _i1.FieldNode(
-      name: _i1.NameNode(value: 'title'),
+      name: _i1.NameNode(value: 'image'),
       alias: null,
       arguments: [],
       directives: [],
-      selectionSet: null,
-    ),
-    _i1.FieldNode(
-      name: _i1.NameNode(value: 'isSensitive'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: null,
-    ),
-    _i1.FieldNode(
-      name: _i1.NameNode(value: 'likesCount'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: null,
-    ),
-    _i1.FieldNode(
-      name: _i1.NameNode(value: 'viewsCount'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: null,
+      selectionSet: _i1.SelectionSetNode(selections: [
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'id'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'downloadURL'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+      ]),
     ),
     _i1.FieldNode(
       name: _i1.NameNode(value: 'thumbnailImage'),
@@ -72,4 +66,4 @@ const PartialAlbumFields = _i1.FragmentDefinitionNode(
     ),
   ]),
 );
-const document = _i1.DocumentNode(definitions: [PartialAlbumFields]);
+const document = _i1.DocumentNode(definitions: [SubWorkFields]);

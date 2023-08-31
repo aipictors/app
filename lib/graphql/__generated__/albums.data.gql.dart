@@ -2,12 +2,11 @@
 // ignore_for_file: type=lint
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:aipictors/__generated__/schema.schema.gql.dart' as _i3;
 import 'package:aipictors/__generated__/serializers.gql.dart' as _i1;
 import 'package:aipictors/graphql/fragments/__generated__/partial_album_fields_fragment.data.gql.dart'
     as _i2;
 import 'package:aipictors/graphql/fragments/__generated__/partial_user_fields_fragment.data.gql.dart'
-    as _i4;
+    as _i3;
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
@@ -55,7 +54,7 @@ abstract class GAlbumsData_albums
   @override
   String get title;
   @override
-  _i3.GRating get rating;
+  bool get isSensitive;
   @override
   int get likesCount;
   @override
@@ -115,7 +114,7 @@ abstract class GAlbumsData_albums_thumbnailImage
 abstract class GAlbumsData_albums_user
     implements
         Built<GAlbumsData_albums_user, GAlbumsData_albums_userBuilder>,
-        _i4.GPartialUserFields {
+        _i3.GPartialUserFields {
   GAlbumsData_albums_user._();
 
   factory GAlbumsData_albums_user(
@@ -153,7 +152,7 @@ abstract class GAlbumsData_albums_user_iconImage
     implements
         Built<GAlbumsData_albums_user_iconImage,
             GAlbumsData_albums_user_iconImageBuilder>,
-        _i4.GPartialUserFields_iconImage {
+        _i3.GPartialUserFields_iconImage {
   GAlbumsData_albums_user_iconImage._();
 
   factory GAlbumsData_albums_user_iconImage(

@@ -92,9 +92,9 @@ class _$GAlbumsData_albumsSerializer
       'title',
       serializers.serialize(object.title,
           specifiedType: const FullType(String)),
-      'rating',
-      serializers.serialize(object.rating,
-          specifiedType: const FullType(_i3.GRating)),
+      'isSensitive',
+      serializers.serialize(object.isSensitive,
+          specifiedType: const FullType(bool)),
       'likesCount',
       serializers.serialize(object.likesCount,
           specifiedType: const FullType(int)),
@@ -140,9 +140,9 @@ class _$GAlbumsData_albumsSerializer
           result.title = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
-        case 'rating':
-          result.rating = serializers.deserialize(value,
-              specifiedType: const FullType(_i3.GRating))! as _i3.GRating;
+        case 'isSensitive':
+          result.isSensitive = serializers.deserialize(value,
+              specifiedType: const FullType(bool))! as bool;
           break;
         case 'likesCount':
           result.likesCount = serializers.deserialize(value,
@@ -486,7 +486,7 @@ class _$GAlbumsData_albums extends GAlbumsData_albums {
   @override
   final String title;
   @override
-  final _i3.GRating rating;
+  final bool isSensitive;
   @override
   final int likesCount;
   @override
@@ -504,7 +504,7 @@ class _$GAlbumsData_albums extends GAlbumsData_albums {
       {required this.G__typename,
       required this.id,
       required this.title,
-      required this.rating,
+      required this.isSensitive,
       required this.likesCount,
       required this.viewsCount,
       this.thumbnailImage,
@@ -516,7 +516,7 @@ class _$GAlbumsData_albums extends GAlbumsData_albums {
     BuiltValueNullFieldError.checkNotNull(
         title, r'GAlbumsData_albums', 'title');
     BuiltValueNullFieldError.checkNotNull(
-        rating, r'GAlbumsData_albums', 'rating');
+        isSensitive, r'GAlbumsData_albums', 'isSensitive');
     BuiltValueNullFieldError.checkNotNull(
         likesCount, r'GAlbumsData_albums', 'likesCount');
     BuiltValueNullFieldError.checkNotNull(
@@ -540,7 +540,7 @@ class _$GAlbumsData_albums extends GAlbumsData_albums {
         G__typename == other.G__typename &&
         id == other.id &&
         title == other.title &&
-        rating == other.rating &&
+        isSensitive == other.isSensitive &&
         likesCount == other.likesCount &&
         viewsCount == other.viewsCount &&
         thumbnailImage == other.thumbnailImage &&
@@ -553,7 +553,7 @@ class _$GAlbumsData_albums extends GAlbumsData_albums {
     _$hash = $jc(_$hash, G__typename.hashCode);
     _$hash = $jc(_$hash, id.hashCode);
     _$hash = $jc(_$hash, title.hashCode);
-    _$hash = $jc(_$hash, rating.hashCode);
+    _$hash = $jc(_$hash, isSensitive.hashCode);
     _$hash = $jc(_$hash, likesCount.hashCode);
     _$hash = $jc(_$hash, viewsCount.hashCode);
     _$hash = $jc(_$hash, thumbnailImage.hashCode);
@@ -568,7 +568,7 @@ class _$GAlbumsData_albums extends GAlbumsData_albums {
           ..add('G__typename', G__typename)
           ..add('id', id)
           ..add('title', title)
-          ..add('rating', rating)
+          ..add('isSensitive', isSensitive)
           ..add('likesCount', likesCount)
           ..add('viewsCount', viewsCount)
           ..add('thumbnailImage', thumbnailImage)
@@ -593,9 +593,9 @@ class GAlbumsData_albumsBuilder
   String? get title => _$this._title;
   set title(String? title) => _$this._title = title;
 
-  _i3.GRating? _rating;
-  _i3.GRating? get rating => _$this._rating;
-  set rating(_i3.GRating? rating) => _$this._rating = rating;
+  bool? _isSensitive;
+  bool? get isSensitive => _$this._isSensitive;
+  set isSensitive(bool? isSensitive) => _$this._isSensitive = isSensitive;
 
   int? _likesCount;
   int? get likesCount => _$this._likesCount;
@@ -627,7 +627,7 @@ class GAlbumsData_albumsBuilder
       _G__typename = $v.G__typename;
       _id = $v.id;
       _title = $v.title;
-      _rating = $v.rating;
+      _isSensitive = $v.isSensitive;
       _likesCount = $v.likesCount;
       _viewsCount = $v.viewsCount;
       _thumbnailImage = $v.thumbnailImage?.toBuilder();
@@ -662,8 +662,8 @@ class GAlbumsData_albumsBuilder
                   id, r'GAlbumsData_albums', 'id'),
               title: BuiltValueNullFieldError.checkNotNull(
                   title, r'GAlbumsData_albums', 'title'),
-              rating: BuiltValueNullFieldError.checkNotNull(
-                  rating, r'GAlbumsData_albums', 'rating'),
+              isSensitive: BuiltValueNullFieldError.checkNotNull(
+                  isSensitive, r'GAlbumsData_albums', 'isSensitive'),
               likesCount: BuiltValueNullFieldError.checkNotNull(
                   likesCount, r'GAlbumsData_albums', 'likesCount'),
               viewsCount: BuiltValueNullFieldError.checkNotNull(

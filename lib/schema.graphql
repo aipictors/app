@@ -2,17 +2,6 @@ schema {
   query: Query
   mutation: Mutation
 }
-"作品のアルバムのイイネ"
-type AlbumLikeNode implements Node {
-  id: ID!
-  createdAt: Int!
-  userId: ID!
-  "ユーザ"
-  user: UserNode!
-  albumId: ID!
-  "アルバム"
-  album: AlbumNode!
-}
 "作品のアルバム"
 type AlbumNode implements Node {
   id: ID!
@@ -30,20 +19,27 @@ type AlbumNode implements Node {
   likesCount: Int!
   "閲覧数"
   viewsCount: Int!
-  "年齢制限"
-  rating: Rating!
   "作品"
   works(offset: Int!, limit: Int!): [WorkNode!]!
   "サムネイル"
   thumbnailImageId: ID
   "サムネイル"
   thumbnailImage: ImageNode
+  "センシティブである"
+  isSensitive: Boolean!
   viewer: AlbumViewerNode
 }
 type AlbumViewerNode implements Node {
   id: ID!
   isLiked: Boolean!
   isWatched: Boolean!
+}
+"運営のお知らせ"
+type AppNotificationNode implements Node {
+  id: ID!
+  title: String!
+  body: String!
+  publishedAt: Int!
 }
 "カテゴリ"
 type CategoryNode implements Node {
@@ -333,6 +329,8 @@ type Mutation {
   markPromptonPlanAsPublic(input: MarkPromptonPlanAsPublicInput!): PromptonPlanNode!
   "プランを非公開にする"
   markPromptonPlanAsPrivate(input: MarkPromptonPlanAsPrivateInput!): PromptonPlanNode!
+  "支援リクエストを作成する"
+  createPromptonAipicRequest(input: CreatePromptonAipicRequestInput!): PromptonRequestNode!
   "プランリクエストを作成する"
   createPromptonPlanRequest(input: CreatePromptonPlanRequestInput!): PromptonRequestNode!
   "コーヒーリクエストを作成する"
@@ -739,6 +737,7 @@ type PromptonRequestNode implements Node {
   featureCommercialUse: Boolean!
   featureFanFiction: Boolean!
   isCoffee: Boolean!
+  isAipic: Boolean!
 }
 type PromptonSlug {
   name: String!
@@ -987,6 +986,8 @@ type PromptonWorksConnection implements Connection {
   edges: [PromptonWorkEdge!]!
 }
 type Query {
+  "運営からのお知らせ"
+  appNotifications(offset: Int!, limit: Int!): [AppNotificationNode!]!
   "作品"
   work(id: ID!): WorkNode
   "作品"
@@ -1243,15 +1244,6 @@ type WorkEventNode implements Node {
   endTime: Int!
   users(offset: Int!, limit: Int!): [UserNode!]!
 }
-"作品のイイネ"
-type WorkLikeNode implements Node {
-  id: ID!
-  userId: ID!
-  user: UserNode!
-  workId: ID!
-  work: WorkNode!
-  createdAt: Int
-}
 "作品"
 type WorkNode implements Node {
   id: ID!
@@ -1492,6 +1484,10 @@ input CreateFolderInput {
 input CreateFolderWorkInput {
   folderId: ID!
   workId: ID!
+}
+input CreatePromptonAipicRequestInput {
+  note: String!
+  recipientId: String!
 }
 input CreatePromptonChatMessageInput {
   text: String!

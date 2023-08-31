@@ -14,7 +14,7 @@ query Album($id: ID!) {
       }
     }
     createdAt
-    rating
+    isSensitive
     thumbnailImage {
       id
       downloadURL

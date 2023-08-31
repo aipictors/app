@@ -21,6 +21,7 @@ import 'package:aipictors/__generated__/schema.schema.gql.dart'
         GCreateAlbumWorkInput,
         GCreateFolderInput,
         GCreateFolderWorkInput,
+        GCreatePromptonAipicRequestInput,
         GCreatePromptonChatMessageInput,
         GCreatePromptonCoffeeRequestInput,
         GCreatePromptonDeliverableInput,
@@ -567,6 +568,9 @@ import 'package:aipictors/graphql/__generated__/work.data.gql.dart'
         GWorkData,
         GWorkData_work,
         GWorkData_work_image,
+        GWorkData_work_subWorks,
+        GWorkData_work_subWorks_image,
+        GWorkData_work_subWorks_thumbnailImage,
         GWorkData_work_user,
         GWorkData_work_user_iconImage,
         GWorkData_work_user_viewer,
@@ -694,6 +698,15 @@ import 'package:aipictors/graphql/fragments/__generated__/partial_work_fields_fr
     show GPartialWorkFieldsReq;
 import 'package:aipictors/graphql/fragments/__generated__/partial_work_fields_fragment.var.gql.dart'
     show GPartialWorkFieldsVars;
+import 'package:aipictors/graphql/fragments/__generated__/sub_work_fields_fragment.data.gql.dart'
+    show
+        GSubWorkFieldsData,
+        GSubWorkFieldsData_image,
+        GSubWorkFieldsData_thumbnailImage;
+import 'package:aipictors/graphql/fragments/__generated__/sub_work_fields_fragment.req.gql.dart'
+    show GSubWorkFieldsReq;
+import 'package:aipictors/graphql/fragments/__generated__/sub_work_fields_fragment.var.gql.dart'
+    show GSubWorkFieldsVars;
 import 'package:aipictors/graphql/fragments/__generated__/user_fields_fragment.data.gql.dart'
     show
         GUserFieldsData,
@@ -1043,6 +1056,7 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GCreateFolderWorkInput,
   GCreateFolderWorkReq,
   GCreateFolderWorkVars,
+  GCreatePromptonAipicRequestInput,
   GCreatePromptonChatMessageInput,
   GCreatePromptonCoffeeRequestInput,
   GCreatePromptonDeliverableInput,
@@ -1357,6 +1371,11 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GStickersReq,
   GStickersVars,
   GStickersWhereInput,
+  GSubWorkFieldsData,
+  GSubWorkFieldsData_image,
+  GSubWorkFieldsData_thumbnailImage,
+  GSubWorkFieldsReq,
+  GSubWorkFieldsVars,
   GTagData,
   GTagData_tag,
   GTagData_tag_viewer,
@@ -1614,6 +1633,9 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GWorkData,
   GWorkData_work,
   GWorkData_work_image,
+  GWorkData_work_subWorks,
+  GWorkData_work_subWorks_image,
+  GWorkData_work_subWorks_thumbnailImage,
   GWorkData_work_user,
   GWorkData_work_user_iconImage,
   GWorkData_work_user_viewer,

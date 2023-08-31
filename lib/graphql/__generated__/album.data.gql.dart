@@ -2,10 +2,9 @@
 // ignore_for_file: type=lint
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:aipictors/__generated__/schema.schema.gql.dart' as _i2;
 import 'package:aipictors/__generated__/serializers.gql.dart' as _i1;
 import 'package:aipictors/graphql/fragments/__generated__/work_user_fields_fragment.data.gql.dart'
-    as _i3;
+    as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -49,7 +48,7 @@ abstract class GAlbumData_album
   String get description;
   GAlbumData_album_user get user;
   int get createdAt;
-  _i2.GRating get rating;
+  bool get isSensitive;
   GAlbumData_album_thumbnailImage? get thumbnailImage;
   static Serializer<GAlbumData_album> get serializer =>
       _$gAlbumDataAlbumSerializer;
@@ -67,7 +66,7 @@ abstract class GAlbumData_album
 abstract class GAlbumData_album_user
     implements
         Built<GAlbumData_album_user, GAlbumData_album_userBuilder>,
-        _i3.GWorkUserFields {
+        _i2.GWorkUserFields {
   GAlbumData_album_user._();
 
   factory GAlbumData_album_user(
@@ -106,7 +105,7 @@ abstract class GAlbumData_album_user_iconImage
     implements
         Built<GAlbumData_album_user_iconImage,
             GAlbumData_album_user_iconImageBuilder>,
-        _i3.GWorkUserFields_iconImage {
+        _i2.GWorkUserFields_iconImage {
   GAlbumData_album_user_iconImage._();
 
   factory GAlbumData_album_user_iconImage(

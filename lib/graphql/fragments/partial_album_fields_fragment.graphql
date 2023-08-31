@@ -1,7 +1,7 @@
 fragment PartialAlbumFields on AlbumNode {
   id
   title
-  rating
+  isSensitive
   likesCount
   viewsCount
   thumbnailImage {

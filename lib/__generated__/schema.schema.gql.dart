@@ -486,6 +486,32 @@ abstract class GCreateFolderWorkInput
       );
 }
 
+abstract class GCreatePromptonAipicRequestInput
+    implements
+        Built<GCreatePromptonAipicRequestInput,
+            GCreatePromptonAipicRequestInputBuilder> {
+  GCreatePromptonAipicRequestInput._();
+
+  factory GCreatePromptonAipicRequestInput(
+          [Function(GCreatePromptonAipicRequestInputBuilder b) updates]) =
+      _$GCreatePromptonAipicRequestInput;
+
+  String get note;
+  String get recipientId;
+  static Serializer<GCreatePromptonAipicRequestInput> get serializer =>
+      _$gCreatePromptonAipicRequestInputSerializer;
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GCreatePromptonAipicRequestInput.serializer,
+        this,
+      ) as Map<String, dynamic>);
+  static GCreatePromptonAipicRequestInput? fromJson(
+          Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GCreatePromptonAipicRequestInput.serializer,
+        json,
+      );
+}
+
 abstract class GCreatePromptonChatMessageInput
     implements
         Built<GCreatePromptonChatMessageInput,
@@ -3344,9 +3370,9 @@ abstract class GWorksWhereInput
 
 const Map<String, Set<String>> possibleTypesMap = {
   'Node': {
-    'AlbumLikeNode',
     'AlbumNode',
     'AlbumViewerNode',
+    'AppNotificationNode',
     'CategoryNode',
     'CategoryViewerNode',
     'CommentNode',
@@ -3398,7 +3424,6 @@ const Map<String, Set<String>> possibleTypesMap = {
     'WorkCommentNotificationNode',
     'WorkCommentReplyNotificationNode',
     'WorkEventNode',
-    'WorkLikeNode',
     'WorkNode',
     'WorkViewerNode',
   },

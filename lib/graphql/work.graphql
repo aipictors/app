@@ -1,4 +1,5 @@
 # import './fragments/work_user_fields_fragment.graphql'
+# import './fragments/sub_work_fields_fragment.graphql'
 
 query Work($id: ID!) {
   work(id: $id) {
@@ -22,6 +23,9 @@ query Work($id: ID!) {
     createdAt
     likesCount
     viewsCount
+    subWorks {
+      ...SubWorkFields
+    }
     viewer {
       id
       isLiked
