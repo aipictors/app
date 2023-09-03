@@ -1,4 +1,3 @@
-import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/mutations/create_work_like.dart';
 import 'package:aipictors/utils/show_unavailable_snack_bar.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +21,8 @@ class WorkBottomAppContainer extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
-    final isLikedInMemory = useState(isLiked);
+    // final isLikedInMemory = useState(isLiked);
+
     final isFoldedInMemory = useState(isFolded);
 
     return BottomAppBar(
@@ -31,28 +31,28 @@ class WorkBottomAppContainer extends HookConsumerWidget {
         children: [
           Row(
             children: [
-              LikeButton(
-                isLiked: isLikedInMemory.value,
-                likeBuilder: (isLiked) {
-                  if (isLikedInMemory.value) {
-                    return Icon(
-                      Icons.favorite_rounded,
-                      size: 28,
-                      color: Theme.of(context).colorScheme.error,
-                    );
-                  }
-                  return const Icon(
-                    Icons.favorite_outline_rounded,
-                    size: 28,
-                  );
-                },
-                onTap: (isLiked) async {
-                  onCreateWorkLike();
-                  isLikedInMemory.value = !isLikedInMemory.value;
-                  return !isLiked;
-                },
-              ),
-              const SizedBox(width: 16),
+              // LikeButton(
+              //   isLiked: isLikedInMemory.value,
+              //   likeBuilder: (isLiked) {
+              //     if (isLikedInMemory.value) {
+              //       return Icon(
+              //         Icons.favorite_rounded,
+              //         size: 28,
+              //         color: Theme.of(context).colorScheme.error,
+              //       );
+              //     }
+              //     return const Icon(
+              //       Icons.favorite_outline_rounded,
+              //       size: 28,
+              //     );
+              //   },
+              //   onTap: (isLiked) async {
+              //     onCreateWorkLike();
+              //     isLikedInMemory.value = !isLikedInMemory.value;
+              //     return !isLiked;
+              //   },
+              // ),
+              // const SizedBox(width: 16),
               LikeButton(
                 isLiked: isFoldedInMemory.value,
                 likeBuilder: (bool isFolded) {
@@ -75,17 +75,17 @@ class WorkBottomAppContainer extends HookConsumerWidget {
             ],
           ),
           const SizedBox(width: 8),
-          FilledButton.tonal(
-            child: Text(
-              'コメント'.i18n,
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            onPressed: () {
-              showUnavailableSnackBar(context);
-            },
-          ),
+          // FilledButton.tonal(
+          //   child: Text(
+          //     'コメント'.i18n,
+          //     style: const TextStyle(
+          //       fontWeight: FontWeight.bold,
+          //     ),
+          //   ),
+          //   onPressed: () {
+          //     showUnavailableSnackBar(context);
+          //   },
+          // ),
         ],
       ),
     );
