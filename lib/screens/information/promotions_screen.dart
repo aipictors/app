@@ -28,9 +28,17 @@ class PromotionsScreen extends HookConsumerWidget {
         ..vars.offset = 0;
     });
 
-    return Scaffold(
-      appBar: AppBar(title: const Text('イベント')),
-      body: OperationBuilder(
+    return RefreshIndicator(
+      onRefresh: () async {
+        final req = request.rebuild((builder) {
+          return builder
+            ..vars.limit = 64
+            ..vars.offset = 0;
+        });
+        client.value?.requestController.add(req);
+        await Future.delayed(const Duration(seconds: 2));
+      },
+      child: OperationBuilder(
         client: client.value!,
         operationRequest: request,
         builder: (context, response) {
@@ -41,7 +49,11 @@ class PromotionsScreen extends HookConsumerWidget {
           if (promotionList.isEmpty) {
             return const DataEmptyErrorContainer();
           }
-          return ListView.builder(
+          return ListView.separated(
+            padding: const EdgeInsets.only(top: 8),
+            separatorBuilder: (context, index) {
+              return const Divider();
+            },
             itemCount: promotionList.length,
             itemBuilder: (context, index) {
               final promotion = promotionList[index];

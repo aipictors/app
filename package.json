@@ -1,6 +1,5 @@
 {
   "name": "aipictors",
-  "type": "module",
   "scripts": {
     "i18n": "node tools/i18n"
   },

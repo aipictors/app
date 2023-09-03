@@ -34,6 +34,10 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GAlbumsReq.serializer)
       ..add(GAlbumsVars.serializer)
       ..add(GAlbumsWhereInput.serializer)
+      ..add(GAnnouncementsData.serializer)
+      ..add(GAnnouncementsData_announcements.serializer)
+      ..add(GAnnouncementsReq.serializer)
+      ..add(GAnnouncementsVars.serializer)
       ..add(GAwardType.serializer)
       ..add(GAwardsWhereInput.serializer)
       ..add(GBestWorksData.serializer)
@@ -742,6 +746,10 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(GAlbumsData_albums)]),
           () => new ListBuilder<GAlbumsData_albums>())
+      ..addBuilderFactory(
+          const FullType(BuiltList,
+              const [const FullType(GAnnouncementsData_announcements)]),
+          () => new ListBuilder<GAnnouncementsData_announcements>())
       ..addBuilderFactory(
           const FullType(
               BuiltList, const [const FullType(GBestWorksData_bestWorks)]),

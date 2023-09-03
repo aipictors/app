@@ -179,6 +179,12 @@ import 'package:aipictors/graphql/__generated__/albums.req.gql.dart'
     show GAlbumsReq;
 import 'package:aipictors/graphql/__generated__/albums.var.gql.dart'
     show GAlbumsVars;
+import 'package:aipictors/graphql/__generated__/announcements.data.gql.dart'
+    show GAnnouncementsData, GAnnouncementsData_announcements;
+import 'package:aipictors/graphql/__generated__/announcements.req.gql.dart'
+    show GAnnouncementsReq;
+import 'package:aipictors/graphql/__generated__/announcements.var.gql.dart'
+    show GAnnouncementsVars;
 import 'package:aipictors/graphql/__generated__/best_works.data.gql.dart'
     show
         GBestWorksData,
@@ -1005,6 +1011,10 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GAlbumsReq,
   GAlbumsVars,
   GAlbumsWhereInput,
+  GAnnouncementsData,
+  GAnnouncementsData_announcements,
+  GAnnouncementsReq,
+  GAnnouncementsVars,
   GAwardType,
   GAwardsWhereInput,
   GBestWorksData,

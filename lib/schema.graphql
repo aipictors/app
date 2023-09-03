@@ -27,6 +27,14 @@ type AlbumNode implements Node {
   thumbnailImage: ImageNode
   "センシティブである"
   isSensitive: Boolean!
+  "Open Graph タイトル"
+  openGraphTitle: String
+  "Open Graph 説明"
+  openGraphDescription: String
+  "Open Graph 画像"
+  openGraphImageURL: String
+  "シェア"
+  shareText: String
   viewer: AlbumViewerNode
 }
 type AlbumViewerNode implements Node {
@@ -35,7 +43,7 @@ type AlbumViewerNode implements Node {
   isWatched: Boolean!
 }
 "運営のお知らせ"
-type AppNotificationNode implements Node {
+type AnnouncementNode implements Node {
   id: ID!
   title: String!
   body: String!
@@ -63,6 +71,7 @@ type CommentNode implements Node {
   createdAt: Int!
   text: String!
   responses(offset: Int!, limit: Int!): [CommentNode!]!
+  isDeleted: Boolean!
 }
 "コントリビューター"
 type ContributorNode implements Node {
@@ -112,6 +121,14 @@ type FolderNode implements Node {
   thumbnailImageURL: String
   isDeleted: Boolean!
   isPrivate: Boolean!
+  "Open Graph タイトル"
+  openGraphTitle: String
+  "Open Graph 説明"
+  openGraphDescription: String
+  "Open Graph 画像"
+  openGraphImageURL: String
+  "シェア"
+  shareText: String
 }
 "通知（フォロー）"
 type FollowNotificationNode implements Node {
@@ -987,7 +1004,7 @@ type PromptonWorksConnection implements Connection {
 }
 type Query {
   "運営からのお知らせ"
-  appNotifications(offset: Int!, limit: Int!): [AppNotificationNode!]!
+  announcements(offset: Int!, limit: Int!): [AnnouncementNode!]!
   "作品"
   work(id: ID!): WorkNode
   "作品"
@@ -1159,6 +1176,14 @@ type UserNode implements Node {
   viewer: UserViewerNode
   "プロンプトンのユーザ"
   promptonUser: PromptonUserNode
+  "Open Graph タイトル"
+  openGraphTitle: String
+  "Open Graph 説明"
+  openGraphDescription: String
+  "Open Graph 画像"
+  openGraphImageURL: String
+  "シェア"
+  shareText: String
 }
 "ユーザの設定"
 type UserSettingNode implements Node {
@@ -1318,6 +1343,14 @@ type WorkNode implements Node {
   comments(offset: Int!, limit: Int!): [CommentNode!]!
   "作品"
   subWorks: [SubWorkNode!]!
+  "Open Graph タイトル"
+  openGraphTitle: String
+  "Open Graph 説明"
+  openGraphDescription: String
+  "Open Graph 画像"
+  openGraphImageURL: String
+  "シェア"
+  shareText: String
   "ログイン"
   viewer: WorkViewerNode
 }

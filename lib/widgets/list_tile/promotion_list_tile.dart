@@ -39,34 +39,34 @@ class PromotionListTile extends HookConsumerWidget {
             title,
             style: Theme.of(context).textTheme.headlineSmall,
           ),
+          const SizedBox(height: 4),
           Text(description),
-          if (imageURL != null) const SizedBox(height: 4),
-          if (imageURL != null)
-            ClipRRect(
-              borderRadius: BorderRadius.circular(8.0),
-              child: AspectRatio(
-                aspectRatio: 1200 / 630,
-                child: CachedNetworkImage(
-                  width: double.infinity,
-                  imageUrl: imageURL!,
-                  fit: BoxFit.cover,
-                  progressIndicatorBuilder: (context, url, downloadProgress) {
-                    return Container(
-                      width: double.infinity,
-                      height: double.infinity,
-                      color: Colors.transparent,
-                    );
-                  },
-                  errorWidget: (context, uri, error) {
-                    return Container(
-                      width: double.infinity,
-                      height: double.infinity,
-                      color: Colors.transparent,
-                    );
-                  },
-                ),
+          if (imageURL != null) const SizedBox(height: 8),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(8.0),
+            child: AspectRatio(
+              aspectRatio: 1200 / 630,
+              child: CachedNetworkImage(
+                width: double.infinity,
+                imageUrl: imageURL!,
+                fit: BoxFit.cover,
+                progressIndicatorBuilder: (context, url, downloadProgress) {
+                  return Container(
+                    width: double.infinity,
+                    height: double.infinity,
+                    color: Colors.transparent,
+                  );
+                },
+                errorWidget: (context, uri, error) {
+                  return Container(
+                    width: double.infinity,
+                    height: double.infinity,
+                    color: Colors.transparent,
+                  );
+                },
               ),
             ),
+          ),
           if (pageURL != null) const SizedBox(height: 8),
           if (pageURL != null)
             SizedBox(

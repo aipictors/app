@@ -22,7 +22,7 @@ class HomeMessageListTile extends HookConsumerWidget {
         children: [
           Row(children: [
             Icon(
-              Icons.coffee_rounded,
+              Icons.sentiment_satisfied_rounded,
               color: Theme.of(context).colorScheme.primary,
             ),
             const SizedBox(width: 4),

@@ -31,7 +31,7 @@ class FeedScreen extends HookConsumerWidget {
             IconButton(
               icon: const Icon(Icons.newspaper_rounded),
               onPressed: () {
-                context.push('/promotions');
+                context.push('/information');
               },
             ),
           ],

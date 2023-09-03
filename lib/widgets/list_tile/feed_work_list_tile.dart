@@ -4,9 +4,8 @@ import 'package:aipictors/mutations/follow_user.dart';
 import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/utils/to_readable_date_time.dart';
 import 'package:aipictors/utils/to_share_work_text.dart';
-import 'package:aipictors/widgets/button/feed_folder_button.dart';
 import 'package:aipictors/widgets/button/feed_like_button.dart';
-import 'package:aipictors/widgets/button/follow_button.dart';
+import 'package:aipictors/widgets/button/follow_text_button.dart';
 import 'package:aipictors/widgets/container/modal/comment_modal_container.dart';
 import 'package:aipictors/widgets/container/modal/feed_action_modal_container.dart';
 import 'package:aipictors/widgets/container/notification_user_container.dart';
@@ -95,7 +94,7 @@ class FeedWorkListTile extends HookConsumerWidget {
                 ),
               ),
             ),
-            FollowButton(
+            FollowTextButton(
               isActive: isFollowee,
               onPressed: () {
                 return onFollowUser(context, userId: userId);
@@ -137,13 +136,13 @@ class FeedWorkListTile extends HookConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(children: [
-                FeedFolderButton(
-                  isActive: isBookmarked,
-                  onTap: () async {
-                    onAddToFolder(context);
-                  },
-                ),
-                const SizedBox(width: 8),
+                // FeedFolderButton(
+                //   isActive: isBookmarked,
+                //   onTap: () async {
+                //     onAddToFolder(context);
+                //   },
+                // ),
+                // const SizedBox(width: 8),
                 FeedLikeButton(
                   count: likesCount,
                   isActive: isLiked,

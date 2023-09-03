@@ -3372,7 +3372,7 @@ const Map<String, Set<String>> possibleTypesMap = {
   'Node': {
     'AlbumNode',
     'AlbumViewerNode',
-    'AppNotificationNode',
+    'AnnouncementNode',
     'CategoryNode',
     'CategoryViewerNode',
     'CommentNode',

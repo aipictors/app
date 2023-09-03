@@ -1,8 +1,8 @@
 module.exports = {
   client: {
     service: {
+      name: "local",
       localSchemaFile: "lib/schema.graphql",
-      endpoint: null,
     },
     includes: ["lib/graphql/**/*.graphql"],
   },
