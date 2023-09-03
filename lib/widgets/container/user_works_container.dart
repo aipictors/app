@@ -1,5 +1,6 @@
 import 'package:aipictors/graphql/__generated__/user_works.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
+import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
 import 'package:aipictors/widgets/container/error/data_empty_error_container.dart';
 import 'package:aipictors/widgets/container/error/data_not_found_error_container.dart';
@@ -21,6 +22,8 @@ class UserWorksContainer extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
+    final config = ref.watch(configProvider);
+
     final client = ref.watch(clientProvider);
 
     if (client.value == null) {
@@ -31,8 +34,8 @@ class UserWorksContainer extends HookConsumerWidget {
       client: client.value!,
       operationRequest: GUserWorksReq((builder) {
         return builder
+          ..vars.limit = config.graphqlQueryLimit
           ..vars.user_id = userId
-          ..vars.limit = 16
           ..vars.offset = 0;
       }),
       builder: (context, response) {

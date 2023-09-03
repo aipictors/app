@@ -1,4 +1,5 @@
 import 'package:aipictors/graphql/__generated__/album_works.req.gql.dart';
+import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
 import 'package:aipictors/widgets/container/work_grid_item_container.dart';
 import 'package:aipictors/widgets/view/works_grid_view.dart';
@@ -21,13 +22,15 @@ class AlbumWorksView extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
+    final config = ref.watch(configProvider);
+
     return OperationBuilder(
       client: client,
       operationRequest: GAlbumWorksReq((builder) {
         return builder
-          ..vars.albumId = albumId
-          ..vars.limit = 16
-          ..vars.offset = 0;
+          ..vars.limit = config.graphqlQueryLimit
+          ..vars.offset = 0
+          ..vars.albumId = albumId;
       }),
       builder: (context, response) {
         final workList = response.data?.album?.works;

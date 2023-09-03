@@ -1,4 +1,5 @@
 import 'package:aipictors/graphql/__generated__/folder_works.req.gql.dart';
+import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
 import 'package:aipictors/widgets/container/work_grid_item_container.dart';
 import 'package:aipictors/widgets/view/works_grid_view.dart';
@@ -21,12 +22,14 @@ class FolderWorksView extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
+    final config = ref.watch(configProvider);
+
     return OperationBuilder(
       client: client,
       operationRequest: GFolderWorksReq((builder) {
         return builder
+          ..vars.limit = config.graphqlQueryLimit
           ..vars.folderId = folderId
-          ..vars.limit = 16
           ..vars.offset = 0;
       }),
       builder: (context, response) {

@@ -207,31 +207,17 @@ class ConfigState with _$ConfigState {
   }
 
   /// Remote Config
-  /// 未ログイン時のLIMITの値
-  bool get graphqlDefaultLimit {
+  /// クエリのLIMITの値
+  int get graphqlQueryLimit {
     final remoteConfig = FirebaseRemoteConfig.instance;
-    return remoteConfig.getBool('graphql_default_limit');
+    return remoteConfig.getInt('graphql_query_limit');
   }
 
   /// Remote Config
-  /// 未ログイン時のOFFSETの最大値
-  bool get graphqlDefaultOffsetMax {
+  // クエリのOFFSETの最大値
+  int get graphqlQueryOffsetMax {
     final remoteConfig = FirebaseRemoteConfig.instance;
-    return remoteConfig.getBool('graphql_default_offset_max');
-  }
-
-  /// Remote Config
-  /// ログイン時のLIMITの値
-  bool get graphqlLimit {
-    final remoteConfig = FirebaseRemoteConfig.instance;
-    return remoteConfig.getBool('graphql_limit');
-  }
-
-  /// Remote Config
-  /// ログイン時のOFFSETの最大値
-  bool get graphqlOffsetMax {
-    final remoteConfig = FirebaseRemoteConfig.instance;
-    return remoteConfig.getBool('graphql_offset_max');
+    return remoteConfig.getInt('graphql_query_offset_max');
   }
 
   /// Remote Config

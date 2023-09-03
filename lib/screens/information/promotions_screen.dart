@@ -1,5 +1,6 @@
 import 'package:aipictors/graphql/__generated__/promotions.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
+import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/screens/loading_screen.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
 import 'package:aipictors/widgets/container/error/data_empty_error_container.dart';
@@ -16,6 +17,8 @@ class PromotionsScreen extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
+    final config = ref.watch(configProvider);
+
     final client = ref.watch(clientProvider);
 
     if (client.value == null) {
@@ -24,7 +27,7 @@ class PromotionsScreen extends HookConsumerWidget {
 
     final request = GPromotionsReq((builder) {
       return builder
-        ..vars.limit = 64
+        ..vars.limit = config.graphqlQueryLimit
         ..vars.offset = 0;
     });
 
@@ -32,7 +35,7 @@ class PromotionsScreen extends HookConsumerWidget {
       onRefresh: () async {
         final req = request.rebuild((builder) {
           return builder
-            ..vars.limit = 64
+            ..vars.limit = config.graphqlQueryLimit
             ..vars.offset = 0;
         });
         client.value?.requestController.add(req);

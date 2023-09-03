@@ -1,5 +1,6 @@
 import 'package:aipictors/graphql/__generated__/feed_daily_theme_works.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
+import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
 import 'package:aipictors/widgets/container/end_of_content_container.dart';
 import 'package:aipictors/widgets/container/error/data_empty_error_container.dart';
@@ -18,6 +19,8 @@ class FeedDailyThemeWorksView extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
+    final config = ref.watch(configProvider);
+
     final client = ref.watch(clientProvider);
 
     if (client.value == null) {
@@ -26,7 +29,7 @@ class FeedDailyThemeWorksView extends HookConsumerWidget {
 
     final request = GFeedDailyThemeWorksReq((builder) {
       return builder
-        ..vars.limit = 16
+        ..vars.limit = config.graphqlQueryLimit
         ..vars.offset = 0
         ..vars.year = DateTime.now().year
         ..vars.month = DateTime.now().month

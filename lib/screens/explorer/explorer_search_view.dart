@@ -1,5 +1,6 @@
 import 'package:aipictors/graphql/__generated__/works.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
+import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/screens/loading_screen.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
 import 'package:aipictors/widgets/container/error/data_empty_error_container.dart';
@@ -21,6 +22,8 @@ class ExplorerSearchView extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
+    final config = ref.watch(configProvider);
+
     final client = ref.watch(clientProvider);
 
     if (client.value == null) {
@@ -31,7 +34,7 @@ class ExplorerSearchView extends HookConsumerWidget {
       client: client.value!,
       operationRequest: GWorksReq((builder) {
         return builder
-          ..vars.limit = 40
+          ..vars.limit = config.graphqlQueryLimit
           ..vars.offset = 0
           ..vars.where.search = search;
       }),

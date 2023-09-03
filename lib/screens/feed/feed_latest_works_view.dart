@@ -1,5 +1,6 @@
 import 'package:aipictors/graphql/__generated__/feed_latest_works.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
+import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
 import 'package:aipictors/widgets/container/end_of_content_container.dart';
 import 'package:aipictors/widgets/container/error/data_empty_error_container.dart';
@@ -17,6 +18,8 @@ class FeedLatestWorksView extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
+    final config = ref.watch(configProvider);
+
     final client = ref.watch(clientProvider);
 
     if (client.value == null) {
@@ -25,7 +28,7 @@ class FeedLatestWorksView extends HookConsumerWidget {
 
     final request = GFeedLatestWorksReq((builder) {
       return builder
-        ..vars.limit = 16
+        ..vars.limit = config.graphqlQueryLimit
         ..vars.offset = 0;
     });
 
@@ -34,7 +37,7 @@ class FeedLatestWorksView extends HookConsumerWidget {
         onRefresh: () async {
           final req = request.rebuild((builder) {
             return builder
-              ..vars.limit = 16
+              ..vars.limit = config.graphqlQueryLimit
               ..vars.offset = 0;
           });
           client.value?.requestController.add(req);

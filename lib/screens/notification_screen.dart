@@ -2,6 +2,7 @@ import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/graphql/__generated__/viewer_notifications.data.gql.dart';
 import 'package:aipictors/graphql/__generated__/viewer_notifications.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
+import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
 import 'package:aipictors/widgets/container/error/data_empty_error_container.dart';
 import 'package:aipictors/widgets/container/error/data_not_found_error_container.dart';
@@ -23,6 +24,8 @@ class NotificationScreen extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
+    final config = ref.watch(configProvider);
+
     final client = ref.watch(clientProvider);
 
     if (client.value == null) {
@@ -31,8 +34,8 @@ class NotificationScreen extends HookConsumerWidget {
 
     final request = GViewerNotificationsReq((builder) {
       return builder
-        ..vars.offset = 0
-        ..vars.limit = 64;
+        ..vars.limit = config.graphqlQueryLimit
+        ..vars.offset = 0;
     });
 
     return Scaffold(
@@ -43,8 +46,8 @@ class NotificationScreen extends HookConsumerWidget {
         onRefresh: () async {
           final req = request.rebuild((builder) {
             return builder
-              ..vars.offset = 0
-              ..vars.limit = 64;
+              ..vars.limit = config.graphqlQueryLimit
+              ..vars.offset = 0;
           });
           client.value?.requestController.add(req);
           await Future.delayed(const Duration(seconds: 2));

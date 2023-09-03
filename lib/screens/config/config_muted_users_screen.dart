@@ -1,6 +1,7 @@
 import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/graphql/__generated__/viewer_muted_users.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
+import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/screens/loading_screen.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
 import 'package:aipictors/widgets/container/error/data_empty_error_container.dart';
@@ -17,6 +18,8 @@ class ConfigMutedUsersScreen extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
+    final config = ref.watch(configProvider);
+
     final client = ref.watch(clientProvider);
 
     if (client.value == null) {
@@ -25,7 +28,7 @@ class ConfigMutedUsersScreen extends HookConsumerWidget {
 
     final request = GViewerMutedUsersReq((builder) {
       return builder
-        ..vars.limit = 16
+        ..vars.limit = config.graphqlQueryLimit
         ..vars.offset = 0;
     });
 

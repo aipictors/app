@@ -25,11 +25,13 @@ class AlbumScreen extends HookConsumerWidget {
       return const LoadingScreen();
     }
 
+    final request = GAlbumReq((builder) {
+      return builder..vars.id = albumId;
+    });
+
     return OperationScreenBuilder(
       client: client.value!,
-      operationRequest: GAlbumReq((builder) {
-        return builder..vars.id = albumId;
-      }),
+      operationRequest: request,
       builder: (context, response) {
         final album = response.data?.album;
         if (album == null) {

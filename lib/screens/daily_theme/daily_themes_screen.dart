@@ -1,5 +1,6 @@
 import 'package:aipictors/graphql/__generated__/daily_themes.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
+import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/screens/loading_screen.dart';
 import 'package:aipictors/utils/to_weekday.dart';
 import 'package:aipictors/widgets/app_bar/daily_themes_app_bar.dart';
@@ -20,6 +21,8 @@ class DailyThemesScreen extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
+    final config = ref.watch(configProvider);
+
     final client = ref.watch(clientProvider);
 
     final year = useState(DateTime.now().year);
@@ -29,6 +32,14 @@ class DailyThemesScreen extends HookConsumerWidget {
     if (client.value == null) {
       return const LoadingScreen();
     }
+
+    final request = GDailyThemesReq((builder) {
+      return builder
+        ..vars.limit = config.graphqlQueryLimit
+        ..vars.offset = 0
+        ..vars.where.month = month.value
+        ..vars.where.year = year.value;
+    });
 
     return Scaffold(
       key: const PageStorageKey('daily_themes'),
@@ -46,13 +57,7 @@ class DailyThemesScreen extends HookConsumerWidget {
       ),
       body: OperationBuilder(
         client: client.value!,
-        operationRequest: GDailyThemesReq((builder) {
-          return builder
-            ..vars.limit = 40
-            ..vars.offset = 0
-            ..vars.where.month = month.value
-            ..vars.where.year = year.value;
-        }),
+        operationRequest: request,
         builder: (context, response) {
           final dailyThemeList = response.data?.dailyThemes;
           if (dailyThemeList == null) {

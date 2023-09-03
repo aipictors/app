@@ -1,5 +1,6 @@
 import 'package:aipictors/graphql/__generated__/work_awards.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
+import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
 import 'package:aipictors/widgets/container/error/data_empty_error_container.dart';
 import 'package:aipictors/widgets/container/error/data_not_found_error_container.dart';
@@ -24,6 +25,8 @@ class WeeklyWorkAwardsScreen extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
+    final config = ref.watch(configProvider);
+
     final client = ref.watch(clientProvider);
 
     if (client.value == null) {
@@ -34,7 +37,7 @@ class WeeklyWorkAwardsScreen extends HookConsumerWidget {
       client: client.value!,
       operationRequest: GWorkAwardsReq((builder) {
         return builder
-          ..vars.limit = 128
+          ..vars.limit = config.graphqlQueryLimit
           ..vars.offset = 0
           ..vars.where.year = year
           ..vars.where.month = month

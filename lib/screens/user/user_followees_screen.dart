@@ -1,5 +1,6 @@
 import 'package:aipictors/graphql/__generated__/user_followees.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
+import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/screens/loading_screen.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
 import 'package:aipictors/widgets/container/error/data_empty_error_container.dart';
@@ -18,11 +19,20 @@ class UserFolloweesScreen extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
+    final config = ref.watch(configProvider);
+
     final client = ref.watch(clientProvider);
 
     if (client.value == null) {
       return const LoadingScreen();
     }
+
+    final request = GUserFolloweesReq((builder) {
+      return builder
+        ..vars.limit = config.graphqlQueryLimit
+        ..vars.offset = 0
+        ..vars.user_id = userId;
+    });
 
     return Scaffold(
       appBar: AppBar(
@@ -30,12 +40,7 @@ class UserFolloweesScreen extends HookConsumerWidget {
       ),
       body: OperationBuilder(
         client: client.value!,
-        operationRequest: GUserFolloweesReq((builder) {
-          return builder
-            ..vars.limit = 16
-            ..vars.offset = 0
-            ..vars.user_id = userId;
-        }),
+        operationRequest: request,
         builder: (context, response) {
           final followeeList = response.data?.user?.followees;
           if (followeeList == null) {

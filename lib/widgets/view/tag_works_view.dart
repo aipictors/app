@@ -1,4 +1,5 @@
 import 'package:aipictors/graphql/__generated__/tag_works.req.gql.dart';
+import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
 import 'package:aipictors/widgets/container/error/data_empty_error_container.dart';
 import 'package:aipictors/widgets/container/error/data_not_found_error_container.dart';
@@ -23,13 +24,15 @@ class TagWorksView extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
+    final config = ref.watch(configProvider);
+
     return SingleChildScrollView(
       child: OperationBuilder(
         client: client,
         operationRequest: GTagWorksReq((builder) {
           return builder
+            ..vars.limit = config.graphqlQueryLimit
             ..vars.tagName = tagName
-            ..vars.limit = 16
             ..vars.offset = 0;
         }),
         builder: (context, response) {

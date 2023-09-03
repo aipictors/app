@@ -29,7 +29,7 @@ class FeedHomeView extends HookConsumerWidget {
 
     final request = GViewerFeedWorksReq((builder) {
       return builder
-        ..vars.limit = 16
+        ..vars.limit = config.graphqlQueryLimit
         ..vars.offset = 0;
     });
 
@@ -39,7 +39,7 @@ class FeedHomeView extends HookConsumerWidget {
       onRefresh: () async {
         final req = request.rebuild((builder) {
           return builder
-            ..vars.limit = 16
+            ..vars.limit = config.graphqlQueryLimit
             ..vars.offset = 0;
         });
         client.value?.requestController.add(req);
