@@ -78,6 +78,7 @@ class App extends HookConsumerWidget {
     ];
   }
 
+  /// アプリの対応する言語
   Iterable<Locale> get supportedLocales {
     return const [
       Locale('en'),
@@ -93,6 +94,8 @@ class App extends HookConsumerWidget {
         scriptCode: 'Hant',
         countryCode: 'tw',
       ),
+      Locale('fr'),
+      Locale('it'),
     ];
   }
 

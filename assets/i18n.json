@@ -1,502 +1,1207 @@
 [
   {
     "ja": "_COMMENTS_COUNT_件のコメント",
-    "en": "_COMMENTS_COUNT_ Comments"
+    "en": "_COMMENTS_COUNT_ Comments",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "_DAY_日",
-    "en": "_DAY_"
+    "en": "_DAY_",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "_USER_NAME_さんがあなたをフォローしました。",
-    "en": ""
+    "en": "",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "_USER_NAME_さんがいいねしました。",
-    "en": ""
+    "en": "",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "_WORKS_COUNT_件",
-    "en": "_WORKS_COUNT_ Works"
+    "en": "_WORKS_COUNT_ Works",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "_YEAR_年 _MONTH_月",
-    "en": "_MONTH_/_YEAR_"
+    "en": "_MONTH_/_YEAR_",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "IDにはアルファベットが含まれている必要があります",
-    "en": ""
+    "en": "",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "IDは4文字以上14文字以下である必要があります",
-    "en": ""
+    "en": "",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "X(Twitter)でログイン",
-    "en": "Sign in with X(Twitter)"
+    "en": "Sign in with X(Twitter)",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "アカウント",
-    "en": "Account"
+    "en": "Account",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "アカウントの削除",
-    "en": "Delete Account"
+    "en": "Delete Account",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
+  },
+  {
+    "ja": "アップデートが必要です。",
+    "en": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "あなたのシリーズ",
-    "en": ""
+    "en": "",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "あなたのシリーズは無いみたい。",
-    "en": ""
+    "en": "",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "あなたのフォルダ",
-    "en": ""
+    "en": "",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "あなたのフォルダは無いみたい。",
-    "en": ""
+    "en": "",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "あなたの作品",
-    "en": "Your Works"
+    "en": "Your Works",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "あなたの作品は無いみたい。",
-    "en": ""
-  },
-  {
-    "ja": "シリーズの報告",
-    "en": ""
+    "en": "",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "いいね",
-    "en": ""
+    "en": "",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
+  },
+  {
+    "ja": "イベント",
+    "en": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "イラストとは関係のない商品のURLなどを大量に投稿している。",
-    "en": ""
+    "en": "",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "おすすめ",
-    "en": "Recommended Works"
+    "en": "Recommended Works",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "オフ",
-    "en": ""
+    "en": "",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "お題",
-    "en": "Daily Theme"
+    "en": "Daily Theme",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "お題の作品",
-    "en": "Today's Theme"
+    "en": "Today's Theme",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "お知らせ",
-    "en": "Notice"
+    "en": "Notice",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "キーワード検索",
-    "en": "Keyword Search"
+    "en": "Keyword Search",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "キャッシュクリア",
-    "en": "Clear Cache"
+    "en": "Clear Cache",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "クリップボードにコピーしました。",
-    "en": ""
+    "en": "",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "ここで終わりみたい。",
-    "en": ""
+    "en": "",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "このアプリを利用するには利用規約とプライバシーポリシーに同意する必要があります。",
-    "en": ""
+    "en": "",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "このユーザーの投稿はフォロー中タブに表示されなくなりますが、他のページから見ることができます。",
-    "en": ""
+    "en": "",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
+  },
+  {
+    "ja": "このユーザーの投稿は表示されなくなります。\\n設定画面からいつでも解除することができます。",
+    "en": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
+  },
+  {
+    "ja": "このユーザーをミュートしますか？",
+    "en": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "この機能は使用できないみたい。",
-    "en": ""
+    "en": "",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "この作品は削除されました。",
-    "en": ""
+    "en": "",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "この通知は削除されました。",
-    "en": ""
+    "en": "",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "コメント",
-    "en": "Comment"
+    "en": "Comment",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "コメントを入力",
-    "en": "Enter a comment"
+    "en": "Enter a comment",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "コメントを報告する",
-    "en": "Report Comment"
+    "en": "Report Comment",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "システムカラーモード",
-    "en": "System Color Mode"
+    "en": "System Color Mode",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "シリーズ",
-    "en": "Albums"
+    "en": "Albums",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
+  },
+  {
+    "ja": "シリーズの報告",
+    "en": "",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "スタンプ",
-    "en": ""
+    "en": "",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "スタンプの報告",
-    "en": ""
+    "en": "",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "スタンプを報告する",
-    "en": ""
+    "en": "",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "スパム",
-    "en": ""
+    "en": "",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "その他",
-    "en": "Others"
+    "en": "Others",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "ダークモード",
-    "en": "Dark Mode"
+    "en": "Dark Mode",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "タグ",
-    "en": "Tags"
+    "en": "Tags",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "タブレット向けUIを使用する",
-    "en": ""
+    "en": "",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "ツイッターをフォローする",
-    "en": "Follow us on Twitter"
+    "en": "Follow us on Twitter",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
+  },
+  {
+    "ja": "ディスコで確認する",
+    "en": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "ディスコに参加する",
-    "en": "Join our Discord"
+    "en": "Join our Discord",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "テーマ設定",
-    "en": "Theme Settings"
+    "en": "Theme Settings",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "デバッグモード",
-    "en": "Debug Mode"
+    "en": "Debug Mode",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "バージョン",
-    "en": "Version"
+    "en": "Version",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "パスワード",
-    "en": "Password"
+    "en": "Password",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "パスワードの変更",
-    "en": "Change your password"
+    "en": "Change your password",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "パスワードを更新しました。",
-    "en": ""
+    "en": "",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "フィード",
-    "en": "Feed"
+    "en": "Feed",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "フィードバック",
-    "en": ""
+    "en": "",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "フォルダ",
-    "en": ""
+    "en": "",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "フォルダの報告",
-    "en": ""
+    "en": "",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "フォロー",
-    "en": "Following"
+    "en": "Following",
+    "vi": "Theo dõi",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "フォローする",
-    "en": "Follow"
+    "en": "Follow",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "フォローを解除しますか？",
-    "en": ""
+    "en": "",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "フォロー中",
-    "en": "Following"
+    "en": "Following",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "ブックマーク",
-    "en": "Bookmarks"
+    "en": "Bookmarks",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "プライバシーポリシー",
-    "en": "Privacy Policy"
+    "en": "Privacy Policy",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "ページを開く",
-    "en": ""
+    "en": "",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "ベスト",
-    "en": "Best Works"
+    "en": "Best Works",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "ホーム",
-    "en": "Home"
+    "en": "Home",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "マイページ",
-    "en": "My Page"
+    "en": "My Page",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "ミュートしたタグ",
-    "en": "Muted Tags"
+    "en": "Muted Tags",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "ミュートしたタグは無いみたい。",
-    "en": ""
+    "en": "",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "ミュートしたユーザ",
-    "en": "Muted Users"
+    "en": "Muted Users",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "ミュートしたユーザは居ないみたい。",
-    "en": ""
+    "en": "",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
+  },
+  {
+    "ja": "ミュートする",
+    "en": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "ミュートを解除する",
-    "en": ""
+    "en": "",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
+  },
+  {
+    "ja": "メンテナンス中",
+    "en": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "やめる",
-    "en": ""
+    "en": "",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
+  },
+  {
+    "ja": "ユーザID",
+    "en": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "ユーザの報告",
-    "en": "Report User"
+    "en": "Report User",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "ユーザをシェアする",
-    "en": "Share User"
+    "en": "Share User",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "ユーザをフォローする",
-    "en": "Follow User"
+    "en": "Follow User",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "ユーザをフォロー中",
-    "en": "Following User"
+    "en": "Following User",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "ユーザをミュートする",
-    "en": "Mute User"
+    "en": "Mute User",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "ユーザをミュート中",
-    "en": "Muted User"
+    "en": "Muted User",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "ユーザを報告する",
-    "en": "Report User"
+    "en": "Report User",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
+  },
+  {
+    "ja": "ライセンス",
+    "en": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
+  },
+  {
+    "ja": "リポジトリ",
+    "en": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "ログアウト",
-    "en": "Sign out"
+    "en": "Sign out",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "ログイン",
-    "en": "Sign in"
+    "en": "Sign in",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "ログインIDの変更",
-    "en": "Change Sign in ID"
+    "en": "Change Sign in ID",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "ログインIDを更新しました。",
-    "en": "Sign in ID updated."
+    "en": "Sign in ID updated.",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "ログインしました",
-    "en": ""
+    "en": "",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "ログインするとコメントできます",
-    "en": ""
+    "en": "",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "ログインに使用するIDを変更します。",
-    "en": "Change the ID used for sign in."
+    "en": "Change the ID used for sign in.",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "ログインに使用するパスワードを変更します。",
-    "en": "Change the password used for sign in."
+    "en": "Change the password used for sign in.",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "一部の画面でタブレット向けのレイアウトが適用されます。",
-    "en": ""
+    "en": "",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "解除する",
-    "en": ""
+    "en": "",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "該当する報告理由を選択してください。",
-    "en": ""
+    "en": "",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "見つける",
-    "en": "Explore"
+    "en": "Explore",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "現在のログインID",
-    "en": "Current Sign in ID"
+    "en": "Current Sign in ID",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "現在ログインしているアカウントを削除します。",
-    "en": "Delete the currently signed-in account."
+    "en": "Delete the currently signed-in account.",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "言語切り替え",
-    "en": "Language"
+    "en": "Language",
+    "vi": "Chuyển đổi ngôn ngữ",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "更新",
-    "en": ""
+    "en": "",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "今日",
-    "en": "Today"
+    "en": "Today",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "今日のテーマは_TITLE_だよ！",
-    "en": "Today's theme is \"_TITLE_\""
+    "en": "Today's theme is \"_TITLE_\"",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "作品",
-    "en": "Work"
+    "en": "Work",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "作品の編集",
-    "en": ""
+    "en": "",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "作品の報告",
-    "en": ""
+    "en": "",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "作品をシェアする",
-    "en": "Share Work"
+    "en": "Share Work",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "作品を報告する",
-    "en": "Report Work"
+    "en": "Report Work",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "新しいパスワード",
-    "en": "New Password"
+    "en": "New Password",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "新しいログインID",
-    "en": "New Sign in ID"
+    "en": "New Sign in ID",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "新しい作品",
-    "en": ""
+    "en": "",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "新着",
-    "en": "Latest Works"
+    "en": "Latest Works",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "人気",
-    "en": "Popular Works"
+    "en": "Popular Works",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "設定",
-    "en": "Settings"
+    "en": "Settings",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "前月",
-    "en": "Prev"
+    "en": "Prev",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "送信",
-    "en": "Send"
+    "en": "Send",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "他人に誹謗中傷など嫌がらせをしている。",
-    "en": ""
+    "en": "",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "誰かがあなたの作品をいいねしました。",
-    "en": ""
-  },
-  {
-    "ja": "調査協力",
-    "en": "Surveys"
-  },
-  {
-    "ja": "通知",
-    "en": "Notifications"
-  },
-  {
-    "ja": "同意する",
-    "en": ""
-  },
-  {
-    "ja": "誹謗中傷",
-    "en": ""
-  },
-  {
-    "ja": "不明なエラーが発生しました。",
-    "en": ""
-  },
-  {
-    "ja": "報告",
-    "en": "Report"
-  },
-  {
-    "ja": "報告を送信しました。",
-    "en": ""
-  },
-  {
-    "ja": "来月",
-    "en": "Next"
-  },
-  {
-    "ja": "利用規約",
-    "en": "Terms"
+    "en": "",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "端末",
-    "en": "Device"
+    "en": "Device",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
+  },
+  {
+    "ja": "調査協力",
+    "en": "Surveys",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
+  },
+  {
+    "ja": "通知",
+    "en": "Notifications",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
+  },
+  {
+    "ja": "同意する",
+    "en": "",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
+  },
+  {
+    "ja": "誹謗中傷",
+    "en": "",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
+  },
+  {
+    "ja": "不明なエラーが発生しました。",
+    "en": "",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
+  },
+  {
+    "ja": "報告",
+    "en": "Report",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
+  },
+  {
+    "ja": "報告を送信しました。",
+    "en": "",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
+  },
+  {
+    "ja": "来月",
+    "en": "Next",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
+  },
+  {
+    "ja": "利用規約",
+    "en": "Terms",
+    "vi": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   }
 ]

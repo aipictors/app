@@ -43,6 +43,61 @@ class ConfigLanguageScreen extends HookConsumerWidget {
               I18n.of(context).locale = toLocale('en');
             },
           ),
+          ListTile(
+            title: const Text('Tiếng Việt'),
+            trailing: config.language == 'vi'
+                ? const Icon(Icons.check_rounded)
+                : null,
+            onTap: () {
+              final notifier = ref.read(configProvider.notifier);
+              notifier.updateLanguage('vi');
+              I18n.of(context).locale = toLocale('vi');
+            },
+          ),
+          ListTile(
+            title: const Text('简体中文'),
+            trailing: config.language == 'zh_cn'
+                ? const Icon(Icons.check_rounded)
+                : null,
+            onTap: () {
+              final notifier = ref.read(configProvider.notifier);
+              notifier.updateLanguage('zh_cn');
+              I18n.of(context).locale = toLocale('zh_cn');
+            },
+          ),
+          ListTile(
+            title: const Text('繁体中文'),
+            trailing: config.language == 'zh_tw'
+                ? const Icon(Icons.check_rounded)
+                : null,
+            onTap: () {
+              final notifier = ref.read(configProvider.notifier);
+              notifier.updateLanguage('zh_tw');
+              I18n.of(context).locale = toLocale('zh_tw');
+            },
+          ),
+          ListTile(
+            title: const Text('Italiano'),
+            trailing: config.language == 'it'
+                ? const Icon(Icons.check_rounded)
+                : null,
+            onTap: () {
+              final notifier = ref.read(configProvider.notifier);
+              notifier.updateLanguage('it');
+              I18n.of(context).locale = toLocale('it');
+            },
+          ),
+          ListTile(
+            title: const Text('Français'),
+            trailing: config.language == 'fr'
+                ? const Icon(Icons.check_rounded)
+                : null,
+            onTap: () {
+              final notifier = ref.read(configProvider.notifier);
+              notifier.updateLanguage('fr');
+              I18n.of(context).locale = toLocale('fr');
+            },
+          ),
         ],
       ),
     );
