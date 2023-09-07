@@ -245,7 +245,11 @@ class ConfigState with _$ConfigState {
   /// URL・プライバシーポリシー
   Uri get pagePrivacyURL {
     final instance = FirebaseRemoteConfig.instance;
-    return Uri.parse(instance.getString('page_url_privacy'));
+    final uri = Uri.parse(instance.getString('page_url_privacy'));
+    return uri.replace(queryParameters: {
+      'hl': language,
+      'prefers-color-scheme': isDarkMode ? 'dark' : 'light',
+    });
   }
 
   /// Remote Config
@@ -259,7 +263,11 @@ class ConfigState with _$ConfigState {
   /// URL・利用規約
   Uri get pageTermsURL {
     final instance = FirebaseRemoteConfig.instance;
-    return Uri.parse(instance.getString('page_url_terms'));
+    final uri = Uri.parse(instance.getString('page_url_terms'));
+    return uri.replace(queryParameters: {
+      'hl': language,
+      'prefers-color-scheme': isDarkMode ? 'dark' : 'light',
+    });
   }
 
   /// Remote Config

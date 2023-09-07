@@ -1,4 +1,5 @@
 import 'package:aipictors/default.i18n.dart';
+import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/utils/to_readable_date.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +31,8 @@ class PromotionListTile extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
+    final config = ref.watch(configProvider);
+
     return ListTile(
       title: Text(toReadableDate(startDateTime)),
       subtitle: Column(
@@ -72,7 +75,9 @@ class PromotionListTile extends HookConsumerWidget {
             SizedBox(
               width: double.infinity,
               child: Link(
-                uri: Uri.parse(pageURL!),
+                uri: Uri.parse(pageURL!).replace(queryParameters: {
+                  'prefers-color-scheme': config.isDarkMode ? 'dark' : 'light',
+                }),
                 target: LinkTarget.blank,
                 builder: (context, openLink) {
                   return FilledButton.tonal(
