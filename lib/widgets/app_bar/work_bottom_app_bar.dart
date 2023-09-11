@@ -21,9 +21,9 @@ class WorkBottomAppContainer extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
-    // final isLikedInMemory = useState(isLiked);
+    final isLikedInMemory = useState(isLiked);
 
-    final isFoldedInMemory = useState(isFolded);
+    // final isFoldedInMemory = useState(isFolded);
 
     return BottomAppBar(
       child: Row(
@@ -31,47 +31,47 @@ class WorkBottomAppContainer extends HookConsumerWidget {
         children: [
           Row(
             children: [
-              // LikeButton(
-              //   isLiked: isLikedInMemory.value,
-              //   likeBuilder: (isLiked) {
-              //     if (isLikedInMemory.value) {
-              //       return Icon(
-              //         Icons.favorite_rounded,
-              //         size: 28,
-              //         color: Theme.of(context).colorScheme.error,
-              //       );
-              //     }
-              //     return const Icon(
-              //       Icons.favorite_outline_rounded,
-              //       size: 28,
-              //     );
-              //   },
-              //   onTap: (isLiked) async {
-              //     onCreateWorkLike();
-              //     isLikedInMemory.value = !isLikedInMemory.value;
-              //     return !isLiked;
-              //   },
-              // ),
-              // const SizedBox(width: 16),
               LikeButton(
-                isLiked: isFoldedInMemory.value,
-                likeBuilder: (bool isFolded) {
-                  if (isFoldedInMemory.value) {
-                    return Icon(Icons.folder_rounded,
-                        size: 28, color: Theme.of(context).colorScheme.primary);
+                isLiked: isLikedInMemory.value,
+                likeBuilder: (isLiked) {
+                  if (isLikedInMemory.value) {
+                    return Icon(
+                      Icons.favorite_rounded,
+                      size: 28,
+                      color: Theme.of(context).colorScheme.error,
+                    );
                   }
-
                   return const Icon(
-                    Icons.folder_outlined,
+                    Icons.favorite_outline_rounded,
                     size: 28,
                   );
                 },
-                onTap: (isFolded) async {
-                  onAddToFolder(context);
-                  isFoldedInMemory.value = !isFoldedInMemory.value;
-                  return !isFolded;
+                onTap: (isLiked) async {
+                  onCreateWorkLike();
+                  isLikedInMemory.value = !isLikedInMemory.value;
+                  return !isLiked;
                 },
               ),
+              // const SizedBox(width: 16),
+              // LikeButton(
+              //   isLiked: isFoldedInMemory.value,
+              //   likeBuilder: (bool isFolded) {
+              //     if (isFoldedInMemory.value) {
+              //       return Icon(Icons.folder_rounded,
+              //           size: 28, color: Theme.of(context).colorScheme.primary);
+              //     }
+
+              //     return const Icon(
+              //       Icons.folder_outlined,
+              //       size: 28,
+              //     );
+              //   },
+              //   onTap: (isFolded) async {
+              //     onAddToFolder(context);
+              //     isFoldedInMemory.value = !isFoldedInMemory.value;
+              //     return !isFolded;
+              //   },
+              // ),
             ],
           ),
           const SizedBox(width: 8),
