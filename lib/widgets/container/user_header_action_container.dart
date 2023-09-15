@@ -1,4 +1,5 @@
 import 'package:aipictors/mutations/follow_user.dart';
+import 'package:aipictors/providers/auth_user_id_provider.dart';
 import 'package:aipictors/widgets/avatar/header_user_profile_avatar.dart';
 import 'package:aipictors/widgets/button/follow_button.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +27,8 @@ class UserHeaderActionContainer extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
+    final authUserId = ref.watch(authUserIdProvider);
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
@@ -60,15 +63,16 @@ class UserHeaderActionContainer extends HookConsumerWidget {
             ],
           ),
           const SizedBox(height: 16),
-          SizedBox(
-            width: double.infinity,
-            child: FollowButton(
-              isActive: isFollowee,
-              onPressed: () {
-                return onFollowUser(context);
-              },
+          if (authUserId.value != userId)
+            SizedBox(
+              width: double.infinity,
+              child: FollowButton(
+                isActive: isFollowee,
+                onPressed: () {
+                  return onFollowUser(context);
+                },
+              ),
             ),
-          ),
         ],
       ),
     );
