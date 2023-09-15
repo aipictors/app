@@ -1,6 +1,7 @@
 import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/graphql/__generated__/work.req.gql.dart';
 import 'package:aipictors/mutations/follow_user.dart';
+import 'package:aipictors/providers/auth_user_id_provider.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/screens/error/data_not_found_error_screen.dart';
 import 'package:aipictors/screens/loading_screen.dart';
@@ -29,6 +30,7 @@ class WorkScreen extends HookConsumerWidget {
   @override
   Widget build(context, ref) {
     final client = ref.watch(clientProvider);
+    final authUserId = ref.watch(authUserIdProvider);
 
     if (client.value == null) {
       return const LoadingScreen();
@@ -86,15 +88,16 @@ class WorkScreen extends HookConsumerWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           WorkUserProfileContainer(user: work.user),
-                          FollowButton(
-                            isActive: work.user.viewer?.isFollowee == true,
-                            onPressed: () {
-                              return onFollowUser(
-                                context,
-                                userId: work.user.id,
-                              );
-                            },
-                          ),
+                          if (authUserId.value != work.user.id)
+                            FollowButton(
+                              isActive: work.user.viewer?.isFollowee == true,
+                              onPressed: () {
+                                return onFollowUser(
+                                  context,
+                                  userId: work.user.id,
+                                );
+                              },
+                            ),
                         ],
                       ),
                     ),
