@@ -146,13 +146,26 @@ class FeedWorkListTile extends HookConsumerWidget {
                 //   },
                 // ),
                 // const SizedBox(width: 8),
-                FeedLikeButton(
-                  count: likesCount,
-                  isActive: isLiked,
-                  onTap: () async {
-                    onCreateLike(context);
-                  },
-                ),
+                if (authUserId.value != userId)
+                  FeedLikeButton(
+                    count: likesCount,
+                    isActive: isLiked,
+                    onTap: () async {
+                      onCreateLike(context);
+                    },
+                  ),
+                if (authUserId.value == userId) ...[
+                  const Icon(
+                    Icons.favorite_rounded,
+                    size: 28,
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    likesCount.toString(),
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ],
+
                 IconButton(
                   onPressed: () {
                     final text = toShareWorkText(
