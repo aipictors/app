@@ -1,6 +1,7 @@
 import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/mutations/create_work_like.dart';
 import 'package:aipictors/mutations/follow_user.dart';
+import 'package:aipictors/providers/auth_user_id_provider.dart';
 import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/utils/to_readable_date_time.dart';
 import 'package:aipictors/utils/to_share_work_text.dart';
@@ -66,6 +67,7 @@ class FeedWorkListTile extends HookConsumerWidget {
   @override
   Widget build(context, ref) {
     final config = ref.watch(configProvider);
+    final authUserId = ref.watch(authUserIdProvider);
 
     return ListTile(
       onTap: () {
@@ -94,12 +96,13 @@ class FeedWorkListTile extends HookConsumerWidget {
                 ),
               ),
             ),
-            FollowTextButton(
-              isActive: isFollowee,
-              onPressed: () {
-                return onFollowUser(context, userId: userId);
-              },
-            ),
+            if (authUserId.value != userId)
+              FollowTextButton(
+                isActive: isFollowee,
+                onPressed: () {
+                  return onFollowUser(context, userId: userId);
+                },
+              ),
             const SizedBox(width: 8),
             IconButton(
               style: IconButton.styleFrom(
@@ -143,13 +146,26 @@ class FeedWorkListTile extends HookConsumerWidget {
                 //   },
                 // ),
                 // const SizedBox(width: 8),
-                FeedLikeButton(
-                  count: likesCount,
-                  isActive: isLiked,
-                  onTap: () async {
-                    onCreateLike(context);
-                  },
-                ),
+                if (authUserId.value != userId)
+                  FeedLikeButton(
+                    count: likesCount,
+                    isActive: isLiked,
+                    onTap: () async {
+                      onCreateLike(context);
+                    },
+                  ),
+                if (authUserId.value == userId) ...[
+                  const Icon(
+                    Icons.favorite_rounded,
+                    size: 28,
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    likesCount.toString(),
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ],
+
                 IconButton(
                   onPressed: () {
                     final text = toShareWorkText(
