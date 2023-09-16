@@ -34,7 +34,7 @@
               "client_id": "527103542609-esd4rc2ihfju1cou4o29q4leqke7vcdm.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.aipictors.flutter.debug"
+                "bundle_id": "com.aipictors.debug"
               }
             }
           ]
@@ -45,7 +45,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:527103542609:android:56a9a6932ed35fed16ff70",
         "android_client_info": {
-          "package_name": "com.aipictors.flutter.debug"
+          "package_name": "com.aipictors.debug"
         }
       },
       "oauth_client": [
@@ -70,7 +70,7 @@
               "client_id": "527103542609-esd4rc2ihfju1cou4o29q4leqke7vcdm.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.aipictors.flutter.debug"
+                "bundle_id": "com.aipictors.debug"
               }
             }
           ]
@@ -81,7 +81,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:527103542609:android:cfb1ccf89902237616ff70",
         "android_client_info": {
-          "package_name": "com.aipictors.flutter.staging"
+          "package_name": "com.aipictors.staging"
         }
       },
       "oauth_client": [
@@ -106,7 +106,7 @@
               "client_id": "527103542609-esd4rc2ihfju1cou4o29q4leqke7vcdm.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.aipictors.flutter.debug"
+                "bundle_id": "com.aipictors.debug"
               }
             }
           ]
@@ -142,7 +142,7 @@
               "client_id": "527103542609-esd4rc2ihfju1cou4o29q4leqke7vcdm.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.aipictors.flutter.debug"
+                "bundle_id": "com.aipictors.debug"
               }
             }
           ]

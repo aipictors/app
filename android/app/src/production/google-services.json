@@ -81,7 +81,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:698114764060:android:6a7396359d50e1f6b49ed9",
         "android_client_info": {
-          "package_name": "com.aipictors.flutter"
+          "package_name": "com.aipictors"
         }
       },
       "oauth_client": [
@@ -89,7 +89,7 @@
           "client_id": "698114764060-7jp76cborn2fi84qhrdbb5gv9eks0ke4.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.aipictors.flutter",
+            "package_name": "com.aipictors",
             "certificate_hash": "3a215957647e242ab1e9ac98bb7736ac29c3e58a"
           }
         },
@@ -125,7 +125,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:698114764060:android:3d6cdd4ecf3c2c54b49ed9",
         "android_client_info": {
-          "package_name": "com.aipictors.flutter.develop"
+          "package_name": "com.aipictors.develop"
         }
       },
       "oauth_client": [

@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>527103542609-ju4507r1505vql6vnrrs78qfoiloi57c.apps.googleusercontent.com</string>
+	<string>527103542609-abafs4t0qdrnffkl5vos6lckvbu17i8l.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.527103542609-ju4507r1505vql6vnrrs78qfoiloi57c</string>
+	<string>com.googleusercontent.apps.527103542609-abafs4t0qdrnffkl5vos6lckvbu17i8l</string>
 	<key>API_KEY</key>
 	<string>AIzaSyAcRRoCLhWj0niITVE6PkIL2pQFf52Dbpg</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.aipictors.flutter.staging</string>
+	<string>com.aipictors.staging</string>
 	<key>PROJECT_ID</key>
 	<string>hawbu33t65irr2uy3j8a</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:527103542609:ios:93073c35de68868416ff70</string>
+	<string>1:527103542609:ios:58377a26edc1df8516ff70</string>
 </dict>
 </plist>
