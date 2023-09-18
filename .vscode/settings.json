@@ -55,6 +55,7 @@
   "cSpell.ignorePaths": [
     ".vscode",
     "android",
+    "assets",
     "ios",
     "lib/schema.graphql",
     "linux",
