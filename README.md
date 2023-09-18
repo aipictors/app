@@ -55,7 +55,6 @@ Tools • Dart 3.0.5 • DevTools 2.23.1
 
 ```
 $ rover graph introspect https://router-6ouzjmdzha-an.a.run.app -o lib/schema.graphql
-$ rover graph introspect http://localhost:4000/graphql -o lib/schema.graphql
 ```
 
 https://www.apollographql.com/docs/rover/commands/supergraphs

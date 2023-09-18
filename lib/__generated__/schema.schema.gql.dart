@@ -91,6 +91,46 @@ class GFolderMode extends EnumClass {
   static GFolderMode valueOf(String name) => _$gFolderModeValueOf(name);
 }
 
+class GImageModelCategory extends EnumClass {
+  const GImageModelCategory._(String name) : super(name);
+
+  static const GImageModelCategory ILLUSTRATION_GIRL =
+      _$gImageModelCategoryILLUSTRATION_GIRL;
+
+  static const GImageModelCategory ILLUSTRATION_BOY =
+      _$gImageModelCategoryILLUSTRATION_BOY;
+
+  static const GImageModelCategory BIKINI_MODEL =
+      _$gImageModelCategoryBIKINI_MODEL;
+
+  static const GImageModelCategory BACKGROUND = _$gImageModelCategoryBACKGROUND;
+
+  static const GImageModelCategory ANIMAL = _$gImageModelCategoryANIMAL;
+
+  static Serializer<GImageModelCategory> get serializer =>
+      _$gImageModelCategorySerializer;
+  static BuiltSet<GImageModelCategory> get values =>
+      _$gImageModelCategoryValues;
+  static GImageModelCategory valueOf(String name) =>
+      _$gImageModelCategoryValueOf(name);
+}
+
+class GImageModelStyle extends EnumClass {
+  const GImageModelStyle._(String name) : super(name);
+
+  static const GImageModelStyle REAL = _$gImageModelStyleREAL;
+
+  static const GImageModelStyle SEMI_REAL = _$gImageModelStyleSEMI_REAL;
+
+  static const GImageModelStyle ILLUSTRATION = _$gImageModelStyleILLUSTRATION;
+
+  static Serializer<GImageModelStyle> get serializer =>
+      _$gImageModelStyleSerializer;
+  static BuiltSet<GImageModelStyle> get values => _$gImageModelStyleValues;
+  static GImageModelStyle valueOf(String name) =>
+      _$gImageModelStyleValueOf(name);
+}
+
 class GNotificationType extends EnumClass {
   const GNotificationType._(String name) : super(name);
 
@@ -113,6 +153,16 @@ class GNotificationType extends EnumClass {
   static BuiltSet<GNotificationType> get values => _$gNotificationTypeValues;
   static GNotificationType valueOf(String name) =>
       _$gNotificationTypeValueOf(name);
+}
+
+class GPaymentType extends EnumClass {
+  const GPaymentType._(String name) : super(name);
+
+  static const GPaymentType PASS = _$gPaymentTypePASS;
+
+  static Serializer<GPaymentType> get serializer => _$gPaymentTypeSerializer;
+  static BuiltSet<GPaymentType> get values => _$gPaymentTypeValues;
+  static GPaymentType valueOf(String name) => _$gPaymentTypeValueOf(name);
 }
 
 class GRating extends EnumClass {
@@ -147,6 +197,18 @@ class GReportReason extends EnumClass {
   static Serializer<GReportReason> get serializer => _$gReportReasonSerializer;
   static BuiltSet<GReportReason> get values => _$gReportReasonValues;
   static GReportReason valueOf(String name) => _$gReportReasonValueOf(name);
+}
+
+class GSubscriptionType extends EnumClass {
+  const GSubscriptionType._(String name) : super(name);
+
+  static const GSubscriptionType PASS = _$gSubscriptionTypePASS;
+
+  static Serializer<GSubscriptionType> get serializer =>
+      _$gSubscriptionTypeSerializer;
+  static BuiltSet<GSubscriptionType> get values => _$gSubscriptionTypeValues;
+  static GSubscriptionType valueOf(String name) =>
+      _$gSubscriptionTypeValueOf(name);
 }
 
 class GWorkType extends EnumClass {
@@ -3381,12 +3443,17 @@ const Map<String, Set<String>> possibleTypesMap = {
     'FolderNode',
     'FollowNotificationNode',
     'ImageGeneratorNode',
+    'ImageLoraModelNode',
+    'ImageModelNode',
     'ImageNode',
     'LikedWorkNotificationNode',
     'LikedWorksSummaryNotificationNode',
     'MutedTagNode',
     'MutedUserNode',
+    'PaymentNode',
     'PromotionNode',
+    'PromptCategoryNode',
+    'PromptNode',
     'PromptonAccountNode',
     'PromptonBookmarkNode',
     'PromptonCustomerNode',
@@ -3413,6 +3480,7 @@ const Map<String, Set<String>> possibleTypesMap = {
     'PromptonWorkNode',
     'StickerNode',
     'StickerViewerNode',
+    'SubscriptionNode',
     'SubWorkNode',
     'TagNode',
     'TagViewerNode',

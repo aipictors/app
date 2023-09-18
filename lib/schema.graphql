@@ -67,7 +67,6 @@ type CommentNode implements Node {
   workId: ID
   work: WorkNode
   sticker: StickerNode
-  type: String!
   createdAt: Int!
   text: String!
   responses(offset: Int!, limit: Int!): [CommentNode!]!
@@ -142,6 +141,28 @@ type ImageGeneratorNode implements Node {
   id: ID!
   name: String!
 }
+"画像生成LoRA"
+type ImageLoraModelNode implements Node {
+  id: ID!
+  name: String!
+  description: String
+  thumbnailImageURL: String
+  slug: String!
+  license: String
+  prompts: [String!]!
+}
+"画像生成モデル"
+type ImageModelNode implements Node {
+  id: ID!
+  name: String!
+  description: String
+  thumbnailImageURL: String
+  slug: String!
+  license: String
+  style: ImageModelStyle!
+  prompts: [String!]!
+  category: ImageModelCategory!
+}
 "画像"
 type ImageNode implements Node {
   id: ID!
@@ -188,6 +209,8 @@ type Mutation {
   createResponseComment(input: CreateResponseCommentInput!): CommentNode!
   "スタンプを作成する"
   createSticker(input: CreateStickerInput!): StickerNode!
+  "パスのチェックアウトのURLを作成する"
+  createPassCheckoutURL: String!
   "作品を作成する"
   createWork(input: CreateWorkInput!): WorkNode!
   "作品のコメントを作成する"
@@ -411,6 +434,17 @@ type PageInfo {
   endCursor: String
   hasNextPage: Boolean!
 }
+type PaymentNode implements Node {
+  id: ID!
+  createdAt: Int!
+  user: UserNode!
+  type: PaymentType!
+  amount: Int!
+  isRefunded: Boolean!
+  stripeInvoiceId: String
+  stripePaymentIntentId: String
+  subscription: SubscriptionNode
+}
 "プロモーション"
 type PromotionNode implements Node {
   id: ID!
@@ -420,6 +454,18 @@ type PromotionNode implements Node {
   pageURL: String
   startDateTime: Int!
   endDateTime: Int!
+}
+"プロンプトのカテゴリー"
+type PromptCategoryNode implements Node {
+  id: ID!
+  name: String!
+  prompts: [PromptNode!]!
+}
+"プロンプト"
+type PromptNode implements Node {
+  id: ID!
+  name: String!
+  words: [String!]!
 }
 "Stripeのアカウント"
 type PromptonAccountNode implements Node {
@@ -1037,6 +1083,8 @@ type Query {
   tags(offset: Int!, limit: Int!, where: TagsWhereInput): [TagNode!]!
   "トレンドのタグ"
   hotTags: [TagNode!]!
+  "ホームのタグ"
+  homeTags: [TagNode!]!
   "ランキング履歴"
   workAwards(offset: Int!, limit: Int!, where: WorkAwardsWhereInput!): [WorkAwardNode!]!
   "1日以内の人気の作品"
@@ -1051,6 +1099,16 @@ type Query {
   category(id: ID!): CategoryNode!
   "画像生成サービス"
   imageGenerators: [ImageGeneratorNode!]!
+  "画像生成モデル"
+  imageModel(id: ID!): ImageModelNode!
+  "画像生成モデル"
+  imageModels: [ImageModelNode!]!
+  "画像生成モデル"
+  imageLoraModel(id: ID!): ImageLoraModelNode!
+  "画像生成モデル"
+  imageLoraModels: [ImageLoraModelNode!]!
+  "画像生成キーワード"
+  promptCategories: [PromptCategoryNode!]!
   "プロモーション"
   promotions(offset: Int!, limit: Int!): [PromotionNode!]!
   "プロモーション"
@@ -1097,6 +1155,19 @@ type StickerNode implements Node {
 type StickerViewerNode implements Node {
   id: ID!
   isLiked: Boolean!
+}
+type SubscriptionNode implements Node {
+  id: ID!
+  type: SubscriptionType!
+  user: UserNode!
+  payment: PaymentNode
+  isDisabled: Boolean!
+  createdAt: Int!
+  periodEnd: Int!
+  periodStart: Int!
+  trialPeriodStart: Int
+  trialPeriodEnd: Int
+  isExpired: Boolean!
 }
 type SubWorkNode implements Node {
   id: ID!
@@ -1211,6 +1282,10 @@ type Viewer {
   mutedTags(offset: Int!, limit: Int!): [TagNode!]!
   watchedFolders(offset: Int!, limit: Int!): [FolderNode!]!
   stickers(offset: Int!, limit: Int!): [StickerNode!]!
+  subscriptionURL: String
+  subscriptions: [SubscriptionNode!]!
+  payments: [PaymentNode!]!
+  passSubscription: SubscriptionNode
 }
 "アワード（作品）"
 type WorkAwardNode implements Node {
@@ -1417,6 +1492,24 @@ enum FolderMode {
   COMIC_VERTICAL
   COMIC_HORIZONTAL
 }
+enum ImageModelCategory {
+  "少女イラスト"
+  ILLUSTRATION_GIRL
+  "男子イラスト"
+  ILLUSTRATION_BOY
+  "グラビア"
+  BIKINI_MODEL
+  "背景"
+  BACKGROUND
+  "獣"
+  ANIMAL
+}
+enum ImageModelStyle {
+  "リアル"
+  REAL
+  SEMI_REAL
+  ILLUSTRATION
+}
 "通知の種類"
 enum NotificationType {
   "作品のいいね"
@@ -1431,6 +1524,9 @@ enum NotificationType {
   COMMENT_REPLY
   "フォロー"
   FOLLOW
+}
+enum PaymentType {
+  PASS
 }
 "年齢制限"
 enum Rating {
@@ -1455,6 +1551,9 @@ enum ReportReason {
   SPAM
   "その他"
   OTHER
+}
+enum SubscriptionType {
+  PASS
 }
 "作品の種類"
 enum WorkType {

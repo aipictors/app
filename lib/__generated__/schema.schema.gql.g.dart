@@ -148,6 +148,70 @@ final BuiltSet<GFolderMode> _$gFolderModeValues =
   _$gFolderModeCOMIC_HORIZONTAL,
 ]);
 
+const GImageModelCategory _$gImageModelCategoryILLUSTRATION_GIRL =
+    const GImageModelCategory._('ILLUSTRATION_GIRL');
+const GImageModelCategory _$gImageModelCategoryILLUSTRATION_BOY =
+    const GImageModelCategory._('ILLUSTRATION_BOY');
+const GImageModelCategory _$gImageModelCategoryBIKINI_MODEL =
+    const GImageModelCategory._('BIKINI_MODEL');
+const GImageModelCategory _$gImageModelCategoryBACKGROUND =
+    const GImageModelCategory._('BACKGROUND');
+const GImageModelCategory _$gImageModelCategoryANIMAL =
+    const GImageModelCategory._('ANIMAL');
+
+GImageModelCategory _$gImageModelCategoryValueOf(String name) {
+  switch (name) {
+    case 'ILLUSTRATION_GIRL':
+      return _$gImageModelCategoryILLUSTRATION_GIRL;
+    case 'ILLUSTRATION_BOY':
+      return _$gImageModelCategoryILLUSTRATION_BOY;
+    case 'BIKINI_MODEL':
+      return _$gImageModelCategoryBIKINI_MODEL;
+    case 'BACKGROUND':
+      return _$gImageModelCategoryBACKGROUND;
+    case 'ANIMAL':
+      return _$gImageModelCategoryANIMAL;
+    default:
+      throw new ArgumentError(name);
+  }
+}
+
+final BuiltSet<GImageModelCategory> _$gImageModelCategoryValues =
+    new BuiltSet<GImageModelCategory>(const <GImageModelCategory>[
+  _$gImageModelCategoryILLUSTRATION_GIRL,
+  _$gImageModelCategoryILLUSTRATION_BOY,
+  _$gImageModelCategoryBIKINI_MODEL,
+  _$gImageModelCategoryBACKGROUND,
+  _$gImageModelCategoryANIMAL,
+]);
+
+const GImageModelStyle _$gImageModelStyleREAL =
+    const GImageModelStyle._('REAL');
+const GImageModelStyle _$gImageModelStyleSEMI_REAL =
+    const GImageModelStyle._('SEMI_REAL');
+const GImageModelStyle _$gImageModelStyleILLUSTRATION =
+    const GImageModelStyle._('ILLUSTRATION');
+
+GImageModelStyle _$gImageModelStyleValueOf(String name) {
+  switch (name) {
+    case 'REAL':
+      return _$gImageModelStyleREAL;
+    case 'SEMI_REAL':
+      return _$gImageModelStyleSEMI_REAL;
+    case 'ILLUSTRATION':
+      return _$gImageModelStyleILLUSTRATION;
+    default:
+      throw new ArgumentError(name);
+  }
+}
+
+final BuiltSet<GImageModelStyle> _$gImageModelStyleValues =
+    new BuiltSet<GImageModelStyle>(const <GImageModelStyle>[
+  _$gImageModelStyleREAL,
+  _$gImageModelStyleSEMI_REAL,
+  _$gImageModelStyleILLUSTRATION,
+]);
+
 const GNotificationType _$gNotificationTypeLIKED_WORK =
     const GNotificationType._('LIKED_WORK');
 const GNotificationType _$gNotificationTypeLIKED_WORKS_SUMMARY =
@@ -188,6 +252,22 @@ final BuiltSet<GNotificationType> _$gNotificationTypeValues =
   _$gNotificationTypeWORK_COMMENT,
   _$gNotificationTypeCOMMENT_REPLY,
   _$gNotificationTypeFOLLOW,
+]);
+
+const GPaymentType _$gPaymentTypePASS = const GPaymentType._('PASS');
+
+GPaymentType _$gPaymentTypeValueOf(String name) {
+  switch (name) {
+    case 'PASS':
+      return _$gPaymentTypePASS;
+    default:
+      throw new ArgumentError(name);
+  }
+}
+
+final BuiltSet<GPaymentType> _$gPaymentTypeValues =
+    new BuiltSet<GPaymentType>(const <GPaymentType>[
+  _$gPaymentTypePASS,
 ]);
 
 const GRating _$gRatingG = const GRating._('G');
@@ -251,6 +331,23 @@ final BuiltSet<GReportReason> _$gReportReasonValues =
   _$gReportReasonOTHER,
 ]);
 
+const GSubscriptionType _$gSubscriptionTypePASS =
+    const GSubscriptionType._('PASS');
+
+GSubscriptionType _$gSubscriptionTypeValueOf(String name) {
+  switch (name) {
+    case 'PASS':
+      return _$gSubscriptionTypePASS;
+    default:
+      throw new ArgumentError(name);
+  }
+}
+
+final BuiltSet<GSubscriptionType> _$gSubscriptionTypeValues =
+    new BuiltSet<GSubscriptionType>(const <GSubscriptionType>[
+  _$gSubscriptionTypePASS,
+]);
+
 const GWorkType _$gWorkTypeWORK = const GWorkType._('WORK');
 const GWorkType _$gWorkTypeNOVEL = const GWorkType._('NOVEL');
 const GWorkType _$gWorkTypeVIDEO = const GWorkType._('VIDEO');
@@ -282,11 +379,19 @@ Serializer<GCacheControlScope> _$gCacheControlScopeSerializer =
 Serializer<GContributorType> _$gContributorTypeSerializer =
     new _$GContributorTypeSerializer();
 Serializer<GFolderMode> _$gFolderModeSerializer = new _$GFolderModeSerializer();
+Serializer<GImageModelCategory> _$gImageModelCategorySerializer =
+    new _$GImageModelCategorySerializer();
+Serializer<GImageModelStyle> _$gImageModelStyleSerializer =
+    new _$GImageModelStyleSerializer();
 Serializer<GNotificationType> _$gNotificationTypeSerializer =
     new _$GNotificationTypeSerializer();
+Serializer<GPaymentType> _$gPaymentTypeSerializer =
+    new _$GPaymentTypeSerializer();
 Serializer<GRating> _$gRatingSerializer = new _$GRatingSerializer();
 Serializer<GReportReason> _$gReportReasonSerializer =
     new _$GReportReasonSerializer();
+Serializer<GSubscriptionType> _$gSubscriptionTypeSerializer =
+    new _$GSubscriptionTypeSerializer();
 Serializer<GWorkType> _$gWorkTypeSerializer = new _$GWorkTypeSerializer();
 Serializer<GAcceptPromptonRequestInput>
     _$gAcceptPromptonRequestInputSerializer =
@@ -701,6 +806,42 @@ class _$GFolderModeSerializer implements PrimitiveSerializer<GFolderMode> {
       GFolderMode.valueOf(serialized as String);
 }
 
+class _$GImageModelCategorySerializer
+    implements PrimitiveSerializer<GImageModelCategory> {
+  @override
+  final Iterable<Type> types = const <Type>[GImageModelCategory];
+  @override
+  final String wireName = 'GImageModelCategory';
+
+  @override
+  Object serialize(Serializers serializers, GImageModelCategory object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      object.name;
+
+  @override
+  GImageModelCategory deserialize(Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      GImageModelCategory.valueOf(serialized as String);
+}
+
+class _$GImageModelStyleSerializer
+    implements PrimitiveSerializer<GImageModelStyle> {
+  @override
+  final Iterable<Type> types = const <Type>[GImageModelStyle];
+  @override
+  final String wireName = 'GImageModelStyle';
+
+  @override
+  Object serialize(Serializers serializers, GImageModelStyle object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      object.name;
+
+  @override
+  GImageModelStyle deserialize(Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      GImageModelStyle.valueOf(serialized as String);
+}
+
 class _$GNotificationTypeSerializer
     implements PrimitiveSerializer<GNotificationType> {
   @override
@@ -717,6 +858,23 @@ class _$GNotificationTypeSerializer
   GNotificationType deserialize(Serializers serializers, Object serialized,
           {FullType specifiedType = FullType.unspecified}) =>
       GNotificationType.valueOf(serialized as String);
+}
+
+class _$GPaymentTypeSerializer implements PrimitiveSerializer<GPaymentType> {
+  @override
+  final Iterable<Type> types = const <Type>[GPaymentType];
+  @override
+  final String wireName = 'GPaymentType';
+
+  @override
+  Object serialize(Serializers serializers, GPaymentType object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      object.name;
+
+  @override
+  GPaymentType deserialize(Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      GPaymentType.valueOf(serialized as String);
 }
 
 class _$GRatingSerializer implements PrimitiveSerializer<GRating> {
@@ -751,6 +909,24 @@ class _$GReportReasonSerializer implements PrimitiveSerializer<GReportReason> {
   GReportReason deserialize(Serializers serializers, Object serialized,
           {FullType specifiedType = FullType.unspecified}) =>
       GReportReason.valueOf(serialized as String);
+}
+
+class _$GSubscriptionTypeSerializer
+    implements PrimitiveSerializer<GSubscriptionType> {
+  @override
+  final Iterable<Type> types = const <Type>[GSubscriptionType];
+  @override
+  final String wireName = 'GSubscriptionType';
+
+  @override
+  Object serialize(Serializers serializers, GSubscriptionType object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      object.name;
+
+  @override
+  GSubscriptionType deserialize(Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      GSubscriptionType.valueOf(serialized as String);
 }
 
 class _$GWorkTypeSerializer implements PrimitiveSerializer<GWorkType> {
