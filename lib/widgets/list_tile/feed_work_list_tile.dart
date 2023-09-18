@@ -3,6 +3,7 @@ import 'package:aipictors/mutations/create_work_like.dart';
 import 'package:aipictors/mutations/follow_user.dart';
 import 'package:aipictors/providers/auth_user_id_provider.dart';
 import 'package:aipictors/providers/config_provider.dart';
+import 'package:aipictors/providers/home_tab_index_provider.dart';
 import 'package:aipictors/utils/to_readable_date_time.dart';
 import 'package:aipictors/utils/to_share_work_text.dart';
 import 'package:aipictors/widgets/button/feed_like_button.dart';
@@ -10,6 +11,7 @@ import 'package:aipictors/widgets/button/follow_text_button.dart';
 import 'package:aipictors/widgets/container/modal/comment_modal_container.dart';
 import 'package:aipictors/widgets/container/modal/feed_action_modal_container.dart';
 import 'package:aipictors/widgets/container/notification_user_container.dart';
+import 'package:aipictors/widgets/dialog/about_follow_dialog.dart';
 import 'package:aipictors/widgets/image/feed_image.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
@@ -100,6 +102,9 @@ class FeedWorkListTile extends HookConsumerWidget {
               FollowTextButton(
                 isActive: isFollowee,
                 onPressed: () {
+                  if (authUserId.value == null) {
+                    return onShowLoginDialog(context, ref, userId: userId);
+                  }
                   return onFollowUser(context, userId: userId);
                 },
               ),
@@ -260,5 +265,30 @@ class FeedWorkListTile extends HookConsumerWidget {
     return followUser((builder) {
       return builder..vars.input.userId = userId;
     });
+  }
+
+  /// フォローする
+  onShowLoginDialog(
+    BuildContext context,
+    WidgetRef ref, {
+    required String userId,
+  }) async {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) {
+        return AboutFollowDialog(
+          onCancel: () {
+            context.pop();
+          },
+          onAccept: () {
+            context.pop();
+            // ログインのページに遷移する
+            final notifier = ref.read(homeTabIndexProvider.notifier);
+            notifier.toLoginTab();
+          },
+        );
+      },
+    );
   }
 }

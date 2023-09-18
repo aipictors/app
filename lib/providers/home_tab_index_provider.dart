@@ -14,4 +14,8 @@ class HomeTabIndex extends _$HomeTabIndex {
     const ConfigRepository().setHomeTabIndex(n);
     state = n;
   }
+
+  void toLoginTab() {
+    update(3);
+  }
 }
