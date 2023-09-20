@@ -84,7 +84,7 @@ flutter:
   assets:
     - assets/
     - assets/images/
-    - assets/snd_sine
+    - assets/snd_sine/
 
 flutter_launcher_icons:
   android: true
