@@ -8,9 +8,10 @@ version: 0.3.2+4
 
 environment:
   sdk: ">=3.0.2 <4.0.0"
-  flutter: 3.13.2
+  flutter: 3.13.4
 
 dependencies:
+  audioplayers: ^5.1.0
   built_collection: ^5.1.1
   cached_network_image: ^3.2.3
   connectivity_plus: ^4.0.1
@@ -83,6 +84,7 @@ flutter:
   assets:
     - assets/
     - assets/images/
+    - assets/snd_sine
 
 flutter_launcher_icons:
   android: true
