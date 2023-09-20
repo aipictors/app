@@ -43,9 +43,9 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:698114764060:android:f97fa9194c718547b49ed9",
+        "mobilesdk_app_id": "1:698114764060:android:703bba527c66d9d1b49ed9",
         "android_client_info": {
-          "package_name": "com.aipictors"
+          "package_name": "com.aipictors.app"
         }
       },
       "oauth_client": [
@@ -79,53 +79,9 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:698114764060:android:6a7396359d50e1f6b49ed9",
+        "mobilesdk_app_id": "1:698114764060:android:865dc0754807464cb49ed9",
         "android_client_info": {
-          "package_name": "com.aipictors"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "698114764060-7jp76cborn2fi84qhrdbb5gv9eks0ke4.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.aipictors",
-            "certificate_hash": "3a215957647e242ab1e9ac98bb7736ac29c3e58a"
-          }
-        },
-        {
-          "client_id": "698114764060-5rpjtdi5goec2gjnrs72bptrjpjl81ug.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBx7oKnrmpfuktHivvbndam_MqrNzRMr6k"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "698114764060-5rpjtdi5goec2gjnrs72bptrjpjl81ug.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "698114764060-09a5u1n74i91uhsgovsem16vsaais8dm.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.aipictors"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:698114764060:android:3d6cdd4ecf3c2c54b49ed9",
-        "android_client_info": {
-          "package_name": "com.aipictors.develop"
+          "package_name": "com.aipictors.app.develop"
         }
       },
       "oauth_client": [
