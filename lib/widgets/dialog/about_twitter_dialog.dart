@@ -1,3 +1,4 @@
+import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/providers/config_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -53,7 +54,7 @@ class AboutTwitterDialog extends HookConsumerWidget {
       actions: [
         TextButton(
           onPressed: onCancel,
-          child: const Text('閉じる'),
+          child: Text('閉じる'.i18n),
         ),
       ],
     );

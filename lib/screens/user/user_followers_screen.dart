@@ -1,3 +1,4 @@
+import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/graphql/__generated__/user_followers.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/providers/config_provider.dart';
@@ -38,7 +39,7 @@ class UserFollowersScreen extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('フォロワー'),
+        title: Text('フォロワー'.i18n),
       ),
       body: OperationBuilder(
         client: client.value!,

@@ -1,3 +1,4 @@
+import 'package:aipictors/default.i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -16,16 +17,16 @@ class AboutFollowDialog extends HookConsumerWidget {
   @override
   Widget build(context, ref) {
     return AlertDialog(
-      title: const Text('フォローしたいね！'),
-      content: const Text('ログインしてユーザをフォローしよう。フォローすれば新しい投稿にもすぐに気付けます。'),
+      title: Text('フォローしたいね！'.i18n),
+      content: Text('ログインしてユーザをフォローしよう。フォローすれば新しい投稿にもすぐに気付けます。'.i18n),
       actions: [
         TextButton(
           onPressed: onCancel,
-          child: const Text('やめる'),
+          child: Text('やめる'.i18n),
         ),
         FilledButton.tonal(
           onPressed: onAccept,
-          child: const Text('ログイン'),
+          child: Text('ログイン'.i18n),
         ),
       ],
     );

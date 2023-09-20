@@ -1,3 +1,4 @@
+import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/providers/config_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -18,16 +19,16 @@ class AboutDiscordDialog extends HookConsumerWidget {
     final config = ref.watch(configProvider);
 
     return AlertDialog(
-      title: const Text('ディスコへの招待'),
+      title: Text('ディスコへの招待'.i18n),
       content: Text(config.messageAboutDiscord),
       actions: [
         TextButton(
           onPressed: onCancel,
-          child: const Text('やめる'),
+          child: Text('やめる'.i18n),
         ),
         FilledButton.tonal(
           onPressed: onAccept,
-          child: const Text('アプリを開く'),
+          child: Text('アプリを開く'.i18n),
         ),
       ],
     );

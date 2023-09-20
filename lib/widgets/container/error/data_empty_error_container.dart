@@ -1,3 +1,4 @@
+import 'package:aipictors/default.i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -13,7 +14,7 @@ class DataEmptyErrorContainer extends HookConsumerWidget {
   Widget build(context, ref) {
     return Center(
       child: Text(
-        message ?? '何もデータが無いみたい。',
+        message ?? '何もデータが無いみたい。'.i18n,
         style: const TextStyle(fontWeight: FontWeight.bold),
       ),
     );

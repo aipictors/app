@@ -60,6 +60,30 @@
     "kr": "_YEAR_년/_MONTH_월"
   },
   {
+    "ja": "App Store",
+    "en": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
+  },
+  {
+    "ja": "Google Play Store",
+    "en": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
+  },
+  {
+    "ja": "Google検索",
+    "en": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
+  },
+  {
     "ja": "IDにはアルファベットが含まれている必要があります",
     "en": "ID must contain alphabet letters.",
     "vi": "",
@@ -70,14 +94,38 @@
     "kr": "ID는 알파벳 문자를 포함해야 합니다."
   },
   {
-    "ja": "IDは4文字以上14文字以下である必要があります",
-    "en": "ID must be between 4 and 14 characters long.",
+    "ja": "IDは4文字以上254文字以下である必要があります",
+    "en": "ID must be between 4 and 254 characters long.",
     "vi": "",
-    "zh_cn": "ID 长度必须在 4 到 14 个字符之间",
-    "zh_tw": "ID 長度必須在 4 到 14 個字符之間",
-    "it": "L'ID deve essere composto da 4 a 14 caratteri.",
-    "fr": "L'ID doit comporter entre 4 et 14 caractères.",
-    "kr": "아이디는 4~14자 사이여야 합니다."
+    "zh_cn": "ID 长度必须在 4 到 254 个字符之间",
+    "zh_tw": "ID 長度必須在 4 到 254 個字符之間",
+    "it": "L'ID deve essere composto da 4 a 254 caratteri.",
+    "fr": "L'ID doit comporter entre 4 et 254 caractères.",
+    "kr": "아이디는 4~254자 사이여야 합니다."
+  },
+  {
+    "ja": "MM月dd日H時m分",
+    "en": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
+  },
+  {
+    "ja": "Twitter",
+    "en": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
+  },
+  {
+    "ja": "Twitterの広告",
+    "en": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "X(Twitter)でログイン",
@@ -88,6 +136,14 @@
     "it": "Accedere a X(Twitter)",
     "fr": "Connectez-vous avec X (Twitter)",
     "kr": "X(Twitter)로 로그인하세요"
+  },
+  {
+    "ja": "yyyy年MM月dd日H時m分",
+    "en": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "アカウント",
@@ -108,6 +164,30 @@
     "it": "Eliminare l'account",
     "fr": "Supprimer un compte",
     "kr": "계정 삭제."
+  },
+  {
+    "ja": "アカウント作成",
+    "en": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
+  },
+  {
+    "ja": "アカウント削除",
+    "en": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
+  },
+  {
+    "ja": "アップデート",
+    "en": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "アップデートが必要です。",
@@ -180,6 +260,30 @@
     "kr": "일이 없는 것 같네요."
   },
   {
+    "ja": "アプリについて",
+    "en": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
+  },
+  {
+    "ja": "アプリの起動に失敗しました。",
+    "en": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
+  },
+  {
+    "ja": "アプリを開く",
+    "en": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
+  },
+  {
     "ja": "いいね",
     "en": "Like",
     "vi": "",
@@ -208,6 +312,14 @@
     "it": "Vengono pubblicati numerosi URL e altre informazioni su prodotti non correlati alle illustrazioni.",
     "fr": "Un grand nombre d'URL et d'autres informations sur des produits sans rapport avec les illustrations sont affichés.",
     "kr": "일러스트와 관련이 없는 상품에 대한 URL 및 기타 정보가 다수 게시되어 있습니다."
+  },
+  {
+    "ja": "ウィークリー",
+    "en": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "おすすめ",
@@ -260,6 +372,14 @@
     "kr": "알림 게시판"
   },
   {
+    "ja": "ガイドライン",
+    "en": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
+  },
+  {
     "ja": "キーワード検索",
     "en": "Keyword Search",
     "vi": "",
@@ -278,6 +398,14 @@
     "it": "Cancella cache",
     "fr": "Effacer le cache",
     "kr": "캐시 지우기"
+  },
+  {
+    "ja": "キャッシュを削除しました。",
+    "en": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "クリップボードにコピーしました。",
@@ -326,7 +454,8 @@
     "zh_tw": "該用戶的帖子將不再顯示。 \\n您可以隨時在設置界面停用此功能。",
     "it": "I post di questo utente non saranno più visualizzati. \\nÈ possibile disattivare questa funzione in qualsiasi momento dalla schermata delle impostazioni.",
     "fr": "Les messages de cet utilisateur ne seront plus affichés. \\nVous pouvez désactiver cette fonction à tout moment à partir de l'écran des paramètres.",
-    "kr": "이 사용자의 게시물은 더 이상 표시되지 않습니다. \\n설정 화면에서 언제든지 해제할 수 있습니다."
+    "kr": "이 사용자의 게시물은 더 이상 표시되지 않습니다. \\n설정 화면에서 언제든지 해제할 수 있습니다.",
+    "vi": ""
   },
   {
     "ja": "このユーザーをミュートしますか？",
@@ -479,6 +608,14 @@
     "kr": "기타"
   },
   {
+    "ja": "それ以外",
+    "en": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
+  },
+  {
     "ja": "ダークモード",
     "en": "Dark Mode",
     "vi": "",
@@ -525,7 +662,8 @@
     "zh_tw": "請查看 Discord。",
     "it": "Verificare con Discord.",
     "fr": "Vérifier avec Discord.",
-    "kr": "Discord에서 확인하세요."
+    "kr": "Discord에서 확인하세요.",
+    "vi": ""
   },
   {
     "ja": "ディスコに参加する",
@@ -538,6 +676,30 @@
     "kr": "Discord 가입하기"
   },
   {
+    "ja": "ディスコへの招待",
+    "en": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
+  },
+  {
+    "ja": "デイリー",
+    "en": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
+  },
+  {
+    "ja": "データが無いみたい。",
+    "en": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
+  },
+  {
     "ja": "テーマ設定",
     "en": "Theme Settings",
     "vi": "",
@@ -548,6 +710,14 @@
     "kr": "테마 설정"
   },
   {
+    "ja": "デバッグ",
+    "en": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
+  },
+  {
     "ja": "デバッグモード",
     "en": "Debug Mode",
     "vi": "",
@@ -556,6 +726,14 @@
     "it": "Modalità Debug",
     "fr": "Mode débogage",
     "kr": "디버그 모드"
+  },
+  {
+    "ja": "どこでアプリを知りましたか？",
+    "en": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "バージョン",
@@ -648,6 +826,14 @@
     "kr": "팔로잉"
   },
   {
+    "ja": "フォローしたいね！",
+    "en": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
+  },
+  {
     "ja": "フォローする",
     "en": "Follow",
     "vi": "",
@@ -678,6 +864,14 @@
     "kr": "팔로우 중"
   },
   {
+    "ja": "フォロワー",
+    "en": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
+  },
+  {
     "ja": "ブックマーク",
     "en": "Bookmarks",
     "vi": "",
@@ -696,6 +890,14 @@
     "it": "Politica sulla privacy",
     "fr": "Politique de confidentialité",
     "kr": "개인정보 보호정책"
+  },
+  {
+    "ja": "プロフィール",
+    "en": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "ページを開く",
@@ -736,6 +938,14 @@
     "it": "La mia pagina",
     "fr": "Ma page",
     "kr": "내 페이지"
+  },
+  {
+    "ja": "マンスリー",
+    "en": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "ミュートしたタグ",
@@ -784,7 +994,8 @@
     "zh_tw": "已靜音",
     "it": "muto",
     "fr": "silencieux",
-    "kr": "음소거"
+    "kr": "음소거",
+    "vi": ""
   },
   {
     "ja": "ミュートを解除する",
@@ -803,7 +1014,8 @@
     "zh_tw": "維修中",
     "it": "In manutenzione",
     "fr": "Sous maintenance",
-    "kr": "유지보수 중"
+    "kr": "유지보수 중",
+    "vi": ""
   },
   {
     "ja": "やめる",
@@ -822,7 +1034,8 @@
     "zh_tw": "用戶ID",
     "it": "ID utente",
     "fr": "ID de l'utilisateur",
-    "kr": "사용자 ID"
+    "kr": "사용자 ID",
+    "vi": ""
   },
   {
     "ja": "ユーザの報告",
@@ -905,6 +1118,30 @@
     "kr": "라이선스"
   },
   {
+    "ja": "ランキング",
+    "en": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
+  },
+  {
+    "ja": "リセット",
+    "en": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
+  },
+  {
+    "ja": "リセットしますか？",
+    "en": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
+  },
+  {
     "ja": "リポジトリ",
     "en": "Repository (GitHub)",
     "vi": "",
@@ -915,6 +1152,14 @@
     "kr": "저장소"
   },
   {
+    "ja": "リロード",
+    "en": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
+  },
+  {
     "ja": "ログアウト",
     "en": "Sign out",
     "vi": "",
@@ -923,6 +1168,22 @@
     "it": "Logout",
     "fr": "Déconnexion",
     "kr": "로그아웃"
+  },
+  {
+    "ja": "ログアウトしました。",
+    "en": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
+  },
+  {
+    "ja": "ログアウトしますか？",
+    "en": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "ログイン",
@@ -953,6 +1214,14 @@
     "it": "Aggiornamento dell'ID di accesso.",
     "fr": "Mise à jour de l'identifiant de connexion.",
     "kr": "로그인 ID를 업데이트했습니다."
+  },
+  {
+    "ja": "ログインしてユーザをフォローしよう。フォローすれば新しい投稿にもすぐに気付けます。",
+    "en": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "ログインしました",
@@ -1003,6 +1272,14 @@
     "it": "I layout adatti ai tablet sono applicati ad alcune schermate.",
     "fr": "Des mises en page adaptées aux tablettes sont appliquées à certains écrans.",
     "kr": "일부 화면에는 태블릿 친화적인 레이아웃이 적용됩니다."
+  },
+  {
+    "ja": "何もデータが無いみたい。",
+    "en": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "解除する",
@@ -1145,6 +1422,30 @@
     "kr": "작업 보고."
   },
   {
+    "ja": "削除する",
+    "en": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
+  },
+  {
+    "ja": "女性",
+    "en": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
+  },
+  {
+    "ja": "新しいバージョンのアプリが存在します。ストアからアップデートすることができます。",
+    "en": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
+  },
+  {
     "ja": "新しいパスワード",
     "en": "New Password",
     "vi": "",
@@ -1195,6 +1496,14 @@
     "kr": "인기 작품"
   },
   {
+    "ja": "性別はどれに該当しますか？",
+    "en": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
+  },
+  {
     "ja": "設定",
     "en": "Settings",
     "vi": "",
@@ -1213,6 +1522,14 @@
     "it": "mese precedente",
     "fr": "mois précédent",
     "kr": "전월"
+  },
+  {
+    "ja": "全ての回答をリセットする",
+    "en": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "送信",
@@ -1253,6 +1570,22 @@
     "it": "Dispositivo",
     "fr": "Dispositif",
     "kr": "장치"
+  },
+  {
+    "ja": "男性",
+    "en": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
+  },
+  {
+    "ja": "知人からの紹介",
+    "en": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
   },
   {
     "ja": "調査協力",
@@ -1305,6 +1638,14 @@
     "kr": "알 수 없는 오류가 발생했습니다."
   },
   {
+    "ja": "閉じる",
+    "en": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": ""
+  },
+  {
     "ja": "報告",
     "en": "Report",
     "vi": "",
@@ -1326,7 +1667,7 @@
   },
   {
     "ja": "来月",
-    "en": "Next ",
+    "en": "Next",
     "vi": "",
     "zh_cn": "下个月",
     "zh_tw": "下個月",

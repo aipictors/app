@@ -33,9 +33,9 @@ class _LoginIDFormState extends State<LoginIDForm> {
       ],
       autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: (value) {
-        if (value!.length < 4 || 14 < value.length) {
+        if (value!.length < 4 || 254 < value.length) {
           widget.onValidate(false, value);
-          return 'IDは4文字以上14文字以下である必要があります'.i18n;
+          return 'IDは4文字以上254文字以下である必要があります'.i18n;
         }
         if (!value.contains(RegExp(r'[a-z]'))) {
           widget.onValidate(false, value);

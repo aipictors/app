@@ -1,3 +1,4 @@
+import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/providers/config_provider.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
@@ -16,16 +17,16 @@ class ConfigErrorScreen extends HookConsumerWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Text(
-              'アプリの起動に失敗しました。',
-              style: TextStyle(fontWeight: FontWeight.bold),
+            Text(
+              'アプリの起動に失敗しました。'.i18n,
+              style: const TextStyle(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 32),
             FilledButton.tonal(
               onPressed: () {
                 onRetry(context, ref);
               },
-              child: const Text('リロード'),
+              child: Text('リロード'.i18n),
             )
           ],
         ),

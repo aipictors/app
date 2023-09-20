@@ -34,7 +34,7 @@ class ConfigMutedUsersScreen extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('ミュートしたユーザ'),
+        title: Text('ミュートしたユーザ'.i18n),
       ),
       body: OperationBuilder(
         client: client.value!,

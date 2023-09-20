@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/enums/survey_sex.dart';
 import 'package:aipictors/enums/survey_touch_point.dart';
 import 'package:aipictors/models/survey_radio_option.dart';
@@ -27,7 +28,7 @@ class SurveysScreen extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('調査協力'),
+        title: Text('調査協力'.i18n),
       ),
       body: SafeArea(
         child: ListView(
@@ -40,14 +41,16 @@ class SurveysScreen extends HookConsumerWidget {
             const SizedBox(height: 16),
             ExpansionTile(
               initiallyExpanded: survey.sex == null,
-              title: const Text('性別はどれに該当しますか？'),
+              title: Text('性別はどれに該当しますか？'.i18n),
               children: [
                 SurveyRadioListTile<SurveySex>(
                   groupValue: survey.sex,
-                  options: const [
-                    SurveyRadioOption(label: '女性', value: SurveySex.female),
-                    SurveyRadioOption(label: '男性', value: SurveySex.male),
-                    SurveyRadioOption(label: 'それ以外', value: SurveySex.other),
+                  options: [
+                    SurveyRadioOption(
+                        label: '女性'.i18n, value: SurveySex.female),
+                    SurveyRadioOption(label: '男性'.i18n, value: SurveySex.male),
+                    SurveyRadioOption(
+                        label: 'それ以外'.i18n, value: SurveySex.other),
                   ],
                   onChanged: notifier.updateSex,
                 ),
@@ -56,39 +59,39 @@ class SurveysScreen extends HookConsumerWidget {
             const SizedBox(height: 16),
             ExpansionTile(
               initiallyExpanded: survey.touchPoint == null,
-              title: const Text('どこでアプリを知りましたか？'),
+              title: Text('どこでアプリを知りましたか？'.i18n),
               children: [
                 SurveyRadioListTile<SurveyTouchPoint>(
                   groupValue: survey.touchPoint,
                   options: [
-                    const SurveyRadioOption(
-                      label: 'Twitter',
+                    SurveyRadioOption(
+                      label: 'Twitter'.i18n,
                       value: SurveyTouchPoint.twitter,
                     ),
-                    const SurveyRadioOption(
-                      label: 'Twitterの広告',
+                    SurveyRadioOption(
+                      label: 'Twitterの広告'.i18n,
                       value: SurveyTouchPoint.twitterAdvertisement,
                     ),
-                    const SurveyRadioOption(
-                      label: '知人からの紹介',
+                    SurveyRadioOption(
+                      label: '知人からの紹介'.i18n,
                       value: SurveyTouchPoint.friend,
                     ),
-                    const SurveyRadioOption(
-                      label: 'Google検索',
+                    SurveyRadioOption(
+                      label: 'Google検索'.i18n,
                       value: SurveyTouchPoint.googleSearch,
                     ),
                     if (Platform.isAndroid)
-                      const SurveyRadioOption(
-                        label: 'Google Play Store',
+                      SurveyRadioOption(
+                        label: 'Google Play Store'.i18n,
                         value: SurveyTouchPoint.googlePlayStore,
                       ),
                     if (Platform.isIOS)
-                      const SurveyRadioOption(
-                        label: 'App Store',
+                      SurveyRadioOption(
+                        label: 'App Store'.i18n,
                         value: SurveyTouchPoint.appStore,
                       ),
-                    const SurveyRadioOption(
-                      label: 'その他',
+                    SurveyRadioOption(
+                      label: 'その他'.i18n,
                       value: SurveyTouchPoint.other,
                     ),
                   ],
@@ -98,9 +101,9 @@ class SurveysScreen extends HookConsumerWidget {
             ),
             const SizedBox(height: 16),
             ListTile(
-              title: const Text('全ての回答をリセットする'),
+              title: Text('全ての回答をリセットする'.i18n),
               trailing: FilledButton.tonal(
-                child: const Text('リセット'),
+                child: Text('リセット'.i18n),
                 onPressed: () {
                   onResetSurvey(context, ref);
                 },

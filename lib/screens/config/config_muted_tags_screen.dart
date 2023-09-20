@@ -34,7 +34,7 @@ class ConfigMutedTagsScreen extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('ミュートしたタグ'),
+        title: Text('ミュートしたタグ'.i18n),
       ),
       body: OperationBuilder(
         client: client.value!,

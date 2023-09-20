@@ -409,7 +409,7 @@ class ConfigScreen extends HookConsumerWidget {
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
       ..showSnackBar(
-        const SnackBar(content: Text('ログアウトしました。')),
+        SnackBar(content: Text('ログアウトしました。'.i18n)),
       );
   }
 
@@ -418,7 +418,7 @@ class ConfigScreen extends HookConsumerWidget {
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
       ..showSnackBar(
-        const SnackBar(content: Text('キャッシュを削除しました。')),
+        SnackBar(content: Text('キャッシュを削除しました。'.i18n)),
       );
   }
 }

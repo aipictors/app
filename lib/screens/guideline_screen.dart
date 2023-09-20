@@ -1,3 +1,4 @@
+import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/providers/config_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -16,7 +17,7 @@ class GuidelineScreen extends HookConsumerWidget {
       ..setJavaScriptMode(JavaScriptMode.unrestricted);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('ガイドライン')),
+      appBar: AppBar(title: Text('ガイドライン'.i18n)),
       body: Builder(builder: (context) {
         return WebViewWidget(controller: controller);
       }),
