@@ -1,3 +1,4 @@
+import 'package:aipictors/default.i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -11,7 +12,7 @@ class ConfigProfileScreen extends HookConsumerWidget {
   Widget build(context, ref) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('プロフィール'),
+        title: Text('プロフィール'.i18n),
       ),
     );
   }

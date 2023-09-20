@@ -1,3 +1,4 @@
+import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/screens/loading_screen.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,7 @@ class PromotionScreen extends HookConsumerWidget {
     }
 
     return Scaffold(
-      appBar: AppBar(title: const Text('イベント')),
+      appBar: AppBar(title: Text('イベント'.i18n)),
     );
   }
 }

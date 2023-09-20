@@ -1,3 +1,4 @@
+import 'package:aipictors/default.i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -15,19 +16,19 @@ class LatestVersionDialog extends HookConsumerWidget {
   @override
   Widget build(context, ref) {
     return AlertDialog(
-      title: const Text('アップデート'),
-      content: const Text('新しいバージョンのアプリが存在します。ストアからアップデートすることができます。'),
+      title: Text('アップデート'.i18n),
+      content: Text('新しいバージョンのアプリが存在します。ストアからアップデートすることができます。'.i18n),
       actions: [
         FilledButton.tonal(
           style: FilledButton.styleFrom(
             foregroundColor: Theme.of(context).colorScheme.error,
           ),
           onPressed: onAccept,
-          child: const Text('削除する'),
+          child: Text('削除する'.i18n),
         ),
         TextButton(
           onPressed: onCancel,
-          child: const Text('やめる'),
+          child: Text('やめる'.i18n),
         ),
       ],
     );

@@ -1,3 +1,4 @@
+import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/providers/config_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,7 @@ class DebugScreen extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('デバッグ'),
+        title: Text('デバッグ'.i18n),
       ),
       body: SafeArea(
         child: ListView(

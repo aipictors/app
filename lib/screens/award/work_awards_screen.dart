@@ -1,3 +1,4 @@
+import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/screens/award/daily_work_awards_screen.dart';
 import 'package:aipictors/screens/award/monthly_work_awards_screen.dart';
 import 'package:aipictors/screens/award/weekly_work_awards_screen.dart';
@@ -25,11 +26,11 @@ class WorkAwardsScreen extends HookConsumerWidget {
       child: Scaffold(
         key: const PageStorageKey('awards'),
         appBar: AppBar(
-          title: const Text('ランキング'),
-          bottom: const TabBar(tabs: [
-            Tab(text: 'デイリー'),
-            Tab(text: 'ウィークリー'),
-            Tab(text: 'マンスリー'),
+          title: Text('ランキング'.i18n),
+          bottom: TabBar(tabs: [
+            Tab(text: 'デイリー'.i18n),
+            Tab(text: 'ウィークリー'.i18n),
+            Tab(text: 'マンスリー'.i18n),
           ]),
           actions: [
             IconButton(

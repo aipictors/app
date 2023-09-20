@@ -1,3 +1,4 @@
+import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/widgets/container/unavailable_container.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -12,7 +13,7 @@ class AccountDeleteScreen extends HookConsumerWidget {
   Widget build(context, ref) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('アカウント削除'),
+        title: Text('アカウント削除'.i18n),
       ),
       body: const UnavailableContainer(),
     );

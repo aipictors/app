@@ -1,3 +1,4 @@
+import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/delegates/tab_header_delegate.dart';
 import 'package:aipictors/graphql/__generated__/user.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
@@ -95,11 +96,11 @@ class UserScreen extends HookConsumerWidget {
                       ),
                     ]),
                   ),
-                  const SliverPersistentHeader(
+                  SliverPersistentHeader(
                     pinned: true,
                     delegate: TabHeaderDelegate(
                       tabBar: TabBar(
-                        tabs: [Tab(text: '作品'), Tab(text: 'シリーズ')],
+                        tabs: [Tab(text: '作品'.i18n), Tab(text: 'シリーズ'.i18n)],
                       ),
                     ),
                   )
