@@ -6,7 +6,7 @@ part of 'home_tab_index_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$homeTabIndexHash() => r'd38fd3a31ac4a6808c38785fcab57e58e5b83f1c';
+String _$homeTabIndexHash() => r'6c5b775390eb167bed39ab4a7357ed415c70b71b';
 
 /// See also [HomeTabIndex].
 @ProviderFor(HomeTabIndex)

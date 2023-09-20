@@ -1,4 +1,5 @@
 import 'package:aipictors/graphql/__generated__/viewer_feed_works.req.gql.dart';
+import 'package:aipictors/providers/audio_provider.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
@@ -8,6 +9,7 @@ import 'package:aipictors/widgets/container/error/data_not_found_error_container
 import 'package:aipictors/widgets/container/loading_container.dart';
 import 'package:aipictors/widgets/list_tile/feed_work_list_tile.dart';
 import 'package:aipictors/widgets/list_tile/home_message_list_tile.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -22,6 +24,8 @@ class FeedHomeView extends HookConsumerWidget {
     final config = ref.watch(configProvider);
 
     final client = ref.watch(clientProvider);
+
+    final audio = ref.watch(audioProvider);
 
     if (client.value == null) {
       return const LoadingContainer();
@@ -38,12 +42,14 @@ class FeedHomeView extends HookConsumerWidget {
     return RefreshIndicator(
       onRefresh: () async {
         final req = request.rebuild((builder) {
+          audio.play(AssetSource('snd_sine/progress_loop.wav'));
           return builder
             ..vars.limit = config.graphqlQueryLimit
             ..vars.offset = 0;
         });
         client.value?.requestController.add(req);
         await Future.delayed(const Duration(seconds: 2));
+        audio.play(AssetSource('snd_sine/transition_up.wav'));
       },
       child: OperationBuilder(
         client: client.value!,
