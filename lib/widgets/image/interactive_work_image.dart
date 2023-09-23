@@ -13,9 +13,12 @@ class InteractiveWorkImage extends HookConsumerWidget {
   @override
   Widget build(context, ref) {
     return GestureDetector(
-      child: Image.network(
-        downloadURL,
-        fit: BoxFit.cover,
+      child: SizedBox(
+        width: double.infinity,
+        child: Image.network(
+          downloadURL,
+          fit: BoxFit.cover,
+        ),
       ),
       onTap: () {
         showGeneralDialog(
