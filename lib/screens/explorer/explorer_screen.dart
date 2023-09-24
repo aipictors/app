@@ -1,3 +1,4 @@
+import 'package:aipictors/config.dart';
 import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/screens/explorer/explorer_best_works_view.dart';
 import 'package:aipictors/screens/explorer/explorer_hot_tags_view.dart';
@@ -53,7 +54,7 @@ class ExplorerScreen extends HookConsumerWidget {
                   searchContainer.clear();
                 },
               ),
-            if (isFilled.value == false)
+            if (DefaultConfig.isNotProduction && isFilled.value == false)
               IconButton(
                 icon: const Icon(Icons.settings_rounded),
                 onPressed: () {

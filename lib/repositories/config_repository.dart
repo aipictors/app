@@ -113,7 +113,13 @@ class ConfigRepository {
 
   int get feedTabIndex {
     final value = instance!.getInt('config_feed_tab_index');
-    return value ?? 0;
+    if (value == null) {
+      return 0;
+    }
+    if (2 < value) {
+      return 0;
+    }
+    return value;
   }
 
   Future<void> setFeedTabIndex(int index) async {

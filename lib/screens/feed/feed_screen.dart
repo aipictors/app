@@ -39,6 +39,7 @@ class FeedScreen extends HookConsumerWidget {
           ],
           bottom: TabBar(tabs: [
             if (authState.value != null) Tab(text: 'フォロー'.i18n),
+            if (authState.value == null) Tab(text: 'ホーム'.i18n),
             Tab(text: '新着'.i18n),
             Tab(text: 'おすすめ'.i18n),
           ]),

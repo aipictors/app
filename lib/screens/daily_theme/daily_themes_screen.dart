@@ -60,7 +60,7 @@ class DailyThemesScreen extends HookConsumerWidget {
         ),
         actions: [
           FilledButton.tonal(
-            child: Text('前の月'.i18n),
+            child: Text('前月'.i18n),
             onPressed: () {
               // context.push('/daily_themes_month');
               onPrev(year, month);

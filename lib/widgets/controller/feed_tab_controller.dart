@@ -18,11 +18,9 @@ class FeedTabController extends HookConsumerWidget {
   Widget build(context, ref) {
     final tabIndex = ref.watch(feedTabIndexProvider);
 
-    const tabSize = 4;
-
     return DefaultTabController(
       initialIndex: tabIndex,
-      length: tabSize,
+      length: length,
       child: Builder(builder: (context) {
         final controller = DefaultTabController.of(context);
         controller.addListener(() {
