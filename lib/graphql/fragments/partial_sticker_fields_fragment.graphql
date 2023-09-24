@@ -5,4 +5,7 @@ fragment PartialStickerFields on StickerNode {
     id
     downloadURL
   }
+  likesCount
+  downloadsCount
+  usesCount
 }

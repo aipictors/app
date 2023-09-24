@@ -46,7 +46,6 @@ class WorkScreen extends HookConsumerWidget {
         if (work == null) {
           return const DataNotFoundErrorScreen();
         }
-        print(work.subWorks);
         return Scaffold(
           resizeToAvoidBottomInset: true,
           appBar: AppBar(
@@ -119,10 +118,12 @@ class WorkScreen extends HookConsumerWidget {
                       title: work.title,
                       description: work.description,
                     ),
-                    const SizedBox(height: 8 * 2),
-                    WorkTagsContainer(tagNames: work.tagNames.toList()),
+                    if (work.tagNames.isNotEmpty) const SizedBox(height: 8),
+                    if (work.tagNames.isNotEmpty)
+                      WorkTagsContainer(tagNames: work.tagNames.toList()),
                     const SizedBox(height: 8 * 2),
                     const Divider(height: 0),
+                    const SizedBox(height: 8 * 1),
                     WorkCommentContainer(workId: workId),
                     const SizedBox(height: 8 * 2),
                   ],

@@ -875,6 +875,12 @@ abstract class GViewerNotificationsData_viewer_notifications__asWorkCommentNotif
   @override
   GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_sticker_image?
       get image;
+  @override
+  int get likesCount;
+  @override
+  int get downloadsCount;
+  @override
+  int get usesCount;
   static Serializer<
           GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_sticker>
       get serializer =>
@@ -1218,6 +1224,12 @@ abstract class GViewerNotificationsData_viewer_notifications__asWorkCommentReply
   @override
   GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_sticker_image?
       get image;
+  @override
+  int get likesCount;
+  @override
+  int get downloadsCount;
+  @override
+  int get usesCount;
   static Serializer<
           GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_sticker>
       get serializer =>

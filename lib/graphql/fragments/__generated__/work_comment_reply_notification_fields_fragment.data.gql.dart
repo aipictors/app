@@ -96,6 +96,12 @@ abstract class GWorkCommentReplyNotificationFields_sticker
   @override
   GWorkCommentReplyNotificationFields_sticker_image? get image;
   @override
+  int get likesCount;
+  @override
+  int get downloadsCount;
+  @override
+  int get usesCount;
+  @override
   Map<String, dynamic> toJson();
 }
 
@@ -345,6 +351,12 @@ abstract class GWorkCommentReplyNotificationFieldsData_sticker
   String get title;
   @override
   GWorkCommentReplyNotificationFieldsData_sticker_image? get image;
+  @override
+  int get likesCount;
+  @override
+  int get downloadsCount;
+  @override
+  int get usesCount;
   static Serializer<GWorkCommentReplyNotificationFieldsData_sticker>
       get serializer =>
           _$gWorkCommentReplyNotificationFieldsDataStickerSerializer;

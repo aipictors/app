@@ -18,6 +18,8 @@ import 'package:aipictors/screens/config/config_pass_screen.dart';
 import 'package:aipictors/screens/config/config_profile_screen.dart';
 import 'package:aipictors/screens/config/config_theme_screen.dart';
 import 'package:aipictors/screens/daily_theme/daily_theme_screen.dart';
+import 'package:aipictors/screens/daily_theme/daily_themes_month_screen.dart';
+import 'package:aipictors/screens/daily_theme/daily_themes_screen.dart';
 import 'package:aipictors/screens/debug_screen.dart';
 import 'package:aipictors/screens/feedback_screen.dart';
 import 'package:aipictors/screens/folder/folder_create_screen.dart';
@@ -181,6 +183,18 @@ final routes = [
     path: '/config/theme',
     builder: (context, state) {
       return const ConfigThemeScreen();
+    },
+  ),
+  GoRoute(
+    path: '/daily_themes',
+    builder: (context, state) {
+      return const DailyThemesScreen();
+    },
+  ),
+  GoRoute(
+    path: '/daily_themes/months',
+    builder: (context, state) {
+      return const DailyThemesMonthsScreen();
     },
   ),
   GoRoute(

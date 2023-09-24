@@ -35,6 +35,15 @@ class _$GPartialStickerFieldsDataSerializer
       'title',
       serializers.serialize(object.title,
           specifiedType: const FullType(String)),
+      'likesCount',
+      serializers.serialize(object.likesCount,
+          specifiedType: const FullType(int)),
+      'downloadsCount',
+      serializers.serialize(object.downloadsCount,
+          specifiedType: const FullType(int)),
+      'usesCount',
+      serializers.serialize(object.usesCount,
+          specifiedType: const FullType(int)),
     ];
     Object? value;
     value = object.image;
@@ -76,6 +85,18 @@ class _$GPartialStickerFieldsDataSerializer
                   specifiedType:
                       const FullType(GPartialStickerFieldsData_image))!
               as GPartialStickerFieldsData_image);
+          break;
+        case 'likesCount':
+          result.likesCount = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'downloadsCount':
+          result.downloadsCount = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'usesCount':
+          result.usesCount = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
           break;
       }
     }
@@ -152,6 +173,12 @@ class _$GPartialStickerFieldsData extends GPartialStickerFieldsData {
   final String title;
   @override
   final GPartialStickerFieldsData_image? image;
+  @override
+  final int likesCount;
+  @override
+  final int downloadsCount;
+  @override
+  final int usesCount;
 
   factory _$GPartialStickerFieldsData(
           [void Function(GPartialStickerFieldsDataBuilder)? updates]) =>
@@ -161,7 +188,10 @@ class _$GPartialStickerFieldsData extends GPartialStickerFieldsData {
       {required this.G__typename,
       required this.id,
       required this.title,
-      this.image})
+      this.image,
+      required this.likesCount,
+      required this.downloadsCount,
+      required this.usesCount})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename, r'GPartialStickerFieldsData', 'G__typename');
@@ -169,6 +199,12 @@ class _$GPartialStickerFieldsData extends GPartialStickerFieldsData {
         id, r'GPartialStickerFieldsData', 'id');
     BuiltValueNullFieldError.checkNotNull(
         title, r'GPartialStickerFieldsData', 'title');
+    BuiltValueNullFieldError.checkNotNull(
+        likesCount, r'GPartialStickerFieldsData', 'likesCount');
+    BuiltValueNullFieldError.checkNotNull(
+        downloadsCount, r'GPartialStickerFieldsData', 'downloadsCount');
+    BuiltValueNullFieldError.checkNotNull(
+        usesCount, r'GPartialStickerFieldsData', 'usesCount');
   }
 
   @override
@@ -187,7 +223,10 @@ class _$GPartialStickerFieldsData extends GPartialStickerFieldsData {
         G__typename == other.G__typename &&
         id == other.id &&
         title == other.title &&
-        image == other.image;
+        image == other.image &&
+        likesCount == other.likesCount &&
+        downloadsCount == other.downloadsCount &&
+        usesCount == other.usesCount;
   }
 
   @override
@@ -197,6 +236,9 @@ class _$GPartialStickerFieldsData extends GPartialStickerFieldsData {
     _$hash = $jc(_$hash, id.hashCode);
     _$hash = $jc(_$hash, title.hashCode);
     _$hash = $jc(_$hash, image.hashCode);
+    _$hash = $jc(_$hash, likesCount.hashCode);
+    _$hash = $jc(_$hash, downloadsCount.hashCode);
+    _$hash = $jc(_$hash, usesCount.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -207,7 +249,10 @@ class _$GPartialStickerFieldsData extends GPartialStickerFieldsData {
           ..add('G__typename', G__typename)
           ..add('id', id)
           ..add('title', title)
-          ..add('image', image))
+          ..add('image', image)
+          ..add('likesCount', likesCount)
+          ..add('downloadsCount', downloadsCount)
+          ..add('usesCount', usesCount))
         .toString();
   }
 }
@@ -235,6 +280,19 @@ class GPartialStickerFieldsDataBuilder
   set image(GPartialStickerFieldsData_imageBuilder? image) =>
       _$this._image = image;
 
+  int? _likesCount;
+  int? get likesCount => _$this._likesCount;
+  set likesCount(int? likesCount) => _$this._likesCount = likesCount;
+
+  int? _downloadsCount;
+  int? get downloadsCount => _$this._downloadsCount;
+  set downloadsCount(int? downloadsCount) =>
+      _$this._downloadsCount = downloadsCount;
+
+  int? _usesCount;
+  int? get usesCount => _$this._usesCount;
+  set usesCount(int? usesCount) => _$this._usesCount = usesCount;
+
   GPartialStickerFieldsDataBuilder() {
     GPartialStickerFieldsData._initializeBuilder(this);
   }
@@ -246,6 +304,9 @@ class GPartialStickerFieldsDataBuilder
       _id = $v.id;
       _title = $v.title;
       _image = $v.image?.toBuilder();
+      _likesCount = $v.likesCount;
+      _downloadsCount = $v.downloadsCount;
+      _usesCount = $v.usesCount;
       _$v = null;
     }
     return this;
@@ -276,7 +337,15 @@ class GPartialStickerFieldsDataBuilder
                   id, r'GPartialStickerFieldsData', 'id'),
               title: BuiltValueNullFieldError.checkNotNull(
                   title, r'GPartialStickerFieldsData', 'title'),
-              image: _image?.build());
+              image: _image?.build(),
+              likesCount: BuiltValueNullFieldError.checkNotNull(
+                  likesCount, r'GPartialStickerFieldsData', 'likesCount'),
+              downloadsCount: BuiltValueNullFieldError.checkNotNull(
+                  downloadsCount,
+                  r'GPartialStickerFieldsData',
+                  'downloadsCount'),
+              usesCount: BuiltValueNullFieldError.checkNotNull(
+                  usesCount, r'GPartialStickerFieldsData', 'usesCount'));
     } catch (_) {
       late String _$failedField;
       try {

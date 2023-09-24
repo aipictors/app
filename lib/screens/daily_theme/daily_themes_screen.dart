@@ -1,12 +1,13 @@
+import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/graphql/__generated__/daily_themes.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/screens/loading_screen.dart';
 import 'package:aipictors/utils/to_weekday.dart';
-import 'package:aipictors/widgets/app_bar/daily_themes_app_bar.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
 import 'package:aipictors/widgets/container/error/data_empty_error_container.dart';
 import 'package:aipictors/widgets/container/error/data_not_found_error_container.dart';
+import 'package:aipictors/widgets/container/loading_container.dart';
 import 'package:aipictors/widgets/list_tile/daily_theme_list_tile.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
@@ -43,23 +44,38 @@ class DailyThemesScreen extends HookConsumerWidget {
 
     return Scaffold(
       key: const PageStorageKey('daily_themes'),
-      appBar: DailyThemesAppBar(
-        month: month.value,
-        year: year.value,
-        hasPrev: hasPrev(year.value, month.value),
-        onPrev: () {
-          onPrev(year, month);
-        },
-        hasNext: hasNext(year.value, month.value),
-        onNext: () {
-          onNext(year, month);
-        },
+      appBar: AppBar(
+        centerTitle: false,
+        title: Text(
+          '_YEAR_年 _MONTH_月'
+              .i18n
+              .replaceAllMapped(
+                RegExp(r'_YEAR_'),
+                (match) => year.value.toString(),
+              )
+              .replaceAllMapped(
+                RegExp(r'_MONTH_'),
+                (match) => month.value.toString(),
+              ),
+        ),
+        actions: [
+          FilledButton.tonal(
+            child: Text('前の月'.i18n),
+            onPressed: () {
+              // context.push('/daily_themes_month');
+              onPrev(year, month);
+            },
+          ),
+        ],
       ),
       body: OperationBuilder(
         client: client.value!,
         operationRequest: request,
         builder: (context, response) {
           final dailyThemeList = response.data?.dailyThemes;
+          if (response.loading) {
+            return const LoadingContainer();
+          }
           if (dailyThemeList == null) {
             return const DataNotFoundErrorContainer();
           }

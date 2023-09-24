@@ -1,6 +1,6 @@
 import 'package:aipictors/default.i18n.dart';
+import 'package:aipictors/providers/auth_state_provider.dart';
 import 'package:aipictors/providers/feed_tab_index_provider.dart';
-import 'package:aipictors/screens/feed/feed_daily_theme_works_view.dart';
 import 'package:aipictors/screens/feed/feed_home_view.dart';
 import 'package:aipictors/screens/feed/feed_hot_works_view.dart';
 import 'package:aipictors/screens/feed/feed_latest_works_view.dart';
@@ -18,9 +18,11 @@ class FeedScreen extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
+    final authState = ref.watch(authStateProvider);
+
     final tabIndex = ref.watch(feedTabIndexProvider);
 
-    const tabSize = 4;
+    const tabSize = 3;
 
     return FeedTabController(
       length: tabSize,
@@ -36,10 +38,9 @@ class FeedScreen extends HookConsumerWidget {
             ),
           ],
           bottom: TabBar(tabs: [
-            Tab(text: 'フォロー'.i18n),
-            Tab(text: 'お題'.i18n),
-            Tab(text: 'おすすめ'.i18n),
+            if (authState.value != null) Tab(text: 'フォロー'.i18n),
             Tab(text: '新着'.i18n),
+            Tab(text: 'おすすめ'.i18n),
           ]),
         ),
         resizeToAvoidBottomInset: true,
@@ -47,14 +48,11 @@ class FeedScreen extends HookConsumerWidget {
           FeedHomeView(
             key: PageStorageKey('feed_home'),
           ),
-          FeedDailyThemeWorksView(
-            key: PageStorageKey('feed_daily_theme_works'),
+          FeedLatestWorksView(
+            key: PageStorageKey('feed_latest_works'),
           ),
           FeedHotWorksView(
             key: PageStorageKey('feed_hot_works'),
-          ),
-          FeedLatestWorksView(
-            key: PageStorageKey('feed_latest_works'),
           ),
         ]),
         floatingActionButton: Builder(builder: (context) {

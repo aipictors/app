@@ -3,7 +3,7 @@ import 'package:aipictors/providers/auth_state_provider.dart';
 import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/providers/home_tab_index_provider.dart';
 import 'package:aipictors/screens/config/config_screen.dart';
-import 'package:aipictors/screens/daily_theme/daily_themes_screen.dart';
+import 'package:aipictors/screens/daily_theme/daily_theme_home_screen.dart';
 import 'package:aipictors/screens/error/config_error_screen.dart';
 import 'package:aipictors/screens/explorer/explorer_screen.dart';
 import 'package:aipictors/screens/feed/feed_screen.dart';
@@ -47,7 +47,7 @@ class RootScreen extends HookConsumerWidget {
 
     final screenList = [
       const FeedScreen(key: PageStorageKey('root_feed')),
-      const DailyThemesScreen(key: PageStorageKey('root_daily_theme')),
+      const DailyThemeHomeScreen(key: PageStorageKey('root_daily_theme')),
       const ExplorerScreen(key: PageStorageKey('root_explorer')),
       if (authState.value == null)
         const LoginScreen(key: PageStorageKey('root_login')),

@@ -31,58 +31,55 @@ class WorkCommentContainer extends HookConsumerWidget {
       return builder..vars.workId = workId;
     });
 
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 0),
-      child: Column(
-        children: [
-          if (authState.value?.uid != null)
-            WorkCommentFormContainer(
-              onSubmit: (text) async {
-                await createWorkComment((builder) {
-                  return builder
-                    ..vars.input.workId = workId
-                    ..vars.input.text = text;
-                });
-                client.value?.requestController.add(request);
-              },
-            ),
-          Operation(
-            client: client.value!,
-            operationRequest: request,
-            builder: (context, response, error) {
-              if (error != null) {
-                return const SizedBox();
-              }
-              if (response == null || response.loading) {
-                return const LoadingContainer();
-              }
-              if (response.graphqlErrors != null) {
-                return const SizedBox();
-              }
-              final commentList = response.data?.work?.comments;
-              if (commentList == null) {
-                return const SizedBox();
-              }
-              return Column(children: [
-                for (final comment in commentList)
-                  Column(
-                    children: [
-                      WorkCommentListTile(
-                        comment: comment,
-                        isResponse: false,
-                      ),
-                      for (final response in comment.responses)
-                        WorkCommentListTile(
-                          comment: response,
-                          isResponse: true,
-                        ),
-                    ],
-                  )
-              ]);
+    return Column(
+      children: [
+        if (authState.value?.uid != null)
+          WorkCommentFormContainer(
+            onSubmit: (text) async {
+              await createWorkComment((builder) {
+                return builder
+                  ..vars.input.workId = workId
+                  ..vars.input.text = text;
+              });
+              client.value?.requestController.add(request);
             },
           ),
-        ],
-      ),
+        Operation(
+          client: client.value!,
+          operationRequest: request,
+          builder: (context, response, error) {
+            if (error != null) {
+              return const SizedBox();
+            }
+            if (response == null || response.loading) {
+              return const LoadingContainer();
+            }
+            if (response.graphqlErrors != null) {
+              return const SizedBox();
+            }
+            final commentList = response.data?.work?.comments;
+            if (commentList == null) {
+              return const SizedBox();
+            }
+            return Column(children: [
+              for (final comment in commentList)
+                Column(
+                  children: [
+                    WorkCommentListTile(
+                      comment: comment,
+                      isResponse: false,
+                    ),
+                    for (final response in comment.responses)
+                      WorkCommentListTile(
+                        comment: response,
+                        isResponse: true,
+                      ),
+                  ],
+                )
+            ]);
+          },
+        ),
+      ],
     );
   }
 }

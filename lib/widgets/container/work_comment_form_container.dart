@@ -17,41 +17,49 @@ class WorkCommentFormContainer extends HookConsumerWidget {
     // https://qiita.com/SoarTec-lab/items/809aed85eb4253de8165
     final controller = useTextEditingController();
 
-    return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 8 * 2,
-        vertical: 8,
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          Expanded(
-            child: TextField(
-              controller: controller,
-              keyboardType: TextInputType.multiline,
-              maxLines: null,
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                hintText: 'コメントを入力'.i18n,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // WorkActionStickersContainer(
+        //   onChange: (stickerId) {
+        //     print(stickerId);
+        //   },
+        // ),
+        // const SizedBox(height: 8),
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 8 * 2),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Expanded(
+                child: TextField(
+                  controller: controller,
+                  keyboardType: TextInputType.multiline,
+                  maxLines: null,
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintText: 'コメントを入力'.i18n,
+                  ),
+                ),
               ),
-            ),
+              const SizedBox(width: 8),
+              FilledButton.tonal(
+                onPressed: () async {
+                  try {
+                    FocusManager.instance.primaryFocus?.unfocus();
+                    final text = controller.text;
+                    controller.clear();
+                    await onSubmit(text);
+                  } catch (exception) {
+                    showErrorSnackBar(context, exception);
+                  }
+                },
+                child: Text('送信'.i18n),
+              ),
+            ],
           ),
-          const SizedBox(width: 8),
-          FilledButton.tonal(
-            onPressed: () async {
-              try {
-                FocusManager.instance.primaryFocus?.unfocus();
-                final text = controller.text;
-                controller.clear();
-                await onSubmit(text);
-              } catch (exception) {
-                showErrorSnackBar(context, exception);
-              }
-            },
-            child: Text('送信'.i18n),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

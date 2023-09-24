@@ -56,6 +56,12 @@ abstract class GStickersData_stickers
   String get title;
   @override
   GStickersData_stickers_image? get image;
+  @override
+  int get likesCount;
+  @override
+  int get downloadsCount;
+  @override
+  int get usesCount;
   static Serializer<GStickersData_stickers> get serializer =>
       _$gStickersDataStickersSerializer;
   @override

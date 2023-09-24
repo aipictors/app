@@ -156,6 +156,15 @@ class _$GUserStickersData_user_stickersSerializer
       'title',
       serializers.serialize(object.title,
           specifiedType: const FullType(String)),
+      'likesCount',
+      serializers.serialize(object.likesCount,
+          specifiedType: const FullType(int)),
+      'downloadsCount',
+      serializers.serialize(object.downloadsCount,
+          specifiedType: const FullType(int)),
+      'usesCount',
+      serializers.serialize(object.usesCount,
+          specifiedType: const FullType(int)),
     ];
     Object? value;
     value = object.image;
@@ -198,6 +207,18 @@ class _$GUserStickersData_user_stickersSerializer
                   specifiedType:
                       const FullType(GUserStickersData_user_stickers_image))!
               as GUserStickersData_user_stickers_image);
+          break;
+        case 'likesCount':
+          result.likesCount = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'downloadsCount':
+          result.downloadsCount = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'usesCount':
+          result.usesCount = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
           break;
       }
     }
@@ -522,6 +543,12 @@ class _$GUserStickersData_user_stickers
   final String title;
   @override
   final GUserStickersData_user_stickers_image? image;
+  @override
+  final int likesCount;
+  @override
+  final int downloadsCount;
+  @override
+  final int usesCount;
 
   factory _$GUserStickersData_user_stickers(
           [void Function(GUserStickersData_user_stickersBuilder)? updates]) =>
@@ -531,7 +558,10 @@ class _$GUserStickersData_user_stickers
       {required this.G__typename,
       required this.id,
       required this.title,
-      this.image})
+      this.image,
+      required this.likesCount,
+      required this.downloadsCount,
+      required this.usesCount})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename, r'GUserStickersData_user_stickers', 'G__typename');
@@ -539,6 +569,12 @@ class _$GUserStickersData_user_stickers
         id, r'GUserStickersData_user_stickers', 'id');
     BuiltValueNullFieldError.checkNotNull(
         title, r'GUserStickersData_user_stickers', 'title');
+    BuiltValueNullFieldError.checkNotNull(
+        likesCount, r'GUserStickersData_user_stickers', 'likesCount');
+    BuiltValueNullFieldError.checkNotNull(
+        downloadsCount, r'GUserStickersData_user_stickers', 'downloadsCount');
+    BuiltValueNullFieldError.checkNotNull(
+        usesCount, r'GUserStickersData_user_stickers', 'usesCount');
   }
 
   @override
@@ -557,7 +593,10 @@ class _$GUserStickersData_user_stickers
         G__typename == other.G__typename &&
         id == other.id &&
         title == other.title &&
-        image == other.image;
+        image == other.image &&
+        likesCount == other.likesCount &&
+        downloadsCount == other.downloadsCount &&
+        usesCount == other.usesCount;
   }
 
   @override
@@ -567,6 +606,9 @@ class _$GUserStickersData_user_stickers
     _$hash = $jc(_$hash, id.hashCode);
     _$hash = $jc(_$hash, title.hashCode);
     _$hash = $jc(_$hash, image.hashCode);
+    _$hash = $jc(_$hash, likesCount.hashCode);
+    _$hash = $jc(_$hash, downloadsCount.hashCode);
+    _$hash = $jc(_$hash, usesCount.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -577,7 +619,10 @@ class _$GUserStickersData_user_stickers
           ..add('G__typename', G__typename)
           ..add('id', id)
           ..add('title', title)
-          ..add('image', image))
+          ..add('image', image)
+          ..add('likesCount', likesCount)
+          ..add('downloadsCount', downloadsCount)
+          ..add('usesCount', usesCount))
         .toString();
   }
 }
@@ -606,6 +651,19 @@ class GUserStickersData_user_stickersBuilder
   set image(GUserStickersData_user_stickers_imageBuilder? image) =>
       _$this._image = image;
 
+  int? _likesCount;
+  int? get likesCount => _$this._likesCount;
+  set likesCount(int? likesCount) => _$this._likesCount = likesCount;
+
+  int? _downloadsCount;
+  int? get downloadsCount => _$this._downloadsCount;
+  set downloadsCount(int? downloadsCount) =>
+      _$this._downloadsCount = downloadsCount;
+
+  int? _usesCount;
+  int? get usesCount => _$this._usesCount;
+  set usesCount(int? usesCount) => _$this._usesCount = usesCount;
+
   GUserStickersData_user_stickersBuilder() {
     GUserStickersData_user_stickers._initializeBuilder(this);
   }
@@ -617,6 +675,9 @@ class GUserStickersData_user_stickersBuilder
       _id = $v.id;
       _title = $v.title;
       _image = $v.image?.toBuilder();
+      _likesCount = $v.likesCount;
+      _downloadsCount = $v.downloadsCount;
+      _usesCount = $v.usesCount;
       _$v = null;
     }
     return this;
@@ -647,7 +708,15 @@ class GUserStickersData_user_stickersBuilder
                   id, r'GUserStickersData_user_stickers', 'id'),
               title: BuiltValueNullFieldError.checkNotNull(
                   title, r'GUserStickersData_user_stickers', 'title'),
-              image: _image?.build());
+              image: _image?.build(),
+              likesCount: BuiltValueNullFieldError.checkNotNull(
+                  likesCount, r'GUserStickersData_user_stickers', 'likesCount'),
+              downloadsCount: BuiltValueNullFieldError.checkNotNull(
+                  downloadsCount,
+                  r'GUserStickersData_user_stickers',
+                  'downloadsCount'),
+              usesCount: BuiltValueNullFieldError.checkNotNull(
+                  usesCount, r'GUserStickersData_user_stickers', 'usesCount'));
     } catch (_) {
       late String _$failedField;
       try {

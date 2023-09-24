@@ -1,9 +1,10 @@
+import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/mutations/create_work_like.dart';
 import 'package:aipictors/utils/show_unavailable_snack_bar.dart';
+import 'package:aipictors/widgets/container/work_shortcut_action_stickers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:like_button/like_button.dart';
 
 class WorkBottomAppContainer extends HookConsumerWidget {
   const WorkBottomAppContainer({
@@ -31,27 +32,23 @@ class WorkBottomAppContainer extends HookConsumerWidget {
         children: [
           Row(
             children: [
-              LikeButton(
-                isLiked: isLikedInMemory.value,
-                likeBuilder: (isLiked) {
-                  if (isLikedInMemory.value) {
-                    return Icon(
-                      Icons.favorite_rounded,
-                      size: 28,
-                      color: Theme.of(context).colorScheme.error,
-                    );
-                  }
-                  return const Icon(
-                    Icons.favorite_outline_rounded,
-                    size: 28,
-                  );
-                },
-                onTap: (isLiked) async {
-                  onCreateWorkLike();
-                  isLikedInMemory.value = !isLikedInMemory.value;
-                  return !isLiked;
-                },
+              SizedBox(
+                height: 64,
+                child: FilledButton.tonalIcon(
+                  icon: Icon(
+                    Icons.favorite_rounded,
+                    color: isLikedInMemory.value
+                        ? Theme.of(context).colorScheme.error
+                        : null,
+                  ),
+                  label: Text('いいね'.i18n),
+                  onPressed: () {
+                    onCreateWorkLike();
+                    isLikedInMemory.value = !isLikedInMemory.value;
+                  },
+                ),
               ),
+
               // const SizedBox(width: 16),
               // LikeButton(
               //   isLiked: isFoldedInMemory.value,
@@ -74,7 +71,9 @@ class WorkBottomAppContainer extends HookConsumerWidget {
               // ),
             ],
           ),
-          const SizedBox(width: 8),
+          WorkShortcutActionStickers(
+            onChange: (stickerId) {},
+          ),
           // FilledButton.tonal(
           //   child: Text(
           //     'コメント'.i18n,

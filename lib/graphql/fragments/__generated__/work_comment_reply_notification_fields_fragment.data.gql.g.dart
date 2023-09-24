@@ -465,6 +465,15 @@ class _$GWorkCommentReplyNotificationFieldsData_stickerSerializer
       'title',
       serializers.serialize(object.title,
           specifiedType: const FullType(String)),
+      'likesCount',
+      serializers.serialize(object.likesCount,
+          specifiedType: const FullType(int)),
+      'downloadsCount',
+      serializers.serialize(object.downloadsCount,
+          specifiedType: const FullType(int)),
+      'usesCount',
+      serializers.serialize(object.usesCount,
+          specifiedType: const FullType(int)),
     ];
     Object? value;
     value = object.image;
@@ -507,6 +516,18 @@ class _$GWorkCommentReplyNotificationFieldsData_stickerSerializer
                   specifiedType: const FullType(
                       GWorkCommentReplyNotificationFieldsData_sticker_image))!
               as GWorkCommentReplyNotificationFieldsData_sticker_image);
+          break;
+        case 'likesCount':
+          result.likesCount = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'downloadsCount':
+          result.downloadsCount = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'usesCount':
+          result.usesCount = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
           break;
       }
     }
@@ -1488,6 +1509,12 @@ class _$GWorkCommentReplyNotificationFieldsData_sticker
   final String title;
   @override
   final GWorkCommentReplyNotificationFieldsData_sticker_image? image;
+  @override
+  final int likesCount;
+  @override
+  final int downloadsCount;
+  @override
+  final int usesCount;
 
   factory _$GWorkCommentReplyNotificationFieldsData_sticker(
           [void Function(
@@ -1501,7 +1528,10 @@ class _$GWorkCommentReplyNotificationFieldsData_sticker
       {required this.G__typename,
       required this.id,
       required this.title,
-      this.image})
+      this.image,
+      required this.likesCount,
+      required this.downloadsCount,
+      required this.usesCount})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(G__typename,
         r'GWorkCommentReplyNotificationFieldsData_sticker', 'G__typename');
@@ -1509,6 +1539,12 @@ class _$GWorkCommentReplyNotificationFieldsData_sticker
         id, r'GWorkCommentReplyNotificationFieldsData_sticker', 'id');
     BuiltValueNullFieldError.checkNotNull(
         title, r'GWorkCommentReplyNotificationFieldsData_sticker', 'title');
+    BuiltValueNullFieldError.checkNotNull(likesCount,
+        r'GWorkCommentReplyNotificationFieldsData_sticker', 'likesCount');
+    BuiltValueNullFieldError.checkNotNull(downloadsCount,
+        r'GWorkCommentReplyNotificationFieldsData_sticker', 'downloadsCount');
+    BuiltValueNullFieldError.checkNotNull(usesCount,
+        r'GWorkCommentReplyNotificationFieldsData_sticker', 'usesCount');
   }
 
   @override
@@ -1529,7 +1565,10 @@ class _$GWorkCommentReplyNotificationFieldsData_sticker
         G__typename == other.G__typename &&
         id == other.id &&
         title == other.title &&
-        image == other.image;
+        image == other.image &&
+        likesCount == other.likesCount &&
+        downloadsCount == other.downloadsCount &&
+        usesCount == other.usesCount;
   }
 
   @override
@@ -1539,6 +1578,9 @@ class _$GWorkCommentReplyNotificationFieldsData_sticker
     _$hash = $jc(_$hash, id.hashCode);
     _$hash = $jc(_$hash, title.hashCode);
     _$hash = $jc(_$hash, image.hashCode);
+    _$hash = $jc(_$hash, likesCount.hashCode);
+    _$hash = $jc(_$hash, downloadsCount.hashCode);
+    _$hash = $jc(_$hash, usesCount.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -1550,7 +1592,10 @@ class _$GWorkCommentReplyNotificationFieldsData_sticker
           ..add('G__typename', G__typename)
           ..add('id', id)
           ..add('title', title)
-          ..add('image', image))
+          ..add('image', image)
+          ..add('likesCount', likesCount)
+          ..add('downloadsCount', downloadsCount)
+          ..add('usesCount', usesCount))
         .toString();
   }
 }
@@ -1582,6 +1627,19 @@ class GWorkCommentReplyNotificationFieldsData_stickerBuilder
               image) =>
       _$this._image = image;
 
+  int? _likesCount;
+  int? get likesCount => _$this._likesCount;
+  set likesCount(int? likesCount) => _$this._likesCount = likesCount;
+
+  int? _downloadsCount;
+  int? get downloadsCount => _$this._downloadsCount;
+  set downloadsCount(int? downloadsCount) =>
+      _$this._downloadsCount = downloadsCount;
+
+  int? _usesCount;
+  int? get usesCount => _$this._usesCount;
+  set usesCount(int? usesCount) => _$this._usesCount = usesCount;
+
   GWorkCommentReplyNotificationFieldsData_stickerBuilder() {
     GWorkCommentReplyNotificationFieldsData_sticker._initializeBuilder(this);
   }
@@ -1593,6 +1651,9 @@ class GWorkCommentReplyNotificationFieldsData_stickerBuilder
       _id = $v.id;
       _title = $v.title;
       _image = $v.image?.toBuilder();
+      _likesCount = $v.likesCount;
+      _downloadsCount = $v.downloadsCount;
+      _usesCount = $v.usesCount;
       _$v = null;
     }
     return this;
@@ -1625,9 +1686,17 @@ class GWorkCommentReplyNotificationFieldsData_stickerBuilder
                   'G__typename'),
               id: BuiltValueNullFieldError.checkNotNull(
                   id, r'GWorkCommentReplyNotificationFieldsData_sticker', 'id'),
-              title: BuiltValueNullFieldError.checkNotNull(title,
-                  r'GWorkCommentReplyNotificationFieldsData_sticker', 'title'),
-              image: _image?.build());
+              title: BuiltValueNullFieldError.checkNotNull(
+                  title, r'GWorkCommentReplyNotificationFieldsData_sticker', 'title'),
+              image: _image?.build(),
+              likesCount: BuiltValueNullFieldError.checkNotNull(
+                  likesCount, r'GWorkCommentReplyNotificationFieldsData_sticker', 'likesCount'),
+              downloadsCount: BuiltValueNullFieldError.checkNotNull(
+                  downloadsCount,
+                  r'GWorkCommentReplyNotificationFieldsData_sticker',
+                  'downloadsCount'),
+              usesCount: BuiltValueNullFieldError.checkNotNull(
+                  usesCount, r'GWorkCommentReplyNotificationFieldsData_sticker', 'usesCount'));
     } catch (_) {
       late String _$failedField;
       try {

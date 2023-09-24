@@ -134,7 +134,6 @@ class FeedWorkListTile extends HookConsumerWidget {
             toReadableDateTime(workCreatedAt),
             style: Theme.of(context).textTheme.bodySmall,
           ),
-          const SizedBox(height: 8),
         ],
       ),
       subtitle: Column(
@@ -172,6 +171,9 @@ class FeedWorkListTile extends HookConsumerWidget {
                 ],
 
                 IconButton(
+                  style: IconButton.styleFrom(
+                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  ),
                   onPressed: () {
                     final text = toShareWorkText(
                       workId: workId,

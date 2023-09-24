@@ -21,7 +21,7 @@ class HomeNavigationBar extends HookConsumerWidget {
       destinations: [
         NavigationDestination(
           icon: const Icon(Icons.home),
-          label: 'フィード'.i18n,
+          label: 'ホーム'.i18n,
         ),
         NavigationDestination(
           icon: const Icon(Icons.today_rounded),
