@@ -11,6 +11,8 @@ import 'package:aipictors/utils/to_light_color_scheme.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:aipictors/enums/layout.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -34,6 +36,23 @@ class App extends HookConsumerWidget {
       authStateProvider,
       authStateListener(context, ref),
     );
+
+    //スマートフォン横向き時、mediumにならないように、短辺で判定する
+    Layout? layout;
+    if (MediaQuery.of(context).size.width <
+        MediaQuery.of(context).size.height) {
+      layout = Layout.fromWith(MediaQuery.of(context).size.width);
+    } else {
+      layout = Layout.fromWith(MediaQuery.of(context).size.height);
+    }
+
+    //レイアウト崩れ防止のため、スマホは縦画面のみにする
+    if (layout == Layout.compact) {
+      SystemChrome.setPreferredOrientations([
+        DeviceOrientation.portraitUp,
+        DeviceOrientation.portraitDown,
+      ]);
+    }
 
     return DynamicColorBuilder(builder: (lightDynamic, darkDynamic) {
       final theme = ThemeData(

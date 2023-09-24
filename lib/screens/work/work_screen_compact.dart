@@ -1,12 +1,26 @@
-import 'package:aipictors/enums/layout.dart';
-import 'package:aipictors/screens/work/work_screen_compact.dart';
-import 'package:aipictors/screens/work/work_screen_medium.dart';
+import 'package:aipictors/default.i18n.dart';
+import 'package:aipictors/graphql/__generated__/work.req.gql.dart';
+import 'package:aipictors/mutations/follow_user.dart';
+import 'package:aipictors/providers/auth_user_id_provider.dart';
+import 'package:aipictors/providers/client_provider.dart';
+import 'package:aipictors/screens/error/data_not_found_error_screen.dart';
+import 'package:aipictors/screens/loading_screen.dart';
+import 'package:aipictors/widgets/app_bar/work_bottom_app_bar.dart';
+import 'package:aipictors/widgets/builder/operation_screen_builder.dart';
+import 'package:aipictors/widgets/button/follow_button.dart';
+import 'package:aipictors/widgets/container/modal/work_action_modal_container.dart';
+import 'package:aipictors/widgets/container/work_comment_container.dart';
+import 'package:aipictors/widgets/container/work_status_container.dart';
+import 'package:aipictors/widgets/container/work_tags_container.dart';
+import 'package:aipictors/widgets/container/work_text_container.dart';
+import 'package:aipictors/widgets/container/work_user_profile_container.dart';
+import 'package:aipictors/widgets/image/interactive_work_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// 作品の詳細
-class WorkScreen extends HookConsumerWidget {
-  const WorkScreen({
+class WorkScreenCompact extends HookConsumerWidget {
+  const WorkScreenCompact({
     Key? key,
     required this.workId,
   }) : super(key: key);
@@ -15,12 +29,13 @@ class WorkScreen extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
-    final layout = Layout.fromWith(MediaQuery.of(context).size.width);
-    if (layout.notCompact) {
-      return WorkScreenMedium(workId: workId);
-    } else {
-      return WorkScreenCompact(workId: workId);
+    final client = ref.watch(clientProvider);
+    final authUserId = ref.watch(authUserIdProvider);
+
+    if (client.value == null) {
+      return const LoadingScreen();
     }
+
     return OperationScreenBuilder(
       client: client.value!,
       operationRequest: GWorkReq((builder) {
@@ -103,12 +118,10 @@ class WorkScreen extends HookConsumerWidget {
                       title: work.title,
                       description: work.description,
                     ),
-                    if (work.tagNames.isNotEmpty) const SizedBox(height: 8),
-                    if (work.tagNames.isNotEmpty)
-                      WorkTagsContainer(tagNames: work.tagNames.toList()),
+                    const SizedBox(height: 8 * 2),
+                    WorkTagsContainer(tagNames: work.tagNames.toList()),
                     const SizedBox(height: 8 * 2),
                     const Divider(height: 0),
-                    const SizedBox(height: 8 * 1),
                     WorkCommentContainer(workId: workId),
                     const SizedBox(height: 8 * 2),
                   ],
