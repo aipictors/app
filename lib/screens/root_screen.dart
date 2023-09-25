@@ -35,7 +35,7 @@ class RootScreen extends HookConsumerWidget {
     }
 
     // アップデート
-    if (!config.isOutOfDate) {
+    if (config.isOutOfDate) {
       return const UpdateScreen();
     }
 
