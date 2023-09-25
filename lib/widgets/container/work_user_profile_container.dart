@@ -31,19 +31,22 @@ class WorkUserProfileContainer extends HookConsumerWidget {
           },
         ),
         const SizedBox(width: 8),
-        Column(
+        Flexible(
+            child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             InkWell(
-              child: Text(
+              child: Flexible(
+                  child: Text(
                 user.name,
+                overflow: TextOverflow.ellipsis,
                 style: const TextStyle(
                   height: 1.2,
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
                 ),
-              ),
+              )),
               onTap: () {
                 FirebaseAnalytics.instance.logSelectContent(
                   contentType: 'user',
@@ -55,18 +58,20 @@ class WorkUserProfileContainer extends HookConsumerWidget {
             Row(
               children: [
                 const SizedBox(width: 1),
-                Text(
+                Flexible(
+                    child: Text(
                   user.login,
+                  overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Theme.of(context).dividerColor,
                     fontSize: 10,
                   ),
-                ),
+                )),
               ],
             ),
           ],
-        ),
+        )),
       ],
     );
   }
