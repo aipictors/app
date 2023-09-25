@@ -68,6 +68,7 @@ class WorkScreenCompact extends HookConsumerWidget {
           extendBody: true,
           bottomNavigationBar: WorkBottomAppContainer(
             workId: workId,
+            userId: work.user.id,
             isLiked: work.viewer?.isLiked == true,
             isFolded: work.viewer?.isBookmarked == true,
           ),
@@ -86,7 +87,8 @@ class WorkScreenCompact extends HookConsumerWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          WorkUserProfileContainer(user: work.user),
+                          Expanded(
+                              child: WorkUserProfileContainer(user: work.user)),
                           if (authUserId.value != work.user.id)
                             FollowButton(
                               isActive: work.user.viewer?.isFollowee == true,
