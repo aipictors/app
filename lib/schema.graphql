@@ -72,13 +72,6 @@ type CommentNode implements Node {
   responses(offset: Int!, limit: Int!): [CommentNode!]!
   isDeleted: Boolean!
 }
-"コントリビューター"
-type ContributorNode implements Node {
-  id: ID!
-  userId: ID!
-  user: UserNode!
-  types: [ContributorType!]!
-}
 type CreatePromptonPaymentMethodResult {
   checkoutURL: String!
 }
@@ -136,6 +129,10 @@ type FollowNotificationNode implements Node {
   userId: ID
   user: UserNode
 }
+"画像生成"
+type GenerationNode implements Node {
+  id: ID!
+}
 "画像生成サービス"
 type ImageGeneratorNode implements Node {
   id: ID!
@@ -159,9 +156,11 @@ type ImageModelNode implements Node {
   thumbnailImageURL: String
   slug: String!
   license: String
-  style: ImageModelStyle!
+  style: ImageStyle!
   prompts: [String!]!
   category: ImageModelCategory!
+  "参考作品"
+  works(offset: Int!, limit: Int!, Where: WorksWhereInput): [WorkNode!]!
 }
 "画像"
 type ImageNode implements Node {
@@ -238,7 +237,7 @@ type Mutation {
   "パスワードでログインする"
   loginWithPassword(input: LoginWithPasswordInput!): LoginResult!
   "タグをミュートする"
-  muteTag(input: MuteTagInput!): TagNode!
+  muteTag(input: MuteTagInput!): TagNode
   "ユーザをミュートする"
   muteUser(input: MuteUserInput!): UserNode!
   "アルバムを報告する"
@@ -331,6 +330,8 @@ type Mutation {
   unfollowPromptonUser(input: UnfollowPromptonUserInput!): PromptonUserNode
   "ユーザのプロフィールを作成する"
   createPromptonProfileBlock(input: CreatePromptonProfileBlockInput!): PromptonUserNode!
+  "ユーザのインボイスの登録番号を更新する"
+  updatePromptonUserInvoiceRegistrationNumber(input: UpdatePromptonUserInvoiceRegistrationNumberInput!): PromptonUserNode!
   "ユーザのプロフィールを更新する"
   updatePromptonProfileBlock(input: UpdatePromptonProfileBlockInput!): PromptonUserNode!
   "ユーザのプロフィールのインデックスを更新する"
@@ -936,6 +937,8 @@ type PromptonUserNode implements Node {
   rootUser: UserNode
   "ユーザー"
   user: UserNode
+  "登録番号"
+  invoiceRegistrationNumber: String
 }
 "ログインしているユーザ"
 type PromptonViewer {
@@ -1059,8 +1062,6 @@ type Query {
   user(id: ID!): UserNode
   "ユーザ"
   users(offset: Int!, limit: Int!, where: UsersWhereInput): [UserNode!]
-  "コントリビューター"
-  contributors: [ContributorNode!]!
   "フォルダ"
   folder(id: ID!): FolderNode
   "フォルダ"
@@ -1474,19 +1475,6 @@ enum CacheControlScope {
   PUBLIC
   PRIVATE
 }
-"コントリビューターの種類"
-enum ContributorType {
-  "Wiki編集者"
-  WIKI_EDITOR
-  "Webサイト開発者"
-  WEB_DEVELOPER
-  "Flutterアプリ開発者"
-  FLUTTER_DEVELOPER
-  "考案"
-  PRODUCT_DESIGNER
-  "支援"
-  SUPPORTER
-}
 enum FolderMode {
   NORMAL
   COMIC_VERTICAL
@@ -1504,7 +1492,7 @@ enum ImageModelCategory {
   "獣"
   ANIMAL
 }
-enum ImageModelStyle {
+enum ImageStyle {
   "リアル"
   REAL
   SEMI_REAL
@@ -1554,6 +1542,10 @@ enum ReportReason {
 }
 enum SubscriptionType {
   PASS
+}
+enum WorkOrderBy {
+  DATE_CREATED
+  LIKES_COUNT
 }
 "作品の種類"
 enum WorkType {
@@ -1750,6 +1742,7 @@ input CreatePromptonWorkViewInput {
 input CreateResponseCommentInput {
   commentId: ID!
   text: String!
+  stickerId: ID
 }
 input CreateStickerInput {
   title: String!
@@ -1757,6 +1750,7 @@ input CreateStickerInput {
 input CreateWorkCommentInput {
   workId: ID!
   text: String!
+  stickerId: ID
 }
 input CreateWorkInput {
   title: String!
@@ -2054,6 +2048,9 @@ input UpdatePromptonUserAvatarInput {
 input UpdatePromptonUserHeaderImageInput {
   imageFileId: String!
 }
+input UpdatePromptonUserInvoiceRegistrationNumberInput {
+  invoiceRegistrationNumber: String
+}
 input UpdatePromptonUserLoginInput {
   login: String!
 }
@@ -2102,8 +2099,16 @@ input WorkAwardsWhereInput {
   weekIndex: Int
 }
 input WorksWhereInput {
-  rating: Rating
   search: String
+  prompts: [String!]
+  hasPrompt: Boolean
+  hasGeneratorPrompt: Boolean
+  isFollowee: Boolean
+  style: ImageStyle
+  orderBy: WorkOrderBy
+  targets: [String!]
+  type: WorkType
+  rating: Rating
 }
 directive @defer(label: String, if: Boolean! = true) on FRAGMENT_SPREAD | INLINE_FRAGMENT
 "Exposes a URL that specifies the behavior of this scalar."

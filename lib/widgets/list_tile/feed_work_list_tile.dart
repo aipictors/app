@@ -103,7 +103,7 @@ class FeedWorkListTile extends HookConsumerWidget {
                 isActive: isFollowee,
                 onPressed: () {
                   if (authUserId.value == null) {
-                    return onShowLoginDialog(context, ref, userId: userId);
+                    return onShowLoginDialog(context, ref);
                   }
                   return onFollowUser(context, userId: userId);
                 },
@@ -158,18 +158,18 @@ class FeedWorkListTile extends HookConsumerWidget {
                       onCreateLike(context);
                     },
                   ),
-                if (authUserId.value == userId) ...[
+                if (authUserId.value == userId)
                   const Icon(
                     Icons.favorite_rounded,
                     size: 28,
                   ),
-                  const SizedBox(width: 8),
+                if (authUserId.value == userId) const SizedBox(width: 8),
+                if (authUserId.value == userId)
                   Text(
                     likesCount.toString(),
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
-                ],
-
+                const SizedBox(width: 8),
                 IconButton(
                   style: IconButton.styleFrom(
                     tapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -195,9 +195,11 @@ class FeedWorkListTile extends HookConsumerWidget {
                 },
                 child: Text(
                   '_COMMENTS_COUNT_件のコメント'.i18n.replaceAllMapped(
-                        RegExp(r'_COMMENTS_COUNT_'),
-                        (match) => commentsCount.toString(),
-                      ),
+                    RegExp(r'_COMMENTS_COUNT_'),
+                    (match) {
+                      return commentsCount.toString();
+                    },
+                  ),
                 ),
               ),
             ],
@@ -272,9 +274,8 @@ class FeedWorkListTile extends HookConsumerWidget {
   /// フォローする
   onShowLoginDialog(
     BuildContext context,
-    WidgetRef ref, {
-    required String userId,
-  }) async {
+    WidgetRef ref,
+  ) async {
     showDialog(
       context: context,
       barrierDismissible: false,

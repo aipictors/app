@@ -26,11 +26,15 @@ class _$GMuteTagDataSerializer implements StructuredSerializer<GMuteTagData> {
       '__typename',
       serializers.serialize(object.G__typename,
           specifiedType: const FullType(String)),
-      'muteTag',
-      serializers.serialize(object.muteTag,
-          specifiedType: const FullType(GMuteTagData_muteTag)),
     ];
-
+    Object? value;
+    value = object.muteTag;
+    if (value != null) {
+      result
+        ..add('muteTag')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(GMuteTagData_muteTag)));
+    }
     return result;
   }
 
@@ -189,16 +193,14 @@ class _$GMuteTagData extends GMuteTagData {
   @override
   final String G__typename;
   @override
-  final GMuteTagData_muteTag muteTag;
+  final GMuteTagData_muteTag? muteTag;
 
   factory _$GMuteTagData([void Function(GMuteTagDataBuilder)? updates]) =>
       (new GMuteTagDataBuilder()..update(updates))._build();
 
-  _$GMuteTagData._({required this.G__typename, required this.muteTag})
-      : super._() {
+  _$GMuteTagData._({required this.G__typename, this.muteTag}) : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename, r'GMuteTagData', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(muteTag, r'GMuteTagData', 'muteTag');
   }
 
   @override
@@ -256,7 +258,7 @@ class GMuteTagDataBuilder
     final $v = _$v;
     if ($v != null) {
       _G__typename = $v.G__typename;
-      _muteTag = $v.muteTag.toBuilder();
+      _muteTag = $v.muteTag?.toBuilder();
       _$v = null;
     }
     return this;
@@ -283,12 +285,12 @@ class GMuteTagDataBuilder
           new _$GMuteTagData._(
               G__typename: BuiltValueNullFieldError.checkNotNull(
                   G__typename, r'GMuteTagData', 'G__typename'),
-              muteTag: muteTag.build());
+              muteTag: _muteTag?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'muteTag';
-        muteTag.build();
+        _muteTag?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'GMuteTagData', _$failedField, e.toString());

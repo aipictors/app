@@ -57,13 +57,6 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GCommentFieldsData_user_iconImage.serializer)
       ..add(GCommentFieldsReq.serializer)
       ..add(GCommentFieldsVars.serializer)
-      ..add(GContributorType.serializer)
-      ..add(GContributorsData.serializer)
-      ..add(GContributorsData_contributors.serializer)
-      ..add(GContributorsData_contributors_user.serializer)
-      ..add(GContributorsData_contributors_user_iconImage.serializer)
-      ..add(GContributorsReq.serializer)
-      ..add(GContributorsVars.serializer)
       ..add(GCreateAccountData.serializer)
       ..add(GCreateAccountData_createAccount.serializer)
       ..add(GCreateAccountInput.serializer)
@@ -276,7 +269,7 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GHotWorksReq.serializer)
       ..add(GHotWorksVars.serializer)
       ..add(GImageModelCategory.serializer)
-      ..add(GImageModelStyle.serializer)
+      ..add(GImageStyle.serializer)
       ..add(GIncrementPromptonProfileBlockIndexInput.serializer)
       ..add(GLikedWorkNotificationFieldsData.serializer)
       ..add(GLikedWorkNotificationFieldsData_user.serializer)
@@ -462,6 +455,7 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GUpdatePromptonPromptInput.serializer)
       ..add(GUpdatePromptonUserAvatarInput.serializer)
       ..add(GUpdatePromptonUserHeaderImageInput.serializer)
+      ..add(GUpdatePromptonUserInvoiceRegistrationNumberInput.serializer)
       ..add(GUpdatePromptonUserLoginInput.serializer)
       ..add(GUpdatePromptonUserProfileInput.serializer)
       ..add(GUpdatePromptonWorkInput.serializer)
@@ -730,6 +724,7 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GWorkData_work_user_iconImage.serializer)
       ..add(GWorkData_work_user_viewer.serializer)
       ..add(GWorkData_work_viewer.serializer)
+      ..add(GWorkOrderBy.serializer)
       ..add(GWorkReq.serializer)
       ..add(GWorkType.serializer)
       ..add(GWorkUserFieldsData.serializer)
@@ -758,13 +753,6 @@ Serializers _$serializers = (new Serializers().toBuilder()
           const FullType(
               BuiltList, const [const FullType(GBestWorksData_bestWorks)]),
           () => new ListBuilder<GBestWorksData_bestWorks>())
-      ..addBuilderFactory(
-          const FullType(BuiltList, const [const FullType(GContributorType)]),
-          () => new ListBuilder<GContributorType>())
-      ..addBuilderFactory(
-          const FullType(BuiltList,
-              const [const FullType(GContributorsData_contributors)]),
-          () => new ListBuilder<GContributorsData_contributors>())
       ..addBuilderFactory(
           const FullType(BuiltList,
               const [const FullType(GDailyThemeData_dailyTheme_works)]),
@@ -915,6 +903,12 @@ Serializers _$serializers = (new Serializers().toBuilder()
           const FullType(
               BuiltList, const [const FullType(GWorkData_work_subWorks)]),
           () => new ListBuilder<GWorkData_work_subWorks>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(String)]),
+          () => new ListBuilder<String>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(String)]),
+          () => new ListBuilder<String>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(String)]),
           () => new ListBuilder<String>())

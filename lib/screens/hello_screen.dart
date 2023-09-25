@@ -11,8 +11,8 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// ログイン
-class LoginScreen extends HookConsumerWidget {
-  const LoginScreen({
+class HelloScreen extends HookConsumerWidget {
+  const HelloScreen({
     Key? key,
   }) : super(key: key);
 
@@ -29,9 +29,6 @@ class LoginScreen extends HookConsumerWidget {
     final passwordInput = useState('');
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('ログイン'.i18n),
-      ),
       resizeToAvoidBottomInset: true,
       body: GestureDetector(
         onTap: () {

@@ -19,7 +19,7 @@ abstract class GMuteTagData
       b..G__typename = 'Mutation';
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
-  GMuteTagData_muteTag get muteTag;
+  GMuteTagData_muteTag? get muteTag;
   static Serializer<GMuteTagData> get serializer => _$gMuteTagDataSerializer;
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GMuteTagData.serializer,

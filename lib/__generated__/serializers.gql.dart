@@ -15,7 +15,6 @@ import 'package:aipictors/__generated__/schema.schema.gql.dart'
         GCancelPromptonRequestInput,
         GChangePromptonFolderToPaidInput,
         GClosePromptonRequestInput,
-        GContributorType,
         GCreateAccountInput,
         GCreateAlbumInput,
         GCreateAlbumWorkInput,
@@ -79,7 +78,7 @@ import 'package:aipictors/__generated__/schema.schema.gql.dart'
         GFollowPromptonUserInput,
         GFollowUserInput,
         GImageModelCategory,
-        GImageModelStyle,
+        GImageStyle,
         GIncrementPromptonProfileBlockIndexInput,
         GLoginWithPasswordInput,
         GMarkPromptonFolderAsPrivateInput,
@@ -138,6 +137,7 @@ import 'package:aipictors/__generated__/schema.schema.gql.dart'
         GUpdatePromptonPromptInput,
         GUpdatePromptonUserAvatarInput,
         GUpdatePromptonUserHeaderImageInput,
+        GUpdatePromptonUserInvoiceRegistrationNumberInput,
         GUpdatePromptonUserLoginInput,
         GUpdatePromptonUserProfileInput,
         GUpdatePromptonWorkInput,
@@ -148,6 +148,7 @@ import 'package:aipictors/__generated__/schema.schema.gql.dart'
         GUsersWhereInput,
         GWatchFolderInput,
         GWorkAwardsWhereInput,
+        GWorkOrderBy,
         GWorkType,
         GWorksWhereInput;
 import 'package:aipictors/graphql/__generated__/album.data.gql.dart'
@@ -198,16 +199,6 @@ import 'package:aipictors/graphql/__generated__/best_works.req.gql.dart'
     show GBestWorksReq;
 import 'package:aipictors/graphql/__generated__/best_works.var.gql.dart'
     show GBestWorksVars;
-import 'package:aipictors/graphql/__generated__/contributors.data.gql.dart'
-    show
-        GContributorsData,
-        GContributorsData_contributors,
-        GContributorsData_contributors_user,
-        GContributorsData_contributors_user_iconImage;
-import 'package:aipictors/graphql/__generated__/contributors.req.gql.dart'
-    show GContributorsReq;
-import 'package:aipictors/graphql/__generated__/contributors.var.gql.dart'
-    show GContributorsVars;
 import 'package:aipictors/graphql/__generated__/daily_theme.data.gql.dart'
     show
         GDailyThemeData,
@@ -1038,13 +1029,6 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GCommentFieldsData_user_iconImage,
   GCommentFieldsReq,
   GCommentFieldsVars,
-  GContributorType,
-  GContributorsData,
-  GContributorsData_contributors,
-  GContributorsData_contributors_user,
-  GContributorsData_contributors_user_iconImage,
-  GContributorsReq,
-  GContributorsVars,
   GCreateAccountData,
   GCreateAccountData_createAccount,
   GCreateAccountInput,
@@ -1257,7 +1241,7 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GHotWorksReq,
   GHotWorksVars,
   GImageModelCategory,
-  GImageModelStyle,
+  GImageStyle,
   GIncrementPromptonProfileBlockIndexInput,
   GLikedWorkNotificationFieldsData,
   GLikedWorkNotificationFieldsData_user,
@@ -1443,6 +1427,7 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GUpdatePromptonPromptInput,
   GUpdatePromptonUserAvatarInput,
   GUpdatePromptonUserHeaderImageInput,
+  GUpdatePromptonUserInvoiceRegistrationNumberInput,
   GUpdatePromptonUserLoginInput,
   GUpdatePromptonUserProfileInput,
   GUpdatePromptonWorkInput,
@@ -1658,6 +1643,7 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GWorkData_work_user_iconImage,
   GWorkData_work_user_viewer,
   GWorkData_work_viewer,
+  GWorkOrderBy,
   GWorkReq,
   GWorkType,
   GWorkUserFieldsData,

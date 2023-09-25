@@ -7,8 +7,8 @@ import 'package:aipictors/screens/daily_theme/daily_theme_home_screen.dart';
 import 'package:aipictors/screens/error/config_error_screen.dart';
 import 'package:aipictors/screens/explorer/explorer_screen.dart';
 import 'package:aipictors/screens/feed/feed_screen.dart';
+import 'package:aipictors/screens/hello_screen.dart';
 import 'package:aipictors/screens/home_loading_screen.dart';
-import 'package:aipictors/screens/login_screen.dart';
 import 'package:aipictors/screens/maintenance_screen.dart';
 import 'package:aipictors/screens/notification_screen.dart';
 import 'package:aipictors/screens/update_screen.dart';
@@ -54,7 +54,7 @@ class RootScreen extends HookConsumerWidget {
       const DailyThemeHomeScreen(key: PageStorageKey('root_daily_theme')),
       const ExplorerScreen(key: PageStorageKey('root_explorer')),
       if (authState.value == null)
-        const LoginScreen(key: PageStorageKey('root_login')),
+        const HelloScreen(key: PageStorageKey('root_hello')),
       if (authState.value != null)
         const NotificationScreen(key: PageStorageKey('root_notification')),
       const ConfigScreen(key: PageStorageKey('root_config'))

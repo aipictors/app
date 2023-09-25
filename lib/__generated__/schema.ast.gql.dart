@@ -499,57 +499,6 @@ const CommentNode = _i1.ObjectTypeDefinitionNode(
     ),
   ],
 );
-const ContributorNode = _i1.ObjectTypeDefinitionNode(
-  name: _i1.NameNode(value: 'ContributorNode'),
-  directives: [],
-  interfaces: [
-    _i1.NamedTypeNode(
-      name: _i1.NameNode(value: 'Node'),
-      isNonNull: false,
-    )
-  ],
-  fields: [
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'id'),
-      directives: [],
-      args: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'ID'),
-        isNonNull: true,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'userId'),
-      directives: [],
-      args: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'ID'),
-        isNonNull: true,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'user'),
-      directives: [],
-      args: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'UserNode'),
-        isNonNull: true,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'types'),
-      directives: [],
-      args: [],
-      type: _i1.ListTypeNode(
-        type: _i1.NamedTypeNode(
-          name: _i1.NameNode(value: 'ContributorType'),
-          isNonNull: true,
-        ),
-        isNonNull: true,
-      ),
-    ),
-  ],
-);
 const CreatePromptonPaymentMethodResult = _i1.ObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'CreatePromptonPaymentMethodResult'),
   directives: [],
@@ -934,6 +883,27 @@ const FollowNotificationNode = _i1.ObjectTypeDefinitionNode(
     ),
   ],
 );
+const GenerationNode = _i1.ObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'GenerationNode'),
+  directives: [],
+  interfaces: [
+    _i1.NamedTypeNode(
+      name: _i1.NameNode(value: 'Node'),
+      isNonNull: false,
+    )
+  ],
+  fields: [
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'id'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'ID'),
+        isNonNull: true,
+      ),
+    )
+  ],
+);
 const ImageGeneratorNode = _i1.ObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'ImageGeneratorNode'),
   directives: [],
@@ -1111,7 +1081,7 @@ const ImageModelNode = _i1.ObjectTypeDefinitionNode(
       directives: [],
       args: [],
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'ImageModelStyle'),
+        name: _i1.NameNode(value: 'ImageStyle'),
         isNonNull: true,
       ),
     ),
@@ -1133,6 +1103,46 @@ const ImageModelNode = _i1.ObjectTypeDefinitionNode(
       args: [],
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'ImageModelCategory'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'works'),
+      directives: [],
+      args: [
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'offset'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'Int'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        ),
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'limit'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'Int'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        ),
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'Where'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'WorksWhereInput'),
+            isNonNull: false,
+          ),
+          defaultValue: null,
+        ),
+      ],
+      type: _i1.ListTypeNode(
+        type: _i1.NamedTypeNode(
+          name: _i1.NameNode(value: 'WorkNode'),
+          isNonNull: true,
+        ),
         isNonNull: true,
       ),
     ),
@@ -1717,7 +1727,7 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
       ],
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'TagNode'),
-        isNonNull: true,
+        isNonNull: false,
       ),
     ),
     _i1.FieldDefinitionNode(
@@ -2590,6 +2600,26 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
           directives: [],
           type: _i1.NamedTypeNode(
             name: _i1.NameNode(value: 'CreatePromptonProfileBlockInput'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        )
+      ],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'PromptonUserNode'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'updatePromptonUserInvoiceRegistrationNumber'),
+      directives: [],
+      args: [
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'input'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(
+                value: 'UpdatePromptonUserInvoiceRegistrationNumberInput'),
             isNonNull: true,
           ),
           defaultValue: null,
@@ -7109,6 +7139,15 @@ const PromptonUserNode = _i1.ObjectTypeDefinitionNode(
         isNonNull: false,
       ),
     ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'invoiceRegistrationNumber'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: false,
+      ),
+    ),
   ],
 );
 const PromptonViewer = _i1.ObjectTypeDefinitionNode(
@@ -8167,18 +8206,6 @@ const Query = _i1.ObjectTypeDefinitionNode(
           isNonNull: true,
         ),
         isNonNull: false,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'contributors'),
-      directives: [],
-      args: [],
-      type: _i1.ListTypeNode(
-        type: _i1.NamedTypeNode(
-          name: _i1.NameNode(value: 'ContributorNode'),
-          isNonNull: true,
-        ),
-        isNonNull: true,
       ),
     ),
     _i1.FieldDefinitionNode(
@@ -11690,32 +11717,6 @@ const CacheControlScope = _i1.EnumTypeDefinitionNode(
     ),
   ],
 );
-const ContributorType = _i1.EnumTypeDefinitionNode(
-  name: _i1.NameNode(value: 'ContributorType'),
-  directives: [],
-  values: [
-    _i1.EnumValueDefinitionNode(
-      name: _i1.NameNode(value: 'WIKI_EDITOR'),
-      directives: [],
-    ),
-    _i1.EnumValueDefinitionNode(
-      name: _i1.NameNode(value: 'WEB_DEVELOPER'),
-      directives: [],
-    ),
-    _i1.EnumValueDefinitionNode(
-      name: _i1.NameNode(value: 'FLUTTER_DEVELOPER'),
-      directives: [],
-    ),
-    _i1.EnumValueDefinitionNode(
-      name: _i1.NameNode(value: 'PRODUCT_DESIGNER'),
-      directives: [],
-    ),
-    _i1.EnumValueDefinitionNode(
-      name: _i1.NameNode(value: 'SUPPORTER'),
-      directives: [],
-    ),
-  ],
-);
 const FolderMode = _i1.EnumTypeDefinitionNode(
   name: _i1.NameNode(value: 'FolderMode'),
   directives: [],
@@ -11760,8 +11761,8 @@ const ImageModelCategory = _i1.EnumTypeDefinitionNode(
     ),
   ],
 );
-const ImageModelStyle = _i1.EnumTypeDefinitionNode(
-  name: _i1.NameNode(value: 'ImageModelStyle'),
+const ImageStyle = _i1.EnumTypeDefinitionNode(
+  name: _i1.NameNode(value: 'ImageStyle'),
   directives: [],
   values: [
     _i1.EnumValueDefinitionNode(
@@ -11874,6 +11875,20 @@ const SubscriptionType = _i1.EnumTypeDefinitionNode(
       name: _i1.NameNode(value: 'PASS'),
       directives: [],
     )
+  ],
+);
+const WorkOrderBy = _i1.EnumTypeDefinitionNode(
+  name: _i1.NameNode(value: 'WorkOrderBy'),
+  directives: [],
+  values: [
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'DATE_CREATED'),
+      directives: [],
+    ),
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'LIKES_COUNT'),
+      directives: [],
+    ),
   ],
 );
 const WorkType = _i1.EnumTypeDefinitionNode(
@@ -13092,6 +13107,15 @@ const CreateResponseCommentInput = _i1.InputObjectTypeDefinitionNode(
       ),
       defaultValue: null,
     ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'stickerId'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'ID'),
+        isNonNull: false,
+      ),
+      defaultValue: null,
+    ),
   ],
 );
 const CreateStickerInput = _i1.InputObjectTypeDefinitionNode(
@@ -13128,6 +13152,15 @@ const CreateWorkCommentInput = _i1.InputObjectTypeDefinitionNode(
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'String'),
         isNonNull: true,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'stickerId'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'ID'),
+        isNonNull: false,
       ),
       defaultValue: null,
     ),
@@ -14848,6 +14881,22 @@ const UpdatePromptonUserHeaderImageInput = _i1.InputObjectTypeDefinitionNode(
     )
   ],
 );
+const UpdatePromptonUserInvoiceRegistrationNumberInput =
+    _i1.InputObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'UpdatePromptonUserInvoiceRegistrationNumberInput'),
+  directives: [],
+  fields: [
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'invoiceRegistrationNumber'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: false,
+      ),
+      defaultValue: null,
+    )
+  ],
+);
 const UpdatePromptonUserLoginInput = _i1.InputObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'UpdatePromptonUserLoginInput'),
   directives: [],
@@ -15156,19 +15205,97 @@ const WorksWhereInput = _i1.InputObjectTypeDefinitionNode(
   directives: [],
   fields: [
     _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'rating'),
+      name: _i1.NameNode(value: 'search'),
       directives: [],
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'Rating'),
+        name: _i1.NameNode(value: 'String'),
         isNonNull: false,
       ),
       defaultValue: null,
     ),
     _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'search'),
+      name: _i1.NameNode(value: 'prompts'),
+      directives: [],
+      type: _i1.ListTypeNode(
+        type: _i1.NamedTypeNode(
+          name: _i1.NameNode(value: 'String'),
+          isNonNull: true,
+        ),
+        isNonNull: false,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'hasPrompt'),
       directives: [],
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'String'),
+        name: _i1.NameNode(value: 'Boolean'),
+        isNonNull: false,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'hasGeneratorPrompt'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Boolean'),
+        isNonNull: false,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'isFollowee'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Boolean'),
+        isNonNull: false,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'style'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'ImageStyle'),
+        isNonNull: false,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'orderBy'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'WorkOrderBy'),
+        isNonNull: false,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'targets'),
+      directives: [],
+      type: _i1.ListTypeNode(
+        type: _i1.NamedTypeNode(
+          name: _i1.NameNode(value: 'String'),
+          isNonNull: true,
+        ),
+        isNonNull: false,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'type'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'WorkType'),
+        isNonNull: false,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'rating'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Rating'),
         isNonNull: false,
       ),
       defaultValue: null,
@@ -15227,11 +15354,11 @@ const document = _i1.DocumentNode(definitions: [
   CategoryNode,
   CategoryViewerNode,
   CommentNode,
-  ContributorNode,
   CreatePromptonPaymentMethodResult,
   DailyThemeNode,
   FolderNode,
   FollowNotificationNode,
+  GenerationNode,
   ImageGeneratorNode,
   ImageLoraModelNode,
   ImageModelNode,
@@ -15303,15 +15430,15 @@ const document = _i1.DocumentNode(definitions: [
   AccessType,
   AwardType,
   CacheControlScope,
-  ContributorType,
   FolderMode,
   ImageModelCategory,
-  ImageModelStyle,
+  ImageStyle,
   NotificationType,
   PaymentType,
   Rating,
   ReportReason,
   SubscriptionType,
+  WorkOrderBy,
   WorkType,
   AcceptPromptonRequestInput,
   AddPromptonTagToWorkInput,
@@ -15436,6 +15563,7 @@ const document = _i1.DocumentNode(definitions: [
   UpdatePromptonPromptInput,
   UpdatePromptonUserAvatarInput,
   UpdatePromptonUserHeaderImageInput,
+  UpdatePromptonUserInvoiceRegistrationNumberInput,
   UpdatePromptonUserLoginInput,
   UpdatePromptonUserProfileInput,
   UpdatePromptonWorkInput,

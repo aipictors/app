@@ -2,19 +2,22 @@ import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/widgets/container/loading_container.dart';
 import 'package:aipictors/widgets/image/sticker_comment_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class WorkShortcutActionStickers extends HookConsumerWidget {
   const WorkShortcutActionStickers({
     Key? key,
-    required this.onChange,
+    required this.onSend,
   }) : super(key: key);
 
-  final void Function(String? stickerId) onChange;
+  final Future<void> Function(String? stickerId) onSend;
 
   @override
   Widget build(context, ref) {
     final client = ref.watch(clientProvider);
+
+    final inProgressStickerId = useState<String?>(null);
 
     if (client.value == null) {
       return const LoadingContainer();
@@ -34,20 +37,42 @@ class WorkShortcutActionStickers extends HookConsumerWidget {
       children: [
         IconButton.filledTonal(
           padding: const EdgeInsets.symmetric(horizontal: 16),
-          onPressed: () {},
-          icon: StickerCommentImage(
-            size: 40,
-            downloadURL: downloadURLs[0],
-          ),
+          onPressed: inProgressStickerId.value == null
+              ? () async {
+                  inProgressStickerId.value = '0';
+                  await onSend('0');
+                  inProgressStickerId.value = null;
+                }
+              : null,
+          icon: inProgressStickerId.value == '0'
+              ? const SizedBox(
+                  width: 40,
+                  child: CircularProgressIndicator.adaptive(),
+                )
+              : StickerCommentImage(
+                  size: 40,
+                  downloadURL: downloadURLs[0],
+                ),
         ),
         const SizedBox(width: 8),
         IconButton.filledTonal(
           padding: const EdgeInsets.symmetric(horizontal: 16),
-          onPressed: () {},
-          icon: StickerCommentImage(
-            size: 40,
-            downloadURL: downloadURLs[1],
-          ),
+          onPressed: inProgressStickerId.value == null
+              ? () async {
+                  inProgressStickerId.value = '1';
+                  await onSend('1');
+                  inProgressStickerId.value = null;
+                }
+              : null,
+          icon: inProgressStickerId.value == '1'
+              ? const SizedBox(
+                  width: 40,
+                  child: CircularProgressIndicator.adaptive(),
+                )
+              : StickerCommentImage(
+                  size: 40,
+                  downloadURL: downloadURLs[1],
+                ),
         ),
         const SizedBox(width: 8),
         IconButton.filledTonal(

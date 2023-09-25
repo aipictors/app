@@ -55,28 +55,6 @@ class GCacheControlScope extends EnumClass {
       _$gCacheControlScopeValueOf(name);
 }
 
-class GContributorType extends EnumClass {
-  const GContributorType._(String name) : super(name);
-
-  static const GContributorType WIKI_EDITOR = _$gContributorTypeWIKI_EDITOR;
-
-  static const GContributorType WEB_DEVELOPER = _$gContributorTypeWEB_DEVELOPER;
-
-  static const GContributorType FLUTTER_DEVELOPER =
-      _$gContributorTypeFLUTTER_DEVELOPER;
-
-  static const GContributorType PRODUCT_DESIGNER =
-      _$gContributorTypePRODUCT_DESIGNER;
-
-  static const GContributorType SUPPORTER = _$gContributorTypeSUPPORTER;
-
-  static Serializer<GContributorType> get serializer =>
-      _$gContributorTypeSerializer;
-  static BuiltSet<GContributorType> get values => _$gContributorTypeValues;
-  static GContributorType valueOf(String name) =>
-      _$gContributorTypeValueOf(name);
-}
-
 class GFolderMode extends EnumClass {
   const GFolderMode._(String name) : super(name);
 
@@ -115,20 +93,18 @@ class GImageModelCategory extends EnumClass {
       _$gImageModelCategoryValueOf(name);
 }
 
-class GImageModelStyle extends EnumClass {
-  const GImageModelStyle._(String name) : super(name);
+class GImageStyle extends EnumClass {
+  const GImageStyle._(String name) : super(name);
 
-  static const GImageModelStyle REAL = _$gImageModelStyleREAL;
+  static const GImageStyle REAL = _$gImageStyleREAL;
 
-  static const GImageModelStyle SEMI_REAL = _$gImageModelStyleSEMI_REAL;
+  static const GImageStyle SEMI_REAL = _$gImageStyleSEMI_REAL;
 
-  static const GImageModelStyle ILLUSTRATION = _$gImageModelStyleILLUSTRATION;
+  static const GImageStyle ILLUSTRATION = _$gImageStyleILLUSTRATION;
 
-  static Serializer<GImageModelStyle> get serializer =>
-      _$gImageModelStyleSerializer;
-  static BuiltSet<GImageModelStyle> get values => _$gImageModelStyleValues;
-  static GImageModelStyle valueOf(String name) =>
-      _$gImageModelStyleValueOf(name);
+  static Serializer<GImageStyle> get serializer => _$gImageStyleSerializer;
+  static BuiltSet<GImageStyle> get values => _$gImageStyleValues;
+  static GImageStyle valueOf(String name) => _$gImageStyleValueOf(name);
 }
 
 class GNotificationType extends EnumClass {
@@ -209,6 +185,18 @@ class GSubscriptionType extends EnumClass {
   static BuiltSet<GSubscriptionType> get values => _$gSubscriptionTypeValues;
   static GSubscriptionType valueOf(String name) =>
       _$gSubscriptionTypeValueOf(name);
+}
+
+class GWorkOrderBy extends EnumClass {
+  const GWorkOrderBy._(String name) : super(name);
+
+  static const GWorkOrderBy DATE_CREATED = _$gWorkOrderByDATE_CREATED;
+
+  static const GWorkOrderBy LIKES_COUNT = _$gWorkOrderByLIKES_COUNT;
+
+  static Serializer<GWorkOrderBy> get serializer => _$gWorkOrderBySerializer;
+  static BuiltSet<GWorkOrderBy> get values => _$gWorkOrderByValues;
+  static GWorkOrderBy valueOf(String name) => _$gWorkOrderByValueOf(name);
 }
 
 class GWorkType extends EnumClass {
@@ -1236,6 +1224,7 @@ abstract class GCreateResponseCommentInput
 
   String get commentId;
   String get text;
+  String? get stickerId;
   static Serializer<GCreateResponseCommentInput> get serializer =>
       _$gCreateResponseCommentInputSerializer;
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
@@ -1280,6 +1269,7 @@ abstract class GCreateWorkCommentInput
 
   String get workId;
   String get text;
+  String? get stickerId;
   static Serializer<GCreateWorkCommentInput> get serializer =>
       _$gCreateWorkCommentInputSerializer;
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
@@ -3170,6 +3160,32 @@ abstract class GUpdatePromptonUserHeaderImageInput
       );
 }
 
+abstract class GUpdatePromptonUserInvoiceRegistrationNumberInput
+    implements
+        Built<GUpdatePromptonUserInvoiceRegistrationNumberInput,
+            GUpdatePromptonUserInvoiceRegistrationNumberInputBuilder> {
+  GUpdatePromptonUserInvoiceRegistrationNumberInput._();
+
+  factory GUpdatePromptonUserInvoiceRegistrationNumberInput(
+      [Function(GUpdatePromptonUserInvoiceRegistrationNumberInputBuilder b)
+          updates]) = _$GUpdatePromptonUserInvoiceRegistrationNumberInput;
+
+  String? get invoiceRegistrationNumber;
+  static Serializer<GUpdatePromptonUserInvoiceRegistrationNumberInput>
+      get serializer =>
+          _$gUpdatePromptonUserInvoiceRegistrationNumberInputSerializer;
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GUpdatePromptonUserInvoiceRegistrationNumberInput.serializer,
+        this,
+      ) as Map<String, dynamic>);
+  static GUpdatePromptonUserInvoiceRegistrationNumberInput? fromJson(
+          Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GUpdatePromptonUserInvoiceRegistrationNumberInput.serializer,
+        json,
+      );
+}
+
 abstract class GUpdatePromptonUserLoginInput
     implements
         Built<GUpdatePromptonUserLoginInput,
@@ -3415,8 +3431,16 @@ abstract class GWorksWhereInput
   factory GWorksWhereInput([Function(GWorksWhereInputBuilder b) updates]) =
       _$GWorksWhereInput;
 
-  GRating? get rating;
   String? get search;
+  BuiltList<String>? get prompts;
+  bool? get hasPrompt;
+  bool? get hasGeneratorPrompt;
+  bool? get isFollowee;
+  GImageStyle? get style;
+  GWorkOrderBy? get orderBy;
+  BuiltList<String>? get targets;
+  GWorkType? get type;
+  GRating? get rating;
   static Serializer<GWorksWhereInput> get serializer =>
       _$gWorksWhereInputSerializer;
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
@@ -3438,10 +3462,10 @@ const Map<String, Set<String>> possibleTypesMap = {
     'CategoryNode',
     'CategoryViewerNode',
     'CommentNode',
-    'ContributorNode',
     'DailyThemeNode',
     'FolderNode',
     'FollowNotificationNode',
+    'GenerationNode',
     'ImageGeneratorNode',
     'ImageLoraModelNode',
     'ImageModelNode',
