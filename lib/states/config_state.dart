@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:aipictors/config.dart';
 import 'package:aipictors/models/app_version.dart';
 import 'package:aipictors/utils/to_locale.dart';
@@ -218,6 +220,29 @@ class ConfigState with _$ConfigState {
   int get graphqlQueryOffsetMax {
     final remoteConfig = FirebaseRemoteConfig.instance;
     return remoteConfig.getInt('graphql_query_offset_max');
+  }
+
+  /// Remote Config
+  /// URL・AndroidアプリのストアのURL
+  Uri get pageAppStoreAndroidURL {
+    final remoteConfig = FirebaseRemoteConfig.instance;
+    return Uri.parse(remoteConfig.getString('page_url_app_store_android'));
+  }
+
+  /// Remote Config
+  /// URL・iOSアプリのストアのURL
+  Uri get pageAppStoreIosURL {
+    final remoteConfig = FirebaseRemoteConfig.instance;
+    return Uri.parse(remoteConfig.getString('page_url_app_store_ios'));
+  }
+
+  /// Remote Config
+  /// URL・アプリのストアのURL
+  Uri get pageAppStoreURL {
+    if (Platform.isIOS) {
+      return pageAppStoreIosURL;
+    }
+    return pageAppStoreAndroidURL;
   }
 
   /// Remote Config

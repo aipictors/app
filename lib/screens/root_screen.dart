@@ -29,18 +29,22 @@ class RootScreen extends HookConsumerWidget {
     // タブの位置
     final pageIndex = ref.watch(homeTabIndexProvider);
 
+    // 初期化エラー
     if (config.isFailed) {
       return const ConfigErrorScreen();
     }
 
-    if (config.isOutOfDate) {
+    // アップデート
+    if (!config.isOutOfDate) {
       return const UpdateScreen();
     }
 
+    // メンテナンスモード
     if (config.isMaintenanceMode) {
       return const MaintenanceScreen();
     }
 
+    // ログイン中
     if (authState.isLoading) {
       return const HomeLoadingScreen();
     }
