@@ -35,12 +35,12 @@ class WorkBottomAppContainer extends HookConsumerWidget {
               SizedBox(
                 height: 64,
                 child: FilledButton.tonalIcon(
-                  icon: Icon(
-                    Icons.favorite_rounded,
-                    color: isLikedInMemory.value
-                        ? Theme.of(context).colorScheme.error
-                        : null,
-                  ),
+                  icon: isLikedInMemory.value
+                      ? Icon(
+                          Icons.favorite_rounded,
+                          color: Theme.of(context).colorScheme.error,
+                        )
+                      : const Icon(Icons.favorite_outline_rounded),
                   label: Text('いいね'.i18n),
                   onPressed: () {
                     onCreateWorkLike();
