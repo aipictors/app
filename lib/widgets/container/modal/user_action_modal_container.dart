@@ -41,10 +41,11 @@ class UserActionModalContainer extends HookConsumerWidget {
           physics: const NeverScrollableScrollPhysics(),
           children: [
             ModalHeaderContainer(
-              title: NotificationUserContainer(
+              title: Expanded(
+                  child: NotificationUserContainer(
                 userName: userName,
                 userIconImageURL: userIconImageURL,
-              ),
+              )),
             ),
             ModalShareListTile(
               titleText: 'ユーザをシェアする'.i18n,
