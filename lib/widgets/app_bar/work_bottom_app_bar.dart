@@ -1,5 +1,6 @@
 import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/mutations/create_work_like.dart';
+import 'package:aipictors/providers/auth_user_id_provider.dart';
 import 'package:aipictors/utils/show_unavailable_snack_bar.dart';
 import 'package:aipictors/widgets/container/work_shortcut_action_stickers.dart';
 import 'package:flutter/material.dart';
@@ -10,11 +11,13 @@ class WorkBottomAppContainer extends HookConsumerWidget {
   const WorkBottomAppContainer({
     Key? key,
     required this.workId,
+    required this.userId,
     required this.isLiked,
     required this.isFolded,
   }) : super(key: key);
 
   final String workId;
+  final String userId;
 
   final bool isLiked;
 
@@ -26,28 +29,31 @@ class WorkBottomAppContainer extends HookConsumerWidget {
 
     // final isFoldedInMemory = useState(isFolded);
 
+    final authUserId = ref.watch(authUserIdProvider);
+
     return BottomAppBar(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
             children: [
-              SizedBox(
-                height: 64,
-                child: FilledButton.tonalIcon(
-                  icon: isLikedInMemory.value
-                      ? Icon(
-                          Icons.favorite_rounded,
-                          color: Theme.of(context).colorScheme.error,
-                        )
-                      : const Icon(Icons.favorite_outline_rounded),
-                  label: Text('いいね'.i18n),
-                  onPressed: () {
-                    onCreateWorkLike();
-                    isLikedInMemory.value = !isLikedInMemory.value;
-                  },
+              if (authUserId.value != userId)
+                SizedBox(
+                  height: 64,
+                  child: FilledButton.tonalIcon(
+                    icon: isLikedInMemory.value
+                        ? Icon(
+                            Icons.favorite_rounded,
+                            color: Theme.of(context).colorScheme.error,
+                          )
+                        : const Icon(Icons.favorite_outline_rounded),
+                    label: Text('いいね'.i18n),
+                    onPressed: () {
+                      onCreateWorkLike();
+                      isLikedInMemory.value = !isLikedInMemory.value;
+                    },
+                  ),
                 ),
-              ),
 
               // const SizedBox(width: 16),
               // LikeButton(

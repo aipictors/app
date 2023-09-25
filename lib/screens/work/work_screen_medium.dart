@@ -68,6 +68,7 @@ class WorkScreenMedium extends HookConsumerWidget {
           extendBody: true,
           bottomNavigationBar: WorkBottomAppContainer(
             workId: workId,
+            userId: work.user.id,
             isLiked: work.viewer?.isLiked == true,
             isFolded: work.viewer?.isBookmarked == true,
           ),
