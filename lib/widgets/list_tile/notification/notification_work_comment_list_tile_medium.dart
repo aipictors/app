@@ -59,12 +59,8 @@ class NotificationWorkCommentListTileMedium extends HookConsumerWidget {
         workImageURL: workImageURL,
         workTitle: workTitle,
       ),
-      title: Row(
-        children: [
-          NotificationUserContainer(
-              userName: userName, userIconImageURL: userIconImageURL)
-        ],
-      ),
+      title: NotificationUserContainer(
+          userName: userName, userIconImageURL: userIconImageURL),
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,

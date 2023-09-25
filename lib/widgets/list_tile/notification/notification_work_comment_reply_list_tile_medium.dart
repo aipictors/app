@@ -1,5 +1,5 @@
-import 'package:aipictors/widgets/avatar/user_profile_avatar.dart';
 import 'package:aipictors/widgets/container/notification_image_container_medium.dart';
+import 'package:aipictors/widgets/container/notification_user_container.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -59,18 +59,8 @@ class NotificationWorkCommentReplyListTileMedium extends HookConsumerWidget {
         workImageURL: workImageURL,
         workTitle: workTitle,
       ),
-      title: Row(
-        children: [
-          UserProfileAvatar(imageURL: userIconImageURL),
-          const SizedBox(width: 8),
-          Flexible(
-            child: Text(
-              '$userNameさんがあなたに返信しました。',
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
-          ),
-        ],
-      ),
+      title: NotificationUserContainer(
+          userName: userName, userIconImageURL: userIconImageURL),
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
