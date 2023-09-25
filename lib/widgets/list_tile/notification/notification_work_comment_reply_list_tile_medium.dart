@@ -76,11 +76,9 @@ class NotificationWorkCommentReplyListTileMedium extends HookConsumerWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           if (message != null)
-            Expanded(
-              child: Text(
-                message!,
-                style: Theme.of(context).textTheme.bodyMedium,
-              ),
+            Text(
+              message!,
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
           if (message != null) const SizedBox(height: 8),
           if (stickerImageURL != null)
