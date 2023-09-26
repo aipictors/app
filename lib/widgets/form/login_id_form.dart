@@ -21,15 +21,15 @@ class LoginIDForm extends StatefulWidget {
 class _LoginIDFormState extends State<LoginIDForm> {
   @override
   Widget build(BuildContext context) {
+    final regExp = RegExp(r'^[a-zA-Z0-9.@]+$');
+
     return Form(
         child: TextFormField(
       readOnly: widget.readOnly,
       keyboardType: TextInputType.emailAddress,
       decoration: widget.decoration,
       inputFormatters: [
-        FilteringTextInputFormatter.allow(
-          RegExp('[0-9a-z@_]'),
-        ),
+        FilteringTextInputFormatter.allow(regExp),
       ],
       autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: (value) {
