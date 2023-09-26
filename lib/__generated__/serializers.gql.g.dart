@@ -223,6 +223,15 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GFeedLatestWorksData_works_viewer.serializer)
       ..add(GFeedLatestWorksReq.serializer)
       ..add(GFeedLatestWorksVars.serializer)
+      ..add(GFeedPopularWorksData.serializer)
+      ..add(GFeedPopularWorksData_popularWorks.serializer)
+      ..add(GFeedPopularWorksData_popularWorks_image.serializer)
+      ..add(GFeedPopularWorksData_popularWorks_user.serializer)
+      ..add(GFeedPopularWorksData_popularWorks_user_iconImage.serializer)
+      ..add(GFeedPopularWorksData_popularWorks_user_viewer.serializer)
+      ..add(GFeedPopularWorksData_popularWorks_viewer.serializer)
+      ..add(GFeedPopularWorksReq.serializer)
+      ..add(GFeedPopularWorksVars.serializer)
       ..add(GFlipPromptonFolderWorkIndexInput.serializer)
       ..add(GFolderData.serializer)
       ..add(GFolderData_folder.serializer)
@@ -774,6 +783,10 @@ Serializers _$serializers = (new Serializers().toBuilder()
           const FullType(
               BuiltList, const [const FullType(GFeedLatestWorksData_works)]),
           () => new ListBuilder<GFeedLatestWorksData_works>())
+      ..addBuilderFactory(
+          const FullType(BuiltList,
+              const [const FullType(GFeedPopularWorksData_popularWorks)]),
+          () => new ListBuilder<GFeedPopularWorksData_popularWorks>())
       ..addBuilderFactory(
           const FullType(
               BuiltList, const [const FullType(GFolderWorksData_folder_works)]),

@@ -1,4 +1,5 @@
 import 'package:aipictors/graphql/__generated__/feed_hot_works.req.gql.dart';
+import 'package:aipictors/providers/audio_provider.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
 import 'package:aipictors/widgets/container/end_of_content_container.dart';
@@ -6,6 +7,7 @@ import 'package:aipictors/widgets/container/error/data_empty_error_container.dar
 import 'package:aipictors/widgets/container/error/data_not_found_error_container.dart';
 import 'package:aipictors/widgets/container/loading_container.dart';
 import 'package:aipictors/widgets/list_tile/feed_work_list_tile.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -17,6 +19,8 @@ class FeedHotWorksView extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
+    final audio = ref.watch(audioProvider);
+
     final client = ref.watch(clientProvider);
 
     if (client.value == null) {
@@ -29,11 +33,13 @@ class FeedHotWorksView extends HookConsumerWidget {
 
     return RefreshIndicator(
       onRefresh: () async {
+        audio.play(AssetSource('snd_sine/progress_loop.wav'));
         final req = request.rebuild((builder) {
           return builder;
         });
         client.value?.requestController.add(req);
         await Future.delayed(const Duration(seconds: 2));
+        audio.play(AssetSource('snd_sine/transition_up.wav'));
       },
       child: OperationBuilder(
         client: client.value!,

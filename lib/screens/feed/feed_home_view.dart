@@ -41,8 +41,8 @@ class FeedHomeView extends HookConsumerWidget {
 
     return RefreshIndicator(
       onRefresh: () async {
+        audio.play(AssetSource('snd_sine/progress_loop.wav'));
         final req = request.rebuild((builder) {
-          audio.play(AssetSource('snd_sine/progress_loop.wav'));
           return builder
             ..vars.limit = config.graphqlQueryLimit
             ..vars.offset = 0;

@@ -62,8 +62,8 @@ class UserHeaderActionContainer extends HookConsumerWidget {
               ),
             ],
           ),
-          const SizedBox(height: 16),
-          if (authUserId.value != userId)
+          if (authUserId.value != null) const SizedBox(height: 16),
+          if (authUserId.value != null && authUserId.value != userId)
             SizedBox(
               width: double.infinity,
               child: FollowButton(

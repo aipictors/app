@@ -88,8 +88,10 @@ class WorkScreenCompact extends HookConsumerWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Expanded(
-                              child: WorkUserProfileContainer(user: work.user)),
-                          if (authUserId.value != work.user.id)
+                            child: WorkUserProfileContainer(user: work.user),
+                          ),
+                          if (authUserId.value != null &&
+                              authUserId.value != work.user.id)
                             FollowButton(
                               isActive: work.user.viewer?.isFollowee == true,
                               onPressed: () {

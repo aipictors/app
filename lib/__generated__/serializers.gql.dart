@@ -259,6 +259,19 @@ import 'package:aipictors/graphql/__generated__/feed_latest_works.req.gql.dart'
     show GFeedLatestWorksReq;
 import 'package:aipictors/graphql/__generated__/feed_latest_works.var.gql.dart'
     show GFeedLatestWorksVars;
+import 'package:aipictors/graphql/__generated__/feed_popular_works.data.gql.dart'
+    show
+        GFeedPopularWorksData,
+        GFeedPopularWorksData_popularWorks,
+        GFeedPopularWorksData_popularWorks_image,
+        GFeedPopularWorksData_popularWorks_user,
+        GFeedPopularWorksData_popularWorks_user_iconImage,
+        GFeedPopularWorksData_popularWorks_user_viewer,
+        GFeedPopularWorksData_popularWorks_viewer;
+import 'package:aipictors/graphql/__generated__/feed_popular_works.req.gql.dart'
+    show GFeedPopularWorksReq;
+import 'package:aipictors/graphql/__generated__/feed_popular_works.var.gql.dart'
+    show GFeedPopularWorksVars;
 import 'package:aipictors/graphql/__generated__/folder.data.gql.dart'
     show
         GFolderData,
@@ -1195,6 +1208,15 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GFeedLatestWorksData_works_viewer,
   GFeedLatestWorksReq,
   GFeedLatestWorksVars,
+  GFeedPopularWorksData,
+  GFeedPopularWorksData_popularWorks,
+  GFeedPopularWorksData_popularWorks_image,
+  GFeedPopularWorksData_popularWorks_user,
+  GFeedPopularWorksData_popularWorks_user_iconImage,
+  GFeedPopularWorksData_popularWorks_user_viewer,
+  GFeedPopularWorksData_popularWorks_viewer,
+  GFeedPopularWorksReq,
+  GFeedPopularWorksVars,
   GFlipPromptonFolderWorkIndexInput,
   GFolderData,
   GFolderData_folder,

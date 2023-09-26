@@ -4,6 +4,7 @@ import 'package:aipictors/providers/feed_tab_index_provider.dart';
 import 'package:aipictors/screens/feed/feed_home_view.dart';
 import 'package:aipictors/screens/feed/feed_hot_works_view.dart';
 import 'package:aipictors/screens/feed/feed_latest_works_view.dart';
+import 'package:aipictors/screens/feed/feed_popular_works_view.dart';
 import 'package:aipictors/widgets/container/home_logo_container.dart';
 import 'package:aipictors/widgets/controller/feed_tab_controller.dart';
 import 'package:flutter/material.dart';
@@ -45,14 +46,19 @@ class FeedScreen extends HookConsumerWidget {
           ]),
         ),
         resizeToAvoidBottomInset: true,
-        body: const TabBarView(children: [
-          FeedHomeView(
-            key: PageStorageKey('feed_home'),
-          ),
-          FeedLatestWorksView(
+        body: TabBarView(children: [
+          if (authState.value == null)
+            const FeedPopularWorksView(
+              key: PageStorageKey('feed_popular_works'),
+            ),
+          if (authState.value != null)
+            const FeedHomeView(
+              key: PageStorageKey('feed_home'),
+            ),
+          const FeedLatestWorksView(
             key: PageStorageKey('feed_latest_works'),
           ),
-          FeedHotWorksView(
+          const FeedHotWorksView(
             key: PageStorageKey('feed_hot_works'),
           ),
         ]),

@@ -1,0 +1,22 @@
+# import './fragments/partial_feed_work_fields_fragment.graphql'
+# import './fragments/partial_user_fields_fragment.graphql'
+
+query FeedPopularWorks {
+  popularWorks(where: { rating: G }) {
+    ...PartialFeedWorkFields
+    user {
+      ...PartialUserFields
+      viewer {
+        id
+        isFollower
+        isFollowee
+        isMuted
+      }
+    }
+    viewer {
+      id
+      isLiked
+      isBookmarked
+    }
+  }
+}
