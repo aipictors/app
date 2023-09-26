@@ -7,6 +7,7 @@ import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/providers/config_update_provider.dart';
 import 'package:aipictors/routes.dart';
 import 'package:aipictors/utils/extend_theme.dart';
+import 'package:aipictors/utils/name_extractor.dart';
 import 'package:aipictors/utils/to_dark_color_scheme.dart';
 import 'package:aipictors/utils/to_light_color_scheme.dart';
 import 'package:dynamic_color/dynamic_color.dart';
@@ -89,7 +90,10 @@ class App extends HookConsumerWidget {
 
   List<NavigatorObserver> get observers {
     return [
-      FirebaseAnalyticsObserver(analytics: FirebaseAnalytics.instance),
+      FirebaseAnalyticsObserver(
+        analytics: FirebaseAnalytics.instance,
+        nameExtractor: nameExtractor,
+      ),
       SentryNavigatorObserver(),
     ];
   }
