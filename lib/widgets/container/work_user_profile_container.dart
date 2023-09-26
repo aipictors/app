@@ -37,8 +37,7 @@ class WorkUserProfileContainer extends HookConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             InkWell(
-              child: Flexible(
-                  child: Text(
+              child: Text(
                 user.name,
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(
@@ -46,7 +45,7 @@ class WorkUserProfileContainer extends HookConsumerWidget {
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
                 ),
-              )),
+              ),
               onTap: () {
                 FirebaseAnalytics.instance.logSelectContent(
                   contentType: 'user',
