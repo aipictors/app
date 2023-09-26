@@ -1,6 +1,6 @@
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/widgets/container/loading_container.dart';
-import 'package:aipictors/widgets/image/sticker_comment_image.dart';
+import 'package:aipictors/widgets/image/comment_sticker_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -49,7 +49,7 @@ class WorkShortcutActionStickers extends HookConsumerWidget {
                   width: 40,
                   child: CircularProgressIndicator.adaptive(),
                 )
-              : StickerCommentImage(
+              : CommentStickerImage(
                   size: 40,
                   downloadURL: downloadURLs[0],
                 ),
@@ -69,7 +69,7 @@ class WorkShortcutActionStickers extends HookConsumerWidget {
                   width: 40,
                   child: CircularProgressIndicator.adaptive(),
                 )
-              : StickerCommentImage(
+              : CommentStickerImage(
                   size: 40,
                   downloadURL: downloadURLs[1],
                 ),

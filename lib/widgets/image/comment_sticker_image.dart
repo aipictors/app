@@ -2,8 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class StickerCommentImage extends HookConsumerWidget {
-  const StickerCommentImage({
+class CommentStickerImage extends HookConsumerWidget {
+  const CommentStickerImage({
     Key? key,
     required this.downloadURL,
     required this.size,

@@ -129,7 +129,7 @@ class WorkScreenCompact extends HookConsumerWidget {
                     const Divider(height: 0),
                     const SizedBox(height: 8),
                     WorkCommentContainer(workId: workId),
-                    const SizedBox(height: 8 * 4),
+                    const SizedBox(height: 8 * 16),
                   ],
                 ),
               ),

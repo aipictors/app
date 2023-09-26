@@ -111,11 +111,12 @@ class CommentModalContainer extends HookConsumerWidget {
                 ),
               if (authState.value?.uid != null)
                 WorkCommentFormContainer(
-                  onSubmit: (text) async {
+                  onSubmit: (text, stickerId) async {
                     await createWorkComment((builder) {
                       return builder
                         ..vars.input.workId = workId
-                        ..vars.input.text = text;
+                        ..vars.input.text = text
+                        ..vars.input.stickerId = stickerId;
                     });
                     client.value?.requestController.add(request);
                   },
