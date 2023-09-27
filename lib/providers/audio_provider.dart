@@ -5,5 +5,14 @@ part 'audio_provider.g.dart';
 
 @riverpod
 AudioPlayer audio(AudioRef ref) {
+  final config = AudioContextConfig(
+    duckAudio: true,
+    respectSilence: true,
+  );
+
+  final context = config.build();
+
+  AudioPlayer.global.setAudioContext(context);
+
   return AudioPlayer();
 }
