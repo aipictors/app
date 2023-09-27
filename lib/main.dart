@@ -25,6 +25,11 @@ void main() async {
   // Firebaseを初期化する
   await Firebase.initializeApp();
 
+  PlatformDispatcher.instance.onError = (error, stack) {
+    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+    return true;
+  };
+
   // 設定を初期化する
   await DefaultConfig.activate();
 
@@ -57,8 +62,7 @@ void main() async {
   // Crashlyticsを初期化する
   FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
 
-  // FlutterのエラーをSentryに送信する
-  // FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
 
   final language = const ConfigRepository().language;
 
@@ -107,6 +111,7 @@ void main() async {
     appRunner: () {
       Sentry.configureScope((scope) {
         scope.setTag('language', language);
+        scope.setTag('is_release_mode', kReleaseMode.toString());
       });
       runApp(
         ProviderScope(

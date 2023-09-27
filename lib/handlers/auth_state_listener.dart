@@ -3,6 +3,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 
 typedef Listener = void Function(
   AsyncValue<User?>? _,
@@ -10,7 +11,7 @@ typedef Listener = void Function(
 );
 
 Listener authStateListener(BuildContext context, WidgetRef ref) {
-  return (_, state) async {
+  return (_, state) {
     final notifier = ref.read(homeTabIndexProvider.notifier);
 
     // ログイン状態が変わった際にホームに戻す
@@ -23,6 +24,19 @@ Listener authStateListener(BuildContext context, WidgetRef ref) {
     );
 
     // ユーザIDを記録する
-    await FirebaseAnalytics.instance.setUserId(id: state.value?.uid);
+    state.value?.getIdTokenResult().then((value) {
+      final String? userId = value.claims?['userId'];
+      if (userId == null) return;
+      FirebaseAnalytics.instance.setUserId(id: state.value?.uid);
+      Sentry.configureScope((scope) {
+        scope.setUser(
+          SentryUser(
+            id: userId,
+            email: state.value?.email,
+            name: state.value?.displayName,
+          ),
+        );
+      });
+    });
   };
 }
