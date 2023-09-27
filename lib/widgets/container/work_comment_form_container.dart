@@ -65,10 +65,11 @@ class WorkCommentFormContainer extends HookConsumerWidget {
                   try {
                     FocusManager.instance.primaryFocus?.unfocus();
                     final text = controller.text;
+                    final stickerId = currentStickerId.value;
                     controller.clear();
                     currentStickerId.value = null;
                     isOpenStickers.value = false;
-                    await onSubmit(text, currentStickerId.value);
+                    await onSubmit(text, stickerId);
                   } catch (exception) {
                     showErrorSnackBar(context, exception);
                   }
