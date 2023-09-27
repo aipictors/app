@@ -53,9 +53,15 @@ import 'package:aipictors/screens/work/work_create_screen.dart';
 import 'package:aipictors/screens/work/work_report_screen.dart';
 import 'package:aipictors/screens/work/work_screen.dart';
 import 'package:aipictors/screens/work/work_update_screen.dart';
+import 'package:aipictors/utils/name_extractor.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 
-final routes = [
+final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
+
+final _routes = [
   GoRoute(
     path: '/',
     pageBuilder: (context, state) {
@@ -404,10 +410,17 @@ final routes = [
       return const TutorialScreen();
     },
   ),
-  GoRoute(
-    path: '/wiki',
-    builder: (context, state) {
-      return const WikiScreen();
-    },
-  ),
 ];
+
+final routerConfig = GoRouter(
+  initialLocation: '/',
+  routes: _routes,
+  navigatorKey: _navigatorKey,
+  observers: [
+    SentryNavigatorObserver(),
+    FirebaseAnalyticsObserver(
+      analytics: FirebaseAnalytics.instance,
+      nameExtractor: nameExtractor,
+    ),
+  ],
+);

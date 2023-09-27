@@ -32,7 +32,6 @@ class WorkCommentFormContainer extends HookConsumerWidget {
             children: [
               Expanded(
                 child: TextField(
-                  enabled: false,
                   controller: controller,
                   keyboardType: TextInputType.multiline,
                   maxLines: null,

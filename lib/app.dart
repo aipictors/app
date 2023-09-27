@@ -5,21 +5,15 @@ import 'package:aipictors/handlers/remote_config_update_listener.dart';
 import 'package:aipictors/providers/auth_state_provider.dart';
 import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/providers/config_update_provider.dart';
-import 'package:aipictors/routes.dart';
+import 'package:aipictors/router.dart';
 import 'package:aipictors/utils/extend_theme.dart';
-import 'package:aipictors/utils/name_extractor.dart';
 import 'package:aipictors/utils/to_dark_color_scheme.dart';
 import 'package:aipictors/utils/to_light_color_scheme.dart';
 import 'package:dynamic_color/dynamic_color.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:sentry_flutter/sentry_flutter.dart';
-
-final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
 
 class App extends HookConsumerWidget {
   const App({super.key});
@@ -69,12 +63,6 @@ class App extends HookConsumerWidget {
           darkDynamic: darkDynamic,
         ),
       );
-      final routerConfig = GoRouter(
-        navigatorKey: _navigatorKey,
-        observers: observers,
-        initialLocation: '/',
-        routes: routes,
-      );
       return MaterialApp.router(
         title: 'Aipictors',
         themeMode: config.themeMode,
@@ -86,16 +74,6 @@ class App extends HookConsumerWidget {
         routerConfig: routerConfig,
       );
     });
-  }
-
-  List<NavigatorObserver> get observers {
-    return [
-      FirebaseAnalyticsObserver(
-        analytics: FirebaseAnalytics.instance,
-        nameExtractor: nameExtractor,
-      ),
-      SentryNavigatorObserver(),
-    ];
   }
 
   /// アプリの対応する言語
