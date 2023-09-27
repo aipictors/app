@@ -1,7 +1,11 @@
 import 'package:aipictors/enums/layout.dart';
+import 'package:aipictors/handlers/message_handler.dart';
 import 'package:aipictors/providers/auth_state_provider.dart';
+import 'package:aipictors/providers/background_message_provider.dart';
 import 'package:aipictors/providers/config_provider.dart';
+import 'package:aipictors/providers/foreground_message_provider.dart';
 import 'package:aipictors/providers/home_tab_index_provider.dart';
+import 'package:aipictors/providers/initial_message_provider.dart';
 import 'package:aipictors/screens/config/config_screen.dart';
 import 'package:aipictors/screens/daily_theme/daily_theme_home_screen.dart';
 import 'package:aipictors/screens/error/config_error_screen.dart';
@@ -48,6 +52,21 @@ class RootScreen extends HookConsumerWidget {
     if (authState.isLoading) {
       return const HomeLoadingScreen();
     }
+
+    ref.listen(
+      initialMessageProvider,
+      messageListener(context, ref),
+    );
+
+    ref.listen(
+      foregroundMessageProvider,
+      messageListener(context, ref),
+    );
+
+    ref.listen(
+      backgroundMessageProvider,
+      messageListener(context, ref),
+    );
 
     final screenList = [
       const FeedScreen(key: PageStorageKey('root_feed')),

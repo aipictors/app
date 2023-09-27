@@ -139,6 +139,18 @@ class ConfigScreen extends HookConsumerWidget {
               context.push('/config/language');
             },
           ),
+          if (authState.value != null)
+            ListTile(
+              leading: const Icon(Icons.notifications_rounded),
+              trailing: const Icon(Icons.chevron_right_rounded),
+              title: Text(
+                '通知設定'.i18n,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+              onTap: () {
+                context.push('/config/notifications');
+              },
+            ),
           ListTile(
             leading: const Icon(Icons.cookie_rounded),
             trailing: const Icon(Icons.chevron_right_rounded),

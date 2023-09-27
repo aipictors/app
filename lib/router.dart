@@ -14,6 +14,7 @@ import 'package:aipictors/screens/config/config_code_screen.dart';
 import 'package:aipictors/screens/config/config_language_screen.dart';
 import 'package:aipictors/screens/config/config_muted_tags_screen.dart';
 import 'package:aipictors/screens/config/config_muted_users_screen.dart';
+import 'package:aipictors/screens/config/config_notification_screen.dart';
 import 'package:aipictors/screens/config/config_pass_screen.dart';
 import 'package:aipictors/screens/config/config_profile_screen.dart';
 import 'package:aipictors/screens/config/config_theme_screen.dart';
@@ -171,6 +172,12 @@ final _routes = [
     path: '/config/muted_users',
     builder: (context, state) {
       return const ConfigMutedUsersScreen();
+    },
+  ),
+  GoRoute(
+    path: '/config/notifications',
+    builder: (context, state) {
+      return const ConfigNotificationScreen();
     },
   ),
   GoRoute(

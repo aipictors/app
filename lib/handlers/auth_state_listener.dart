@@ -11,7 +11,7 @@ typedef Listener = void Function(
 );
 
 Listener authStateListener(BuildContext context, WidgetRef ref) {
-  return (_, state) {
+  return (_, state) async {
     final notifier = ref.read(homeTabIndexProvider.notifier);
 
     // ログイン状態が変わった際にホームに戻す
@@ -23,20 +23,27 @@ Listener authStateListener(BuildContext context, WidgetRef ref) {
       value: state.value != null ? 'true' : 'false',
     );
 
+    final currentUser = FirebaseAuth.instance.currentUser;
+
+    if (currentUser == null) return;
+
+    final idTokenResult = await currentUser.getIdTokenResult();
+
+    final String? userId = idTokenResult.claims?['userId'];
+
+    if (userId == null) return;
+
     // ユーザIDを記録する
-    state.value?.getIdTokenResult().then((value) {
-      final String? userId = value.claims?['userId'];
-      if (userId == null) return;
-      FirebaseAnalytics.instance.setUserId(id: state.value?.uid);
-      Sentry.configureScope((scope) {
-        scope.setUser(
-          SentryUser(
-            id: userId,
-            email: state.value?.email,
-            name: state.value?.displayName,
-          ),
-        );
-      });
+    FirebaseAnalytics.instance.setUserId(id: state.value?.uid);
+
+    // ユーザIDを記録する
+    Sentry.configureScope((scope) {
+      final sentryUser = SentryUser(
+        id: userId,
+        email: state.value?.email,
+        name: state.value?.displayName,
+      );
+      scope.setUser(sentryUser);
     });
   };
 }

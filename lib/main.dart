@@ -57,6 +57,7 @@ void main() async {
 
   FirebaseInAppMessaging.instance.setAutomaticDataCollectionEnabled(true);
 
+  // 通知を処理する
   FirebaseMessaging.onBackgroundMessage(backgroundMessageHandler);
 
   // Crashlyticsを初期化する
@@ -64,6 +65,7 @@ void main() async {
 
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
 
+  // ユーザのアプリ内の言語設定を取得する
   final language = const ConfigRepository().language;
 
   // Analyticsを初期化する
