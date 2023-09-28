@@ -62,29 +62,15 @@ class FeedScreen extends HookConsumerWidget {
             key: PageStorageKey('feed_hot_works'),
           ),
         ]),
-        floatingActionButton: Builder(builder: (context) {
-          if (tabIndex == 1) {
-            return FloatingActionButton.extended(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(40),
-              ),
-              icon: const Icon(Icons.add),
-              label: Text('お題の作品'.i18n),
-              onPressed: () {
-                context.push('/works/create');
-              },
-            );
-          }
-          return FloatingActionButton(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(40),
-            ),
-            child: const Icon(Icons.add),
-            onPressed: () {
-              context.push('/works/create');
-            },
-          );
-        }),
+        floatingActionButton: FloatingActionButton(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(40),
+          ),
+          child: const Icon(Icons.add),
+          onPressed: () {
+            context.push('/works/create');
+          },
+        ),
       ),
     );
   }
