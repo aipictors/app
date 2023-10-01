@@ -33,11 +33,7 @@ class FolderScreen extends HookConsumerWidget {
       builder: (context, response) {
         final folder = response.data?.folder;
         if (folder == null) {
-          return Scaffold(
-              appBar: AppBar(
-                title: Text('フォルダ'.i18n),
-              ),
-              body: const DataNotFoundErrorScreen());
+          return const DataNotFoundErrorScreen();
         }
         return Scaffold(
           resizeToAvoidBottomInset: true,

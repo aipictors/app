@@ -10,8 +10,9 @@ class DataNotFoundErrorScreen extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
-    return const Scaffold(
-      body: DataNotFoundErrorContainer(),
+    return Scaffold(
+      appBar: AppBar(title: const Text('')),
+      body: const DataNotFoundErrorContainer(),
     );
   }
 }

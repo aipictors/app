@@ -10,8 +10,9 @@ class EmptyDataErrorScreen extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
-    return const Scaffold(
-      body: DataEmptyErrorContainer(),
+    return Scaffold(
+      appBar: AppBar(title: const Text('')),
+      body: const DataEmptyErrorContainer(),
     );
   }
 }
