@@ -1,15 +1,18 @@
 import 'package:aipictors/graphql/__generated__/album_works.req.gql.dart';
 import 'package:aipictors/mutations/follow_user.dart';
+import 'package:aipictors/providers/auth_user_id_provider.dart';
 import 'package:aipictors/providers/config_provider.dart';
-import 'package:aipictors/screens/error/empty_data_error_screen.dart';
+import 'package:aipictors/providers/home_tab_index_provider.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
 import 'package:aipictors/widgets/button/follow_button.dart';
 import 'package:aipictors/widgets/container/end_of_content_container.dart';
 import 'package:aipictors/widgets/container/error/data_empty_error_container.dart';
 import 'package:aipictors/widgets/container/notification_user_container.dart';
+import 'package:aipictors/widgets/dialog/about_follow_dialog.dart';
 import 'package:aipictors/widgets/list_tile/album_work_list_tile.dart';
 import 'package:ferry/ferry.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class AlbumWorksView extends HookConsumerWidget {
@@ -42,6 +45,8 @@ class AlbumWorksView extends HookConsumerWidget {
   Widget build(context, ref) {
     final config = ref.watch(configProvider);
 
+    final authUserId = ref.watch(authUserIdProvider);
+
     return OperationBuilder(
       client: client,
       operationRequest: GAlbumWorksReq((builder) {
@@ -64,16 +69,33 @@ class AlbumWorksView extends HookConsumerWidget {
           itemBuilder: (context, index) {
             if (index == 0) {
               return (Column(children: [
-                ListTile(
-                  title: NotificationUserContainer(
-                      userName: userName, userIconImageURL: userIconImageURL),
-                  trailing: FollowButton(
-                    isActive: isFollowee,
-                    onPressed: () {
-                      return onFollowUser(context, userId: userId);
-                    },
-                  ),
-                ),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: GestureDetector(
+                          onTap: () {
+                            context.push('/users/$userId');
+                          },
+                          child: NotificationUserContainer(
+                            userName: userName,
+                            userIconImageURL: userIconImageURL,
+                          ),
+                        ),
+                      ),
+                      if (authUserId.value != userId)
+                        FollowButton(
+                          isActive: isFollowee,
+                          onPressed: () {
+                            if (authUserId.value == null) {
+                              return onShowLoginDialog(context, ref);
+                            }
+                            return onFollowUser(context, userId: userId);
+                          },
+                        ),
+                      const SizedBox(width: 16),
+                    ]),
                 Text(albumDescription)
               ]));
             }
@@ -104,5 +126,29 @@ class AlbumWorksView extends HookConsumerWidget {
     return followUser((builder) {
       return builder..vars.input.userId = userId;
     });
+  }
+
+  /// フォローする
+  onShowLoginDialog(
+    BuildContext context,
+    WidgetRef ref,
+  ) async {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) {
+        return AboutFollowDialog(
+          onCancel: () {
+            context.pop();
+          },
+          onAccept: () {
+            context.pop();
+            // ログインのページに遷移する
+            final notifier = ref.read(homeTabIndexProvider.notifier);
+            notifier.toLoginTab();
+          },
+        );
+      },
+    );
   }
 }
