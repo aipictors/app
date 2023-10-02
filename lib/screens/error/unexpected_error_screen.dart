@@ -10,8 +10,9 @@ class UnexpectedErrorScreen extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
-    return const Scaffold(
-      body: UnexpectedErrorContainer(),
+    return Scaffold(
+      appBar: AppBar(title: const Text('')),
+      body: const UnexpectedErrorContainer(),
     );
   }
 }

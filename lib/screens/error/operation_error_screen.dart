@@ -14,6 +14,7 @@ class OperationErrorScreen extends HookConsumerWidget {
   @override
   Widget build(context, ref) {
     return Scaffold(
+      appBar: AppBar(title: const Text('')),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,

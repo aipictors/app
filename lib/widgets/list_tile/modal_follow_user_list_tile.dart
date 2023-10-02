@@ -20,12 +20,11 @@ class ModalFollowUserListTile extends HookConsumerWidget {
     final state = useState(isActive);
 
     return ListTile(
-      leading: Icon(
-        Icons.favorite_rounded,
-        color: state.value ? Theme.of(context).colorScheme.error : null,
-      ),
+      leading: state.value
+          ? const Icon(Icons.person_remove)
+          : const Icon(Icons.person_add),
       title: Text(
-        state.value ? 'ユーザをフォロー中'.i18n : 'ユーザをフォローする'.i18n,
+        state.value ? 'ユーザのフォローを解除する'.i18n : 'ユーザをフォローする'.i18n,
         style: const TextStyle(fontWeight: FontWeight.bold),
       ),
       onTap: () async {
