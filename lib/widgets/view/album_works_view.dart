@@ -1,9 +1,11 @@
 import 'package:aipictors/graphql/__generated__/album_works.req.gql.dart';
 import 'package:aipictors/mutations/follow_user.dart';
 import 'package:aipictors/providers/config_provider.dart';
+import 'package:aipictors/screens/error/empty_data_error_screen.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
 import 'package:aipictors/widgets/button/follow_button.dart';
 import 'package:aipictors/widgets/container/end_of_content_container.dart';
+import 'package:aipictors/widgets/container/error/data_empty_error_container.dart';
 import 'package:aipictors/widgets/container/notification_user_container.dart';
 import 'package:aipictors/widgets/list_tile/album_work_list_tile.dart';
 import 'package:ferry/ferry.dart';
@@ -51,7 +53,7 @@ class AlbumWorksView extends HookConsumerWidget {
       builder: (context, response) {
         final workList = response.data?.album?.works;
         if (workList == null) {
-          return const SizedBox();
+          return const DataEmptyErrorContainer();
         }
         return ListView.separated(
           shrinkWrap: true,
