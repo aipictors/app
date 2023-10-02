@@ -66,6 +66,7 @@ class DailyThemesScreen extends HookConsumerWidget {
               onPrev(year, month);
             },
           ),
+          const SizedBox(width: 16),
         ],
       ),
       body: OperationBuilder(

@@ -167,8 +167,10 @@ import 'package:aipictors/graphql/__generated__/album_works.data.gql.dart'
     show
         GAlbumWorksData,
         GAlbumWorksData_album,
+        GAlbumWorksData_album_viewer,
         GAlbumWorksData_album_works,
-        GAlbumWorksData_album_works_thumbnailImage;
+        GAlbumWorksData_album_works_image,
+        GAlbumWorksData_album_works_viewer;
 import 'package:aipictors/graphql/__generated__/album_works.req.gql.dart'
     show GAlbumWorksReq;
 import 'package:aipictors/graphql/__generated__/album_works.var.gql.dart'
@@ -1007,8 +1009,10 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GAlbumVars,
   GAlbumWorksData,
   GAlbumWorksData_album,
+  GAlbumWorksData_album_viewer,
   GAlbumWorksData_album_works,
-  GAlbumWorksData_album_works_thumbnailImage,
+  GAlbumWorksData_album_works_image,
+  GAlbumWorksData_album_works_viewer,
   GAlbumWorksReq,
   GAlbumWorksVars,
   GAlbumsData,

@@ -49,6 +49,7 @@ class DailyThemeHomeScreen extends HookConsumerWidget {
               context.push('/daily_themes');
             },
           ),
+          const SizedBox(width: 16),
         ],
       ),
       body: RefreshIndicator(

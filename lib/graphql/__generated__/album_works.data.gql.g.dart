@@ -12,9 +12,15 @@ Serializer<GAlbumWorksData_album> _$gAlbumWorksDataAlbumSerializer =
     new _$GAlbumWorksData_albumSerializer();
 Serializer<GAlbumWorksData_album_works> _$gAlbumWorksDataAlbumWorksSerializer =
     new _$GAlbumWorksData_album_worksSerializer();
-Serializer<GAlbumWorksData_album_works_thumbnailImage>
-    _$gAlbumWorksDataAlbumWorksThumbnailImageSerializer =
-    new _$GAlbumWorksData_album_works_thumbnailImageSerializer();
+Serializer<GAlbumWorksData_album_works_image>
+    _$gAlbumWorksDataAlbumWorksImageSerializer =
+    new _$GAlbumWorksData_album_works_imageSerializer();
+Serializer<GAlbumWorksData_album_works_viewer>
+    _$gAlbumWorksDataAlbumWorksViewerSerializer =
+    new _$GAlbumWorksData_album_works_viewerSerializer();
+Serializer<GAlbumWorksData_album_viewer>
+    _$gAlbumWorksDataAlbumViewerSerializer =
+    new _$GAlbumWorksData_album_viewerSerializer();
 
 class _$GAlbumWorksDataSerializer
     implements StructuredSerializer<GAlbumWorksData> {
@@ -95,7 +101,14 @@ class _$GAlbumWorksData_albumSerializer
           specifiedType: const FullType(
               BuiltList, const [const FullType(GAlbumWorksData_album_works)])),
     ];
-
+    Object? value;
+    value = object.viewer;
+    if (value != null) {
+      result
+        ..add('viewer')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(GAlbumWorksData_album_viewer)));
+    }
     return result;
   }
 
@@ -124,6 +137,11 @@ class _$GAlbumWorksData_albumSerializer
               specifiedType: const FullType(BuiltList, const [
                 const FullType(GAlbumWorksData_album_works)
               ]))! as BuiltList<Object?>);
+          break;
+        case 'viewer':
+          result.viewer.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(GAlbumWorksData_album_viewer))!
+              as GAlbumWorksData_album_viewer);
           break;
       }
     }
@@ -164,15 +182,24 @@ class _$GAlbumWorksData_album_worksSerializer
       'createdAt',
       serializers.serialize(object.createdAt,
           specifiedType: const FullType(int)),
+      'imageAspectRatio',
+      serializers.serialize(object.imageAspectRatio,
+          specifiedType: const FullType(double)),
     ];
     Object? value;
-    value = object.thumbnailImage;
+    value = object.image;
     if (value != null) {
       result
-        ..add('thumbnailImage')
+        ..add('image')
         ..add(serializers.serialize(value,
-            specifiedType:
-                const FullType(GAlbumWorksData_album_works_thumbnailImage)));
+            specifiedType: const FullType(GAlbumWorksData_album_works_image)));
+    }
+    value = object.viewer;
+    if (value != null) {
+      result
+        ..add('viewer')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(GAlbumWorksData_album_works_viewer)));
     }
     return result;
   }
@@ -213,11 +240,21 @@ class _$GAlbumWorksData_album_worksSerializer
           result.createdAt = serializers.deserialize(value,
               specifiedType: const FullType(int))! as int;
           break;
-        case 'thumbnailImage':
-          result.thumbnailImage.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      GAlbumWorksData_album_works_thumbnailImage))!
-              as GAlbumWorksData_album_works_thumbnailImage);
+        case 'imageAspectRatio':
+          result.imageAspectRatio = serializers.deserialize(value,
+              specifiedType: const FullType(double))! as double;
+          break;
+        case 'image':
+          result.image.replace(serializers.deserialize(value,
+                  specifiedType:
+                      const FullType(GAlbumWorksData_album_works_image))!
+              as GAlbumWorksData_album_works_image);
+          break;
+        case 'viewer':
+          result.viewer.replace(serializers.deserialize(value,
+                  specifiedType:
+                      const FullType(GAlbumWorksData_album_works_viewer))!
+              as GAlbumWorksData_album_works_viewer);
           break;
       }
     }
@@ -226,20 +263,19 @@ class _$GAlbumWorksData_album_worksSerializer
   }
 }
 
-class _$GAlbumWorksData_album_works_thumbnailImageSerializer
-    implements
-        StructuredSerializer<GAlbumWorksData_album_works_thumbnailImage> {
+class _$GAlbumWorksData_album_works_imageSerializer
+    implements StructuredSerializer<GAlbumWorksData_album_works_image> {
   @override
   final Iterable<Type> types = const [
-    GAlbumWorksData_album_works_thumbnailImage,
-    _$GAlbumWorksData_album_works_thumbnailImage
+    GAlbumWorksData_album_works_image,
+    _$GAlbumWorksData_album_works_image
   ];
   @override
-  final String wireName = 'GAlbumWorksData_album_works_thumbnailImage';
+  final String wireName = 'GAlbumWorksData_album_works_image';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers,
-      GAlbumWorksData_album_works_thumbnailImage object,
+  Iterable<Object?> serialize(
+      Serializers serializers, GAlbumWorksData_album_works_image object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
       '__typename',
@@ -256,10 +292,10 @@ class _$GAlbumWorksData_album_works_thumbnailImageSerializer
   }
 
   @override
-  GAlbumWorksData_album_works_thumbnailImage deserialize(
+  GAlbumWorksData_album_works_image deserialize(
       Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new GAlbumWorksData_album_works_thumbnailImageBuilder();
+    final result = new GAlbumWorksData_album_works_imageBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -278,6 +314,124 @@ class _$GAlbumWorksData_album_works_thumbnailImageSerializer
         case 'downloadURL':
           result.downloadURL = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GAlbumWorksData_album_works_viewerSerializer
+    implements StructuredSerializer<GAlbumWorksData_album_works_viewer> {
+  @override
+  final Iterable<Type> types = const [
+    GAlbumWorksData_album_works_viewer,
+    _$GAlbumWorksData_album_works_viewer
+  ];
+  @override
+  final String wireName = 'GAlbumWorksData_album_works_viewer';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GAlbumWorksData_album_works_viewer object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      '__typename',
+      serializers.serialize(object.G__typename,
+          specifiedType: const FullType(String)),
+      'id',
+      serializers.serialize(object.id, specifiedType: const FullType(String)),
+      'isLiked',
+      serializers.serialize(object.isLiked,
+          specifiedType: const FullType(bool)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GAlbumWorksData_album_works_viewer deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GAlbumWorksData_album_works_viewerBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case '__typename':
+          result.G__typename = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'id':
+          result.id = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'isLiked':
+          result.isLiked = serializers.deserialize(value,
+              specifiedType: const FullType(bool))! as bool;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GAlbumWorksData_album_viewerSerializer
+    implements StructuredSerializer<GAlbumWorksData_album_viewer> {
+  @override
+  final Iterable<Type> types = const [
+    GAlbumWorksData_album_viewer,
+    _$GAlbumWorksData_album_viewer
+  ];
+  @override
+  final String wireName = 'GAlbumWorksData_album_viewer';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GAlbumWorksData_album_viewer object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      '__typename',
+      serializers.serialize(object.G__typename,
+          specifiedType: const FullType(String)),
+      'id',
+      serializers.serialize(object.id, specifiedType: const FullType(String)),
+      'isLiked',
+      serializers.serialize(object.isLiked,
+          specifiedType: const FullType(bool)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GAlbumWorksData_album_viewer deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GAlbumWorksData_album_viewerBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case '__typename':
+          result.G__typename = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'id':
+          result.id = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'isLiked':
+          result.isLiked = serializers.deserialize(value,
+              specifiedType: const FullType(bool))! as bool;
           break;
       }
     }
@@ -406,13 +560,18 @@ class _$GAlbumWorksData_album extends GAlbumWorksData_album {
   final String id;
   @override
   final BuiltList<GAlbumWorksData_album_works> works;
+  @override
+  final GAlbumWorksData_album_viewer? viewer;
 
   factory _$GAlbumWorksData_album(
           [void Function(GAlbumWorksData_albumBuilder)? updates]) =>
       (new GAlbumWorksData_albumBuilder()..update(updates))._build();
 
   _$GAlbumWorksData_album._(
-      {required this.G__typename, required this.id, required this.works})
+      {required this.G__typename,
+      required this.id,
+      required this.works,
+      this.viewer})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename, r'GAlbumWorksData_album', 'G__typename');
@@ -436,7 +595,8 @@ class _$GAlbumWorksData_album extends GAlbumWorksData_album {
     return other is GAlbumWorksData_album &&
         G__typename == other.G__typename &&
         id == other.id &&
-        works == other.works;
+        works == other.works &&
+        viewer == other.viewer;
   }
 
   @override
@@ -445,6 +605,7 @@ class _$GAlbumWorksData_album extends GAlbumWorksData_album {
     _$hash = $jc(_$hash, G__typename.hashCode);
     _$hash = $jc(_$hash, id.hashCode);
     _$hash = $jc(_$hash, works.hashCode);
+    _$hash = $jc(_$hash, viewer.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -454,7 +615,8 @@ class _$GAlbumWorksData_album extends GAlbumWorksData_album {
     return (newBuiltValueToStringHelper(r'GAlbumWorksData_album')
           ..add('G__typename', G__typename)
           ..add('id', id)
-          ..add('works', works))
+          ..add('works', works)
+          ..add('viewer', viewer))
         .toString();
   }
 }
@@ -477,6 +639,12 @@ class GAlbumWorksData_albumBuilder
   set works(ListBuilder<GAlbumWorksData_album_works>? works) =>
       _$this._works = works;
 
+  GAlbumWorksData_album_viewerBuilder? _viewer;
+  GAlbumWorksData_album_viewerBuilder get viewer =>
+      _$this._viewer ??= new GAlbumWorksData_album_viewerBuilder();
+  set viewer(GAlbumWorksData_album_viewerBuilder? viewer) =>
+      _$this._viewer = viewer;
+
   GAlbumWorksData_albumBuilder() {
     GAlbumWorksData_album._initializeBuilder(this);
   }
@@ -487,6 +655,7 @@ class GAlbumWorksData_albumBuilder
       _G__typename = $v.G__typename;
       _id = $v.id;
       _works = $v.works.toBuilder();
+      _viewer = $v.viewer?.toBuilder();
       _$v = null;
     }
     return this;
@@ -515,12 +684,15 @@ class GAlbumWorksData_albumBuilder
                   G__typename, r'GAlbumWorksData_album', 'G__typename'),
               id: BuiltValueNullFieldError.checkNotNull(
                   id, r'GAlbumWorksData_album', 'id'),
-              works: works.build());
+              works: works.build(),
+              viewer: _viewer?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'works';
         works.build();
+        _$failedField = 'viewer';
+        _viewer?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'GAlbumWorksData_album', _$failedField, e.toString());
@@ -546,7 +718,11 @@ class _$GAlbumWorksData_album_works extends GAlbumWorksData_album_works {
   @override
   final int createdAt;
   @override
-  final GAlbumWorksData_album_works_thumbnailImage? thumbnailImage;
+  final double imageAspectRatio;
+  @override
+  final GAlbumWorksData_album_works_image? image;
+  @override
+  final GAlbumWorksData_album_works_viewer? viewer;
 
   factory _$GAlbumWorksData_album_works(
           [void Function(GAlbumWorksData_album_worksBuilder)? updates]) =>
@@ -559,7 +735,9 @@ class _$GAlbumWorksData_album_works extends GAlbumWorksData_album_works {
       required this.likesCount,
       required this.commentsCount,
       required this.createdAt,
-      this.thumbnailImage})
+      required this.imageAspectRatio,
+      this.image,
+      this.viewer})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename, r'GAlbumWorksData_album_works', 'G__typename');
@@ -573,6 +751,8 @@ class _$GAlbumWorksData_album_works extends GAlbumWorksData_album_works {
         commentsCount, r'GAlbumWorksData_album_works', 'commentsCount');
     BuiltValueNullFieldError.checkNotNull(
         createdAt, r'GAlbumWorksData_album_works', 'createdAt');
+    BuiltValueNullFieldError.checkNotNull(
+        imageAspectRatio, r'GAlbumWorksData_album_works', 'imageAspectRatio');
   }
 
   @override
@@ -594,7 +774,9 @@ class _$GAlbumWorksData_album_works extends GAlbumWorksData_album_works {
         likesCount == other.likesCount &&
         commentsCount == other.commentsCount &&
         createdAt == other.createdAt &&
-        thumbnailImage == other.thumbnailImage;
+        imageAspectRatio == other.imageAspectRatio &&
+        image == other.image &&
+        viewer == other.viewer;
   }
 
   @override
@@ -606,7 +788,9 @@ class _$GAlbumWorksData_album_works extends GAlbumWorksData_album_works {
     _$hash = $jc(_$hash, likesCount.hashCode);
     _$hash = $jc(_$hash, commentsCount.hashCode);
     _$hash = $jc(_$hash, createdAt.hashCode);
-    _$hash = $jc(_$hash, thumbnailImage.hashCode);
+    _$hash = $jc(_$hash, imageAspectRatio.hashCode);
+    _$hash = $jc(_$hash, image.hashCode);
+    _$hash = $jc(_$hash, viewer.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -620,7 +804,9 @@ class _$GAlbumWorksData_album_works extends GAlbumWorksData_album_works {
           ..add('likesCount', likesCount)
           ..add('commentsCount', commentsCount)
           ..add('createdAt', createdAt)
-          ..add('thumbnailImage', thumbnailImage))
+          ..add('imageAspectRatio', imageAspectRatio)
+          ..add('image', image)
+          ..add('viewer', viewer))
         .toString();
   }
 }
@@ -656,13 +842,22 @@ class GAlbumWorksData_album_worksBuilder
   int? get createdAt => _$this._createdAt;
   set createdAt(int? createdAt) => _$this._createdAt = createdAt;
 
-  GAlbumWorksData_album_works_thumbnailImageBuilder? _thumbnailImage;
-  GAlbumWorksData_album_works_thumbnailImageBuilder get thumbnailImage =>
-      _$this._thumbnailImage ??=
-          new GAlbumWorksData_album_works_thumbnailImageBuilder();
-  set thumbnailImage(
-          GAlbumWorksData_album_works_thumbnailImageBuilder? thumbnailImage) =>
-      _$this._thumbnailImage = thumbnailImage;
+  double? _imageAspectRatio;
+  double? get imageAspectRatio => _$this._imageAspectRatio;
+  set imageAspectRatio(double? imageAspectRatio) =>
+      _$this._imageAspectRatio = imageAspectRatio;
+
+  GAlbumWorksData_album_works_imageBuilder? _image;
+  GAlbumWorksData_album_works_imageBuilder get image =>
+      _$this._image ??= new GAlbumWorksData_album_works_imageBuilder();
+  set image(GAlbumWorksData_album_works_imageBuilder? image) =>
+      _$this._image = image;
+
+  GAlbumWorksData_album_works_viewerBuilder? _viewer;
+  GAlbumWorksData_album_works_viewerBuilder get viewer =>
+      _$this._viewer ??= new GAlbumWorksData_album_works_viewerBuilder();
+  set viewer(GAlbumWorksData_album_works_viewerBuilder? viewer) =>
+      _$this._viewer = viewer;
 
   GAlbumWorksData_album_worksBuilder() {
     GAlbumWorksData_album_works._initializeBuilder(this);
@@ -677,7 +872,9 @@ class GAlbumWorksData_album_worksBuilder
       _likesCount = $v.likesCount;
       _commentsCount = $v.commentsCount;
       _createdAt = $v.createdAt;
-      _thumbnailImage = $v.thumbnailImage?.toBuilder();
+      _imageAspectRatio = $v.imageAspectRatio;
+      _image = $v.image?.toBuilder();
+      _viewer = $v.viewer?.toBuilder();
       _$v = null;
     }
     return this;
@@ -711,17 +908,22 @@ class GAlbumWorksData_album_worksBuilder
               likesCount: BuiltValueNullFieldError.checkNotNull(
                   likesCount, r'GAlbumWorksData_album_works', 'likesCount'),
               commentsCount: BuiltValueNullFieldError.checkNotNull(
-                  commentsCount,
-                  r'GAlbumWorksData_album_works',
-                  'commentsCount'),
+                  commentsCount, r'GAlbumWorksData_album_works', 'commentsCount'),
               createdAt: BuiltValueNullFieldError.checkNotNull(
                   createdAt, r'GAlbumWorksData_album_works', 'createdAt'),
-              thumbnailImage: _thumbnailImage?.build());
+              imageAspectRatio: BuiltValueNullFieldError.checkNotNull(
+                  imageAspectRatio,
+                  r'GAlbumWorksData_album_works',
+                  'imageAspectRatio'),
+              image: _image?.build(),
+              viewer: _viewer?.build());
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'thumbnailImage';
-        _thumbnailImage?.build();
+        _$failedField = 'image';
+        _image?.build();
+        _$failedField = 'viewer';
+        _viewer?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'GAlbumWorksData_album_works', _$failedField, e.toString());
@@ -733,8 +935,8 @@ class GAlbumWorksData_album_worksBuilder
   }
 }
 
-class _$GAlbumWorksData_album_works_thumbnailImage
-    extends GAlbumWorksData_album_works_thumbnailImage {
+class _$GAlbumWorksData_album_works_image
+    extends GAlbumWorksData_album_works_image {
   @override
   final String G__typename;
   @override
@@ -742,37 +944,35 @@ class _$GAlbumWorksData_album_works_thumbnailImage
   @override
   final String downloadURL;
 
-  factory _$GAlbumWorksData_album_works_thumbnailImage(
-          [void Function(GAlbumWorksData_album_works_thumbnailImageBuilder)?
-              updates]) =>
-      (new GAlbumWorksData_album_works_thumbnailImageBuilder()..update(updates))
+  factory _$GAlbumWorksData_album_works_image(
+          [void Function(GAlbumWorksData_album_works_imageBuilder)? updates]) =>
+      (new GAlbumWorksData_album_works_imageBuilder()..update(updates))
           ._build();
 
-  _$GAlbumWorksData_album_works_thumbnailImage._(
+  _$GAlbumWorksData_album_works_image._(
       {required this.G__typename, required this.id, required this.downloadURL})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(G__typename,
-        r'GAlbumWorksData_album_works_thumbnailImage', 'G__typename');
     BuiltValueNullFieldError.checkNotNull(
-        id, r'GAlbumWorksData_album_works_thumbnailImage', 'id');
-    BuiltValueNullFieldError.checkNotNull(downloadURL,
-        r'GAlbumWorksData_album_works_thumbnailImage', 'downloadURL');
+        G__typename, r'GAlbumWorksData_album_works_image', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(
+        id, r'GAlbumWorksData_album_works_image', 'id');
+    BuiltValueNullFieldError.checkNotNull(
+        downloadURL, r'GAlbumWorksData_album_works_image', 'downloadURL');
   }
 
   @override
-  GAlbumWorksData_album_works_thumbnailImage rebuild(
-          void Function(GAlbumWorksData_album_works_thumbnailImageBuilder)
-              updates) =>
+  GAlbumWorksData_album_works_image rebuild(
+          void Function(GAlbumWorksData_album_works_imageBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GAlbumWorksData_album_works_thumbnailImageBuilder toBuilder() =>
-      new GAlbumWorksData_album_works_thumbnailImageBuilder()..replace(this);
+  GAlbumWorksData_album_works_imageBuilder toBuilder() =>
+      new GAlbumWorksData_album_works_imageBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GAlbumWorksData_album_works_thumbnailImage &&
+    return other is GAlbumWorksData_album_works_image &&
         G__typename == other.G__typename &&
         id == other.id &&
         downloadURL == other.downloadURL;
@@ -790,8 +990,7 @@ class _$GAlbumWorksData_album_works_thumbnailImage
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(
-            r'GAlbumWorksData_album_works_thumbnailImage')
+    return (newBuiltValueToStringHelper(r'GAlbumWorksData_album_works_image')
           ..add('G__typename', G__typename)
           ..add('id', id)
           ..add('downloadURL', downloadURL))
@@ -799,11 +998,11 @@ class _$GAlbumWorksData_album_works_thumbnailImage
   }
 }
 
-class GAlbumWorksData_album_works_thumbnailImageBuilder
+class GAlbumWorksData_album_works_imageBuilder
     implements
-        Builder<GAlbumWorksData_album_works_thumbnailImage,
-            GAlbumWorksData_album_works_thumbnailImageBuilder> {
-  _$GAlbumWorksData_album_works_thumbnailImage? _$v;
+        Builder<GAlbumWorksData_album_works_image,
+            GAlbumWorksData_album_works_imageBuilder> {
+  _$GAlbumWorksData_album_works_image? _$v;
 
   String? _G__typename;
   String? get G__typename => _$this._G__typename;
@@ -817,11 +1016,11 @@ class GAlbumWorksData_album_works_thumbnailImageBuilder
   String? get downloadURL => _$this._downloadURL;
   set downloadURL(String? downloadURL) => _$this._downloadURL = downloadURL;
 
-  GAlbumWorksData_album_works_thumbnailImageBuilder() {
-    GAlbumWorksData_album_works_thumbnailImage._initializeBuilder(this);
+  GAlbumWorksData_album_works_imageBuilder() {
+    GAlbumWorksData_album_works_image._initializeBuilder(this);
   }
 
-  GAlbumWorksData_album_works_thumbnailImageBuilder get _$this {
+  GAlbumWorksData_album_works_imageBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _G__typename = $v.G__typename;
@@ -833,30 +1032,277 @@ class GAlbumWorksData_album_works_thumbnailImageBuilder
   }
 
   @override
-  void replace(GAlbumWorksData_album_works_thumbnailImage other) {
+  void replace(GAlbumWorksData_album_works_image other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GAlbumWorksData_album_works_thumbnailImage;
+    _$v = other as _$GAlbumWorksData_album_works_image;
   }
 
   @override
   void update(
-      void Function(GAlbumWorksData_album_works_thumbnailImageBuilder)?
-          updates) {
+      void Function(GAlbumWorksData_album_works_imageBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  GAlbumWorksData_album_works_thumbnailImage build() => _build();
+  GAlbumWorksData_album_works_image build() => _build();
 
-  _$GAlbumWorksData_album_works_thumbnailImage _build() {
+  _$GAlbumWorksData_album_works_image _build() {
     final _$result = _$v ??
-        new _$GAlbumWorksData_album_works_thumbnailImage._(
+        new _$GAlbumWorksData_album_works_image._(
             G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
-                r'GAlbumWorksData_album_works_thumbnailImage', 'G__typename'),
+                r'GAlbumWorksData_album_works_image', 'G__typename'),
             id: BuiltValueNullFieldError.checkNotNull(
-                id, r'GAlbumWorksData_album_works_thumbnailImage', 'id'),
+                id, r'GAlbumWorksData_album_works_image', 'id'),
             downloadURL: BuiltValueNullFieldError.checkNotNull(downloadURL,
-                r'GAlbumWorksData_album_works_thumbnailImage', 'downloadURL'));
+                r'GAlbumWorksData_album_works_image', 'downloadURL'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GAlbumWorksData_album_works_viewer
+    extends GAlbumWorksData_album_works_viewer {
+  @override
+  final String G__typename;
+  @override
+  final String id;
+  @override
+  final bool isLiked;
+
+  factory _$GAlbumWorksData_album_works_viewer(
+          [void Function(GAlbumWorksData_album_works_viewerBuilder)?
+              updates]) =>
+      (new GAlbumWorksData_album_works_viewerBuilder()..update(updates))
+          ._build();
+
+  _$GAlbumWorksData_album_works_viewer._(
+      {required this.G__typename, required this.id, required this.isLiked})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        G__typename, r'GAlbumWorksData_album_works_viewer', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(
+        id, r'GAlbumWorksData_album_works_viewer', 'id');
+    BuiltValueNullFieldError.checkNotNull(
+        isLiked, r'GAlbumWorksData_album_works_viewer', 'isLiked');
+  }
+
+  @override
+  GAlbumWorksData_album_works_viewer rebuild(
+          void Function(GAlbumWorksData_album_works_viewerBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GAlbumWorksData_album_works_viewerBuilder toBuilder() =>
+      new GAlbumWorksData_album_works_viewerBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GAlbumWorksData_album_works_viewer &&
+        G__typename == other.G__typename &&
+        id == other.id &&
+        isLiked == other.isLiked;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, G__typename.hashCode);
+    _$hash = $jc(_$hash, id.hashCode);
+    _$hash = $jc(_$hash, isLiked.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GAlbumWorksData_album_works_viewer')
+          ..add('G__typename', G__typename)
+          ..add('id', id)
+          ..add('isLiked', isLiked))
+        .toString();
+  }
+}
+
+class GAlbumWorksData_album_works_viewerBuilder
+    implements
+        Builder<GAlbumWorksData_album_works_viewer,
+            GAlbumWorksData_album_works_viewerBuilder> {
+  _$GAlbumWorksData_album_works_viewer? _$v;
+
+  String? _G__typename;
+  String? get G__typename => _$this._G__typename;
+  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
+
+  String? _id;
+  String? get id => _$this._id;
+  set id(String? id) => _$this._id = id;
+
+  bool? _isLiked;
+  bool? get isLiked => _$this._isLiked;
+  set isLiked(bool? isLiked) => _$this._isLiked = isLiked;
+
+  GAlbumWorksData_album_works_viewerBuilder() {
+    GAlbumWorksData_album_works_viewer._initializeBuilder(this);
+  }
+
+  GAlbumWorksData_album_works_viewerBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _G__typename = $v.G__typename;
+      _id = $v.id;
+      _isLiked = $v.isLiked;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GAlbumWorksData_album_works_viewer other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GAlbumWorksData_album_works_viewer;
+  }
+
+  @override
+  void update(
+      void Function(GAlbumWorksData_album_works_viewerBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GAlbumWorksData_album_works_viewer build() => _build();
+
+  _$GAlbumWorksData_album_works_viewer _build() {
+    final _$result = _$v ??
+        new _$GAlbumWorksData_album_works_viewer._(
+            G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
+                r'GAlbumWorksData_album_works_viewer', 'G__typename'),
+            id: BuiltValueNullFieldError.checkNotNull(
+                id, r'GAlbumWorksData_album_works_viewer', 'id'),
+            isLiked: BuiltValueNullFieldError.checkNotNull(
+                isLiked, r'GAlbumWorksData_album_works_viewer', 'isLiked'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GAlbumWorksData_album_viewer extends GAlbumWorksData_album_viewer {
+  @override
+  final String G__typename;
+  @override
+  final String id;
+  @override
+  final bool isLiked;
+
+  factory _$GAlbumWorksData_album_viewer(
+          [void Function(GAlbumWorksData_album_viewerBuilder)? updates]) =>
+      (new GAlbumWorksData_album_viewerBuilder()..update(updates))._build();
+
+  _$GAlbumWorksData_album_viewer._(
+      {required this.G__typename, required this.id, required this.isLiked})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        G__typename, r'GAlbumWorksData_album_viewer', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(
+        id, r'GAlbumWorksData_album_viewer', 'id');
+    BuiltValueNullFieldError.checkNotNull(
+        isLiked, r'GAlbumWorksData_album_viewer', 'isLiked');
+  }
+
+  @override
+  GAlbumWorksData_album_viewer rebuild(
+          void Function(GAlbumWorksData_album_viewerBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GAlbumWorksData_album_viewerBuilder toBuilder() =>
+      new GAlbumWorksData_album_viewerBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GAlbumWorksData_album_viewer &&
+        G__typename == other.G__typename &&
+        id == other.id &&
+        isLiked == other.isLiked;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, G__typename.hashCode);
+    _$hash = $jc(_$hash, id.hashCode);
+    _$hash = $jc(_$hash, isLiked.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GAlbumWorksData_album_viewer')
+          ..add('G__typename', G__typename)
+          ..add('id', id)
+          ..add('isLiked', isLiked))
+        .toString();
+  }
+}
+
+class GAlbumWorksData_album_viewerBuilder
+    implements
+        Builder<GAlbumWorksData_album_viewer,
+            GAlbumWorksData_album_viewerBuilder> {
+  _$GAlbumWorksData_album_viewer? _$v;
+
+  String? _G__typename;
+  String? get G__typename => _$this._G__typename;
+  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
+
+  String? _id;
+  String? get id => _$this._id;
+  set id(String? id) => _$this._id = id;
+
+  bool? _isLiked;
+  bool? get isLiked => _$this._isLiked;
+  set isLiked(bool? isLiked) => _$this._isLiked = isLiked;
+
+  GAlbumWorksData_album_viewerBuilder() {
+    GAlbumWorksData_album_viewer._initializeBuilder(this);
+  }
+
+  GAlbumWorksData_album_viewerBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _G__typename = $v.G__typename;
+      _id = $v.id;
+      _isLiked = $v.isLiked;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GAlbumWorksData_album_viewer other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GAlbumWorksData_album_viewer;
+  }
+
+  @override
+  void update(void Function(GAlbumWorksData_album_viewerBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GAlbumWorksData_album_viewer build() => _build();
+
+  _$GAlbumWorksData_album_viewer _build() {
+    final _$result = _$v ??
+        new _$GAlbumWorksData_album_viewer._(
+            G__typename: BuiltValueNullFieldError.checkNotNull(
+                G__typename, r'GAlbumWorksData_album_viewer', 'G__typename'),
+            id: BuiltValueNullFieldError.checkNotNull(
+                id, r'GAlbumWorksData_album_viewer', 'id'),
+            isLiked: BuiltValueNullFieldError.checkNotNull(
+                isLiked, r'GAlbumWorksData_album_viewer', 'isLiked'));
     replace(_$result);
     return _$result;
   }
