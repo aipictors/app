@@ -99,7 +99,7 @@ class AlbumWorksView extends HookConsumerWidget {
                 Text(albumDescription)
               ]));
             }
-            if (index == workList.length) {
+            if (index == workList.length + 1) {
               return const EndOfContentContainer();
             }
             final work = workList[index - 1];
