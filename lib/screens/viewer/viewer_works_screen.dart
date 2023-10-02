@@ -3,10 +3,11 @@ import 'package:aipictors/graphql/__generated__/viewer_works.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/screens/loading_screen.dart';
+import 'package:aipictors/utils/to_readable_number.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
 import 'package:aipictors/widgets/container/error/data_empty_error_container.dart';
 import 'package:aipictors/widgets/container/error/unexpected_error_container.dart';
-import 'package:aipictors/widgets/image/grid_work_image.dart';
+import 'package:aipictors/widgets/list_tile/work_info_list_tile.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -49,14 +50,34 @@ class ViewerWorksScreen extends HookConsumerWidget {
               message: 'あなたの作品は無いみたい。'.i18n,
             );
           }
-          return GridView.builder(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-            ),
+          return ListView.builder(
             itemCount: workList.length,
             itemBuilder: (context, index) {
               final work = workList[index];
-              return InkWell(
+              return WorkInfoListTile(
+                thumbnailImageURL: work.thumbnailImage!.downloadURL,
+                title: work.title,
+                body: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'いいね _LIKES_COUNT_件'.i18n.replaceAllMapped(
+                            RegExp(r'_LIKES_COUNT_'),
+                            (match) => toReadableNumber(work.likesCount),
+                          ),
+                      style: TextStyle(color: Theme.of(context).dividerColor),
+                    ),
+                    const SizedBox(width: 12),
+                    Text(
+                      'コメント _COMMENTS_COUNT_件'.i18n.replaceAllMapped(
+                            RegExp(r'_COMMENTS_COUNT_'),
+                            (match) => toReadableNumber(work.commentsCount),
+                          ),
+                      style: TextStyle(color: Theme.of(context).dividerColor),
+                    ),
+                    const SizedBox(width: 12),
+                  ],
+                ),
                 onTap: () {
                   FirebaseAnalytics.instance.logSelectContent(
                     contentType: 'work',
@@ -64,9 +85,6 @@ class ViewerWorksScreen extends HookConsumerWidget {
                   );
                   context.push('/works/${work.id}');
                 },
-                child: GridWorkImage(
-                  imageURL: work.thumbnailImage?.downloadURL,
-                ),
               );
             },
           );
