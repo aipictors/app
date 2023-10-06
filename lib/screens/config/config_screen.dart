@@ -226,7 +226,7 @@ class ConfigScreen extends HookConsumerWidget {
               context.push('/license');
             },
           ),
-          ListTile(
+          /*ListTile(
             trailing: const Icon(Icons.open_in_new_rounded),
             title: Text(
               'リポジトリ'.i18n,
@@ -235,7 +235,8 @@ class ConfigScreen extends HookConsumerWidget {
             onTap: () {
               onOpenRepository(context, ref);
             },
-          ),
+          ),*/
+
           ListTile(
             trailing: const Icon(Icons.open_in_new_rounded),
             title: Text(
@@ -246,7 +247,7 @@ class ConfigScreen extends HookConsumerWidget {
               onShowDiscordDialog(context, ref);
             },
           ),
-          ListTile(
+          /*ListTile(
             trailing: const Icon(Icons.open_in_new_rounded),
             title: Text(
               'ツイッターをフォローする'.i18n,
@@ -255,7 +256,7 @@ class ConfigScreen extends HookConsumerWidget {
             onTap: () {
               onShowTwitterDialog(context, ref);
             },
-          ),
+          ),*/
           const Divider(),
           ListTile(
             trailing: const Icon(Icons.chevron_right_rounded),
