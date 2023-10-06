@@ -14,6 +14,7 @@ class InformationScreen extends HookConsumerWidget {
   @override
   Widget build(context, ref) {
     return ExplorerTabController(
+      //length: 2,
       length: 1,
       child: Scaffold(
         key: const PageStorageKey('explorer'),
@@ -22,16 +23,18 @@ class InformationScreen extends HookConsumerWidget {
             bottom: TabBar(
               tabs: [
                 Tab(text: 'イベント'.i18n),
-                /*Tab(text: 'お知らせ'.i18n),*/
+                //Tab(text: 'お知らせ'.i18n),
               ],
             )),
         body: const TabBarView(children: [
           PromotionsScreen(
             key: PageStorageKey('information_promotion'),
           ),
-          /*AnnouncementsScreen(
+          /*
+          AnnouncementsScreen(
             key: PageStorageKey('information_announcement'),
-          ),*/
+          ),
+          */
         ]),
       ),
     );
