@@ -111,7 +111,6 @@ class AlbumWorkListTile extends HookConsumerWidget {
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                 const SizedBox(width: 8),
-                /*
                 IconButton(
                   style: IconButton.styleFrom(
                     tapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -127,7 +126,6 @@ class AlbumWorkListTile extends HookConsumerWidget {
                   },
                   icon: const Icon(Icons.share),
                 )
-                */
               ]),
               FilledButton.tonal(
                 style: FilledButton.styleFrom(

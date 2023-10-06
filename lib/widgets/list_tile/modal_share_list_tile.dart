@@ -18,7 +18,6 @@ class ModalShareListTile extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
-    /*
     return ListTile(
       leading: const Icon(Icons.share_rounded),
       title: Text(
@@ -30,7 +29,5 @@ class ModalShareListTile extends HookConsumerWidget {
         onTap();
       },
     );
-    */
-    return Container();
   }
 }
