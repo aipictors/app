@@ -79,18 +79,18 @@ class ConfigScreen extends HookConsumerWidget {
                 context.push('/viewer/albums');
               },
             ),
-          if (authState.value != null)
-            ListTile(
-              leading: const Icon(Icons.folder_rounded),
-              trailing: const Icon(Icons.chevron_right_rounded),
-              title: Text(
-                'フォルダ'.i18n,
-                style: const TextStyle(fontWeight: FontWeight.bold),
-              ),
-              onTap: () {
-                context.push('/viewer/folders');
-              },
-            ),
+          // if (authState.value != null)
+          //   ListTile(
+          //     leading: const Icon(Icons.folder_rounded),
+          //     trailing: const Icon(Icons.chevron_right_rounded),
+          //     title: Text(
+          //       'フォルダ'.i18n,
+          //       style: const TextStyle(fontWeight: FontWeight.bold),
+          //     ),
+          //     onTap: () {
+          //       context.push('/viewer/folders');
+          //     },
+          //   ),
           if (authState.value != null)
             ListTile(
               leading: const Icon(Icons.block_rounded),
@@ -226,41 +226,36 @@ class ConfigScreen extends HookConsumerWidget {
               context.push('/license');
             },
           ),
-          /*
-          ListTile(
-            trailing: const Icon(Icons.open_in_new_rounded),
-            title: Text(
-              'リポジトリ'.i18n,
-              style: const TextStyle(fontWeight: FontWeight.bold),
-            ),
-            onTap: () {
-              onOpenRepository(context, ref);
-            },
-          ),
-          */
-
-          ListTile(
-            trailing: const Icon(Icons.open_in_new_rounded),
-            title: Text(
-              'ディスコに参加する'.i18n,
-              style: const TextStyle(fontWeight: FontWeight.bold),
-            ),
-            onTap: () {
-              onShowDiscordDialog(context, ref);
-            },
-          ),
-          /*
-          ListTile(
-            trailing: const Icon(Icons.open_in_new_rounded),
-            title: Text(
-              'ツイッターをフォローする'.i18n,
-              style: const TextStyle(fontWeight: FontWeight.bold),
-            ),
-            onTap: () {
-              onShowTwitterDialog(context, ref);
-            },
-          ),
-          */
+          // ListTile(
+          //   trailing: const Icon(Icons.open_in_new_rounded),
+          //   title: Text(
+          //     'リポジトリ'.i18n,
+          //     style: const TextStyle(fontWeight: FontWeight.bold),
+          //   ),
+          //   onTap: () {
+          //     onOpenRepository(context, ref);
+          //   },
+          // ),
+          // ListTile(
+          //   trailing: const Icon(Icons.open_in_new_rounded),
+          //   title: Text(
+          //     'ディスコに参加する'.i18n,
+          //     style: const TextStyle(fontWeight: FontWeight.bold),
+          //   ),
+          //   onTap: () {
+          //     onShowDiscordDialog(context, ref);
+          //   },
+          // ),
+          // ListTile(
+          //   trailing: const Icon(Icons.open_in_new_rounded),
+          //   title: Text(
+          //     'ツイッターをフォローする'.i18n,
+          //     style: const TextStyle(fontWeight: FontWeight.bold),
+          //   ),
+          //   onTap: () {
+          //     onShowTwitterDialog(context, ref);
+          //   },
+          // ),
           const Divider(),
           ListTile(
             trailing: const Icon(Icons.chevron_right_rounded),

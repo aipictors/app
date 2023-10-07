@@ -62,7 +62,7 @@ class UserHeaderActionContainer extends HookConsumerWidget {
               ),
             ],
           ),
-          if (authUserId.value != null) const SizedBox(height: 16),
+          if (authUserId.value != null) const SizedBox(height: 8),
           if (authUserId.value != null && authUserId.value != userId)
             SizedBox(
               width: double.infinity,
@@ -73,6 +73,7 @@ class UserHeaderActionContainer extends HookConsumerWidget {
                 },
               ),
             ),
+          if (authUserId.value != null) const SizedBox(height: 8),
         ],
       ),
     );

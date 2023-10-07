@@ -81,7 +81,6 @@ class UserScreen extends HookConsumerWidget {
                             userName: user.name,
                             isFollowee: user.viewer?.isFollowee == true,
                           ),
-                          const SizedBox(height: 16),
                           UserProfileContainer(
                             userId: user.id,
                             name: user.name,

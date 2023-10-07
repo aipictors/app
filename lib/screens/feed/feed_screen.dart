@@ -1,6 +1,5 @@
 import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/providers/auth_state_provider.dart';
-import 'package:aipictors/providers/feed_tab_index_provider.dart';
 import 'package:aipictors/screens/feed/feed_home_view.dart';
 import 'package:aipictors/screens/feed/feed_hot_works_view.dart';
 import 'package:aipictors/screens/feed/feed_latest_works_view.dart';
@@ -8,7 +7,6 @@ import 'package:aipictors/screens/feed/feed_popular_works_view.dart';
 import 'package:aipictors/widgets/container/home_logo_container.dart';
 import 'package:aipictors/widgets/controller/feed_tab_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// フィード
@@ -21,7 +19,7 @@ class FeedScreen extends HookConsumerWidget {
   Widget build(context, ref) {
     final authState = ref.watch(authStateProvider);
 
-    final tabIndex = ref.watch(feedTabIndexProvider);
+    // Zfinal tabIndex = ref.watch(feedTabIndexProvider);
 
     const tabSize = 3;
 
@@ -30,14 +28,14 @@ class FeedScreen extends HookConsumerWidget {
       child: Scaffold(
         appBar: AppBar(
           title: const HomeLogoContainer(),
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.newspaper_rounded),
-              onPressed: () {
-                context.push('/information');
-              },
-            ),
-          ],
+          // actions: [
+          //   IconButton(
+          //     icon: const Icon(Icons.newspaper_rounded),
+          //     onPressed: () {
+          //       context.push('/information');
+          //     },
+          //   ),
+          // ],
           bottom: TabBar(tabs: [
             if (authState.value != null) Tab(text: 'フォロー'.i18n),
             if (authState.value == null) Tab(text: 'ホーム'.i18n),
@@ -62,15 +60,15 @@ class FeedScreen extends HookConsumerWidget {
             key: PageStorageKey('feed_hot_works'),
           ),
         ]),
-        floatingActionButton: FloatingActionButton(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(40),
-          ),
-          child: const Icon(Icons.add),
-          onPressed: () {
-            context.push('/works/create');
-          },
-        ),
+        // floatingActionButton: FloatingActionButton(
+        //   shape: RoundedRectangleBorder(
+        //     borderRadius: BorderRadius.circular(40),
+        //   ),
+        //   child: const Icon(Icons.add),
+        //   onPressed: () {
+        //     context.push('/works/create');
+        //   },
+        // ),
       ),
     );
   }
