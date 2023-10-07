@@ -25,7 +25,12 @@ class ModalShareListTile extends HookConsumerWidget {
         style: const TextStyle(fontWeight: FontWeight.bold),
       ),
       onTap: () {
-        Share.share(shareText);
+        final box = context.findRenderObject() as RenderBox?;
+        Share.share(
+          shareText,
+          // iPadで動作させるため
+          sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
+        );
         onTap();
       },
     );

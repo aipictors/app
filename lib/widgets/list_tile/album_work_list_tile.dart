@@ -1,17 +1,15 @@
 import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/mutations/create_work_like.dart';
 import 'package:aipictors/providers/auth_user_id_provider.dart';
-import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/utils/to_readable_date_time.dart';
-import 'package:aipictors/utils/to_share_work_text.dart';
 import 'package:aipictors/widgets/button/feed_like_button.dart';
+import 'package:aipictors/widgets/button/work_share_button.dart';
 import 'package:aipictors/widgets/container/modal/comment_modal_container.dart';
 import 'package:aipictors/widgets/image/feed_image.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:share_plus/share_plus.dart';
 
 class AlbumWorkListTile extends HookConsumerWidget {
   const AlbumWorkListTile({
@@ -50,7 +48,6 @@ class AlbumWorkListTile extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
-    final config = ref.watch(configProvider);
     final authUserId = ref.watch(authUserIdProvider);
 
     return ListTile(
@@ -111,21 +108,11 @@ class AlbumWorkListTile extends HookConsumerWidget {
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                 const SizedBox(width: 8),
-                IconButton(
-                  style: IconButton.styleFrom(
-                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  ),
-                  onPressed: () {
-                    final text = toShareWorkText(
-                      workId: workId,
-                      workTitle: workTitle,
-                      userName: userName,
-                      hashtagText: config.xPostText,
-                    );
-                    Share.share(text);
-                  },
-                  icon: const Icon(Icons.share),
-                )
+                ShareWorkButton(
+                  workId: workId,
+                  workTitle: workTitle,
+                  userName: userName,
+                ),
               ]),
               FilledButton.tonal(
                 style: FilledButton.styleFrom(
