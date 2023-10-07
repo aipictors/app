@@ -3,7 +3,7 @@ import 'package:aipictors/mutations/create_work_like.dart';
 import 'package:aipictors/providers/auth_user_id_provider.dart';
 import 'package:aipictors/utils/to_readable_date_time.dart';
 import 'package:aipictors/widgets/button/feed_like_button.dart';
-import 'package:aipictors/widgets/button/work_share_button.dart';
+import 'package:aipictors/widgets/button/share_work_button.dart';
 import 'package:aipictors/widgets/container/modal/comment_modal_container.dart';
 import 'package:aipictors/widgets/image/feed_image.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';

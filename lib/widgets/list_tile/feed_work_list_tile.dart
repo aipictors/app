@@ -2,7 +2,6 @@ import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/mutations/create_work_like.dart';
 import 'package:aipictors/mutations/follow_user.dart';
 import 'package:aipictors/providers/auth_user_id_provider.dart';
-import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/providers/home_tab_index_provider.dart';
 import 'package:aipictors/utils/to_readable_date_time.dart';
 import 'package:aipictors/widgets/button/feed_like_button.dart';
