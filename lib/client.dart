@@ -18,11 +18,10 @@ Future<Client> createClient() async {
     DefaultConfig.graphqlEndpoint,
     defaultHeaders: {
       if (token != null) 'authorization': 'Bearer $token',
-      'flutter_version': DefaultConfig.version,
-      'flutter_build_number': DefaultConfig.buildNumber,
-      'flutter_secret_token': DefaultConfig.secretToken,
-      'flutter_operating_system': Platform.operatingSystem.toUpperCase(),
-      'flutter_language': language.toUpperCase(),
+      'flutter-version': DefaultConfig.version,
+      'flutter-secret-token': DefaultConfig.secretToken,
+      'flutter-os': Platform.operatingSystem.toUpperCase(),
+      'language': language.toUpperCase(),
     },
   );
 
