@@ -23,7 +23,7 @@ class FeedLikeButton extends HookConsumerWidget {
 
     return LikeButton(
       isLiked: isActiveInMemory.value,
-      likeCount: count + (isActiveInMemory.value ? 1 : 0),
+      likeCount: count,
       likeCountPadding: const EdgeInsets.only(left: 4),
       likeBuilder: (isLiked) {
         if (isActiveInMemory.value) {
