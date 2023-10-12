@@ -74,12 +74,12 @@ class WorkShortcutActionStickers extends HookConsumerWidget {
                   downloadURL: downloadURLs[1],
                 ),
         ),
-        const SizedBox(width: 8),
-        IconButton.filledTonal(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          onPressed: () {},
-          icon: const Icon(Icons.more_horiz_rounded),
-        ),
+        // const SizedBox(width: 8),
+        // IconButton.filledTonal(
+        //   padding: const EdgeInsets.symmetric(horizontal: 16),
+        //   onPressed: () {},
+        //   icon: const Icon(Icons.more_horiz_rounded),
+        // ),
       ],
     );
   }
