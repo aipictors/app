@@ -2,9 +2,10 @@ schema {
   query: Query
   mutation: Mutation
 }
-"作品のアルバム"
+"作品のシリーズ"
 type AlbumNode implements Node {
   id: ID!
+  "作成日"
   createdAt: Int!
   "スラッグ"
   slug: String
@@ -12,6 +13,7 @@ type AlbumNode implements Node {
   title: String!
   "説明"
   description: String!
+  "作成者"
   userId: ID!
   "ユーザ"
   user: UserNode!
@@ -19,10 +21,11 @@ type AlbumNode implements Node {
   likesCount: Int!
   "閲覧数"
   viewsCount: Int!
-  "作品"
+  """
+  作品
+  ※キャッシュ不可
+  """
   works(offset: Int!, limit: Int!): [WorkNode!]!
-  "サムネイル"
-  thumbnailImageId: ID
   "サムネイル"
   thumbnailImage: ImageNode
   "センシティブである"
@@ -45,13 +48,17 @@ type AlbumViewerNode implements Node {
 "運営のお知らせ"
 type AnnouncementNode implements Node {
   id: ID!
+  "タイトル"
   title: String!
+  "本文"
   body: String!
+  "作成日"
   publishedAt: Int!
 }
 "カテゴリ"
 type CategoryNode implements Node {
   id: ID!
+  "名前"
   name: String!
   viewer: CategoryViewerNode
 }
@@ -65,11 +72,17 @@ type CommentNode implements Node {
   userId: ID
   user: UserNode
   workId: ID
+  "作品"
   work: WorkNode
+  "スタンプ"
   sticker: StickerNode
+  "作成日"
   createdAt: Int!
+  "内容"
   text: String!
+  "レスポンス"
   responses(offset: Int!, limit: Int!): [CommentNode!]!
+  "削除済み"
   isDeleted: Boolean!
 }
 type CreatePromptonPaymentMethodResult {
@@ -78,6 +91,7 @@ type CreatePromptonPaymentMethodResult {
 "作品の日別テーマ"
 type DailyThemeNode implements Node {
   id: ID!
+  "不明"
   type: String!
   "タイトル"
   title: String!
@@ -92,7 +106,7 @@ type DailyThemeNode implements Node {
   "開始時刻"
   startTime: Int!
   "作品"
-  works(offset: Int!, limit: Int!): [WorkNode!]!
+  works(offset: Int!, limit: Int!, where: UserWorksWhereInput): [WorkNode!]!
   "作品数"
   worksCount: Int!
   "作品"
@@ -101,18 +115,32 @@ type DailyThemeNode implements Node {
 "フォルダ"
 type FolderNode implements Node {
   id: ID!
+  "ID"
   nanoid: ID!
+  "作成日"
   createdAt: Int!
+  "更新日"
   updatedAt: Int!
+  "タイトル"
   title: String!
+  "説明"
   description: String!
+  "レーティング"
   rating: Rating
+  "ユーザID"
   userId: ID
+  "ユーザ"
   user: UserNode
+  "作品"
   works(offset: Int!, limit: Int!): [WorkNode!]!
+  "サムネイル画像"
   thumbnailImageURL: String
+  "削除済み"
   isDeleted: Boolean!
+  "非公開である"
   isPrivate: Boolean!
+  "センシティブである"
+  isSensitive: Boolean!
   "Open Graph タイトル"
   openGraphTitle: String
   "Open Graph 説明"
@@ -127,45 +155,91 @@ type FollowNotificationNode implements Node {
   id: ID!
   createdAt: Int!
   userId: ID
+  "ユーザ"
   user: UserNode
 }
 "画像生成"
-type GenerationNode implements Node {
+type ImageGenerationTaskNode implements Node {
   id: ID!
+  "生成画像"
+  imageURL: String
+  "お気に入り度"
+  rating: Int
+  "生成が完了した時刻"
+  completedAt: Int
+  "生成状態"
+  status: ImageGenerationStatus!
+  "削除済み"
+  isDeleted: Boolean!
+  count: Int!
+  "生成の方式"
+  generationType: ImageGenerationType!
+  model: ImageGeneratorNode
+  vae: String!
+  prompt: String!
+  negativePrompt: String!
+  seed: Int!
+  steps: Int!
+  scale: String!
+  sampler: String!
+  sizeType: ImageGenerationSizeType!
+  t2tImageBlob: String
+  t2tMaskImageBlob: String
+  t2tDenoisingStrengthSize: String
+  t2tInpaintingFillSize: String
 }
 "画像生成サービス"
 type ImageGeneratorNode implements Node {
   id: ID!
+  "名前"
   name: String!
 }
 "画像生成LoRA"
 type ImageLoraModelNode implements Node {
   id: ID!
+  "名前"
   name: String!
+  "説明"
   description: String
+  "サムネイル画像のURL"
   thumbnailImageURL: String
+  "コード"
   slug: String!
+  "ライセンス"
   license: String
+  "プロンプト"
   prompts: [String!]!
 }
 "画像生成モデル"
 type ImageModelNode implements Node {
   id: ID!
+  "名前"
   name: String!
+  "名前"
+  displayName: String!
+  "説明"
   description: String
+  "サムネイル画像"
   thumbnailImageURL: String
+  "コード"
   slug: String!
+  "ライセンス"
   license: String
+  "スタイル"
   style: ImageStyle!
+  "プロンプト"
   prompts: [String!]!
+  "カテゴリ"
   category: ImageModelCategory!
   "参考作品"
-  works(offset: Int!, limit: Int!, Where: WorksWhereInput): [WorkNode!]!
+  works(offset: Int!, limit: Int!, where: WorksWhereInput): [WorkNode!]!
 }
 "画像"
 type ImageNode implements Node {
   id: ID!
+  "ダウンロードURL"
   downloadURL: String!
+  "種類"
   type: String!
 }
 "通知（いいねされた作品）"
@@ -193,10 +267,40 @@ type LikedWorksSummaryNotificationNode implements Node {
 type LoginResult {
   token: String!
 }
+"メッセージ"
+type MessageNode implements Node {
+  id: ID!
+  createdAt: Int!
+  "メッセージ"
+  text: String
+  "送信者"
+  user: UserNode!
+  "既読済みである"
+  isRead: Boolean!
+  "自身である"
+  isViewer: Boolean!
+}
+"メッセージのスレッド"
+type MessageThreadNode implements Node {
+  id: ID!
+  updatedAt: Int!
+  recipient: UserNode!
+  latestMessage: MessageNode!
+  messages(offset: Int!, limit: Int!): [MessageNode!]!
+}
+"メッセージのスレッド"
+type MilestoneNode implements Node {
+  id: ID!
+  title: String!
+  version: String!
+  description: String!
+  pageURL: String!
+  isDone: Boolean!
+}
 type Mutation {
   "アカウントを作成する"
   createAccount(input: CreateAccountInput!): UserNode!
-  "アルバムを作成する"
+  "シリーズを作成する"
   createAlbum(input: CreateAlbumInput!): AlbumNode!
   "フォルダに作品を追加する"
   createAlbumWork(input: CreateAlbumWorkInput!): WorkNode!
@@ -204,6 +308,14 @@ type Mutation {
   createFolder(input: CreateFolderInput!): WorkNode!
   "フォルダに作品を追加する"
   createFolderWork(input: CreateFolderWorkInput!): WorkNode!
+  "画像生成のタスクを作成する"
+  createImageGenerationTask(input: CreateImageGenerationTaskInput!): ImageGenerationTaskNode!
+  "メッセージを作成する"
+  createMessage(input: CreateMessageInput!): MessageNode!
+  "コラムを作成する"
+  createNote(input: CreateNoteInput!): NoteNode!
+  "小説を作成する"
+  createNovel(input: CreateNovelInput!): NovelNode!
   "リプライのコメントを作成する"
   createResponseComment(input: CreateResponseCommentInput!): CommentNode!
   "スタンプを作成する"
@@ -216,16 +328,24 @@ type Mutation {
   createWorkComment(input: CreateWorkCommentInput!): CommentNode!
   "作品のスキを作成する"
   createWorkLike(input: CreateWorkLikeInput!): WorkNode!
-  "アルバムを削除する"
+  "作品の閲覧を作成する"
+  createWorkView(input: CreateWorkViewInput!): WorkNode!
+  "シリーズを削除する"
   deleteAlbum(input: DeleteAlbumInput!): AlbumNode!
-  "アルバムから作品を削除する"
+  "シリーズから作品を削除する"
   deleteAlbumWork(input: DeleteAlbumWorkInput!): WorkNode!
   "作品のコメントを削除する"
   deleteComment(input: DeleteCommentInput!): CommentNode!
-  "アルバムを削除する"
+  "シリーズを削除する"
   deleteFolder(input: DeleteFolderInput!): FolderNode!
   "フォルダから作品を削除する"
   deleteFolderWork(input: DeleteFolderWorkInput!): WorkNode!
+  "メッセージを削除する"
+  deleteMessage(input: DeleteMessageInput!): MessageNode!
+  "コラムを削除する"
+  deleteNote(input: DeleteNoteInput!): NoteNode!
+  "小説を削除する"
+  deleteNovel(input: DeleteNovelInput!): NovelNode!
   "スタンプを削除する"
   deleteSticker(input: DeleteStickerInput!): StickerNode!
   "作品を削除する"
@@ -240,7 +360,7 @@ type Mutation {
   muteTag(input: MuteTagInput!): TagNode
   "ユーザをミュートする"
   muteUser(input: MuteUserInput!): UserNode!
-  "アルバムを報告する"
+  "シリーズを報告する"
   reportAlbum(input: ReportAlbumInput!): Boolean
   "コメントを報告する"
   reportComment(input: ReportCommentInput!): Boolean
@@ -264,10 +384,14 @@ type Mutation {
   updateAccountLogin(input: UpdateAccountLoginInput!): UserNode!
   "アカウントのパスワードを変更する"
   updateAccountPassword(input: UpdateAccountPasswordInput!): UserNode!
-  "アルバムを更新する"
+  "シリーズを更新する"
   updateAlbum(input: UpdateAlbumInput!): AlbumNode!
-  "アルバムを更新する"
+  "シリーズを更新する"
   updateFolder(input: UpdateFolderInput!): FolderNode!
+  "ノートを更新する"
+  updateNote(input: UpdateNoteInput!): NoteNode!
+  "小説を更新する"
+  updateNovel(input: UpdateNovelInput!): NovelNode!
   "スタンプを更新する"
   updateSticker(input: UpdateStickerInput!): StickerNode!
   "ユーザのプロフィールを作成する"
@@ -415,26 +539,23 @@ type Mutation {
   "ユーザをブロックする"
   blockPromptonUser(input: BlockPromptonUserInput!): PromptonUserNode!
 }
-"ミュートされたタグ"
-type MutedTagNode implements Node {
+"ノート"
+type NoteNode implements Node {
   id: ID!
-  userId: ID!
+  createdAt: Int!
   user: UserNode!
-  mutedTagId: ID!
-  mutedTag: TagNode!
 }
-"ユーザのミュート"
-type MutedUserNode implements Node {
+"小説"
+type NovelNode implements Node {
   id: ID!
-  userId: ID!
+  createdAt: Int!
   user: UserNode!
-  mutedUserId: ID!
-  mutedUser: UserNode!
 }
 type PageInfo {
   endCursor: String
   hasNextPage: Boolean!
 }
+"決済履歴"
 type PaymentNode implements Node {
   id: ID!
   createdAt: Int!
@@ -1052,70 +1173,87 @@ type PromptonWorksConnection implements Connection {
   edges: [PromptonWorkEdge!]!
 }
 type Query {
+  "シリーズ"
+  album(id: ID!): AlbumNode
+  "シリーズ"
+  albums(offset: Int!, limit: Int!, where: AlbumsWhereInput): [AlbumNode!]
   "運営からのお知らせ"
   announcements(offset: Int!, limit: Int!): [AnnouncementNode!]!
-  "作品"
-  work(id: ID!): WorkNode
-  "作品"
-  works(offset: Int!, limit: Int!, where: WorksWhereInput): [WorkNode!]
-  "ユーザ"
-  user(id: ID!): UserNode
-  "ユーザ"
-  users(offset: Int!, limit: Int!, where: UsersWhereInput): [UserNode!]
+  """
+  全期間の人気作品
+  ※キャッシュ不可
+  """
+  bestWorks(where: PopularWorksWhereInput!): [WorkNode!]!
+  "カテゴリ"
+  category(id: ID!): CategoryNode!
+  "カテゴリ"
+  categories: [CategoryNode!]!
   "フォルダ"
   folder(id: ID!): FolderNode
   "フォルダ"
   folders(offset: Int!, limit: Int!, where: FoldersWhereInput): [FolderNode!]
-  "アルバム"
-  album(id: ID!): AlbumNode
-  "アルバム"
-  albums(offset: Int!, limit: Int!, where: AlbumsWhereInput): [AlbumNode!]
   "日別テーマ"
   dailyTheme(id: ID, year: Int, month: Int, day: Int): DailyThemeNode
   "日別テーマ"
   dailyThemes(offset: Int!, limit: Int!, where: DailyThemesWhereInput): [DailyThemeNode!]!
-  "ステッカー"
+  "トレンドのタグ"
+  hotTags: [TagNode!]!
+  "ホームのタグ"
+  homeTags: [TagNode!]!
+  """
+  1日以内の人気の作品
+  ※キャッシュ不可
+  """
+  hotWorks(where: HotWorksWhereInput): [WorkNode!]!
+  "画像生成サービス"
+  imageGenerators: [ImageGeneratorNode!]!
+  "画像生成モデル"
+  imageLoraModel(id: ID!): ImageLoraModelNode!
+  "画像生成モデル"
+  imageLoraModels: [ImageLoraModelNode!]!
+  "画像生成モデル"
+  imageModel(id: ID!): ImageModelNode!
+  "画像生成モデル"
+  imageModels: [ImageModelNode!]!
+  ""
+  milestones(where: MilestonesWhereInput!): [MilestoneNode!]!
+  """
+  全期間の人気作品
+  ※キャッシュ不可
+  """
+  popularWorks(where: PopularWorksWhereInput!): [WorkNode!]!
+  "プロモーション"
+  promotion(id: ID!): PromotionNode
+  "プロモーション"
+  promotions(offset: Int!, limit: Int!): [PromotionNode!]!
+  "画像生成キーワード"
+  promptCategories: [PromptCategoryNode!]!
+  "スタンプ"
   sticker(id: ID!): StickerNode
-  "ステッカー"
+  "スタンプ"
   stickers(offset: Int!, limit: Int!, where: StickersWhereInput): [StickerNode!]!
   "タグ"
   tag(name: String!): TagNode
   "全てのタグ"
   tags(offset: Int!, limit: Int!, where: TagsWhereInput): [TagNode!]!
-  "トレンドのタグ"
-  hotTags: [TagNode!]!
-  "ホームのタグ"
-  homeTags: [TagNode!]!
-  "ランキング履歴"
-  workAwards(offset: Int!, limit: Int!, where: WorkAwardsWhereInput!): [WorkAwardNode!]!
-  "1日以内の人気の作品"
-  hotWorks: [WorkNode!]!
-  "全期間の人気作品"
-  bestWorks(where: PopularWorksWhereInput!): [WorkNode!]!
-  "全期間の人気作品"
-  popularWorks(where: PopularWorksWhereInput!): [WorkNode!]!
-  "カテゴリ"
-  categories: [CategoryNode!]!
-  "カテゴリ"
-  category(id: ID!): CategoryNode!
-  "画像生成サービス"
-  imageGenerators: [ImageGeneratorNode!]!
-  "画像生成モデル"
-  imageModel(id: ID!): ImageModelNode!
-  "画像生成モデル"
-  imageModels: [ImageModelNode!]!
-  "画像生成モデル"
-  imageLoraModel(id: ID!): ImageLoraModelNode!
-  "画像生成モデル"
-  imageLoraModels: [ImageLoraModelNode!]!
-  "画像生成キーワード"
-  promptCategories: [PromptCategoryNode!]!
-  "プロモーション"
-  promotions(offset: Int!, limit: Int!): [PromotionNode!]!
-  "プロモーション"
-  promotion(id: ID!): PromotionNode
+  "ユーザ"
+  user(id: ID!): UserNode
+  "ユーザ"
+  users(offset: Int!, limit: Int!, where: UsersWhereInput): [UserNode!]
   "ログイン中のユーザ"
   viewer: Viewer
+  "作品"
+  work(id: ID!): WorkNode
+  """
+  ランキング履歴
+  ※キャッシュ不可
+  """
+  workAwards(offset: Int!, limit: Int!, where: WorkAwardsWhereInput!): [WorkAwardNode!]!
+  """
+  作品
+  ※キャッシュ不可
+  """
+  works(offset: Int!, limit: Int!, where: WorksWhereInput): [WorkNode!]
   promptonViewer: PromptonViewer!
   promptonFolder(id: ID!): PromptonFolderNode
   promptonFolders(offset: Int!, limit: Int!, where: PromptonFoldersWhereInput): [PromptonFolderNode!]!
@@ -1131,7 +1269,7 @@ type Query {
   promptonWork(id: ID!): PromptonWorkNode
   promptonWorks(offset: Int!, limit: Int!, where: PromptonWorksWhereInput): [PromptonWorkNode!]!
 }
-"ステッカー"
+"スタンプ"
 type StickerNode implements Node {
   id: ID!
   createdAt: Int!
@@ -1162,6 +1300,7 @@ type SubscriptionNode implements Node {
   type: SubscriptionType!
   user: UserNode!
   payment: PaymentNode
+  "無効である"
   isDisabled: Boolean!
   createdAt: Int!
   periodEnd: Int!
@@ -1173,15 +1312,19 @@ type SubscriptionNode implements Node {
 type SubWorkNode implements Node {
   id: ID!
   imageId: ID
+  "画像のURL"
   image: ImageNode!
   thumbnailImageId: ID!
+  "サムネイル画像のURL"
   thumbnailImage: ImageNode!
 }
 "タグ"
 type TagNode implements Node {
   id: ID!
+  "名前"
   name: String!
-  works(offset: Int!, limit: Int!): [WorkNode!]!
+  "関連する作品"
+  works(offset: Int!, limit: Int!, where: WorksWhereInput): [WorkNode!]!
   worksCount: Int!
   likesCount: Int!
   firstWork: WorkNode
@@ -1212,7 +1355,12 @@ type UserNode implements Node {
   followersCount: Int!
   "入賞回数"
   awardsCount: Int!
-  "作品"
+  "投稿した作品数"
+  worksCount: Int!
+  """
+  作品
+  ※キャッシュ不可
+  """
   works(offset: Int!, limit: Int!, where: UserWorksWhereInput): [WorkNode!]!
   "フォロワー（ユーザをフォローしているユーザ）"
   followers(offset: Int!, limit: Int!): [UserNode!]!
@@ -1220,12 +1368,12 @@ type UserNode implements Node {
   followees(offset: Int!, limit: Int!): [UserNode!]!
   "アワード（作品）"
   workAwards(offset: Int!, limit: Int!, where: AwardsWhereInput): [WorkAwardNode!]!
-  "ステッカー"
+  "スタンプ"
   stickers(offset: Int!, limit: Int!): [StickerNode!]!
-  "アルバム"
-  albums(offset: Int!, limit: Int!): [AlbumNode!]!
+  "シリーズ"
+  albums(offset: Int!, limit: Int!, where: UserAlbumInput): [AlbumNode!]!
   "フォルダ"
-  folders(offset: Int!, limit: Int!): [FolderNode!]!
+  folders(offset: Int!, limit: Int!, where: UserFolderInput): [FolderNode!]!
   "アイコン画像のID"
   iconImageId: ID
   "アイコン画像"
@@ -1242,10 +1390,7 @@ type UserNode implements Node {
   githubAccountId: String
   "紹介"
   biography: String
-  biographyEN: String
   workCreatedAt: Int
-  likedWorks(offset: Int!, limit: Int!): [WorkNode!]!
-  viewer: UserViewerNode
   "プロンプトンのユーザ"
   promptonUser: PromptonUserNode
   "Open Graph タイトル"
@@ -1256,13 +1401,17 @@ type UserNode implements Node {
   openGraphImageURL: String
   "シェア"
   shareText: String
+  "ログインしているユーザ"
+  viewer: UserViewerNode
 }
 "ユーザの設定"
 type UserSettingNode implements Node {
   id: ID!
   userId: ID!
   user: UserNode!
+  "ダークモードを使用する"
   useDarkMode: Boolean!
+  useDisableGenerateTime: Int!
 }
 type UserViewerNode implements Node {
   id: ID!
@@ -1272,21 +1421,46 @@ type UserViewerNode implements Node {
 }
 "ログイン中のユーザ"
 type Viewer {
-  user: UserNode!
-  works(offset: Int!, limit: Int!): [WorkNode!]!
+  "シリーズ"
   albums(offset: Int!, limit: Int!): [AlbumNode!]!
-  folders(offset: Int!, limit: Int!): [FolderNode!]!
-  likedWorks(offset: Int!, limit: Int!): [WorkNode!]!
-  notifications(offset: Int!, limit: Int!): [NotificationNode!]!
+  "現在の有効な画像生成のタスク"
+  currentImageGenerationTasks: [ImageGenerationTaskNode!]!
+  "フィードの作品"
   feedWorks(offset: Int!, limit: Int!): [WorkNode!]!
-  mutedUsers(offset: Int!, limit: Int!): [UserNode!]!
+  "コレクション"
+  folders(offset: Int!, limit: Int!): [FolderNode!]!
+  "いいねした作品"
+  likedWorks(offset: Int!, limit: Int!): [WorkNode!]!
+  "メッセージのスレッド"
+  messageThreads(offset: Int!, limit: Int!): [MessageThreadNode!]!
+  "メッセージのスレッド"
+  messageThread(threadId: ID!): MessageThreadNode
+  "ミュートしたタグ"
   mutedTags(offset: Int!, limit: Int!): [TagNode!]!
-  watchedFolders(offset: Int!, limit: Int!): [FolderNode!]!
-  stickers(offset: Int!, limit: Int!): [StickerNode!]!
-  subscriptionURL: String
-  subscriptions: [SubscriptionNode!]!
-  payments: [PaymentNode!]!
+  "ミュートしたユーザ"
+  mutedUsers(offset: Int!, limit: Int!): [UserNode!]!
+  "通知"
+  notifications(offset: Int!, limit: Int!): [NotificationNode!]!
+  "現在のパス"
   passSubscription: SubscriptionNode
+  "決済履歴"
+  payments: [PaymentNode!]!
+  "作成したスタンプ"
+  stickers(offset: Int!, limit: Int!): [StickerNode!]!
+  "パス管理のURL"
+  subscriptionURL: String
+  "全てのパス"
+  subscriptions: [SubscriptionNode!]!
+  "お問い合わせ対応のメッセージ"
+  supportMessages(offset: Int!, limit: Int!): [MessageNode!]!
+  "ユーザ"
+  user: UserNode!
+  "保存したスタンプ"
+  userStickers(offset: Int!, limit: Int!): [StickerNode!]!
+  "保存したコレクション"
+  watchedFolders(offset: Int!, limit: Int!): [FolderNode!]!
+  "自分の作品"
+  works(offset: Int!, limit: Int!): [WorkNode!]!
 }
 "アワード（作品）"
 type WorkAwardNode implements Node {
@@ -1328,11 +1502,15 @@ type WorkCommentReplyNotificationNode implements Node {
   id: ID!
   createdAt: Int!
   userId: ID
+  "ユーザ"
   user: UserNode
+  "メッセージ"
   message: String
   stickerId: ID
+  "スタンプ"
   sticker: StickerNode
   workId: ID
+  "作品"
   work: WorkNode
 }
 "作品のコンテスト"
@@ -1352,14 +1530,12 @@ type WorkNode implements Node {
   createdAt: Int!
   "年齢制限"
   rating: Rating
+  "センシティブである"
+  isSensitive: Boolean!
   "タイトル"
   title: String!
-  "タイトル（英語）"
-  titleEN: String
   "説明"
   description: String
-  "説明（英語）"
-  descriptionEN: String
   "種類"
   type: String!
   "テーマ"
@@ -1415,6 +1591,8 @@ type WorkNode implements Node {
   userId: ID!
   "ユーザ"
   user: UserNode!
+  "コメント"
+  comment(id: ID!): CommentNode!
   "コメント"
   comments(offset: Int!, limit: Int!): [CommentNode!]!
   "作品"
@@ -1479,6 +1657,24 @@ enum FolderMode {
   NORMAL
   COMIC_VERTICAL
   COMIC_HORIZONTAL
+}
+enum ImageGenerationSizeType {
+  SD2_768_768
+  SD2_768_1200
+  SD2_1200_1200
+  SD1_512_512
+  SD1_512_768
+  SD1_768_512
+}
+enum ImageGenerationStatus {
+  PENDING
+  IN_PROGRESS
+  DONE
+}
+enum ImageGenerationType {
+  TEXT_2_IMAGE
+  IMAGE_2_IMAGE
+  INPAINTING
 }
 enum ImageModelCategory {
   "少女イラスト"
@@ -1569,6 +1765,7 @@ input AddPromptonWorkToFolderInput {
 }
 input AlbumsWhereInput {
   search: String
+  isSensitive: Boolean
 }
 input AwardsWhereInput {
   type: AwardType
@@ -1609,9 +1806,40 @@ input CreateFolderWorkInput {
   folderId: ID!
   workId: ID!
 }
+input CreateImageGenerationTaskInput {
+  "生成する枚数"
+  count: Int!
+  "生成の方式"
+  generationType: ImageGenerationType!
+  model: String!
+  vae: String!
+  prompt: String!
+  negativePrompt: String!
+  seed: Int!
+  steps: Int!
+  scale: String!
+  sampler: String!
+  "画像のサイズ"
+  sizeType: ImageGenerationSizeType!
+  t2tImageBlob: String
+  t2tMaskImageBlob: String
+  t2tDenoisingStrengthSize: String
+  t2tInpaintingFillSize: String
+}
+input CreateMessageInput {
+  recipientId: ID!
+  text: String!
+}
+input CreateNoteInput {
+  text: String!
+}
+input CreateNovelInput {
+  text: String!
+}
 input CreatePromptonAipicRequestInput {
   note: String!
   recipientId: String!
+  fee: Int
 }
 input CreatePromptonChatMessageInput {
   text: String!
@@ -1758,6 +1986,9 @@ input CreateWorkInput {
 input CreateWorkLikeInput {
   workId: ID!
 }
+input CreateWorkViewInput {
+  workId: ID!
+}
 input DailyThemesWhereInput {
   search: String
   year: Int
@@ -1788,6 +2019,15 @@ input DeleteFolderInput {
 input DeleteFolderWorkInput {
   folderId: ID!
   workId: ID!
+}
+input DeleteMessageInput {
+  messageId: ID!
+}
+input DeleteNoteInput {
+  noteId: ID!
+}
+input DeleteNovelInput {
+  novelId: ID!
 }
 input DeletePromptonFolderInput {
   folderId: String!
@@ -1836,12 +2076,16 @@ input FlipPromptonFolderWorkIndexInput {
 }
 input FoldersWhereInput {
   search: String
+  isSensitive: Boolean
 }
 input FollowPromptonUserInput {
   userId: String!
 }
 input FollowUserInput {
   userId: ID!
+}
+input HotWorksWhereInput {
+  isSensitive: Boolean
 }
 input IncrementPromptonProfileBlockIndexInput {
   profileBlockId: String!
@@ -1871,6 +2115,9 @@ input MarkPromptonWorkAsPublicInput {
 input MarkPromptonWorkAsUserHeaderInput {
   workId: String!
 }
+input MilestonesWhereInput {
+  repository: String!
+}
 input MuteTagInput {
   tagName: String!
 }
@@ -1882,6 +2129,8 @@ input PinPromptonWorkInput {
 }
 input PopularWorksWhereInput {
   date: String
+  isSensitive: Boolean
+  "廃止予定"
   rating: Rating
 }
 input PromptonFoldersWhereInput {
@@ -1894,8 +2143,10 @@ input PromptonLabelsWhereInput {
 }
 input PromptonPlansWhereInput {
   search: String
-  objectSlug: String
   isUnique: Boolean
+  styleSlugs: [String!]
+  objectSlugs: [String!]
+  isPaid: Boolean
 }
 input PromptonRequestsWhereInput {
   status: String
@@ -1955,6 +2206,7 @@ input ReportWorkInput {
 }
 input StickersWhereInput {
   search: String
+  isSensitive: Boolean
 }
 input TagsWhereInput {
   search: String
@@ -1993,6 +2245,12 @@ input UpdateAlbumInput {
 input UpdateFolderInput {
   folderId: ID!
   title: String!
+}
+input UpdateNoteInput {
+  noteId: ID!
+}
+input UpdateNovelInput {
+  novelId: ID!
 }
 input UpdatePromptonFolderInput {
   folderId: String!
@@ -2081,11 +2339,20 @@ input UpdateWorkInput {
   workId: ID!
   title: String!
 }
+input UserAlbumInput {
+  search: String
+  isSensitive: Boolean
+}
+input UserFolderInput {
+  search: String
+  isSensitive: Boolean
+}
 input UsersWhereInput {
   search: String
 }
 input UserWorksWhereInput {
   search: String
+  isSensitive: Boolean
 }
 input WatchFolderInput {
   folderId: ID!
@@ -2099,16 +2366,22 @@ input WorkAwardsWhereInput {
   weekIndex: Int
 }
 input WorksWhereInput {
+  "検索"
   search: String
+  "プロンプト"
   prompts: [String!]
+  "プロンプトが存在する"
   hasPrompt: Boolean
+  "画像生成用のプロンプトが存在する"
   hasGeneratorPrompt: Boolean
-  isFollowee: Boolean
+  "スタイル"
   style: ImageStyle
+  "ソート"
   orderBy: WorkOrderBy
-  targets: [String!]
-  type: WorkType
-  rating: Rating
+  "検索の対象"
+  searchTargets: [String!]
+  "センシティブである"
+  isSensitive: Boolean
 }
 directive @defer(label: String, if: Boolean! = true) on FRAGMENT_SPREAD | INLINE_FRAGMENT
 "Exposes a URL that specifies the behavior of this scalar."
