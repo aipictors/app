@@ -10,17 +10,22 @@ class WorkCommentListTile extends HookConsumerWidget {
     Key? key,
     required this.comment,
     required this.isResponse,
+    required this.onTap,
   }) : super(key: key);
 
   final GCommentFields comment;
 
   final bool isResponse;
 
+  final VoidCallback onTap;
+
   @override
   Widget build(context, ref) {
     return ListTile(
       minVerticalPadding: 0,
-      onTap: () {},
+      onTap: () {
+        onTap();
+      },
       leading: isResponse
           ? Icon(
               Icons.subdirectory_arrow_right_rounded,

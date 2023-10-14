@@ -50,11 +50,13 @@ class WorkCommentView extends HookConsumerWidget {
                 WorkCommentListTile(
                   comment: comment,
                   isResponse: false,
+                  onTap: () {},
                 ),
                 for (final response in comment.responses)
                   WorkCommentListTile(
                     comment: response,
                     isResponse: true,
+                    onTap: () {},
                   ),
               ],
             )

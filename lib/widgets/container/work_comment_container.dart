@@ -3,6 +3,7 @@ import 'package:aipictors/mutations/create_work_comment.dart';
 import 'package:aipictors/providers/auth_state_provider.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/widgets/container/loading_container.dart';
+import 'package:aipictors/widgets/container/modal/comment_details_modal_container.dart';
 import 'package:aipictors/widgets/container/work_comment_form_container.dart';
 import 'package:aipictors/widgets/list_tile/work_comment_list_tile.dart';
 import 'package:ferry_flutter/ferry_flutter.dart';
@@ -62,25 +63,47 @@ class WorkCommentContainer extends HookConsumerWidget {
             if (commentList == null) {
               return const SizedBox();
             }
-            return Column(children: [
-              for (final comment in commentList)
-                Column(
-                  children: [
-                    WorkCommentListTile(
-                      comment: comment,
-                      isResponse: false,
-                    ),
-                    for (final response in comment.responses)
+            return ListView.builder(
+                itemCount: commentList.length,
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  return Column(
+                    children: [
                       WorkCommentListTile(
-                        comment: response,
-                        isResponse: true,
-                      ),
-                  ],
-                )
-            ]);
+                          comment: commentList[index],
+                          isResponse: false,
+                          onTap: () {
+                            onOpenDetailsModal(context,
+                                workId: workId, index: index);
+                          }),
+                      for (final response in commentList[index].responses)
+                        WorkCommentListTile(
+                          comment: response,
+                          isResponse: true,
+                          onTap: () {
+                            onOpenDetailsModal(context,
+                                workId: workId, index: index);
+                          },
+                        ),
+                    ],
+                  );
+                });
           },
         ),
       ],
+    );
+  }
+
+  onOpenDetailsModal(BuildContext context,
+      {required String workId, required int index}) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return CommentDetailsModalContainer(
+          workId: workId,
+          index: index,
+        );
+      },
     );
   }
 }
