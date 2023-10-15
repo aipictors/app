@@ -1,6 +1,7 @@
 import 'package:aipictors/graphql/__generated__/work_comments.req.gql.dart';
 import 'package:aipictors/mutations/create_work_comment.dart';
 import 'package:aipictors/providers/auth_state_provider.dart';
+import 'package:aipictors/providers/auth_user_id_provider.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/widgets/container/loading_container.dart';
 import 'package:aipictors/widgets/container/modal/comment_details_modal_container.dart';
@@ -23,6 +24,8 @@ class WorkCommentContainer extends HookConsumerWidget {
     final authState = ref.watch(authStateProvider);
 
     final client = ref.watch(clientProvider);
+
+    final authUserId = ref.watch(authUserIdProvider);
 
     if (client.value == null) {
       return const LoadingContainer();
@@ -64,6 +67,7 @@ class WorkCommentContainer extends HookConsumerWidget {
               return const SizedBox();
             }
             return ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
                 itemCount: commentList.length,
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
@@ -73,8 +77,13 @@ class WorkCommentContainer extends HookConsumerWidget {
                           comment: commentList[index],
                           isResponse: false,
                           onTap: () {
+                            if (commentList[index].user!.id ==
+                                authUserId.value) {
+                              return;
+                            }
                             onOpenDetailsModal(context,
-                                workId: workId, index: index);
+                                workId: workId,
+                                commentId: commentList[index].id);
                           }),
                       for (final response in commentList[index].responses)
                         WorkCommentListTile(
@@ -82,7 +91,8 @@ class WorkCommentContainer extends HookConsumerWidget {
                           isResponse: true,
                           onTap: () {
                             onOpenDetailsModal(context,
-                                workId: workId, index: index);
+                                workId: workId,
+                                commentId: commentList[index].id);
                           },
                         ),
                     ],
@@ -95,13 +105,13 @@ class WorkCommentContainer extends HookConsumerWidget {
   }
 
   onOpenDetailsModal(BuildContext context,
-      {required String workId, required int index}) {
+      {required String workId, required String commentId}) {
     showModalBottomSheet(
       context: context,
       builder: (context) {
         return CommentDetailsModalContainer(
           workId: workId,
-          index: index,
+          commentId: commentId,
         );
       },
     );

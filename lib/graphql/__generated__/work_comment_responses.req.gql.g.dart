@@ -1,29 +1,32 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'user_liked_works.req.gql.dart';
+part of 'work_comment_responses.req.gql.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<GUserLikedWorksReq> _$gUserLikedWorksReqSerializer =
-    new _$GUserLikedWorksReqSerializer();
+Serializer<GWorkCommentResponsesReq> _$gWorkCommentResponsesReqSerializer =
+    new _$GWorkCommentResponsesReqSerializer();
 
-class _$GUserLikedWorksReqSerializer
-    implements StructuredSerializer<GUserLikedWorksReq> {
+class _$GWorkCommentResponsesReqSerializer
+    implements StructuredSerializer<GWorkCommentResponsesReq> {
   @override
-  final Iterable<Type> types = const [GUserLikedWorksReq, _$GUserLikedWorksReq];
+  final Iterable<Type> types = const [
+    GWorkCommentResponsesReq,
+    _$GWorkCommentResponsesReq
+  ];
   @override
-  final String wireName = 'GUserLikedWorksReq';
+  final String wireName = 'GWorkCommentResponsesReq';
 
   @override
   Iterable<Object?> serialize(
-      Serializers serializers, GUserLikedWorksReq object,
+      Serializers serializers, GWorkCommentResponsesReq object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
-          specifiedType: const FullType(_i3.GUserLikedWorksVars)),
+          specifiedType: const FullType(_i3.GWorkCommentResponsesVars)),
       'operation',
       serializers.serialize(object.operation,
           specifiedType: const FullType(_i4.Operation)),
@@ -44,7 +47,7 @@ class _$GUserLikedWorksReqSerializer
       result
         ..add('optimisticResponse')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(_i2.GUserLikedWorksData)));
+            specifiedType: const FullType(_i2.GWorkCommentResponsesData)));
     }
     value = object.updateCacheHandlerKey;
     if (value != null) {
@@ -72,10 +75,10 @@ class _$GUserLikedWorksReqSerializer
   }
 
   @override
-  GUserLikedWorksReq deserialize(
+  GWorkCommentResponsesReq deserialize(
       Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new GUserLikedWorksReqBuilder();
+    final result = new GWorkCommentResponsesReqBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -85,8 +88,8 @@ class _$GUserLikedWorksReqSerializer
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GUserLikedWorksVars))!
-              as _i3.GUserLikedWorksVars);
+                  specifiedType: const FullType(_i3.GWorkCommentResponsesVars))!
+              as _i3.GWorkCommentResponsesVars);
           break;
         case 'operation':
           result.operation = serializers.deserialize(value,
@@ -98,8 +101,8 @@ class _$GUserLikedWorksReqSerializer
           break;
         case 'optimisticResponse':
           result.optimisticResponse.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i2.GUserLikedWorksData))!
-              as _i2.GUserLikedWorksData);
+                  specifiedType: const FullType(_i2.GWorkCommentResponsesData))!
+              as _i2.GWorkCommentResponsesData);
           break;
         case 'updateCacheHandlerKey':
           result.updateCacheHandlerKey = serializers.deserialize(value,
@@ -128,18 +131,19 @@ class _$GUserLikedWorksReqSerializer
   }
 }
 
-class _$GUserLikedWorksReq extends GUserLikedWorksReq {
+class _$GWorkCommentResponsesReq extends GWorkCommentResponsesReq {
   @override
-  final _i3.GUserLikedWorksVars vars;
+  final _i3.GWorkCommentResponsesVars vars;
   @override
   final _i4.Operation operation;
   @override
   final String? requestId;
   @override
-  final _i2.GUserLikedWorksData? Function(
-      _i2.GUserLikedWorksData?, _i2.GUserLikedWorksData?)? updateResult;
+  final _i2.GWorkCommentResponsesData? Function(
+          _i2.GWorkCommentResponsesData?, _i2.GWorkCommentResponsesData?)?
+      updateResult;
   @override
-  final _i2.GUserLikedWorksData? optimisticResponse;
+  final _i2.GWorkCommentResponsesData? optimisticResponse;
   @override
   final String? updateCacheHandlerKey;
   @override
@@ -149,11 +153,11 @@ class _$GUserLikedWorksReq extends GUserLikedWorksReq {
   @override
   final bool executeOnListen;
 
-  factory _$GUserLikedWorksReq(
-          [void Function(GUserLikedWorksReqBuilder)? updates]) =>
-      (new GUserLikedWorksReqBuilder()..update(updates))._build();
+  factory _$GWorkCommentResponsesReq(
+          [void Function(GWorkCommentResponsesReqBuilder)? updates]) =>
+      (new GWorkCommentResponsesReqBuilder()..update(updates))._build();
 
-  _$GUserLikedWorksReq._(
+  _$GWorkCommentResponsesReq._(
       {required this.vars,
       required this.operation,
       this.requestId,
@@ -164,27 +168,28 @@ class _$GUserLikedWorksReq extends GUserLikedWorksReq {
       this.fetchPolicy,
       required this.executeOnListen})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(vars, r'GUserLikedWorksReq', 'vars');
     BuiltValueNullFieldError.checkNotNull(
-        operation, r'GUserLikedWorksReq', 'operation');
+        vars, r'GWorkCommentResponsesReq', 'vars');
     BuiltValueNullFieldError.checkNotNull(
-        executeOnListen, r'GUserLikedWorksReq', 'executeOnListen');
+        operation, r'GWorkCommentResponsesReq', 'operation');
+    BuiltValueNullFieldError.checkNotNull(
+        executeOnListen, r'GWorkCommentResponsesReq', 'executeOnListen');
   }
 
   @override
-  GUserLikedWorksReq rebuild(
-          void Function(GUserLikedWorksReqBuilder) updates) =>
+  GWorkCommentResponsesReq rebuild(
+          void Function(GWorkCommentResponsesReqBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GUserLikedWorksReqBuilder toBuilder() =>
-      new GUserLikedWorksReqBuilder()..replace(this);
+  GWorkCommentResponsesReqBuilder toBuilder() =>
+      new GWorkCommentResponsesReqBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     final dynamic _$dynamicOther = other;
-    return other is GUserLikedWorksReq &&
+    return other is GWorkCommentResponsesReq &&
         vars == other.vars &&
         operation == other.operation &&
         requestId == other.requestId &&
@@ -214,7 +219,7 @@ class _$GUserLikedWorksReq extends GUserLikedWorksReq {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'GUserLikedWorksReq')
+    return (newBuiltValueToStringHelper(r'GWorkCommentResponsesReq')
           ..add('vars', vars)
           ..add('operation', operation)
           ..add('requestId', requestId)
@@ -228,14 +233,15 @@ class _$GUserLikedWorksReq extends GUserLikedWorksReq {
   }
 }
 
-class GUserLikedWorksReqBuilder
-    implements Builder<GUserLikedWorksReq, GUserLikedWorksReqBuilder> {
-  _$GUserLikedWorksReq? _$v;
+class GWorkCommentResponsesReqBuilder
+    implements
+        Builder<GWorkCommentResponsesReq, GWorkCommentResponsesReqBuilder> {
+  _$GWorkCommentResponsesReq? _$v;
 
-  _i3.GUserLikedWorksVarsBuilder? _vars;
-  _i3.GUserLikedWorksVarsBuilder get vars =>
-      _$this._vars ??= new _i3.GUserLikedWorksVarsBuilder();
-  set vars(_i3.GUserLikedWorksVarsBuilder? vars) => _$this._vars = vars;
+  _i3.GWorkCommentResponsesVarsBuilder? _vars;
+  _i3.GWorkCommentResponsesVarsBuilder get vars =>
+      _$this._vars ??= new _i3.GWorkCommentResponsesVarsBuilder();
+  set vars(_i3.GWorkCommentResponsesVarsBuilder? vars) => _$this._vars = vars;
 
   _i4.Operation? _operation;
   _i4.Operation? get operation => _$this._operation;
@@ -245,21 +251,24 @@ class GUserLikedWorksReqBuilder
   String? get requestId => _$this._requestId;
   set requestId(String? requestId) => _$this._requestId = requestId;
 
-  _i2.GUserLikedWorksData? Function(
-      _i2.GUserLikedWorksData?, _i2.GUserLikedWorksData?)? _updateResult;
-  _i2.GUserLikedWorksData? Function(
-          _i2.GUserLikedWorksData?, _i2.GUserLikedWorksData?)?
+  _i2.GWorkCommentResponsesData? Function(
+          _i2.GWorkCommentResponsesData?, _i2.GWorkCommentResponsesData?)?
+      _updateResult;
+  _i2.GWorkCommentResponsesData? Function(
+          _i2.GWorkCommentResponsesData?, _i2.GWorkCommentResponsesData?)?
       get updateResult => _$this._updateResult;
   set updateResult(
-          _i2.GUserLikedWorksData? Function(
-                  _i2.GUserLikedWorksData?, _i2.GUserLikedWorksData?)?
+          _i2.GWorkCommentResponsesData? Function(
+                  _i2.GWorkCommentResponsesData?,
+                  _i2.GWorkCommentResponsesData?)?
               updateResult) =>
       _$this._updateResult = updateResult;
 
-  _i2.GUserLikedWorksDataBuilder? _optimisticResponse;
-  _i2.GUserLikedWorksDataBuilder get optimisticResponse =>
-      _$this._optimisticResponse ??= new _i2.GUserLikedWorksDataBuilder();
-  set optimisticResponse(_i2.GUserLikedWorksDataBuilder? optimisticResponse) =>
+  _i2.GWorkCommentResponsesDataBuilder? _optimisticResponse;
+  _i2.GWorkCommentResponsesDataBuilder get optimisticResponse =>
+      _$this._optimisticResponse ??= new _i2.GWorkCommentResponsesDataBuilder();
+  set optimisticResponse(
+          _i2.GWorkCommentResponsesDataBuilder? optimisticResponse) =>
       _$this._optimisticResponse = optimisticResponse;
 
   String? _updateCacheHandlerKey;
@@ -284,11 +293,11 @@ class GUserLikedWorksReqBuilder
   set executeOnListen(bool? executeOnListen) =>
       _$this._executeOnListen = executeOnListen;
 
-  GUserLikedWorksReqBuilder() {
-    GUserLikedWorksReq._initializeBuilder(this);
+  GWorkCommentResponsesReqBuilder() {
+    GWorkCommentResponsesReq._initializeBuilder(this);
   }
 
-  GUserLikedWorksReqBuilder get _$this {
+  GWorkCommentResponsesReqBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _vars = $v.vars.toBuilder();
@@ -306,27 +315,27 @@ class GUserLikedWorksReqBuilder
   }
 
   @override
-  void replace(GUserLikedWorksReq other) {
+  void replace(GWorkCommentResponsesReq other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GUserLikedWorksReq;
+    _$v = other as _$GWorkCommentResponsesReq;
   }
 
   @override
-  void update(void Function(GUserLikedWorksReqBuilder)? updates) {
+  void update(void Function(GWorkCommentResponsesReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  GUserLikedWorksReq build() => _build();
+  GWorkCommentResponsesReq build() => _build();
 
-  _$GUserLikedWorksReq _build() {
-    _$GUserLikedWorksReq _$result;
+  _$GWorkCommentResponsesReq _build() {
+    _$GWorkCommentResponsesReq _$result;
     try {
       _$result = _$v ??
-          new _$GUserLikedWorksReq._(
+          new _$GWorkCommentResponsesReq._(
               vars: vars.build(),
               operation: BuiltValueNullFieldError.checkNotNull(
-                  operation, r'GUserLikedWorksReq', 'operation'),
+                  operation, r'GWorkCommentResponsesReq', 'operation'),
               requestId: requestId,
               updateResult: updateResult,
               optimisticResponse: _optimisticResponse?.build(),
@@ -334,7 +343,9 @@ class GUserLikedWorksReqBuilder
               updateCacheHandlerContext: updateCacheHandlerContext,
               fetchPolicy: fetchPolicy,
               executeOnListen: BuiltValueNullFieldError.checkNotNull(
-                  executeOnListen, r'GUserLikedWorksReq', 'executeOnListen'));
+                  executeOnListen,
+                  r'GWorkCommentResponsesReq',
+                  'executeOnListen'));
     } catch (_) {
       late String _$failedField;
       try {
@@ -345,7 +356,7 @@ class GUserLikedWorksReqBuilder
         _optimisticResponse?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'GUserLikedWorksReq', _$failedField, e.toString());
+            r'GWorkCommentResponsesReq', _$failedField, e.toString());
       }
       rethrow;
     }

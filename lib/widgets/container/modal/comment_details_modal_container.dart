@@ -1,5 +1,5 @@
 import 'package:aipictors/default.i18n.dart';
-import 'package:aipictors/graphql/__generated__/work_comments.req.gql.dart';
+import 'package:aipictors/graphql/__generated__/work_comment_responses.req.gql.dart';
 import 'package:aipictors/mutations/create_response_comment.dart';
 import 'package:aipictors/providers/auth_state_provider.dart';
 import 'package:aipictors/providers/client_provider.dart';
@@ -15,11 +15,11 @@ class CommentDetailsModalContainer extends HookConsumerWidget {
   const CommentDetailsModalContainer({
     Key? key,
     required this.workId,
-    required this.index,
+    required this.commentId,
   }) : super(key: key);
 
   final String workId;
-  final int index;
+  final String commentId;
 
   @override
   Widget build(context, ref) {
@@ -27,14 +27,14 @@ class CommentDetailsModalContainer extends HookConsumerWidget {
 
     final client = ref.watch(clientProvider);
 
-    var commentId = '';
-
     if (client.value == null) {
       return const LoadingContainer();
     }
 
-    final request = GWorkCommentsReq((builder) {
-      return builder..vars.workId = workId;
+    final request = GWorkCommentResponsesReq((builder) {
+      return builder
+        ..vars.workId = workId
+        ..vars.commentId = commentId;
     });
 
     return GestureDetector(
@@ -51,7 +51,7 @@ class CommentDetailsModalContainer extends HookConsumerWidget {
             children: [
               ModalHeaderContainer(
                 title: Text(
-                  'コメント'.i18n,
+                  'コメントの詳細'.i18n,
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
               ),
@@ -70,15 +70,20 @@ class CommentDetailsModalContainer extends HookConsumerWidget {
                         if (response.graphqlErrors != null) {
                           return const SizedBox();
                         }
-                        final comment = response.data?.work?.comments[index];
-                        commentId = comment!.id;
+                        final comment = response.data!.work!.comment;
                         return Column(
                           children: [
                             WorkCommentListTile(
                               comment: comment,
                               isResponse: false,
                               onTap: () {},
-                            )
+                            ),
+                            for (final response in comment.responses)
+                              WorkCommentListTile(
+                                comment: response,
+                                isResponse: true,
+                                onTap: () {},
+                              ),
                           ],
                         );
                       },
@@ -103,14 +108,12 @@ class CommentDetailsModalContainer extends HookConsumerWidget {
               if (authState.value?.uid != null)
                 WorkCommentFormContainer(
                   onSubmit: (text, stickerId) async {
-                    print("submit");
                     await createResponseComment((builder) {
                       return builder
                         ..vars.input.commentId = commentId
                         ..vars.input.text = text
                         ..vars.input.stickerId = stickerId;
                     });
-                    print("req");
                     client.value?.requestController.add(request);
                   },
                 ),
