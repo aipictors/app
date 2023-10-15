@@ -15,7 +15,7 @@ class WorkCommentFormContainer extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
-    final currentStickerId = useState<String?>('');
+    final currentStickerId = useState<String?>(null);
 
     final isOpenStickers = useState<bool>(false);
 

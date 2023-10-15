@@ -20,6 +20,10 @@ import 'package:aipictors/__generated__/schema.schema.gql.dart'
         GCreateAlbumWorkInput,
         GCreateFolderInput,
         GCreateFolderWorkInput,
+        GCreateImageGenerationTaskInput,
+        GCreateMessageInput,
+        GCreateNoteInput,
+        GCreateNovelInput,
         GCreatePromptonAipicRequestInput,
         GCreatePromptonChatMessageInput,
         GCreatePromptonCoffeeRequestInput,
@@ -51,6 +55,7 @@ import 'package:aipictors/__generated__/schema.schema.gql.dart'
         GCreateWorkCommentInput,
         GCreateWorkInput,
         GCreateWorkLikeInput,
+        GCreateWorkViewInput,
         GDailyThemesWhereInput,
         GDecrementPromptonPlanSort,
         GDecrementPromptonProfileBlockIndexInput,
@@ -59,6 +64,9 @@ import 'package:aipictors/__generated__/schema.schema.gql.dart'
         GDeleteCommentInput,
         GDeleteFolderInput,
         GDeleteFolderWorkInput,
+        GDeleteMessageInput,
+        GDeleteNoteInput,
+        GDeleteNovelInput,
         GDeletePromptonFolderInput,
         GDeletePromptonIntegrationInput,
         GDeletePromptonPlanInput,
@@ -77,6 +85,10 @@ import 'package:aipictors/__generated__/schema.schema.gql.dart'
         GFoldersWhereInput,
         GFollowPromptonUserInput,
         GFollowUserInput,
+        GHotWorksWhereInput,
+        GImageGenerationSizeType,
+        GImageGenerationStatus,
+        GImageGenerationType,
         GImageModelCategory,
         GImageStyle,
         GIncrementPromptonProfileBlockIndexInput,
@@ -88,6 +100,7 @@ import 'package:aipictors/__generated__/schema.schema.gql.dart'
         GMarkPromptonWorkAsPrivateInput,
         GMarkPromptonWorkAsPublicInput,
         GMarkPromptonWorkAsUserHeaderInput,
+        GMilestonesWhereInput,
         GMuteTagInput,
         GMuteUserInput,
         GNotificationType,
@@ -128,6 +141,8 @@ import 'package:aipictors/__generated__/schema.schema.gql.dart'
         GUpdateAccountPasswordInput,
         GUpdateAlbumInput,
         GUpdateFolderInput,
+        GUpdateNoteInput,
+        GUpdateNovelInput,
         GUpdatePromptonFolderInput,
         GUpdatePromptonFolderSortInput,
         GUpdatePromptonPlanInput,
@@ -144,6 +159,8 @@ import 'package:aipictors/__generated__/schema.schema.gql.dart'
         GUpdateStickerInput,
         GUpdateUserProfileInput,
         GUpdateWorkInput,
+        GUserAlbumInput,
+        GUserFolderInput,
         GUserWorksWhereInput,
         GUsersWhereInput,
         GWatchFolderInput,
@@ -424,16 +441,6 @@ import 'package:aipictors/graphql/__generated__/user_followers.req.gql.dart'
     show GUserFollowersReq;
 import 'package:aipictors/graphql/__generated__/user_followers.var.gql.dart'
     show GUserFollowersVars;
-import 'package:aipictors/graphql/__generated__/user_liked_works.data.gql.dart'
-    show
-        GUserLikedWorksData,
-        GUserLikedWorksData_user,
-        GUserLikedWorksData_user_likedWorks,
-        GUserLikedWorksData_user_likedWorks_thumbnailImage;
-import 'package:aipictors/graphql/__generated__/user_liked_works.req.gql.dart'
-    show GUserLikedWorksReq;
-import 'package:aipictors/graphql/__generated__/user_liked_works.var.gql.dart'
-    show GUserLikedWorksVars;
 import 'package:aipictors/graphql/__generated__/user_stickers.data.gql.dart'
     show
         GUserStickersData,
@@ -605,6 +612,24 @@ import 'package:aipictors/graphql/__generated__/work_awards.req.gql.dart'
     show GWorkAwardsReq;
 import 'package:aipictors/graphql/__generated__/work_awards.var.gql.dart'
     show GWorkAwardsVars;
+import 'package:aipictors/graphql/__generated__/work_comment_responses.data.gql.dart'
+    show
+        GWorkCommentResponsesData,
+        GWorkCommentResponsesData_work,
+        GWorkCommentResponsesData_work_comment,
+        GWorkCommentResponsesData_work_comment_responses,
+        GWorkCommentResponsesData_work_comment_responses_sticker,
+        GWorkCommentResponsesData_work_comment_responses_sticker_image,
+        GWorkCommentResponsesData_work_comment_responses_user,
+        GWorkCommentResponsesData_work_comment_responses_user_iconImage,
+        GWorkCommentResponsesData_work_comment_sticker,
+        GWorkCommentResponsesData_work_comment_sticker_image,
+        GWorkCommentResponsesData_work_comment_user,
+        GWorkCommentResponsesData_work_comment_user_iconImage;
+import 'package:aipictors/graphql/__generated__/work_comment_responses.req.gql.dart'
+    show GWorkCommentResponsesReq;
+import 'package:aipictors/graphql/__generated__/work_comment_responses.var.gql.dart'
+    show GWorkCommentResponsesVars;
 import 'package:aipictors/graphql/__generated__/work_comments.data.gql.dart'
     show
         GWorkCommentsData,
@@ -1071,6 +1096,10 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GCreateFolderWorkInput,
   GCreateFolderWorkReq,
   GCreateFolderWorkVars,
+  GCreateImageGenerationTaskInput,
+  GCreateMessageInput,
+  GCreateNoteInput,
+  GCreateNovelInput,
   GCreatePromptonAipicRequestInput,
   GCreatePromptonChatMessageInput,
   GCreatePromptonCoffeeRequestInput,
@@ -1123,6 +1152,7 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GCreateWorkLikeVars,
   GCreateWorkReq,
   GCreateWorkVars,
+  GCreateWorkViewInput,
   GDailyThemeData,
   GDailyThemeData_dailyTheme,
   GDailyThemeData_dailyTheme_works,
@@ -1163,6 +1193,9 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GDeleteFolderWorkInput,
   GDeleteFolderWorkReq,
   GDeleteFolderWorkVars,
+  GDeleteMessageInput,
+  GDeleteNoteInput,
+  GDeleteNovelInput,
   GDeletePromptonFolderInput,
   GDeletePromptonIntegrationInput,
   GDeletePromptonPlanInput,
@@ -1266,6 +1299,10 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GHotWorksData_hotWorks_thumbnailImage,
   GHotWorksReq,
   GHotWorksVars,
+  GHotWorksWhereInput,
+  GImageGenerationSizeType,
+  GImageGenerationStatus,
+  GImageGenerationType,
   GImageModelCategory,
   GImageStyle,
   GIncrementPromptonProfileBlockIndexInput,
@@ -1291,6 +1328,7 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GMarkPromptonWorkAsPrivateInput,
   GMarkPromptonWorkAsPublicInput,
   GMarkPromptonWorkAsUserHeaderInput,
+  GMilestonesWhereInput,
   GMuteTagData,
   GMuteTagData_muteTag,
   GMuteTagData_muteTag_viewer,
@@ -1444,6 +1482,8 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GUpdateFolderInput,
   GUpdateFolderReq,
   GUpdateFolderVars,
+  GUpdateNoteInput,
+  GUpdateNovelInput,
   GUpdatePromptonFolderInput,
   GUpdatePromptonFolderSortInput,
   GUpdatePromptonPlanInput,
@@ -1472,6 +1512,7 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GUpdateWorkInput,
   GUpdateWorkReq,
   GUpdateWorkVars,
+  GUserAlbumInput,
   GUserAlbumsData,
   GUserAlbumsData_user,
   GUserAlbumsData_user_albums,
@@ -1488,6 +1529,7 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GUserFieldsData_iconImage,
   GUserFieldsReq,
   GUserFieldsVars,
+  GUserFolderInput,
   GUserFoldersData,
   GUserFoldersData_user,
   GUserFoldersData_user_folders,
@@ -1505,12 +1547,6 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GUserFollowersData_user_followers_iconImage,
   GUserFollowersReq,
   GUserFollowersVars,
-  GUserLikedWorksData,
-  GUserLikedWorksData_user,
-  GUserLikedWorksData_user_likedWorks,
-  GUserLikedWorksData_user_likedWorks_thumbnailImage,
-  GUserLikedWorksReq,
-  GUserLikedWorksVars,
   GUserReq,
   GUserStickersData,
   GUserStickersData_user,
@@ -1645,6 +1681,20 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GWorkCommentReplyNotificationFieldsData_work_thumbnailImage,
   GWorkCommentReplyNotificationFieldsReq,
   GWorkCommentReplyNotificationFieldsVars,
+  GWorkCommentResponsesData,
+  GWorkCommentResponsesData_work,
+  GWorkCommentResponsesData_work_comment,
+  GWorkCommentResponsesData_work_comment_responses,
+  GWorkCommentResponsesData_work_comment_responses_sticker,
+  GWorkCommentResponsesData_work_comment_responses_sticker_image,
+  GWorkCommentResponsesData_work_comment_responses_user,
+  GWorkCommentResponsesData_work_comment_responses_user_iconImage,
+  GWorkCommentResponsesData_work_comment_sticker,
+  GWorkCommentResponsesData_work_comment_sticker_image,
+  GWorkCommentResponsesData_work_comment_user,
+  GWorkCommentResponsesData_work_comment_user_iconImage,
+  GWorkCommentResponsesReq,
+  GWorkCommentResponsesVars,
   GWorkCommentsData,
   GWorkCommentsData_work,
   GWorkCommentsData_work_comments,

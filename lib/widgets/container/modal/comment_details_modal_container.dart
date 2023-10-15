@@ -1,10 +1,8 @@
 import 'package:aipictors/default.i18n.dart';
-import 'package:aipictors/graphql/__generated__/work_comments.req.gql.dart';
-import 'package:aipictors/mutations/create_work_comment.dart';
+import 'package:aipictors/graphql/__generated__/work_comment_responses.req.gql.dart';
+import 'package:aipictors/mutations/create_response_comment.dart';
 import 'package:aipictors/providers/auth_state_provider.dart';
 import 'package:aipictors/providers/client_provider.dart';
-import 'package:aipictors/widgets/container/error/data_empty_error_container.dart';
-import 'package:aipictors/widgets/container/error/unexpected_error_container.dart';
 import 'package:aipictors/widgets/container/loading_container.dart';
 import 'package:aipictors/widgets/container/modal_header_container.dart';
 import 'package:aipictors/widgets/container/work_comment_form_container.dart';
@@ -13,13 +11,15 @@ import 'package:ferry_flutter/ferry_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class CommentModalContainer extends HookConsumerWidget {
-  const CommentModalContainer({
+class CommentDetailsModalContainer extends HookConsumerWidget {
+  const CommentDetailsModalContainer({
     Key? key,
     required this.workId,
+    required this.commentId,
   }) : super(key: key);
 
   final String workId;
+  final String commentId;
 
   @override
   Widget build(context, ref) {
@@ -31,8 +31,10 @@ class CommentModalContainer extends HookConsumerWidget {
       return const LoadingContainer();
     }
 
-    final request = GWorkCommentsReq((builder) {
-      return builder..vars.workId = workId;
+    final request = GWorkCommentResponsesReq((builder) {
+      return builder
+        ..vars.workId = workId
+        ..vars.commentId = commentId;
     });
 
     return GestureDetector(
@@ -49,52 +51,44 @@ class CommentModalContainer extends HookConsumerWidget {
             children: [
               ModalHeaderContainer(
                 title: Text(
-                  'コメント'.i18n,
+                  'コメントの詳細'.i18n,
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
               ),
               Expanded(
                 child: SingleChildScrollView(
-                  child: Operation(
-                    client: client.value!,
-                    operationRequest: GWorkCommentsReq((builder) {
-                      return builder..vars.workId = workId;
-                    }),
-                    builder: (context, response, error) {
-                      if (error != null) {
-                        return const Center(child: UnexpectedErrorContainer());
-                      }
-                      if (response == null || response.loading) {
-                        return const Center(child: LoadingContainer());
-                      }
-                      if (response.graphqlErrors != null) {
-                        return const Center(child: UnexpectedErrorContainer());
-                      }
-                      final commentList = response.data?.work?.comments;
-                      if (commentList == null || commentList.isEmpty) {
-                        return const Center(child: DataEmptyErrorContainer());
-                      }
-                      return Column(children: [
-                        for (final comment in commentList)
-                          Column(
-                            children: [
+                    child: Column(children: [
+                  Operation(
+                      operationRequest: request,
+                      builder: (context, response, error) {
+                        if (error != null) {
+                          return const SizedBox();
+                        }
+                        if (response == null || response.loading) {
+                          return const LoadingContainer();
+                        }
+                        if (response.graphqlErrors != null) {
+                          return const SizedBox();
+                        }
+                        final comment = response.data!.work!.comment;
+                        return Column(
+                          children: [
+                            WorkCommentListTile(
+                              comment: comment,
+                              isResponse: false,
+                              onTap: () {},
+                            ),
+                            for (final response in comment.responses)
                               WorkCommentListTile(
-                                comment: comment,
-                                isResponse: false,
+                                comment: response,
+                                isResponse: true,
                                 onTap: () {},
                               ),
-                              for (final response in comment.responses)
-                                WorkCommentListTile(
-                                  comment: response,
-                                  isResponse: true,
-                                  onTap: () {},
-                                ),
-                            ],
-                          )
-                      ]);
-                    },
-                  ),
-                ),
+                          ],
+                        );
+                      },
+                      client: client.value!)
+                ])),
               ),
               const Divider(height: 0),
               if (authState.value?.uid == null)
@@ -114,9 +108,9 @@ class CommentModalContainer extends HookConsumerWidget {
               if (authState.value?.uid != null)
                 WorkCommentFormContainer(
                   onSubmit: (text, stickerId) async {
-                    await createWorkComment((builder) {
+                    await createResponseComment((builder) {
                       return builder
-                        ..vars.input.workId = workId
+                        ..vars.input.commentId = commentId
                         ..vars.input.text = text
                         ..vars.input.stickerId = stickerId;
                     });

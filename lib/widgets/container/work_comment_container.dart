@@ -1,8 +1,10 @@
 import 'package:aipictors/graphql/__generated__/work_comments.req.gql.dart';
 import 'package:aipictors/mutations/create_work_comment.dart';
 import 'package:aipictors/providers/auth_state_provider.dart';
+import 'package:aipictors/providers/auth_user_id_provider.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/widgets/container/loading_container.dart';
+import 'package:aipictors/widgets/container/modal/comment_details_modal_container.dart';
 import 'package:aipictors/widgets/container/work_comment_form_container.dart';
 import 'package:aipictors/widgets/list_tile/work_comment_list_tile.dart';
 import 'package:ferry_flutter/ferry_flutter.dart';
@@ -22,6 +24,8 @@ class WorkCommentContainer extends HookConsumerWidget {
     final authState = ref.watch(authStateProvider);
 
     final client = ref.watch(clientProvider);
+
+    final authUserId = ref.watch(authUserIdProvider);
 
     if (client.value == null) {
       return const LoadingContainer();
@@ -62,25 +66,54 @@ class WorkCommentContainer extends HookConsumerWidget {
             if (commentList == null) {
               return const SizedBox();
             }
-            return Column(children: [
-              for (final comment in commentList)
-                Column(
-                  children: [
-                    WorkCommentListTile(
-                      comment: comment,
-                      isResponse: false,
-                    ),
-                    for (final response in comment.responses)
+            return ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: commentList.length,
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  return Column(
+                    children: [
                       WorkCommentListTile(
-                        comment: response,
-                        isResponse: true,
-                      ),
-                  ],
-                )
-            ]);
+                          comment: commentList[index],
+                          isResponse: false,
+                          onTap: () {
+                            if (commentList[index].user!.id ==
+                                authUserId.value) {
+                              return;
+                            }
+                            onOpenDetailsModal(context,
+                                workId: workId,
+                                commentId: commentList[index].id);
+                          }),
+                      for (final response in commentList[index].responses)
+                        WorkCommentListTile(
+                          comment: response,
+                          isResponse: true,
+                          onTap: () {
+                            onOpenDetailsModal(context,
+                                workId: workId,
+                                commentId: commentList[index].id);
+                          },
+                        ),
+                    ],
+                  );
+                });
           },
         ),
       ],
+    );
+  }
+
+  onOpenDetailsModal(BuildContext context,
+      {required String workId, required String commentId}) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return CommentDetailsModalContainer(
+          workId: workId,
+          commentId: commentId,
+        );
+      },
     );
   }
 }
