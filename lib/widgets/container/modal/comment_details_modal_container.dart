@@ -51,7 +51,7 @@ class CommentDetailsModalContainer extends HookConsumerWidget {
             children: [
               ModalHeaderContainer(
                 title: Text(
-                  'コメントの詳細'.i18n,
+                  'リプライ'.i18n,
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
               ),
