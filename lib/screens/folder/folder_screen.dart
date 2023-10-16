@@ -1,4 +1,3 @@
-import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/graphql/__generated__/folder.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/screens/error/data_not_found_error_screen.dart';

@@ -198,10 +198,30 @@ class GNotificationType extends EnumClass {
       _$gNotificationTypeValueOf(name);
 }
 
+class GPassType extends EnumClass {
+  const GPassType._(String name) : super(name);
+
+  static const GPassType LITE = _$gPassTypeLITE;
+
+  static const GPassType STANDARD = _$gPassTypeSTANDARD;
+
+  static const GPassType PREMIUM = _$gPassTypePREMIUM;
+
+  static const GPassType TWO_DAYS = _$gPassTypeTWO_DAYS;
+
+  static Serializer<GPassType> get serializer => _$gPassTypeSerializer;
+  static BuiltSet<GPassType> get values => _$gPassTypeValues;
+  static GPassType valueOf(String name) => _$gPassTypeValueOf(name);
+}
+
 class GPaymentType extends EnumClass {
   const GPaymentType._(String name) : super(name);
 
-  static const GPaymentType PASS = _$gPaymentTypePASS;
+  static const GPaymentType PASS_STANDARD = _$gPaymentTypePASS_STANDARD;
+
+  static const GPaymentType PASS_PREMIUM = _$gPaymentTypePASS_PREMIUM;
+
+  static const GPaymentType PASS_LITE = _$gPaymentTypePASS_LITE;
 
   static Serializer<GPaymentType> get serializer => _$gPaymentTypeSerializer;
   static BuiltSet<GPaymentType> get values => _$gPaymentTypeValues;
@@ -240,18 +260,6 @@ class GReportReason extends EnumClass {
   static Serializer<GReportReason> get serializer => _$gReportReasonSerializer;
   static BuiltSet<GReportReason> get values => _$gReportReasonValues;
   static GReportReason valueOf(String name) => _$gReportReasonValueOf(name);
-}
-
-class GSubscriptionType extends EnumClass {
-  const GSubscriptionType._(String name) : super(name);
-
-  static const GSubscriptionType PASS = _$gSubscriptionTypePASS;
-
-  static Serializer<GSubscriptionType> get serializer =>
-      _$gSubscriptionTypeSerializer;
-  static BuiltSet<GSubscriptionType> get values => _$gSubscriptionTypeValues;
-  static GSubscriptionType valueOf(String name) =>
-      _$gSubscriptionTypeValueOf(name);
 }
 
 class GWorkOrderBy extends EnumClass {
@@ -702,6 +710,30 @@ abstract class GCreateNovelInput
   static GCreateNovelInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GCreateNovelInput.serializer,
+        json,
+      );
+}
+
+abstract class GCreatePassCheckoutSessionInput
+    implements
+        Built<GCreatePassCheckoutSessionInput,
+            GCreatePassCheckoutSessionInputBuilder> {
+  GCreatePassCheckoutSessionInput._();
+
+  factory GCreatePassCheckoutSessionInput(
+          [Function(GCreatePassCheckoutSessionInputBuilder b) updates]) =
+      _$GCreatePassCheckoutSessionInput;
+
+  GPassType get passType;
+  static Serializer<GCreatePassCheckoutSessionInput> get serializer =>
+      _$gCreatePassCheckoutSessionInputSerializer;
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GCreatePassCheckoutSessionInput.serializer,
+        this,
+      ) as Map<String, dynamic>);
+  static GCreatePassCheckoutSessionInput? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GCreatePassCheckoutSessionInput.serializer,
         json,
       );
 }
@@ -3866,6 +3898,7 @@ const Map<String, Set<String>> possibleTypesMap = {
     'MilestoneNode',
     'NoteNode',
     'NovelNode',
+    'PassNode',
     'PaymentNode',
     'PromotionNode',
     'PromptCategoryNode',
@@ -3896,7 +3929,6 @@ const Map<String, Set<String>> possibleTypesMap = {
     'PromptonWorkNode',
     'StickerNode',
     'StickerViewerNode',
-    'SubscriptionNode',
     'SubWorkNode',
     'TagNode',
     'TagViewerNode',

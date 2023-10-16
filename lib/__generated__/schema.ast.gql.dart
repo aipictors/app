@@ -1789,6 +1789,15 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'createCustomerPortalSession'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
       name: _i1.NameNode(value: 'createFolder'),
       directives: [],
       args: [
@@ -1941,9 +1950,19 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'createPassCheckoutURL'),
+      name: _i1.NameNode(value: 'createPassCheckoutSession'),
       directives: [],
-      args: [],
+      args: [
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'input'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'CreatePassCheckoutSessionInput'),
+            isNonNull: false,
+          ),
+          defaultValue: null,
+        )
+      ],
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'String'),
         isNonNull: true,
@@ -4105,6 +4124,126 @@ const PageInfo = _i1.ObjectTypeDefinitionNode(
     ),
   ],
 );
+const PassNode = _i1.ObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'PassNode'),
+  directives: [],
+  interfaces: [
+    _i1.NamedTypeNode(
+      name: _i1.NameNode(value: 'Node'),
+      isNonNull: false,
+    )
+  ],
+  fields: [
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'id'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'ID'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'type'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'PassType'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'user'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'UserNode'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'payment'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'PaymentNode'),
+        isNonNull: false,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'isDisabled'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Boolean'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'createdAt'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Int'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'periodEnd'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Int'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'periodStart'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Int'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'trialPeriodStart'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Int'),
+        isNonNull: false,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'trialPeriodEnd'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Int'),
+        isNonNull: false,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'isExpired'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Boolean'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'price'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Int'),
+        isNonNull: true,
+      ),
+    ),
+  ],
+);
 const PaymentNode = _i1.ObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'PaymentNode'),
   directives: [],
@@ -4188,11 +4327,11 @@ const PaymentNode = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'subscription'),
+      name: _i1.NameNode(value: 'pass'),
       directives: [],
       args: [],
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'SubscriptionNode'),
+        name: _i1.NameNode(value: 'PassNode'),
         isNonNull: false,
       ),
     ),
@@ -9973,117 +10112,6 @@ const StickerViewerNode = _i1.ObjectTypeDefinitionNode(
     ),
   ],
 );
-const SubscriptionNode = _i1.ObjectTypeDefinitionNode(
-  name: _i1.NameNode(value: 'SubscriptionNode'),
-  directives: [],
-  interfaces: [
-    _i1.NamedTypeNode(
-      name: _i1.NameNode(value: 'Node'),
-      isNonNull: false,
-    )
-  ],
-  fields: [
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'id'),
-      directives: [],
-      args: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'ID'),
-        isNonNull: true,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'type'),
-      directives: [],
-      args: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'SubscriptionType'),
-        isNonNull: true,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'user'),
-      directives: [],
-      args: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'UserNode'),
-        isNonNull: true,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'payment'),
-      directives: [],
-      args: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'PaymentNode'),
-        isNonNull: false,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'isDisabled'),
-      directives: [],
-      args: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'Boolean'),
-        isNonNull: true,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'createdAt'),
-      directives: [],
-      args: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'Int'),
-        isNonNull: true,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'periodEnd'),
-      directives: [],
-      args: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'Int'),
-        isNonNull: true,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'periodStart'),
-      directives: [],
-      args: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'Int'),
-        isNonNull: true,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'trialPeriodStart'),
-      directives: [],
-      args: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'Int'),
-        isNonNull: false,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'trialPeriodEnd'),
-      directives: [],
-      args: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'Int'),
-        isNonNull: false,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'isExpired'),
-      directives: [],
-      args: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'Boolean'),
-        isNonNull: true,
-      ),
-    ),
-  ],
-);
 const SubWorkNode = _i1.ObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'SubWorkNode'),
   directives: [],
@@ -11175,11 +11203,11 @@ const Viewer = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'passSubscription'),
+      name: _i1.NameNode(value: 'currentPass'),
       directives: [],
       args: [],
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'SubscriptionNode'),
+        name: _i1.NameNode(value: 'PassNode'),
         isNonNull: false,
       ),
     ),
@@ -11227,24 +11255,12 @@ const Viewer = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'subscriptionURL'),
+      name: _i1.NameNode(value: 'customerPortalUrl'),
       directives: [],
       args: [],
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'String'),
         isNonNull: false,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'subscriptions'),
-      directives: [],
-      args: [],
-      type: _i1.ListTypeNode(
-        type: _i1.NamedTypeNode(
-          name: _i1.NameNode(value: 'SubscriptionNode'),
-          isNonNull: true,
-        ),
-        isNonNull: true,
       ),
     ),
     _i1.FieldDefinitionNode(
@@ -12609,14 +12625,44 @@ const NotificationType = _i1.EnumTypeDefinitionNode(
     ),
   ],
 );
+const PassType = _i1.EnumTypeDefinitionNode(
+  name: _i1.NameNode(value: 'PassType'),
+  directives: [],
+  values: [
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'LITE'),
+      directives: [],
+    ),
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'STANDARD'),
+      directives: [],
+    ),
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'PREMIUM'),
+      directives: [],
+    ),
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'TWO_DAYS'),
+      directives: [],
+    ),
+  ],
+);
 const PaymentType = _i1.EnumTypeDefinitionNode(
   name: _i1.NameNode(value: 'PaymentType'),
   directives: [],
   values: [
     _i1.EnumValueDefinitionNode(
-      name: _i1.NameNode(value: 'PASS'),
+      name: _i1.NameNode(value: 'PASS_STANDARD'),
       directives: [],
-    )
+    ),
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'PASS_PREMIUM'),
+      directives: [],
+    ),
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'PASS_LITE'),
+      directives: [],
+    ),
   ],
 );
 const Rating = _i1.EnumTypeDefinitionNode(
@@ -12665,16 +12711,6 @@ const ReportReason = _i1.EnumTypeDefinitionNode(
       name: _i1.NameNode(value: 'OTHER'),
       directives: [],
     ),
-  ],
-);
-const SubscriptionType = _i1.EnumTypeDefinitionNode(
-  name: _i1.NameNode(value: 'SubscriptionType'),
-  directives: [],
-  values: [
-    _i1.EnumValueDefinitionNode(
-      name: _i1.NameNode(value: 'PASS'),
-      directives: [],
-    )
   ],
 );
 const WorkOrderBy = _i1.EnumTypeDefinitionNode(
@@ -13216,6 +13252,21 @@ const CreateNovelInput = _i1.InputObjectTypeDefinitionNode(
       directives: [],
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'String'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    )
+  ],
+);
+const CreatePassCheckoutSessionInput = _i1.InputObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'CreatePassCheckoutSessionInput'),
+  directives: [],
+  fields: [
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'passType'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'PassType'),
         isNonNull: true,
       ),
       defaultValue: null,
@@ -16596,6 +16647,7 @@ const document = _i1.DocumentNode(definitions: [
   NoteNode,
   NovelNode,
   PageInfo,
+  PassNode,
   PaymentNode,
   PromotionNode,
   PromptCategoryNode,
@@ -16634,7 +16686,6 @@ const document = _i1.DocumentNode(definitions: [
   Query,
   StickerNode,
   StickerViewerNode,
-  SubscriptionNode,
   SubWorkNode,
   TagNode,
   TagViewerNode,
@@ -16663,10 +16714,10 @@ const document = _i1.DocumentNode(definitions: [
   ImageModelCategory,
   ImageStyle,
   NotificationType,
+  PassType,
   PaymentType,
   Rating,
   ReportReason,
-  SubscriptionType,
   WorkOrderBy,
   WorkType,
   AcceptPromptonRequestInput,
@@ -16687,6 +16738,7 @@ const document = _i1.DocumentNode(definitions: [
   CreateMessageInput,
   CreateNoteInput,
   CreateNovelInput,
+  CreatePassCheckoutSessionInput,
   CreatePromptonAipicRequestInput,
   CreatePromptonChatMessageInput,
   CreatePromptonCoffeeRequestInput,

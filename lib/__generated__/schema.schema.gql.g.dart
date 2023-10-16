@@ -311,12 +311,48 @@ final BuiltSet<GNotificationType> _$gNotificationTypeValues =
   _$gNotificationTypeFOLLOW,
 ]);
 
-const GPaymentType _$gPaymentTypePASS = const GPaymentType._('PASS');
+const GPassType _$gPassTypeLITE = const GPassType._('LITE');
+const GPassType _$gPassTypeSTANDARD = const GPassType._('STANDARD');
+const GPassType _$gPassTypePREMIUM = const GPassType._('PREMIUM');
+const GPassType _$gPassTypeTWO_DAYS = const GPassType._('TWO_DAYS');
+
+GPassType _$gPassTypeValueOf(String name) {
+  switch (name) {
+    case 'LITE':
+      return _$gPassTypeLITE;
+    case 'STANDARD':
+      return _$gPassTypeSTANDARD;
+    case 'PREMIUM':
+      return _$gPassTypePREMIUM;
+    case 'TWO_DAYS':
+      return _$gPassTypeTWO_DAYS;
+    default:
+      throw new ArgumentError(name);
+  }
+}
+
+final BuiltSet<GPassType> _$gPassTypeValues =
+    new BuiltSet<GPassType>(const <GPassType>[
+  _$gPassTypeLITE,
+  _$gPassTypeSTANDARD,
+  _$gPassTypePREMIUM,
+  _$gPassTypeTWO_DAYS,
+]);
+
+const GPaymentType _$gPaymentTypePASS_STANDARD =
+    const GPaymentType._('PASS_STANDARD');
+const GPaymentType _$gPaymentTypePASS_PREMIUM =
+    const GPaymentType._('PASS_PREMIUM');
+const GPaymentType _$gPaymentTypePASS_LITE = const GPaymentType._('PASS_LITE');
 
 GPaymentType _$gPaymentTypeValueOf(String name) {
   switch (name) {
-    case 'PASS':
-      return _$gPaymentTypePASS;
+    case 'PASS_STANDARD':
+      return _$gPaymentTypePASS_STANDARD;
+    case 'PASS_PREMIUM':
+      return _$gPaymentTypePASS_PREMIUM;
+    case 'PASS_LITE':
+      return _$gPaymentTypePASS_LITE;
     default:
       throw new ArgumentError(name);
   }
@@ -324,7 +360,9 @@ GPaymentType _$gPaymentTypeValueOf(String name) {
 
 final BuiltSet<GPaymentType> _$gPaymentTypeValues =
     new BuiltSet<GPaymentType>(const <GPaymentType>[
-  _$gPaymentTypePASS,
+  _$gPaymentTypePASS_STANDARD,
+  _$gPaymentTypePASS_PREMIUM,
+  _$gPaymentTypePASS_LITE,
 ]);
 
 const GRating _$gRatingG = const GRating._('G');
@@ -386,23 +424,6 @@ final BuiltSet<GReportReason> _$gReportReasonValues =
   _$gReportReasonSENSITIVE,
   _$gReportReasonSPAM,
   _$gReportReasonOTHER,
-]);
-
-const GSubscriptionType _$gSubscriptionTypePASS =
-    const GSubscriptionType._('PASS');
-
-GSubscriptionType _$gSubscriptionTypeValueOf(String name) {
-  switch (name) {
-    case 'PASS':
-      return _$gSubscriptionTypePASS;
-    default:
-      throw new ArgumentError(name);
-  }
-}
-
-final BuiltSet<GSubscriptionType> _$gSubscriptionTypeValues =
-    new BuiltSet<GSubscriptionType>(const <GSubscriptionType>[
-  _$gSubscriptionTypePASS,
 ]);
 
 const GWorkOrderBy _$gWorkOrderByDATE_CREATED =
@@ -467,13 +488,12 @@ Serializer<GImageModelCategory> _$gImageModelCategorySerializer =
 Serializer<GImageStyle> _$gImageStyleSerializer = new _$GImageStyleSerializer();
 Serializer<GNotificationType> _$gNotificationTypeSerializer =
     new _$GNotificationTypeSerializer();
+Serializer<GPassType> _$gPassTypeSerializer = new _$GPassTypeSerializer();
 Serializer<GPaymentType> _$gPaymentTypeSerializer =
     new _$GPaymentTypeSerializer();
 Serializer<GRating> _$gRatingSerializer = new _$GRatingSerializer();
 Serializer<GReportReason> _$gReportReasonSerializer =
     new _$GReportReasonSerializer();
-Serializer<GSubscriptionType> _$gSubscriptionTypeSerializer =
-    new _$GSubscriptionTypeSerializer();
 Serializer<GWorkOrderBy> _$gWorkOrderBySerializer =
     new _$GWorkOrderBySerializer();
 Serializer<GWorkType> _$gWorkTypeSerializer = new _$GWorkTypeSerializer();
@@ -518,6 +538,9 @@ Serializer<GCreateNoteInput> _$gCreateNoteInputSerializer =
     new _$GCreateNoteInputSerializer();
 Serializer<GCreateNovelInput> _$gCreateNovelInputSerializer =
     new _$GCreateNovelInputSerializer();
+Serializer<GCreatePassCheckoutSessionInput>
+    _$gCreatePassCheckoutSessionInputSerializer =
+    new _$GCreatePassCheckoutSessionInputSerializer();
 Serializer<GCreatePromptonAipicRequestInput>
     _$gCreatePromptonAipicRequestInputSerializer =
     new _$GCreatePromptonAipicRequestInputSerializer();
@@ -1012,6 +1035,23 @@ class _$GNotificationTypeSerializer
       GNotificationType.valueOf(serialized as String);
 }
 
+class _$GPassTypeSerializer implements PrimitiveSerializer<GPassType> {
+  @override
+  final Iterable<Type> types = const <Type>[GPassType];
+  @override
+  final String wireName = 'GPassType';
+
+  @override
+  Object serialize(Serializers serializers, GPassType object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      object.name;
+
+  @override
+  GPassType deserialize(Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      GPassType.valueOf(serialized as String);
+}
+
 class _$GPaymentTypeSerializer implements PrimitiveSerializer<GPaymentType> {
   @override
   final Iterable<Type> types = const <Type>[GPaymentType];
@@ -1061,24 +1101,6 @@ class _$GReportReasonSerializer implements PrimitiveSerializer<GReportReason> {
   GReportReason deserialize(Serializers serializers, Object serialized,
           {FullType specifiedType = FullType.unspecified}) =>
       GReportReason.valueOf(serialized as String);
-}
-
-class _$GSubscriptionTypeSerializer
-    implements PrimitiveSerializer<GSubscriptionType> {
-  @override
-  final Iterable<Type> types = const <Type>[GSubscriptionType];
-  @override
-  final String wireName = 'GSubscriptionType';
-
-  @override
-  Object serialize(Serializers serializers, GSubscriptionType object,
-          {FullType specifiedType = FullType.unspecified}) =>
-      object.name;
-
-  @override
-  GSubscriptionType deserialize(Serializers serializers, Object serialized,
-          {FullType specifiedType = FullType.unspecified}) =>
-      GSubscriptionType.valueOf(serialized as String);
 }
 
 class _$GWorkOrderBySerializer implements PrimitiveSerializer<GWorkOrderBy> {
@@ -2138,6 +2160,52 @@ class _$GCreateNovelInputSerializer
         case 'text':
           result.text = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GCreatePassCheckoutSessionInputSerializer
+    implements StructuredSerializer<GCreatePassCheckoutSessionInput> {
+  @override
+  final Iterable<Type> types = const [
+    GCreatePassCheckoutSessionInput,
+    _$GCreatePassCheckoutSessionInput
+  ];
+  @override
+  final String wireName = 'GCreatePassCheckoutSessionInput';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GCreatePassCheckoutSessionInput object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'passType',
+      serializers.serialize(object.passType,
+          specifiedType: const FullType(GPassType)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GCreatePassCheckoutSessionInput deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GCreatePassCheckoutSessionInputBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'passType':
+          result.passType = serializers.deserialize(value,
+              specifiedType: const FullType(GPassType))! as GPassType;
           break;
       }
     }
@@ -11368,6 +11436,97 @@ class GCreateNovelInputBuilder
         new _$GCreateNovelInput._(
             text: BuiltValueNullFieldError.checkNotNull(
                 text, r'GCreateNovelInput', 'text'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GCreatePassCheckoutSessionInput
+    extends GCreatePassCheckoutSessionInput {
+  @override
+  final GPassType passType;
+
+  factory _$GCreatePassCheckoutSessionInput(
+          [void Function(GCreatePassCheckoutSessionInputBuilder)? updates]) =>
+      (new GCreatePassCheckoutSessionInputBuilder()..update(updates))._build();
+
+  _$GCreatePassCheckoutSessionInput._({required this.passType}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        passType, r'GCreatePassCheckoutSessionInput', 'passType');
+  }
+
+  @override
+  GCreatePassCheckoutSessionInput rebuild(
+          void Function(GCreatePassCheckoutSessionInputBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GCreatePassCheckoutSessionInputBuilder toBuilder() =>
+      new GCreatePassCheckoutSessionInputBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GCreatePassCheckoutSessionInput &&
+        passType == other.passType;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, passType.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GCreatePassCheckoutSessionInput')
+          ..add('passType', passType))
+        .toString();
+  }
+}
+
+class GCreatePassCheckoutSessionInputBuilder
+    implements
+        Builder<GCreatePassCheckoutSessionInput,
+            GCreatePassCheckoutSessionInputBuilder> {
+  _$GCreatePassCheckoutSessionInput? _$v;
+
+  GPassType? _passType;
+  GPassType? get passType => _$this._passType;
+  set passType(GPassType? passType) => _$this._passType = passType;
+
+  GCreatePassCheckoutSessionInputBuilder();
+
+  GCreatePassCheckoutSessionInputBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _passType = $v.passType;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GCreatePassCheckoutSessionInput other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GCreatePassCheckoutSessionInput;
+  }
+
+  @override
+  void update(void Function(GCreatePassCheckoutSessionInputBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GCreatePassCheckoutSessionInput build() => _build();
+
+  _$GCreatePassCheckoutSessionInput _build() {
+    final _$result = _$v ??
+        new _$GCreatePassCheckoutSessionInput._(
+            passType: BuiltValueNullFieldError.checkNotNull(
+                passType, r'GCreatePassCheckoutSessionInput', 'passType'));
     replace(_$result);
     return _$result;
   }

@@ -304,6 +304,8 @@ type Mutation {
   createAlbum(input: CreateAlbumInput!): AlbumNode!
   "フォルダに作品を追加する"
   createAlbumWork(input: CreateAlbumWorkInput!): WorkNode!
+  "カスタマーポータルのURLを作成する"
+  createCustomerPortalSession: String!
   "フォルダに作品を追加する"
   createFolder(input: CreateFolderInput!): WorkNode!
   "フォルダに作品を追加する"
@@ -321,7 +323,7 @@ type Mutation {
   "スタンプを作成する"
   createSticker(input: CreateStickerInput!): StickerNode!
   "パスのチェックアウトのURLを作成する"
-  createPassCheckoutURL: String!
+  createPassCheckoutSession(input: CreatePassCheckoutSessionInput): String!
   "作品を作成する"
   createWork(input: CreateWorkInput!): WorkNode!
   "作品のコメントを作成する"
@@ -555,6 +557,21 @@ type PageInfo {
   endCursor: String
   hasNextPage: Boolean!
 }
+type PassNode implements Node {
+  id: ID!
+  type: PassType!
+  user: UserNode!
+  payment: PaymentNode
+  "無効である"
+  isDisabled: Boolean!
+  createdAt: Int!
+  periodEnd: Int!
+  periodStart: Int!
+  trialPeriodStart: Int
+  trialPeriodEnd: Int
+  isExpired: Boolean!
+  price: Int!
+}
 "決済履歴"
 type PaymentNode implements Node {
   id: ID!
@@ -565,7 +582,7 @@ type PaymentNode implements Node {
   isRefunded: Boolean!
   stripeInvoiceId: String
   stripePaymentIntentId: String
-  subscription: SubscriptionNode
+  pass: PassNode
 }
 "プロモーション"
 type PromotionNode implements Node {
@@ -1295,20 +1312,6 @@ type StickerViewerNode implements Node {
   id: ID!
   isLiked: Boolean!
 }
-type SubscriptionNode implements Node {
-  id: ID!
-  type: SubscriptionType!
-  user: UserNode!
-  payment: PaymentNode
-  "無効である"
-  isDisabled: Boolean!
-  createdAt: Int!
-  periodEnd: Int!
-  periodStart: Int!
-  trialPeriodStart: Int
-  trialPeriodEnd: Int
-  isExpired: Boolean!
-}
 type SubWorkNode implements Node {
   id: ID!
   imageId: ID
@@ -1442,15 +1445,16 @@ type Viewer {
   "通知"
   notifications(offset: Int!, limit: Int!): [NotificationNode!]!
   "現在のパス"
-  passSubscription: SubscriptionNode
+  currentPass: PassNode
   "決済履歴"
   payments: [PaymentNode!]!
   "作成したスタンプ"
   stickers(offset: Int!, limit: Int!): [StickerNode!]!
-  "パス管理のURL"
-  subscriptionURL: String
-  "全てのパス"
-  subscriptions: [SubscriptionNode!]!
+  """
+  カスタマーポータル
+  ※非推奨
+  """
+  customerPortalUrl: String
   "お問い合わせ対応のメッセージ"
   supportMessages(offset: Int!, limit: Int!): [MessageNode!]!
   "ユーザ"
@@ -1709,8 +1713,21 @@ enum NotificationType {
   "フォロー"
   FOLLOW
 }
+"パスの種類"
+enum PassType {
+  "ライト"
+  LITE
+  "スタンダード"
+  STANDARD
+  "プレミアム"
+  PREMIUM
+  "スパム"
+  TWO_DAYS
+}
 enum PaymentType {
-  PASS
+  PASS_STANDARD
+  PASS_PREMIUM
+  PASS_LITE
 }
 "年齢制限"
 enum Rating {
@@ -1735,9 +1752,6 @@ enum ReportReason {
   SPAM
   "その他"
   OTHER
-}
-enum SubscriptionType {
-  PASS
 }
 enum WorkOrderBy {
   DATE_CREATED
@@ -1835,6 +1849,9 @@ input CreateNoteInput {
 }
 input CreateNovelInput {
   text: String!
+}
+input CreatePassCheckoutSessionInput {
+  passType: PassType!
 }
 input CreatePromptonAipicRequestInput {
   note: String!
