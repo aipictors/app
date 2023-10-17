@@ -3,8 +3,7 @@ String toShareUserText({
   required String userName,
   required String hashtagText,
 }) {
-  //final pageURL = 'https://www.aipictors.com/users/$userId';
-  const pageURL = '';
+  final pageURL = 'https://www.aipictors.com/users/$userId';
 
   return '$userName $hashtagText\n$pageURL';
 }
