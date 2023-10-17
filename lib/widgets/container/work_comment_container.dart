@@ -90,6 +90,10 @@ class WorkCommentContainer extends HookConsumerWidget {
                           comment: response,
                           isResponse: true,
                           onTap: () {
+                            if (commentList[index].user!.id ==
+                                authUserId.value) {
+                              return;
+                            }
                             onOpenDetailsModal(context,
                                 workId: workId,
                                 commentId: commentList[index].id);
