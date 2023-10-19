@@ -34,6 +34,7 @@ import 'package:aipictors/screens/license_screen.dart';
 import 'package:aipictors/screens/login_screen.dart';
 import 'package:aipictors/screens/privacy_screen.dart';
 import 'package:aipictors/screens/root_screen.dart';
+import 'package:aipictors/screens/search/search_screen.dart';
 import 'package:aipictors/screens/secret_screen.dart';
 import 'package:aipictors/screens/sticker/sticker_report_screen.dart';
 import 'package:aipictors/screens/sticker/stickers_screen.dart';
@@ -372,6 +373,13 @@ final _routes = [
     path: '/secret',
     builder: (context, state) {
       return const SecretScreen();
+    },
+  ),
+  GoRoute(
+    path: '/search/:text',
+    builder: (context, state) {
+      final text = state.pathParameters['text'];
+      return SearchScreen(text: text!);
     },
   ),
   GoRoute(
