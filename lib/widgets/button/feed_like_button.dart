@@ -21,6 +21,11 @@ class FeedLikeButton extends HookConsumerWidget {
   Widget build(context, ref) {
     final isActiveInMemory = useState(isActive);
 
+    useEffect(() {
+      isActiveInMemory.value = isActive;
+      return null;
+    }, [isActive]);
+
     return LikeButton(
       isLiked: isActiveInMemory.value,
       likeCount: count,
