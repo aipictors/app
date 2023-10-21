@@ -21,7 +21,7 @@ class LoginIDForm extends StatefulWidget {
 class _LoginIDFormState extends State<LoginIDForm> {
   @override
   Widget build(BuildContext context) {
-    final regExp = RegExp(r'^[a-zA-Z0-9.@]+$');
+    final regExp = RegExp(r'^[a-zA-Z0-9.@_]+$');
 
     return Form(
         child: TextFormField(
