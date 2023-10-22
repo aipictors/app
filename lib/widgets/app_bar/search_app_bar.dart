@@ -7,27 +7,31 @@ class SearchContainer extends HookConsumerWidget {
   SearchContainer({
     Key? key,
     required this.isFilled,
+    this.initialText,
     required this.onSubmit,
     required this.onFill,
-  }) : super(key: key);
+  })  : _controller = useTextEditingController(text: initialText), //初期値を設定
+        super(key: key);
 
   final bool isFilled;
 
-  final Function(String search) onSubmit;
+  final Function(TextEditingController controller) onSubmit;
 
   final Function(bool value) onFill;
 
-  final _controller = useTextEditingController();
+  final String? initialText;
+
+  final TextEditingController _controller;
 
   void _onSubmit(BuildContext context, String text) {
     if (text == '') {
       _controller.clear();
     }
-    onSubmit(text);
     final currentScope = FocusScope.of(context);
     if (!currentScope.hasPrimaryFocus && currentScope.hasFocus) {
       FocusManager.instance.primaryFocus?.unfocus();
     }
+    onSubmit(_controller);
   }
 
   void clear() {
