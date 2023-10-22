@@ -1,4 +1,5 @@
 import 'package:aipictors/__generated__/schema.schema.gql.dart';
+import 'package:aipictors/config.dart';
 import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/mutations/report_sticker.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -50,7 +51,7 @@ class StickerReportScreen extends HookConsumerWidget {
   /// レポートを送信する
   onReport(BuildContext context, GReportReason reason) async {
     FirebaseAnalytics.instance.logEvent(
-      name: 'report_sticker',
+      name: DefaultConfig.logEvent.report_sticker,
     );
     reportSticker((builder) {
       return builder

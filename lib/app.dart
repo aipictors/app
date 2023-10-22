@@ -64,6 +64,7 @@ class App extends HookConsumerWidget {
         ),
       );
       return MaterialApp.router(
+        debugShowCheckedModeBanner: false,
         title: 'Aipictors',
         themeMode: config.themeMode,
         theme: extendThemeData(theme),

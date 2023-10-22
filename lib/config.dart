@@ -8,6 +8,12 @@ class DefaultConfig {
 
   static PackageInfo? packageInfo;
 
+  static get logEvent {
+    return {
+      'report_sticker': 'report_sticker',
+    };
+  }
+
   /// 初期化する
   /// アプリが起動する前に呼び出して
   static activate() async {
