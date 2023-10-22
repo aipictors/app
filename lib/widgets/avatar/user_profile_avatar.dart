@@ -17,7 +17,7 @@ class UserProfileAvatar extends HookConsumerWidget {
     if (imageURL == null) {
       return CircleAvatar(
         radius: radius ?? 14,
-        backgroundColor: Theme.of(context).colorScheme.primary,
+        backgroundColor: Theme.of(context).colorScheme.background,
         child: const CircleAvatar(radius: 40),
       );
     }
@@ -25,6 +25,7 @@ class UserProfileAvatar extends HookConsumerWidget {
     return CircleAvatar(
       radius: radius ?? 14,
       backgroundImage: NetworkImage(imageURL!),
+      backgroundColor: Theme.of(context).colorScheme.background,
     );
   }
 }

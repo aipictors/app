@@ -39,6 +39,7 @@ class UserProfileContainer extends HookConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          if (biography != null) const SizedBox(height: 4),
           if (biography != null) Text(biography!),
           const SizedBox(height: 4),
           InkWell(
