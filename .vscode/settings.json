@@ -65,12 +65,13 @@
     "windows"
   ],
   "[json]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "biomejs.biome"
   },
   "[javascript]": {
     "editor.codeActionsOnSave": {
-      "source.fixAll.eslint": true
+      "quickfix.biome": true,
+      "source.organizeImports.biome": true
     },
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "biomejs.biome"
   }
 }
