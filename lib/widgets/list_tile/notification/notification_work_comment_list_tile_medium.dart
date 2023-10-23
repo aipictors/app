@@ -1,5 +1,6 @@
 import 'package:aipictors/widgets/container/notification_image_container_medium.dart';
 import 'package:aipictors/widgets/container/notification_user_container.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -75,8 +76,8 @@ class NotificationWorkCommentListTileMedium extends HookConsumerWidget {
           if (stickerImageURL != null)
             ClipRRect(
               borderRadius: BorderRadius.circular(8.0),
-              child: Image.network(
-                stickerImageURL!,
+              child: CachedNetworkImage(
+                imageUrl: stickerImageURL!,
                 fit: BoxFit.cover,
                 width: 80,
                 height: 80,

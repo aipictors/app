@@ -1,4 +1,5 @@
 import 'package:aipictors/default.i18n.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -28,8 +29,8 @@ class NotificationImageContainerCompact extends HookConsumerWidget {
       children: [
         ClipRRect(
           borderRadius: BorderRadius.circular(8.0),
-          child: Image.network(
-            workImageURL!,
+          child: CachedNetworkImage(
+            imageUrl: workImageURL!,
             fit: BoxFit.cover,
             width: double.infinity,
             height: 80,
