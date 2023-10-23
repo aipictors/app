@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -22,8 +23,8 @@ class NotificationStickerCommentContainer extends HookConsumerWidget {
       children: [
         ClipRRect(
           borderRadius: BorderRadius.circular(8.0),
-          child: Image.network(
-            stickerImageURL!,
+          child: CachedNetworkImage(
+            imageUrl: stickerImageURL!,
             fit: BoxFit.cover,
             width: 80,
             height: 80,
@@ -33,8 +34,8 @@ class NotificationStickerCommentContainer extends HookConsumerWidget {
         Expanded(
           child: ClipRRect(
             borderRadius: BorderRadius.circular(8.0),
-            child: Image.network(
-              workImageURL!,
+            child: CachedNetworkImage(
+              imageUrl: workImageURL!,
               fit: BoxFit.cover,
               width: double.infinity,
               height: 80,

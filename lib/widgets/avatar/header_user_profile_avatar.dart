@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -26,7 +27,7 @@ class HeaderUserProfileAvatar extends HookConsumerWidget {
       backgroundColor: Theme.of(context).colorScheme.primaryContainer,
       child: CircleAvatar(
         radius: size,
-        backgroundImage: NetworkImage(imageURL!),
+        backgroundImage: CachedNetworkImageProvider(imageURL!),
       ),
     );
   }

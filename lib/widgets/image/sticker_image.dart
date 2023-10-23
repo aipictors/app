@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -17,8 +18,8 @@ class StickerImage extends HookConsumerWidget {
 
     return ClipRRect(
       borderRadius: BorderRadius.circular(8.0),
-      child: Image.network(
-        imageURL!,
+      child: CachedNetworkImage(
+        imageUrl: imageURL!,
         fit: BoxFit.cover,
         width: 80,
       ),

@@ -1,4 +1,5 @@
 import 'package:aipictors/widgets/dialog/interactive_image_dialog.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -15,8 +16,8 @@ class InteractiveWorkImage extends HookConsumerWidget {
     return GestureDetector(
       child: SizedBox(
         width: double.infinity,
-        child: Image.network(
-          downloadURL,
+        child: CachedNetworkImage(
+          imageUrl: downloadURL,
           fit: BoxFit.cover,
         ),
       ),
