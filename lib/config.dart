@@ -8,7 +8,8 @@ class DefaultConfig {
 
   static PackageInfo? packageInfo;
 
-  static get logEvent {
+  /// アナリティクスのカスタムのイベント
+  static get customEvent {
     return {
       'report_sticker': 'report_sticker',
     };

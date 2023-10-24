@@ -74,6 +74,7 @@ abstract class GViewerUserData_viewer_user
   String get G__typename;
   String get id;
   String? get biography;
+  String? get fcmToken;
   String get login;
   String get name;
   int get receivedLikesCount;

@@ -180,7 +180,7 @@ type ImageGenerationTaskNode implements Node {
   negativePrompt: String!
   seed: Int!
   steps: Int!
-  scale: String!
+  scale: Int!
   sampler: String!
   sizeType: ImageGenerationSizeType!
   t2tImageBlob: String
@@ -386,6 +386,8 @@ type Mutation {
   updateAccountLogin(input: UpdateAccountLoginInput!): UserNode!
   "アカウントのパスワードを変更する"
   updateAccountPassword(input: UpdateAccountPasswordInput!): UserNode!
+  "アカウントのFCMトークンを変更する"
+  updateAccountFcmToken(input: UpdateAccountFcmTokenInput!): UserNode!
   "シリーズを更新する"
   updateAlbum(input: UpdateAlbumInput!): AlbumNode!
   "シリーズを更新する"
@@ -1404,7 +1406,15 @@ type UserNode implements Node {
   openGraphImageURL: String
   "シェア"
   shareText: String
-  "ログインしているユーザ"
+  "FCMトークン"
+  fcmToken: String
+  "フォローされている"
+  isFollower: Boolean!
+  "フォローしている"
+  isFollowee: Boolean!
+  "ミュートしている"
+  isMuted: Boolean!
+  "@deprecated"
   viewer: UserViewerNode
 }
 "ユーザの設定"
@@ -1665,7 +1675,7 @@ enum FolderMode {
 enum ImageGenerationSizeType {
   SD2_768_768
   SD2_768_1200
-  SD2_1200_1200
+  SD2_1200_768
   SD1_512_512
   SD1_512_768
   SD1_768_512
@@ -1676,8 +1686,8 @@ enum ImageGenerationStatus {
   DONE
 }
 enum ImageGenerationType {
-  TEXT_2_IMAGE
-  IMAGE_2_IMAGE
+  TEXT_TO_IMAGE
+  IMAGE_TO_IMAGE
   INPAINTING
 }
 enum ImageModelCategory {
@@ -1824,14 +1834,14 @@ input CreateImageGenerationTaskInput {
   "生成する枚数"
   count: Int!
   "生成の方式"
-  generationType: ImageGenerationType!
+  type: ImageGenerationType!
   model: String!
   vae: String!
   prompt: String!
   negativePrompt: String!
   seed: Int!
   steps: Int!
-  scale: String!
+  scale: Int!
   sampler: String!
   "画像のサイズ"
   sizeType: ImageGenerationSizeType!
@@ -2248,6 +2258,9 @@ input UnpinPromptonWorkInput {
 }
 input UnwatchFolderInput {
   userId: ID!
+}
+input UpdateAccountFcmTokenInput {
+  token: String
 }
 input UpdateAccountLoginInput {
   login: String!

@@ -2,8 +2,8 @@ import 'package:aipictors/widgets/container/list_tile_image_container.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class FolderListTile extends HookConsumerWidget {
-  const FolderListTile({
+class AlbumListTile extends HookConsumerWidget {
+  const AlbumListTile({
     Key? key,
     required this.title,
     required this.userName,
@@ -38,7 +38,7 @@ class FolderListTile extends HookConsumerWidget {
             .titleMedium
             ?.copyWith(overflow: TextOverflow.ellipsis),
       ),
-      subtitle: userName != null ? Text(userName!) : null,
+      subtitle: userName != null ? Text(userName!) : const Text(''),
       onTap: onTap,
       trailing: ListTileImageContainer(thumbnailImageURL: imageURL),
     );

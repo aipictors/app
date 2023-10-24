@@ -1,4 +1,4 @@
-import 'package:aipictors/graphql/__generated__/user_folders.req.gql.dart';
+import 'package:aipictors/graphql/__generated__/user_albums.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
@@ -11,8 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class UserFoldersContainer extends HookConsumerWidget {
-  const UserFoldersContainer({
+class UserAlbumsContainer extends HookConsumerWidget {
+  const UserAlbumsContainer({
     Key? key,
     required this.userId,
   }) : super(key: key);
@@ -31,36 +31,36 @@ class UserFoldersContainer extends HookConsumerWidget {
 
     return OperationBuilder(
       client: client.value!,
-      operationRequest: GUserFoldersReq((builder) {
+      operationRequest: GUserAlbumsReq((builder) {
         return builder
           ..vars.limit = config.graphqlQueryLimit
           ..vars.user_id = userId
           ..vars.offset = 0;
       }),
       builder: (context, response) {
-        final folderList = response.data?.user?.folders;
-        if (folderList == null) {
+        final albumList = response.data?.user?.albums;
+        if (albumList == null) {
           return const DataNotFoundErrorContainer();
         }
-        if (folderList.isEmpty) {
+        if (albumList.isEmpty) {
           return const DataEmptyErrorContainer();
         }
         return ListView.builder(
           padding: const EdgeInsets.only(bottom: 16, top: 8),
-          itemCount: folderList.length,
+          itemCount: albumList.length,
           itemBuilder: (context, index) {
-            final folder = folderList[index];
+            final album = albumList[index];
             return AlbumListTile(
-              title: folder.title,
+              title: album.title,
               userName: null,
               userIconImageURL: null,
-              imageURL: folder.thumbnailImageURL,
+              imageURL: album.thumbnailImage?.downloadURL,
               onTap: () {
                 FirebaseAnalytics.instance.logSelectContent(
-                  contentType: 'folder',
-                  itemId: folder.id,
+                  contentType: 'album',
+                  itemId: album.id,
                 );
-                context.push('/folders/${folder.id}');
+                context.push('/albums/${album.id}');
               },
             );
           },

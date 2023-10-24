@@ -138,6 +138,7 @@ import 'package:aipictors/__generated__/schema.schema.gql.dart'
         GUnmuteUserInput,
         GUnpinPromptonWorkInput,
         GUnwatchFolderInput,
+        GUpdateAccountFcmTokenInput,
         GUpdateAccountLoginInput,
         GUpdateAccountPasswordInput,
         GUpdateAlbumInput,
@@ -969,6 +970,14 @@ import 'package:aipictors/graphql/mutations/__generated__/report_work.req.gql.da
     show GReportWorkReq;
 import 'package:aipictors/graphql/mutations/__generated__/report_work.var.gql.dart'
     show GReportWorkVars;
+import 'package:aipictors/graphql/mutations/__generated__/update_account_fcm_token.data.gql.dart'
+    show
+        GUpdateAccountFcmTokenData,
+        GUpdateAccountFcmTokenData_updateAccountFcmToken;
+import 'package:aipictors/graphql/mutations/__generated__/update_account_fcm_token.req.gql.dart'
+    show GUpdateAccountFcmTokenReq;
+import 'package:aipictors/graphql/mutations/__generated__/update_account_fcm_token.var.gql.dart'
+    show GUpdateAccountFcmTokenVars;
 import 'package:aipictors/graphql/mutations/__generated__/update_account_login.data.gql.dart'
     show GUpdateAccountLoginData, GUpdateAccountLoginData_updateAccountLogin;
 import 'package:aipictors/graphql/mutations/__generated__/update_account_login.req.gql.dart'
@@ -1468,6 +1477,11 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GUnmuteUserInput,
   GUnpinPromptonWorkInput,
   GUnwatchFolderInput,
+  GUpdateAccountFcmTokenData,
+  GUpdateAccountFcmTokenData_updateAccountFcmToken,
+  GUpdateAccountFcmTokenInput,
+  GUpdateAccountFcmTokenReq,
+  GUpdateAccountFcmTokenVars,
   GUpdateAccountLoginData,
   GUpdateAccountLoginData_updateAccountLogin,
   GUpdateAccountLoginInput,

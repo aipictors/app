@@ -78,8 +78,8 @@ class GImageGenerationSizeType extends EnumClass {
   static const GImageGenerationSizeType SD2_768_1200 =
       _$gImageGenerationSizeTypeSD2_768_1200;
 
-  static const GImageGenerationSizeType SD2_1200_1200 =
-      _$gImageGenerationSizeTypeSD2_1200_1200;
+  static const GImageGenerationSizeType SD2_1200_768 =
+      _$gImageGenerationSizeTypeSD2_1200_768;
 
   static const GImageGenerationSizeType SD1_512_512 =
       _$gImageGenerationSizeTypeSD1_512_512;
@@ -119,11 +119,11 @@ class GImageGenerationStatus extends EnumClass {
 class GImageGenerationType extends EnumClass {
   const GImageGenerationType._(String name) : super(name);
 
-  static const GImageGenerationType TEXT_2_IMAGE =
-      _$gImageGenerationTypeTEXT_2_IMAGE;
+  static const GImageGenerationType TEXT_TO_IMAGE =
+      _$gImageGenerationTypeTEXT_TO_IMAGE;
 
-  static const GImageGenerationType IMAGE_2_IMAGE =
-      _$gImageGenerationTypeIMAGE_2_IMAGE;
+  static const GImageGenerationType IMAGE_TO_IMAGE =
+      _$gImageGenerationTypeIMAGE_TO_IMAGE;
 
   static const GImageGenerationType INPAINTING =
       _$gImageGenerationTypeINPAINTING;
@@ -623,14 +623,14 @@ abstract class GCreateImageGenerationTaskInput
       _$GCreateImageGenerationTaskInput;
 
   int get count;
-  GImageGenerationType get generationType;
+  GImageGenerationType get type;
   String get model;
   String get vae;
   String get prompt;
   String get negativePrompt;
   int get seed;
   int get steps;
-  String get scale;
+  int get scale;
   String get sampler;
   GImageGenerationSizeType get sizeType;
   String? get t2tImageBlob;
@@ -3159,6 +3159,29 @@ abstract class GUnwatchFolderInput
   static GUnwatchFolderInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUnwatchFolderInput.serializer,
+        json,
+      );
+}
+
+abstract class GUpdateAccountFcmTokenInput
+    implements
+        Built<GUpdateAccountFcmTokenInput, GUpdateAccountFcmTokenInputBuilder> {
+  GUpdateAccountFcmTokenInput._();
+
+  factory GUpdateAccountFcmTokenInput(
+          [Function(GUpdateAccountFcmTokenInputBuilder b) updates]) =
+      _$GUpdateAccountFcmTokenInput;
+
+  String? get token;
+  static Serializer<GUpdateAccountFcmTokenInput> get serializer =>
+      _$gUpdateAccountFcmTokenInputSerializer;
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GUpdateAccountFcmTokenInput.serializer,
+        this,
+      ) as Map<String, dynamic>);
+  static GUpdateAccountFcmTokenInput? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GUpdateAccountFcmTokenInput.serializer,
         json,
       );
 }

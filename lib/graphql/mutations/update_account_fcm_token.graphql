@@ -1,0 +1,5 @@
+mutation UpdateAccountFcmToken($input: UpdateAccountFcmTokenInput!) {
+  updateAccountFcmToken(input: $input) {
+    id
+  }
+}

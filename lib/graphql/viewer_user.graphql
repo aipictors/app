@@ -3,6 +3,7 @@ query ViewerUser {
     user {
       id
       biography
+      fcmToken
       login
       name
       receivedLikesCount

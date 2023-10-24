@@ -64,7 +64,7 @@ class AlbumWorkListTile extends HookConsumerWidget {
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(height: 8),
+          const SizedBox(height: 16),
           FeedImage(
             imageURL: workImageURL,
             imageAspectRatio: workImageAspectRatio,

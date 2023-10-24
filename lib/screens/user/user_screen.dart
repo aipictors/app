@@ -6,7 +6,7 @@ import 'package:aipictors/screens/error/data_not_found_error_screen.dart';
 import 'package:aipictors/screens/loading_screen.dart';
 import 'package:aipictors/widgets/builder/operation_screen_builder.dart';
 import 'package:aipictors/widgets/container/modal/user_action_modal_container.dart';
-import 'package:aipictors/widgets/container/user_folders_container.dart';
+import 'package:aipictors/widgets/container/user_albums_container.dart';
 import 'package:aipictors/widgets/container/user_header_action_container.dart';
 import 'package:aipictors/widgets/container/user_profile_container.dart';
 import 'package:aipictors/widgets/container/user_works_container.dart';
@@ -64,7 +64,7 @@ class UserScreen extends HookConsumerWidget {
               body: TabBarView(
                 children: [
                   UserWorksContainer(userId: userId),
-                  UserFoldersContainer(userId: userId),
+                  UserAlbumsContainer(userId: userId),
                 ],
               ),
               headerSliverBuilder: (context, innerBoxIsScrolled) {

@@ -34,49 +34,53 @@ class AlbumScreen extends HookConsumerWidget {
     });
 
     return Scaffold(
-        body: RefreshIndicator(
-            onRefresh: () async {
-              audio.play(AssetSource('snd_sine/progress_loop.wav'));
-              final req = request.rebuild((builder) {
-                return builder..vars.id = albumId;
-              });
-              client.value?.requestController.add(req);
-              await Future.delayed(const Duration(seconds: 2));
-              audio.play(AssetSource('snd_sine/transition_up.wav'));
-            },
-            child: OperationScreenBuilder(
-              client: client.value!,
-              operationRequest: request,
-              builder: (context, response) {
-                final album = response.data?.album;
-                if (album == null) {
-                  return Scaffold(
-                      appBar: AppBar(
-                        title: Text('シリーズ'.i18n),
-                      ),
-                      body: const DataNotFoundErrorScreen());
-                }
-                return Scaffold(
-                  resizeToAvoidBottomInset: true,
-                  appBar: AppBar(
-                    title: Text(
-                      album.title,
-                      maxLines: 2,
-                      style: const TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  extendBody: true,
-                  body: AlbumWorksView(
-                    client: client.value!,
-                    albumId: albumId,
-                    albumDescription: album.description,
-                    userId: album.user.id,
-                    userName: album.user.name,
-                    userIconImageURL: album.user.iconImage!.downloadURL,
-                    isFollowee: album.user.viewer?.isFollowee == true,
-                  ),
-                );
-              },
-            )));
+      body: RefreshIndicator(
+        onRefresh: () async {
+          audio.play(AssetSource('snd_sine/progress_loop.wav'));
+          final req = request.rebuild((builder) {
+            return builder..vars.id = albumId;
+          });
+          client.value?.requestController.add(req);
+          await Future.delayed(const Duration(seconds: 2));
+          audio.play(AssetSource('snd_sine/transition_up.wav'));
+        },
+        child: OperationScreenBuilder(
+          client: client.value!,
+          operationRequest: request,
+          builder: (context, response) {
+            final album = response.data?.album;
+            if (album == null) {
+              return Scaffold(
+                appBar: AppBar(
+                  title: Text('シリーズ'.i18n),
+                ),
+                body: const DataNotFoundErrorScreen(),
+              );
+            }
+            return Scaffold(
+              resizeToAvoidBottomInset: true,
+              appBar: AppBar(
+                title: Text(
+                  'シリーズ'.i18n,
+                  maxLines: 2,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ),
+              extendBody: true,
+              body: AlbumWorksView(
+                client: client.value!,
+                albumId: albumId,
+                albumTitle: album.title,
+                albumDescription: album.description,
+                userId: album.user.id,
+                userName: album.user.name,
+                userIconImageURL: album.user.iconImage!.downloadURL,
+                isFollowee: album.user.viewer?.isFollowee == true,
+              ),
+            );
+          },
+        ),
+      ),
+    );
   }
 }

@@ -4,12 +4,11 @@ import 'package:aipictors/providers/auth_user_id_provider.dart';
 import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/providers/home_tab_index_provider.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
-import 'package:aipictors/widgets/button/follow_button.dart';
 import 'package:aipictors/widgets/container/end_of_content_container.dart';
 import 'package:aipictors/widgets/container/error/data_empty_error_container.dart';
-import 'package:aipictors/widgets/container/notification_user_container.dart';
 import 'package:aipictors/widgets/dialog/about_follow_dialog.dart';
 import 'package:aipictors/widgets/list_tile/album_work_list_tile.dart';
+import 'package:aipictors/widgets/view/album_header.dart';
 import 'package:ferry/ferry.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -20,6 +19,7 @@ class AlbumWorksView extends HookConsumerWidget {
     Key? key,
     required this.client,
     required this.albumId,
+    required this.albumTitle,
     required this.albumDescription,
     required this.userId,
     required this.userName,
@@ -30,6 +30,8 @@ class AlbumWorksView extends HookConsumerWidget {
   final Client client;
 
   final String albumId;
+
+  final String albumTitle;
 
   final String albumDescription;
 
@@ -68,36 +70,21 @@ class AlbumWorksView extends HookConsumerWidget {
           itemCount: workList.length + 2,
           itemBuilder: (context, index) {
             if (index == 0) {
-              return (Column(children: [
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const SizedBox(width: 16),
-                      Expanded(
-                        child: GestureDetector(
-                          onTap: () {
-                            context.push('/users/$userId');
-                          },
-                          child: NotificationUserContainer(
-                            userName: userName,
-                            userIconImageURL: userIconImageURL,
-                          ),
-                        ),
-                      ),
-                      if (authUserId.value != userId)
-                        FollowButton(
-                          isActive: isFollowee,
-                          onPressed: () {
-                            if (authUserId.value == null) {
-                              return onShowLoginDialog(context, ref);
-                            }
-                            return onFollowUser(context, userId: userId);
-                          },
-                        ),
-                      const SizedBox(width: 16),
-                    ]),
-                Text(albumDescription)
-              ]));
+              return AlbumHeader(
+                albumId: albumId,
+                albumTitle: albumTitle,
+                albumDescription: albumDescription,
+                userId: userId,
+                userName: userName,
+                userIconImageURL: userIconImageURL,
+                isFollowee: isFollowee,
+                onFollow: () {
+                  if (authUserId.value == null) {
+                    return onShowLoginDialog(context, ref);
+                  }
+                  return onFollowUser(context, userId: userId);
+                },
+              );
             }
             if (index == workList.length + 1) {
               return const EndOfContentContainer();

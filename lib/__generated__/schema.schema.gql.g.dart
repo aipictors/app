@@ -115,8 +115,8 @@ const GImageGenerationSizeType _$gImageGenerationSizeTypeSD2_768_768 =
     const GImageGenerationSizeType._('SD2_768_768');
 const GImageGenerationSizeType _$gImageGenerationSizeTypeSD2_768_1200 =
     const GImageGenerationSizeType._('SD2_768_1200');
-const GImageGenerationSizeType _$gImageGenerationSizeTypeSD2_1200_1200 =
-    const GImageGenerationSizeType._('SD2_1200_1200');
+const GImageGenerationSizeType _$gImageGenerationSizeTypeSD2_1200_768 =
+    const GImageGenerationSizeType._('SD2_1200_768');
 const GImageGenerationSizeType _$gImageGenerationSizeTypeSD1_512_512 =
     const GImageGenerationSizeType._('SD1_512_512');
 const GImageGenerationSizeType _$gImageGenerationSizeTypeSD1_512_768 =
@@ -130,8 +130,8 @@ GImageGenerationSizeType _$gImageGenerationSizeTypeValueOf(String name) {
       return _$gImageGenerationSizeTypeSD2_768_768;
     case 'SD2_768_1200':
       return _$gImageGenerationSizeTypeSD2_768_1200;
-    case 'SD2_1200_1200':
-      return _$gImageGenerationSizeTypeSD2_1200_1200;
+    case 'SD2_1200_768':
+      return _$gImageGenerationSizeTypeSD2_1200_768;
     case 'SD1_512_512':
       return _$gImageGenerationSizeTypeSD1_512_512;
     case 'SD1_512_768':
@@ -147,7 +147,7 @@ final BuiltSet<GImageGenerationSizeType> _$gImageGenerationSizeTypeValues =
     new BuiltSet<GImageGenerationSizeType>(const <GImageGenerationSizeType>[
   _$gImageGenerationSizeTypeSD2_768_768,
   _$gImageGenerationSizeTypeSD2_768_1200,
-  _$gImageGenerationSizeTypeSD2_1200_1200,
+  _$gImageGenerationSizeTypeSD2_1200_768,
   _$gImageGenerationSizeTypeSD1_512_512,
   _$gImageGenerationSizeTypeSD1_512_768,
   _$gImageGenerationSizeTypeSD1_768_512,
@@ -180,19 +180,19 @@ final BuiltSet<GImageGenerationStatus> _$gImageGenerationStatusValues =
   _$gImageGenerationStatusDONE,
 ]);
 
-const GImageGenerationType _$gImageGenerationTypeTEXT_2_IMAGE =
-    const GImageGenerationType._('TEXT_2_IMAGE');
-const GImageGenerationType _$gImageGenerationTypeIMAGE_2_IMAGE =
-    const GImageGenerationType._('IMAGE_2_IMAGE');
+const GImageGenerationType _$gImageGenerationTypeTEXT_TO_IMAGE =
+    const GImageGenerationType._('TEXT_TO_IMAGE');
+const GImageGenerationType _$gImageGenerationTypeIMAGE_TO_IMAGE =
+    const GImageGenerationType._('IMAGE_TO_IMAGE');
 const GImageGenerationType _$gImageGenerationTypeINPAINTING =
     const GImageGenerationType._('INPAINTING');
 
 GImageGenerationType _$gImageGenerationTypeValueOf(String name) {
   switch (name) {
-    case 'TEXT_2_IMAGE':
-      return _$gImageGenerationTypeTEXT_2_IMAGE;
-    case 'IMAGE_2_IMAGE':
-      return _$gImageGenerationTypeIMAGE_2_IMAGE;
+    case 'TEXT_TO_IMAGE':
+      return _$gImageGenerationTypeTEXT_TO_IMAGE;
+    case 'IMAGE_TO_IMAGE':
+      return _$gImageGenerationTypeIMAGE_TO_IMAGE;
     case 'INPAINTING':
       return _$gImageGenerationTypeINPAINTING;
     default:
@@ -202,8 +202,8 @@ GImageGenerationType _$gImageGenerationTypeValueOf(String name) {
 
 final BuiltSet<GImageGenerationType> _$gImageGenerationTypeValues =
     new BuiltSet<GImageGenerationType>(const <GImageGenerationType>[
-  _$gImageGenerationTypeTEXT_2_IMAGE,
-  _$gImageGenerationTypeIMAGE_2_IMAGE,
+  _$gImageGenerationTypeTEXT_TO_IMAGE,
+  _$gImageGenerationTypeIMAGE_TO_IMAGE,
   _$gImageGenerationTypeINPAINTING,
 ]);
 
@@ -789,6 +789,9 @@ Serializer<GUnpinPromptonWorkInput> _$gUnpinPromptonWorkInputSerializer =
     new _$GUnpinPromptonWorkInputSerializer();
 Serializer<GUnwatchFolderInput> _$gUnwatchFolderInputSerializer =
     new _$GUnwatchFolderInputSerializer();
+Serializer<GUpdateAccountFcmTokenInput>
+    _$gUpdateAccountFcmTokenInputSerializer =
+    new _$GUpdateAccountFcmTokenInputSerializer();
 Serializer<GUpdateAccountLoginInput> _$gUpdateAccountLoginInputSerializer =
     new _$GUpdateAccountLoginInputSerializer();
 Serializer<GUpdateAccountPasswordInput>
@@ -1893,8 +1896,8 @@ class _$GCreateImageGenerationTaskInputSerializer
     final result = <Object?>[
       'count',
       serializers.serialize(object.count, specifiedType: const FullType(int)),
-      'generationType',
-      serializers.serialize(object.generationType,
+      'type',
+      serializers.serialize(object.type,
           specifiedType: const FullType(GImageGenerationType)),
       'model',
       serializers.serialize(object.model,
@@ -1912,8 +1915,7 @@ class _$GCreateImageGenerationTaskInputSerializer
       'steps',
       serializers.serialize(object.steps, specifiedType: const FullType(int)),
       'scale',
-      serializers.serialize(object.scale,
-          specifiedType: const FullType(String)),
+      serializers.serialize(object.scale, specifiedType: const FullType(int)),
       'sampler',
       serializers.serialize(object.sampler,
           specifiedType: const FullType(String)),
@@ -1969,8 +1971,8 @@ class _$GCreateImageGenerationTaskInputSerializer
           result.count = serializers.deserialize(value,
               specifiedType: const FullType(int))! as int;
           break;
-        case 'generationType':
-          result.generationType = serializers.deserialize(value,
+        case 'type':
+          result.type = serializers.deserialize(value,
                   specifiedType: const FullType(GImageGenerationType))!
               as GImageGenerationType;
           break;
@@ -2000,7 +2002,7 @@ class _$GCreateImageGenerationTaskInputSerializer
           break;
         case 'scale':
           result.scale = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
+              specifiedType: const FullType(int))! as int;
           break;
         case 'sampler':
           result.sampler = serializers.deserialize(value,
@@ -7644,6 +7646,55 @@ class _$GUnwatchFolderInputSerializer
   }
 }
 
+class _$GUpdateAccountFcmTokenInputSerializer
+    implements StructuredSerializer<GUpdateAccountFcmTokenInput> {
+  @override
+  final Iterable<Type> types = const [
+    GUpdateAccountFcmTokenInput,
+    _$GUpdateAccountFcmTokenInput
+  ];
+  @override
+  final String wireName = 'GUpdateAccountFcmTokenInput';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GUpdateAccountFcmTokenInput object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[];
+    Object? value;
+    value = object.token;
+    if (value != null) {
+      result
+        ..add('token')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    return result;
+  }
+
+  @override
+  GUpdateAccountFcmTokenInput deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GUpdateAccountFcmTokenInputBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'token':
+          result.token = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$GUpdateAccountLoginInputSerializer
     implements StructuredSerializer<GUpdateAccountLoginInput> {
   @override
@@ -10880,7 +10931,7 @@ class _$GCreateImageGenerationTaskInput
   @override
   final int count;
   @override
-  final GImageGenerationType generationType;
+  final GImageGenerationType type;
   @override
   final String model;
   @override
@@ -10894,7 +10945,7 @@ class _$GCreateImageGenerationTaskInput
   @override
   final int steps;
   @override
-  final String scale;
+  final int scale;
   @override
   final String sampler;
   @override
@@ -10914,7 +10965,7 @@ class _$GCreateImageGenerationTaskInput
 
   _$GCreateImageGenerationTaskInput._(
       {required this.count,
-      required this.generationType,
+      required this.type,
       required this.model,
       required this.vae,
       required this.prompt,
@@ -10932,7 +10983,7 @@ class _$GCreateImageGenerationTaskInput
     BuiltValueNullFieldError.checkNotNull(
         count, r'GCreateImageGenerationTaskInput', 'count');
     BuiltValueNullFieldError.checkNotNull(
-        generationType, r'GCreateImageGenerationTaskInput', 'generationType');
+        type, r'GCreateImageGenerationTaskInput', 'type');
     BuiltValueNullFieldError.checkNotNull(
         model, r'GCreateImageGenerationTaskInput', 'model');
     BuiltValueNullFieldError.checkNotNull(
@@ -10967,7 +11018,7 @@ class _$GCreateImageGenerationTaskInput
     if (identical(other, this)) return true;
     return other is GCreateImageGenerationTaskInput &&
         count == other.count &&
-        generationType == other.generationType &&
+        type == other.type &&
         model == other.model &&
         vae == other.vae &&
         prompt == other.prompt &&
@@ -10987,7 +11038,7 @@ class _$GCreateImageGenerationTaskInput
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, count.hashCode);
-    _$hash = $jc(_$hash, generationType.hashCode);
+    _$hash = $jc(_$hash, type.hashCode);
     _$hash = $jc(_$hash, model.hashCode);
     _$hash = $jc(_$hash, vae.hashCode);
     _$hash = $jc(_$hash, prompt.hashCode);
@@ -11009,7 +11060,7 @@ class _$GCreateImageGenerationTaskInput
   String toString() {
     return (newBuiltValueToStringHelper(r'GCreateImageGenerationTaskInput')
           ..add('count', count)
-          ..add('generationType', generationType)
+          ..add('type', type)
           ..add('model', model)
           ..add('vae', vae)
           ..add('prompt', prompt)
@@ -11037,10 +11088,9 @@ class GCreateImageGenerationTaskInputBuilder
   int? get count => _$this._count;
   set count(int? count) => _$this._count = count;
 
-  GImageGenerationType? _generationType;
-  GImageGenerationType? get generationType => _$this._generationType;
-  set generationType(GImageGenerationType? generationType) =>
-      _$this._generationType = generationType;
+  GImageGenerationType? _type;
+  GImageGenerationType? get type => _$this._type;
+  set type(GImageGenerationType? type) => _$this._type = type;
 
   String? _model;
   String? get model => _$this._model;
@@ -11067,9 +11117,9 @@ class GCreateImageGenerationTaskInputBuilder
   int? get steps => _$this._steps;
   set steps(int? steps) => _$this._steps = steps;
 
-  String? _scale;
-  String? get scale => _$this._scale;
-  set scale(String? scale) => _$this._scale = scale;
+  int? _scale;
+  int? get scale => _$this._scale;
+  set scale(int? scale) => _$this._scale = scale;
 
   String? _sampler;
   String? get sampler => _$this._sampler;
@@ -11105,7 +11155,7 @@ class GCreateImageGenerationTaskInputBuilder
     final $v = _$v;
     if ($v != null) {
       _count = $v.count;
-      _generationType = $v.generationType;
+      _type = $v.type;
       _model = $v.model;
       _vae = $v.vae;
       _prompt = $v.prompt;
@@ -11143,8 +11193,8 @@ class GCreateImageGenerationTaskInputBuilder
         new _$GCreateImageGenerationTaskInput._(
             count: BuiltValueNullFieldError.checkNotNull(
                 count, r'GCreateImageGenerationTaskInput', 'count'),
-            generationType: BuiltValueNullFieldError.checkNotNull(
-                generationType, r'GCreateImageGenerationTaskInput', 'generationType'),
+            type: BuiltValueNullFieldError.checkNotNull(
+                type, r'GCreateImageGenerationTaskInput', 'type'),
             model: BuiltValueNullFieldError.checkNotNull(
                 model, r'GCreateImageGenerationTaskInput', 'model'),
             vae: BuiltValueNullFieldError.checkNotNull(
@@ -11157,7 +11207,8 @@ class GCreateImageGenerationTaskInputBuilder
                 'negativePrompt'),
             seed: BuiltValueNullFieldError.checkNotNull(
                 seed, r'GCreateImageGenerationTaskInput', 'seed'),
-            steps: BuiltValueNullFieldError.checkNotNull(steps, r'GCreateImageGenerationTaskInput', 'steps'),
+            steps: BuiltValueNullFieldError.checkNotNull(
+                steps, r'GCreateImageGenerationTaskInput', 'steps'),
             scale: BuiltValueNullFieldError.checkNotNull(scale, r'GCreateImageGenerationTaskInput', 'scale'),
             sampler: BuiltValueNullFieldError.checkNotNull(sampler, r'GCreateImageGenerationTaskInput', 'sampler'),
             sizeType: BuiltValueNullFieldError.checkNotNull(sizeType, r'GCreateImageGenerationTaskInput', 'sizeType'),
@@ -21847,6 +21898,89 @@ class GUnwatchFolderInputBuilder
         new _$GUnwatchFolderInput._(
             userId: BuiltValueNullFieldError.checkNotNull(
                 userId, r'GUnwatchFolderInput', 'userId'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GUpdateAccountFcmTokenInput extends GUpdateAccountFcmTokenInput {
+  @override
+  final String? token;
+
+  factory _$GUpdateAccountFcmTokenInput(
+          [void Function(GUpdateAccountFcmTokenInputBuilder)? updates]) =>
+      (new GUpdateAccountFcmTokenInputBuilder()..update(updates))._build();
+
+  _$GUpdateAccountFcmTokenInput._({this.token}) : super._();
+
+  @override
+  GUpdateAccountFcmTokenInput rebuild(
+          void Function(GUpdateAccountFcmTokenInputBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GUpdateAccountFcmTokenInputBuilder toBuilder() =>
+      new GUpdateAccountFcmTokenInputBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GUpdateAccountFcmTokenInput && token == other.token;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, token.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GUpdateAccountFcmTokenInput')
+          ..add('token', token))
+        .toString();
+  }
+}
+
+class GUpdateAccountFcmTokenInputBuilder
+    implements
+        Builder<GUpdateAccountFcmTokenInput,
+            GUpdateAccountFcmTokenInputBuilder> {
+  _$GUpdateAccountFcmTokenInput? _$v;
+
+  String? _token;
+  String? get token => _$this._token;
+  set token(String? token) => _$this._token = token;
+
+  GUpdateAccountFcmTokenInputBuilder();
+
+  GUpdateAccountFcmTokenInputBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _token = $v.token;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GUpdateAccountFcmTokenInput other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GUpdateAccountFcmTokenInput;
+  }
+
+  @override
+  void update(void Function(GUpdateAccountFcmTokenInputBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GUpdateAccountFcmTokenInput build() => _build();
+
+  _$GUpdateAccountFcmTokenInput _build() {
+    final _$result = _$v ?? new _$GUpdateAccountFcmTokenInput._(token: token);
     replace(_$result);
     return _$result;
   }

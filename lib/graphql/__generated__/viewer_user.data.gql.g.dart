@@ -173,6 +173,13 @@ class _$GViewerUserData_viewer_userSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
+    value = object.fcmToken;
+    if (value != null) {
+      result
+        ..add('fcmToken')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     value = object.iconImage;
     if (value != null) {
       result
@@ -214,6 +221,10 @@ class _$GViewerUserData_viewer_userSerializer
           break;
         case 'biography':
           result.biography = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'fcmToken':
+          result.fcmToken = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
         case 'login':
@@ -616,6 +627,8 @@ class _$GViewerUserData_viewer_user extends GViewerUserData_viewer_user {
   @override
   final String? biography;
   @override
+  final String? fcmToken;
+  @override
   final String login;
   @override
   final String name;
@@ -640,6 +653,7 @@ class _$GViewerUserData_viewer_user extends GViewerUserData_viewer_user {
       {required this.G__typename,
       required this.id,
       this.biography,
+      this.fcmToken,
       required this.login,
       required this.name,
       required this.receivedLikesCount,
@@ -683,6 +697,7 @@ class _$GViewerUserData_viewer_user extends GViewerUserData_viewer_user {
         G__typename == other.G__typename &&
         id == other.id &&
         biography == other.biography &&
+        fcmToken == other.fcmToken &&
         login == other.login &&
         name == other.name &&
         receivedLikesCount == other.receivedLikesCount &&
@@ -699,6 +714,7 @@ class _$GViewerUserData_viewer_user extends GViewerUserData_viewer_user {
     _$hash = $jc(_$hash, G__typename.hashCode);
     _$hash = $jc(_$hash, id.hashCode);
     _$hash = $jc(_$hash, biography.hashCode);
+    _$hash = $jc(_$hash, fcmToken.hashCode);
     _$hash = $jc(_$hash, login.hashCode);
     _$hash = $jc(_$hash, name.hashCode);
     _$hash = $jc(_$hash, receivedLikesCount.hashCode);
@@ -717,6 +733,7 @@ class _$GViewerUserData_viewer_user extends GViewerUserData_viewer_user {
           ..add('G__typename', G__typename)
           ..add('id', id)
           ..add('biography', biography)
+          ..add('fcmToken', fcmToken)
           ..add('login', login)
           ..add('name', name)
           ..add('receivedLikesCount', receivedLikesCount)
@@ -746,6 +763,10 @@ class GViewerUserData_viewer_userBuilder
   String? _biography;
   String? get biography => _$this._biography;
   set biography(String? biography) => _$this._biography = biography;
+
+  String? _fcmToken;
+  String? get fcmToken => _$this._fcmToken;
+  set fcmToken(String? fcmToken) => _$this._fcmToken = fcmToken;
 
   String? _login;
   String? get login => _$this._login;
@@ -798,6 +819,7 @@ class GViewerUserData_viewer_userBuilder
       _G__typename = $v.G__typename;
       _id = $v.id;
       _biography = $v.biography;
+      _fcmToken = $v.fcmToken;
       _login = $v.login;
       _name = $v.name;
       _receivedLikesCount = $v.receivedLikesCount;
@@ -835,6 +857,7 @@ class GViewerUserData_viewer_userBuilder
               id: BuiltValueNullFieldError.checkNotNull(
                   id, r'GViewerUserData_viewer_user', 'id'),
               biography: biography,
+              fcmToken: fcmToken,
               login: BuiltValueNullFieldError.checkNotNull(
                   login, r'GViewerUserData_viewer_user', 'login'),
               name: BuiltValueNullFieldError.checkNotNull(

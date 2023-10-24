@@ -1033,7 +1033,7 @@ const ImageGenerationTaskNode = _i1.ObjectTypeDefinitionNode(
       directives: [],
       args: [],
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'String'),
+        name: _i1.NameNode(value: 'Int'),
         isNonNull: true,
       ),
     ),
@@ -2547,6 +2547,25 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
           directives: [],
           type: _i1.NamedTypeNode(
             name: _i1.NameNode(value: 'UpdateAccountPasswordInput'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        )
+      ],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'UserNode'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'updateAccountFcmToken'),
+      directives: [],
+      args: [
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'input'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'UpdateAccountFcmTokenInput'),
             isNonNull: true,
           ),
           defaultValue: null,
@@ -10803,6 +10822,42 @@ const UserNode = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'fcmToken'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: false,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'isFollower'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Boolean'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'isFollowee'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Boolean'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'isMuted'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Boolean'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
       name: _i1.NameNode(value: 'viewer'),
       directives: [],
       args: [],
@@ -12498,7 +12553,7 @@ const ImageGenerationSizeType = _i1.EnumTypeDefinitionNode(
       directives: [],
     ),
     _i1.EnumValueDefinitionNode(
-      name: _i1.NameNode(value: 'SD2_1200_1200'),
+      name: _i1.NameNode(value: 'SD2_1200_768'),
       directives: [],
     ),
     _i1.EnumValueDefinitionNode(
@@ -12538,11 +12593,11 @@ const ImageGenerationType = _i1.EnumTypeDefinitionNode(
   directives: [],
   values: [
     _i1.EnumValueDefinitionNode(
-      name: _i1.NameNode(value: 'TEXT_2_IMAGE'),
+      name: _i1.NameNode(value: 'TEXT_TO_IMAGE'),
       directives: [],
     ),
     _i1.EnumValueDefinitionNode(
-      name: _i1.NameNode(value: 'IMAGE_2_IMAGE'),
+      name: _i1.NameNode(value: 'IMAGE_TO_IMAGE'),
       directives: [],
     ),
     _i1.EnumValueDefinitionNode(
@@ -13077,7 +13132,7 @@ const CreateImageGenerationTaskInput = _i1.InputObjectTypeDefinitionNode(
       defaultValue: null,
     ),
     _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'generationType'),
+      name: _i1.NameNode(value: 'type'),
       directives: [],
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'ImageGenerationType'),
@@ -13143,7 +13198,7 @@ const CreateImageGenerationTaskInput = _i1.InputObjectTypeDefinitionNode(
       name: _i1.NameNode(value: 'scale'),
       directives: [],
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'String'),
+        name: _i1.NameNode(value: 'Int'),
         isNonNull: true,
       ),
       defaultValue: null,
@@ -15624,6 +15679,21 @@ const UnwatchFolderInput = _i1.InputObjectTypeDefinitionNode(
     )
   ],
 );
+const UpdateAccountFcmTokenInput = _i1.InputObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'UpdateAccountFcmTokenInput'),
+  directives: [],
+  fields: [
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'token'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: false,
+      ),
+      defaultValue: null,
+    )
+  ],
+);
 const UpdateAccountLoginInput = _i1.InputObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'UpdateAccountLoginInput'),
   directives: [],
@@ -16841,6 +16911,7 @@ const document = _i1.DocumentNode(definitions: [
   UnmuteUserInput,
   UnpinPromptonWorkInput,
   UnwatchFolderInput,
+  UpdateAccountFcmTokenInput,
   UpdateAccountLoginInput,
   UpdateAccountPasswordInput,
   UpdateAlbumInput,
