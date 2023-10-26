@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:aipictors/cache.dart';
 import 'package:aipictors/config.dart';
 import 'package:aipictors/repositories/config_repository.dart';
+import 'package:aipictors/utils/custom_response_parser.dart';
 import 'package:ferry/ferry.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:gql_http_link/gql_http_link.dart';
@@ -16,6 +17,7 @@ Future<Client> createClient() async {
 
   final httpLink = HttpLink(
     DefaultConfig.graphqlEndpoint,
+    parser: const CustomResponseParser(),
     defaultHeaders: {
       if (token != null) 'authorization': 'Bearer $token',
       'flutter-version': DefaultConfig.version,

@@ -1,12 +1,16 @@
 import 'package:ferry/ferry.dart';
 
 T? toResponseData<T, U>(OperationResponse<T, U> response) {
-  if (response.hasErrors && response.graphqlErrors != null) {
-    throw response.graphqlErrors!.first;
+  final graphqlErrors = response.graphqlErrors;
+
+  if (graphqlErrors != null && graphqlErrors.isNotEmpty) {
+    throw graphqlErrors.first;
   }
 
-  if (response.hasErrors && response.linkException != null) {
-    throw response.linkException!;
+  final linkException = response.linkException;
+
+  if (linkException != null) {
+    throw linkException;
   }
 
   return response.data;
