@@ -71,7 +71,7 @@ class WorkActionModalContainer extends HookConsumerWidget {
               const Divider(),
 
               /// ログイン時のみミュートボタンを表示する
-              if (authUserId.value == null)
+              if (authUserId.value != null)
                 ModalMuteUserListTile(
                   isActive: isMutedUser,
                   onTap: () {
