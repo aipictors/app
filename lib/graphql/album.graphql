@@ -3,6 +3,7 @@
 query Album($id: ID!) {
   album(id: $id) {
     id
+    slug
     title
     description
     user {

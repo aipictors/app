@@ -5,6 +5,7 @@ import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/screens/error/data_not_found_error_screen.dart';
 import 'package:aipictors/screens/loading_screen.dart';
 import 'package:aipictors/widgets/builder/operation_screen_builder.dart';
+import 'package:aipictors/widgets/container/modal/album_action_modal_container.dart';
 import 'package:aipictors/widgets/view/album_works_view.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
@@ -65,6 +66,21 @@ class AlbumScreen extends HookConsumerWidget {
                   maxLines: 2,
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
+                actions: [
+                  IconButton(
+                    icon: const Icon(Icons.more_horiz_rounded),
+                    onPressed: () {
+                      onOpenActionModal(
+                        context,
+                        userId: album.user.id,
+                        userName: album.user.name,
+                        albumTitle: album.title,
+                        albumSlug: album.slug!,
+                        isMutedUser: album.user.viewer?.isMuted == true,
+                      );
+                    },
+                  ),
+                ],
               ),
               extendBody: true,
               body: AlbumWorksView(
@@ -81,6 +97,29 @@ class AlbumScreen extends HookConsumerWidget {
           },
         ),
       ),
+    );
+  }
+
+  onOpenActionModal(
+    BuildContext context, {
+    required String userId,
+    required String userName,
+    required String albumTitle,
+    required String albumSlug,
+    required bool isMutedUser,
+  }) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return AlbumActionModalContainer(
+          albumId: albumId,
+          albumTitle: albumTitle,
+          albumSlug: albumSlug,
+          userId: userId,
+          userName: userName,
+          isMutedUser: isMutedUser,
+        );
+      },
     );
   }
 }
