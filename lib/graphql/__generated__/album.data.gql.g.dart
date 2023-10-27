@@ -105,6 +105,13 @@ class _$GAlbumData_albumSerializer
           specifiedType: const FullType(bool)),
     ];
     Object? value;
+    value = object.slug;
+    if (value != null) {
+      result
+        ..add('slug')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     value = object.thumbnailImage;
     if (value != null) {
       result
@@ -134,6 +141,10 @@ class _$GAlbumData_albumSerializer
         case 'id':
           result.id = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
+          break;
+        case 'slug':
+          result.slug = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'title':
           result.title = serializers.deserialize(value,
@@ -554,6 +565,8 @@ class _$GAlbumData_album extends GAlbumData_album {
   @override
   final String id;
   @override
+  final String? slug;
+  @override
   final String title;
   @override
   final String description;
@@ -573,6 +586,7 @@ class _$GAlbumData_album extends GAlbumData_album {
   _$GAlbumData_album._(
       {required this.G__typename,
       required this.id,
+      this.slug,
       required this.title,
       required this.description,
       required this.user,
@@ -607,6 +621,7 @@ class _$GAlbumData_album extends GAlbumData_album {
     return other is GAlbumData_album &&
         G__typename == other.G__typename &&
         id == other.id &&
+        slug == other.slug &&
         title == other.title &&
         description == other.description &&
         user == other.user &&
@@ -620,6 +635,7 @@ class _$GAlbumData_album extends GAlbumData_album {
     var _$hash = 0;
     _$hash = $jc(_$hash, G__typename.hashCode);
     _$hash = $jc(_$hash, id.hashCode);
+    _$hash = $jc(_$hash, slug.hashCode);
     _$hash = $jc(_$hash, title.hashCode);
     _$hash = $jc(_$hash, description.hashCode);
     _$hash = $jc(_$hash, user.hashCode);
@@ -635,6 +651,7 @@ class _$GAlbumData_album extends GAlbumData_album {
     return (newBuiltValueToStringHelper(r'GAlbumData_album')
           ..add('G__typename', G__typename)
           ..add('id', id)
+          ..add('slug', slug)
           ..add('title', title)
           ..add('description', description)
           ..add('user', user)
@@ -656,6 +673,10 @@ class GAlbumData_albumBuilder
   String? _id;
   String? get id => _$this._id;
   set id(String? id) => _$this._id = id;
+
+  String? _slug;
+  String? get slug => _$this._slug;
+  set slug(String? slug) => _$this._slug = slug;
 
   String? _title;
   String? get title => _$this._title;
@@ -693,6 +714,7 @@ class GAlbumData_albumBuilder
     if ($v != null) {
       _G__typename = $v.G__typename;
       _id = $v.id;
+      _slug = $v.slug;
       _title = $v.title;
       _description = $v.description;
       _user = $v.user.toBuilder();
@@ -727,6 +749,7 @@ class GAlbumData_albumBuilder
                   G__typename, r'GAlbumData_album', 'G__typename'),
               id: BuiltValueNullFieldError.checkNotNull(
                   id, r'GAlbumData_album', 'id'),
+              slug: slug,
               title: BuiltValueNullFieldError.checkNotNull(
                   title, r'GAlbumData_album', 'title'),
               description: BuiltValueNullFieldError.checkNotNull(

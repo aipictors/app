@@ -44,6 +44,7 @@ abstract class GAlbumData_album
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get id;
+  String? get slug;
   String get title;
   String get description;
   GAlbumData_album_user get user;
