@@ -21,7 +21,7 @@ class LoginIDForm extends StatefulWidget {
 class _LoginIDFormState extends State<LoginIDForm> {
   @override
   Widget build(BuildContext context) {
-    final regExp = RegExp(r'^[a-zA-Z0-9.@_]+$');
+    final regExp = RegExp(r'^[a-zA-Z0-9.@_-]+$');
 
     return Form(
         child: TextFormField(
@@ -37,7 +37,7 @@ class _LoginIDFormState extends State<LoginIDForm> {
           widget.onValidate(false, value);
           return 'IDは4文字以上254文字以下である必要があります'.i18n;
         }
-        if (!value.contains(RegExp(r'[a-z]'))) {
+        if (!value.contains(RegExp(r'[a-zA-Z]'))) {
           widget.onValidate(false, value);
           return 'IDにはアルファベットが含まれている必要があります'.i18n;
         }
