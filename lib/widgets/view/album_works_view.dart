@@ -100,7 +100,7 @@ class AlbumWorksView extends HookConsumerWidget {
               userName: userName,
               likesCount: work.likesCount,
               commentsCount: work.commentsCount,
-              isLiked: work.viewer!.isLiked,
+              isLiked: work.viewer?.isLiked == true,
             );
           },
         );
