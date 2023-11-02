@@ -27,10 +27,6 @@ class NotificationWorkAwardListTileCompact extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
-    if (workId == null) {
-      return const NotificationDeletedListTile();
-    }
-
     return ListTile(
       onTap: () {
         if (workId == null) return;
@@ -54,10 +50,11 @@ class NotificationWorkAwardListTileCompact extends HookConsumerWidget {
             style: Theme.of(context).textTheme.bodyMedium,
           ),
           const SizedBox(height: 8),
-          NotificationImageContainerCompact(
-            workImageURL: workImageURL,
-            workTitle: workTitle,
-          ),
+          if (workId != null)
+            NotificationImageContainerCompact(
+              workImageURL: workImageURL,
+              workTitle: workTitle,
+            )
         ],
       ),
     );
