@@ -60,12 +60,15 @@ class UserActionModalContainer extends HookConsumerWidget {
             ),
             if (authUserId.value != userId) ...[
               const Divider(),
-              ModalMuteUserListTile(
-                isActive: isMutedUser,
-                onTap: () {
-                  return onMuteUser(context);
-                },
-              ),
+
+              /// ログイン時のみミュートボタンを表示する
+              if (authUserId.value != null)
+                ModalMuteUserListTile(
+                  isActive: isMutedUser,
+                  onTap: () {
+                    return onMuteUser(context);
+                  },
+                ),
               ModalReportListTile(
                 titleText: 'ユーザを報告する'.i18n,
                 onTap: () {

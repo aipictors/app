@@ -2,8 +2,8 @@ import 'package:aipictors/default.i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class LoginIDForm extends StatefulWidget {
-  const LoginIDForm({
+class ChangeLoginIDForm extends StatefulWidget {
+  const ChangeLoginIDForm({
     Key? key,
     required this.readOnly,
     required this.onValidate,
@@ -15,10 +15,10 @@ class LoginIDForm extends StatefulWidget {
   final InputDecoration decoration;
 
   @override
-  State<LoginIDForm> createState() => _LoginIDFormState();
+  State<ChangeLoginIDForm> createState() => _ChangeLoginIDFormState();
 }
 
-class _LoginIDFormState extends State<LoginIDForm> {
+class _ChangeLoginIDFormState extends State<ChangeLoginIDForm> {
   @override
   Widget build(BuildContext context) {
     final regExp = RegExp(r'^[a-zA-Z0-9.@_-]+$');
@@ -33,7 +33,11 @@ class _LoginIDFormState extends State<LoginIDForm> {
       ],
       autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: (value) {
-        if (!value!.contains(RegExp(r'[a-zA-Z]'))) {
+        if (value!.length < 4 || 254 < value.length) {
+          widget.onValidate(false, value);
+          return 'IDは4文字以上254文字以下である必要があります'.i18n;
+        }
+        if (!value.contains(RegExp(r'[a-zA-Z]'))) {
           widget.onValidate(false, value);
           return 'IDにはアルファベットが含まれている必要があります'.i18n;
         }

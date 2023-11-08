@@ -1,9 +1,10 @@
+import 'package:aipictors/config.dart';
 import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/mutations/mute_user.dart';
 import 'package:aipictors/providers/auth_user_id_provider.dart';
 import 'package:aipictors/providers/config_provider.dart';
+import 'package:aipictors/utils/to_share_album_text.dart';
 import 'package:aipictors/utils/to_share_user_text.dart';
-import 'package:aipictors/utils/to_share_work_text.dart';
 import 'package:aipictors/widgets/container/modal_header_container.dart';
 import 'package:aipictors/widgets/list_tile/modal_mute_user_list_tile.dart';
 import 'package:aipictors/widgets/list_tile/modal_report_list_tile.dart';
@@ -12,19 +13,22 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class WorkActionModalContainer extends HookConsumerWidget {
-  const WorkActionModalContainer({
+class AlbumActionModalContainer extends HookConsumerWidget {
+  const AlbumActionModalContainer({
     Key? key,
-    required this.workId,
-    required this.workTitle,
+    required this.albumId,
+    required this.albumTitle,
+    required this.albumSlug,
     required this.userId,
     required this.userName,
     required this.isMutedUser,
   }) : super(key: key);
 
-  final String workId;
+  final String albumId;
 
-  final String workTitle;
+  final String albumTitle;
+
+  final String albumSlug;
 
   final String userId;
 
@@ -45,10 +49,11 @@ class WorkActionModalContainer extends HookConsumerWidget {
           children: [
             const ModalHeaderContainer(title: SizedBox()),
             ModalShareListTile(
-              titleText: '作品をシェアする'.i18n,
-              shareText: toShareWorkText(
-                workId: workId,
-                workTitle: workTitle,
+              titleText: 'シリーズをシェアする'.i18n,
+              shareText: toShareAlbumText(
+                userId: userId,
+                albumSlug: albumSlug,
+                albumTitle: albumTitle,
                 userName: userName,
                 hashtagText: config.xPostText,
               ),
@@ -79,10 +84,10 @@ class WorkActionModalContainer extends HookConsumerWidget {
                   },
                 ),
               ModalReportListTile(
-                titleText: '作品を報告する'.i18n,
+                titleText: 'シリーズを報告する'.i18n,
                 onTap: () {
                   context.pop();
-                  context.push('/works/$workId/report');
+                  context.push('/albums/$albumId/report');
                 },
               ),
               ModalReportListTile(

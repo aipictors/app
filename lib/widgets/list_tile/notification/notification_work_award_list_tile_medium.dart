@@ -27,10 +27,6 @@ class NotificationWorkAwardListTileMedium extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
-    if (workId == null) {
-      return const NotificationDeletedListTile();
-    }
-
     return ListTile(
       contentPadding: const EdgeInsets.only(
         right: 16,
@@ -50,10 +46,12 @@ class NotificationWorkAwardListTileMedium extends HookConsumerWidget {
         Icons.emoji_events_rounded,
         color: Theme.of(context).colorScheme.primary,
       ),
-      trailing: NotificationImageContainerMedium(
-        workImageURL: workImageURL,
-        workTitle: workTitle,
-      ),
+      trailing: (workId != null)
+          ? NotificationImageContainerMedium(
+              workImageURL: workImageURL,
+              workTitle: workTitle,
+            )
+          : null,
       title: Text(
         message,
         maxLines: 5,
