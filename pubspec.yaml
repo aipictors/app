@@ -4,17 +4,17 @@ description: A new Flutter project.
 
 publish_to: "none"
 
-version: 1.0.0+12
+version: 1.0.0+13
 
 environment:
   sdk: ">=3.0.2 <4.0.0"
-  flutter: 3.13.9
+  flutter: 3.16.0
 
 dependencies:
   app_tracking_transparency: ^2.0.4
   audioplayers: ^5.1.0
   built_collection: ^5.1.1
-  cached_network_image: ^3.2.3
+  cached_network_image: ^3.3.0
   connectivity_plus: ^4.0.1
   device_info_plus: ^9.0.2
   dynamic_color: ^1.6.5
