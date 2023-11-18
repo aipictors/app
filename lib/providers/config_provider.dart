@@ -24,6 +24,7 @@ class Config extends _$Config {
       themeMediumLayout: repository.themeMediumLayout,
       themeColor: toColor(repository.themeColor),
       lastFetchStatus: FirebaseRemoteConfig.instance.lastFetchStatus,
+      eulaCheck: repository.eulaCheck,
     );
   }
 

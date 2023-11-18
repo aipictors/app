@@ -22,6 +22,7 @@ class ConfigState with _$ConfigState {
     required ThemeMode themeMode,
     required Color? themeColor,
     required RemoteConfigFetchStatus lastFetchStatus,
+    required bool eulaCheck,
   }) = _ConfigState;
 
   /// 初期化に失敗した
@@ -250,6 +251,13 @@ class ConfigState with _$ConfigState {
   Uri get pageDiscordURL {
     final remoteConfig = FirebaseRemoteConfig.instance;
     return Uri.parse(remoteConfig.getString('page_url_discord'));
+  }
+
+  /// Remote Config
+  /// URL・EULAの招待
+  Uri get pageEulaURL {
+    final remoteConfig = FirebaseRemoteConfig.instance;
+    return Uri.parse(remoteConfig.getString('page_url_eula'));
   }
 
   /// Remote Config

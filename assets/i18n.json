@@ -471,6 +471,15 @@
     "kr": "여기서 끝날 것 같다."
   },
   {
+    "ja": "このアプリにはユーザの投稿したコンテンツが含まれています。利用するには以下の規約に同意する必要があります。",
+    "en": "This app contains content posted by users. You must agree to the following terms to use it.",
+    "zh_cn": "此应用程序包含用户发布的内容。您必须同意以下条款才能使用它。",
+    "zh_tw": "此應用程序包含用戶發佈的內容。您必須同意以下條款才能使用它。",
+    "it": "Questa applicazione contiene contenuti pubblicati dagli utenti. È necessario accettare i seguenti termini per utilizzarlo.",
+    "fr": "Cette application contient du contenu publié par les utilisateurs. Vous devez accepter les conditions suivantes pour l'utiliser.",
+    "vi": "Ứng dụng này chứa nội dung được đăng bởi người dùng. Bạn phải đồng ý với các điều khoản sau để sử dụng nó."
+  },
+  {
     "ja": "このアプリを利用するには利用規約とプライバシーポリシーに同意する必要があります。",
     "en": "You must agree to the Terms of Use and Privacy Policy to use this app.",
     "vi": "",
@@ -608,6 +617,24 @@
     "it": "Rapporto Album",
     "fr": "Rapport Album",
     "kr": "시리즈 보고"
+  },
+  {
+    "ja": "シリーズをシェアする",
+    "en": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": "",
+    "vi": ""
+  },
+  {
+    "ja": "シリーズを報告する",
+    "en": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": "",
+    "vi": ""
   },
   {
     "ja": "スタンプ",
@@ -813,6 +840,15 @@
     "kr": "버전"
   },
   {
+    "ja": "はじめに",
+    "en": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": "",
+    "vi": ""
+  },
+  {
     "ja": "パスワード",
     "en": "Password",
     "vi": "",
@@ -953,12 +989,12 @@
   {
     "ja": "プライバシーポリシー",
     "en": "Privacy Policy",
-    "vi": "",
-    "zh_cn": "隐私政策",
-    "zh_tw": "隱私政策",
-    "it": "Politica sulla privacy",
     "fr": "Politique de confidentialité",
-    "kr": "개인정보 보호정책"
+    "it": "Politica sulla privacy",
+    "kr": "개인정보 보호정책",
+    "vi": "Chính sách bảo mật",
+    "zh_cn": "隐私政策",
+    "zh_tw": "隱私政策"
   },
   {
     "ja": "プロフィール",
@@ -1230,7 +1266,8 @@
     "zh_cn": "",
     "zh_tw": "",
     "it": "",
-    "fr": ""
+    "fr": "",
+    "vi": ""
   },
   {
     "ja": "リポジトリ",
@@ -1747,6 +1784,15 @@
     "kr": "알림"
   },
   {
+    "ja": "通知をオフにしました",
+    "en": "",
+    "zh_cn": "",
+    "zh_tw": "",
+    "it": "",
+    "fr": "",
+    "vi": ""
+  },
+  {
     "ja": "通知を受け取る",
     "en": "",
     "zh_cn": "",
@@ -1772,6 +1818,15 @@
     "it": "",
     "fr": "",
     "vi": ""
+  },
+  {
+    "ja": "同意して進む",
+    "en": "Agree and Continue",
+    "zh_cn": "同意并继续",
+    "zh_tw": "同意並繼續",
+    "it": "Accetta e continua",
+    "fr": "Accepter et continuer",
+    "vi": "Đồng ý"
   },
   {
     "ja": "同意する",
@@ -1844,12 +1899,21 @@
   },
   {
     "ja": "利用規約",
-    "en": "Terms",
-    "vi": "",
+    "en": "Terms of Use",
+    "vi": "Terms of Use",
     "zh_cn": "使用条款",
     "zh_tw": "使用條款",
     "it": "Termini",
     "fr": "Termes",
     "kr": "약관"
+  },
+  {
+    "ja": "利用規約（EULA）",
+    "en": "Terms of Use (EULA)",
+    "zh_cn": "Terms of Use (EULA)",
+    "zh_tw": "Terms of Use (EULA)",
+    "it": "Terms of Use (EULA)",
+    "fr": "Terms of Use (EULA)",
+    "vi": "Terms of Use (EULA)"
   }
 ]

@@ -40,6 +40,7 @@ import 'package:aipictors/screens/sticker/sticker_report_screen.dart';
 import 'package:aipictors/screens/sticker/stickers_screen.dart';
 import 'package:aipictors/screens/surveys_screen.dart';
 import 'package:aipictors/screens/tag/tag_screen.dart';
+import 'package:aipictors/screens/terms_eula_screen.dart';
 import 'package:aipictors/screens/terms_screen.dart';
 import 'package:aipictors/screens/tutorial_screen.dart';
 import 'package:aipictors/screens/user/user_followees_screen.dart';
@@ -416,6 +417,12 @@ final _routes = [
     path: '/terms',
     builder: (context, state) {
       return const TermsScreen();
+    },
+  ),
+  GoRoute(
+    path: '/terms/eula',
+    builder: (context, state) {
+      return const TermsEulaScreen();
     },
   ),
   GoRoute(

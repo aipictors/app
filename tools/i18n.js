@@ -43,10 +43,11 @@ const main = async () => {
     return {
       ja: text,
       en: "",
+      fr: "",
+      it: "",
+      vi: "",
       zh_cn: "",
       zh_tw: "",
-      it: "",
-      fr: "",
     }
   })
 
@@ -55,11 +56,11 @@ const main = async () => {
       ...record,
       ja: record.ja.trim(),
       en: record.en?.trim() ?? "",
+      fr: record.fr?.trim() ?? "",
+      it: record.it?.trim() ?? "",
       vi: record.vi?.trim() ?? "",
       zh_cn: record.zh_cn?.trim() ?? "",
       zh_tw: record.zh_tw?.trim() ?? "",
-      it: record.it?.trim() ?? "",
-      fr: record.fr?.trim() ?? "",
     }
   })
 

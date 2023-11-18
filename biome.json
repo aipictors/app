@@ -20,6 +20,6 @@
     }
   },
   "files": {
-    "include": ["tools"]
+    "include": ["tools", "assets/i18n.json"]
   }
 }

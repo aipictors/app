@@ -23,6 +23,7 @@ mixin _$ConfigState {
   Color? get themeColor => throw _privateConstructorUsedError;
   RemoteConfigFetchStatus get lastFetchStatus =>
       throw _privateConstructorUsedError;
+  bool get eulaCheck => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ConfigStateCopyWith<ConfigState> get copyWith =>
@@ -41,7 +42,8 @@ abstract class $ConfigStateCopyWith<$Res> {
       bool themeMediumLayout,
       ThemeMode themeMode,
       Color? themeColor,
-      RemoteConfigFetchStatus lastFetchStatus});
+      RemoteConfigFetchStatus lastFetchStatus,
+      bool eulaCheck});
 }
 
 /// @nodoc
@@ -63,6 +65,7 @@ class _$ConfigStateCopyWithImpl<$Res, $Val extends ConfigState>
     Object? themeMode = null,
     Object? themeColor = freezed,
     Object? lastFetchStatus = null,
+    Object? eulaCheck = null,
   }) {
     return _then(_value.copyWith(
       isTutorial: null == isTutorial
@@ -89,6 +92,10 @@ class _$ConfigStateCopyWithImpl<$Res, $Val extends ConfigState>
           ? _value.lastFetchStatus
           : lastFetchStatus // ignore: cast_nullable_to_non_nullable
               as RemoteConfigFetchStatus,
+      eulaCheck: null == eulaCheck
+          ? _value.eulaCheck
+          : eulaCheck // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -107,7 +114,8 @@ abstract class _$$_ConfigStateCopyWith<$Res>
       bool themeMediumLayout,
       ThemeMode themeMode,
       Color? themeColor,
-      RemoteConfigFetchStatus lastFetchStatus});
+      RemoteConfigFetchStatus lastFetchStatus,
+      bool eulaCheck});
 }
 
 /// @nodoc
@@ -127,6 +135,7 @@ class __$$_ConfigStateCopyWithImpl<$Res>
     Object? themeMode = null,
     Object? themeColor = freezed,
     Object? lastFetchStatus = null,
+    Object? eulaCheck = null,
   }) {
     return _then(_$_ConfigState(
       isTutorial: null == isTutorial
@@ -153,6 +162,10 @@ class __$$_ConfigStateCopyWithImpl<$Res>
           ? _value.lastFetchStatus
           : lastFetchStatus // ignore: cast_nullable_to_non_nullable
               as RemoteConfigFetchStatus,
+      eulaCheck: null == eulaCheck
+          ? _value.eulaCheck
+          : eulaCheck // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -166,7 +179,8 @@ class _$_ConfigState extends _ConfigState {
       required this.themeMediumLayout,
       required this.themeMode,
       required this.themeColor,
-      required this.lastFetchStatus})
+      required this.lastFetchStatus,
+      required this.eulaCheck})
       : super._();
 
   @override
@@ -181,10 +195,12 @@ class _$_ConfigState extends _ConfigState {
   final Color? themeColor;
   @override
   final RemoteConfigFetchStatus lastFetchStatus;
+  @override
+  final bool eulaCheck;
 
   @override
   String toString() {
-    return 'ConfigState(isTutorial: $isTutorial, language: $language, themeMediumLayout: $themeMediumLayout, themeMode: $themeMode, themeColor: $themeColor, lastFetchStatus: $lastFetchStatus)';
+    return 'ConfigState(isTutorial: $isTutorial, language: $language, themeMediumLayout: $themeMediumLayout, themeMode: $themeMode, themeColor: $themeColor, lastFetchStatus: $lastFetchStatus, eulaCheck: $eulaCheck)';
   }
 
   @override
@@ -203,12 +219,14 @@ class _$_ConfigState extends _ConfigState {
             (identical(other.themeColor, themeColor) ||
                 other.themeColor == themeColor) &&
             (identical(other.lastFetchStatus, lastFetchStatus) ||
-                other.lastFetchStatus == lastFetchStatus));
+                other.lastFetchStatus == lastFetchStatus) &&
+            (identical(other.eulaCheck, eulaCheck) ||
+                other.eulaCheck == eulaCheck));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, isTutorial, language,
-      themeMediumLayout, themeMode, themeColor, lastFetchStatus);
+      themeMediumLayout, themeMode, themeColor, lastFetchStatus, eulaCheck);
 
   @JsonKey(ignore: true)
   @override
@@ -224,7 +242,8 @@ abstract class _ConfigState extends ConfigState {
       required final bool themeMediumLayout,
       required final ThemeMode themeMode,
       required final Color? themeColor,
-      required final RemoteConfigFetchStatus lastFetchStatus}) = _$_ConfigState;
+      required final RemoteConfigFetchStatus lastFetchStatus,
+      required final bool eulaCheck}) = _$_ConfigState;
   const _ConfigState._() : super._();
 
   @override
@@ -239,6 +258,8 @@ abstract class _ConfigState extends ConfigState {
   Color? get themeColor;
   @override
   RemoteConfigFetchStatus get lastFetchStatus;
+  @override
+  bool get eulaCheck;
   @override
   @JsonKey(ignore: true)
   _$$_ConfigStateCopyWith<_$_ConfigState> get copyWith =>

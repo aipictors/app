@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:aipictors/enums/layout.dart';
 import 'package:aipictors/handlers/message_handler.dart';
 import 'package:aipictors/providers/auth_state_provider.dart';
@@ -13,6 +15,7 @@ import 'package:aipictors/screens/error/config_error_screen.dart';
 import 'package:aipictors/screens/explorer/explorer_screen.dart';
 import 'package:aipictors/screens/feed/feed_screen.dart';
 import 'package:aipictors/screens/hello_screen.dart';
+import 'package:aipictors/screens/hello_terms_screen.dart';
 import 'package:aipictors/screens/home_loading_screen.dart';
 import 'package:aipictors/screens/maintenance_screen.dart';
 import 'package:aipictors/screens/notification_screen.dart';
@@ -60,6 +63,10 @@ class RootScreen extends HookConsumerWidget {
 
     if (trackingStatus.value == TrackingStatus.notDetermined) {
       AppTrackingTransparency.requestTrackingAuthorization();
+    }
+
+    if (Platform.isIOS && !config.eulaCheck) {
+      return const HelloTermsScreen();
     }
 
     ref.listen(

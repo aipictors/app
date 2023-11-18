@@ -52,6 +52,7 @@
     "ios/Runner/GeneratedPluginRegistrant.h": true,
     "ios/Runner/GeneratedPluginRegistrant.m": true,
     "node_modules": true,
+    "package-lock.json": true,
     "pubspec.lock": true
   },
   "cSpell.ignorePaths": [
@@ -65,6 +66,9 @@
     "windows"
   ],
   "[json]": {
+    "editor.codeActionsOnSave": {
+      "quickfix.biome": true
+    },
     "editor.defaultFormatter": "biomejs.biome"
   },
   "[javascript]": {

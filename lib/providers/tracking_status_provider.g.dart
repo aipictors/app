@@ -8,7 +8,10 @@ part of 'tracking_status_provider.dart';
 
 String _$trackingStatusHash() => r'b2a65cba022f4ed05e7402e19a7490fa2654f6fe';
 
-/// See also [trackingStatus].
+/// App Tracking Transparency
+/// Require that users agree to terms (EULA) and these terms must make it clear that there is no tolerance for objectionable content or abusive users
+///
+/// Copied from [trackingStatus].
 @ProviderFor(trackingStatus)
 final trackingStatusProvider =
     AutoDisposeFutureProvider<TrackingStatus>.internal(
