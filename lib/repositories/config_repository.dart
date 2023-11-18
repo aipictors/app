@@ -134,4 +134,14 @@ class ConfigRepository {
   Future<void> setExplorerTabIndex(int index) async {
     await instance!.setInt('config_explorer_tab_index', index);
   }
+
+  /// EULA
+  bool get eulaCheck {
+    final value = instance!.getBool('config_eula');
+    return value ?? false;
+  }
+
+  Future<void> setEulaCheck(bool value) async {
+    await instance!.setBool('config_eula', value);
+  }
 }

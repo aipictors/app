@@ -1,4 +1,3 @@
-import 'package:aipictors/config.dart';
 import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/mutations/mute_user.dart';
 import 'package:aipictors/providers/auth_user_id_provider.dart';

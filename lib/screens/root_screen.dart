@@ -6,6 +6,7 @@ import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/providers/foreground_message_provider.dart';
 import 'package:aipictors/providers/home_tab_index_provider.dart';
 import 'package:aipictors/providers/initial_message_provider.dart';
+import 'package:aipictors/providers/tracking_status_provider.dart';
 import 'package:aipictors/screens/config/config_screen.dart';
 import 'package:aipictors/screens/daily_theme/daily_theme_home_screen.dart';
 import 'package:aipictors/screens/error/config_error_screen.dart';
@@ -18,6 +19,7 @@ import 'package:aipictors/screens/notification_screen.dart';
 import 'package:aipictors/screens/update_screen.dart';
 import 'package:aipictors/widgets/navigation/home_navigation_bar.dart';
 import 'package:aipictors/widgets/navigation/home_navigation_rail.dart';
+import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -32,6 +34,9 @@ class RootScreen extends HookConsumerWidget {
 
     // タブの位置
     final pageIndex = ref.watch(homeTabIndexProvider);
+
+    // タブの位置
+    final trackingStatus = ref.watch(trackingStatusProvider);
 
     // 初期化エラー
     if (config.isFailed) {
@@ -49,8 +54,12 @@ class RootScreen extends HookConsumerWidget {
     }
 
     // ログイン中
-    if (authState.isLoading) {
+    if (authState.isLoading || trackingStatus.isLoading) {
       return const HomeLoadingScreen();
+    }
+
+    if (trackingStatus.value == TrackingStatus.notDetermined) {
+      AppTrackingTransparency.requestTrackingAuthorization();
     }
 
     ref.listen(

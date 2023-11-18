@@ -11,6 +11,7 @@ environment:
   flutter: 3.13.9
 
 dependencies:
+  app_tracking_transparency: ^2.0.4
   audioplayers: ^5.1.0
   built_collection: ^5.1.1
   cached_network_image: ^3.2.3

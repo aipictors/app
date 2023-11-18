@@ -84,4 +84,9 @@ class Config extends _$Config {
     const ConfigRepository().setThemeColor(value);
     state = build();
   }
+
+  void updateEulaCheck(bool value) async {
+    const ConfigRepository().setEulaCheck(value);
+    state = build();
+  }
 }
