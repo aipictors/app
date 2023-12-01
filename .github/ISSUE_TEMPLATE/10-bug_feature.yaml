@@ -1,0 +1,75 @@
+name: "🔥　機能の不具合を見つけた"
+description: "機能の不具合を見つけたので報告する。"
+labels: ":fire: bug"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        # 不具合報告ありがとうございます。
+  - type: markdown
+    attributes:
+      value: |
+        ## お手数ですが、上記の「Title」と問1～5を記入後に下部の「Submit new Issue」ボタンを押して下さい。
+  - type: dropdown
+    id: feature
+    attributes:
+      label: "問1, どの機能に関する不具合ですか？"
+      options:
+        - フィード
+        - いいね
+        - フォルダ
+        - 投稿
+        - ログイン
+        - 決済
+        - それ以外
+    validations:
+      required: true
+  - type: input
+    id: other
+    attributes:
+      label: "【任意】「それ以外」を選択時、入力してください。"
+      placeholder: ◯◯機能
+    validations:
+      required: false
+  - type: textarea
+    id: problem
+    attributes:
+      label: "問2,不具合の内容"
+      description: "例: Twitterでログインすることができない。分かる範囲で結構です。"
+      value: "### どのような不具合が発生しましたか？\n\n<!-- 例: Twitterでログインすることができない -->\n\n### どのような操作をしましたか？\n\n1. xxx\n1. xxx\n1. xxx"
+    validations:
+      required: true
+  - type: dropdown
+    id: device
+    attributes:
+      label: "問3,どの端末で確認しましたか？"
+      options:
+        - iOS
+        - Android
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: "【任意】バージョン情報を宜しければ、記入して下さい。"
+      description: "その他タブ→最下部のバージョン欄を長押しタップでコピーが行なえます"
+    validations:
+      required: false
+  - type: dropdown
+    id: forgivable
+    attributes:
+      label: "問4, 許せないですか？"
+      options:
+        - 許せる
+        - 許せない
+      default: 1
+    validations:
+      required: true
+  - type: textarea
+    id: extras
+    attributes:
+      label: "問5, 補足情報"
+      description: "補足で伝えたい事があれば記入して下さい"
+      value: "なし"
+    validations:
+      required: false
