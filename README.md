@@ -1,3 +1,14 @@
+[Discussions](https://github.com/aipictors/app/discussions)または[Issues](https://github.com/aipictors/app/issues)に自由に投稿できます。
+
+- [Discussions](https://github.com/aipictors/app/discussions)
+→ アプリのアイデアや質問など
+- [Issues](https://github.com/aipictors/app/issues)
+→ 不具合や改善など具体的な開発内容
+
+Discordの「アプリ」カテゴリでも交流できます！
+
+https://discord.gg/aipictors
+
 ## コード生成
 
 必要な場合はコードを生成する。
