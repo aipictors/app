@@ -84,8 +84,9 @@ class WorkScreenMedium extends HookConsumerWidget {
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.6,
                   child: ListView.builder(
-                      itemCount:
-                          (work.subWorks.isEmpty) ? 1 : work.subWorks.length,
+                      itemCount: (work.subWorks.isEmpty)
+                          ? 1
+                          : work.subWorks.length + 1,
                       itemBuilder: (context, index) {
                         if (index == 0) {
                           return InteractiveWorkImage(
@@ -93,7 +94,8 @@ class WorkScreenMedium extends HookConsumerWidget {
                           );
                         } else {
                           return InteractiveWorkImage(
-                            downloadURL: work.subWorks[index].image.downloadURL,
+                            downloadURL:
+                                work.subWorks[index - 1].image.downloadURL,
                           );
                         }
                       }),
