@@ -9,7 +9,7 @@ AipictorsのAppドキュメントへようこそ!
 
 ### アプリの開発環境を構築手順書
 
-[Windowsの場合](/docs/01-getting-started\01-installation\windows\README.md)
+[Windowsの場合](./01-getting-started/01-installation/windows/README.md)
 
 ## コミュニティ
 
