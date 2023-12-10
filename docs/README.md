@@ -1,9 +1,4 @@
----
-title: Introduction
-description: Welcome to the Aipictors App Documentation.
----
-
-AipictorsのAppドキュメントへようこそ!
+# AipictorsのAppドキュメントへようこそ!
 
 ## 開発者向け資料
 
