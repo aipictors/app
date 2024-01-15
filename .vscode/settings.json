@@ -37,6 +37,7 @@
     ".flutter-plugins-dependencies": true,
     ".idea": true,
     ".metadata": true,
+    ".vitepress/cache": true,
     ".yarn": true,
     "android/.gradle": true,
     "android/aipictors_android.iml": true,
@@ -67,14 +68,14 @@
   ],
   "[json]": {
     "editor.codeActionsOnSave": {
-      "quickfix.biome": true
+      "quickfix.biome": "explicit"
     },
     "editor.defaultFormatter": "biomejs.biome"
   },
   "[javascript]": {
     "editor.codeActionsOnSave": {
-      "quickfix.biome": true,
-      "source.organizeImports.biome": true
+      "quickfix.biome": "explicit",
+      "source.organizeImports.biome": "explicit"
     },
     "editor.defaultFormatter": "biomejs.biome"
   }
