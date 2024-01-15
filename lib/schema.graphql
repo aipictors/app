@@ -26,6 +26,8 @@ type AlbumNode implements Node {
   ※キャッシュ不可
   """
   works(offset: Int!, limit: Int!): [WorkNode!]!
+  "サムネイル画像のURL"
+  thumbnailImageURL: String
   "サムネイル"
   thumbnailImage: ImageNode
   "センシティブである"
@@ -38,12 +40,16 @@ type AlbumNode implements Node {
   openGraphImageURL: String
   "シェア"
   shareText: String
-  viewer: AlbumViewerNode
+  "いいねしている"
+  isLiked: Boolean!
+  "保存している"
+  isWatched: Boolean!
+  viewer: AlbumViewerNode @deprecated(reason: "isLikedを使用する")
 }
 type AlbumViewerNode implements Node {
-  id: ID!
-  isLiked: Boolean!
-  isWatched: Boolean!
+  id: ID! @deprecated(reason: "No longer supported")
+  isLiked: Boolean! @deprecated(reason: "No longer supported")
+  isWatched: Boolean! @deprecated(reason: "No longer supported")
 }
 "運営のお知らせ"
 type AnnouncementNode implements Node {
@@ -60,6 +66,7 @@ type CategoryNode implements Node {
   id: ID!
   "名前"
   name: String!
+  isWatched: Boolean!
   viewer: CategoryViewerNode
 }
 type CategoryViewerNode implements Node {
@@ -161,8 +168,6 @@ type FollowNotificationNode implements Node {
 "画像生成"
 type ImageGenerationTaskNode implements Node {
   id: ID!
-  "生成画像"
-  imageURL: String
   "お気に入り度"
   rating: Int
   "生成が完了した時刻"
@@ -175,10 +180,10 @@ type ImageGenerationTaskNode implements Node {
   "生成の方式"
   generationType: ImageGenerationType!
   model: ImageGeneratorNode
-  vae: String!
+  vae: String
   prompt: String!
   negativePrompt: String!
-  seed: Int!
+  seed: Float!
   steps: Int!
   scale: Int!
   sampler: String!
@@ -187,6 +192,7 @@ type ImageGenerationTaskNode implements Node {
   t2tMaskImageBlob: String
   t2tDenoisingStrengthSize: String
   t2tInpaintingFillSize: String
+  token: String
 }
 "画像生成サービス"
 type ImageGeneratorNode implements Node {
@@ -223,6 +229,8 @@ type ImageModelNode implements Node {
   thumbnailImageURL: String
   "コード"
   slug: String!
+  "StableDiffusionの種類"
+  type: String!
   "ライセンス"
   license: String
   "スタイル"
@@ -534,6 +542,8 @@ type Mutation {
   createPromptonUserView(input: CreatePromptonUserViewInput!): Boolean
   "閲覧を記録する"
   createPromptonFolderView(input: CreatePromptonFolderViewInput!): Boolean
+  "画像生成のタスクを作成する"
+  createPromptonImageGeneration(input: CreatePromptonImageGenerationInput!): PromptonImageGenerationNode
   "閲覧を記録する"
   createPromptonPlanView(input: CreatePromptonPlanViewInput!): Boolean
   "インテグレーション（LINE）を削除する"
@@ -721,11 +731,15 @@ type PromptonFolderNode implements Node {
   imageFile: PromptonFileNode!
   "表示形式"
   mode: FolderMode!
+  "フォルダの鍵のID"
+  viewerFolderId: ID!
+  "フォルダの鍵"
+  viewerFolderKey: PromptonFolderKeyNode @deprecated(reason: "No longer supported")
 }
 type PromptonFolderViewerNode implements Node {
-  id: ID!
-  folderId: ID!
-  folderKey: PromptonFolderKeyNode
+  id: ID! @deprecated(reason: "No longer supported")
+  folderId: ID! @deprecated(reason: "No longer supported")
+  folderKey: PromptonFolderKeyNode @deprecated(reason: "No longer supported")
 }
 "ユーザの関係"
 type PromptonFriendshipNode implements Node {
@@ -736,6 +750,19 @@ type PromptonFriendshipNode implements Node {
   followerId: ID!
   follower: PromptonUserNode!
   status: String!
+}
+"画像生成"
+type PromptonImageGenerationNode implements Node {
+  id: ID!
+  createdAt: Int!
+  promptText: String!
+  model: String!
+  size: String!
+  isDeleted: Boolean!
+  isError: Boolean!
+  isPublic: Boolean!
+  user: PromptonUserNode
+  image: PromptonFileNode
 }
 type PromptonIntegrationNode implements Node {
   id: ID!
@@ -1034,6 +1061,7 @@ type PromptonUserNode implements Node {
   isFollowee: Boolean!
   "関係"
   friendships: [PromptonFriendshipNode!]!
+  imageGenerations(offset: Int!, limit: Int!, where: PromptonImageGenerationsWhereInput): [PromptonImageGenerationNode!]!
   "制作依頼を受け付けているかどうか"
   isRequestable: Boolean!
   "Stripeの決済方法"
@@ -1096,8 +1124,8 @@ type PromptonViewer {
   prompts(offset: Int!, limit: Int!): [PromptonPromptNode!]!
   nextRequests: [PromptonRequestNode!]!
   hasNextRequests: Boolean!
-  chatMessages: [PromptonMessageNode!]!
   integrations(offset: Int!, limit: Int!): [PromptonIntegrationNode!]!
+  imageGenerations(offset: Int!, limit: Int!, where: PromptonImageGenerationsWhereInput): [PromptonImageGenerationNode!]!
 }
 type PromptonWorkEdge implements Edge {
   cursor: String!
@@ -1258,7 +1286,7 @@ type Query {
   "ユーザ"
   user(id: ID!): UserNode
   "ユーザ"
-  users(offset: Int!, limit: Int!, where: UsersWhereInput): [UserNode!]
+  users(offset: Int!, limit: Int!, where: UsersWhereInput): [UserNode!]!
   "ログイン中のユーザ"
   viewer: Viewer
   "作品"
@@ -1272,10 +1300,11 @@ type Query {
   作品
   ※キャッシュ不可
   """
-  works(offset: Int!, limit: Int!, where: WorksWhereInput): [WorkNode!]
+  works(offset: Int!, limit: Int!, where: WorksWhereInput): [WorkNode!]!
   promptonViewer: PromptonViewer!
   promptonFolder(id: ID!): PromptonFolderNode
   promptonFolders(offset: Int!, limit: Int!, where: PromptonFoldersWhereInput): [PromptonFolderNode!]!
+  promptonImageGenerations(offset: Int!, limit: Int!, where: PromptonImageGenerationsWhereInput): [PromptonImageGenerationNode!]!
   promptonLabel(id: ID, name: String): PromptonLabelNode
   promptonLabels(offset: Int!, limit: Int!, where: PromptonLabelsWhereInput): [PromptonLabelNode!]!
   promptonPlan(id: ID!): PromptonPlanNode
@@ -1308,7 +1337,9 @@ type StickerNode implements Node {
   usesCount: Int!
   "ダウンロード数"
   downloadsCount: Int!
-  viewer: StickerViewerNode
+  "いいねしている"
+  isLiked: Boolean!
+  viewer: StickerViewerNode @deprecated(reason: "isLikedを使用する")
 }
 type StickerViewerNode implements Node {
   id: ID!
@@ -1330,16 +1361,25 @@ type TagNode implements Node {
   name: String!
   "関連する作品"
   works(offset: Int!, limit: Int!, where: WorksWhereInput): [WorkNode!]!
+  "作品数"
   worksCount: Int!
+  "いいね数"
   likesCount: Int!
+  "最初の作品"
   firstWork: WorkNode
-  viewer: TagViewerNode
+  "いいねしている"
+  isLiked: Boolean!
+  "保存している"
+  isWatched: Boolean!
+  "ミュートしている"
+  isMuted: Boolean!
+  viewer: TagViewerNode @deprecated(reason: "No longer supported")
 }
 type TagViewerNode implements Node {
   id: ID!
-  isLiked: Boolean!
-  isWatched: Boolean!
-  isMuted: Boolean!
+  isLiked: Boolean! @deprecated(reason: "No longer supported")
+  isWatched: Boolean! @deprecated(reason: "No longer supported")
+  isMuted: Boolean! @deprecated(reason: "No longer supported")
 }
 "ユーザ"
 type UserNode implements Node {
@@ -1414,8 +1454,7 @@ type UserNode implements Node {
   isFollowee: Boolean!
   "ミュートしている"
   isMuted: Boolean!
-  "@deprecated"
-  viewer: UserViewerNode
+  viewer: UserViewerNode @deprecated(reason: "No longer supported")
 }
 "ユーザの設定"
 type UserSettingNode implements Node {
@@ -1427,10 +1466,10 @@ type UserSettingNode implements Node {
   useDisableGenerateTime: Int!
 }
 type UserViewerNode implements Node {
-  id: ID!
-  isFollower: Boolean!
-  isFollowee: Boolean!
-  isMuted: Boolean!
+  id: ID! @deprecated(reason: "No longer supported")
+  isFollower: Boolean! @deprecated(reason: "No longer supported")
+  isFollowee: Boolean! @deprecated(reason: "No longer supported")
+  isMuted: Boolean! @deprecated(reason: "No longer supported")
 }
 "ログイン中のユーザ"
 type Viewer {
@@ -1438,10 +1477,19 @@ type Viewer {
   albums(offset: Int!, limit: Int!): [AlbumNode!]!
   "現在の有効な画像生成のタスク"
   currentImageGenerationTasks: [ImageGenerationTaskNode!]!
+  "現在のパス"
+  currentPass: PassNode
+  """
+  カスタマーポータル
+  ※非推奨
+  """
+  customerPortalURL: String
   "フィードの作品"
   feedWorks(offset: Int!, limit: Int!): [WorkNode!]!
   "コレクション"
   folders(offset: Int!, limit: Int!): [FolderNode!]!
+  "有効な画像生成のタスク"
+  imageGenerationTasks(offset: Int!, limit: Int!): [ImageGenerationTaskNode!]!
   "いいねした作品"
   likedWorks(offset: Int!, limit: Int!): [WorkNode!]!
   "メッセージのスレッド"
@@ -1454,17 +1502,10 @@ type Viewer {
   mutedUsers(offset: Int!, limit: Int!): [UserNode!]!
   "通知"
   notifications(offset: Int!, limit: Int!): [NotificationNode!]!
-  "現在のパス"
-  currentPass: PassNode
   "決済履歴"
   payments: [PaymentNode!]!
   "作成したスタンプ"
   stickers(offset: Int!, limit: Int!): [StickerNode!]!
-  """
-  カスタマーポータル
-  ※非推奨
-  """
-  customerPortalUrl: String
   "お問い合わせ対応のメッセージ"
   supportMessages(offset: Int!, limit: Int!): [MessageNode!]!
   "ユーザ"
@@ -1567,21 +1608,37 @@ type WorkNode implements Node {
   "タグ名"
   tagNames: [String!]!
   tags: [TagNode!]!
-  imageId: ID!
   "画像URL"
-  image: ImageNode
+  imageURL: String!
+  "画像ID"
+  imageId: ID! @deprecated(reason: "No longer supported")
+  "画像"
+  image: ImageNode @deprecated(reason: "No longer supported")
   "画像の幅"
-  imageWith: Int!
+  imageWidth: Int!
   "画像の高さ"
   imageHeight: Int!
   "画像の比率"
   imageAspectRatio: Float!
   "画像URL（サムネイル）"
   thumbnailImageId: ID!
-  thumbnailImage: ImageNode
-  largeThumbnailImageId: ID!
-  "画像URL（サムネイル）"
-  largeThumbnailImage: ImageNode
+  thumbnailImage: ImageNode @deprecated(reason: "No longer supported")
+  "画像（小）のURL"
+  smallThumbnailImageURL: String!
+  "画像（小）の幅"
+  smallThumbnailImageWidth: Int!
+  "画像（小）の高さ"
+  smallThumbnailImageHeight: Int!
+  largeThumbnailImageId: ID! @deprecated(reason: "No longer supported")
+  "画像（大）URL（サムネイル）"
+  largeThumbnailImage: ImageNode @deprecated(reason: "No longer supported")
+  "画像（大）のURL"
+  largeThumbnailImageURL: String!
+  "画像（大）の幅"
+  largeThumbnailImageWidth: Int!
+  "画像（大）の高さ"
+  largeThumbnailImageHeight: Int!
+  "OGP画像"
   ogpThumbnailImageId: ID!
   "画像URL（サムネイル）"
   ogpThumbnailImage: ImageNode
@@ -1590,7 +1647,7 @@ type WorkNode implements Node {
   "ネガティブプロンプト"
   negativePrompt: String
   "シード値"
-  seed: String
+  seed: Float
   "画像生成関連の設定"
   steps: Int
   "画像生成関連の設定"
@@ -1619,13 +1676,16 @@ type WorkNode implements Node {
   openGraphImageURL: String
   "シェア"
   shareText: String
-  "ログイン"
-  viewer: WorkViewerNode
+  "いいねしている"
+  isLiked: Boolean!
+  "コレクションに追加している"
+  isInCollection: Boolean!
+  viewer: WorkViewerNode @deprecated(reason: "isLikedを使用する")
 }
 type WorkViewerNode implements Node {
-  id: ID!
-  isLiked: Boolean!
-  isBookmarked: Boolean!
+  id: ID! @deprecated(reason: "No longer supported")
+  isLiked: Boolean! @deprecated(reason: "No longer supported")
+  isBookmarked: Boolean! @deprecated(reason: "No longer supported")
 }
 interface Connection {
   totalCount: Int
@@ -1839,7 +1899,7 @@ input CreateImageGenerationTaskInput {
   vae: String!
   prompt: String!
   negativePrompt: String!
-  seed: Int!
+  seed: Float!
   steps: Int!
   scale: Int!
   sampler: String!
@@ -1899,6 +1959,13 @@ input CreatePromptonFolderKeyInput {
 }
 input CreatePromptonFolderViewInput {
   folderId: String!
+}
+input CreatePromptonImageGenerationInput {
+  model: String!
+  prompt: String!
+  size: String!
+  quality: String!
+  style: String!
 }
 input CreatePromptonInquiryInput {
   name: String!
@@ -2165,6 +2232,9 @@ input PromptonFoldersWhereInput {
   search: String
   isPaid: Boolean
 }
+input PromptonImageGenerationsWhereInput {
+  search: String
+}
 input PromptonLabelsWhereInput {
   search: String
 }
@@ -2173,6 +2243,7 @@ input PromptonPlansWhereInput {
   isUnique: Boolean
   styleSlugs: [String!]
   objectSlugs: [String!]
+  category: String
   isPaid: Boolean
 }
 input PromptonRequestsWhereInput {
