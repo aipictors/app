@@ -54,7 +54,7 @@ dependencies:
   hive_flutter: ^1.1.0
   hooks_riverpod: ^2.3.6
   i18n_extension: ^10.0.1
-  intl: ^0.18.0
+  intl: ^0.18.1
   package_info_plus: ^5.0.1
   riverpod_annotation: ^2.1.1
   sentry_flutter: ^7.8.0
