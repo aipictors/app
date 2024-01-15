@@ -5,10 +5,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class FeedImage extends HookConsumerWidget {
   const FeedImage({
-    Key? key,
+    super.key,
     required this.imageURL,
     required this.imageAspectRatio,
-  }) : super(key: key);
+  });
 
   final String? imageURL;
 

@@ -4,8 +4,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// フォルダ・作成
 class FolderCreateScreen extends HookConsumerWidget {
   const FolderCreateScreen({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(context, ref) {

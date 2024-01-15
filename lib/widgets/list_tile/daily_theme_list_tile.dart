@@ -5,7 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class DailyThemeListTile extends HookConsumerWidget {
   const DailyThemeListTile({
-    Key? key,
+    super.key,
     required this.isCurrent,
     required this.day,
     required this.weekDay,
@@ -13,7 +13,7 @@ class DailyThemeListTile extends HookConsumerWidget {
     required this.worksCount,
     required this.imageURL,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   final bool isCurrent;
 

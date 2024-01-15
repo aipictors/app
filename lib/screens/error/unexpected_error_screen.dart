@@ -5,8 +5,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// エラー（不明）
 class UnexpectedErrorScreen extends HookConsumerWidget {
   const UnexpectedErrorScreen({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(context, ref) {

@@ -7,11 +7,11 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class FeedLikeButton extends HookConsumerWidget {
   const FeedLikeButton({
-    Key? key,
+    super.key,
     required this.count,
     required this.isActive,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   final int count;
 

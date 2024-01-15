@@ -4,11 +4,11 @@ import 'package:flutter/services.dart';
 
 class ChangeLoginIDForm extends StatefulWidget {
   const ChangeLoginIDForm({
-    Key? key,
+    super.key,
     required this.readOnly,
     required this.onValidate,
     required this.decoration,
-  }) : super(key: key);
+  });
 
   final bool readOnly;
   final Function(bool valid, String id) onValidate;

@@ -16,8 +16,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// フィード・フォローしているユーザやタグに関連する作品の一覧
 class FeedHomeView extends HookConsumerWidget {
   const FeedHomeView({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(context, ref) {

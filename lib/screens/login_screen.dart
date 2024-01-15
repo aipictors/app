@@ -13,8 +13,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// ログイン
 class LoginScreen extends HookConsumerWidget {
   const LoginScreen({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(context, ref) {

@@ -4,11 +4,11 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class NotificationDialog extends HookConsumerWidget {
   const NotificationDialog({
-    Key? key,
+    super.key,
     required this.title,
     required this.description,
     required this.onClose,
-  }) : super(key: key);
+  });
 
   final String? title;
 

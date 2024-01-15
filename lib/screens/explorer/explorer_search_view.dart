@@ -14,9 +14,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// 探索・検索結果
 class ExplorerSearchView extends HookConsumerWidget {
   const ExplorerSearchView({
-    Key? key,
+    super.key,
     required this.search,
-  }) : super(key: key);
+  });
 
   final String search;
 

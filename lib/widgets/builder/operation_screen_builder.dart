@@ -9,11 +9,11 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class OperationScreenBuilder<T, U> extends HookConsumerWidget {
   const OperationScreenBuilder({
-    Key? key,
+    super.key,
     required this.client,
     required this.operationRequest,
     required this.builder,
-  }) : super(key: key);
+  });
 
   final Client client;
 

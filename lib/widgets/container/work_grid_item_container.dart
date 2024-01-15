@@ -4,10 +4,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class WorkGridItemContainer extends HookConsumerWidget {
   const WorkGridItemContainer({
-    Key? key,
+    super.key,
     required this.imageUrl,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   final String? imageUrl;
 

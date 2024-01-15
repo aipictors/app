@@ -5,8 +5,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// 投稿したスタンプ
 class ViewerStickersScreen extends HookConsumerWidget {
   const ViewerStickersScreen({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(context, ref) {

@@ -13,8 +13,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// 探索・ホットな作品
 class ExplorerHotWorksView extends HookConsumerWidget {
   const ExplorerHotWorksView({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(context, ref) {

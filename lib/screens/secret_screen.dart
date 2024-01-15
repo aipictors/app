@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class SecretScreen extends HookConsumerWidget {
-  const SecretScreen({Key? key}) : super(key: key);
+  const SecretScreen({super.key});
 
   @override
   Widget build(context, ref) {

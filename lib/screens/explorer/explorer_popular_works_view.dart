@@ -13,8 +13,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// 探索・人気の作品
 class ExplorerPopularWorksView extends HookConsumerWidget {
   const ExplorerPopularWorksView({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(context, ref) {

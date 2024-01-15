@@ -4,9 +4,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class OperationErrorContainer extends HookConsumerWidget {
   const OperationErrorContainer({
-    Key? key,
+    super.key,
     required this.errorList,
-  }) : super(key: key);
+  });
 
   final List<GraphQLError> errorList;
 

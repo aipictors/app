@@ -4,7 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// ライセンス
 class LicenseScreen extends HookConsumerWidget {
-  const LicenseScreen({Key? key}) : super(key: key);
+  const LicenseScreen({super.key});
 
   @override
   Widget build(context, ref) {

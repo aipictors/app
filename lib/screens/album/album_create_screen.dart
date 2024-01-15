@@ -3,9 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// アルバム・作成
 class AlbumCreateScreen extends HookConsumerWidget {
-  const AlbumCreateScreen({
-    Key? key,
-  }) : super(key: key);
+  const AlbumCreateScreen({super.key});
 
   @override
   Widget build(context, ref) {

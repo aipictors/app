@@ -9,9 +9,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// アルバムの報告
 class AlbumReportScreen extends HookConsumerWidget {
   const AlbumReportScreen({
-    Key? key,
+    super.key,
     required this.albumId,
-  }) : super(key: key);
+  });
 
   final String albumId;
 

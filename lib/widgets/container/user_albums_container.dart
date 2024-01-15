@@ -13,9 +13,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class UserAlbumsContainer extends HookConsumerWidget {
   const UserAlbumsContainer({
-    Key? key,
+    super.key,
     required this.userId,
-  }) : super(key: key);
+  });
 
   final String userId;
 

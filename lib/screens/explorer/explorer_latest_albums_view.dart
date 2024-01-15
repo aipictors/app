@@ -14,8 +14,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// 探索・最新のアルバム
 class ExplorerAlbumsView extends HookConsumerWidget {
   const ExplorerAlbumsView({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(context, ref) {

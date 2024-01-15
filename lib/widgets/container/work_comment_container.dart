@@ -13,9 +13,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class WorkCommentContainer extends HookConsumerWidget {
   const WorkCommentContainer({
-    Key? key,
+    super.key,
     required this.workId,
-  }) : super(key: key);
+  });
 
   final String workId;
 

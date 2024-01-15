@@ -4,10 +4,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class MuteDialog extends HookConsumerWidget {
   const MuteDialog({
-    Key? key,
+    super.key,
     required this.onAccept,
     required this.onCancel,
-  }) : super(key: key);
+  });
 
   final VoidCallback onCancel;
 

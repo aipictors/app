@@ -4,8 +4,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// 小説ランキング（週別）
 class WeeklyNovelAwardsScreen extends HookConsumerWidget {
   const WeeklyNovelAwardsScreen({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(context, ref) {

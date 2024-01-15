@@ -5,10 +5,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// タブ・探索
 class ExplorerTabController extends HookConsumerWidget {
   const ExplorerTabController({
-    Key? key,
+    super.key,
     required this.child,
     required this.length,
-  }) : super(key: key);
+  });
 
   final Widget child;
 

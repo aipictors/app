@@ -3,10 +3,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class WorksGridView extends HookConsumerWidget {
   const WorksGridView({
-    Key? key,
+    super.key,
     required this.itemCount,
     required this.itemBuilder,
-  }) : super(key: key);
+  });
 
   final int itemCount;
 

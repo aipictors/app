@@ -8,12 +8,12 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class NotificationFollowListTile extends HookConsumerWidget {
   const NotificationFollowListTile({
-    Key? key,
+    super.key,
     required this.createdAt,
     required this.userId,
     required this.userName,
     required this.userIconImageURL,
-  }) : super(key: key);
+  });
 
   final int createdAt;
 

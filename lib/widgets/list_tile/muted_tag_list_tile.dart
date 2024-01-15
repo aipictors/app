@@ -3,10 +3,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class MutedTagListTile extends HookConsumerWidget {
   const MutedTagListTile({
-    Key? key,
+    super.key,
     required this.tagName,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   final String tagName;
 

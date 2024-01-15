@@ -15,9 +15,7 @@ import 'package:sentry_flutter/sentry_flutter.dart';
 
 /// 設定・ログインIDの変更
 class AccountLoginScreen extends HookConsumerWidget {
-  const AccountLoginScreen({
-    Key? key,
-  }) : super(key: key);
+  const AccountLoginScreen({super.key});
 
   @override
   Widget build(context, ref) {

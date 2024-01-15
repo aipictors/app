@@ -10,10 +10,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class ModalFollowUserListTile extends HookConsumerWidget {
   const ModalFollowUserListTile({
-    Key? key,
+    super.key,
     required this.isActive,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   final bool isActive;
 

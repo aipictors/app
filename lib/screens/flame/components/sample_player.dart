@@ -30,9 +30,9 @@ class SamplePlayer extends SpriteAnimationComponent with HasGameRef {
   }
 
   @override
-  void update(double delta) {
-    super.update(delta);
-    movePlayer(delta);
+  void update(double dt) {
+    super.update(dt);
+    movePlayer(dt);
   }
 
   void movePlayer(double delta) {

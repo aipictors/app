@@ -7,7 +7,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class AlbumHeader extends HookConsumerWidget {
   const AlbumHeader({
-    Key? key,
+    super.key,
     required this.albumId,
     required this.albumTitle,
     required this.albumDescription,
@@ -16,7 +16,7 @@ class AlbumHeader extends HookConsumerWidget {
     required this.userIconImageURL,
     required this.isFollowee,
     required this.onFollow,
-  }) : super(key: key);
+  });
 
   final String albumId;
 

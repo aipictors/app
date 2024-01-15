@@ -7,11 +7,11 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class WorkCommentListTile extends HookConsumerWidget {
   const WorkCommentListTile({
-    Key? key,
+    super.key,
     required this.comment,
     required this.isResponse,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   final GCommentFields comment;
 

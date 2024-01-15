@@ -13,10 +13,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class CommentDetailsModalContainer extends HookConsumerWidget {
   const CommentDetailsModalContainer({
-    Key? key,
+    super.key,
     required this.workId,
     required this.commentId,
-  }) : super(key: key);
+  });
 
   final String workId;
   final String commentId;

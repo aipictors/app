@@ -16,7 +16,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class FeedActionModalContainer extends HookConsumerWidget {
   const FeedActionModalContainer({
-    Key? key,
+    super.key,
     required this.workId,
     required this.userId,
     required this.userName,
@@ -24,7 +24,7 @@ class FeedActionModalContainer extends HookConsumerWidget {
     required this.userIconImageURL,
     required this.isFollowee,
     required this.isMutedUser,
-  }) : super(key: key);
+  });
 
   final String workId;
 

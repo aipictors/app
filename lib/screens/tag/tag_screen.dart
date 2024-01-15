@@ -10,9 +10,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// タグの詳細
 class TagScreen extends HookConsumerWidget {
   const TagScreen({
-    Key? key,
+    super.key,
     required this.tagName,
-  }) : super(key: key);
+  });
 
   final String tagName;
 

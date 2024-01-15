@@ -16,7 +16,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class AlbumWorksView extends HookConsumerWidget {
   const AlbumWorksView({
-    Key? key,
+    super.key,
     required this.client,
     required this.albumId,
     required this.albumTitle,
@@ -25,7 +25,7 @@ class AlbumWorksView extends HookConsumerWidget {
     required this.userName,
     required this.userIconImageURL,
     required this.isFollowee,
-  }) : super(key: key);
+  });
 
   final Client client;
 

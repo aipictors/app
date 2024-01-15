@@ -8,10 +8,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class ModalMuteUserListTile extends HookConsumerWidget {
   const ModalMuteUserListTile({
-    Key? key,
+    super.key,
     required this.isActive,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   final bool isActive;
 

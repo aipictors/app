@@ -6,10 +6,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class WorkActionStickersContainer extends HookConsumerWidget {
   const WorkActionStickersContainer({
-    Key? key,
+    super.key,
     required this.onChange,
     required this.stickerId,
-  }) : super(key: key);
+  });
 
   final void Function(String? stickerId) onChange;
 

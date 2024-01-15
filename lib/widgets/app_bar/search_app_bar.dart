@@ -5,13 +5,12 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class SearchContainer extends HookConsumerWidget {
   SearchContainer({
-    Key? key,
+    super.key,
     required this.isFilled,
     this.initialText,
     required this.onSubmit,
     required this.onFill,
-  })  : _controller = useTextEditingController(text: initialText), //初期値を設定
-        super(key: key);
+  })  : _controller = useTextEditingController(text: initialText);
 
   final bool isFilled;
 

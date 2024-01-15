@@ -11,8 +11,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// お知らせ（アプリ）
 class AnnouncementsScreen extends HookConsumerWidget {
   const AnnouncementsScreen({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(context, ref) {

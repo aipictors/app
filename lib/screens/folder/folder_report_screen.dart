@@ -9,9 +9,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// フォルダの報告
 class FolderReportScreen extends HookConsumerWidget {
   const FolderReportScreen({
-    Key? key,
+    super.key,
     required this.folderId,
-  }) : super(key: key);
+  });
 
   final String folderId;
 

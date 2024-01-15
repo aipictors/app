@@ -16,8 +16,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// 日別テーマの作品の一覧
 class DailyThemeHomeScreen extends HookConsumerWidget {
   const DailyThemeHomeScreen({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(context, ref) {

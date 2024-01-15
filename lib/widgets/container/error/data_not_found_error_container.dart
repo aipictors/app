@@ -4,9 +4,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class DataNotFoundErrorContainer extends HookConsumerWidget {
   const DataNotFoundErrorContainer({
-    Key? key,
+    super.key,
     this.message,
-  }) : super(key: key);
+  });
 
   final String? message;
 

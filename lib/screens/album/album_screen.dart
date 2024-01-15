@@ -14,9 +14,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// アルバムの詳細
 class AlbumScreen extends HookConsumerWidget {
   const AlbumScreen({
-    Key? key,
+    super.key,
     required this.albumId,
-  }) : super(key: key);
+  });
 
   final String albumId;
 

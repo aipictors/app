@@ -6,7 +6,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 /// 組織について
 class AboutScreen extends HookConsumerWidget {
-  const AboutScreen({Key? key}) : super(key: key);
+  const AboutScreen({super.key});
 
   @override
   Widget build(context, ref) {

@@ -6,7 +6,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 /// 利用規約
 class TermsScreen extends HookConsumerWidget {
-  const TermsScreen({Key? key}) : super(key: key);
+  const TermsScreen({super.key});
 
   @override
   Widget build(context, ref) {

@@ -4,9 +4,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class ListTileImageContainer extends HookConsumerWidget {
   const ListTileImageContainer({
-    Key? key,
+    super.key,
     required this.thumbnailImageURL,
-  }) : super(key: key);
+  });
 
   final String? thumbnailImageURL;
 

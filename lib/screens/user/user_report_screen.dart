@@ -9,9 +9,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// ユーザの報告
 class UserReportScreen extends HookConsumerWidget {
   const UserReportScreen({
-    Key? key,
+    super.key,
     required this.userId,
-  }) : super(key: key);
+  });
 
   final String userId;
 

@@ -19,8 +19,8 @@ import 'package:url_launcher/url_launcher.dart';
 /// 設定
 class ConfigScreen extends HookConsumerWidget {
   const ConfigScreen({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(context, ref) {

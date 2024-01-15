@@ -10,9 +10,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// ユーザの報告
 class StickerReportScreen extends HookConsumerWidget {
   const StickerReportScreen({
-    Key? key,
+    super.key,
     required this.stickerId,
-  }) : super(key: key);
+  });
 
   final String stickerId;
 

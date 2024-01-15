@@ -13,8 +13,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// 探索・ホットタグ
 class ExplorerHotTagsView extends HookConsumerWidget {
   const ExplorerHotTagsView({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(context, ref) {

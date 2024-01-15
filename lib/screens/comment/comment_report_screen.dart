@@ -9,9 +9,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// コメントの報告
 class CommentReportScreen extends HookConsumerWidget {
   const CommentReportScreen({
-    Key? key,
+    super.key,
     required this.commentId,
-  }) : super(key: key);
+  });
 
   final String commentId;
 

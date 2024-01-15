@@ -4,9 +4,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class StickerImage extends HookConsumerWidget {
   const StickerImage({
-    Key? key,
+    super.key,
     required this.imageURL,
-  }) : super(key: key);
+  });
 
   final String? imageURL;
 

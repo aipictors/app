@@ -7,9 +7,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class SampleJoyPad extends HookConsumerWidget {
   const SampleJoyPad({
-    Key? key,
+    super.key,
     required this.onDirectionChanged,
-  }) : super(key: key);
+  });
 
   final ValueChanged<Direction> onDirectionChanged;
 

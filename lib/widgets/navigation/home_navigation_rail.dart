@@ -6,7 +6,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// https://codelabs.developers.google.com/codelabs/flutter-boring-to-beautiful?hl=ja#5
 class HomeNavigationRail extends HookConsumerWidget {
-  const HomeNavigationRail({Key? key}) : super(key: key);
+  const HomeNavigationRail({super.key});
 
   @override
   Widget build(context, ref) {

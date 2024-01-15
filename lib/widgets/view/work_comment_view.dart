@@ -10,9 +10,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// 作品のコメント
 class WorkCommentView extends HookConsumerWidget {
   const WorkCommentView({
-    Key? key,
+    super.key,
     required this.workId,
-  }) : super(key: key);
+  });
 
   final String workId;
 

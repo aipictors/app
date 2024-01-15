@@ -5,11 +5,11 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class AboutTwitterDialog extends HookConsumerWidget {
   const AboutTwitterDialog({
-    Key? key,
+    super.key,
     required this.onOpen,
     required this.onOpenPrompton,
     required this.onCancel,
-  }) : super(key: key);
+  });
 
   final VoidCallback onCancel;
 

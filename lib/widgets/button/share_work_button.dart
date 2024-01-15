@@ -6,11 +6,11 @@ import 'package:share_plus/share_plus.dart';
 
 class ShareWorkButton extends HookConsumerWidget {
   const ShareWorkButton({
-    Key? key,
+    super.key,
     required this.workId,
     required this.workTitle,
     required this.userName,
-  }) : super(key: key);
+  });
 
   final String workId;
   final String workTitle;

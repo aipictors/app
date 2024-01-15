@@ -7,11 +7,11 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class UserAppBar extends HookConsumerWidget {
   const UserAppBar({
-    Key? key,
+    super.key,
     required this.innerBoxIsScrolled,
     required this.userName,
     required this.headerImageURL,
-  }) : super(key: key);
+  });
 
   final String userName;
 

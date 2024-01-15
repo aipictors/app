@@ -7,13 +7,13 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class UserHeaderActionContainer extends HookConsumerWidget {
   const UserHeaderActionContainer({
-    Key? key,
+    super.key,
     required this.iconImageURL,
     required this.userId,
     required this.userName,
     required this.userLogin,
     required this.isFollowee,
-  }) : super(key: key);
+  });
 
   final String? iconImageURL;
 

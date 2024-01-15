@@ -15,8 +15,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 ///  投稿したアルバムの一覧
 class ViewerAlbumsScreen extends HookConsumerWidget {
   const ViewerAlbumsScreen({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(context, ref) {

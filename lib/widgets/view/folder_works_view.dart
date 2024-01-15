@@ -11,10 +11,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class FolderWorksView extends HookConsumerWidget {
   const FolderWorksView({
-    Key? key,
+    super.key,
     required this.client,
     required this.folderId,
-  }) : super(key: key);
+  });
 
   final Client client;
 

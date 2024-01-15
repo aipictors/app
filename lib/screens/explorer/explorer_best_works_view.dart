@@ -13,8 +13,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// 探索・ベスト作品
 class ExplorerBestWorksView extends HookConsumerWidget {
   const ExplorerBestWorksView({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(context, ref) {

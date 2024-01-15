@@ -16,8 +16,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 ///  投稿した作品
 class ViewerWorksScreen extends HookConsumerWidget {
   const ViewerWorksScreen({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(context, ref) {

@@ -5,10 +5,10 @@ import 'package:like_button/like_button.dart';
 
 class FeedFolderButton extends HookConsumerWidget {
   const FeedFolderButton({
-    Key? key,
+    super.key,
     required this.isActive,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   final int? count = null;
 

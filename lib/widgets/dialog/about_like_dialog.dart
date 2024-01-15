@@ -5,10 +5,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// イイネに関するダイアログ
 class AboutLikeDialog extends HookConsumerWidget {
   const AboutLikeDialog({
-    Key? key,
+    super.key,
     required this.onAccept,
     required this.onCancel,
-  }) : super(key: key);
+  });
 
   final VoidCallback onCancel;
 

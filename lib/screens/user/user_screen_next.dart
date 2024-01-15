@@ -16,9 +16,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// ヘッダーが表示される
 class UserScreen extends HookConsumerWidget {
   const UserScreen({
-    Key? key,
+    super.key,
     required this.userId,
-  }) : super(key: key);
+  });
 
   final String userId;
 

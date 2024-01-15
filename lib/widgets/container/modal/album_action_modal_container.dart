@@ -14,14 +14,14 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class AlbumActionModalContainer extends HookConsumerWidget {
   const AlbumActionModalContainer({
-    Key? key,
+    super.key,
     required this.albumId,
     required this.albumTitle,
     required this.albumSlug,
     required this.userId,
     required this.userName,
     required this.isMutedUser,
-  }) : super(key: key);
+  });
 
   final String albumId;
 

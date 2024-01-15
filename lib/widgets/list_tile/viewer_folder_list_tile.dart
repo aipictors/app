@@ -4,11 +4,11 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class ViewerFolderListTile extends HookConsumerWidget {
   const ViewerFolderListTile({
-    Key? key,
+    super.key,
     required this.title,
     required this.imageURL,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   final String title;
 

@@ -8,7 +8,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class NotificationWorkCommentReplyListTileMedium extends HookConsumerWidget {
   const NotificationWorkCommentReplyListTileMedium({
-    Key? key,
+    super.key,
     required this.createdAt,
     required this.message,
     required this.userId,
@@ -18,7 +18,7 @@ class NotificationWorkCommentReplyListTileMedium extends HookConsumerWidget {
     required this.workTitle,
     required this.workImageURL,
     required this.stickerImageURL,
-  }) : super(key: key);
+  });
 
   final int createdAt;
 

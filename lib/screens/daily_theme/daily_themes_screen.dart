@@ -17,8 +17,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class DailyThemesScreen extends HookConsumerWidget {
   const DailyThemesScreen({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(context, ref) {

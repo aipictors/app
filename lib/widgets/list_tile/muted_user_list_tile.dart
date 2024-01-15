@@ -4,12 +4,12 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class MutedUserListTile extends HookConsumerWidget {
   const MutedUserListTile({
-    Key? key,
+    super.key,
     required this.userName,
     required this.userLogin,
     required this.userIconImageURL,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   final String userName;
 

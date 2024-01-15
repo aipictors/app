@@ -5,14 +5,14 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 class DailyThemesAppBar extends HookConsumerWidget
     implements PreferredSizeWidget {
   const DailyThemesAppBar({
-    Key? key,
+    super.key,
     required this.hasPrev,
     required this.hasNext,
     required this.onPrev,
     required this.onNext,
     required this.month,
     required this.year,
-  }) : super(key: key);
+  });
 
   final bool hasPrev;
 

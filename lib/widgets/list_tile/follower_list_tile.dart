@@ -4,12 +4,12 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class FollowerUserListTile extends HookConsumerWidget {
   const FollowerUserListTile({
-    Key? key,
+    super.key,
     required this.userName,
     required this.userLogin,
     required this.userIconImageURL,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   final String userName;
 

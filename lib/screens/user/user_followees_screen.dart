@@ -12,9 +12,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// ユーザのフォローの一覧
 class UserFolloweesScreen extends HookConsumerWidget {
   const UserFolloweesScreen({
-    Key? key,
+    super.key,
     required this.userId,
-  }) : super(key: key);
+  });
 
   final String userId;
 

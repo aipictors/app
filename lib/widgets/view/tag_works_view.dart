@@ -13,10 +13,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class TagWorksView extends HookConsumerWidget {
   const TagWorksView({
-    Key? key,
+    super.key,
     required this.client,
     required this.tagName,
-  }) : super(key: key);
+  });
 
   final Client client;
 

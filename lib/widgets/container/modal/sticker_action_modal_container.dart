@@ -7,11 +7,11 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class StickerActionModalContainer extends HookConsumerWidget {
   const StickerActionModalContainer({
-    Key? key,
+    super.key,
     required this.userName,
     required this.stickerId,
     required this.userId,
-  }) : super(key: key);
+  });
 
   final String stickerId;
 

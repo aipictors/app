@@ -14,11 +14,11 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// 作品ランキング（日別）
 class DailyWorkAwardsScreen extends HookConsumerWidget {
   const DailyWorkAwardsScreen({
-    Key? key,
+    super.key,
     required this.year,
     required this.month,
     required this.day,
-  }) : super(key: key);
+  });
 
   final int year;
 

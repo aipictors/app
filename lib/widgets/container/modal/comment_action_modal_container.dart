@@ -9,11 +9,11 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class CommentActionModalContainer extends HookConsumerWidget {
   const CommentActionModalContainer({
-    Key? key,
+    super.key,
     required this.commentId,
     required this.userId,
     required this.isMutedUser,
-  }) : super(key: key);
+  });
 
   final String commentId;
 

@@ -14,8 +14,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// フィード・ホットな作品の一覧
 class FeedHotWorksView extends HookConsumerWidget {
   const FeedHotWorksView({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(context, ref) {

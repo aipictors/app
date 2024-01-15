@@ -6,7 +6,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 /// アップデート
 class UpdateScreen extends HookConsumerWidget {
-  const UpdateScreen({Key? key}) : super(key: key);
+  const UpdateScreen({super.key});
 
   @override
   Widget build(context, ref) {

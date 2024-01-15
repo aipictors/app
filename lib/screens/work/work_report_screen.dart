@@ -9,9 +9,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// 作品の報告
 class WorkReportScreen extends HookConsumerWidget {
   const WorkReportScreen({
-    Key? key,
+    super.key,
     required this.workId,
-  }) : super(key: key);
+  });
 
   final String workId;
 

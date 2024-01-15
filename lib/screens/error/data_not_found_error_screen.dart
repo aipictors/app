@@ -5,8 +5,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// エラー（データが存在しない）
 class DataNotFoundErrorScreen extends HookConsumerWidget {
   const DataNotFoundErrorScreen({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(context, ref) {

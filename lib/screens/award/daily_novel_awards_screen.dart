@@ -3,9 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// 小説ランキング（日別）
 class DailyNovelAwardsScreen extends HookConsumerWidget {
-  const DailyNovelAwardsScreen({
-    Key? key,
-  }) : super(key: key);
+  const DailyNovelAwardsScreen({super.key});
 
   @override
   Widget build(context, ref) {

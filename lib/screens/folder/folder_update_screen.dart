@@ -4,9 +4,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// フォルダ・編集
 class FolderUpdateScreen extends HookConsumerWidget {
   const FolderUpdateScreen({
-    Key? key,
+    super.key,
     required this.folderId,
-  }) : super(key: key);
+  });
 
   final String folderId;
 

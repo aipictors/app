@@ -14,10 +14,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// 作品ランキング（週別）
 class WeeklyWorkAwardsScreen extends HookConsumerWidget {
   const WeeklyWorkAwardsScreen({
-    Key? key,
+    super.key,
     required this.year,
     required this.month,
-  }) : super(key: key);
+  });
 
   final int year;
 

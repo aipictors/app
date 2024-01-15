@@ -8,14 +8,14 @@ import 'package:url_launcher/link.dart';
 
 class PromotionListTile extends HookConsumerWidget {
   const PromotionListTile({
-    Key? key,
+    super.key,
     required this.title,
     required this.description,
     required this.pageURL,
     required this.imageURL,
     required this.startDateTime,
     required this.endDateTime,
-  }) : super(key: key);
+  });
 
   final String title;
 

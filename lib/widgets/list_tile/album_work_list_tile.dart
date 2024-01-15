@@ -13,7 +13,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class AlbumWorkListTile extends HookConsumerWidget {
   const AlbumWorkListTile({
-    Key? key,
+    super.key,
     required this.workId,
     required this.workTitle,
     required this.workImageURL,
@@ -24,7 +24,7 @@ class AlbumWorkListTile extends HookConsumerWidget {
     required this.isLiked,
     required this.likesCount,
     required this.commentsCount,
-  }) : super(key: key);
+  });
 
   final String workId;
 

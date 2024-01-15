@@ -5,12 +5,12 @@ import 'package:aipictors/widgets/container/list_tile_image_container.dart';
 /// 作品・シリーズ・コレクション等に利用できる、汎用ウィジェット
 class WorkInfoListTile extends HookConsumerWidget {
   const WorkInfoListTile({
-    Key? key,
+    super.key,
     required this.thumbnailImageURL,
     required this.title,
     required this.body,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   final String thumbnailImageURL;
 

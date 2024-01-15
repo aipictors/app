@@ -5,9 +5,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class WorkTagsContainer extends HookConsumerWidget {
   const WorkTagsContainer({
-    Key? key,
+    super.key,
     required this.tagNames,
-  }) : super(key: key);
+  });
 
   final List<String> tagNames;
 

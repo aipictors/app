@@ -3,10 +3,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class NotificationLikedWorksSummaryListTileCompact extends HookConsumerWidget {
   const NotificationLikedWorksSummaryListTileCompact({
-    Key? key,
+    super.key,
     required this.createdAt,
     required this.message,
-  }) : super(key: key);
+  });
 
   final int createdAt;
 

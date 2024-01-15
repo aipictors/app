@@ -7,7 +7,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class InteractiveImageDialog extends HookConsumerWidget {
-  const InteractiveImageDialog(this.imageURL, {Key? key}) : super(key: key);
+  const InteractiveImageDialog(this.imageURL, {super.key});
   final String imageURL;
 
   @override

@@ -6,10 +6,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class FeedCommentsView extends HookConsumerWidget {
   const FeedCommentsView({
-    Key? key,
+    super.key,
     required this.client,
     required this.workId,
-  }) : super(key: key);
+  });
 
   final Client client;
 

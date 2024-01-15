@@ -15,9 +15,7 @@ import 'package:sentry_flutter/sentry_flutter.dart';
 
 /// 設定・パスワード変更
 class AccountPasswordScreen extends HookConsumerWidget {
-  const AccountPasswordScreen({
-    Key? key,
-  }) : super(key: key);
+  const AccountPasswordScreen({super.key});
 
   @override
   Widget build(context, ref) {

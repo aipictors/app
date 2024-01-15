@@ -3,9 +3,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class ModalHeaderContainer extends HookConsumerWidget {
   const ModalHeaderContainer({
-    Key? key,
+    super.key,
     required this.title,
-  }) : super(key: key);
+  });
 
   final Widget title;
 

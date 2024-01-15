@@ -16,8 +16,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// フィード・ログイン前
 class FeedPopularWorksView extends HookConsumerWidget {
   const FeedPopularWorksView({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(context, ref) {

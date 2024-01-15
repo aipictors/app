@@ -15,8 +15,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// フィード・最新の作品の一覧
 class FeedLatestWorksView extends HookConsumerWidget {
   const FeedLatestWorksView({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(context, ref) {

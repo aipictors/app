@@ -6,7 +6,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 /// プライバシーポリシー
 class PrivacyScreen extends HookConsumerWidget {
-  const PrivacyScreen({Key? key}) : super(key: key);
+  const PrivacyScreen({super.key});
 
   @override
   Widget build(context, ref) {

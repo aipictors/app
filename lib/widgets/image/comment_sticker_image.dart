@@ -4,10 +4,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class CommentStickerImage extends HookConsumerWidget {
   const CommentStickerImage({
-    Key? key,
+    super.key,
     required this.downloadURL,
     required this.size,
-  }) : super(key: key);
+  });
 
   final String downloadURL;
 

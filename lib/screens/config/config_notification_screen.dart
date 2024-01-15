@@ -13,8 +13,8 @@ import 'package:sentry_flutter/sentry_flutter.dart';
 /// 設定・通知
 class ConfigNotificationScreen extends HookConsumerWidget {
   const ConfigNotificationScreen({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(context, ref) {

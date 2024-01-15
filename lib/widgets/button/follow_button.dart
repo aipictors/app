@@ -8,10 +8,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class FollowButton extends HookConsumerWidget {
   const FollowButton({
-    Key? key,
+    super.key,
     required this.isActive,
     required this.onPressed,
-  }) : super(key: key);
+  });
 
   final bool isActive;
 

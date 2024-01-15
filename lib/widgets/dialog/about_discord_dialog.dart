@@ -5,10 +5,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class AboutDiscordDialog extends HookConsumerWidget {
   const AboutDiscordDialog({
-    Key? key,
+    super.key,
     required this.onAccept,
     required this.onCancel,
-  }) : super(key: key);
+  });
 
   final VoidCallback onCancel;
 

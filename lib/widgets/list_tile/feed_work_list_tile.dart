@@ -19,7 +19,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class FeedWorkListTile extends HookConsumerWidget {
   const FeedWorkListTile({
-    Key? key,
+    super.key,
     required this.workId,
     required this.workTitle,
     required this.workImageURL,
@@ -34,7 +34,7 @@ class FeedWorkListTile extends HookConsumerWidget {
     required this.commentsCount,
     required this.isMutedUser,
     required this.isFollowee,
-  }) : super(key: key);
+  });
 
   final String workId;
 

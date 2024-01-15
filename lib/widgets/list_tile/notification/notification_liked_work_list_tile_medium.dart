@@ -9,7 +9,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class NotificationLikedWorkListTileMedium extends HookConsumerWidget {
   const NotificationLikedWorkListTileMedium({
-    Key? key,
+    super.key,
     required this.createdAt,
     required this.workId,
     required this.workTitle,
@@ -17,7 +17,7 @@ class NotificationLikedWorkListTileMedium extends HookConsumerWidget {
     required this.userId,
     required this.userName,
     required this.userIconImageURL,
-  }) : super(key: key);
+  });
 
   final int createdAt;
 

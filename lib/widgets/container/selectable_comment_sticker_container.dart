@@ -4,11 +4,11 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class SelectableCommentStickerContainer extends HookConsumerWidget {
   const SelectableCommentStickerContainer({
-    Key? key,
+    super.key,
     required this.downloadURL,
     required this.onTap,
     required this.isSelected,
-  }) : super(key: key);
+  });
 
   final String downloadURL;
 

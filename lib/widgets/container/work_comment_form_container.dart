@@ -7,9 +7,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class WorkCommentFormContainer extends HookConsumerWidget {
   const WorkCommentFormContainer({
-    Key? key,
+    super.key,
     required this.onSubmit,
-  }) : super(key: key);
+  });
 
   final Future<void> Function(String text, String? stickerId) onSubmit;
 

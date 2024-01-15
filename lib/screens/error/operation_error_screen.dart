@@ -5,9 +5,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// エラー（通信エラー）
 class OperationErrorScreen extends HookConsumerWidget {
   const OperationErrorScreen({
-    Key? key,
+    super.key,
     required this.errors,
-  }) : super(key: key);
+  });
 
   final List<GraphQLError> errors;
 

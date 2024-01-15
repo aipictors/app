@@ -4,9 +4,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class HeaderUserProfileAvatar extends HookConsumerWidget {
   const HeaderUserProfileAvatar({
-    Key? key,
+    super.key,
     required this.imageURL,
-  }) : super(key: key);
+  });
 
   final String? imageURL;
 

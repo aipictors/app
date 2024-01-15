@@ -15,12 +15,12 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class WorkBottomAppContainer extends HookConsumerWidget {
   const WorkBottomAppContainer({
-    Key? key,
+    super.key,
     required this.workId,
     required this.userId,
     required this.isLiked,
     required this.isFolded,
-  }) : super(key: key);
+  });
 
   final String workId;
 

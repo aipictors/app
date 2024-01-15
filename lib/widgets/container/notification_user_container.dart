@@ -4,10 +4,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class NotificationUserContainer extends HookConsumerWidget {
   const NotificationUserContainer({
-    Key? key,
+    super.key,
     required this.userName,
     required this.userIconImageURL,
-  }) : super(key: key);
+  });
 
   final String? userName;
 

@@ -13,7 +13,7 @@ Cache createCache() {
   final cache = Cache(
     store: store,
     typePolicies: {
-      'Query': TypePolicy(
+      'Query': const TypePolicy(
         fields: {
           // 'works': FieldPolicy(
           //   keyArgs: const [],

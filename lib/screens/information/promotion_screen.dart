@@ -7,9 +7,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// プロモーションの詳細
 class PromotionScreen extends HookConsumerWidget {
   const PromotionScreen({
-    Key? key,
+    super.key,
     required this.promotionId,
-  }) : super(key: key);
+  });
 
   final String promotionId;
 

@@ -8,13 +8,13 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class NotificationWorkAwardListTile extends HookConsumerWidget {
   const NotificationWorkAwardListTile({
-    Key? key,
+    super.key,
     required this.createdAt,
     required this.message,
     required this.workId,
     required this.workTitle,
     required this.workImageURL,
-  }) : super(key: key);
+  });
 
   final int createdAt;
 

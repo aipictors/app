@@ -6,7 +6,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 /// メンテナンス
 class MaintenanceScreen extends HookConsumerWidget {
-  const MaintenanceScreen({Key? key}) : super(key: key);
+  const MaintenanceScreen({super.key});
 
   @override
   Widget build(context, ref) {

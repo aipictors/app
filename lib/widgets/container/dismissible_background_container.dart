@@ -3,9 +3,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class DismissibleBackgroundContainer extends HookConsumerWidget {
   const DismissibleBackgroundContainer({
-    Key? key,
+    super.key,
     required this.text,
-  }) : super(key: key);
+  });
 
   final String text;
 

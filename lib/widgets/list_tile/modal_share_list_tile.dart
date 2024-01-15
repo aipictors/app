@@ -4,11 +4,11 @@ import 'package:share_plus/share_plus.dart';
 
 class ModalShareListTile extends HookConsumerWidget {
   const ModalShareListTile({
-    Key? key,
+    super.key,
     required this.titleText,
     required this.shareText,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   final String titleText;
 

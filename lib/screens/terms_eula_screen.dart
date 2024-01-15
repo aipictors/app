@@ -6,7 +6,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 /// 利用規約 EULA
 class TermsEulaScreen extends HookConsumerWidget {
-  const TermsEulaScreen({Key? key}) : super(key: key);
+  const TermsEulaScreen({super.key});
 
   @override
   Widget build(context, ref) {

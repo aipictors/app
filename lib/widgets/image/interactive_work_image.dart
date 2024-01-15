@@ -5,9 +5,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class InteractiveWorkImage extends HookConsumerWidget {
   const InteractiveWorkImage({
-    Key? key,
+    super.key,
     required this.downloadURL,
-  }) : super(key: key);
+  });
 
   final String downloadURL;
 

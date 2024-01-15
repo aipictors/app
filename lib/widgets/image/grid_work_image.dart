@@ -4,9 +4,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class GridWorkImage extends HookConsumerWidget {
   const GridWorkImage({
-    Key? key,
+    super.key,
     required this.imageURL,
-  }) : super(key: key);
+  });
 
   final String? imageURL;
 

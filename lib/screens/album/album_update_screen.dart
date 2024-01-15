@@ -4,9 +4,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// アルバム・編集
 class AlbumUpdateScreen extends HookConsumerWidget {
   const AlbumUpdateScreen({
-    Key? key,
+    super.key,
     required this.albumId,
-  }) : super(key: key);
+  });
 
   final String albumId;
 

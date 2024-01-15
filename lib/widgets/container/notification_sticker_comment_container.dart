@@ -4,10 +4,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class NotificationStickerCommentContainer extends HookConsumerWidget {
   const NotificationStickerCommentContainer({
-    Key? key,
+    super.key,
     required this.stickerImageURL,
     required this.workImageURL,
-  }) : super(key: key);
+  });
 
   final String? stickerImageURL;
 

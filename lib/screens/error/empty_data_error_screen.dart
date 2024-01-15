@@ -5,8 +5,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// エラー（データが空）
 class EmptyDataErrorScreen extends HookConsumerWidget {
   const EmptyDataErrorScreen({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(context, ref) {

@@ -7,9 +7,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class WorkUserProfileContainer extends HookConsumerWidget {
   const WorkUserProfileContainer({
-    Key? key,
+    super.key,
     required this.user,
-  }) : super(key: key);
+  });
 
   final GWorkUserFields user;
 

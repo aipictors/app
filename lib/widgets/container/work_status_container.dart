@@ -3,10 +3,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class WorkStatusContainer extends HookConsumerWidget {
   const WorkStatusContainer({
-    Key? key,
+    super.key,
     required this.likesCount,
     required this.viewsCount,
-  }) : super(key: key);
+  });
 
   final int likesCount;
 

@@ -4,13 +4,13 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class AlbumListTile extends HookConsumerWidget {
   const AlbumListTile({
-    Key? key,
+    super.key,
     required this.title,
     required this.userName,
     required this.userIconImageURL,
     required this.imageURL,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   final String title;
 

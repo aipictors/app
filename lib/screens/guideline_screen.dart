@@ -6,7 +6,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 /// ガイドライン
 class GuidelineScreen extends HookConsumerWidget {
-  const GuidelineScreen({Key? key}) : super(key: key);
+  const GuidelineScreen({super.key});
 
   @override
   Widget build(context, ref) {

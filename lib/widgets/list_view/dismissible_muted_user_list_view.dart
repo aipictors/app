@@ -9,9 +9,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class DismissibleMutedUserListView extends HookConsumerWidget {
   const DismissibleMutedUserListView({
-    Key? key,
+    super.key,
     required this.userList,
-  }) : super(key: key);
+  });
 
   final List<GPartialUserFields> userList;
 

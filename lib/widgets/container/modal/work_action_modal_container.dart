@@ -14,13 +14,13 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class WorkActionModalContainer extends HookConsumerWidget {
   const WorkActionModalContainer({
-    Key? key,
+    super.key,
     required this.workId,
     required this.workTitle,
     required this.userId,
     required this.userName,
     required this.isMutedUser,
-  }) : super(key: key);
+  });
 
   final String workId;
 

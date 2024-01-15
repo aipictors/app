@@ -7,9 +7,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class WorkShortcutActionStickers extends HookConsumerWidget {
   const WorkShortcutActionStickers({
-    Key? key,
+    super.key,
     required this.onSend,
-  }) : super(key: key);
+  });
 
   final Future<void> Function(String? stickerId) onSend;
 

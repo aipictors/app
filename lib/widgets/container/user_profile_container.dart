@@ -5,7 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class UserProfileContainer extends HookConsumerWidget {
   const UserProfileContainer({
-    Key? key,
+    super.key,
     required this.userId,
     required this.name,
     required this.login,
@@ -14,7 +14,7 @@ class UserProfileContainer extends HookConsumerWidget {
     required this.viewsCount,
     required this.followersCount,
     required this.awardsCount,
-  }) : super(key: key);
+  });
 
   final String userId;
 

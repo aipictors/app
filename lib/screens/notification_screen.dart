@@ -19,8 +19,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// 通知
 class NotificationScreen extends HookConsumerWidget {
   const NotificationScreen({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(context, ref) {

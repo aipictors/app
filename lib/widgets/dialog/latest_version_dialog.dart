@@ -4,10 +4,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class LatestVersionDialog extends HookConsumerWidget {
   const LatestVersionDialog({
-    Key? key,
+    super.key,
     required this.onAccept,
     required this.onCancel,
-  }) : super(key: key);
+  });
 
   final VoidCallback onCancel;
 

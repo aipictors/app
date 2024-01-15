@@ -5,10 +5,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class NotificationImageContainerCompact extends HookConsumerWidget {
   const NotificationImageContainerCompact({
-    Key? key,
+    super.key,
     required this.workTitle,
     required this.workImageURL,
-  }) : super(key: key);
+  });
 
   final String? workTitle;
 

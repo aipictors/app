@@ -4,11 +4,11 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class SurveyRadioListTile<T> extends HookConsumerWidget {
   const SurveyRadioListTile({
-    Key? key,
+    super.key,
     required this.groupValue,
     required this.onChanged,
     required this.options,
-  }) : super(key: key);
+  });
 
   final T? groupValue;
 

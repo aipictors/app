@@ -7,7 +7,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class NotificationLikedWorkListTile extends HookConsumerWidget {
   const NotificationLikedWorkListTile({
-    Key? key,
+    super.key,
     required this.createdAt,
     required this.workId,
     required this.workTitle,
@@ -15,7 +15,7 @@ class NotificationLikedWorkListTile extends HookConsumerWidget {
     required this.userId,
     required this.userName,
     required this.userIconImageURL,
-  }) : super(key: key);
+  });
 
   final int createdAt;
 

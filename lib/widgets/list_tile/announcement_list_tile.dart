@@ -7,11 +7,11 @@ import 'package:url_launcher/url_launcher.dart';
 /// 運営からのお知らせ
 class AnnouncementListTile extends HookConsumerWidget {
   const AnnouncementListTile({
-    Key? key,
+    super.key,
     required this.title,
     required this.body,
     required this.publishedAt,
-  }) : super(key: key);
+  });
 
   final String title;
 

@@ -5,7 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// チュートリアル
 /// 利用規約に同意していない場合はこのページが表示される
 class TutorialScreen extends HookConsumerWidget {
-  const TutorialScreen({Key? key}) : super(key: key);
+  const TutorialScreen({super.key});
 
   @override
   Widget build(context, ref) {

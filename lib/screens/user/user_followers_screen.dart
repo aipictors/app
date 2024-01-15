@@ -14,9 +14,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// ユーザのフォロワーの一覧
 class UserFollowersScreen extends HookConsumerWidget {
   const UserFollowersScreen({
-    Key? key,
+    super.key,
     required this.userId,
-  }) : super(key: key);
+  });
 
   final String userId;
 

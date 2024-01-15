@@ -3,10 +3,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class ModalReportListTile extends HookConsumerWidget {
   const ModalReportListTile({
-    Key? key,
+    super.key,
     required this.titleText,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   final String titleText;
 

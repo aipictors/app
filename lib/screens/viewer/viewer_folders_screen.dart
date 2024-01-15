@@ -15,8 +15,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 ///  投稿したフォルダの一覧
 class ViewerFoldersScreen extends HookConsumerWidget {
   const ViewerFoldersScreen({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(context, ref) {

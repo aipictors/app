@@ -21,9 +21,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// 作品の詳細
 class WorkScreenCompact extends HookConsumerWidget {
   const WorkScreenCompact({
-    Key? key,
+    super.key,
     required this.workId,
-  }) : super(key: key);
+  });
 
   final String workId;
 

@@ -5,9 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// アカウント
 class AccountScreen extends HookConsumerWidget {
-  const AccountScreen({
-    Key? key,
-  }) : super(key: key);
+  const AccountScreen({super.key});
 
   @override
   Widget build(context, ref) {

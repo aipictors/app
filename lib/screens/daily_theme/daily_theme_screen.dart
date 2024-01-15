@@ -15,9 +15,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// 日別テーマ
 class DailyThemeScreen extends HookConsumerWidget {
   const DailyThemeScreen({
-    Key? key,
+    super.key,
     required this.themeId,
-  }) : super(key: key);
+  });
 
   final String themeId;
 

@@ -4,9 +4,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class UnexpectedErrorContainer extends HookConsumerWidget {
   const UnexpectedErrorContainer({
-    Key? key,
+    super.key,
     this.message,
-  }) : super(key: key);
+  });
 
   final String? message;
 

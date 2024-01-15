@@ -6,11 +6,11 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class UserHeaderContainer extends HookConsumerWidget {
   const UserHeaderContainer({
-    Key? key,
+    super.key,
     required this.userId,
     required this.iconImageURL,
     required this.isFollowee,
-  }) : super(key: key);
+  });
 
   final bool isFollowee;
 

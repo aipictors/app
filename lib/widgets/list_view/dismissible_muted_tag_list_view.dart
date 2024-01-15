@@ -8,9 +8,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class DismissibleMutedTagListView extends HookConsumerWidget {
   const DismissibleMutedTagListView({
-    Key? key,
+    super.key,
     required this.tagList,
-  }) : super(key: key);
+  });
 
   final List<GPartialUserFields> tagList;
 
