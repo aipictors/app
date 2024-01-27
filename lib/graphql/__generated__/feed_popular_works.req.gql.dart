@@ -33,6 +33,7 @@ abstract class GFeedPopularWorksReq
       operationName: 'FeedPopularWorks',
     )
     ..executeOnListen = true;
+
   @override
   _i3.GFeedPopularWorksVars get vars;
   @override
@@ -42,6 +43,7 @@ abstract class GFeedPopularWorksReq
         operation: operation,
         variables: vars.toJson(),
       );
+
   @override
   String? get requestId;
   @override
@@ -63,12 +65,27 @@ abstract class GFeedPopularWorksReq
   @override
   _i2.GFeedPopularWorksData? parseData(Map<String, dynamic> json) =>
       _i2.GFeedPopularWorksData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GFeedPopularWorksData data) =>
+      data.toJson();
+
+  @override
+  _i1.OperationRequest<_i2.GFeedPopularWorksData, _i3.GFeedPopularWorksVars>
+      transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
+          this.rebuild((b) => b..operation = transform(operation));
+
   static Serializer<GFeedPopularWorksReq> get serializer =>
       _$gFeedPopularWorksReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GFeedPopularWorksReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GFeedPopularWorksReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GFeedPopularWorksReq.serializer,

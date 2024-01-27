@@ -31,6 +31,7 @@ abstract class GCreateAlbumReq
       operationName: 'CreateAlbum',
     )
     ..executeOnListen = true;
+
   @override
   _i3.GCreateAlbumVars get vars;
   @override
@@ -40,6 +41,7 @@ abstract class GCreateAlbumReq
         operation: operation,
         variables: vars.toJson(),
       );
+
   @override
   String? get requestId;
   @override
@@ -61,12 +63,26 @@ abstract class GCreateAlbumReq
   @override
   _i2.GCreateAlbumData? parseData(Map<String, dynamic> json) =>
       _i2.GCreateAlbumData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GCreateAlbumData data) => data.toJson();
+
+  @override
+  _i1.OperationRequest<_i2.GCreateAlbumData, _i3.GCreateAlbumVars>
+      transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
+          this.rebuild((b) => b..operation = transform(operation));
+
   static Serializer<GCreateAlbumReq> get serializer =>
       _$gCreateAlbumReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GCreateAlbumReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreateAlbumReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GCreateAlbumReq.serializer,

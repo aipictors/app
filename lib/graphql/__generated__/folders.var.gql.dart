@@ -20,10 +20,12 @@ abstract class GFoldersVars
   int get limit;
   _i1.GFoldersWhereInput? get where;
   static Serializer<GFoldersVars> get serializer => _$gFoldersVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
         GFoldersVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GFoldersVars? fromJson(Map<String, dynamic> json) =>
       _i2.serializers.deserializeWith(
         GFoldersVars.serializer,

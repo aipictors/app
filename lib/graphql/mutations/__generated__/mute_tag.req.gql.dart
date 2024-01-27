@@ -30,6 +30,7 @@ abstract class GMuteTagReq
       operationName: 'MuteTag',
     )
     ..executeOnListen = true;
+
   @override
   _i3.GMuteTagVars get vars;
   @override
@@ -39,6 +40,7 @@ abstract class GMuteTagReq
         operation: operation,
         variables: vars.toJson(),
       );
+
   @override
   String? get requestId;
   @override
@@ -60,11 +62,25 @@ abstract class GMuteTagReq
   @override
   _i2.GMuteTagData? parseData(Map<String, dynamic> json) =>
       _i2.GMuteTagData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GMuteTagData data) => data.toJson();
+
+  @override
+  _i1.OperationRequest<_i2.GMuteTagData, _i3.GMuteTagVars> transformOperation(
+          _i4.Operation Function(_i4.Operation) transform) =>
+      this.rebuild((b) => b..operation = transform(operation));
+
   static Serializer<GMuteTagReq> get serializer => _$gMuteTagReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GMuteTagReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GMuteTagReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GMuteTagReq.serializer,

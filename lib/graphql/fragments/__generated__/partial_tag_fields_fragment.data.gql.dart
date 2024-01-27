@@ -27,6 +27,7 @@ abstract class GPartialTagFieldsData
 
   static void _initializeBuilder(GPartialTagFieldsDataBuilder b) =>
       b..G__typename = 'TagNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -36,11 +37,13 @@ abstract class GPartialTagFieldsData
   String get name;
   static Serializer<GPartialTagFieldsData> get serializer =>
       _$gPartialTagFieldsDataSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GPartialTagFieldsData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GPartialTagFieldsData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GPartialTagFieldsData.serializer,

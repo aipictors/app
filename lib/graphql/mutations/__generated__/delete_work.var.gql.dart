@@ -19,10 +19,12 @@ abstract class GDeleteWorkVars
   _i1.GDeleteWorkInput get input;
   static Serializer<GDeleteWorkVars> get serializer =>
       _$gDeleteWorkVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
         GDeleteWorkVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GDeleteWorkVars? fromJson(Map<String, dynamic> json) =>
       _i2.serializers.deserializeWith(
         GDeleteWorkVars.serializer,

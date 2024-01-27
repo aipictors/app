@@ -31,6 +31,7 @@ abstract class GDeleteAlbumReq
       operationName: 'DeleteAlbum',
     )
     ..executeOnListen = true;
+
   @override
   _i3.GDeleteAlbumVars get vars;
   @override
@@ -40,6 +41,7 @@ abstract class GDeleteAlbumReq
         operation: operation,
         variables: vars.toJson(),
       );
+
   @override
   String? get requestId;
   @override
@@ -61,12 +63,26 @@ abstract class GDeleteAlbumReq
   @override
   _i2.GDeleteAlbumData? parseData(Map<String, dynamic> json) =>
       _i2.GDeleteAlbumData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GDeleteAlbumData data) => data.toJson();
+
+  @override
+  _i1.OperationRequest<_i2.GDeleteAlbumData, _i3.GDeleteAlbumVars>
+      transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
+          this.rebuild((b) => b..operation = transform(operation));
+
   static Serializer<GDeleteAlbumReq> get serializer =>
       _$gDeleteAlbumReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GDeleteAlbumReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GDeleteAlbumReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GDeleteAlbumReq.serializer,

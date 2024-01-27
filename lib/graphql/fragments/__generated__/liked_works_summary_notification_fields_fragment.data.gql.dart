@@ -30,6 +30,7 @@ abstract class GLikedWorksSummaryNotificationFieldsData
   static void _initializeBuilder(
           GLikedWorksSummaryNotificationFieldsDataBuilder b) =>
       b..G__typename = 'LikedWorksSummaryNotificationNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -41,11 +42,13 @@ abstract class GLikedWorksSummaryNotificationFieldsData
   String? get message;
   static Serializer<GLikedWorksSummaryNotificationFieldsData> get serializer =>
       _$gLikedWorksSummaryNotificationFieldsDataSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GLikedWorksSummaryNotificationFieldsData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GLikedWorksSummaryNotificationFieldsData? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(

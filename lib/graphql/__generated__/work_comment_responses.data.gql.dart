@@ -24,15 +24,18 @@ abstract class GWorkCommentResponsesData
 
   static void _initializeBuilder(GWorkCommentResponsesDataBuilder b) =>
       b..G__typename = 'Query';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   GWorkCommentResponsesData_work? get work;
   static Serializer<GWorkCommentResponsesData> get serializer =>
       _$gWorkCommentResponsesDataSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GWorkCommentResponsesData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GWorkCommentResponsesData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GWorkCommentResponsesData.serializer,
@@ -52,16 +55,19 @@ abstract class GWorkCommentResponsesData_work
 
   static void _initializeBuilder(GWorkCommentResponsesData_workBuilder b) =>
       b..G__typename = 'WorkNode';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get id;
   GWorkCommentResponsesData_work_comment get comment;
   static Serializer<GWorkCommentResponsesData_work> get serializer =>
       _$gWorkCommentResponsesDataWorkSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GWorkCommentResponsesData_work.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GWorkCommentResponsesData_work? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GWorkCommentResponsesData_work.serializer,
@@ -83,6 +89,7 @@ abstract class GWorkCommentResponsesData_work_comment
   static void _initializeBuilder(
           GWorkCommentResponsesData_work_commentBuilder b) =>
       b..G__typename = 'CommentNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -99,11 +106,13 @@ abstract class GWorkCommentResponsesData_work_comment
   BuiltList<GWorkCommentResponsesData_work_comment_responses> get responses;
   static Serializer<GWorkCommentResponsesData_work_comment> get serializer =>
       _$gWorkCommentResponsesDataWorkCommentSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GWorkCommentResponsesData_work_comment.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GWorkCommentResponsesData_work_comment? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
@@ -127,6 +136,7 @@ abstract class GWorkCommentResponsesData_work_comment_user
   static void _initializeBuilder(
           GWorkCommentResponsesData_work_comment_userBuilder b) =>
       b..G__typename = 'UserNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -140,11 +150,13 @@ abstract class GWorkCommentResponsesData_work_comment_user
   GWorkCommentResponsesData_work_comment_user_iconImage? get iconImage;
   static Serializer<GWorkCommentResponsesData_work_comment_user>
       get serializer => _$gWorkCommentResponsesDataWorkCommentUserSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GWorkCommentResponsesData_work_comment_user.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GWorkCommentResponsesData_work_comment_user? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
@@ -168,6 +180,7 @@ abstract class GWorkCommentResponsesData_work_comment_user_iconImage
   static void _initializeBuilder(
           GWorkCommentResponsesData_work_comment_user_iconImageBuilder b) =>
       b..G__typename = 'ImageNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -178,11 +191,13 @@ abstract class GWorkCommentResponsesData_work_comment_user_iconImage
   static Serializer<GWorkCommentResponsesData_work_comment_user_iconImage>
       get serializer =>
           _$gWorkCommentResponsesDataWorkCommentUserIconImageSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GWorkCommentResponsesData_work_comment_user_iconImage.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GWorkCommentResponsesData_work_comment_user_iconImage? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
@@ -205,6 +220,7 @@ abstract class GWorkCommentResponsesData_work_comment_sticker
   static void _initializeBuilder(
           GWorkCommentResponsesData_work_comment_stickerBuilder b) =>
       b..G__typename = 'StickerNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -214,11 +230,13 @@ abstract class GWorkCommentResponsesData_work_comment_sticker
   GWorkCommentResponsesData_work_comment_sticker_image? get image;
   static Serializer<GWorkCommentResponsesData_work_comment_sticker>
       get serializer => _$gWorkCommentResponsesDataWorkCommentStickerSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GWorkCommentResponsesData_work_comment_sticker.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GWorkCommentResponsesData_work_comment_sticker? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
@@ -241,6 +259,7 @@ abstract class GWorkCommentResponsesData_work_comment_sticker_image
   static void _initializeBuilder(
           GWorkCommentResponsesData_work_comment_sticker_imageBuilder b) =>
       b..G__typename = 'ImageNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -251,11 +270,13 @@ abstract class GWorkCommentResponsesData_work_comment_sticker_image
   static Serializer<GWorkCommentResponsesData_work_comment_sticker_image>
       get serializer =>
           _$gWorkCommentResponsesDataWorkCommentStickerImageSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GWorkCommentResponsesData_work_comment_sticker_image.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GWorkCommentResponsesData_work_comment_sticker_image? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
@@ -278,6 +299,7 @@ abstract class GWorkCommentResponsesData_work_comment_responses
   static void _initializeBuilder(
           GWorkCommentResponsesData_work_comment_responsesBuilder b) =>
       b..G__typename = 'CommentNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -294,11 +316,13 @@ abstract class GWorkCommentResponsesData_work_comment_responses
   static Serializer<GWorkCommentResponsesData_work_comment_responses>
       get serializer =>
           _$gWorkCommentResponsesDataWorkCommentResponsesSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GWorkCommentResponsesData_work_comment_responses.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GWorkCommentResponsesData_work_comment_responses? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
@@ -322,6 +346,7 @@ abstract class GWorkCommentResponsesData_work_comment_responses_user
   static void _initializeBuilder(
           GWorkCommentResponsesData_work_comment_responses_userBuilder b) =>
       b..G__typename = 'UserNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -337,11 +362,13 @@ abstract class GWorkCommentResponsesData_work_comment_responses_user
   static Serializer<GWorkCommentResponsesData_work_comment_responses_user>
       get serializer =>
           _$gWorkCommentResponsesDataWorkCommentResponsesUserSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GWorkCommentResponsesData_work_comment_responses_user.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GWorkCommentResponsesData_work_comment_responses_user? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
@@ -369,6 +396,7 @@ abstract class GWorkCommentResponsesData_work_comment_responses_user_iconImage
           GWorkCommentResponsesData_work_comment_responses_user_iconImageBuilder
               b) =>
       b..G__typename = 'ImageNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -380,12 +408,14 @@ abstract class GWorkCommentResponsesData_work_comment_responses_user_iconImage
           GWorkCommentResponsesData_work_comment_responses_user_iconImage>
       get serializer =>
           _$gWorkCommentResponsesDataWorkCommentResponsesUserIconImageSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GWorkCommentResponsesData_work_comment_responses_user_iconImage
             .serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GWorkCommentResponsesData_work_comment_responses_user_iconImage?
       fromJson(Map<String, dynamic> json) => _i1.serializers.deserializeWith(
             GWorkCommentResponsesData_work_comment_responses_user_iconImage
@@ -409,6 +439,7 @@ abstract class GWorkCommentResponsesData_work_comment_responses_sticker
   static void _initializeBuilder(
           GWorkCommentResponsesData_work_comment_responses_stickerBuilder b) =>
       b..G__typename = 'StickerNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -419,11 +450,13 @@ abstract class GWorkCommentResponsesData_work_comment_responses_sticker
   static Serializer<GWorkCommentResponsesData_work_comment_responses_sticker>
       get serializer =>
           _$gWorkCommentResponsesDataWorkCommentResponsesStickerSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GWorkCommentResponsesData_work_comment_responses_sticker.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GWorkCommentResponsesData_work_comment_responses_sticker? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
@@ -450,6 +483,7 @@ abstract class GWorkCommentResponsesData_work_comment_responses_sticker_image
           GWorkCommentResponsesData_work_comment_responses_sticker_imageBuilder
               b) =>
       b..G__typename = 'ImageNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -461,12 +495,14 @@ abstract class GWorkCommentResponsesData_work_comment_responses_sticker_image
           GWorkCommentResponsesData_work_comment_responses_sticker_image>
       get serializer =>
           _$gWorkCommentResponsesDataWorkCommentResponsesStickerImageSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GWorkCommentResponsesData_work_comment_responses_sticker_image
             .serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GWorkCommentResponsesData_work_comment_responses_sticker_image?
       fromJson(Map<String, dynamic> json) => _i1.serializers.deserializeWith(
             GWorkCommentResponsesData_work_comment_responses_sticker_image

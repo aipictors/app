@@ -28,6 +28,7 @@ abstract class GStickersReq
       operationName: 'Stickers',
     )
     ..executeOnListen = true;
+
   @override
   _i3.GStickersVars get vars;
   @override
@@ -37,6 +38,7 @@ abstract class GStickersReq
         operation: operation,
         variables: vars.toJson(),
       );
+
   @override
   String? get requestId;
   @override
@@ -58,11 +60,25 @@ abstract class GStickersReq
   @override
   _i2.GStickersData? parseData(Map<String, dynamic> json) =>
       _i2.GStickersData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GStickersData data) => data.toJson();
+
+  @override
+  _i1.OperationRequest<_i2.GStickersData, _i3.GStickersVars> transformOperation(
+          _i4.Operation Function(_i4.Operation) transform) =>
+      this.rebuild((b) => b..operation = transform(operation));
+
   static Serializer<GStickersReq> get serializer => _$gStickersReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GStickersReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GStickersReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GStickersReq.serializer,

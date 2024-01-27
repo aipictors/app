@@ -20,10 +20,12 @@ abstract class GCreateWorkCommentVars
   _i1.GCreateWorkCommentInput get input;
   static Serializer<GCreateWorkCommentVars> get serializer =>
       _$gCreateWorkCommentVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
         GCreateWorkCommentVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreateWorkCommentVars? fromJson(Map<String, dynamic> json) =>
       _i2.serializers.deserializeWith(
         GCreateWorkCommentVars.serializer,

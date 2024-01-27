@@ -17,14 +17,17 @@ abstract class GMuteUserData
 
   static void _initializeBuilder(GMuteUserDataBuilder b) =>
       b..G__typename = 'Mutation';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   GMuteUserData_muteUser get muteUser;
   static Serializer<GMuteUserData> get serializer => _$gMuteUserDataSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GMuteUserData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GMuteUserData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GMuteUserData.serializer,
@@ -42,16 +45,19 @@ abstract class GMuteUserData_muteUser
 
   static void _initializeBuilder(GMuteUserData_muteUserBuilder b) =>
       b..G__typename = 'UserNode';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get id;
   GMuteUserData_muteUser_viewer? get viewer;
   static Serializer<GMuteUserData_muteUser> get serializer =>
       _$gMuteUserDataMuteUserSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GMuteUserData_muteUser.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GMuteUserData_muteUser? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GMuteUserData_muteUser.serializer,
@@ -71,16 +77,19 @@ abstract class GMuteUserData_muteUser_viewer
 
   static void _initializeBuilder(GMuteUserData_muteUser_viewerBuilder b) =>
       b..G__typename = 'UserViewerNode';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get id;
   bool get isMuted;
   static Serializer<GMuteUserData_muteUser_viewer> get serializer =>
       _$gMuteUserDataMuteUserViewerSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GMuteUserData_muteUser_viewer.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GMuteUserData_muteUser_viewer? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GMuteUserData_muteUser_viewer.serializer,

@@ -15,10 +15,12 @@ abstract class GTagVars implements Built<GTagVars, GTagVarsBuilder> {
 
   String get name;
   static Serializer<GTagVars> get serializer => _$gTagVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GTagVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GTagVars? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GTagVars.serializer,

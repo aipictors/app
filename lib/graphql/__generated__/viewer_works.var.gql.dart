@@ -19,10 +19,12 @@ abstract class GViewerWorksVars
   int get limit;
   static Serializer<GViewerWorksVars> get serializer =>
       _$gViewerWorksVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GViewerWorksVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GViewerWorksVars? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GViewerWorksVars.serializer,

@@ -18,15 +18,18 @@ abstract class GCreateAlbumWorkData
 
   static void _initializeBuilder(GCreateAlbumWorkDataBuilder b) =>
       b..G__typename = 'Mutation';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   GCreateAlbumWorkData_createAlbumWork get createAlbumWork;
   static Serializer<GCreateAlbumWorkData> get serializer =>
       _$gCreateAlbumWorkDataSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GCreateAlbumWorkData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreateAlbumWorkData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GCreateAlbumWorkData.serializer,
@@ -47,15 +50,18 @@ abstract class GCreateAlbumWorkData_createAlbumWork
   static void _initializeBuilder(
           GCreateAlbumWorkData_createAlbumWorkBuilder b) =>
       b..G__typename = 'WorkNode';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get id;
   static Serializer<GCreateAlbumWorkData_createAlbumWork> get serializer =>
       _$gCreateAlbumWorkDataCreateAlbumWorkSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GCreateAlbumWorkData_createAlbumWork.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreateAlbumWorkData_createAlbumWork? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(

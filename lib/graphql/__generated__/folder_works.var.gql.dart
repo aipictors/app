@@ -20,10 +20,12 @@ abstract class GFolderWorksVars
   int get limit;
   static Serializer<GFolderWorksVars> get serializer =>
       _$gFolderWorksVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GFolderWorksVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GFolderWorksVars? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GFolderWorksVars.serializer,

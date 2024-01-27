@@ -19,10 +19,12 @@ abstract class GUpdateFolderVars
   _i1.GUpdateFolderInput get input;
   static Serializer<GUpdateFolderVars> get serializer =>
       _$gUpdateFolderVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
         GUpdateFolderVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUpdateFolderVars? fromJson(Map<String, dynamic> json) =>
       _i2.serializers.deserializeWith(
         GUpdateFolderVars.serializer,

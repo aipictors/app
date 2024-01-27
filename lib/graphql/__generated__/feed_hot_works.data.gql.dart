@@ -22,15 +22,18 @@ abstract class GFeedHotWorksData
 
   static void _initializeBuilder(GFeedHotWorksDataBuilder b) =>
       b..G__typename = 'Query';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   BuiltList<GFeedHotWorksData_hotWorks> get hotWorks;
   static Serializer<GFeedHotWorksData> get serializer =>
       _$gFeedHotWorksDataSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GFeedHotWorksData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GFeedHotWorksData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GFeedHotWorksData.serializer,
@@ -50,6 +53,7 @@ abstract class GFeedHotWorksData_hotWorks
 
   static void _initializeBuilder(GFeedHotWorksData_hotWorksBuilder b) =>
       b..G__typename = 'WorkNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -71,11 +75,13 @@ abstract class GFeedHotWorksData_hotWorks
   GFeedHotWorksData_hotWorks_viewer? get viewer;
   static Serializer<GFeedHotWorksData_hotWorks> get serializer =>
       _$gFeedHotWorksDataHotWorksSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GFeedHotWorksData_hotWorks.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GFeedHotWorksData_hotWorks? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GFeedHotWorksData_hotWorks.serializer,
@@ -96,6 +102,7 @@ abstract class GFeedHotWorksData_hotWorks_image
 
   static void _initializeBuilder(GFeedHotWorksData_hotWorks_imageBuilder b) =>
       b..G__typename = 'ImageNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -105,11 +112,13 @@ abstract class GFeedHotWorksData_hotWorks_image
   String get downloadURL;
   static Serializer<GFeedHotWorksData_hotWorks_image> get serializer =>
       _$gFeedHotWorksDataHotWorksImageSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GFeedHotWorksData_hotWorks_image.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GFeedHotWorksData_hotWorks_image? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
@@ -131,6 +140,7 @@ abstract class GFeedHotWorksData_hotWorks_user
 
   static void _initializeBuilder(GFeedHotWorksData_hotWorks_userBuilder b) =>
       b..G__typename = 'UserNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -145,11 +155,13 @@ abstract class GFeedHotWorksData_hotWorks_user
   GFeedHotWorksData_hotWorks_user_viewer? get viewer;
   static Serializer<GFeedHotWorksData_hotWorks_user> get serializer =>
       _$gFeedHotWorksDataHotWorksUserSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GFeedHotWorksData_hotWorks_user.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GFeedHotWorksData_hotWorks_user? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GFeedHotWorksData_hotWorks_user.serializer,
@@ -171,6 +183,7 @@ abstract class GFeedHotWorksData_hotWorks_user_iconImage
   static void _initializeBuilder(
           GFeedHotWorksData_hotWorks_user_iconImageBuilder b) =>
       b..G__typename = 'ImageNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -180,11 +193,13 @@ abstract class GFeedHotWorksData_hotWorks_user_iconImage
   String get downloadURL;
   static Serializer<GFeedHotWorksData_hotWorks_user_iconImage> get serializer =>
       _$gFeedHotWorksDataHotWorksUserIconImageSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GFeedHotWorksData_hotWorks_user_iconImage.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GFeedHotWorksData_hotWorks_user_iconImage? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
@@ -206,6 +221,7 @@ abstract class GFeedHotWorksData_hotWorks_user_viewer
   static void _initializeBuilder(
           GFeedHotWorksData_hotWorks_user_viewerBuilder b) =>
       b..G__typename = 'UserViewerNode';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get id;
@@ -214,10 +230,12 @@ abstract class GFeedHotWorksData_hotWorks_user_viewer
   bool get isMuted;
   static Serializer<GFeedHotWorksData_hotWorks_user_viewer> get serializer =>
       _$gFeedHotWorksDataHotWorksUserViewerSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GFeedHotWorksData_hotWorks_user_viewer.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GFeedHotWorksData_hotWorks_user_viewer? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
@@ -238,6 +256,7 @@ abstract class GFeedHotWorksData_hotWorks_viewer
 
   static void _initializeBuilder(GFeedHotWorksData_hotWorks_viewerBuilder b) =>
       b..G__typename = 'WorkViewerNode';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get id;
@@ -245,10 +264,12 @@ abstract class GFeedHotWorksData_hotWorks_viewer
   bool get isBookmarked;
   static Serializer<GFeedHotWorksData_hotWorks_viewer> get serializer =>
       _$gFeedHotWorksDataHotWorksViewerSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GFeedHotWorksData_hotWorks_viewer.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GFeedHotWorksData_hotWorks_viewer? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(

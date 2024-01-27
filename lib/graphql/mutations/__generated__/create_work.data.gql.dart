@@ -17,15 +17,18 @@ abstract class GCreateWorkData
 
   static void _initializeBuilder(GCreateWorkDataBuilder b) =>
       b..G__typename = 'Mutation';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   GCreateWorkData_createWork get createWork;
   static Serializer<GCreateWorkData> get serializer =>
       _$gCreateWorkDataSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GCreateWorkData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreateWorkData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GCreateWorkData.serializer,
@@ -44,15 +47,18 @@ abstract class GCreateWorkData_createWork
 
   static void _initializeBuilder(GCreateWorkData_createWorkBuilder b) =>
       b..G__typename = 'WorkNode';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get title;
   static Serializer<GCreateWorkData_createWork> get serializer =>
       _$gCreateWorkDataCreateWorkSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GCreateWorkData_createWork.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreateWorkData_createWork? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GCreateWorkData_createWork.serializer,

@@ -21,15 +21,18 @@ abstract class GUserFoldersData
 
   static void _initializeBuilder(GUserFoldersDataBuilder b) =>
       b..G__typename = 'Query';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   GUserFoldersData_user? get user;
   static Serializer<GUserFoldersData> get serializer =>
       _$gUserFoldersDataSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUserFoldersData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUserFoldersData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUserFoldersData.serializer,
@@ -47,16 +50,19 @@ abstract class GUserFoldersData_user
 
   static void _initializeBuilder(GUserFoldersData_userBuilder b) =>
       b..G__typename = 'UserNode';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get id;
   BuiltList<GUserFoldersData_user_folders> get folders;
   static Serializer<GUserFoldersData_user> get serializer =>
       _$gUserFoldersDataUserSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUserFoldersData_user.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUserFoldersData_user? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUserFoldersData_user.serializer,
@@ -77,6 +83,7 @@ abstract class GUserFoldersData_user_folders
 
   static void _initializeBuilder(GUserFoldersData_user_foldersBuilder b) =>
       b..G__typename = 'FolderNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -92,11 +99,13 @@ abstract class GUserFoldersData_user_folders
   String? get thumbnailImageURL;
   static Serializer<GUserFoldersData_user_folders> get serializer =>
       _$gUserFoldersDataUserFoldersSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUserFoldersData_user_folders.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUserFoldersData_user_folders? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUserFoldersData_user_folders.serializer,

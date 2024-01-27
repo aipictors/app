@@ -17,15 +17,18 @@ abstract class GPromotionData
 
   static void _initializeBuilder(GPromotionDataBuilder b) =>
       b..G__typename = 'Query';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   GPromotionData_promotion? get promotion;
   static Serializer<GPromotionData> get serializer =>
       _$gPromotionDataSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GPromotionData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GPromotionData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GPromotionData.serializer,
@@ -44,6 +47,7 @@ abstract class GPromotionData_promotion
 
   static void _initializeBuilder(GPromotionData_promotionBuilder b) =>
       b..G__typename = 'PromotionNode';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get id;
@@ -55,10 +59,12 @@ abstract class GPromotionData_promotion
   int get endDateTime;
   static Serializer<GPromotionData_promotion> get serializer =>
       _$gPromotionDataPromotionSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GPromotionData_promotion.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GPromotionData_promotion? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GPromotionData_promotion.serializer,

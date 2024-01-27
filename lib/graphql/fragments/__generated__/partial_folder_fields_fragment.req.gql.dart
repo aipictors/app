@@ -30,6 +30,7 @@ abstract class GPartialFolderFieldsReq
   static void _initializeBuilder(GPartialFolderFieldsReqBuilder b) => b
     ..document = _i4.document
     ..fragmentName = 'PartialFolderFields';
+
   @override
   _i3.GPartialFolderFieldsVars get vars;
   @override
@@ -41,12 +42,22 @@ abstract class GPartialFolderFieldsReq
   @override
   _i2.GPartialFolderFieldsData? parseData(Map<String, dynamic> json) =>
       _i2.GPartialFolderFieldsData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GPartialFolderFieldsData data) =>
+      data.toJson();
+
   static Serializer<GPartialFolderFieldsReq> get serializer =>
       _$gPartialFolderFieldsReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GPartialFolderFieldsReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GPartialFolderFieldsReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GPartialFolderFieldsReq.serializer,

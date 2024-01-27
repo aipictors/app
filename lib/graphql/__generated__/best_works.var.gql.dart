@@ -17,10 +17,12 @@ abstract class GBestWorksVars
 
   static Serializer<GBestWorksVars> get serializer =>
       _$gBestWorksVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GBestWorksVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GBestWorksVars? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GBestWorksVars.serializer,

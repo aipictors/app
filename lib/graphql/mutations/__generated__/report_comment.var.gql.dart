@@ -19,10 +19,12 @@ abstract class GReportCommentVars
   _i1.GReportCommentInput get input;
   static Serializer<GReportCommentVars> get serializer =>
       _$gReportCommentVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
         GReportCommentVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GReportCommentVars? fromJson(Map<String, dynamic> json) =>
       _i2.serializers.deserializeWith(
         GReportCommentVars.serializer,

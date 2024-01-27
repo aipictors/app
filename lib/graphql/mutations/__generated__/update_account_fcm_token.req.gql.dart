@@ -33,6 +33,7 @@ abstract class GUpdateAccountFcmTokenReq
       operationName: 'UpdateAccountFcmToken',
     )
     ..executeOnListen = true;
+
   @override
   _i3.GUpdateAccountFcmTokenVars get vars;
   @override
@@ -42,6 +43,7 @@ abstract class GUpdateAccountFcmTokenReq
         operation: operation,
         variables: vars.toJson(),
       );
+
   @override
   String? get requestId;
   @override
@@ -63,12 +65,28 @@ abstract class GUpdateAccountFcmTokenReq
   @override
   _i2.GUpdateAccountFcmTokenData? parseData(Map<String, dynamic> json) =>
       _i2.GUpdateAccountFcmTokenData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GUpdateAccountFcmTokenData data) =>
+      data.toJson();
+
+  @override
+  _i1.OperationRequest<_i2.GUpdateAccountFcmTokenData,
+      _i3.GUpdateAccountFcmTokenVars> transformOperation(
+          _i4.Operation Function(_i4.Operation) transform) =>
+      this.rebuild((b) => b..operation = transform(operation));
+
   static Serializer<GUpdateAccountFcmTokenReq> get serializer =>
       _$gUpdateAccountFcmTokenReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GUpdateAccountFcmTokenReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUpdateAccountFcmTokenReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GUpdateAccountFcmTokenReq.serializer,

@@ -17,15 +17,18 @@ abstract class GReportCommentData
 
   static void _initializeBuilder(GReportCommentDataBuilder b) =>
       b..G__typename = 'Mutation';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   bool? get reportComment;
   static Serializer<GReportCommentData> get serializer =>
       _$gReportCommentDataSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GReportCommentData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GReportCommentData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GReportCommentData.serializer,

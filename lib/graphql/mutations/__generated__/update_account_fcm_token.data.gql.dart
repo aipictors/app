@@ -19,15 +19,18 @@ abstract class GUpdateAccountFcmTokenData
 
   static void _initializeBuilder(GUpdateAccountFcmTokenDataBuilder b) =>
       b..G__typename = 'Mutation';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   GUpdateAccountFcmTokenData_updateAccountFcmToken get updateAccountFcmToken;
   static Serializer<GUpdateAccountFcmTokenData> get serializer =>
       _$gUpdateAccountFcmTokenDataSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUpdateAccountFcmTokenData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUpdateAccountFcmTokenData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUpdateAccountFcmTokenData.serializer,
@@ -48,16 +51,19 @@ abstract class GUpdateAccountFcmTokenData_updateAccountFcmToken
   static void _initializeBuilder(
           GUpdateAccountFcmTokenData_updateAccountFcmTokenBuilder b) =>
       b..G__typename = 'UserNode';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get id;
   static Serializer<GUpdateAccountFcmTokenData_updateAccountFcmToken>
       get serializer =>
           _$gUpdateAccountFcmTokenDataUpdateAccountFcmTokenSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUpdateAccountFcmTokenData_updateAccountFcmToken.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUpdateAccountFcmTokenData_updateAccountFcmToken? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(

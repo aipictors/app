@@ -101,11 +101,11 @@ class _$ConfigStateCopyWithImpl<$Res, $Val extends ConfigState>
 }
 
 /// @nodoc
-abstract class _$$_ConfigStateCopyWith<$Res>
+abstract class _$$ConfigStateImplCopyWith<$Res>
     implements $ConfigStateCopyWith<$Res> {
-  factory _$$_ConfigStateCopyWith(
-          _$_ConfigState value, $Res Function(_$_ConfigState) then) =
-      __$$_ConfigStateCopyWithImpl<$Res>;
+  factory _$$ConfigStateImplCopyWith(
+          _$ConfigStateImpl value, $Res Function(_$ConfigStateImpl) then) =
+      __$$ConfigStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -119,11 +119,11 @@ abstract class _$$_ConfigStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_ConfigStateCopyWithImpl<$Res>
-    extends _$ConfigStateCopyWithImpl<$Res, _$_ConfigState>
-    implements _$$_ConfigStateCopyWith<$Res> {
-  __$$_ConfigStateCopyWithImpl(
-      _$_ConfigState _value, $Res Function(_$_ConfigState) _then)
+class __$$ConfigStateImplCopyWithImpl<$Res>
+    extends _$ConfigStateCopyWithImpl<$Res, _$ConfigStateImpl>
+    implements _$$ConfigStateImplCopyWith<$Res> {
+  __$$ConfigStateImplCopyWithImpl(
+      _$ConfigStateImpl _value, $Res Function(_$ConfigStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -137,7 +137,7 @@ class __$$_ConfigStateCopyWithImpl<$Res>
     Object? lastFetchStatus = null,
     Object? eulaCheck = null,
   }) {
-    return _then(_$_ConfigState(
+    return _then(_$ConfigStateImpl(
       isTutorial: null == isTutorial
           ? _value.isTutorial
           : isTutorial // ignore: cast_nullable_to_non_nullable
@@ -172,8 +172,8 @@ class __$$_ConfigStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_ConfigState extends _ConfigState {
-  const _$_ConfigState(
+class _$ConfigStateImpl extends _ConfigState {
+  const _$ConfigStateImpl(
       {required this.isTutorial,
       required this.language,
       required this.themeMediumLayout,
@@ -204,10 +204,10 @@ class _$_ConfigState extends _ConfigState {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ConfigState &&
+            other is _$ConfigStateImpl &&
             (identical(other.isTutorial, isTutorial) ||
                 other.isTutorial == isTutorial) &&
             (identical(other.language, language) ||
@@ -231,8 +231,8 @@ class _$_ConfigState extends _ConfigState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ConfigStateCopyWith<_$_ConfigState> get copyWith =>
-      __$$_ConfigStateCopyWithImpl<_$_ConfigState>(this, _$identity);
+  _$$ConfigStateImplCopyWith<_$ConfigStateImpl> get copyWith =>
+      __$$ConfigStateImplCopyWithImpl<_$ConfigStateImpl>(this, _$identity);
 }
 
 abstract class _ConfigState extends ConfigState {
@@ -243,7 +243,7 @@ abstract class _ConfigState extends ConfigState {
       required final ThemeMode themeMode,
       required final Color? themeColor,
       required final RemoteConfigFetchStatus lastFetchStatus,
-      required final bool eulaCheck}) = _$_ConfigState;
+      required final bool eulaCheck}) = _$ConfigStateImpl;
   const _ConfigState._() : super._();
 
   @override
@@ -262,6 +262,6 @@ abstract class _ConfigState extends ConfigState {
   bool get eulaCheck;
   @override
   @JsonKey(ignore: true)
-  _$$_ConfigStateCopyWith<_$_ConfigState> get copyWith =>
+  _$$ConfigStateImplCopyWith<_$ConfigStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

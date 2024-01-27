@@ -17,15 +17,18 @@ abstract class GReportAlbumData
 
   static void _initializeBuilder(GReportAlbumDataBuilder b) =>
       b..G__typename = 'Mutation';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   bool? get reportAlbum;
   static Serializer<GReportAlbumData> get serializer =>
       _$gReportAlbumDataSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GReportAlbumData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GReportAlbumData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GReportAlbumData.serializer,

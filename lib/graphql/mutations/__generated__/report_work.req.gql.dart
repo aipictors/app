@@ -31,6 +31,7 @@ abstract class GReportWorkReq
       operationName: 'ReportWork',
     )
     ..executeOnListen = true;
+
   @override
   _i3.GReportWorkVars get vars;
   @override
@@ -40,6 +41,7 @@ abstract class GReportWorkReq
         operation: operation,
         variables: vars.toJson(),
       );
+
   @override
   String? get requestId;
   @override
@@ -61,12 +63,26 @@ abstract class GReportWorkReq
   @override
   _i2.GReportWorkData? parseData(Map<String, dynamic> json) =>
       _i2.GReportWorkData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GReportWorkData data) => data.toJson();
+
+  @override
+  _i1.OperationRequest<_i2.GReportWorkData, _i3.GReportWorkVars>
+      transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
+          this.rebuild((b) => b..operation = transform(operation));
+
   static Serializer<GReportWorkReq> get serializer =>
       _$gReportWorkReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GReportWorkReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GReportWorkReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GReportWorkReq.serializer,

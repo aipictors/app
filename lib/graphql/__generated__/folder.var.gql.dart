@@ -15,10 +15,12 @@ abstract class GFolderVars implements Built<GFolderVars, GFolderVarsBuilder> {
 
   String get id;
   static Serializer<GFolderVars> get serializer => _$gFolderVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GFolderVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GFolderVars? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GFolderVars.serializer,

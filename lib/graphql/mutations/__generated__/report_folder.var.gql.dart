@@ -19,10 +19,12 @@ abstract class GReportFolderVars
   _i1.GReportFolderInput get input;
   static Serializer<GReportFolderVars> get serializer =>
       _$gReportFolderVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
         GReportFolderVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GReportFolderVars? fromJson(Map<String, dynamic> json) =>
       _i2.serializers.deserializeWith(
         GReportFolderVars.serializer,

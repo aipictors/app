@@ -17,15 +17,18 @@ abstract class GReportWorkData
 
   static void _initializeBuilder(GReportWorkDataBuilder b) =>
       b..G__typename = 'Mutation';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   bool? get reportWork;
   static Serializer<GReportWorkData> get serializer =>
       _$gReportWorkDataSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GReportWorkData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GReportWorkData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GReportWorkData.serializer,

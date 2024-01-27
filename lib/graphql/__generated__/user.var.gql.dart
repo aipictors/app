@@ -15,10 +15,12 @@ abstract class GUserVars implements Built<GUserVars, GUserVarsBuilder> {
 
   String get userId;
   static Serializer<GUserVars> get serializer => _$gUserVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUserVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUserVars? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUserVars.serializer,

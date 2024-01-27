@@ -33,6 +33,7 @@ abstract class GViewerNotificationsReq
       operationName: 'ViewerNotifications',
     )
     ..executeOnListen = true;
+
   @override
   _i3.GViewerNotificationsVars get vars;
   @override
@@ -42,6 +43,7 @@ abstract class GViewerNotificationsReq
         operation: operation,
         variables: vars.toJson(),
       );
+
   @override
   String? get requestId;
   @override
@@ -63,12 +65,28 @@ abstract class GViewerNotificationsReq
   @override
   _i2.GViewerNotificationsData? parseData(Map<String, dynamic> json) =>
       _i2.GViewerNotificationsData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GViewerNotificationsData data) =>
+      data.toJson();
+
+  @override
+  _i1.OperationRequest<_i2.GViewerNotificationsData,
+      _i3.GViewerNotificationsVars> transformOperation(
+          _i4.Operation Function(_i4.Operation) transform) =>
+      this.rebuild((b) => b..operation = transform(operation));
+
   static Serializer<GViewerNotificationsReq> get serializer =>
       _$gViewerNotificationsReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GViewerNotificationsReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GViewerNotificationsReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GViewerNotificationsReq.serializer,

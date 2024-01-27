@@ -15,10 +15,12 @@ abstract class GAlbumVars implements Built<GAlbumVars, GAlbumVarsBuilder> {
 
   String get id;
   static Serializer<GAlbumVars> get serializer => _$gAlbumVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GAlbumVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GAlbumVars? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GAlbumVars.serializer,

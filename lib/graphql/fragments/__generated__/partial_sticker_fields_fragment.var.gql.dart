@@ -19,10 +19,12 @@ abstract class GPartialStickerFieldsVars
 
   static Serializer<GPartialStickerFieldsVars> get serializer =>
       _$gPartialStickerFieldsVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GPartialStickerFieldsVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GPartialStickerFieldsVars? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GPartialStickerFieldsVars.serializer,

@@ -19,10 +19,12 @@ abstract class GViewerFoldersVars
   int get limit;
   static Serializer<GViewerFoldersVars> get serializer =>
       _$gViewerFoldersVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GViewerFoldersVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GViewerFoldersVars? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GViewerFoldersVars.serializer,

@@ -15,10 +15,12 @@ abstract class GWorkVars implements Built<GWorkVars, GWorkVarsBuilder> {
 
   String get id;
   static Serializer<GWorkVars> get serializer => _$gWorkVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GWorkVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GWorkVars? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GWorkVars.serializer,

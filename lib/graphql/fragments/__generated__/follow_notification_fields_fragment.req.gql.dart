@@ -31,6 +31,7 @@ abstract class GFollowNotificationFieldsReq
   static void _initializeBuilder(GFollowNotificationFieldsReqBuilder b) => b
     ..document = _i4.document
     ..fragmentName = 'FollowNotificationFields';
+
   @override
   _i3.GFollowNotificationFieldsVars get vars;
   @override
@@ -42,12 +43,22 @@ abstract class GFollowNotificationFieldsReq
   @override
   _i2.GFollowNotificationFieldsData? parseData(Map<String, dynamic> json) =>
       _i2.GFollowNotificationFieldsData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GFollowNotificationFieldsData data) =>
+      data.toJson();
+
   static Serializer<GFollowNotificationFieldsReq> get serializer =>
       _$gFollowNotificationFieldsReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GFollowNotificationFieldsReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GFollowNotificationFieldsReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GFollowNotificationFieldsReq.serializer,

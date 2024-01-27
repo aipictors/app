@@ -21,15 +21,18 @@ abstract class GViewerMutedUsersData
 
   static void _initializeBuilder(GViewerMutedUsersDataBuilder b) =>
       b..G__typename = 'Query';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   GViewerMutedUsersData_viewer? get viewer;
   static Serializer<GViewerMutedUsersData> get serializer =>
       _$gViewerMutedUsersDataSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GViewerMutedUsersData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GViewerMutedUsersData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GViewerMutedUsersData.serializer,
@@ -49,15 +52,18 @@ abstract class GViewerMutedUsersData_viewer
 
   static void _initializeBuilder(GViewerMutedUsersData_viewerBuilder b) =>
       b..G__typename = 'Viewer';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   BuiltList<GViewerMutedUsersData_viewer_mutedUsers> get mutedUsers;
   static Serializer<GViewerMutedUsersData_viewer> get serializer =>
       _$gViewerMutedUsersDataViewerSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GViewerMutedUsersData_viewer.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GViewerMutedUsersData_viewer? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GViewerMutedUsersData_viewer.serializer,
@@ -79,6 +85,7 @@ abstract class GViewerMutedUsersData_viewer_mutedUsers
   static void _initializeBuilder(
           GViewerMutedUsersData_viewer_mutedUsersBuilder b) =>
       b..G__typename = 'UserNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -92,11 +99,13 @@ abstract class GViewerMutedUsersData_viewer_mutedUsers
   GViewerMutedUsersData_viewer_mutedUsers_iconImage? get iconImage;
   static Serializer<GViewerMutedUsersData_viewer_mutedUsers> get serializer =>
       _$gViewerMutedUsersDataViewerMutedUsersSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GViewerMutedUsersData_viewer_mutedUsers.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GViewerMutedUsersData_viewer_mutedUsers? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
@@ -119,6 +128,7 @@ abstract class GViewerMutedUsersData_viewer_mutedUsers_iconImage
   static void _initializeBuilder(
           GViewerMutedUsersData_viewer_mutedUsers_iconImageBuilder b) =>
       b..G__typename = 'ImageNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -129,11 +139,13 @@ abstract class GViewerMutedUsersData_viewer_mutedUsers_iconImage
   static Serializer<GViewerMutedUsersData_viewer_mutedUsers_iconImage>
       get serializer =>
           _$gViewerMutedUsersDataViewerMutedUsersIconImageSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GViewerMutedUsersData_viewer_mutedUsers_iconImage.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GViewerMutedUsersData_viewer_mutedUsers_iconImage? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(

@@ -33,6 +33,7 @@ abstract class GWorkCommentReplyNotificationFieldsReq
       b
         ..document = _i4.document
         ..fragmentName = 'WorkCommentReplyNotificationFields';
+
   @override
   _i3.GWorkCommentReplyNotificationFieldsVars get vars;
   @override
@@ -45,12 +46,23 @@ abstract class GWorkCommentReplyNotificationFieldsReq
   _i2.GWorkCommentReplyNotificationFieldsData? parseData(
           Map<String, dynamic> json) =>
       _i2.GWorkCommentReplyNotificationFieldsData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(
+          _i2.GWorkCommentReplyNotificationFieldsData data) =>
+      data.toJson();
+
   static Serializer<GWorkCommentReplyNotificationFieldsReq> get serializer =>
       _$gWorkCommentReplyNotificationFieldsReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GWorkCommentReplyNotificationFieldsReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GWorkCommentReplyNotificationFieldsReq? fromJson(
           Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(

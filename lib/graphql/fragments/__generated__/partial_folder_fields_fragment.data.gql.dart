@@ -31,6 +31,7 @@ abstract class GPartialFolderFieldsData
 
   static void _initializeBuilder(GPartialFolderFieldsDataBuilder b) =>
       b..G__typename = 'FolderNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -46,11 +47,13 @@ abstract class GPartialFolderFieldsData
   String? get thumbnailImageURL;
   static Serializer<GPartialFolderFieldsData> get serializer =>
       _$gPartialFolderFieldsDataSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
         GPartialFolderFieldsData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GPartialFolderFieldsData? fromJson(Map<String, dynamic> json) =>
       _i2.serializers.deserializeWith(
         GPartialFolderFieldsData.serializer,

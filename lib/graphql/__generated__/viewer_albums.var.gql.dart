@@ -19,10 +19,12 @@ abstract class GViewerAlbumsVars
   int get limit;
   static Serializer<GViewerAlbumsVars> get serializer =>
       _$gViewerAlbumsVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GViewerAlbumsVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GViewerAlbumsVars? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GViewerAlbumsVars.serializer,

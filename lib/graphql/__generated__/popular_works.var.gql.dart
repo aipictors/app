@@ -17,10 +17,12 @@ abstract class GPopularWorksVars
 
   static Serializer<GPopularWorksVars> get serializer =>
       _$gPopularWorksVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GPopularWorksVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GPopularWorksVars? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GPopularWorksVars.serializer,

@@ -31,6 +31,7 @@ abstract class GWorkCommentsReq
       operationName: 'WorkComments',
     )
     ..executeOnListen = true;
+
   @override
   _i3.GWorkCommentsVars get vars;
   @override
@@ -40,6 +41,7 @@ abstract class GWorkCommentsReq
         operation: operation,
         variables: vars.toJson(),
       );
+
   @override
   String? get requestId;
   @override
@@ -61,12 +63,26 @@ abstract class GWorkCommentsReq
   @override
   _i2.GWorkCommentsData? parseData(Map<String, dynamic> json) =>
       _i2.GWorkCommentsData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GWorkCommentsData data) => data.toJson();
+
+  @override
+  _i1.OperationRequest<_i2.GWorkCommentsData, _i3.GWorkCommentsVars>
+      transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
+          this.rebuild((b) => b..operation = transform(operation));
+
   static Serializer<GWorkCommentsReq> get serializer =>
       _$gWorkCommentsReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GWorkCommentsReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GWorkCommentsReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GWorkCommentsReq.serializer,

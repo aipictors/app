@@ -20,15 +20,18 @@ abstract class GViewerAlbumsData
 
   static void _initializeBuilder(GViewerAlbumsDataBuilder b) =>
       b..G__typename = 'Query';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   GViewerAlbumsData_viewer? get viewer;
   static Serializer<GViewerAlbumsData> get serializer =>
       _$gViewerAlbumsDataSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GViewerAlbumsData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GViewerAlbumsData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GViewerAlbumsData.serializer,
@@ -47,15 +50,18 @@ abstract class GViewerAlbumsData_viewer
 
   static void _initializeBuilder(GViewerAlbumsData_viewerBuilder b) =>
       b..G__typename = 'Viewer';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   BuiltList<GViewerAlbumsData_viewer_albums> get albums;
   static Serializer<GViewerAlbumsData_viewer> get serializer =>
       _$gViewerAlbumsDataViewerSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GViewerAlbumsData_viewer.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GViewerAlbumsData_viewer? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GViewerAlbumsData_viewer.serializer,
@@ -76,6 +82,7 @@ abstract class GViewerAlbumsData_viewer_albums
 
   static void _initializeBuilder(GViewerAlbumsData_viewer_albumsBuilder b) =>
       b..G__typename = 'AlbumNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -93,11 +100,13 @@ abstract class GViewerAlbumsData_viewer_albums
   GViewerAlbumsData_viewer_albums_thumbnailImage? get thumbnailImage;
   static Serializer<GViewerAlbumsData_viewer_albums> get serializer =>
       _$gViewerAlbumsDataViewerAlbumsSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GViewerAlbumsData_viewer_albums.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GViewerAlbumsData_viewer_albums? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GViewerAlbumsData_viewer_albums.serializer,
@@ -119,6 +128,7 @@ abstract class GViewerAlbumsData_viewer_albums_thumbnailImage
   static void _initializeBuilder(
           GViewerAlbumsData_viewer_albums_thumbnailImageBuilder b) =>
       b..G__typename = 'ImageNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -128,11 +138,13 @@ abstract class GViewerAlbumsData_viewer_albums_thumbnailImage
   String get downloadURL;
   static Serializer<GViewerAlbumsData_viewer_albums_thumbnailImage>
       get serializer => _$gViewerAlbumsDataViewerAlbumsThumbnailImageSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GViewerAlbumsData_viewer_albums_thumbnailImage.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GViewerAlbumsData_viewer_albums_thumbnailImage? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(

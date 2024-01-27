@@ -31,6 +31,7 @@ abstract class GCreateWorkLikeReq
       operationName: 'CreateWorkLike',
     )
     ..executeOnListen = true;
+
   @override
   _i3.GCreateWorkLikeVars get vars;
   @override
@@ -40,6 +41,7 @@ abstract class GCreateWorkLikeReq
         operation: operation,
         variables: vars.toJson(),
       );
+
   @override
   String? get requestId;
   @override
@@ -61,12 +63,27 @@ abstract class GCreateWorkLikeReq
   @override
   _i2.GCreateWorkLikeData? parseData(Map<String, dynamic> json) =>
       _i2.GCreateWorkLikeData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GCreateWorkLikeData data) =>
+      data.toJson();
+
+  @override
+  _i1.OperationRequest<_i2.GCreateWorkLikeData, _i3.GCreateWorkLikeVars>
+      transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
+          this.rebuild((b) => b..operation = transform(operation));
+
   static Serializer<GCreateWorkLikeReq> get serializer =>
       _$gCreateWorkLikeReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GCreateWorkLikeReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreateWorkLikeReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GCreateWorkLikeReq.serializer,

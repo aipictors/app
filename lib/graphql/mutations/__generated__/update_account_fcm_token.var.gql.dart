@@ -21,10 +21,12 @@ abstract class GUpdateAccountFcmTokenVars
   _i1.GUpdateAccountFcmTokenInput get input;
   static Serializer<GUpdateAccountFcmTokenVars> get serializer =>
       _$gUpdateAccountFcmTokenVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
         GUpdateAccountFcmTokenVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUpdateAccountFcmTokenVars? fromJson(Map<String, dynamic> json) =>
       _i2.serializers.deserializeWith(
         GUpdateAccountFcmTokenVars.serializer,

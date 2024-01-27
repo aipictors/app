@@ -19,10 +19,12 @@ abstract class GReportAlbumVars
   _i1.GReportAlbumInput get input;
   static Serializer<GReportAlbumVars> get serializer =>
       _$gReportAlbumVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
         GReportAlbumVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GReportAlbumVars? fromJson(Map<String, dynamic> json) =>
       _i2.serializers.deserializeWith(
         GReportAlbumVars.serializer,

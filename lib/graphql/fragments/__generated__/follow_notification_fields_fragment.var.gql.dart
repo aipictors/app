@@ -20,10 +20,12 @@ abstract class GFollowNotificationFieldsVars
 
   static Serializer<GFollowNotificationFieldsVars> get serializer =>
       _$gFollowNotificationFieldsVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GFollowNotificationFieldsVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GFollowNotificationFieldsVars? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GFollowNotificationFieldsVars.serializer,

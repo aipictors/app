@@ -17,15 +17,18 @@ abstract class GUpdateWorkData
 
   static void _initializeBuilder(GUpdateWorkDataBuilder b) =>
       b..G__typename = 'Mutation';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   GUpdateWorkData_updateWork get updateWork;
   static Serializer<GUpdateWorkData> get serializer =>
       _$gUpdateWorkDataSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUpdateWorkData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUpdateWorkData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUpdateWorkData.serializer,
@@ -44,6 +47,7 @@ abstract class GUpdateWorkData_updateWork
 
   static void _initializeBuilder(GUpdateWorkData_updateWorkBuilder b) =>
       b..G__typename = 'WorkNode';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get id;
@@ -51,10 +55,12 @@ abstract class GUpdateWorkData_updateWork
   String? get description;
   static Serializer<GUpdateWorkData_updateWork> get serializer =>
       _$gUpdateWorkDataUpdateWorkSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUpdateWorkData_updateWork.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUpdateWorkData_updateWork? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUpdateWorkData_updateWork.serializer,

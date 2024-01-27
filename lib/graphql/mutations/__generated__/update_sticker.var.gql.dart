@@ -19,10 +19,12 @@ abstract class GUpdateStickerVars
   _i1.GUpdateStickerInput get input;
   static Serializer<GUpdateStickerVars> get serializer =>
       _$gUpdateStickerVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
         GUpdateStickerVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUpdateStickerVars? fromJson(Map<String, dynamic> json) =>
       _i2.serializers.deserializeWith(
         GUpdateStickerVars.serializer,

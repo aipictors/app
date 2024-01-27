@@ -17,14 +17,17 @@ abstract class GAlbumData implements Built<GAlbumData, GAlbumDataBuilder> {
 
   static void _initializeBuilder(GAlbumDataBuilder b) =>
       b..G__typename = 'Query';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   GAlbumData_album? get album;
   static Serializer<GAlbumData> get serializer => _$gAlbumDataSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GAlbumData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GAlbumData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GAlbumData.serializer,
@@ -41,6 +44,7 @@ abstract class GAlbumData_album
 
   static void _initializeBuilder(GAlbumData_albumBuilder b) =>
       b..G__typename = 'AlbumNode';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get id;
@@ -53,10 +57,12 @@ abstract class GAlbumData_album
   GAlbumData_album_thumbnailImage? get thumbnailImage;
   static Serializer<GAlbumData_album> get serializer =>
       _$gAlbumDataAlbumSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GAlbumData_album.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GAlbumData_album? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GAlbumData_album.serializer,
@@ -76,6 +82,7 @@ abstract class GAlbumData_album_user
 
   static void _initializeBuilder(GAlbumData_album_userBuilder b) =>
       b..G__typename = 'UserNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -90,11 +97,13 @@ abstract class GAlbumData_album_user
   GAlbumData_album_user_viewer? get viewer;
   static Serializer<GAlbumData_album_user> get serializer =>
       _$gAlbumDataAlbumUserSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GAlbumData_album_user.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GAlbumData_album_user? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GAlbumData_album_user.serializer,
@@ -115,6 +124,7 @@ abstract class GAlbumData_album_user_iconImage
 
   static void _initializeBuilder(GAlbumData_album_user_iconImageBuilder b) =>
       b..G__typename = 'ImageNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -124,11 +134,13 @@ abstract class GAlbumData_album_user_iconImage
   String get downloadURL;
   static Serializer<GAlbumData_album_user_iconImage> get serializer =>
       _$gAlbumDataAlbumUserIconImageSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GAlbumData_album_user_iconImage.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GAlbumData_album_user_iconImage? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GAlbumData_album_user_iconImage.serializer,
@@ -148,16 +160,19 @@ abstract class GAlbumData_album_user_viewer
 
   static void _initializeBuilder(GAlbumData_album_user_viewerBuilder b) =>
       b..G__typename = 'UserViewerNode';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   bool get isFollowee;
   bool get isMuted;
   static Serializer<GAlbumData_album_user_viewer> get serializer =>
       _$gAlbumDataAlbumUserViewerSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GAlbumData_album_user_viewer.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GAlbumData_album_user_viewer? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GAlbumData_album_user_viewer.serializer,
@@ -177,16 +192,19 @@ abstract class GAlbumData_album_thumbnailImage
 
   static void _initializeBuilder(GAlbumData_album_thumbnailImageBuilder b) =>
       b..G__typename = 'ImageNode';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get id;
   String get downloadURL;
   static Serializer<GAlbumData_album_thumbnailImage> get serializer =>
       _$gAlbumDataAlbumThumbnailImageSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GAlbumData_album_thumbnailImage.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GAlbumData_album_thumbnailImage? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GAlbumData_album_thumbnailImage.serializer,

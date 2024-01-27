@@ -6,7 +6,7 @@ part of 'foreground_message_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$foregroundMessageHash() => r'76174303db11184459f6c89b8733449e239c3fe9';
+String _$foregroundMessageHash() => r'8dfc3af625ca56dd38fbc85cf2e81af1fedf801e';
 
 /// See also [foregroundMessage].
 @ProviderFor(foregroundMessage)

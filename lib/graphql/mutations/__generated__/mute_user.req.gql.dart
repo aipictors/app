@@ -31,6 +31,7 @@ abstract class GMuteUserReq
       operationName: 'MuteUser',
     )
     ..executeOnListen = true;
+
   @override
   _i3.GMuteUserVars get vars;
   @override
@@ -40,6 +41,7 @@ abstract class GMuteUserReq
         operation: operation,
         variables: vars.toJson(),
       );
+
   @override
   String? get requestId;
   @override
@@ -61,11 +63,25 @@ abstract class GMuteUserReq
   @override
   _i2.GMuteUserData? parseData(Map<String, dynamic> json) =>
       _i2.GMuteUserData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GMuteUserData data) => data.toJson();
+
+  @override
+  _i1.OperationRequest<_i2.GMuteUserData, _i3.GMuteUserVars> transformOperation(
+          _i4.Operation Function(_i4.Operation) transform) =>
+      this.rebuild((b) => b..operation = transform(operation));
+
   static Serializer<GMuteUserReq> get serializer => _$gMuteUserReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GMuteUserReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GMuteUserReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GMuteUserReq.serializer,

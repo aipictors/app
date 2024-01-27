@@ -31,6 +31,7 @@ abstract class GFolderWorksReq
       operationName: 'FolderWorks',
     )
     ..executeOnListen = true;
+
   @override
   _i3.GFolderWorksVars get vars;
   @override
@@ -40,6 +41,7 @@ abstract class GFolderWorksReq
         operation: operation,
         variables: vars.toJson(),
       );
+
   @override
   String? get requestId;
   @override
@@ -61,12 +63,26 @@ abstract class GFolderWorksReq
   @override
   _i2.GFolderWorksData? parseData(Map<String, dynamic> json) =>
       _i2.GFolderWorksData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GFolderWorksData data) => data.toJson();
+
+  @override
+  _i1.OperationRequest<_i2.GFolderWorksData, _i3.GFolderWorksVars>
+      transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
+          this.rebuild((b) => b..operation = transform(operation));
+
   static Serializer<GFolderWorksReq> get serializer =>
       _$gFolderWorksReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GFolderWorksReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GFolderWorksReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GFolderWorksReq.serializer,

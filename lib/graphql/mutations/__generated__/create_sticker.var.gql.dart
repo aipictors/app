@@ -19,10 +19,12 @@ abstract class GCreateStickerVars
   _i1.GCreateStickerInput get input;
   static Serializer<GCreateStickerVars> get serializer =>
       _$gCreateStickerVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
         GCreateStickerVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreateStickerVars? fromJson(Map<String, dynamic> json) =>
       _i2.serializers.deserializeWith(
         GCreateStickerVars.serializer,

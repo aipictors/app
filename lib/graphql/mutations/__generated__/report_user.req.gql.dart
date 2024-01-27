@@ -31,6 +31,7 @@ abstract class GReportUserReq
       operationName: 'ReportUser',
     )
     ..executeOnListen = true;
+
   @override
   _i3.GReportUserVars get vars;
   @override
@@ -40,6 +41,7 @@ abstract class GReportUserReq
         operation: operation,
         variables: vars.toJson(),
       );
+
   @override
   String? get requestId;
   @override
@@ -61,12 +63,26 @@ abstract class GReportUserReq
   @override
   _i2.GReportUserData? parseData(Map<String, dynamic> json) =>
       _i2.GReportUserData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GReportUserData data) => data.toJson();
+
+  @override
+  _i1.OperationRequest<_i2.GReportUserData, _i3.GReportUserVars>
+      transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
+          this.rebuild((b) => b..operation = transform(operation));
+
   static Serializer<GReportUserReq> get serializer =>
       _$gReportUserReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GReportUserReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GReportUserReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GReportUserReq.serializer,

@@ -19,10 +19,12 @@ abstract class GDeleteStickerVars
   _i1.GDeleteStickerInput get input;
   static Serializer<GDeleteStickerVars> get serializer =>
       _$gDeleteStickerVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
         GDeleteStickerVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GDeleteStickerVars? fromJson(Map<String, dynamic> json) =>
       _i2.serializers.deserializeWith(
         GDeleteStickerVars.serializer,

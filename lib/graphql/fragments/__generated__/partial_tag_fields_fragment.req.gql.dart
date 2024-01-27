@@ -30,6 +30,7 @@ abstract class GPartialTagFieldsReq
   static void _initializeBuilder(GPartialTagFieldsReqBuilder b) => b
     ..document = _i4.document
     ..fragmentName = 'PartialTagFields';
+
   @override
   _i3.GPartialTagFieldsVars get vars;
   @override
@@ -41,12 +42,22 @@ abstract class GPartialTagFieldsReq
   @override
   _i2.GPartialTagFieldsData? parseData(Map<String, dynamic> json) =>
       _i2.GPartialTagFieldsData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GPartialTagFieldsData data) =>
+      data.toJson();
+
   static Serializer<GPartialTagFieldsReq> get serializer =>
       _$gPartialTagFieldsReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GPartialTagFieldsReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GPartialTagFieldsReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GPartialTagFieldsReq.serializer,

@@ -17,10 +17,12 @@ abstract class GSubWorkFieldsVars
 
   static Serializer<GSubWorkFieldsVars> get serializer =>
       _$gSubWorkFieldsVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GSubWorkFieldsVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GSubWorkFieldsVars? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GSubWorkFieldsVars.serializer,

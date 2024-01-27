@@ -21,15 +21,18 @@ abstract class GViewerFoldersData
 
   static void _initializeBuilder(GViewerFoldersDataBuilder b) =>
       b..G__typename = 'Query';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   GViewerFoldersData_viewer? get viewer;
   static Serializer<GViewerFoldersData> get serializer =>
       _$gViewerFoldersDataSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GViewerFoldersData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GViewerFoldersData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GViewerFoldersData.serializer,
@@ -48,15 +51,18 @@ abstract class GViewerFoldersData_viewer
 
   static void _initializeBuilder(GViewerFoldersData_viewerBuilder b) =>
       b..G__typename = 'Viewer';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   BuiltList<GViewerFoldersData_viewer_folders> get folders;
   static Serializer<GViewerFoldersData_viewer> get serializer =>
       _$gViewerFoldersDataViewerSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GViewerFoldersData_viewer.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GViewerFoldersData_viewer? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GViewerFoldersData_viewer.serializer,
@@ -77,6 +83,7 @@ abstract class GViewerFoldersData_viewer_folders
 
   static void _initializeBuilder(GViewerFoldersData_viewer_foldersBuilder b) =>
       b..G__typename = 'FolderNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -92,11 +99,13 @@ abstract class GViewerFoldersData_viewer_folders
   String? get thumbnailImageURL;
   static Serializer<GViewerFoldersData_viewer_folders> get serializer =>
       _$gViewerFoldersDataViewerFoldersSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GViewerFoldersData_viewer_folders.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GViewerFoldersData_viewer_folders? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(

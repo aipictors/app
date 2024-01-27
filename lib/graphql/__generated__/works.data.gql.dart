@@ -18,14 +18,17 @@ abstract class GWorksData implements Built<GWorksData, GWorksDataBuilder> {
 
   static void _initializeBuilder(GWorksDataBuilder b) =>
       b..G__typename = 'Query';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
-  BuiltList<GWorksData_works>? get works;
+  BuiltList<GWorksData_works> get works;
   static Serializer<GWorksData> get serializer => _$gWorksDataSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GWorksData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GWorksData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GWorksData.serializer,
@@ -44,6 +47,7 @@ abstract class GWorksData_works
 
   static void _initializeBuilder(GWorksData_worksBuilder b) =>
       b..G__typename = 'WorkNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -61,11 +65,13 @@ abstract class GWorksData_works
   GWorksData_works_thumbnailImage? get thumbnailImage;
   static Serializer<GWorksData_works> get serializer =>
       _$gWorksDataWorksSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GWorksData_works.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GWorksData_works? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GWorksData_works.serializer,
@@ -86,6 +92,7 @@ abstract class GWorksData_works_thumbnailImage
 
   static void _initializeBuilder(GWorksData_works_thumbnailImageBuilder b) =>
       b..G__typename = 'ImageNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -95,11 +102,13 @@ abstract class GWorksData_works_thumbnailImage
   String get downloadURL;
   static Serializer<GWorksData_works_thumbnailImage> get serializer =>
       _$gWorksDataWorksThumbnailImageSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GWorksData_works_thumbnailImage.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GWorksData_works_thumbnailImage? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GWorksData_works_thumbnailImage.serializer,

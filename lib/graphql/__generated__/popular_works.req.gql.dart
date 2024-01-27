@@ -31,6 +31,7 @@ abstract class GPopularWorksReq
       operationName: 'PopularWorks',
     )
     ..executeOnListen = true;
+
   @override
   _i3.GPopularWorksVars get vars;
   @override
@@ -40,6 +41,7 @@ abstract class GPopularWorksReq
         operation: operation,
         variables: vars.toJson(),
       );
+
   @override
   String? get requestId;
   @override
@@ -61,12 +63,26 @@ abstract class GPopularWorksReq
   @override
   _i2.GPopularWorksData? parseData(Map<String, dynamic> json) =>
       _i2.GPopularWorksData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GPopularWorksData data) => data.toJson();
+
+  @override
+  _i1.OperationRequest<_i2.GPopularWorksData, _i3.GPopularWorksVars>
+      transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
+          this.rebuild((b) => b..operation = transform(operation));
+
   static Serializer<GPopularWorksReq> get serializer =>
       _$gPopularWorksReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GPopularWorksReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GPopularWorksReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GPopularWorksReq.serializer,

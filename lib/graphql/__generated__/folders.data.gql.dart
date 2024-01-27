@@ -23,14 +23,17 @@ abstract class GFoldersData
 
   static void _initializeBuilder(GFoldersDataBuilder b) =>
       b..G__typename = 'Query';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   BuiltList<GFoldersData_folders>? get folders;
   static Serializer<GFoldersData> get serializer => _$gFoldersDataSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GFoldersData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GFoldersData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GFoldersData.serializer,
@@ -50,6 +53,7 @@ abstract class GFoldersData_folders
 
   static void _initializeBuilder(GFoldersData_foldersBuilder b) =>
       b..G__typename = 'FolderNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -66,11 +70,13 @@ abstract class GFoldersData_folders
   GFoldersData_folders_user? get user;
   static Serializer<GFoldersData_folders> get serializer =>
       _$gFoldersDataFoldersSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GFoldersData_folders.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GFoldersData_folders? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GFoldersData_folders.serializer,
@@ -90,6 +96,7 @@ abstract class GFoldersData_folders_user
 
   static void _initializeBuilder(GFoldersData_folders_userBuilder b) =>
       b..G__typename = 'UserNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -103,11 +110,13 @@ abstract class GFoldersData_folders_user
   GFoldersData_folders_user_iconImage? get iconImage;
   static Serializer<GFoldersData_folders_user> get serializer =>
       _$gFoldersDataFoldersUserSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GFoldersData_folders_user.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GFoldersData_folders_user? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GFoldersData_folders_user.serializer,
@@ -129,6 +138,7 @@ abstract class GFoldersData_folders_user_iconImage
   static void _initializeBuilder(
           GFoldersData_folders_user_iconImageBuilder b) =>
       b..G__typename = 'ImageNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -138,11 +148,13 @@ abstract class GFoldersData_folders_user_iconImage
   String get downloadURL;
   static Serializer<GFoldersData_folders_user_iconImage> get serializer =>
       _$gFoldersDataFoldersUserIconImageSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GFoldersData_folders_user_iconImage.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GFoldersData_folders_user_iconImage? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(

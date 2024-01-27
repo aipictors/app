@@ -18,15 +18,18 @@ abstract class GDeleteFolderWorkData
 
   static void _initializeBuilder(GDeleteFolderWorkDataBuilder b) =>
       b..G__typename = 'Mutation';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   GDeleteFolderWorkData_deleteFolderWork get deleteFolderWork;
   static Serializer<GDeleteFolderWorkData> get serializer =>
       _$gDeleteFolderWorkDataSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GDeleteFolderWorkData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GDeleteFolderWorkData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GDeleteFolderWorkData.serializer,
@@ -47,15 +50,18 @@ abstract class GDeleteFolderWorkData_deleteFolderWork
   static void _initializeBuilder(
           GDeleteFolderWorkData_deleteFolderWorkBuilder b) =>
       b..G__typename = 'WorkNode';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get id;
   static Serializer<GDeleteFolderWorkData_deleteFolderWork> get serializer =>
       _$gDeleteFolderWorkDataDeleteFolderWorkSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GDeleteFolderWorkData_deleteFolderWork.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GDeleteFolderWorkData_deleteFolderWork? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(

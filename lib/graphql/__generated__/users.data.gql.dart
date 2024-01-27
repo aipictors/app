@@ -18,14 +18,17 @@ abstract class GUsersData implements Built<GUsersData, GUsersDataBuilder> {
 
   static void _initializeBuilder(GUsersDataBuilder b) =>
       b..G__typename = 'Query';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
-  BuiltList<GUsersData_users>? get users;
+  BuiltList<GUsersData_users> get users;
   static Serializer<GUsersData> get serializer => _$gUsersDataSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUsersData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUsersData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUsersData.serializer,
@@ -44,6 +47,7 @@ abstract class GUsersData_users
 
   static void _initializeBuilder(GUsersData_usersBuilder b) =>
       b..G__typename = 'UserNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -57,11 +61,13 @@ abstract class GUsersData_users
   GUsersData_users_iconImage? get iconImage;
   static Serializer<GUsersData_users> get serializer =>
       _$gUsersDataUsersSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUsersData_users.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUsersData_users? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUsersData_users.serializer,
@@ -81,6 +87,7 @@ abstract class GUsersData_users_iconImage
 
   static void _initializeBuilder(GUsersData_users_iconImageBuilder b) =>
       b..G__typename = 'ImageNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -90,11 +97,13 @@ abstract class GUsersData_users_iconImage
   String get downloadURL;
   static Serializer<GUsersData_users_iconImage> get serializer =>
       _$gUsersDataUsersIconImageSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUsersData_users_iconImage.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUsersData_users_iconImage? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUsersData_users_iconImage.serializer,

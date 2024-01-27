@@ -16,10 +16,12 @@ abstract class GHotWorksVars
       _$GHotWorksVars;
 
   static Serializer<GHotWorksVars> get serializer => _$gHotWorksVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GHotWorksVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GHotWorksVars? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GHotWorksVars.serializer,

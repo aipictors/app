@@ -24,10 +24,12 @@ abstract class GFeedDailyThemeWorksVars
   int get limit;
   static Serializer<GFeedDailyThemeWorksVars> get serializer =>
       _$gFeedDailyThemeWorksVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GFeedDailyThemeWorksVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GFeedDailyThemeWorksVars? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GFeedDailyThemeWorksVars.serializer,

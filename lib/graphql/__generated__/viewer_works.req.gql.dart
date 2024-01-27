@@ -31,6 +31,7 @@ abstract class GViewerWorksReq
       operationName: 'ViewerWorks',
     )
     ..executeOnListen = true;
+
   @override
   _i3.GViewerWorksVars get vars;
   @override
@@ -40,6 +41,7 @@ abstract class GViewerWorksReq
         operation: operation,
         variables: vars.toJson(),
       );
+
   @override
   String? get requestId;
   @override
@@ -61,12 +63,26 @@ abstract class GViewerWorksReq
   @override
   _i2.GViewerWorksData? parseData(Map<String, dynamic> json) =>
       _i2.GViewerWorksData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GViewerWorksData data) => data.toJson();
+
+  @override
+  _i1.OperationRequest<_i2.GViewerWorksData, _i3.GViewerWorksVars>
+      transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
+          this.rebuild((b) => b..operation = transform(operation));
+
   static Serializer<GViewerWorksReq> get serializer =>
       _$gViewerWorksReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GViewerWorksReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GViewerWorksReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GViewerWorksReq.serializer,

@@ -17,14 +17,17 @@ abstract class GUserData implements Built<GUserData, GUserDataBuilder> {
 
   static void _initializeBuilder(GUserDataBuilder b) =>
       b..G__typename = 'Query';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   GUserData_user? get user;
   static Serializer<GUserData> get serializer => _$gUserDataSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUserData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUserData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUserData.serializer,
@@ -41,6 +44,7 @@ abstract class GUserData_user
 
   static void _initializeBuilder(GUserData_userBuilder b) =>
       b..G__typename = 'UserNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -66,11 +70,13 @@ abstract class GUserData_user
   GUserData_user_headerImage? get headerImage;
   GUserData_user_viewer? get viewer;
   static Serializer<GUserData_user> get serializer => _$gUserDataUserSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUserData_user.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUserData_user? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUserData_user.serializer,
@@ -90,6 +96,7 @@ abstract class GUserData_user_iconImage
 
   static void _initializeBuilder(GUserData_user_iconImageBuilder b) =>
       b..G__typename = 'ImageNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -99,11 +106,13 @@ abstract class GUserData_user_iconImage
   String get downloadURL;
   static Serializer<GUserData_user_iconImage> get serializer =>
       _$gUserDataUserIconImageSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUserData_user_iconImage.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUserData_user_iconImage? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUserData_user_iconImage.serializer,
@@ -123,6 +132,7 @@ abstract class GUserData_user_headerImage
 
   static void _initializeBuilder(GUserData_user_headerImageBuilder b) =>
       b..G__typename = 'ImageNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -132,11 +142,13 @@ abstract class GUserData_user_headerImage
   String get downloadURL;
   static Serializer<GUserData_user_headerImage> get serializer =>
       _$gUserDataUserHeaderImageSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUserData_user_headerImage.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUserData_user_headerImage? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUserData_user_headerImage.serializer,
@@ -154,6 +166,7 @@ abstract class GUserData_user_viewer
 
   static void _initializeBuilder(GUserData_user_viewerBuilder b) =>
       b..G__typename = 'UserViewerNode';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get id;
@@ -162,10 +175,12 @@ abstract class GUserData_user_viewer
   bool get isMuted;
   static Serializer<GUserData_user_viewer> get serializer =>
       _$gUserDataUserViewerSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUserData_user_viewer.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUserData_user_viewer? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUserData_user_viewer.serializer,

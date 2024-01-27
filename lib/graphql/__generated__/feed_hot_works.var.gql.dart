@@ -17,10 +17,12 @@ abstract class GFeedHotWorksVars
 
   static Serializer<GFeedHotWorksVars> get serializer =>
       _$gFeedHotWorksVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GFeedHotWorksVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GFeedHotWorksVars? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GFeedHotWorksVars.serializer,

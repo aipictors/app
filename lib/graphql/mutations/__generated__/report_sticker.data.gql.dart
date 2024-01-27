@@ -17,15 +17,18 @@ abstract class GReportStickerData
 
   static void _initializeBuilder(GReportStickerDataBuilder b) =>
       b..G__typename = 'Mutation';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   bool? get reportSticker;
   static Serializer<GReportStickerData> get serializer =>
       _$gReportStickerDataSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GReportStickerData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GReportStickerData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GReportStickerData.serializer,

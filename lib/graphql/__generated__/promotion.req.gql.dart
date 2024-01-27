@@ -28,6 +28,7 @@ abstract class GPromotionReq
       operationName: 'Promotion',
     )
     ..executeOnListen = true;
+
   @override
   _i3.GPromotionVars get vars;
   @override
@@ -37,6 +38,7 @@ abstract class GPromotionReq
         operation: operation,
         variables: vars.toJson(),
       );
+
   @override
   String? get requestId;
   @override
@@ -58,11 +60,25 @@ abstract class GPromotionReq
   @override
   _i2.GPromotionData? parseData(Map<String, dynamic> json) =>
       _i2.GPromotionData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GPromotionData data) => data.toJson();
+
+  @override
+  _i1.OperationRequest<_i2.GPromotionData, _i3.GPromotionVars>
+      transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
+          this.rebuild((b) => b..operation = transform(operation));
+
   static Serializer<GPromotionReq> get serializer => _$gPromotionReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GPromotionReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GPromotionReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GPromotionReq.serializer,

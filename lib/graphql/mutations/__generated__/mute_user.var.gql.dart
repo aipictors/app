@@ -18,10 +18,12 @@ abstract class GMuteUserVars
 
   _i1.GMuteUserInput get input;
   static Serializer<GMuteUserVars> get serializer => _$gMuteUserVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
         GMuteUserVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GMuteUserVars? fromJson(Map<String, dynamic> json) =>
       _i2.serializers.deserializeWith(
         GMuteUserVars.serializer,

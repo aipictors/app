@@ -19,10 +19,12 @@ abstract class GCreateFolderVars
   _i1.GCreateFolderInput get input;
   static Serializer<GCreateFolderVars> get serializer =>
       _$gCreateFolderVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
         GCreateFolderVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreateFolderVars? fromJson(Map<String, dynamic> json) =>
       _i2.serializers.deserializeWith(
         GCreateFolderVars.serializer,

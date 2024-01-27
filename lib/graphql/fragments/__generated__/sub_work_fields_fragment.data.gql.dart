@@ -41,6 +41,7 @@ abstract class GSubWorkFieldsData
 
   static void _initializeBuilder(GSubWorkFieldsDataBuilder b) =>
       b..G__typename = 'SubWorkNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -52,11 +53,13 @@ abstract class GSubWorkFieldsData
   GSubWorkFieldsData_thumbnailImage get thumbnailImage;
   static Serializer<GSubWorkFieldsData> get serializer =>
       _$gSubWorkFieldsDataSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GSubWorkFieldsData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GSubWorkFieldsData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GSubWorkFieldsData.serializer,
@@ -76,6 +79,7 @@ abstract class GSubWorkFieldsData_image
 
   static void _initializeBuilder(GSubWorkFieldsData_imageBuilder b) =>
       b..G__typename = 'ImageNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -85,11 +89,13 @@ abstract class GSubWorkFieldsData_image
   String get downloadURL;
   static Serializer<GSubWorkFieldsData_image> get serializer =>
       _$gSubWorkFieldsDataImageSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GSubWorkFieldsData_image.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GSubWorkFieldsData_image? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GSubWorkFieldsData_image.serializer,
@@ -110,6 +116,7 @@ abstract class GSubWorkFieldsData_thumbnailImage
 
   static void _initializeBuilder(GSubWorkFieldsData_thumbnailImageBuilder b) =>
       b..G__typename = 'ImageNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -119,11 +126,13 @@ abstract class GSubWorkFieldsData_thumbnailImage
   String get downloadURL;
   static Serializer<GSubWorkFieldsData_thumbnailImage> get serializer =>
       _$gSubWorkFieldsDataThumbnailImageSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GSubWorkFieldsData_thumbnailImage.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GSubWorkFieldsData_thumbnailImage? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(

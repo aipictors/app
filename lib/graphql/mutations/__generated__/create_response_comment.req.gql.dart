@@ -33,6 +33,7 @@ abstract class GCreateResponseCommentReq
       operationName: 'CreateResponseComment',
     )
     ..executeOnListen = true;
+
   @override
   _i3.GCreateResponseCommentVars get vars;
   @override
@@ -42,6 +43,7 @@ abstract class GCreateResponseCommentReq
         operation: operation,
         variables: vars.toJson(),
       );
+
   @override
   String? get requestId;
   @override
@@ -63,12 +65,28 @@ abstract class GCreateResponseCommentReq
   @override
   _i2.GCreateResponseCommentData? parseData(Map<String, dynamic> json) =>
       _i2.GCreateResponseCommentData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GCreateResponseCommentData data) =>
+      data.toJson();
+
+  @override
+  _i1.OperationRequest<_i2.GCreateResponseCommentData,
+      _i3.GCreateResponseCommentVars> transformOperation(
+          _i4.Operation Function(_i4.Operation) transform) =>
+      this.rebuild((b) => b..operation = transform(operation));
+
   static Serializer<GCreateResponseCommentReq> get serializer =>
       _$gCreateResponseCommentReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GCreateResponseCommentReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreateResponseCommentReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GCreateResponseCommentReq.serializer,

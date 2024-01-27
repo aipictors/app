@@ -30,6 +30,7 @@ abstract class GPartialPromotionFieldsReq
   static void _initializeBuilder(GPartialPromotionFieldsReqBuilder b) => b
     ..document = _i4.document
     ..fragmentName = 'PartialPromotionFields';
+
   @override
   _i3.GPartialPromotionFieldsVars get vars;
   @override
@@ -41,12 +42,22 @@ abstract class GPartialPromotionFieldsReq
   @override
   _i2.GPartialPromotionFieldsData? parseData(Map<String, dynamic> json) =>
       _i2.GPartialPromotionFieldsData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GPartialPromotionFieldsData data) =>
+      data.toJson();
+
   static Serializer<GPartialPromotionFieldsReq> get serializer =>
       _$gPartialPromotionFieldsReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GPartialPromotionFieldsReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GPartialPromotionFieldsReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GPartialPromotionFieldsReq.serializer,

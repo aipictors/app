@@ -28,6 +28,7 @@ abstract class GUserFieldsReq
   static void _initializeBuilder(GUserFieldsReqBuilder b) => b
     ..document = _i4.document
     ..fragmentName = 'UserFields';
+
   @override
   _i3.GUserFieldsVars get vars;
   @override
@@ -39,12 +40,21 @@ abstract class GUserFieldsReq
   @override
   _i2.GUserFieldsData? parseData(Map<String, dynamic> json) =>
       _i2.GUserFieldsData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GUserFieldsData data) => data.toJson();
+
   static Serializer<GUserFieldsReq> get serializer =>
       _$gUserFieldsReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GUserFieldsReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUserFieldsReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GUserFieldsReq.serializer,

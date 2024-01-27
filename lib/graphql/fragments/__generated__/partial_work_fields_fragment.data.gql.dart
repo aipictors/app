@@ -38,6 +38,7 @@ abstract class GPartialWorkFieldsData
 
   static void _initializeBuilder(GPartialWorkFieldsDataBuilder b) =>
       b..G__typename = 'WorkNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -55,11 +56,13 @@ abstract class GPartialWorkFieldsData
   GPartialWorkFieldsData_thumbnailImage? get thumbnailImage;
   static Serializer<GPartialWorkFieldsData> get serializer =>
       _$gPartialWorkFieldsDataSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GPartialWorkFieldsData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GPartialWorkFieldsData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GPartialWorkFieldsData.serializer,
@@ -81,6 +84,7 @@ abstract class GPartialWorkFieldsData_thumbnailImage
   static void _initializeBuilder(
           GPartialWorkFieldsData_thumbnailImageBuilder b) =>
       b..G__typename = 'ImageNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -90,11 +94,13 @@ abstract class GPartialWorkFieldsData_thumbnailImage
   String get downloadURL;
   static Serializer<GPartialWorkFieldsData_thumbnailImage> get serializer =>
       _$gPartialWorkFieldsDataThumbnailImageSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GPartialWorkFieldsData_thumbnailImage.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GPartialWorkFieldsData_thumbnailImage? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(

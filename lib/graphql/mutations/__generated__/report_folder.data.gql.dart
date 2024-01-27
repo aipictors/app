@@ -17,15 +17,18 @@ abstract class GReportFolderData
 
   static void _initializeBuilder(GReportFolderDataBuilder b) =>
       b..G__typename = 'Mutation';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   bool? get reportFolder;
   static Serializer<GReportFolderData> get serializer =>
       _$gReportFolderDataSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GReportFolderData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GReportFolderData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GReportFolderData.serializer,

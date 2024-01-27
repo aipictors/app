@@ -17,14 +17,17 @@ abstract class GStickerData
 
   static void _initializeBuilder(GStickerDataBuilder b) =>
       b..G__typename = 'Query';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   GStickerData_sticker? get sticker;
   static Serializer<GStickerData> get serializer => _$gStickerDataSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GStickerData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GStickerData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GStickerData.serializer,
@@ -42,6 +45,7 @@ abstract class GStickerData_sticker
 
   static void _initializeBuilder(GStickerData_stickerBuilder b) =>
       b..G__typename = 'StickerNode';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get id;
@@ -53,10 +57,12 @@ abstract class GStickerData_sticker
   int get usesCount;
   static Serializer<GStickerData_sticker> get serializer =>
       _$gStickerDataStickerSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GStickerData_sticker.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GStickerData_sticker? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GStickerData_sticker.serializer,
@@ -75,16 +81,19 @@ abstract class GStickerData_sticker_image
 
   static void _initializeBuilder(GStickerData_sticker_imageBuilder b) =>
       b..G__typename = 'ImageNode';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get id;
   String get downloadURL;
   static Serializer<GStickerData_sticker_image> get serializer =>
       _$gStickerDataStickerImageSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GStickerData_sticker_image.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GStickerData_sticker_image? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GStickerData_sticker_image.serializer,

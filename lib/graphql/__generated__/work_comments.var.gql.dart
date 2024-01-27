@@ -18,10 +18,12 @@ abstract class GWorkCommentsVars
   String get workId;
   static Serializer<GWorkCommentsVars> get serializer =>
       _$gWorkCommentsVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GWorkCommentsVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GWorkCommentsVars? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GWorkCommentsVars.serializer,

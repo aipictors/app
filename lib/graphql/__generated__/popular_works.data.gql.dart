@@ -20,15 +20,18 @@ abstract class GPopularWorksData
 
   static void _initializeBuilder(GPopularWorksDataBuilder b) =>
       b..G__typename = 'Query';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   BuiltList<GPopularWorksData_popularWorks> get popularWorks;
   static Serializer<GPopularWorksData> get serializer =>
       _$gPopularWorksDataSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GPopularWorksData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GPopularWorksData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GPopularWorksData.serializer,
@@ -49,6 +52,7 @@ abstract class GPopularWorksData_popularWorks
 
   static void _initializeBuilder(GPopularWorksData_popularWorksBuilder b) =>
       b..G__typename = 'WorkNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -66,11 +70,13 @@ abstract class GPopularWorksData_popularWorks
   GPopularWorksData_popularWorks_thumbnailImage? get thumbnailImage;
   static Serializer<GPopularWorksData_popularWorks> get serializer =>
       _$gPopularWorksDataPopularWorksSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GPopularWorksData_popularWorks.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GPopularWorksData_popularWorks? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GPopularWorksData_popularWorks.serializer,
@@ -92,6 +98,7 @@ abstract class GPopularWorksData_popularWorks_thumbnailImage
   static void _initializeBuilder(
           GPopularWorksData_popularWorks_thumbnailImageBuilder b) =>
       b..G__typename = 'ImageNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -101,11 +108,13 @@ abstract class GPopularWorksData_popularWorks_thumbnailImage
   String get downloadURL;
   static Serializer<GPopularWorksData_popularWorks_thumbnailImage>
       get serializer => _$gPopularWorksDataPopularWorksThumbnailImageSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GPopularWorksData_popularWorks_thumbnailImage.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GPopularWorksData_popularWorks_thumbnailImage? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(

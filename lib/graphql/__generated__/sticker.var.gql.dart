@@ -17,10 +17,12 @@ abstract class GStickerVars
 
   String get id;
   static Serializer<GStickerVars> get serializer => _$gStickerVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GStickerVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GStickerVars? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GStickerVars.serializer,

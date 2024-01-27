@@ -18,15 +18,18 @@ abstract class GLoginWithPasswordData
 
   static void _initializeBuilder(GLoginWithPasswordDataBuilder b) =>
       b..G__typename = 'Mutation';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   GLoginWithPasswordData_loginWithPassword get loginWithPassword;
   static Serializer<GLoginWithPasswordData> get serializer =>
       _$gLoginWithPasswordDataSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GLoginWithPasswordData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GLoginWithPasswordData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GLoginWithPasswordData.serializer,
@@ -47,15 +50,18 @@ abstract class GLoginWithPasswordData_loginWithPassword
   static void _initializeBuilder(
           GLoginWithPasswordData_loginWithPasswordBuilder b) =>
       b..G__typename = 'LoginResult';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get token;
   static Serializer<GLoginWithPasswordData_loginWithPassword> get serializer =>
       _$gLoginWithPasswordDataLoginWithPasswordSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GLoginWithPasswordData_loginWithPassword.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GLoginWithPasswordData_loginWithPassword? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(

@@ -36,6 +36,7 @@ abstract class GPartialUserFieldsData
 
   static void _initializeBuilder(GPartialUserFieldsDataBuilder b) =>
       b..G__typename = 'UserNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -49,11 +50,13 @@ abstract class GPartialUserFieldsData
   GPartialUserFieldsData_iconImage? get iconImage;
   static Serializer<GPartialUserFieldsData> get serializer =>
       _$gPartialUserFieldsDataSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GPartialUserFieldsData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GPartialUserFieldsData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GPartialUserFieldsData.serializer,
@@ -74,6 +77,7 @@ abstract class GPartialUserFieldsData_iconImage
 
   static void _initializeBuilder(GPartialUserFieldsData_iconImageBuilder b) =>
       b..G__typename = 'ImageNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -83,11 +87,13 @@ abstract class GPartialUserFieldsData_iconImage
   String get downloadURL;
   static Serializer<GPartialUserFieldsData_iconImage> get serializer =>
       _$gPartialUserFieldsDataIconImageSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GPartialUserFieldsData_iconImage.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GPartialUserFieldsData_iconImage? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(

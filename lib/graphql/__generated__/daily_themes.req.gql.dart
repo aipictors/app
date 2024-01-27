@@ -31,6 +31,7 @@ abstract class GDailyThemesReq
       operationName: 'DailyThemes',
     )
     ..executeOnListen = true;
+
   @override
   _i3.GDailyThemesVars get vars;
   @override
@@ -40,6 +41,7 @@ abstract class GDailyThemesReq
         operation: operation,
         variables: vars.toJson(),
       );
+
   @override
   String? get requestId;
   @override
@@ -61,12 +63,26 @@ abstract class GDailyThemesReq
   @override
   _i2.GDailyThemesData? parseData(Map<String, dynamic> json) =>
       _i2.GDailyThemesData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GDailyThemesData data) => data.toJson();
+
+  @override
+  _i1.OperationRequest<_i2.GDailyThemesData, _i3.GDailyThemesVars>
+      transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
+          this.rebuild((b) => b..operation = transform(operation));
+
   static Serializer<GDailyThemesReq> get serializer =>
       _$gDailyThemesReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GDailyThemesReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GDailyThemesReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GDailyThemesReq.serializer,

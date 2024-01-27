@@ -19,10 +19,12 @@ abstract class GReportWorkVars
   _i1.GReportWorkInput get input;
   static Serializer<GReportWorkVars> get serializer =>
       _$gReportWorkVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
         GReportWorkVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GReportWorkVars? fromJson(Map<String, dynamic> json) =>
       _i2.serializers.deserializeWith(
         GReportWorkVars.serializer,

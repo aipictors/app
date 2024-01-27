@@ -31,6 +31,7 @@ abstract class GDeleteStickerReq
       operationName: 'DeleteSticker',
     )
     ..executeOnListen = true;
+
   @override
   _i3.GDeleteStickerVars get vars;
   @override
@@ -40,6 +41,7 @@ abstract class GDeleteStickerReq
         operation: operation,
         variables: vars.toJson(),
       );
+
   @override
   String? get requestId;
   @override
@@ -61,12 +63,26 @@ abstract class GDeleteStickerReq
   @override
   _i2.GDeleteStickerData? parseData(Map<String, dynamic> json) =>
       _i2.GDeleteStickerData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GDeleteStickerData data) => data.toJson();
+
+  @override
+  _i1.OperationRequest<_i2.GDeleteStickerData, _i3.GDeleteStickerVars>
+      transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
+          this.rebuild((b) => b..operation = transform(operation));
+
   static Serializer<GDeleteStickerReq> get serializer =>
       _$gDeleteStickerReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GDeleteStickerReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GDeleteStickerReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GDeleteStickerReq.serializer,

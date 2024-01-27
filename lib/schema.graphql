@@ -320,6 +320,8 @@ type Mutation {
   createFolderWork(input: CreateFolderWorkInput!): WorkNode!
   "画像生成のタスクを作成する"
   createImageGenerationTask(input: CreateImageGenerationTaskInput!): ImageGenerationTaskNode!
+  "画像生成のタスクのレーティングを変更する"
+  updateRatingImageGenerationTask(input: UpdateRatingImageGenerationTaskInput!): Boolean
   "メッセージを作成する"
   createMessage(input: CreateMessageInput!): MessageNode!
   "コラムを作成する"
@@ -382,6 +384,8 @@ type Mutation {
   reportUser(input: ReportUserInput!): Boolean
   "作品を報告する"
   reportWork(input: ReportWorkInput!): Boolean
+  "ユーザのフォローを解除する"
+  signImageGenerationTerms(input: SignImageGenerationTermsInput!): UserNode!
   "ユーザのフォローを解除する"
   unfollowUser(input: UnfollowUserInput!): UserNode!
   "タグのミュートを解除する"
@@ -1262,6 +1266,8 @@ type Query {
   imageModel(id: ID!): ImageModelNode!
   "画像生成モデル"
   imageModels: [ImageModelNode!]!
+  "画像生成履歴"
+  imageGenerationTask(id: ID!): ImageGenerationTaskNode!
   ""
   milestones(where: MilestonesWhereInput!): [MilestoneNode!]!
   """
@@ -1448,6 +1454,8 @@ type UserNode implements Node {
   shareText: String
   "FCMトークン"
   fcmToken: String
+  "画像生成機能の利用規約に同意済みである"
+  hasSignedImageGenerationTerms: Boolean!
   "フォローされている"
   isFollower: Boolean!
   "フォローしている"
@@ -1455,6 +1463,7 @@ type UserNode implements Node {
   "ミュートしている"
   isMuted: Boolean!
   viewer: UserViewerNode @deprecated(reason: "No longer supported")
+  nanoid: String
 }
 "ユーザの設定"
 type UserSettingNode implements Node {
@@ -1620,6 +1629,8 @@ type WorkNode implements Node {
   imageHeight: Int!
   "画像の比率"
   imageAspectRatio: Float!
+  "サムネイル画像の位置"
+  thumbnailImagePosition: Int
   "画像URL（サムネイル）"
   thumbnailImageId: ID!
   thumbnailImage: ImageNode @deprecated(reason: "No longer supported")
@@ -1676,10 +1687,15 @@ type WorkNode implements Node {
   openGraphImageURL: String
   "シェア"
   shareText: String
+  "次の作品"
+  nextWork: WorkNode
+  "前の作品"
+  previousWork: WorkNode
   "いいねしている"
   isLiked: Boolean!
   "コレクションに追加している"
   isInCollection: Boolean!
+  "非推奨"
   viewer: WorkViewerNode @deprecated(reason: "isLikedを使用する")
 }
 type WorkViewerNode implements Node {
@@ -1739,6 +1755,19 @@ enum ImageGenerationSizeType {
   SD1_512_512
   SD1_512_768
   SD1_768_512
+  SD2_384_960
+  SD2_960_384
+  SD3_1216_1216
+  SD3_832_1216
+  SD3_1216_832
+  SD3_960_384
+  SD3_640_1536
+  SD3_1536_640
+  SD3_1024_1024
+  SD3_896_1152
+  SD3_1152_896
+  SD3_1152_1152
+  SD3_896_896
 }
 enum ImageGenerationStatus {
   PENDING
@@ -1864,6 +1893,10 @@ input BlockPromptonUserInput {
 }
 input CancelPromptonRequestInput {
   requestId: String!
+}
+input ChangeImageGenerationTaskInput {
+  taskId: ID!
+  rating: Int!
 }
 input ChangePromptonFolderToPaidInput {
   folderId: String!
@@ -2302,6 +2335,9 @@ input ReportWorkInput {
   workId: ID!
   reason: ReportReason!
 }
+input SignImageGenerationTermsInput {
+  version: Int!
+}
 input StickersWhereInput {
   search: String
   isSensitive: Boolean
@@ -2428,6 +2464,10 @@ input UpdatePromptonWorkInput {
   title: String
   body: String
 }
+input UpdateRatingImageGenerationTaskInput {
+  id: ID!
+  rating: Int!
+}
 input UpdateStickerInput {
   stickerId: ID!
   title: String!
@@ -2483,6 +2523,8 @@ input WorksWhereInput {
   searchTargets: [String!]
   "センシティブである"
   isSensitive: Boolean
+  "タグの名前"
+  tagNames: [String!]
 }
 directive @defer(label: String, if: Boolean! = true) on FRAGMENT_SPREAD | INLINE_FRAGMENT
 "Exposes a URL that specifies the behavior of this scalar."

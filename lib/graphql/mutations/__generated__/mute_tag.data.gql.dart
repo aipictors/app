@@ -17,14 +17,17 @@ abstract class GMuteTagData
 
   static void _initializeBuilder(GMuteTagDataBuilder b) =>
       b..G__typename = 'Mutation';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   GMuteTagData_muteTag? get muteTag;
   static Serializer<GMuteTagData> get serializer => _$gMuteTagDataSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GMuteTagData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GMuteTagData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GMuteTagData.serializer,
@@ -42,16 +45,19 @@ abstract class GMuteTagData_muteTag
 
   static void _initializeBuilder(GMuteTagData_muteTagBuilder b) =>
       b..G__typename = 'TagNode';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get id;
   GMuteTagData_muteTag_viewer? get viewer;
   static Serializer<GMuteTagData_muteTag> get serializer =>
       _$gMuteTagDataMuteTagSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GMuteTagData_muteTag.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GMuteTagData_muteTag? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GMuteTagData_muteTag.serializer,
@@ -70,16 +76,19 @@ abstract class GMuteTagData_muteTag_viewer
 
   static void _initializeBuilder(GMuteTagData_muteTag_viewerBuilder b) =>
       b..G__typename = 'TagViewerNode';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get id;
   bool get isMuted;
   static Serializer<GMuteTagData_muteTag_viewer> get serializer =>
       _$gMuteTagDataMuteTagViewerSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GMuteTagData_muteTag_viewer.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GMuteTagData_muteTag_viewer? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GMuteTagData_muteTag_viewer.serializer,

@@ -30,6 +30,7 @@ abstract class GPartialStickerFieldsReq
   static void _initializeBuilder(GPartialStickerFieldsReqBuilder b) => b
     ..document = _i4.document
     ..fragmentName = 'PartialStickerFields';
+
   @override
   _i3.GPartialStickerFieldsVars get vars;
   @override
@@ -41,12 +42,22 @@ abstract class GPartialStickerFieldsReq
   @override
   _i2.GPartialStickerFieldsData? parseData(Map<String, dynamic> json) =>
       _i2.GPartialStickerFieldsData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GPartialStickerFieldsData data) =>
+      data.toJson();
+
   static Serializer<GPartialStickerFieldsReq> get serializer =>
       _$gPartialStickerFieldsReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GPartialStickerFieldsReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GPartialStickerFieldsReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GPartialStickerFieldsReq.serializer,

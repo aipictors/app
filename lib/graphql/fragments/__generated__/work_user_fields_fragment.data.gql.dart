@@ -35,6 +35,7 @@ abstract class GWorkUserFieldsData
 
   static void _initializeBuilder(GWorkUserFieldsDataBuilder b) =>
       b..G__typename = 'UserNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -48,11 +49,13 @@ abstract class GWorkUserFieldsData
   GWorkUserFieldsData_iconImage? get iconImage;
   static Serializer<GWorkUserFieldsData> get serializer =>
       _$gWorkUserFieldsDataSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GWorkUserFieldsData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GWorkUserFieldsData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GWorkUserFieldsData.serializer,
@@ -73,6 +76,7 @@ abstract class GWorkUserFieldsData_iconImage
 
   static void _initializeBuilder(GWorkUserFieldsData_iconImageBuilder b) =>
       b..G__typename = 'ImageNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -82,11 +86,13 @@ abstract class GWorkUserFieldsData_iconImage
   String get downloadURL;
   static Serializer<GWorkUserFieldsData_iconImage> get serializer =>
       _$gWorkUserFieldsDataIconImageSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GWorkUserFieldsData_iconImage.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GWorkUserFieldsData_iconImage? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GWorkUserFieldsData_iconImage.serializer,

@@ -18,10 +18,12 @@ abstract class GPartialUserFieldsVars
 
   static Serializer<GPartialUserFieldsVars> get serializer =>
       _$gPartialUserFieldsVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GPartialUserFieldsVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GPartialUserFieldsVars? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GPartialUserFieldsVars.serializer,

@@ -44,16 +44,12 @@ class _$GFeedLatestWorksDataSerializer
       '__typename',
       serializers.serialize(object.G__typename,
           specifiedType: const FullType(String)),
+      'works',
+      serializers.serialize(object.works,
+          specifiedType: const FullType(
+              BuiltList, const [const FullType(GFeedLatestWorksData_works)])),
     ];
-    Object? value;
-    value = object.works;
-    if (value != null) {
-      result
-        ..add('works')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(BuiltList,
-                const [const FullType(GFeedLatestWorksData_works)])));
-    }
+
     return result;
   }
 
@@ -562,16 +558,18 @@ class _$GFeedLatestWorksData extends GFeedLatestWorksData {
   @override
   final String G__typename;
   @override
-  final BuiltList<GFeedLatestWorksData_works>? works;
+  final BuiltList<GFeedLatestWorksData_works> works;
 
   factory _$GFeedLatestWorksData(
           [void Function(GFeedLatestWorksDataBuilder)? updates]) =>
       (new GFeedLatestWorksDataBuilder()..update(updates))._build();
 
-  _$GFeedLatestWorksData._({required this.G__typename, this.works})
+  _$GFeedLatestWorksData._({required this.G__typename, required this.works})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename, r'GFeedLatestWorksData', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(
+        works, r'GFeedLatestWorksData', 'works');
   }
 
   @override
@@ -631,7 +629,7 @@ class GFeedLatestWorksDataBuilder
     final $v = _$v;
     if ($v != null) {
       _G__typename = $v.G__typename;
-      _works = $v.works?.toBuilder();
+      _works = $v.works.toBuilder();
       _$v = null;
     }
     return this;
@@ -658,12 +656,12 @@ class GFeedLatestWorksDataBuilder
           new _$GFeedLatestWorksData._(
               G__typename: BuiltValueNullFieldError.checkNotNull(
                   G__typename, r'GFeedLatestWorksData', 'G__typename'),
-              works: _works?.build());
+              works: works.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'works';
-        _works?.build();
+        works.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'GFeedLatestWorksData', _$failedField, e.toString());

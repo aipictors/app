@@ -32,6 +32,7 @@ abstract class GPartialPromotionFieldsData
 
   static void _initializeBuilder(GPartialPromotionFieldsDataBuilder b) =>
       b..G__typename = 'PromotionNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -51,11 +52,13 @@ abstract class GPartialPromotionFieldsData
   int get endDateTime;
   static Serializer<GPartialPromotionFieldsData> get serializer =>
       _$gPartialPromotionFieldsDataSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GPartialPromotionFieldsData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GPartialPromotionFieldsData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GPartialPromotionFieldsData.serializer,

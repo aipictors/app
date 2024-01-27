@@ -27,6 +27,7 @@ abstract class GUserReq
       operationName: 'User',
     )
     ..executeOnListen = true;
+
   @override
   _i3.GUserVars get vars;
   @override
@@ -36,6 +37,7 @@ abstract class GUserReq
         operation: operation,
         variables: vars.toJson(),
       );
+
   @override
   String? get requestId;
   @override
@@ -57,11 +59,25 @@ abstract class GUserReq
   @override
   _i2.GUserData? parseData(Map<String, dynamic> json) =>
       _i2.GUserData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GUserData data) => data.toJson();
+
+  @override
+  _i1.OperationRequest<_i2.GUserData, _i3.GUserVars> transformOperation(
+          _i4.Operation Function(_i4.Operation) transform) =>
+      this.rebuild((b) => b..operation = transform(operation));
+
   static Serializer<GUserReq> get serializer => _$gUserReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GUserReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUserReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GUserReq.serializer,

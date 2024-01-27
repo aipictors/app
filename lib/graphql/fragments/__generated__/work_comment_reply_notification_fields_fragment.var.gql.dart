@@ -20,10 +20,12 @@ abstract class GWorkCommentReplyNotificationFieldsVars
 
   static Serializer<GWorkCommentReplyNotificationFieldsVars> get serializer =>
       _$gWorkCommentReplyNotificationFieldsVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GWorkCommentReplyNotificationFieldsVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GWorkCommentReplyNotificationFieldsVars? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(

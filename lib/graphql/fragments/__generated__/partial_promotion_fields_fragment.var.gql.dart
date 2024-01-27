@@ -19,10 +19,12 @@ abstract class GPartialPromotionFieldsVars
 
   static Serializer<GPartialPromotionFieldsVars> get serializer =>
       _$gPartialPromotionFieldsVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GPartialPromotionFieldsVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GPartialPromotionFieldsVars? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GPartialPromotionFieldsVars.serializer,

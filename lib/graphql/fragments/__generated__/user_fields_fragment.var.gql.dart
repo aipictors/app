@@ -17,10 +17,12 @@ abstract class GUserFieldsVars
 
   static Serializer<GUserFieldsVars> get serializer =>
       _$gUserFieldsVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUserFieldsVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUserFieldsVars? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUserFieldsVars.serializer,

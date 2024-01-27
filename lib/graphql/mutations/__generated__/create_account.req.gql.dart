@@ -31,6 +31,7 @@ abstract class GCreateAccountReq
       operationName: 'CreateAccount',
     )
     ..executeOnListen = true;
+
   @override
   _i3.GCreateAccountVars get vars;
   @override
@@ -40,6 +41,7 @@ abstract class GCreateAccountReq
         operation: operation,
         variables: vars.toJson(),
       );
+
   @override
   String? get requestId;
   @override
@@ -61,12 +63,26 @@ abstract class GCreateAccountReq
   @override
   _i2.GCreateAccountData? parseData(Map<String, dynamic> json) =>
       _i2.GCreateAccountData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GCreateAccountData data) => data.toJson();
+
+  @override
+  _i1.OperationRequest<_i2.GCreateAccountData, _i3.GCreateAccountVars>
+      transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
+          this.rebuild((b) => b..operation = transform(operation));
+
   static Serializer<GCreateAccountReq> get serializer =>
       _$gCreateAccountReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GCreateAccountReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreateAccountReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GCreateAccountReq.serializer,

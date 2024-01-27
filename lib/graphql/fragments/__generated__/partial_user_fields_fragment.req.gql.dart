@@ -30,6 +30,7 @@ abstract class GPartialUserFieldsReq
   static void _initializeBuilder(GPartialUserFieldsReqBuilder b) => b
     ..document = _i4.document
     ..fragmentName = 'PartialUserFields';
+
   @override
   _i3.GPartialUserFieldsVars get vars;
   @override
@@ -41,12 +42,22 @@ abstract class GPartialUserFieldsReq
   @override
   _i2.GPartialUserFieldsData? parseData(Map<String, dynamic> json) =>
       _i2.GPartialUserFieldsData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GPartialUserFieldsData data) =>
+      data.toJson();
+
   static Serializer<GPartialUserFieldsReq> get serializer =>
       _$gPartialUserFieldsReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GPartialUserFieldsReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GPartialUserFieldsReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GPartialUserFieldsReq.serializer,

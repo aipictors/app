@@ -63,22 +63,22 @@ class _$SurveyStateCopyWithImpl<$Res, $Val extends SurveyState>
 }
 
 /// @nodoc
-abstract class _$$_SurveyStateCopyWith<$Res>
+abstract class _$$SurveyStateImplCopyWith<$Res>
     implements $SurveyStateCopyWith<$Res> {
-  factory _$$_SurveyStateCopyWith(
-          _$_SurveyState value, $Res Function(_$_SurveyState) then) =
-      __$$_SurveyStateCopyWithImpl<$Res>;
+  factory _$$SurveyStateImplCopyWith(
+          _$SurveyStateImpl value, $Res Function(_$SurveyStateImpl) then) =
+      __$$SurveyStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({SurveySex? sex, SurveyTouchPoint? touchPoint});
 }
 
 /// @nodoc
-class __$$_SurveyStateCopyWithImpl<$Res>
-    extends _$SurveyStateCopyWithImpl<$Res, _$_SurveyState>
-    implements _$$_SurveyStateCopyWith<$Res> {
-  __$$_SurveyStateCopyWithImpl(
-      _$_SurveyState _value, $Res Function(_$_SurveyState) _then)
+class __$$SurveyStateImplCopyWithImpl<$Res>
+    extends _$SurveyStateCopyWithImpl<$Res, _$SurveyStateImpl>
+    implements _$$SurveyStateImplCopyWith<$Res> {
+  __$$SurveyStateImplCopyWithImpl(
+      _$SurveyStateImpl _value, $Res Function(_$SurveyStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -87,7 +87,7 @@ class __$$_SurveyStateCopyWithImpl<$Res>
     Object? sex = freezed,
     Object? touchPoint = freezed,
   }) {
-    return _then(_$_SurveyState(
+    return _then(_$SurveyStateImpl(
       sex: freezed == sex
           ? _value.sex
           : sex // ignore: cast_nullable_to_non_nullable
@@ -102,8 +102,8 @@ class __$$_SurveyStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_SurveyState extends _SurveyState {
-  const _$_SurveyState({required this.sex, required this.touchPoint})
+class _$SurveyStateImpl extends _SurveyState {
+  const _$SurveyStateImpl({required this.sex, required this.touchPoint})
       : super._();
 
   @override
@@ -117,10 +117,10 @@ class _$_SurveyState extends _SurveyState {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SurveyState &&
+            other is _$SurveyStateImpl &&
             (identical(other.sex, sex) || other.sex == sex) &&
             (identical(other.touchPoint, touchPoint) ||
                 other.touchPoint == touchPoint));
@@ -132,14 +132,14 @@ class _$_SurveyState extends _SurveyState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SurveyStateCopyWith<_$_SurveyState> get copyWith =>
-      __$$_SurveyStateCopyWithImpl<_$_SurveyState>(this, _$identity);
+  _$$SurveyStateImplCopyWith<_$SurveyStateImpl> get copyWith =>
+      __$$SurveyStateImplCopyWithImpl<_$SurveyStateImpl>(this, _$identity);
 }
 
 abstract class _SurveyState extends SurveyState {
   const factory _SurveyState(
       {required final SurveySex? sex,
-      required final SurveyTouchPoint? touchPoint}) = _$_SurveyState;
+      required final SurveyTouchPoint? touchPoint}) = _$SurveyStateImpl;
   const _SurveyState._() : super._();
 
   @override
@@ -148,6 +148,6 @@ abstract class _SurveyState extends SurveyState {
   SurveyTouchPoint? get touchPoint;
   @override
   @JsonKey(ignore: true)
-  _$$_SurveyStateCopyWith<_$_SurveyState> get copyWith =>
+  _$$SurveyStateImplCopyWith<_$SurveyStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

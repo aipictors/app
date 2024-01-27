@@ -18,15 +18,18 @@ abstract class GUpdateAccountLoginData
 
   static void _initializeBuilder(GUpdateAccountLoginDataBuilder b) =>
       b..G__typename = 'Mutation';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   GUpdateAccountLoginData_updateAccountLogin get updateAccountLogin;
   static Serializer<GUpdateAccountLoginData> get serializer =>
       _$gUpdateAccountLoginDataSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUpdateAccountLoginData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUpdateAccountLoginData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUpdateAccountLoginData.serializer,
@@ -47,16 +50,19 @@ abstract class GUpdateAccountLoginData_updateAccountLogin
   static void _initializeBuilder(
           GUpdateAccountLoginData_updateAccountLoginBuilder b) =>
       b..G__typename = 'UserNode';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get id;
   String get login;
   static Serializer<GUpdateAccountLoginData_updateAccountLogin>
       get serializer => _$gUpdateAccountLoginDataUpdateAccountLoginSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUpdateAccountLoginData_updateAccountLogin.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUpdateAccountLoginData_updateAccountLogin? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(

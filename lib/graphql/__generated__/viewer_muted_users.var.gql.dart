@@ -20,10 +20,12 @@ abstract class GViewerMutedUsersVars
   int get limit;
   static Serializer<GViewerMutedUsersVars> get serializer =>
       _$gViewerMutedUsersVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GViewerMutedUsersVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GViewerMutedUsersVars? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GViewerMutedUsersVars.serializer,

@@ -33,6 +33,7 @@ abstract class GUpdateUserProfileReq
       operationName: 'UpdateUserProfile',
     )
     ..executeOnListen = true;
+
   @override
   _i3.GUpdateUserProfileVars get vars;
   @override
@@ -42,6 +43,7 @@ abstract class GUpdateUserProfileReq
         operation: operation,
         variables: vars.toJson(),
       );
+
   @override
   String? get requestId;
   @override
@@ -63,12 +65,27 @@ abstract class GUpdateUserProfileReq
   @override
   _i2.GUpdateUserProfileData? parseData(Map<String, dynamic> json) =>
       _i2.GUpdateUserProfileData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GUpdateUserProfileData data) =>
+      data.toJson();
+
+  @override
+  _i1.OperationRequest<_i2.GUpdateUserProfileData, _i3.GUpdateUserProfileVars>
+      transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
+          this.rebuild((b) => b..operation = transform(operation));
+
   static Serializer<GUpdateUserProfileReq> get serializer =>
       _$gUpdateUserProfileReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GUpdateUserProfileReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUpdateUserProfileReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GUpdateUserProfileReq.serializer,

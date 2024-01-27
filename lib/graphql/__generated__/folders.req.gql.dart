@@ -27,6 +27,7 @@ abstract class GFoldersReq
       operationName: 'Folders',
     )
     ..executeOnListen = true;
+
   @override
   _i3.GFoldersVars get vars;
   @override
@@ -36,6 +37,7 @@ abstract class GFoldersReq
         operation: operation,
         variables: vars.toJson(),
       );
+
   @override
   String? get requestId;
   @override
@@ -57,11 +59,25 @@ abstract class GFoldersReq
   @override
   _i2.GFoldersData? parseData(Map<String, dynamic> json) =>
       _i2.GFoldersData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GFoldersData data) => data.toJson();
+
+  @override
+  _i1.OperationRequest<_i2.GFoldersData, _i3.GFoldersVars> transformOperation(
+          _i4.Operation Function(_i4.Operation) transform) =>
+      this.rebuild((b) => b..operation = transform(operation));
+
   static Serializer<GFoldersReq> get serializer => _$gFoldersReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GFoldersReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GFoldersReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GFoldersReq.serializer,

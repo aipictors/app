@@ -21,15 +21,18 @@ abstract class GViewerMutedTagsData
 
   static void _initializeBuilder(GViewerMutedTagsDataBuilder b) =>
       b..G__typename = 'Query';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   GViewerMutedTagsData_viewer? get viewer;
   static Serializer<GViewerMutedTagsData> get serializer =>
       _$gViewerMutedTagsDataSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GViewerMutedTagsData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GViewerMutedTagsData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GViewerMutedTagsData.serializer,
@@ -48,15 +51,18 @@ abstract class GViewerMutedTagsData_viewer
 
   static void _initializeBuilder(GViewerMutedTagsData_viewerBuilder b) =>
       b..G__typename = 'Viewer';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   BuiltList<GViewerMutedTagsData_viewer_mutedTags> get mutedTags;
   static Serializer<GViewerMutedTagsData_viewer> get serializer =>
       _$gViewerMutedTagsDataViewerSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GViewerMutedTagsData_viewer.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GViewerMutedTagsData_viewer? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GViewerMutedTagsData_viewer.serializer,
@@ -78,6 +84,7 @@ abstract class GViewerMutedTagsData_viewer_mutedTags
   static void _initializeBuilder(
           GViewerMutedTagsData_viewer_mutedTagsBuilder b) =>
       b..G__typename = 'TagNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -87,11 +94,13 @@ abstract class GViewerMutedTagsData_viewer_mutedTags
   String get name;
   static Serializer<GViewerMutedTagsData_viewer_mutedTags> get serializer =>
       _$gViewerMutedTagsDataViewerMutedTagsSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GViewerMutedTagsData_viewer_mutedTags.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GViewerMutedTagsData_viewer_mutedTags? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(

@@ -20,10 +20,12 @@ abstract class GUserFoldersVars
   int get limit;
   static Serializer<GUserFoldersVars> get serializer =>
       _$gUserFoldersVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUserFoldersVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUserFoldersVars? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUserFoldersVars.serializer,

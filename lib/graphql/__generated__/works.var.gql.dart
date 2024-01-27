@@ -18,10 +18,12 @@ abstract class GWorksVars implements Built<GWorksVars, GWorksVarsBuilder> {
   int get limit;
   _i1.GWorksWhereInput? get where;
   static Serializer<GWorksVars> get serializer => _$gWorksVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
         GWorksVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GWorksVars? fromJson(Map<String, dynamic> json) =>
       _i2.serializers.deserializeWith(
         GWorksVars.serializer,

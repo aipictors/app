@@ -17,15 +17,18 @@ abstract class GCreateAccountData
 
   static void _initializeBuilder(GCreateAccountDataBuilder b) =>
       b..G__typename = 'Mutation';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   GCreateAccountData_createAccount get createAccount;
   static Serializer<GCreateAccountData> get serializer =>
       _$gCreateAccountDataSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GCreateAccountData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreateAccountData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GCreateAccountData.serializer,
@@ -45,15 +48,18 @@ abstract class GCreateAccountData_createAccount
 
   static void _initializeBuilder(GCreateAccountData_createAccountBuilder b) =>
       b..G__typename = 'UserNode';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get id;
   static Serializer<GCreateAccountData_createAccount> get serializer =>
       _$gCreateAccountDataCreateAccountSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GCreateAccountData_createAccount.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreateAccountData_createAccount? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(

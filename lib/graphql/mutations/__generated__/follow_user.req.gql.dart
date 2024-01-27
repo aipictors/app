@@ -31,6 +31,7 @@ abstract class GFollowUserReq
       operationName: 'FollowUser',
     )
     ..executeOnListen = true;
+
   @override
   _i3.GFollowUserVars get vars;
   @override
@@ -40,6 +41,7 @@ abstract class GFollowUserReq
         operation: operation,
         variables: vars.toJson(),
       );
+
   @override
   String? get requestId;
   @override
@@ -61,12 +63,26 @@ abstract class GFollowUserReq
   @override
   _i2.GFollowUserData? parseData(Map<String, dynamic> json) =>
       _i2.GFollowUserData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GFollowUserData data) => data.toJson();
+
+  @override
+  _i1.OperationRequest<_i2.GFollowUserData, _i3.GFollowUserVars>
+      transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
+          this.rebuild((b) => b..operation = transform(operation));
+
   static Serializer<GFollowUserReq> get serializer =>
       _$gFollowUserReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GFollowUserReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GFollowUserReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GFollowUserReq.serializer,

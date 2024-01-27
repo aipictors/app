@@ -46,6 +46,7 @@ abstract class GUserFieldsData
 
   static void _initializeBuilder(GUserFieldsDataBuilder b) =>
       b..G__typename = 'UserNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -71,11 +72,13 @@ abstract class GUserFieldsData
   GUserFieldsData_headerImage? get headerImage;
   static Serializer<GUserFieldsData> get serializer =>
       _$gUserFieldsDataSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUserFieldsData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUserFieldsData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUserFieldsData.serializer,
@@ -95,6 +98,7 @@ abstract class GUserFieldsData_iconImage
 
   static void _initializeBuilder(GUserFieldsData_iconImageBuilder b) =>
       b..G__typename = 'ImageNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -104,11 +108,13 @@ abstract class GUserFieldsData_iconImage
   String get downloadURL;
   static Serializer<GUserFieldsData_iconImage> get serializer =>
       _$gUserFieldsDataIconImageSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUserFieldsData_iconImage.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUserFieldsData_iconImage? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUserFieldsData_iconImage.serializer,
@@ -128,6 +134,7 @@ abstract class GUserFieldsData_headerImage
 
   static void _initializeBuilder(GUserFieldsData_headerImageBuilder b) =>
       b..G__typename = 'ImageNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -137,11 +144,13 @@ abstract class GUserFieldsData_headerImage
   String get downloadURL;
   static Serializer<GUserFieldsData_headerImage> get serializer =>
       _$gUserFieldsDataHeaderImageSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUserFieldsData_headerImage.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUserFieldsData_headerImage? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUserFieldsData_headerImage.serializer,

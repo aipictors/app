@@ -31,6 +31,7 @@ abstract class GAnnouncementsReq
       operationName: 'Announcements',
     )
     ..executeOnListen = true;
+
   @override
   _i3.GAnnouncementsVars get vars;
   @override
@@ -40,6 +41,7 @@ abstract class GAnnouncementsReq
         operation: operation,
         variables: vars.toJson(),
       );
+
   @override
   String? get requestId;
   @override
@@ -61,12 +63,26 @@ abstract class GAnnouncementsReq
   @override
   _i2.GAnnouncementsData? parseData(Map<String, dynamic> json) =>
       _i2.GAnnouncementsData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GAnnouncementsData data) => data.toJson();
+
+  @override
+  _i1.OperationRequest<_i2.GAnnouncementsData, _i3.GAnnouncementsVars>
+      transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
+          this.rebuild((b) => b..operation = transform(operation));
+
   static Serializer<GAnnouncementsReq> get serializer =>
       _$gAnnouncementsReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GAnnouncementsReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GAnnouncementsReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GAnnouncementsReq.serializer,

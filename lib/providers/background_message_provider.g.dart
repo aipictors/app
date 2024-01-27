@@ -6,7 +6,7 @@ part of 'background_message_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$backgroundMessageHash() => r'c47af2f15ee8682485386ae5abc5c72a5ad78390';
+String _$backgroundMessageHash() => r'8192aa8d702cec47d740358267bde8fd91ab9d3c';
 
 /// See also [backgroundMessage].
 @ProviderFor(backgroundMessage)

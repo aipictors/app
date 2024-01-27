@@ -28,6 +28,7 @@ abstract class GHotWorksReq
       operationName: 'HotWorks',
     )
     ..executeOnListen = true;
+
   @override
   _i3.GHotWorksVars get vars;
   @override
@@ -37,6 +38,7 @@ abstract class GHotWorksReq
         operation: operation,
         variables: vars.toJson(),
       );
+
   @override
   String? get requestId;
   @override
@@ -58,11 +60,25 @@ abstract class GHotWorksReq
   @override
   _i2.GHotWorksData? parseData(Map<String, dynamic> json) =>
       _i2.GHotWorksData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GHotWorksData data) => data.toJson();
+
+  @override
+  _i1.OperationRequest<_i2.GHotWorksData, _i3.GHotWorksVars> transformOperation(
+          _i4.Operation Function(_i4.Operation) transform) =>
+      this.rebuild((b) => b..operation = transform(operation));
+
   static Serializer<GHotWorksReq> get serializer => _$gHotWorksReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GHotWorksReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GHotWorksReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GHotWorksReq.serializer,

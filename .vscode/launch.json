@@ -1,16 +1,16 @@
 {
   "version": "0.2.0",
   "configurations": [
-    {
-      "name": "Debug",
-      "request": "launch",
-      "type": "dart",
-      "flutterMode": "debug",
-      "args": [
-        "--dart-define-from-file=dart_defines/debug.json",
-        "--dart-define=secretToken=xxxx"
-      ]
-    },
+    // {
+    //   "name": "Debug",
+    //   "request": "launch",
+    //   "type": "dart",
+    //   "flutterMode": "debug",
+    //   "args": [
+    //     "--dart-define-from-file=dart_defines/debug.json",
+    //     "--dart-define=secretToken=xxxx"
+    //   ]
+    // },
     {
       "name": "Develop",
       "request": "launch",
@@ -21,16 +21,16 @@
         "--dart-define=secretToken=xxxx"
       ]
     },
-    {
-      "name": "Staging",
-      "request": "launch",
-      "type": "dart",
-      "flutterMode": "release",
-      "args": [
-        "--dart-define-from-file=dart_defines/staging.json",
-        "--dart-define=secretToken=xxxx"
-      ]
-    },
+    // {
+    //   "name": "Staging",
+    //   "request": "launch",
+    //   "type": "dart",
+    //   "flutterMode": "release",
+    //   "args": [
+    //     "--dart-define-from-file=dart_defines/staging.json",
+    //     "--dart-define=secretToken=xxxx"
+    //   ]
+    // },
     {
       "name": "Production",
       "request": "launch",

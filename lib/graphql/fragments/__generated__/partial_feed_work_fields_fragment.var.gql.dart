@@ -19,10 +19,12 @@ abstract class GPartialFeedWorkFieldsVars
 
   static Serializer<GPartialFeedWorkFieldsVars> get serializer =>
       _$gPartialFeedWorkFieldsVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GPartialFeedWorkFieldsVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GPartialFeedWorkFieldsVars? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GPartialFeedWorkFieldsVars.serializer,

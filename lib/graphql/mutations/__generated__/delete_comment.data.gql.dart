@@ -17,15 +17,18 @@ abstract class GDeleteCommentData
 
   static void _initializeBuilder(GDeleteCommentDataBuilder b) =>
       b..G__typename = 'Mutation';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   GDeleteCommentData_deleteComment get deleteComment;
   static Serializer<GDeleteCommentData> get serializer =>
       _$gDeleteCommentDataSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GDeleteCommentData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GDeleteCommentData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GDeleteCommentData.serializer,
@@ -45,15 +48,18 @@ abstract class GDeleteCommentData_deleteComment
 
   static void _initializeBuilder(GDeleteCommentData_deleteCommentBuilder b) =>
       b..G__typename = 'CommentNode';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get id;
   static Serializer<GDeleteCommentData_deleteComment> get serializer =>
       _$gDeleteCommentDataDeleteCommentSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GDeleteCommentData_deleteComment.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GDeleteCommentData_deleteComment? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(

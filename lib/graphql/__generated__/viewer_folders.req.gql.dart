@@ -31,6 +31,7 @@ abstract class GViewerFoldersReq
       operationName: 'ViewerFolders',
     )
     ..executeOnListen = true;
+
   @override
   _i3.GViewerFoldersVars get vars;
   @override
@@ -40,6 +41,7 @@ abstract class GViewerFoldersReq
         operation: operation,
         variables: vars.toJson(),
       );
+
   @override
   String? get requestId;
   @override
@@ -61,12 +63,26 @@ abstract class GViewerFoldersReq
   @override
   _i2.GViewerFoldersData? parseData(Map<String, dynamic> json) =>
       _i2.GViewerFoldersData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GViewerFoldersData data) => data.toJson();
+
+  @override
+  _i1.OperationRequest<_i2.GViewerFoldersData, _i3.GViewerFoldersVars>
+      transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
+          this.rebuild((b) => b..operation = transform(operation));
+
   static Serializer<GViewerFoldersReq> get serializer =>
       _$gViewerFoldersReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GViewerFoldersReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GViewerFoldersReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GViewerFoldersReq.serializer,

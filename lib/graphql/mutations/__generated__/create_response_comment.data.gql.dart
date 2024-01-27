@@ -19,15 +19,18 @@ abstract class GCreateResponseCommentData
 
   static void _initializeBuilder(GCreateResponseCommentDataBuilder b) =>
       b..G__typename = 'Mutation';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   GCreateResponseCommentData_createResponseComment get createResponseComment;
   static Serializer<GCreateResponseCommentData> get serializer =>
       _$gCreateResponseCommentDataSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GCreateResponseCommentData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreateResponseCommentData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GCreateResponseCommentData.serializer,
@@ -48,16 +51,19 @@ abstract class GCreateResponseCommentData_createResponseComment
   static void _initializeBuilder(
           GCreateResponseCommentData_createResponseCommentBuilder b) =>
       b..G__typename = 'CommentNode';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get id;
   static Serializer<GCreateResponseCommentData_createResponseComment>
       get serializer =>
           _$gCreateResponseCommentDataCreateResponseCommentSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GCreateResponseCommentData_createResponseComment.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreateResponseCommentData_createResponseComment? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(

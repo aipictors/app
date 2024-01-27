@@ -21,10 +21,12 @@ abstract class GCreateResponseCommentVars
   _i1.GCreateResponseCommentInput get input;
   static Serializer<GCreateResponseCommentVars> get serializer =>
       _$gCreateResponseCommentVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
         GCreateResponseCommentVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreateResponseCommentVars? fromJson(Map<String, dynamic> json) =>
       _i2.serializers.deserializeWith(
         GCreateResponseCommentVars.serializer,

@@ -26,16 +26,12 @@ class _$GWorksDataSerializer implements StructuredSerializer<GWorksData> {
       '__typename',
       serializers.serialize(object.G__typename,
           specifiedType: const FullType(String)),
+      'works',
+      serializers.serialize(object.works,
+          specifiedType: const FullType(
+              BuiltList, const [const FullType(GWorksData_works)])),
     ];
-    Object? value;
-    value = object.works;
-    if (value != null) {
-      result
-        ..add('works')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(
-                BuiltList, const [const FullType(GWorksData_works)])));
-    }
+
     return result;
   }
 
@@ -219,14 +215,15 @@ class _$GWorksData extends GWorksData {
   @override
   final String G__typename;
   @override
-  final BuiltList<GWorksData_works>? works;
+  final BuiltList<GWorksData_works> works;
 
   factory _$GWorksData([void Function(GWorksDataBuilder)? updates]) =>
       (new GWorksDataBuilder()..update(updates))._build();
 
-  _$GWorksData._({required this.G__typename, this.works}) : super._() {
+  _$GWorksData._({required this.G__typename, required this.works}) : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename, r'GWorksData', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(works, r'GWorksData', 'works');
   }
 
   @override
@@ -282,7 +279,7 @@ class GWorksDataBuilder implements Builder<GWorksData, GWorksDataBuilder> {
     final $v = _$v;
     if ($v != null) {
       _G__typename = $v.G__typename;
-      _works = $v.works?.toBuilder();
+      _works = $v.works.toBuilder();
       _$v = null;
     }
     return this;
@@ -309,12 +306,12 @@ class GWorksDataBuilder implements Builder<GWorksData, GWorksDataBuilder> {
           new _$GWorksData._(
               G__typename: BuiltValueNullFieldError.checkNotNull(
                   G__typename, r'GWorksData', 'G__typename'),
-              works: _works?.build());
+              works: works.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'works';
-        _works?.build();
+        works.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'GWorksData', _$failedField, e.toString());

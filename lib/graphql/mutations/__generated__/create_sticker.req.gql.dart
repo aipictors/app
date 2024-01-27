@@ -31,6 +31,7 @@ abstract class GCreateStickerReq
       operationName: 'CreateSticker',
     )
     ..executeOnListen = true;
+
   @override
   _i3.GCreateStickerVars get vars;
   @override
@@ -40,6 +41,7 @@ abstract class GCreateStickerReq
         operation: operation,
         variables: vars.toJson(),
       );
+
   @override
   String? get requestId;
   @override
@@ -61,12 +63,26 @@ abstract class GCreateStickerReq
   @override
   _i2.GCreateStickerData? parseData(Map<String, dynamic> json) =>
       _i2.GCreateStickerData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GCreateStickerData data) => data.toJson();
+
+  @override
+  _i1.OperationRequest<_i2.GCreateStickerData, _i3.GCreateStickerVars>
+      transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
+          this.rebuild((b) => b..operation = transform(operation));
+
   static Serializer<GCreateStickerReq> get serializer =>
       _$gCreateStickerReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GCreateStickerReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreateStickerReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GCreateStickerReq.serializer,

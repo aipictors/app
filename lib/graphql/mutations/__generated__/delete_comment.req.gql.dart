@@ -31,6 +31,7 @@ abstract class GDeleteCommentReq
       operationName: 'DeleteComment',
     )
     ..executeOnListen = true;
+
   @override
   _i3.GDeleteCommentVars get vars;
   @override
@@ -40,6 +41,7 @@ abstract class GDeleteCommentReq
         operation: operation,
         variables: vars.toJson(),
       );
+
   @override
   String? get requestId;
   @override
@@ -61,12 +63,26 @@ abstract class GDeleteCommentReq
   @override
   _i2.GDeleteCommentData? parseData(Map<String, dynamic> json) =>
       _i2.GDeleteCommentData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GDeleteCommentData data) => data.toJson();
+
+  @override
+  _i1.OperationRequest<_i2.GDeleteCommentData, _i3.GDeleteCommentVars>
+      transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
+          this.rebuild((b) => b..operation = transform(operation));
+
   static Serializer<GDeleteCommentReq> get serializer =>
       _$gDeleteCommentReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GDeleteCommentReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GDeleteCommentReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GDeleteCommentReq.serializer,

@@ -20,10 +20,12 @@ abstract class GDailyThemeVars
   int get limit;
   static Serializer<GDailyThemeVars> get serializer =>
       _$gDailyThemeVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GDailyThemeVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GDailyThemeVars? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GDailyThemeVars.serializer,

@@ -20,10 +20,12 @@ abstract class GLoginWithPasswordVars
   _i1.GLoginWithPasswordInput get input;
   static Serializer<GLoginWithPasswordVars> get serializer =>
       _$gLoginWithPasswordVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
         GLoginWithPasswordVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GLoginWithPasswordVars? fromJson(Map<String, dynamic> json) =>
       _i2.serializers.deserializeWith(
         GLoginWithPasswordVars.serializer,

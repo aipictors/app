@@ -20,10 +20,12 @@ abstract class GWorkAwardNotificationFieldsVars
 
   static Serializer<GWorkAwardNotificationFieldsVars> get serializer =>
       _$gWorkAwardNotificationFieldsVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GWorkAwardNotificationFieldsVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GWorkAwardNotificationFieldsVars? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(

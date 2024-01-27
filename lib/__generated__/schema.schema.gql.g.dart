@@ -563,6 +563,9 @@ Serializer<GCreatePromptonFolderKeyInput>
 Serializer<GCreatePromptonFolderViewInput>
     _$gCreatePromptonFolderViewInputSerializer =
     new _$GCreatePromptonFolderViewInputSerializer();
+Serializer<GCreatePromptonImageGenerationInput>
+    _$gCreatePromptonImageGenerationInputSerializer =
+    new _$GCreatePromptonImageGenerationInputSerializer();
 Serializer<GCreatePromptonInquiryInput>
     _$gCreatePromptonInquiryInputSerializer =
     new _$GCreatePromptonInquiryInputSerializer();
@@ -730,6 +733,9 @@ Serializer<GPopularWorksWhereInput> _$gPopularWorksWhereInputSerializer =
     new _$GPopularWorksWhereInputSerializer();
 Serializer<GPromptonFoldersWhereInput> _$gPromptonFoldersWhereInputSerializer =
     new _$GPromptonFoldersWhereInputSerializer();
+Serializer<GPromptonImageGenerationsWhereInput>
+    _$gPromptonImageGenerationsWhereInputSerializer =
+    new _$GPromptonImageGenerationsWhereInputSerializer();
 Serializer<GPromptonLabelsWhereInput> _$gPromptonLabelsWhereInputSerializer =
     new _$GPromptonLabelsWhereInputSerializer();
 Serializer<GPromptonPlansWhereInput> _$gPromptonPlansWhereInputSerializer =
@@ -1911,7 +1917,7 @@ class _$GCreateImageGenerationTaskInputSerializer
       serializers.serialize(object.negativePrompt,
           specifiedType: const FullType(String)),
       'seed',
-      serializers.serialize(object.seed, specifiedType: const FullType(int)),
+      serializers.serialize(object.seed, specifiedType: const FullType(double)),
       'steps',
       serializers.serialize(object.steps, specifiedType: const FullType(int)),
       'scale',
@@ -1994,7 +2000,7 @@ class _$GCreateImageGenerationTaskInputSerializer
           break;
         case 'seed':
           result.seed = serializers.deserialize(value,
-              specifiedType: const FullType(int))! as int;
+              specifiedType: const FullType(double))! as double;
           break;
         case 'steps':
           result.steps = serializers.deserialize(value,
@@ -2678,6 +2684,79 @@ class _$GCreatePromptonFolderViewInputSerializer
       switch (key) {
         case 'folderId':
           result.folderId = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GCreatePromptonImageGenerationInputSerializer
+    implements StructuredSerializer<GCreatePromptonImageGenerationInput> {
+  @override
+  final Iterable<Type> types = const [
+    GCreatePromptonImageGenerationInput,
+    _$GCreatePromptonImageGenerationInput
+  ];
+  @override
+  final String wireName = 'GCreatePromptonImageGenerationInput';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GCreatePromptonImageGenerationInput object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'model',
+      serializers.serialize(object.model,
+          specifiedType: const FullType(String)),
+      'prompt',
+      serializers.serialize(object.prompt,
+          specifiedType: const FullType(String)),
+      'size',
+      serializers.serialize(object.size, specifiedType: const FullType(String)),
+      'quality',
+      serializers.serialize(object.quality,
+          specifiedType: const FullType(String)),
+      'style',
+      serializers.serialize(object.style,
+          specifiedType: const FullType(String)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GCreatePromptonImageGenerationInput deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GCreatePromptonImageGenerationInputBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'model':
+          result.model = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'prompt':
+          result.prompt = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'size':
+          result.size = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'quality':
+          result.quality = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'style':
+          result.style = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
       }
@@ -6297,6 +6376,55 @@ class _$GPromptonFoldersWhereInputSerializer
   }
 }
 
+class _$GPromptonImageGenerationsWhereInputSerializer
+    implements StructuredSerializer<GPromptonImageGenerationsWhereInput> {
+  @override
+  final Iterable<Type> types = const [
+    GPromptonImageGenerationsWhereInput,
+    _$GPromptonImageGenerationsWhereInput
+  ];
+  @override
+  final String wireName = 'GPromptonImageGenerationsWhereInput';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GPromptonImageGenerationsWhereInput object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[];
+    Object? value;
+    value = object.search;
+    if (value != null) {
+      result
+        ..add('search')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    return result;
+  }
+
+  @override
+  GPromptonImageGenerationsWhereInput deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GPromptonImageGenerationsWhereInputBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'search':
+          result.search = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$GPromptonLabelsWhereInputSerializer
     implements StructuredSerializer<GPromptonLabelsWhereInput> {
   @override
@@ -6392,6 +6520,13 @@ class _$GPromptonPlansWhereInputSerializer
             specifiedType:
                 const FullType(BuiltList, const [const FullType(String)])));
     }
+    value = object.category;
+    if (value != null) {
+      result
+        ..add('category')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     value = object.isPaid;
     if (value != null) {
       result
@@ -6433,6 +6568,10 @@ class _$GPromptonPlansWhereInputSerializer
                   specifiedType: const FullType(
                       BuiltList, const [const FullType(String)]))!
               as BuiltList<Object?>);
+          break;
+        case 'category':
+          result.category = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'isPaid':
           result.isPaid = serializers.deserialize(value,
@@ -10941,7 +11080,7 @@ class _$GCreateImageGenerationTaskInput
   @override
   final String negativePrompt;
   @override
-  final int seed;
+  final double seed;
   @override
   final int steps;
   @override
@@ -11109,9 +11248,9 @@ class GCreateImageGenerationTaskInputBuilder
   set negativePrompt(String? negativePrompt) =>
       _$this._negativePrompt = negativePrompt;
 
-  int? _seed;
-  int? get seed => _$this._seed;
-  set seed(int? seed) => _$this._seed = seed;
+  double? _seed;
+  double? get seed => _$this._seed;
+  set seed(double? seed) => _$this._seed = seed;
 
   int? _steps;
   int? get steps => _$this._steps;
@@ -12485,6 +12624,162 @@ class GCreatePromptonFolderViewInputBuilder
         new _$GCreatePromptonFolderViewInput._(
             folderId: BuiltValueNullFieldError.checkNotNull(
                 folderId, r'GCreatePromptonFolderViewInput', 'folderId'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GCreatePromptonImageGenerationInput
+    extends GCreatePromptonImageGenerationInput {
+  @override
+  final String model;
+  @override
+  final String prompt;
+  @override
+  final String size;
+  @override
+  final String quality;
+  @override
+  final String style;
+
+  factory _$GCreatePromptonImageGenerationInput(
+          [void Function(GCreatePromptonImageGenerationInputBuilder)?
+              updates]) =>
+      (new GCreatePromptonImageGenerationInputBuilder()..update(updates))
+          ._build();
+
+  _$GCreatePromptonImageGenerationInput._(
+      {required this.model,
+      required this.prompt,
+      required this.size,
+      required this.quality,
+      required this.style})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        model, r'GCreatePromptonImageGenerationInput', 'model');
+    BuiltValueNullFieldError.checkNotNull(
+        prompt, r'GCreatePromptonImageGenerationInput', 'prompt');
+    BuiltValueNullFieldError.checkNotNull(
+        size, r'GCreatePromptonImageGenerationInput', 'size');
+    BuiltValueNullFieldError.checkNotNull(
+        quality, r'GCreatePromptonImageGenerationInput', 'quality');
+    BuiltValueNullFieldError.checkNotNull(
+        style, r'GCreatePromptonImageGenerationInput', 'style');
+  }
+
+  @override
+  GCreatePromptonImageGenerationInput rebuild(
+          void Function(GCreatePromptonImageGenerationInputBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GCreatePromptonImageGenerationInputBuilder toBuilder() =>
+      new GCreatePromptonImageGenerationInputBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GCreatePromptonImageGenerationInput &&
+        model == other.model &&
+        prompt == other.prompt &&
+        size == other.size &&
+        quality == other.quality &&
+        style == other.style;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, model.hashCode);
+    _$hash = $jc(_$hash, prompt.hashCode);
+    _$hash = $jc(_$hash, size.hashCode);
+    _$hash = $jc(_$hash, quality.hashCode);
+    _$hash = $jc(_$hash, style.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GCreatePromptonImageGenerationInput')
+          ..add('model', model)
+          ..add('prompt', prompt)
+          ..add('size', size)
+          ..add('quality', quality)
+          ..add('style', style))
+        .toString();
+  }
+}
+
+class GCreatePromptonImageGenerationInputBuilder
+    implements
+        Builder<GCreatePromptonImageGenerationInput,
+            GCreatePromptonImageGenerationInputBuilder> {
+  _$GCreatePromptonImageGenerationInput? _$v;
+
+  String? _model;
+  String? get model => _$this._model;
+  set model(String? model) => _$this._model = model;
+
+  String? _prompt;
+  String? get prompt => _$this._prompt;
+  set prompt(String? prompt) => _$this._prompt = prompt;
+
+  String? _size;
+  String? get size => _$this._size;
+  set size(String? size) => _$this._size = size;
+
+  String? _quality;
+  String? get quality => _$this._quality;
+  set quality(String? quality) => _$this._quality = quality;
+
+  String? _style;
+  String? get style => _$this._style;
+  set style(String? style) => _$this._style = style;
+
+  GCreatePromptonImageGenerationInputBuilder();
+
+  GCreatePromptonImageGenerationInputBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _model = $v.model;
+      _prompt = $v.prompt;
+      _size = $v.size;
+      _quality = $v.quality;
+      _style = $v.style;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GCreatePromptonImageGenerationInput other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GCreatePromptonImageGenerationInput;
+  }
+
+  @override
+  void update(
+      void Function(GCreatePromptonImageGenerationInputBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GCreatePromptonImageGenerationInput build() => _build();
+
+  _$GCreatePromptonImageGenerationInput _build() {
+    final _$result = _$v ??
+        new _$GCreatePromptonImageGenerationInput._(
+            model: BuiltValueNullFieldError.checkNotNull(
+                model, r'GCreatePromptonImageGenerationInput', 'model'),
+            prompt: BuiltValueNullFieldError.checkNotNull(
+                prompt, r'GCreatePromptonImageGenerationInput', 'prompt'),
+            size: BuiltValueNullFieldError.checkNotNull(
+                size, r'GCreatePromptonImageGenerationInput', 'size'),
+            quality: BuiltValueNullFieldError.checkNotNull(
+                quality, r'GCreatePromptonImageGenerationInput', 'quality'),
+            style: BuiltValueNullFieldError.checkNotNull(
+                style, r'GCreatePromptonImageGenerationInput', 'style'));
     replace(_$result);
     return _$result;
   }
@@ -19410,6 +19705,95 @@ class GPromptonFoldersWhereInputBuilder
   }
 }
 
+class _$GPromptonImageGenerationsWhereInput
+    extends GPromptonImageGenerationsWhereInput {
+  @override
+  final String? search;
+
+  factory _$GPromptonImageGenerationsWhereInput(
+          [void Function(GPromptonImageGenerationsWhereInputBuilder)?
+              updates]) =>
+      (new GPromptonImageGenerationsWhereInputBuilder()..update(updates))
+          ._build();
+
+  _$GPromptonImageGenerationsWhereInput._({this.search}) : super._();
+
+  @override
+  GPromptonImageGenerationsWhereInput rebuild(
+          void Function(GPromptonImageGenerationsWhereInputBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GPromptonImageGenerationsWhereInputBuilder toBuilder() =>
+      new GPromptonImageGenerationsWhereInputBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GPromptonImageGenerationsWhereInput &&
+        search == other.search;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, search.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GPromptonImageGenerationsWhereInput')
+          ..add('search', search))
+        .toString();
+  }
+}
+
+class GPromptonImageGenerationsWhereInputBuilder
+    implements
+        Builder<GPromptonImageGenerationsWhereInput,
+            GPromptonImageGenerationsWhereInputBuilder> {
+  _$GPromptonImageGenerationsWhereInput? _$v;
+
+  String? _search;
+  String? get search => _$this._search;
+  set search(String? search) => _$this._search = search;
+
+  GPromptonImageGenerationsWhereInputBuilder();
+
+  GPromptonImageGenerationsWhereInputBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _search = $v.search;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GPromptonImageGenerationsWhereInput other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GPromptonImageGenerationsWhereInput;
+  }
+
+  @override
+  void update(
+      void Function(GPromptonImageGenerationsWhereInputBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GPromptonImageGenerationsWhereInput build() => _build();
+
+  _$GPromptonImageGenerationsWhereInput _build() {
+    final _$result =
+        _$v ?? new _$GPromptonImageGenerationsWhereInput._(search: search);
+    replace(_$result);
+    return _$result;
+  }
+}
+
 class _$GPromptonLabelsWhereInput extends GPromptonLabelsWhereInput {
   @override
   final String? search;
@@ -19502,6 +19886,8 @@ class _$GPromptonPlansWhereInput extends GPromptonPlansWhereInput {
   @override
   final BuiltList<String>? objectSlugs;
   @override
+  final String? category;
+  @override
   final bool? isPaid;
 
   factory _$GPromptonPlansWhereInput(
@@ -19513,6 +19899,7 @@ class _$GPromptonPlansWhereInput extends GPromptonPlansWhereInput {
       this.isUnique,
       this.styleSlugs,
       this.objectSlugs,
+      this.category,
       this.isPaid})
       : super._();
 
@@ -19533,6 +19920,7 @@ class _$GPromptonPlansWhereInput extends GPromptonPlansWhereInput {
         isUnique == other.isUnique &&
         styleSlugs == other.styleSlugs &&
         objectSlugs == other.objectSlugs &&
+        category == other.category &&
         isPaid == other.isPaid;
   }
 
@@ -19543,6 +19931,7 @@ class _$GPromptonPlansWhereInput extends GPromptonPlansWhereInput {
     _$hash = $jc(_$hash, isUnique.hashCode);
     _$hash = $jc(_$hash, styleSlugs.hashCode);
     _$hash = $jc(_$hash, objectSlugs.hashCode);
+    _$hash = $jc(_$hash, category.hashCode);
     _$hash = $jc(_$hash, isPaid.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -19555,6 +19944,7 @@ class _$GPromptonPlansWhereInput extends GPromptonPlansWhereInput {
           ..add('isUnique', isUnique)
           ..add('styleSlugs', styleSlugs)
           ..add('objectSlugs', objectSlugs)
+          ..add('category', category)
           ..add('isPaid', isPaid))
         .toString();
   }
@@ -19585,6 +19975,10 @@ class GPromptonPlansWhereInputBuilder
   set objectSlugs(ListBuilder<String>? objectSlugs) =>
       _$this._objectSlugs = objectSlugs;
 
+  String? _category;
+  String? get category => _$this._category;
+  set category(String? category) => _$this._category = category;
+
   bool? _isPaid;
   bool? get isPaid => _$this._isPaid;
   set isPaid(bool? isPaid) => _$this._isPaid = isPaid;
@@ -19598,6 +19992,7 @@ class GPromptonPlansWhereInputBuilder
       _isUnique = $v.isUnique;
       _styleSlugs = $v.styleSlugs?.toBuilder();
       _objectSlugs = $v.objectSlugs?.toBuilder();
+      _category = $v.category;
       _isPaid = $v.isPaid;
       _$v = null;
     }
@@ -19627,6 +20022,7 @@ class GPromptonPlansWhereInputBuilder
               isUnique: isUnique,
               styleSlugs: _styleSlugs?.build(),
               objectSlugs: _objectSlugs?.build(),
+              category: category,
               isPaid: isPaid);
     } catch (_) {
       late String _$failedField;

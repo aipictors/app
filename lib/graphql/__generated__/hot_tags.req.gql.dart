@@ -27,6 +27,7 @@ abstract class GHotTagsReq
       operationName: 'HotTags',
     )
     ..executeOnListen = true;
+
   @override
   _i3.GHotTagsVars get vars;
   @override
@@ -36,6 +37,7 @@ abstract class GHotTagsReq
         operation: operation,
         variables: vars.toJson(),
       );
+
   @override
   String? get requestId;
   @override
@@ -57,11 +59,25 @@ abstract class GHotTagsReq
   @override
   _i2.GHotTagsData? parseData(Map<String, dynamic> json) =>
       _i2.GHotTagsData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GHotTagsData data) => data.toJson();
+
+  @override
+  _i1.OperationRequest<_i2.GHotTagsData, _i3.GHotTagsVars> transformOperation(
+          _i4.Operation Function(_i4.Operation) transform) =>
+      this.rebuild((b) => b..operation = transform(operation));
+
   static Serializer<GHotTagsReq> get serializer => _$gHotTagsReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GHotTagsReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GHotTagsReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GHotTagsReq.serializer,

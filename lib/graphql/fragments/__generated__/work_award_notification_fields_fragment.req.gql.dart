@@ -31,6 +31,7 @@ abstract class GWorkAwardNotificationFieldsReq
   static void _initializeBuilder(GWorkAwardNotificationFieldsReqBuilder b) => b
     ..document = _i4.document
     ..fragmentName = 'WorkAwardNotificationFields';
+
   @override
   _i3.GWorkAwardNotificationFieldsVars get vars;
   @override
@@ -42,12 +43,22 @@ abstract class GWorkAwardNotificationFieldsReq
   @override
   _i2.GWorkAwardNotificationFieldsData? parseData(Map<String, dynamic> json) =>
       _i2.GWorkAwardNotificationFieldsData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GWorkAwardNotificationFieldsData data) =>
+      data.toJson();
+
   static Serializer<GWorkAwardNotificationFieldsReq> get serializer =>
       _$gWorkAwardNotificationFieldsReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GWorkAwardNotificationFieldsReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GWorkAwardNotificationFieldsReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GWorkAwardNotificationFieldsReq.serializer,

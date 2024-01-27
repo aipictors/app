@@ -25,16 +25,12 @@ class _$GUsersDataSerializer implements StructuredSerializer<GUsersData> {
       '__typename',
       serializers.serialize(object.G__typename,
           specifiedType: const FullType(String)),
+      'users',
+      serializers.serialize(object.users,
+          specifiedType: const FullType(
+              BuiltList, const [const FullType(GUsersData_users)])),
     ];
-    Object? value;
-    value = object.users;
-    if (value != null) {
-      result
-        ..add('users')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(
-                BuiltList, const [const FullType(GUsersData_users)])));
-    }
+
     return result;
   }
 
@@ -202,14 +198,15 @@ class _$GUsersData extends GUsersData {
   @override
   final String G__typename;
   @override
-  final BuiltList<GUsersData_users>? users;
+  final BuiltList<GUsersData_users> users;
 
   factory _$GUsersData([void Function(GUsersDataBuilder)? updates]) =>
       (new GUsersDataBuilder()..update(updates))._build();
 
-  _$GUsersData._({required this.G__typename, this.users}) : super._() {
+  _$GUsersData._({required this.G__typename, required this.users}) : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename, r'GUsersData', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(users, r'GUsersData', 'users');
   }
 
   @override
@@ -265,7 +262,7 @@ class GUsersDataBuilder implements Builder<GUsersData, GUsersDataBuilder> {
     final $v = _$v;
     if ($v != null) {
       _G__typename = $v.G__typename;
-      _users = $v.users?.toBuilder();
+      _users = $v.users.toBuilder();
       _$v = null;
     }
     return this;
@@ -292,12 +289,12 @@ class GUsersDataBuilder implements Builder<GUsersData, GUsersDataBuilder> {
           new _$GUsersData._(
               G__typename: BuiltValueNullFieldError.checkNotNull(
                   G__typename, r'GUsersData', 'G__typename'),
-              users: _users?.build());
+              users: users.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'users';
-        _users?.build();
+        users.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'GUsersData', _$failedField, e.toString());

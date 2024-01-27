@@ -21,10 +21,12 @@ abstract class GDailyThemesVars
   _i1.GDailyThemesWhereInput get where;
   static Serializer<GDailyThemesVars> get serializer =>
       _$gDailyThemesVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
         GDailyThemesVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GDailyThemesVars? fromJson(Map<String, dynamic> json) =>
       _i2.serializers.deserializeWith(
         GDailyThemesVars.serializer,

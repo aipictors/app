@@ -20,14 +20,17 @@ abstract class GStickersData
 
   static void _initializeBuilder(GStickersDataBuilder b) =>
       b..G__typename = 'Query';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   BuiltList<GStickersData_stickers> get stickers;
   static Serializer<GStickersData> get serializer => _$gStickersDataSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GStickersData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GStickersData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GStickersData.serializer,
@@ -47,6 +50,7 @@ abstract class GStickersData_stickers
 
   static void _initializeBuilder(GStickersData_stickersBuilder b) =>
       b..G__typename = 'StickerNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -64,11 +68,13 @@ abstract class GStickersData_stickers
   int get usesCount;
   static Serializer<GStickersData_stickers> get serializer =>
       _$gStickersDataStickersSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GStickersData_stickers.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GStickersData_stickers? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GStickersData_stickers.serializer,
@@ -89,6 +95,7 @@ abstract class GStickersData_stickers_image
 
   static void _initializeBuilder(GStickersData_stickers_imageBuilder b) =>
       b..G__typename = 'ImageNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -98,11 +105,13 @@ abstract class GStickersData_stickers_image
   String get downloadURL;
   static Serializer<GStickersData_stickers_image> get serializer =>
       _$gStickersDataStickersImageSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GStickersData_stickers_image.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GStickersData_stickers_image? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GStickersData_stickers_image.serializer,

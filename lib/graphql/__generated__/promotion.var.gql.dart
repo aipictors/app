@@ -18,10 +18,12 @@ abstract class GPromotionVars
   String get id;
   static Serializer<GPromotionVars> get serializer =>
       _$gPromotionVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GPromotionVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GPromotionVars? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GPromotionVars.serializer,

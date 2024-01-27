@@ -31,6 +31,7 @@ abstract class GUserFoldersReq
       operationName: 'UserFolders',
     )
     ..executeOnListen = true;
+
   @override
   _i3.GUserFoldersVars get vars;
   @override
@@ -40,6 +41,7 @@ abstract class GUserFoldersReq
         operation: operation,
         variables: vars.toJson(),
       );
+
   @override
   String? get requestId;
   @override
@@ -61,12 +63,26 @@ abstract class GUserFoldersReq
   @override
   _i2.GUserFoldersData? parseData(Map<String, dynamic> json) =>
       _i2.GUserFoldersData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GUserFoldersData data) => data.toJson();
+
+  @override
+  _i1.OperationRequest<_i2.GUserFoldersData, _i3.GUserFoldersVars>
+      transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
+          this.rebuild((b) => b..operation = transform(operation));
+
   static Serializer<GUserFoldersReq> get serializer =>
       _$gUserFoldersReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GUserFoldersReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUserFoldersReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GUserFoldersReq.serializer,

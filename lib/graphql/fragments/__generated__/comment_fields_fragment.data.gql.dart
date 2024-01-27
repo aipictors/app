@@ -72,6 +72,7 @@ abstract class GCommentFieldsData
 
   static void _initializeBuilder(GCommentFieldsDataBuilder b) =>
       b..G__typename = 'CommentNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -87,11 +88,13 @@ abstract class GCommentFieldsData
   GCommentFieldsData_sticker? get sticker;
   static Serializer<GCommentFieldsData> get serializer =>
       _$gCommentFieldsDataSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
         GCommentFieldsData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCommentFieldsData? fromJson(Map<String, dynamic> json) =>
       _i2.serializers.deserializeWith(
         GCommentFieldsData.serializer,
@@ -112,6 +115,7 @@ abstract class GCommentFieldsData_user
 
   static void _initializeBuilder(GCommentFieldsData_userBuilder b) =>
       b..G__typename = 'UserNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -125,11 +129,13 @@ abstract class GCommentFieldsData_user
   GCommentFieldsData_user_iconImage? get iconImage;
   static Serializer<GCommentFieldsData_user> get serializer =>
       _$gCommentFieldsDataUserSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
         GCommentFieldsData_user.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCommentFieldsData_user? fromJson(Map<String, dynamic> json) =>
       _i2.serializers.deserializeWith(
         GCommentFieldsData_user.serializer,
@@ -151,6 +157,7 @@ abstract class GCommentFieldsData_user_iconImage
 
   static void _initializeBuilder(GCommentFieldsData_user_iconImageBuilder b) =>
       b..G__typename = 'ImageNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -160,11 +167,13 @@ abstract class GCommentFieldsData_user_iconImage
   String get downloadURL;
   static Serializer<GCommentFieldsData_user_iconImage> get serializer =>
       _$gCommentFieldsDataUserIconImageSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
         GCommentFieldsData_user_iconImage.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCommentFieldsData_user_iconImage? fromJson(
           Map<String, dynamic> json) =>
       _i2.serializers.deserializeWith(
@@ -185,6 +194,7 @@ abstract class GCommentFieldsData_sticker
 
   static void _initializeBuilder(GCommentFieldsData_stickerBuilder b) =>
       b..G__typename = 'StickerNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -194,11 +204,13 @@ abstract class GCommentFieldsData_sticker
   GCommentFieldsData_sticker_image? get image;
   static Serializer<GCommentFieldsData_sticker> get serializer =>
       _$gCommentFieldsDataStickerSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
         GCommentFieldsData_sticker.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCommentFieldsData_sticker? fromJson(Map<String, dynamic> json) =>
       _i2.serializers.deserializeWith(
         GCommentFieldsData_sticker.serializer,
@@ -219,6 +231,7 @@ abstract class GCommentFieldsData_sticker_image
 
   static void _initializeBuilder(GCommentFieldsData_sticker_imageBuilder b) =>
       b..G__typename = 'ImageNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -228,11 +241,13 @@ abstract class GCommentFieldsData_sticker_image
   String get downloadURL;
   static Serializer<GCommentFieldsData_sticker_image> get serializer =>
       _$gCommentFieldsDataStickerImageSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
         GCommentFieldsData_sticker_image.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCommentFieldsData_sticker_image? fromJson(
           Map<String, dynamic> json) =>
       _i2.serializers.deserializeWith(

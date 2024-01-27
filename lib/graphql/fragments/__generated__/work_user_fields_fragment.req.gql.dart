@@ -28,6 +28,7 @@ abstract class GWorkUserFieldsReq
   static void _initializeBuilder(GWorkUserFieldsReqBuilder b) => b
     ..document = _i4.document
     ..fragmentName = 'WorkUserFields';
+
   @override
   _i3.GWorkUserFieldsVars get vars;
   @override
@@ -39,12 +40,22 @@ abstract class GWorkUserFieldsReq
   @override
   _i2.GWorkUserFieldsData? parseData(Map<String, dynamic> json) =>
       _i2.GWorkUserFieldsData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GWorkUserFieldsData data) =>
+      data.toJson();
+
   static Serializer<GWorkUserFieldsReq> get serializer =>
       _$gWorkUserFieldsReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GWorkUserFieldsReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GWorkUserFieldsReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GWorkUserFieldsReq.serializer,

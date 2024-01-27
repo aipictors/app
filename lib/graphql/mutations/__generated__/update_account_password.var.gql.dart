@@ -21,10 +21,12 @@ abstract class GUpdateAccountPasswordVars
   _i1.GUpdateAccountPasswordInput get input;
   static Serializer<GUpdateAccountPasswordVars> get serializer =>
       _$gUpdateAccountPasswordVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
         GUpdateAccountPasswordVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUpdateAccountPasswordVars? fromJson(Map<String, dynamic> json) =>
       _i2.serializers.deserializeWith(
         GUpdateAccountPasswordVars.serializer,

@@ -30,6 +30,7 @@ abstract class GPartialWorkFieldsReq
   static void _initializeBuilder(GPartialWorkFieldsReqBuilder b) => b
     ..document = _i4.document
     ..fragmentName = 'PartialWorkFields';
+
   @override
   _i3.GPartialWorkFieldsVars get vars;
   @override
@@ -41,12 +42,22 @@ abstract class GPartialWorkFieldsReq
   @override
   _i2.GPartialWorkFieldsData? parseData(Map<String, dynamic> json) =>
       _i2.GPartialWorkFieldsData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GPartialWorkFieldsData data) =>
+      data.toJson();
+
   static Serializer<GPartialWorkFieldsReq> get serializer =>
       _$gPartialWorkFieldsReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GPartialWorkFieldsReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GPartialWorkFieldsReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GPartialWorkFieldsReq.serializer,

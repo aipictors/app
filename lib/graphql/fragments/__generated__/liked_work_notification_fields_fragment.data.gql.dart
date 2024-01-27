@@ -95,6 +95,7 @@ abstract class GLikedWorkNotificationFieldsData
 
   static void _initializeBuilder(GLikedWorkNotificationFieldsDataBuilder b) =>
       b..G__typename = 'LikedWorkNotificationNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -110,11 +111,13 @@ abstract class GLikedWorkNotificationFieldsData
   GLikedWorkNotificationFieldsData_user? get user;
   static Serializer<GLikedWorkNotificationFieldsData> get serializer =>
       _$gLikedWorkNotificationFieldsDataSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i3.serializers.serializeWith(
         GLikedWorkNotificationFieldsData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GLikedWorkNotificationFieldsData? fromJson(
           Map<String, dynamic> json) =>
       _i3.serializers.deserializeWith(
@@ -138,6 +141,7 @@ abstract class GLikedWorkNotificationFieldsData_work
   static void _initializeBuilder(
           GLikedWorkNotificationFieldsData_workBuilder b) =>
       b..G__typename = 'WorkNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -155,11 +159,13 @@ abstract class GLikedWorkNotificationFieldsData_work
   GLikedWorkNotificationFieldsData_work_thumbnailImage? get thumbnailImage;
   static Serializer<GLikedWorkNotificationFieldsData_work> get serializer =>
       _$gLikedWorkNotificationFieldsDataWorkSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i3.serializers.serializeWith(
         GLikedWorkNotificationFieldsData_work.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GLikedWorkNotificationFieldsData_work? fromJson(
           Map<String, dynamic> json) =>
       _i3.serializers.deserializeWith(
@@ -183,6 +189,7 @@ abstract class GLikedWorkNotificationFieldsData_work_thumbnailImage
   static void _initializeBuilder(
           GLikedWorkNotificationFieldsData_work_thumbnailImageBuilder b) =>
       b..G__typename = 'ImageNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -193,11 +200,13 @@ abstract class GLikedWorkNotificationFieldsData_work_thumbnailImage
   static Serializer<GLikedWorkNotificationFieldsData_work_thumbnailImage>
       get serializer =>
           _$gLikedWorkNotificationFieldsDataWorkThumbnailImageSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i3.serializers.serializeWith(
         GLikedWorkNotificationFieldsData_work_thumbnailImage.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GLikedWorkNotificationFieldsData_work_thumbnailImage? fromJson(
           Map<String, dynamic> json) =>
       _i3.serializers.deserializeWith(
@@ -221,6 +230,7 @@ abstract class GLikedWorkNotificationFieldsData_user
   static void _initializeBuilder(
           GLikedWorkNotificationFieldsData_userBuilder b) =>
       b..G__typename = 'UserNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -234,11 +244,13 @@ abstract class GLikedWorkNotificationFieldsData_user
   GLikedWorkNotificationFieldsData_user_iconImage? get iconImage;
   static Serializer<GLikedWorkNotificationFieldsData_user> get serializer =>
       _$gLikedWorkNotificationFieldsDataUserSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i3.serializers.serializeWith(
         GLikedWorkNotificationFieldsData_user.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GLikedWorkNotificationFieldsData_user? fromJson(
           Map<String, dynamic> json) =>
       _i3.serializers.deserializeWith(
@@ -262,6 +274,7 @@ abstract class GLikedWorkNotificationFieldsData_user_iconImage
   static void _initializeBuilder(
           GLikedWorkNotificationFieldsData_user_iconImageBuilder b) =>
       b..G__typename = 'ImageNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -272,11 +285,13 @@ abstract class GLikedWorkNotificationFieldsData_user_iconImage
   static Serializer<GLikedWorkNotificationFieldsData_user_iconImage>
       get serializer =>
           _$gLikedWorkNotificationFieldsDataUserIconImageSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i3.serializers.serializeWith(
         GLikedWorkNotificationFieldsData_user_iconImage.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GLikedWorkNotificationFieldsData_user_iconImage? fromJson(
           Map<String, dynamic> json) =>
       _i3.serializers.deserializeWith(

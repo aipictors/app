@@ -31,6 +31,7 @@ abstract class GCreateFolderReq
       operationName: 'CreateFolder',
     )
     ..executeOnListen = true;
+
   @override
   _i3.GCreateFolderVars get vars;
   @override
@@ -40,6 +41,7 @@ abstract class GCreateFolderReq
         operation: operation,
         variables: vars.toJson(),
       );
+
   @override
   String? get requestId;
   @override
@@ -61,12 +63,26 @@ abstract class GCreateFolderReq
   @override
   _i2.GCreateFolderData? parseData(Map<String, dynamic> json) =>
       _i2.GCreateFolderData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GCreateFolderData data) => data.toJson();
+
+  @override
+  _i1.OperationRequest<_i2.GCreateFolderData, _i3.GCreateFolderVars>
+      transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
+          this.rebuild((b) => b..operation = transform(operation));
+
   static Serializer<GCreateFolderReq> get serializer =>
       _$gCreateFolderReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GCreateFolderReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreateFolderReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GCreateFolderReq.serializer,

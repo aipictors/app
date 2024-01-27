@@ -20,14 +20,17 @@ abstract class GWorkData implements Built<GWorkData, GWorkDataBuilder> {
 
   static void _initializeBuilder(GWorkDataBuilder b) =>
       b..G__typename = 'Query';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   GWorkData_work? get work;
   static Serializer<GWorkData> get serializer => _$gWorkDataSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GWorkData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GWorkData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GWorkData.serializer,
@@ -44,6 +47,7 @@ abstract class GWorkData_work
 
   static void _initializeBuilder(GWorkData_workBuilder b) =>
       b..G__typename = 'WorkNode';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get id;
@@ -58,10 +62,12 @@ abstract class GWorkData_work
   BuiltList<GWorkData_work_subWorks> get subWorks;
   GWorkData_work_viewer? get viewer;
   static Serializer<GWorkData_work> get serializer => _$gWorkDataWorkSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GWorkData_work.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GWorkData_work? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GWorkData_work.serializer,
@@ -79,16 +85,19 @@ abstract class GWorkData_work_image
 
   static void _initializeBuilder(GWorkData_work_imageBuilder b) =>
       b..G__typename = 'ImageNode';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get id;
   String get downloadURL;
   static Serializer<GWorkData_work_image> get serializer =>
       _$gWorkDataWorkImageSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GWorkData_work_image.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GWorkData_work_image? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GWorkData_work_image.serializer,
@@ -107,6 +116,7 @@ abstract class GWorkData_work_user
 
   static void _initializeBuilder(GWorkData_work_userBuilder b) =>
       b..G__typename = 'UserNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -121,11 +131,13 @@ abstract class GWorkData_work_user
   GWorkData_work_user_viewer? get viewer;
   static Serializer<GWorkData_work_user> get serializer =>
       _$gWorkDataWorkUserSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GWorkData_work_user.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GWorkData_work_user? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GWorkData_work_user.serializer,
@@ -146,6 +158,7 @@ abstract class GWorkData_work_user_iconImage
 
   static void _initializeBuilder(GWorkData_work_user_iconImageBuilder b) =>
       b..G__typename = 'ImageNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -155,11 +168,13 @@ abstract class GWorkData_work_user_iconImage
   String get downloadURL;
   static Serializer<GWorkData_work_user_iconImage> get serializer =>
       _$gWorkDataWorkUserIconImageSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GWorkData_work_user_iconImage.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GWorkData_work_user_iconImage? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GWorkData_work_user_iconImage.serializer,
@@ -178,6 +193,7 @@ abstract class GWorkData_work_user_viewer
 
   static void _initializeBuilder(GWorkData_work_user_viewerBuilder b) =>
       b..G__typename = 'UserViewerNode';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get id;
@@ -186,10 +202,12 @@ abstract class GWorkData_work_user_viewer
   bool get isMuted;
   static Serializer<GWorkData_work_user_viewer> get serializer =>
       _$gWorkDataWorkUserViewerSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GWorkData_work_user_viewer.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GWorkData_work_user_viewer? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GWorkData_work_user_viewer.serializer,
@@ -209,6 +227,7 @@ abstract class GWorkData_work_subWorks
 
   static void _initializeBuilder(GWorkData_work_subWorksBuilder b) =>
       b..G__typename = 'SubWorkNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -220,11 +239,13 @@ abstract class GWorkData_work_subWorks
   GWorkData_work_subWorks_thumbnailImage get thumbnailImage;
   static Serializer<GWorkData_work_subWorks> get serializer =>
       _$gWorkDataWorkSubWorksSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GWorkData_work_subWorks.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GWorkData_work_subWorks? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GWorkData_work_subWorks.serializer,
@@ -245,6 +266,7 @@ abstract class GWorkData_work_subWorks_image
 
   static void _initializeBuilder(GWorkData_work_subWorks_imageBuilder b) =>
       b..G__typename = 'ImageNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -254,11 +276,13 @@ abstract class GWorkData_work_subWorks_image
   String get downloadURL;
   static Serializer<GWorkData_work_subWorks_image> get serializer =>
       _$gWorkDataWorkSubWorksImageSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GWorkData_work_subWorks_image.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GWorkData_work_subWorks_image? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GWorkData_work_subWorks_image.serializer,
@@ -280,6 +304,7 @@ abstract class GWorkData_work_subWorks_thumbnailImage
   static void _initializeBuilder(
           GWorkData_work_subWorks_thumbnailImageBuilder b) =>
       b..G__typename = 'ImageNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -289,11 +314,13 @@ abstract class GWorkData_work_subWorks_thumbnailImage
   String get downloadURL;
   static Serializer<GWorkData_work_subWorks_thumbnailImage> get serializer =>
       _$gWorkDataWorkSubWorksThumbnailImageSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GWorkData_work_subWorks_thumbnailImage.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GWorkData_work_subWorks_thumbnailImage? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
@@ -312,6 +339,7 @@ abstract class GWorkData_work_viewer
 
   static void _initializeBuilder(GWorkData_work_viewerBuilder b) =>
       b..G__typename = 'WorkViewerNode';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get id;
@@ -319,10 +347,12 @@ abstract class GWorkData_work_viewer
   bool get isBookmarked;
   static Serializer<GWorkData_work_viewer> get serializer =>
       _$gWorkDataWorkViewerSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GWorkData_work_viewer.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GWorkData_work_viewer? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GWorkData_work_viewer.serializer,

@@ -33,6 +33,7 @@ abstract class GUpdateAccountPasswordReq
       operationName: 'UpdateAccountPassword',
     )
     ..executeOnListen = true;
+
   @override
   _i3.GUpdateAccountPasswordVars get vars;
   @override
@@ -42,6 +43,7 @@ abstract class GUpdateAccountPasswordReq
         operation: operation,
         variables: vars.toJson(),
       );
+
   @override
   String? get requestId;
   @override
@@ -63,12 +65,28 @@ abstract class GUpdateAccountPasswordReq
   @override
   _i2.GUpdateAccountPasswordData? parseData(Map<String, dynamic> json) =>
       _i2.GUpdateAccountPasswordData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GUpdateAccountPasswordData data) =>
+      data.toJson();
+
+  @override
+  _i1.OperationRequest<_i2.GUpdateAccountPasswordData,
+      _i3.GUpdateAccountPasswordVars> transformOperation(
+          _i4.Operation Function(_i4.Operation) transform) =>
+      this.rebuild((b) => b..operation = transform(operation));
+
   static Serializer<GUpdateAccountPasswordReq> get serializer =>
       _$gUpdateAccountPasswordReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GUpdateAccountPasswordReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUpdateAccountPasswordReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GUpdateAccountPasswordReq.serializer,

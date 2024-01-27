@@ -20,10 +20,12 @@ abstract class GDeleteFolderWorkVars
   _i1.GDeleteFolderWorkInput get input;
   static Serializer<GDeleteFolderWorkVars> get serializer =>
       _$gDeleteFolderWorkVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
         GDeleteFolderWorkVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GDeleteFolderWorkVars? fromJson(Map<String, dynamic> json) =>
       _i2.serializers.deserializeWith(
         GDeleteFolderWorkVars.serializer,

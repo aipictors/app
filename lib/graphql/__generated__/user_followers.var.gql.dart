@@ -20,10 +20,12 @@ abstract class GUserFollowersVars
   int get limit;
   static Serializer<GUserFollowersVars> get serializer =>
       _$gUserFollowersVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUserFollowersVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUserFollowersVars? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUserFollowersVars.serializer,

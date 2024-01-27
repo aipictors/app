@@ -18,10 +18,12 @@ abstract class GPartialAlbumFieldsVars
 
   static Serializer<GPartialAlbumFieldsVars> get serializer =>
       _$gPartialAlbumFieldsVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GPartialAlbumFieldsVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GPartialAlbumFieldsVars? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GPartialAlbumFieldsVars.serializer,

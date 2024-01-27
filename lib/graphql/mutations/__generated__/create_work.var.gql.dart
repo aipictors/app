@@ -19,10 +19,12 @@ abstract class GCreateWorkVars
   _i1.GCreateWorkInput get input;
   static Serializer<GCreateWorkVars> get serializer =>
       _$gCreateWorkVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
         GCreateWorkVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreateWorkVars? fromJson(Map<String, dynamic> json) =>
       _i2.serializers.deserializeWith(
         GCreateWorkVars.serializer,

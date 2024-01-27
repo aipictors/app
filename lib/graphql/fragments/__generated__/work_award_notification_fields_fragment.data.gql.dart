@@ -64,6 +64,7 @@ abstract class GWorkAwardNotificationFieldsData
 
   static void _initializeBuilder(GWorkAwardNotificationFieldsDataBuilder b) =>
       b..G__typename = 'WorkAwardNotificationNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -77,11 +78,13 @@ abstract class GWorkAwardNotificationFieldsData
   GWorkAwardNotificationFieldsData_work? get work;
   static Serializer<GWorkAwardNotificationFieldsData> get serializer =>
       _$gWorkAwardNotificationFieldsDataSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
         GWorkAwardNotificationFieldsData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GWorkAwardNotificationFieldsData? fromJson(
           Map<String, dynamic> json) =>
       _i2.serializers.deserializeWith(
@@ -105,6 +108,7 @@ abstract class GWorkAwardNotificationFieldsData_work
   static void _initializeBuilder(
           GWorkAwardNotificationFieldsData_workBuilder b) =>
       b..G__typename = 'WorkNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -122,11 +126,13 @@ abstract class GWorkAwardNotificationFieldsData_work
   GWorkAwardNotificationFieldsData_work_thumbnailImage? get thumbnailImage;
   static Serializer<GWorkAwardNotificationFieldsData_work> get serializer =>
       _$gWorkAwardNotificationFieldsDataWorkSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
         GWorkAwardNotificationFieldsData_work.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GWorkAwardNotificationFieldsData_work? fromJson(
           Map<String, dynamic> json) =>
       _i2.serializers.deserializeWith(
@@ -150,6 +156,7 @@ abstract class GWorkAwardNotificationFieldsData_work_thumbnailImage
   static void _initializeBuilder(
           GWorkAwardNotificationFieldsData_work_thumbnailImageBuilder b) =>
       b..G__typename = 'ImageNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -160,11 +167,13 @@ abstract class GWorkAwardNotificationFieldsData_work_thumbnailImage
   static Serializer<GWorkAwardNotificationFieldsData_work_thumbnailImage>
       get serializer =>
           _$gWorkAwardNotificationFieldsDataWorkThumbnailImageSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
         GWorkAwardNotificationFieldsData_work_thumbnailImage.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GWorkAwardNotificationFieldsData_work_thumbnailImage? fromJson(
           Map<String, dynamic> json) =>
       _i2.serializers.deserializeWith(

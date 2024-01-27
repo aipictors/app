@@ -17,10 +17,12 @@ abstract class GAnnouncementsVars
 
   static Serializer<GAnnouncementsVars> get serializer =>
       _$gAnnouncementsVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GAnnouncementsVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GAnnouncementsVars? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GAnnouncementsVars.serializer,

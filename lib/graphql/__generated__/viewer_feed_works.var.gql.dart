@@ -20,10 +20,12 @@ abstract class GViewerFeedWorksVars
   int get limit;
   static Serializer<GViewerFeedWorksVars> get serializer =>
       _$gViewerFeedWorksVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GViewerFeedWorksVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GViewerFeedWorksVars? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GViewerFeedWorksVars.serializer,

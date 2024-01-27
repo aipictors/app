@@ -17,15 +17,18 @@ abstract class GUpdateFolderData
 
   static void _initializeBuilder(GUpdateFolderDataBuilder b) =>
       b..G__typename = 'Mutation';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   GUpdateFolderData_updateFolder get updateFolder;
   static Serializer<GUpdateFolderData> get serializer =>
       _$gUpdateFolderDataSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUpdateFolderData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUpdateFolderData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUpdateFolderData.serializer,
@@ -45,6 +48,7 @@ abstract class GUpdateFolderData_updateFolder
 
   static void _initializeBuilder(GUpdateFolderData_updateFolderBuilder b) =>
       b..G__typename = 'FolderNode';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get id;
@@ -52,10 +56,12 @@ abstract class GUpdateFolderData_updateFolder
   String get description;
   static Serializer<GUpdateFolderData_updateFolder> get serializer =>
       _$gUpdateFolderDataUpdateFolderSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUpdateFolderData_updateFolder.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUpdateFolderData_updateFolder? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUpdateFolderData_updateFolder.serializer,

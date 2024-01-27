@@ -18,15 +18,18 @@ abstract class GCreateFolderWorkData
 
   static void _initializeBuilder(GCreateFolderWorkDataBuilder b) =>
       b..G__typename = 'Mutation';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   GCreateFolderWorkData_createFolderWork get createFolderWork;
   static Serializer<GCreateFolderWorkData> get serializer =>
       _$gCreateFolderWorkDataSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GCreateFolderWorkData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreateFolderWorkData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GCreateFolderWorkData.serializer,
@@ -47,15 +50,18 @@ abstract class GCreateFolderWorkData_createFolderWork
   static void _initializeBuilder(
           GCreateFolderWorkData_createFolderWorkBuilder b) =>
       b..G__typename = 'WorkNode';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get id;
   static Serializer<GCreateFolderWorkData_createFolderWork> get serializer =>
       _$gCreateFolderWorkDataCreateFolderWorkSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GCreateFolderWorkData_createFolderWork.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreateFolderWorkData_createFolderWork? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(

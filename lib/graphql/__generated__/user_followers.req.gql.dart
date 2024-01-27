@@ -31,6 +31,7 @@ abstract class GUserFollowersReq
       operationName: 'UserFollowers',
     )
     ..executeOnListen = true;
+
   @override
   _i3.GUserFollowersVars get vars;
   @override
@@ -40,6 +41,7 @@ abstract class GUserFollowersReq
         operation: operation,
         variables: vars.toJson(),
       );
+
   @override
   String? get requestId;
   @override
@@ -61,12 +63,26 @@ abstract class GUserFollowersReq
   @override
   _i2.GUserFollowersData? parseData(Map<String, dynamic> json) =>
       _i2.GUserFollowersData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GUserFollowersData data) => data.toJson();
+
+  @override
+  _i1.OperationRequest<_i2.GUserFollowersData, _i3.GUserFollowersVars>
+      transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
+          this.rebuild((b) => b..operation = transform(operation));
+
   static Serializer<GUserFollowersReq> get serializer =>
       _$gUserFollowersReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GUserFollowersReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUserFollowersReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GUserFollowersReq.serializer,

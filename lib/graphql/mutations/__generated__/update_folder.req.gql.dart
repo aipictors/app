@@ -31,6 +31,7 @@ abstract class GUpdateFolderReq
       operationName: 'UpdateFolder',
     )
     ..executeOnListen = true;
+
   @override
   _i3.GUpdateFolderVars get vars;
   @override
@@ -40,6 +41,7 @@ abstract class GUpdateFolderReq
         operation: operation,
         variables: vars.toJson(),
       );
+
   @override
   String? get requestId;
   @override
@@ -61,12 +63,26 @@ abstract class GUpdateFolderReq
   @override
   _i2.GUpdateFolderData? parseData(Map<String, dynamic> json) =>
       _i2.GUpdateFolderData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GUpdateFolderData data) => data.toJson();
+
+  @override
+  _i1.OperationRequest<_i2.GUpdateFolderData, _i3.GUpdateFolderVars>
+      transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
+          this.rebuild((b) => b..operation = transform(operation));
+
   static Serializer<GUpdateFolderReq> get serializer =>
       _$gUpdateFolderReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GUpdateFolderReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUpdateFolderReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GUpdateFolderReq.serializer,

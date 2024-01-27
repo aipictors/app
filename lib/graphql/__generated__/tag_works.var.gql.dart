@@ -19,10 +19,12 @@ abstract class GTagWorksVars
   int get offset;
   int get limit;
   static Serializer<GTagWorksVars> get serializer => _$gTagWorksVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GTagWorksVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GTagWorksVars? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GTagWorksVars.serializer,

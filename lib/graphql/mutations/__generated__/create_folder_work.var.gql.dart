@@ -20,10 +20,12 @@ abstract class GCreateFolderWorkVars
   _i1.GCreateFolderWorkInput get input;
   static Serializer<GCreateFolderWorkVars> get serializer =>
       _$gCreateFolderWorkVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
         GCreateFolderWorkVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreateFolderWorkVars? fromJson(Map<String, dynamic> json) =>
       _i2.serializers.deserializeWith(
         GCreateFolderWorkVars.serializer,

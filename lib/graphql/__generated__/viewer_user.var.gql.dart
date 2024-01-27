@@ -17,10 +17,12 @@ abstract class GViewerUserVars
 
   static Serializer<GViewerUserVars> get serializer =>
       _$gViewerUserVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GViewerUserVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GViewerUserVars? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GViewerUserVars.serializer,

@@ -19,10 +19,12 @@ abstract class GUpdateWorkVars
   _i1.GUpdateWorkInput get input;
   static Serializer<GUpdateWorkVars> get serializer =>
       _$gUpdateWorkVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
         GUpdateWorkVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUpdateWorkVars? fromJson(Map<String, dynamic> json) =>
       _i2.serializers.deserializeWith(
         GUpdateWorkVars.serializer,

@@ -19,10 +19,12 @@ abstract class GDeleteAlbumVars
   _i1.GDeleteAlbumInput get input;
   static Serializer<GDeleteAlbumVars> get serializer =>
       _$gDeleteAlbumVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
         GDeleteAlbumVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GDeleteAlbumVars? fromJson(Map<String, dynamic> json) =>
       _i2.serializers.deserializeWith(
         GDeleteAlbumVars.serializer,

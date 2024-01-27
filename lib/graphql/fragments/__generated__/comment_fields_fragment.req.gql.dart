@@ -28,6 +28,7 @@ abstract class GCommentFieldsReq
   static void _initializeBuilder(GCommentFieldsReqBuilder b) => b
     ..document = _i4.document
     ..fragmentName = 'CommentFields';
+
   @override
   _i3.GCommentFieldsVars get vars;
   @override
@@ -39,12 +40,21 @@ abstract class GCommentFieldsReq
   @override
   _i2.GCommentFieldsData? parseData(Map<String, dynamic> json) =>
       _i2.GCommentFieldsData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GCommentFieldsData data) => data.toJson();
+
   static Serializer<GCommentFieldsReq> get serializer =>
       _$gCommentFieldsReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GCommentFieldsReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCommentFieldsReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GCommentFieldsReq.serializer,

@@ -17,15 +17,18 @@ abstract class GDeleteStickerData
 
   static void _initializeBuilder(GDeleteStickerDataBuilder b) =>
       b..G__typename = 'Mutation';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   GDeleteStickerData_deleteSticker get deleteSticker;
   static Serializer<GDeleteStickerData> get serializer =>
       _$gDeleteStickerDataSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GDeleteStickerData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GDeleteStickerData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GDeleteStickerData.serializer,
@@ -45,16 +48,19 @@ abstract class GDeleteStickerData_deleteSticker
 
   static void _initializeBuilder(GDeleteStickerData_deleteStickerBuilder b) =>
       b..G__typename = 'StickerNode';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get id;
   String get title;
   static Serializer<GDeleteStickerData_deleteSticker> get serializer =>
       _$gDeleteStickerDataDeleteStickerSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GDeleteStickerData_deleteSticker.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GDeleteStickerData_deleteSticker? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(

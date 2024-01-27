@@ -31,6 +31,7 @@ abstract class GReportFolderReq
       operationName: 'ReportFolder',
     )
     ..executeOnListen = true;
+
   @override
   _i3.GReportFolderVars get vars;
   @override
@@ -40,6 +41,7 @@ abstract class GReportFolderReq
         operation: operation,
         variables: vars.toJson(),
       );
+
   @override
   String? get requestId;
   @override
@@ -61,12 +63,26 @@ abstract class GReportFolderReq
   @override
   _i2.GReportFolderData? parseData(Map<String, dynamic> json) =>
       _i2.GReportFolderData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GReportFolderData data) => data.toJson();
+
+  @override
+  _i1.OperationRequest<_i2.GReportFolderData, _i3.GReportFolderVars>
+      transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
+          this.rebuild((b) => b..operation = transform(operation));
+
   static Serializer<GReportFolderReq> get serializer =>
       _$gReportFolderReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GReportFolderReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GReportFolderReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GReportFolderReq.serializer,

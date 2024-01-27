@@ -18,10 +18,12 @@ abstract class GTagsVars implements Built<GTagsVars, GTagsVarsBuilder> {
   int get limit;
   _i1.GTagsWhereInput? get where;
   static Serializer<GTagsVars> get serializer => _$gTagsVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
         GTagsVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GTagsVars? fromJson(Map<String, dynamic> json) =>
       _i2.serializers.deserializeWith(
         GTagsVars.serializer,

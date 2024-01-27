@@ -19,10 +19,12 @@ abstract class GCreateAccountVars
   _i1.GCreateAccountInput get input;
   static Serializer<GCreateAccountVars> get serializer =>
       _$gCreateAccountVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
         GCreateAccountVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreateAccountVars? fromJson(Map<String, dynamic> json) =>
       _i2.serializers.deserializeWith(
         GCreateAccountVars.serializer,

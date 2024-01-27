@@ -38,6 +38,7 @@ abstract class GPartialAlbumFieldsData
 
   static void _initializeBuilder(GPartialAlbumFieldsDataBuilder b) =>
       b..G__typename = 'AlbumNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -55,11 +56,13 @@ abstract class GPartialAlbumFieldsData
   GPartialAlbumFieldsData_thumbnailImage? get thumbnailImage;
   static Serializer<GPartialAlbumFieldsData> get serializer =>
       _$gPartialAlbumFieldsDataSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GPartialAlbumFieldsData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GPartialAlbumFieldsData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GPartialAlbumFieldsData.serializer,
@@ -81,6 +84,7 @@ abstract class GPartialAlbumFieldsData_thumbnailImage
   static void _initializeBuilder(
           GPartialAlbumFieldsData_thumbnailImageBuilder b) =>
       b..G__typename = 'ImageNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -90,11 +94,13 @@ abstract class GPartialAlbumFieldsData_thumbnailImage
   String get downloadURL;
   static Serializer<GPartialAlbumFieldsData_thumbnailImage> get serializer =>
       _$gPartialAlbumFieldsDataThumbnailImageSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GPartialAlbumFieldsData_thumbnailImage.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GPartialAlbumFieldsData_thumbnailImage? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(

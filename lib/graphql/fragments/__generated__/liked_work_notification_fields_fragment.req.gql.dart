@@ -31,6 +31,7 @@ abstract class GLikedWorkNotificationFieldsReq
   static void _initializeBuilder(GLikedWorkNotificationFieldsReqBuilder b) => b
     ..document = _i4.document
     ..fragmentName = 'LikedWorkNotificationFields';
+
   @override
   _i3.GLikedWorkNotificationFieldsVars get vars;
   @override
@@ -42,12 +43,22 @@ abstract class GLikedWorkNotificationFieldsReq
   @override
   _i2.GLikedWorkNotificationFieldsData? parseData(Map<String, dynamic> json) =>
       _i2.GLikedWorkNotificationFieldsData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GLikedWorkNotificationFieldsData data) =>
+      data.toJson();
+
   static Serializer<GLikedWorkNotificationFieldsReq> get serializer =>
       _$gLikedWorkNotificationFieldsReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GLikedWorkNotificationFieldsReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GLikedWorkNotificationFieldsReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GLikedWorkNotificationFieldsReq.serializer,

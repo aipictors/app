@@ -130,6 +130,7 @@ abstract class GWorkCommentNotificationFieldsData
 
   static void _initializeBuilder(GWorkCommentNotificationFieldsDataBuilder b) =>
       b..G__typename = 'WorkCommentNotificationNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -147,11 +148,13 @@ abstract class GWorkCommentNotificationFieldsData
   GWorkCommentNotificationFieldsData_sticker? get sticker;
   static Serializer<GWorkCommentNotificationFieldsData> get serializer =>
       _$gWorkCommentNotificationFieldsDataSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i4.serializers.serializeWith(
         GWorkCommentNotificationFieldsData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GWorkCommentNotificationFieldsData? fromJson(
           Map<String, dynamic> json) =>
       _i4.serializers.deserializeWith(
@@ -175,6 +178,7 @@ abstract class GWorkCommentNotificationFieldsData_work
   static void _initializeBuilder(
           GWorkCommentNotificationFieldsData_workBuilder b) =>
       b..G__typename = 'WorkNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -192,11 +196,13 @@ abstract class GWorkCommentNotificationFieldsData_work
   GWorkCommentNotificationFieldsData_work_thumbnailImage? get thumbnailImage;
   static Serializer<GWorkCommentNotificationFieldsData_work> get serializer =>
       _$gWorkCommentNotificationFieldsDataWorkSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i4.serializers.serializeWith(
         GWorkCommentNotificationFieldsData_work.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GWorkCommentNotificationFieldsData_work? fromJson(
           Map<String, dynamic> json) =>
       _i4.serializers.deserializeWith(
@@ -220,6 +226,7 @@ abstract class GWorkCommentNotificationFieldsData_work_thumbnailImage
   static void _initializeBuilder(
           GWorkCommentNotificationFieldsData_work_thumbnailImageBuilder b) =>
       b..G__typename = 'ImageNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -230,11 +237,13 @@ abstract class GWorkCommentNotificationFieldsData_work_thumbnailImage
   static Serializer<GWorkCommentNotificationFieldsData_work_thumbnailImage>
       get serializer =>
           _$gWorkCommentNotificationFieldsDataWorkThumbnailImageSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i4.serializers.serializeWith(
         GWorkCommentNotificationFieldsData_work_thumbnailImage.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GWorkCommentNotificationFieldsData_work_thumbnailImage? fromJson(
           Map<String, dynamic> json) =>
       _i4.serializers.deserializeWith(
@@ -258,6 +267,7 @@ abstract class GWorkCommentNotificationFieldsData_user
   static void _initializeBuilder(
           GWorkCommentNotificationFieldsData_userBuilder b) =>
       b..G__typename = 'UserNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -271,11 +281,13 @@ abstract class GWorkCommentNotificationFieldsData_user
   GWorkCommentNotificationFieldsData_user_iconImage? get iconImage;
   static Serializer<GWorkCommentNotificationFieldsData_user> get serializer =>
       _$gWorkCommentNotificationFieldsDataUserSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i4.serializers.serializeWith(
         GWorkCommentNotificationFieldsData_user.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GWorkCommentNotificationFieldsData_user? fromJson(
           Map<String, dynamic> json) =>
       _i4.serializers.deserializeWith(
@@ -299,6 +311,7 @@ abstract class GWorkCommentNotificationFieldsData_user_iconImage
   static void _initializeBuilder(
           GWorkCommentNotificationFieldsData_user_iconImageBuilder b) =>
       b..G__typename = 'ImageNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -309,11 +322,13 @@ abstract class GWorkCommentNotificationFieldsData_user_iconImage
   static Serializer<GWorkCommentNotificationFieldsData_user_iconImage>
       get serializer =>
           _$gWorkCommentNotificationFieldsDataUserIconImageSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i4.serializers.serializeWith(
         GWorkCommentNotificationFieldsData_user_iconImage.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GWorkCommentNotificationFieldsData_user_iconImage? fromJson(
           Map<String, dynamic> json) =>
       _i4.serializers.deserializeWith(
@@ -337,6 +352,7 @@ abstract class GWorkCommentNotificationFieldsData_sticker
   static void _initializeBuilder(
           GWorkCommentNotificationFieldsData_stickerBuilder b) =>
       b..G__typename = 'StickerNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -354,11 +370,13 @@ abstract class GWorkCommentNotificationFieldsData_sticker
   int get usesCount;
   static Serializer<GWorkCommentNotificationFieldsData_sticker>
       get serializer => _$gWorkCommentNotificationFieldsDataStickerSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i4.serializers.serializeWith(
         GWorkCommentNotificationFieldsData_sticker.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GWorkCommentNotificationFieldsData_sticker? fromJson(
           Map<String, dynamic> json) =>
       _i4.serializers.deserializeWith(
@@ -382,6 +400,7 @@ abstract class GWorkCommentNotificationFieldsData_sticker_image
   static void _initializeBuilder(
           GWorkCommentNotificationFieldsData_sticker_imageBuilder b) =>
       b..G__typename = 'ImageNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -392,11 +411,13 @@ abstract class GWorkCommentNotificationFieldsData_sticker_image
   static Serializer<GWorkCommentNotificationFieldsData_sticker_image>
       get serializer =>
           _$gWorkCommentNotificationFieldsDataStickerImageSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i4.serializers.serializeWith(
         GWorkCommentNotificationFieldsData_sticker_image.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GWorkCommentNotificationFieldsData_sticker_image? fromJson(
           Map<String, dynamic> json) =>
       _i4.serializers.deserializeWith(

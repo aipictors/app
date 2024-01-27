@@ -31,6 +31,7 @@ abstract class GReportStickerReq
       operationName: 'ReportSticker',
     )
     ..executeOnListen = true;
+
   @override
   _i3.GReportStickerVars get vars;
   @override
@@ -40,6 +41,7 @@ abstract class GReportStickerReq
         operation: operation,
         variables: vars.toJson(),
       );
+
   @override
   String? get requestId;
   @override
@@ -61,12 +63,26 @@ abstract class GReportStickerReq
   @override
   _i2.GReportStickerData? parseData(Map<String, dynamic> json) =>
       _i2.GReportStickerData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GReportStickerData data) => data.toJson();
+
+  @override
+  _i1.OperationRequest<_i2.GReportStickerData, _i3.GReportStickerVars>
+      transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
+          this.rebuild((b) => b..operation = transform(operation));
+
   static Serializer<GReportStickerReq> get serializer =>
       _$gReportStickerReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GReportStickerReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GReportStickerReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GReportStickerReq.serializer,

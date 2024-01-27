@@ -18,15 +18,18 @@ abstract class GDeleteAlbumWorkData
 
   static void _initializeBuilder(GDeleteAlbumWorkDataBuilder b) =>
       b..G__typename = 'Mutation';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   GDeleteAlbumWorkData_deleteAlbumWork get deleteAlbumWork;
   static Serializer<GDeleteAlbumWorkData> get serializer =>
       _$gDeleteAlbumWorkDataSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GDeleteAlbumWorkData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GDeleteAlbumWorkData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GDeleteAlbumWorkData.serializer,
@@ -47,15 +50,18 @@ abstract class GDeleteAlbumWorkData_deleteAlbumWork
   static void _initializeBuilder(
           GDeleteAlbumWorkData_deleteAlbumWorkBuilder b) =>
       b..G__typename = 'WorkNode';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get id;
   static Serializer<GDeleteAlbumWorkData_deleteAlbumWork> get serializer =>
       _$gDeleteAlbumWorkDataDeleteAlbumWorkSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GDeleteAlbumWorkData_deleteAlbumWork.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GDeleteAlbumWorkData_deleteAlbumWork? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(

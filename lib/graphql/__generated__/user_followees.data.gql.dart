@@ -20,15 +20,18 @@ abstract class GUserFolloweesData
 
   static void _initializeBuilder(GUserFolloweesDataBuilder b) =>
       b..G__typename = 'Query';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   GUserFolloweesData_user? get user;
   static Serializer<GUserFolloweesData> get serializer =>
       _$gUserFolloweesDataSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUserFolloweesData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUserFolloweesData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUserFolloweesData.serializer,
@@ -46,16 +49,19 @@ abstract class GUserFolloweesData_user
 
   static void _initializeBuilder(GUserFolloweesData_userBuilder b) =>
       b..G__typename = 'UserNode';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get id;
   BuiltList<GUserFolloweesData_user_followees> get followees;
   static Serializer<GUserFolloweesData_user> get serializer =>
       _$gUserFolloweesDataUserSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUserFolloweesData_user.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUserFolloweesData_user? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUserFolloweesData_user.serializer,
@@ -76,6 +82,7 @@ abstract class GUserFolloweesData_user_followees
 
   static void _initializeBuilder(GUserFolloweesData_user_followeesBuilder b) =>
       b..G__typename = 'UserNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -89,11 +96,13 @@ abstract class GUserFolloweesData_user_followees
   GUserFolloweesData_user_followees_iconImage? get iconImage;
   static Serializer<GUserFolloweesData_user_followees> get serializer =>
       _$gUserFolloweesDataUserFolloweesSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUserFolloweesData_user_followees.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUserFolloweesData_user_followees? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
@@ -116,6 +125,7 @@ abstract class GUserFolloweesData_user_followees_iconImage
   static void _initializeBuilder(
           GUserFolloweesData_user_followees_iconImageBuilder b) =>
       b..G__typename = 'ImageNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -125,11 +135,13 @@ abstract class GUserFolloweesData_user_followees_iconImage
   String get downloadURL;
   static Serializer<GUserFolloweesData_user_followees_iconImage>
       get serializer => _$gUserFolloweesDataUserFolloweesIconImageSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUserFolloweesData_user_followees_iconImage.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUserFolloweesData_user_followees_iconImage? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(

@@ -20,15 +20,18 @@ abstract class GUserAlbumsData
 
   static void _initializeBuilder(GUserAlbumsDataBuilder b) =>
       b..G__typename = 'Query';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   GUserAlbumsData_user? get user;
   static Serializer<GUserAlbumsData> get serializer =>
       _$gUserAlbumsDataSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUserAlbumsData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUserAlbumsData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUserAlbumsData.serializer,
@@ -46,16 +49,19 @@ abstract class GUserAlbumsData_user
 
   static void _initializeBuilder(GUserAlbumsData_userBuilder b) =>
       b..G__typename = 'UserNode';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get id;
   BuiltList<GUserAlbumsData_user_albums> get albums;
   static Serializer<GUserAlbumsData_user> get serializer =>
       _$gUserAlbumsDataUserSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUserAlbumsData_user.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUserAlbumsData_user? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUserAlbumsData_user.serializer,
@@ -75,6 +81,7 @@ abstract class GUserAlbumsData_user_albums
 
   static void _initializeBuilder(GUserAlbumsData_user_albumsBuilder b) =>
       b..G__typename = 'AlbumNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -92,11 +99,13 @@ abstract class GUserAlbumsData_user_albums
   GUserAlbumsData_user_albums_thumbnailImage? get thumbnailImage;
   static Serializer<GUserAlbumsData_user_albums> get serializer =>
       _$gUserAlbumsDataUserAlbumsSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUserAlbumsData_user_albums.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUserAlbumsData_user_albums? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUserAlbumsData_user_albums.serializer,
@@ -118,6 +127,7 @@ abstract class GUserAlbumsData_user_albums_thumbnailImage
   static void _initializeBuilder(
           GUserAlbumsData_user_albums_thumbnailImageBuilder b) =>
       b..G__typename = 'ImageNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -127,11 +137,13 @@ abstract class GUserAlbumsData_user_albums_thumbnailImage
   String get downloadURL;
   static Serializer<GUserAlbumsData_user_albums_thumbnailImage>
       get serializer => _$gUserAlbumsDataUserAlbumsThumbnailImageSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUserAlbumsData_user_albums_thumbnailImage.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUserAlbumsData_user_albums_thumbnailImage? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(

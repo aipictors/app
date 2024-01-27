@@ -19,10 +19,12 @@ abstract class GDeleteCommentVars
   _i1.GDeleteCommentInput get input;
   static Serializer<GDeleteCommentVars> get serializer =>
       _$gDeleteCommentVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
         GDeleteCommentVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GDeleteCommentVars? fromJson(Map<String, dynamic> json) =>
       _i2.serializers.deserializeWith(
         GDeleteCommentVars.serializer,

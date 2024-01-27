@@ -21,10 +21,12 @@ abstract class GViewerNotificationsVars
   int get limit;
   static Serializer<GViewerNotificationsVars> get serializer =>
       _$gViewerNotificationsVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GViewerNotificationsVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GViewerNotificationsVars? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GViewerNotificationsVars.serializer,

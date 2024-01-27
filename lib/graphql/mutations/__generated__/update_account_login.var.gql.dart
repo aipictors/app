@@ -20,10 +20,12 @@ abstract class GUpdateAccountLoginVars
   _i1.GUpdateAccountLoginInput get input;
   static Serializer<GUpdateAccountLoginVars> get serializer =>
       _$gUpdateAccountLoginVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
         GUpdateAccountLoginVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUpdateAccountLoginVars? fromJson(Map<String, dynamic> json) =>
       _i2.serializers.deserializeWith(
         GUpdateAccountLoginVars.serializer,

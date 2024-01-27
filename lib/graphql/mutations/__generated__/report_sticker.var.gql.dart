@@ -19,10 +19,12 @@ abstract class GReportStickerVars
   _i1.GReportStickerInput get input;
   static Serializer<GReportStickerVars> get serializer =>
       _$gReportStickerVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
         GReportStickerVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GReportStickerVars? fromJson(Map<String, dynamic> json) =>
       _i2.serializers.deserializeWith(
         GReportStickerVars.serializer,

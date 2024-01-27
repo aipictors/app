@@ -33,6 +33,7 @@ abstract class GLikedWorksSummaryNotificationFieldsReq
       b
         ..document = _i4.document
         ..fragmentName = 'LikedWorksSummaryNotificationFields';
+
   @override
   _i3.GLikedWorksSummaryNotificationFieldsVars get vars;
   @override
@@ -45,12 +46,23 @@ abstract class GLikedWorksSummaryNotificationFieldsReq
   _i2.GLikedWorksSummaryNotificationFieldsData? parseData(
           Map<String, dynamic> json) =>
       _i2.GLikedWorksSummaryNotificationFieldsData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(
+          _i2.GLikedWorksSummaryNotificationFieldsData data) =>
+      data.toJson();
+
   static Serializer<GLikedWorksSummaryNotificationFieldsReq> get serializer =>
       _$gLikedWorksSummaryNotificationFieldsReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GLikedWorksSummaryNotificationFieldsReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GLikedWorksSummaryNotificationFieldsReq? fromJson(
           Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(

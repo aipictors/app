@@ -22,14 +22,17 @@ abstract class GHotTagsData
 
   static void _initializeBuilder(GHotTagsDataBuilder b) =>
       b..G__typename = 'Query';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   BuiltList<GHotTagsData_hotTags> get hotTags;
   static Serializer<GHotTagsData> get serializer => _$gHotTagsDataSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GHotTagsData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GHotTagsData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GHotTagsData.serializer,
@@ -49,6 +52,7 @@ abstract class GHotTagsData_hotTags
 
   static void _initializeBuilder(GHotTagsData_hotTagsBuilder b) =>
       b..G__typename = 'TagNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -59,11 +63,13 @@ abstract class GHotTagsData_hotTags
   GHotTagsData_hotTags_firstWork? get firstWork;
   static Serializer<GHotTagsData_hotTags> get serializer =>
       _$gHotTagsDataHotTagsSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GHotTagsData_hotTags.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GHotTagsData_hotTags? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GHotTagsData_hotTags.serializer,
@@ -84,6 +90,7 @@ abstract class GHotTagsData_hotTags_firstWork
 
   static void _initializeBuilder(GHotTagsData_hotTags_firstWorkBuilder b) =>
       b..G__typename = 'WorkNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -101,11 +108,13 @@ abstract class GHotTagsData_hotTags_firstWork
   GHotTagsData_hotTags_firstWork_thumbnailImage? get thumbnailImage;
   static Serializer<GHotTagsData_hotTags_firstWork> get serializer =>
       _$gHotTagsDataHotTagsFirstWorkSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GHotTagsData_hotTags_firstWork.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GHotTagsData_hotTags_firstWork? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GHotTagsData_hotTags_firstWork.serializer,
@@ -127,6 +136,7 @@ abstract class GHotTagsData_hotTags_firstWork_thumbnailImage
   static void _initializeBuilder(
           GHotTagsData_hotTags_firstWork_thumbnailImageBuilder b) =>
       b..G__typename = 'ImageNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -136,11 +146,13 @@ abstract class GHotTagsData_hotTags_firstWork_thumbnailImage
   String get downloadURL;
   static Serializer<GHotTagsData_hotTags_firstWork_thumbnailImage>
       get serializer => _$gHotTagsDataHotTagsFirstWorkThumbnailImageSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GHotTagsData_hotTags_firstWork_thumbnailImage.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GHotTagsData_hotTags_firstWork_thumbnailImage? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(

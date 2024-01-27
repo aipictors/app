@@ -32,6 +32,7 @@ abstract class GFeedLatestWorksReq
       operationName: 'FeedLatestWorks',
     )
     ..executeOnListen = true;
+
   @override
   _i3.GFeedLatestWorksVars get vars;
   @override
@@ -41,6 +42,7 @@ abstract class GFeedLatestWorksReq
         operation: operation,
         variables: vars.toJson(),
       );
+
   @override
   String? get requestId;
   @override
@@ -62,12 +64,27 @@ abstract class GFeedLatestWorksReq
   @override
   _i2.GFeedLatestWorksData? parseData(Map<String, dynamic> json) =>
       _i2.GFeedLatestWorksData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GFeedLatestWorksData data) =>
+      data.toJson();
+
+  @override
+  _i1.OperationRequest<_i2.GFeedLatestWorksData, _i3.GFeedLatestWorksVars>
+      transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
+          this.rebuild((b) => b..operation = transform(operation));
+
   static Serializer<GFeedLatestWorksReq> get serializer =>
       _$gFeedLatestWorksReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GFeedLatestWorksReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GFeedLatestWorksReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GFeedLatestWorksReq.serializer,

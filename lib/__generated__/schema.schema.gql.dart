@@ -21,7 +21,9 @@ class GAccessType extends EnumClass {
   static const GAccessType LIMITED = _$gAccessTypeLIMITED;
 
   static Serializer<GAccessType> get serializer => _$gAccessTypeSerializer;
+
   static BuiltSet<GAccessType> get values => _$gAccessTypeValues;
+
   static GAccessType valueOf(String name) => _$gAccessTypeValueOf(name);
 }
 
@@ -37,7 +39,9 @@ class GAwardType extends EnumClass {
   static const GAwardType DAILY_NO_THEME = _$gAwardTypeDAILY_NO_THEME;
 
   static Serializer<GAwardType> get serializer => _$gAwardTypeSerializer;
+
   static BuiltSet<GAwardType> get values => _$gAwardTypeValues;
+
   static GAwardType valueOf(String name) => _$gAwardTypeValueOf(name);
 }
 
@@ -50,7 +54,9 @@ class GCacheControlScope extends EnumClass {
 
   static Serializer<GCacheControlScope> get serializer =>
       _$gCacheControlScopeSerializer;
+
   static BuiltSet<GCacheControlScope> get values => _$gCacheControlScopeValues;
+
   static GCacheControlScope valueOf(String name) =>
       _$gCacheControlScopeValueOf(name);
 }
@@ -65,7 +71,9 @@ class GFolderMode extends EnumClass {
   static const GFolderMode COMIC_HORIZONTAL = _$gFolderModeCOMIC_HORIZONTAL;
 
   static Serializer<GFolderMode> get serializer => _$gFolderModeSerializer;
+
   static BuiltSet<GFolderMode> get values => _$gFolderModeValues;
+
   static GFolderMode valueOf(String name) => _$gFolderModeValueOf(name);
 }
 
@@ -92,8 +100,10 @@ class GImageGenerationSizeType extends EnumClass {
 
   static Serializer<GImageGenerationSizeType> get serializer =>
       _$gImageGenerationSizeTypeSerializer;
+
   static BuiltSet<GImageGenerationSizeType> get values =>
       _$gImageGenerationSizeTypeValues;
+
   static GImageGenerationSizeType valueOf(String name) =>
       _$gImageGenerationSizeTypeValueOf(name);
 }
@@ -110,8 +120,10 @@ class GImageGenerationStatus extends EnumClass {
 
   static Serializer<GImageGenerationStatus> get serializer =>
       _$gImageGenerationStatusSerializer;
+
   static BuiltSet<GImageGenerationStatus> get values =>
       _$gImageGenerationStatusValues;
+
   static GImageGenerationStatus valueOf(String name) =>
       _$gImageGenerationStatusValueOf(name);
 }
@@ -130,8 +142,10 @@ class GImageGenerationType extends EnumClass {
 
   static Serializer<GImageGenerationType> get serializer =>
       _$gImageGenerationTypeSerializer;
+
   static BuiltSet<GImageGenerationType> get values =>
       _$gImageGenerationTypeValues;
+
   static GImageGenerationType valueOf(String name) =>
       _$gImageGenerationTypeValueOf(name);
 }
@@ -154,8 +168,10 @@ class GImageModelCategory extends EnumClass {
 
   static Serializer<GImageModelCategory> get serializer =>
       _$gImageModelCategorySerializer;
+
   static BuiltSet<GImageModelCategory> get values =>
       _$gImageModelCategoryValues;
+
   static GImageModelCategory valueOf(String name) =>
       _$gImageModelCategoryValueOf(name);
 }
@@ -170,7 +186,9 @@ class GImageStyle extends EnumClass {
   static const GImageStyle ILLUSTRATION = _$gImageStyleILLUSTRATION;
 
   static Serializer<GImageStyle> get serializer => _$gImageStyleSerializer;
+
   static BuiltSet<GImageStyle> get values => _$gImageStyleValues;
+
   static GImageStyle valueOf(String name) => _$gImageStyleValueOf(name);
 }
 
@@ -193,7 +211,9 @@ class GNotificationType extends EnumClass {
 
   static Serializer<GNotificationType> get serializer =>
       _$gNotificationTypeSerializer;
+
   static BuiltSet<GNotificationType> get values => _$gNotificationTypeValues;
+
   static GNotificationType valueOf(String name) =>
       _$gNotificationTypeValueOf(name);
 }
@@ -210,7 +230,9 @@ class GPassType extends EnumClass {
   static const GPassType TWO_DAYS = _$gPassTypeTWO_DAYS;
 
   static Serializer<GPassType> get serializer => _$gPassTypeSerializer;
+
   static BuiltSet<GPassType> get values => _$gPassTypeValues;
+
   static GPassType valueOf(String name) => _$gPassTypeValueOf(name);
 }
 
@@ -224,7 +246,9 @@ class GPaymentType extends EnumClass {
   static const GPaymentType PASS_LITE = _$gPaymentTypePASS_LITE;
 
   static Serializer<GPaymentType> get serializer => _$gPaymentTypeSerializer;
+
   static BuiltSet<GPaymentType> get values => _$gPaymentTypeValues;
+
   static GPaymentType valueOf(String name) => _$gPaymentTypeValueOf(name);
 }
 
@@ -240,7 +264,9 @@ class GRating extends EnumClass {
   static const GRating R18G = _$gRatingR18G;
 
   static Serializer<GRating> get serializer => _$gRatingSerializer;
+
   static BuiltSet<GRating> get values => _$gRatingValues;
+
   static GRating valueOf(String name) => _$gRatingValueOf(name);
 }
 
@@ -258,7 +284,9 @@ class GReportReason extends EnumClass {
   static const GReportReason OTHER = _$gReportReasonOTHER;
 
   static Serializer<GReportReason> get serializer => _$gReportReasonSerializer;
+
   static BuiltSet<GReportReason> get values => _$gReportReasonValues;
+
   static GReportReason valueOf(String name) => _$gReportReasonValueOf(name);
 }
 
@@ -270,7 +298,9 @@ class GWorkOrderBy extends EnumClass {
   static const GWorkOrderBy LIKES_COUNT = _$gWorkOrderByLIKES_COUNT;
 
   static Serializer<GWorkOrderBy> get serializer => _$gWorkOrderBySerializer;
+
   static BuiltSet<GWorkOrderBy> get values => _$gWorkOrderByValues;
+
   static GWorkOrderBy valueOf(String name) => _$gWorkOrderByValueOf(name);
 }
 
@@ -284,7 +314,9 @@ class GWorkType extends EnumClass {
   static const GWorkType VIDEO = _$gWorkTypeVIDEO;
 
   static Serializer<GWorkType> get serializer => _$gWorkTypeSerializer;
+
   static BuiltSet<GWorkType> get values => _$gWorkTypeValues;
+
   static GWorkType valueOf(String name) => _$gWorkTypeValueOf(name);
 }
 
@@ -300,10 +332,12 @@ abstract class GAcceptPromptonRequestInput
   String get requestId;
   static Serializer<GAcceptPromptonRequestInput> get serializer =>
       _$gAcceptPromptonRequestInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GAcceptPromptonRequestInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GAcceptPromptonRequestInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GAcceptPromptonRequestInput.serializer,
@@ -324,10 +358,12 @@ abstract class GAddPromptonTagToWorkInput
   String get tagNameJA;
   static Serializer<GAddPromptonTagToWorkInput> get serializer =>
       _$gAddPromptonTagToWorkInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GAddPromptonTagToWorkInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GAddPromptonTagToWorkInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GAddPromptonTagToWorkInput.serializer,
@@ -349,10 +385,12 @@ abstract class GAddPromptonWorkToFolderInput
   String get workId;
   static Serializer<GAddPromptonWorkToFolderInput> get serializer =>
       _$gAddPromptonWorkToFolderInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GAddPromptonWorkToFolderInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GAddPromptonWorkToFolderInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GAddPromptonWorkToFolderInput.serializer,
@@ -371,10 +409,12 @@ abstract class GAlbumsWhereInput
   bool? get isSensitive;
   static Serializer<GAlbumsWhereInput> get serializer =>
       _$gAlbumsWhereInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GAlbumsWhereInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GAlbumsWhereInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GAlbumsWhereInput.serializer,
@@ -397,10 +437,12 @@ abstract class GAwardsWhereInput
   int? get day;
   static Serializer<GAwardsWhereInput> get serializer =>
       _$gAwardsWhereInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GAwardsWhereInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GAwardsWhereInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GAwardsWhereInput.serializer,
@@ -419,10 +461,12 @@ abstract class GBlockPromptonUserInput
   String get userId;
   static Serializer<GBlockPromptonUserInput> get serializer =>
       _$gBlockPromptonUserInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GBlockPromptonUserInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GBlockPromptonUserInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GBlockPromptonUserInput.serializer,
@@ -442,10 +486,12 @@ abstract class GCancelPromptonRequestInput
   String get requestId;
   static Serializer<GCancelPromptonRequestInput> get serializer =>
       _$gCancelPromptonRequestInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GCancelPromptonRequestInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCancelPromptonRequestInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GCancelPromptonRequestInput.serializer,
@@ -468,10 +514,12 @@ abstract class GChangePromptonFolderToPaidInput
   bool get featureCommercialUse;
   static Serializer<GChangePromptonFolderToPaidInput> get serializer =>
       _$gChangePromptonFolderToPaidInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GChangePromptonFolderToPaidInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GChangePromptonFolderToPaidInput? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
@@ -492,10 +540,12 @@ abstract class GClosePromptonRequestInput
   String get requestId;
   static Serializer<GClosePromptonRequestInput> get serializer =>
       _$gClosePromptonRequestInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GClosePromptonRequestInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GClosePromptonRequestInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GClosePromptonRequestInput.serializer,
@@ -513,10 +563,12 @@ abstract class GCreateAccountInput
   String get idToken;
   static Serializer<GCreateAccountInput> get serializer =>
       _$gCreateAccountInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GCreateAccountInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreateAccountInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GCreateAccountInput.serializer,
@@ -534,10 +586,12 @@ abstract class GCreateAlbumInput
   String get title;
   static Serializer<GCreateAlbumInput> get serializer =>
       _$gCreateAlbumInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GCreateAlbumInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreateAlbumInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GCreateAlbumInput.serializer,
@@ -557,10 +611,12 @@ abstract class GCreateAlbumWorkInput
   String get workId;
   static Serializer<GCreateAlbumWorkInput> get serializer =>
       _$gCreateAlbumWorkInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GCreateAlbumWorkInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreateAlbumWorkInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GCreateAlbumWorkInput.serializer,
@@ -578,10 +634,12 @@ abstract class GCreateFolderInput
   String get title;
   static Serializer<GCreateFolderInput> get serializer =>
       _$gCreateFolderInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GCreateFolderInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreateFolderInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GCreateFolderInput.serializer,
@@ -601,10 +659,12 @@ abstract class GCreateFolderWorkInput
   String get workId;
   static Serializer<GCreateFolderWorkInput> get serializer =>
       _$gCreateFolderWorkInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GCreateFolderWorkInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreateFolderWorkInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GCreateFolderWorkInput.serializer,
@@ -628,7 +688,7 @@ abstract class GCreateImageGenerationTaskInput
   String get vae;
   String get prompt;
   String get negativePrompt;
-  int get seed;
+  double get seed;
   int get steps;
   int get scale;
   String get sampler;
@@ -639,10 +699,12 @@ abstract class GCreateImageGenerationTaskInput
   String? get t2tInpaintingFillSize;
   static Serializer<GCreateImageGenerationTaskInput> get serializer =>
       _$gCreateImageGenerationTaskInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GCreateImageGenerationTaskInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreateImageGenerationTaskInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GCreateImageGenerationTaskInput.serializer,
@@ -661,10 +723,12 @@ abstract class GCreateMessageInput
   String get text;
   static Serializer<GCreateMessageInput> get serializer =>
       _$gCreateMessageInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GCreateMessageInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreateMessageInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GCreateMessageInput.serializer,
@@ -682,10 +746,12 @@ abstract class GCreateNoteInput
   String get text;
   static Serializer<GCreateNoteInput> get serializer =>
       _$gCreateNoteInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GCreateNoteInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreateNoteInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GCreateNoteInput.serializer,
@@ -703,10 +769,12 @@ abstract class GCreateNovelInput
   String get text;
   static Serializer<GCreateNovelInput> get serializer =>
       _$gCreateNovelInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GCreateNovelInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreateNovelInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GCreateNovelInput.serializer,
@@ -727,10 +795,12 @@ abstract class GCreatePassCheckoutSessionInput
   GPassType get passType;
   static Serializer<GCreatePassCheckoutSessionInput> get serializer =>
       _$gCreatePassCheckoutSessionInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GCreatePassCheckoutSessionInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreatePassCheckoutSessionInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GCreatePassCheckoutSessionInput.serializer,
@@ -753,10 +823,12 @@ abstract class GCreatePromptonAipicRequestInput
   int? get fee;
   static Serializer<GCreatePromptonAipicRequestInput> get serializer =>
       _$gCreatePromptonAipicRequestInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GCreatePromptonAipicRequestInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreatePromptonAipicRequestInput? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
@@ -778,10 +850,12 @@ abstract class GCreatePromptonChatMessageInput
   String get text;
   static Serializer<GCreatePromptonChatMessageInput> get serializer =>
       _$gCreatePromptonChatMessageInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GCreatePromptonChatMessageInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreatePromptonChatMessageInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GCreatePromptonChatMessageInput.serializer,
@@ -803,10 +877,12 @@ abstract class GCreatePromptonCoffeeRequestInput
   String get recipientId;
   static Serializer<GCreatePromptonCoffeeRequestInput> get serializer =>
       _$gCreatePromptonCoffeeRequestInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GCreatePromptonCoffeeRequestInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreatePromptonCoffeeRequestInput? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
@@ -832,10 +908,12 @@ abstract class GCreatePromptonDeliverableInput
   String get fileType;
   static Serializer<GCreatePromptonDeliverableInput> get serializer =>
       _$gCreatePromptonDeliverableInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GCreatePromptonDeliverableInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreatePromptonDeliverableInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GCreatePromptonDeliverableInput.serializer,
@@ -859,10 +937,12 @@ abstract class GCreatePromptonFileInput
   String get path;
   static Serializer<GCreatePromptonFileInput> get serializer =>
       _$gCreatePromptonFileInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GCreatePromptonFileInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreatePromptonFileInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GCreatePromptonFileInput.serializer,
@@ -884,10 +964,12 @@ abstract class GCreatePromptonFolderInput
   bool get isPublic;
   static Serializer<GCreatePromptonFolderInput> get serializer =>
       _$gCreatePromptonFolderInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GCreatePromptonFolderInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreatePromptonFolderInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GCreatePromptonFolderInput.serializer,
@@ -908,10 +990,12 @@ abstract class GCreatePromptonFolderKeyInput
   String get folderId;
   static Serializer<GCreatePromptonFolderKeyInput> get serializer =>
       _$gCreatePromptonFolderKeyInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GCreatePromptonFolderKeyInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreatePromptonFolderKeyInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GCreatePromptonFolderKeyInput.serializer,
@@ -932,13 +1016,46 @@ abstract class GCreatePromptonFolderViewInput
   String get folderId;
   static Serializer<GCreatePromptonFolderViewInput> get serializer =>
       _$gCreatePromptonFolderViewInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GCreatePromptonFolderViewInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreatePromptonFolderViewInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GCreatePromptonFolderViewInput.serializer,
+        json,
+      );
+}
+
+abstract class GCreatePromptonImageGenerationInput
+    implements
+        Built<GCreatePromptonImageGenerationInput,
+            GCreatePromptonImageGenerationInputBuilder> {
+  GCreatePromptonImageGenerationInput._();
+
+  factory GCreatePromptonImageGenerationInput(
+          [Function(GCreatePromptonImageGenerationInputBuilder b) updates]) =
+      _$GCreatePromptonImageGenerationInput;
+
+  String get model;
+  String get prompt;
+  String get size;
+  String get quality;
+  String get style;
+  static Serializer<GCreatePromptonImageGenerationInput> get serializer =>
+      _$gCreatePromptonImageGenerationInputSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GCreatePromptonImageGenerationInput.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GCreatePromptonImageGenerationInput? fromJson(
+          Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GCreatePromptonImageGenerationInput.serializer,
         json,
       );
 }
@@ -959,10 +1076,12 @@ abstract class GCreatePromptonInquiryInput
   String get body;
   static Serializer<GCreatePromptonInquiryInput> get serializer =>
       _$gCreatePromptonInquiryInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GCreatePromptonInquiryInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreatePromptonInquiryInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GCreatePromptonInquiryInput.serializer,
@@ -983,10 +1102,12 @@ abstract class GCreatePromptonPaymentMethodInput
   String? get redirectURL;
   static Serializer<GCreatePromptonPaymentMethodInput> get serializer =>
       _$gCreatePromptonPaymentMethodInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GCreatePromptonPaymentMethodInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreatePromptonPaymentMethodInput? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
@@ -1020,10 +1141,12 @@ abstract class GCreatePromptonPlanInput
   String? get imageFileId;
   static Serializer<GCreatePromptonPlanInput> get serializer =>
       _$gCreatePromptonPlanInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GCreatePromptonPlanInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreatePromptonPlanInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GCreatePromptonPlanInput.serializer,
@@ -1048,10 +1171,12 @@ abstract class GCreatePromptonPlanRequestInput
   BuiltList<String> get fileIds;
   static Serializer<GCreatePromptonPlanRequestInput> get serializer =>
       _$gCreatePromptonPlanRequestInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GCreatePromptonPlanRequestInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreatePromptonPlanRequestInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GCreatePromptonPlanRequestInput.serializer,
@@ -1072,10 +1197,12 @@ abstract class GCreatePromptonPlanViewInput
   String get planId;
   static Serializer<GCreatePromptonPlanViewInput> get serializer =>
       _$gCreatePromptonPlanViewInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GCreatePromptonPlanViewInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreatePromptonPlanViewInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GCreatePromptonPlanViewInput.serializer,
@@ -1098,10 +1225,12 @@ abstract class GCreatePromptonProfileBlockInput
   String? get description;
   static Serializer<GCreatePromptonProfileBlockInput> get serializer =>
       _$gCreatePromptonProfileBlockInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GCreatePromptonProfileBlockInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreatePromptonProfileBlockInput? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
@@ -1125,10 +1254,12 @@ abstract class GCreatePromptonPromptCategoryInput
   String get slug;
   static Serializer<GCreatePromptonPromptCategoryInput> get serializer =>
       _$gCreatePromptonPromptCategoryInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GCreatePromptonPromptCategoryInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreatePromptonPromptCategoryInput? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
@@ -1154,10 +1285,12 @@ abstract class GCreatePromptonPromptInput
   bool get isSingle;
   static Serializer<GCreatePromptonPromptInput> get serializer =>
       _$gCreatePromptonPromptInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GCreatePromptonPromptInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreatePromptonPromptInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GCreatePromptonPromptInput.serializer,
@@ -1181,10 +1314,12 @@ abstract class GCreatePromptonPromptWorkInput
   String get promptId;
   static Serializer<GCreatePromptonPromptWorkInput> get serializer =>
       _$gCreatePromptonPromptWorkInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GCreatePromptonPromptWorkInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreatePromptonPromptWorkInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GCreatePromptonPromptWorkInput.serializer,
@@ -1206,10 +1341,12 @@ abstract class GCreatePromptonReactionInput
   String get text;
   static Serializer<GCreatePromptonReactionInput> get serializer =>
       _$gCreatePromptonReactionInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GCreatePromptonReactionInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreatePromptonReactionInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GCreatePromptonReactionInput.serializer,
@@ -1231,10 +1368,12 @@ abstract class GCreatePromptonThumbnailFileInput
   String get originalFileId;
   static Serializer<GCreatePromptonThumbnailFileInput> get serializer =>
       _$gCreatePromptonThumbnailFileInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GCreatePromptonThumbnailFileInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreatePromptonThumbnailFileInput? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
@@ -1257,10 +1396,12 @@ abstract class GCreatePromptonUserFromTokenInput
   String get userId;
   static Serializer<GCreatePromptonUserFromTokenInput> get serializer =>
       _$gCreatePromptonUserFromTokenInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GCreatePromptonUserFromTokenInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreatePromptonUserFromTokenInput? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
@@ -1281,10 +1422,12 @@ abstract class GCreatePromptonUserInput
   String get name;
   static Serializer<GCreatePromptonUserInput> get serializer =>
       _$gCreatePromptonUserInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GCreatePromptonUserInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreatePromptonUserInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GCreatePromptonUserInput.serializer,
@@ -1305,10 +1448,12 @@ abstract class GCreatePromptonUserViewInput
   String get userId;
   static Serializer<GCreatePromptonUserViewInput> get serializer =>
       _$gCreatePromptonUserViewInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GCreatePromptonUserViewInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreatePromptonUserViewInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GCreatePromptonUserViewInput.serializer,
@@ -1329,10 +1474,12 @@ abstract class GCreatePromptonWorkBookmarkInput
   String get workId;
   static Serializer<GCreatePromptonWorkBookmarkInput> get serializer =>
       _$gCreatePromptonWorkBookmarkInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GCreatePromptonWorkBookmarkInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreatePromptonWorkBookmarkInput? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
@@ -1357,10 +1504,12 @@ abstract class GCreatePromptonWorkInput
   String get fileType;
   static Serializer<GCreatePromptonWorkInput> get serializer =>
       _$gCreatePromptonWorkInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GCreatePromptonWorkInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreatePromptonWorkInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GCreatePromptonWorkInput.serializer,
@@ -1381,10 +1530,12 @@ abstract class GCreatePromptonWorkLikeInput
   String get workId;
   static Serializer<GCreatePromptonWorkLikeInput> get serializer =>
       _$gCreatePromptonWorkLikeInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GCreatePromptonWorkLikeInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreatePromptonWorkLikeInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GCreatePromptonWorkLikeInput.serializer,
@@ -1405,10 +1556,12 @@ abstract class GCreatePromptonWorkViewInput
   String get workId;
   static Serializer<GCreatePromptonWorkViewInput> get serializer =>
       _$gCreatePromptonWorkViewInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GCreatePromptonWorkViewInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreatePromptonWorkViewInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GCreatePromptonWorkViewInput.serializer,
@@ -1430,10 +1583,12 @@ abstract class GCreateResponseCommentInput
   String? get stickerId;
   static Serializer<GCreateResponseCommentInput> get serializer =>
       _$gCreateResponseCommentInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GCreateResponseCommentInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreateResponseCommentInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GCreateResponseCommentInput.serializer,
@@ -1451,10 +1606,12 @@ abstract class GCreateStickerInput
   String get title;
   static Serializer<GCreateStickerInput> get serializer =>
       _$gCreateStickerInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GCreateStickerInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreateStickerInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GCreateStickerInput.serializer,
@@ -1475,10 +1632,12 @@ abstract class GCreateWorkCommentInput
   String? get stickerId;
   static Serializer<GCreateWorkCommentInput> get serializer =>
       _$gCreateWorkCommentInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GCreateWorkCommentInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreateWorkCommentInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GCreateWorkCommentInput.serializer,
@@ -1496,10 +1655,12 @@ abstract class GCreateWorkInput
   String get title;
   static Serializer<GCreateWorkInput> get serializer =>
       _$gCreateWorkInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GCreateWorkInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreateWorkInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GCreateWorkInput.serializer,
@@ -1518,10 +1679,12 @@ abstract class GCreateWorkLikeInput
   String get workId;
   static Serializer<GCreateWorkLikeInput> get serializer =>
       _$gCreateWorkLikeInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GCreateWorkLikeInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreateWorkLikeInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GCreateWorkLikeInput.serializer,
@@ -1540,10 +1703,12 @@ abstract class GCreateWorkViewInput
   String get workId;
   static Serializer<GCreateWorkViewInput> get serializer =>
       _$gCreateWorkViewInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GCreateWorkViewInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreateWorkViewInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GCreateWorkViewInput.serializer,
@@ -1567,10 +1732,12 @@ abstract class GDailyThemesWhereInput
   String? get endDate;
   static Serializer<GDailyThemesWhereInput> get serializer =>
       _$gDailyThemesWhereInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GDailyThemesWhereInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GDailyThemesWhereInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GDailyThemesWhereInput.serializer,
@@ -1590,10 +1757,12 @@ abstract class GDecrementPromptonPlanSort
   String get planId;
   static Serializer<GDecrementPromptonPlanSort> get serializer =>
       _$gDecrementPromptonPlanSortSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GDecrementPromptonPlanSort.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GDecrementPromptonPlanSort? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GDecrementPromptonPlanSort.serializer,
@@ -1614,10 +1783,12 @@ abstract class GDecrementPromptonProfileBlockIndexInput
   String get profileBlockId;
   static Serializer<GDecrementPromptonProfileBlockIndexInput> get serializer =>
       _$gDecrementPromptonProfileBlockIndexInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GDecrementPromptonProfileBlockIndexInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GDecrementPromptonProfileBlockIndexInput? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
@@ -1636,10 +1807,12 @@ abstract class GDeleteAlbumInput
   String get albumId;
   static Serializer<GDeleteAlbumInput> get serializer =>
       _$gDeleteAlbumInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GDeleteAlbumInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GDeleteAlbumInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GDeleteAlbumInput.serializer,
@@ -1659,10 +1832,12 @@ abstract class GDeleteAlbumWorkInput
   String get workId;
   static Serializer<GDeleteAlbumWorkInput> get serializer =>
       _$gDeleteAlbumWorkInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GDeleteAlbumWorkInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GDeleteAlbumWorkInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GDeleteAlbumWorkInput.serializer,
@@ -1680,10 +1855,12 @@ abstract class GDeleteCommentInput
   String get commentId;
   static Serializer<GDeleteCommentInput> get serializer =>
       _$gDeleteCommentInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GDeleteCommentInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GDeleteCommentInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GDeleteCommentInput.serializer,
@@ -1701,10 +1878,12 @@ abstract class GDeleteFolderInput
   String get folderId;
   static Serializer<GDeleteFolderInput> get serializer =>
       _$gDeleteFolderInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GDeleteFolderInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GDeleteFolderInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GDeleteFolderInput.serializer,
@@ -1724,10 +1903,12 @@ abstract class GDeleteFolderWorkInput
   String get workId;
   static Serializer<GDeleteFolderWorkInput> get serializer =>
       _$gDeleteFolderWorkInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GDeleteFolderWorkInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GDeleteFolderWorkInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GDeleteFolderWorkInput.serializer,
@@ -1745,10 +1926,12 @@ abstract class GDeleteMessageInput
   String get messageId;
   static Serializer<GDeleteMessageInput> get serializer =>
       _$gDeleteMessageInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GDeleteMessageInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GDeleteMessageInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GDeleteMessageInput.serializer,
@@ -1766,10 +1949,12 @@ abstract class GDeleteNoteInput
   String get noteId;
   static Serializer<GDeleteNoteInput> get serializer =>
       _$gDeleteNoteInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GDeleteNoteInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GDeleteNoteInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GDeleteNoteInput.serializer,
@@ -1787,10 +1972,12 @@ abstract class GDeleteNovelInput
   String get novelId;
   static Serializer<GDeleteNovelInput> get serializer =>
       _$gDeleteNovelInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GDeleteNovelInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GDeleteNovelInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GDeleteNovelInput.serializer,
@@ -1810,10 +1997,12 @@ abstract class GDeletePromptonFolderInput
   String get folderId;
   static Serializer<GDeletePromptonFolderInput> get serializer =>
       _$gDeletePromptonFolderInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GDeletePromptonFolderInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GDeletePromptonFolderInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GDeletePromptonFolderInput.serializer,
@@ -1834,10 +2023,12 @@ abstract class GDeletePromptonIntegrationInput
   String get integrationId;
   static Serializer<GDeletePromptonIntegrationInput> get serializer =>
       _$gDeletePromptonIntegrationInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GDeletePromptonIntegrationInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GDeletePromptonIntegrationInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GDeletePromptonIntegrationInput.serializer,
@@ -1857,10 +2048,12 @@ abstract class GDeletePromptonPlanInput
   String get planId;
   static Serializer<GDeletePromptonPlanInput> get serializer =>
       _$gDeletePromptonPlanInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GDeletePromptonPlanInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GDeletePromptonPlanInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GDeletePromptonPlanInput.serializer,
@@ -1881,10 +2074,12 @@ abstract class GDeletePromptonProfileBlockInput
   String get profileBlockId;
   static Serializer<GDeletePromptonProfileBlockInput> get serializer =>
       _$gDeletePromptonProfileBlockInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GDeletePromptonProfileBlockInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GDeletePromptonProfileBlockInput? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
@@ -1906,10 +2101,12 @@ abstract class GDeletePromptonPromptCategoryInput
   String get promptCategoryId;
   static Serializer<GDeletePromptonPromptCategoryInput> get serializer =>
       _$gDeletePromptonPromptCategoryInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GDeletePromptonPromptCategoryInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GDeletePromptonPromptCategoryInput? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
@@ -1930,10 +2127,12 @@ abstract class GDeletePromptonPromptInput
   String get promptId;
   static Serializer<GDeletePromptonPromptInput> get serializer =>
       _$gDeletePromptonPromptInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GDeletePromptonPromptInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GDeletePromptonPromptInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GDeletePromptonPromptInput.serializer,
@@ -1955,10 +2154,12 @@ abstract class GDeletePromptonReactionInput
   String get text;
   static Serializer<GDeletePromptonReactionInput> get serializer =>
       _$gDeletePromptonReactionInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GDeletePromptonReactionInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GDeletePromptonReactionInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GDeletePromptonReactionInput.serializer,
@@ -1979,10 +2180,12 @@ abstract class GDeletePromptonWorkBookmarkInput
   String get workId;
   static Serializer<GDeletePromptonWorkBookmarkInput> get serializer =>
       _$gDeletePromptonWorkBookmarkInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GDeletePromptonWorkBookmarkInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GDeletePromptonWorkBookmarkInput? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
@@ -2003,10 +2206,12 @@ abstract class GDeletePromptonWorkInput
   String get workId;
   static Serializer<GDeletePromptonWorkInput> get serializer =>
       _$gDeletePromptonWorkInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GDeletePromptonWorkInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GDeletePromptonWorkInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GDeletePromptonWorkInput.serializer,
@@ -2027,10 +2232,12 @@ abstract class GDeletePromptonWorkLikeInput
   String get workId;
   static Serializer<GDeletePromptonWorkLikeInput> get serializer =>
       _$gDeletePromptonWorkLikeInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GDeletePromptonWorkLikeInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GDeletePromptonWorkLikeInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GDeletePromptonWorkLikeInput.serializer,
@@ -2048,10 +2255,12 @@ abstract class GDeleteStickerInput
   String get stickerId;
   static Serializer<GDeleteStickerInput> get serializer =>
       _$gDeleteStickerInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GDeleteStickerInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GDeleteStickerInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GDeleteStickerInput.serializer,
@@ -2069,10 +2278,12 @@ abstract class GDeleteWorkInput
   String get workId;
   static Serializer<GDeleteWorkInput> get serializer =>
       _$gDeleteWorkInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GDeleteWorkInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GDeleteWorkInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GDeleteWorkInput.serializer,
@@ -2091,10 +2302,12 @@ abstract class GDeleteWorkLikeInput
   String get workId;
   static Serializer<GDeleteWorkLikeInput> get serializer =>
       _$gDeleteWorkLikeInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GDeleteWorkLikeInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GDeleteWorkLikeInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GDeleteWorkLikeInput.serializer,
@@ -2117,10 +2330,12 @@ abstract class GFlipPromptonFolderWorkIndexInput
   String get nextWorkId;
   static Serializer<GFlipPromptonFolderWorkIndexInput> get serializer =>
       _$gFlipPromptonFolderWorkIndexInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GFlipPromptonFolderWorkIndexInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GFlipPromptonFolderWorkIndexInput? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
@@ -2140,10 +2355,12 @@ abstract class GFoldersWhereInput
   bool? get isSensitive;
   static Serializer<GFoldersWhereInput> get serializer =>
       _$gFoldersWhereInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GFoldersWhereInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GFoldersWhereInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GFoldersWhereInput.serializer,
@@ -2163,10 +2380,12 @@ abstract class GFollowPromptonUserInput
   String get userId;
   static Serializer<GFollowPromptonUserInput> get serializer =>
       _$gFollowPromptonUserInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GFollowPromptonUserInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GFollowPromptonUserInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GFollowPromptonUserInput.serializer,
@@ -2184,10 +2403,12 @@ abstract class GFollowUserInput
   String get userId;
   static Serializer<GFollowUserInput> get serializer =>
       _$gFollowUserInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GFollowUserInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GFollowUserInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GFollowUserInput.serializer,
@@ -2205,10 +2426,12 @@ abstract class GHotWorksWhereInput
   bool? get isSensitive;
   static Serializer<GHotWorksWhereInput> get serializer =>
       _$gHotWorksWhereInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GHotWorksWhereInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GHotWorksWhereInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GHotWorksWhereInput.serializer,
@@ -2229,10 +2452,12 @@ abstract class GIncrementPromptonProfileBlockIndexInput
   String get profileBlockId;
   static Serializer<GIncrementPromptonProfileBlockIndexInput> get serializer =>
       _$gIncrementPromptonProfileBlockIndexInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GIncrementPromptonProfileBlockIndexInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GIncrementPromptonProfileBlockIndexInput? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
@@ -2253,10 +2478,12 @@ abstract class GLoginWithPasswordInput
   String get password;
   static Serializer<GLoginWithPasswordInput> get serializer =>
       _$gLoginWithPasswordInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GLoginWithPasswordInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GLoginWithPasswordInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GLoginWithPasswordInput.serializer,
@@ -2277,10 +2504,12 @@ abstract class GMarkPromptonFolderAsPrivateInput
   String get folderId;
   static Serializer<GMarkPromptonFolderAsPrivateInput> get serializer =>
       _$gMarkPromptonFolderAsPrivateInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GMarkPromptonFolderAsPrivateInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GMarkPromptonFolderAsPrivateInput? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
@@ -2302,10 +2531,12 @@ abstract class GMarkPromptonFolderAsPublicInput
   String get folderId;
   static Serializer<GMarkPromptonFolderAsPublicInput> get serializer =>
       _$gMarkPromptonFolderAsPublicInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GMarkPromptonFolderAsPublicInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GMarkPromptonFolderAsPublicInput? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
@@ -2327,10 +2558,12 @@ abstract class GMarkPromptonPlanAsPrivateInput
   String get planId;
   static Serializer<GMarkPromptonPlanAsPrivateInput> get serializer =>
       _$gMarkPromptonPlanAsPrivateInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GMarkPromptonPlanAsPrivateInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GMarkPromptonPlanAsPrivateInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GMarkPromptonPlanAsPrivateInput.serializer,
@@ -2351,10 +2584,12 @@ abstract class GMarkPromptonPlanAsPublicInput
   String get planId;
   static Serializer<GMarkPromptonPlanAsPublicInput> get serializer =>
       _$gMarkPromptonPlanAsPublicInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GMarkPromptonPlanAsPublicInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GMarkPromptonPlanAsPublicInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GMarkPromptonPlanAsPublicInput.serializer,
@@ -2375,10 +2610,12 @@ abstract class GMarkPromptonWorkAsPrivateInput
   String get workId;
   static Serializer<GMarkPromptonWorkAsPrivateInput> get serializer =>
       _$gMarkPromptonWorkAsPrivateInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GMarkPromptonWorkAsPrivateInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GMarkPromptonWorkAsPrivateInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GMarkPromptonWorkAsPrivateInput.serializer,
@@ -2399,10 +2636,12 @@ abstract class GMarkPromptonWorkAsPublicInput
   String get workId;
   static Serializer<GMarkPromptonWorkAsPublicInput> get serializer =>
       _$gMarkPromptonWorkAsPublicInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GMarkPromptonWorkAsPublicInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GMarkPromptonWorkAsPublicInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GMarkPromptonWorkAsPublicInput.serializer,
@@ -2423,10 +2662,12 @@ abstract class GMarkPromptonWorkAsUserHeaderInput
   String get workId;
   static Serializer<GMarkPromptonWorkAsUserHeaderInput> get serializer =>
       _$gMarkPromptonWorkAsUserHeaderInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GMarkPromptonWorkAsUserHeaderInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GMarkPromptonWorkAsUserHeaderInput? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
@@ -2446,10 +2687,12 @@ abstract class GMilestonesWhereInput
   String get repository;
   static Serializer<GMilestonesWhereInput> get serializer =>
       _$gMilestonesWhereInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GMilestonesWhereInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GMilestonesWhereInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GMilestonesWhereInput.serializer,
@@ -2466,10 +2709,12 @@ abstract class GMuteTagInput
 
   String get tagName;
   static Serializer<GMuteTagInput> get serializer => _$gMuteTagInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GMuteTagInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GMuteTagInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GMuteTagInput.serializer,
@@ -2487,10 +2732,12 @@ abstract class GMuteUserInput
   String get userId;
   static Serializer<GMuteUserInput> get serializer =>
       _$gMuteUserInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GMuteUserInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GMuteUserInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GMuteUserInput.serializer,
@@ -2509,10 +2756,12 @@ abstract class GPinPromptonWorkInput
   String get workId;
   static Serializer<GPinPromptonWorkInput> get serializer =>
       _$gPinPromptonWorkInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GPinPromptonWorkInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GPinPromptonWorkInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GPinPromptonWorkInput.serializer,
@@ -2533,10 +2782,12 @@ abstract class GPopularWorksWhereInput
   GRating? get rating;
   static Serializer<GPopularWorksWhereInput> get serializer =>
       _$gPopularWorksWhereInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GPopularWorksWhereInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GPopularWorksWhereInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GPopularWorksWhereInput.serializer,
@@ -2558,13 +2809,42 @@ abstract class GPromptonFoldersWhereInput
   bool? get isPaid;
   static Serializer<GPromptonFoldersWhereInput> get serializer =>
       _$gPromptonFoldersWhereInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GPromptonFoldersWhereInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GPromptonFoldersWhereInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GPromptonFoldersWhereInput.serializer,
+        json,
+      );
+}
+
+abstract class GPromptonImageGenerationsWhereInput
+    implements
+        Built<GPromptonImageGenerationsWhereInput,
+            GPromptonImageGenerationsWhereInputBuilder> {
+  GPromptonImageGenerationsWhereInput._();
+
+  factory GPromptonImageGenerationsWhereInput(
+          [Function(GPromptonImageGenerationsWhereInputBuilder b) updates]) =
+      _$GPromptonImageGenerationsWhereInput;
+
+  String? get search;
+  static Serializer<GPromptonImageGenerationsWhereInput> get serializer =>
+      _$gPromptonImageGenerationsWhereInputSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GPromptonImageGenerationsWhereInput.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GPromptonImageGenerationsWhereInput? fromJson(
+          Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GPromptonImageGenerationsWhereInput.serializer,
         json,
       );
 }
@@ -2581,10 +2861,12 @@ abstract class GPromptonLabelsWhereInput
   String? get search;
   static Serializer<GPromptonLabelsWhereInput> get serializer =>
       _$gPromptonLabelsWhereInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GPromptonLabelsWhereInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GPromptonLabelsWhereInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GPromptonLabelsWhereInput.serializer,
@@ -2605,13 +2887,16 @@ abstract class GPromptonPlansWhereInput
   bool? get isUnique;
   BuiltList<String>? get styleSlugs;
   BuiltList<String>? get objectSlugs;
+  String? get category;
   bool? get isPaid;
   static Serializer<GPromptonPlansWhereInput> get serializer =>
       _$gPromptonPlansWhereInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GPromptonPlansWhereInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GPromptonPlansWhereInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GPromptonPlansWhereInput.serializer,
@@ -2631,10 +2916,12 @@ abstract class GPromptonRequestsWhereInput
   String? get status;
   static Serializer<GPromptonRequestsWhereInput> get serializer =>
       _$gPromptonRequestsWhereInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GPromptonRequestsWhereInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GPromptonRequestsWhereInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GPromptonRequestsWhereInput.serializer,
@@ -2654,10 +2941,12 @@ abstract class GPromptonTagsWhereInput
   bool? get isPinned;
   static Serializer<GPromptonTagsWhereInput> get serializer =>
       _$gPromptonTagsWhereInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GPromptonTagsWhereInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GPromptonTagsWhereInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GPromptonTagsWhereInput.serializer,
@@ -2677,10 +2966,12 @@ abstract class GPromptonUsersWhereInput
   String? get search;
   static Serializer<GPromptonUsersWhereInput> get serializer =>
       _$gPromptonUsersWhereInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GPromptonUsersWhereInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GPromptonUsersWhereInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GPromptonUsersWhereInput.serializer,
@@ -2701,10 +2992,12 @@ abstract class GPromptonUserWorksWhereInput
   bool? get isUncategorized;
   static Serializer<GPromptonUserWorksWhereInput> get serializer =>
       _$gPromptonUserWorksWhereInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GPromptonUserWorksWhereInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GPromptonUserWorksWhereInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GPromptonUserWorksWhereInput.serializer,
@@ -2725,10 +3018,12 @@ abstract class GPromptonViewerWorksWhereInput
   bool? get isUncategorized;
   static Serializer<GPromptonViewerWorksWhereInput> get serializer =>
       _$gPromptonViewerWorksWhereInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GPromptonViewerWorksWhereInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GPromptonViewerWorksWhereInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GPromptonViewerWorksWhereInput.serializer,
@@ -2750,10 +3045,12 @@ abstract class GPromptonWorksWhereInput
   String? get color;
   static Serializer<GPromptonWorksWhereInput> get serializer =>
       _$gPromptonWorksWhereInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GPromptonWorksWhereInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GPromptonWorksWhereInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GPromptonWorksWhereInput.serializer,
@@ -2773,10 +3070,12 @@ abstract class GRejectPromptonRequestInput
   String get requestId;
   static Serializer<GRejectPromptonRequestInput> get serializer =>
       _$gRejectPromptonRequestInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GRejectPromptonRequestInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GRejectPromptonRequestInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GRejectPromptonRequestInput.serializer,
@@ -2798,10 +3097,12 @@ abstract class GRemovePromptonTagFromWorkInput
   String get tagId;
   static Serializer<GRemovePromptonTagFromWorkInput> get serializer =>
       _$gRemovePromptonTagFromWorkInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GRemovePromptonTagFromWorkInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GRemovePromptonTagFromWorkInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GRemovePromptonTagFromWorkInput.serializer,
@@ -2823,10 +3124,12 @@ abstract class GRemovePromptonWorkFromFolderInput
   String get workId;
   static Serializer<GRemovePromptonWorkFromFolderInput> get serializer =>
       _$gRemovePromptonWorkFromFolderInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GRemovePromptonWorkFromFolderInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GRemovePromptonWorkFromFolderInput? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
@@ -2846,10 +3149,12 @@ abstract class GReportAlbumInput
   GReportReason get reason;
   static Serializer<GReportAlbumInput> get serializer =>
       _$gReportAlbumInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GReportAlbumInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GReportAlbumInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GReportAlbumInput.serializer,
@@ -2868,10 +3173,12 @@ abstract class GReportCommentInput
   GReportReason get reason;
   static Serializer<GReportCommentInput> get serializer =>
       _$gReportCommentInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GReportCommentInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GReportCommentInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GReportCommentInput.serializer,
@@ -2890,10 +3197,12 @@ abstract class GReportFolderInput
   GReportReason get reason;
   static Serializer<GReportFolderInput> get serializer =>
       _$gReportFolderInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GReportFolderInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GReportFolderInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GReportFolderInput.serializer,
@@ -2912,10 +3221,12 @@ abstract class GReportStickerInput
   GReportReason get reason;
   static Serializer<GReportStickerInput> get serializer =>
       _$gReportStickerInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GReportStickerInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GReportStickerInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GReportStickerInput.serializer,
@@ -2934,10 +3245,12 @@ abstract class GReportUserInput
   GReportReason get reason;
   static Serializer<GReportUserInput> get serializer =>
       _$gReportUserInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GReportUserInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GReportUserInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GReportUserInput.serializer,
@@ -2956,10 +3269,12 @@ abstract class GReportWorkInput
   GReportReason get reason;
   static Serializer<GReportWorkInput> get serializer =>
       _$gReportWorkInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GReportWorkInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GReportWorkInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GReportWorkInput.serializer,
@@ -2978,10 +3293,12 @@ abstract class GStickersWhereInput
   bool? get isSensitive;
   static Serializer<GStickersWhereInput> get serializer =>
       _$gStickersWhereInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GStickersWhereInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GStickersWhereInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GStickersWhereInput.serializer,
@@ -2999,10 +3316,12 @@ abstract class GTagsWhereInput
   String? get search;
   static Serializer<GTagsWhereInput> get serializer =>
       _$gTagsWhereInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GTagsWhereInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GTagsWhereInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GTagsWhereInput.serializer,
@@ -3023,10 +3342,12 @@ abstract class GTestPromptonIntegrationInput
   String get integrationId;
   static Serializer<GTestPromptonIntegrationInput> get serializer =>
       _$gTestPromptonIntegrationInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GTestPromptonIntegrationInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GTestPromptonIntegrationInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GTestPromptonIntegrationInput.serializer,
@@ -3046,10 +3367,12 @@ abstract class GUnfollowPromptonUserInput
   String get userId;
   static Serializer<GUnfollowPromptonUserInput> get serializer =>
       _$gUnfollowPromptonUserInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUnfollowPromptonUserInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUnfollowPromptonUserInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUnfollowPromptonUserInput.serializer,
@@ -3067,10 +3390,12 @@ abstract class GUnfollowUserInput
   String get userId;
   static Serializer<GUnfollowUserInput> get serializer =>
       _$gUnfollowUserInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUnfollowUserInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUnfollowUserInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUnfollowUserInput.serializer,
@@ -3088,10 +3413,12 @@ abstract class GUnmuteTagInput
   String get tagName;
   static Serializer<GUnmuteTagInput> get serializer =>
       _$gUnmuteTagInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUnmuteTagInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUnmuteTagInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUnmuteTagInput.serializer,
@@ -3109,10 +3436,12 @@ abstract class GUnmuteUserInput
   String get userId;
   static Serializer<GUnmuteUserInput> get serializer =>
       _$gUnmuteUserInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUnmuteUserInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUnmuteUserInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUnmuteUserInput.serializer,
@@ -3131,10 +3460,12 @@ abstract class GUnpinPromptonWorkInput
   String get workId;
   static Serializer<GUnpinPromptonWorkInput> get serializer =>
       _$gUnpinPromptonWorkInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUnpinPromptonWorkInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUnpinPromptonWorkInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUnpinPromptonWorkInput.serializer,
@@ -3152,10 +3483,12 @@ abstract class GUnwatchFolderInput
   String get userId;
   static Serializer<GUnwatchFolderInput> get serializer =>
       _$gUnwatchFolderInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUnwatchFolderInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUnwatchFolderInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUnwatchFolderInput.serializer,
@@ -3175,10 +3508,12 @@ abstract class GUpdateAccountFcmTokenInput
   String? get token;
   static Serializer<GUpdateAccountFcmTokenInput> get serializer =>
       _$gUpdateAccountFcmTokenInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUpdateAccountFcmTokenInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUpdateAccountFcmTokenInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUpdateAccountFcmTokenInput.serializer,
@@ -3198,10 +3533,12 @@ abstract class GUpdateAccountLoginInput
   String get login;
   static Serializer<GUpdateAccountLoginInput> get serializer =>
       _$gUpdateAccountLoginInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUpdateAccountLoginInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUpdateAccountLoginInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUpdateAccountLoginInput.serializer,
@@ -3222,10 +3559,12 @@ abstract class GUpdateAccountPasswordInput
   String get newPassword;
   static Serializer<GUpdateAccountPasswordInput> get serializer =>
       _$gUpdateAccountPasswordInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUpdateAccountPasswordInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUpdateAccountPasswordInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUpdateAccountPasswordInput.serializer,
@@ -3243,10 +3582,12 @@ abstract class GUpdateAlbumInput
   String get albumId;
   static Serializer<GUpdateAlbumInput> get serializer =>
       _$gUpdateAlbumInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUpdateAlbumInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUpdateAlbumInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUpdateAlbumInput.serializer,
@@ -3265,10 +3606,12 @@ abstract class GUpdateFolderInput
   String get title;
   static Serializer<GUpdateFolderInput> get serializer =>
       _$gUpdateFolderInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUpdateFolderInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUpdateFolderInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUpdateFolderInput.serializer,
@@ -3286,10 +3629,12 @@ abstract class GUpdateNoteInput
   String get noteId;
   static Serializer<GUpdateNoteInput> get serializer =>
       _$gUpdateNoteInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUpdateNoteInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUpdateNoteInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUpdateNoteInput.serializer,
@@ -3307,10 +3652,12 @@ abstract class GUpdateNovelInput
   String get novelId;
   static Serializer<GUpdateNovelInput> get serializer =>
       _$gUpdateNovelInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUpdateNovelInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUpdateNovelInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUpdateNovelInput.serializer,
@@ -3333,10 +3680,12 @@ abstract class GUpdatePromptonFolderInput
   String? get imageFileId;
   static Serializer<GUpdatePromptonFolderInput> get serializer =>
       _$gUpdatePromptonFolderInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUpdatePromptonFolderInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUpdatePromptonFolderInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUpdatePromptonFolderInput.serializer,
@@ -3357,10 +3706,12 @@ abstract class GUpdatePromptonFolderSortInput
   String get folderId;
   static Serializer<GUpdatePromptonFolderSortInput> get serializer =>
       _$gUpdatePromptonFolderSortInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUpdatePromptonFolderSortInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUpdatePromptonFolderSortInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUpdatePromptonFolderSortInput.serializer,
@@ -3394,10 +3745,12 @@ abstract class GUpdatePromptonPlanInput
   String? get imageFileId;
   static Serializer<GUpdatePromptonPlanInput> get serializer =>
       _$gUpdatePromptonPlanInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUpdatePromptonPlanInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUpdatePromptonPlanInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUpdatePromptonPlanInput.serializer,
@@ -3418,10 +3771,12 @@ abstract class GUpdatePromptonPlanSortInput
   String get planId;
   static Serializer<GUpdatePromptonPlanSortInput> get serializer =>
       _$gUpdatePromptonPlanSortInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUpdatePromptonPlanSortInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUpdatePromptonPlanSortInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUpdatePromptonPlanSortInput.serializer,
@@ -3445,10 +3800,12 @@ abstract class GUpdatePromptonProfileBlockInput
   String? get description;
   static Serializer<GUpdatePromptonProfileBlockInput> get serializer =>
       _$gUpdatePromptonProfileBlockInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUpdatePromptonProfileBlockInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUpdatePromptonProfileBlockInput? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
@@ -3472,10 +3829,12 @@ abstract class GUpdatePromptonPromptCategoryInput
   String? get description;
   static Serializer<GUpdatePromptonPromptCategoryInput> get serializer =>
       _$gUpdatePromptonPromptCategoryInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUpdatePromptonPromptCategoryInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUpdatePromptonPromptCategoryInput? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
@@ -3501,10 +3860,12 @@ abstract class GUpdatePromptonPromptInput
   bool get isSingle;
   static Serializer<GUpdatePromptonPromptInput> get serializer =>
       _$gUpdatePromptonPromptInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUpdatePromptonPromptInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUpdatePromptonPromptInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUpdatePromptonPromptInput.serializer,
@@ -3525,10 +3886,12 @@ abstract class GUpdatePromptonUserAvatarInput
   String? get avatarFileId;
   static Serializer<GUpdatePromptonUserAvatarInput> get serializer =>
       _$gUpdatePromptonUserAvatarInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUpdatePromptonUserAvatarInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUpdatePromptonUserAvatarInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUpdatePromptonUserAvatarInput.serializer,
@@ -3549,10 +3912,12 @@ abstract class GUpdatePromptonUserHeaderImageInput
   String get imageFileId;
   static Serializer<GUpdatePromptonUserHeaderImageInput> get serializer =>
       _$gUpdatePromptonUserHeaderImageInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUpdatePromptonUserHeaderImageInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUpdatePromptonUserHeaderImageInput? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
@@ -3575,10 +3940,12 @@ abstract class GUpdatePromptonUserInvoiceRegistrationNumberInput
   static Serializer<GUpdatePromptonUserInvoiceRegistrationNumberInput>
       get serializer =>
           _$gUpdatePromptonUserInvoiceRegistrationNumberInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUpdatePromptonUserInvoiceRegistrationNumberInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUpdatePromptonUserInvoiceRegistrationNumberInput? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
@@ -3600,10 +3967,12 @@ abstract class GUpdatePromptonUserLoginInput
   String get login;
   static Serializer<GUpdatePromptonUserLoginInput> get serializer =>
       _$gUpdatePromptonUserLoginInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUpdatePromptonUserLoginInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUpdatePromptonUserLoginInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUpdatePromptonUserLoginInput.serializer,
@@ -3631,10 +4000,12 @@ abstract class GUpdatePromptonUserProfileInput
   String? get deviantartUsername;
   static Serializer<GUpdatePromptonUserProfileInput> get serializer =>
       _$gUpdatePromptonUserProfileInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUpdatePromptonUserProfileInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUpdatePromptonUserProfileInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUpdatePromptonUserProfileInput.serializer,
@@ -3656,10 +4027,12 @@ abstract class GUpdatePromptonWorkInput
   String? get body;
   static Serializer<GUpdatePromptonWorkInput> get serializer =>
       _$gUpdatePromptonWorkInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUpdatePromptonWorkInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUpdatePromptonWorkInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUpdatePromptonWorkInput.serializer,
@@ -3678,10 +4051,12 @@ abstract class GUpdateStickerInput
   String get title;
   static Serializer<GUpdateStickerInput> get serializer =>
       _$gUpdateStickerInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUpdateStickerInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUpdateStickerInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUpdateStickerInput.serializer,
@@ -3701,10 +4076,12 @@ abstract class GUpdateUserProfileInput
   String get biography;
   static Serializer<GUpdateUserProfileInput> get serializer =>
       _$gUpdateUserProfileInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUpdateUserProfileInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUpdateUserProfileInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUpdateUserProfileInput.serializer,
@@ -3723,10 +4100,12 @@ abstract class GUpdateWorkInput
   String get title;
   static Serializer<GUpdateWorkInput> get serializer =>
       _$gUpdateWorkInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUpdateWorkInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUpdateWorkInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUpdateWorkInput.serializer,
@@ -3745,10 +4124,12 @@ abstract class GUserAlbumInput
   bool? get isSensitive;
   static Serializer<GUserAlbumInput> get serializer =>
       _$gUserAlbumInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUserAlbumInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUserAlbumInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUserAlbumInput.serializer,
@@ -3767,10 +4148,12 @@ abstract class GUserFolderInput
   bool? get isSensitive;
   static Serializer<GUserFolderInput> get serializer =>
       _$gUserFolderInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUserFolderInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUserFolderInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUserFolderInput.serializer,
@@ -3788,10 +4171,12 @@ abstract class GUsersWhereInput
   String? get search;
   static Serializer<GUsersWhereInput> get serializer =>
       _$gUsersWhereInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUsersWhereInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUsersWhereInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUsersWhereInput.serializer,
@@ -3811,10 +4196,12 @@ abstract class GUserWorksWhereInput
   bool? get isSensitive;
   static Serializer<GUserWorksWhereInput> get serializer =>
       _$gUserWorksWhereInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GUserWorksWhereInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUserWorksWhereInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUserWorksWhereInput.serializer,
@@ -3832,10 +4219,12 @@ abstract class GWatchFolderInput
   String get folderId;
   static Serializer<GWatchFolderInput> get serializer =>
       _$gWatchFolderInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GWatchFolderInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GWatchFolderInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GWatchFolderInput.serializer,
@@ -3859,10 +4248,12 @@ abstract class GWorkAwardsWhereInput
   int? get weekIndex;
   static Serializer<GWorkAwardsWhereInput> get serializer =>
       _$gWorkAwardsWhereInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GWorkAwardsWhereInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GWorkAwardsWhereInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GWorkAwardsWhereInput.serializer,
@@ -3887,10 +4278,12 @@ abstract class GWorksWhereInput
   bool? get isSensitive;
   static Serializer<GWorksWhereInput> get serializer =>
       _$gWorksWhereInputSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GWorksWhereInput.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GWorksWhereInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GWorksWhereInput.serializer,
@@ -3935,6 +4328,7 @@ const Map<String, Set<String>> possibleTypesMap = {
     'PromptonFolderNode',
     'PromptonFolderViewerNode',
     'PromptonFriendshipNode',
+    'PromptonImageGenerationNode',
     'PromptonIntegrationNode',
     'PromptonLabelNode',
     'PromptonLikeNode',

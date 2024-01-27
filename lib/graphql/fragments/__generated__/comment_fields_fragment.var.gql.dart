@@ -17,10 +17,12 @@ abstract class GCommentFieldsVars
 
   static Serializer<GCommentFieldsVars> get serializer =>
       _$gCommentFieldsVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GCommentFieldsVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCommentFieldsVars? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GCommentFieldsVars.serializer,

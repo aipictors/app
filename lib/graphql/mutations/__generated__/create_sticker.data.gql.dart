@@ -17,15 +17,18 @@ abstract class GCreateStickerData
 
   static void _initializeBuilder(GCreateStickerDataBuilder b) =>
       b..G__typename = 'Mutation';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   GCreateStickerData_createSticker get createSticker;
   static Serializer<GCreateStickerData> get serializer =>
       _$gCreateStickerDataSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GCreateStickerData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreateStickerData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GCreateStickerData.serializer,
@@ -45,16 +48,19 @@ abstract class GCreateStickerData_createSticker
 
   static void _initializeBuilder(GCreateStickerData_createStickerBuilder b) =>
       b..G__typename = 'StickerNode';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get id;
   String get title;
   static Serializer<GCreateStickerData_createSticker> get serializer =>
       _$gCreateStickerDataCreateStickerSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GCreateStickerData_createSticker.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreateStickerData_createSticker? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(

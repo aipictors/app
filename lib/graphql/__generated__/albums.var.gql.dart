@@ -18,10 +18,12 @@ abstract class GAlbumsVars implements Built<GAlbumsVars, GAlbumsVarsBuilder> {
   int get limit;
   _i1.GAlbumsWhereInput? get where;
   static Serializer<GAlbumsVars> get serializer => _$gAlbumsVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
         GAlbumsVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GAlbumsVars? fromJson(Map<String, dynamic> json) =>
       _i2.serializers.deserializeWith(
         GAlbumsVars.serializer,

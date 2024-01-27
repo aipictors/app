@@ -23,15 +23,18 @@ abstract class GViewerFeedWorksData
 
   static void _initializeBuilder(GViewerFeedWorksDataBuilder b) =>
       b..G__typename = 'Query';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   GViewerFeedWorksData_viewer? get viewer;
   static Serializer<GViewerFeedWorksData> get serializer =>
       _$gViewerFeedWorksDataSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GViewerFeedWorksData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GViewerFeedWorksData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GViewerFeedWorksData.serializer,
@@ -50,15 +53,18 @@ abstract class GViewerFeedWorksData_viewer
 
   static void _initializeBuilder(GViewerFeedWorksData_viewerBuilder b) =>
       b..G__typename = 'Viewer';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   BuiltList<GViewerFeedWorksData_viewer_feedWorks> get feedWorks;
   static Serializer<GViewerFeedWorksData_viewer> get serializer =>
       _$gViewerFeedWorksDataViewerSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GViewerFeedWorksData_viewer.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GViewerFeedWorksData_viewer? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GViewerFeedWorksData_viewer.serializer,
@@ -80,6 +86,7 @@ abstract class GViewerFeedWorksData_viewer_feedWorks
   static void _initializeBuilder(
           GViewerFeedWorksData_viewer_feedWorksBuilder b) =>
       b..G__typename = 'WorkNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -101,11 +108,13 @@ abstract class GViewerFeedWorksData_viewer_feedWorks
   GViewerFeedWorksData_viewer_feedWorks_viewer? get viewer;
   static Serializer<GViewerFeedWorksData_viewer_feedWorks> get serializer =>
       _$gViewerFeedWorksDataViewerFeedWorksSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GViewerFeedWorksData_viewer_feedWorks.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GViewerFeedWorksData_viewer_feedWorks? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
@@ -128,6 +137,7 @@ abstract class GViewerFeedWorksData_viewer_feedWorks_image
   static void _initializeBuilder(
           GViewerFeedWorksData_viewer_feedWorks_imageBuilder b) =>
       b..G__typename = 'ImageNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -137,11 +147,13 @@ abstract class GViewerFeedWorksData_viewer_feedWorks_image
   String get downloadURL;
   static Serializer<GViewerFeedWorksData_viewer_feedWorks_image>
       get serializer => _$gViewerFeedWorksDataViewerFeedWorksImageSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GViewerFeedWorksData_viewer_feedWorks_image.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GViewerFeedWorksData_viewer_feedWorks_image? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
@@ -164,6 +176,7 @@ abstract class GViewerFeedWorksData_viewer_feedWorks_user
   static void _initializeBuilder(
           GViewerFeedWorksData_viewer_feedWorks_userBuilder b) =>
       b..G__typename = 'UserNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -178,11 +191,13 @@ abstract class GViewerFeedWorksData_viewer_feedWorks_user
   GViewerFeedWorksData_viewer_feedWorks_user_viewer? get viewer;
   static Serializer<GViewerFeedWorksData_viewer_feedWorks_user>
       get serializer => _$gViewerFeedWorksDataViewerFeedWorksUserSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GViewerFeedWorksData_viewer_feedWorks_user.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GViewerFeedWorksData_viewer_feedWorks_user? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
@@ -205,6 +220,7 @@ abstract class GViewerFeedWorksData_viewer_feedWorks_user_iconImage
   static void _initializeBuilder(
           GViewerFeedWorksData_viewer_feedWorks_user_iconImageBuilder b) =>
       b..G__typename = 'ImageNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -215,11 +231,13 @@ abstract class GViewerFeedWorksData_viewer_feedWorks_user_iconImage
   static Serializer<GViewerFeedWorksData_viewer_feedWorks_user_iconImage>
       get serializer =>
           _$gViewerFeedWorksDataViewerFeedWorksUserIconImageSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GViewerFeedWorksData_viewer_feedWorks_user_iconImage.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GViewerFeedWorksData_viewer_feedWorks_user_iconImage? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
@@ -241,6 +259,7 @@ abstract class GViewerFeedWorksData_viewer_feedWorks_user_viewer
   static void _initializeBuilder(
           GViewerFeedWorksData_viewer_feedWorks_user_viewerBuilder b) =>
       b..G__typename = 'UserViewerNode';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get id;
@@ -250,10 +269,12 @@ abstract class GViewerFeedWorksData_viewer_feedWorks_user_viewer
   static Serializer<GViewerFeedWorksData_viewer_feedWorks_user_viewer>
       get serializer =>
           _$gViewerFeedWorksDataViewerFeedWorksUserViewerSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GViewerFeedWorksData_viewer_feedWorks_user_viewer.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GViewerFeedWorksData_viewer_feedWorks_user_viewer? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
@@ -275,6 +296,7 @@ abstract class GViewerFeedWorksData_viewer_feedWorks_viewer
   static void _initializeBuilder(
           GViewerFeedWorksData_viewer_feedWorks_viewerBuilder b) =>
       b..G__typename = 'WorkViewerNode';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get id;
@@ -282,10 +304,12 @@ abstract class GViewerFeedWorksData_viewer_feedWorks_viewer
   bool get isBookmarked;
   static Serializer<GViewerFeedWorksData_viewer_feedWorks_viewer>
       get serializer => _$gViewerFeedWorksDataViewerFeedWorksViewerSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GViewerFeedWorksData_viewer_feedWorks_viewer.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GViewerFeedWorksData_viewer_feedWorks_viewer? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(

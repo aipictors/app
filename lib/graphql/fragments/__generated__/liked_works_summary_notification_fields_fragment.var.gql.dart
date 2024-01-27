@@ -20,10 +20,12 @@ abstract class GLikedWorksSummaryNotificationFieldsVars
 
   static Serializer<GLikedWorksSummaryNotificationFieldsVars> get serializer =>
       _$gLikedWorksSummaryNotificationFieldsVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GLikedWorksSummaryNotificationFieldsVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GLikedWorksSummaryNotificationFieldsVars? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(

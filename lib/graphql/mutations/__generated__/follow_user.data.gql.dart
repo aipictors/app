@@ -17,15 +17,18 @@ abstract class GFollowUserData
 
   static void _initializeBuilder(GFollowUserDataBuilder b) =>
       b..G__typename = 'Mutation';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   GFollowUserData_followUser get followUser;
   static Serializer<GFollowUserData> get serializer =>
       _$gFollowUserDataSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GFollowUserData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GFollowUserData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GFollowUserData.serializer,
@@ -44,16 +47,19 @@ abstract class GFollowUserData_followUser
 
   static void _initializeBuilder(GFollowUserData_followUserBuilder b) =>
       b..G__typename = 'UserNode';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get id;
   GFollowUserData_followUser_viewer? get viewer;
   static Serializer<GFollowUserData_followUser> get serializer =>
       _$gFollowUserDataFollowUserSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GFollowUserData_followUser.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GFollowUserData_followUser? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GFollowUserData_followUser.serializer,
@@ -73,16 +79,19 @@ abstract class GFollowUserData_followUser_viewer
 
   static void _initializeBuilder(GFollowUserData_followUser_viewerBuilder b) =>
       b..G__typename = 'UserViewerNode';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get id;
   bool get isFollowee;
   static Serializer<GFollowUserData_followUser_viewer> get serializer =>
       _$gFollowUserDataFollowUserViewerSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GFollowUserData_followUser_viewer.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GFollowUserData_followUser_viewer? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(

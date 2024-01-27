@@ -19,10 +19,12 @@ abstract class GPartialFolderFieldsVars
 
   static Serializer<GPartialFolderFieldsVars> get serializer =>
       _$gPartialFolderFieldsVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GPartialFolderFieldsVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GPartialFolderFieldsVars? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GPartialFolderFieldsVars.serializer,

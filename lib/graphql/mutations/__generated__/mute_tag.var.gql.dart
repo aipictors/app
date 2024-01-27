@@ -18,10 +18,12 @@ abstract class GMuteTagVars
 
   _i1.GMuteTagInput get input;
   static Serializer<GMuteTagVars> get serializer => _$gMuteTagVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
         GMuteTagVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GMuteTagVars? fromJson(Map<String, dynamic> json) =>
       _i2.serializers.deserializeWith(
         GMuteTagVars.serializer,

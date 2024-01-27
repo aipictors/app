@@ -20,14 +20,17 @@ abstract class GTagWorksData
 
   static void _initializeBuilder(GTagWorksDataBuilder b) =>
       b..G__typename = 'Query';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   GTagWorksData_tag? get tag;
   static Serializer<GTagWorksData> get serializer => _$gTagWorksDataSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GTagWorksData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GTagWorksData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GTagWorksData.serializer,
@@ -44,16 +47,19 @@ abstract class GTagWorksData_tag
 
   static void _initializeBuilder(GTagWorksData_tagBuilder b) =>
       b..G__typename = 'TagNode';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get id;
   BuiltList<GTagWorksData_tag_works> get works;
   static Serializer<GTagWorksData_tag> get serializer =>
       _$gTagWorksDataTagSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GTagWorksData_tag.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GTagWorksData_tag? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GTagWorksData_tag.serializer,
@@ -73,6 +79,7 @@ abstract class GTagWorksData_tag_works
 
   static void _initializeBuilder(GTagWorksData_tag_worksBuilder b) =>
       b..G__typename = 'WorkNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -90,11 +97,13 @@ abstract class GTagWorksData_tag_works
   GTagWorksData_tag_works_thumbnailImage? get thumbnailImage;
   static Serializer<GTagWorksData_tag_works> get serializer =>
       _$gTagWorksDataTagWorksSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GTagWorksData_tag_works.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GTagWorksData_tag_works? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GTagWorksData_tag_works.serializer,
@@ -116,6 +125,7 @@ abstract class GTagWorksData_tag_works_thumbnailImage
   static void _initializeBuilder(
           GTagWorksData_tag_works_thumbnailImageBuilder b) =>
       b..G__typename = 'ImageNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -125,11 +135,13 @@ abstract class GTagWorksData_tag_works_thumbnailImage
   String get downloadURL;
   static Serializer<GTagWorksData_tag_works_thumbnailImage> get serializer =>
       _$gTagWorksDataTagWorksThumbnailImageSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GTagWorksData_tag_works_thumbnailImage.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GTagWorksData_tag_works_thumbnailImage? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(

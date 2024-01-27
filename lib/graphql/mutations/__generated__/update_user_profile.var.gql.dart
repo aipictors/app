@@ -20,10 +20,12 @@ abstract class GUpdateUserProfileVars
   _i1.GUpdateUserProfileInput get input;
   static Serializer<GUpdateUserProfileVars> get serializer =>
       _$gUpdateUserProfileVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
         GUpdateUserProfileVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUpdateUserProfileVars? fromJson(Map<String, dynamic> json) =>
       _i2.serializers.deserializeWith(
         GUpdateUserProfileVars.serializer,

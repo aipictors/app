@@ -19,10 +19,12 @@ abstract class GCreateAlbumVars
   _i1.GCreateFolderInput get input;
   static Serializer<GCreateAlbumVars> get serializer =>
       _$gCreateAlbumVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
         GCreateAlbumVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreateAlbumVars? fromJson(Map<String, dynamic> json) =>
       _i2.serializers.deserializeWith(
         GCreateAlbumVars.serializer,

@@ -21,10 +21,12 @@ abstract class GWorkCommentResponsesVars
   String get commentId;
   static Serializer<GWorkCommentResponsesVars> get serializer =>
       _$gWorkCommentResponsesVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GWorkCommentResponsesVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GWorkCommentResponsesVars? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GWorkCommentResponsesVars.serializer,

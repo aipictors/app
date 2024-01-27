@@ -20,10 +20,12 @@ abstract class GCreateAlbumWorkVars
   _i1.GCreateAlbumWorkInput get input;
   static Serializer<GCreateAlbumWorkVars> get serializer =>
       _$gCreateAlbumWorkVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
         GCreateAlbumWorkVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreateAlbumWorkVars? fromJson(Map<String, dynamic> json) =>
       _i2.serializers.deserializeWith(
         GCreateAlbumWorkVars.serializer,

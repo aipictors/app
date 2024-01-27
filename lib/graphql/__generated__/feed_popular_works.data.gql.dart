@@ -23,15 +23,18 @@ abstract class GFeedPopularWorksData
 
   static void _initializeBuilder(GFeedPopularWorksDataBuilder b) =>
       b..G__typename = 'Query';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   BuiltList<GFeedPopularWorksData_popularWorks> get popularWorks;
   static Serializer<GFeedPopularWorksData> get serializer =>
       _$gFeedPopularWorksDataSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GFeedPopularWorksData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GFeedPopularWorksData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GFeedPopularWorksData.serializer,
@@ -52,6 +55,7 @@ abstract class GFeedPopularWorksData_popularWorks
 
   static void _initializeBuilder(GFeedPopularWorksData_popularWorksBuilder b) =>
       b..G__typename = 'WorkNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -73,11 +77,13 @@ abstract class GFeedPopularWorksData_popularWorks
   GFeedPopularWorksData_popularWorks_viewer? get viewer;
   static Serializer<GFeedPopularWorksData_popularWorks> get serializer =>
       _$gFeedPopularWorksDataPopularWorksSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GFeedPopularWorksData_popularWorks.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GFeedPopularWorksData_popularWorks? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
@@ -100,6 +106,7 @@ abstract class GFeedPopularWorksData_popularWorks_image
   static void _initializeBuilder(
           GFeedPopularWorksData_popularWorks_imageBuilder b) =>
       b..G__typename = 'ImageNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -109,11 +116,13 @@ abstract class GFeedPopularWorksData_popularWorks_image
   String get downloadURL;
   static Serializer<GFeedPopularWorksData_popularWorks_image> get serializer =>
       _$gFeedPopularWorksDataPopularWorksImageSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GFeedPopularWorksData_popularWorks_image.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GFeedPopularWorksData_popularWorks_image? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
@@ -136,6 +145,7 @@ abstract class GFeedPopularWorksData_popularWorks_user
   static void _initializeBuilder(
           GFeedPopularWorksData_popularWorks_userBuilder b) =>
       b..G__typename = 'UserNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -150,11 +160,13 @@ abstract class GFeedPopularWorksData_popularWorks_user
   GFeedPopularWorksData_popularWorks_user_viewer? get viewer;
   static Serializer<GFeedPopularWorksData_popularWorks_user> get serializer =>
       _$gFeedPopularWorksDataPopularWorksUserSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GFeedPopularWorksData_popularWorks_user.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GFeedPopularWorksData_popularWorks_user? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
@@ -177,6 +189,7 @@ abstract class GFeedPopularWorksData_popularWorks_user_iconImage
   static void _initializeBuilder(
           GFeedPopularWorksData_popularWorks_user_iconImageBuilder b) =>
       b..G__typename = 'ImageNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -187,11 +200,13 @@ abstract class GFeedPopularWorksData_popularWorks_user_iconImage
   static Serializer<GFeedPopularWorksData_popularWorks_user_iconImage>
       get serializer =>
           _$gFeedPopularWorksDataPopularWorksUserIconImageSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GFeedPopularWorksData_popularWorks_user_iconImage.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GFeedPopularWorksData_popularWorks_user_iconImage? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
@@ -213,6 +228,7 @@ abstract class GFeedPopularWorksData_popularWorks_user_viewer
   static void _initializeBuilder(
           GFeedPopularWorksData_popularWorks_user_viewerBuilder b) =>
       b..G__typename = 'UserViewerNode';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get id;
@@ -221,10 +237,12 @@ abstract class GFeedPopularWorksData_popularWorks_user_viewer
   bool get isMuted;
   static Serializer<GFeedPopularWorksData_popularWorks_user_viewer>
       get serializer => _$gFeedPopularWorksDataPopularWorksUserViewerSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GFeedPopularWorksData_popularWorks_user_viewer.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GFeedPopularWorksData_popularWorks_user_viewer? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
@@ -246,6 +264,7 @@ abstract class GFeedPopularWorksData_popularWorks_viewer
   static void _initializeBuilder(
           GFeedPopularWorksData_popularWorks_viewerBuilder b) =>
       b..G__typename = 'WorkViewerNode';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get id;
@@ -253,10 +272,12 @@ abstract class GFeedPopularWorksData_popularWorks_viewer
   bool get isBookmarked;
   static Serializer<GFeedPopularWorksData_popularWorks_viewer> get serializer =>
       _$gFeedPopularWorksDataPopularWorksViewerSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GFeedPopularWorksData_popularWorks_viewer.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GFeedPopularWorksData_popularWorks_viewer? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(

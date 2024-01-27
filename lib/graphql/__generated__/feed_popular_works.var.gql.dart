@@ -18,10 +18,12 @@ abstract class GFeedPopularWorksVars
 
   static Serializer<GFeedPopularWorksVars> get serializer =>
       _$gFeedPopularWorksVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GFeedPopularWorksVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GFeedPopularWorksVars? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GFeedPopularWorksVars.serializer,

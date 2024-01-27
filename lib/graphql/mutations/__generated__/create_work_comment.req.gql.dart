@@ -33,6 +33,7 @@ abstract class GCreateWorkCommentReq
       operationName: 'CreateWorkComment',
     )
     ..executeOnListen = true;
+
   @override
   _i3.GCreateWorkCommentVars get vars;
   @override
@@ -42,6 +43,7 @@ abstract class GCreateWorkCommentReq
         operation: operation,
         variables: vars.toJson(),
       );
+
   @override
   String? get requestId;
   @override
@@ -63,12 +65,27 @@ abstract class GCreateWorkCommentReq
   @override
   _i2.GCreateWorkCommentData? parseData(Map<String, dynamic> json) =>
       _i2.GCreateWorkCommentData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GCreateWorkCommentData data) =>
+      data.toJson();
+
+  @override
+  _i1.OperationRequest<_i2.GCreateWorkCommentData, _i3.GCreateWorkCommentVars>
+      transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
+          this.rebuild((b) => b..operation = transform(operation));
+
   static Serializer<GCreateWorkCommentReq> get serializer =>
       _$gCreateWorkCommentReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GCreateWorkCommentReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GCreateWorkCommentReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GCreateWorkCommentReq.serializer,

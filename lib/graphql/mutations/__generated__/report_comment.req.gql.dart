@@ -31,6 +31,7 @@ abstract class GReportCommentReq
       operationName: 'ReportComment',
     )
     ..executeOnListen = true;
+
   @override
   _i3.GReportCommentVars get vars;
   @override
@@ -40,6 +41,7 @@ abstract class GReportCommentReq
         operation: operation,
         variables: vars.toJson(),
       );
+
   @override
   String? get requestId;
   @override
@@ -61,12 +63,26 @@ abstract class GReportCommentReq
   @override
   _i2.GReportCommentData? parseData(Map<String, dynamic> json) =>
       _i2.GReportCommentData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GReportCommentData data) => data.toJson();
+
+  @override
+  _i1.OperationRequest<_i2.GReportCommentData, _i3.GReportCommentVars>
+      transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
+          this.rebuild((b) => b..operation = transform(operation));
+
   static Serializer<GReportCommentReq> get serializer =>
       _$gReportCommentReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GReportCommentReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GReportCommentReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GReportCommentReq.serializer,

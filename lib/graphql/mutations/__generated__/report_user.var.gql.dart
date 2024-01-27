@@ -19,10 +19,12 @@ abstract class GReportUserVars
   _i1.GReportUserInput get input;
   static Serializer<GReportUserVars> get serializer =>
       _$gReportUserVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
         GReportUserVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GReportUserVars? fromJson(Map<String, dynamic> json) =>
       _i2.serializers.deserializeWith(
         GReportUserVars.serializer,

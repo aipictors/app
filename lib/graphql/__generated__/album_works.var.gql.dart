@@ -20,10 +20,12 @@ abstract class GAlbumWorksVars
   int get limit;
   static Serializer<GAlbumWorksVars> get serializer =>
       _$gAlbumWorksVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GAlbumWorksVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GAlbumWorksVars? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GAlbumWorksVars.serializer,

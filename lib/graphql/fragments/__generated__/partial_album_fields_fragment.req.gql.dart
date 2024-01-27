@@ -30,6 +30,7 @@ abstract class GPartialAlbumFieldsReq
   static void _initializeBuilder(GPartialAlbumFieldsReqBuilder b) => b
     ..document = _i4.document
     ..fragmentName = 'PartialAlbumFields';
+
   @override
   _i3.GPartialAlbumFieldsVars get vars;
   @override
@@ -41,12 +42,22 @@ abstract class GPartialAlbumFieldsReq
   @override
   _i2.GPartialAlbumFieldsData? parseData(Map<String, dynamic> json) =>
       _i2.GPartialAlbumFieldsData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GPartialAlbumFieldsData data) =>
+      data.toJson();
+
   static Serializer<GPartialAlbumFieldsReq> get serializer =>
       _$gPartialAlbumFieldsReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GPartialAlbumFieldsReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GPartialAlbumFieldsReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GPartialAlbumFieldsReq.serializer,

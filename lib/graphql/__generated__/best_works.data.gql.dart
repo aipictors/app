@@ -20,15 +20,18 @@ abstract class GBestWorksData
 
   static void _initializeBuilder(GBestWorksDataBuilder b) =>
       b..G__typename = 'Query';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   BuiltList<GBestWorksData_bestWorks> get bestWorks;
   static Serializer<GBestWorksData> get serializer =>
       _$gBestWorksDataSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GBestWorksData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GBestWorksData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GBestWorksData.serializer,
@@ -48,6 +51,7 @@ abstract class GBestWorksData_bestWorks
 
   static void _initializeBuilder(GBestWorksData_bestWorksBuilder b) =>
       b..G__typename = 'WorkNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -65,11 +69,13 @@ abstract class GBestWorksData_bestWorks
   GBestWorksData_bestWorks_thumbnailImage? get thumbnailImage;
   static Serializer<GBestWorksData_bestWorks> get serializer =>
       _$gBestWorksDataBestWorksSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GBestWorksData_bestWorks.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GBestWorksData_bestWorks? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GBestWorksData_bestWorks.serializer,
@@ -91,6 +97,7 @@ abstract class GBestWorksData_bestWorks_thumbnailImage
   static void _initializeBuilder(
           GBestWorksData_bestWorks_thumbnailImageBuilder b) =>
       b..G__typename = 'ImageNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -100,11 +107,13 @@ abstract class GBestWorksData_bestWorks_thumbnailImage
   String get downloadURL;
   static Serializer<GBestWorksData_bestWorks_thumbnailImage> get serializer =>
       _$gBestWorksDataBestWorksThumbnailImageSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GBestWorksData_bestWorks_thumbnailImage.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GBestWorksData_bestWorks_thumbnailImage? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(

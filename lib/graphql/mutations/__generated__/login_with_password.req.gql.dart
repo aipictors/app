@@ -33,6 +33,7 @@ abstract class GLoginWithPasswordReq
       operationName: 'LoginWithPassword',
     )
     ..executeOnListen = true;
+
   @override
   _i3.GLoginWithPasswordVars get vars;
   @override
@@ -42,6 +43,7 @@ abstract class GLoginWithPasswordReq
         operation: operation,
         variables: vars.toJson(),
       );
+
   @override
   String? get requestId;
   @override
@@ -63,12 +65,27 @@ abstract class GLoginWithPasswordReq
   @override
   _i2.GLoginWithPasswordData? parseData(Map<String, dynamic> json) =>
       _i2.GLoginWithPasswordData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GLoginWithPasswordData data) =>
+      data.toJson();
+
+  @override
+  _i1.OperationRequest<_i2.GLoginWithPasswordData, _i3.GLoginWithPasswordVars>
+      transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
+          this.rebuild((b) => b..operation = transform(operation));
+
   static Serializer<GLoginWithPasswordReq> get serializer =>
       _$gLoginWithPasswordReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GLoginWithPasswordReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GLoginWithPasswordReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GLoginWithPasswordReq.serializer,

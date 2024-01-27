@@ -28,6 +28,7 @@ abstract class GSubWorkFieldsReq
   static void _initializeBuilder(GSubWorkFieldsReqBuilder b) => b
     ..document = _i4.document
     ..fragmentName = 'SubWorkFields';
+
   @override
   _i3.GSubWorkFieldsVars get vars;
   @override
@@ -39,12 +40,21 @@ abstract class GSubWorkFieldsReq
   @override
   _i2.GSubWorkFieldsData? parseData(Map<String, dynamic> json) =>
       _i2.GSubWorkFieldsData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GSubWorkFieldsData data) => data.toJson();
+
   static Serializer<GSubWorkFieldsReq> get serializer =>
       _$gSubWorkFieldsReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GSubWorkFieldsReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GSubWorkFieldsReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GSubWorkFieldsReq.serializer,

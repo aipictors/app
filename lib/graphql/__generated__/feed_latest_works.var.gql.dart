@@ -22,10 +22,12 @@ abstract class GFeedLatestWorksVars
   _i1.GWorksWhereInput? get where;
   static Serializer<GFeedLatestWorksVars> get serializer =>
       _$gFeedLatestWorksVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
         GFeedLatestWorksVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GFeedLatestWorksVars? fromJson(Map<String, dynamic> json) =>
       _i2.serializers.deserializeWith(
         GFeedLatestWorksVars.serializer,

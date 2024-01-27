@@ -31,6 +31,7 @@ abstract class GViewerAlbumsReq
       operationName: 'ViewerAlbums',
     )
     ..executeOnListen = true;
+
   @override
   _i3.GViewerAlbumsVars get vars;
   @override
@@ -40,6 +41,7 @@ abstract class GViewerAlbumsReq
         operation: operation,
         variables: vars.toJson(),
       );
+
   @override
   String? get requestId;
   @override
@@ -61,12 +63,26 @@ abstract class GViewerAlbumsReq
   @override
   _i2.GViewerAlbumsData? parseData(Map<String, dynamic> json) =>
       _i2.GViewerAlbumsData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GViewerAlbumsData data) => data.toJson();
+
+  @override
+  _i1.OperationRequest<_i2.GViewerAlbumsData, _i3.GViewerAlbumsVars>
+      transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
+          this.rebuild((b) => b..operation = transform(operation));
+
   static Serializer<GViewerAlbumsReq> get serializer =>
       _$gViewerAlbumsReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GViewerAlbumsReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GViewerAlbumsReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GViewerAlbumsReq.serializer,

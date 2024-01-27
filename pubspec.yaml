@@ -8,7 +8,7 @@ version: 1.0.0+13
 
 environment:
   sdk: ">=3.0.2 <4.0.0"
-  flutter: 3.16.7
+  flutter: 3.16.9
 
 dependencies:
   app_tracking_transparency: ^2.0.4

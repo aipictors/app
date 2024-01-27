@@ -19,10 +19,12 @@ abstract class GPromotionsVars
   int get limit;
   static Serializer<GPromotionsVars> get serializer =>
       _$gPromotionsVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GPromotionsVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GPromotionsVars? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GPromotionsVars.serializer,

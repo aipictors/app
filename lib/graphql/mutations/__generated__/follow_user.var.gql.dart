@@ -19,10 +19,12 @@ abstract class GFollowUserVars
   _i1.GFollowUserInput get input;
   static Serializer<GFollowUserVars> get serializer =>
       _$gFollowUserVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
         GFollowUserVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GFollowUserVars? fromJson(Map<String, dynamic> json) =>
       _i2.serializers.deserializeWith(
         GFollowUserVars.serializer,

@@ -27,6 +27,7 @@ abstract class GWorksReq
       operationName: 'Works',
     )
     ..executeOnListen = true;
+
   @override
   _i3.GWorksVars get vars;
   @override
@@ -36,6 +37,7 @@ abstract class GWorksReq
         operation: operation,
         variables: vars.toJson(),
       );
+
   @override
   String? get requestId;
   @override
@@ -57,11 +59,25 @@ abstract class GWorksReq
   @override
   _i2.GWorksData? parseData(Map<String, dynamic> json) =>
       _i2.GWorksData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GWorksData data) => data.toJson();
+
+  @override
+  _i1.OperationRequest<_i2.GWorksData, _i3.GWorksVars> transformOperation(
+          _i4.Operation Function(_i4.Operation) transform) =>
+      this.rebuild((b) => b..operation = transform(operation));
+
   static Serializer<GWorksReq> get serializer => _$gWorksReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GWorksReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GWorksReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GWorksReq.serializer,

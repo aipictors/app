@@ -31,6 +31,7 @@ abstract class GDeleteWorkReq
       operationName: 'DeleteWork',
     )
     ..executeOnListen = true;
+
   @override
   _i3.GDeleteWorkVars get vars;
   @override
@@ -40,6 +41,7 @@ abstract class GDeleteWorkReq
         operation: operation,
         variables: vars.toJson(),
       );
+
   @override
   String? get requestId;
   @override
@@ -61,12 +63,26 @@ abstract class GDeleteWorkReq
   @override
   _i2.GDeleteWorkData? parseData(Map<String, dynamic> json) =>
       _i2.GDeleteWorkData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GDeleteWorkData data) => data.toJson();
+
+  @override
+  _i1.OperationRequest<_i2.GDeleteWorkData, _i3.GDeleteWorkVars>
+      transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
+          this.rebuild((b) => b..operation = transform(operation));
+
   static Serializer<GDeleteWorkReq> get serializer =>
       _$gDeleteWorkReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GDeleteWorkReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GDeleteWorkReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GDeleteWorkReq.serializer,

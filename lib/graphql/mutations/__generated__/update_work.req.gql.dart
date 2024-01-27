@@ -31,6 +31,7 @@ abstract class GUpdateWorkReq
       operationName: 'UpdateWork',
     )
     ..executeOnListen = true;
+
   @override
   _i3.GUpdateWorkVars get vars;
   @override
@@ -40,6 +41,7 @@ abstract class GUpdateWorkReq
         operation: operation,
         variables: vars.toJson(),
       );
+
   @override
   String? get requestId;
   @override
@@ -61,12 +63,26 @@ abstract class GUpdateWorkReq
   @override
   _i2.GUpdateWorkData? parseData(Map<String, dynamic> json) =>
       _i2.GUpdateWorkData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GUpdateWorkData data) => data.toJson();
+
+  @override
+  _i1.OperationRequest<_i2.GUpdateWorkData, _i3.GUpdateWorkVars>
+      transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
+          this.rebuild((b) => b..operation = transform(operation));
+
   static Serializer<GUpdateWorkReq> get serializer =>
       _$gUpdateWorkReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GUpdateWorkReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUpdateWorkReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GUpdateWorkReq.serializer,

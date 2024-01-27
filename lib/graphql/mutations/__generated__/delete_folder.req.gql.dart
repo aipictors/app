@@ -31,6 +31,7 @@ abstract class GDeleteFolderReq
       operationName: 'DeleteFolder',
     )
     ..executeOnListen = true;
+
   @override
   _i3.GDeleteFolderVars get vars;
   @override
@@ -40,6 +41,7 @@ abstract class GDeleteFolderReq
         operation: operation,
         variables: vars.toJson(),
       );
+
   @override
   String? get requestId;
   @override
@@ -61,12 +63,26 @@ abstract class GDeleteFolderReq
   @override
   _i2.GDeleteFolderData? parseData(Map<String, dynamic> json) =>
       _i2.GDeleteFolderData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GDeleteFolderData data) => data.toJson();
+
+  @override
+  _i1.OperationRequest<_i2.GDeleteFolderData, _i3.GDeleteFolderVars>
+      transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
+          this.rebuild((b) => b..operation = transform(operation));
+
   static Serializer<GDeleteFolderReq> get serializer =>
       _$gDeleteFolderReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GDeleteFolderReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GDeleteFolderReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GDeleteFolderReq.serializer,

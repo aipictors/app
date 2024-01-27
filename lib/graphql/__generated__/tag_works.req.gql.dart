@@ -28,6 +28,7 @@ abstract class GTagWorksReq
       operationName: 'TagWorks',
     )
     ..executeOnListen = true;
+
   @override
   _i3.GTagWorksVars get vars;
   @override
@@ -37,6 +38,7 @@ abstract class GTagWorksReq
         operation: operation,
         variables: vars.toJson(),
       );
+
   @override
   String? get requestId;
   @override
@@ -58,11 +60,25 @@ abstract class GTagWorksReq
   @override
   _i2.GTagWorksData? parseData(Map<String, dynamic> json) =>
       _i2.GTagWorksData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GTagWorksData data) => data.toJson();
+
+  @override
+  _i1.OperationRequest<_i2.GTagWorksData, _i3.GTagWorksVars> transformOperation(
+          _i4.Operation Function(_i4.Operation) transform) =>
+      this.rebuild((b) => b..operation = transform(operation));
+
   static Serializer<GTagWorksReq> get serializer => _$gTagWorksReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GTagWorksReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GTagWorksReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GTagWorksReq.serializer,

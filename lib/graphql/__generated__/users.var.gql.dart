@@ -18,10 +18,12 @@ abstract class GUsersVars implements Built<GUsersVars, GUsersVarsBuilder> {
   int get limit;
   _i1.GUsersWhereInput? get where;
   static Serializer<GUsersVars> get serializer => _$gUsersVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
         GUsersVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GUsersVars? fromJson(Map<String, dynamic> json) =>
       _i2.serializers.deserializeWith(
         GUsersVars.serializer,

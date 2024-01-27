@@ -27,6 +27,7 @@ abstract class GAlbumReq
       operationName: 'Album',
     )
     ..executeOnListen = true;
+
   @override
   _i3.GAlbumVars get vars;
   @override
@@ -36,6 +37,7 @@ abstract class GAlbumReq
         operation: operation,
         variables: vars.toJson(),
       );
+
   @override
   String? get requestId;
   @override
@@ -57,11 +59,25 @@ abstract class GAlbumReq
   @override
   _i2.GAlbumData? parseData(Map<String, dynamic> json) =>
       _i2.GAlbumData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GAlbumData data) => data.toJson();
+
+  @override
+  _i1.OperationRequest<_i2.GAlbumData, _i3.GAlbumVars> transformOperation(
+          _i4.Operation Function(_i4.Operation) transform) =>
+      this.rebuild((b) => b..operation = transform(operation));
+
   static Serializer<GAlbumReq> get serializer => _$gAlbumReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GAlbumReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GAlbumReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GAlbumReq.serializer,

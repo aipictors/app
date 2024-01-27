@@ -6,7 +6,7 @@ part of 'initial_message_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$initialMessageHash() => r'a6d87d019df09453ca24ad70843b415164b07371';
+String _$initialMessageHash() => r'74f5bf3934ecaa8e77969ac7502571fbd64fdc5f';
 
 /// See also [initialMessage].
 @ProviderFor(initialMessage)

@@ -31,6 +31,7 @@ abstract class GReportAlbumReq
       operationName: 'ReportAlbum',
     )
     ..executeOnListen = true;
+
   @override
   _i3.GReportAlbumVars get vars;
   @override
@@ -40,6 +41,7 @@ abstract class GReportAlbumReq
         operation: operation,
         variables: vars.toJson(),
       );
+
   @override
   String? get requestId;
   @override
@@ -61,12 +63,26 @@ abstract class GReportAlbumReq
   @override
   _i2.GReportAlbumData? parseData(Map<String, dynamic> json) =>
       _i2.GReportAlbumData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GReportAlbumData data) => data.toJson();
+
+  @override
+  _i1.OperationRequest<_i2.GReportAlbumData, _i3.GReportAlbumVars>
+      transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
+          this.rebuild((b) => b..operation = transform(operation));
+
   static Serializer<GReportAlbumReq> get serializer =>
       _$gReportAlbumReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GReportAlbumReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GReportAlbumReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GReportAlbumReq.serializer,

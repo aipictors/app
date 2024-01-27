@@ -40,15 +40,18 @@ abstract class GViewerNotificationsData
 
   static void _initializeBuilder(GViewerNotificationsDataBuilder b) =>
       b..G__typename = 'Query';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   GViewerNotificationsData_viewer? get viewer;
   static Serializer<GViewerNotificationsData> get serializer =>
       _$gViewerNotificationsDataSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GViewerNotificationsData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GViewerNotificationsData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GViewerNotificationsData.serializer,
@@ -68,15 +71,18 @@ abstract class GViewerNotificationsData_viewer
 
   static void _initializeBuilder(GViewerNotificationsData_viewerBuilder b) =>
       b..G__typename = 'Viewer';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   BuiltList<GViewerNotificationsData_viewer_notifications> get notifications;
   static Serializer<GViewerNotificationsData_viewer> get serializer =>
       _$gViewerNotificationsDataViewerSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GViewerNotificationsData_viewer.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GViewerNotificationsData_viewer? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GViewerNotificationsData_viewer.serializer,
@@ -107,10 +113,12 @@ abstract class GViewerNotificationsData_viewer_notifications {
                   GViewerNotificationsData_viewer_notifications__asFollowNotificationNode,
             },
           );
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GViewerNotificationsData_viewer_notifications.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GViewerNotificationsData_viewer_notifications? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
@@ -133,17 +141,20 @@ abstract class GViewerNotificationsData_viewer_notifications__base
   static void _initializeBuilder(
           GViewerNotificationsData_viewer_notifications__baseBuilder b) =>
       b..G__typename = 'NotificationNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   static Serializer<GViewerNotificationsData_viewer_notifications__base>
       get serializer =>
           _$gViewerNotificationsDataViewerNotificationsBaseSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GViewerNotificationsData_viewer_notifications__base.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GViewerNotificationsData_viewer_notifications__base? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
@@ -172,6 +183,7 @@ abstract class GViewerNotificationsData_viewer_notifications__asLikedWorkNotific
           GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNodeBuilder
               b) =>
       b..G__typename = 'LikedWorkNotificationNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -191,12 +203,14 @@ abstract class GViewerNotificationsData_viewer_notifications__asLikedWorkNotific
           GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNode>
       get serializer =>
           _$gViewerNotificationsDataViewerNotificationsAsLikedWorkNotificationNodeSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNode
             .serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNode?
       fromJson(Map<String, dynamic> json) => _i1.serializers.deserializeWith(
             GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNode
@@ -225,6 +239,7 @@ abstract class GViewerNotificationsData_viewer_notifications__asLikedWorkNotific
           GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNode_workBuilder
               b) =>
       b..G__typename = 'WorkNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -245,12 +260,14 @@ abstract class GViewerNotificationsData_viewer_notifications__asLikedWorkNotific
           GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNode_work>
       get serializer =>
           _$gViewerNotificationsDataViewerNotificationsAsLikedWorkNotificationNodeWorkSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNode_work
             .serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNode_work?
       fromJson(Map<String, dynamic> json) => _i1.serializers.deserializeWith(
             GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNode_work
@@ -279,6 +296,7 @@ abstract class GViewerNotificationsData_viewer_notifications__asLikedWorkNotific
           GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNode_work_thumbnailImageBuilder
               b) =>
       b..G__typename = 'ImageNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -290,12 +308,14 @@ abstract class GViewerNotificationsData_viewer_notifications__asLikedWorkNotific
           GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNode_work_thumbnailImage>
       get serializer =>
           _$gViewerNotificationsDataViewerNotificationsAsLikedWorkNotificationNodeWorkThumbnailImageSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNode_work_thumbnailImage
             .serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNode_work_thumbnailImage?
       fromJson(Map<String, dynamic> json) => _i1.serializers.deserializeWith(
             GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNode_work_thumbnailImage
@@ -324,6 +344,7 @@ abstract class GViewerNotificationsData_viewer_notifications__asLikedWorkNotific
           GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNode_userBuilder
               b) =>
       b..G__typename = 'UserNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -340,12 +361,14 @@ abstract class GViewerNotificationsData_viewer_notifications__asLikedWorkNotific
           GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNode_user>
       get serializer =>
           _$gViewerNotificationsDataViewerNotificationsAsLikedWorkNotificationNodeUserSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNode_user
             .serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNode_user?
       fromJson(Map<String, dynamic> json) => _i1.serializers.deserializeWith(
             GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNode_user
@@ -374,6 +397,7 @@ abstract class GViewerNotificationsData_viewer_notifications__asLikedWorkNotific
           GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNode_user_iconImageBuilder
               b) =>
       b..G__typename = 'ImageNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -385,12 +409,14 @@ abstract class GViewerNotificationsData_viewer_notifications__asLikedWorkNotific
           GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNode_user_iconImage>
       get serializer =>
           _$gViewerNotificationsDataViewerNotificationsAsLikedWorkNotificationNodeUserIconImageSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNode_user_iconImage
             .serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNode_user_iconImage?
       fromJson(Map<String, dynamic> json) => _i1.serializers.deserializeWith(
             GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNode_user_iconImage
@@ -419,6 +445,7 @@ abstract class GViewerNotificationsData_viewer_notifications__asLikedWorksSummar
           GViewerNotificationsData_viewer_notifications__asLikedWorksSummaryNotificationNodeBuilder
               b) =>
       b..G__typename = 'LikedWorksSummaryNotificationNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -432,12 +459,14 @@ abstract class GViewerNotificationsData_viewer_notifications__asLikedWorksSummar
           GViewerNotificationsData_viewer_notifications__asLikedWorksSummaryNotificationNode>
       get serializer =>
           _$gViewerNotificationsDataViewerNotificationsAsLikedWorksSummaryNotificationNodeSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GViewerNotificationsData_viewer_notifications__asLikedWorksSummaryNotificationNode
             .serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GViewerNotificationsData_viewer_notifications__asLikedWorksSummaryNotificationNode?
       fromJson(Map<String, dynamic> json) => _i1.serializers.deserializeWith(
             GViewerNotificationsData_viewer_notifications__asLikedWorksSummaryNotificationNode
@@ -466,6 +495,7 @@ abstract class GViewerNotificationsData_viewer_notifications__asWorkAwardNotific
           GViewerNotificationsData_viewer_notifications__asWorkAwardNotificationNodeBuilder
               b) =>
       b..G__typename = 'WorkAwardNotificationNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -482,12 +512,14 @@ abstract class GViewerNotificationsData_viewer_notifications__asWorkAwardNotific
           GViewerNotificationsData_viewer_notifications__asWorkAwardNotificationNode>
       get serializer =>
           _$gViewerNotificationsDataViewerNotificationsAsWorkAwardNotificationNodeSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GViewerNotificationsData_viewer_notifications__asWorkAwardNotificationNode
             .serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GViewerNotificationsData_viewer_notifications__asWorkAwardNotificationNode?
       fromJson(Map<String, dynamic> json) => _i1.serializers.deserializeWith(
             GViewerNotificationsData_viewer_notifications__asWorkAwardNotificationNode
@@ -516,6 +548,7 @@ abstract class GViewerNotificationsData_viewer_notifications__asWorkAwardNotific
           GViewerNotificationsData_viewer_notifications__asWorkAwardNotificationNode_workBuilder
               b) =>
       b..G__typename = 'WorkNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -536,12 +569,14 @@ abstract class GViewerNotificationsData_viewer_notifications__asWorkAwardNotific
           GViewerNotificationsData_viewer_notifications__asWorkAwardNotificationNode_work>
       get serializer =>
           _$gViewerNotificationsDataViewerNotificationsAsWorkAwardNotificationNodeWorkSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GViewerNotificationsData_viewer_notifications__asWorkAwardNotificationNode_work
             .serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GViewerNotificationsData_viewer_notifications__asWorkAwardNotificationNode_work?
       fromJson(Map<String, dynamic> json) => _i1.serializers.deserializeWith(
             GViewerNotificationsData_viewer_notifications__asWorkAwardNotificationNode_work
@@ -570,6 +605,7 @@ abstract class GViewerNotificationsData_viewer_notifications__asWorkAwardNotific
           GViewerNotificationsData_viewer_notifications__asWorkAwardNotificationNode_work_thumbnailImageBuilder
               b) =>
       b..G__typename = 'ImageNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -581,12 +617,14 @@ abstract class GViewerNotificationsData_viewer_notifications__asWorkAwardNotific
           GViewerNotificationsData_viewer_notifications__asWorkAwardNotificationNode_work_thumbnailImage>
       get serializer =>
           _$gViewerNotificationsDataViewerNotificationsAsWorkAwardNotificationNodeWorkThumbnailImageSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GViewerNotificationsData_viewer_notifications__asWorkAwardNotificationNode_work_thumbnailImage
             .serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GViewerNotificationsData_viewer_notifications__asWorkAwardNotificationNode_work_thumbnailImage?
       fromJson(Map<String, dynamic> json) => _i1.serializers.deserializeWith(
             GViewerNotificationsData_viewer_notifications__asWorkAwardNotificationNode_work_thumbnailImage
@@ -615,6 +653,7 @@ abstract class GViewerNotificationsData_viewer_notifications__asWorkCommentNotif
           GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNodeBuilder
               b) =>
       b..G__typename = 'WorkCommentNotificationNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -637,12 +676,14 @@ abstract class GViewerNotificationsData_viewer_notifications__asWorkCommentNotif
           GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode>
       get serializer =>
           _$gViewerNotificationsDataViewerNotificationsAsWorkCommentNotificationNodeSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode
             .serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode?
       fromJson(Map<String, dynamic> json) => _i1.serializers.deserializeWith(
             GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode
@@ -671,6 +712,7 @@ abstract class GViewerNotificationsData_viewer_notifications__asWorkCommentNotif
           GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_workBuilder
               b) =>
       b..G__typename = 'WorkNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -691,12 +733,14 @@ abstract class GViewerNotificationsData_viewer_notifications__asWorkCommentNotif
           GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_work>
       get serializer =>
           _$gViewerNotificationsDataViewerNotificationsAsWorkCommentNotificationNodeWorkSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_work
             .serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_work?
       fromJson(Map<String, dynamic> json) => _i1.serializers.deserializeWith(
             GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_work
@@ -725,6 +769,7 @@ abstract class GViewerNotificationsData_viewer_notifications__asWorkCommentNotif
           GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_work_thumbnailImageBuilder
               b) =>
       b..G__typename = 'ImageNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -736,12 +781,14 @@ abstract class GViewerNotificationsData_viewer_notifications__asWorkCommentNotif
           GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_work_thumbnailImage>
       get serializer =>
           _$gViewerNotificationsDataViewerNotificationsAsWorkCommentNotificationNodeWorkThumbnailImageSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_work_thumbnailImage
             .serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_work_thumbnailImage?
       fromJson(Map<String, dynamic> json) => _i1.serializers.deserializeWith(
             GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_work_thumbnailImage
@@ -770,6 +817,7 @@ abstract class GViewerNotificationsData_viewer_notifications__asWorkCommentNotif
           GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_userBuilder
               b) =>
       b..G__typename = 'UserNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -786,12 +834,14 @@ abstract class GViewerNotificationsData_viewer_notifications__asWorkCommentNotif
           GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_user>
       get serializer =>
           _$gViewerNotificationsDataViewerNotificationsAsWorkCommentNotificationNodeUserSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_user
             .serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_user?
       fromJson(Map<String, dynamic> json) => _i1.serializers.deserializeWith(
             GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_user
@@ -820,6 +870,7 @@ abstract class GViewerNotificationsData_viewer_notifications__asWorkCommentNotif
           GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_user_iconImageBuilder
               b) =>
       b..G__typename = 'ImageNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -831,12 +882,14 @@ abstract class GViewerNotificationsData_viewer_notifications__asWorkCommentNotif
           GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_user_iconImage>
       get serializer =>
           _$gViewerNotificationsDataViewerNotificationsAsWorkCommentNotificationNodeUserIconImageSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_user_iconImage
             .serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_user_iconImage?
       fromJson(Map<String, dynamic> json) => _i1.serializers.deserializeWith(
             GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_user_iconImage
@@ -865,6 +918,7 @@ abstract class GViewerNotificationsData_viewer_notifications__asWorkCommentNotif
           GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_stickerBuilder
               b) =>
       b..G__typename = 'StickerNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -885,12 +939,14 @@ abstract class GViewerNotificationsData_viewer_notifications__asWorkCommentNotif
           GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_sticker>
       get serializer =>
           _$gViewerNotificationsDataViewerNotificationsAsWorkCommentNotificationNodeStickerSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_sticker
             .serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_sticker?
       fromJson(Map<String, dynamic> json) => _i1.serializers.deserializeWith(
             GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_sticker
@@ -919,6 +975,7 @@ abstract class GViewerNotificationsData_viewer_notifications__asWorkCommentNotif
           GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_sticker_imageBuilder
               b) =>
       b..G__typename = 'ImageNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -930,12 +987,14 @@ abstract class GViewerNotificationsData_viewer_notifications__asWorkCommentNotif
           GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_sticker_image>
       get serializer =>
           _$gViewerNotificationsDataViewerNotificationsAsWorkCommentNotificationNodeStickerImageSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_sticker_image
             .serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_sticker_image?
       fromJson(Map<String, dynamic> json) => _i1.serializers.deserializeWith(
             GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_sticker_image
@@ -964,6 +1023,7 @@ abstract class GViewerNotificationsData_viewer_notifications__asWorkCommentReply
           GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNodeBuilder
               b) =>
       b..G__typename = 'WorkCommentReplyNotificationNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -986,12 +1046,14 @@ abstract class GViewerNotificationsData_viewer_notifications__asWorkCommentReply
           GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode>
       get serializer =>
           _$gViewerNotificationsDataViewerNotificationsAsWorkCommentReplyNotificationNodeSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode
             .serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode?
       fromJson(Map<String, dynamic> json) => _i1.serializers.deserializeWith(
             GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode
@@ -1020,6 +1082,7 @@ abstract class GViewerNotificationsData_viewer_notifications__asWorkCommentReply
           GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_workBuilder
               b) =>
       b..G__typename = 'WorkNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -1040,12 +1103,14 @@ abstract class GViewerNotificationsData_viewer_notifications__asWorkCommentReply
           GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_work>
       get serializer =>
           _$gViewerNotificationsDataViewerNotificationsAsWorkCommentReplyNotificationNodeWorkSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_work
             .serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_work?
       fromJson(Map<String, dynamic> json) => _i1.serializers.deserializeWith(
             GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_work
@@ -1074,6 +1139,7 @@ abstract class GViewerNotificationsData_viewer_notifications__asWorkCommentReply
           GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_work_thumbnailImageBuilder
               b) =>
       b..G__typename = 'ImageNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -1085,12 +1151,14 @@ abstract class GViewerNotificationsData_viewer_notifications__asWorkCommentReply
           GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_work_thumbnailImage>
       get serializer =>
           _$gViewerNotificationsDataViewerNotificationsAsWorkCommentReplyNotificationNodeWorkThumbnailImageSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_work_thumbnailImage
             .serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_work_thumbnailImage?
       fromJson(Map<String, dynamic> json) => _i1.serializers.deserializeWith(
             GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_work_thumbnailImage
@@ -1119,6 +1187,7 @@ abstract class GViewerNotificationsData_viewer_notifications__asWorkCommentReply
           GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_userBuilder
               b) =>
       b..G__typename = 'UserNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -1135,12 +1204,14 @@ abstract class GViewerNotificationsData_viewer_notifications__asWorkCommentReply
           GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_user>
       get serializer =>
           _$gViewerNotificationsDataViewerNotificationsAsWorkCommentReplyNotificationNodeUserSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_user
             .serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_user?
       fromJson(Map<String, dynamic> json) => _i1.serializers.deserializeWith(
             GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_user
@@ -1169,6 +1240,7 @@ abstract class GViewerNotificationsData_viewer_notifications__asWorkCommentReply
           GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_user_iconImageBuilder
               b) =>
       b..G__typename = 'ImageNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -1180,12 +1252,14 @@ abstract class GViewerNotificationsData_viewer_notifications__asWorkCommentReply
           GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_user_iconImage>
       get serializer =>
           _$gViewerNotificationsDataViewerNotificationsAsWorkCommentReplyNotificationNodeUserIconImageSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_user_iconImage
             .serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_user_iconImage?
       fromJson(Map<String, dynamic> json) => _i1.serializers.deserializeWith(
             GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_user_iconImage
@@ -1214,6 +1288,7 @@ abstract class GViewerNotificationsData_viewer_notifications__asWorkCommentReply
           GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_stickerBuilder
               b) =>
       b..G__typename = 'StickerNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -1234,12 +1309,14 @@ abstract class GViewerNotificationsData_viewer_notifications__asWorkCommentReply
           GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_sticker>
       get serializer =>
           _$gViewerNotificationsDataViewerNotificationsAsWorkCommentReplyNotificationNodeStickerSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_sticker
             .serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_sticker?
       fromJson(Map<String, dynamic> json) => _i1.serializers.deserializeWith(
             GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_sticker
@@ -1268,6 +1345,7 @@ abstract class GViewerNotificationsData_viewer_notifications__asWorkCommentReply
           GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_sticker_imageBuilder
               b) =>
       b..G__typename = 'ImageNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -1279,12 +1357,14 @@ abstract class GViewerNotificationsData_viewer_notifications__asWorkCommentReply
           GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_sticker_image>
       get serializer =>
           _$gViewerNotificationsDataViewerNotificationsAsWorkCommentReplyNotificationNodeStickerImageSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_sticker_image
             .serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_sticker_image?
       fromJson(Map<String, dynamic> json) => _i1.serializers.deserializeWith(
             GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_sticker_image
@@ -1313,6 +1393,7 @@ abstract class GViewerNotificationsData_viewer_notifications__asFollowNotificati
           GViewerNotificationsData_viewer_notifications__asFollowNotificationNodeBuilder
               b) =>
       b..G__typename = 'FollowNotificationNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -1327,12 +1408,14 @@ abstract class GViewerNotificationsData_viewer_notifications__asFollowNotificati
           GViewerNotificationsData_viewer_notifications__asFollowNotificationNode>
       get serializer =>
           _$gViewerNotificationsDataViewerNotificationsAsFollowNotificationNodeSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GViewerNotificationsData_viewer_notifications__asFollowNotificationNode
             .serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GViewerNotificationsData_viewer_notifications__asFollowNotificationNode?
       fromJson(Map<String, dynamic> json) => _i1.serializers.deserializeWith(
             GViewerNotificationsData_viewer_notifications__asFollowNotificationNode
@@ -1361,6 +1444,7 @@ abstract class GViewerNotificationsData_viewer_notifications__asFollowNotificati
           GViewerNotificationsData_viewer_notifications__asFollowNotificationNode_userBuilder
               b) =>
       b..G__typename = 'UserNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -1377,12 +1461,14 @@ abstract class GViewerNotificationsData_viewer_notifications__asFollowNotificati
           GViewerNotificationsData_viewer_notifications__asFollowNotificationNode_user>
       get serializer =>
           _$gViewerNotificationsDataViewerNotificationsAsFollowNotificationNodeUserSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GViewerNotificationsData_viewer_notifications__asFollowNotificationNode_user
             .serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GViewerNotificationsData_viewer_notifications__asFollowNotificationNode_user?
       fromJson(Map<String, dynamic> json) => _i1.serializers.deserializeWith(
             GViewerNotificationsData_viewer_notifications__asFollowNotificationNode_user
@@ -1411,6 +1497,7 @@ abstract class GViewerNotificationsData_viewer_notifications__asFollowNotificati
           GViewerNotificationsData_viewer_notifications__asFollowNotificationNode_user_iconImageBuilder
               b) =>
       b..G__typename = 'ImageNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -1422,12 +1509,14 @@ abstract class GViewerNotificationsData_viewer_notifications__asFollowNotificati
           GViewerNotificationsData_viewer_notifications__asFollowNotificationNode_user_iconImage>
       get serializer =>
           _$gViewerNotificationsDataViewerNotificationsAsFollowNotificationNodeUserIconImageSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GViewerNotificationsData_viewer_notifications__asFollowNotificationNode_user_iconImage
             .serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GViewerNotificationsData_viewer_notifications__asFollowNotificationNode_user_iconImage?
       fromJson(Map<String, dynamic> json) => _i1.serializers.deserializeWith(
             GViewerNotificationsData_viewer_notifications__asFollowNotificationNode_user_iconImage

@@ -20,14 +20,17 @@ abstract class GHotWorksData
 
   static void _initializeBuilder(GHotWorksDataBuilder b) =>
       b..G__typename = 'Query';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   BuiltList<GHotWorksData_hotWorks> get hotWorks;
   static Serializer<GHotWorksData> get serializer => _$gHotWorksDataSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GHotWorksData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GHotWorksData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GHotWorksData.serializer,
@@ -47,6 +50,7 @@ abstract class GHotWorksData_hotWorks
 
   static void _initializeBuilder(GHotWorksData_hotWorksBuilder b) =>
       b..G__typename = 'WorkNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -64,11 +68,13 @@ abstract class GHotWorksData_hotWorks
   GHotWorksData_hotWorks_thumbnailImage? get thumbnailImage;
   static Serializer<GHotWorksData_hotWorks> get serializer =>
       _$gHotWorksDataHotWorksSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GHotWorksData_hotWorks.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GHotWorksData_hotWorks? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GHotWorksData_hotWorks.serializer,
@@ -90,6 +96,7 @@ abstract class GHotWorksData_hotWorks_thumbnailImage
   static void _initializeBuilder(
           GHotWorksData_hotWorks_thumbnailImageBuilder b) =>
       b..G__typename = 'ImageNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -99,11 +106,13 @@ abstract class GHotWorksData_hotWorks_thumbnailImage
   String get downloadURL;
   static Serializer<GHotWorksData_hotWorks_thumbnailImage> get serializer =>
       _$gHotWorksDataHotWorksThumbnailImageSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GHotWorksData_hotWorks_thumbnailImage.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GHotWorksData_hotWorks_thumbnailImage? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(

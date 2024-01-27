@@ -24,15 +24,18 @@ abstract class GFeedDailyThemeWorksData
 
   static void _initializeBuilder(GFeedDailyThemeWorksDataBuilder b) =>
       b..G__typename = 'Query';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   GFeedDailyThemeWorksData_dailyTheme? get dailyTheme;
   static Serializer<GFeedDailyThemeWorksData> get serializer =>
       _$gFeedDailyThemeWorksDataSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GFeedDailyThemeWorksData.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GFeedDailyThemeWorksData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GFeedDailyThemeWorksData.serializer,
@@ -53,6 +56,7 @@ abstract class GFeedDailyThemeWorksData_dailyTheme
   static void _initializeBuilder(
           GFeedDailyThemeWorksData_dailyThemeBuilder b) =>
       b..G__typename = 'DailyThemeNode';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get id;
@@ -60,10 +64,12 @@ abstract class GFeedDailyThemeWorksData_dailyTheme
   BuiltList<GFeedDailyThemeWorksData_dailyTheme_works> get works;
   static Serializer<GFeedDailyThemeWorksData_dailyTheme> get serializer =>
       _$gFeedDailyThemeWorksDataDailyThemeSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GFeedDailyThemeWorksData_dailyTheme.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GFeedDailyThemeWorksData_dailyTheme? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
@@ -86,6 +92,7 @@ abstract class GFeedDailyThemeWorksData_dailyTheme_works
   static void _initializeBuilder(
           GFeedDailyThemeWorksData_dailyTheme_worksBuilder b) =>
       b..G__typename = 'WorkNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -107,11 +114,13 @@ abstract class GFeedDailyThemeWorksData_dailyTheme_works
   GFeedDailyThemeWorksData_dailyTheme_works_viewer? get viewer;
   static Serializer<GFeedDailyThemeWorksData_dailyTheme_works> get serializer =>
       _$gFeedDailyThemeWorksDataDailyThemeWorksSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GFeedDailyThemeWorksData_dailyTheme_works.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GFeedDailyThemeWorksData_dailyTheme_works? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
@@ -134,6 +143,7 @@ abstract class GFeedDailyThemeWorksData_dailyTheme_works_image
   static void _initializeBuilder(
           GFeedDailyThemeWorksData_dailyTheme_works_imageBuilder b) =>
       b..G__typename = 'ImageNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -144,11 +154,13 @@ abstract class GFeedDailyThemeWorksData_dailyTheme_works_image
   static Serializer<GFeedDailyThemeWorksData_dailyTheme_works_image>
       get serializer =>
           _$gFeedDailyThemeWorksDataDailyThemeWorksImageSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GFeedDailyThemeWorksData_dailyTheme_works_image.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GFeedDailyThemeWorksData_dailyTheme_works_image? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
@@ -171,6 +183,7 @@ abstract class GFeedDailyThemeWorksData_dailyTheme_works_user
   static void _initializeBuilder(
           GFeedDailyThemeWorksData_dailyTheme_works_userBuilder b) =>
       b..G__typename = 'UserNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -185,11 +198,13 @@ abstract class GFeedDailyThemeWorksData_dailyTheme_works_user
   GFeedDailyThemeWorksData_dailyTheme_works_user_viewer? get viewer;
   static Serializer<GFeedDailyThemeWorksData_dailyTheme_works_user>
       get serializer => _$gFeedDailyThemeWorksDataDailyThemeWorksUserSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GFeedDailyThemeWorksData_dailyTheme_works_user.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GFeedDailyThemeWorksData_dailyTheme_works_user? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
@@ -213,6 +228,7 @@ abstract class GFeedDailyThemeWorksData_dailyTheme_works_user_iconImage
   static void _initializeBuilder(
           GFeedDailyThemeWorksData_dailyTheme_works_user_iconImageBuilder b) =>
       b..G__typename = 'ImageNode';
+
   @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -223,11 +239,13 @@ abstract class GFeedDailyThemeWorksData_dailyTheme_works_user_iconImage
   static Serializer<GFeedDailyThemeWorksData_dailyTheme_works_user_iconImage>
       get serializer =>
           _$gFeedDailyThemeWorksDataDailyThemeWorksUserIconImageSerializer;
+
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GFeedDailyThemeWorksData_dailyTheme_works_user_iconImage.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GFeedDailyThemeWorksData_dailyTheme_works_user_iconImage? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
@@ -249,6 +267,7 @@ abstract class GFeedDailyThemeWorksData_dailyTheme_works_user_viewer
   static void _initializeBuilder(
           GFeedDailyThemeWorksData_dailyTheme_works_user_viewerBuilder b) =>
       b..G__typename = 'UserViewerNode';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get id;
@@ -258,10 +277,12 @@ abstract class GFeedDailyThemeWorksData_dailyTheme_works_user_viewer
   static Serializer<GFeedDailyThemeWorksData_dailyTheme_works_user_viewer>
       get serializer =>
           _$gFeedDailyThemeWorksDataDailyThemeWorksUserViewerSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GFeedDailyThemeWorksData_dailyTheme_works_user_viewer.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GFeedDailyThemeWorksData_dailyTheme_works_user_viewer? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
@@ -283,6 +304,7 @@ abstract class GFeedDailyThemeWorksData_dailyTheme_works_viewer
   static void _initializeBuilder(
           GFeedDailyThemeWorksData_dailyTheme_works_viewerBuilder b) =>
       b..G__typename = 'WorkViewerNode';
+
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get id;
@@ -291,10 +313,12 @@ abstract class GFeedDailyThemeWorksData_dailyTheme_works_viewer
   static Serializer<GFeedDailyThemeWorksData_dailyTheme_works_viewer>
       get serializer =>
           _$gFeedDailyThemeWorksDataDailyThemeWorksViewerSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GFeedDailyThemeWorksData_dailyTheme_works_viewer.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GFeedDailyThemeWorksData_dailyTheme_works_viewer? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(

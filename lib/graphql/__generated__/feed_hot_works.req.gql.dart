@@ -31,6 +31,7 @@ abstract class GFeedHotWorksReq
       operationName: 'FeedHotWorks',
     )
     ..executeOnListen = true;
+
   @override
   _i3.GFeedHotWorksVars get vars;
   @override
@@ -40,6 +41,7 @@ abstract class GFeedHotWorksReq
         operation: operation,
         variables: vars.toJson(),
       );
+
   @override
   String? get requestId;
   @override
@@ -61,12 +63,26 @@ abstract class GFeedHotWorksReq
   @override
   _i2.GFeedHotWorksData? parseData(Map<String, dynamic> json) =>
       _i2.GFeedHotWorksData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GFeedHotWorksData data) => data.toJson();
+
+  @override
+  _i1.OperationRequest<_i2.GFeedHotWorksData, _i3.GFeedHotWorksVars>
+      transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
+          this.rebuild((b) => b..operation = transform(operation));
+
   static Serializer<GFeedHotWorksReq> get serializer =>
       _$gFeedHotWorksReqSerializer;
+
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
         GFeedHotWorksReq.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GFeedHotWorksReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GFeedHotWorksReq.serializer,

@@ -21,10 +21,12 @@ abstract class GWorkAwardsVars
   _i1.GWorkAwardsWhereInput get where;
   static Serializer<GWorkAwardsVars> get serializer =>
       _$gWorkAwardsVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
         GWorkAwardsVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GWorkAwardsVars? fromJson(Map<String, dynamic> json) =>
       _i2.serializers.deserializeWith(
         GWorkAwardsVars.serializer,

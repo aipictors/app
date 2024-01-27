@@ -18,10 +18,12 @@ abstract class GPartialTagFieldsVars
 
   static Serializer<GPartialTagFieldsVars> get serializer =>
       _$gPartialTagFieldsVarsSerializer;
+
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GPartialTagFieldsVars.serializer,
         this,
       ) as Map<String, dynamic>);
+
   static GPartialTagFieldsVars? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GPartialTagFieldsVars.serializer,
