@@ -48,7 +48,11 @@ class FeedLikeButton extends HookConsumerWidget {
           }
         },
       ),
-      Text(count.toString())
+      // 桁上がり時にUIがズレないように、あらかじめ3桁分の幅を確保しておく
+      ConstrainedBox(
+        constraints: const BoxConstraints(minWidth: 25),
+        child: Text(count.toString()),
+      )
     ]);
   }
 
