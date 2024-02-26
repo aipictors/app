@@ -58,9 +58,9 @@ class ExplorerHotTagsView extends HookConsumerWidget {
                 onTap: () {
                   FirebaseAnalytics.instance.logSelectContent(
                     contentType: 'tag',
-                    itemId: tag.id,
+                    itemId: tag.name,
                   );
-                  context.push('/tags/${tag.id}');
+                  context.push('/tags/${tag.name}');
                 },
               );
             },
