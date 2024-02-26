@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:like_button/like_button.dart';
 
 class FeedLikeButton extends HookConsumerWidget {
   const FeedLikeButton({
@@ -31,23 +32,29 @@ class FeedLikeButton extends HookConsumerWidget {
     }, [isActive]);
 
     return Row(children: [
-      IconButton(
-        icon: isActiveInMemory.value
-            ? Icon(
-                Icons.favorite_rounded,
-                size: 28,
-                color: Theme.of(context).colorScheme.error,
-              )
-            : const Icon(Icons.favorite_outline_rounded, size: 28),
-        onPressed: () {
-          if (authUserId.value == null) {
-            onShowLoginDialog(context, ref);
-          } else {
+      if (authUserId.value != null)
+        LikeButton(
+          isLiked: isActiveInMemory.value,
+          likeBuilder: (isLiked) {
+            if (isActiveInMemory.value) {
+              return Icon(Icons.favorite_rounded,
+                  size: 28, color: Theme.of(context).colorScheme.error);
+            }
+            return const Icon(Icons.favorite_outline_rounded, size: 28);
+          },
+          onTap: (isLiked) async {
             onTap();
             isActiveInMemory.value = !isActiveInMemory.value;
-          }
-        },
-      ),
+            return !isLiked;
+          },
+        ),
+      if (authUserId.value == null)
+        IconButton(
+            icon: const Icon(Icons.favorite_outline_rounded, size: 28),
+            onPressed: () {
+              onShowLoginDialog(context, ref);
+            }),
+      const SizedBox(width: 4),
       // 桁上がり時にUIがズレないように、あらかじめ3桁分の幅を確保しておく
       ConstrainedBox(
         constraints: const BoxConstraints(minWidth: 25),
