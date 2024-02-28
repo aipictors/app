@@ -29,6 +29,7 @@ class SelectableCommentStickerContainer extends HookConsumerWidget {
               : Colors.transparent,
           borderRadius: BorderRadius.circular(8),
           border: Border.all(
+            width: isSelected ? 4 : 1,
             color: isSelected
                 ? Theme.of(context).colorScheme.primary
                 : Theme.of(context).dividerColor,

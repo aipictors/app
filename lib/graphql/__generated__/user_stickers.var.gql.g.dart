@@ -20,9 +20,6 @@ class _$GUserStickersVarsSerializer
   Iterable<Object?> serialize(Serializers serializers, GUserStickersVars object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
-      'user_id',
-      serializers.serialize(object.user_id,
-          specifiedType: const FullType(String)),
       'offset',
       serializers.serialize(object.offset, specifiedType: const FullType(int)),
       'limit',
@@ -44,10 +41,6 @@ class _$GUserStickersVarsSerializer
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
-        case 'user_id':
-          result.user_id = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
         case 'offset':
           result.offset = serializers.deserialize(value,
               specifiedType: const FullType(int))! as int;
@@ -65,8 +58,6 @@ class _$GUserStickersVarsSerializer
 
 class _$GUserStickersVars extends GUserStickersVars {
   @override
-  final String user_id;
-  @override
   final int offset;
   @override
   final int limit;
@@ -75,11 +66,8 @@ class _$GUserStickersVars extends GUserStickersVars {
           [void Function(GUserStickersVarsBuilder)? updates]) =>
       (new GUserStickersVarsBuilder()..update(updates))._build();
 
-  _$GUserStickersVars._(
-      {required this.user_id, required this.offset, required this.limit})
+  _$GUserStickersVars._({required this.offset, required this.limit})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        user_id, r'GUserStickersVars', 'user_id');
     BuiltValueNullFieldError.checkNotNull(
         offset, r'GUserStickersVars', 'offset');
     BuiltValueNullFieldError.checkNotNull(limit, r'GUserStickersVars', 'limit');
@@ -97,7 +85,6 @@ class _$GUserStickersVars extends GUserStickersVars {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is GUserStickersVars &&
-        user_id == other.user_id &&
         offset == other.offset &&
         limit == other.limit;
   }
@@ -105,7 +92,6 @@ class _$GUserStickersVars extends GUserStickersVars {
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, user_id.hashCode);
     _$hash = $jc(_$hash, offset.hashCode);
     _$hash = $jc(_$hash, limit.hashCode);
     _$hash = $jf(_$hash);
@@ -115,7 +101,6 @@ class _$GUserStickersVars extends GUserStickersVars {
   @override
   String toString() {
     return (newBuiltValueToStringHelper(r'GUserStickersVars')
-          ..add('user_id', user_id)
           ..add('offset', offset)
           ..add('limit', limit))
         .toString();
@@ -125,10 +110,6 @@ class _$GUserStickersVars extends GUserStickersVars {
 class GUserStickersVarsBuilder
     implements Builder<GUserStickersVars, GUserStickersVarsBuilder> {
   _$GUserStickersVars? _$v;
-
-  String? _user_id;
-  String? get user_id => _$this._user_id;
-  set user_id(String? user_id) => _$this._user_id = user_id;
 
   int? _offset;
   int? get offset => _$this._offset;
@@ -143,7 +124,6 @@ class GUserStickersVarsBuilder
   GUserStickersVarsBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _user_id = $v.user_id;
       _offset = $v.offset;
       _limit = $v.limit;
       _$v = null;
@@ -168,8 +148,6 @@ class GUserStickersVarsBuilder
   _$GUserStickersVars _build() {
     final _$result = _$v ??
         new _$GUserStickersVars._(
-            user_id: BuiltValueNullFieldError.checkNotNull(
-                user_id, r'GUserStickersVars', 'user_id'),
             offset: BuiltValueNullFieldError.checkNotNull(
                 offset, r'GUserStickersVars', 'offset'),
             limit: BuiltValueNullFieldError.checkNotNull(

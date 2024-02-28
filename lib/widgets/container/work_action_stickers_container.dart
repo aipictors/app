@@ -1,4 +1,7 @@
+import 'package:aipictors/graphql/__generated__/user_stickers.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
+import 'package:aipictors/providers/config_provider.dart';
+import 'package:aipictors/widgets/builder/operation_builder.dart';
 import 'package:aipictors/widgets/container/loading_container.dart';
 import 'package:aipictors/widgets/container/selectable_comment_sticker_container.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +22,8 @@ class WorkActionStickersContainer extends HookConsumerWidget {
   Widget build(context, ref) {
     final client = ref.watch(clientProvider);
 
+    final config = ref.watch(configProvider);
+
     if (client.value == null) {
       return const LoadingContainer();
     }
@@ -32,58 +37,60 @@ class WorkActionStickersContainer extends HookConsumerWidget {
     ];
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.onInverseSurface,
-          borderRadius: BorderRadius.circular(8),
-        ),
-        padding: const EdgeInsets.all(8),
-        child: GridView.count(
-          mainAxisSpacing: 8,
-          crossAxisSpacing: 8,
-          crossAxisCount: 5,
-          scrollDirection: Axis.vertical,
-          shrinkWrap: true,
-          children: [
-            SelectableCommentStickerContainer(
-              downloadURL: downloadURLs[0],
-              isSelected: stickerId == '0',
-              onTap: () {
-                onChange(stickerId == '0' ? null : '0');
-              },
-            ),
-            SelectableCommentStickerContainer(
-              downloadURL: downloadURLs[1],
-              isSelected: stickerId == '1',
-              onTap: () {
-                onChange(stickerId == '1' ? null : '1');
-              },
-            ),
-            SelectableCommentStickerContainer(
-              downloadURL: downloadURLs[2],
-              isSelected: stickerId == '2',
-              onTap: () {
-                onChange(stickerId == '2' ? null : '2');
-              },
-            ),
-            SelectableCommentStickerContainer(
-              downloadURL: downloadURLs[3],
-              isSelected: stickerId == '3',
-              onTap: () {
-                onChange(stickerId == '3' ? null : '3');
-              },
-            ),
-            SelectableCommentStickerContainer(
-              downloadURL: downloadURLs[4],
-              isSelected: stickerId == '4',
-              onTap: () {
-                onChange(stickerId == '4' ? null : '4');
-              },
-            ),
-          ],
-        ),
-      ),
-    );
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: OperationBuilder(
+            client: client.value!,
+            operationRequest: GUserStickersReq((builder) {
+              return builder
+                ..vars.limit = config.graphqlQueryLimit
+                ..vars.offset = 0;
+            }),
+            builder: (context, response) {
+              final stickerList = response.data?.viewer?.userStickers;
+              return SizedBox(
+                  height: 256,
+                  child: Container(
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.onInverseSurface,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      padding: const EdgeInsets.all(8),
+                      child: GridView.builder(
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 5,
+                            mainAxisSpacing: 8,
+                            crossAxisSpacing: 8,
+                          ),
+                          scrollDirection: Axis.vertical,
+                          shrinkWrap: true,
+                          itemCount: (stickerList?.length ?? 0) + 5,
+                          itemBuilder: (context, index) {
+                            // デフォルトスタンプは画像をdownloadURLsから取得する
+                            if (index < 5) {
+                              return SelectableCommentStickerContainer(
+                                downloadURL: downloadURLs[index],
+                                isSelected: stickerId == index.toString(),
+                                onTap: () {
+                                  onChange(stickerId == index.toString()
+                                      ? null
+                                      : index.toString());
+                                },
+                              );
+                            }
+                            // ユーザースタンプ
+                            return SelectableCommentStickerContainer(
+                              downloadURL:
+                                  stickerList![index - 5].image!.downloadURL,
+                              isSelected:
+                                  stickerId == stickerList[index - 5].id,
+                              onTap: () {
+                                onChange(stickerId == stickerList[index - 5].id
+                                    ? null
+                                    : stickerList[index - 5].id);
+                              },
+                            );
+                          })));
+            }));
   }
 }

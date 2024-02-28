@@ -165,6 +165,73 @@ type FollowNotificationNode implements Node {
   "ユーザ"
   user: UserNode
 }
+type ImageGenerationEngineStatus {
+  "通常の生成タスク数"
+  normalTasksCount: Int!
+  "優先1の生成タスク数"
+  standardTasksCount: Int!
+  "通常の予測生成秒数"
+  normalPredictionGenerationSeconds: Int!
+  "優先1の予測生成秒数"
+  standardPredictionGenerationSeconds: Int!
+}
+"画像生成メモ"
+type ImageGenerationMemoNode implements Node {
+  id: ID!
+  nanoid: String!
+  "ユーザID"
+  userId: ID
+  "タイトル"
+  title: String!
+  "説明"
+  explanation: String!
+  "プロンプト"
+  prompts: String!
+  "ネガティブプロンプト"
+  negativePrompts: String!
+  "サンプラー"
+  sampler: String!
+  "モデル"
+  model: ImageGeneratorNode!
+  seed: Int!
+  steps: Int!
+  scale: Int!
+  clipSkip: Int!
+  width: Int!
+  height: Int!
+  "削除済み"
+  isDeleted: Boolean!
+  "作成時刻"
+  createdAt: Int
+}
+"予約済み画像生成"
+type ImageGenerationReservedTaskNode implements Node {
+  id: ID!
+  "予約開始した時刻"
+  createdAt: Int
+  "削除済み"
+  isDeleted: Boolean!
+  "生成済み"
+  isGenerated: Boolean!
+  "生成の方式"
+  generationType: ImageGenerationType!
+  model: ImageGeneratorNode!
+  vae: String
+  prompt: String!
+  negativePrompt: String!
+  seed: Float!
+  steps: Int!
+  scale: Int!
+  clipSkip: Int!
+  sampler: String!
+  sizeType: ImageGenerationSizeType!
+  t2tImageUrl: String
+  t2tMaskImageUrl: String
+  t2tDenoisingStrengthSize: String
+  t2tInpaintingFillSize: String
+  token: String
+  nanoid: String
+}
 "画像生成"
 type ImageGenerationTaskNode implements Node {
   id: ID!
@@ -179,7 +246,7 @@ type ImageGenerationTaskNode implements Node {
   count: Int!
   "生成の方式"
   generationType: ImageGenerationType!
-  model: ImageGeneratorNode
+  model: ImageGeneratorNode!
   vae: String
   prompt: String!
   negativePrompt: String!
@@ -188,17 +255,25 @@ type ImageGenerationTaskNode implements Node {
   scale: Int!
   sampler: String!
   sizeType: ImageGenerationSizeType!
-  t2tImageBlob: String
-  t2tMaskImageBlob: String
+  t2tImageUrl: String
+  t2tMaskImageUrl: String
   t2tDenoisingStrengthSize: String
   t2tInpaintingFillSize: String
   token: String
+  nanoid: String
+  clipSkip: Int!
+  "予想生成秒数"
+  estimatedSeconds: Int
 }
 "画像生成サービス"
 type ImageGeneratorNode implements Node {
   id: ID!
   "名前"
   name: String!
+  "SD種別（SD1, SD2, SDXL）"
+  type: String!
+  "推奨プロンプト"
+  recommendedPrompt: String!
 }
 "画像生成LoRA"
 type ImageLoraModelNode implements Node {
@@ -215,6 +290,8 @@ type ImageLoraModelNode implements Node {
   license: String
   "プロンプト"
   prompts: [String!]!
+  "種別"
+  genre: String
 }
 "画像生成モデル"
 type ImageModelNode implements Node {
@@ -320,8 +397,14 @@ type Mutation {
   createFolderWork(input: CreateFolderWorkInput!): WorkNode!
   "画像生成のタスクを作成する"
   createImageGenerationTask(input: CreateImageGenerationTaskInput!): ImageGenerationTaskNode!
+  "画像生成のメモを作成する"
+  createImageGenerationMemo(input: CreateImageGenerationMemoInput!): ImageGenerationMemoNode!
+  "予約画像生成のタスクを作成する"
+  createReservedImageGenerationTask(input: CreateReservedImageGenerationTaskInput!): ImageGenerationReservedTaskNode!
   "画像生成のタスクのレーティングを変更する"
-  updateRatingImageGenerationTask(input: UpdateRatingImageGenerationTaskInput!): Boolean
+  updateRatingImageGenerationTask(input: UpdateRatingImageGenerationTaskInput!): ImageGenerationTaskNode!
+  "画像生成のモデルのレーティングを変更する"
+  updateRatingImageGenerationModel(input: UpdateRatingImageGenerationModelInput!): UserSettingNode!
   "メッセージを作成する"
   createMessage(input: CreateMessageInput!): MessageNode!
   "コラムを作成する"
@@ -352,6 +435,12 @@ type Mutation {
   deleteFolder(input: DeleteFolderInput!): FolderNode!
   "フォルダから作品を削除する"
   deleteFolderWork(input: DeleteFolderWorkInput!): WorkNode!
+  "生成履歴を削除する"
+  deleteImageGenerationTask(input: DeleteImageGenerationTaskInput!): ImageGenerationTaskNode!
+  "生成メモを削除する"
+  deleteImageGenerationMemo(input: DeleteImageGenerationMemoInput!): ImageGenerationMemoNode!
+  "予約生成履歴を削除する"
+  deleteReservedImageGenerationTasks: [ImageGenerationReservedTaskNode]!
   "メッセージを削除する"
   deleteMessage(input: DeleteMessageInput!): MessageNode!
   "コラムを削除する"
@@ -364,6 +453,8 @@ type Mutation {
   deleteWork(input: DeleteWorkInput!): WorkNode!
   "作品のスキを削除する"
   deleteWorkLike(input: DeleteWorkLikeInput!): WorkNode!
+  "生成をキャンセルする"
+  cancelImageGenerationTask(input: CancelImageGenerationTaskInput!): ImageGenerationTaskNode!
   "ユーザをフォローする"
   followUser(input: FollowUserInput!): UserNode!
   "パスワードでログインする"
@@ -1236,26 +1327,30 @@ type Query {
   """
   bestWorks(where: PopularWorksWhereInput!): [WorkNode!]!
   "カテゴリ"
-  category(id: ID!): CategoryNode!
-  "カテゴリ"
   categories: [CategoryNode!]!
-  "フォルダ"
-  folder(id: ID!): FolderNode
-  "フォルダ"
-  folders(offset: Int!, limit: Int!, where: FoldersWhereInput): [FolderNode!]
+  "カテゴリ"
+  category(id: ID!): CategoryNode!
+  "コメント"
+  comments(offset: Int!, limit: Int!, where: CommentsWhereInput!, orderBy: CommentsOrderBy!): [CommentNode!]!
   "日別テーマ"
   dailyTheme(id: ID, year: Int, month: Int, day: Int): DailyThemeNode
   "日別テーマ"
   dailyThemes(offset: Int!, limit: Int!, where: DailyThemesWhereInput): [DailyThemeNode!]!
-  "トレンドのタグ"
-  hotTags: [TagNode!]!
+  "フォルダ"
+  folder(id: ID!): FolderNode
+  "フォルダ"
+  folders(offset: Int!, limit: Int!, where: FoldersWhereInput): [FolderNode!]
   "ホームのタグ"
   homeTags: [TagNode!]!
+  "トレンドのタグ"
+  hotTags: [TagNode!]!
   """
   1日以内の人気の作品
   ※キャッシュ不可
   """
   hotWorks(where: HotWorksWhereInput): [WorkNode!]!
+  "画像生成のタスク状況"
+  imageGenerationEngineStatus: ImageGenerationEngineStatus!
   "画像生成サービス"
   imageGenerators: [ImageGeneratorNode!]!
   "画像生成モデル"
@@ -1268,7 +1363,11 @@ type Query {
   imageModels: [ImageModelNode!]!
   "画像生成履歴"
   imageGenerationTask(id: ID!): ImageGenerationTaskNode!
-  ""
+  "画像生成メモ"
+  imageGenerationMemo(id: ID!): ImageGenerationMemoNode!
+  "画像生成メモ一覧"
+  imageGenerationMemos(offset: Int!, limit: Int!, orderBy: ImageGenerationMemoOrderBy): [ImageGenerationMemoNode]!
+  "マイルストーン"
   milestones(where: MilestonesWhereInput!): [MilestoneNode!]!
   """
   全期間の人気作品
@@ -1293,6 +1392,8 @@ type Query {
   user(id: ID!): UserNode
   "ユーザ"
   users(offset: Int!, limit: Int!, where: UsersWhereInput): [UserNode!]!
+  "ユーザ設定"
+  userSetting: UserSettingNode
   "ログイン中のユーザ"
   viewer: Viewer
   "作品"
@@ -1470,6 +1571,7 @@ type UserSettingNode implements Node {
   id: ID!
   userId: ID!
   user: UserNode!
+  favoritedImageGenerationModelIds: [Int!]!
   "ダークモードを使用する"
   useDarkMode: Boolean!
   useDisableGenerateTime: Int!
@@ -1486,6 +1588,20 @@ type Viewer {
   albums(offset: Int!, limit: Int!): [AlbumNode!]!
   "現在の有効な画像生成のタスク"
   currentImageGenerationTasks: [ImageGenerationTaskNode!]!
+  "現在の生成中の画像生成のタスク"
+  inProgressImageGenerationTasksCount: Int!
+  "現在の予約生成中の画像生成のタスク"
+  inProgressImageGenerationReservedTasksCount: Int!
+  "今日の有効な画像生成のタスクの数"
+  remainingImageGenerationTasksCount: Int!
+  "現在の有効な画像生成の累計タスクの数"
+  remainingImageGenerationTasksTotalCount: Int!
+  "利用可能な最大タスク数"
+  availableImageGenerationMaxTasksCount: Int!
+  "利用可能なLoRA数"
+  availableImageGenerationLoraModelsCount: Int!
+  "連続で生成可能な最大タスク数"
+  availableConsecutiveImageGenerationsCount: Int!
   "現在のパス"
   currentPass: PassNode
   """
@@ -1498,7 +1614,7 @@ type Viewer {
   "コレクション"
   folders(offset: Int!, limit: Int!): [FolderNode!]!
   "有効な画像生成のタスク"
-  imageGenerationTasks(offset: Int!, limit: Int!): [ImageGenerationTaskNode!]!
+  imageGenerationTasks(offset: Int!, limit: Int!, where: ImageGenerationTasksWhereInput): [ImageGenerationTaskNode!]!
   "いいねした作品"
   likedWorks(offset: Int!, limit: Int!): [WorkNode!]!
   "メッセージのスレッド"
@@ -1674,7 +1790,7 @@ type WorkNode implements Node {
   "ユーザ"
   user: UserNode!
   "コメント"
-  comment(id: ID!): CommentNode!
+  comment(id: ID!): CommentNode! @deprecated(reason: "No longer supported")
   "コメント"
   comments(offset: Int!, limit: Int!): [CommentNode!]!
   "作品"
@@ -1691,6 +1807,10 @@ type WorkNode implements Node {
   nextWork: WorkNode
   "前の作品"
   previousWork: WorkNode
+  "関連するタグ"
+  relatedTags(offset: Int!, limit: Int!): [TagNode!]!
+  "関連する作品"
+  relatedWorks(offset: Int!, limit: Int!): [WorkNode!]!
   "いいねしている"
   isLiked: Boolean!
   "コレクションに追加している"
@@ -1743,6 +1863,10 @@ enum CacheControlScope {
   PUBLIC
   PRIVATE
 }
+enum Direction {
+  ASC
+  DESC
+}
 enum FolderMode {
   NORMAL
   COMIC_VERTICAL
@@ -1752,11 +1876,15 @@ enum ImageGenerationSizeType {
   SD2_768_768
   SD2_768_1200
   SD2_1200_768
+  SD2_768_1152
+  SD2_1152_768
+  SD2_576_1440
+  SD2_1440_576
   SD1_512_512
   SD1_512_768
   SD1_768_512
-  SD2_384_960
-  SD2_960_384
+  SD1_384_960
+  SD1_960_384
   SD3_1216_1216
   SD3_832_1216
   SD3_1216_832
@@ -1773,6 +1901,11 @@ enum ImageGenerationStatus {
   PENDING
   IN_PROGRESS
   DONE
+  CANCELED
+  ERROR
+}
+enum ImageGenerationTaskOrderBy {
+  DATE_CREATED
 }
 enum ImageGenerationType {
   TEXT_TO_IMAGE
@@ -1790,6 +1923,8 @@ enum ImageModelCategory {
   BACKGROUND
   "獣"
   ANIMAL
+  "フィギュア"
+  FIGURE
 }
 enum ImageStyle {
   "リアル"
@@ -1820,7 +1955,7 @@ enum PassType {
   STANDARD
   "プレミアム"
   PREMIUM
-  "スパム"
+  "2日プラン"
   TWO_DAYS
 }
 enum PaymentType {
@@ -1891,12 +2026,14 @@ input AwardsWhereInput {
 input BlockPromptonUserInput {
   userId: String!
 }
+input CancelImageGenerationMemoInput {
+  nanoid: String!
+}
+input CancelImageGenerationTaskInput {
+  nanoid: String!
+}
 input CancelPromptonRequestInput {
   requestId: String!
-}
-input ChangeImageGenerationTaskInput {
-  taskId: ID!
-  rating: Int!
 }
 input ChangePromptonFolderToPaidInput {
   folderId: String!
@@ -1905,6 +2042,12 @@ input ChangePromptonFolderToPaidInput {
 }
 input ClosePromptonRequestInput {
   requestId: String!
+}
+input CommentsOrderBy {
+  createdAt: Direction
+}
+input CommentsWhereInput {
+  isSensitive: Boolean
 }
 input CreateAccountInput {
   idToken: String!
@@ -1923,6 +2066,20 @@ input CreateFolderWorkInput {
   folderId: ID!
   workId: ID!
 }
+input CreateImageGenerationMemoInput {
+  title: String!
+  explanation: String!
+  prompts: String!
+  negativePrompts: String!
+  sampler: String!
+  modelId: ID!
+  seed: Int!
+  steps: Int!
+  scale: Int!
+  clipSkip: Int!
+  width: Int!
+  height: Int!
+}
 input CreateImageGenerationTaskInput {
   "生成する枚数"
   count: Int!
@@ -1936,10 +2093,12 @@ input CreateImageGenerationTaskInput {
   steps: Int!
   scale: Int!
   sampler: String!
+  clipSkip: Int
   "画像のサイズ"
   sizeType: ImageGenerationSizeType!
-  t2tImageBlob: String
-  t2tMaskImageBlob: String
+  "t2tパラメータ"
+  t2tImageUrl: String
+  t2tMaskImageUrl: String
   t2tDenoisingStrengthSize: String
   t2tInpaintingFillSize: String
 }
@@ -2094,6 +2253,28 @@ input CreatePromptonWorkLikeInput {
 input CreatePromptonWorkViewInput {
   workId: String!
 }
+input CreateReservedImageGenerationTaskInput {
+  "生成する枚数"
+  count: Int!
+  "生成の方式"
+  type: ImageGenerationType!
+  model: String!
+  vae: String!
+  prompt: String!
+  negativePrompt: String!
+  seed: Float!
+  steps: Int!
+  scale: Int!
+  sampler: String!
+  clipSkip: Int
+  "画像のサイズ"
+  sizeType: ImageGenerationSizeType!
+  "t2tパラメータ"
+  t2tImageUrl: String
+  t2tMaskImageUrl: String
+  t2tDenoisingStrengthSize: String
+  t2tInpaintingFillSize: String
+}
 input CreateResponseCommentInput {
   commentId: ID!
   text: String!
@@ -2146,6 +2327,12 @@ input DeleteFolderInput {
 input DeleteFolderWorkInput {
   folderId: ID!
   workId: ID!
+}
+input DeleteImageGenerationMemoInput {
+  nanoid: String!
+}
+input DeleteImageGenerationTaskInput {
+  nanoid: String!
 }
 input DeleteMessageInput {
   messageId: ID!
@@ -2213,6 +2400,14 @@ input FollowUserInput {
 }
 input HotWorksWhereInput {
   isSensitive: Boolean
+}
+input ImageGenerationMemoOrderBy {
+  createdAt: Direction
+}
+input ImageGenerationTasksWhereInput {
+  dateText: String
+  rating: Int
+  minRating: Int
 }
 input IncrementPromptonProfileBlockIndexInput {
   profileBlockId: String!
@@ -2464,8 +2659,12 @@ input UpdatePromptonWorkInput {
   title: String
   body: String
 }
+input UpdateRatingImageGenerationModelInput {
+  modelId: ID!
+  rating: Int!
+}
 input UpdateRatingImageGenerationTaskInput {
-  id: ID!
+  nanoid: String!
   rating: Int!
 }
 input UpdateStickerInput {

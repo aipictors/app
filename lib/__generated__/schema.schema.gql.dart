@@ -61,6 +61,20 @@ class GCacheControlScope extends EnumClass {
       _$gCacheControlScopeValueOf(name);
 }
 
+class GDirection extends EnumClass {
+  const GDirection._(String name) : super(name);
+
+  static const GDirection ASC = _$gDirectionASC;
+
+  static const GDirection DESC = _$gDirectionDESC;
+
+  static Serializer<GDirection> get serializer => _$gDirectionSerializer;
+
+  static BuiltSet<GDirection> get values => _$gDirectionValues;
+
+  static GDirection valueOf(String name) => _$gDirectionValueOf(name);
+}
+
 class GFolderMode extends EnumClass {
   const GFolderMode._(String name) : super(name);
 
@@ -89,6 +103,18 @@ class GImageGenerationSizeType extends EnumClass {
   static const GImageGenerationSizeType SD2_1200_768 =
       _$gImageGenerationSizeTypeSD2_1200_768;
 
+  static const GImageGenerationSizeType SD2_768_1152 =
+      _$gImageGenerationSizeTypeSD2_768_1152;
+
+  static const GImageGenerationSizeType SD2_1152_768 =
+      _$gImageGenerationSizeTypeSD2_1152_768;
+
+  static const GImageGenerationSizeType SD2_576_1440 =
+      _$gImageGenerationSizeTypeSD2_576_1440;
+
+  static const GImageGenerationSizeType SD2_1440_576 =
+      _$gImageGenerationSizeTypeSD2_1440_576;
+
   static const GImageGenerationSizeType SD1_512_512 =
       _$gImageGenerationSizeTypeSD1_512_512;
 
@@ -97,6 +123,45 @@ class GImageGenerationSizeType extends EnumClass {
 
   static const GImageGenerationSizeType SD1_768_512 =
       _$gImageGenerationSizeTypeSD1_768_512;
+
+  static const GImageGenerationSizeType SD1_384_960 =
+      _$gImageGenerationSizeTypeSD1_384_960;
+
+  static const GImageGenerationSizeType SD1_960_384 =
+      _$gImageGenerationSizeTypeSD1_960_384;
+
+  static const GImageGenerationSizeType SD3_1216_1216 =
+      _$gImageGenerationSizeTypeSD3_1216_1216;
+
+  static const GImageGenerationSizeType SD3_832_1216 =
+      _$gImageGenerationSizeTypeSD3_832_1216;
+
+  static const GImageGenerationSizeType SD3_1216_832 =
+      _$gImageGenerationSizeTypeSD3_1216_832;
+
+  static const GImageGenerationSizeType SD3_960_384 =
+      _$gImageGenerationSizeTypeSD3_960_384;
+
+  static const GImageGenerationSizeType SD3_640_1536 =
+      _$gImageGenerationSizeTypeSD3_640_1536;
+
+  static const GImageGenerationSizeType SD3_1536_640 =
+      _$gImageGenerationSizeTypeSD3_1536_640;
+
+  static const GImageGenerationSizeType SD3_1024_1024 =
+      _$gImageGenerationSizeTypeSD3_1024_1024;
+
+  static const GImageGenerationSizeType SD3_896_1152 =
+      _$gImageGenerationSizeTypeSD3_896_1152;
+
+  static const GImageGenerationSizeType SD3_1152_896 =
+      _$gImageGenerationSizeTypeSD3_1152_896;
+
+  static const GImageGenerationSizeType SD3_1152_1152 =
+      _$gImageGenerationSizeTypeSD3_1152_1152;
+
+  static const GImageGenerationSizeType SD3_896_896 =
+      _$gImageGenerationSizeTypeSD3_896_896;
 
   static Serializer<GImageGenerationSizeType> get serializer =>
       _$gImageGenerationSizeTypeSerializer;
@@ -118,6 +183,11 @@ class GImageGenerationStatus extends EnumClass {
 
   static const GImageGenerationStatus DONE = _$gImageGenerationStatusDONE;
 
+  static const GImageGenerationStatus CANCELED =
+      _$gImageGenerationStatusCANCELED;
+
+  static const GImageGenerationStatus ERROR = _$gImageGenerationStatusERROR;
+
   static Serializer<GImageGenerationStatus> get serializer =>
       _$gImageGenerationStatusSerializer;
 
@@ -126,6 +196,22 @@ class GImageGenerationStatus extends EnumClass {
 
   static GImageGenerationStatus valueOf(String name) =>
       _$gImageGenerationStatusValueOf(name);
+}
+
+class GImageGenerationTaskOrderBy extends EnumClass {
+  const GImageGenerationTaskOrderBy._(String name) : super(name);
+
+  static const GImageGenerationTaskOrderBy DATE_CREATED =
+      _$gImageGenerationTaskOrderByDATE_CREATED;
+
+  static Serializer<GImageGenerationTaskOrderBy> get serializer =>
+      _$gImageGenerationTaskOrderBySerializer;
+
+  static BuiltSet<GImageGenerationTaskOrderBy> get values =>
+      _$gImageGenerationTaskOrderByValues;
+
+  static GImageGenerationTaskOrderBy valueOf(String name) =>
+      _$gImageGenerationTaskOrderByValueOf(name);
 }
 
 class GImageGenerationType extends EnumClass {
@@ -165,6 +251,8 @@ class GImageModelCategory extends EnumClass {
   static const GImageModelCategory BACKGROUND = _$gImageModelCategoryBACKGROUND;
 
   static const GImageModelCategory ANIMAL = _$gImageModelCategoryANIMAL;
+
+  static const GImageModelCategory FIGURE = _$gImageModelCategoryFIGURE;
 
   static Serializer<GImageModelCategory> get serializer =>
       _$gImageModelCategorySerializer;
@@ -474,6 +562,58 @@ abstract class GBlockPromptonUserInput
       );
 }
 
+abstract class GCancelImageGenerationMemoInput
+    implements
+        Built<GCancelImageGenerationMemoInput,
+            GCancelImageGenerationMemoInputBuilder> {
+  GCancelImageGenerationMemoInput._();
+
+  factory GCancelImageGenerationMemoInput(
+          [Function(GCancelImageGenerationMemoInputBuilder b) updates]) =
+      _$GCancelImageGenerationMemoInput;
+
+  String get nanoid;
+  static Serializer<GCancelImageGenerationMemoInput> get serializer =>
+      _$gCancelImageGenerationMemoInputSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GCancelImageGenerationMemoInput.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GCancelImageGenerationMemoInput? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GCancelImageGenerationMemoInput.serializer,
+        json,
+      );
+}
+
+abstract class GCancelImageGenerationTaskInput
+    implements
+        Built<GCancelImageGenerationTaskInput,
+            GCancelImageGenerationTaskInputBuilder> {
+  GCancelImageGenerationTaskInput._();
+
+  factory GCancelImageGenerationTaskInput(
+          [Function(GCancelImageGenerationTaskInputBuilder b) updates]) =
+      _$GCancelImageGenerationTaskInput;
+
+  String get nanoid;
+  static Serializer<GCancelImageGenerationTaskInput> get serializer =>
+      _$gCancelImageGenerationTaskInputSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GCancelImageGenerationTaskInput.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GCancelImageGenerationTaskInput? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GCancelImageGenerationTaskInput.serializer,
+        json,
+      );
+}
+
 abstract class GCancelPromptonRequestInput
     implements
         Built<GCancelPromptonRequestInput, GCancelPromptonRequestInputBuilder> {
@@ -549,6 +689,52 @@ abstract class GClosePromptonRequestInput
   static GClosePromptonRequestInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GClosePromptonRequestInput.serializer,
+        json,
+      );
+}
+
+abstract class GCommentsOrderBy
+    implements Built<GCommentsOrderBy, GCommentsOrderByBuilder> {
+  GCommentsOrderBy._();
+
+  factory GCommentsOrderBy([Function(GCommentsOrderByBuilder b) updates]) =
+      _$GCommentsOrderBy;
+
+  GDirection? get createdAt;
+  static Serializer<GCommentsOrderBy> get serializer =>
+      _$gCommentsOrderBySerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GCommentsOrderBy.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GCommentsOrderBy? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GCommentsOrderBy.serializer,
+        json,
+      );
+}
+
+abstract class GCommentsWhereInput
+    implements Built<GCommentsWhereInput, GCommentsWhereInputBuilder> {
+  GCommentsWhereInput._();
+
+  factory GCommentsWhereInput(
+      [Function(GCommentsWhereInputBuilder b) updates]) = _$GCommentsWhereInput;
+
+  bool? get isSensitive;
+  static Serializer<GCommentsWhereInput> get serializer =>
+      _$gCommentsWhereInputSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GCommentsWhereInput.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GCommentsWhereInput? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GCommentsWhereInput.serializer,
         json,
       );
 }
@@ -672,6 +858,43 @@ abstract class GCreateFolderWorkInput
       );
 }
 
+abstract class GCreateImageGenerationMemoInput
+    implements
+        Built<GCreateImageGenerationMemoInput,
+            GCreateImageGenerationMemoInputBuilder> {
+  GCreateImageGenerationMemoInput._();
+
+  factory GCreateImageGenerationMemoInput(
+          [Function(GCreateImageGenerationMemoInputBuilder b) updates]) =
+      _$GCreateImageGenerationMemoInput;
+
+  String get title;
+  String get explanation;
+  String get prompts;
+  String get negativePrompts;
+  String get sampler;
+  String get modelId;
+  int get seed;
+  int get steps;
+  int get scale;
+  int get clipSkip;
+  int get width;
+  int get height;
+  static Serializer<GCreateImageGenerationMemoInput> get serializer =>
+      _$gCreateImageGenerationMemoInputSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GCreateImageGenerationMemoInput.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GCreateImageGenerationMemoInput? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GCreateImageGenerationMemoInput.serializer,
+        json,
+      );
+}
+
 abstract class GCreateImageGenerationTaskInput
     implements
         Built<GCreateImageGenerationTaskInput,
@@ -692,9 +915,10 @@ abstract class GCreateImageGenerationTaskInput
   int get steps;
   int get scale;
   String get sampler;
+  int? get clipSkip;
   GImageGenerationSizeType get sizeType;
-  String? get t2tImageBlob;
-  String? get t2tMaskImageBlob;
+  String? get t2tImageUrl;
+  String? get t2tMaskImageUrl;
   String? get t2tDenoisingStrengthSize;
   String? get t2tInpaintingFillSize;
   static Serializer<GCreateImageGenerationTaskInput> get serializer =>
@@ -1569,6 +1793,48 @@ abstract class GCreatePromptonWorkViewInput
       );
 }
 
+abstract class GCreateReservedImageGenerationTaskInput
+    implements
+        Built<GCreateReservedImageGenerationTaskInput,
+            GCreateReservedImageGenerationTaskInputBuilder> {
+  GCreateReservedImageGenerationTaskInput._();
+
+  factory GCreateReservedImageGenerationTaskInput(
+      [Function(GCreateReservedImageGenerationTaskInputBuilder b)
+          updates]) = _$GCreateReservedImageGenerationTaskInput;
+
+  int get count;
+  GImageGenerationType get type;
+  String get model;
+  String get vae;
+  String get prompt;
+  String get negativePrompt;
+  double get seed;
+  int get steps;
+  int get scale;
+  String get sampler;
+  int? get clipSkip;
+  GImageGenerationSizeType get sizeType;
+  String? get t2tImageUrl;
+  String? get t2tMaskImageUrl;
+  String? get t2tDenoisingStrengthSize;
+  String? get t2tInpaintingFillSize;
+  static Serializer<GCreateReservedImageGenerationTaskInput> get serializer =>
+      _$gCreateReservedImageGenerationTaskInputSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GCreateReservedImageGenerationTaskInput.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GCreateReservedImageGenerationTaskInput? fromJson(
+          Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GCreateReservedImageGenerationTaskInput.serializer,
+        json,
+      );
+}
+
 abstract class GCreateResponseCommentInput
     implements
         Built<GCreateResponseCommentInput, GCreateResponseCommentInputBuilder> {
@@ -1912,6 +2178,58 @@ abstract class GDeleteFolderWorkInput
   static GDeleteFolderWorkInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GDeleteFolderWorkInput.serializer,
+        json,
+      );
+}
+
+abstract class GDeleteImageGenerationMemoInput
+    implements
+        Built<GDeleteImageGenerationMemoInput,
+            GDeleteImageGenerationMemoInputBuilder> {
+  GDeleteImageGenerationMemoInput._();
+
+  factory GDeleteImageGenerationMemoInput(
+          [Function(GDeleteImageGenerationMemoInputBuilder b) updates]) =
+      _$GDeleteImageGenerationMemoInput;
+
+  String get nanoid;
+  static Serializer<GDeleteImageGenerationMemoInput> get serializer =>
+      _$gDeleteImageGenerationMemoInputSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GDeleteImageGenerationMemoInput.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GDeleteImageGenerationMemoInput? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GDeleteImageGenerationMemoInput.serializer,
+        json,
+      );
+}
+
+abstract class GDeleteImageGenerationTaskInput
+    implements
+        Built<GDeleteImageGenerationTaskInput,
+            GDeleteImageGenerationTaskInputBuilder> {
+  GDeleteImageGenerationTaskInput._();
+
+  factory GDeleteImageGenerationTaskInput(
+          [Function(GDeleteImageGenerationTaskInputBuilder b) updates]) =
+      _$GDeleteImageGenerationTaskInput;
+
+  String get nanoid;
+  static Serializer<GDeleteImageGenerationTaskInput> get serializer =>
+      _$gDeleteImageGenerationTaskInputSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GDeleteImageGenerationTaskInput.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GDeleteImageGenerationTaskInput? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GDeleteImageGenerationTaskInput.serializer,
         json,
       );
 }
@@ -2435,6 +2753,59 @@ abstract class GHotWorksWhereInput
   static GHotWorksWhereInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GHotWorksWhereInput.serializer,
+        json,
+      );
+}
+
+abstract class GImageGenerationMemoOrderBy
+    implements
+        Built<GImageGenerationMemoOrderBy, GImageGenerationMemoOrderByBuilder> {
+  GImageGenerationMemoOrderBy._();
+
+  factory GImageGenerationMemoOrderBy(
+          [Function(GImageGenerationMemoOrderByBuilder b) updates]) =
+      _$GImageGenerationMemoOrderBy;
+
+  GDirection? get createdAt;
+  static Serializer<GImageGenerationMemoOrderBy> get serializer =>
+      _$gImageGenerationMemoOrderBySerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GImageGenerationMemoOrderBy.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GImageGenerationMemoOrderBy? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GImageGenerationMemoOrderBy.serializer,
+        json,
+      );
+}
+
+abstract class GImageGenerationTasksWhereInput
+    implements
+        Built<GImageGenerationTasksWhereInput,
+            GImageGenerationTasksWhereInputBuilder> {
+  GImageGenerationTasksWhereInput._();
+
+  factory GImageGenerationTasksWhereInput(
+          [Function(GImageGenerationTasksWhereInputBuilder b) updates]) =
+      _$GImageGenerationTasksWhereInput;
+
+  String? get dateText;
+  int? get rating;
+  int? get minRating;
+  static Serializer<GImageGenerationTasksWhereInput> get serializer =>
+      _$gImageGenerationTasksWhereInputSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GImageGenerationTasksWhereInput.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GImageGenerationTasksWhereInput? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GImageGenerationTasksWhereInput.serializer,
         json,
       );
 }
@@ -3282,6 +3653,32 @@ abstract class GReportWorkInput
       );
 }
 
+abstract class GSignImageGenerationTermsInput
+    implements
+        Built<GSignImageGenerationTermsInput,
+            GSignImageGenerationTermsInputBuilder> {
+  GSignImageGenerationTermsInput._();
+
+  factory GSignImageGenerationTermsInput(
+          [Function(GSignImageGenerationTermsInputBuilder b) updates]) =
+      _$GSignImageGenerationTermsInput;
+
+  int get version;
+  static Serializer<GSignImageGenerationTermsInput> get serializer =>
+      _$gSignImageGenerationTermsInputSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GSignImageGenerationTermsInput.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GSignImageGenerationTermsInput? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GSignImageGenerationTermsInput.serializer,
+        json,
+      );
+}
+
 abstract class GStickersWhereInput
     implements Built<GStickersWhereInput, GStickersWhereInputBuilder> {
   GStickersWhereInput._();
@@ -4040,6 +4437,62 @@ abstract class GUpdatePromptonWorkInput
       );
 }
 
+abstract class GUpdateRatingImageGenerationModelInput
+    implements
+        Built<GUpdateRatingImageGenerationModelInput,
+            GUpdateRatingImageGenerationModelInputBuilder> {
+  GUpdateRatingImageGenerationModelInput._();
+
+  factory GUpdateRatingImageGenerationModelInput(
+          [Function(GUpdateRatingImageGenerationModelInputBuilder b) updates]) =
+      _$GUpdateRatingImageGenerationModelInput;
+
+  String get modelId;
+  int get rating;
+  static Serializer<GUpdateRatingImageGenerationModelInput> get serializer =>
+      _$gUpdateRatingImageGenerationModelInputSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GUpdateRatingImageGenerationModelInput.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GUpdateRatingImageGenerationModelInput? fromJson(
+          Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GUpdateRatingImageGenerationModelInput.serializer,
+        json,
+      );
+}
+
+abstract class GUpdateRatingImageGenerationTaskInput
+    implements
+        Built<GUpdateRatingImageGenerationTaskInput,
+            GUpdateRatingImageGenerationTaskInputBuilder> {
+  GUpdateRatingImageGenerationTaskInput._();
+
+  factory GUpdateRatingImageGenerationTaskInput(
+          [Function(GUpdateRatingImageGenerationTaskInputBuilder b) updates]) =
+      _$GUpdateRatingImageGenerationTaskInput;
+
+  String get nanoid;
+  int get rating;
+  static Serializer<GUpdateRatingImageGenerationTaskInput> get serializer =>
+      _$gUpdateRatingImageGenerationTaskInputSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GUpdateRatingImageGenerationTaskInput.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GUpdateRatingImageGenerationTaskInput? fromJson(
+          Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GUpdateRatingImageGenerationTaskInput.serializer,
+        json,
+      );
+}
+
 abstract class GUpdateStickerInput
     implements Built<GUpdateStickerInput, GUpdateStickerInputBuilder> {
   GUpdateStickerInput._();
@@ -4276,6 +4729,7 @@ abstract class GWorksWhereInput
   GWorkOrderBy? get orderBy;
   BuiltList<String>? get searchTargets;
   bool? get isSensitive;
+  BuiltList<String>? get tagNames;
   static Serializer<GWorksWhereInput> get serializer =>
       _$gWorksWhereInputSerializer;
 
@@ -4302,6 +4756,8 @@ const Map<String, Set<String>> possibleTypesMap = {
     'DailyThemeNode',
     'FolderNode',
     'FollowNotificationNode',
+    'ImageGenerationMemoNode',
+    'ImageGenerationReservedTaskNode',
     'ImageGenerationTaskNode',
     'ImageGeneratorNode',
     'ImageLoraModelNode',
