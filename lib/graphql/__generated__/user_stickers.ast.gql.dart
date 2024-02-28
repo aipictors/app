@@ -11,15 +11,6 @@ const UserStickers = _i1.OperationDefinitionNode(
   name: _i1.NameNode(value: 'UserStickers'),
   variableDefinitions: [
     _i1.VariableDefinitionNode(
-      variable: _i1.VariableNode(name: _i1.NameNode(value: 'user_id')),
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'ID'),
-        isNonNull: true,
-      ),
-      defaultValue: _i1.DefaultValueNode(value: null),
-      directives: [],
-    ),
-    _i1.VariableDefinitionNode(
       variable: _i1.VariableNode(name: _i1.NameNode(value: 'offset')),
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'Int'),
@@ -41,25 +32,13 @@ const UserStickers = _i1.OperationDefinitionNode(
   directives: [],
   selectionSet: _i1.SelectionSetNode(selections: [
     _i1.FieldNode(
-      name: _i1.NameNode(value: 'user'),
+      name: _i1.NameNode(value: 'viewer'),
       alias: null,
-      arguments: [
-        _i1.ArgumentNode(
-          name: _i1.NameNode(value: 'id'),
-          value: _i1.VariableNode(name: _i1.NameNode(value: 'user_id')),
-        )
-      ],
+      arguments: [],
       directives: [],
       selectionSet: _i1.SelectionSetNode(selections: [
         _i1.FieldNode(
-          name: _i1.NameNode(value: 'id'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: null,
-        ),
-        _i1.FieldNode(
-          name: _i1.NameNode(value: 'stickers'),
+          name: _i1.NameNode(value: 'userStickers'),
           alias: null,
           arguments: [
             _i1.ArgumentNode(
@@ -78,7 +57,7 @@ const UserStickers = _i1.OperationDefinitionNode(
               directives: [],
             )
           ]),
-        ),
+        )
       ]),
     )
   ]),

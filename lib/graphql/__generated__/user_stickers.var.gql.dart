@@ -15,7 +15,6 @@ abstract class GUserStickersVars
   factory GUserStickersVars([Function(GUserStickersVarsBuilder b) updates]) =
       _$GUserStickersVars;
 
-  String get user_id;
   int get offset;
   int get limit;
   static Serializer<GUserStickersVars> get serializer =>
