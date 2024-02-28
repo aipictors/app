@@ -85,6 +85,26 @@ final BuiltSet<GCacheControlScope> _$gCacheControlScopeValues =
   _$gCacheControlScopePRIVATE,
 ]);
 
+const GDirection _$gDirectionASC = const GDirection._('ASC');
+const GDirection _$gDirectionDESC = const GDirection._('DESC');
+
+GDirection _$gDirectionValueOf(String name) {
+  switch (name) {
+    case 'ASC':
+      return _$gDirectionASC;
+    case 'DESC':
+      return _$gDirectionDESC;
+    default:
+      throw new ArgumentError(name);
+  }
+}
+
+final BuiltSet<GDirection> _$gDirectionValues =
+    new BuiltSet<GDirection>(const <GDirection>[
+  _$gDirectionASC,
+  _$gDirectionDESC,
+]);
+
 const GFolderMode _$gFolderModeNORMAL = const GFolderMode._('NORMAL');
 const GFolderMode _$gFolderModeCOMIC_VERTICAL =
     const GFolderMode._('COMIC_VERTICAL');
@@ -117,12 +137,46 @@ const GImageGenerationSizeType _$gImageGenerationSizeTypeSD2_768_1200 =
     const GImageGenerationSizeType._('SD2_768_1200');
 const GImageGenerationSizeType _$gImageGenerationSizeTypeSD2_1200_768 =
     const GImageGenerationSizeType._('SD2_1200_768');
+const GImageGenerationSizeType _$gImageGenerationSizeTypeSD2_768_1152 =
+    const GImageGenerationSizeType._('SD2_768_1152');
+const GImageGenerationSizeType _$gImageGenerationSizeTypeSD2_1152_768 =
+    const GImageGenerationSizeType._('SD2_1152_768');
+const GImageGenerationSizeType _$gImageGenerationSizeTypeSD2_576_1440 =
+    const GImageGenerationSizeType._('SD2_576_1440');
+const GImageGenerationSizeType _$gImageGenerationSizeTypeSD2_1440_576 =
+    const GImageGenerationSizeType._('SD2_1440_576');
 const GImageGenerationSizeType _$gImageGenerationSizeTypeSD1_512_512 =
     const GImageGenerationSizeType._('SD1_512_512');
 const GImageGenerationSizeType _$gImageGenerationSizeTypeSD1_512_768 =
     const GImageGenerationSizeType._('SD1_512_768');
 const GImageGenerationSizeType _$gImageGenerationSizeTypeSD1_768_512 =
     const GImageGenerationSizeType._('SD1_768_512');
+const GImageGenerationSizeType _$gImageGenerationSizeTypeSD1_384_960 =
+    const GImageGenerationSizeType._('SD1_384_960');
+const GImageGenerationSizeType _$gImageGenerationSizeTypeSD1_960_384 =
+    const GImageGenerationSizeType._('SD1_960_384');
+const GImageGenerationSizeType _$gImageGenerationSizeTypeSD3_1216_1216 =
+    const GImageGenerationSizeType._('SD3_1216_1216');
+const GImageGenerationSizeType _$gImageGenerationSizeTypeSD3_832_1216 =
+    const GImageGenerationSizeType._('SD3_832_1216');
+const GImageGenerationSizeType _$gImageGenerationSizeTypeSD3_1216_832 =
+    const GImageGenerationSizeType._('SD3_1216_832');
+const GImageGenerationSizeType _$gImageGenerationSizeTypeSD3_960_384 =
+    const GImageGenerationSizeType._('SD3_960_384');
+const GImageGenerationSizeType _$gImageGenerationSizeTypeSD3_640_1536 =
+    const GImageGenerationSizeType._('SD3_640_1536');
+const GImageGenerationSizeType _$gImageGenerationSizeTypeSD3_1536_640 =
+    const GImageGenerationSizeType._('SD3_1536_640');
+const GImageGenerationSizeType _$gImageGenerationSizeTypeSD3_1024_1024 =
+    const GImageGenerationSizeType._('SD3_1024_1024');
+const GImageGenerationSizeType _$gImageGenerationSizeTypeSD3_896_1152 =
+    const GImageGenerationSizeType._('SD3_896_1152');
+const GImageGenerationSizeType _$gImageGenerationSizeTypeSD3_1152_896 =
+    const GImageGenerationSizeType._('SD3_1152_896');
+const GImageGenerationSizeType _$gImageGenerationSizeTypeSD3_1152_1152 =
+    const GImageGenerationSizeType._('SD3_1152_1152');
+const GImageGenerationSizeType _$gImageGenerationSizeTypeSD3_896_896 =
+    const GImageGenerationSizeType._('SD3_896_896');
 
 GImageGenerationSizeType _$gImageGenerationSizeTypeValueOf(String name) {
   switch (name) {
@@ -132,12 +186,46 @@ GImageGenerationSizeType _$gImageGenerationSizeTypeValueOf(String name) {
       return _$gImageGenerationSizeTypeSD2_768_1200;
     case 'SD2_1200_768':
       return _$gImageGenerationSizeTypeSD2_1200_768;
+    case 'SD2_768_1152':
+      return _$gImageGenerationSizeTypeSD2_768_1152;
+    case 'SD2_1152_768':
+      return _$gImageGenerationSizeTypeSD2_1152_768;
+    case 'SD2_576_1440':
+      return _$gImageGenerationSizeTypeSD2_576_1440;
+    case 'SD2_1440_576':
+      return _$gImageGenerationSizeTypeSD2_1440_576;
     case 'SD1_512_512':
       return _$gImageGenerationSizeTypeSD1_512_512;
     case 'SD1_512_768':
       return _$gImageGenerationSizeTypeSD1_512_768;
     case 'SD1_768_512':
       return _$gImageGenerationSizeTypeSD1_768_512;
+    case 'SD1_384_960':
+      return _$gImageGenerationSizeTypeSD1_384_960;
+    case 'SD1_960_384':
+      return _$gImageGenerationSizeTypeSD1_960_384;
+    case 'SD3_1216_1216':
+      return _$gImageGenerationSizeTypeSD3_1216_1216;
+    case 'SD3_832_1216':
+      return _$gImageGenerationSizeTypeSD3_832_1216;
+    case 'SD3_1216_832':
+      return _$gImageGenerationSizeTypeSD3_1216_832;
+    case 'SD3_960_384':
+      return _$gImageGenerationSizeTypeSD3_960_384;
+    case 'SD3_640_1536':
+      return _$gImageGenerationSizeTypeSD3_640_1536;
+    case 'SD3_1536_640':
+      return _$gImageGenerationSizeTypeSD3_1536_640;
+    case 'SD3_1024_1024':
+      return _$gImageGenerationSizeTypeSD3_1024_1024;
+    case 'SD3_896_1152':
+      return _$gImageGenerationSizeTypeSD3_896_1152;
+    case 'SD3_1152_896':
+      return _$gImageGenerationSizeTypeSD3_1152_896;
+    case 'SD3_1152_1152':
+      return _$gImageGenerationSizeTypeSD3_1152_1152;
+    case 'SD3_896_896':
+      return _$gImageGenerationSizeTypeSD3_896_896;
     default:
       throw new ArgumentError(name);
   }
@@ -148,9 +236,26 @@ final BuiltSet<GImageGenerationSizeType> _$gImageGenerationSizeTypeValues =
   _$gImageGenerationSizeTypeSD2_768_768,
   _$gImageGenerationSizeTypeSD2_768_1200,
   _$gImageGenerationSizeTypeSD2_1200_768,
+  _$gImageGenerationSizeTypeSD2_768_1152,
+  _$gImageGenerationSizeTypeSD2_1152_768,
+  _$gImageGenerationSizeTypeSD2_576_1440,
+  _$gImageGenerationSizeTypeSD2_1440_576,
   _$gImageGenerationSizeTypeSD1_512_512,
   _$gImageGenerationSizeTypeSD1_512_768,
   _$gImageGenerationSizeTypeSD1_768_512,
+  _$gImageGenerationSizeTypeSD1_384_960,
+  _$gImageGenerationSizeTypeSD1_960_384,
+  _$gImageGenerationSizeTypeSD3_1216_1216,
+  _$gImageGenerationSizeTypeSD3_832_1216,
+  _$gImageGenerationSizeTypeSD3_1216_832,
+  _$gImageGenerationSizeTypeSD3_960_384,
+  _$gImageGenerationSizeTypeSD3_640_1536,
+  _$gImageGenerationSizeTypeSD3_1536_640,
+  _$gImageGenerationSizeTypeSD3_1024_1024,
+  _$gImageGenerationSizeTypeSD3_896_1152,
+  _$gImageGenerationSizeTypeSD3_1152_896,
+  _$gImageGenerationSizeTypeSD3_1152_1152,
+  _$gImageGenerationSizeTypeSD3_896_896,
 ]);
 
 const GImageGenerationStatus _$gImageGenerationStatusPENDING =
@@ -159,6 +264,10 @@ const GImageGenerationStatus _$gImageGenerationStatusIN_PROGRESS =
     const GImageGenerationStatus._('IN_PROGRESS');
 const GImageGenerationStatus _$gImageGenerationStatusDONE =
     const GImageGenerationStatus._('DONE');
+const GImageGenerationStatus _$gImageGenerationStatusCANCELED =
+    const GImageGenerationStatus._('CANCELED');
+const GImageGenerationStatus _$gImageGenerationStatusERROR =
+    const GImageGenerationStatus._('ERROR');
 
 GImageGenerationStatus _$gImageGenerationStatusValueOf(String name) {
   switch (name) {
@@ -168,6 +277,10 @@ GImageGenerationStatus _$gImageGenerationStatusValueOf(String name) {
       return _$gImageGenerationStatusIN_PROGRESS;
     case 'DONE':
       return _$gImageGenerationStatusDONE;
+    case 'CANCELED':
+      return _$gImageGenerationStatusCANCELED;
+    case 'ERROR':
+      return _$gImageGenerationStatusERROR;
     default:
       throw new ArgumentError(name);
   }
@@ -178,6 +291,26 @@ final BuiltSet<GImageGenerationStatus> _$gImageGenerationStatusValues =
   _$gImageGenerationStatusPENDING,
   _$gImageGenerationStatusIN_PROGRESS,
   _$gImageGenerationStatusDONE,
+  _$gImageGenerationStatusCANCELED,
+  _$gImageGenerationStatusERROR,
+]);
+
+const GImageGenerationTaskOrderBy _$gImageGenerationTaskOrderByDATE_CREATED =
+    const GImageGenerationTaskOrderBy._('DATE_CREATED');
+
+GImageGenerationTaskOrderBy _$gImageGenerationTaskOrderByValueOf(String name) {
+  switch (name) {
+    case 'DATE_CREATED':
+      return _$gImageGenerationTaskOrderByDATE_CREATED;
+    default:
+      throw new ArgumentError(name);
+  }
+}
+
+final BuiltSet<GImageGenerationTaskOrderBy>
+    _$gImageGenerationTaskOrderByValues = new BuiltSet<
+        GImageGenerationTaskOrderBy>(const <GImageGenerationTaskOrderBy>[
+  _$gImageGenerationTaskOrderByDATE_CREATED,
 ]);
 
 const GImageGenerationType _$gImageGenerationTypeTEXT_TO_IMAGE =
@@ -217,6 +350,8 @@ const GImageModelCategory _$gImageModelCategoryBACKGROUND =
     const GImageModelCategory._('BACKGROUND');
 const GImageModelCategory _$gImageModelCategoryANIMAL =
     const GImageModelCategory._('ANIMAL');
+const GImageModelCategory _$gImageModelCategoryFIGURE =
+    const GImageModelCategory._('FIGURE');
 
 GImageModelCategory _$gImageModelCategoryValueOf(String name) {
   switch (name) {
@@ -230,6 +365,8 @@ GImageModelCategory _$gImageModelCategoryValueOf(String name) {
       return _$gImageModelCategoryBACKGROUND;
     case 'ANIMAL':
       return _$gImageModelCategoryANIMAL;
+    case 'FIGURE':
+      return _$gImageModelCategoryFIGURE;
     default:
       throw new ArgumentError(name);
   }
@@ -242,6 +379,7 @@ final BuiltSet<GImageModelCategory> _$gImageModelCategoryValues =
   _$gImageModelCategoryBIKINI_MODEL,
   _$gImageModelCategoryBACKGROUND,
   _$gImageModelCategoryANIMAL,
+  _$gImageModelCategoryFIGURE,
 ]);
 
 const GImageStyle _$gImageStyleREAL = const GImageStyle._('REAL');
@@ -476,11 +614,15 @@ Serializer<GAccessType> _$gAccessTypeSerializer = new _$GAccessTypeSerializer();
 Serializer<GAwardType> _$gAwardTypeSerializer = new _$GAwardTypeSerializer();
 Serializer<GCacheControlScope> _$gCacheControlScopeSerializer =
     new _$GCacheControlScopeSerializer();
+Serializer<GDirection> _$gDirectionSerializer = new _$GDirectionSerializer();
 Serializer<GFolderMode> _$gFolderModeSerializer = new _$GFolderModeSerializer();
 Serializer<GImageGenerationSizeType> _$gImageGenerationSizeTypeSerializer =
     new _$GImageGenerationSizeTypeSerializer();
 Serializer<GImageGenerationStatus> _$gImageGenerationStatusSerializer =
     new _$GImageGenerationStatusSerializer();
+Serializer<GImageGenerationTaskOrderBy>
+    _$gImageGenerationTaskOrderBySerializer =
+    new _$GImageGenerationTaskOrderBySerializer();
 Serializer<GImageGenerationType> _$gImageGenerationTypeSerializer =
     new _$GImageGenerationTypeSerializer();
 Serializer<GImageModelCategory> _$gImageModelCategorySerializer =
@@ -511,6 +653,12 @@ Serializer<GAwardsWhereInput> _$gAwardsWhereInputSerializer =
     new _$GAwardsWhereInputSerializer();
 Serializer<GBlockPromptonUserInput> _$gBlockPromptonUserInputSerializer =
     new _$GBlockPromptonUserInputSerializer();
+Serializer<GCancelImageGenerationMemoInput>
+    _$gCancelImageGenerationMemoInputSerializer =
+    new _$GCancelImageGenerationMemoInputSerializer();
+Serializer<GCancelImageGenerationTaskInput>
+    _$gCancelImageGenerationTaskInputSerializer =
+    new _$GCancelImageGenerationTaskInputSerializer();
 Serializer<GCancelPromptonRequestInput>
     _$gCancelPromptonRequestInputSerializer =
     new _$GCancelPromptonRequestInputSerializer();
@@ -519,6 +667,10 @@ Serializer<GChangePromptonFolderToPaidInput>
     new _$GChangePromptonFolderToPaidInputSerializer();
 Serializer<GClosePromptonRequestInput> _$gClosePromptonRequestInputSerializer =
     new _$GClosePromptonRequestInputSerializer();
+Serializer<GCommentsOrderBy> _$gCommentsOrderBySerializer =
+    new _$GCommentsOrderBySerializer();
+Serializer<GCommentsWhereInput> _$gCommentsWhereInputSerializer =
+    new _$GCommentsWhereInputSerializer();
 Serializer<GCreateAccountInput> _$gCreateAccountInputSerializer =
     new _$GCreateAccountInputSerializer();
 Serializer<GCreateAlbumInput> _$gCreateAlbumInputSerializer =
@@ -529,6 +681,9 @@ Serializer<GCreateFolderInput> _$gCreateFolderInputSerializer =
     new _$GCreateFolderInputSerializer();
 Serializer<GCreateFolderWorkInput> _$gCreateFolderWorkInputSerializer =
     new _$GCreateFolderWorkInputSerializer();
+Serializer<GCreateImageGenerationMemoInput>
+    _$gCreateImageGenerationMemoInputSerializer =
+    new _$GCreateImageGenerationMemoInputSerializer();
 Serializer<GCreateImageGenerationTaskInput>
     _$gCreateImageGenerationTaskInputSerializer =
     new _$GCreateImageGenerationTaskInputSerializer();
@@ -616,6 +771,9 @@ Serializer<GCreatePromptonWorkLikeInput>
 Serializer<GCreatePromptonWorkViewInput>
     _$gCreatePromptonWorkViewInputSerializer =
     new _$GCreatePromptonWorkViewInputSerializer();
+Serializer<GCreateReservedImageGenerationTaskInput>
+    _$gCreateReservedImageGenerationTaskInputSerializer =
+    new _$GCreateReservedImageGenerationTaskInputSerializer();
 Serializer<GCreateResponseCommentInput>
     _$gCreateResponseCommentInputSerializer =
     new _$GCreateResponseCommentInputSerializer();
@@ -646,6 +804,12 @@ Serializer<GDeleteFolderInput> _$gDeleteFolderInputSerializer =
     new _$GDeleteFolderInputSerializer();
 Serializer<GDeleteFolderWorkInput> _$gDeleteFolderWorkInputSerializer =
     new _$GDeleteFolderWorkInputSerializer();
+Serializer<GDeleteImageGenerationMemoInput>
+    _$gDeleteImageGenerationMemoInputSerializer =
+    new _$GDeleteImageGenerationMemoInputSerializer();
+Serializer<GDeleteImageGenerationTaskInput>
+    _$gDeleteImageGenerationTaskInputSerializer =
+    new _$GDeleteImageGenerationTaskInputSerializer();
 Serializer<GDeleteMessageInput> _$gDeleteMessageInputSerializer =
     new _$GDeleteMessageInputSerializer();
 Serializer<GDeleteNoteInput> _$gDeleteNoteInputSerializer =
@@ -695,6 +859,12 @@ Serializer<GFollowUserInput> _$gFollowUserInputSerializer =
     new _$GFollowUserInputSerializer();
 Serializer<GHotWorksWhereInput> _$gHotWorksWhereInputSerializer =
     new _$GHotWorksWhereInputSerializer();
+Serializer<GImageGenerationMemoOrderBy>
+    _$gImageGenerationMemoOrderBySerializer =
+    new _$GImageGenerationMemoOrderBySerializer();
+Serializer<GImageGenerationTasksWhereInput>
+    _$gImageGenerationTasksWhereInputSerializer =
+    new _$GImageGenerationTasksWhereInputSerializer();
 Serializer<GIncrementPromptonProfileBlockIndexInput>
     _$gIncrementPromptonProfileBlockIndexInputSerializer =
     new _$GIncrementPromptonProfileBlockIndexInputSerializer();
@@ -776,6 +946,9 @@ Serializer<GReportUserInput> _$gReportUserInputSerializer =
     new _$GReportUserInputSerializer();
 Serializer<GReportWorkInput> _$gReportWorkInputSerializer =
     new _$GReportWorkInputSerializer();
+Serializer<GSignImageGenerationTermsInput>
+    _$gSignImageGenerationTermsInputSerializer =
+    new _$GSignImageGenerationTermsInputSerializer();
 Serializer<GStickersWhereInput> _$gStickersWhereInputSerializer =
     new _$GStickersWhereInputSerializer();
 Serializer<GTagsWhereInput> _$gTagsWhereInputSerializer =
@@ -846,6 +1019,12 @@ Serializer<GUpdatePromptonUserProfileInput>
     new _$GUpdatePromptonUserProfileInputSerializer();
 Serializer<GUpdatePromptonWorkInput> _$gUpdatePromptonWorkInputSerializer =
     new _$GUpdatePromptonWorkInputSerializer();
+Serializer<GUpdateRatingImageGenerationModelInput>
+    _$gUpdateRatingImageGenerationModelInputSerializer =
+    new _$GUpdateRatingImageGenerationModelInputSerializer();
+Serializer<GUpdateRatingImageGenerationTaskInput>
+    _$gUpdateRatingImageGenerationTaskInputSerializer =
+    new _$GUpdateRatingImageGenerationTaskInputSerializer();
 Serializer<GUpdateStickerInput> _$gUpdateStickerInputSerializer =
     new _$GUpdateStickerInputSerializer();
 Serializer<GUpdateUserProfileInput> _$gUpdateUserProfileInputSerializer =
@@ -919,6 +1098,23 @@ class _$GCacheControlScopeSerializer
       GCacheControlScope.valueOf(serialized as String);
 }
 
+class _$GDirectionSerializer implements PrimitiveSerializer<GDirection> {
+  @override
+  final Iterable<Type> types = const <Type>[GDirection];
+  @override
+  final String wireName = 'GDirection';
+
+  @override
+  Object serialize(Serializers serializers, GDirection object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      object.name;
+
+  @override
+  GDirection deserialize(Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      GDirection.valueOf(serialized as String);
+}
+
 class _$GFolderModeSerializer implements PrimitiveSerializer<GFolderMode> {
   @override
   final Iterable<Type> types = const <Type>[GFolderMode];
@@ -971,6 +1167,25 @@ class _$GImageGenerationStatusSerializer
   GImageGenerationStatus deserialize(Serializers serializers, Object serialized,
           {FullType specifiedType = FullType.unspecified}) =>
       GImageGenerationStatus.valueOf(serialized as String);
+}
+
+class _$GImageGenerationTaskOrderBySerializer
+    implements PrimitiveSerializer<GImageGenerationTaskOrderBy> {
+  @override
+  final Iterable<Type> types = const <Type>[GImageGenerationTaskOrderBy];
+  @override
+  final String wireName = 'GImageGenerationTaskOrderBy';
+
+  @override
+  Object serialize(Serializers serializers, GImageGenerationTaskOrderBy object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      object.name;
+
+  @override
+  GImageGenerationTaskOrderBy deserialize(
+          Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      GImageGenerationTaskOrderBy.valueOf(serialized as String);
 }
 
 class _$GImageGenerationTypeSerializer
@@ -1497,6 +1712,98 @@ class _$GBlockPromptonUserInputSerializer
   }
 }
 
+class _$GCancelImageGenerationMemoInputSerializer
+    implements StructuredSerializer<GCancelImageGenerationMemoInput> {
+  @override
+  final Iterable<Type> types = const [
+    GCancelImageGenerationMemoInput,
+    _$GCancelImageGenerationMemoInput
+  ];
+  @override
+  final String wireName = 'GCancelImageGenerationMemoInput';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GCancelImageGenerationMemoInput object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'nanoid',
+      serializers.serialize(object.nanoid,
+          specifiedType: const FullType(String)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GCancelImageGenerationMemoInput deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GCancelImageGenerationMemoInputBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'nanoid':
+          result.nanoid = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GCancelImageGenerationTaskInputSerializer
+    implements StructuredSerializer<GCancelImageGenerationTaskInput> {
+  @override
+  final Iterable<Type> types = const [
+    GCancelImageGenerationTaskInput,
+    _$GCancelImageGenerationTaskInput
+  ];
+  @override
+  final String wireName = 'GCancelImageGenerationTaskInput';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GCancelImageGenerationTaskInput object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'nanoid',
+      serializers.serialize(object.nanoid,
+          specifiedType: const FullType(String)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GCancelImageGenerationTaskInput deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GCancelImageGenerationTaskInputBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'nanoid':
+          result.nanoid = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$GCancelPromptonRequestInputSerializer
     implements StructuredSerializer<GCancelPromptonRequestInput> {
   @override
@@ -1640,6 +1947,100 @@ class _$GClosePromptonRequestInputSerializer
         case 'requestId':
           result.requestId = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GCommentsOrderBySerializer
+    implements StructuredSerializer<GCommentsOrderBy> {
+  @override
+  final Iterable<Type> types = const [GCommentsOrderBy, _$GCommentsOrderBy];
+  @override
+  final String wireName = 'GCommentsOrderBy';
+
+  @override
+  Iterable<Object?> serialize(Serializers serializers, GCommentsOrderBy object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[];
+    Object? value;
+    value = object.createdAt;
+    if (value != null) {
+      result
+        ..add('createdAt')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(GDirection)));
+    }
+    return result;
+  }
+
+  @override
+  GCommentsOrderBy deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GCommentsOrderByBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'createdAt':
+          result.createdAt = serializers.deserialize(value,
+              specifiedType: const FullType(GDirection)) as GDirection?;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GCommentsWhereInputSerializer
+    implements StructuredSerializer<GCommentsWhereInput> {
+  @override
+  final Iterable<Type> types = const [
+    GCommentsWhereInput,
+    _$GCommentsWhereInput
+  ];
+  @override
+  final String wireName = 'GCommentsWhereInput';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GCommentsWhereInput object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[];
+    Object? value;
+    value = object.isSensitive;
+    if (value != null) {
+      result
+        ..add('isSensitive')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
+    return result;
+  }
+
+  @override
+  GCommentsWhereInput deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GCommentsWhereInputBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'isSensitive':
+          result.isSensitive = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
           break;
       }
     }
@@ -1885,6 +2286,124 @@ class _$GCreateFolderWorkInputSerializer
   }
 }
 
+class _$GCreateImageGenerationMemoInputSerializer
+    implements StructuredSerializer<GCreateImageGenerationMemoInput> {
+  @override
+  final Iterable<Type> types = const [
+    GCreateImageGenerationMemoInput,
+    _$GCreateImageGenerationMemoInput
+  ];
+  @override
+  final String wireName = 'GCreateImageGenerationMemoInput';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GCreateImageGenerationMemoInput object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'title',
+      serializers.serialize(object.title,
+          specifiedType: const FullType(String)),
+      'explanation',
+      serializers.serialize(object.explanation,
+          specifiedType: const FullType(String)),
+      'prompts',
+      serializers.serialize(object.prompts,
+          specifiedType: const FullType(String)),
+      'negativePrompts',
+      serializers.serialize(object.negativePrompts,
+          specifiedType: const FullType(String)),
+      'sampler',
+      serializers.serialize(object.sampler,
+          specifiedType: const FullType(String)),
+      'modelId',
+      serializers.serialize(object.modelId,
+          specifiedType: const FullType(String)),
+      'seed',
+      serializers.serialize(object.seed, specifiedType: const FullType(int)),
+      'steps',
+      serializers.serialize(object.steps, specifiedType: const FullType(int)),
+      'scale',
+      serializers.serialize(object.scale, specifiedType: const FullType(int)),
+      'clipSkip',
+      serializers.serialize(object.clipSkip,
+          specifiedType: const FullType(int)),
+      'width',
+      serializers.serialize(object.width, specifiedType: const FullType(int)),
+      'height',
+      serializers.serialize(object.height, specifiedType: const FullType(int)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GCreateImageGenerationMemoInput deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GCreateImageGenerationMemoInputBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'title':
+          result.title = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'explanation':
+          result.explanation = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'prompts':
+          result.prompts = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'negativePrompts':
+          result.negativePrompts = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'sampler':
+          result.sampler = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'modelId':
+          result.modelId = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'seed':
+          result.seed = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'steps':
+          result.steps = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'scale':
+          result.scale = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'clipSkip':
+          result.clipSkip = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'width':
+          result.width = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'height':
+          result.height = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$GCreateImageGenerationTaskInputSerializer
     implements StructuredSerializer<GCreateImageGenerationTaskInput> {
   @override
@@ -1930,17 +2449,23 @@ class _$GCreateImageGenerationTaskInputSerializer
           specifiedType: const FullType(GImageGenerationSizeType)),
     ];
     Object? value;
-    value = object.t2tImageBlob;
+    value = object.clipSkip;
     if (value != null) {
       result
-        ..add('t2tImageBlob')
+        ..add('clipSkip')
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
+    }
+    value = object.t2tImageUrl;
+    if (value != null) {
+      result
+        ..add('t2tImageUrl')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    value = object.t2tMaskImageBlob;
+    value = object.t2tMaskImageUrl;
     if (value != null) {
       result
-        ..add('t2tMaskImageBlob')
+        ..add('t2tMaskImageUrl')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
@@ -2014,17 +2539,21 @@ class _$GCreateImageGenerationTaskInputSerializer
           result.sampler = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
+        case 'clipSkip':
+          result.clipSkip = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int?;
+          break;
         case 'sizeType':
           result.sizeType = serializers.deserialize(value,
                   specifiedType: const FullType(GImageGenerationSizeType))!
               as GImageGenerationSizeType;
           break;
-        case 't2tImageBlob':
-          result.t2tImageBlob = serializers.deserialize(value,
+        case 't2tImageUrl':
+          result.t2tImageUrl = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
-        case 't2tMaskImageBlob':
-          result.t2tMaskImageBlob = serializers.deserialize(value,
+        case 't2tMaskImageUrl':
+          result.t2tMaskImageUrl = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
         case 't2tDenoisingStrengthSize':
@@ -3918,6 +4447,173 @@ class _$GCreatePromptonWorkViewInputSerializer
   }
 }
 
+class _$GCreateReservedImageGenerationTaskInputSerializer
+    implements StructuredSerializer<GCreateReservedImageGenerationTaskInput> {
+  @override
+  final Iterable<Type> types = const [
+    GCreateReservedImageGenerationTaskInput,
+    _$GCreateReservedImageGenerationTaskInput
+  ];
+  @override
+  final String wireName = 'GCreateReservedImageGenerationTaskInput';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GCreateReservedImageGenerationTaskInput object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'count',
+      serializers.serialize(object.count, specifiedType: const FullType(int)),
+      'type',
+      serializers.serialize(object.type,
+          specifiedType: const FullType(GImageGenerationType)),
+      'model',
+      serializers.serialize(object.model,
+          specifiedType: const FullType(String)),
+      'vae',
+      serializers.serialize(object.vae, specifiedType: const FullType(String)),
+      'prompt',
+      serializers.serialize(object.prompt,
+          specifiedType: const FullType(String)),
+      'negativePrompt',
+      serializers.serialize(object.negativePrompt,
+          specifiedType: const FullType(String)),
+      'seed',
+      serializers.serialize(object.seed, specifiedType: const FullType(double)),
+      'steps',
+      serializers.serialize(object.steps, specifiedType: const FullType(int)),
+      'scale',
+      serializers.serialize(object.scale, specifiedType: const FullType(int)),
+      'sampler',
+      serializers.serialize(object.sampler,
+          specifiedType: const FullType(String)),
+      'sizeType',
+      serializers.serialize(object.sizeType,
+          specifiedType: const FullType(GImageGenerationSizeType)),
+    ];
+    Object? value;
+    value = object.clipSkip;
+    if (value != null) {
+      result
+        ..add('clipSkip')
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
+    }
+    value = object.t2tImageUrl;
+    if (value != null) {
+      result
+        ..add('t2tImageUrl')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.t2tMaskImageUrl;
+    if (value != null) {
+      result
+        ..add('t2tMaskImageUrl')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.t2tDenoisingStrengthSize;
+    if (value != null) {
+      result
+        ..add('t2tDenoisingStrengthSize')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.t2tInpaintingFillSize;
+    if (value != null) {
+      result
+        ..add('t2tInpaintingFillSize')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    return result;
+  }
+
+  @override
+  GCreateReservedImageGenerationTaskInput deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GCreateReservedImageGenerationTaskInputBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'count':
+          result.count = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'type':
+          result.type = serializers.deserialize(value,
+                  specifiedType: const FullType(GImageGenerationType))!
+              as GImageGenerationType;
+          break;
+        case 'model':
+          result.model = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'vae':
+          result.vae = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'prompt':
+          result.prompt = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'negativePrompt':
+          result.negativePrompt = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'seed':
+          result.seed = serializers.deserialize(value,
+              specifiedType: const FullType(double))! as double;
+          break;
+        case 'steps':
+          result.steps = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'scale':
+          result.scale = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'sampler':
+          result.sampler = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'clipSkip':
+          result.clipSkip = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int?;
+          break;
+        case 'sizeType':
+          result.sizeType = serializers.deserialize(value,
+                  specifiedType: const FullType(GImageGenerationSizeType))!
+              as GImageGenerationSizeType;
+          break;
+        case 't2tImageUrl':
+          result.t2tImageUrl = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 't2tMaskImageUrl':
+          result.t2tMaskImageUrl = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 't2tDenoisingStrengthSize':
+          result.t2tDenoisingStrengthSize = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 't2tInpaintingFillSize':
+          result.t2tInpaintingFillSize = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$GCreateResponseCommentInputSerializer
     implements StructuredSerializer<GCreateResponseCommentInput> {
   @override
@@ -4645,6 +5341,98 @@ class _$GDeleteFolderWorkInputSerializer
           break;
         case 'workId':
           result.workId = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GDeleteImageGenerationMemoInputSerializer
+    implements StructuredSerializer<GDeleteImageGenerationMemoInput> {
+  @override
+  final Iterable<Type> types = const [
+    GDeleteImageGenerationMemoInput,
+    _$GDeleteImageGenerationMemoInput
+  ];
+  @override
+  final String wireName = 'GDeleteImageGenerationMemoInput';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GDeleteImageGenerationMemoInput object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'nanoid',
+      serializers.serialize(object.nanoid,
+          specifiedType: const FullType(String)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GDeleteImageGenerationMemoInput deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GDeleteImageGenerationMemoInputBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'nanoid':
+          result.nanoid = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GDeleteImageGenerationTaskInputSerializer
+    implements StructuredSerializer<GDeleteImageGenerationTaskInput> {
+  @override
+  final Iterable<Type> types = const [
+    GDeleteImageGenerationTaskInput,
+    _$GDeleteImageGenerationTaskInput
+  ];
+  @override
+  final String wireName = 'GDeleteImageGenerationTaskInput';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GDeleteImageGenerationTaskInput object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'nanoid',
+      serializers.serialize(object.nanoid,
+          specifiedType: const FullType(String)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GDeleteImageGenerationTaskInput deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GDeleteImageGenerationTaskInputBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'nanoid':
+          result.nanoid = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
       }
@@ -5630,6 +6418,124 @@ class _$GHotWorksWhereInputSerializer
         case 'isSensitive':
           result.isSensitive = serializers.deserialize(value,
               specifiedType: const FullType(bool)) as bool?;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GImageGenerationMemoOrderBySerializer
+    implements StructuredSerializer<GImageGenerationMemoOrderBy> {
+  @override
+  final Iterable<Type> types = const [
+    GImageGenerationMemoOrderBy,
+    _$GImageGenerationMemoOrderBy
+  ];
+  @override
+  final String wireName = 'GImageGenerationMemoOrderBy';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GImageGenerationMemoOrderBy object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[];
+    Object? value;
+    value = object.createdAt;
+    if (value != null) {
+      result
+        ..add('createdAt')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(GDirection)));
+    }
+    return result;
+  }
+
+  @override
+  GImageGenerationMemoOrderBy deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GImageGenerationMemoOrderByBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'createdAt':
+          result.createdAt = serializers.deserialize(value,
+              specifiedType: const FullType(GDirection)) as GDirection?;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GImageGenerationTasksWhereInputSerializer
+    implements StructuredSerializer<GImageGenerationTasksWhereInput> {
+  @override
+  final Iterable<Type> types = const [
+    GImageGenerationTasksWhereInput,
+    _$GImageGenerationTasksWhereInput
+  ];
+  @override
+  final String wireName = 'GImageGenerationTasksWhereInput';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GImageGenerationTasksWhereInput object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[];
+    Object? value;
+    value = object.dateText;
+    if (value != null) {
+      result
+        ..add('dateText')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.rating;
+    if (value != null) {
+      result
+        ..add('rating')
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
+    }
+    value = object.minRating;
+    if (value != null) {
+      result
+        ..add('minRating')
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
+    }
+    return result;
+  }
+
+  @override
+  GImageGenerationTasksWhereInput deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GImageGenerationTasksWhereInputBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'dateText':
+          result.dateText = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'rating':
+          result.rating = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int?;
+          break;
+        case 'minRating':
+          result.minRating = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int?;
           break;
       }
     }
@@ -7369,6 +8275,51 @@ class _$GReportWorkInputSerializer
   }
 }
 
+class _$GSignImageGenerationTermsInputSerializer
+    implements StructuredSerializer<GSignImageGenerationTermsInput> {
+  @override
+  final Iterable<Type> types = const [
+    GSignImageGenerationTermsInput,
+    _$GSignImageGenerationTermsInput
+  ];
+  @override
+  final String wireName = 'GSignImageGenerationTermsInput';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GSignImageGenerationTermsInput object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'version',
+      serializers.serialize(object.version, specifiedType: const FullType(int)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GSignImageGenerationTermsInput deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GSignImageGenerationTermsInputBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'version':
+          result.version = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$GStickersWhereInputSerializer
     implements StructuredSerializer<GStickersWhereInput> {
   @override
@@ -9035,6 +9986,110 @@ class _$GUpdatePromptonWorkInputSerializer
   }
 }
 
+class _$GUpdateRatingImageGenerationModelInputSerializer
+    implements StructuredSerializer<GUpdateRatingImageGenerationModelInput> {
+  @override
+  final Iterable<Type> types = const [
+    GUpdateRatingImageGenerationModelInput,
+    _$GUpdateRatingImageGenerationModelInput
+  ];
+  @override
+  final String wireName = 'GUpdateRatingImageGenerationModelInput';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GUpdateRatingImageGenerationModelInput object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'modelId',
+      serializers.serialize(object.modelId,
+          specifiedType: const FullType(String)),
+      'rating',
+      serializers.serialize(object.rating, specifiedType: const FullType(int)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GUpdateRatingImageGenerationModelInput deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GUpdateRatingImageGenerationModelInputBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'modelId':
+          result.modelId = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'rating':
+          result.rating = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GUpdateRatingImageGenerationTaskInputSerializer
+    implements StructuredSerializer<GUpdateRatingImageGenerationTaskInput> {
+  @override
+  final Iterable<Type> types = const [
+    GUpdateRatingImageGenerationTaskInput,
+    _$GUpdateRatingImageGenerationTaskInput
+  ];
+  @override
+  final String wireName = 'GUpdateRatingImageGenerationTaskInput';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GUpdateRatingImageGenerationTaskInput object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'nanoid',
+      serializers.serialize(object.nanoid,
+          specifiedType: const FullType(String)),
+      'rating',
+      serializers.serialize(object.rating, specifiedType: const FullType(int)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GUpdateRatingImageGenerationTaskInput deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GUpdateRatingImageGenerationTaskInputBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'nanoid':
+          result.nanoid = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'rating':
+          result.rating = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$GUpdateStickerInputSerializer
     implements StructuredSerializer<GUpdateStickerInput> {
   @override
@@ -9619,6 +10674,14 @@ class _$GWorksWhereInputSerializer
         ..add(
             serializers.serialize(value, specifiedType: const FullType(bool)));
     }
+    value = object.tagNames;
+    if (value != null) {
+      result
+        ..add('tagNames')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(String)])));
+    }
     return result;
   }
 
@@ -9669,6 +10732,12 @@ class _$GWorksWhereInputSerializer
         case 'isSensitive':
           result.isSensitive = serializers.deserialize(value,
               specifiedType: const FullType(bool)) as bool?;
+          break;
+        case 'tagNames':
+          result.tagNames.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(String)]))!
+              as BuiltList<Object?>);
           break;
       }
     }
@@ -10297,6 +11366,186 @@ class GBlockPromptonUserInputBuilder
   }
 }
 
+class _$GCancelImageGenerationMemoInput
+    extends GCancelImageGenerationMemoInput {
+  @override
+  final String nanoid;
+
+  factory _$GCancelImageGenerationMemoInput(
+          [void Function(GCancelImageGenerationMemoInputBuilder)? updates]) =>
+      (new GCancelImageGenerationMemoInputBuilder()..update(updates))._build();
+
+  _$GCancelImageGenerationMemoInput._({required this.nanoid}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        nanoid, r'GCancelImageGenerationMemoInput', 'nanoid');
+  }
+
+  @override
+  GCancelImageGenerationMemoInput rebuild(
+          void Function(GCancelImageGenerationMemoInputBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GCancelImageGenerationMemoInputBuilder toBuilder() =>
+      new GCancelImageGenerationMemoInputBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GCancelImageGenerationMemoInput && nanoid == other.nanoid;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, nanoid.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GCancelImageGenerationMemoInput')
+          ..add('nanoid', nanoid))
+        .toString();
+  }
+}
+
+class GCancelImageGenerationMemoInputBuilder
+    implements
+        Builder<GCancelImageGenerationMemoInput,
+            GCancelImageGenerationMemoInputBuilder> {
+  _$GCancelImageGenerationMemoInput? _$v;
+
+  String? _nanoid;
+  String? get nanoid => _$this._nanoid;
+  set nanoid(String? nanoid) => _$this._nanoid = nanoid;
+
+  GCancelImageGenerationMemoInputBuilder();
+
+  GCancelImageGenerationMemoInputBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _nanoid = $v.nanoid;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GCancelImageGenerationMemoInput other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GCancelImageGenerationMemoInput;
+  }
+
+  @override
+  void update(void Function(GCancelImageGenerationMemoInputBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GCancelImageGenerationMemoInput build() => _build();
+
+  _$GCancelImageGenerationMemoInput _build() {
+    final _$result = _$v ??
+        new _$GCancelImageGenerationMemoInput._(
+            nanoid: BuiltValueNullFieldError.checkNotNull(
+                nanoid, r'GCancelImageGenerationMemoInput', 'nanoid'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GCancelImageGenerationTaskInput
+    extends GCancelImageGenerationTaskInput {
+  @override
+  final String nanoid;
+
+  factory _$GCancelImageGenerationTaskInput(
+          [void Function(GCancelImageGenerationTaskInputBuilder)? updates]) =>
+      (new GCancelImageGenerationTaskInputBuilder()..update(updates))._build();
+
+  _$GCancelImageGenerationTaskInput._({required this.nanoid}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        nanoid, r'GCancelImageGenerationTaskInput', 'nanoid');
+  }
+
+  @override
+  GCancelImageGenerationTaskInput rebuild(
+          void Function(GCancelImageGenerationTaskInputBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GCancelImageGenerationTaskInputBuilder toBuilder() =>
+      new GCancelImageGenerationTaskInputBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GCancelImageGenerationTaskInput && nanoid == other.nanoid;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, nanoid.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GCancelImageGenerationTaskInput')
+          ..add('nanoid', nanoid))
+        .toString();
+  }
+}
+
+class GCancelImageGenerationTaskInputBuilder
+    implements
+        Builder<GCancelImageGenerationTaskInput,
+            GCancelImageGenerationTaskInputBuilder> {
+  _$GCancelImageGenerationTaskInput? _$v;
+
+  String? _nanoid;
+  String? get nanoid => _$this._nanoid;
+  set nanoid(String? nanoid) => _$this._nanoid = nanoid;
+
+  GCancelImageGenerationTaskInputBuilder();
+
+  GCancelImageGenerationTaskInputBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _nanoid = $v.nanoid;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GCancelImageGenerationTaskInput other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GCancelImageGenerationTaskInput;
+  }
+
+  @override
+  void update(void Function(GCancelImageGenerationTaskInputBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GCancelImageGenerationTaskInput build() => _build();
+
+  _$GCancelImageGenerationTaskInput _build() {
+    final _$result = _$v ??
+        new _$GCancelImageGenerationTaskInput._(
+            nanoid: BuiltValueNullFieldError.checkNotNull(
+                nanoid, r'GCancelImageGenerationTaskInput', 'nanoid'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
 class _$GCancelPromptonRequestInput extends GCancelPromptonRequestInput {
   @override
   final String requestId;
@@ -10595,6 +11844,168 @@ class GClosePromptonRequestInputBuilder
         new _$GClosePromptonRequestInput._(
             requestId: BuiltValueNullFieldError.checkNotNull(
                 requestId, r'GClosePromptonRequestInput', 'requestId'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GCommentsOrderBy extends GCommentsOrderBy {
+  @override
+  final GDirection? createdAt;
+
+  factory _$GCommentsOrderBy(
+          [void Function(GCommentsOrderByBuilder)? updates]) =>
+      (new GCommentsOrderByBuilder()..update(updates))._build();
+
+  _$GCommentsOrderBy._({this.createdAt}) : super._();
+
+  @override
+  GCommentsOrderBy rebuild(void Function(GCommentsOrderByBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GCommentsOrderByBuilder toBuilder() =>
+      new GCommentsOrderByBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GCommentsOrderBy && createdAt == other.createdAt;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, createdAt.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GCommentsOrderBy')
+          ..add('createdAt', createdAt))
+        .toString();
+  }
+}
+
+class GCommentsOrderByBuilder
+    implements Builder<GCommentsOrderBy, GCommentsOrderByBuilder> {
+  _$GCommentsOrderBy? _$v;
+
+  GDirection? _createdAt;
+  GDirection? get createdAt => _$this._createdAt;
+  set createdAt(GDirection? createdAt) => _$this._createdAt = createdAt;
+
+  GCommentsOrderByBuilder();
+
+  GCommentsOrderByBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _createdAt = $v.createdAt;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GCommentsOrderBy other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GCommentsOrderBy;
+  }
+
+  @override
+  void update(void Function(GCommentsOrderByBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GCommentsOrderBy build() => _build();
+
+  _$GCommentsOrderBy _build() {
+    final _$result = _$v ?? new _$GCommentsOrderBy._(createdAt: createdAt);
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GCommentsWhereInput extends GCommentsWhereInput {
+  @override
+  final bool? isSensitive;
+
+  factory _$GCommentsWhereInput(
+          [void Function(GCommentsWhereInputBuilder)? updates]) =>
+      (new GCommentsWhereInputBuilder()..update(updates))._build();
+
+  _$GCommentsWhereInput._({this.isSensitive}) : super._();
+
+  @override
+  GCommentsWhereInput rebuild(
+          void Function(GCommentsWhereInputBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GCommentsWhereInputBuilder toBuilder() =>
+      new GCommentsWhereInputBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GCommentsWhereInput && isSensitive == other.isSensitive;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, isSensitive.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GCommentsWhereInput')
+          ..add('isSensitive', isSensitive))
+        .toString();
+  }
+}
+
+class GCommentsWhereInputBuilder
+    implements Builder<GCommentsWhereInput, GCommentsWhereInputBuilder> {
+  _$GCommentsWhereInput? _$v;
+
+  bool? _isSensitive;
+  bool? get isSensitive => _$this._isSensitive;
+  set isSensitive(bool? isSensitive) => _$this._isSensitive = isSensitive;
+
+  GCommentsWhereInputBuilder();
+
+  GCommentsWhereInputBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _isSensitive = $v.isSensitive;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GCommentsWhereInput other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GCommentsWhereInput;
+  }
+
+  @override
+  void update(void Function(GCommentsWhereInputBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GCommentsWhereInput build() => _build();
+
+  _$GCommentsWhereInput _build() {
+    final _$result =
+        _$v ?? new _$GCommentsWhereInput._(isSensitive: isSensitive);
     replace(_$result);
     return _$result;
   }
@@ -11065,6 +12476,262 @@ class GCreateFolderWorkInputBuilder
   }
 }
 
+class _$GCreateImageGenerationMemoInput
+    extends GCreateImageGenerationMemoInput {
+  @override
+  final String title;
+  @override
+  final String explanation;
+  @override
+  final String prompts;
+  @override
+  final String negativePrompts;
+  @override
+  final String sampler;
+  @override
+  final String modelId;
+  @override
+  final int seed;
+  @override
+  final int steps;
+  @override
+  final int scale;
+  @override
+  final int clipSkip;
+  @override
+  final int width;
+  @override
+  final int height;
+
+  factory _$GCreateImageGenerationMemoInput(
+          [void Function(GCreateImageGenerationMemoInputBuilder)? updates]) =>
+      (new GCreateImageGenerationMemoInputBuilder()..update(updates))._build();
+
+  _$GCreateImageGenerationMemoInput._(
+      {required this.title,
+      required this.explanation,
+      required this.prompts,
+      required this.negativePrompts,
+      required this.sampler,
+      required this.modelId,
+      required this.seed,
+      required this.steps,
+      required this.scale,
+      required this.clipSkip,
+      required this.width,
+      required this.height})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        title, r'GCreateImageGenerationMemoInput', 'title');
+    BuiltValueNullFieldError.checkNotNull(
+        explanation, r'GCreateImageGenerationMemoInput', 'explanation');
+    BuiltValueNullFieldError.checkNotNull(
+        prompts, r'GCreateImageGenerationMemoInput', 'prompts');
+    BuiltValueNullFieldError.checkNotNull(
+        negativePrompts, r'GCreateImageGenerationMemoInput', 'negativePrompts');
+    BuiltValueNullFieldError.checkNotNull(
+        sampler, r'GCreateImageGenerationMemoInput', 'sampler');
+    BuiltValueNullFieldError.checkNotNull(
+        modelId, r'GCreateImageGenerationMemoInput', 'modelId');
+    BuiltValueNullFieldError.checkNotNull(
+        seed, r'GCreateImageGenerationMemoInput', 'seed');
+    BuiltValueNullFieldError.checkNotNull(
+        steps, r'GCreateImageGenerationMemoInput', 'steps');
+    BuiltValueNullFieldError.checkNotNull(
+        scale, r'GCreateImageGenerationMemoInput', 'scale');
+    BuiltValueNullFieldError.checkNotNull(
+        clipSkip, r'GCreateImageGenerationMemoInput', 'clipSkip');
+    BuiltValueNullFieldError.checkNotNull(
+        width, r'GCreateImageGenerationMemoInput', 'width');
+    BuiltValueNullFieldError.checkNotNull(
+        height, r'GCreateImageGenerationMemoInput', 'height');
+  }
+
+  @override
+  GCreateImageGenerationMemoInput rebuild(
+          void Function(GCreateImageGenerationMemoInputBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GCreateImageGenerationMemoInputBuilder toBuilder() =>
+      new GCreateImageGenerationMemoInputBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GCreateImageGenerationMemoInput &&
+        title == other.title &&
+        explanation == other.explanation &&
+        prompts == other.prompts &&
+        negativePrompts == other.negativePrompts &&
+        sampler == other.sampler &&
+        modelId == other.modelId &&
+        seed == other.seed &&
+        steps == other.steps &&
+        scale == other.scale &&
+        clipSkip == other.clipSkip &&
+        width == other.width &&
+        height == other.height;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, title.hashCode);
+    _$hash = $jc(_$hash, explanation.hashCode);
+    _$hash = $jc(_$hash, prompts.hashCode);
+    _$hash = $jc(_$hash, negativePrompts.hashCode);
+    _$hash = $jc(_$hash, sampler.hashCode);
+    _$hash = $jc(_$hash, modelId.hashCode);
+    _$hash = $jc(_$hash, seed.hashCode);
+    _$hash = $jc(_$hash, steps.hashCode);
+    _$hash = $jc(_$hash, scale.hashCode);
+    _$hash = $jc(_$hash, clipSkip.hashCode);
+    _$hash = $jc(_$hash, width.hashCode);
+    _$hash = $jc(_$hash, height.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GCreateImageGenerationMemoInput')
+          ..add('title', title)
+          ..add('explanation', explanation)
+          ..add('prompts', prompts)
+          ..add('negativePrompts', negativePrompts)
+          ..add('sampler', sampler)
+          ..add('modelId', modelId)
+          ..add('seed', seed)
+          ..add('steps', steps)
+          ..add('scale', scale)
+          ..add('clipSkip', clipSkip)
+          ..add('width', width)
+          ..add('height', height))
+        .toString();
+  }
+}
+
+class GCreateImageGenerationMemoInputBuilder
+    implements
+        Builder<GCreateImageGenerationMemoInput,
+            GCreateImageGenerationMemoInputBuilder> {
+  _$GCreateImageGenerationMemoInput? _$v;
+
+  String? _title;
+  String? get title => _$this._title;
+  set title(String? title) => _$this._title = title;
+
+  String? _explanation;
+  String? get explanation => _$this._explanation;
+  set explanation(String? explanation) => _$this._explanation = explanation;
+
+  String? _prompts;
+  String? get prompts => _$this._prompts;
+  set prompts(String? prompts) => _$this._prompts = prompts;
+
+  String? _negativePrompts;
+  String? get negativePrompts => _$this._negativePrompts;
+  set negativePrompts(String? negativePrompts) =>
+      _$this._negativePrompts = negativePrompts;
+
+  String? _sampler;
+  String? get sampler => _$this._sampler;
+  set sampler(String? sampler) => _$this._sampler = sampler;
+
+  String? _modelId;
+  String? get modelId => _$this._modelId;
+  set modelId(String? modelId) => _$this._modelId = modelId;
+
+  int? _seed;
+  int? get seed => _$this._seed;
+  set seed(int? seed) => _$this._seed = seed;
+
+  int? _steps;
+  int? get steps => _$this._steps;
+  set steps(int? steps) => _$this._steps = steps;
+
+  int? _scale;
+  int? get scale => _$this._scale;
+  set scale(int? scale) => _$this._scale = scale;
+
+  int? _clipSkip;
+  int? get clipSkip => _$this._clipSkip;
+  set clipSkip(int? clipSkip) => _$this._clipSkip = clipSkip;
+
+  int? _width;
+  int? get width => _$this._width;
+  set width(int? width) => _$this._width = width;
+
+  int? _height;
+  int? get height => _$this._height;
+  set height(int? height) => _$this._height = height;
+
+  GCreateImageGenerationMemoInputBuilder();
+
+  GCreateImageGenerationMemoInputBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _title = $v.title;
+      _explanation = $v.explanation;
+      _prompts = $v.prompts;
+      _negativePrompts = $v.negativePrompts;
+      _sampler = $v.sampler;
+      _modelId = $v.modelId;
+      _seed = $v.seed;
+      _steps = $v.steps;
+      _scale = $v.scale;
+      _clipSkip = $v.clipSkip;
+      _width = $v.width;
+      _height = $v.height;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GCreateImageGenerationMemoInput other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GCreateImageGenerationMemoInput;
+  }
+
+  @override
+  void update(void Function(GCreateImageGenerationMemoInputBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GCreateImageGenerationMemoInput build() => _build();
+
+  _$GCreateImageGenerationMemoInput _build() {
+    final _$result = _$v ??
+        new _$GCreateImageGenerationMemoInput._(
+            title: BuiltValueNullFieldError.checkNotNull(
+                title, r'GCreateImageGenerationMemoInput', 'title'),
+            explanation: BuiltValueNullFieldError.checkNotNull(
+                explanation, r'GCreateImageGenerationMemoInput', 'explanation'),
+            prompts: BuiltValueNullFieldError.checkNotNull(
+                prompts, r'GCreateImageGenerationMemoInput', 'prompts'),
+            negativePrompts: BuiltValueNullFieldError.checkNotNull(
+                negativePrompts,
+                r'GCreateImageGenerationMemoInput',
+                'negativePrompts'),
+            sampler: BuiltValueNullFieldError.checkNotNull(
+                sampler, r'GCreateImageGenerationMemoInput', 'sampler'),
+            modelId: BuiltValueNullFieldError.checkNotNull(
+                modelId, r'GCreateImageGenerationMemoInput', 'modelId'),
+            seed: BuiltValueNullFieldError.checkNotNull(
+                seed, r'GCreateImageGenerationMemoInput', 'seed'),
+            steps: BuiltValueNullFieldError.checkNotNull(steps, r'GCreateImageGenerationMemoInput', 'steps'),
+            scale: BuiltValueNullFieldError.checkNotNull(scale, r'GCreateImageGenerationMemoInput', 'scale'),
+            clipSkip: BuiltValueNullFieldError.checkNotNull(clipSkip, r'GCreateImageGenerationMemoInput', 'clipSkip'),
+            width: BuiltValueNullFieldError.checkNotNull(width, r'GCreateImageGenerationMemoInput', 'width'),
+            height: BuiltValueNullFieldError.checkNotNull(height, r'GCreateImageGenerationMemoInput', 'height'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
 class _$GCreateImageGenerationTaskInput
     extends GCreateImageGenerationTaskInput {
   @override
@@ -11088,11 +12755,13 @@ class _$GCreateImageGenerationTaskInput
   @override
   final String sampler;
   @override
+  final int? clipSkip;
+  @override
   final GImageGenerationSizeType sizeType;
   @override
-  final String? t2tImageBlob;
+  final String? t2tImageUrl;
   @override
-  final String? t2tMaskImageBlob;
+  final String? t2tMaskImageUrl;
   @override
   final String? t2tDenoisingStrengthSize;
   @override
@@ -11113,9 +12782,10 @@ class _$GCreateImageGenerationTaskInput
       required this.steps,
       required this.scale,
       required this.sampler,
+      this.clipSkip,
       required this.sizeType,
-      this.t2tImageBlob,
-      this.t2tMaskImageBlob,
+      this.t2tImageUrl,
+      this.t2tMaskImageUrl,
       this.t2tDenoisingStrengthSize,
       this.t2tInpaintingFillSize})
       : super._() {
@@ -11166,9 +12836,10 @@ class _$GCreateImageGenerationTaskInput
         steps == other.steps &&
         scale == other.scale &&
         sampler == other.sampler &&
+        clipSkip == other.clipSkip &&
         sizeType == other.sizeType &&
-        t2tImageBlob == other.t2tImageBlob &&
-        t2tMaskImageBlob == other.t2tMaskImageBlob &&
+        t2tImageUrl == other.t2tImageUrl &&
+        t2tMaskImageUrl == other.t2tMaskImageUrl &&
         t2tDenoisingStrengthSize == other.t2tDenoisingStrengthSize &&
         t2tInpaintingFillSize == other.t2tInpaintingFillSize;
   }
@@ -11186,9 +12857,10 @@ class _$GCreateImageGenerationTaskInput
     _$hash = $jc(_$hash, steps.hashCode);
     _$hash = $jc(_$hash, scale.hashCode);
     _$hash = $jc(_$hash, sampler.hashCode);
+    _$hash = $jc(_$hash, clipSkip.hashCode);
     _$hash = $jc(_$hash, sizeType.hashCode);
-    _$hash = $jc(_$hash, t2tImageBlob.hashCode);
-    _$hash = $jc(_$hash, t2tMaskImageBlob.hashCode);
+    _$hash = $jc(_$hash, t2tImageUrl.hashCode);
+    _$hash = $jc(_$hash, t2tMaskImageUrl.hashCode);
     _$hash = $jc(_$hash, t2tDenoisingStrengthSize.hashCode);
     _$hash = $jc(_$hash, t2tInpaintingFillSize.hashCode);
     _$hash = $jf(_$hash);
@@ -11208,9 +12880,10 @@ class _$GCreateImageGenerationTaskInput
           ..add('steps', steps)
           ..add('scale', scale)
           ..add('sampler', sampler)
+          ..add('clipSkip', clipSkip)
           ..add('sizeType', sizeType)
-          ..add('t2tImageBlob', t2tImageBlob)
-          ..add('t2tMaskImageBlob', t2tMaskImageBlob)
+          ..add('t2tImageUrl', t2tImageUrl)
+          ..add('t2tMaskImageUrl', t2tMaskImageUrl)
           ..add('t2tDenoisingStrengthSize', t2tDenoisingStrengthSize)
           ..add('t2tInpaintingFillSize', t2tInpaintingFillSize))
         .toString();
@@ -11264,19 +12937,23 @@ class GCreateImageGenerationTaskInputBuilder
   String? get sampler => _$this._sampler;
   set sampler(String? sampler) => _$this._sampler = sampler;
 
+  int? _clipSkip;
+  int? get clipSkip => _$this._clipSkip;
+  set clipSkip(int? clipSkip) => _$this._clipSkip = clipSkip;
+
   GImageGenerationSizeType? _sizeType;
   GImageGenerationSizeType? get sizeType => _$this._sizeType;
   set sizeType(GImageGenerationSizeType? sizeType) =>
       _$this._sizeType = sizeType;
 
-  String? _t2tImageBlob;
-  String? get t2tImageBlob => _$this._t2tImageBlob;
-  set t2tImageBlob(String? t2tImageBlob) => _$this._t2tImageBlob = t2tImageBlob;
+  String? _t2tImageUrl;
+  String? get t2tImageUrl => _$this._t2tImageUrl;
+  set t2tImageUrl(String? t2tImageUrl) => _$this._t2tImageUrl = t2tImageUrl;
 
-  String? _t2tMaskImageBlob;
-  String? get t2tMaskImageBlob => _$this._t2tMaskImageBlob;
-  set t2tMaskImageBlob(String? t2tMaskImageBlob) =>
-      _$this._t2tMaskImageBlob = t2tMaskImageBlob;
+  String? _t2tMaskImageUrl;
+  String? get t2tMaskImageUrl => _$this._t2tMaskImageUrl;
+  set t2tMaskImageUrl(String? t2tMaskImageUrl) =>
+      _$this._t2tMaskImageUrl = t2tMaskImageUrl;
 
   String? _t2tDenoisingStrengthSize;
   String? get t2tDenoisingStrengthSize => _$this._t2tDenoisingStrengthSize;
@@ -11303,9 +12980,10 @@ class GCreateImageGenerationTaskInputBuilder
       _steps = $v.steps;
       _scale = $v.scale;
       _sampler = $v.sampler;
+      _clipSkip = $v.clipSkip;
       _sizeType = $v.sizeType;
-      _t2tImageBlob = $v.t2tImageBlob;
-      _t2tMaskImageBlob = $v.t2tMaskImageBlob;
+      _t2tImageUrl = $v.t2tImageUrl;
+      _t2tMaskImageUrl = $v.t2tMaskImageUrl;
       _t2tDenoisingStrengthSize = $v.t2tDenoisingStrengthSize;
       _t2tInpaintingFillSize = $v.t2tInpaintingFillSize;
       _$v = null;
@@ -11350,9 +13028,10 @@ class GCreateImageGenerationTaskInputBuilder
                 steps, r'GCreateImageGenerationTaskInput', 'steps'),
             scale: BuiltValueNullFieldError.checkNotNull(scale, r'GCreateImageGenerationTaskInput', 'scale'),
             sampler: BuiltValueNullFieldError.checkNotNull(sampler, r'GCreateImageGenerationTaskInput', 'sampler'),
+            clipSkip: clipSkip,
             sizeType: BuiltValueNullFieldError.checkNotNull(sizeType, r'GCreateImageGenerationTaskInput', 'sizeType'),
-            t2tImageBlob: t2tImageBlob,
-            t2tMaskImageBlob: t2tMaskImageBlob,
+            t2tImageUrl: t2tImageUrl,
+            t2tMaskImageUrl: t2tMaskImageUrl,
             t2tDenoisingStrengthSize: t2tDenoisingStrengthSize,
             t2tInpaintingFillSize: t2tInpaintingFillSize);
     replace(_$result);
@@ -15020,6 +16699,316 @@ class GCreatePromptonWorkViewInputBuilder
   }
 }
 
+class _$GCreateReservedImageGenerationTaskInput
+    extends GCreateReservedImageGenerationTaskInput {
+  @override
+  final int count;
+  @override
+  final GImageGenerationType type;
+  @override
+  final String model;
+  @override
+  final String vae;
+  @override
+  final String prompt;
+  @override
+  final String negativePrompt;
+  @override
+  final double seed;
+  @override
+  final int steps;
+  @override
+  final int scale;
+  @override
+  final String sampler;
+  @override
+  final int? clipSkip;
+  @override
+  final GImageGenerationSizeType sizeType;
+  @override
+  final String? t2tImageUrl;
+  @override
+  final String? t2tMaskImageUrl;
+  @override
+  final String? t2tDenoisingStrengthSize;
+  @override
+  final String? t2tInpaintingFillSize;
+
+  factory _$GCreateReservedImageGenerationTaskInput(
+          [void Function(GCreateReservedImageGenerationTaskInputBuilder)?
+              updates]) =>
+      (new GCreateReservedImageGenerationTaskInputBuilder()..update(updates))
+          ._build();
+
+  _$GCreateReservedImageGenerationTaskInput._(
+      {required this.count,
+      required this.type,
+      required this.model,
+      required this.vae,
+      required this.prompt,
+      required this.negativePrompt,
+      required this.seed,
+      required this.steps,
+      required this.scale,
+      required this.sampler,
+      this.clipSkip,
+      required this.sizeType,
+      this.t2tImageUrl,
+      this.t2tMaskImageUrl,
+      this.t2tDenoisingStrengthSize,
+      this.t2tInpaintingFillSize})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        count, r'GCreateReservedImageGenerationTaskInput', 'count');
+    BuiltValueNullFieldError.checkNotNull(
+        type, r'GCreateReservedImageGenerationTaskInput', 'type');
+    BuiltValueNullFieldError.checkNotNull(
+        model, r'GCreateReservedImageGenerationTaskInput', 'model');
+    BuiltValueNullFieldError.checkNotNull(
+        vae, r'GCreateReservedImageGenerationTaskInput', 'vae');
+    BuiltValueNullFieldError.checkNotNull(
+        prompt, r'GCreateReservedImageGenerationTaskInput', 'prompt');
+    BuiltValueNullFieldError.checkNotNull(negativePrompt,
+        r'GCreateReservedImageGenerationTaskInput', 'negativePrompt');
+    BuiltValueNullFieldError.checkNotNull(
+        seed, r'GCreateReservedImageGenerationTaskInput', 'seed');
+    BuiltValueNullFieldError.checkNotNull(
+        steps, r'GCreateReservedImageGenerationTaskInput', 'steps');
+    BuiltValueNullFieldError.checkNotNull(
+        scale, r'GCreateReservedImageGenerationTaskInput', 'scale');
+    BuiltValueNullFieldError.checkNotNull(
+        sampler, r'GCreateReservedImageGenerationTaskInput', 'sampler');
+    BuiltValueNullFieldError.checkNotNull(
+        sizeType, r'GCreateReservedImageGenerationTaskInput', 'sizeType');
+  }
+
+  @override
+  GCreateReservedImageGenerationTaskInput rebuild(
+          void Function(GCreateReservedImageGenerationTaskInputBuilder)
+              updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GCreateReservedImageGenerationTaskInputBuilder toBuilder() =>
+      new GCreateReservedImageGenerationTaskInputBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GCreateReservedImageGenerationTaskInput &&
+        count == other.count &&
+        type == other.type &&
+        model == other.model &&
+        vae == other.vae &&
+        prompt == other.prompt &&
+        negativePrompt == other.negativePrompt &&
+        seed == other.seed &&
+        steps == other.steps &&
+        scale == other.scale &&
+        sampler == other.sampler &&
+        clipSkip == other.clipSkip &&
+        sizeType == other.sizeType &&
+        t2tImageUrl == other.t2tImageUrl &&
+        t2tMaskImageUrl == other.t2tMaskImageUrl &&
+        t2tDenoisingStrengthSize == other.t2tDenoisingStrengthSize &&
+        t2tInpaintingFillSize == other.t2tInpaintingFillSize;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, count.hashCode);
+    _$hash = $jc(_$hash, type.hashCode);
+    _$hash = $jc(_$hash, model.hashCode);
+    _$hash = $jc(_$hash, vae.hashCode);
+    _$hash = $jc(_$hash, prompt.hashCode);
+    _$hash = $jc(_$hash, negativePrompt.hashCode);
+    _$hash = $jc(_$hash, seed.hashCode);
+    _$hash = $jc(_$hash, steps.hashCode);
+    _$hash = $jc(_$hash, scale.hashCode);
+    _$hash = $jc(_$hash, sampler.hashCode);
+    _$hash = $jc(_$hash, clipSkip.hashCode);
+    _$hash = $jc(_$hash, sizeType.hashCode);
+    _$hash = $jc(_$hash, t2tImageUrl.hashCode);
+    _$hash = $jc(_$hash, t2tMaskImageUrl.hashCode);
+    _$hash = $jc(_$hash, t2tDenoisingStrengthSize.hashCode);
+    _$hash = $jc(_$hash, t2tInpaintingFillSize.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(
+            r'GCreateReservedImageGenerationTaskInput')
+          ..add('count', count)
+          ..add('type', type)
+          ..add('model', model)
+          ..add('vae', vae)
+          ..add('prompt', prompt)
+          ..add('negativePrompt', negativePrompt)
+          ..add('seed', seed)
+          ..add('steps', steps)
+          ..add('scale', scale)
+          ..add('sampler', sampler)
+          ..add('clipSkip', clipSkip)
+          ..add('sizeType', sizeType)
+          ..add('t2tImageUrl', t2tImageUrl)
+          ..add('t2tMaskImageUrl', t2tMaskImageUrl)
+          ..add('t2tDenoisingStrengthSize', t2tDenoisingStrengthSize)
+          ..add('t2tInpaintingFillSize', t2tInpaintingFillSize))
+        .toString();
+  }
+}
+
+class GCreateReservedImageGenerationTaskInputBuilder
+    implements
+        Builder<GCreateReservedImageGenerationTaskInput,
+            GCreateReservedImageGenerationTaskInputBuilder> {
+  _$GCreateReservedImageGenerationTaskInput? _$v;
+
+  int? _count;
+  int? get count => _$this._count;
+  set count(int? count) => _$this._count = count;
+
+  GImageGenerationType? _type;
+  GImageGenerationType? get type => _$this._type;
+  set type(GImageGenerationType? type) => _$this._type = type;
+
+  String? _model;
+  String? get model => _$this._model;
+  set model(String? model) => _$this._model = model;
+
+  String? _vae;
+  String? get vae => _$this._vae;
+  set vae(String? vae) => _$this._vae = vae;
+
+  String? _prompt;
+  String? get prompt => _$this._prompt;
+  set prompt(String? prompt) => _$this._prompt = prompt;
+
+  String? _negativePrompt;
+  String? get negativePrompt => _$this._negativePrompt;
+  set negativePrompt(String? negativePrompt) =>
+      _$this._negativePrompt = negativePrompt;
+
+  double? _seed;
+  double? get seed => _$this._seed;
+  set seed(double? seed) => _$this._seed = seed;
+
+  int? _steps;
+  int? get steps => _$this._steps;
+  set steps(int? steps) => _$this._steps = steps;
+
+  int? _scale;
+  int? get scale => _$this._scale;
+  set scale(int? scale) => _$this._scale = scale;
+
+  String? _sampler;
+  String? get sampler => _$this._sampler;
+  set sampler(String? sampler) => _$this._sampler = sampler;
+
+  int? _clipSkip;
+  int? get clipSkip => _$this._clipSkip;
+  set clipSkip(int? clipSkip) => _$this._clipSkip = clipSkip;
+
+  GImageGenerationSizeType? _sizeType;
+  GImageGenerationSizeType? get sizeType => _$this._sizeType;
+  set sizeType(GImageGenerationSizeType? sizeType) =>
+      _$this._sizeType = sizeType;
+
+  String? _t2tImageUrl;
+  String? get t2tImageUrl => _$this._t2tImageUrl;
+  set t2tImageUrl(String? t2tImageUrl) => _$this._t2tImageUrl = t2tImageUrl;
+
+  String? _t2tMaskImageUrl;
+  String? get t2tMaskImageUrl => _$this._t2tMaskImageUrl;
+  set t2tMaskImageUrl(String? t2tMaskImageUrl) =>
+      _$this._t2tMaskImageUrl = t2tMaskImageUrl;
+
+  String? _t2tDenoisingStrengthSize;
+  String? get t2tDenoisingStrengthSize => _$this._t2tDenoisingStrengthSize;
+  set t2tDenoisingStrengthSize(String? t2tDenoisingStrengthSize) =>
+      _$this._t2tDenoisingStrengthSize = t2tDenoisingStrengthSize;
+
+  String? _t2tInpaintingFillSize;
+  String? get t2tInpaintingFillSize => _$this._t2tInpaintingFillSize;
+  set t2tInpaintingFillSize(String? t2tInpaintingFillSize) =>
+      _$this._t2tInpaintingFillSize = t2tInpaintingFillSize;
+
+  GCreateReservedImageGenerationTaskInputBuilder();
+
+  GCreateReservedImageGenerationTaskInputBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _count = $v.count;
+      _type = $v.type;
+      _model = $v.model;
+      _vae = $v.vae;
+      _prompt = $v.prompt;
+      _negativePrompt = $v.negativePrompt;
+      _seed = $v.seed;
+      _steps = $v.steps;
+      _scale = $v.scale;
+      _sampler = $v.sampler;
+      _clipSkip = $v.clipSkip;
+      _sizeType = $v.sizeType;
+      _t2tImageUrl = $v.t2tImageUrl;
+      _t2tMaskImageUrl = $v.t2tMaskImageUrl;
+      _t2tDenoisingStrengthSize = $v.t2tDenoisingStrengthSize;
+      _t2tInpaintingFillSize = $v.t2tInpaintingFillSize;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GCreateReservedImageGenerationTaskInput other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GCreateReservedImageGenerationTaskInput;
+  }
+
+  @override
+  void update(
+      void Function(GCreateReservedImageGenerationTaskInputBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GCreateReservedImageGenerationTaskInput build() => _build();
+
+  _$GCreateReservedImageGenerationTaskInput _build() {
+    final _$result = _$v ??
+        new _$GCreateReservedImageGenerationTaskInput._(
+            count: BuiltValueNullFieldError.checkNotNull(
+                count, r'GCreateReservedImageGenerationTaskInput', 'count'),
+            type: BuiltValueNullFieldError.checkNotNull(
+                type, r'GCreateReservedImageGenerationTaskInput', 'type'),
+            model: BuiltValueNullFieldError.checkNotNull(
+                model, r'GCreateReservedImageGenerationTaskInput', 'model'),
+            vae: BuiltValueNullFieldError.checkNotNull(
+                vae, r'GCreateReservedImageGenerationTaskInput', 'vae'),
+            prompt: BuiltValueNullFieldError.checkNotNull(
+                prompt, r'GCreateReservedImageGenerationTaskInput', 'prompt'),
+            negativePrompt: BuiltValueNullFieldError.checkNotNull(
+                negativePrompt, r'GCreateReservedImageGenerationTaskInput', 'negativePrompt'),
+            seed: BuiltValueNullFieldError.checkNotNull(
+                seed, r'GCreateReservedImageGenerationTaskInput', 'seed'),
+            steps: BuiltValueNullFieldError.checkNotNull(
+                steps, r'GCreateReservedImageGenerationTaskInput', 'steps'),
+            scale: BuiltValueNullFieldError.checkNotNull(scale, r'GCreateReservedImageGenerationTaskInput', 'scale'),
+            sampler: BuiltValueNullFieldError.checkNotNull(sampler, r'GCreateReservedImageGenerationTaskInput', 'sampler'),
+            clipSkip: clipSkip,
+            sizeType: BuiltValueNullFieldError.checkNotNull(sizeType, r'GCreateReservedImageGenerationTaskInput', 'sizeType'),
+            t2tImageUrl: t2tImageUrl,
+            t2tMaskImageUrl: t2tMaskImageUrl,
+            t2tDenoisingStrengthSize: t2tDenoisingStrengthSize,
+            t2tInpaintingFillSize: t2tInpaintingFillSize);
+    replace(_$result);
+    return _$result;
+  }
+}
+
 class _$GCreateResponseCommentInput extends GCreateResponseCommentInput {
   @override
   final String commentId;
@@ -16394,6 +18383,186 @@ class GDeleteFolderWorkInputBuilder
                 folderId, r'GDeleteFolderWorkInput', 'folderId'),
             workId: BuiltValueNullFieldError.checkNotNull(
                 workId, r'GDeleteFolderWorkInput', 'workId'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GDeleteImageGenerationMemoInput
+    extends GDeleteImageGenerationMemoInput {
+  @override
+  final String nanoid;
+
+  factory _$GDeleteImageGenerationMemoInput(
+          [void Function(GDeleteImageGenerationMemoInputBuilder)? updates]) =>
+      (new GDeleteImageGenerationMemoInputBuilder()..update(updates))._build();
+
+  _$GDeleteImageGenerationMemoInput._({required this.nanoid}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        nanoid, r'GDeleteImageGenerationMemoInput', 'nanoid');
+  }
+
+  @override
+  GDeleteImageGenerationMemoInput rebuild(
+          void Function(GDeleteImageGenerationMemoInputBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GDeleteImageGenerationMemoInputBuilder toBuilder() =>
+      new GDeleteImageGenerationMemoInputBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GDeleteImageGenerationMemoInput && nanoid == other.nanoid;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, nanoid.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GDeleteImageGenerationMemoInput')
+          ..add('nanoid', nanoid))
+        .toString();
+  }
+}
+
+class GDeleteImageGenerationMemoInputBuilder
+    implements
+        Builder<GDeleteImageGenerationMemoInput,
+            GDeleteImageGenerationMemoInputBuilder> {
+  _$GDeleteImageGenerationMemoInput? _$v;
+
+  String? _nanoid;
+  String? get nanoid => _$this._nanoid;
+  set nanoid(String? nanoid) => _$this._nanoid = nanoid;
+
+  GDeleteImageGenerationMemoInputBuilder();
+
+  GDeleteImageGenerationMemoInputBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _nanoid = $v.nanoid;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GDeleteImageGenerationMemoInput other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GDeleteImageGenerationMemoInput;
+  }
+
+  @override
+  void update(void Function(GDeleteImageGenerationMemoInputBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GDeleteImageGenerationMemoInput build() => _build();
+
+  _$GDeleteImageGenerationMemoInput _build() {
+    final _$result = _$v ??
+        new _$GDeleteImageGenerationMemoInput._(
+            nanoid: BuiltValueNullFieldError.checkNotNull(
+                nanoid, r'GDeleteImageGenerationMemoInput', 'nanoid'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GDeleteImageGenerationTaskInput
+    extends GDeleteImageGenerationTaskInput {
+  @override
+  final String nanoid;
+
+  factory _$GDeleteImageGenerationTaskInput(
+          [void Function(GDeleteImageGenerationTaskInputBuilder)? updates]) =>
+      (new GDeleteImageGenerationTaskInputBuilder()..update(updates))._build();
+
+  _$GDeleteImageGenerationTaskInput._({required this.nanoid}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        nanoid, r'GDeleteImageGenerationTaskInput', 'nanoid');
+  }
+
+  @override
+  GDeleteImageGenerationTaskInput rebuild(
+          void Function(GDeleteImageGenerationTaskInputBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GDeleteImageGenerationTaskInputBuilder toBuilder() =>
+      new GDeleteImageGenerationTaskInputBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GDeleteImageGenerationTaskInput && nanoid == other.nanoid;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, nanoid.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GDeleteImageGenerationTaskInput')
+          ..add('nanoid', nanoid))
+        .toString();
+  }
+}
+
+class GDeleteImageGenerationTaskInputBuilder
+    implements
+        Builder<GDeleteImageGenerationTaskInput,
+            GDeleteImageGenerationTaskInputBuilder> {
+  _$GDeleteImageGenerationTaskInput? _$v;
+
+  String? _nanoid;
+  String? get nanoid => _$this._nanoid;
+  set nanoid(String? nanoid) => _$this._nanoid = nanoid;
+
+  GDeleteImageGenerationTaskInputBuilder();
+
+  GDeleteImageGenerationTaskInputBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _nanoid = $v.nanoid;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GDeleteImageGenerationTaskInput other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GDeleteImageGenerationTaskInput;
+  }
+
+  @override
+  void update(void Function(GDeleteImageGenerationTaskInputBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GDeleteImageGenerationTaskInput build() => _build();
+
+  _$GDeleteImageGenerationTaskInput _build() {
+    final _$result = _$v ??
+        new _$GDeleteImageGenerationTaskInput._(
+            nanoid: BuiltValueNullFieldError.checkNotNull(
+                nanoid, r'GDeleteImageGenerationTaskInput', 'nanoid'));
     replace(_$result);
     return _$result;
   }
@@ -18307,6 +20476,199 @@ class GHotWorksWhereInputBuilder
   _$GHotWorksWhereInput _build() {
     final _$result =
         _$v ?? new _$GHotWorksWhereInput._(isSensitive: isSensitive);
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GImageGenerationMemoOrderBy extends GImageGenerationMemoOrderBy {
+  @override
+  final GDirection? createdAt;
+
+  factory _$GImageGenerationMemoOrderBy(
+          [void Function(GImageGenerationMemoOrderByBuilder)? updates]) =>
+      (new GImageGenerationMemoOrderByBuilder()..update(updates))._build();
+
+  _$GImageGenerationMemoOrderBy._({this.createdAt}) : super._();
+
+  @override
+  GImageGenerationMemoOrderBy rebuild(
+          void Function(GImageGenerationMemoOrderByBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GImageGenerationMemoOrderByBuilder toBuilder() =>
+      new GImageGenerationMemoOrderByBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GImageGenerationMemoOrderBy && createdAt == other.createdAt;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, createdAt.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GImageGenerationMemoOrderBy')
+          ..add('createdAt', createdAt))
+        .toString();
+  }
+}
+
+class GImageGenerationMemoOrderByBuilder
+    implements
+        Builder<GImageGenerationMemoOrderBy,
+            GImageGenerationMemoOrderByBuilder> {
+  _$GImageGenerationMemoOrderBy? _$v;
+
+  GDirection? _createdAt;
+  GDirection? get createdAt => _$this._createdAt;
+  set createdAt(GDirection? createdAt) => _$this._createdAt = createdAt;
+
+  GImageGenerationMemoOrderByBuilder();
+
+  GImageGenerationMemoOrderByBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _createdAt = $v.createdAt;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GImageGenerationMemoOrderBy other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GImageGenerationMemoOrderBy;
+  }
+
+  @override
+  void update(void Function(GImageGenerationMemoOrderByBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GImageGenerationMemoOrderBy build() => _build();
+
+  _$GImageGenerationMemoOrderBy _build() {
+    final _$result =
+        _$v ?? new _$GImageGenerationMemoOrderBy._(createdAt: createdAt);
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GImageGenerationTasksWhereInput
+    extends GImageGenerationTasksWhereInput {
+  @override
+  final String? dateText;
+  @override
+  final int? rating;
+  @override
+  final int? minRating;
+
+  factory _$GImageGenerationTasksWhereInput(
+          [void Function(GImageGenerationTasksWhereInputBuilder)? updates]) =>
+      (new GImageGenerationTasksWhereInputBuilder()..update(updates))._build();
+
+  _$GImageGenerationTasksWhereInput._(
+      {this.dateText, this.rating, this.minRating})
+      : super._();
+
+  @override
+  GImageGenerationTasksWhereInput rebuild(
+          void Function(GImageGenerationTasksWhereInputBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GImageGenerationTasksWhereInputBuilder toBuilder() =>
+      new GImageGenerationTasksWhereInputBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GImageGenerationTasksWhereInput &&
+        dateText == other.dateText &&
+        rating == other.rating &&
+        minRating == other.minRating;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, dateText.hashCode);
+    _$hash = $jc(_$hash, rating.hashCode);
+    _$hash = $jc(_$hash, minRating.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GImageGenerationTasksWhereInput')
+          ..add('dateText', dateText)
+          ..add('rating', rating)
+          ..add('minRating', minRating))
+        .toString();
+  }
+}
+
+class GImageGenerationTasksWhereInputBuilder
+    implements
+        Builder<GImageGenerationTasksWhereInput,
+            GImageGenerationTasksWhereInputBuilder> {
+  _$GImageGenerationTasksWhereInput? _$v;
+
+  String? _dateText;
+  String? get dateText => _$this._dateText;
+  set dateText(String? dateText) => _$this._dateText = dateText;
+
+  int? _rating;
+  int? get rating => _$this._rating;
+  set rating(int? rating) => _$this._rating = rating;
+
+  int? _minRating;
+  int? get minRating => _$this._minRating;
+  set minRating(int? minRating) => _$this._minRating = minRating;
+
+  GImageGenerationTasksWhereInputBuilder();
+
+  GImageGenerationTasksWhereInputBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _dateText = $v.dateText;
+      _rating = $v.rating;
+      _minRating = $v.minRating;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GImageGenerationTasksWhereInput other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GImageGenerationTasksWhereInput;
+  }
+
+  @override
+  void update(void Function(GImageGenerationTasksWhereInputBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GImageGenerationTasksWhereInput build() => _build();
+
+  _$GImageGenerationTasksWhereInput _build() {
+    final _$result = _$v ??
+        new _$GImageGenerationTasksWhereInput._(
+            dateText: dateText, rating: rating, minRating: minRating);
     replace(_$result);
     return _$result;
   }
@@ -21515,6 +23877,95 @@ class GReportWorkInputBuilder
   }
 }
 
+class _$GSignImageGenerationTermsInput extends GSignImageGenerationTermsInput {
+  @override
+  final int version;
+
+  factory _$GSignImageGenerationTermsInput(
+          [void Function(GSignImageGenerationTermsInputBuilder)? updates]) =>
+      (new GSignImageGenerationTermsInputBuilder()..update(updates))._build();
+
+  _$GSignImageGenerationTermsInput._({required this.version}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        version, r'GSignImageGenerationTermsInput', 'version');
+  }
+
+  @override
+  GSignImageGenerationTermsInput rebuild(
+          void Function(GSignImageGenerationTermsInputBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GSignImageGenerationTermsInputBuilder toBuilder() =>
+      new GSignImageGenerationTermsInputBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GSignImageGenerationTermsInput && version == other.version;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, version.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GSignImageGenerationTermsInput')
+          ..add('version', version))
+        .toString();
+  }
+}
+
+class GSignImageGenerationTermsInputBuilder
+    implements
+        Builder<GSignImageGenerationTermsInput,
+            GSignImageGenerationTermsInputBuilder> {
+  _$GSignImageGenerationTermsInput? _$v;
+
+  int? _version;
+  int? get version => _$this._version;
+  set version(int? version) => _$this._version = version;
+
+  GSignImageGenerationTermsInputBuilder();
+
+  GSignImageGenerationTermsInputBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _version = $v.version;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GSignImageGenerationTermsInput other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GSignImageGenerationTermsInput;
+  }
+
+  @override
+  void update(void Function(GSignImageGenerationTermsInputBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GSignImageGenerationTermsInput build() => _build();
+
+  _$GSignImageGenerationTermsInput _build() {
+    final _$result = _$v ??
+        new _$GSignImageGenerationTermsInput._(
+            version: BuiltValueNullFieldError.checkNotNull(
+                version, r'GSignImageGenerationTermsInput', 'version'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
 class _$GStickersWhereInput extends GStickersWhereInput {
   @override
   final String? search;
@@ -24647,6 +27098,230 @@ class GUpdatePromptonWorkInputBuilder
   }
 }
 
+class _$GUpdateRatingImageGenerationModelInput
+    extends GUpdateRatingImageGenerationModelInput {
+  @override
+  final String modelId;
+  @override
+  final int rating;
+
+  factory _$GUpdateRatingImageGenerationModelInput(
+          [void Function(GUpdateRatingImageGenerationModelInputBuilder)?
+              updates]) =>
+      (new GUpdateRatingImageGenerationModelInputBuilder()..update(updates))
+          ._build();
+
+  _$GUpdateRatingImageGenerationModelInput._(
+      {required this.modelId, required this.rating})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        modelId, r'GUpdateRatingImageGenerationModelInput', 'modelId');
+    BuiltValueNullFieldError.checkNotNull(
+        rating, r'GUpdateRatingImageGenerationModelInput', 'rating');
+  }
+
+  @override
+  GUpdateRatingImageGenerationModelInput rebuild(
+          void Function(GUpdateRatingImageGenerationModelInputBuilder)
+              updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GUpdateRatingImageGenerationModelInputBuilder toBuilder() =>
+      new GUpdateRatingImageGenerationModelInputBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GUpdateRatingImageGenerationModelInput &&
+        modelId == other.modelId &&
+        rating == other.rating;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, modelId.hashCode);
+    _$hash = $jc(_$hash, rating.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(
+            r'GUpdateRatingImageGenerationModelInput')
+          ..add('modelId', modelId)
+          ..add('rating', rating))
+        .toString();
+  }
+}
+
+class GUpdateRatingImageGenerationModelInputBuilder
+    implements
+        Builder<GUpdateRatingImageGenerationModelInput,
+            GUpdateRatingImageGenerationModelInputBuilder> {
+  _$GUpdateRatingImageGenerationModelInput? _$v;
+
+  String? _modelId;
+  String? get modelId => _$this._modelId;
+  set modelId(String? modelId) => _$this._modelId = modelId;
+
+  int? _rating;
+  int? get rating => _$this._rating;
+  set rating(int? rating) => _$this._rating = rating;
+
+  GUpdateRatingImageGenerationModelInputBuilder();
+
+  GUpdateRatingImageGenerationModelInputBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _modelId = $v.modelId;
+      _rating = $v.rating;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GUpdateRatingImageGenerationModelInput other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GUpdateRatingImageGenerationModelInput;
+  }
+
+  @override
+  void update(
+      void Function(GUpdateRatingImageGenerationModelInputBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GUpdateRatingImageGenerationModelInput build() => _build();
+
+  _$GUpdateRatingImageGenerationModelInput _build() {
+    final _$result = _$v ??
+        new _$GUpdateRatingImageGenerationModelInput._(
+            modelId: BuiltValueNullFieldError.checkNotNull(
+                modelId, r'GUpdateRatingImageGenerationModelInput', 'modelId'),
+            rating: BuiltValueNullFieldError.checkNotNull(
+                rating, r'GUpdateRatingImageGenerationModelInput', 'rating'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GUpdateRatingImageGenerationTaskInput
+    extends GUpdateRatingImageGenerationTaskInput {
+  @override
+  final String nanoid;
+  @override
+  final int rating;
+
+  factory _$GUpdateRatingImageGenerationTaskInput(
+          [void Function(GUpdateRatingImageGenerationTaskInputBuilder)?
+              updates]) =>
+      (new GUpdateRatingImageGenerationTaskInputBuilder()..update(updates))
+          ._build();
+
+  _$GUpdateRatingImageGenerationTaskInput._(
+      {required this.nanoid, required this.rating})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        nanoid, r'GUpdateRatingImageGenerationTaskInput', 'nanoid');
+    BuiltValueNullFieldError.checkNotNull(
+        rating, r'GUpdateRatingImageGenerationTaskInput', 'rating');
+  }
+
+  @override
+  GUpdateRatingImageGenerationTaskInput rebuild(
+          void Function(GUpdateRatingImageGenerationTaskInputBuilder)
+              updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GUpdateRatingImageGenerationTaskInputBuilder toBuilder() =>
+      new GUpdateRatingImageGenerationTaskInputBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GUpdateRatingImageGenerationTaskInput &&
+        nanoid == other.nanoid &&
+        rating == other.rating;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, nanoid.hashCode);
+    _$hash = $jc(_$hash, rating.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(
+            r'GUpdateRatingImageGenerationTaskInput')
+          ..add('nanoid', nanoid)
+          ..add('rating', rating))
+        .toString();
+  }
+}
+
+class GUpdateRatingImageGenerationTaskInputBuilder
+    implements
+        Builder<GUpdateRatingImageGenerationTaskInput,
+            GUpdateRatingImageGenerationTaskInputBuilder> {
+  _$GUpdateRatingImageGenerationTaskInput? _$v;
+
+  String? _nanoid;
+  String? get nanoid => _$this._nanoid;
+  set nanoid(String? nanoid) => _$this._nanoid = nanoid;
+
+  int? _rating;
+  int? get rating => _$this._rating;
+  set rating(int? rating) => _$this._rating = rating;
+
+  GUpdateRatingImageGenerationTaskInputBuilder();
+
+  GUpdateRatingImageGenerationTaskInputBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _nanoid = $v.nanoid;
+      _rating = $v.rating;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GUpdateRatingImageGenerationTaskInput other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GUpdateRatingImageGenerationTaskInput;
+  }
+
+  @override
+  void update(
+      void Function(GUpdateRatingImageGenerationTaskInputBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GUpdateRatingImageGenerationTaskInput build() => _build();
+
+  _$GUpdateRatingImageGenerationTaskInput _build() {
+    final _$result = _$v ??
+        new _$GUpdateRatingImageGenerationTaskInput._(
+            nanoid: BuiltValueNullFieldError.checkNotNull(
+                nanoid, r'GUpdateRatingImageGenerationTaskInput', 'nanoid'),
+            rating: BuiltValueNullFieldError.checkNotNull(
+                rating, r'GUpdateRatingImageGenerationTaskInput', 'rating'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
 class _$GUpdateStickerInput extends GUpdateStickerInput {
   @override
   final String stickerId;
@@ -25556,6 +28231,8 @@ class _$GWorksWhereInput extends GWorksWhereInput {
   final BuiltList<String>? searchTargets;
   @override
   final bool? isSensitive;
+  @override
+  final BuiltList<String>? tagNames;
 
   factory _$GWorksWhereInput(
           [void Function(GWorksWhereInputBuilder)? updates]) =>
@@ -25569,7 +28246,8 @@ class _$GWorksWhereInput extends GWorksWhereInput {
       this.style,
       this.orderBy,
       this.searchTargets,
-      this.isSensitive})
+      this.isSensitive,
+      this.tagNames})
       : super._();
 
   @override
@@ -25591,7 +28269,8 @@ class _$GWorksWhereInput extends GWorksWhereInput {
         style == other.style &&
         orderBy == other.orderBy &&
         searchTargets == other.searchTargets &&
-        isSensitive == other.isSensitive;
+        isSensitive == other.isSensitive &&
+        tagNames == other.tagNames;
   }
 
   @override
@@ -25605,6 +28284,7 @@ class _$GWorksWhereInput extends GWorksWhereInput {
     _$hash = $jc(_$hash, orderBy.hashCode);
     _$hash = $jc(_$hash, searchTargets.hashCode);
     _$hash = $jc(_$hash, isSensitive.hashCode);
+    _$hash = $jc(_$hash, tagNames.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -25619,7 +28299,8 @@ class _$GWorksWhereInput extends GWorksWhereInput {
           ..add('style', style)
           ..add('orderBy', orderBy)
           ..add('searchTargets', searchTargets)
-          ..add('isSensitive', isSensitive))
+          ..add('isSensitive', isSensitive)
+          ..add('tagNames', tagNames))
         .toString();
   }
 }
@@ -25664,6 +28345,11 @@ class GWorksWhereInputBuilder
   bool? get isSensitive => _$this._isSensitive;
   set isSensitive(bool? isSensitive) => _$this._isSensitive = isSensitive;
 
+  ListBuilder<String>? _tagNames;
+  ListBuilder<String> get tagNames =>
+      _$this._tagNames ??= new ListBuilder<String>();
+  set tagNames(ListBuilder<String>? tagNames) => _$this._tagNames = tagNames;
+
   GWorksWhereInputBuilder();
 
   GWorksWhereInputBuilder get _$this {
@@ -25677,6 +28363,7 @@ class GWorksWhereInputBuilder
       _orderBy = $v.orderBy;
       _searchTargets = $v.searchTargets?.toBuilder();
       _isSensitive = $v.isSensitive;
+      _tagNames = $v.tagNames?.toBuilder();
       _$v = null;
     }
     return this;
@@ -25708,7 +28395,8 @@ class GWorksWhereInputBuilder
               style: style,
               orderBy: orderBy,
               searchTargets: _searchTargets?.build(),
-              isSensitive: isSensitive);
+              isSensitive: isSensitive,
+              tagNames: _tagNames?.build());
     } catch (_) {
       late String _$failedField;
       try {
@@ -25717,6 +28405,9 @@ class GWorksWhereInputBuilder
 
         _$failedField = 'searchTargets';
         _searchTargets?.build();
+
+        _$failedField = 'tagNames';
+        _tagNames?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'GWorksWhereInput', _$failedField, e.toString());
