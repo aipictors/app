@@ -48,6 +48,7 @@ class WorkActionStickersContainer extends HookConsumerWidget {
             builder: (context, response) {
               final stickerList = response.data?.viewer?.userStickers;
               return SizedBox(
+                  height: 256,
                   child: Container(
                       decoration: BoxDecoration(
                         color: Theme.of(context).colorScheme.onInverseSurface,
