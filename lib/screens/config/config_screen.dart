@@ -94,6 +94,18 @@ class ConfigScreen extends HookConsumerWidget {
           //   ),
           if (authState.value != null)
             ListTile(
+              leading: const Icon(Icons.favorite_rounded),
+              trailing: const Icon(Icons.chevron_right_rounded),
+              title: Text(
+                'いいね'.i18n,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+              onTap: () {
+                context.push('/viewer/likes');
+              },
+            ),
+          if (authState.value != null)
+            ListTile(
               leading: const Icon(Icons.block_rounded),
               trailing: const Icon(Icons.chevron_right_rounded),
               title: Text(
