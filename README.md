@@ -50,3 +50,11 @@ $ rover graph introspect https://router-6ouzjmdzha-an.a.run.app -o lib/schema.gr
 ```
 
 https://www.apollographql.com/docs/rover/commands/supergraphs
+
+## WidgetBook
+
+以下のコマンドで起動する。
+`macos`の部分は使用しているOSに変更する必要がある。
+```
+$ flutter run -t lib/widgetbook.dart -d macos
+```
