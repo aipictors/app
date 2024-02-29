@@ -58,3 +58,5 @@ https://www.apollographql.com/docs/rover/commands/supergraphs
 ```
 $ flutter run -t lib/widgetbook.dart -d macos
 ```
+
+コンポーネントを追加した時などに、コード生成が必要になることがある。
