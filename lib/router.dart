@@ -37,6 +37,7 @@ import 'package:aipictors/screens/root_screen.dart';
 import 'package:aipictors/screens/search/search_screen.dart';
 import 'package:aipictors/screens/secret_screen.dart';
 import 'package:aipictors/screens/sticker/sticker_report_screen.dart';
+import 'package:aipictors/screens/sticker/sticker_screen.dart';
 import 'package:aipictors/screens/sticker/stickers_screen.dart';
 import 'package:aipictors/screens/surveys_screen.dart';
 import 'package:aipictors/screens/tag/tag_screen.dart';
@@ -264,6 +265,13 @@ final _routes = [
     path: '/stickers',
     builder: (context, state) {
       return const StickersScreen();
+    },
+  ),
+  GoRoute(
+    path: '/stickers/:sticker_id',
+    builder: (context, state) {
+      final stickerId = state.pathParameters['sticker_id'];
+      return StickerScreen(stickerId: stickerId!);
     },
   ),
   GoRoute(

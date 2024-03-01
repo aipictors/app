@@ -382,7 +382,13 @@ import 'package:aipictors/graphql/__generated__/promotions.req.gql.dart'
 import 'package:aipictors/graphql/__generated__/promotions.var.gql.dart'
     show GPromotionsVars;
 import 'package:aipictors/graphql/__generated__/sticker.data.gql.dart'
-    show GStickerData, GStickerData_sticker, GStickerData_sticker_image;
+    show
+        GStickerData,
+        GStickerData_sticker,
+        GStickerData_sticker_image,
+        GStickerData_sticker_user,
+        GStickerData_sticker_user_iconImage,
+        GStickerData_sticker_user_viewer;
 import 'package:aipictors/graphql/__generated__/sticker.req.gql.dart'
     show GStickerReq;
 import 'package:aipictors/graphql/__generated__/sticker.var.gql.dart'
@@ -1472,6 +1478,9 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GStickerData,
   GStickerData_sticker,
   GStickerData_sticker_image,
+  GStickerData_sticker_user,
+  GStickerData_sticker_user_iconImage,
+  GStickerData_sticker_user_viewer,
   GStickerReq,
   GStickerVars,
   GStickersData,

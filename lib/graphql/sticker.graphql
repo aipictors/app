@@ -1,4 +1,4 @@
-# import './fragments/user_fields_fragment.graphql'
+# import './fragments/work_user_fields_fragment.graphql'
 
 query Sticker($id: ID!) {
   sticker(id: $id) {
@@ -9,6 +9,16 @@ query Sticker($id: ID!) {
       id
       downloadURL
     }
+    user {
+      ...WorkUserFields
+      viewer {
+        id
+        isFollower
+        isFollowee
+        isMuted
+      }
+    }
+    isLiked
     downloadsCount
     likesCount
     usesCount

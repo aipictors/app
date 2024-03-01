@@ -67,7 +67,7 @@ class StickersScreen extends HookConsumerWidget {
                     contentType: 'sticker',
                     itemId: sticker.id,
                   );
-                  context.push('/sticker/${sticker.id}');
+                  context.push('/stickers/${sticker.id}');
                 },
               );
             },

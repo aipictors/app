@@ -3,6 +3,8 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:aipictors/__generated__/serializers.gql.dart' as _i1;
+import 'package:aipictors/graphql/fragments/__generated__/work_user_fields_fragment.data.gql.dart'
+    as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -52,6 +54,8 @@ abstract class GStickerData_sticker
   int get createdAt;
   String get title;
   GStickerData_sticker_image? get image;
+  GStickerData_sticker_user get user;
+  bool get isLiked;
   int get downloadsCount;
   int get likesCount;
   int get usesCount;
@@ -97,6 +101,121 @@ abstract class GStickerData_sticker_image
   static GStickerData_sticker_image? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GStickerData_sticker_image.serializer,
+        json,
+      );
+}
+
+abstract class GStickerData_sticker_user
+    implements
+        Built<GStickerData_sticker_user, GStickerData_sticker_userBuilder>,
+        _i2.GWorkUserFields {
+  GStickerData_sticker_user._();
+
+  factory GStickerData_sticker_user(
+          [Function(GStickerData_sticker_userBuilder b) updates]) =
+      _$GStickerData_sticker_user;
+
+  static void _initializeBuilder(GStickerData_sticker_userBuilder b) =>
+      b..G__typename = 'UserNode';
+
+  @override
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  @override
+  String get id;
+  @override
+  String get name;
+  @override
+  String get login;
+  @override
+  GStickerData_sticker_user_iconImage? get iconImage;
+  GStickerData_sticker_user_viewer? get viewer;
+  static Serializer<GStickerData_sticker_user> get serializer =>
+      _$gStickerDataStickerUserSerializer;
+
+  @override
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GStickerData_sticker_user.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GStickerData_sticker_user? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GStickerData_sticker_user.serializer,
+        json,
+      );
+}
+
+abstract class GStickerData_sticker_user_iconImage
+    implements
+        Built<GStickerData_sticker_user_iconImage,
+            GStickerData_sticker_user_iconImageBuilder>,
+        _i2.GWorkUserFields_iconImage {
+  GStickerData_sticker_user_iconImage._();
+
+  factory GStickerData_sticker_user_iconImage(
+          [Function(GStickerData_sticker_user_iconImageBuilder b) updates]) =
+      _$GStickerData_sticker_user_iconImage;
+
+  static void _initializeBuilder(
+          GStickerData_sticker_user_iconImageBuilder b) =>
+      b..G__typename = 'ImageNode';
+
+  @override
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  @override
+  String get id;
+  @override
+  String get downloadURL;
+  static Serializer<GStickerData_sticker_user_iconImage> get serializer =>
+      _$gStickerDataStickerUserIconImageSerializer;
+
+  @override
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GStickerData_sticker_user_iconImage.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GStickerData_sticker_user_iconImage? fromJson(
+          Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GStickerData_sticker_user_iconImage.serializer,
+        json,
+      );
+}
+
+abstract class GStickerData_sticker_user_viewer
+    implements
+        Built<GStickerData_sticker_user_viewer,
+            GStickerData_sticker_user_viewerBuilder> {
+  GStickerData_sticker_user_viewer._();
+
+  factory GStickerData_sticker_user_viewer(
+          [Function(GStickerData_sticker_user_viewerBuilder b) updates]) =
+      _$GStickerData_sticker_user_viewer;
+
+  static void _initializeBuilder(GStickerData_sticker_user_viewerBuilder b) =>
+      b..G__typename = 'UserViewerNode';
+
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  String get id;
+  bool get isFollower;
+  bool get isFollowee;
+  bool get isMuted;
+  static Serializer<GStickerData_sticker_user_viewer> get serializer =>
+      _$gStickerDataStickerUserViewerSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GStickerData_sticker_user_viewer.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GStickerData_sticker_user_viewer? fromJson(
+          Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GStickerData_sticker_user_viewer.serializer,
         json,
       );
 }
