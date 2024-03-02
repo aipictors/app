@@ -436,6 +436,7 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GStickerData_sticker_user.serializer)
       ..add(GStickerData_sticker_user_iconImage.serializer)
       ..add(GStickerData_sticker_user_viewer.serializer)
+      ..add(GStickerGenre.serializer)
       ..add(GStickerReq.serializer)
       ..add(GStickerVars.serializer)
       ..add(GStickersData.serializer)
@@ -494,6 +495,7 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GUpdateFolderInput.serializer)
       ..add(GUpdateFolderReq.serializer)
       ..add(GUpdateFolderVars.serializer)
+      ..add(GUpdateImageGenerationMemoInput.serializer)
       ..add(GUpdateNoteInput.serializer)
       ..add(GUpdateNovelInput.serializer)
       ..add(GUpdatePromptonFolderInput.serializer)
@@ -960,6 +962,9 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(GWorksData_works)]),
           () => new ListBuilder<GWorksData_works>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(String)]),
+          () => new ListBuilder<String>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(String)]),
           () => new ListBuilder<String>())

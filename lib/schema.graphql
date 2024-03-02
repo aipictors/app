@@ -405,6 +405,8 @@ type Mutation {
   updateRatingImageGenerationTask(input: UpdateRatingImageGenerationTaskInput!): ImageGenerationTaskNode!
   "画像生成のモデルのレーティングを変更する"
   updateRatingImageGenerationModel(input: UpdateRatingImageGenerationModelInput!): UserSettingNode!
+  "画像生成のメモを変更する"
+  updateImageGenerationMemo(input: UpdateImageGenerationMemoInput!): ImageGenerationMemoNode!
   "メッセージを作成する"
   createMessage(input: CreateMessageInput!): MessageNode!
   "コラムを作成する"
@@ -1446,6 +1448,10 @@ type StickerNode implements Node {
   downloadsCount: Int!
   "いいねしている"
   isLiked: Boolean!
+  "ジャンル"
+  genre: StickerGenre!
+  "カテゴリ"
+  categories: [String!]!
   viewer: StickerViewerNode @deprecated(reason: "isLikedを使用する")
 }
 type StickerViewerNode implements Node {
@@ -1588,6 +1594,10 @@ type Viewer {
   albums(offset: Int!, limit: Int!): [AlbumNode!]!
   "現在の有効な画像生成のタスク"
   currentImageGenerationTasks: [ImageGenerationTaskNode!]!
+  "現在の有効な画像生成のメモ"
+  currentImageGenerationMemos: [ImageGenerationMemoNode!]!
+  "お気に入りのモデル一覧"
+  favoritedImageGenerationModels: [ImageModelNode!]!
   "現在の生成中の画像生成のタスク"
   inProgressImageGenerationTasksCount: Int!
   "現在の予約生成中の画像生成のタスク"
@@ -1987,6 +1997,18 @@ enum ReportReason {
   "その他"
   OTHER
 }
+enum StickerGenre {
+  "人物"
+  CHARACTER
+  "動物"
+  ANIMAL
+  "機械"
+  MACHINE
+  "背景"
+  BACKGROUND
+  "物"
+  OBJECT
+}
 enum WorkOrderBy {
   DATE_CREATED
   LIKES_COUNT
@@ -2072,13 +2094,13 @@ input CreateImageGenerationMemoInput {
   prompts: String!
   negativePrompts: String!
   sampler: String!
-  modelId: ID!
   seed: Int!
   steps: Int!
   scale: Int!
   clipSkip: Int!
   width: Int!
   height: Int!
+  modelId: ID!
 }
 input CreateImageGenerationTaskInput {
   "生成する枚数"
@@ -2577,6 +2599,21 @@ input UpdateAlbumInput {
 input UpdateFolderInput {
   folderId: ID!
   title: String!
+}
+input UpdateImageGenerationMemoInput {
+  nanoid: String!
+  title: String!
+  explanation: String!
+  prompts: String!
+  negativePrompts: String!
+  sampler: String!
+  modelId: ID!
+  seed: Int!
+  steps: Int!
+  scale: Int!
+  clipSkip: Int!
+  width: Int!
+  height: Int!
 }
 input UpdateNoteInput {
   noteId: ID!

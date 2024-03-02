@@ -564,6 +564,40 @@ final BuiltSet<GReportReason> _$gReportReasonValues =
   _$gReportReasonOTHER,
 ]);
 
+const GStickerGenre _$gStickerGenreCHARACTER =
+    const GStickerGenre._('CHARACTER');
+const GStickerGenre _$gStickerGenreANIMAL = const GStickerGenre._('ANIMAL');
+const GStickerGenre _$gStickerGenreMACHINE = const GStickerGenre._('MACHINE');
+const GStickerGenre _$gStickerGenreBACKGROUND =
+    const GStickerGenre._('BACKGROUND');
+const GStickerGenre _$gStickerGenreOBJECT = const GStickerGenre._('OBJECT');
+
+GStickerGenre _$gStickerGenreValueOf(String name) {
+  switch (name) {
+    case 'CHARACTER':
+      return _$gStickerGenreCHARACTER;
+    case 'ANIMAL':
+      return _$gStickerGenreANIMAL;
+    case 'MACHINE':
+      return _$gStickerGenreMACHINE;
+    case 'BACKGROUND':
+      return _$gStickerGenreBACKGROUND;
+    case 'OBJECT':
+      return _$gStickerGenreOBJECT;
+    default:
+      throw new ArgumentError(name);
+  }
+}
+
+final BuiltSet<GStickerGenre> _$gStickerGenreValues =
+    new BuiltSet<GStickerGenre>(const <GStickerGenre>[
+  _$gStickerGenreCHARACTER,
+  _$gStickerGenreANIMAL,
+  _$gStickerGenreMACHINE,
+  _$gStickerGenreBACKGROUND,
+  _$gStickerGenreOBJECT,
+]);
+
 const GWorkOrderBy _$gWorkOrderByDATE_CREATED =
     const GWorkOrderBy._('DATE_CREATED');
 const GWorkOrderBy _$gWorkOrderByLIKES_COUNT =
@@ -636,6 +670,8 @@ Serializer<GPaymentType> _$gPaymentTypeSerializer =
 Serializer<GRating> _$gRatingSerializer = new _$GRatingSerializer();
 Serializer<GReportReason> _$gReportReasonSerializer =
     new _$GReportReasonSerializer();
+Serializer<GStickerGenre> _$gStickerGenreSerializer =
+    new _$GStickerGenreSerializer();
 Serializer<GWorkOrderBy> _$gWorkOrderBySerializer =
     new _$GWorkOrderBySerializer();
 Serializer<GWorkType> _$gWorkTypeSerializer = new _$GWorkTypeSerializer();
@@ -980,6 +1016,9 @@ Serializer<GUpdateAlbumInput> _$gUpdateAlbumInputSerializer =
     new _$GUpdateAlbumInputSerializer();
 Serializer<GUpdateFolderInput> _$gUpdateFolderInputSerializer =
     new _$GUpdateFolderInputSerializer();
+Serializer<GUpdateImageGenerationMemoInput>
+    _$gUpdateImageGenerationMemoInputSerializer =
+    new _$GUpdateImageGenerationMemoInputSerializer();
 Serializer<GUpdateNoteInput> _$gUpdateNoteInputSerializer =
     new _$GUpdateNoteInputSerializer();
 Serializer<GUpdateNovelInput> _$gUpdateNovelInputSerializer =
@@ -1325,6 +1364,23 @@ class _$GReportReasonSerializer implements PrimitiveSerializer<GReportReason> {
   GReportReason deserialize(Serializers serializers, Object serialized,
           {FullType specifiedType = FullType.unspecified}) =>
       GReportReason.valueOf(serialized as String);
+}
+
+class _$GStickerGenreSerializer implements PrimitiveSerializer<GStickerGenre> {
+  @override
+  final Iterable<Type> types = const <Type>[GStickerGenre];
+  @override
+  final String wireName = 'GStickerGenre';
+
+  @override
+  Object serialize(Serializers serializers, GStickerGenre object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      object.name;
+
+  @override
+  GStickerGenre deserialize(Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      GStickerGenre.valueOf(serialized as String);
 }
 
 class _$GWorkOrderBySerializer implements PrimitiveSerializer<GWorkOrderBy> {
@@ -2316,9 +2372,6 @@ class _$GCreateImageGenerationMemoInputSerializer
       'sampler',
       serializers.serialize(object.sampler,
           specifiedType: const FullType(String)),
-      'modelId',
-      serializers.serialize(object.modelId,
-          specifiedType: const FullType(String)),
       'seed',
       serializers.serialize(object.seed, specifiedType: const FullType(int)),
       'steps',
@@ -2332,6 +2385,9 @@ class _$GCreateImageGenerationMemoInputSerializer
       serializers.serialize(object.width, specifiedType: const FullType(int)),
       'height',
       serializers.serialize(object.height, specifiedType: const FullType(int)),
+      'modelId',
+      serializers.serialize(object.modelId,
+          specifiedType: const FullType(String)),
     ];
 
     return result;
@@ -2369,10 +2425,6 @@ class _$GCreateImageGenerationMemoInputSerializer
           result.sampler = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
-        case 'modelId':
-          result.modelId = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
         case 'seed':
           result.seed = serializers.deserialize(value,
               specifiedType: const FullType(int))! as int;
@@ -2396,6 +2448,10 @@ class _$GCreateImageGenerationMemoInputSerializer
         case 'height':
           result.height = serializers.deserialize(value,
               specifiedType: const FullType(int))! as int;
+          break;
+        case 'modelId':
+          result.modelId = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
           break;
       }
     }
@@ -8980,6 +9036,131 @@ class _$GUpdateFolderInputSerializer
   }
 }
 
+class _$GUpdateImageGenerationMemoInputSerializer
+    implements StructuredSerializer<GUpdateImageGenerationMemoInput> {
+  @override
+  final Iterable<Type> types = const [
+    GUpdateImageGenerationMemoInput,
+    _$GUpdateImageGenerationMemoInput
+  ];
+  @override
+  final String wireName = 'GUpdateImageGenerationMemoInput';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GUpdateImageGenerationMemoInput object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'nanoid',
+      serializers.serialize(object.nanoid,
+          specifiedType: const FullType(String)),
+      'title',
+      serializers.serialize(object.title,
+          specifiedType: const FullType(String)),
+      'explanation',
+      serializers.serialize(object.explanation,
+          specifiedType: const FullType(String)),
+      'prompts',
+      serializers.serialize(object.prompts,
+          specifiedType: const FullType(String)),
+      'negativePrompts',
+      serializers.serialize(object.negativePrompts,
+          specifiedType: const FullType(String)),
+      'sampler',
+      serializers.serialize(object.sampler,
+          specifiedType: const FullType(String)),
+      'modelId',
+      serializers.serialize(object.modelId,
+          specifiedType: const FullType(String)),
+      'seed',
+      serializers.serialize(object.seed, specifiedType: const FullType(int)),
+      'steps',
+      serializers.serialize(object.steps, specifiedType: const FullType(int)),
+      'scale',
+      serializers.serialize(object.scale, specifiedType: const FullType(int)),
+      'clipSkip',
+      serializers.serialize(object.clipSkip,
+          specifiedType: const FullType(int)),
+      'width',
+      serializers.serialize(object.width, specifiedType: const FullType(int)),
+      'height',
+      serializers.serialize(object.height, specifiedType: const FullType(int)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GUpdateImageGenerationMemoInput deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GUpdateImageGenerationMemoInputBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'nanoid':
+          result.nanoid = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'title':
+          result.title = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'explanation':
+          result.explanation = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'prompts':
+          result.prompts = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'negativePrompts':
+          result.negativePrompts = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'sampler':
+          result.sampler = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'modelId':
+          result.modelId = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'seed':
+          result.seed = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'steps':
+          result.steps = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'scale':
+          result.scale = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'clipSkip':
+          result.clipSkip = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'width':
+          result.width = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'height':
+          result.height = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$GUpdateNoteInputSerializer
     implements StructuredSerializer<GUpdateNoteInput> {
   @override
@@ -12489,8 +12670,6 @@ class _$GCreateImageGenerationMemoInput
   @override
   final String sampler;
   @override
-  final String modelId;
-  @override
   final int seed;
   @override
   final int steps;
@@ -12502,6 +12681,8 @@ class _$GCreateImageGenerationMemoInput
   final int width;
   @override
   final int height;
+  @override
+  final String modelId;
 
   factory _$GCreateImageGenerationMemoInput(
           [void Function(GCreateImageGenerationMemoInputBuilder)? updates]) =>
@@ -12513,13 +12694,13 @@ class _$GCreateImageGenerationMemoInput
       required this.prompts,
       required this.negativePrompts,
       required this.sampler,
-      required this.modelId,
       required this.seed,
       required this.steps,
       required this.scale,
       required this.clipSkip,
       required this.width,
-      required this.height})
+      required this.height,
+      required this.modelId})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         title, r'GCreateImageGenerationMemoInput', 'title');
@@ -12532,8 +12713,6 @@ class _$GCreateImageGenerationMemoInput
     BuiltValueNullFieldError.checkNotNull(
         sampler, r'GCreateImageGenerationMemoInput', 'sampler');
     BuiltValueNullFieldError.checkNotNull(
-        modelId, r'GCreateImageGenerationMemoInput', 'modelId');
-    BuiltValueNullFieldError.checkNotNull(
         seed, r'GCreateImageGenerationMemoInput', 'seed');
     BuiltValueNullFieldError.checkNotNull(
         steps, r'GCreateImageGenerationMemoInput', 'steps');
@@ -12545,6 +12724,8 @@ class _$GCreateImageGenerationMemoInput
         width, r'GCreateImageGenerationMemoInput', 'width');
     BuiltValueNullFieldError.checkNotNull(
         height, r'GCreateImageGenerationMemoInput', 'height');
+    BuiltValueNullFieldError.checkNotNull(
+        modelId, r'GCreateImageGenerationMemoInput', 'modelId');
   }
 
   @override
@@ -12565,13 +12746,13 @@ class _$GCreateImageGenerationMemoInput
         prompts == other.prompts &&
         negativePrompts == other.negativePrompts &&
         sampler == other.sampler &&
-        modelId == other.modelId &&
         seed == other.seed &&
         steps == other.steps &&
         scale == other.scale &&
         clipSkip == other.clipSkip &&
         width == other.width &&
-        height == other.height;
+        height == other.height &&
+        modelId == other.modelId;
   }
 
   @override
@@ -12582,13 +12763,13 @@ class _$GCreateImageGenerationMemoInput
     _$hash = $jc(_$hash, prompts.hashCode);
     _$hash = $jc(_$hash, negativePrompts.hashCode);
     _$hash = $jc(_$hash, sampler.hashCode);
-    _$hash = $jc(_$hash, modelId.hashCode);
     _$hash = $jc(_$hash, seed.hashCode);
     _$hash = $jc(_$hash, steps.hashCode);
     _$hash = $jc(_$hash, scale.hashCode);
     _$hash = $jc(_$hash, clipSkip.hashCode);
     _$hash = $jc(_$hash, width.hashCode);
     _$hash = $jc(_$hash, height.hashCode);
+    _$hash = $jc(_$hash, modelId.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -12601,13 +12782,13 @@ class _$GCreateImageGenerationMemoInput
           ..add('prompts', prompts)
           ..add('negativePrompts', negativePrompts)
           ..add('sampler', sampler)
-          ..add('modelId', modelId)
           ..add('seed', seed)
           ..add('steps', steps)
           ..add('scale', scale)
           ..add('clipSkip', clipSkip)
           ..add('width', width)
-          ..add('height', height))
+          ..add('height', height)
+          ..add('modelId', modelId))
         .toString();
   }
 }
@@ -12639,10 +12820,6 @@ class GCreateImageGenerationMemoInputBuilder
   String? get sampler => _$this._sampler;
   set sampler(String? sampler) => _$this._sampler = sampler;
 
-  String? _modelId;
-  String? get modelId => _$this._modelId;
-  set modelId(String? modelId) => _$this._modelId = modelId;
-
   int? _seed;
   int? get seed => _$this._seed;
   set seed(int? seed) => _$this._seed = seed;
@@ -12667,6 +12844,10 @@ class GCreateImageGenerationMemoInputBuilder
   int? get height => _$this._height;
   set height(int? height) => _$this._height = height;
 
+  String? _modelId;
+  String? get modelId => _$this._modelId;
+  set modelId(String? modelId) => _$this._modelId = modelId;
+
   GCreateImageGenerationMemoInputBuilder();
 
   GCreateImageGenerationMemoInputBuilder get _$this {
@@ -12677,13 +12858,13 @@ class GCreateImageGenerationMemoInputBuilder
       _prompts = $v.prompts;
       _negativePrompts = $v.negativePrompts;
       _sampler = $v.sampler;
-      _modelId = $v.modelId;
       _seed = $v.seed;
       _steps = $v.steps;
       _scale = $v.scale;
       _clipSkip = $v.clipSkip;
       _width = $v.width;
       _height = $v.height;
+      _modelId = $v.modelId;
       _$v = null;
     }
     return this;
@@ -12718,15 +12899,15 @@ class GCreateImageGenerationMemoInputBuilder
                 'negativePrompts'),
             sampler: BuiltValueNullFieldError.checkNotNull(
                 sampler, r'GCreateImageGenerationMemoInput', 'sampler'),
-            modelId: BuiltValueNullFieldError.checkNotNull(
-                modelId, r'GCreateImageGenerationMemoInput', 'modelId'),
             seed: BuiltValueNullFieldError.checkNotNull(
                 seed, r'GCreateImageGenerationMemoInput', 'seed'),
-            steps: BuiltValueNullFieldError.checkNotNull(steps, r'GCreateImageGenerationMemoInput', 'steps'),
+            steps: BuiltValueNullFieldError.checkNotNull(
+                steps, r'GCreateImageGenerationMemoInput', 'steps'),
             scale: BuiltValueNullFieldError.checkNotNull(scale, r'GCreateImageGenerationMemoInput', 'scale'),
             clipSkip: BuiltValueNullFieldError.checkNotNull(clipSkip, r'GCreateImageGenerationMemoInput', 'clipSkip'),
             width: BuiltValueNullFieldError.checkNotNull(width, r'GCreateImageGenerationMemoInput', 'width'),
-            height: BuiltValueNullFieldError.checkNotNull(height, r'GCreateImageGenerationMemoInput', 'height'));
+            height: BuiltValueNullFieldError.checkNotNull(height, r'GCreateImageGenerationMemoInput', 'height'),
+            modelId: BuiltValueNullFieldError.checkNotNull(modelId, r'GCreateImageGenerationMemoInput', 'modelId'));
     replace(_$result);
     return _$result;
   }
@@ -25209,6 +25390,276 @@ class GUpdateFolderInputBuilder
                 folderId, r'GUpdateFolderInput', 'folderId'),
             title: BuiltValueNullFieldError.checkNotNull(
                 title, r'GUpdateFolderInput', 'title'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GUpdateImageGenerationMemoInput
+    extends GUpdateImageGenerationMemoInput {
+  @override
+  final String nanoid;
+  @override
+  final String title;
+  @override
+  final String explanation;
+  @override
+  final String prompts;
+  @override
+  final String negativePrompts;
+  @override
+  final String sampler;
+  @override
+  final String modelId;
+  @override
+  final int seed;
+  @override
+  final int steps;
+  @override
+  final int scale;
+  @override
+  final int clipSkip;
+  @override
+  final int width;
+  @override
+  final int height;
+
+  factory _$GUpdateImageGenerationMemoInput(
+          [void Function(GUpdateImageGenerationMemoInputBuilder)? updates]) =>
+      (new GUpdateImageGenerationMemoInputBuilder()..update(updates))._build();
+
+  _$GUpdateImageGenerationMemoInput._(
+      {required this.nanoid,
+      required this.title,
+      required this.explanation,
+      required this.prompts,
+      required this.negativePrompts,
+      required this.sampler,
+      required this.modelId,
+      required this.seed,
+      required this.steps,
+      required this.scale,
+      required this.clipSkip,
+      required this.width,
+      required this.height})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        nanoid, r'GUpdateImageGenerationMemoInput', 'nanoid');
+    BuiltValueNullFieldError.checkNotNull(
+        title, r'GUpdateImageGenerationMemoInput', 'title');
+    BuiltValueNullFieldError.checkNotNull(
+        explanation, r'GUpdateImageGenerationMemoInput', 'explanation');
+    BuiltValueNullFieldError.checkNotNull(
+        prompts, r'GUpdateImageGenerationMemoInput', 'prompts');
+    BuiltValueNullFieldError.checkNotNull(
+        negativePrompts, r'GUpdateImageGenerationMemoInput', 'negativePrompts');
+    BuiltValueNullFieldError.checkNotNull(
+        sampler, r'GUpdateImageGenerationMemoInput', 'sampler');
+    BuiltValueNullFieldError.checkNotNull(
+        modelId, r'GUpdateImageGenerationMemoInput', 'modelId');
+    BuiltValueNullFieldError.checkNotNull(
+        seed, r'GUpdateImageGenerationMemoInput', 'seed');
+    BuiltValueNullFieldError.checkNotNull(
+        steps, r'GUpdateImageGenerationMemoInput', 'steps');
+    BuiltValueNullFieldError.checkNotNull(
+        scale, r'GUpdateImageGenerationMemoInput', 'scale');
+    BuiltValueNullFieldError.checkNotNull(
+        clipSkip, r'GUpdateImageGenerationMemoInput', 'clipSkip');
+    BuiltValueNullFieldError.checkNotNull(
+        width, r'GUpdateImageGenerationMemoInput', 'width');
+    BuiltValueNullFieldError.checkNotNull(
+        height, r'GUpdateImageGenerationMemoInput', 'height');
+  }
+
+  @override
+  GUpdateImageGenerationMemoInput rebuild(
+          void Function(GUpdateImageGenerationMemoInputBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GUpdateImageGenerationMemoInputBuilder toBuilder() =>
+      new GUpdateImageGenerationMemoInputBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GUpdateImageGenerationMemoInput &&
+        nanoid == other.nanoid &&
+        title == other.title &&
+        explanation == other.explanation &&
+        prompts == other.prompts &&
+        negativePrompts == other.negativePrompts &&
+        sampler == other.sampler &&
+        modelId == other.modelId &&
+        seed == other.seed &&
+        steps == other.steps &&
+        scale == other.scale &&
+        clipSkip == other.clipSkip &&
+        width == other.width &&
+        height == other.height;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, nanoid.hashCode);
+    _$hash = $jc(_$hash, title.hashCode);
+    _$hash = $jc(_$hash, explanation.hashCode);
+    _$hash = $jc(_$hash, prompts.hashCode);
+    _$hash = $jc(_$hash, negativePrompts.hashCode);
+    _$hash = $jc(_$hash, sampler.hashCode);
+    _$hash = $jc(_$hash, modelId.hashCode);
+    _$hash = $jc(_$hash, seed.hashCode);
+    _$hash = $jc(_$hash, steps.hashCode);
+    _$hash = $jc(_$hash, scale.hashCode);
+    _$hash = $jc(_$hash, clipSkip.hashCode);
+    _$hash = $jc(_$hash, width.hashCode);
+    _$hash = $jc(_$hash, height.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GUpdateImageGenerationMemoInput')
+          ..add('nanoid', nanoid)
+          ..add('title', title)
+          ..add('explanation', explanation)
+          ..add('prompts', prompts)
+          ..add('negativePrompts', negativePrompts)
+          ..add('sampler', sampler)
+          ..add('modelId', modelId)
+          ..add('seed', seed)
+          ..add('steps', steps)
+          ..add('scale', scale)
+          ..add('clipSkip', clipSkip)
+          ..add('width', width)
+          ..add('height', height))
+        .toString();
+  }
+}
+
+class GUpdateImageGenerationMemoInputBuilder
+    implements
+        Builder<GUpdateImageGenerationMemoInput,
+            GUpdateImageGenerationMemoInputBuilder> {
+  _$GUpdateImageGenerationMemoInput? _$v;
+
+  String? _nanoid;
+  String? get nanoid => _$this._nanoid;
+  set nanoid(String? nanoid) => _$this._nanoid = nanoid;
+
+  String? _title;
+  String? get title => _$this._title;
+  set title(String? title) => _$this._title = title;
+
+  String? _explanation;
+  String? get explanation => _$this._explanation;
+  set explanation(String? explanation) => _$this._explanation = explanation;
+
+  String? _prompts;
+  String? get prompts => _$this._prompts;
+  set prompts(String? prompts) => _$this._prompts = prompts;
+
+  String? _negativePrompts;
+  String? get negativePrompts => _$this._negativePrompts;
+  set negativePrompts(String? negativePrompts) =>
+      _$this._negativePrompts = negativePrompts;
+
+  String? _sampler;
+  String? get sampler => _$this._sampler;
+  set sampler(String? sampler) => _$this._sampler = sampler;
+
+  String? _modelId;
+  String? get modelId => _$this._modelId;
+  set modelId(String? modelId) => _$this._modelId = modelId;
+
+  int? _seed;
+  int? get seed => _$this._seed;
+  set seed(int? seed) => _$this._seed = seed;
+
+  int? _steps;
+  int? get steps => _$this._steps;
+  set steps(int? steps) => _$this._steps = steps;
+
+  int? _scale;
+  int? get scale => _$this._scale;
+  set scale(int? scale) => _$this._scale = scale;
+
+  int? _clipSkip;
+  int? get clipSkip => _$this._clipSkip;
+  set clipSkip(int? clipSkip) => _$this._clipSkip = clipSkip;
+
+  int? _width;
+  int? get width => _$this._width;
+  set width(int? width) => _$this._width = width;
+
+  int? _height;
+  int? get height => _$this._height;
+  set height(int? height) => _$this._height = height;
+
+  GUpdateImageGenerationMemoInputBuilder();
+
+  GUpdateImageGenerationMemoInputBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _nanoid = $v.nanoid;
+      _title = $v.title;
+      _explanation = $v.explanation;
+      _prompts = $v.prompts;
+      _negativePrompts = $v.negativePrompts;
+      _sampler = $v.sampler;
+      _modelId = $v.modelId;
+      _seed = $v.seed;
+      _steps = $v.steps;
+      _scale = $v.scale;
+      _clipSkip = $v.clipSkip;
+      _width = $v.width;
+      _height = $v.height;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GUpdateImageGenerationMemoInput other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GUpdateImageGenerationMemoInput;
+  }
+
+  @override
+  void update(void Function(GUpdateImageGenerationMemoInputBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GUpdateImageGenerationMemoInput build() => _build();
+
+  _$GUpdateImageGenerationMemoInput _build() {
+    final _$result = _$v ??
+        new _$GUpdateImageGenerationMemoInput._(
+            nanoid: BuiltValueNullFieldError.checkNotNull(
+                nanoid, r'GUpdateImageGenerationMemoInput', 'nanoid'),
+            title: BuiltValueNullFieldError.checkNotNull(
+                title, r'GUpdateImageGenerationMemoInput', 'title'),
+            explanation: BuiltValueNullFieldError.checkNotNull(
+                explanation, r'GUpdateImageGenerationMemoInput', 'explanation'),
+            prompts: BuiltValueNullFieldError.checkNotNull(
+                prompts, r'GUpdateImageGenerationMemoInput', 'prompts'),
+            negativePrompts: BuiltValueNullFieldError.checkNotNull(
+                negativePrompts,
+                r'GUpdateImageGenerationMemoInput',
+                'negativePrompts'),
+            sampler: BuiltValueNullFieldError.checkNotNull(
+                sampler, r'GUpdateImageGenerationMemoInput', 'sampler'),
+            modelId: BuiltValueNullFieldError.checkNotNull(
+                modelId, r'GUpdateImageGenerationMemoInput', 'modelId'),
+            seed: BuiltValueNullFieldError.checkNotNull(seed, r'GUpdateImageGenerationMemoInput', 'seed'),
+            steps: BuiltValueNullFieldError.checkNotNull(steps, r'GUpdateImageGenerationMemoInput', 'steps'),
+            scale: BuiltValueNullFieldError.checkNotNull(scale, r'GUpdateImageGenerationMemoInput', 'scale'),
+            clipSkip: BuiltValueNullFieldError.checkNotNull(clipSkip, r'GUpdateImageGenerationMemoInput', 'clipSkip'),
+            width: BuiltValueNullFieldError.checkNotNull(width, r'GUpdateImageGenerationMemoInput', 'width'),
+            height: BuiltValueNullFieldError.checkNotNull(height, r'GUpdateImageGenerationMemoInput', 'height'));
     replace(_$result);
     return _$result;
   }

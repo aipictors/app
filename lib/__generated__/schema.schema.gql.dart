@@ -378,6 +378,26 @@ class GReportReason extends EnumClass {
   static GReportReason valueOf(String name) => _$gReportReasonValueOf(name);
 }
 
+class GStickerGenre extends EnumClass {
+  const GStickerGenre._(String name) : super(name);
+
+  static const GStickerGenre CHARACTER = _$gStickerGenreCHARACTER;
+
+  static const GStickerGenre ANIMAL = _$gStickerGenreANIMAL;
+
+  static const GStickerGenre MACHINE = _$gStickerGenreMACHINE;
+
+  static const GStickerGenre BACKGROUND = _$gStickerGenreBACKGROUND;
+
+  static const GStickerGenre OBJECT = _$gStickerGenreOBJECT;
+
+  static Serializer<GStickerGenre> get serializer => _$gStickerGenreSerializer;
+
+  static BuiltSet<GStickerGenre> get values => _$gStickerGenreValues;
+
+  static GStickerGenre valueOf(String name) => _$gStickerGenreValueOf(name);
+}
+
 class GWorkOrderBy extends EnumClass {
   const GWorkOrderBy._(String name) : super(name);
 
@@ -873,13 +893,13 @@ abstract class GCreateImageGenerationMemoInput
   String get prompts;
   String get negativePrompts;
   String get sampler;
-  String get modelId;
   int get seed;
   int get steps;
   int get scale;
   int get clipSkip;
   int get width;
   int get height;
+  String get modelId;
   static Serializer<GCreateImageGenerationMemoInput> get serializer =>
       _$gCreateImageGenerationMemoInputSerializer;
 
@@ -4012,6 +4032,44 @@ abstract class GUpdateFolderInput
   static GUpdateFolderInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUpdateFolderInput.serializer,
+        json,
+      );
+}
+
+abstract class GUpdateImageGenerationMemoInput
+    implements
+        Built<GUpdateImageGenerationMemoInput,
+            GUpdateImageGenerationMemoInputBuilder> {
+  GUpdateImageGenerationMemoInput._();
+
+  factory GUpdateImageGenerationMemoInput(
+          [Function(GUpdateImageGenerationMemoInputBuilder b) updates]) =
+      _$GUpdateImageGenerationMemoInput;
+
+  String get nanoid;
+  String get title;
+  String get explanation;
+  String get prompts;
+  String get negativePrompts;
+  String get sampler;
+  String get modelId;
+  int get seed;
+  int get steps;
+  int get scale;
+  int get clipSkip;
+  int get width;
+  int get height;
+  static Serializer<GUpdateImageGenerationMemoInput> get serializer =>
+      _$gUpdateImageGenerationMemoInputSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GUpdateImageGenerationMemoInput.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GUpdateImageGenerationMemoInput? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GUpdateImageGenerationMemoInput.serializer,
         json,
       );
 }

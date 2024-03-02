@@ -2,9 +2,11 @@
 // ignore_for_file: type=lint
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'package:aipictors/__generated__/schema.schema.gql.dart' as _i2;
 import 'package:aipictors/__generated__/serializers.gql.dart' as _i1;
 import 'package:aipictors/graphql/fragments/__generated__/work_user_fields_fragment.data.gql.dart'
-    as _i2;
+    as _i3;
+import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -59,6 +61,8 @@ abstract class GStickerData_sticker
   int get downloadsCount;
   int get likesCount;
   int get usesCount;
+  _i2.GStickerGenre get genre;
+  BuiltList<String> get categories;
   static Serializer<GStickerData_sticker> get serializer =>
       _$gStickerDataStickerSerializer;
 
@@ -108,7 +112,7 @@ abstract class GStickerData_sticker_image
 abstract class GStickerData_sticker_user
     implements
         Built<GStickerData_sticker_user, GStickerData_sticker_userBuilder>,
-        _i2.GWorkUserFields {
+        _i3.GWorkUserFields {
   GStickerData_sticker_user._();
 
   factory GStickerData_sticker_user(
@@ -150,7 +154,7 @@ abstract class GStickerData_sticker_user_iconImage
     implements
         Built<GStickerData_sticker_user_iconImage,
             GStickerData_sticker_user_iconImageBuilder>,
-        _i2.GWorkUserFields_iconImage {
+        _i3.GWorkUserFields_iconImage {
   GStickerData_sticker_user_iconImage._();
 
   factory GStickerData_sticker_user_iconImage(

@@ -7,6 +7,8 @@ import 'package:aipictors/screens/error/data_not_found_error_screen.dart';
 import 'package:aipictors/screens/loading_screen.dart';
 import 'package:aipictors/widgets/builder/operation_screen_builder.dart';
 import 'package:aipictors/widgets/button/follow_button.dart';
+import 'package:aipictors/widgets/container/sticker_categories_container.dart';
+import 'package:aipictors/widgets/container/sticker_genre_container.dart';
 import 'package:aipictors/widgets/container/sticker_status_container.dart';
 import 'package:aipictors/widgets/container/work_user_profile_container.dart';
 import 'package:aipictors/widgets/image/interactive_work_image.dart';
@@ -34,7 +36,7 @@ class StickerScreen extends HookConsumerWidget {
     return OperationScreenBuilder(
       client: client.value!,
       operationRequest: GStickerReq((builder) {
-        return builder..vars.id = stickerId;
+        return builder..vars.id = "1994";
       }),
       builder: (context, response) {
         final sticker = response.data?.sticker;
@@ -101,6 +103,7 @@ class StickerScreen extends HookConsumerWidget {
                     StickerStatusContainer(
                         downloadsCount: sticker.downloadsCount,
                         usesCount: sticker.usesCount),
+                    const SizedBox(height: 4),
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: Text(
@@ -111,6 +114,11 @@ class StickerScreen extends HookConsumerWidget {
                             ?.copyWith(fontWeight: FontWeight.bold),
                       ),
                     ),
+                    StickerGenreContainer(
+                        genre: [sticker.genre.toString().i18n]),
+                    const SizedBox(height: 8 * 1.5),
+                    StickerCategoriesContainer(
+                        categories: sticker.categories.toList()),
                   ],
                 ),
               ),
