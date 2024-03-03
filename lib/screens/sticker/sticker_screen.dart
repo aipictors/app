@@ -36,7 +36,7 @@ class StickerScreen extends HookConsumerWidget {
     return OperationScreenBuilder(
       client: client.value!,
       operationRequest: GStickerReq((builder) {
-        return builder..vars.id = "1994";
+        return builder..vars.id = stickerId;
       }),
       builder: (context, response) {
         final sticker = response.data?.sticker;
