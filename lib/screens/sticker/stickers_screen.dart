@@ -55,6 +55,7 @@ class StickersScreen extends HookConsumerWidget {
               crossAxisCount: 2,
               childAspectRatio: 0.725,
             ),
+            itemCount: stickerList.length,
             itemBuilder: (context, index) {
               final sticker = stickerList[index];
               return StickerGridItemContainer(
