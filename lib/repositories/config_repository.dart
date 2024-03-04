@@ -135,6 +135,15 @@ class ConfigRepository {
     await instance!.setInt('config_explorer_tab_index', index);
   }
 
+  int get stickersTabIndex {
+    final value = instance!.getInt('config_sticker_tab_index');
+    return value ?? 0;
+  }
+
+  Future<void> setStickersTabIndex(int index) async {
+    await instance!.setInt('config_sticker_tab_index', index);
+  }
+
   /// EULA
   bool get eulaCheck {
     final value = instance!.getBool('config_eula');
