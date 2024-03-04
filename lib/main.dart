@@ -101,6 +101,7 @@ void main() async {
 
   await SentryFlutter.init(
     (options) {
+      options.sampleRate = DefaultConfig.sentrySampleRate;
       options.dsn = DefaultConfig.sentryDsn;
       options.environment = DefaultConfig.sentryEnvironment;
       options.release = DefaultConfig.version;

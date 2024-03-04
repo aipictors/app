@@ -44,6 +44,12 @@ class DefaultConfig {
     return remoteConfig.getString('sentry_dsn');
   }
 
+  /// Remote Config
+  static double get sentrySampleRate {
+    final remoteConfig = FirebaseRemoteConfig.instance;
+    return remoteConfig.getDouble('sentry_sample_rate');
+  }
+
   static String get version {
     return packageInfo!.version;
   }
