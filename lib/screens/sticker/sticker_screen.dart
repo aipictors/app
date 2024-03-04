@@ -155,6 +155,7 @@ class StickerScreen extends HookConsumerWidget {
         );
       },
     );*/
+    //TODO: スタンプの通報機能を実装する
     print(userId);
   }
 

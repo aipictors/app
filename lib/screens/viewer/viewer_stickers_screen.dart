@@ -44,7 +44,7 @@ class ViewerStickersScreen extends HookConsumerWidget {
               message: 'あなたのスタンプは無いみたい。'.i18n,
             );
           }
-          return StickersGridView(stickerList: stickerList!);
+          return StickersGridView(stickerList: stickerList);
         },
       ),
     );

@@ -14,15 +14,18 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-/// スタンプ広場
-class StickersSpaceScreen extends HookConsumerWidget {
-  const StickersSpaceScreen({
+/// スタンプの検索
+class StickersSearchScreen extends HookConsumerWidget {
+  const StickersSearchScreen({
     super.key,
+    required this.text,
   });
+
+  final String text;
 
   @override
   Widget build(context, ref) {
-    final isFilled = useState(false);
+    final isFilled = useState(true);
     final client = ref.watch(clientProvider);
     final config = ref.watch(configProvider);
 
@@ -32,7 +35,7 @@ class StickersSpaceScreen extends HookConsumerWidget {
 
     final searchContainer = SearchContainer(
       isFilled: isFilled.value,
-      initialText: '',
+      initialText: text,
       onSubmit: (controller) {
         if (!isFilled.value) {
           return null;
@@ -48,33 +51,40 @@ class StickersSpaceScreen extends HookConsumerWidget {
       },
     );
 
-    return OperationBuilder(
-      client: client.value!,
-      operationRequest: GStickersReq((builder) {
-        return builder
-          ..vars.limit = config.graphqlQueryLimit
-          ..vars.offset = 0;
-      }),
-      builder: (context, response) {
-        final stickerList = response.data?.stickers;
-        if (stickerList == null) {
-          return const UnexpectedErrorContainer();
-        }
-        if (stickerList.isEmpty) {
-          return DataEmptyErrorContainer(
-            message: 'スタンプは無いみたい。'.i18n,
-          );
-        }
-        return ListView(children: [
-          const SizedBox(height: 8),
-          searchContainer,
-          const SizedBox(height: 8),
-          StickersGridView(
-            stickerList: stickerList,
-            physics: const NeverScrollableScrollPhysics(),
-          ),
-        ]);
-      },
-    );
+    return Scaffold(
+        appBar: AppBar(
+          title: searchContainer,
+          actions: [
+            if (isFilled.value == true)
+              IconButton(
+                icon: const Icon(Icons.clear_rounded),
+                onPressed: () {
+                  isFilled.value = false;
+                  searchContainer.clear();
+                },
+              ),
+          ],
+        ),
+        body: OperationBuilder(
+          client: client.value!,
+          operationRequest: GStickersReq((builder) {
+            return builder
+              ..vars.limit = config.graphqlQueryLimit
+              ..vars.offset = 0
+              ..vars.where.search = text;
+          }),
+          builder: (context, response) {
+            final stickerList = response.data?.stickers;
+            if (stickerList == null) {
+              return const UnexpectedErrorContainer();
+            }
+            if (stickerList.isEmpty) {
+              return DataEmptyErrorContainer(
+                message: 'スタンプは無いみたい。'.i18n,
+              );
+            }
+            return StickersGridView(stickerList: stickerList);
+          },
+        ));
   }
 }
