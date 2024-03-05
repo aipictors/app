@@ -122,6 +122,9 @@ class _$GStickerData_stickerSerializer
       serializers.serialize(object.categories,
           specifiedType:
               const FullType(BuiltList, const [const FullType(String)])),
+      'isDownloaded',
+      serializers.serialize(object.isDownloaded,
+          specifiedType: const FullType(bool)),
     ];
     Object? value;
     value = object.image;
@@ -198,6 +201,10 @@ class _$GStickerData_stickerSerializer
                   specifiedType: const FullType(
                       BuiltList, const [const FullType(String)]))!
               as BuiltList<Object?>);
+          break;
+        case 'isDownloaded':
+          result.isDownloaded = serializers.deserialize(value,
+              specifiedType: const FullType(bool))! as bool;
           break;
       }
     }
@@ -627,6 +634,8 @@ class _$GStickerData_sticker extends GStickerData_sticker {
   final _i2.GStickerGenre genre;
   @override
   final BuiltList<String> categories;
+  @override
+  final bool isDownloaded;
 
   factory _$GStickerData_sticker(
           [void Function(GStickerData_stickerBuilder)? updates]) =>
@@ -644,7 +653,8 @@ class _$GStickerData_sticker extends GStickerData_sticker {
       required this.likesCount,
       required this.usesCount,
       required this.genre,
-      required this.categories})
+      required this.categories,
+      required this.isDownloaded})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename, r'GStickerData_sticker', 'G__typename');
@@ -667,6 +677,8 @@ class _$GStickerData_sticker extends GStickerData_sticker {
         genre, r'GStickerData_sticker', 'genre');
     BuiltValueNullFieldError.checkNotNull(
         categories, r'GStickerData_sticker', 'categories');
+    BuiltValueNullFieldError.checkNotNull(
+        isDownloaded, r'GStickerData_sticker', 'isDownloaded');
   }
 
   @override
@@ -693,7 +705,8 @@ class _$GStickerData_sticker extends GStickerData_sticker {
         likesCount == other.likesCount &&
         usesCount == other.usesCount &&
         genre == other.genre &&
-        categories == other.categories;
+        categories == other.categories &&
+        isDownloaded == other.isDownloaded;
   }
 
   @override
@@ -711,6 +724,7 @@ class _$GStickerData_sticker extends GStickerData_sticker {
     _$hash = $jc(_$hash, usesCount.hashCode);
     _$hash = $jc(_$hash, genre.hashCode);
     _$hash = $jc(_$hash, categories.hashCode);
+    _$hash = $jc(_$hash, isDownloaded.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -729,7 +743,8 @@ class _$GStickerData_sticker extends GStickerData_sticker {
           ..add('likesCount', likesCount)
           ..add('usesCount', usesCount)
           ..add('genre', genre)
-          ..add('categories', categories))
+          ..add('categories', categories)
+          ..add('isDownloaded', isDownloaded))
         .toString();
   }
 }
@@ -791,6 +806,10 @@ class GStickerData_stickerBuilder
   set categories(ListBuilder<String>? categories) =>
       _$this._categories = categories;
 
+  bool? _isDownloaded;
+  bool? get isDownloaded => _$this._isDownloaded;
+  set isDownloaded(bool? isDownloaded) => _$this._isDownloaded = isDownloaded;
+
   GStickerData_stickerBuilder() {
     GStickerData_sticker._initializeBuilder(this);
   }
@@ -810,6 +829,7 @@ class GStickerData_stickerBuilder
       _usesCount = $v.usesCount;
       _genre = $v.genre;
       _categories = $v.categories.toBuilder();
+      _isDownloaded = $v.isDownloaded;
       _$v = null;
     }
     return this;
@@ -854,7 +874,8 @@ class GStickerData_stickerBuilder
                   usesCount, r'GStickerData_sticker', 'usesCount'),
               genre:
                   BuiltValueNullFieldError.checkNotNull(genre, r'GStickerData_sticker', 'genre'),
-              categories: categories.build());
+              categories: categories.build(),
+              isDownloaded: BuiltValueNullFieldError.checkNotNull(isDownloaded, r'GStickerData_sticker', 'isDownloaded'));
     } catch (_) {
       late String _$failedField;
       try {

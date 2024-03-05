@@ -63,6 +63,7 @@ abstract class GStickerData_sticker
   int get usesCount;
   _i2.GStickerGenre get genre;
   BuiltList<String> get categories;
+  bool get isDownloaded;
   static Serializer<GStickerData_sticker> get serializer =>
       _$gStickerDataStickerSerializer;
 
