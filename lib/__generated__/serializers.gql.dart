@@ -60,6 +60,7 @@ import 'package:aipictors/__generated__/schema.schema.gql.dart'
         GCreateReservedImageGenerationTaskInput,
         GCreateResponseCommentInput,
         GCreateStickerInput,
+        GCreateUserStickerInput,
         GCreateWorkCommentInput,
         GCreateWorkInput,
         GCreateWorkLikeInput,
@@ -88,6 +89,7 @@ import 'package:aipictors/__generated__/schema.schema.gql.dart'
         GDeletePromptonWorkInput,
         GDeletePromptonWorkLikeInput,
         GDeleteStickerInput,
+        GDeleteUserStickerInput,
         GDeleteWorkInput,
         GDeleteWorkLikeInput,
         GDirection,
@@ -144,6 +146,7 @@ import 'package:aipictors/__generated__/schema.schema.gql.dart'
         GReportUserInput,
         GReportWorkInput,
         GSignImageGenerationTermsInput,
+        GStickerGenre,
         GStickersWhereInput,
         GTagsWhereInput,
         GTestPromptonIntegrationInput,
@@ -158,6 +161,7 @@ import 'package:aipictors/__generated__/schema.schema.gql.dart'
         GUpdateAccountPasswordInput,
         GUpdateAlbumInput,
         GUpdateFolderInput,
+        GUpdateImageGenerationMemoInput,
         GUpdateNoteInput,
         GUpdateNovelInput,
         GUpdatePromptonFolderInput,
@@ -382,7 +386,13 @@ import 'package:aipictors/graphql/__generated__/promotions.req.gql.dart'
 import 'package:aipictors/graphql/__generated__/promotions.var.gql.dart'
     show GPromotionsVars;
 import 'package:aipictors/graphql/__generated__/sticker.data.gql.dart'
-    show GStickerData, GStickerData_sticker, GStickerData_sticker_image;
+    show
+        GStickerData,
+        GStickerData_sticker,
+        GStickerData_sticker_image,
+        GStickerData_sticker_user,
+        GStickerData_sticker_user_iconImage,
+        GStickerData_sticker_user_viewer;
 import 'package:aipictors/graphql/__generated__/sticker.req.gql.dart'
     show GStickerReq;
 import 'package:aipictors/graphql/__generated__/sticker.var.gql.dart'
@@ -861,6 +871,12 @@ import 'package:aipictors/graphql/mutations/__generated__/create_sticker.req.gql
     show GCreateStickerReq;
 import 'package:aipictors/graphql/mutations/__generated__/create_sticker.var.gql.dart'
     show GCreateStickerVars;
+import 'package:aipictors/graphql/mutations/__generated__/create_user_sticker.data.gql.dart'
+    show GCreateUserStickerData, GCreateUserStickerData_createUserSticker;
+import 'package:aipictors/graphql/mutations/__generated__/create_user_sticker.req.gql.dart'
+    show GCreateUserStickerReq;
+import 'package:aipictors/graphql/mutations/__generated__/create_user_sticker.var.gql.dart'
+    show GCreateUserStickerVars;
 import 'package:aipictors/graphql/mutations/__generated__/create_work.data.gql.dart'
     show GCreateWorkData, GCreateWorkData_createWork;
 import 'package:aipictors/graphql/mutations/__generated__/create_work.req.gql.dart'
@@ -918,6 +934,12 @@ import 'package:aipictors/graphql/mutations/__generated__/delete_sticker.req.gql
     show GDeleteStickerReq;
 import 'package:aipictors/graphql/mutations/__generated__/delete_sticker.var.gql.dart'
     show GDeleteStickerVars;
+import 'package:aipictors/graphql/mutations/__generated__/delete_user_sticker.data.gql.dart'
+    show GDeleteUserStickerData, GDeleteUserStickerData_deleteUserSticker;
+import 'package:aipictors/graphql/mutations/__generated__/delete_user_sticker.req.gql.dart'
+    show GDeleteUserStickerReq;
+import 'package:aipictors/graphql/mutations/__generated__/delete_user_sticker.var.gql.dart'
+    show GDeleteUserStickerVars;
 import 'package:aipictors/graphql/mutations/__generated__/delete_work.data.gql.dart'
     show GDeleteWorkData, GDeleteWorkData_deleteWork;
 import 'package:aipictors/graphql/mutations/__generated__/delete_work.req.gql.dart'
@@ -1171,6 +1193,11 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GCreateStickerInput,
   GCreateStickerReq,
   GCreateStickerVars,
+  GCreateUserStickerData,
+  GCreateUserStickerData_createUserSticker,
+  GCreateUserStickerInput,
+  GCreateUserStickerReq,
+  GCreateUserStickerVars,
   GCreateWorkCommentData,
   GCreateWorkCommentData_createWorkComment,
   GCreateWorkCommentInput,
@@ -1248,6 +1275,11 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GDeleteStickerInput,
   GDeleteStickerReq,
   GDeleteStickerVars,
+  GDeleteUserStickerData,
+  GDeleteUserStickerData_deleteUserSticker,
+  GDeleteUserStickerInput,
+  GDeleteUserStickerReq,
+  GDeleteUserStickerVars,
   GDeleteWorkData,
   GDeleteWorkData_deleteWork,
   GDeleteWorkInput,
@@ -1472,6 +1504,10 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GStickerData,
   GStickerData_sticker,
   GStickerData_sticker_image,
+  GStickerData_sticker_user,
+  GStickerData_sticker_user_iconImage,
+  GStickerData_sticker_user_viewer,
+  GStickerGenre,
   GStickerReq,
   GStickerVars,
   GStickersData,
@@ -1530,6 +1566,7 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GUpdateFolderInput,
   GUpdateFolderReq,
   GUpdateFolderVars,
+  GUpdateImageGenerationMemoInput,
   GUpdateNoteInput,
   GUpdateNovelInput,
   GUpdatePromptonFolderInput,

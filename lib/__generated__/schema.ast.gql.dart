@@ -2491,6 +2491,25 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'updateImageGenerationMemo'),
+      directives: [],
+      args: [
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'input'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'UpdateImageGenerationMemoInput'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        )
+      ],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'ImageGenerationMemoNode'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
       name: _i1.NameNode(value: 'createMessage'),
       directives: [],
       args: [
@@ -2575,6 +2594,25 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
           directives: [],
           type: _i1.NamedTypeNode(
             name: _i1.NameNode(value: 'CreateStickerInput'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        )
+      ],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'StickerNode'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'createUserSticker'),
+      directives: [],
+      args: [
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'input'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'CreateUserStickerInput'),
             isNonNull: true,
           ),
           defaultValue: null,
@@ -2891,6 +2929,25 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
           directives: [],
           type: _i1.NamedTypeNode(
             name: _i1.NameNode(value: 'DeleteStickerInput'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        )
+      ],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'StickerNode'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'deleteUserSticker'),
+      directives: [],
+      args: [
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'input'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'DeleteUserStickerInput'),
             isNonNull: true,
           ),
           defaultValue: null,
@@ -11268,6 +11325,36 @@ const StickerNode = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'isDownloaded'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Boolean'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'genre'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'StickerGenre'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'categories'),
+      directives: [],
+      args: [],
+      type: _i1.ListTypeNode(
+        type: _i1.NamedTypeNode(
+          name: _i1.NameNode(value: 'String'),
+          isNonNull: true,
+        ),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
       name: _i1.NameNode(value: 'viewer'),
       directives: [
         _i1.DirectiveNode(
@@ -12380,6 +12467,30 @@ const Viewer = _i1.ObjectTypeDefinitionNode(
       type: _i1.ListTypeNode(
         type: _i1.NamedTypeNode(
           name: _i1.NameNode(value: 'ImageGenerationTaskNode'),
+          isNonNull: true,
+        ),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'currentImageGenerationMemos'),
+      directives: [],
+      args: [],
+      type: _i1.ListTypeNode(
+        type: _i1.NamedTypeNode(
+          name: _i1.NameNode(value: 'ImageGenerationMemoNode'),
+          isNonNull: true,
+        ),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'favoritedImageGenerationModels'),
+      directives: [],
+      args: [],
+      type: _i1.ListTypeNode(
+        type: _i1.NamedTypeNode(
+          name: _i1.NameNode(value: 'ImageModelNode'),
           isNonNull: true,
         ),
         isNonNull: true,
@@ -14639,6 +14750,32 @@ const ReportReason = _i1.EnumTypeDefinitionNode(
     ),
   ],
 );
+const StickerGenre = _i1.EnumTypeDefinitionNode(
+  name: _i1.NameNode(value: 'StickerGenre'),
+  directives: [],
+  values: [
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'CHARACTER'),
+      directives: [],
+    ),
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'ANIMAL'),
+      directives: [],
+    ),
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'MACHINE'),
+      directives: [],
+    ),
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'BACKGROUND'),
+      directives: [],
+    ),
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'OBJECT'),
+      directives: [],
+    ),
+  ],
+);
 const WorkOrderBy = _i1.EnumTypeDefinitionNode(
   name: _i1.NameNode(value: 'WorkOrderBy'),
   directives: [],
@@ -15099,15 +15236,6 @@ const CreateImageGenerationMemoInput = _i1.InputObjectTypeDefinitionNode(
       defaultValue: null,
     ),
     _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'modelId'),
-      directives: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'ID'),
-        isNonNull: true,
-      ),
-      defaultValue: null,
-    ),
-    _i1.InputValueDefinitionNode(
       name: _i1.NameNode(value: 'seed'),
       directives: [],
       type: _i1.NamedTypeNode(
@@ -15157,6 +15285,15 @@ const CreateImageGenerationMemoInput = _i1.InputObjectTypeDefinitionNode(
       directives: [],
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'Int'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'modelId'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'ID'),
         isNonNull: true,
       ),
       defaultValue: null,
@@ -16508,6 +16645,21 @@ const CreateStickerInput = _i1.InputObjectTypeDefinitionNode(
     )
   ],
 );
+const CreateUserStickerInput = _i1.InputObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'CreateUserStickerInput'),
+  directives: [],
+  fields: [
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'stickerId'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'ID'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    )
+  ],
+);
 const CreateWorkCommentInput = _i1.InputObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'CreateWorkCommentInput'),
   directives: [],
@@ -17006,6 +17158,21 @@ const DeletePromptonWorkLikeInput = _i1.InputObjectTypeDefinitionNode(
 );
 const DeleteStickerInput = _i1.InputObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'DeleteStickerInput'),
+  directives: [],
+  fields: [
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'stickerId'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'ID'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    )
+  ],
+);
+const DeleteUserStickerInput = _i1.InputObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'DeleteUserStickerInput'),
   directives: [],
   fields: [
     _i1.InputValueDefinitionNode(
@@ -18145,6 +18312,129 @@ const UpdateFolderInput = _i1.InputObjectTypeDefinitionNode(
     ),
   ],
 );
+const UpdateImageGenerationMemoInput = _i1.InputObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'UpdateImageGenerationMemoInput'),
+  directives: [],
+  fields: [
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'nanoid'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'title'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'explanation'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'prompts'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'negativePrompts'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'sampler'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'modelId'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'ID'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'seed'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Int'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'steps'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Int'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'scale'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Int'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'clipSkip'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Int'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'width'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Int'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'height'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Int'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    ),
+  ],
+);
 const UpdateNoteInput = _i1.InputObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'UpdateNoteInput'),
   directives: [],
@@ -19227,6 +19517,7 @@ const document = _i1.DocumentNode(definitions: [
   PaymentType,
   Rating,
   ReportReason,
+  StickerGenre,
   WorkOrderBy,
   WorkType,
   AcceptPromptonRequestInput,
@@ -19283,6 +19574,7 @@ const document = _i1.DocumentNode(definitions: [
   CreateReservedImageGenerationTaskInput,
   CreateResponseCommentInput,
   CreateStickerInput,
+  CreateUserStickerInput,
   CreateWorkCommentInput,
   CreateWorkInput,
   CreateWorkLikeInput,
@@ -19311,6 +19603,7 @@ const document = _i1.DocumentNode(definitions: [
   DeletePromptonWorkInput,
   DeletePromptonWorkLikeInput,
   DeleteStickerInput,
+  DeleteUserStickerInput,
   DeleteWorkInput,
   DeleteWorkLikeInput,
   FlipPromptonFolderWorkIndexInput,
@@ -19368,6 +19661,7 @@ const document = _i1.DocumentNode(definitions: [
   UpdateAccountPasswordInput,
   UpdateAlbumInput,
   UpdateFolderInput,
+  UpdateImageGenerationMemoInput,
   UpdateNoteInput,
   UpdateNovelInput,
   UpdatePromptonFolderInput,

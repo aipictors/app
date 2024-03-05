@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-/// ユーザの報告
+/// スタンプの報告
 class StickerReportScreen extends HookConsumerWidget {
   const StickerReportScreen({
     super.key,

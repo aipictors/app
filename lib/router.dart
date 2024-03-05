@@ -37,7 +37,9 @@ import 'package:aipictors/screens/root_screen.dart';
 import 'package:aipictors/screens/search/search_screen.dart';
 import 'package:aipictors/screens/secret_screen.dart';
 import 'package:aipictors/screens/sticker/sticker_report_screen.dart';
+import 'package:aipictors/screens/sticker/sticker_screen.dart';
 import 'package:aipictors/screens/sticker/stickers_screen.dart';
+import 'package:aipictors/screens/sticker/stickers_search_screen.dart';
 import 'package:aipictors/screens/surveys_screen.dart';
 import 'package:aipictors/screens/tag/tag_screen.dart';
 import 'package:aipictors/screens/terms_eula_screen.dart';
@@ -267,10 +269,24 @@ final _routes = [
     },
   ),
   GoRoute(
+    path: '/stickers/:sticker_id',
+    builder: (context, state) {
+      final stickerId = state.pathParameters['sticker_id'];
+      return StickerScreen(stickerId: stickerId!);
+    },
+  ),
+  GoRoute(
     path: '/stickers/:sticker_id/report',
     builder: (context, state) {
       final stickerId = state.pathParameters['sticker_id'];
       return StickerReportScreen(stickerId: stickerId!);
+    },
+  ),
+  GoRoute(
+    path: '/stickers/search/:text',
+    builder: (context, state) {
+      final text = state.pathParameters['text'];
+      return StickersSearchScreen(text: text!);
     },
   ),
   GoRoute(

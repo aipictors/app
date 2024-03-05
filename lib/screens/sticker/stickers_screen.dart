@@ -1,7 +1,11 @@
+import 'package:aipictors/default.i18n.dart';
+import 'package:aipictors/screens/sticker/stickers_space_screen.dart';
+import 'package:aipictors/screens/viewer/viewer_stickers_screen.dart';
+import 'package:aipictors/widgets/controller/stickers_tab_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-/// スタンプの一覧
+/// スタンプ
 class StickersScreen extends HookConsumerWidget {
   const StickersScreen({
     super.key,
@@ -9,6 +13,28 @@ class StickersScreen extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
-    return const Scaffold();
+    return StickersTabController(
+      length: 2,
+      child: Scaffold(
+          key: const PageStorageKey('stickers'),
+          appBar: AppBar(
+            title: Text('スタンプ'.i18n),
+            bottom: TabBar(
+              // isScrollable: true,
+              tabs: [
+                Tab(text: 'スタンプ広場'.i18n),
+                Tab(text: 'マイスタンプ'.i18n),
+              ],
+            ),
+          ),
+          body: const TabBarView(children: [
+            StickersSpaceScreen(
+              key: PageStorageKey('stickers_space'),
+            ),
+            ViewerStickersScreen(
+              key: PageStorageKey('viewer_stickers'),
+            )
+          ])),
+    );
   }
 }
