@@ -1,17 +1,23 @@
 import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/graphql/__generated__/sticker.req.gql.dart';
+import 'package:aipictors/graphql/mutations/__generated__/create_user_sticker.data.gql.dart';
+import 'package:aipictors/graphql/mutations/__generated__/delete_user_sticker.data.gql.dart';
+import 'package:aipictors/mutations/delete_user_sticker.dart';
 import 'package:aipictors/mutations/follow_user.dart';
+import 'package:aipictors/mutations/create_user_sticker.dart';
 import 'package:aipictors/providers/auth_user_id_provider.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/screens/error/data_not_found_error_screen.dart';
 import 'package:aipictors/screens/loading_screen.dart';
 import 'package:aipictors/widgets/builder/operation_screen_builder.dart';
+import 'package:aipictors/widgets/button/create_user_sticker_button.dart';
 import 'package:aipictors/widgets/button/follow_button.dart';
 import 'package:aipictors/widgets/container/sticker_categories_container.dart';
 import 'package:aipictors/widgets/container/sticker_genre_container.dart';
 import 'package:aipictors/widgets/container/sticker_status_container.dart';
 import 'package:aipictors/widgets/container/work_user_profile_container.dart';
 import 'package:aipictors/widgets/image/interactive_work_image.dart';
+import 'package:ferry/ferry.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -33,11 +39,13 @@ class StickerScreen extends HookConsumerWidget {
       return const LoadingScreen();
     }
 
+    final request = GStickerReq((builder) {
+      return builder..vars.id = stickerId;
+    });
+
     return OperationScreenBuilder(
       client: client.value!,
-      operationRequest: GStickerReq((builder) {
-        return builder..vars.id = stickerId;
-      }),
+      operationRequest: request,
       builder: (context, response) {
         final sticker = response.data?.sticker;
         if (sticker == null) {
@@ -124,13 +132,31 @@ class StickerScreen extends HookConsumerWidget {
               ),
             ),
           ),
-          bottomNavigationBar: FilledButton(
-            style: FilledButton.styleFrom(
-              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            ),
-            child: Text('追加する'.i18n),
-            onPressed: () {},
-          ),
+          bottomNavigationBar: (authUserId.value != null)
+              ? CreateUserStickerButton(
+                  isActive: sticker.isDownloaded,
+                  onPressed: () {
+                    // スタンプ削除
+                    if (sticker.isDownloaded) {
+                      return onDeleteUserSticker(
+                        context,
+                        stickerId: stickerId,
+                        client: client.value!,
+                        request: request,
+                      );
+                    }
+                    //スタンプ追加
+                    else {
+                      return onCreateUserSticker(
+                        context,
+                        stickerId: stickerId,
+                        client: client.value!,
+                        request: request,
+                      );
+                    }
+                  },
+                )
+              : null,
         );
       },
     );
@@ -164,5 +190,33 @@ class StickerScreen extends HookConsumerWidget {
     return followUser((builder) {
       return builder..vars.input.userId = userId;
     });
+  }
+
+  /// マイスタンプに追加する
+  onCreateUserSticker(
+    BuildContext context, {
+    required String stickerId,
+    required Client client,
+    required GStickerReq request,
+  }) async {
+    GCreateUserStickerData? response = await createUserSticker((builder) {
+      return builder..vars.input.stickerId = stickerId;
+    });
+    client.requestController.add(request);
+    return response;
+  }
+
+  /// マイスタンプから削除する
+  onDeleteUserSticker(
+    BuildContext context, {
+    required String stickerId,
+    required Client client,
+    required GStickerReq request,
+  }) async {
+    GDeleteUserStickerData? response = await deleteUserSticker((builder) {
+      return builder..vars.input.stickerId = stickerId;
+    });
+    client.requestController.add(request);
+    return response;
   }
 }
