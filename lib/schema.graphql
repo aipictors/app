@@ -417,6 +417,8 @@ type Mutation {
   createResponseComment(input: CreateResponseCommentInput!): CommentNode!
   "スタンプを作成する"
   createSticker(input: CreateStickerInput!): StickerNode!
+  "マイスタンプを追加する"
+  createUserSticker(input: CreateUserStickerInput!): StickerNode!
   "パスのチェックアウトのURLを作成する"
   createPassCheckoutSession(input: CreatePassCheckoutSessionInput): String!
   "作品を作成する"
@@ -451,6 +453,8 @@ type Mutation {
   deleteNovel(input: DeleteNovelInput!): NovelNode!
   "スタンプを削除する"
   deleteSticker(input: DeleteStickerInput!): StickerNode!
+  "ユーザースタンプを削除する"
+  deleteUserSticker(input: DeleteUserStickerInput!): StickerNode!
   "作品を削除する"
   deleteWork(input: DeleteWorkInput!): WorkNode!
   "作品のスキを削除する"
@@ -1448,6 +1452,8 @@ type StickerNode implements Node {
   downloadsCount: Int!
   "いいねしている"
   isLiked: Boolean!
+  "マイスタンプに追加している"
+  isDownloaded: Boolean!
   "ジャンル"
   genre: StickerGenre!
   "カテゴリ"
@@ -2305,6 +2311,9 @@ input CreateResponseCommentInput {
 input CreateStickerInput {
   title: String!
 }
+input CreateUserStickerInput {
+  stickerId: ID!
+}
 input CreateWorkCommentInput {
   workId: ID!
   text: String!
@@ -2397,6 +2406,9 @@ input DeletePromptonWorkLikeInput {
   workId: String!
 }
 input DeleteStickerInput {
+  stickerId: ID!
+}
+input DeleteUserStickerInput {
   stickerId: ID!
 }
 input DeleteWorkInput {

@@ -2605,6 +2605,25 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'createUserSticker'),
+      directives: [],
+      args: [
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'input'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'CreateUserStickerInput'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        )
+      ],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'StickerNode'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
       name: _i1.NameNode(value: 'createPassCheckoutSession'),
       directives: [],
       args: [
@@ -2910,6 +2929,25 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
           directives: [],
           type: _i1.NamedTypeNode(
             name: _i1.NameNode(value: 'DeleteStickerInput'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        )
+      ],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'StickerNode'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'deleteUserSticker'),
+      directives: [],
+      args: [
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'input'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'DeleteUserStickerInput'),
             isNonNull: true,
           ),
           defaultValue: null,
@@ -11287,6 +11325,15 @@ const StickerNode = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'isDownloaded'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Boolean'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
       name: _i1.NameNode(value: 'genre'),
       directives: [],
       args: [],
@@ -16598,6 +16645,21 @@ const CreateStickerInput = _i1.InputObjectTypeDefinitionNode(
     )
   ],
 );
+const CreateUserStickerInput = _i1.InputObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'CreateUserStickerInput'),
+  directives: [],
+  fields: [
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'stickerId'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'ID'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    )
+  ],
+);
 const CreateWorkCommentInput = _i1.InputObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'CreateWorkCommentInput'),
   directives: [],
@@ -17096,6 +17158,21 @@ const DeletePromptonWorkLikeInput = _i1.InputObjectTypeDefinitionNode(
 );
 const DeleteStickerInput = _i1.InputObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'DeleteStickerInput'),
+  directives: [],
+  fields: [
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'stickerId'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'ID'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    )
+  ],
+);
+const DeleteUserStickerInput = _i1.InputObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'DeleteUserStickerInput'),
   directives: [],
   fields: [
     _i1.InputValueDefinitionNode(
@@ -19497,6 +19574,7 @@ const document = _i1.DocumentNode(definitions: [
   CreateReservedImageGenerationTaskInput,
   CreateResponseCommentInput,
   CreateStickerInput,
+  CreateUserStickerInput,
   CreateWorkCommentInput,
   CreateWorkInput,
   CreateWorkLikeInput,
@@ -19525,6 +19603,7 @@ const document = _i1.DocumentNode(definitions: [
   DeletePromptonWorkInput,
   DeletePromptonWorkLikeInput,
   DeleteStickerInput,
+  DeleteUserStickerInput,
   DeleteWorkInput,
   DeleteWorkLikeInput,
   FlipPromptonFolderWorkIndexInput,

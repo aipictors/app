@@ -1905,6 +1905,30 @@ abstract class GCreateStickerInput
       );
 }
 
+abstract class GCreateUserStickerInput
+    implements Built<GCreateUserStickerInput, GCreateUserStickerInputBuilder> {
+  GCreateUserStickerInput._();
+
+  factory GCreateUserStickerInput(
+          [Function(GCreateUserStickerInputBuilder b) updates]) =
+      _$GCreateUserStickerInput;
+
+  String get stickerId;
+  static Serializer<GCreateUserStickerInput> get serializer =>
+      _$gCreateUserStickerInputSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GCreateUserStickerInput.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GCreateUserStickerInput? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GCreateUserStickerInput.serializer,
+        json,
+      );
+}
+
 abstract class GCreateWorkCommentInput
     implements Built<GCreateWorkCommentInput, GCreateWorkCommentInputBuilder> {
   GCreateWorkCommentInput._();
@@ -2602,6 +2626,30 @@ abstract class GDeleteStickerInput
   static GDeleteStickerInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GDeleteStickerInput.serializer,
+        json,
+      );
+}
+
+abstract class GDeleteUserStickerInput
+    implements Built<GDeleteUserStickerInput, GDeleteUserStickerInputBuilder> {
+  GDeleteUserStickerInput._();
+
+  factory GDeleteUserStickerInput(
+          [Function(GDeleteUserStickerInputBuilder b) updates]) =
+      _$GDeleteUserStickerInput;
+
+  String get stickerId;
+  static Serializer<GDeleteUserStickerInput> get serializer =>
+      _$gDeleteUserStickerInputSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GDeleteUserStickerInput.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GDeleteUserStickerInput? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GDeleteUserStickerInput.serializer,
         json,
       );
 }

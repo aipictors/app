@@ -815,6 +815,8 @@ Serializer<GCreateResponseCommentInput>
     new _$GCreateResponseCommentInputSerializer();
 Serializer<GCreateStickerInput> _$gCreateStickerInputSerializer =
     new _$GCreateStickerInputSerializer();
+Serializer<GCreateUserStickerInput> _$gCreateUserStickerInputSerializer =
+    new _$GCreateUserStickerInputSerializer();
 Serializer<GCreateWorkCommentInput> _$gCreateWorkCommentInputSerializer =
     new _$GCreateWorkCommentInputSerializer();
 Serializer<GCreateWorkInput> _$gCreateWorkInputSerializer =
@@ -880,6 +882,8 @@ Serializer<GDeletePromptonWorkLikeInput>
     new _$GDeletePromptonWorkLikeInputSerializer();
 Serializer<GDeleteStickerInput> _$gDeleteStickerInputSerializer =
     new _$GDeleteStickerInputSerializer();
+Serializer<GDeleteUserStickerInput> _$gDeleteUserStickerInputSerializer =
+    new _$GDeleteUserStickerInputSerializer();
 Serializer<GDeleteWorkInput> _$gDeleteWorkInputSerializer =
     new _$GDeleteWorkInputSerializer();
 Serializer<GDeleteWorkLikeInput> _$gDeleteWorkLikeInputSerializer =
@@ -4779,6 +4783,52 @@ class _$GCreateStickerInputSerializer
   }
 }
 
+class _$GCreateUserStickerInputSerializer
+    implements StructuredSerializer<GCreateUserStickerInput> {
+  @override
+  final Iterable<Type> types = const [
+    GCreateUserStickerInput,
+    _$GCreateUserStickerInput
+  ];
+  @override
+  final String wireName = 'GCreateUserStickerInput';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GCreateUserStickerInput object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'stickerId',
+      serializers.serialize(object.stickerId,
+          specifiedType: const FullType(String)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GCreateUserStickerInput deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GCreateUserStickerInputBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'stickerId':
+          result.stickerId = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$GCreateWorkCommentInputSerializer
     implements StructuredSerializer<GCreateWorkCommentInput> {
   @override
@@ -6122,6 +6172,52 @@ class _$GDeleteStickerInputSerializer
       Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GDeleteStickerInputBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'stickerId':
+          result.stickerId = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GDeleteUserStickerInputSerializer
+    implements StructuredSerializer<GDeleteUserStickerInput> {
+  @override
+  final Iterable<Type> types = const [
+    GDeleteUserStickerInput,
+    _$GDeleteUserStickerInput
+  ];
+  @override
+  final String wireName = 'GDeleteUserStickerInput';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GDeleteUserStickerInput object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'stickerId',
+      serializers.serialize(object.stickerId,
+          specifiedType: const FullType(String)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GDeleteUserStickerInput deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GDeleteUserStickerInputBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -17394,6 +17490,94 @@ class GCreateStickerInputBuilder
   }
 }
 
+class _$GCreateUserStickerInput extends GCreateUserStickerInput {
+  @override
+  final String stickerId;
+
+  factory _$GCreateUserStickerInput(
+          [void Function(GCreateUserStickerInputBuilder)? updates]) =>
+      (new GCreateUserStickerInputBuilder()..update(updates))._build();
+
+  _$GCreateUserStickerInput._({required this.stickerId}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        stickerId, r'GCreateUserStickerInput', 'stickerId');
+  }
+
+  @override
+  GCreateUserStickerInput rebuild(
+          void Function(GCreateUserStickerInputBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GCreateUserStickerInputBuilder toBuilder() =>
+      new GCreateUserStickerInputBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GCreateUserStickerInput && stickerId == other.stickerId;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, stickerId.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GCreateUserStickerInput')
+          ..add('stickerId', stickerId))
+        .toString();
+  }
+}
+
+class GCreateUserStickerInputBuilder
+    implements
+        Builder<GCreateUserStickerInput, GCreateUserStickerInputBuilder> {
+  _$GCreateUserStickerInput? _$v;
+
+  String? _stickerId;
+  String? get stickerId => _$this._stickerId;
+  set stickerId(String? stickerId) => _$this._stickerId = stickerId;
+
+  GCreateUserStickerInputBuilder();
+
+  GCreateUserStickerInputBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _stickerId = $v.stickerId;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GCreateUserStickerInput other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GCreateUserStickerInput;
+  }
+
+  @override
+  void update(void Function(GCreateUserStickerInputBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GCreateUserStickerInput build() => _build();
+
+  _$GCreateUserStickerInput _build() {
+    final _$result = _$v ??
+        new _$GCreateUserStickerInput._(
+            stickerId: BuiltValueNullFieldError.checkNotNull(
+                stickerId, r'GCreateUserStickerInput', 'stickerId'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
 class _$GCreateWorkCommentInput extends GCreateWorkCommentInput {
   @override
   final String workId;
@@ -20012,6 +20196,94 @@ class GDeleteStickerInputBuilder
         new _$GDeleteStickerInput._(
             stickerId: BuiltValueNullFieldError.checkNotNull(
                 stickerId, r'GDeleteStickerInput', 'stickerId'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GDeleteUserStickerInput extends GDeleteUserStickerInput {
+  @override
+  final String stickerId;
+
+  factory _$GDeleteUserStickerInput(
+          [void Function(GDeleteUserStickerInputBuilder)? updates]) =>
+      (new GDeleteUserStickerInputBuilder()..update(updates))._build();
+
+  _$GDeleteUserStickerInput._({required this.stickerId}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        stickerId, r'GDeleteUserStickerInput', 'stickerId');
+  }
+
+  @override
+  GDeleteUserStickerInput rebuild(
+          void Function(GDeleteUserStickerInputBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GDeleteUserStickerInputBuilder toBuilder() =>
+      new GDeleteUserStickerInputBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GDeleteUserStickerInput && stickerId == other.stickerId;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, stickerId.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GDeleteUserStickerInput')
+          ..add('stickerId', stickerId))
+        .toString();
+  }
+}
+
+class GDeleteUserStickerInputBuilder
+    implements
+        Builder<GDeleteUserStickerInput, GDeleteUserStickerInputBuilder> {
+  _$GDeleteUserStickerInput? _$v;
+
+  String? _stickerId;
+  String? get stickerId => _$this._stickerId;
+  set stickerId(String? stickerId) => _$this._stickerId = stickerId;
+
+  GDeleteUserStickerInputBuilder();
+
+  GDeleteUserStickerInputBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _stickerId = $v.stickerId;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GDeleteUserStickerInput other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GDeleteUserStickerInput;
+  }
+
+  @override
+  void update(void Function(GDeleteUserStickerInputBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GDeleteUserStickerInput build() => _build();
+
+  _$GDeleteUserStickerInput _build() {
+    final _$result = _$v ??
+        new _$GDeleteUserStickerInput._(
+            stickerId: BuiltValueNullFieldError.checkNotNull(
+                stickerId, r'GDeleteUserStickerInput', 'stickerId'));
     replace(_$result);
     return _$result;
   }
