@@ -133,28 +133,31 @@ class StickerScreen extends HookConsumerWidget {
             ),
           ),
           bottomNavigationBar: (authUserId.value != null)
-              ? CreateUserStickerButton(
-                  isActive: sticker.isDownloaded,
-                  onPressed: () {
-                    // スタンプ削除
-                    if (sticker.isDownloaded) {
-                      return onDeleteUserSticker(
-                        context,
-                        stickerId: stickerId,
-                        client: client.value!,
-                        request: request,
-                      );
-                    }
-                    //スタンプ追加
-                    else {
-                      return onCreateUserSticker(
-                        context,
-                        stickerId: stickerId,
-                        client: client.value!,
-                        request: request,
-                      );
-                    }
-                  },
+              ? Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: CreateUserStickerButton(
+                    isActive: sticker.isDownloaded,
+                    onPressed: () {
+                      // スタンプ削除
+                      if (sticker.isDownloaded) {
+                        return onDeleteUserSticker(
+                          context,
+                          stickerId: stickerId,
+                          client: client.value!,
+                          request: request,
+                        );
+                      }
+                      //スタンプ追加
+                      else {
+                        return onCreateUserSticker(
+                          context,
+                          stickerId: stickerId,
+                          client: client.value!,
+                          request: request,
+                        );
+                      }
+                    },
+                  ),
                 )
               : null,
         );
