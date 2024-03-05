@@ -12,6 +12,7 @@ import 'package:aipictors/screens/loading_screen.dart';
 import 'package:aipictors/widgets/builder/operation_screen_builder.dart';
 import 'package:aipictors/widgets/button/create_user_sticker_button.dart';
 import 'package:aipictors/widgets/button/follow_button.dart';
+import 'package:aipictors/widgets/container/modal/sticker_action_modal_container.dart';
 import 'package:aipictors/widgets/container/sticker_categories_container.dart';
 import 'package:aipictors/widgets/container/sticker_genre_container.dart';
 import 'package:aipictors/widgets/container/sticker_status_container.dart';
@@ -63,7 +64,6 @@ class StickerScreen extends HookConsumerWidget {
                     context,
                     userId: sticker.user.id,
                     userName: sticker.user.name,
-                    stickerTitle: sticker.title,
                     isMutedUser: sticker.user.viewer?.isMuted == true,
                   );
                 },
@@ -166,23 +166,19 @@ class StickerScreen extends HookConsumerWidget {
     BuildContext context, {
     required String userId,
     required String userName,
-    required String stickerTitle,
     required bool isMutedUser,
   }) {
-    /*showModalBottomSheet(
+    showModalBottomSheet(
       context: context,
       builder: (context) {
-        return WorkActionModalContainer(
+        return StickerActionModalContainer(
           stickerId: stickerId,
-          stickerTitle: stickerTitle,
           userId: userId,
           userName: userName,
           isMutedUser: isMutedUser,
         );
       },
-    );*/
-    //TODO: スタンプの通報機能を実装する
-    print(userId);
+    );
   }
 
   /// フォローする
