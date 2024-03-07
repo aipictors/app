@@ -5,6 +5,15 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:like_button/like_button.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
+
+@widgetbook.UseCase(
+  name: 'FeedLikeButton',
+  type: FeedLikeButton,
+)
+FeedLikeButton feedLikeButton(BuildContext context) {
+  return FeedLikeButton(count: 0, isActive: true, onTap: () {});
+}
 
 class FeedLikeButton extends HookConsumerWidget {
   const FeedLikeButton({
