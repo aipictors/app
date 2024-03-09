@@ -148,6 +148,8 @@ abstract class GWorkCommentResponsesData_work_comment_user
   String get login;
   @override
   GWorkCommentResponsesData_work_comment_user_iconImage? get iconImage;
+  @override
+  bool get isMuted;
   static Serializer<GWorkCommentResponsesData_work_comment_user>
       get serializer => _$gWorkCommentResponsesDataWorkCommentUserSerializer;
 
@@ -359,6 +361,8 @@ abstract class GWorkCommentResponsesData_work_comment_responses_user
   @override
   GWorkCommentResponsesData_work_comment_responses_user_iconImage?
       get iconImage;
+  @override
+  bool get isMuted;
   static Serializer<GWorkCommentResponsesData_work_comment_responses_user>
       get serializer =>
           _$gWorkCommentResponsesDataWorkCommentResponsesUserSerializer;

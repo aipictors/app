@@ -4,6 +4,7 @@ import 'package:aipictors/providers/auth_state_provider.dart';
 import 'package:aipictors/providers/auth_user_id_provider.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/widgets/container/loading_container.dart';
+import 'package:aipictors/widgets/container/modal/comment_action_modal_container.dart';
 import 'package:aipictors/widgets/container/modal/comment_details_modal_container.dart';
 import 'package:aipictors/widgets/container/work_comment_form_container.dart';
 import 'package:aipictors/widgets/list_tile/work_comment_list_tile.dart';
@@ -74,17 +75,24 @@ class WorkCommentContainer extends HookConsumerWidget {
                   return Column(
                     children: [
                       WorkCommentListTile(
-                          comment: commentList[index],
-                          isResponse: false,
-                          onTap: () {
-                            if (commentList[index].user!.id ==
-                                authUserId.value) {
-                              return;
-                            }
-                            onOpenDetailsModal(context,
-                                workId: workId,
-                                commentId: commentList[index].id);
-                          }),
+                        comment: commentList[index],
+                        isResponse: false,
+                        onTap: () {
+                          if (commentList[index].user!.id == authUserId.value) {
+                            return;
+                          }
+                          onOpenDetailsModal(context,
+                              workId: workId, commentId: commentList[index].id);
+                        },
+                        onLongPress: () {
+                          onOpenActionModal(
+                            context,
+                            commentId: commentList[index].id,
+                            userId: commentList[index].user!.id,
+                            isMutedUser: commentList[index].user!.isMuted,
+                          );
+                        },
+                      ),
                       for (final response in commentList[index].responses)
                         WorkCommentListTile(
                           comment: response,
@@ -97,6 +105,14 @@ class WorkCommentContainer extends HookConsumerWidget {
                             onOpenDetailsModal(context,
                                 workId: workId,
                                 commentId: commentList[index].id);
+                          },
+                          onLongPress: () {
+                            onOpenActionModal(
+                              context,
+                              commentId: commentList[index].id,
+                              userId: commentList[index].user!.id,
+                              isMutedUser: commentList[index].user!.isMuted,
+                            );
                           },
                         ),
                     ],
@@ -116,6 +132,24 @@ class WorkCommentContainer extends HookConsumerWidget {
         return CommentDetailsModalContainer(
           workId: workId,
           commentId: commentId,
+        );
+      },
+    );
+  }
+
+  onOpenActionModal(
+    BuildContext context, {
+    required String commentId,
+    required String userId,
+    required bool isMutedUser,
+  }) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return CommentActionModalContainer(
+          commentId: commentId,
+          userId: userId,
+          isMutedUser: isMutedUser,
         );
       },
     );

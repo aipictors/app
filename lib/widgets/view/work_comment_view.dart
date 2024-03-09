@@ -2,6 +2,7 @@ import 'package:aipictors/graphql/__generated__/work_comments.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/screens/loading_screen.dart';
 import 'package:aipictors/widgets/container/loading_container.dart';
+import 'package:aipictors/widgets/container/modal/comment_action_modal_container.dart';
 import 'package:aipictors/widgets/list_tile/work_comment_list_tile.dart';
 import 'package:ferry_flutter/ferry_flutter.dart';
 import 'package:flutter/material.dart';
@@ -51,16 +52,50 @@ class WorkCommentView extends HookConsumerWidget {
                   comment: comment,
                   isResponse: false,
                   onTap: () {},
+                  onLongPress: () {
+                    onOpenActionModal(
+                      context,
+                      commentId: comment.id,
+                      userId: comment.user!.id,
+                      isMutedUser: comment.user!.isMuted,
+                    );
+                  },
                 ),
                 for (final response in comment.responses)
                   WorkCommentListTile(
                     comment: response,
                     isResponse: true,
                     onTap: () {},
+                    onLongPress: () {
+                      onOpenActionModal(
+                        context,
+                        commentId: comment.id,
+                        userId: comment.user!.id,
+                        isMutedUser: comment.user!.isMuted,
+                      );
+                    },
                   ),
               ],
             )
         ]);
+      },
+    );
+  }
+
+  onOpenActionModal(
+    BuildContext context, {
+    required String commentId,
+    required String userId,
+    required bool isMutedUser,
+  }) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return CommentActionModalContainer(
+          commentId: commentId,
+          userId: userId,
+          isMutedUser: isMutedUser,
+        );
       },
     );
   }

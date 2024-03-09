@@ -6,6 +6,7 @@ fragment CommentFields on CommentNode {
   text
   user {
     ...WorkUserFields
+    isMuted
   }
   sticker {
     id

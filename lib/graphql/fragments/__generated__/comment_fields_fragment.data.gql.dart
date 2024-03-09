@@ -31,6 +31,7 @@ abstract class GCommentFields_user implements _i1.GWorkUserFields {
   String get login;
   @override
   GCommentFields_user_iconImage? get iconImage;
+  bool get isMuted;
   @override
   Map<String, dynamic> toJson();
 }
@@ -127,6 +128,8 @@ abstract class GCommentFieldsData_user
   String get login;
   @override
   GCommentFieldsData_user_iconImage? get iconImage;
+  @override
+  bool get isMuted;
   static Serializer<GCommentFieldsData_user> get serializer =>
       _$gCommentFieldsDataUserSerializer;
 

@@ -11,6 +11,7 @@ class WorkCommentListTile extends HookConsumerWidget {
     required this.comment,
     required this.isResponse,
     required this.onTap,
+    required this.onLongPress,
   });
 
   final GCommentFields comment;
@@ -19,12 +20,17 @@ class WorkCommentListTile extends HookConsumerWidget {
 
   final VoidCallback onTap;
 
+  final VoidCallback onLongPress;
+
   @override
   Widget build(context, ref) {
     return ListTile(
       minVerticalPadding: 0,
       onTap: () {
         onTap();
+      },
+      onLongPress: () {
+        onLongPress();
       },
       leading: isResponse
           ? Icon(

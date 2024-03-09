@@ -6,6 +6,7 @@ import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/widgets/container/error/data_empty_error_container.dart';
 import 'package:aipictors/widgets/container/error/unexpected_error_container.dart';
 import 'package:aipictors/widgets/container/loading_container.dart';
+import 'package:aipictors/widgets/container/modal/comment_action_modal_container.dart';
 import 'package:aipictors/widgets/container/modal_header_container.dart';
 import 'package:aipictors/widgets/container/work_comment_form_container.dart';
 import 'package:aipictors/widgets/list_tile/work_comment_list_tile.dart';
@@ -82,12 +83,28 @@ class CommentModalContainer extends HookConsumerWidget {
                                 comment: comment,
                                 isResponse: false,
                                 onTap: () {},
+                                onLongPress: () {
+                                  onOpenActionModal(
+                                    context,
+                                    commentId: comment.id,
+                                    userId: comment.user!.id,
+                                    isMutedUser: comment.user!.isMuted,
+                                  );
+                                },
                               ),
                               for (final response in comment.responses)
                                 WorkCommentListTile(
                                   comment: response,
                                   isResponse: true,
                                   onTap: () {},
+                                  onLongPress: () {
+                                    onOpenActionModal(
+                                      context,
+                                      commentId: comment.id,
+                                      userId: comment.user!.id,
+                                      isMutedUser: comment.user!.isMuted,
+                                    );
+                                  },
                                 ),
                             ],
                           )
@@ -127,6 +144,24 @@ class CommentModalContainer extends HookConsumerWidget {
           ),
         ),
       ),
+    );
+  }
+
+  onOpenActionModal(
+    BuildContext context, {
+    required String commentId,
+    required String userId,
+    required bool isMutedUser,
+  }) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return CommentActionModalContainer(
+          commentId: commentId,
+          userId: userId,
+          isMutedUser: isMutedUser,
+        );
+      },
     );
   }
 }

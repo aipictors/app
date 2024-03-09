@@ -293,6 +293,9 @@ class _$GWorkCommentResponsesData_work_comment_userSerializer
       'login',
       serializers.serialize(object.login,
           specifiedType: const FullType(String)),
+      'isMuted',
+      serializers.serialize(object.isMuted,
+          specifiedType: const FullType(bool)),
     ];
     Object? value;
     value = object.iconImage;
@@ -339,6 +342,10 @@ class _$GWorkCommentResponsesData_work_comment_userSerializer
                   specifiedType: const FullType(
                       GWorkCommentResponsesData_work_comment_user_iconImage))!
               as GWorkCommentResponsesData_work_comment_user_iconImage);
+          break;
+        case 'isMuted':
+          result.isMuted = serializers.deserialize(value,
+              specifiedType: const FullType(bool))! as bool;
           break;
       }
     }
@@ -663,6 +670,9 @@ class _$GWorkCommentResponsesData_work_comment_responses_userSerializer
       'login',
       serializers.serialize(object.login,
           specifiedType: const FullType(String)),
+      'isMuted',
+      serializers.serialize(object.isMuted,
+          specifiedType: const FullType(bool)),
     ];
     Object? value;
     value = object.iconImage;
@@ -710,6 +720,10 @@ class _$GWorkCommentResponsesData_work_comment_responses_userSerializer
                   specifiedType: const FullType(
                       GWorkCommentResponsesData_work_comment_responses_user_iconImage))!
               as GWorkCommentResponsesData_work_comment_responses_user_iconImage);
+          break;
+        case 'isMuted':
+          result.isMuted = serializers.deserialize(value,
+              specifiedType: const FullType(bool))! as bool;
           break;
       }
     }
@@ -1391,6 +1405,8 @@ class _$GWorkCommentResponsesData_work_comment_user
   final String login;
   @override
   final GWorkCommentResponsesData_work_comment_user_iconImage? iconImage;
+  @override
+  final bool isMuted;
 
   factory _$GWorkCommentResponsesData_work_comment_user(
           [void Function(GWorkCommentResponsesData_work_comment_userBuilder)?
@@ -1404,7 +1420,8 @@ class _$GWorkCommentResponsesData_work_comment_user
       required this.id,
       required this.name,
       required this.login,
-      this.iconImage})
+      this.iconImage,
+      required this.isMuted})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(G__typename,
         r'GWorkCommentResponsesData_work_comment_user', 'G__typename');
@@ -1414,6 +1431,8 @@ class _$GWorkCommentResponsesData_work_comment_user
         name, r'GWorkCommentResponsesData_work_comment_user', 'name');
     BuiltValueNullFieldError.checkNotNull(
         login, r'GWorkCommentResponsesData_work_comment_user', 'login');
+    BuiltValueNullFieldError.checkNotNull(
+        isMuted, r'GWorkCommentResponsesData_work_comment_user', 'isMuted');
   }
 
   @override
@@ -1434,7 +1453,8 @@ class _$GWorkCommentResponsesData_work_comment_user
         id == other.id &&
         name == other.name &&
         login == other.login &&
-        iconImage == other.iconImage;
+        iconImage == other.iconImage &&
+        isMuted == other.isMuted;
   }
 
   @override
@@ -1445,6 +1465,7 @@ class _$GWorkCommentResponsesData_work_comment_user
     _$hash = $jc(_$hash, name.hashCode);
     _$hash = $jc(_$hash, login.hashCode);
     _$hash = $jc(_$hash, iconImage.hashCode);
+    _$hash = $jc(_$hash, isMuted.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -1457,7 +1478,8 @@ class _$GWorkCommentResponsesData_work_comment_user
           ..add('id', id)
           ..add('name', name)
           ..add('login', login)
-          ..add('iconImage', iconImage))
+          ..add('iconImage', iconImage)
+          ..add('isMuted', isMuted))
         .toString();
   }
 }
@@ -1493,6 +1515,10 @@ class GWorkCommentResponsesData_work_comment_userBuilder
               iconImage) =>
       _$this._iconImage = iconImage;
 
+  bool? _isMuted;
+  bool? get isMuted => _$this._isMuted;
+  set isMuted(bool? isMuted) => _$this._isMuted = isMuted;
+
   GWorkCommentResponsesData_work_comment_userBuilder() {
     GWorkCommentResponsesData_work_comment_user._initializeBuilder(this);
   }
@@ -1505,6 +1531,7 @@ class GWorkCommentResponsesData_work_comment_userBuilder
       _name = $v.name;
       _login = $v.login;
       _iconImage = $v.iconImage?.toBuilder();
+      _isMuted = $v.isMuted;
       _$v = null;
     }
     return this;
@@ -1541,7 +1568,9 @@ class GWorkCommentResponsesData_work_comment_userBuilder
                   name, r'GWorkCommentResponsesData_work_comment_user', 'name'),
               login: BuiltValueNullFieldError.checkNotNull(login,
                   r'GWorkCommentResponsesData_work_comment_user', 'login'),
-              iconImage: _iconImage?.build());
+              iconImage: _iconImage?.build(),
+              isMuted: BuiltValueNullFieldError.checkNotNull(isMuted,
+                  r'GWorkCommentResponsesData_work_comment_user', 'isMuted'));
     } catch (_) {
       late String _$failedField;
       try {
@@ -2207,6 +2236,8 @@ class _$GWorkCommentResponsesData_work_comment_responses_user
   @override
   final GWorkCommentResponsesData_work_comment_responses_user_iconImage?
       iconImage;
+  @override
+  final bool isMuted;
 
   factory _$GWorkCommentResponsesData_work_comment_responses_user(
           [void Function(
@@ -2221,7 +2252,8 @@ class _$GWorkCommentResponsesData_work_comment_responses_user
       required this.id,
       required this.name,
       required this.login,
-      this.iconImage})
+      this.iconImage,
+      required this.isMuted})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename,
@@ -2233,6 +2265,8 @@ class _$GWorkCommentResponsesData_work_comment_responses_user
         name, r'GWorkCommentResponsesData_work_comment_responses_user', 'name');
     BuiltValueNullFieldError.checkNotNull(login,
         r'GWorkCommentResponsesData_work_comment_responses_user', 'login');
+    BuiltValueNullFieldError.checkNotNull(isMuted,
+        r'GWorkCommentResponsesData_work_comment_responses_user', 'isMuted');
   }
 
   @override
@@ -2255,7 +2289,8 @@ class _$GWorkCommentResponsesData_work_comment_responses_user
         id == other.id &&
         name == other.name &&
         login == other.login &&
-        iconImage == other.iconImage;
+        iconImage == other.iconImage &&
+        isMuted == other.isMuted;
   }
 
   @override
@@ -2266,6 +2301,7 @@ class _$GWorkCommentResponsesData_work_comment_responses_user
     _$hash = $jc(_$hash, name.hashCode);
     _$hash = $jc(_$hash, login.hashCode);
     _$hash = $jc(_$hash, iconImage.hashCode);
+    _$hash = $jc(_$hash, isMuted.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -2278,7 +2314,8 @@ class _$GWorkCommentResponsesData_work_comment_responses_user
           ..add('id', id)
           ..add('name', name)
           ..add('login', login)
-          ..add('iconImage', iconImage))
+          ..add('iconImage', iconImage)
+          ..add('isMuted', isMuted))
         .toString();
   }
 }
@@ -2315,6 +2352,10 @@ class GWorkCommentResponsesData_work_comment_responses_userBuilder
               iconImage) =>
       _$this._iconImage = iconImage;
 
+  bool? _isMuted;
+  bool? get isMuted => _$this._isMuted;
+  set isMuted(bool? isMuted) => _$this._isMuted = isMuted;
+
   GWorkCommentResponsesData_work_comment_responses_userBuilder() {
     GWorkCommentResponsesData_work_comment_responses_user._initializeBuilder(
         this);
@@ -2328,6 +2369,7 @@ class GWorkCommentResponsesData_work_comment_responses_userBuilder
       _name = $v.name;
       _login = $v.login;
       _iconImage = $v.iconImage?.toBuilder();
+      _isMuted = $v.isMuted;
       _$v = null;
     }
     return this;
@@ -2360,9 +2402,7 @@ class GWorkCommentResponsesData_work_comment_responses_userBuilder
                   r'GWorkCommentResponsesData_work_comment_responses_user',
                   'G__typename'),
               id: BuiltValueNullFieldError.checkNotNull(
-                  id,
-                  r'GWorkCommentResponsesData_work_comment_responses_user',
-                  'id'),
+                  id, r'GWorkCommentResponsesData_work_comment_responses_user', 'id'),
               name: BuiltValueNullFieldError.checkNotNull(
                   name,
                   r'GWorkCommentResponsesData_work_comment_responses_user',
@@ -2371,7 +2411,11 @@ class GWorkCommentResponsesData_work_comment_responses_userBuilder
                   login,
                   r'GWorkCommentResponsesData_work_comment_responses_user',
                   'login'),
-              iconImage: _iconImage?.build());
+              iconImage: _iconImage?.build(),
+              isMuted: BuiltValueNullFieldError.checkNotNull(
+                  isMuted,
+                  r'GWorkCommentResponsesData_work_comment_responses_user',
+                  'isMuted'));
     } catch (_) {
       late String _$failedField;
       try {

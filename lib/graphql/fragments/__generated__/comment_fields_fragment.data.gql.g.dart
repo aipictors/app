@@ -130,6 +130,9 @@ class _$GCommentFieldsData_userSerializer
       'login',
       serializers.serialize(object.login,
           specifiedType: const FullType(String)),
+      'isMuted',
+      serializers.serialize(object.isMuted,
+          specifiedType: const FullType(bool)),
     ];
     Object? value;
     value = object.iconImage;
@@ -175,6 +178,10 @@ class _$GCommentFieldsData_userSerializer
                   specifiedType:
                       const FullType(GCommentFieldsData_user_iconImage))!
               as GCommentFieldsData_user_iconImage);
+          break;
+        case 'isMuted':
+          result.isMuted = serializers.deserialize(value,
+              specifiedType: const FullType(bool))! as bool;
           break;
       }
     }
@@ -554,6 +561,8 @@ class _$GCommentFieldsData_user extends GCommentFieldsData_user {
   final String login;
   @override
   final GCommentFieldsData_user_iconImage? iconImage;
+  @override
+  final bool isMuted;
 
   factory _$GCommentFieldsData_user(
           [void Function(GCommentFieldsData_userBuilder)? updates]) =>
@@ -564,7 +573,8 @@ class _$GCommentFieldsData_user extends GCommentFieldsData_user {
       required this.id,
       required this.name,
       required this.login,
-      this.iconImage})
+      this.iconImage,
+      required this.isMuted})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename, r'GCommentFieldsData_user', 'G__typename');
@@ -573,6 +583,8 @@ class _$GCommentFieldsData_user extends GCommentFieldsData_user {
         name, r'GCommentFieldsData_user', 'name');
     BuiltValueNullFieldError.checkNotNull(
         login, r'GCommentFieldsData_user', 'login');
+    BuiltValueNullFieldError.checkNotNull(
+        isMuted, r'GCommentFieldsData_user', 'isMuted');
   }
 
   @override
@@ -592,7 +604,8 @@ class _$GCommentFieldsData_user extends GCommentFieldsData_user {
         id == other.id &&
         name == other.name &&
         login == other.login &&
-        iconImage == other.iconImage;
+        iconImage == other.iconImage &&
+        isMuted == other.isMuted;
   }
 
   @override
@@ -603,6 +616,7 @@ class _$GCommentFieldsData_user extends GCommentFieldsData_user {
     _$hash = $jc(_$hash, name.hashCode);
     _$hash = $jc(_$hash, login.hashCode);
     _$hash = $jc(_$hash, iconImage.hashCode);
+    _$hash = $jc(_$hash, isMuted.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -614,7 +628,8 @@ class _$GCommentFieldsData_user extends GCommentFieldsData_user {
           ..add('id', id)
           ..add('name', name)
           ..add('login', login)
-          ..add('iconImage', iconImage))
+          ..add('iconImage', iconImage)
+          ..add('isMuted', isMuted))
         .toString();
   }
 }
@@ -646,6 +661,10 @@ class GCommentFieldsData_userBuilder
   set iconImage(GCommentFieldsData_user_iconImageBuilder? iconImage) =>
       _$this._iconImage = iconImage;
 
+  bool? _isMuted;
+  bool? get isMuted => _$this._isMuted;
+  set isMuted(bool? isMuted) => _$this._isMuted = isMuted;
+
   GCommentFieldsData_userBuilder() {
     GCommentFieldsData_user._initializeBuilder(this);
   }
@@ -658,6 +677,7 @@ class GCommentFieldsData_userBuilder
       _name = $v.name;
       _login = $v.login;
       _iconImage = $v.iconImage?.toBuilder();
+      _isMuted = $v.isMuted;
       _$v = null;
     }
     return this;
@@ -690,7 +710,9 @@ class GCommentFieldsData_userBuilder
                   name, r'GCommentFieldsData_user', 'name'),
               login: BuiltValueNullFieldError.checkNotNull(
                   login, r'GCommentFieldsData_user', 'login'),
-              iconImage: _iconImage?.build());
+              iconImage: _iconImage?.build(),
+              isMuted: BuiltValueNullFieldError.checkNotNull(
+                  isMuted, r'GCommentFieldsData_user', 'isMuted'));
     } catch (_) {
       late String _$failedField;
       try {
