@@ -68,7 +68,7 @@ class StickerActionModalContainer extends HookConsumerWidget {
               titleText: 'スタンプを報告する'.i18n,
               onTap: () {
                 context.pop();
-                context.push('/works/$stickerId/report');
+                context.push('/stickers/$stickerId/report');
               },
             ),
             ModalReportListTile(
