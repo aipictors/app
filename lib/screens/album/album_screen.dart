@@ -90,7 +90,7 @@ class AlbumScreen extends HookConsumerWidget {
                 albumDescription: album.description,
                 userId: album.user.id,
                 userName: album.user.name,
-                userIconImageURL: album.user.iconImage!.downloadURL,
+                userIconImageURL: album.user.iconImage?.downloadURL,
                 isFollowee: album.user.viewer?.isFollowee == true,
               ),
             );

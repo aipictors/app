@@ -28,7 +28,7 @@ class AlbumHeader extends HookConsumerWidget {
 
   final String userName;
 
-  final String userIconImageURL;
+  final String? userIconImageURL;
 
   final bool isFollowee;
 
