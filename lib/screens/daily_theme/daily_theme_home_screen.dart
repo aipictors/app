@@ -43,7 +43,7 @@ class DailyThemeHomeScreen extends HookConsumerWidget {
         title: Text('お題'.i18n),
         actions: [
           FilledButton.tonal(
-            child: Text('今月'.i18n),
+            child: Text('過去のお題'.i18n),
             // icon: const Icon(Icons.newspaper_rounded),
             onPressed: () {
               context.push('/daily_themes');
