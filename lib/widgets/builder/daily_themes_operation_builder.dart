@@ -31,7 +31,7 @@ class DailyThemesOperationBuilder<T, U> extends HookConsumerWidget {
     final useCache = useState(true);
 
     // キャッシュの有無を確認する
-    final dynamic result = client.cache.readQuery(operationRequest);
+    final result = client.cache.readQuery(operationRequest);
     if (result == null) {
       useCache.value = false;
     } else {
