@@ -13,16 +13,13 @@ class DailyThemesOperationBuilder<T, U> extends HookConsumerWidget {
   const DailyThemesOperationBuilder({
     super.key,
     required this.client,
-    required this.cacheOnlyOperationRequest,
-    required this.networkOnlyOperationRequest,
+    required this.operationRequest,
     required this.builder,
   });
 
   final Client client;
 
-  final OperationRequest<T, U> cacheOnlyOperationRequest;
-
-  final OperationRequest<T, U> networkOnlyOperationRequest;
+  final OperationRequest<T, U> operationRequest;
 
   final Widget Function(
     BuildContext context,
@@ -34,19 +31,15 @@ class DailyThemesOperationBuilder<T, U> extends HookConsumerWidget {
     final useCache = useState(true);
 
     // キャッシュの有無を確認する
-    final dynamic result = client.cache.readQuery(cacheOnlyOperationRequest);
-
+    final dynamic result = client.cache.readQuery(operationRequest);
     if (result == null) {
       useCache.value = false;
     } else {
       useCache.value = true;
     }
-
     return Operation(
       client: client,
-      operationRequest: useCache.value
-          ? cacheOnlyOperationRequest
-          : networkOnlyOperationRequest,
+      operationRequest: operationRequest,
       builder: (context, response, error) {
         if (error != null) {
           return const UnexpectedErrorContainer();

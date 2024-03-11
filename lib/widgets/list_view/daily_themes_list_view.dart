@@ -4,12 +4,10 @@ import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/screens/loading_screen.dart';
 import 'package:aipictors/utils/to_weekday.dart';
 import 'package:aipictors/widgets/builder/daily_themes_operation_builder.dart';
-import 'package:aipictors/widgets/builder/operation_builder.dart';
 import 'package:aipictors/widgets/container/error/data_empty_error_container.dart';
 import 'package:aipictors/widgets/container/error/data_not_found_error_container.dart';
 import 'package:aipictors/widgets/container/loading_container.dart';
 import 'package:aipictors/widgets/list_tile/daily_theme_list_tile.dart';
-import 'package:ferry/ferry.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -40,17 +38,8 @@ class DailyThemesListView extends HookConsumerWidget {
     // TODO: ferryのキャッシュ設定を変更し、DailyThemesOperationBuilderを廃止する
     return DailyThemesOperationBuilder(
       client: client.value!,
-      cacheOnlyOperationRequest: GDailyThemesReq((builder) {
+      operationRequest: GDailyThemesReq((builder) {
         return builder
-          ..fetchPolicy = FetchPolicy.CacheOnly
-          ..vars.limit = config.graphqlQueryLimit
-          ..vars.offset = 0
-          ..vars.where.month = month
-          ..vars.where.year = year;
-      }),
-      networkOnlyOperationRequest: GDailyThemesReq((builder) {
-        return builder
-          ..fetchPolicy = FetchPolicy.NetworkOnly
           ..vars.limit = config.graphqlQueryLimit
           ..vars.offset = 0
           ..vars.where.month = month
