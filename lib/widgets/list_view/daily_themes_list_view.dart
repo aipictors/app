@@ -35,6 +35,9 @@ class DailyThemesListView extends HookConsumerWidget {
     if (client.value == null) {
       return const LoadingScreen();
     }
+
+    // ページ切り替え時に前ページのデータがキャッシュで表示されるのを防ぐため、DailyThemesOperationBuilderを使用
+    // TODO: ferryのキャッシュ設定を変更し、DailyThemesOperationBuilderを廃止する
     return DailyThemesOperationBuilder(
       client: client.value!,
       cacheOnlyOperationRequest: GDailyThemesReq((builder) {

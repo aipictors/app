@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+// ページ切り替え時に前ページのデータがキャッシュで表示されるのを防ぐための暫定的な対応
 class DailyThemesOperationBuilder<T, U> extends HookConsumerWidget {
   const DailyThemesOperationBuilder({
     super.key,
@@ -20,6 +21,7 @@ class DailyThemesOperationBuilder<T, U> extends HookConsumerWidget {
   final Client client;
 
   final OperationRequest<T, U> cacheOnlyOperationRequest;
+
   final OperationRequest<T, U> networkOnlyOperationRequest;
 
   final Widget Function(
@@ -30,18 +32,16 @@ class DailyThemesOperationBuilder<T, U> extends HookConsumerWidget {
   @override
   Widget build(context, ref) {
     final useCache = useState(true);
-    if (useCache.value) {
-      final dynamic result = client.cache.readQuery(cacheOnlyOperationRequest);
 
-      if (result == null) {
-        useCache.value = false;
-      } else if (result.dailyThemes.length >= 2 &&
-          result.dailyThemes.first.day == 1) {
-        useCache.value = false;
-      }
+    // キャッシュの有無を確認する
+    final dynamic result = client.cache.readQuery(cacheOnlyOperationRequest);
+
+    if (result == null) {
+      useCache.value = false;
+    } else {
+      useCache.value = true;
     }
-    print(useCache.value);
-    useCache.value = true;
+
     return Operation(
       client: client,
       operationRequest: useCache.value
@@ -57,6 +57,12 @@ class DailyThemesOperationBuilder<T, U> extends HookConsumerWidget {
         }
 
         if (response == null || response.loading) {
+          return const LoadingContainer();
+        }
+
+        // キャッシュがないはずなのにDataSourceがキャッシュなら、異なる月のデータを表示している
+        if (useCache.value == false &&
+            response.dataSource == DataSource.Cache) {
           return const LoadingContainer();
         }
 
