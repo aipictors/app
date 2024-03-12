@@ -19,6 +19,9 @@ enum Layout {
   }
 
   static Layout fromWidthAndConfig(double maxWidth, config) {
+    // 以下の条件でMediumを返す
+    // 画面サイズがMediumより大きく、Compactを強制しない設定の場合
+    // Mediumを強制する設定の場合
     if ((DefaultConfig.mediumUIThreshold < maxWidth &&
             !config.themeCompactLayout) ||
         config.themeMediumLayout) {
