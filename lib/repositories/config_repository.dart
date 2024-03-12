@@ -74,6 +74,19 @@ class ConfigRepository {
     await instance!.setBool('config_theme_medium_layout', mode);
   }
 
+  /// テーマ設定
+  /// 一部のWidgetでCompactサイズのレイアウトを強制的に適用する
+  bool get themeCompactLayout {
+    final value = instance!.getBool('config_theme_compact_layout');
+    return value ?? false;
+  }
+
+  /// テーマ設定
+  Future<void> setThemeCompactLayout(bool mode) async {
+    // Auto Compact Medium
+    await instance!.setBool('config_theme_compact_layout', mode);
+  }
+
   /// アプリ通知
   bool get topicCampaign {
     final value = instance!.getBool('config_topic_campaign');

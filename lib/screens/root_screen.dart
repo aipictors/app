@@ -96,9 +96,9 @@ class RootScreen extends HookConsumerWidget {
     ];
 
     return LayoutBuilder(builder: (context, constraints) {
-      final notCompact = Layout.fromWith(constraints.maxWidth).notCompact;
+      final layout = Layout.fromWidth(constraints.maxWidth);
       // タブレット
-      if (notCompact) {
+      if (layout.notCompact && !config.themeCompactLayout) {
         return Scaffold(
           body: Row(
             children: [

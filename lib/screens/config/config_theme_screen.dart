@@ -19,12 +19,25 @@ class ConfigThemeScreen extends HookConsumerWidget {
       body: ListView(
         children: [
           ListTile(
-            title: Text('オフ'.i18n),
-            trailing: !config.themeMediumLayout
+            title: Text('自動'.i18n),
+            trailing: !config.themeMediumLayout && !config.themeCompactLayout
                 ? const Icon(Icons.check_rounded)
                 : null,
             onTap: () {
               final notifier = ref.read(configProvider.notifier);
+              notifier.updateThemeCompactLayout(false);
+              notifier.updateThemeMediumLayout(false);
+            },
+          ),
+          ListTile(
+            title: Text('スマホ向けUIを使用する'.i18n),
+            subtitle: Text('一部の画面でスマホ向けのレイアウトが適用されます。'.i18n),
+            trailing: config.themeCompactLayout
+                ? const Icon(Icons.check_rounded)
+                : null,
+            onTap: () {
+              final notifier = ref.read(configProvider.notifier);
+              notifier.updateThemeCompactLayout(true);
               notifier.updateThemeMediumLayout(false);
             },
           ),
@@ -37,6 +50,7 @@ class ConfigThemeScreen extends HookConsumerWidget {
             onTap: () {
               final notifier = ref.read(configProvider.notifier);
               notifier.updateThemeMediumLayout(true);
+              notifier.updateThemeCompactLayout(false);
             },
           ),
         ],

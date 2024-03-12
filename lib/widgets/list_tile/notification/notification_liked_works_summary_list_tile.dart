@@ -20,9 +20,10 @@ class NotificationLikedWorksSummaryListTile extends HookConsumerWidget {
   Widget build(context, ref) {
     final config = ref.watch(configProvider);
 
-    final layout = Layout.fromWith(MediaQuery.of(context).size.width);
+    final layout =
+        Layout.fromWidthAndConfig(MediaQuery.of(context).size.width, config);
 
-    if (config.themeMediumLayout || layout.notCompact) {
+    if (layout == Layout.medium) {
       return NotificationLikedWorksSummaryListTileMedium(
         createdAt: createdAt,
         message: message ?? '-',

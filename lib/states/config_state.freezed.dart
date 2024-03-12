@@ -19,6 +19,7 @@ mixin _$ConfigState {
   bool get isTutorial => throw _privateConstructorUsedError;
   String get language => throw _privateConstructorUsedError;
   bool get themeMediumLayout => throw _privateConstructorUsedError;
+  bool get themeCompactLayout => throw _privateConstructorUsedError;
   ThemeMode get themeMode => throw _privateConstructorUsedError;
   Color? get themeColor => throw _privateConstructorUsedError;
   RemoteConfigFetchStatus get lastFetchStatus =>
@@ -40,6 +41,7 @@ abstract class $ConfigStateCopyWith<$Res> {
       {bool isTutorial,
       String language,
       bool themeMediumLayout,
+      bool themeCompactLayout,
       ThemeMode themeMode,
       Color? themeColor,
       RemoteConfigFetchStatus lastFetchStatus,
@@ -62,6 +64,7 @@ class _$ConfigStateCopyWithImpl<$Res, $Val extends ConfigState>
     Object? isTutorial = null,
     Object? language = null,
     Object? themeMediumLayout = null,
+    Object? themeCompactLayout = null,
     Object? themeMode = null,
     Object? themeColor = freezed,
     Object? lastFetchStatus = null,
@@ -79,6 +82,10 @@ class _$ConfigStateCopyWithImpl<$Res, $Val extends ConfigState>
       themeMediumLayout: null == themeMediumLayout
           ? _value.themeMediumLayout
           : themeMediumLayout // ignore: cast_nullable_to_non_nullable
+              as bool,
+      themeCompactLayout: null == themeCompactLayout
+          ? _value.themeCompactLayout
+          : themeCompactLayout // ignore: cast_nullable_to_non_nullable
               as bool,
       themeMode: null == themeMode
           ? _value.themeMode
@@ -112,6 +119,7 @@ abstract class _$$ConfigStateImplCopyWith<$Res>
       {bool isTutorial,
       String language,
       bool themeMediumLayout,
+      bool themeCompactLayout,
       ThemeMode themeMode,
       Color? themeColor,
       RemoteConfigFetchStatus lastFetchStatus,
@@ -132,6 +140,7 @@ class __$$ConfigStateImplCopyWithImpl<$Res>
     Object? isTutorial = null,
     Object? language = null,
     Object? themeMediumLayout = null,
+    Object? themeCompactLayout = null,
     Object? themeMode = null,
     Object? themeColor = freezed,
     Object? lastFetchStatus = null,
@@ -149,6 +158,10 @@ class __$$ConfigStateImplCopyWithImpl<$Res>
       themeMediumLayout: null == themeMediumLayout
           ? _value.themeMediumLayout
           : themeMediumLayout // ignore: cast_nullable_to_non_nullable
+              as bool,
+      themeCompactLayout: null == themeCompactLayout
+          ? _value.themeCompactLayout
+          : themeCompactLayout // ignore: cast_nullable_to_non_nullable
               as bool,
       themeMode: null == themeMode
           ? _value.themeMode
@@ -177,6 +190,7 @@ class _$ConfigStateImpl extends _ConfigState {
       {required this.isTutorial,
       required this.language,
       required this.themeMediumLayout,
+      required this.themeCompactLayout,
       required this.themeMode,
       required this.themeColor,
       required this.lastFetchStatus,
@@ -190,6 +204,8 @@ class _$ConfigStateImpl extends _ConfigState {
   @override
   final bool themeMediumLayout;
   @override
+  final bool themeCompactLayout;
+  @override
   final ThemeMode themeMode;
   @override
   final Color? themeColor;
@@ -200,7 +216,7 @@ class _$ConfigStateImpl extends _ConfigState {
 
   @override
   String toString() {
-    return 'ConfigState(isTutorial: $isTutorial, language: $language, themeMediumLayout: $themeMediumLayout, themeMode: $themeMode, themeColor: $themeColor, lastFetchStatus: $lastFetchStatus, eulaCheck: $eulaCheck)';
+    return 'ConfigState(isTutorial: $isTutorial, language: $language, themeMediumLayout: $themeMediumLayout, themeCompactLayout: $themeCompactLayout, themeMode: $themeMode, themeColor: $themeColor, lastFetchStatus: $lastFetchStatus, eulaCheck: $eulaCheck)';
   }
 
   @override
@@ -214,6 +230,8 @@ class _$ConfigStateImpl extends _ConfigState {
                 other.language == language) &&
             (identical(other.themeMediumLayout, themeMediumLayout) ||
                 other.themeMediumLayout == themeMediumLayout) &&
+            (identical(other.themeCompactLayout, themeCompactLayout) ||
+                other.themeCompactLayout == themeCompactLayout) &&
             (identical(other.themeMode, themeMode) ||
                 other.themeMode == themeMode) &&
             (identical(other.themeColor, themeColor) ||
@@ -225,8 +243,16 @@ class _$ConfigStateImpl extends _ConfigState {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isTutorial, language,
-      themeMediumLayout, themeMode, themeColor, lastFetchStatus, eulaCheck);
+  int get hashCode => Object.hash(
+      runtimeType,
+      isTutorial,
+      language,
+      themeMediumLayout,
+      themeCompactLayout,
+      themeMode,
+      themeColor,
+      lastFetchStatus,
+      eulaCheck);
 
   @JsonKey(ignore: true)
   @override
@@ -240,6 +266,7 @@ abstract class _ConfigState extends ConfigState {
       {required final bool isTutorial,
       required final String language,
       required final bool themeMediumLayout,
+      required final bool themeCompactLayout,
       required final ThemeMode themeMode,
       required final Color? themeColor,
       required final RemoteConfigFetchStatus lastFetchStatus,
@@ -252,6 +279,8 @@ abstract class _ConfigState extends ConfigState {
   String get language;
   @override
   bool get themeMediumLayout;
+  @override
+  bool get themeCompactLayout;
   @override
   ThemeMode get themeMode;
   @override
