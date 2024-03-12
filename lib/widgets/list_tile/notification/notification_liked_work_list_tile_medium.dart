@@ -54,6 +54,14 @@ class NotificationLikedWorkListTileMedium extends HookConsumerWidget {
         );
         context.push('/works/$workId');
       },
+      onLongPress: () {
+        if (userId == null) return;
+        FirebaseAnalytics.instance.logSelectContent(
+          contentType: 'user',
+          itemId: userId!,
+        );
+        context.push('/users/$userId');
+      },
       leading: Icon(
         Icons.favorite_rounded,
         color: Theme.of(context).colorScheme.primary,

@@ -56,9 +56,18 @@ class NotificationWorkCommentListTileCompact extends HookConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            NotificationUserContainer(
-              userName: userName,
-              userIconImageURL: userIconImageURL,
+            InkWell(
+              onTap: () {
+                FirebaseAnalytics.instance.logSelectContent(
+                  contentType: 'user',
+                  itemId: userId!,
+                );
+                context.push('/users/$userId');
+              },
+              child: NotificationUserContainer(
+                userName: userName,
+                userIconImageURL: userIconImageURL,
+              ),
             ),
             const SizedBox(height: 8),
             if (message != null)

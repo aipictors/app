@@ -55,6 +55,14 @@ class NotificationWorkCommentListTileMedium extends HookConsumerWidget {
         );
         context.push('/works/$workId');
       },
+      onLongPress: () {
+        if (userId == null) return;
+        FirebaseAnalytics.instance.logSelectContent(
+          contentType: 'userId',
+          itemId: userId!,
+        );
+        context.push('/users/$userId');
+      },
       leading: const Icon(Icons.chat_bubble_rounded),
       trailing: NotificationImageContainerMedium(
         workImageURL: workImageURL,

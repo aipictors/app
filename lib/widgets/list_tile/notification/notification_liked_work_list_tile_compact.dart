@@ -61,18 +61,27 @@ class NotificationLikedWorkListTileCompact extends HookConsumerWidget {
               style: Theme.of(context).textTheme.bodyMedium,
             ),
           if (userName != null)
-            Row(
-              children: [
-                UserProfileAvatar(imageURL: userIconImageURL),
-                const SizedBox(width: 8),
-                Flexible(
-                  child: Text(
-                    '_USER_NAME_さんがいいねしました。'.i18n.replaceAllMapped(
-                        RegExp(r'_USER_NAME_'), (match) => userName!),
-                    style: Theme.of(context).textTheme.bodyMedium,
+            InkWell(
+              onTap: () {
+                FirebaseAnalytics.instance.logSelectContent(
+                  contentType: 'user',
+                  itemId: userId!,
+                );
+                context.push('/users/$userId');
+              },
+              child: Row(
+                children: [
+                  UserProfileAvatar(imageURL: userIconImageURL),
+                  const SizedBox(width: 8),
+                  Flexible(
+                    child: Text(
+                      '_USER_NAME_さんがいいねしました。'.i18n.replaceAllMapped(
+                          RegExp(r'_USER_NAME_'), (match) => userName!),
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           const SizedBox(height: 8),
           NotificationImageContainerCompact(
