@@ -4,6 +4,7 @@ import 'package:aipictors/mutations/create_work_comment.dart';
 import 'package:aipictors/mutations/create_work_like.dart';
 import 'package:aipictors/providers/auth_user_id_provider.dart';
 import 'package:aipictors/providers/client_provider.dart';
+import 'package:aipictors/providers/home_tab_index_provider.dart';
 import 'package:aipictors/utils/show_unavailable_snack_bar.dart';
 import 'package:aipictors/utils/to_exception_message.dart';
 import 'package:aipictors/widgets/container/work_shortcut_action_stickers.dart';
@@ -150,8 +151,10 @@ class WorkBottomAppContainer extends HookConsumerWidget {
             context.pop();
           },
           onAccept: () {
-            context.pop();
-            context.push('/login');
+            // ホームのログインタブに移動する
+            Navigator.of(context).popUntil((route) => route.isFirst);
+            final notifier = ref.read(homeTabIndexProvider.notifier);
+            notifier.toLoginTab();
           },
         );
       },

@@ -131,6 +131,7 @@ class AlbumWorksView extends HookConsumerWidget {
           onAccept: () {
             context.pop();
             // ログインのページに遷移する
+            Navigator.of(context).popUntil((route) => route.isFirst);
             final notifier = ref.read(homeTabIndexProvider.notifier);
             notifier.toLoginTab();
           },
