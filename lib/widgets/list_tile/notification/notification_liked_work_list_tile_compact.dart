@@ -63,6 +63,10 @@ class NotificationLikedWorkListTileCompact extends HookConsumerWidget {
           if (userName != null)
             InkWell(
               onTap: () {
+                FirebaseAnalytics.instance.logSelectContent(
+                  contentType: 'user',
+                  itemId: userId!,
+                );
                 context.push('/users/$userId');
               },
               child: Row(

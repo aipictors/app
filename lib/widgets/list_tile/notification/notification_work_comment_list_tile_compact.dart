@@ -58,6 +58,10 @@ class NotificationWorkCommentListTileCompact extends HookConsumerWidget {
           children: [
             InkWell(
               onTap: () {
+                FirebaseAnalytics.instance.logSelectContent(
+                  contentType: 'user',
+                  itemId: userId!,
+                );
                 context.push('/users/$userId');
               },
               child: NotificationUserContainer(
