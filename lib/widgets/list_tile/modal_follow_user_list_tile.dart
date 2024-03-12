@@ -63,10 +63,9 @@ class ModalFollowUserListTile extends HookConsumerWidget {
           },
           onAccept: () {
             // ログインのページに遷移する
+            Navigator.of(context).popUntil((route) => route.isFirst);
             final notifier = ref.read(homeTabIndexProvider.notifier);
             notifier.toLoginTab();
-            context.pop();
-            context.pop();
           },
         );
       },
