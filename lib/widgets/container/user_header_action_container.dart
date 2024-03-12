@@ -62,18 +62,20 @@ class UserHeaderActionContainer extends HookConsumerWidget {
               ),
             ],
           ),
-          if (authUserId.value != null) const SizedBox(height: 8),
-          if (authUserId.value != null && authUserId.value != userId)
-            SizedBox(
-              width: double.infinity,
-              child: FollowButton(
-                isActive: isFollowee,
-                onPressed: () {
-                  return onFollowUser(context);
-                },
+          if (authUserId.value != null) ...[
+            const SizedBox(height: 8),
+            if (authUserId.value != userId)
+              SizedBox(
+                width: double.infinity,
+                child: FollowButton(
+                  isActive: isFollowee,
+                  onPressed: () {
+                    return onFollowUser(context);
+                  },
+                ),
               ),
-            ),
-          if (authUserId.value != null) const SizedBox(height: 8),
+            const SizedBox(height: 8),
+          ]
         ],
       ),
     );
