@@ -1,4 +1,5 @@
 import 'package:aipictors/enums/layout.dart';
+import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/screens/work/work_screen_compact.dart';
 import 'package:aipictors/screens/work/work_screen_medium.dart';
 import 'package:flutter/material.dart';
@@ -15,9 +16,10 @@ class WorkScreen extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
-    final layout = Layout.fromWith(MediaQuery.of(context).size.width);
+    final config = ref.watch(configProvider);
+    final layout = Layout.fromWidth(MediaQuery.of(context).size.width);
 
-    if (layout.notCompact) {
+    if (layout.notCompact && !config.themeCompactLayout) {
       return WorkScreenMedium(workId: workId);
     }
 

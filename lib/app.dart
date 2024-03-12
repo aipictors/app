@@ -32,11 +32,8 @@ class App extends HookConsumerWidget {
       authStateListener(context, ref),
     );
 
-    // スマートフォン横向き時、mediumにならないように、短辺で判定する
-    final layout =
-        MediaQuery.of(context).size.width < MediaQuery.of(context).size.height
-            ? Layout.fromWith(MediaQuery.of(context).size.width)
-            : Layout.fromWith(MediaQuery.of(context).size.height);
+    // スマートフォン横向き時にmediumにならないように、短辺で判定する
+    final layout = Layout.fromWidth(MediaQuery.of(context).size.shortestSide);
 
     // レイアウト崩れ防止のため、スマホは縦画面のみにする
     if (layout == Layout.compact) {

@@ -30,13 +30,14 @@ class NotificationWorkAwardListTile extends HookConsumerWidget {
   Widget build(context, ref) {
     final config = ref.watch(configProvider);
 
-    final layout = Layout.fromWith(MediaQuery.of(context).size.width);
+    final layout =
+        Layout.fromWidthAndConfig(MediaQuery.of(context).size.width, config);
 
     if (workId == null && message == null) {
       return const NotificationDeletedListTile();
     }
 
-    if (config.themeMediumLayout || layout.notCompact) {
+    if (layout == Layout.medium) {
       return NotificationWorkAwardListTileMedium(
         createdAt: createdAt,
         message: message ?? '-',

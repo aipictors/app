@@ -19,6 +19,7 @@ class ConfigState with _$ConfigState {
     required bool isTutorial,
     required String language,
     required bool themeMediumLayout,
+    required bool themeCompactLayout,
     required ThemeMode themeMode,
     required Color? themeColor,
     required RemoteConfigFetchStatus lastFetchStatus,

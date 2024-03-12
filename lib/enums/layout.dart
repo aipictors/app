@@ -11,8 +11,20 @@ enum Layout {
 
   final String value;
 
-  static Layout fromWith(double maxWidth) {
+  static Layout fromWidth(double maxWidth) {
     if (DefaultConfig.mediumUIThreshold < maxWidth) {
+      return medium;
+    }
+    return compact;
+  }
+
+  static Layout fromWidthAndConfig(double maxWidth, config) {
+    // 以下の条件でMediumを返す
+    // 画面サイズがMediumより大きく、Compactを強制しない設定の場合
+    // Mediumを強制する設定の場合
+    if ((DefaultConfig.mediumUIThreshold < maxWidth &&
+            !config.themeCompactLayout) ||
+        config.themeMediumLayout) {
       return medium;
     }
     return compact;
