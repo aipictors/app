@@ -46,7 +46,7 @@ $ flutter upgrade
 更新があった場合は取得する。
 
 ```
-$ rover graph introspect https://router-6ouzjmdzha-an.a.run.app -o lib/schema.graphql
+$ npx get-graphql-schema "https://x-6ouzjmdzha-an.a.run.app/graphql" > lib/schema.graphql
 ```
 
-https://www.apollographql.com/docs/rover/commands/supergraphs
+https://x-6ouzjmdzha-an.a.run.app/graphql
