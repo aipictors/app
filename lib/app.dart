@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class App extends HookConsumerWidget {
   const App({super.key});
@@ -46,6 +47,7 @@ class App extends HookConsumerWidget {
     return DynamicColorBuilder(builder: (lightDynamic, darkDynamic) {
       final theme = ThemeData(
         useMaterial3: true,
+        textTheme: GoogleFonts.notoColorEmojiTextTheme(),
         colorScheme: toLightColorScheme(
           defaultThemeColor: DefaultConfig.defaultThemeColor,
           themeColor: config.themeColor,
