@@ -41,6 +41,14 @@ $ flutter channel stable
 $ flutter upgrade
 ```
 
+## パッケージの更新
+
+たぶん。
+
+```
+$ flutter pub upgrade --tighten
+```
+
 ## GraphQL
 
 更新があった場合は取得する。

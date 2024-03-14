@@ -1,14 +1,10 @@
 {
   "name": "aipictors",
   "scripts": {
-    "i18n": "node tools/i18n",
-    "docs": "vitepress dev",
-    "docs:build": "vitepress build",
-    "docs:preview": "vitepress preview"
+    "i18n": "node tools/i18n"
   },
   "dependencies": {
-    "glob": "^10.3.10",
-    "vitepress": "^1.0.0-rc.36"
+    "glob": "^10.3.10"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.5.2"
