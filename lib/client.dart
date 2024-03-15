@@ -24,6 +24,7 @@ Future<Client> createClient() async {
       'flutter-secret-token': DefaultConfig.secretToken,
       'flutter-os': Platform.operatingSystem.toUpperCase(),
       'language': language.toUpperCase(),
+      'platform': 'flutter',
     },
   );
 

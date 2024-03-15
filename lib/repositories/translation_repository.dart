@@ -10,7 +10,7 @@ class TranslationRepository {
   const TranslationRepository();
 
   /// 翻訳データ
-  static var translations = Translations('ja');
+  static var translations = Translations.byLocale('ja');
 
   /// 初期化する
   static Future activate() async {

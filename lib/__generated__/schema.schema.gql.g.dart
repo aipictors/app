@@ -644,40 +644,10 @@ final BuiltSet<GWorkType> _$gWorkTypeValues =
   _$gWorkTypeVIDEO,
 ]);
 
-Serializer<GAccessType> _$gAccessTypeSerializer = new _$GAccessTypeSerializer();
-Serializer<GAwardType> _$gAwardTypeSerializer = new _$GAwardTypeSerializer();
-Serializer<GCacheControlScope> _$gCacheControlScopeSerializer =
-    new _$GCacheControlScopeSerializer();
-Serializer<GDirection> _$gDirectionSerializer = new _$GDirectionSerializer();
-Serializer<GFolderMode> _$gFolderModeSerializer = new _$GFolderModeSerializer();
-Serializer<GImageGenerationSizeType> _$gImageGenerationSizeTypeSerializer =
-    new _$GImageGenerationSizeTypeSerializer();
-Serializer<GImageGenerationStatus> _$gImageGenerationStatusSerializer =
-    new _$GImageGenerationStatusSerializer();
-Serializer<GImageGenerationTaskOrderBy>
-    _$gImageGenerationTaskOrderBySerializer =
-    new _$GImageGenerationTaskOrderBySerializer();
-Serializer<GImageGenerationType> _$gImageGenerationTypeSerializer =
-    new _$GImageGenerationTypeSerializer();
-Serializer<GImageModelCategory> _$gImageModelCategorySerializer =
-    new _$GImageModelCategorySerializer();
-Serializer<GImageStyle> _$gImageStyleSerializer = new _$GImageStyleSerializer();
-Serializer<GNotificationType> _$gNotificationTypeSerializer =
-    new _$GNotificationTypeSerializer();
-Serializer<GPassType> _$gPassTypeSerializer = new _$GPassTypeSerializer();
-Serializer<GPaymentType> _$gPaymentTypeSerializer =
-    new _$GPaymentTypeSerializer();
-Serializer<GRating> _$gRatingSerializer = new _$GRatingSerializer();
-Serializer<GReportReason> _$gReportReasonSerializer =
-    new _$GReportReasonSerializer();
-Serializer<GStickerGenre> _$gStickerGenreSerializer =
-    new _$GStickerGenreSerializer();
-Serializer<GWorkOrderBy> _$gWorkOrderBySerializer =
-    new _$GWorkOrderBySerializer();
-Serializer<GWorkType> _$gWorkTypeSerializer = new _$GWorkTypeSerializer();
 Serializer<GAcceptPromptonRequestInput>
     _$gAcceptPromptonRequestInputSerializer =
     new _$GAcceptPromptonRequestInputSerializer();
+Serializer<GAccessType> _$gAccessTypeSerializer = new _$GAccessTypeSerializer();
 Serializer<GAddPromptonTagToWorkInput> _$gAddPromptonTagToWorkInputSerializer =
     new _$GAddPromptonTagToWorkInputSerializer();
 Serializer<GAddPromptonWorkToFolderInput>
@@ -687,8 +657,11 @@ Serializer<GAlbumsWhereInput> _$gAlbumsWhereInputSerializer =
     new _$GAlbumsWhereInputSerializer();
 Serializer<GAwardsWhereInput> _$gAwardsWhereInputSerializer =
     new _$GAwardsWhereInputSerializer();
+Serializer<GAwardType> _$gAwardTypeSerializer = new _$GAwardTypeSerializer();
 Serializer<GBlockPromptonUserInput> _$gBlockPromptonUserInputSerializer =
     new _$GBlockPromptonUserInputSerializer();
+Serializer<GCacheControlScope> _$gCacheControlScopeSerializer =
+    new _$GCacheControlScopeSerializer();
 Serializer<GCancelImageGenerationMemoInput>
     _$gCancelImageGenerationMemoInputSerializer =
     new _$GCancelImageGenerationMemoInputSerializer();
@@ -888,9 +861,11 @@ Serializer<GDeleteWorkInput> _$gDeleteWorkInputSerializer =
     new _$GDeleteWorkInputSerializer();
 Serializer<GDeleteWorkLikeInput> _$gDeleteWorkLikeInputSerializer =
     new _$GDeleteWorkLikeInputSerializer();
+Serializer<GDirection> _$gDirectionSerializer = new _$GDirectionSerializer();
 Serializer<GFlipPromptonFolderWorkIndexInput>
     _$gFlipPromptonFolderWorkIndexInputSerializer =
     new _$GFlipPromptonFolderWorkIndexInputSerializer();
+Serializer<GFolderMode> _$gFolderModeSerializer = new _$GFolderModeSerializer();
 Serializer<GFoldersWhereInput> _$gFoldersWhereInputSerializer =
     new _$GFoldersWhereInputSerializer();
 Serializer<GFollowPromptonUserInput> _$gFollowPromptonUserInputSerializer =
@@ -902,9 +877,21 @@ Serializer<GHotWorksWhereInput> _$gHotWorksWhereInputSerializer =
 Serializer<GImageGenerationMemoOrderBy>
     _$gImageGenerationMemoOrderBySerializer =
     new _$GImageGenerationMemoOrderBySerializer();
+Serializer<GImageGenerationSizeType> _$gImageGenerationSizeTypeSerializer =
+    new _$GImageGenerationSizeTypeSerializer();
+Serializer<GImageGenerationStatus> _$gImageGenerationStatusSerializer =
+    new _$GImageGenerationStatusSerializer();
+Serializer<GImageGenerationTaskOrderBy>
+    _$gImageGenerationTaskOrderBySerializer =
+    new _$GImageGenerationTaskOrderBySerializer();
 Serializer<GImageGenerationTasksWhereInput>
     _$gImageGenerationTasksWhereInputSerializer =
     new _$GImageGenerationTasksWhereInputSerializer();
+Serializer<GImageGenerationType> _$gImageGenerationTypeSerializer =
+    new _$GImageGenerationTypeSerializer();
+Serializer<GImageModelCategory> _$gImageModelCategorySerializer =
+    new _$GImageModelCategorySerializer();
+Serializer<GImageStyle> _$gImageStyleSerializer = new _$GImageStyleSerializer();
 Serializer<GIncrementPromptonProfileBlockIndexInput>
     _$gIncrementPromptonProfileBlockIndexInputSerializer =
     new _$GIncrementPromptonProfileBlockIndexInputSerializer();
@@ -937,6 +924,11 @@ Serializer<GMuteTagInput> _$gMuteTagInputSerializer =
     new _$GMuteTagInputSerializer();
 Serializer<GMuteUserInput> _$gMuteUserInputSerializer =
     new _$GMuteUserInputSerializer();
+Serializer<GNotificationType> _$gNotificationTypeSerializer =
+    new _$GNotificationTypeSerializer();
+Serializer<GPassType> _$gPassTypeSerializer = new _$GPassTypeSerializer();
+Serializer<GPaymentType> _$gPaymentTypeSerializer =
+    new _$GPaymentTypeSerializer();
 Serializer<GPinPromptonWorkInput> _$gPinPromptonWorkInputSerializer =
     new _$GPinPromptonWorkInputSerializer();
 Serializer<GPopularWorksWhereInput> _$gPopularWorksWhereInputSerializer =
@@ -965,6 +957,7 @@ Serializer<GPromptonViewerWorksWhereInput>
     new _$GPromptonViewerWorksWhereInputSerializer();
 Serializer<GPromptonWorksWhereInput> _$gPromptonWorksWhereInputSerializer =
     new _$GPromptonWorksWhereInputSerializer();
+Serializer<GRating> _$gRatingSerializer = new _$GRatingSerializer();
 Serializer<GRejectPromptonRequestInput>
     _$gRejectPromptonRequestInputSerializer =
     new _$GRejectPromptonRequestInputSerializer();
@@ -980,6 +973,8 @@ Serializer<GReportCommentInput> _$gReportCommentInputSerializer =
     new _$GReportCommentInputSerializer();
 Serializer<GReportFolderInput> _$gReportFolderInputSerializer =
     new _$GReportFolderInputSerializer();
+Serializer<GReportReason> _$gReportReasonSerializer =
+    new _$GReportReasonSerializer();
 Serializer<GReportStickerInput> _$gReportStickerInputSerializer =
     new _$GReportStickerInputSerializer();
 Serializer<GReportUserInput> _$gReportUserInputSerializer =
@@ -989,6 +984,8 @@ Serializer<GReportWorkInput> _$gReportWorkInputSerializer =
 Serializer<GSignImageGenerationTermsInput>
     _$gSignImageGenerationTermsInputSerializer =
     new _$GSignImageGenerationTermsInputSerializer();
+Serializer<GStickerGenre> _$gStickerGenreSerializer =
+    new _$GStickerGenreSerializer();
 Serializer<GStickersWhereInput> _$gStickersWhereInputSerializer =
     new _$GStickersWhereInputSerializer();
 Serializer<GTagsWhereInput> _$gTagsWhereInputSerializer =
@@ -1086,340 +1083,11 @@ Serializer<GWatchFolderInput> _$gWatchFolderInputSerializer =
     new _$GWatchFolderInputSerializer();
 Serializer<GWorkAwardsWhereInput> _$gWorkAwardsWhereInputSerializer =
     new _$GWorkAwardsWhereInputSerializer();
+Serializer<GWorkOrderBy> _$gWorkOrderBySerializer =
+    new _$GWorkOrderBySerializer();
 Serializer<GWorksWhereInput> _$gWorksWhereInputSerializer =
     new _$GWorksWhereInputSerializer();
-
-class _$GAccessTypeSerializer implements PrimitiveSerializer<GAccessType> {
-  @override
-  final Iterable<Type> types = const <Type>[GAccessType];
-  @override
-  final String wireName = 'GAccessType';
-
-  @override
-  Object serialize(Serializers serializers, GAccessType object,
-          {FullType specifiedType = FullType.unspecified}) =>
-      object.name;
-
-  @override
-  GAccessType deserialize(Serializers serializers, Object serialized,
-          {FullType specifiedType = FullType.unspecified}) =>
-      GAccessType.valueOf(serialized as String);
-}
-
-class _$GAwardTypeSerializer implements PrimitiveSerializer<GAwardType> {
-  @override
-  final Iterable<Type> types = const <Type>[GAwardType];
-  @override
-  final String wireName = 'GAwardType';
-
-  @override
-  Object serialize(Serializers serializers, GAwardType object,
-          {FullType specifiedType = FullType.unspecified}) =>
-      object.name;
-
-  @override
-  GAwardType deserialize(Serializers serializers, Object serialized,
-          {FullType specifiedType = FullType.unspecified}) =>
-      GAwardType.valueOf(serialized as String);
-}
-
-class _$GCacheControlScopeSerializer
-    implements PrimitiveSerializer<GCacheControlScope> {
-  @override
-  final Iterable<Type> types = const <Type>[GCacheControlScope];
-  @override
-  final String wireName = 'GCacheControlScope';
-
-  @override
-  Object serialize(Serializers serializers, GCacheControlScope object,
-          {FullType specifiedType = FullType.unspecified}) =>
-      object.name;
-
-  @override
-  GCacheControlScope deserialize(Serializers serializers, Object serialized,
-          {FullType specifiedType = FullType.unspecified}) =>
-      GCacheControlScope.valueOf(serialized as String);
-}
-
-class _$GDirectionSerializer implements PrimitiveSerializer<GDirection> {
-  @override
-  final Iterable<Type> types = const <Type>[GDirection];
-  @override
-  final String wireName = 'GDirection';
-
-  @override
-  Object serialize(Serializers serializers, GDirection object,
-          {FullType specifiedType = FullType.unspecified}) =>
-      object.name;
-
-  @override
-  GDirection deserialize(Serializers serializers, Object serialized,
-          {FullType specifiedType = FullType.unspecified}) =>
-      GDirection.valueOf(serialized as String);
-}
-
-class _$GFolderModeSerializer implements PrimitiveSerializer<GFolderMode> {
-  @override
-  final Iterable<Type> types = const <Type>[GFolderMode];
-  @override
-  final String wireName = 'GFolderMode';
-
-  @override
-  Object serialize(Serializers serializers, GFolderMode object,
-          {FullType specifiedType = FullType.unspecified}) =>
-      object.name;
-
-  @override
-  GFolderMode deserialize(Serializers serializers, Object serialized,
-          {FullType specifiedType = FullType.unspecified}) =>
-      GFolderMode.valueOf(serialized as String);
-}
-
-class _$GImageGenerationSizeTypeSerializer
-    implements PrimitiveSerializer<GImageGenerationSizeType> {
-  @override
-  final Iterable<Type> types = const <Type>[GImageGenerationSizeType];
-  @override
-  final String wireName = 'GImageGenerationSizeType';
-
-  @override
-  Object serialize(Serializers serializers, GImageGenerationSizeType object,
-          {FullType specifiedType = FullType.unspecified}) =>
-      object.name;
-
-  @override
-  GImageGenerationSizeType deserialize(
-          Serializers serializers, Object serialized,
-          {FullType specifiedType = FullType.unspecified}) =>
-      GImageGenerationSizeType.valueOf(serialized as String);
-}
-
-class _$GImageGenerationStatusSerializer
-    implements PrimitiveSerializer<GImageGenerationStatus> {
-  @override
-  final Iterable<Type> types = const <Type>[GImageGenerationStatus];
-  @override
-  final String wireName = 'GImageGenerationStatus';
-
-  @override
-  Object serialize(Serializers serializers, GImageGenerationStatus object,
-          {FullType specifiedType = FullType.unspecified}) =>
-      object.name;
-
-  @override
-  GImageGenerationStatus deserialize(Serializers serializers, Object serialized,
-          {FullType specifiedType = FullType.unspecified}) =>
-      GImageGenerationStatus.valueOf(serialized as String);
-}
-
-class _$GImageGenerationTaskOrderBySerializer
-    implements PrimitiveSerializer<GImageGenerationTaskOrderBy> {
-  @override
-  final Iterable<Type> types = const <Type>[GImageGenerationTaskOrderBy];
-  @override
-  final String wireName = 'GImageGenerationTaskOrderBy';
-
-  @override
-  Object serialize(Serializers serializers, GImageGenerationTaskOrderBy object,
-          {FullType specifiedType = FullType.unspecified}) =>
-      object.name;
-
-  @override
-  GImageGenerationTaskOrderBy deserialize(
-          Serializers serializers, Object serialized,
-          {FullType specifiedType = FullType.unspecified}) =>
-      GImageGenerationTaskOrderBy.valueOf(serialized as String);
-}
-
-class _$GImageGenerationTypeSerializer
-    implements PrimitiveSerializer<GImageGenerationType> {
-  @override
-  final Iterable<Type> types = const <Type>[GImageGenerationType];
-  @override
-  final String wireName = 'GImageGenerationType';
-
-  @override
-  Object serialize(Serializers serializers, GImageGenerationType object,
-          {FullType specifiedType = FullType.unspecified}) =>
-      object.name;
-
-  @override
-  GImageGenerationType deserialize(Serializers serializers, Object serialized,
-          {FullType specifiedType = FullType.unspecified}) =>
-      GImageGenerationType.valueOf(serialized as String);
-}
-
-class _$GImageModelCategorySerializer
-    implements PrimitiveSerializer<GImageModelCategory> {
-  @override
-  final Iterable<Type> types = const <Type>[GImageModelCategory];
-  @override
-  final String wireName = 'GImageModelCategory';
-
-  @override
-  Object serialize(Serializers serializers, GImageModelCategory object,
-          {FullType specifiedType = FullType.unspecified}) =>
-      object.name;
-
-  @override
-  GImageModelCategory deserialize(Serializers serializers, Object serialized,
-          {FullType specifiedType = FullType.unspecified}) =>
-      GImageModelCategory.valueOf(serialized as String);
-}
-
-class _$GImageStyleSerializer implements PrimitiveSerializer<GImageStyle> {
-  @override
-  final Iterable<Type> types = const <Type>[GImageStyle];
-  @override
-  final String wireName = 'GImageStyle';
-
-  @override
-  Object serialize(Serializers serializers, GImageStyle object,
-          {FullType specifiedType = FullType.unspecified}) =>
-      object.name;
-
-  @override
-  GImageStyle deserialize(Serializers serializers, Object serialized,
-          {FullType specifiedType = FullType.unspecified}) =>
-      GImageStyle.valueOf(serialized as String);
-}
-
-class _$GNotificationTypeSerializer
-    implements PrimitiveSerializer<GNotificationType> {
-  @override
-  final Iterable<Type> types = const <Type>[GNotificationType];
-  @override
-  final String wireName = 'GNotificationType';
-
-  @override
-  Object serialize(Serializers serializers, GNotificationType object,
-          {FullType specifiedType = FullType.unspecified}) =>
-      object.name;
-
-  @override
-  GNotificationType deserialize(Serializers serializers, Object serialized,
-          {FullType specifiedType = FullType.unspecified}) =>
-      GNotificationType.valueOf(serialized as String);
-}
-
-class _$GPassTypeSerializer implements PrimitiveSerializer<GPassType> {
-  @override
-  final Iterable<Type> types = const <Type>[GPassType];
-  @override
-  final String wireName = 'GPassType';
-
-  @override
-  Object serialize(Serializers serializers, GPassType object,
-          {FullType specifiedType = FullType.unspecified}) =>
-      object.name;
-
-  @override
-  GPassType deserialize(Serializers serializers, Object serialized,
-          {FullType specifiedType = FullType.unspecified}) =>
-      GPassType.valueOf(serialized as String);
-}
-
-class _$GPaymentTypeSerializer implements PrimitiveSerializer<GPaymentType> {
-  @override
-  final Iterable<Type> types = const <Type>[GPaymentType];
-  @override
-  final String wireName = 'GPaymentType';
-
-  @override
-  Object serialize(Serializers serializers, GPaymentType object,
-          {FullType specifiedType = FullType.unspecified}) =>
-      object.name;
-
-  @override
-  GPaymentType deserialize(Serializers serializers, Object serialized,
-          {FullType specifiedType = FullType.unspecified}) =>
-      GPaymentType.valueOf(serialized as String);
-}
-
-class _$GRatingSerializer implements PrimitiveSerializer<GRating> {
-  @override
-  final Iterable<Type> types = const <Type>[GRating];
-  @override
-  final String wireName = 'GRating';
-
-  @override
-  Object serialize(Serializers serializers, GRating object,
-          {FullType specifiedType = FullType.unspecified}) =>
-      object.name;
-
-  @override
-  GRating deserialize(Serializers serializers, Object serialized,
-          {FullType specifiedType = FullType.unspecified}) =>
-      GRating.valueOf(serialized as String);
-}
-
-class _$GReportReasonSerializer implements PrimitiveSerializer<GReportReason> {
-  @override
-  final Iterable<Type> types = const <Type>[GReportReason];
-  @override
-  final String wireName = 'GReportReason';
-
-  @override
-  Object serialize(Serializers serializers, GReportReason object,
-          {FullType specifiedType = FullType.unspecified}) =>
-      object.name;
-
-  @override
-  GReportReason deserialize(Serializers serializers, Object serialized,
-          {FullType specifiedType = FullType.unspecified}) =>
-      GReportReason.valueOf(serialized as String);
-}
-
-class _$GStickerGenreSerializer implements PrimitiveSerializer<GStickerGenre> {
-  @override
-  final Iterable<Type> types = const <Type>[GStickerGenre];
-  @override
-  final String wireName = 'GStickerGenre';
-
-  @override
-  Object serialize(Serializers serializers, GStickerGenre object,
-          {FullType specifiedType = FullType.unspecified}) =>
-      object.name;
-
-  @override
-  GStickerGenre deserialize(Serializers serializers, Object serialized,
-          {FullType specifiedType = FullType.unspecified}) =>
-      GStickerGenre.valueOf(serialized as String);
-}
-
-class _$GWorkOrderBySerializer implements PrimitiveSerializer<GWorkOrderBy> {
-  @override
-  final Iterable<Type> types = const <Type>[GWorkOrderBy];
-  @override
-  final String wireName = 'GWorkOrderBy';
-
-  @override
-  Object serialize(Serializers serializers, GWorkOrderBy object,
-          {FullType specifiedType = FullType.unspecified}) =>
-      object.name;
-
-  @override
-  GWorkOrderBy deserialize(Serializers serializers, Object serialized,
-          {FullType specifiedType = FullType.unspecified}) =>
-      GWorkOrderBy.valueOf(serialized as String);
-}
-
-class _$GWorkTypeSerializer implements PrimitiveSerializer<GWorkType> {
-  @override
-  final Iterable<Type> types = const <Type>[GWorkType];
-  @override
-  final String wireName = 'GWorkType';
-
-  @override
-  Object serialize(Serializers serializers, GWorkType object,
-          {FullType specifiedType = FullType.unspecified}) =>
-      object.name;
-
-  @override
-  GWorkType deserialize(Serializers serializers, Object serialized,
-          {FullType specifiedType = FullType.unspecified}) =>
-      GWorkType.valueOf(serialized as String);
-}
+Serializer<GWorkType> _$gWorkTypeSerializer = new _$GWorkTypeSerializer();
 
 class _$GAcceptPromptonRequestInputSerializer
     implements StructuredSerializer<GAcceptPromptonRequestInput> {
@@ -1465,6 +1133,23 @@ class _$GAcceptPromptonRequestInputSerializer
 
     return result.build();
   }
+}
+
+class _$GAccessTypeSerializer implements PrimitiveSerializer<GAccessType> {
+  @override
+  final Iterable<Type> types = const <Type>[GAccessType];
+  @override
+  final String wireName = 'GAccessType';
+
+  @override
+  Object serialize(Serializers serializers, GAccessType object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      object.name;
+
+  @override
+  GAccessType deserialize(Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      GAccessType.valueOf(serialized as String);
 }
 
 class _$GAddPromptonTagToWorkInputSerializer
@@ -1726,6 +1411,23 @@ class _$GAwardsWhereInputSerializer
   }
 }
 
+class _$GAwardTypeSerializer implements PrimitiveSerializer<GAwardType> {
+  @override
+  final Iterable<Type> types = const <Type>[GAwardType];
+  @override
+  final String wireName = 'GAwardType';
+
+  @override
+  Object serialize(Serializers serializers, GAwardType object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      object.name;
+
+  @override
+  GAwardType deserialize(Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      GAwardType.valueOf(serialized as String);
+}
+
 class _$GBlockPromptonUserInputSerializer
     implements StructuredSerializer<GBlockPromptonUserInput> {
   @override
@@ -1770,6 +1472,24 @@ class _$GBlockPromptonUserInputSerializer
 
     return result.build();
   }
+}
+
+class _$GCacheControlScopeSerializer
+    implements PrimitiveSerializer<GCacheControlScope> {
+  @override
+  final Iterable<Type> types = const <Type>[GCacheControlScope];
+  @override
+  final String wireName = 'GCacheControlScope';
+
+  @override
+  Object serialize(Serializers serializers, GCacheControlScope object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      object.name;
+
+  @override
+  GCacheControlScope deserialize(Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      GCacheControlScope.valueOf(serialized as String);
 }
 
 class _$GCancelImageGenerationMemoInputSerializer
@@ -6324,6 +6044,23 @@ class _$GDeleteWorkLikeInputSerializer
   }
 }
 
+class _$GDirectionSerializer implements PrimitiveSerializer<GDirection> {
+  @override
+  final Iterable<Type> types = const <Type>[GDirection];
+  @override
+  final String wireName = 'GDirection';
+
+  @override
+  Object serialize(Serializers serializers, GDirection object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      object.name;
+
+  @override
+  GDirection deserialize(Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      GDirection.valueOf(serialized as String);
+}
+
 class _$GFlipPromptonFolderWorkIndexInputSerializer
     implements StructuredSerializer<GFlipPromptonFolderWorkIndexInput> {
   @override
@@ -6382,6 +6119,23 @@ class _$GFlipPromptonFolderWorkIndexInputSerializer
 
     return result.build();
   }
+}
+
+class _$GFolderModeSerializer implements PrimitiveSerializer<GFolderMode> {
+  @override
+  final Iterable<Type> types = const <Type>[GFolderMode];
+  @override
+  final String wireName = 'GFolderMode';
+
+  @override
+  Object serialize(Serializers serializers, GFolderMode object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      object.name;
+
+  @override
+  GFolderMode deserialize(Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      GFolderMode.valueOf(serialized as String);
 }
 
 class _$GFoldersWhereInputSerializer
@@ -6627,6 +6381,62 @@ class _$GImageGenerationMemoOrderBySerializer
   }
 }
 
+class _$GImageGenerationSizeTypeSerializer
+    implements PrimitiveSerializer<GImageGenerationSizeType> {
+  @override
+  final Iterable<Type> types = const <Type>[GImageGenerationSizeType];
+  @override
+  final String wireName = 'GImageGenerationSizeType';
+
+  @override
+  Object serialize(Serializers serializers, GImageGenerationSizeType object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      object.name;
+
+  @override
+  GImageGenerationSizeType deserialize(
+          Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      GImageGenerationSizeType.valueOf(serialized as String);
+}
+
+class _$GImageGenerationStatusSerializer
+    implements PrimitiveSerializer<GImageGenerationStatus> {
+  @override
+  final Iterable<Type> types = const <Type>[GImageGenerationStatus];
+  @override
+  final String wireName = 'GImageGenerationStatus';
+
+  @override
+  Object serialize(Serializers serializers, GImageGenerationStatus object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      object.name;
+
+  @override
+  GImageGenerationStatus deserialize(Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      GImageGenerationStatus.valueOf(serialized as String);
+}
+
+class _$GImageGenerationTaskOrderBySerializer
+    implements PrimitiveSerializer<GImageGenerationTaskOrderBy> {
+  @override
+  final Iterable<Type> types = const <Type>[GImageGenerationTaskOrderBy];
+  @override
+  final String wireName = 'GImageGenerationTaskOrderBy';
+
+  @override
+  Object serialize(Serializers serializers, GImageGenerationTaskOrderBy object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      object.name;
+
+  @override
+  GImageGenerationTaskOrderBy deserialize(
+          Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      GImageGenerationTaskOrderBy.valueOf(serialized as String);
+}
+
 class _$GImageGenerationTasksWhereInputSerializer
     implements StructuredSerializer<GImageGenerationTasksWhereInput> {
   @override
@@ -6694,6 +6504,59 @@ class _$GImageGenerationTasksWhereInputSerializer
 
     return result.build();
   }
+}
+
+class _$GImageGenerationTypeSerializer
+    implements PrimitiveSerializer<GImageGenerationType> {
+  @override
+  final Iterable<Type> types = const <Type>[GImageGenerationType];
+  @override
+  final String wireName = 'GImageGenerationType';
+
+  @override
+  Object serialize(Serializers serializers, GImageGenerationType object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      object.name;
+
+  @override
+  GImageGenerationType deserialize(Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      GImageGenerationType.valueOf(serialized as String);
+}
+
+class _$GImageModelCategorySerializer
+    implements PrimitiveSerializer<GImageModelCategory> {
+  @override
+  final Iterable<Type> types = const <Type>[GImageModelCategory];
+  @override
+  final String wireName = 'GImageModelCategory';
+
+  @override
+  Object serialize(Serializers serializers, GImageModelCategory object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      object.name;
+
+  @override
+  GImageModelCategory deserialize(Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      GImageModelCategory.valueOf(serialized as String);
+}
+
+class _$GImageStyleSerializer implements PrimitiveSerializer<GImageStyle> {
+  @override
+  final Iterable<Type> types = const <Type>[GImageStyle];
+  @override
+  final String wireName = 'GImageStyle';
+
+  @override
+  Object serialize(Serializers serializers, GImageStyle object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      object.name;
+
+  @override
+  GImageStyle deserialize(Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      GImageStyle.valueOf(serialized as String);
 }
 
 class _$GIncrementPromptonProfileBlockIndexInputSerializer
@@ -7244,6 +7107,58 @@ class _$GMuteUserInputSerializer
 
     return result.build();
   }
+}
+
+class _$GNotificationTypeSerializer
+    implements PrimitiveSerializer<GNotificationType> {
+  @override
+  final Iterable<Type> types = const <Type>[GNotificationType];
+  @override
+  final String wireName = 'GNotificationType';
+
+  @override
+  Object serialize(Serializers serializers, GNotificationType object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      object.name;
+
+  @override
+  GNotificationType deserialize(Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      GNotificationType.valueOf(serialized as String);
+}
+
+class _$GPassTypeSerializer implements PrimitiveSerializer<GPassType> {
+  @override
+  final Iterable<Type> types = const <Type>[GPassType];
+  @override
+  final String wireName = 'GPassType';
+
+  @override
+  Object serialize(Serializers serializers, GPassType object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      object.name;
+
+  @override
+  GPassType deserialize(Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      GPassType.valueOf(serialized as String);
+}
+
+class _$GPaymentTypeSerializer implements PrimitiveSerializer<GPaymentType> {
+  @override
+  final Iterable<Type> types = const <Type>[GPaymentType];
+  @override
+  final String wireName = 'GPaymentType';
+
+  @override
+  Object serialize(Serializers serializers, GPaymentType object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      object.name;
+
+  @override
+  GPaymentType deserialize(Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      GPaymentType.valueOf(serialized as String);
 }
 
 class _$GPinPromptonWorkInputSerializer
@@ -7972,6 +7887,23 @@ class _$GPromptonWorksWhereInputSerializer
   }
 }
 
+class _$GRatingSerializer implements PrimitiveSerializer<GRating> {
+  @override
+  final Iterable<Type> types = const <Type>[GRating];
+  @override
+  final String wireName = 'GRating';
+
+  @override
+  Object serialize(Serializers serializers, GRating object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      object.name;
+
+  @override
+  GRating deserialize(Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      GRating.valueOf(serialized as String);
+}
+
 class _$GRejectPromptonRequestInputSerializer
     implements StructuredSerializer<GRejectPromptonRequestInput> {
   @override
@@ -8276,6 +8208,23 @@ class _$GReportFolderInputSerializer
   }
 }
 
+class _$GReportReasonSerializer implements PrimitiveSerializer<GReportReason> {
+  @override
+  final Iterable<Type> types = const <Type>[GReportReason];
+  @override
+  final String wireName = 'GReportReason';
+
+  @override
+  Object serialize(Serializers serializers, GReportReason object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      object.name;
+
+  @override
+  GReportReason deserialize(Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      GReportReason.valueOf(serialized as String);
+}
+
 class _$GReportStickerInputSerializer
     implements StructuredSerializer<GReportStickerInput> {
   @override
@@ -8470,6 +8419,23 @@ class _$GSignImageGenerationTermsInputSerializer
 
     return result.build();
   }
+}
+
+class _$GStickerGenreSerializer implements PrimitiveSerializer<GStickerGenre> {
+  @override
+  final Iterable<Type> types = const <Type>[GStickerGenre];
+  @override
+  final String wireName = 'GStickerGenre';
+
+  @override
+  Object serialize(Serializers serializers, GStickerGenre object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      object.name;
+
+  @override
+  GStickerGenre deserialize(Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      GStickerGenre.valueOf(serialized as String);
 }
 
 class _$GStickersWhereInputSerializer
@@ -10881,6 +10847,23 @@ class _$GWorkAwardsWhereInputSerializer
   }
 }
 
+class _$GWorkOrderBySerializer implements PrimitiveSerializer<GWorkOrderBy> {
+  @override
+  final Iterable<Type> types = const <Type>[GWorkOrderBy];
+  @override
+  final String wireName = 'GWorkOrderBy';
+
+  @override
+  Object serialize(Serializers serializers, GWorkOrderBy object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      object.name;
+
+  @override
+  GWorkOrderBy deserialize(Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      GWorkOrderBy.valueOf(serialized as String);
+}
+
 class _$GWorksWhereInputSerializer
     implements StructuredSerializer<GWorksWhereInput> {
   @override
@@ -11021,6 +11004,23 @@ class _$GWorksWhereInputSerializer
 
     return result.build();
   }
+}
+
+class _$GWorkTypeSerializer implements PrimitiveSerializer<GWorkType> {
+  @override
+  final Iterable<Type> types = const <Type>[GWorkType];
+  @override
+  final String wireName = 'GWorkType';
+
+  @override
+  Object serialize(Serializers serializers, GWorkType object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      object.name;
+
+  @override
+  GWorkType deserialize(Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      GWorkType.valueOf(serialized as String);
 }
 
 class _$GAcceptPromptonRequestInput extends GAcceptPromptonRequestInput {

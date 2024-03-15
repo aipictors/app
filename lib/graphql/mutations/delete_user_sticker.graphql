@@ -1,5 +1,5 @@
-mutation DeleteUserSticker($input: DeleteUserStickerInput!) {
-  deleteUserSticker(input: $input) {
+mutation DeleteUserSticker($input: DeleteStickerInput!) {
+  deleteSticker(input: $input) {
     id
   }
 }

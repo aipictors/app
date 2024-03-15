@@ -9,425 +9,6 @@ import 'package:built_value/serializer.dart';
 
 part 'schema.schema.gql.g.dart';
 
-class GAccessType extends EnumClass {
-  const GAccessType._(String name) : super(name);
-
-  static const GAccessType PUBLIC = _$gAccessTypePUBLIC;
-
-  static const GAccessType SILENT = _$gAccessTypeSILENT;
-
-  static const GAccessType PRIVATE = _$gAccessTypePRIVATE;
-
-  static const GAccessType LIMITED = _$gAccessTypeLIMITED;
-
-  static Serializer<GAccessType> get serializer => _$gAccessTypeSerializer;
-
-  static BuiltSet<GAccessType> get values => _$gAccessTypeValues;
-
-  static GAccessType valueOf(String name) => _$gAccessTypeValueOf(name);
-}
-
-class GAwardType extends EnumClass {
-  const GAwardType._(String name) : super(name);
-
-  static const GAwardType MONTHLY = _$gAwardTypeMONTHLY;
-
-  static const GAwardType WEEKLY = _$gAwardTypeWEEKLY;
-
-  static const GAwardType DAILY = _$gAwardTypeDAILY;
-
-  static const GAwardType DAILY_NO_THEME = _$gAwardTypeDAILY_NO_THEME;
-
-  static Serializer<GAwardType> get serializer => _$gAwardTypeSerializer;
-
-  static BuiltSet<GAwardType> get values => _$gAwardTypeValues;
-
-  static GAwardType valueOf(String name) => _$gAwardTypeValueOf(name);
-}
-
-class GCacheControlScope extends EnumClass {
-  const GCacheControlScope._(String name) : super(name);
-
-  static const GCacheControlScope PUBLIC = _$gCacheControlScopePUBLIC;
-
-  static const GCacheControlScope PRIVATE = _$gCacheControlScopePRIVATE;
-
-  static Serializer<GCacheControlScope> get serializer =>
-      _$gCacheControlScopeSerializer;
-
-  static BuiltSet<GCacheControlScope> get values => _$gCacheControlScopeValues;
-
-  static GCacheControlScope valueOf(String name) =>
-      _$gCacheControlScopeValueOf(name);
-}
-
-class GDirection extends EnumClass {
-  const GDirection._(String name) : super(name);
-
-  static const GDirection ASC = _$gDirectionASC;
-
-  static const GDirection DESC = _$gDirectionDESC;
-
-  static Serializer<GDirection> get serializer => _$gDirectionSerializer;
-
-  static BuiltSet<GDirection> get values => _$gDirectionValues;
-
-  static GDirection valueOf(String name) => _$gDirectionValueOf(name);
-}
-
-class GFolderMode extends EnumClass {
-  const GFolderMode._(String name) : super(name);
-
-  static const GFolderMode NORMAL = _$gFolderModeNORMAL;
-
-  static const GFolderMode COMIC_VERTICAL = _$gFolderModeCOMIC_VERTICAL;
-
-  static const GFolderMode COMIC_HORIZONTAL = _$gFolderModeCOMIC_HORIZONTAL;
-
-  static Serializer<GFolderMode> get serializer => _$gFolderModeSerializer;
-
-  static BuiltSet<GFolderMode> get values => _$gFolderModeValues;
-
-  static GFolderMode valueOf(String name) => _$gFolderModeValueOf(name);
-}
-
-class GImageGenerationSizeType extends EnumClass {
-  const GImageGenerationSizeType._(String name) : super(name);
-
-  static const GImageGenerationSizeType SD2_768_768 =
-      _$gImageGenerationSizeTypeSD2_768_768;
-
-  static const GImageGenerationSizeType SD2_768_1200 =
-      _$gImageGenerationSizeTypeSD2_768_1200;
-
-  static const GImageGenerationSizeType SD2_1200_768 =
-      _$gImageGenerationSizeTypeSD2_1200_768;
-
-  static const GImageGenerationSizeType SD2_768_1152 =
-      _$gImageGenerationSizeTypeSD2_768_1152;
-
-  static const GImageGenerationSizeType SD2_1152_768 =
-      _$gImageGenerationSizeTypeSD2_1152_768;
-
-  static const GImageGenerationSizeType SD2_576_1440 =
-      _$gImageGenerationSizeTypeSD2_576_1440;
-
-  static const GImageGenerationSizeType SD2_1440_576 =
-      _$gImageGenerationSizeTypeSD2_1440_576;
-
-  static const GImageGenerationSizeType SD1_512_512 =
-      _$gImageGenerationSizeTypeSD1_512_512;
-
-  static const GImageGenerationSizeType SD1_512_768 =
-      _$gImageGenerationSizeTypeSD1_512_768;
-
-  static const GImageGenerationSizeType SD1_768_512 =
-      _$gImageGenerationSizeTypeSD1_768_512;
-
-  static const GImageGenerationSizeType SD1_384_960 =
-      _$gImageGenerationSizeTypeSD1_384_960;
-
-  static const GImageGenerationSizeType SD1_960_384 =
-      _$gImageGenerationSizeTypeSD1_960_384;
-
-  static const GImageGenerationSizeType SD3_1216_1216 =
-      _$gImageGenerationSizeTypeSD3_1216_1216;
-
-  static const GImageGenerationSizeType SD3_832_1216 =
-      _$gImageGenerationSizeTypeSD3_832_1216;
-
-  static const GImageGenerationSizeType SD3_1216_832 =
-      _$gImageGenerationSizeTypeSD3_1216_832;
-
-  static const GImageGenerationSizeType SD3_960_384 =
-      _$gImageGenerationSizeTypeSD3_960_384;
-
-  static const GImageGenerationSizeType SD3_640_1536 =
-      _$gImageGenerationSizeTypeSD3_640_1536;
-
-  static const GImageGenerationSizeType SD3_1536_640 =
-      _$gImageGenerationSizeTypeSD3_1536_640;
-
-  static const GImageGenerationSizeType SD3_1024_1024 =
-      _$gImageGenerationSizeTypeSD3_1024_1024;
-
-  static const GImageGenerationSizeType SD3_896_1152 =
-      _$gImageGenerationSizeTypeSD3_896_1152;
-
-  static const GImageGenerationSizeType SD3_1152_896 =
-      _$gImageGenerationSizeTypeSD3_1152_896;
-
-  static const GImageGenerationSizeType SD3_1152_1152 =
-      _$gImageGenerationSizeTypeSD3_1152_1152;
-
-  static const GImageGenerationSizeType SD3_896_896 =
-      _$gImageGenerationSizeTypeSD3_896_896;
-
-  static Serializer<GImageGenerationSizeType> get serializer =>
-      _$gImageGenerationSizeTypeSerializer;
-
-  static BuiltSet<GImageGenerationSizeType> get values =>
-      _$gImageGenerationSizeTypeValues;
-
-  static GImageGenerationSizeType valueOf(String name) =>
-      _$gImageGenerationSizeTypeValueOf(name);
-}
-
-class GImageGenerationStatus extends EnumClass {
-  const GImageGenerationStatus._(String name) : super(name);
-
-  static const GImageGenerationStatus PENDING = _$gImageGenerationStatusPENDING;
-
-  static const GImageGenerationStatus IN_PROGRESS =
-      _$gImageGenerationStatusIN_PROGRESS;
-
-  static const GImageGenerationStatus DONE = _$gImageGenerationStatusDONE;
-
-  static const GImageGenerationStatus CANCELED =
-      _$gImageGenerationStatusCANCELED;
-
-  static const GImageGenerationStatus ERROR = _$gImageGenerationStatusERROR;
-
-  static Serializer<GImageGenerationStatus> get serializer =>
-      _$gImageGenerationStatusSerializer;
-
-  static BuiltSet<GImageGenerationStatus> get values =>
-      _$gImageGenerationStatusValues;
-
-  static GImageGenerationStatus valueOf(String name) =>
-      _$gImageGenerationStatusValueOf(name);
-}
-
-class GImageGenerationTaskOrderBy extends EnumClass {
-  const GImageGenerationTaskOrderBy._(String name) : super(name);
-
-  static const GImageGenerationTaskOrderBy DATE_CREATED =
-      _$gImageGenerationTaskOrderByDATE_CREATED;
-
-  static Serializer<GImageGenerationTaskOrderBy> get serializer =>
-      _$gImageGenerationTaskOrderBySerializer;
-
-  static BuiltSet<GImageGenerationTaskOrderBy> get values =>
-      _$gImageGenerationTaskOrderByValues;
-
-  static GImageGenerationTaskOrderBy valueOf(String name) =>
-      _$gImageGenerationTaskOrderByValueOf(name);
-}
-
-class GImageGenerationType extends EnumClass {
-  const GImageGenerationType._(String name) : super(name);
-
-  static const GImageGenerationType TEXT_TO_IMAGE =
-      _$gImageGenerationTypeTEXT_TO_IMAGE;
-
-  static const GImageGenerationType IMAGE_TO_IMAGE =
-      _$gImageGenerationTypeIMAGE_TO_IMAGE;
-
-  static const GImageGenerationType INPAINTING =
-      _$gImageGenerationTypeINPAINTING;
-
-  static Serializer<GImageGenerationType> get serializer =>
-      _$gImageGenerationTypeSerializer;
-
-  static BuiltSet<GImageGenerationType> get values =>
-      _$gImageGenerationTypeValues;
-
-  static GImageGenerationType valueOf(String name) =>
-      _$gImageGenerationTypeValueOf(name);
-}
-
-class GImageModelCategory extends EnumClass {
-  const GImageModelCategory._(String name) : super(name);
-
-  static const GImageModelCategory ILLUSTRATION_GIRL =
-      _$gImageModelCategoryILLUSTRATION_GIRL;
-
-  static const GImageModelCategory ILLUSTRATION_BOY =
-      _$gImageModelCategoryILLUSTRATION_BOY;
-
-  static const GImageModelCategory BIKINI_MODEL =
-      _$gImageModelCategoryBIKINI_MODEL;
-
-  static const GImageModelCategory BACKGROUND = _$gImageModelCategoryBACKGROUND;
-
-  static const GImageModelCategory ANIMAL = _$gImageModelCategoryANIMAL;
-
-  static const GImageModelCategory FIGURE = _$gImageModelCategoryFIGURE;
-
-  static Serializer<GImageModelCategory> get serializer =>
-      _$gImageModelCategorySerializer;
-
-  static BuiltSet<GImageModelCategory> get values =>
-      _$gImageModelCategoryValues;
-
-  static GImageModelCategory valueOf(String name) =>
-      _$gImageModelCategoryValueOf(name);
-}
-
-class GImageStyle extends EnumClass {
-  const GImageStyle._(String name) : super(name);
-
-  static const GImageStyle REAL = _$gImageStyleREAL;
-
-  static const GImageStyle SEMI_REAL = _$gImageStyleSEMI_REAL;
-
-  static const GImageStyle ILLUSTRATION = _$gImageStyleILLUSTRATION;
-
-  static Serializer<GImageStyle> get serializer => _$gImageStyleSerializer;
-
-  static BuiltSet<GImageStyle> get values => _$gImageStyleValues;
-
-  static GImageStyle valueOf(String name) => _$gImageStyleValueOf(name);
-}
-
-class GNotificationType extends EnumClass {
-  const GNotificationType._(String name) : super(name);
-
-  static const GNotificationType LIKED_WORK = _$gNotificationTypeLIKED_WORK;
-
-  static const GNotificationType LIKED_WORKS_SUMMARY =
-      _$gNotificationTypeLIKED_WORKS_SUMMARY;
-
-  static const GNotificationType WORK_AWARD = _$gNotificationTypeWORK_AWARD;
-
-  static const GNotificationType WORK_COMMENT = _$gNotificationTypeWORK_COMMENT;
-
-  static const GNotificationType COMMENT_REPLY =
-      _$gNotificationTypeCOMMENT_REPLY;
-
-  static const GNotificationType FOLLOW = _$gNotificationTypeFOLLOW;
-
-  static Serializer<GNotificationType> get serializer =>
-      _$gNotificationTypeSerializer;
-
-  static BuiltSet<GNotificationType> get values => _$gNotificationTypeValues;
-
-  static GNotificationType valueOf(String name) =>
-      _$gNotificationTypeValueOf(name);
-}
-
-class GPassType extends EnumClass {
-  const GPassType._(String name) : super(name);
-
-  static const GPassType LITE = _$gPassTypeLITE;
-
-  static const GPassType STANDARD = _$gPassTypeSTANDARD;
-
-  static const GPassType PREMIUM = _$gPassTypePREMIUM;
-
-  static const GPassType TWO_DAYS = _$gPassTypeTWO_DAYS;
-
-  static Serializer<GPassType> get serializer => _$gPassTypeSerializer;
-
-  static BuiltSet<GPassType> get values => _$gPassTypeValues;
-
-  static GPassType valueOf(String name) => _$gPassTypeValueOf(name);
-}
-
-class GPaymentType extends EnumClass {
-  const GPaymentType._(String name) : super(name);
-
-  static const GPaymentType PASS_STANDARD = _$gPaymentTypePASS_STANDARD;
-
-  static const GPaymentType PASS_PREMIUM = _$gPaymentTypePASS_PREMIUM;
-
-  static const GPaymentType PASS_LITE = _$gPaymentTypePASS_LITE;
-
-  static Serializer<GPaymentType> get serializer => _$gPaymentTypeSerializer;
-
-  static BuiltSet<GPaymentType> get values => _$gPaymentTypeValues;
-
-  static GPaymentType valueOf(String name) => _$gPaymentTypeValueOf(name);
-}
-
-class GRating extends EnumClass {
-  const GRating._(String name) : super(name);
-
-  static const GRating G = _$gRatingG;
-
-  static const GRating R15 = _$gRatingR15;
-
-  static const GRating R18 = _$gRatingR18;
-
-  static const GRating R18G = _$gRatingR18G;
-
-  static Serializer<GRating> get serializer => _$gRatingSerializer;
-
-  static BuiltSet<GRating> get values => _$gRatingValues;
-
-  static GRating valueOf(String name) => _$gRatingValueOf(name);
-}
-
-class GReportReason extends EnumClass {
-  const GReportReason._(String name) : super(name);
-
-  static const GReportReason SLANDER = _$gReportReasonSLANDER;
-
-  static const GReportReason COPYRIGHT = _$gReportReasonCOPYRIGHT;
-
-  static const GReportReason SENSITIVE = _$gReportReasonSENSITIVE;
-
-  static const GReportReason SPAM = _$gReportReasonSPAM;
-
-  static const GReportReason OTHER = _$gReportReasonOTHER;
-
-  static Serializer<GReportReason> get serializer => _$gReportReasonSerializer;
-
-  static BuiltSet<GReportReason> get values => _$gReportReasonValues;
-
-  static GReportReason valueOf(String name) => _$gReportReasonValueOf(name);
-}
-
-class GStickerGenre extends EnumClass {
-  const GStickerGenre._(String name) : super(name);
-
-  static const GStickerGenre CHARACTER = _$gStickerGenreCHARACTER;
-
-  static const GStickerGenre ANIMAL = _$gStickerGenreANIMAL;
-
-  static const GStickerGenre MACHINE = _$gStickerGenreMACHINE;
-
-  static const GStickerGenre BACKGROUND = _$gStickerGenreBACKGROUND;
-
-  static const GStickerGenre OBJECT = _$gStickerGenreOBJECT;
-
-  static Serializer<GStickerGenre> get serializer => _$gStickerGenreSerializer;
-
-  static BuiltSet<GStickerGenre> get values => _$gStickerGenreValues;
-
-  static GStickerGenre valueOf(String name) => _$gStickerGenreValueOf(name);
-}
-
-class GWorkOrderBy extends EnumClass {
-  const GWorkOrderBy._(String name) : super(name);
-
-  static const GWorkOrderBy DATE_CREATED = _$gWorkOrderByDATE_CREATED;
-
-  static const GWorkOrderBy LIKES_COUNT = _$gWorkOrderByLIKES_COUNT;
-
-  static Serializer<GWorkOrderBy> get serializer => _$gWorkOrderBySerializer;
-
-  static BuiltSet<GWorkOrderBy> get values => _$gWorkOrderByValues;
-
-  static GWorkOrderBy valueOf(String name) => _$gWorkOrderByValueOf(name);
-}
-
-class GWorkType extends EnumClass {
-  const GWorkType._(String name) : super(name);
-
-  static const GWorkType WORK = _$gWorkTypeWORK;
-
-  static const GWorkType NOVEL = _$gWorkTypeNOVEL;
-
-  static const GWorkType VIDEO = _$gWorkTypeVIDEO;
-
-  static Serializer<GWorkType> get serializer => _$gWorkTypeSerializer;
-
-  static BuiltSet<GWorkType> get values => _$gWorkTypeValues;
-
-  static GWorkType valueOf(String name) => _$gWorkTypeValueOf(name);
-}
-
 abstract class GAcceptPromptonRequestInput
     implements
         Built<GAcceptPromptonRequestInput, GAcceptPromptonRequestInputBuilder> {
@@ -451,6 +32,24 @@ abstract class GAcceptPromptonRequestInput
         GAcceptPromptonRequestInput.serializer,
         json,
       );
+}
+
+class GAccessType extends EnumClass {
+  const GAccessType._(String name) : super(name);
+
+  static const GAccessType PUBLIC = _$gAccessTypePUBLIC;
+
+  static const GAccessType SILENT = _$gAccessTypeSILENT;
+
+  static const GAccessType PRIVATE = _$gAccessTypePRIVATE;
+
+  static const GAccessType LIMITED = _$gAccessTypeLIMITED;
+
+  static Serializer<GAccessType> get serializer => _$gAccessTypeSerializer;
+
+  static BuiltSet<GAccessType> get values => _$gAccessTypeValues;
+
+  static GAccessType valueOf(String name) => _$gAccessTypeValueOf(name);
 }
 
 abstract class GAddPromptonTagToWorkInput
@@ -558,6 +157,24 @@ abstract class GAwardsWhereInput
       );
 }
 
+class GAwardType extends EnumClass {
+  const GAwardType._(String name) : super(name);
+
+  static const GAwardType MONTHLY = _$gAwardTypeMONTHLY;
+
+  static const GAwardType WEEKLY = _$gAwardTypeWEEKLY;
+
+  static const GAwardType DAILY = _$gAwardTypeDAILY;
+
+  static const GAwardType DAILY_NO_THEME = _$gAwardTypeDAILY_NO_THEME;
+
+  static Serializer<GAwardType> get serializer => _$gAwardTypeSerializer;
+
+  static BuiltSet<GAwardType> get values => _$gAwardTypeValues;
+
+  static GAwardType valueOf(String name) => _$gAwardTypeValueOf(name);
+}
+
 abstract class GBlockPromptonUserInput
     implements Built<GBlockPromptonUserInput, GBlockPromptonUserInputBuilder> {
   GBlockPromptonUserInput._();
@@ -580,6 +197,22 @@ abstract class GBlockPromptonUserInput
         GBlockPromptonUserInput.serializer,
         json,
       );
+}
+
+class GCacheControlScope extends EnumClass {
+  const GCacheControlScope._(String name) : super(name);
+
+  static const GCacheControlScope PUBLIC = _$gCacheControlScopePUBLIC;
+
+  static const GCacheControlScope PRIVATE = _$gCacheControlScopePRIVATE;
+
+  static Serializer<GCacheControlScope> get serializer =>
+      _$gCacheControlScopeSerializer;
+
+  static BuiltSet<GCacheControlScope> get values => _$gCacheControlScopeValues;
+
+  static GCacheControlScope valueOf(String name) =>
+      _$gCacheControlScopeValueOf(name);
 }
 
 abstract class GCancelImageGenerationMemoInput
@@ -2701,6 +2334,20 @@ abstract class GDeleteWorkLikeInput
       );
 }
 
+class GDirection extends EnumClass {
+  const GDirection._(String name) : super(name);
+
+  static const GDirection ASC = _$gDirectionASC;
+
+  static const GDirection DESC = _$gDirectionDESC;
+
+  static Serializer<GDirection> get serializer => _$gDirectionSerializer;
+
+  static BuiltSet<GDirection> get values => _$gDirectionValues;
+
+  static GDirection valueOf(String name) => _$gDirectionValueOf(name);
+}
+
 abstract class GFlipPromptonFolderWorkIndexInput
     implements
         Built<GFlipPromptonFolderWorkIndexInput,
@@ -2728,6 +2375,22 @@ abstract class GFlipPromptonFolderWorkIndexInput
         GFlipPromptonFolderWorkIndexInput.serializer,
         json,
       );
+}
+
+class GFolderMode extends EnumClass {
+  const GFolderMode._(String name) : super(name);
+
+  static const GFolderMode NORMAL = _$gFolderModeNORMAL;
+
+  static const GFolderMode COMIC_VERTICAL = _$gFolderModeCOMIC_VERTICAL;
+
+  static const GFolderMode COMIC_HORIZONTAL = _$gFolderModeCOMIC_HORIZONTAL;
+
+  static Serializer<GFolderMode> get serializer => _$gFolderModeSerializer;
+
+  static BuiltSet<GFolderMode> get values => _$gFolderModeValues;
+
+  static GFolderMode valueOf(String name) => _$gFolderModeValueOf(name);
 }
 
 abstract class GFoldersWhereInput
@@ -2850,6 +2513,129 @@ abstract class GImageGenerationMemoOrderBy
       );
 }
 
+class GImageGenerationSizeType extends EnumClass {
+  const GImageGenerationSizeType._(String name) : super(name);
+
+  static const GImageGenerationSizeType SD2_768_768 =
+      _$gImageGenerationSizeTypeSD2_768_768;
+
+  static const GImageGenerationSizeType SD2_768_1200 =
+      _$gImageGenerationSizeTypeSD2_768_1200;
+
+  static const GImageGenerationSizeType SD2_1200_768 =
+      _$gImageGenerationSizeTypeSD2_1200_768;
+
+  static const GImageGenerationSizeType SD2_768_1152 =
+      _$gImageGenerationSizeTypeSD2_768_1152;
+
+  static const GImageGenerationSizeType SD2_1152_768 =
+      _$gImageGenerationSizeTypeSD2_1152_768;
+
+  static const GImageGenerationSizeType SD2_576_1440 =
+      _$gImageGenerationSizeTypeSD2_576_1440;
+
+  static const GImageGenerationSizeType SD2_1440_576 =
+      _$gImageGenerationSizeTypeSD2_1440_576;
+
+  static const GImageGenerationSizeType SD1_512_512 =
+      _$gImageGenerationSizeTypeSD1_512_512;
+
+  static const GImageGenerationSizeType SD1_512_768 =
+      _$gImageGenerationSizeTypeSD1_512_768;
+
+  static const GImageGenerationSizeType SD1_768_512 =
+      _$gImageGenerationSizeTypeSD1_768_512;
+
+  static const GImageGenerationSizeType SD1_384_960 =
+      _$gImageGenerationSizeTypeSD1_384_960;
+
+  static const GImageGenerationSizeType SD1_960_384 =
+      _$gImageGenerationSizeTypeSD1_960_384;
+
+  static const GImageGenerationSizeType SD3_1216_1216 =
+      _$gImageGenerationSizeTypeSD3_1216_1216;
+
+  static const GImageGenerationSizeType SD3_832_1216 =
+      _$gImageGenerationSizeTypeSD3_832_1216;
+
+  static const GImageGenerationSizeType SD3_1216_832 =
+      _$gImageGenerationSizeTypeSD3_1216_832;
+
+  static const GImageGenerationSizeType SD3_960_384 =
+      _$gImageGenerationSizeTypeSD3_960_384;
+
+  static const GImageGenerationSizeType SD3_640_1536 =
+      _$gImageGenerationSizeTypeSD3_640_1536;
+
+  static const GImageGenerationSizeType SD3_1536_640 =
+      _$gImageGenerationSizeTypeSD3_1536_640;
+
+  static const GImageGenerationSizeType SD3_1024_1024 =
+      _$gImageGenerationSizeTypeSD3_1024_1024;
+
+  static const GImageGenerationSizeType SD3_896_1152 =
+      _$gImageGenerationSizeTypeSD3_896_1152;
+
+  static const GImageGenerationSizeType SD3_1152_896 =
+      _$gImageGenerationSizeTypeSD3_1152_896;
+
+  static const GImageGenerationSizeType SD3_1152_1152 =
+      _$gImageGenerationSizeTypeSD3_1152_1152;
+
+  static const GImageGenerationSizeType SD3_896_896 =
+      _$gImageGenerationSizeTypeSD3_896_896;
+
+  static Serializer<GImageGenerationSizeType> get serializer =>
+      _$gImageGenerationSizeTypeSerializer;
+
+  static BuiltSet<GImageGenerationSizeType> get values =>
+      _$gImageGenerationSizeTypeValues;
+
+  static GImageGenerationSizeType valueOf(String name) =>
+      _$gImageGenerationSizeTypeValueOf(name);
+}
+
+class GImageGenerationStatus extends EnumClass {
+  const GImageGenerationStatus._(String name) : super(name);
+
+  static const GImageGenerationStatus PENDING = _$gImageGenerationStatusPENDING;
+
+  static const GImageGenerationStatus IN_PROGRESS =
+      _$gImageGenerationStatusIN_PROGRESS;
+
+  static const GImageGenerationStatus DONE = _$gImageGenerationStatusDONE;
+
+  static const GImageGenerationStatus CANCELED =
+      _$gImageGenerationStatusCANCELED;
+
+  static const GImageGenerationStatus ERROR = _$gImageGenerationStatusERROR;
+
+  static Serializer<GImageGenerationStatus> get serializer =>
+      _$gImageGenerationStatusSerializer;
+
+  static BuiltSet<GImageGenerationStatus> get values =>
+      _$gImageGenerationStatusValues;
+
+  static GImageGenerationStatus valueOf(String name) =>
+      _$gImageGenerationStatusValueOf(name);
+}
+
+class GImageGenerationTaskOrderBy extends EnumClass {
+  const GImageGenerationTaskOrderBy._(String name) : super(name);
+
+  static const GImageGenerationTaskOrderBy DATE_CREATED =
+      _$gImageGenerationTaskOrderByDATE_CREATED;
+
+  static Serializer<GImageGenerationTaskOrderBy> get serializer =>
+      _$gImageGenerationTaskOrderBySerializer;
+
+  static BuiltSet<GImageGenerationTaskOrderBy> get values =>
+      _$gImageGenerationTaskOrderByValues;
+
+  static GImageGenerationTaskOrderBy valueOf(String name) =>
+      _$gImageGenerationTaskOrderByValueOf(name);
+}
+
 abstract class GImageGenerationTasksWhereInput
     implements
         Built<GImageGenerationTasksWhereInput,
@@ -2876,6 +2662,72 @@ abstract class GImageGenerationTasksWhereInput
         GImageGenerationTasksWhereInput.serializer,
         json,
       );
+}
+
+class GImageGenerationType extends EnumClass {
+  const GImageGenerationType._(String name) : super(name);
+
+  static const GImageGenerationType TEXT_TO_IMAGE =
+      _$gImageGenerationTypeTEXT_TO_IMAGE;
+
+  static const GImageGenerationType IMAGE_TO_IMAGE =
+      _$gImageGenerationTypeIMAGE_TO_IMAGE;
+
+  static const GImageGenerationType INPAINTING =
+      _$gImageGenerationTypeINPAINTING;
+
+  static Serializer<GImageGenerationType> get serializer =>
+      _$gImageGenerationTypeSerializer;
+
+  static BuiltSet<GImageGenerationType> get values =>
+      _$gImageGenerationTypeValues;
+
+  static GImageGenerationType valueOf(String name) =>
+      _$gImageGenerationTypeValueOf(name);
+}
+
+class GImageModelCategory extends EnumClass {
+  const GImageModelCategory._(String name) : super(name);
+
+  static const GImageModelCategory ILLUSTRATION_GIRL =
+      _$gImageModelCategoryILLUSTRATION_GIRL;
+
+  static const GImageModelCategory ILLUSTRATION_BOY =
+      _$gImageModelCategoryILLUSTRATION_BOY;
+
+  static const GImageModelCategory BIKINI_MODEL =
+      _$gImageModelCategoryBIKINI_MODEL;
+
+  static const GImageModelCategory BACKGROUND = _$gImageModelCategoryBACKGROUND;
+
+  static const GImageModelCategory ANIMAL = _$gImageModelCategoryANIMAL;
+
+  static const GImageModelCategory FIGURE = _$gImageModelCategoryFIGURE;
+
+  static Serializer<GImageModelCategory> get serializer =>
+      _$gImageModelCategorySerializer;
+
+  static BuiltSet<GImageModelCategory> get values =>
+      _$gImageModelCategoryValues;
+
+  static GImageModelCategory valueOf(String name) =>
+      _$gImageModelCategoryValueOf(name);
+}
+
+class GImageStyle extends EnumClass {
+  const GImageStyle._(String name) : super(name);
+
+  static const GImageStyle REAL = _$gImageStyleREAL;
+
+  static const GImageStyle SEMI_REAL = _$gImageStyleSEMI_REAL;
+
+  static const GImageStyle ILLUSTRATION = _$gImageStyleILLUSTRATION;
+
+  static Serializer<GImageStyle> get serializer => _$gImageStyleSerializer;
+
+  static BuiltSet<GImageStyle> get values => _$gImageStyleValues;
+
+  static GImageStyle valueOf(String name) => _$gImageStyleValueOf(name);
 }
 
 abstract class GIncrementPromptonProfileBlockIndexInput
@@ -3182,6 +3034,66 @@ abstract class GMuteUserInput
         GMuteUserInput.serializer,
         json,
       );
+}
+
+class GNotificationType extends EnumClass {
+  const GNotificationType._(String name) : super(name);
+
+  static const GNotificationType LIKED_WORK = _$gNotificationTypeLIKED_WORK;
+
+  static const GNotificationType LIKED_WORKS_SUMMARY =
+      _$gNotificationTypeLIKED_WORKS_SUMMARY;
+
+  static const GNotificationType WORK_AWARD = _$gNotificationTypeWORK_AWARD;
+
+  static const GNotificationType WORK_COMMENT = _$gNotificationTypeWORK_COMMENT;
+
+  static const GNotificationType COMMENT_REPLY =
+      _$gNotificationTypeCOMMENT_REPLY;
+
+  static const GNotificationType FOLLOW = _$gNotificationTypeFOLLOW;
+
+  static Serializer<GNotificationType> get serializer =>
+      _$gNotificationTypeSerializer;
+
+  static BuiltSet<GNotificationType> get values => _$gNotificationTypeValues;
+
+  static GNotificationType valueOf(String name) =>
+      _$gNotificationTypeValueOf(name);
+}
+
+class GPassType extends EnumClass {
+  const GPassType._(String name) : super(name);
+
+  static const GPassType LITE = _$gPassTypeLITE;
+
+  static const GPassType STANDARD = _$gPassTypeSTANDARD;
+
+  static const GPassType PREMIUM = _$gPassTypePREMIUM;
+
+  static const GPassType TWO_DAYS = _$gPassTypeTWO_DAYS;
+
+  static Serializer<GPassType> get serializer => _$gPassTypeSerializer;
+
+  static BuiltSet<GPassType> get values => _$gPassTypeValues;
+
+  static GPassType valueOf(String name) => _$gPassTypeValueOf(name);
+}
+
+class GPaymentType extends EnumClass {
+  const GPaymentType._(String name) : super(name);
+
+  static const GPaymentType PASS_STANDARD = _$gPaymentTypePASS_STANDARD;
+
+  static const GPaymentType PASS_PREMIUM = _$gPaymentTypePASS_PREMIUM;
+
+  static const GPaymentType PASS_LITE = _$gPaymentTypePASS_LITE;
+
+  static Serializer<GPaymentType> get serializer => _$gPaymentTypeSerializer;
+
+  static BuiltSet<GPaymentType> get values => _$gPaymentTypeValues;
+
+  static GPaymentType valueOf(String name) => _$gPaymentTypeValueOf(name);
 }
 
 abstract class GPinPromptonWorkInput
@@ -3497,6 +3409,24 @@ abstract class GPromptonWorksWhereInput
       );
 }
 
+class GRating extends EnumClass {
+  const GRating._(String name) : super(name);
+
+  static const GRating G = _$gRatingG;
+
+  static const GRating R15 = _$gRatingR15;
+
+  static const GRating R18 = _$gRatingR18;
+
+  static const GRating R18G = _$gRatingR18G;
+
+  static Serializer<GRating> get serializer => _$gRatingSerializer;
+
+  static BuiltSet<GRating> get values => _$gRatingValues;
+
+  static GRating valueOf(String name) => _$gRatingValueOf(name);
+}
+
 abstract class GRejectPromptonRequestInput
     implements
         Built<GRejectPromptonRequestInput, GRejectPromptonRequestInputBuilder> {
@@ -3649,6 +3579,26 @@ abstract class GReportFolderInput
       );
 }
 
+class GReportReason extends EnumClass {
+  const GReportReason._(String name) : super(name);
+
+  static const GReportReason SLANDER = _$gReportReasonSLANDER;
+
+  static const GReportReason COPYRIGHT = _$gReportReasonCOPYRIGHT;
+
+  static const GReportReason SENSITIVE = _$gReportReasonSENSITIVE;
+
+  static const GReportReason SPAM = _$gReportReasonSPAM;
+
+  static const GReportReason OTHER = _$gReportReasonOTHER;
+
+  static Serializer<GReportReason> get serializer => _$gReportReasonSerializer;
+
+  static BuiltSet<GReportReason> get values => _$gReportReasonValues;
+
+  static GReportReason valueOf(String name) => _$gReportReasonValueOf(name);
+}
+
 abstract class GReportStickerInput
     implements Built<GReportStickerInput, GReportStickerInputBuilder> {
   GReportStickerInput._();
@@ -3745,6 +3695,26 @@ abstract class GSignImageGenerationTermsInput
         GSignImageGenerationTermsInput.serializer,
         json,
       );
+}
+
+class GStickerGenre extends EnumClass {
+  const GStickerGenre._(String name) : super(name);
+
+  static const GStickerGenre CHARACTER = _$gStickerGenreCHARACTER;
+
+  static const GStickerGenre ANIMAL = _$gStickerGenreANIMAL;
+
+  static const GStickerGenre MACHINE = _$gStickerGenreMACHINE;
+
+  static const GStickerGenre BACKGROUND = _$gStickerGenreBACKGROUND;
+
+  static const GStickerGenre OBJECT = _$gStickerGenreOBJECT;
+
+  static Serializer<GStickerGenre> get serializer => _$gStickerGenreSerializer;
+
+  static BuiltSet<GStickerGenre> get values => _$gStickerGenreValues;
+
+  static GStickerGenre valueOf(String name) => _$gStickerGenreValueOf(name);
 }
 
 abstract class GStickersWhereInput
@@ -4820,6 +4790,20 @@ abstract class GWorkAwardsWhereInput
       );
 }
 
+class GWorkOrderBy extends EnumClass {
+  const GWorkOrderBy._(String name) : super(name);
+
+  static const GWorkOrderBy DATE_CREATED = _$gWorkOrderByDATE_CREATED;
+
+  static const GWorkOrderBy LIKES_COUNT = _$gWorkOrderByLIKES_COUNT;
+
+  static Serializer<GWorkOrderBy> get serializer => _$gWorkOrderBySerializer;
+
+  static BuiltSet<GWorkOrderBy> get values => _$gWorkOrderByValues;
+
+  static GWorkOrderBy valueOf(String name) => _$gWorkOrderByValueOf(name);
+}
+
 abstract class GWorksWhereInput
     implements Built<GWorksWhereInput, GWorksWhereInputBuilder> {
   GWorksWhereInput._();
@@ -4849,6 +4833,22 @@ abstract class GWorksWhereInput
         GWorksWhereInput.serializer,
         json,
       );
+}
+
+class GWorkType extends EnumClass {
+  const GWorkType._(String name) : super(name);
+
+  static const GWorkType WORK = _$gWorkTypeWORK;
+
+  static const GWorkType NOVEL = _$gWorkTypeNOVEL;
+
+  static const GWorkType VIDEO = _$gWorkTypeVIDEO;
+
+  static Serializer<GWorkType> get serializer => _$gWorkTypeSerializer;
+
+  static BuiltSet<GWorkType> get values => _$gWorkTypeValues;
+
+  static GWorkType valueOf(String name) => _$gWorkTypeValueOf(name);
 }
 
 const Map<String, Set<String>> possibleTypesMap = {
@@ -4882,9 +4882,7 @@ const Map<String, Set<String>> possibleTypesMap = {
     'PromptCategoryNode',
     'PromptNode',
     'PromptonAccountNode',
-    'PromptonBookmarkNode',
     'PromptonCustomerNode',
-    'PromptonDeliverableNode',
     'PromptonFileNode',
     'PromptonFolderKeyNode',
     'PromptonFolderNode',
@@ -4893,7 +4891,6 @@ const Map<String, Set<String>> possibleTypesMap = {
     'PromptonImageGenerationNode',
     'PromptonIntegrationNode',
     'PromptonLabelNode',
-    'PromptonLikeNode',
     'PromptonMessageNode',
     'PromptonPaymentIntentNode',
     'PromptonPaymentMethodNode',
@@ -4901,7 +4898,6 @@ const Map<String, Set<String>> possibleTypesMap = {
     'PromptonPayoutNode',
     'PromptonPlanNode',
     'PromptonPromptNode',
-    'PromptonReactionNode',
     'PromptonRequestNode',
     'PromptonTagNode',
     'PromptonUserNode',
@@ -4921,14 +4917,6 @@ const Map<String, Set<String>> possibleTypesMap = {
     'WorkEventNode',
     'WorkNode',
     'WorkViewerNode',
-  },
-  'Edge': {
-    'PromptonLabelEdge',
-    'PromptonWorkEdge',
-  },
-  'Connection': {
-    'PromptonLabelsConnection',
-    'PromptonWorksConnection',
   },
   'NotificationNode': {
     'LikedWorkNotificationNode',

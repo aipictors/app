@@ -1,5 +1,5 @@
-mutation CreateUserSticker($input: CreateUserStickerInput!) {
-  createUserSticker(input: $input) {
+mutation CreateUserSticker($input: CreateStickerInput!) {
+  createSticker(input: $input) {
     id
   }
 }
