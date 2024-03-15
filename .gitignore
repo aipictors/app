@@ -59,3 +59,6 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# flutter 3.17以降
+**/ios/Flutter/Dart-Defines.xcconfig
