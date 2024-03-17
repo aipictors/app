@@ -1,10 +1,13 @@
 import 'package:aipictors/default.i18n.dart';
+import 'package:aipictors/enums/layout.dart';
 import 'package:aipictors/graphql/__generated__/stickers.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/providers/config_provider.dart';
+import 'package:aipictors/providers/stickers_screen_cross_axis_count_provider.dart';
 import 'package:aipictors/screens/loading_screen.dart';
 import 'package:aipictors/widgets/app_bar/search_app_bar.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
+import 'package:aipictors/widgets/button/adjust_sticker_size_button.dart';
 import 'package:aipictors/widgets/container/error/data_empty_error_container.dart';
 import 'package:aipictors/widgets/container/error/unexpected_error_container.dart';
 import 'package:aipictors/widgets/view/stickers_grid_view.dart';
@@ -28,6 +31,9 @@ class StickersSearchScreen extends HookConsumerWidget {
     final isFilled = useState(true);
     final client = ref.watch(clientProvider);
     final config = ref.watch(configProvider);
+    final crossAxisCount = ref.watch(stickersScreenCrossAxisCountProvider);
+    final layout =
+        Layout.fromWidthAndConfig(MediaQuery.of(context).size.width, config);
 
     if (client.value == null) {
       return const LoadingScreen();
@@ -55,7 +61,7 @@ class StickersSearchScreen extends HookConsumerWidget {
         appBar: AppBar(
           title: searchContainer,
           actions: [
-            if (isFilled.value == true)
+            if (isFilled.value == true) ...[
               IconButton(
                 icon: const Icon(Icons.clear_rounded),
                 onPressed: () {
@@ -63,6 +69,17 @@ class StickersSearchScreen extends HookConsumerWidget {
                   searchContainer.clear();
                 },
               ),
+              const SizedBox(width: 16)
+            ],
+            AdjustStickerSizeButton(
+              currentSize: crossAxisCount,
+              maxItems: layout.notCompact ? 6 : 2,
+              onSizeChanged: (int size) async {
+                final notifier =
+                    ref.read(stickersScreenCrossAxisCountProvider.notifier);
+                notifier.update(size);
+              },
+            ),
           ],
         ),
         body: OperationBuilder(
@@ -83,7 +100,10 @@ class StickersSearchScreen extends HookConsumerWidget {
                 message: 'スタンプは無いみたい。'.i18n,
               );
             }
-            return StickersGridView(stickerList: stickerList);
+            return StickersGridView(
+              stickerList: stickerList,
+              crossAxisCount: crossAxisCount,
+            );
           },
         ));
   }

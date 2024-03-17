@@ -16,32 +16,34 @@ class StickerStatusContainer extends HookConsumerWidget {
   Widget build(context, ref) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Row(
-        children: [
-          Row(
-            children: [
-              const Icon(Icons.download_rounded),
-              const SizedBox(width: 8),
-              Text(
-                downloadsCount.toString(),
-                style: const TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
-          const SizedBox(width: 16),
-          Row(
-            children: [
-              const Icon(Icons.pets_rounded),
-              const SizedBox(width: 8),
-              Text(
-                usesCount.toString(),
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
+      child: FittedBox(
+        child: Row(
+          children: [
+            Row(
+              children: [
+                const Icon(Icons.download_rounded),
+                const SizedBox(width: 8),
+                Text(
+                  downloadsCount.toString(),
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
-              ),
-            ],
-          ),
-        ],
+              ],
+            ),
+            const SizedBox(width: 16),
+            Row(
+              children: [
+                const Icon(Icons.pets_rounded),
+                const SizedBox(width: 8),
+                Text(
+                  usesCount.toString(),
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

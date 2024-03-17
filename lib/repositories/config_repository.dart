@@ -166,4 +166,25 @@ class ConfigRepository {
   Future<void> setEulaCheck(bool value) async {
     await instance!.setBool('config_eula', value);
   }
+
+  /// スタンプ一覧画面の横の表示数
+  int get stickersScreenCrossAxisCount {
+    final value = instance!.getInt('config_stickers_screen_cross_axis_count');
+    return value ?? 2;
+  }
+
+  Future<void> setStickersScreenCrossAxisCount(int value) async {
+    await instance!.setInt('config_stickers_screen_cross_axis_count', value);
+  }
+
+  /// スタンプコンテナの横の表示数
+  int get stickersContainerCrossAxisCount {
+    final value =
+        instance!.getInt('config_stickers_container_cross_axis_count');
+    return value ?? 5;
+  }
+
+  Future<void> setStickersContainerCrossAxisCount(int value) async {
+    await instance!.setInt('config_stickers_container_cross_axis_count', value);
+  }
 }

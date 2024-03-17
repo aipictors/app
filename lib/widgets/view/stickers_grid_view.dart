@@ -6,17 +6,25 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class StickersGridView extends HookConsumerWidget {
-  const StickersGridView({super.key, required this.stickerList, this.physics});
+  const StickersGridView({
+    super.key,
+    required this.stickerList,
+    required this.crossAxisCount,
+    this.physics,
+  });
 
   final BuiltList stickerList;
+
+  final int crossAxisCount;
+
   final ScrollPhysics? physics;
 
   @override
   Widget build(context, ref) {
     return GridView.builder(
       shrinkWrap: true,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: crossAxisCount,
         childAspectRatio: 0.725,
       ),
       physics: (physics != null) ? physics : const ClampingScrollPhysics(),
