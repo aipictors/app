@@ -7,7 +7,7 @@ part of 'stickers_screen_cross_axis_count_provider.dart';
 // **************************************************************************
 
 String _$stickersScreenCrossAxisCountHash() =>
-    r'92391639a3eabaa3b3fd6dd57670923a5bbf3b89';
+    r'd747e52479ad4607c2eebd9055d45f64b307fb6f';
 
 /// See also [StickersScreenCrossAxisCount].
 @ProviderFor(StickersScreenCrossAxisCount)

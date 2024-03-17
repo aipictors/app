@@ -1,7 +1,9 @@
 import 'package:aipictors/graphql/__generated__/user_stickers.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/providers/config_provider.dart';
+import 'package:aipictors/providers/stickers_container_cross_axis_count_provider.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
+import 'package:aipictors/widgets/button/adjust_sticker_size_button.dart';
 import 'package:aipictors/widgets/container/loading_container.dart';
 import 'package:aipictors/widgets/container/selectable_comment_sticker_container.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +25,8 @@ class WorkActionStickersContainer extends HookConsumerWidget {
     final client = ref.watch(clientProvider);
 
     final config = ref.watch(configProvider);
+
+    final crossAxisCount = ref.watch(stickersContainerCrossAxisCountProvider);
 
     if (client.value == null) {
       return const LoadingContainer();
@@ -48,17 +52,36 @@ class WorkActionStickersContainer extends HookConsumerWidget {
             builder: (context, response) {
               final stickerList = response.data?.viewer?.userStickers;
               return SizedBox(
-                  height: 256,
-                  child: Container(
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.onInverseSurface,
-                        borderRadius: BorderRadius.circular(8),
+                height: 256,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.onInverseSurface,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  padding: const EdgeInsets.all(8),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          AdjustStickerSizeButton(
+                            currentSize: crossAxisCount,
+                            maxItems: 10,
+                            onSizeChanged: (int size) async {
+                              final notifier = ref.read(
+                                  stickersContainerCrossAxisCountProvider
+                                      .notifier);
+                              notifier.update(size);
+                            },
+                          ),
+                        ],
                       ),
-                      padding: const EdgeInsets.all(8),
-                      child: GridView.builder(
+                      const SizedBox(height: 4),
+                      Expanded(
+                        child: GridView.builder(
                           gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 5,
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: crossAxisCount,
                             mainAxisSpacing: 8,
                             crossAxisSpacing: 8,
                           ),
@@ -90,7 +113,13 @@ class WorkActionStickersContainer extends HookConsumerWidget {
                                     : stickerList[index - 5].id);
                               },
                             );
-                          })));
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
             }));
   }
 }
