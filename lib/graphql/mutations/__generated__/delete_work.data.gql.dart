@@ -12,7 +12,7 @@ abstract class GDeleteWorkData
     implements Built<GDeleteWorkData, GDeleteWorkDataBuilder> {
   GDeleteWorkData._();
 
-  factory GDeleteWorkData([Function(GDeleteWorkDataBuilder b) updates]) =
+  factory GDeleteWorkData([void Function(GDeleteWorkDataBuilder b) updates]) =
       _$GDeleteWorkData;
 
   static void _initializeBuilder(GDeleteWorkDataBuilder b) =>
@@ -42,7 +42,7 @@ abstract class GDeleteWorkData_deleteWork
   GDeleteWorkData_deleteWork._();
 
   factory GDeleteWorkData_deleteWork(
-          [Function(GDeleteWorkData_deleteWorkBuilder b) updates]) =
+          [void Function(GDeleteWorkData_deleteWorkBuilder b) updates]) =
       _$GDeleteWorkData_deleteWork;
 
   static void _initializeBuilder(GDeleteWorkData_deleteWorkBuilder b) =>

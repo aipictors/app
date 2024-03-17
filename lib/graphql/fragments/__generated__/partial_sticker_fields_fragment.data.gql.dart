@@ -33,7 +33,7 @@ abstract class GPartialStickerFieldsData
   GPartialStickerFieldsData._();
 
   factory GPartialStickerFieldsData(
-          [Function(GPartialStickerFieldsDataBuilder b) updates]) =
+          [void Function(GPartialStickerFieldsDataBuilder b) updates]) =
       _$GPartialStickerFieldsData;
 
   static void _initializeBuilder(GPartialStickerFieldsDataBuilder b) =>
@@ -78,7 +78,7 @@ abstract class GPartialStickerFieldsData_image
   GPartialStickerFieldsData_image._();
 
   factory GPartialStickerFieldsData_image(
-          [Function(GPartialStickerFieldsData_imageBuilder b) updates]) =
+          [void Function(GPartialStickerFieldsData_imageBuilder b) updates]) =
       _$GPartialStickerFieldsData_image;
 
   static void _initializeBuilder(GPartialStickerFieldsData_imageBuilder b) =>

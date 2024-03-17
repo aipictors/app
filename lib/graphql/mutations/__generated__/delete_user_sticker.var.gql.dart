@@ -14,10 +14,10 @@ abstract class GDeleteUserStickerVars
   GDeleteUserStickerVars._();
 
   factory GDeleteUserStickerVars(
-          [Function(GDeleteUserStickerVarsBuilder b) updates]) =
+          [void Function(GDeleteUserStickerVarsBuilder b) updates]) =
       _$GDeleteUserStickerVars;
 
-  _i1.GDeleteUserStickerInput get input;
+  _i1.GDeleteStickerInput get input;
   static Serializer<GDeleteUserStickerVars> get serializer =>
       _$gDeleteUserStickerVarsSerializer;
 

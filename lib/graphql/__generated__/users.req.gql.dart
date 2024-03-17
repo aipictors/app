@@ -19,7 +19,7 @@ abstract class GUsersReq
         _i1.OperationRequest<_i2.GUsersData, _i3.GUsersVars> {
   GUsersReq._();
 
-  factory GUsersReq([Function(GUsersReqBuilder b) updates]) = _$GUsersReq;
+  factory GUsersReq([void Function(GUsersReqBuilder b) updates]) = _$GUsersReq;
 
   static void _initializeBuilder(GUsersReqBuilder b) => b
     ..operation = _i4.Operation(
@@ -36,6 +36,7 @@ abstract class GUsersReq
   _i4.Request get execRequest => _i4.Request(
         operation: operation,
         variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
       );
 
   @override
@@ -56,6 +57,9 @@ abstract class GUsersReq
   _i1.FetchPolicy? get fetchPolicy;
   @override
   bool get executeOnListen;
+  @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
   @override
   _i2.GUsersData? parseData(Map<String, dynamic> json) =>
       _i2.GUsersData.fromJson(json);

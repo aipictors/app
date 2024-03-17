@@ -22,7 +22,8 @@ abstract class GSubWorkFieldsReq
         _i1.FragmentRequest<_i2.GSubWorkFieldsData, _i3.GSubWorkFieldsVars> {
   GSubWorkFieldsReq._();
 
-  factory GSubWorkFieldsReq([Function(GSubWorkFieldsReqBuilder b) updates]) =
+  factory GSubWorkFieldsReq(
+          [void Function(GSubWorkFieldsReqBuilder b) updates]) =
       _$GSubWorkFieldsReq;
 
   static void _initializeBuilder(GSubWorkFieldsReqBuilder b) => b

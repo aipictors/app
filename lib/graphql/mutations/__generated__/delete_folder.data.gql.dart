@@ -12,7 +12,8 @@ abstract class GDeleteFolderData
     implements Built<GDeleteFolderData, GDeleteFolderDataBuilder> {
   GDeleteFolderData._();
 
-  factory GDeleteFolderData([Function(GDeleteFolderDataBuilder b) updates]) =
+  factory GDeleteFolderData(
+          [void Function(GDeleteFolderDataBuilder b) updates]) =
       _$GDeleteFolderData;
 
   static void _initializeBuilder(GDeleteFolderDataBuilder b) =>
@@ -43,7 +44,7 @@ abstract class GDeleteFolderData_deleteFolder
   GDeleteFolderData_deleteFolder._();
 
   factory GDeleteFolderData_deleteFolder(
-          [Function(GDeleteFolderData_deleteFolderBuilder b) updates]) =
+          [void Function(GDeleteFolderData_deleteFolderBuilder b) updates]) =
       _$GDeleteFolderData_deleteFolder;
 
   static void _initializeBuilder(GDeleteFolderData_deleteFolderBuilder b) =>

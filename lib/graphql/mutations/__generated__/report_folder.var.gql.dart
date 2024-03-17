@@ -13,7 +13,8 @@ abstract class GReportFolderVars
     implements Built<GReportFolderVars, GReportFolderVarsBuilder> {
   GReportFolderVars._();
 
-  factory GReportFolderVars([Function(GReportFolderVarsBuilder b) updates]) =
+  factory GReportFolderVars(
+          [void Function(GReportFolderVarsBuilder b) updates]) =
       _$GReportFolderVars;
 
   _i1.GReportFolderInput get input;

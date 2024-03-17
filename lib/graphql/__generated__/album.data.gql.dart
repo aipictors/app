@@ -13,7 +13,8 @@ part 'album.data.gql.g.dart';
 abstract class GAlbumData implements Built<GAlbumData, GAlbumDataBuilder> {
   GAlbumData._();
 
-  factory GAlbumData([Function(GAlbumDataBuilder b) updates]) = _$GAlbumData;
+  factory GAlbumData([void Function(GAlbumDataBuilder b) updates]) =
+      _$GAlbumData;
 
   static void _initializeBuilder(GAlbumDataBuilder b) =>
       b..G__typename = 'Query';
@@ -39,7 +40,7 @@ abstract class GAlbumData_album
     implements Built<GAlbumData_album, GAlbumData_albumBuilder> {
   GAlbumData_album._();
 
-  factory GAlbumData_album([Function(GAlbumData_albumBuilder b) updates]) =
+  factory GAlbumData_album([void Function(GAlbumData_albumBuilder b) updates]) =
       _$GAlbumData_album;
 
   static void _initializeBuilder(GAlbumData_albumBuilder b) =>
@@ -77,7 +78,7 @@ abstract class GAlbumData_album_user
   GAlbumData_album_user._();
 
   factory GAlbumData_album_user(
-          [Function(GAlbumData_album_userBuilder b) updates]) =
+          [void Function(GAlbumData_album_userBuilder b) updates]) =
       _$GAlbumData_album_user;
 
   static void _initializeBuilder(GAlbumData_album_userBuilder b) =>
@@ -119,7 +120,7 @@ abstract class GAlbumData_album_user_iconImage
   GAlbumData_album_user_iconImage._();
 
   factory GAlbumData_album_user_iconImage(
-          [Function(GAlbumData_album_user_iconImageBuilder b) updates]) =
+          [void Function(GAlbumData_album_user_iconImageBuilder b) updates]) =
       _$GAlbumData_album_user_iconImage;
 
   static void _initializeBuilder(GAlbumData_album_user_iconImageBuilder b) =>
@@ -155,7 +156,7 @@ abstract class GAlbumData_album_user_viewer
   GAlbumData_album_user_viewer._();
 
   factory GAlbumData_album_user_viewer(
-          [Function(GAlbumData_album_user_viewerBuilder b) updates]) =
+          [void Function(GAlbumData_album_user_viewerBuilder b) updates]) =
       _$GAlbumData_album_user_viewer;
 
   static void _initializeBuilder(GAlbumData_album_user_viewerBuilder b) =>
@@ -187,7 +188,7 @@ abstract class GAlbumData_album_thumbnailImage
   GAlbumData_album_thumbnailImage._();
 
   factory GAlbumData_album_thumbnailImage(
-          [Function(GAlbumData_album_thumbnailImageBuilder b) updates]) =
+          [void Function(GAlbumData_album_thumbnailImageBuilder b) updates]) =
       _$GAlbumData_album_thumbnailImage;
 
   static void _initializeBuilder(GAlbumData_album_thumbnailImageBuilder b) =>

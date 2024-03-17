@@ -27,7 +27,7 @@ class ConfigMutedUsersScreen extends HookConsumerWidget {
     }
 
     final request = GViewerMutedUsersReq((builder) {
-      return builder
+      builder
         ..vars.limit = config.graphqlQueryLimit
         ..vars.offset = 0;
     });

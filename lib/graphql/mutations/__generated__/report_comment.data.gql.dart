@@ -12,7 +12,8 @@ abstract class GReportCommentData
     implements Built<GReportCommentData, GReportCommentDataBuilder> {
   GReportCommentData._();
 
-  factory GReportCommentData([Function(GReportCommentDataBuilder b) updates]) =
+  factory GReportCommentData(
+          [void Function(GReportCommentDataBuilder b) updates]) =
       _$GReportCommentData;
 
   static void _initializeBuilder(GReportCommentDataBuilder b) =>

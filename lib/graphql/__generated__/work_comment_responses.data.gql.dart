@@ -19,7 +19,7 @@ abstract class GWorkCommentResponsesData
   GWorkCommentResponsesData._();
 
   factory GWorkCommentResponsesData(
-          [Function(GWorkCommentResponsesDataBuilder b) updates]) =
+          [void Function(GWorkCommentResponsesDataBuilder b) updates]) =
       _$GWorkCommentResponsesData;
 
   static void _initializeBuilder(GWorkCommentResponsesDataBuilder b) =>
@@ -50,7 +50,7 @@ abstract class GWorkCommentResponsesData_work
   GWorkCommentResponsesData_work._();
 
   factory GWorkCommentResponsesData_work(
-          [Function(GWorkCommentResponsesData_workBuilder b) updates]) =
+          [void Function(GWorkCommentResponsesData_workBuilder b) updates]) =
       _$GWorkCommentResponsesData_work;
 
   static void _initializeBuilder(GWorkCommentResponsesData_workBuilder b) =>
@@ -83,8 +83,8 @@ abstract class GWorkCommentResponsesData_work_comment
   GWorkCommentResponsesData_work_comment._();
 
   factory GWorkCommentResponsesData_work_comment(
-          [Function(GWorkCommentResponsesData_work_commentBuilder b) updates]) =
-      _$GWorkCommentResponsesData_work_comment;
+      [void Function(GWorkCommentResponsesData_work_commentBuilder b)
+          updates]) = _$GWorkCommentResponsesData_work_comment;
 
   static void _initializeBuilder(
           GWorkCommentResponsesData_work_commentBuilder b) =>
@@ -130,7 +130,7 @@ abstract class GWorkCommentResponsesData_work_comment_user
   GWorkCommentResponsesData_work_comment_user._();
 
   factory GWorkCommentResponsesData_work_comment_user(
-      [Function(GWorkCommentResponsesData_work_comment_userBuilder b)
+      [void Function(GWorkCommentResponsesData_work_comment_userBuilder b)
           updates]) = _$GWorkCommentResponsesData_work_comment_user;
 
   static void _initializeBuilder(
@@ -176,7 +176,8 @@ abstract class GWorkCommentResponsesData_work_comment_user_iconImage
   GWorkCommentResponsesData_work_comment_user_iconImage._();
 
   factory GWorkCommentResponsesData_work_comment_user_iconImage(
-      [Function(GWorkCommentResponsesData_work_comment_user_iconImageBuilder b)
+      [void Function(
+              GWorkCommentResponsesData_work_comment_user_iconImageBuilder b)
           updates]) = _$GWorkCommentResponsesData_work_comment_user_iconImage;
 
   static void _initializeBuilder(
@@ -216,7 +217,7 @@ abstract class GWorkCommentResponsesData_work_comment_sticker
   GWorkCommentResponsesData_work_comment_sticker._();
 
   factory GWorkCommentResponsesData_work_comment_sticker(
-      [Function(GWorkCommentResponsesData_work_comment_stickerBuilder b)
+      [void Function(GWorkCommentResponsesData_work_comment_stickerBuilder b)
           updates]) = _$GWorkCommentResponsesData_work_comment_sticker;
 
   static void _initializeBuilder(
@@ -255,7 +256,8 @@ abstract class GWorkCommentResponsesData_work_comment_sticker_image
   GWorkCommentResponsesData_work_comment_sticker_image._();
 
   factory GWorkCommentResponsesData_work_comment_sticker_image(
-      [Function(GWorkCommentResponsesData_work_comment_sticker_imageBuilder b)
+      [void Function(
+              GWorkCommentResponsesData_work_comment_sticker_imageBuilder b)
           updates]) = _$GWorkCommentResponsesData_work_comment_sticker_image;
 
   static void _initializeBuilder(
@@ -295,7 +297,7 @@ abstract class GWorkCommentResponsesData_work_comment_responses
   GWorkCommentResponsesData_work_comment_responses._();
 
   factory GWorkCommentResponsesData_work_comment_responses(
-      [Function(GWorkCommentResponsesData_work_comment_responsesBuilder b)
+      [void Function(GWorkCommentResponsesData_work_comment_responsesBuilder b)
           updates]) = _$GWorkCommentResponsesData_work_comment_responses;
 
   static void _initializeBuilder(
@@ -342,7 +344,8 @@ abstract class GWorkCommentResponsesData_work_comment_responses_user
   GWorkCommentResponsesData_work_comment_responses_user._();
 
   factory GWorkCommentResponsesData_work_comment_responses_user(
-      [Function(GWorkCommentResponsesData_work_comment_responses_userBuilder b)
+      [void Function(
+              GWorkCommentResponsesData_work_comment_responses_userBuilder b)
           updates]) = _$GWorkCommentResponsesData_work_comment_responses_user;
 
   static void _initializeBuilder(
@@ -390,7 +393,7 @@ abstract class GWorkCommentResponsesData_work_comment_responses_user_iconImage
   GWorkCommentResponsesData_work_comment_responses_user_iconImage._();
 
   factory GWorkCommentResponsesData_work_comment_responses_user_iconImage(
-          [Function(
+          [void Function(
                   GWorkCommentResponsesData_work_comment_responses_user_iconImageBuilder
                       b)
               updates]) =
@@ -436,7 +439,7 @@ abstract class GWorkCommentResponsesData_work_comment_responses_sticker
   GWorkCommentResponsesData_work_comment_responses_sticker._();
 
   factory GWorkCommentResponsesData_work_comment_responses_sticker(
-      [Function(
+      [void Function(
               GWorkCommentResponsesData_work_comment_responses_stickerBuilder b)
           updates]) = _$GWorkCommentResponsesData_work_comment_responses_sticker;
 
@@ -477,7 +480,7 @@ abstract class GWorkCommentResponsesData_work_comment_responses_sticker_image
   GWorkCommentResponsesData_work_comment_responses_sticker_image._();
 
   factory GWorkCommentResponsesData_work_comment_responses_sticker_image(
-          [Function(
+          [void Function(
                   GWorkCommentResponsesData_work_comment_responses_sticker_imageBuilder
                       b)
               updates]) =

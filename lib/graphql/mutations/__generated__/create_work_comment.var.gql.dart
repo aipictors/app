@@ -14,7 +14,7 @@ abstract class GCreateWorkCommentVars
   GCreateWorkCommentVars._();
 
   factory GCreateWorkCommentVars(
-          [Function(GCreateWorkCommentVarsBuilder b) updates]) =
+          [void Function(GCreateWorkCommentVarsBuilder b) updates]) =
       _$GCreateWorkCommentVars;
 
   _i1.GCreateWorkCommentInput get input;

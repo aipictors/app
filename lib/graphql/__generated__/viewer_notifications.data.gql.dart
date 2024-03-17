@@ -35,7 +35,7 @@ abstract class GViewerNotificationsData
   GViewerNotificationsData._();
 
   factory GViewerNotificationsData(
-          [Function(GViewerNotificationsDataBuilder b) updates]) =
+          [void Function(GViewerNotificationsDataBuilder b) updates]) =
       _$GViewerNotificationsData;
 
   static void _initializeBuilder(GViewerNotificationsDataBuilder b) =>
@@ -66,7 +66,7 @@ abstract class GViewerNotificationsData_viewer
   GViewerNotificationsData_viewer._();
 
   factory GViewerNotificationsData_viewer(
-          [Function(GViewerNotificationsData_viewerBuilder b) updates]) =
+          [void Function(GViewerNotificationsData_viewerBuilder b) updates]) =
       _$GViewerNotificationsData_viewer;
 
   static void _initializeBuilder(GViewerNotificationsData_viewerBuilder b) =>
@@ -135,7 +135,8 @@ abstract class GViewerNotificationsData_viewer_notifications__base
   GViewerNotificationsData_viewer_notifications__base._();
 
   factory GViewerNotificationsData_viewer_notifications__base(
-      [Function(GViewerNotificationsData_viewer_notifications__baseBuilder b)
+      [void Function(
+              GViewerNotificationsData_viewer_notifications__baseBuilder b)
           updates]) = _$GViewerNotificationsData_viewer_notifications__base;
 
   static void _initializeBuilder(
@@ -173,7 +174,7 @@ abstract class GViewerNotificationsData_viewer_notifications__asLikedWorkNotific
   GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNode._();
 
   factory GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNode(
-          [Function(
+          [void Function(
                   GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNodeBuilder
                       b)
               updates]) =
@@ -229,7 +230,7 @@ abstract class GViewerNotificationsData_viewer_notifications__asLikedWorkNotific
   GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNode_work._();
 
   factory GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNode_work(
-          [Function(
+          [void Function(
                   GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNode_workBuilder
                       b)
               updates]) =
@@ -286,7 +287,7 @@ abstract class GViewerNotificationsData_viewer_notifications__asLikedWorkNotific
   GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNode_work_thumbnailImage._();
 
   factory GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNode_work_thumbnailImage(
-          [Function(
+          [void Function(
                   GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNode_work_thumbnailImageBuilder
                       b)
               updates]) =
@@ -334,7 +335,7 @@ abstract class GViewerNotificationsData_viewer_notifications__asLikedWorkNotific
   GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNode_user._();
 
   factory GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNode_user(
-          [Function(
+          [void Function(
                   GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNode_userBuilder
                       b)
               updates]) =
@@ -387,7 +388,7 @@ abstract class GViewerNotificationsData_viewer_notifications__asLikedWorkNotific
   GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNode_user_iconImage._();
 
   factory GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNode_user_iconImage(
-          [Function(
+          [void Function(
                   GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNode_user_iconImageBuilder
                       b)
               updates]) =
@@ -435,7 +436,7 @@ abstract class GViewerNotificationsData_viewer_notifications__asLikedWorksSummar
   GViewerNotificationsData_viewer_notifications__asLikedWorksSummaryNotificationNode._();
 
   factory GViewerNotificationsData_viewer_notifications__asLikedWorksSummaryNotificationNode(
-          [Function(
+          [void Function(
                   GViewerNotificationsData_viewer_notifications__asLikedWorksSummaryNotificationNodeBuilder
                       b)
               updates]) =
@@ -485,7 +486,7 @@ abstract class GViewerNotificationsData_viewer_notifications__asWorkAwardNotific
   GViewerNotificationsData_viewer_notifications__asWorkAwardNotificationNode._();
 
   factory GViewerNotificationsData_viewer_notifications__asWorkAwardNotificationNode(
-          [Function(
+          [void Function(
                   GViewerNotificationsData_viewer_notifications__asWorkAwardNotificationNodeBuilder
                       b)
               updates]) =
@@ -538,7 +539,7 @@ abstract class GViewerNotificationsData_viewer_notifications__asWorkAwardNotific
   GViewerNotificationsData_viewer_notifications__asWorkAwardNotificationNode_work._();
 
   factory GViewerNotificationsData_viewer_notifications__asWorkAwardNotificationNode_work(
-          [Function(
+          [void Function(
                   GViewerNotificationsData_viewer_notifications__asWorkAwardNotificationNode_workBuilder
                       b)
               updates]) =
@@ -595,7 +596,7 @@ abstract class GViewerNotificationsData_viewer_notifications__asWorkAwardNotific
   GViewerNotificationsData_viewer_notifications__asWorkAwardNotificationNode_work_thumbnailImage._();
 
   factory GViewerNotificationsData_viewer_notifications__asWorkAwardNotificationNode_work_thumbnailImage(
-          [Function(
+          [void Function(
                   GViewerNotificationsData_viewer_notifications__asWorkAwardNotificationNode_work_thumbnailImageBuilder
                       b)
               updates]) =
@@ -643,7 +644,7 @@ abstract class GViewerNotificationsData_viewer_notifications__asWorkCommentNotif
   GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode._();
 
   factory GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode(
-          [Function(
+          [void Function(
                   GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNodeBuilder
                       b)
               updates]) =
@@ -702,7 +703,7 @@ abstract class GViewerNotificationsData_viewer_notifications__asWorkCommentNotif
   GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_work._();
 
   factory GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_work(
-          [Function(
+          [void Function(
                   GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_workBuilder
                       b)
               updates]) =
@@ -759,7 +760,7 @@ abstract class GViewerNotificationsData_viewer_notifications__asWorkCommentNotif
   GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_work_thumbnailImage._();
 
   factory GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_work_thumbnailImage(
-          [Function(
+          [void Function(
                   GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_work_thumbnailImageBuilder
                       b)
               updates]) =
@@ -807,7 +808,7 @@ abstract class GViewerNotificationsData_viewer_notifications__asWorkCommentNotif
   GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_user._();
 
   factory GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_user(
-          [Function(
+          [void Function(
                   GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_userBuilder
                       b)
               updates]) =
@@ -860,7 +861,7 @@ abstract class GViewerNotificationsData_viewer_notifications__asWorkCommentNotif
   GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_user_iconImage._();
 
   factory GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_user_iconImage(
-          [Function(
+          [void Function(
                   GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_user_iconImageBuilder
                       b)
               updates]) =
@@ -908,7 +909,7 @@ abstract class GViewerNotificationsData_viewer_notifications__asWorkCommentNotif
   GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_sticker._();
 
   factory GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_sticker(
-          [Function(
+          [void Function(
                   GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_stickerBuilder
                       b)
               updates]) =
@@ -965,7 +966,7 @@ abstract class GViewerNotificationsData_viewer_notifications__asWorkCommentNotif
   GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_sticker_image._();
 
   factory GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_sticker_image(
-          [Function(
+          [void Function(
                   GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_sticker_imageBuilder
                       b)
               updates]) =
@@ -1013,7 +1014,7 @@ abstract class GViewerNotificationsData_viewer_notifications__asWorkCommentReply
   GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode._();
 
   factory GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode(
-          [Function(
+          [void Function(
                   GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNodeBuilder
                       b)
               updates]) =
@@ -1072,7 +1073,7 @@ abstract class GViewerNotificationsData_viewer_notifications__asWorkCommentReply
   GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_work._();
 
   factory GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_work(
-          [Function(
+          [void Function(
                   GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_workBuilder
                       b)
               updates]) =
@@ -1129,7 +1130,7 @@ abstract class GViewerNotificationsData_viewer_notifications__asWorkCommentReply
   GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_work_thumbnailImage._();
 
   factory GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_work_thumbnailImage(
-          [Function(
+          [void Function(
                   GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_work_thumbnailImageBuilder
                       b)
               updates]) =
@@ -1177,7 +1178,7 @@ abstract class GViewerNotificationsData_viewer_notifications__asWorkCommentReply
   GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_user._();
 
   factory GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_user(
-          [Function(
+          [void Function(
                   GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_userBuilder
                       b)
               updates]) =
@@ -1230,7 +1231,7 @@ abstract class GViewerNotificationsData_viewer_notifications__asWorkCommentReply
   GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_user_iconImage._();
 
   factory GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_user_iconImage(
-          [Function(
+          [void Function(
                   GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_user_iconImageBuilder
                       b)
               updates]) =
@@ -1278,7 +1279,7 @@ abstract class GViewerNotificationsData_viewer_notifications__asWorkCommentReply
   GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_sticker._();
 
   factory GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_sticker(
-          [Function(
+          [void Function(
                   GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_stickerBuilder
                       b)
               updates]) =
@@ -1335,7 +1336,7 @@ abstract class GViewerNotificationsData_viewer_notifications__asWorkCommentReply
   GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_sticker_image._();
 
   factory GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_sticker_image(
-          [Function(
+          [void Function(
                   GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_sticker_imageBuilder
                       b)
               updates]) =
@@ -1383,7 +1384,7 @@ abstract class GViewerNotificationsData_viewer_notifications__asFollowNotificati
   GViewerNotificationsData_viewer_notifications__asFollowNotificationNode._();
 
   factory GViewerNotificationsData_viewer_notifications__asFollowNotificationNode(
-          [Function(
+          [void Function(
                   GViewerNotificationsData_viewer_notifications__asFollowNotificationNodeBuilder
                       b)
               updates]) =
@@ -1434,7 +1435,7 @@ abstract class GViewerNotificationsData_viewer_notifications__asFollowNotificati
   GViewerNotificationsData_viewer_notifications__asFollowNotificationNode_user._();
 
   factory GViewerNotificationsData_viewer_notifications__asFollowNotificationNode_user(
-          [Function(
+          [void Function(
                   GViewerNotificationsData_viewer_notifications__asFollowNotificationNode_userBuilder
                       b)
               updates]) =
@@ -1487,7 +1488,7 @@ abstract class GViewerNotificationsData_viewer_notifications__asFollowNotificati
   GViewerNotificationsData_viewer_notifications__asFollowNotificationNode_user_iconImage._();
 
   factory GViewerNotificationsData_viewer_notifications__asFollowNotificationNode_user_iconImage(
-          [Function(
+          [void Function(
                   GViewerNotificationsData_viewer_notifications__asFollowNotificationNode_user_iconImageBuilder
                       b)
               updates]) =

@@ -22,7 +22,7 @@ abstract class GCreateWorkReq
         _i1.OperationRequest<_i2.GCreateWorkData, _i3.GCreateWorkVars> {
   GCreateWorkReq._();
 
-  factory GCreateWorkReq([Function(GCreateWorkReqBuilder b) updates]) =
+  factory GCreateWorkReq([void Function(GCreateWorkReqBuilder b) updates]) =
       _$GCreateWorkReq;
 
   static void _initializeBuilder(GCreateWorkReqBuilder b) => b
@@ -40,6 +40,7 @@ abstract class GCreateWorkReq
   _i4.Request get execRequest => _i4.Request(
         operation: operation,
         variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
       );
 
   @override
@@ -60,6 +61,9 @@ abstract class GCreateWorkReq
   _i1.FetchPolicy? get fetchPolicy;
   @override
   bool get executeOnListen;
+  @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
   @override
   _i2.GCreateWorkData? parseData(Map<String, dynamic> json) =>
       _i2.GCreateWorkData.fromJson(json);

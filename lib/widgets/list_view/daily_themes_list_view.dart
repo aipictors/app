@@ -39,7 +39,7 @@ class DailyThemesListView extends HookConsumerWidget {
     final useCache = useState(true);
 
     final request = GDailyThemesReq((builder) {
-      return builder
+      builder
         ..fetchPolicy = FetchPolicy.CacheAndNetwork
         ..vars.limit = config.graphqlQueryLimit
         ..vars.offset = 0

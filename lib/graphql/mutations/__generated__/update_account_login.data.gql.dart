@@ -13,7 +13,7 @@ abstract class GUpdateAccountLoginData
   GUpdateAccountLoginData._();
 
   factory GUpdateAccountLoginData(
-          [Function(GUpdateAccountLoginDataBuilder b) updates]) =
+          [void Function(GUpdateAccountLoginDataBuilder b) updates]) =
       _$GUpdateAccountLoginData;
 
   static void _initializeBuilder(GUpdateAccountLoginDataBuilder b) =>
@@ -44,7 +44,7 @@ abstract class GUpdateAccountLoginData_updateAccountLogin
   GUpdateAccountLoginData_updateAccountLogin._();
 
   factory GUpdateAccountLoginData_updateAccountLogin(
-      [Function(GUpdateAccountLoginData_updateAccountLoginBuilder b)
+      [void Function(GUpdateAccountLoginData_updateAccountLoginBuilder b)
           updates]) = _$GUpdateAccountLoginData_updateAccountLogin;
 
   static void _initializeBuilder(

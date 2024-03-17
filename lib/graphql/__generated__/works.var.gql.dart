@@ -12,7 +12,8 @@ part 'works.var.gql.g.dart';
 abstract class GWorksVars implements Built<GWorksVars, GWorksVarsBuilder> {
   GWorksVars._();
 
-  factory GWorksVars([Function(GWorksVarsBuilder b) updates]) = _$GWorksVars;
+  factory GWorksVars([void Function(GWorksVarsBuilder b) updates]) =
+      _$GWorksVars;
 
   int get offset;
   int get limit;

@@ -32,7 +32,7 @@ class UserAlbumsContainer extends HookConsumerWidget {
     return OperationBuilder(
       client: client.value!,
       operationRequest: GUserAlbumsReq((builder) {
-        return builder
+        builder
           ..vars.limit = config.graphqlQueryLimit
           ..vars.user_id = userId
           ..vars.offset = 0;

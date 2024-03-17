@@ -14,7 +14,7 @@ part 'tags.data.gql.g.dart';
 abstract class GTagsData implements Built<GTagsData, GTagsDataBuilder> {
   GTagsData._();
 
-  factory GTagsData([Function(GTagsDataBuilder b) updates]) = _$GTagsData;
+  factory GTagsData([void Function(GTagsDataBuilder b) updates]) = _$GTagsData;
 
   static void _initializeBuilder(GTagsDataBuilder b) =>
       b..G__typename = 'Query';
@@ -42,7 +42,7 @@ abstract class GTagsData_tags
         _i2.GPartialTagFields {
   GTagsData_tags._();
 
-  factory GTagsData_tags([Function(GTagsData_tagsBuilder b) updates]) =
+  factory GTagsData_tags([void Function(GTagsData_tagsBuilder b) updates]) =
       _$GTagsData_tags;
 
   static void _initializeBuilder(GTagsData_tagsBuilder b) =>
@@ -76,7 +76,7 @@ abstract class GTagsData_tags_viewer
   GTagsData_tags_viewer._();
 
   factory GTagsData_tags_viewer(
-          [Function(GTagsData_tags_viewerBuilder b) updates]) =
+          [void Function(GTagsData_tags_viewerBuilder b) updates]) =
       _$GTagsData_tags_viewer;
 
   static void _initializeBuilder(GTagsData_tags_viewerBuilder b) =>

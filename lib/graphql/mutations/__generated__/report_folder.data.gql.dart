@@ -12,7 +12,8 @@ abstract class GReportFolderData
     implements Built<GReportFolderData, GReportFolderDataBuilder> {
   GReportFolderData._();
 
-  factory GReportFolderData([Function(GReportFolderDataBuilder b) updates]) =
+  factory GReportFolderData(
+          [void Function(GReportFolderDataBuilder b) updates]) =
       _$GReportFolderData;
 
   static void _initializeBuilder(GReportFolderDataBuilder b) =>

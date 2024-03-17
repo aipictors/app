@@ -12,7 +12,7 @@ abstract class GHotTagsVars
     implements Built<GHotTagsVars, GHotTagsVarsBuilder> {
   GHotTagsVars._();
 
-  factory GHotTagsVars([Function(GHotTagsVarsBuilder b) updates]) =
+  factory GHotTagsVars([void Function(GHotTagsVarsBuilder b) updates]) =
       _$GHotTagsVars;
 
   static Serializer<GHotTagsVars> get serializer => _$gHotTagsVarsSerializer;

@@ -12,7 +12,8 @@ abstract class GUpdateStickerData
     implements Built<GUpdateStickerData, GUpdateStickerDataBuilder> {
   GUpdateStickerData._();
 
-  factory GUpdateStickerData([Function(GUpdateStickerDataBuilder b) updates]) =
+  factory GUpdateStickerData(
+          [void Function(GUpdateStickerDataBuilder b) updates]) =
       _$GUpdateStickerData;
 
   static void _initializeBuilder(GUpdateStickerDataBuilder b) =>
@@ -43,7 +44,7 @@ abstract class GUpdateStickerData_updateSticker
   GUpdateStickerData_updateSticker._();
 
   factory GUpdateStickerData_updateSticker(
-          [Function(GUpdateStickerData_updateStickerBuilder b) updates]) =
+          [void Function(GUpdateStickerData_updateStickerBuilder b) updates]) =
       _$GUpdateStickerData_updateSticker;
 
   static void _initializeBuilder(GUpdateStickerData_updateStickerBuilder b) =>

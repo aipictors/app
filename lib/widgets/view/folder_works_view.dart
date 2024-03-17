@@ -27,7 +27,7 @@ class FolderWorksView extends HookConsumerWidget {
     return OperationBuilder(
       client: client,
       operationRequest: GFolderWorksReq((builder) {
-        return builder
+        builder
           ..vars.limit = config.graphqlQueryLimit
           ..vars.folderId = folderId
           ..vars.offset = 0;

@@ -22,7 +22,7 @@ abstract class GFollowUserReq
         _i1.OperationRequest<_i2.GFollowUserData, _i3.GFollowUserVars> {
   GFollowUserReq._();
 
-  factory GFollowUserReq([Function(GFollowUserReqBuilder b) updates]) =
+  factory GFollowUserReq([void Function(GFollowUserReqBuilder b) updates]) =
       _$GFollowUserReq;
 
   static void _initializeBuilder(GFollowUserReqBuilder b) => b
@@ -40,6 +40,7 @@ abstract class GFollowUserReq
   _i4.Request get execRequest => _i4.Request(
         operation: operation,
         variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
       );
 
   @override
@@ -60,6 +61,9 @@ abstract class GFollowUserReq
   _i1.FetchPolicy? get fetchPolicy;
   @override
   bool get executeOnListen;
+  @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
   @override
   _i2.GFollowUserData? parseData(Map<String, dynamic> json) =>
       _i2.GFollowUserData.fromJson(json);

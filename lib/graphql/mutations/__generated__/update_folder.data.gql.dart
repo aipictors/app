@@ -12,7 +12,8 @@ abstract class GUpdateFolderData
     implements Built<GUpdateFolderData, GUpdateFolderDataBuilder> {
   GUpdateFolderData._();
 
-  factory GUpdateFolderData([Function(GUpdateFolderDataBuilder b) updates]) =
+  factory GUpdateFolderData(
+          [void Function(GUpdateFolderDataBuilder b) updates]) =
       _$GUpdateFolderData;
 
   static void _initializeBuilder(GUpdateFolderDataBuilder b) =>
@@ -43,7 +44,7 @@ abstract class GUpdateFolderData_updateFolder
   GUpdateFolderData_updateFolder._();
 
   factory GUpdateFolderData_updateFolder(
-          [Function(GUpdateFolderData_updateFolderBuilder b) updates]) =
+          [void Function(GUpdateFolderData_updateFolderBuilder b) updates]) =
       _$GUpdateFolderData_updateFolder;
 
   static void _initializeBuilder(GUpdateFolderData_updateFolderBuilder b) =>

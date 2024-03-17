@@ -12,7 +12,7 @@ abstract class GStickerVars
     implements Built<GStickerVars, GStickerVarsBuilder> {
   GStickerVars._();
 
-  factory GStickerVars([Function(GStickerVarsBuilder b) updates]) =
+  factory GStickerVars([void Function(GStickerVarsBuilder b) updates]) =
       _$GStickerVars;
 
   String get id;

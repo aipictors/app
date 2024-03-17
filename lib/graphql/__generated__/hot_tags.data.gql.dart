@@ -17,7 +17,7 @@ abstract class GHotTagsData
     implements Built<GHotTagsData, GHotTagsDataBuilder> {
   GHotTagsData._();
 
-  factory GHotTagsData([Function(GHotTagsDataBuilder b) updates]) =
+  factory GHotTagsData([void Function(GHotTagsDataBuilder b) updates]) =
       _$GHotTagsData;
 
   static void _initializeBuilder(GHotTagsDataBuilder b) =>
@@ -47,7 +47,7 @@ abstract class GHotTagsData_hotTags
   GHotTagsData_hotTags._();
 
   factory GHotTagsData_hotTags(
-          [Function(GHotTagsData_hotTagsBuilder b) updates]) =
+          [void Function(GHotTagsData_hotTagsBuilder b) updates]) =
       _$GHotTagsData_hotTags;
 
   static void _initializeBuilder(GHotTagsData_hotTagsBuilder b) =>
@@ -85,7 +85,7 @@ abstract class GHotTagsData_hotTags_firstWork
   GHotTagsData_hotTags_firstWork._();
 
   factory GHotTagsData_hotTags_firstWork(
-          [Function(GHotTagsData_hotTags_firstWorkBuilder b) updates]) =
+          [void Function(GHotTagsData_hotTags_firstWorkBuilder b) updates]) =
       _$GHotTagsData_hotTags_firstWork;
 
   static void _initializeBuilder(GHotTagsData_hotTags_firstWorkBuilder b) =>
@@ -130,7 +130,7 @@ abstract class GHotTagsData_hotTags_firstWork_thumbnailImage
   GHotTagsData_hotTags_firstWork_thumbnailImage._();
 
   factory GHotTagsData_hotTags_firstWork_thumbnailImage(
-      [Function(GHotTagsData_hotTags_firstWork_thumbnailImageBuilder b)
+      [void Function(GHotTagsData_hotTags_firstWork_thumbnailImageBuilder b)
           updates]) = _$GHotTagsData_hotTags_firstWork_thumbnailImage;
 
   static void _initializeBuilder(

@@ -12,7 +12,8 @@ abstract class GUserFollowersVars
     implements Built<GUserFollowersVars, GUserFollowersVarsBuilder> {
   GUserFollowersVars._();
 
-  factory GUserFollowersVars([Function(GUserFollowersVarsBuilder b) updates]) =
+  factory GUserFollowersVars(
+          [void Function(GUserFollowersVarsBuilder b) updates]) =
       _$GUserFollowersVars;
 
   String get user_id;

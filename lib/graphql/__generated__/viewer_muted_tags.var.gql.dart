@@ -13,7 +13,7 @@ abstract class GViewerMutedTagsVars
   GViewerMutedTagsVars._();
 
   factory GViewerMutedTagsVars(
-          [Function(GViewerMutedTagsVarsBuilder b) updates]) =
+          [void Function(GViewerMutedTagsVarsBuilder b) updates]) =
       _$GViewerMutedTagsVars;
 
   int get offset;

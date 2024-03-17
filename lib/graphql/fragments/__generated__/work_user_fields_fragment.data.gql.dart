@@ -31,7 +31,8 @@ abstract class GWorkUserFieldsData
   GWorkUserFieldsData._();
 
   factory GWorkUserFieldsData(
-      [Function(GWorkUserFieldsDataBuilder b) updates]) = _$GWorkUserFieldsData;
+          [void Function(GWorkUserFieldsDataBuilder b) updates]) =
+      _$GWorkUserFieldsData;
 
   static void _initializeBuilder(GWorkUserFieldsDataBuilder b) =>
       b..G__typename = 'UserNode';
@@ -71,7 +72,7 @@ abstract class GWorkUserFieldsData_iconImage
   GWorkUserFieldsData_iconImage._();
 
   factory GWorkUserFieldsData_iconImage(
-          [Function(GWorkUserFieldsData_iconImageBuilder b) updates]) =
+          [void Function(GWorkUserFieldsData_iconImageBuilder b) updates]) =
       _$GWorkUserFieldsData_iconImage;
 
   static void _initializeBuilder(GWorkUserFieldsData_iconImageBuilder b) =>

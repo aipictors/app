@@ -32,7 +32,7 @@ class DailyThemeScreen extends HookConsumerWidget {
     }
 
     final request = GDailyThemeReq((builder) {
-      return builder
+      builder
         ..vars.limit = config.graphqlQueryLimit
         ..vars.offset = 0
         ..vars.id = themeId;

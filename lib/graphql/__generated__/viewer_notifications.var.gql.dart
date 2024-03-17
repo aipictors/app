@@ -14,7 +14,7 @@ abstract class GViewerNotificationsVars
   GViewerNotificationsVars._();
 
   factory GViewerNotificationsVars(
-          [Function(GViewerNotificationsVarsBuilder b) updates]) =
+          [void Function(GViewerNotificationsVarsBuilder b) updates]) =
       _$GViewerNotificationsVars;
 
   int get offset;

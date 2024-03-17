@@ -24,7 +24,7 @@ abstract class GViewerLikedWorksReq
   GViewerLikedWorksReq._();
 
   factory GViewerLikedWorksReq(
-          [Function(GViewerLikedWorksReqBuilder b) updates]) =
+          [void Function(GViewerLikedWorksReqBuilder b) updates]) =
       _$GViewerLikedWorksReq;
 
   static void _initializeBuilder(GViewerLikedWorksReqBuilder b) => b
@@ -42,6 +42,7 @@ abstract class GViewerLikedWorksReq
   _i4.Request get execRequest => _i4.Request(
         operation: operation,
         variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
       );
 
   @override
@@ -62,6 +63,9 @@ abstract class GViewerLikedWorksReq
   _i1.FetchPolicy? get fetchPolicy;
   @override
   bool get executeOnListen;
+  @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
   @override
   _i2.GViewerLikedWorksData? parseData(Map<String, dynamic> json) =>
       _i2.GViewerLikedWorksData.fromJson(json);

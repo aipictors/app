@@ -12,7 +12,7 @@ abstract class GViewerUserVars
     implements Built<GViewerUserVars, GViewerUserVarsBuilder> {
   GViewerUserVars._();
 
-  factory GViewerUserVars([Function(GViewerUserVarsBuilder b) updates]) =
+  factory GViewerUserVars([void Function(GViewerUserVarsBuilder b) updates]) =
       _$GViewerUserVars;
 
   static Serializer<GViewerUserVars> get serializer =>

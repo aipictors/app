@@ -22,7 +22,8 @@ abstract class GWorkUserFieldsReq
         _i1.FragmentRequest<_i2.GWorkUserFieldsData, _i3.GWorkUserFieldsVars> {
   GWorkUserFieldsReq._();
 
-  factory GWorkUserFieldsReq([Function(GWorkUserFieldsReqBuilder b) updates]) =
+  factory GWorkUserFieldsReq(
+          [void Function(GWorkUserFieldsReqBuilder b) updates]) =
       _$GWorkUserFieldsReq;
 
   static void _initializeBuilder(GWorkUserFieldsReqBuilder b) => b

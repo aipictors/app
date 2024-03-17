@@ -14,7 +14,7 @@ abstract class GUpdateAccountFcmTokenData
   GUpdateAccountFcmTokenData._();
 
   factory GUpdateAccountFcmTokenData(
-          [Function(GUpdateAccountFcmTokenDataBuilder b) updates]) =
+          [void Function(GUpdateAccountFcmTokenDataBuilder b) updates]) =
       _$GUpdateAccountFcmTokenData;
 
   static void _initializeBuilder(GUpdateAccountFcmTokenDataBuilder b) =>
@@ -45,7 +45,7 @@ abstract class GUpdateAccountFcmTokenData_updateAccountFcmToken
   GUpdateAccountFcmTokenData_updateAccountFcmToken._();
 
   factory GUpdateAccountFcmTokenData_updateAccountFcmToken(
-      [Function(GUpdateAccountFcmTokenData_updateAccountFcmTokenBuilder b)
+      [void Function(GUpdateAccountFcmTokenData_updateAccountFcmTokenBuilder b)
           updates]) = _$GUpdateAccountFcmTokenData_updateAccountFcmToken;
 
   static void _initializeBuilder(

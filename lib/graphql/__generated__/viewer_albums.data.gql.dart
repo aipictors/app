@@ -15,7 +15,8 @@ abstract class GViewerAlbumsData
     implements Built<GViewerAlbumsData, GViewerAlbumsDataBuilder> {
   GViewerAlbumsData._();
 
-  factory GViewerAlbumsData([Function(GViewerAlbumsDataBuilder b) updates]) =
+  factory GViewerAlbumsData(
+          [void Function(GViewerAlbumsDataBuilder b) updates]) =
       _$GViewerAlbumsData;
 
   static void _initializeBuilder(GViewerAlbumsDataBuilder b) =>
@@ -45,7 +46,7 @@ abstract class GViewerAlbumsData_viewer
   GViewerAlbumsData_viewer._();
 
   factory GViewerAlbumsData_viewer(
-          [Function(GViewerAlbumsData_viewerBuilder b) updates]) =
+          [void Function(GViewerAlbumsData_viewerBuilder b) updates]) =
       _$GViewerAlbumsData_viewer;
 
   static void _initializeBuilder(GViewerAlbumsData_viewerBuilder b) =>
@@ -77,7 +78,7 @@ abstract class GViewerAlbumsData_viewer_albums
   GViewerAlbumsData_viewer_albums._();
 
   factory GViewerAlbumsData_viewer_albums(
-          [Function(GViewerAlbumsData_viewer_albumsBuilder b) updates]) =
+          [void Function(GViewerAlbumsData_viewer_albumsBuilder b) updates]) =
       _$GViewerAlbumsData_viewer_albums;
 
   static void _initializeBuilder(GViewerAlbumsData_viewer_albumsBuilder b) =>
@@ -122,7 +123,7 @@ abstract class GViewerAlbumsData_viewer_albums_thumbnailImage
   GViewerAlbumsData_viewer_albums_thumbnailImage._();
 
   factory GViewerAlbumsData_viewer_albums_thumbnailImage(
-      [Function(GViewerAlbumsData_viewer_albums_thumbnailImageBuilder b)
+      [void Function(GViewerAlbumsData_viewer_albums_thumbnailImageBuilder b)
           updates]) = _$GViewerAlbumsData_viewer_albums_thumbnailImage;
 
   static void _initializeBuilder(

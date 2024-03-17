@@ -19,7 +19,7 @@ abstract class GStickersReq
         _i1.OperationRequest<_i2.GStickersData, _i3.GStickersVars> {
   GStickersReq._();
 
-  factory GStickersReq([Function(GStickersReqBuilder b) updates]) =
+  factory GStickersReq([void Function(GStickersReqBuilder b) updates]) =
       _$GStickersReq;
 
   static void _initializeBuilder(GStickersReqBuilder b) => b
@@ -37,6 +37,7 @@ abstract class GStickersReq
   _i4.Request get execRequest => _i4.Request(
         operation: operation,
         variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
       );
 
   @override
@@ -57,6 +58,9 @@ abstract class GStickersReq
   _i1.FetchPolicy? get fetchPolicy;
   @override
   bool get executeOnListen;
+  @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
   @override
   _i2.GStickersData? parseData(Map<String, dynamic> json) =>
       _i2.GStickersData.fromJson(json);

@@ -13,7 +13,8 @@ abstract class GDeleteFolderVars
     implements Built<GDeleteFolderVars, GDeleteFolderVarsBuilder> {
   GDeleteFolderVars._();
 
-  factory GDeleteFolderVars([Function(GDeleteFolderVarsBuilder b) updates]) =
+  factory GDeleteFolderVars(
+          [void Function(GDeleteFolderVarsBuilder b) updates]) =
       _$GDeleteFolderVars;
 
   _i1.GDeleteFolderInput get input;

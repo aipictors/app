@@ -32,7 +32,7 @@ class FeedHomeView extends HookConsumerWidget {
     }
 
     final request = GViewerFeedWorksReq((builder) {
-      return builder
+      builder
         ..vars.limit = config.graphqlQueryLimit
         ..vars.offset = 0;
     });
@@ -43,7 +43,7 @@ class FeedHomeView extends HookConsumerWidget {
       onRefresh: () async {
         audio.play(AssetSource('snd_sine/progress_loop.wav'));
         final req = request.rebuild((builder) {
-          return builder
+          builder
             ..vars.limit = config.graphqlQueryLimit
             ..vars.offset = 0;
         });

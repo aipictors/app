@@ -12,7 +12,8 @@ abstract class GAnnouncementsVars
     implements Built<GAnnouncementsVars, GAnnouncementsVarsBuilder> {
   GAnnouncementsVars._();
 
-  factory GAnnouncementsVars([Function(GAnnouncementsVarsBuilder b) updates]) =
+  factory GAnnouncementsVars(
+          [void Function(GAnnouncementsVarsBuilder b) updates]) =
       _$GAnnouncementsVars;
 
   static Serializer<GAnnouncementsVars> get serializer =>

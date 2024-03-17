@@ -17,7 +17,8 @@ abstract class GFeedHotWorksData
     implements Built<GFeedHotWorksData, GFeedHotWorksDataBuilder> {
   GFeedHotWorksData._();
 
-  factory GFeedHotWorksData([Function(GFeedHotWorksDataBuilder b) updates]) =
+  factory GFeedHotWorksData(
+          [void Function(GFeedHotWorksDataBuilder b) updates]) =
       _$GFeedHotWorksData;
 
   static void _initializeBuilder(GFeedHotWorksDataBuilder b) =>
@@ -48,7 +49,7 @@ abstract class GFeedHotWorksData_hotWorks
   GFeedHotWorksData_hotWorks._();
 
   factory GFeedHotWorksData_hotWorks(
-          [Function(GFeedHotWorksData_hotWorksBuilder b) updates]) =
+          [void Function(GFeedHotWorksData_hotWorksBuilder b) updates]) =
       _$GFeedHotWorksData_hotWorks;
 
   static void _initializeBuilder(GFeedHotWorksData_hotWorksBuilder b) =>
@@ -97,7 +98,7 @@ abstract class GFeedHotWorksData_hotWorks_image
   GFeedHotWorksData_hotWorks_image._();
 
   factory GFeedHotWorksData_hotWorks_image(
-          [Function(GFeedHotWorksData_hotWorks_imageBuilder b) updates]) =
+          [void Function(GFeedHotWorksData_hotWorks_imageBuilder b) updates]) =
       _$GFeedHotWorksData_hotWorks_image;
 
   static void _initializeBuilder(GFeedHotWorksData_hotWorks_imageBuilder b) =>
@@ -135,7 +136,7 @@ abstract class GFeedHotWorksData_hotWorks_user
   GFeedHotWorksData_hotWorks_user._();
 
   factory GFeedHotWorksData_hotWorks_user(
-          [Function(GFeedHotWorksData_hotWorks_userBuilder b) updates]) =
+          [void Function(GFeedHotWorksData_hotWorks_userBuilder b) updates]) =
       _$GFeedHotWorksData_hotWorks_user;
 
   static void _initializeBuilder(GFeedHotWorksData_hotWorks_userBuilder b) =>
@@ -177,7 +178,7 @@ abstract class GFeedHotWorksData_hotWorks_user_iconImage
   GFeedHotWorksData_hotWorks_user_iconImage._();
 
   factory GFeedHotWorksData_hotWorks_user_iconImage(
-      [Function(GFeedHotWorksData_hotWorks_user_iconImageBuilder b)
+      [void Function(GFeedHotWorksData_hotWorks_user_iconImageBuilder b)
           updates]) = _$GFeedHotWorksData_hotWorks_user_iconImage;
 
   static void _initializeBuilder(
@@ -215,8 +216,8 @@ abstract class GFeedHotWorksData_hotWorks_user_viewer
   GFeedHotWorksData_hotWorks_user_viewer._();
 
   factory GFeedHotWorksData_hotWorks_user_viewer(
-          [Function(GFeedHotWorksData_hotWorks_user_viewerBuilder b) updates]) =
-      _$GFeedHotWorksData_hotWorks_user_viewer;
+      [void Function(GFeedHotWorksData_hotWorks_user_viewerBuilder b)
+          updates]) = _$GFeedHotWorksData_hotWorks_user_viewer;
 
   static void _initializeBuilder(
           GFeedHotWorksData_hotWorks_user_viewerBuilder b) =>
@@ -251,7 +252,7 @@ abstract class GFeedHotWorksData_hotWorks_viewer
   GFeedHotWorksData_hotWorks_viewer._();
 
   factory GFeedHotWorksData_hotWorks_viewer(
-          [Function(GFeedHotWorksData_hotWorks_viewerBuilder b) updates]) =
+          [void Function(GFeedHotWorksData_hotWorks_viewerBuilder b) updates]) =
       _$GFeedHotWorksData_hotWorks_viewer;
 
   static void _initializeBuilder(GFeedHotWorksData_hotWorks_viewerBuilder b) =>

@@ -13,7 +13,7 @@ abstract class GReportWorkVars
     implements Built<GReportWorkVars, GReportWorkVarsBuilder> {
   GReportWorkVars._();
 
-  factory GReportWorkVars([Function(GReportWorkVarsBuilder b) updates]) =
+  factory GReportWorkVars([void Function(GReportWorkVarsBuilder b) updates]) =
       _$GReportWorkVars;
 
   _i1.GReportWorkInput get input;

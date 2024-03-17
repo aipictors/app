@@ -37,7 +37,7 @@ class UserScreen extends HookConsumerWidget {
         body: OperationBuilder(
           client: client.value!,
           operationRequest: GUserReq((builder) {
-            return builder..vars.userId = userId;
+            builder.vars.userId = userId;
           }),
           builder: (context, response) {
             final user = response.data?.user;

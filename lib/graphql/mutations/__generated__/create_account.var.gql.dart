@@ -13,7 +13,8 @@ abstract class GCreateAccountVars
     implements Built<GCreateAccountVars, GCreateAccountVarsBuilder> {
   GCreateAccountVars._();
 
-  factory GCreateAccountVars([Function(GCreateAccountVarsBuilder b) updates]) =
+  factory GCreateAccountVars(
+          [void Function(GCreateAccountVarsBuilder b) updates]) =
       _$GCreateAccountVars;
 
   _i1.GCreateAccountInput get input;

@@ -12,7 +12,8 @@ abstract class GPopularWorksVars
     implements Built<GPopularWorksVars, GPopularWorksVarsBuilder> {
   GPopularWorksVars._();
 
-  factory GPopularWorksVars([Function(GPopularWorksVarsBuilder b) updates]) =
+  factory GPopularWorksVars(
+          [void Function(GPopularWorksVarsBuilder b) updates]) =
       _$GPopularWorksVars;
 
   static Serializer<GPopularWorksVars> get serializer =>

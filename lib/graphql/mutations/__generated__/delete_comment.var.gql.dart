@@ -13,7 +13,8 @@ abstract class GDeleteCommentVars
     implements Built<GDeleteCommentVars, GDeleteCommentVarsBuilder> {
   GDeleteCommentVars._();
 
-  factory GDeleteCommentVars([Function(GDeleteCommentVarsBuilder b) updates]) =
+  factory GDeleteCommentVars(
+          [void Function(GDeleteCommentVarsBuilder b) updates]) =
       _$GDeleteCommentVars;
 
   _i1.GDeleteCommentInput get input;

@@ -12,7 +12,7 @@ abstract class GMuteUserData
     implements Built<GMuteUserData, GMuteUserDataBuilder> {
   GMuteUserData._();
 
-  factory GMuteUserData([Function(GMuteUserDataBuilder b) updates]) =
+  factory GMuteUserData([void Function(GMuteUserDataBuilder b) updates]) =
       _$GMuteUserData;
 
   static void _initializeBuilder(GMuteUserDataBuilder b) =>
@@ -40,7 +40,7 @@ abstract class GMuteUserData_muteUser
   GMuteUserData_muteUser._();
 
   factory GMuteUserData_muteUser(
-          [Function(GMuteUserData_muteUserBuilder b) updates]) =
+          [void Function(GMuteUserData_muteUserBuilder b) updates]) =
       _$GMuteUserData_muteUser;
 
   static void _initializeBuilder(GMuteUserData_muteUserBuilder b) =>
@@ -72,7 +72,7 @@ abstract class GMuteUserData_muteUser_viewer
   GMuteUserData_muteUser_viewer._();
 
   factory GMuteUserData_muteUser_viewer(
-          [Function(GMuteUserData_muteUser_viewerBuilder b) updates]) =
+          [void Function(GMuteUserData_muteUser_viewerBuilder b) updates]) =
       _$GMuteUserData_muteUser_viewer;
 
   static void _initializeBuilder(GMuteUserData_muteUser_viewerBuilder b) =>

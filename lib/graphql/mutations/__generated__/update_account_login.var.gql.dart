@@ -14,7 +14,7 @@ abstract class GUpdateAccountLoginVars
   GUpdateAccountLoginVars._();
 
   factory GUpdateAccountLoginVars(
-          [Function(GUpdateAccountLoginVarsBuilder b) updates]) =
+          [void Function(GUpdateAccountLoginVarsBuilder b) updates]) =
       _$GUpdateAccountLoginVars;
 
   _i1.GUpdateAccountLoginInput get input;

@@ -22,7 +22,7 @@ abstract class GMuteUserReq
         _i1.OperationRequest<_i2.GMuteUserData, _i3.GMuteUserVars> {
   GMuteUserReq._();
 
-  factory GMuteUserReq([Function(GMuteUserReqBuilder b) updates]) =
+  factory GMuteUserReq([void Function(GMuteUserReqBuilder b) updates]) =
       _$GMuteUserReq;
 
   static void _initializeBuilder(GMuteUserReqBuilder b) => b
@@ -40,6 +40,7 @@ abstract class GMuteUserReq
   _i4.Request get execRequest => _i4.Request(
         operation: operation,
         variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
       );
 
   @override
@@ -60,6 +61,9 @@ abstract class GMuteUserReq
   _i1.FetchPolicy? get fetchPolicy;
   @override
   bool get executeOnListen;
+  @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
   @override
   _i2.GMuteUserData? parseData(Map<String, dynamic> json) =>
       _i2.GMuteUserData.fromJson(json);

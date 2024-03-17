@@ -15,7 +15,7 @@ abstract class GHotWorksData
     implements Built<GHotWorksData, GHotWorksDataBuilder> {
   GHotWorksData._();
 
-  factory GHotWorksData([Function(GHotWorksDataBuilder b) updates]) =
+  factory GHotWorksData([void Function(GHotWorksDataBuilder b) updates]) =
       _$GHotWorksData;
 
   static void _initializeBuilder(GHotWorksDataBuilder b) =>
@@ -45,7 +45,7 @@ abstract class GHotWorksData_hotWorks
   GHotWorksData_hotWorks._();
 
   factory GHotWorksData_hotWorks(
-          [Function(GHotWorksData_hotWorksBuilder b) updates]) =
+          [void Function(GHotWorksData_hotWorksBuilder b) updates]) =
       _$GHotWorksData_hotWorks;
 
   static void _initializeBuilder(GHotWorksData_hotWorksBuilder b) =>
@@ -90,8 +90,8 @@ abstract class GHotWorksData_hotWorks_thumbnailImage
   GHotWorksData_hotWorks_thumbnailImage._();
 
   factory GHotWorksData_hotWorks_thumbnailImage(
-          [Function(GHotWorksData_hotWorks_thumbnailImageBuilder b) updates]) =
-      _$GHotWorksData_hotWorks_thumbnailImage;
+      [void Function(GHotWorksData_hotWorks_thumbnailImageBuilder b)
+          updates]) = _$GHotWorksData_hotWorks_thumbnailImage;
 
   static void _initializeBuilder(
           GHotWorksData_hotWorks_thumbnailImageBuilder b) =>

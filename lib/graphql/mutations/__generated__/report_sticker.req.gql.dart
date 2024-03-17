@@ -22,7 +22,8 @@ abstract class GReportStickerReq
         _i1.OperationRequest<_i2.GReportStickerData, _i3.GReportStickerVars> {
   GReportStickerReq._();
 
-  factory GReportStickerReq([Function(GReportStickerReqBuilder b) updates]) =
+  factory GReportStickerReq(
+          [void Function(GReportStickerReqBuilder b) updates]) =
       _$GReportStickerReq;
 
   static void _initializeBuilder(GReportStickerReqBuilder b) => b
@@ -40,6 +41,7 @@ abstract class GReportStickerReq
   _i4.Request get execRequest => _i4.Request(
         operation: operation,
         variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
       );
 
   @override
@@ -60,6 +62,9 @@ abstract class GReportStickerReq
   _i1.FetchPolicy? get fetchPolicy;
   @override
   bool get executeOnListen;
+  @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
   @override
   _i2.GReportStickerData? parseData(Map<String, dynamic> json) =>
       _i2.GReportStickerData.fromJson(json);

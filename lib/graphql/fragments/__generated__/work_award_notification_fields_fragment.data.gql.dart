@@ -59,7 +59,7 @@ abstract class GWorkAwardNotificationFieldsData
   GWorkAwardNotificationFieldsData._();
 
   factory GWorkAwardNotificationFieldsData(
-          [Function(GWorkAwardNotificationFieldsDataBuilder b) updates]) =
+          [void Function(GWorkAwardNotificationFieldsDataBuilder b) updates]) =
       _$GWorkAwardNotificationFieldsData;
 
   static void _initializeBuilder(GWorkAwardNotificationFieldsDataBuilder b) =>
@@ -102,8 +102,8 @@ abstract class GWorkAwardNotificationFieldsData_work
   GWorkAwardNotificationFieldsData_work._();
 
   factory GWorkAwardNotificationFieldsData_work(
-          [Function(GWorkAwardNotificationFieldsData_workBuilder b) updates]) =
-      _$GWorkAwardNotificationFieldsData_work;
+      [void Function(GWorkAwardNotificationFieldsData_workBuilder b)
+          updates]) = _$GWorkAwardNotificationFieldsData_work;
 
   static void _initializeBuilder(
           GWorkAwardNotificationFieldsData_workBuilder b) =>
@@ -150,7 +150,8 @@ abstract class GWorkAwardNotificationFieldsData_work_thumbnailImage
   GWorkAwardNotificationFieldsData_work_thumbnailImage._();
 
   factory GWorkAwardNotificationFieldsData_work_thumbnailImage(
-      [Function(GWorkAwardNotificationFieldsData_work_thumbnailImageBuilder b)
+      [void Function(
+              GWorkAwardNotificationFieldsData_work_thumbnailImageBuilder b)
           updates]) = _$GWorkAwardNotificationFieldsData_work_thumbnailImage;
 
   static void _initializeBuilder(

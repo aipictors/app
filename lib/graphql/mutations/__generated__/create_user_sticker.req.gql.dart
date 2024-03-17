@@ -24,7 +24,7 @@ abstract class GCreateUserStickerReq
   GCreateUserStickerReq._();
 
   factory GCreateUserStickerReq(
-          [Function(GCreateUserStickerReqBuilder b) updates]) =
+          [void Function(GCreateUserStickerReqBuilder b) updates]) =
       _$GCreateUserStickerReq;
 
   static void _initializeBuilder(GCreateUserStickerReqBuilder b) => b
@@ -42,6 +42,7 @@ abstract class GCreateUserStickerReq
   _i4.Request get execRequest => _i4.Request(
         operation: operation,
         variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
       );
 
   @override
@@ -62,6 +63,9 @@ abstract class GCreateUserStickerReq
   _i1.FetchPolicy? get fetchPolicy;
   @override
   bool get executeOnListen;
+  @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
   @override
   _i2.GCreateUserStickerData? parseData(Map<String, dynamic> json) =>
       _i2.GCreateUserStickerData.fromJson(json);

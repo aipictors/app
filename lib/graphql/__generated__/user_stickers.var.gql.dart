@@ -12,7 +12,8 @@ abstract class GUserStickersVars
     implements Built<GUserStickersVars, GUserStickersVarsBuilder> {
   GUserStickersVars._();
 
-  factory GUserStickersVars([Function(GUserStickersVarsBuilder b) updates]) =
+  factory GUserStickersVars(
+          [void Function(GUserStickersVarsBuilder b) updates]) =
       _$GUserStickersVars;
 
   int get offset;

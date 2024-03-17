@@ -13,7 +13,7 @@ abstract class GMuteTagVars
     implements Built<GMuteTagVars, GMuteTagVarsBuilder> {
   GMuteTagVars._();
 
-  factory GMuteTagVars([Function(GMuteTagVarsBuilder b) updates]) =
+  factory GMuteTagVars([void Function(GMuteTagVarsBuilder b) updates]) =
       _$GMuteTagVars;
 
   _i1.GMuteTagInput get input;

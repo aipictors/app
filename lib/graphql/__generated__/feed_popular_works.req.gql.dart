@@ -24,7 +24,7 @@ abstract class GFeedPopularWorksReq
   GFeedPopularWorksReq._();
 
   factory GFeedPopularWorksReq(
-          [Function(GFeedPopularWorksReqBuilder b) updates]) =
+          [void Function(GFeedPopularWorksReqBuilder b) updates]) =
       _$GFeedPopularWorksReq;
 
   static void _initializeBuilder(GFeedPopularWorksReqBuilder b) => b
@@ -42,6 +42,7 @@ abstract class GFeedPopularWorksReq
   _i4.Request get execRequest => _i4.Request(
         operation: operation,
         variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
       );
 
   @override
@@ -62,6 +63,9 @@ abstract class GFeedPopularWorksReq
   _i1.FetchPolicy? get fetchPolicy;
   @override
   bool get executeOnListen;
+  @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
   @override
   _i2.GFeedPopularWorksData? parseData(Map<String, dynamic> json) =>
       _i2.GFeedPopularWorksData.fromJson(json);

@@ -11,7 +11,7 @@ part 'tag.data.gql.g.dart';
 abstract class GTagData implements Built<GTagData, GTagDataBuilder> {
   GTagData._();
 
-  factory GTagData([Function(GTagDataBuilder b) updates]) = _$GTagData;
+  factory GTagData([void Function(GTagDataBuilder b) updates]) = _$GTagData;
 
   static void _initializeBuilder(GTagDataBuilder b) => b..G__typename = 'Query';
 
@@ -36,7 +36,7 @@ abstract class GTagData_tag
     implements Built<GTagData_tag, GTagData_tagBuilder> {
   GTagData_tag._();
 
-  factory GTagData_tag([Function(GTagData_tagBuilder b) updates]) =
+  factory GTagData_tag([void Function(GTagData_tagBuilder b) updates]) =
       _$GTagData_tag;
 
   static void _initializeBuilder(GTagData_tagBuilder b) =>
@@ -66,7 +66,8 @@ abstract class GTagData_tag_viewer
   GTagData_tag_viewer._();
 
   factory GTagData_tag_viewer(
-      [Function(GTagData_tag_viewerBuilder b) updates]) = _$GTagData_tag_viewer;
+          [void Function(GTagData_tag_viewerBuilder b) updates]) =
+      _$GTagData_tag_viewer;
 
   static void _initializeBuilder(GTagData_tag_viewerBuilder b) =>
       b..G__typename = 'TagViewerNode';

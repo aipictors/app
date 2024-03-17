@@ -12,7 +12,7 @@ abstract class GDailyThemeVars
     implements Built<GDailyThemeVars, GDailyThemeVarsBuilder> {
   GDailyThemeVars._();
 
-  factory GDailyThemeVars([Function(GDailyThemeVarsBuilder b) updates]) =
+  factory GDailyThemeVars([void Function(GDailyThemeVarsBuilder b) updates]) =
       _$GDailyThemeVars;
 
   String get id;

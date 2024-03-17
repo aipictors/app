@@ -12,7 +12,7 @@ abstract class GUserAlbumsVars
     implements Built<GUserAlbumsVars, GUserAlbumsVarsBuilder> {
   GUserAlbumsVars._();
 
-  factory GUserAlbumsVars([Function(GUserAlbumsVarsBuilder b) updates]) =
+  factory GUserAlbumsVars([void Function(GUserAlbumsVarsBuilder b) updates]) =
       _$GUserAlbumsVars;
 
   String get user_id;

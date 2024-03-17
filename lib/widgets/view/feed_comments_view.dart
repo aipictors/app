@@ -20,7 +20,7 @@ class FeedCommentsView extends HookConsumerWidget {
     return OperationBuilder(
       client: client,
       operationRequest: GWorkCommentsReq((builder) {
-        return builder..vars.workId = workId;
+        builder.vars.workId = workId;
       }),
       builder: (context, response) {
         final commentList = response.data?.work?.comments;

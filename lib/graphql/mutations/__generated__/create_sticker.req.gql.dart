@@ -22,7 +22,8 @@ abstract class GCreateStickerReq
         _i1.OperationRequest<_i2.GCreateStickerData, _i3.GCreateStickerVars> {
   GCreateStickerReq._();
 
-  factory GCreateStickerReq([Function(GCreateStickerReqBuilder b) updates]) =
+  factory GCreateStickerReq(
+          [void Function(GCreateStickerReqBuilder b) updates]) =
       _$GCreateStickerReq;
 
   static void _initializeBuilder(GCreateStickerReqBuilder b) => b
@@ -40,6 +41,7 @@ abstract class GCreateStickerReq
   _i4.Request get execRequest => _i4.Request(
         operation: operation,
         variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
       );
 
   @override
@@ -60,6 +62,9 @@ abstract class GCreateStickerReq
   _i1.FetchPolicy? get fetchPolicy;
   @override
   bool get executeOnListen;
+  @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
   @override
   _i2.GCreateStickerData? parseData(Map<String, dynamic> json) =>
       _i2.GCreateStickerData.fromJson(json);

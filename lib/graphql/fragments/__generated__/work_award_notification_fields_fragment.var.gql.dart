@@ -15,7 +15,7 @@ abstract class GWorkAwardNotificationFieldsVars
   GWorkAwardNotificationFieldsVars._();
 
   factory GWorkAwardNotificationFieldsVars(
-          [Function(GWorkAwardNotificationFieldsVarsBuilder b) updates]) =
+          [void Function(GWorkAwardNotificationFieldsVarsBuilder b) updates]) =
       _$GWorkAwardNotificationFieldsVars;
 
   static Serializer<GWorkAwardNotificationFieldsVars> get serializer =>

@@ -15,7 +15,8 @@ abstract class GUserFolloweesData
     implements Built<GUserFolloweesData, GUserFolloweesDataBuilder> {
   GUserFolloweesData._();
 
-  factory GUserFolloweesData([Function(GUserFolloweesDataBuilder b) updates]) =
+  factory GUserFolloweesData(
+          [void Function(GUserFolloweesDataBuilder b) updates]) =
       _$GUserFolloweesData;
 
   static void _initializeBuilder(GUserFolloweesDataBuilder b) =>
@@ -44,7 +45,7 @@ abstract class GUserFolloweesData_user
   GUserFolloweesData_user._();
 
   factory GUserFolloweesData_user(
-          [Function(GUserFolloweesData_userBuilder b) updates]) =
+          [void Function(GUserFolloweesData_userBuilder b) updates]) =
       _$GUserFolloweesData_user;
 
   static void _initializeBuilder(GUserFolloweesData_userBuilder b) =>
@@ -77,7 +78,7 @@ abstract class GUserFolloweesData_user_followees
   GUserFolloweesData_user_followees._();
 
   factory GUserFolloweesData_user_followees(
-          [Function(GUserFolloweesData_user_followeesBuilder b) updates]) =
+          [void Function(GUserFolloweesData_user_followeesBuilder b) updates]) =
       _$GUserFolloweesData_user_followees;
 
   static void _initializeBuilder(GUserFolloweesData_user_followeesBuilder b) =>
@@ -119,7 +120,7 @@ abstract class GUserFolloweesData_user_followees_iconImage
   GUserFolloweesData_user_followees_iconImage._();
 
   factory GUserFolloweesData_user_followees_iconImage(
-      [Function(GUserFolloweesData_user_followees_iconImageBuilder b)
+      [void Function(GUserFolloweesData_user_followees_iconImageBuilder b)
           updates]) = _$GUserFolloweesData_user_followees_iconImage;
 
   static void _initializeBuilder(

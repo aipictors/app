@@ -16,7 +16,7 @@ abstract class GStickerData
     implements Built<GStickerData, GStickerDataBuilder> {
   GStickerData._();
 
-  factory GStickerData([Function(GStickerDataBuilder b) updates]) =
+  factory GStickerData([void Function(GStickerDataBuilder b) updates]) =
       _$GStickerData;
 
   static void _initializeBuilder(GStickerDataBuilder b) =>
@@ -44,7 +44,7 @@ abstract class GStickerData_sticker
   GStickerData_sticker._();
 
   factory GStickerData_sticker(
-          [Function(GStickerData_stickerBuilder b) updates]) =
+          [void Function(GStickerData_stickerBuilder b) updates]) =
       _$GStickerData_sticker;
 
   static void _initializeBuilder(GStickerData_stickerBuilder b) =>
@@ -85,7 +85,7 @@ abstract class GStickerData_sticker_image
   GStickerData_sticker_image._();
 
   factory GStickerData_sticker_image(
-          [Function(GStickerData_sticker_imageBuilder b) updates]) =
+          [void Function(GStickerData_sticker_imageBuilder b) updates]) =
       _$GStickerData_sticker_image;
 
   static void _initializeBuilder(GStickerData_sticker_imageBuilder b) =>
@@ -117,7 +117,7 @@ abstract class GStickerData_sticker_user
   GStickerData_sticker_user._();
 
   factory GStickerData_sticker_user(
-          [Function(GStickerData_sticker_userBuilder b) updates]) =
+          [void Function(GStickerData_sticker_userBuilder b) updates]) =
       _$GStickerData_sticker_user;
 
   static void _initializeBuilder(GStickerData_sticker_userBuilder b) =>
@@ -159,8 +159,8 @@ abstract class GStickerData_sticker_user_iconImage
   GStickerData_sticker_user_iconImage._();
 
   factory GStickerData_sticker_user_iconImage(
-          [Function(GStickerData_sticker_user_iconImageBuilder b) updates]) =
-      _$GStickerData_sticker_user_iconImage;
+      [void Function(GStickerData_sticker_user_iconImageBuilder b)
+          updates]) = _$GStickerData_sticker_user_iconImage;
 
   static void _initializeBuilder(
           GStickerData_sticker_user_iconImageBuilder b) =>
@@ -197,7 +197,7 @@ abstract class GStickerData_sticker_user_viewer
   GStickerData_sticker_user_viewer._();
 
   factory GStickerData_sticker_user_viewer(
-          [Function(GStickerData_sticker_user_viewerBuilder b) updates]) =
+          [void Function(GStickerData_sticker_user_viewerBuilder b) updates]) =
       _$GStickerData_sticker_user_viewer;
 
   static void _initializeBuilder(GStickerData_sticker_user_viewerBuilder b) =>

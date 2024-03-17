@@ -18,7 +18,7 @@ abstract class GViewerFeedWorksData
   GViewerFeedWorksData._();
 
   factory GViewerFeedWorksData(
-          [Function(GViewerFeedWorksDataBuilder b) updates]) =
+          [void Function(GViewerFeedWorksDataBuilder b) updates]) =
       _$GViewerFeedWorksData;
 
   static void _initializeBuilder(GViewerFeedWorksDataBuilder b) =>
@@ -48,7 +48,7 @@ abstract class GViewerFeedWorksData_viewer
   GViewerFeedWorksData_viewer._();
 
   factory GViewerFeedWorksData_viewer(
-          [Function(GViewerFeedWorksData_viewerBuilder b) updates]) =
+          [void Function(GViewerFeedWorksData_viewerBuilder b) updates]) =
       _$GViewerFeedWorksData_viewer;
 
   static void _initializeBuilder(GViewerFeedWorksData_viewerBuilder b) =>
@@ -80,8 +80,8 @@ abstract class GViewerFeedWorksData_viewer_feedWorks
   GViewerFeedWorksData_viewer_feedWorks._();
 
   factory GViewerFeedWorksData_viewer_feedWorks(
-          [Function(GViewerFeedWorksData_viewer_feedWorksBuilder b) updates]) =
-      _$GViewerFeedWorksData_viewer_feedWorks;
+      [void Function(GViewerFeedWorksData_viewer_feedWorksBuilder b)
+          updates]) = _$GViewerFeedWorksData_viewer_feedWorks;
 
   static void _initializeBuilder(
           GViewerFeedWorksData_viewer_feedWorksBuilder b) =>
@@ -131,7 +131,7 @@ abstract class GViewerFeedWorksData_viewer_feedWorks_image
   GViewerFeedWorksData_viewer_feedWorks_image._();
 
   factory GViewerFeedWorksData_viewer_feedWorks_image(
-      [Function(GViewerFeedWorksData_viewer_feedWorks_imageBuilder b)
+      [void Function(GViewerFeedWorksData_viewer_feedWorks_imageBuilder b)
           updates]) = _$GViewerFeedWorksData_viewer_feedWorks_image;
 
   static void _initializeBuilder(
@@ -170,7 +170,7 @@ abstract class GViewerFeedWorksData_viewer_feedWorks_user
   GViewerFeedWorksData_viewer_feedWorks_user._();
 
   factory GViewerFeedWorksData_viewer_feedWorks_user(
-      [Function(GViewerFeedWorksData_viewer_feedWorks_userBuilder b)
+      [void Function(GViewerFeedWorksData_viewer_feedWorks_userBuilder b)
           updates]) = _$GViewerFeedWorksData_viewer_feedWorks_user;
 
   static void _initializeBuilder(
@@ -214,7 +214,8 @@ abstract class GViewerFeedWorksData_viewer_feedWorks_user_iconImage
   GViewerFeedWorksData_viewer_feedWorks_user_iconImage._();
 
   factory GViewerFeedWorksData_viewer_feedWorks_user_iconImage(
-      [Function(GViewerFeedWorksData_viewer_feedWorks_user_iconImageBuilder b)
+      [void Function(
+              GViewerFeedWorksData_viewer_feedWorks_user_iconImageBuilder b)
           updates]) = _$GViewerFeedWorksData_viewer_feedWorks_user_iconImage;
 
   static void _initializeBuilder(
@@ -253,7 +254,7 @@ abstract class GViewerFeedWorksData_viewer_feedWorks_user_viewer
   GViewerFeedWorksData_viewer_feedWorks_user_viewer._();
 
   factory GViewerFeedWorksData_viewer_feedWorks_user_viewer(
-      [Function(GViewerFeedWorksData_viewer_feedWorks_user_viewerBuilder b)
+      [void Function(GViewerFeedWorksData_viewer_feedWorks_user_viewerBuilder b)
           updates]) = _$GViewerFeedWorksData_viewer_feedWorks_user_viewer;
 
   static void _initializeBuilder(
@@ -290,7 +291,7 @@ abstract class GViewerFeedWorksData_viewer_feedWorks_viewer
   GViewerFeedWorksData_viewer_feedWorks_viewer._();
 
   factory GViewerFeedWorksData_viewer_feedWorks_viewer(
-      [Function(GViewerFeedWorksData_viewer_feedWorks_viewerBuilder b)
+      [void Function(GViewerFeedWorksData_viewer_feedWorks_viewerBuilder b)
           updates]) = _$GViewerFeedWorksData_viewer_feedWorks_viewer;
 
   static void _initializeBuilder(

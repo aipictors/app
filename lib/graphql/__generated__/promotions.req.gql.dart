@@ -20,7 +20,7 @@ abstract class GPromotionsReq
         _i1.OperationRequest<_i2.GPromotionsData, _i3.GPromotionsVars> {
   GPromotionsReq._();
 
-  factory GPromotionsReq([Function(GPromotionsReqBuilder b) updates]) =
+  factory GPromotionsReq([void Function(GPromotionsReqBuilder b) updates]) =
       _$GPromotionsReq;
 
   static void _initializeBuilder(GPromotionsReqBuilder b) => b
@@ -38,6 +38,7 @@ abstract class GPromotionsReq
   _i4.Request get execRequest => _i4.Request(
         operation: operation,
         variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
       );
 
   @override
@@ -58,6 +59,9 @@ abstract class GPromotionsReq
   _i1.FetchPolicy? get fetchPolicy;
   @override
   bool get executeOnListen;
+  @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
   @override
   _i2.GPromotionsData? parseData(Map<String, dynamic> json) =>
       _i2.GPromotionsData.fromJson(json);

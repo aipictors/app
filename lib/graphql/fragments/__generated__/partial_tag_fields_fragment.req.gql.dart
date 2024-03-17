@@ -24,7 +24,7 @@ abstract class GPartialTagFieldsReq
   GPartialTagFieldsReq._();
 
   factory GPartialTagFieldsReq(
-          [Function(GPartialTagFieldsReqBuilder b) updates]) =
+          [void Function(GPartialTagFieldsReqBuilder b) updates]) =
       _$GPartialTagFieldsReq;
 
   static void _initializeBuilder(GPartialTagFieldsReqBuilder b) => b

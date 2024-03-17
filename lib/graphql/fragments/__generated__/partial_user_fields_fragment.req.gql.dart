@@ -24,7 +24,7 @@ abstract class GPartialUserFieldsReq
   GPartialUserFieldsReq._();
 
   factory GPartialUserFieldsReq(
-          [Function(GPartialUserFieldsReqBuilder b) updates]) =
+          [void Function(GPartialUserFieldsReqBuilder b) updates]) =
       _$GPartialUserFieldsReq;
 
   static void _initializeBuilder(GPartialUserFieldsReqBuilder b) => b

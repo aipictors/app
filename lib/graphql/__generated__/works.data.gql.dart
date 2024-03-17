@@ -14,7 +14,8 @@ part 'works.data.gql.g.dart';
 abstract class GWorksData implements Built<GWorksData, GWorksDataBuilder> {
   GWorksData._();
 
-  factory GWorksData([Function(GWorksDataBuilder b) updates]) = _$GWorksData;
+  factory GWorksData([void Function(GWorksDataBuilder b) updates]) =
+      _$GWorksData;
 
   static void _initializeBuilder(GWorksDataBuilder b) =>
       b..G__typename = 'Query';
@@ -42,7 +43,7 @@ abstract class GWorksData_works
         _i2.GPartialWorkFields {
   GWorksData_works._();
 
-  factory GWorksData_works([Function(GWorksData_worksBuilder b) updates]) =
+  factory GWorksData_works([void Function(GWorksData_worksBuilder b) updates]) =
       _$GWorksData_works;
 
   static void _initializeBuilder(GWorksData_worksBuilder b) =>
@@ -87,7 +88,7 @@ abstract class GWorksData_works_thumbnailImage
   GWorksData_works_thumbnailImage._();
 
   factory GWorksData_works_thumbnailImage(
-          [Function(GWorksData_works_thumbnailImageBuilder b) updates]) =
+          [void Function(GWorksData_works_thumbnailImageBuilder b) updates]) =
       _$GWorksData_works_thumbnailImage;
 
   static void _initializeBuilder(GWorksData_works_thumbnailImageBuilder b) =>

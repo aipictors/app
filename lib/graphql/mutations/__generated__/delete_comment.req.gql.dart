@@ -22,7 +22,8 @@ abstract class GDeleteCommentReq
         _i1.OperationRequest<_i2.GDeleteCommentData, _i3.GDeleteCommentVars> {
   GDeleteCommentReq._();
 
-  factory GDeleteCommentReq([Function(GDeleteCommentReqBuilder b) updates]) =
+  factory GDeleteCommentReq(
+          [void Function(GDeleteCommentReqBuilder b) updates]) =
       _$GDeleteCommentReq;
 
   static void _initializeBuilder(GDeleteCommentReqBuilder b) => b
@@ -40,6 +41,7 @@ abstract class GDeleteCommentReq
   _i4.Request get execRequest => _i4.Request(
         operation: operation,
         variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
       );
 
   @override
@@ -60,6 +62,9 @@ abstract class GDeleteCommentReq
   _i1.FetchPolicy? get fetchPolicy;
   @override
   bool get executeOnListen;
+  @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
   @override
   _i2.GDeleteCommentData? parseData(Map<String, dynamic> json) =>
       _i2.GDeleteCommentData.fromJson(json);

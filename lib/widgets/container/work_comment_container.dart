@@ -33,7 +33,7 @@ class WorkCommentContainer extends HookConsumerWidget {
     }
 
     final request = GWorkCommentsReq((builder) {
-      return builder..vars.workId = workId;
+      builder.vars.workId = workId;
     });
 
     return Column(

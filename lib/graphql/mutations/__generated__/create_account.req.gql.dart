@@ -22,7 +22,8 @@ abstract class GCreateAccountReq
         _i1.OperationRequest<_i2.GCreateAccountData, _i3.GCreateAccountVars> {
   GCreateAccountReq._();
 
-  factory GCreateAccountReq([Function(GCreateAccountReqBuilder b) updates]) =
+  factory GCreateAccountReq(
+          [void Function(GCreateAccountReqBuilder b) updates]) =
       _$GCreateAccountReq;
 
   static void _initializeBuilder(GCreateAccountReqBuilder b) => b
@@ -40,6 +41,7 @@ abstract class GCreateAccountReq
   _i4.Request get execRequest => _i4.Request(
         operation: operation,
         variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
       );
 
   @override
@@ -60,6 +62,9 @@ abstract class GCreateAccountReq
   _i1.FetchPolicy? get fetchPolicy;
   @override
   bool get executeOnListen;
+  @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
   @override
   _i2.GCreateAccountData? parseData(Map<String, dynamic> json) =>
       _i2.GCreateAccountData.fromJson(json);

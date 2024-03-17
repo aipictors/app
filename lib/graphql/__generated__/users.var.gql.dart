@@ -12,7 +12,8 @@ part 'users.var.gql.g.dart';
 abstract class GUsersVars implements Built<GUsersVars, GUsersVarsBuilder> {
   GUsersVars._();
 
-  factory GUsersVars([Function(GUsersVarsBuilder b) updates]) = _$GUsersVars;
+  factory GUsersVars([void Function(GUsersVarsBuilder b) updates]) =
+      _$GUsersVars;
 
   int get offset;
   int get limit;

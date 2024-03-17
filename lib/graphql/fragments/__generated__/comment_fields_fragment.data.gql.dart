@@ -68,7 +68,8 @@ abstract class GCommentFieldsData
         GCommentFields {
   GCommentFieldsData._();
 
-  factory GCommentFieldsData([Function(GCommentFieldsDataBuilder b) updates]) =
+  factory GCommentFieldsData(
+          [void Function(GCommentFieldsDataBuilder b) updates]) =
       _$GCommentFieldsData;
 
   static void _initializeBuilder(GCommentFieldsDataBuilder b) =>
@@ -111,7 +112,7 @@ abstract class GCommentFieldsData_user
   GCommentFieldsData_user._();
 
   factory GCommentFieldsData_user(
-          [Function(GCommentFieldsData_userBuilder b) updates]) =
+          [void Function(GCommentFieldsData_userBuilder b) updates]) =
       _$GCommentFieldsData_user;
 
   static void _initializeBuilder(GCommentFieldsData_userBuilder b) =>
@@ -155,7 +156,7 @@ abstract class GCommentFieldsData_user_iconImage
   GCommentFieldsData_user_iconImage._();
 
   factory GCommentFieldsData_user_iconImage(
-          [Function(GCommentFieldsData_user_iconImageBuilder b) updates]) =
+          [void Function(GCommentFieldsData_user_iconImageBuilder b) updates]) =
       _$GCommentFieldsData_user_iconImage;
 
   static void _initializeBuilder(GCommentFieldsData_user_iconImageBuilder b) =>
@@ -192,7 +193,7 @@ abstract class GCommentFieldsData_sticker
   GCommentFieldsData_sticker._();
 
   factory GCommentFieldsData_sticker(
-          [Function(GCommentFieldsData_stickerBuilder b) updates]) =
+          [void Function(GCommentFieldsData_stickerBuilder b) updates]) =
       _$GCommentFieldsData_sticker;
 
   static void _initializeBuilder(GCommentFieldsData_stickerBuilder b) =>
@@ -229,7 +230,7 @@ abstract class GCommentFieldsData_sticker_image
   GCommentFieldsData_sticker_image._();
 
   factory GCommentFieldsData_sticker_image(
-          [Function(GCommentFieldsData_sticker_imageBuilder b) updates]) =
+          [void Function(GCommentFieldsData_sticker_imageBuilder b) updates]) =
       _$GCommentFieldsData_sticker_image;
 
   static void _initializeBuilder(GCommentFieldsData_sticker_imageBuilder b) =>

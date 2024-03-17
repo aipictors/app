@@ -20,7 +20,7 @@ abstract class GBestWorksReq
         _i1.OperationRequest<_i2.GBestWorksData, _i3.GBestWorksVars> {
   GBestWorksReq._();
 
-  factory GBestWorksReq([Function(GBestWorksReqBuilder b) updates]) =
+  factory GBestWorksReq([void Function(GBestWorksReqBuilder b) updates]) =
       _$GBestWorksReq;
 
   static void _initializeBuilder(GBestWorksReqBuilder b) => b
@@ -38,6 +38,7 @@ abstract class GBestWorksReq
   _i4.Request get execRequest => _i4.Request(
         operation: operation,
         variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
       );
 
   @override
@@ -58,6 +59,9 @@ abstract class GBestWorksReq
   _i1.FetchPolicy? get fetchPolicy;
   @override
   bool get executeOnListen;
+  @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
   @override
   _i2.GBestWorksData? parseData(Map<String, dynamic> json) =>
       _i2.GBestWorksData.fromJson(json);

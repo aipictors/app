@@ -15,7 +15,7 @@ abstract class GWorkAwardsData
     implements Built<GWorkAwardsData, GWorkAwardsDataBuilder> {
   GWorkAwardsData._();
 
-  factory GWorkAwardsData([Function(GWorkAwardsDataBuilder b) updates]) =
+  factory GWorkAwardsData([void Function(GWorkAwardsDataBuilder b) updates]) =
       _$GWorkAwardsData;
 
   static void _initializeBuilder(GWorkAwardsDataBuilder b) =>
@@ -45,7 +45,7 @@ abstract class GWorkAwardsData_workAwards
   GWorkAwardsData_workAwards._();
 
   factory GWorkAwardsData_workAwards(
-          [Function(GWorkAwardsData_workAwardsBuilder b) updates]) =
+          [void Function(GWorkAwardsData_workAwardsBuilder b) updates]) =
       _$GWorkAwardsData_workAwards;
 
   static void _initializeBuilder(GWorkAwardsData_workAwardsBuilder b) =>
@@ -80,7 +80,7 @@ abstract class GWorkAwardsData_workAwards_work
   GWorkAwardsData_workAwards_work._();
 
   factory GWorkAwardsData_workAwards_work(
-          [Function(GWorkAwardsData_workAwards_workBuilder b) updates]) =
+          [void Function(GWorkAwardsData_workAwards_workBuilder b) updates]) =
       _$GWorkAwardsData_workAwards_work;
 
   static void _initializeBuilder(GWorkAwardsData_workAwards_workBuilder b) =>
@@ -125,7 +125,7 @@ abstract class GWorkAwardsData_workAwards_work_thumbnailImage
   GWorkAwardsData_workAwards_work_thumbnailImage._();
 
   factory GWorkAwardsData_workAwards_work_thumbnailImage(
-      [Function(GWorkAwardsData_workAwards_work_thumbnailImageBuilder b)
+      [void Function(GWorkAwardsData_workAwards_work_thumbnailImageBuilder b)
           updates]) = _$GWorkAwardsData_workAwards_work_thumbnailImage;
 
   static void _initializeBuilder(

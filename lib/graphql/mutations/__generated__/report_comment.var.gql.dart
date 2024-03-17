@@ -13,7 +13,8 @@ abstract class GReportCommentVars
     implements Built<GReportCommentVars, GReportCommentVarsBuilder> {
   GReportCommentVars._();
 
-  factory GReportCommentVars([Function(GReportCommentVarsBuilder b) updates]) =
+  factory GReportCommentVars(
+          [void Function(GReportCommentVarsBuilder b) updates]) =
       _$GReportCommentVars;
 
   _i1.GReportCommentInput get input;

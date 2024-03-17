@@ -15,7 +15,7 @@ abstract class GAcceptPromptonRequestInput
   GAcceptPromptonRequestInput._();
 
   factory GAcceptPromptonRequestInput(
-          [Function(GAcceptPromptonRequestInputBuilder b) updates]) =
+          [void Function(GAcceptPromptonRequestInputBuilder b) updates]) =
       _$GAcceptPromptonRequestInput;
 
   String get requestId;
@@ -58,7 +58,7 @@ abstract class GAddPromptonTagToWorkInput
   GAddPromptonTagToWorkInput._();
 
   factory GAddPromptonTagToWorkInput(
-          [Function(GAddPromptonTagToWorkInputBuilder b) updates]) =
+          [void Function(GAddPromptonTagToWorkInputBuilder b) updates]) =
       _$GAddPromptonTagToWorkInput;
 
   String get workId;
@@ -85,7 +85,7 @@ abstract class GAddPromptonWorkToFolderInput
   GAddPromptonWorkToFolderInput._();
 
   factory GAddPromptonWorkToFolderInput(
-          [Function(GAddPromptonWorkToFolderInputBuilder b) updates]) =
+          [void Function(GAddPromptonWorkToFolderInputBuilder b) updates]) =
       _$GAddPromptonWorkToFolderInput;
 
   String get folderId;
@@ -109,7 +109,8 @@ abstract class GAlbumsWhereInput
     implements Built<GAlbumsWhereInput, GAlbumsWhereInputBuilder> {
   GAlbumsWhereInput._();
 
-  factory GAlbumsWhereInput([Function(GAlbumsWhereInputBuilder b) updates]) =
+  factory GAlbumsWhereInput(
+          [void Function(GAlbumsWhereInputBuilder b) updates]) =
       _$GAlbumsWhereInput;
 
   String? get search;
@@ -133,7 +134,8 @@ abstract class GAwardsWhereInput
     implements Built<GAwardsWhereInput, GAwardsWhereInputBuilder> {
   GAwardsWhereInput._();
 
-  factory GAwardsWhereInput([Function(GAwardsWhereInputBuilder b) updates]) =
+  factory GAwardsWhereInput(
+          [void Function(GAwardsWhereInputBuilder b) updates]) =
       _$GAwardsWhereInput;
 
   GAwardType? get type;
@@ -180,7 +182,7 @@ abstract class GBlockPromptonUserInput
   GBlockPromptonUserInput._();
 
   factory GBlockPromptonUserInput(
-          [Function(GBlockPromptonUserInputBuilder b) updates]) =
+          [void Function(GBlockPromptonUserInputBuilder b) updates]) =
       _$GBlockPromptonUserInput;
 
   String get userId;
@@ -222,7 +224,7 @@ abstract class GCancelImageGenerationMemoInput
   GCancelImageGenerationMemoInput._();
 
   factory GCancelImageGenerationMemoInput(
-          [Function(GCancelImageGenerationMemoInputBuilder b) updates]) =
+          [void Function(GCancelImageGenerationMemoInputBuilder b) updates]) =
       _$GCancelImageGenerationMemoInput;
 
   String get nanoid;
@@ -248,7 +250,7 @@ abstract class GCancelImageGenerationTaskInput
   GCancelImageGenerationTaskInput._();
 
   factory GCancelImageGenerationTaskInput(
-          [Function(GCancelImageGenerationTaskInputBuilder b) updates]) =
+          [void Function(GCancelImageGenerationTaskInputBuilder b) updates]) =
       _$GCancelImageGenerationTaskInput;
 
   String get nanoid;
@@ -273,7 +275,7 @@ abstract class GCancelPromptonRequestInput
   GCancelPromptonRequestInput._();
 
   factory GCancelPromptonRequestInput(
-          [Function(GCancelPromptonRequestInputBuilder b) updates]) =
+          [void Function(GCancelPromptonRequestInputBuilder b) updates]) =
       _$GCancelPromptonRequestInput;
 
   String get requestId;
@@ -299,7 +301,7 @@ abstract class GChangePromptonFolderToPaidInput
   GChangePromptonFolderToPaidInput._();
 
   factory GChangePromptonFolderToPaidInput(
-          [Function(GChangePromptonFolderToPaidInputBuilder b) updates]) =
+          [void Function(GChangePromptonFolderToPaidInputBuilder b) updates]) =
       _$GChangePromptonFolderToPaidInput;
 
   String get folderId;
@@ -327,7 +329,7 @@ abstract class GClosePromptonRequestInput
   GClosePromptonRequestInput._();
 
   factory GClosePromptonRequestInput(
-          [Function(GClosePromptonRequestInputBuilder b) updates]) =
+          [void Function(GClosePromptonRequestInputBuilder b) updates]) =
       _$GClosePromptonRequestInput;
 
   String get requestId;
@@ -350,7 +352,7 @@ abstract class GCommentsOrderBy
     implements Built<GCommentsOrderBy, GCommentsOrderByBuilder> {
   GCommentsOrderBy._();
 
-  factory GCommentsOrderBy([Function(GCommentsOrderByBuilder b) updates]) =
+  factory GCommentsOrderBy([void Function(GCommentsOrderByBuilder b) updates]) =
       _$GCommentsOrderBy;
 
   GDirection? get createdAt;
@@ -374,7 +376,8 @@ abstract class GCommentsWhereInput
   GCommentsWhereInput._();
 
   factory GCommentsWhereInput(
-      [Function(GCommentsWhereInputBuilder b) updates]) = _$GCommentsWhereInput;
+          [void Function(GCommentsWhereInputBuilder b) updates]) =
+      _$GCommentsWhereInput;
 
   bool? get isSensitive;
   static Serializer<GCommentsWhereInput> get serializer =>
@@ -397,7 +400,8 @@ abstract class GCreateAccountInput
   GCreateAccountInput._();
 
   factory GCreateAccountInput(
-      [Function(GCreateAccountInputBuilder b) updates]) = _$GCreateAccountInput;
+          [void Function(GCreateAccountInputBuilder b) updates]) =
+      _$GCreateAccountInput;
 
   String get idToken;
   static Serializer<GCreateAccountInput> get serializer =>
@@ -419,7 +423,8 @@ abstract class GCreateAlbumInput
     implements Built<GCreateAlbumInput, GCreateAlbumInputBuilder> {
   GCreateAlbumInput._();
 
-  factory GCreateAlbumInput([Function(GCreateAlbumInputBuilder b) updates]) =
+  factory GCreateAlbumInput(
+          [void Function(GCreateAlbumInputBuilder b) updates]) =
       _$GCreateAlbumInput;
 
   String get title;
@@ -443,7 +448,7 @@ abstract class GCreateAlbumWorkInput
   GCreateAlbumWorkInput._();
 
   factory GCreateAlbumWorkInput(
-          [Function(GCreateAlbumWorkInputBuilder b) updates]) =
+          [void Function(GCreateAlbumWorkInputBuilder b) updates]) =
       _$GCreateAlbumWorkInput;
 
   String get albumId;
@@ -467,7 +472,8 @@ abstract class GCreateFolderInput
     implements Built<GCreateFolderInput, GCreateFolderInputBuilder> {
   GCreateFolderInput._();
 
-  factory GCreateFolderInput([Function(GCreateFolderInputBuilder b) updates]) =
+  factory GCreateFolderInput(
+          [void Function(GCreateFolderInputBuilder b) updates]) =
       _$GCreateFolderInput;
 
   String get title;
@@ -491,7 +497,7 @@ abstract class GCreateFolderWorkInput
   GCreateFolderWorkInput._();
 
   factory GCreateFolderWorkInput(
-          [Function(GCreateFolderWorkInputBuilder b) updates]) =
+          [void Function(GCreateFolderWorkInputBuilder b) updates]) =
       _$GCreateFolderWorkInput;
 
   String get folderId;
@@ -518,7 +524,7 @@ abstract class GCreateImageGenerationMemoInput
   GCreateImageGenerationMemoInput._();
 
   factory GCreateImageGenerationMemoInput(
-          [Function(GCreateImageGenerationMemoInputBuilder b) updates]) =
+          [void Function(GCreateImageGenerationMemoInputBuilder b) updates]) =
       _$GCreateImageGenerationMemoInput;
 
   String get title;
@@ -555,7 +561,7 @@ abstract class GCreateImageGenerationTaskInput
   GCreateImageGenerationTaskInput._();
 
   factory GCreateImageGenerationTaskInput(
-          [Function(GCreateImageGenerationTaskInputBuilder b) updates]) =
+          [void Function(GCreateImageGenerationTaskInputBuilder b) updates]) =
       _$GCreateImageGenerationTaskInput;
 
   int get count;
@@ -594,7 +600,8 @@ abstract class GCreateMessageInput
   GCreateMessageInput._();
 
   factory GCreateMessageInput(
-      [Function(GCreateMessageInputBuilder b) updates]) = _$GCreateMessageInput;
+          [void Function(GCreateMessageInputBuilder b) updates]) =
+      _$GCreateMessageInput;
 
   String get recipientId;
   String get text;
@@ -617,7 +624,7 @@ abstract class GCreateNoteInput
     implements Built<GCreateNoteInput, GCreateNoteInputBuilder> {
   GCreateNoteInput._();
 
-  factory GCreateNoteInput([Function(GCreateNoteInputBuilder b) updates]) =
+  factory GCreateNoteInput([void Function(GCreateNoteInputBuilder b) updates]) =
       _$GCreateNoteInput;
 
   String get text;
@@ -640,7 +647,8 @@ abstract class GCreateNovelInput
     implements Built<GCreateNovelInput, GCreateNovelInputBuilder> {
   GCreateNovelInput._();
 
-  factory GCreateNovelInput([Function(GCreateNovelInputBuilder b) updates]) =
+  factory GCreateNovelInput(
+          [void Function(GCreateNovelInputBuilder b) updates]) =
       _$GCreateNovelInput;
 
   String get text;
@@ -666,7 +674,7 @@ abstract class GCreatePassCheckoutSessionInput
   GCreatePassCheckoutSessionInput._();
 
   factory GCreatePassCheckoutSessionInput(
-          [Function(GCreatePassCheckoutSessionInputBuilder b) updates]) =
+          [void Function(GCreatePassCheckoutSessionInputBuilder b) updates]) =
       _$GCreatePassCheckoutSessionInput;
 
   GPassType get passType;
@@ -692,7 +700,7 @@ abstract class GCreatePromptonAipicRequestInput
   GCreatePromptonAipicRequestInput._();
 
   factory GCreatePromptonAipicRequestInput(
-          [Function(GCreatePromptonAipicRequestInputBuilder b) updates]) =
+          [void Function(GCreatePromptonAipicRequestInputBuilder b) updates]) =
       _$GCreatePromptonAipicRequestInput;
 
   String get note;
@@ -721,7 +729,7 @@ abstract class GCreatePromptonChatMessageInput
   GCreatePromptonChatMessageInput._();
 
   factory GCreatePromptonChatMessageInput(
-          [Function(GCreatePromptonChatMessageInputBuilder b) updates]) =
+          [void Function(GCreatePromptonChatMessageInputBuilder b) updates]) =
       _$GCreatePromptonChatMessageInput;
 
   String get text;
@@ -747,7 +755,7 @@ abstract class GCreatePromptonCoffeeRequestInput
   GCreatePromptonCoffeeRequestInput._();
 
   factory GCreatePromptonCoffeeRequestInput(
-          [Function(GCreatePromptonCoffeeRequestInputBuilder b) updates]) =
+          [void Function(GCreatePromptonCoffeeRequestInputBuilder b) updates]) =
       _$GCreatePromptonCoffeeRequestInput;
 
   String get note;
@@ -775,7 +783,7 @@ abstract class GCreatePromptonDeliverableInput
   GCreatePromptonDeliverableInput._();
 
   factory GCreatePromptonDeliverableInput(
-          [Function(GCreatePromptonDeliverableInputBuilder b) updates]) =
+          [void Function(GCreatePromptonDeliverableInputBuilder b) updates]) =
       _$GCreatePromptonDeliverableInput;
 
   String get requestId;
@@ -804,7 +812,7 @@ abstract class GCreatePromptonFileInput
   GCreatePromptonFileInput._();
 
   factory GCreatePromptonFileInput(
-          [Function(GCreatePromptonFileInputBuilder b) updates]) =
+          [void Function(GCreatePromptonFileInputBuilder b) updates]) =
       _$GCreatePromptonFileInput;
 
   String get fileId;
@@ -833,7 +841,7 @@ abstract class GCreatePromptonFolderInput
   GCreatePromptonFolderInput._();
 
   factory GCreatePromptonFolderInput(
-          [Function(GCreatePromptonFolderInputBuilder b) updates]) =
+          [void Function(GCreatePromptonFolderInputBuilder b) updates]) =
       _$GCreatePromptonFolderInput;
 
   String get name;
@@ -861,7 +869,7 @@ abstract class GCreatePromptonFolderKeyInput
   GCreatePromptonFolderKeyInput._();
 
   factory GCreatePromptonFolderKeyInput(
-          [Function(GCreatePromptonFolderKeyInputBuilder b) updates]) =
+          [void Function(GCreatePromptonFolderKeyInputBuilder b) updates]) =
       _$GCreatePromptonFolderKeyInput;
 
   String get folderId;
@@ -887,7 +895,7 @@ abstract class GCreatePromptonFolderViewInput
   GCreatePromptonFolderViewInput._();
 
   factory GCreatePromptonFolderViewInput(
-          [Function(GCreatePromptonFolderViewInputBuilder b) updates]) =
+          [void Function(GCreatePromptonFolderViewInputBuilder b) updates]) =
       _$GCreatePromptonFolderViewInput;
 
   String get folderId;
@@ -913,8 +921,8 @@ abstract class GCreatePromptonImageGenerationInput
   GCreatePromptonImageGenerationInput._();
 
   factory GCreatePromptonImageGenerationInput(
-          [Function(GCreatePromptonImageGenerationInputBuilder b) updates]) =
-      _$GCreatePromptonImageGenerationInput;
+      [void Function(GCreatePromptonImageGenerationInputBuilder b)
+          updates]) = _$GCreatePromptonImageGenerationInput;
 
   String get model;
   String get prompt;
@@ -943,7 +951,7 @@ abstract class GCreatePromptonInquiryInput
   GCreatePromptonInquiryInput._();
 
   factory GCreatePromptonInquiryInput(
-          [Function(GCreatePromptonInquiryInputBuilder b) updates]) =
+          [void Function(GCreatePromptonInquiryInputBuilder b) updates]) =
       _$GCreatePromptonInquiryInput;
 
   String get name;
@@ -973,7 +981,7 @@ abstract class GCreatePromptonPaymentMethodInput
   GCreatePromptonPaymentMethodInput._();
 
   factory GCreatePromptonPaymentMethodInput(
-          [Function(GCreatePromptonPaymentMethodInputBuilder b) updates]) =
+          [void Function(GCreatePromptonPaymentMethodInputBuilder b) updates]) =
       _$GCreatePromptonPaymentMethodInput;
 
   String? get redirectURL;
@@ -999,7 +1007,7 @@ abstract class GCreatePromptonPlanInput
   GCreatePromptonPlanInput._();
 
   factory GCreatePromptonPlanInput(
-          [Function(GCreatePromptonPlanInputBuilder b) updates]) =
+          [void Function(GCreatePromptonPlanInputBuilder b) updates]) =
       _$GCreatePromptonPlanInput;
 
   String get category;
@@ -1038,7 +1046,7 @@ abstract class GCreatePromptonPlanRequestInput
   GCreatePromptonPlanRequestInput._();
 
   factory GCreatePromptonPlanRequestInput(
-          [Function(GCreatePromptonPlanRequestInputBuilder b) updates]) =
+          [void Function(GCreatePromptonPlanRequestInputBuilder b) updates]) =
       _$GCreatePromptonPlanRequestInput;
 
   String get planId;
@@ -1068,7 +1076,7 @@ abstract class GCreatePromptonPlanViewInput
   GCreatePromptonPlanViewInput._();
 
   factory GCreatePromptonPlanViewInput(
-          [Function(GCreatePromptonPlanViewInputBuilder b) updates]) =
+          [void Function(GCreatePromptonPlanViewInputBuilder b) updates]) =
       _$GCreatePromptonPlanViewInput;
 
   String get planId;
@@ -1094,7 +1102,7 @@ abstract class GCreatePromptonProfileBlockInput
   GCreatePromptonProfileBlockInput._();
 
   factory GCreatePromptonProfileBlockInput(
-          [Function(GCreatePromptonProfileBlockInputBuilder b) updates]) =
+          [void Function(GCreatePromptonProfileBlockInputBuilder b) updates]) =
       _$GCreatePromptonProfileBlockInput;
 
   String? get siteURL;
@@ -1123,8 +1131,8 @@ abstract class GCreatePromptonPromptCategoryInput
   GCreatePromptonPromptCategoryInput._();
 
   factory GCreatePromptonPromptCategoryInput(
-          [Function(GCreatePromptonPromptCategoryInputBuilder b) updates]) =
-      _$GCreatePromptonPromptCategoryInput;
+      [void Function(GCreatePromptonPromptCategoryInputBuilder b)
+          updates]) = _$GCreatePromptonPromptCategoryInput;
 
   String get name;
   String? get description;
@@ -1151,7 +1159,7 @@ abstract class GCreatePromptonPromptInput
   GCreatePromptonPromptInput._();
 
   factory GCreatePromptonPromptInput(
-          [Function(GCreatePromptonPromptInputBuilder b) updates]) =
+          [void Function(GCreatePromptonPromptInputBuilder b) updates]) =
       _$GCreatePromptonPromptInput;
 
   String? get name;
@@ -1182,7 +1190,7 @@ abstract class GCreatePromptonPromptWorkInput
   GCreatePromptonPromptWorkInput._();
 
   factory GCreatePromptonPromptWorkInput(
-          [Function(GCreatePromptonPromptWorkInputBuilder b) updates]) =
+          [void Function(GCreatePromptonPromptWorkInputBuilder b) updates]) =
       _$GCreatePromptonPromptWorkInput;
 
   String get fileId;
@@ -1211,7 +1219,7 @@ abstract class GCreatePromptonReactionInput
   GCreatePromptonReactionInput._();
 
   factory GCreatePromptonReactionInput(
-          [Function(GCreatePromptonReactionInputBuilder b) updates]) =
+          [void Function(GCreatePromptonReactionInputBuilder b) updates]) =
       _$GCreatePromptonReactionInput;
 
   String get workId;
@@ -1238,7 +1246,7 @@ abstract class GCreatePromptonThumbnailFileInput
   GCreatePromptonThumbnailFileInput._();
 
   factory GCreatePromptonThumbnailFileInput(
-          [Function(GCreatePromptonThumbnailFileInputBuilder b) updates]) =
+          [void Function(GCreatePromptonThumbnailFileInputBuilder b) updates]) =
       _$GCreatePromptonThumbnailFileInput;
 
   String get fileId;
@@ -1266,7 +1274,7 @@ abstract class GCreatePromptonUserFromTokenInput
   GCreatePromptonUserFromTokenInput._();
 
   factory GCreatePromptonUserFromTokenInput(
-          [Function(GCreatePromptonUserFromTokenInputBuilder b) updates]) =
+          [void Function(GCreatePromptonUserFromTokenInputBuilder b) updates]) =
       _$GCreatePromptonUserFromTokenInput;
 
   String get token;
@@ -1293,7 +1301,7 @@ abstract class GCreatePromptonUserInput
   GCreatePromptonUserInput._();
 
   factory GCreatePromptonUserInput(
-          [Function(GCreatePromptonUserInputBuilder b) updates]) =
+          [void Function(GCreatePromptonUserInputBuilder b) updates]) =
       _$GCreatePromptonUserInput;
 
   String get name;
@@ -1319,7 +1327,7 @@ abstract class GCreatePromptonUserViewInput
   GCreatePromptonUserViewInput._();
 
   factory GCreatePromptonUserViewInput(
-          [Function(GCreatePromptonUserViewInputBuilder b) updates]) =
+          [void Function(GCreatePromptonUserViewInputBuilder b) updates]) =
       _$GCreatePromptonUserViewInput;
 
   String get userId;
@@ -1345,7 +1353,7 @@ abstract class GCreatePromptonWorkBookmarkInput
   GCreatePromptonWorkBookmarkInput._();
 
   factory GCreatePromptonWorkBookmarkInput(
-          [Function(GCreatePromptonWorkBookmarkInputBuilder b) updates]) =
+          [void Function(GCreatePromptonWorkBookmarkInputBuilder b) updates]) =
       _$GCreatePromptonWorkBookmarkInput;
 
   String get workId;
@@ -1371,7 +1379,7 @@ abstract class GCreatePromptonWorkInput
   GCreatePromptonWorkInput._();
 
   factory GCreatePromptonWorkInput(
-          [Function(GCreatePromptonWorkInputBuilder b) updates]) =
+          [void Function(GCreatePromptonWorkInputBuilder b) updates]) =
       _$GCreatePromptonWorkInput;
 
   String get fileId;
@@ -1401,7 +1409,7 @@ abstract class GCreatePromptonWorkLikeInput
   GCreatePromptonWorkLikeInput._();
 
   factory GCreatePromptonWorkLikeInput(
-          [Function(GCreatePromptonWorkLikeInputBuilder b) updates]) =
+          [void Function(GCreatePromptonWorkLikeInputBuilder b) updates]) =
       _$GCreatePromptonWorkLikeInput;
 
   String get workId;
@@ -1427,7 +1435,7 @@ abstract class GCreatePromptonWorkViewInput
   GCreatePromptonWorkViewInput._();
 
   factory GCreatePromptonWorkViewInput(
-          [Function(GCreatePromptonWorkViewInputBuilder b) updates]) =
+          [void Function(GCreatePromptonWorkViewInputBuilder b) updates]) =
       _$GCreatePromptonWorkViewInput;
 
   String get workId;
@@ -1453,7 +1461,7 @@ abstract class GCreateReservedImageGenerationTaskInput
   GCreateReservedImageGenerationTaskInput._();
 
   factory GCreateReservedImageGenerationTaskInput(
-      [Function(GCreateReservedImageGenerationTaskInputBuilder b)
+      [void Function(GCreateReservedImageGenerationTaskInputBuilder b)
           updates]) = _$GCreateReservedImageGenerationTaskInput;
 
   int get count;
@@ -1494,7 +1502,7 @@ abstract class GCreateResponseCommentInput
   GCreateResponseCommentInput._();
 
   factory GCreateResponseCommentInput(
-          [Function(GCreateResponseCommentInputBuilder b) updates]) =
+          [void Function(GCreateResponseCommentInputBuilder b) updates]) =
       _$GCreateResponseCommentInput;
 
   String get commentId;
@@ -1520,7 +1528,8 @@ abstract class GCreateStickerInput
   GCreateStickerInput._();
 
   factory GCreateStickerInput(
-      [Function(GCreateStickerInputBuilder b) updates]) = _$GCreateStickerInput;
+          [void Function(GCreateStickerInputBuilder b) updates]) =
+      _$GCreateStickerInput;
 
   String get title;
   static Serializer<GCreateStickerInput> get serializer =>
@@ -1543,7 +1552,7 @@ abstract class GCreateUserStickerInput
   GCreateUserStickerInput._();
 
   factory GCreateUserStickerInput(
-          [Function(GCreateUserStickerInputBuilder b) updates]) =
+          [void Function(GCreateUserStickerInputBuilder b) updates]) =
       _$GCreateUserStickerInput;
 
   String get stickerId;
@@ -1567,7 +1576,7 @@ abstract class GCreateWorkCommentInput
   GCreateWorkCommentInput._();
 
   factory GCreateWorkCommentInput(
-          [Function(GCreateWorkCommentInputBuilder b) updates]) =
+          [void Function(GCreateWorkCommentInputBuilder b) updates]) =
       _$GCreateWorkCommentInput;
 
   String get workId;
@@ -1592,7 +1601,7 @@ abstract class GCreateWorkInput
     implements Built<GCreateWorkInput, GCreateWorkInputBuilder> {
   GCreateWorkInput._();
 
-  factory GCreateWorkInput([Function(GCreateWorkInputBuilder b) updates]) =
+  factory GCreateWorkInput([void Function(GCreateWorkInputBuilder b) updates]) =
       _$GCreateWorkInput;
 
   String get title;
@@ -1616,7 +1625,7 @@ abstract class GCreateWorkLikeInput
   GCreateWorkLikeInput._();
 
   factory GCreateWorkLikeInput(
-          [Function(GCreateWorkLikeInputBuilder b) updates]) =
+          [void Function(GCreateWorkLikeInputBuilder b) updates]) =
       _$GCreateWorkLikeInput;
 
   String get workId;
@@ -1640,7 +1649,7 @@ abstract class GCreateWorkViewInput
   GCreateWorkViewInput._();
 
   factory GCreateWorkViewInput(
-          [Function(GCreateWorkViewInputBuilder b) updates]) =
+          [void Function(GCreateWorkViewInputBuilder b) updates]) =
       _$GCreateWorkViewInput;
 
   String get workId;
@@ -1664,7 +1673,7 @@ abstract class GDailyThemesWhereInput
   GDailyThemesWhereInput._();
 
   factory GDailyThemesWhereInput(
-          [Function(GDailyThemesWhereInputBuilder b) updates]) =
+          [void Function(GDailyThemesWhereInputBuilder b) updates]) =
       _$GDailyThemesWhereInput;
 
   String? get search;
@@ -1694,7 +1703,7 @@ abstract class GDecrementPromptonPlanSort
   GDecrementPromptonPlanSort._();
 
   factory GDecrementPromptonPlanSort(
-          [Function(GDecrementPromptonPlanSortBuilder b) updates]) =
+          [void Function(GDecrementPromptonPlanSortBuilder b) updates]) =
       _$GDecrementPromptonPlanSort;
 
   String get planId;
@@ -1720,7 +1729,7 @@ abstract class GDecrementPromptonProfileBlockIndexInput
   GDecrementPromptonProfileBlockIndexInput._();
 
   factory GDecrementPromptonProfileBlockIndexInput(
-      [Function(GDecrementPromptonProfileBlockIndexInputBuilder b)
+      [void Function(GDecrementPromptonProfileBlockIndexInputBuilder b)
           updates]) = _$GDecrementPromptonProfileBlockIndexInput;
 
   String get profileBlockId;
@@ -1744,7 +1753,8 @@ abstract class GDeleteAlbumInput
     implements Built<GDeleteAlbumInput, GDeleteAlbumInputBuilder> {
   GDeleteAlbumInput._();
 
-  factory GDeleteAlbumInput([Function(GDeleteAlbumInputBuilder b) updates]) =
+  factory GDeleteAlbumInput(
+          [void Function(GDeleteAlbumInputBuilder b) updates]) =
       _$GDeleteAlbumInput;
 
   String get albumId;
@@ -1768,7 +1778,7 @@ abstract class GDeleteAlbumWorkInput
   GDeleteAlbumWorkInput._();
 
   factory GDeleteAlbumWorkInput(
-          [Function(GDeleteAlbumWorkInputBuilder b) updates]) =
+          [void Function(GDeleteAlbumWorkInputBuilder b) updates]) =
       _$GDeleteAlbumWorkInput;
 
   String get albumId;
@@ -1793,7 +1803,8 @@ abstract class GDeleteCommentInput
   GDeleteCommentInput._();
 
   factory GDeleteCommentInput(
-      [Function(GDeleteCommentInputBuilder b) updates]) = _$GDeleteCommentInput;
+          [void Function(GDeleteCommentInputBuilder b) updates]) =
+      _$GDeleteCommentInput;
 
   String get commentId;
   static Serializer<GDeleteCommentInput> get serializer =>
@@ -1815,7 +1826,8 @@ abstract class GDeleteFolderInput
     implements Built<GDeleteFolderInput, GDeleteFolderInputBuilder> {
   GDeleteFolderInput._();
 
-  factory GDeleteFolderInput([Function(GDeleteFolderInputBuilder b) updates]) =
+  factory GDeleteFolderInput(
+          [void Function(GDeleteFolderInputBuilder b) updates]) =
       _$GDeleteFolderInput;
 
   String get folderId;
@@ -1839,7 +1851,7 @@ abstract class GDeleteFolderWorkInput
   GDeleteFolderWorkInput._();
 
   factory GDeleteFolderWorkInput(
-          [Function(GDeleteFolderWorkInputBuilder b) updates]) =
+          [void Function(GDeleteFolderWorkInputBuilder b) updates]) =
       _$GDeleteFolderWorkInput;
 
   String get folderId;
@@ -1866,7 +1878,7 @@ abstract class GDeleteImageGenerationMemoInput
   GDeleteImageGenerationMemoInput._();
 
   factory GDeleteImageGenerationMemoInput(
-          [Function(GDeleteImageGenerationMemoInputBuilder b) updates]) =
+          [void Function(GDeleteImageGenerationMemoInputBuilder b) updates]) =
       _$GDeleteImageGenerationMemoInput;
 
   String get nanoid;
@@ -1892,7 +1904,7 @@ abstract class GDeleteImageGenerationTaskInput
   GDeleteImageGenerationTaskInput._();
 
   factory GDeleteImageGenerationTaskInput(
-          [Function(GDeleteImageGenerationTaskInputBuilder b) updates]) =
+          [void Function(GDeleteImageGenerationTaskInputBuilder b) updates]) =
       _$GDeleteImageGenerationTaskInput;
 
   String get nanoid;
@@ -1916,7 +1928,8 @@ abstract class GDeleteMessageInput
   GDeleteMessageInput._();
 
   factory GDeleteMessageInput(
-      [Function(GDeleteMessageInputBuilder b) updates]) = _$GDeleteMessageInput;
+          [void Function(GDeleteMessageInputBuilder b) updates]) =
+      _$GDeleteMessageInput;
 
   String get messageId;
   static Serializer<GDeleteMessageInput> get serializer =>
@@ -1938,7 +1951,7 @@ abstract class GDeleteNoteInput
     implements Built<GDeleteNoteInput, GDeleteNoteInputBuilder> {
   GDeleteNoteInput._();
 
-  factory GDeleteNoteInput([Function(GDeleteNoteInputBuilder b) updates]) =
+  factory GDeleteNoteInput([void Function(GDeleteNoteInputBuilder b) updates]) =
       _$GDeleteNoteInput;
 
   String get noteId;
@@ -1961,7 +1974,8 @@ abstract class GDeleteNovelInput
     implements Built<GDeleteNovelInput, GDeleteNovelInputBuilder> {
   GDeleteNovelInput._();
 
-  factory GDeleteNovelInput([Function(GDeleteNovelInputBuilder b) updates]) =
+  factory GDeleteNovelInput(
+          [void Function(GDeleteNovelInputBuilder b) updates]) =
       _$GDeleteNovelInput;
 
   String get novelId;
@@ -1986,7 +2000,7 @@ abstract class GDeletePromptonFolderInput
   GDeletePromptonFolderInput._();
 
   factory GDeletePromptonFolderInput(
-          [Function(GDeletePromptonFolderInputBuilder b) updates]) =
+          [void Function(GDeletePromptonFolderInputBuilder b) updates]) =
       _$GDeletePromptonFolderInput;
 
   String get folderId;
@@ -2012,7 +2026,7 @@ abstract class GDeletePromptonIntegrationInput
   GDeletePromptonIntegrationInput._();
 
   factory GDeletePromptonIntegrationInput(
-          [Function(GDeletePromptonIntegrationInputBuilder b) updates]) =
+          [void Function(GDeletePromptonIntegrationInputBuilder b) updates]) =
       _$GDeletePromptonIntegrationInput;
 
   String get integrationId;
@@ -2037,7 +2051,7 @@ abstract class GDeletePromptonPlanInput
   GDeletePromptonPlanInput._();
 
   factory GDeletePromptonPlanInput(
-          [Function(GDeletePromptonPlanInputBuilder b) updates]) =
+          [void Function(GDeletePromptonPlanInputBuilder b) updates]) =
       _$GDeletePromptonPlanInput;
 
   String get planId;
@@ -2063,7 +2077,7 @@ abstract class GDeletePromptonProfileBlockInput
   GDeletePromptonProfileBlockInput._();
 
   factory GDeletePromptonProfileBlockInput(
-          [Function(GDeletePromptonProfileBlockInputBuilder b) updates]) =
+          [void Function(GDeletePromptonProfileBlockInputBuilder b) updates]) =
       _$GDeletePromptonProfileBlockInput;
 
   String get profileBlockId;
@@ -2090,8 +2104,8 @@ abstract class GDeletePromptonPromptCategoryInput
   GDeletePromptonPromptCategoryInput._();
 
   factory GDeletePromptonPromptCategoryInput(
-          [Function(GDeletePromptonPromptCategoryInputBuilder b) updates]) =
-      _$GDeletePromptonPromptCategoryInput;
+      [void Function(GDeletePromptonPromptCategoryInputBuilder b)
+          updates]) = _$GDeletePromptonPromptCategoryInput;
 
   String get promptCategoryId;
   static Serializer<GDeletePromptonPromptCategoryInput> get serializer =>
@@ -2116,7 +2130,7 @@ abstract class GDeletePromptonPromptInput
   GDeletePromptonPromptInput._();
 
   factory GDeletePromptonPromptInput(
-          [Function(GDeletePromptonPromptInputBuilder b) updates]) =
+          [void Function(GDeletePromptonPromptInputBuilder b) updates]) =
       _$GDeletePromptonPromptInput;
 
   String get promptId;
@@ -2142,7 +2156,7 @@ abstract class GDeletePromptonReactionInput
   GDeletePromptonReactionInput._();
 
   factory GDeletePromptonReactionInput(
-          [Function(GDeletePromptonReactionInputBuilder b) updates]) =
+          [void Function(GDeletePromptonReactionInputBuilder b) updates]) =
       _$GDeletePromptonReactionInput;
 
   String get workId;
@@ -2169,7 +2183,7 @@ abstract class GDeletePromptonWorkBookmarkInput
   GDeletePromptonWorkBookmarkInput._();
 
   factory GDeletePromptonWorkBookmarkInput(
-          [Function(GDeletePromptonWorkBookmarkInputBuilder b) updates]) =
+          [void Function(GDeletePromptonWorkBookmarkInputBuilder b) updates]) =
       _$GDeletePromptonWorkBookmarkInput;
 
   String get workId;
@@ -2195,7 +2209,7 @@ abstract class GDeletePromptonWorkInput
   GDeletePromptonWorkInput._();
 
   factory GDeletePromptonWorkInput(
-          [Function(GDeletePromptonWorkInputBuilder b) updates]) =
+          [void Function(GDeletePromptonWorkInputBuilder b) updates]) =
       _$GDeletePromptonWorkInput;
 
   String get workId;
@@ -2221,7 +2235,7 @@ abstract class GDeletePromptonWorkLikeInput
   GDeletePromptonWorkLikeInput._();
 
   factory GDeletePromptonWorkLikeInput(
-          [Function(GDeletePromptonWorkLikeInputBuilder b) updates]) =
+          [void Function(GDeletePromptonWorkLikeInputBuilder b) updates]) =
       _$GDeletePromptonWorkLikeInput;
 
   String get workId;
@@ -2245,7 +2259,8 @@ abstract class GDeleteStickerInput
   GDeleteStickerInput._();
 
   factory GDeleteStickerInput(
-      [Function(GDeleteStickerInputBuilder b) updates]) = _$GDeleteStickerInput;
+          [void Function(GDeleteStickerInputBuilder b) updates]) =
+      _$GDeleteStickerInput;
 
   String get stickerId;
   static Serializer<GDeleteStickerInput> get serializer =>
@@ -2268,7 +2283,7 @@ abstract class GDeleteUserStickerInput
   GDeleteUserStickerInput._();
 
   factory GDeleteUserStickerInput(
-          [Function(GDeleteUserStickerInputBuilder b) updates]) =
+          [void Function(GDeleteUserStickerInputBuilder b) updates]) =
       _$GDeleteUserStickerInput;
 
   String get stickerId;
@@ -2291,7 +2306,7 @@ abstract class GDeleteWorkInput
     implements Built<GDeleteWorkInput, GDeleteWorkInputBuilder> {
   GDeleteWorkInput._();
 
-  factory GDeleteWorkInput([Function(GDeleteWorkInputBuilder b) updates]) =
+  factory GDeleteWorkInput([void Function(GDeleteWorkInputBuilder b) updates]) =
       _$GDeleteWorkInput;
 
   String get workId;
@@ -2315,7 +2330,7 @@ abstract class GDeleteWorkLikeInput
   GDeleteWorkLikeInput._();
 
   factory GDeleteWorkLikeInput(
-          [Function(GDeleteWorkLikeInputBuilder b) updates]) =
+          [void Function(GDeleteWorkLikeInputBuilder b) updates]) =
       _$GDeleteWorkLikeInput;
 
   String get workId;
@@ -2355,7 +2370,7 @@ abstract class GFlipPromptonFolderWorkIndexInput
   GFlipPromptonFolderWorkIndexInput._();
 
   factory GFlipPromptonFolderWorkIndexInput(
-          [Function(GFlipPromptonFolderWorkIndexInputBuilder b) updates]) =
+          [void Function(GFlipPromptonFolderWorkIndexInputBuilder b) updates]) =
       _$GFlipPromptonFolderWorkIndexInput;
 
   String get folderId;
@@ -2397,7 +2412,8 @@ abstract class GFoldersWhereInput
     implements Built<GFoldersWhereInput, GFoldersWhereInputBuilder> {
   GFoldersWhereInput._();
 
-  factory GFoldersWhereInput([Function(GFoldersWhereInputBuilder b) updates]) =
+  factory GFoldersWhereInput(
+          [void Function(GFoldersWhereInputBuilder b) updates]) =
       _$GFoldersWhereInput;
 
   String? get search;
@@ -2423,7 +2439,7 @@ abstract class GFollowPromptonUserInput
   GFollowPromptonUserInput._();
 
   factory GFollowPromptonUserInput(
-          [Function(GFollowPromptonUserInputBuilder b) updates]) =
+          [void Function(GFollowPromptonUserInputBuilder b) updates]) =
       _$GFollowPromptonUserInput;
 
   String get userId;
@@ -2446,7 +2462,7 @@ abstract class GFollowUserInput
     implements Built<GFollowUserInput, GFollowUserInputBuilder> {
   GFollowUserInput._();
 
-  factory GFollowUserInput([Function(GFollowUserInputBuilder b) updates]) =
+  factory GFollowUserInput([void Function(GFollowUserInputBuilder b) updates]) =
       _$GFollowUserInput;
 
   String get userId;
@@ -2470,7 +2486,8 @@ abstract class GHotWorksWhereInput
   GHotWorksWhereInput._();
 
   factory GHotWorksWhereInput(
-      [Function(GHotWorksWhereInputBuilder b) updates]) = _$GHotWorksWhereInput;
+          [void Function(GHotWorksWhereInputBuilder b) updates]) =
+      _$GHotWorksWhereInput;
 
   bool? get isSensitive;
   static Serializer<GHotWorksWhereInput> get serializer =>
@@ -2494,7 +2511,7 @@ abstract class GImageGenerationMemoOrderBy
   GImageGenerationMemoOrderBy._();
 
   factory GImageGenerationMemoOrderBy(
-          [Function(GImageGenerationMemoOrderByBuilder b) updates]) =
+          [void Function(GImageGenerationMemoOrderByBuilder b) updates]) =
       _$GImageGenerationMemoOrderBy;
 
   GDirection? get createdAt;
@@ -2643,7 +2660,7 @@ abstract class GImageGenerationTasksWhereInput
   GImageGenerationTasksWhereInput._();
 
   factory GImageGenerationTasksWhereInput(
-          [Function(GImageGenerationTasksWhereInputBuilder b) updates]) =
+          [void Function(GImageGenerationTasksWhereInputBuilder b) updates]) =
       _$GImageGenerationTasksWhereInput;
 
   String? get dateText;
@@ -2737,7 +2754,7 @@ abstract class GIncrementPromptonProfileBlockIndexInput
   GIncrementPromptonProfileBlockIndexInput._();
 
   factory GIncrementPromptonProfileBlockIndexInput(
-      [Function(GIncrementPromptonProfileBlockIndexInputBuilder b)
+      [void Function(GIncrementPromptonProfileBlockIndexInputBuilder b)
           updates]) = _$GIncrementPromptonProfileBlockIndexInput;
 
   String get profileBlockId;
@@ -2762,7 +2779,7 @@ abstract class GLoginWithPasswordInput
   GLoginWithPasswordInput._();
 
   factory GLoginWithPasswordInput(
-          [Function(GLoginWithPasswordInputBuilder b) updates]) =
+          [void Function(GLoginWithPasswordInputBuilder b) updates]) =
       _$GLoginWithPasswordInput;
 
   String get login;
@@ -2789,7 +2806,7 @@ abstract class GMarkPromptonFolderAsPrivateInput
   GMarkPromptonFolderAsPrivateInput._();
 
   factory GMarkPromptonFolderAsPrivateInput(
-          [Function(GMarkPromptonFolderAsPrivateInputBuilder b) updates]) =
+          [void Function(GMarkPromptonFolderAsPrivateInputBuilder b) updates]) =
       _$GMarkPromptonFolderAsPrivateInput;
 
   String get folderId;
@@ -2816,7 +2833,7 @@ abstract class GMarkPromptonFolderAsPublicInput
   GMarkPromptonFolderAsPublicInput._();
 
   factory GMarkPromptonFolderAsPublicInput(
-          [Function(GMarkPromptonFolderAsPublicInputBuilder b) updates]) =
+          [void Function(GMarkPromptonFolderAsPublicInputBuilder b) updates]) =
       _$GMarkPromptonFolderAsPublicInput;
 
   String get folderId;
@@ -2843,7 +2860,7 @@ abstract class GMarkPromptonPlanAsPrivateInput
   GMarkPromptonPlanAsPrivateInput._();
 
   factory GMarkPromptonPlanAsPrivateInput(
-          [Function(GMarkPromptonPlanAsPrivateInputBuilder b) updates]) =
+          [void Function(GMarkPromptonPlanAsPrivateInputBuilder b) updates]) =
       _$GMarkPromptonPlanAsPrivateInput;
 
   String get planId;
@@ -2869,7 +2886,7 @@ abstract class GMarkPromptonPlanAsPublicInput
   GMarkPromptonPlanAsPublicInput._();
 
   factory GMarkPromptonPlanAsPublicInput(
-          [Function(GMarkPromptonPlanAsPublicInputBuilder b) updates]) =
+          [void Function(GMarkPromptonPlanAsPublicInputBuilder b) updates]) =
       _$GMarkPromptonPlanAsPublicInput;
 
   String get planId;
@@ -2895,7 +2912,7 @@ abstract class GMarkPromptonWorkAsPrivateInput
   GMarkPromptonWorkAsPrivateInput._();
 
   factory GMarkPromptonWorkAsPrivateInput(
-          [Function(GMarkPromptonWorkAsPrivateInputBuilder b) updates]) =
+          [void Function(GMarkPromptonWorkAsPrivateInputBuilder b) updates]) =
       _$GMarkPromptonWorkAsPrivateInput;
 
   String get workId;
@@ -2921,7 +2938,7 @@ abstract class GMarkPromptonWorkAsPublicInput
   GMarkPromptonWorkAsPublicInput._();
 
   factory GMarkPromptonWorkAsPublicInput(
-          [Function(GMarkPromptonWorkAsPublicInputBuilder b) updates]) =
+          [void Function(GMarkPromptonWorkAsPublicInputBuilder b) updates]) =
       _$GMarkPromptonWorkAsPublicInput;
 
   String get workId;
@@ -2947,8 +2964,8 @@ abstract class GMarkPromptonWorkAsUserHeaderInput
   GMarkPromptonWorkAsUserHeaderInput._();
 
   factory GMarkPromptonWorkAsUserHeaderInput(
-          [Function(GMarkPromptonWorkAsUserHeaderInputBuilder b) updates]) =
-      _$GMarkPromptonWorkAsUserHeaderInput;
+      [void Function(GMarkPromptonWorkAsUserHeaderInputBuilder b)
+          updates]) = _$GMarkPromptonWorkAsUserHeaderInput;
 
   String get workId;
   static Serializer<GMarkPromptonWorkAsUserHeaderInput> get serializer =>
@@ -2972,7 +2989,7 @@ abstract class GMilestonesWhereInput
   GMilestonesWhereInput._();
 
   factory GMilestonesWhereInput(
-          [Function(GMilestonesWhereInputBuilder b) updates]) =
+          [void Function(GMilestonesWhereInputBuilder b) updates]) =
       _$GMilestonesWhereInput;
 
   String get repository;
@@ -2995,7 +3012,7 @@ abstract class GMuteTagInput
     implements Built<GMuteTagInput, GMuteTagInputBuilder> {
   GMuteTagInput._();
 
-  factory GMuteTagInput([Function(GMuteTagInputBuilder b) updates]) =
+  factory GMuteTagInput([void Function(GMuteTagInputBuilder b) updates]) =
       _$GMuteTagInput;
 
   String get tagName;
@@ -3017,7 +3034,7 @@ abstract class GMuteUserInput
     implements Built<GMuteUserInput, GMuteUserInputBuilder> {
   GMuteUserInput._();
 
-  factory GMuteUserInput([Function(GMuteUserInputBuilder b) updates]) =
+  factory GMuteUserInput([void Function(GMuteUserInputBuilder b) updates]) =
       _$GMuteUserInput;
 
   String get userId;
@@ -3101,7 +3118,7 @@ abstract class GPinPromptonWorkInput
   GPinPromptonWorkInput._();
 
   factory GPinPromptonWorkInput(
-          [Function(GPinPromptonWorkInputBuilder b) updates]) =
+          [void Function(GPinPromptonWorkInputBuilder b) updates]) =
       _$GPinPromptonWorkInput;
 
   String get workId;
@@ -3125,7 +3142,7 @@ abstract class GPopularWorksWhereInput
   GPopularWorksWhereInput._();
 
   factory GPopularWorksWhereInput(
-          [Function(GPopularWorksWhereInputBuilder b) updates]) =
+          [void Function(GPopularWorksWhereInputBuilder b) updates]) =
       _$GPopularWorksWhereInput;
 
   String? get date;
@@ -3152,7 +3169,7 @@ abstract class GPromptonFoldersWhereInput
   GPromptonFoldersWhereInput._();
 
   factory GPromptonFoldersWhereInput(
-          [Function(GPromptonFoldersWhereInputBuilder b) updates]) =
+          [void Function(GPromptonFoldersWhereInputBuilder b) updates]) =
       _$GPromptonFoldersWhereInput;
 
   String? get userId;
@@ -3180,8 +3197,8 @@ abstract class GPromptonImageGenerationsWhereInput
   GPromptonImageGenerationsWhereInput._();
 
   factory GPromptonImageGenerationsWhereInput(
-          [Function(GPromptonImageGenerationsWhereInputBuilder b) updates]) =
-      _$GPromptonImageGenerationsWhereInput;
+      [void Function(GPromptonImageGenerationsWhereInputBuilder b)
+          updates]) = _$GPromptonImageGenerationsWhereInput;
 
   String? get search;
   static Serializer<GPromptonImageGenerationsWhereInput> get serializer =>
@@ -3206,7 +3223,7 @@ abstract class GPromptonLabelsWhereInput
   GPromptonLabelsWhereInput._();
 
   factory GPromptonLabelsWhereInput(
-          [Function(GPromptonLabelsWhereInputBuilder b) updates]) =
+          [void Function(GPromptonLabelsWhereInputBuilder b) updates]) =
       _$GPromptonLabelsWhereInput;
 
   String? get search;
@@ -3231,7 +3248,7 @@ abstract class GPromptonPlansWhereInput
   GPromptonPlansWhereInput._();
 
   factory GPromptonPlansWhereInput(
-          [Function(GPromptonPlansWhereInputBuilder b) updates]) =
+          [void Function(GPromptonPlansWhereInputBuilder b) updates]) =
       _$GPromptonPlansWhereInput;
 
   String? get search;
@@ -3261,7 +3278,7 @@ abstract class GPromptonRequestsWhereInput
   GPromptonRequestsWhereInput._();
 
   factory GPromptonRequestsWhereInput(
-          [Function(GPromptonRequestsWhereInputBuilder b) updates]) =
+          [void Function(GPromptonRequestsWhereInputBuilder b) updates]) =
       _$GPromptonRequestsWhereInput;
 
   String? get status;
@@ -3285,7 +3302,7 @@ abstract class GPromptonTagsWhereInput
   GPromptonTagsWhereInput._();
 
   factory GPromptonTagsWhereInput(
-          [Function(GPromptonTagsWhereInputBuilder b) updates]) =
+          [void Function(GPromptonTagsWhereInputBuilder b) updates]) =
       _$GPromptonTagsWhereInput;
 
   String? get search;
@@ -3311,7 +3328,7 @@ abstract class GPromptonUsersWhereInput
   GPromptonUsersWhereInput._();
 
   factory GPromptonUsersWhereInput(
-          [Function(GPromptonUsersWhereInputBuilder b) updates]) =
+          [void Function(GPromptonUsersWhereInputBuilder b) updates]) =
       _$GPromptonUsersWhereInput;
 
   String? get search;
@@ -3337,7 +3354,7 @@ abstract class GPromptonUserWorksWhereInput
   GPromptonUserWorksWhereInput._();
 
   factory GPromptonUserWorksWhereInput(
-          [Function(GPromptonUserWorksWhereInputBuilder b) updates]) =
+          [void Function(GPromptonUserWorksWhereInputBuilder b) updates]) =
       _$GPromptonUserWorksWhereInput;
 
   bool? get isUncategorized;
@@ -3363,7 +3380,7 @@ abstract class GPromptonViewerWorksWhereInput
   GPromptonViewerWorksWhereInput._();
 
   factory GPromptonViewerWorksWhereInput(
-          [Function(GPromptonViewerWorksWhereInputBuilder b) updates]) =
+          [void Function(GPromptonViewerWorksWhereInputBuilder b) updates]) =
       _$GPromptonViewerWorksWhereInput;
 
   bool? get isUncategorized;
@@ -3388,7 +3405,7 @@ abstract class GPromptonWorksWhereInput
   GPromptonWorksWhereInput._();
 
   factory GPromptonWorksWhereInput(
-          [Function(GPromptonWorksWhereInputBuilder b) updates]) =
+          [void Function(GPromptonWorksWhereInputBuilder b) updates]) =
       _$GPromptonWorksWhereInput;
 
   BuiltList<String>? get tagSlugs;
@@ -3433,7 +3450,7 @@ abstract class GRejectPromptonRequestInput
   GRejectPromptonRequestInput._();
 
   factory GRejectPromptonRequestInput(
-          [Function(GRejectPromptonRequestInputBuilder b) updates]) =
+          [void Function(GRejectPromptonRequestInputBuilder b) updates]) =
       _$GRejectPromptonRequestInput;
 
   String get requestId;
@@ -3459,7 +3476,7 @@ abstract class GRemovePromptonTagFromWorkInput
   GRemovePromptonTagFromWorkInput._();
 
   factory GRemovePromptonTagFromWorkInput(
-          [Function(GRemovePromptonTagFromWorkInputBuilder b) updates]) =
+          [void Function(GRemovePromptonTagFromWorkInputBuilder b) updates]) =
       _$GRemovePromptonTagFromWorkInput;
 
   String get workId;
@@ -3486,8 +3503,8 @@ abstract class GRemovePromptonWorkFromFolderInput
   GRemovePromptonWorkFromFolderInput._();
 
   factory GRemovePromptonWorkFromFolderInput(
-          [Function(GRemovePromptonWorkFromFolderInputBuilder b) updates]) =
-      _$GRemovePromptonWorkFromFolderInput;
+      [void Function(GRemovePromptonWorkFromFolderInputBuilder b)
+          updates]) = _$GRemovePromptonWorkFromFolderInput;
 
   String get folderId;
   String get workId;
@@ -3511,7 +3528,8 @@ abstract class GReportAlbumInput
     implements Built<GReportAlbumInput, GReportAlbumInputBuilder> {
   GReportAlbumInput._();
 
-  factory GReportAlbumInput([Function(GReportAlbumInputBuilder b) updates]) =
+  factory GReportAlbumInput(
+          [void Function(GReportAlbumInputBuilder b) updates]) =
       _$GReportAlbumInput;
 
   String get albumId;
@@ -3536,7 +3554,8 @@ abstract class GReportCommentInput
   GReportCommentInput._();
 
   factory GReportCommentInput(
-      [Function(GReportCommentInputBuilder b) updates]) = _$GReportCommentInput;
+          [void Function(GReportCommentInputBuilder b) updates]) =
+      _$GReportCommentInput;
 
   String get commentId;
   GReportReason get reason;
@@ -3559,7 +3578,8 @@ abstract class GReportFolderInput
     implements Built<GReportFolderInput, GReportFolderInputBuilder> {
   GReportFolderInput._();
 
-  factory GReportFolderInput([Function(GReportFolderInputBuilder b) updates]) =
+  factory GReportFolderInput(
+          [void Function(GReportFolderInputBuilder b) updates]) =
       _$GReportFolderInput;
 
   String get folderId;
@@ -3604,7 +3624,8 @@ abstract class GReportStickerInput
   GReportStickerInput._();
 
   factory GReportStickerInput(
-      [Function(GReportStickerInputBuilder b) updates]) = _$GReportStickerInput;
+          [void Function(GReportStickerInputBuilder b) updates]) =
+      _$GReportStickerInput;
 
   String get stickerId;
   GReportReason get reason;
@@ -3627,7 +3648,7 @@ abstract class GReportUserInput
     implements Built<GReportUserInput, GReportUserInputBuilder> {
   GReportUserInput._();
 
-  factory GReportUserInput([Function(GReportUserInputBuilder b) updates]) =
+  factory GReportUserInput([void Function(GReportUserInputBuilder b) updates]) =
       _$GReportUserInput;
 
   String get userId;
@@ -3651,7 +3672,7 @@ abstract class GReportWorkInput
     implements Built<GReportWorkInput, GReportWorkInputBuilder> {
   GReportWorkInput._();
 
-  factory GReportWorkInput([Function(GReportWorkInputBuilder b) updates]) =
+  factory GReportWorkInput([void Function(GReportWorkInputBuilder b) updates]) =
       _$GReportWorkInput;
 
   String get workId;
@@ -3678,7 +3699,7 @@ abstract class GSignImageGenerationTermsInput
   GSignImageGenerationTermsInput._();
 
   factory GSignImageGenerationTermsInput(
-          [Function(GSignImageGenerationTermsInputBuilder b) updates]) =
+          [void Function(GSignImageGenerationTermsInputBuilder b) updates]) =
       _$GSignImageGenerationTermsInput;
 
   int get version;
@@ -3722,7 +3743,8 @@ abstract class GStickersWhereInput
   GStickersWhereInput._();
 
   factory GStickersWhereInput(
-      [Function(GStickersWhereInputBuilder b) updates]) = _$GStickersWhereInput;
+          [void Function(GStickersWhereInputBuilder b) updates]) =
+      _$GStickersWhereInput;
 
   String? get search;
   bool? get isSensitive;
@@ -3745,7 +3767,7 @@ abstract class GTagsWhereInput
     implements Built<GTagsWhereInput, GTagsWhereInputBuilder> {
   GTagsWhereInput._();
 
-  factory GTagsWhereInput([Function(GTagsWhereInputBuilder b) updates]) =
+  factory GTagsWhereInput([void Function(GTagsWhereInputBuilder b) updates]) =
       _$GTagsWhereInput;
 
   String? get search;
@@ -3771,7 +3793,7 @@ abstract class GTestPromptonIntegrationInput
   GTestPromptonIntegrationInput._();
 
   factory GTestPromptonIntegrationInput(
-          [Function(GTestPromptonIntegrationInputBuilder b) updates]) =
+          [void Function(GTestPromptonIntegrationInputBuilder b) updates]) =
       _$GTestPromptonIntegrationInput;
 
   String get integrationId;
@@ -3796,7 +3818,7 @@ abstract class GUnfollowPromptonUserInput
   GUnfollowPromptonUserInput._();
 
   factory GUnfollowPromptonUserInput(
-          [Function(GUnfollowPromptonUserInputBuilder b) updates]) =
+          [void Function(GUnfollowPromptonUserInputBuilder b) updates]) =
       _$GUnfollowPromptonUserInput;
 
   String get userId;
@@ -3819,7 +3841,8 @@ abstract class GUnfollowUserInput
     implements Built<GUnfollowUserInput, GUnfollowUserInputBuilder> {
   GUnfollowUserInput._();
 
-  factory GUnfollowUserInput([Function(GUnfollowUserInputBuilder b) updates]) =
+  factory GUnfollowUserInput(
+          [void Function(GUnfollowUserInputBuilder b) updates]) =
       _$GUnfollowUserInput;
 
   String get userId;
@@ -3842,7 +3865,7 @@ abstract class GUnmuteTagInput
     implements Built<GUnmuteTagInput, GUnmuteTagInputBuilder> {
   GUnmuteTagInput._();
 
-  factory GUnmuteTagInput([Function(GUnmuteTagInputBuilder b) updates]) =
+  factory GUnmuteTagInput([void Function(GUnmuteTagInputBuilder b) updates]) =
       _$GUnmuteTagInput;
 
   String get tagName;
@@ -3865,7 +3888,7 @@ abstract class GUnmuteUserInput
     implements Built<GUnmuteUserInput, GUnmuteUserInputBuilder> {
   GUnmuteUserInput._();
 
-  factory GUnmuteUserInput([Function(GUnmuteUserInputBuilder b) updates]) =
+  factory GUnmuteUserInput([void Function(GUnmuteUserInputBuilder b) updates]) =
       _$GUnmuteUserInput;
 
   String get userId;
@@ -3889,7 +3912,7 @@ abstract class GUnpinPromptonWorkInput
   GUnpinPromptonWorkInput._();
 
   factory GUnpinPromptonWorkInput(
-          [Function(GUnpinPromptonWorkInputBuilder b) updates]) =
+          [void Function(GUnpinPromptonWorkInputBuilder b) updates]) =
       _$GUnpinPromptonWorkInput;
 
   String get workId;
@@ -3913,7 +3936,8 @@ abstract class GUnwatchFolderInput
   GUnwatchFolderInput._();
 
   factory GUnwatchFolderInput(
-      [Function(GUnwatchFolderInputBuilder b) updates]) = _$GUnwatchFolderInput;
+          [void Function(GUnwatchFolderInputBuilder b) updates]) =
+      _$GUnwatchFolderInput;
 
   String get userId;
   static Serializer<GUnwatchFolderInput> get serializer =>
@@ -3937,7 +3961,7 @@ abstract class GUpdateAccountFcmTokenInput
   GUpdateAccountFcmTokenInput._();
 
   factory GUpdateAccountFcmTokenInput(
-          [Function(GUpdateAccountFcmTokenInputBuilder b) updates]) =
+          [void Function(GUpdateAccountFcmTokenInputBuilder b) updates]) =
       _$GUpdateAccountFcmTokenInput;
 
   String? get token;
@@ -3962,7 +3986,7 @@ abstract class GUpdateAccountLoginInput
   GUpdateAccountLoginInput._();
 
   factory GUpdateAccountLoginInput(
-          [Function(GUpdateAccountLoginInputBuilder b) updates]) =
+          [void Function(GUpdateAccountLoginInputBuilder b) updates]) =
       _$GUpdateAccountLoginInput;
 
   String get login;
@@ -3987,7 +4011,7 @@ abstract class GUpdateAccountPasswordInput
   GUpdateAccountPasswordInput._();
 
   factory GUpdateAccountPasswordInput(
-          [Function(GUpdateAccountPasswordInputBuilder b) updates]) =
+          [void Function(GUpdateAccountPasswordInputBuilder b) updates]) =
       _$GUpdateAccountPasswordInput;
 
   String? get currentPassword;
@@ -4011,7 +4035,8 @@ abstract class GUpdateAlbumInput
     implements Built<GUpdateAlbumInput, GUpdateAlbumInputBuilder> {
   GUpdateAlbumInput._();
 
-  factory GUpdateAlbumInput([Function(GUpdateAlbumInputBuilder b) updates]) =
+  factory GUpdateAlbumInput(
+          [void Function(GUpdateAlbumInputBuilder b) updates]) =
       _$GUpdateAlbumInput;
 
   String get albumId;
@@ -4034,7 +4059,8 @@ abstract class GUpdateFolderInput
     implements Built<GUpdateFolderInput, GUpdateFolderInputBuilder> {
   GUpdateFolderInput._();
 
-  factory GUpdateFolderInput([Function(GUpdateFolderInputBuilder b) updates]) =
+  factory GUpdateFolderInput(
+          [void Function(GUpdateFolderInputBuilder b) updates]) =
       _$GUpdateFolderInput;
 
   String get folderId;
@@ -4061,7 +4087,7 @@ abstract class GUpdateImageGenerationMemoInput
   GUpdateImageGenerationMemoInput._();
 
   factory GUpdateImageGenerationMemoInput(
-          [Function(GUpdateImageGenerationMemoInputBuilder b) updates]) =
+          [void Function(GUpdateImageGenerationMemoInputBuilder b) updates]) =
       _$GUpdateImageGenerationMemoInput;
 
   String get nanoid;
@@ -4096,7 +4122,7 @@ abstract class GUpdateNoteInput
     implements Built<GUpdateNoteInput, GUpdateNoteInputBuilder> {
   GUpdateNoteInput._();
 
-  factory GUpdateNoteInput([Function(GUpdateNoteInputBuilder b) updates]) =
+  factory GUpdateNoteInput([void Function(GUpdateNoteInputBuilder b) updates]) =
       _$GUpdateNoteInput;
 
   String get noteId;
@@ -4119,7 +4145,8 @@ abstract class GUpdateNovelInput
     implements Built<GUpdateNovelInput, GUpdateNovelInputBuilder> {
   GUpdateNovelInput._();
 
-  factory GUpdateNovelInput([Function(GUpdateNovelInputBuilder b) updates]) =
+  factory GUpdateNovelInput(
+          [void Function(GUpdateNovelInputBuilder b) updates]) =
       _$GUpdateNovelInput;
 
   String get novelId;
@@ -4144,7 +4171,7 @@ abstract class GUpdatePromptonFolderInput
   GUpdatePromptonFolderInput._();
 
   factory GUpdatePromptonFolderInput(
-          [Function(GUpdatePromptonFolderInputBuilder b) updates]) =
+          [void Function(GUpdatePromptonFolderInputBuilder b) updates]) =
       _$GUpdatePromptonFolderInput;
 
   String get folderId;
@@ -4173,7 +4200,7 @@ abstract class GUpdatePromptonFolderSortInput
   GUpdatePromptonFolderSortInput._();
 
   factory GUpdatePromptonFolderSortInput(
-          [Function(GUpdatePromptonFolderSortInputBuilder b) updates]) =
+          [void Function(GUpdatePromptonFolderSortInputBuilder b) updates]) =
       _$GUpdatePromptonFolderSortInput;
 
   String get folderId;
@@ -4198,7 +4225,7 @@ abstract class GUpdatePromptonPlanInput
   GUpdatePromptonPlanInput._();
 
   factory GUpdatePromptonPlanInput(
-          [Function(GUpdatePromptonPlanInputBuilder b) updates]) =
+          [void Function(GUpdatePromptonPlanInputBuilder b) updates]) =
       _$GUpdatePromptonPlanInput;
 
   String get planId;
@@ -4238,7 +4265,7 @@ abstract class GUpdatePromptonPlanSortInput
   GUpdatePromptonPlanSortInput._();
 
   factory GUpdatePromptonPlanSortInput(
-          [Function(GUpdatePromptonPlanSortInputBuilder b) updates]) =
+          [void Function(GUpdatePromptonPlanSortInputBuilder b) updates]) =
       _$GUpdatePromptonPlanSortInput;
 
   String get planId;
@@ -4264,7 +4291,7 @@ abstract class GUpdatePromptonProfileBlockInput
   GUpdatePromptonProfileBlockInput._();
 
   factory GUpdatePromptonProfileBlockInput(
-          [Function(GUpdatePromptonProfileBlockInputBuilder b) updates]) =
+          [void Function(GUpdatePromptonProfileBlockInputBuilder b) updates]) =
       _$GUpdatePromptonProfileBlockInput;
 
   String get profileBlockId;
@@ -4294,8 +4321,8 @@ abstract class GUpdatePromptonPromptCategoryInput
   GUpdatePromptonPromptCategoryInput._();
 
   factory GUpdatePromptonPromptCategoryInput(
-          [Function(GUpdatePromptonPromptCategoryInputBuilder b) updates]) =
-      _$GUpdatePromptonPromptCategoryInput;
+      [void Function(GUpdatePromptonPromptCategoryInputBuilder b)
+          updates]) = _$GUpdatePromptonPromptCategoryInput;
 
   String get promptCategoryId;
   String get name;
@@ -4322,7 +4349,7 @@ abstract class GUpdatePromptonPromptInput
   GUpdatePromptonPromptInput._();
 
   factory GUpdatePromptonPromptInput(
-          [Function(GUpdatePromptonPromptInputBuilder b) updates]) =
+          [void Function(GUpdatePromptonPromptInputBuilder b) updates]) =
       _$GUpdatePromptonPromptInput;
 
   String get promptId;
@@ -4353,7 +4380,7 @@ abstract class GUpdatePromptonUserAvatarInput
   GUpdatePromptonUserAvatarInput._();
 
   factory GUpdatePromptonUserAvatarInput(
-          [Function(GUpdatePromptonUserAvatarInputBuilder b) updates]) =
+          [void Function(GUpdatePromptonUserAvatarInputBuilder b) updates]) =
       _$GUpdatePromptonUserAvatarInput;
 
   String? get avatarFileId;
@@ -4379,8 +4406,8 @@ abstract class GUpdatePromptonUserHeaderImageInput
   GUpdatePromptonUserHeaderImageInput._();
 
   factory GUpdatePromptonUserHeaderImageInput(
-          [Function(GUpdatePromptonUserHeaderImageInputBuilder b) updates]) =
-      _$GUpdatePromptonUserHeaderImageInput;
+      [void Function(GUpdatePromptonUserHeaderImageInputBuilder b)
+          updates]) = _$GUpdatePromptonUserHeaderImageInput;
 
   String get imageFileId;
   static Serializer<GUpdatePromptonUserHeaderImageInput> get serializer =>
@@ -4406,7 +4433,7 @@ abstract class GUpdatePromptonUserInvoiceRegistrationNumberInput
   GUpdatePromptonUserInvoiceRegistrationNumberInput._();
 
   factory GUpdatePromptonUserInvoiceRegistrationNumberInput(
-      [Function(GUpdatePromptonUserInvoiceRegistrationNumberInputBuilder b)
+      [void Function(GUpdatePromptonUserInvoiceRegistrationNumberInputBuilder b)
           updates]) = _$GUpdatePromptonUserInvoiceRegistrationNumberInput;
 
   String? get invoiceRegistrationNumber;
@@ -4434,7 +4461,7 @@ abstract class GUpdatePromptonUserLoginInput
   GUpdatePromptonUserLoginInput._();
 
   factory GUpdatePromptonUserLoginInput(
-          [Function(GUpdatePromptonUserLoginInputBuilder b) updates]) =
+          [void Function(GUpdatePromptonUserLoginInputBuilder b) updates]) =
       _$GUpdatePromptonUserLoginInput;
 
   String get login;
@@ -4460,7 +4487,7 @@ abstract class GUpdatePromptonUserProfileInput
   GUpdatePromptonUserProfileInput._();
 
   factory GUpdatePromptonUserProfileInput(
-          [Function(GUpdatePromptonUserProfileInputBuilder b) updates]) =
+          [void Function(GUpdatePromptonUserProfileInputBuilder b) updates]) =
       _$GUpdatePromptonUserProfileInput;
 
   String get name;
@@ -4492,7 +4519,7 @@ abstract class GUpdatePromptonWorkInput
   GUpdatePromptonWorkInput._();
 
   factory GUpdatePromptonWorkInput(
-          [Function(GUpdatePromptonWorkInputBuilder b) updates]) =
+          [void Function(GUpdatePromptonWorkInputBuilder b) updates]) =
       _$GUpdatePromptonWorkInput;
 
   String get workId;
@@ -4520,8 +4547,8 @@ abstract class GUpdateRatingImageGenerationModelInput
   GUpdateRatingImageGenerationModelInput._();
 
   factory GUpdateRatingImageGenerationModelInput(
-          [Function(GUpdateRatingImageGenerationModelInputBuilder b) updates]) =
-      _$GUpdateRatingImageGenerationModelInput;
+      [void Function(GUpdateRatingImageGenerationModelInputBuilder b)
+          updates]) = _$GUpdateRatingImageGenerationModelInput;
 
   String get modelId;
   int get rating;
@@ -4548,8 +4575,8 @@ abstract class GUpdateRatingImageGenerationTaskInput
   GUpdateRatingImageGenerationTaskInput._();
 
   factory GUpdateRatingImageGenerationTaskInput(
-          [Function(GUpdateRatingImageGenerationTaskInputBuilder b) updates]) =
-      _$GUpdateRatingImageGenerationTaskInput;
+      [void Function(GUpdateRatingImageGenerationTaskInputBuilder b)
+          updates]) = _$GUpdateRatingImageGenerationTaskInput;
 
   String get nanoid;
   int get rating;
@@ -4574,7 +4601,8 @@ abstract class GUpdateStickerInput
   GUpdateStickerInput._();
 
   factory GUpdateStickerInput(
-      [Function(GUpdateStickerInputBuilder b) updates]) = _$GUpdateStickerInput;
+          [void Function(GUpdateStickerInputBuilder b) updates]) =
+      _$GUpdateStickerInput;
 
   String get stickerId;
   String get title;
@@ -4598,7 +4626,7 @@ abstract class GUpdateUserProfileInput
   GUpdateUserProfileInput._();
 
   factory GUpdateUserProfileInput(
-          [Function(GUpdateUserProfileInputBuilder b) updates]) =
+          [void Function(GUpdateUserProfileInputBuilder b) updates]) =
       _$GUpdateUserProfileInput;
 
   String get displayName;
@@ -4622,7 +4650,7 @@ abstract class GUpdateWorkInput
     implements Built<GUpdateWorkInput, GUpdateWorkInputBuilder> {
   GUpdateWorkInput._();
 
-  factory GUpdateWorkInput([Function(GUpdateWorkInputBuilder b) updates]) =
+  factory GUpdateWorkInput([void Function(GUpdateWorkInputBuilder b) updates]) =
       _$GUpdateWorkInput;
 
   String get workId;
@@ -4646,7 +4674,7 @@ abstract class GUserAlbumInput
     implements Built<GUserAlbumInput, GUserAlbumInputBuilder> {
   GUserAlbumInput._();
 
-  factory GUserAlbumInput([Function(GUserAlbumInputBuilder b) updates]) =
+  factory GUserAlbumInput([void Function(GUserAlbumInputBuilder b) updates]) =
       _$GUserAlbumInput;
 
   String? get search;
@@ -4670,7 +4698,7 @@ abstract class GUserFolderInput
     implements Built<GUserFolderInput, GUserFolderInputBuilder> {
   GUserFolderInput._();
 
-  factory GUserFolderInput([Function(GUserFolderInputBuilder b) updates]) =
+  factory GUserFolderInput([void Function(GUserFolderInputBuilder b) updates]) =
       _$GUserFolderInput;
 
   String? get search;
@@ -4694,7 +4722,7 @@ abstract class GUsersWhereInput
     implements Built<GUsersWhereInput, GUsersWhereInputBuilder> {
   GUsersWhereInput._();
 
-  factory GUsersWhereInput([Function(GUsersWhereInputBuilder b) updates]) =
+  factory GUsersWhereInput([void Function(GUsersWhereInputBuilder b) updates]) =
       _$GUsersWhereInput;
 
   String? get search;
@@ -4718,7 +4746,7 @@ abstract class GUserWorksWhereInput
   GUserWorksWhereInput._();
 
   factory GUserWorksWhereInput(
-          [Function(GUserWorksWhereInputBuilder b) updates]) =
+          [void Function(GUserWorksWhereInputBuilder b) updates]) =
       _$GUserWorksWhereInput;
 
   String? get search;
@@ -4742,7 +4770,8 @@ abstract class GWatchFolderInput
     implements Built<GWatchFolderInput, GWatchFolderInputBuilder> {
   GWatchFolderInput._();
 
-  factory GWatchFolderInput([Function(GWatchFolderInputBuilder b) updates]) =
+  factory GWatchFolderInput(
+          [void Function(GWatchFolderInputBuilder b) updates]) =
       _$GWatchFolderInput;
 
   String get folderId;
@@ -4766,7 +4795,7 @@ abstract class GWorkAwardsWhereInput
   GWorkAwardsWhereInput._();
 
   factory GWorkAwardsWhereInput(
-          [Function(GWorkAwardsWhereInputBuilder b) updates]) =
+          [void Function(GWorkAwardsWhereInputBuilder b) updates]) =
       _$GWorkAwardsWhereInput;
 
   GAwardType? get type;
@@ -4808,7 +4837,7 @@ abstract class GWorksWhereInput
     implements Built<GWorksWhereInput, GWorksWhereInputBuilder> {
   GWorksWhereInput._();
 
-  factory GWorksWhereInput([Function(GWorksWhereInputBuilder b) updates]) =
+  factory GWorksWhereInput([void Function(GWorksWhereInputBuilder b) updates]) =
       _$GWorksWhereInput;
 
   String? get search;

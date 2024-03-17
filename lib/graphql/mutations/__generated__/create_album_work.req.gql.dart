@@ -24,7 +24,8 @@ abstract class GCreateAlbumWorkReq
   GCreateAlbumWorkReq._();
 
   factory GCreateAlbumWorkReq(
-      [Function(GCreateAlbumWorkReqBuilder b) updates]) = _$GCreateAlbumWorkReq;
+          [void Function(GCreateAlbumWorkReqBuilder b) updates]) =
+      _$GCreateAlbumWorkReq;
 
   static void _initializeBuilder(GCreateAlbumWorkReqBuilder b) => b
     ..operation = _i4.Operation(
@@ -41,6 +42,7 @@ abstract class GCreateAlbumWorkReq
   _i4.Request get execRequest => _i4.Request(
         operation: operation,
         variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
       );
 
   @override
@@ -61,6 +63,9 @@ abstract class GCreateAlbumWorkReq
   _i1.FetchPolicy? get fetchPolicy;
   @override
   bool get executeOnListen;
+  @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
   @override
   _i2.GCreateAlbumWorkData? parseData(Map<String, dynamic> json) =>
       _i2.GCreateAlbumWorkData.fromJson(json);

@@ -12,7 +12,8 @@ abstract class GSubWorkFieldsVars
     implements Built<GSubWorkFieldsVars, GSubWorkFieldsVarsBuilder> {
   GSubWorkFieldsVars._();
 
-  factory GSubWorkFieldsVars([Function(GSubWorkFieldsVarsBuilder b) updates]) =
+  factory GSubWorkFieldsVars(
+          [void Function(GSubWorkFieldsVarsBuilder b) updates]) =
       _$GSubWorkFieldsVars;
 
   static Serializer<GSubWorkFieldsVars> get serializer =>

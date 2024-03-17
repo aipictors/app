@@ -22,7 +22,7 @@ abstract class GWorkAwardsReq
         _i1.OperationRequest<_i2.GWorkAwardsData, _i3.GWorkAwardsVars> {
   GWorkAwardsReq._();
 
-  factory GWorkAwardsReq([Function(GWorkAwardsReqBuilder b) updates]) =
+  factory GWorkAwardsReq([void Function(GWorkAwardsReqBuilder b) updates]) =
       _$GWorkAwardsReq;
 
   static void _initializeBuilder(GWorkAwardsReqBuilder b) => b
@@ -40,6 +40,7 @@ abstract class GWorkAwardsReq
   _i4.Request get execRequest => _i4.Request(
         operation: operation,
         variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
       );
 
   @override
@@ -60,6 +61,9 @@ abstract class GWorkAwardsReq
   _i1.FetchPolicy? get fetchPolicy;
   @override
   bool get executeOnListen;
+  @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
   @override
   _i2.GWorkAwardsData? parseData(Map<String, dynamic> json) =>
       _i2.GWorkAwardsData.fromJson(json);

@@ -107,7 +107,7 @@ class WorkBottomAppContainer extends HookConsumerWidget {
           WorkShortcutActionStickers(onSend: (stickerId) async {
             try {
               final request = GWorkCommentsReq((builder) {
-                return builder..vars.workId = workId;
+                builder.vars.workId = workId;
               });
               await createWorkComment((builder) {
                 return builder

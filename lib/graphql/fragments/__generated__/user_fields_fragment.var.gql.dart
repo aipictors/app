@@ -12,7 +12,7 @@ abstract class GUserFieldsVars
     implements Built<GUserFieldsVars, GUserFieldsVarsBuilder> {
   GUserFieldsVars._();
 
-  factory GUserFieldsVars([Function(GUserFieldsVarsBuilder b) updates]) =
+  factory GUserFieldsVars([void Function(GUserFieldsVarsBuilder b) updates]) =
       _$GUserFieldsVars;
 
   static Serializer<GUserFieldsVars> get serializer =>

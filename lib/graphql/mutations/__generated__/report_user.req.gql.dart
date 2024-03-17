@@ -22,7 +22,7 @@ abstract class GReportUserReq
         _i1.OperationRequest<_i2.GReportUserData, _i3.GReportUserVars> {
   GReportUserReq._();
 
-  factory GReportUserReq([Function(GReportUserReqBuilder b) updates]) =
+  factory GReportUserReq([void Function(GReportUserReqBuilder b) updates]) =
       _$GReportUserReq;
 
   static void _initializeBuilder(GReportUserReqBuilder b) => b
@@ -40,6 +40,7 @@ abstract class GReportUserReq
   _i4.Request get execRequest => _i4.Request(
         operation: operation,
         variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
       );
 
   @override
@@ -60,6 +61,9 @@ abstract class GReportUserReq
   _i1.FetchPolicy? get fetchPolicy;
   @override
   bool get executeOnListen;
+  @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
   @override
   _i2.GReportUserData? parseData(Map<String, dynamic> json) =>
       _i2.GReportUserData.fromJson(json);

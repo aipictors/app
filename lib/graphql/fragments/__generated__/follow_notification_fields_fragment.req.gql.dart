@@ -25,7 +25,7 @@ abstract class GFollowNotificationFieldsReq
   GFollowNotificationFieldsReq._();
 
   factory GFollowNotificationFieldsReq(
-          [Function(GFollowNotificationFieldsReqBuilder b) updates]) =
+          [void Function(GFollowNotificationFieldsReqBuilder b) updates]) =
       _$GFollowNotificationFieldsReq;
 
   static void _initializeBuilder(GFollowNotificationFieldsReqBuilder b) => b

@@ -22,7 +22,7 @@ abstract class GUserAlbumsReq
         _i1.OperationRequest<_i2.GUserAlbumsData, _i3.GUserAlbumsVars> {
   GUserAlbumsReq._();
 
-  factory GUserAlbumsReq([Function(GUserAlbumsReqBuilder b) updates]) =
+  factory GUserAlbumsReq([void Function(GUserAlbumsReqBuilder b) updates]) =
       _$GUserAlbumsReq;
 
   static void _initializeBuilder(GUserAlbumsReqBuilder b) => b
@@ -40,6 +40,7 @@ abstract class GUserAlbumsReq
   _i4.Request get execRequest => _i4.Request(
         operation: operation,
         variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
       );
 
   @override
@@ -60,6 +61,9 @@ abstract class GUserAlbumsReq
   _i1.FetchPolicy? get fetchPolicy;
   @override
   bool get executeOnListen;
+  @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
   @override
   _i2.GUserAlbumsData? parseData(Map<String, dynamic> json) =>
       _i2.GUserAlbumsData.fromJson(json);

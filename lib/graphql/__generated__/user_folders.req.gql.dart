@@ -22,7 +22,7 @@ abstract class GUserFoldersReq
         _i1.OperationRequest<_i2.GUserFoldersData, _i3.GUserFoldersVars> {
   GUserFoldersReq._();
 
-  factory GUserFoldersReq([Function(GUserFoldersReqBuilder b) updates]) =
+  factory GUserFoldersReq([void Function(GUserFoldersReqBuilder b) updates]) =
       _$GUserFoldersReq;
 
   static void _initializeBuilder(GUserFoldersReqBuilder b) => b
@@ -40,6 +40,7 @@ abstract class GUserFoldersReq
   _i4.Request get execRequest => _i4.Request(
         operation: operation,
         variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
       );
 
   @override
@@ -60,6 +61,9 @@ abstract class GUserFoldersReq
   _i1.FetchPolicy? get fetchPolicy;
   @override
   bool get executeOnListen;
+  @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
   @override
   _i2.GUserFoldersData? parseData(Map<String, dynamic> json) =>
       _i2.GUserFoldersData.fromJson(json);

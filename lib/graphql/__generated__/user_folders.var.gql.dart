@@ -12,7 +12,7 @@ abstract class GUserFoldersVars
     implements Built<GUserFoldersVars, GUserFoldersVarsBuilder> {
   GUserFoldersVars._();
 
-  factory GUserFoldersVars([Function(GUserFoldersVarsBuilder b) updates]) =
+  factory GUserFoldersVars([void Function(GUserFoldersVarsBuilder b) updates]) =
       _$GUserFoldersVars;
 
   String get user_id;

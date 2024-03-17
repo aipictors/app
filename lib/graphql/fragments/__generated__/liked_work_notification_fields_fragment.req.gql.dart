@@ -25,7 +25,7 @@ abstract class GLikedWorkNotificationFieldsReq
   GLikedWorkNotificationFieldsReq._();
 
   factory GLikedWorkNotificationFieldsReq(
-          [Function(GLikedWorkNotificationFieldsReqBuilder b) updates]) =
+          [void Function(GLikedWorkNotificationFieldsReqBuilder b) updates]) =
       _$GLikedWorkNotificationFieldsReq;
 
   static void _initializeBuilder(GLikedWorkNotificationFieldsReqBuilder b) => b

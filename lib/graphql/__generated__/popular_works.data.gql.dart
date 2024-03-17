@@ -15,7 +15,8 @@ abstract class GPopularWorksData
     implements Built<GPopularWorksData, GPopularWorksDataBuilder> {
   GPopularWorksData._();
 
-  factory GPopularWorksData([Function(GPopularWorksDataBuilder b) updates]) =
+  factory GPopularWorksData(
+          [void Function(GPopularWorksDataBuilder b) updates]) =
       _$GPopularWorksData;
 
   static void _initializeBuilder(GPopularWorksDataBuilder b) =>
@@ -47,7 +48,7 @@ abstract class GPopularWorksData_popularWorks
   GPopularWorksData_popularWorks._();
 
   factory GPopularWorksData_popularWorks(
-          [Function(GPopularWorksData_popularWorksBuilder b) updates]) =
+          [void Function(GPopularWorksData_popularWorksBuilder b) updates]) =
       _$GPopularWorksData_popularWorks;
 
   static void _initializeBuilder(GPopularWorksData_popularWorksBuilder b) =>
@@ -92,7 +93,7 @@ abstract class GPopularWorksData_popularWorks_thumbnailImage
   GPopularWorksData_popularWorks_thumbnailImage._();
 
   factory GPopularWorksData_popularWorks_thumbnailImage(
-      [Function(GPopularWorksData_popularWorks_thumbnailImageBuilder b)
+      [void Function(GPopularWorksData_popularWorks_thumbnailImageBuilder b)
           updates]) = _$GPopularWorksData_popularWorks_thumbnailImage;
 
   static void _initializeBuilder(

@@ -33,7 +33,7 @@ class ExplorerSearchView extends HookConsumerWidget {
     return OperationBuilder(
       client: client.value!,
       operationRequest: GWorksReq((builder) {
-        return builder
+        builder
           ..vars.limit = config.graphqlQueryLimit
           ..vars.offset = 0
           ..vars.where.search = search;

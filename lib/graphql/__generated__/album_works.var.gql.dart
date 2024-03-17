@@ -12,7 +12,7 @@ abstract class GAlbumWorksVars
     implements Built<GAlbumWorksVars, GAlbumWorksVarsBuilder> {
   GAlbumWorksVars._();
 
-  factory GAlbumWorksVars([Function(GAlbumWorksVarsBuilder b) updates]) =
+  factory GAlbumWorksVars([void Function(GAlbumWorksVarsBuilder b) updates]) =
       _$GAlbumWorksVars;
 
   String get albumId;

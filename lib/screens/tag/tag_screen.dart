@@ -27,7 +27,7 @@ class TagScreen extends HookConsumerWidget {
     return OperationScreenBuilder(
       client: client.value!,
       operationRequest: GTagReq((builder) {
-        return builder..vars.name = tagName;
+        builder.vars.name = tagName;
       }),
       builder: (context, response) {
         final tag = response.data?.tag;

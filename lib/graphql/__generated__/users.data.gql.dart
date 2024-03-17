@@ -14,7 +14,8 @@ part 'users.data.gql.g.dart';
 abstract class GUsersData implements Built<GUsersData, GUsersDataBuilder> {
   GUsersData._();
 
-  factory GUsersData([Function(GUsersDataBuilder b) updates]) = _$GUsersData;
+  factory GUsersData([void Function(GUsersDataBuilder b) updates]) =
+      _$GUsersData;
 
   static void _initializeBuilder(GUsersDataBuilder b) =>
       b..G__typename = 'Query';
@@ -42,7 +43,7 @@ abstract class GUsersData_users
         _i2.GPartialUserFields {
   GUsersData_users._();
 
-  factory GUsersData_users([Function(GUsersData_usersBuilder b) updates]) =
+  factory GUsersData_users([void Function(GUsersData_usersBuilder b) updates]) =
       _$GUsersData_users;
 
   static void _initializeBuilder(GUsersData_usersBuilder b) =>
@@ -82,7 +83,7 @@ abstract class GUsersData_users_iconImage
   GUsersData_users_iconImage._();
 
   factory GUsersData_users_iconImage(
-          [Function(GUsersData_users_iconImageBuilder b) updates]) =
+          [void Function(GUsersData_users_iconImageBuilder b) updates]) =
       _$GUsersData_users_iconImage;
 
   static void _initializeBuilder(GUsersData_users_iconImageBuilder b) =>

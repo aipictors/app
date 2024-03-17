@@ -22,7 +22,7 @@ abstract class GDeleteAlbumReq
         _i1.OperationRequest<_i2.GDeleteAlbumData, _i3.GDeleteAlbumVars> {
   GDeleteAlbumReq._();
 
-  factory GDeleteAlbumReq([Function(GDeleteAlbumReqBuilder b) updates]) =
+  factory GDeleteAlbumReq([void Function(GDeleteAlbumReqBuilder b) updates]) =
       _$GDeleteAlbumReq;
 
   static void _initializeBuilder(GDeleteAlbumReqBuilder b) => b
@@ -40,6 +40,7 @@ abstract class GDeleteAlbumReq
   _i4.Request get execRequest => _i4.Request(
         operation: operation,
         variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
       );
 
   @override
@@ -60,6 +61,9 @@ abstract class GDeleteAlbumReq
   _i1.FetchPolicy? get fetchPolicy;
   @override
   bool get executeOnListen;
+  @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
   @override
   _i2.GDeleteAlbumData? parseData(Map<String, dynamic> json) =>
       _i2.GDeleteAlbumData.fromJson(json);

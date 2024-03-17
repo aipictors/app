@@ -15,7 +15,7 @@ abstract class GTagWorksData
     implements Built<GTagWorksData, GTagWorksDataBuilder> {
   GTagWorksData._();
 
-  factory GTagWorksData([Function(GTagWorksDataBuilder b) updates]) =
+  factory GTagWorksData([void Function(GTagWorksDataBuilder b) updates]) =
       _$GTagWorksData;
 
   static void _initializeBuilder(GTagWorksDataBuilder b) =>
@@ -42,7 +42,8 @@ abstract class GTagWorksData_tag
     implements Built<GTagWorksData_tag, GTagWorksData_tagBuilder> {
   GTagWorksData_tag._();
 
-  factory GTagWorksData_tag([Function(GTagWorksData_tagBuilder b) updates]) =
+  factory GTagWorksData_tag(
+          [void Function(GTagWorksData_tagBuilder b) updates]) =
       _$GTagWorksData_tag;
 
   static void _initializeBuilder(GTagWorksData_tagBuilder b) =>
@@ -74,7 +75,7 @@ abstract class GTagWorksData_tag_works
   GTagWorksData_tag_works._();
 
   factory GTagWorksData_tag_works(
-          [Function(GTagWorksData_tag_worksBuilder b) updates]) =
+          [void Function(GTagWorksData_tag_worksBuilder b) updates]) =
       _$GTagWorksData_tag_works;
 
   static void _initializeBuilder(GTagWorksData_tag_worksBuilder b) =>
@@ -119,8 +120,8 @@ abstract class GTagWorksData_tag_works_thumbnailImage
   GTagWorksData_tag_works_thumbnailImage._();
 
   factory GTagWorksData_tag_works_thumbnailImage(
-          [Function(GTagWorksData_tag_works_thumbnailImageBuilder b) updates]) =
-      _$GTagWorksData_tag_works_thumbnailImage;
+      [void Function(GTagWorksData_tag_works_thumbnailImageBuilder b)
+          updates]) = _$GTagWorksData_tag_works_thumbnailImage;
 
   static void _initializeBuilder(
           GTagWorksData_tag_works_thumbnailImageBuilder b) =>

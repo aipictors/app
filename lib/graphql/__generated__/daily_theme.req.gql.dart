@@ -22,7 +22,7 @@ abstract class GDailyThemeReq
         _i1.OperationRequest<_i2.GDailyThemeData, _i3.GDailyThemeVars> {
   GDailyThemeReq._();
 
-  factory GDailyThemeReq([Function(GDailyThemeReqBuilder b) updates]) =
+  factory GDailyThemeReq([void Function(GDailyThemeReqBuilder b) updates]) =
       _$GDailyThemeReq;
 
   static void _initializeBuilder(GDailyThemeReqBuilder b) => b
@@ -40,6 +40,7 @@ abstract class GDailyThemeReq
   _i4.Request get execRequest => _i4.Request(
         operation: operation,
         variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
       );
 
   @override
@@ -60,6 +61,9 @@ abstract class GDailyThemeReq
   _i1.FetchPolicy? get fetchPolicy;
   @override
   bool get executeOnListen;
+  @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
   @override
   _i2.GDailyThemeData? parseData(Map<String, dynamic> json) =>
       _i2.GDailyThemeData.fromJson(json);

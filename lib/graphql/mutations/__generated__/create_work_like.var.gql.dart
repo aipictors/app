@@ -14,7 +14,8 @@ abstract class GCreateWorkLikeVars
   GCreateWorkLikeVars._();
 
   factory GCreateWorkLikeVars(
-      [Function(GCreateWorkLikeVarsBuilder b) updates]) = _$GCreateWorkLikeVars;
+          [void Function(GCreateWorkLikeVarsBuilder b) updates]) =
+      _$GCreateWorkLikeVars;
 
   _i1.GCreateWorkLikeInput get input;
   static Serializer<GCreateWorkLikeVars> get serializer =>

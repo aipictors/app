@@ -27,7 +27,7 @@ class ConfigMutedTagsScreen extends HookConsumerWidget {
     }
 
     final request = GViewerMutedTagsReq((builder) {
-      return builder
+      builder
         ..vars.limit = config.graphqlQueryLimit
         ..vars.offset = 0;
     });

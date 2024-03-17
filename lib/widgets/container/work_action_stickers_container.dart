@@ -41,7 +41,7 @@ class WorkActionStickersContainer extends HookConsumerWidget {
         child: OperationBuilder(
             client: client.value!,
             operationRequest: GUserStickersReq((builder) {
-              return builder
+              builder
                 ..vars.limit = config.graphqlQueryLimit
                 ..vars.offset = 0;
             }),

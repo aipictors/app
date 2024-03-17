@@ -15,7 +15,7 @@ abstract class GBestWorksData
     implements Built<GBestWorksData, GBestWorksDataBuilder> {
   GBestWorksData._();
 
-  factory GBestWorksData([Function(GBestWorksDataBuilder b) updates]) =
+  factory GBestWorksData([void Function(GBestWorksDataBuilder b) updates]) =
       _$GBestWorksData;
 
   static void _initializeBuilder(GBestWorksDataBuilder b) =>
@@ -46,7 +46,7 @@ abstract class GBestWorksData_bestWorks
   GBestWorksData_bestWorks._();
 
   factory GBestWorksData_bestWorks(
-          [Function(GBestWorksData_bestWorksBuilder b) updates]) =
+          [void Function(GBestWorksData_bestWorksBuilder b) updates]) =
       _$GBestWorksData_bestWorks;
 
   static void _initializeBuilder(GBestWorksData_bestWorksBuilder b) =>
@@ -91,7 +91,7 @@ abstract class GBestWorksData_bestWorks_thumbnailImage
   GBestWorksData_bestWorks_thumbnailImage._();
 
   factory GBestWorksData_bestWorks_thumbnailImage(
-      [Function(GBestWorksData_bestWorks_thumbnailImageBuilder b)
+      [void Function(GBestWorksData_bestWorks_thumbnailImageBuilder b)
           updates]) = _$GBestWorksData_bestWorks_thumbnailImage;
 
   static void _initializeBuilder(

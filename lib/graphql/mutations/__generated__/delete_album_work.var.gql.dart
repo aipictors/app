@@ -14,7 +14,7 @@ abstract class GDeleteAlbumWorkVars
   GDeleteAlbumWorkVars._();
 
   factory GDeleteAlbumWorkVars(
-          [Function(GDeleteAlbumWorkVarsBuilder b) updates]) =
+          [void Function(GDeleteAlbumWorkVarsBuilder b) updates]) =
       _$GDeleteAlbumWorkVars;
 
   _i1.GDeleteAlbumWorkInput get input;

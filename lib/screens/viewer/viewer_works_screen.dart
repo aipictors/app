@@ -36,7 +36,7 @@ class ViewerWorksScreen extends HookConsumerWidget {
       body: OperationBuilder(
         client: client.value!,
         operationRequest: GViewerWorksReq((builder) {
-          return builder
+          builder
             ..vars.limit = config.graphqlQueryLimit
             ..vars.offset = 0;
         }),

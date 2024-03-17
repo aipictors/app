@@ -13,7 +13,7 @@ abstract class GDailyThemesVars
     implements Built<GDailyThemesVars, GDailyThemesVarsBuilder> {
   GDailyThemesVars._();
 
-  factory GDailyThemesVars([Function(GDailyThemesVarsBuilder b) updates]) =
+  factory GDailyThemesVars([void Function(GDailyThemesVarsBuilder b) updates]) =
       _$GDailyThemesVars;
 
   int get offset;

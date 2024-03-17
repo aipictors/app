@@ -12,7 +12,8 @@ abstract class GViewerAlbumsVars
     implements Built<GViewerAlbumsVars, GViewerAlbumsVarsBuilder> {
   GViewerAlbumsVars._();
 
-  factory GViewerAlbumsVars([Function(GViewerAlbumsVarsBuilder b) updates]) =
+  factory GViewerAlbumsVars(
+          [void Function(GViewerAlbumsVarsBuilder b) updates]) =
       _$GViewerAlbumsVars;
 
   int get offset;

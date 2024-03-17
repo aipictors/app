@@ -22,7 +22,7 @@ abstract class GPartialTagFieldsData
   GPartialTagFieldsData._();
 
   factory GPartialTagFieldsData(
-          [Function(GPartialTagFieldsDataBuilder b) updates]) =
+          [void Function(GPartialTagFieldsDataBuilder b) updates]) =
       _$GPartialTagFieldsData;
 
   static void _initializeBuilder(GPartialTagFieldsDataBuilder b) =>

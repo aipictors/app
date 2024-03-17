@@ -22,7 +22,7 @@ abstract class GUserFieldsReq
         _i1.FragmentRequest<_i2.GUserFieldsData, _i3.GUserFieldsVars> {
   GUserFieldsReq._();
 
-  factory GUserFieldsReq([Function(GUserFieldsReqBuilder b) updates]) =
+  factory GUserFieldsReq([void Function(GUserFieldsReqBuilder b) updates]) =
       _$GUserFieldsReq;
 
   static void _initializeBuilder(GUserFieldsReqBuilder b) => b

@@ -14,10 +14,10 @@ abstract class GCreateUserStickerVars
   GCreateUserStickerVars._();
 
   factory GCreateUserStickerVars(
-          [Function(GCreateUserStickerVarsBuilder b) updates]) =
+          [void Function(GCreateUserStickerVarsBuilder b) updates]) =
       _$GCreateUserStickerVars;
 
-  _i1.GCreateUserStickerInput get input;
+  _i1.GCreateStickerInput get input;
   static Serializer<GCreateUserStickerVars> get serializer =>
       _$gCreateUserStickerVarsSerializer;
 

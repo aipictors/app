@@ -12,7 +12,7 @@ abstract class GTagWorksVars
     implements Built<GTagWorksVars, GTagWorksVarsBuilder> {
   GTagWorksVars._();
 
-  factory GTagWorksVars([Function(GTagWorksVarsBuilder b) updates]) =
+  factory GTagWorksVars([void Function(GTagWorksVarsBuilder b) updates]) =
       _$GTagWorksVars;
 
   String get tagName;

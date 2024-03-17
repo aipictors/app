@@ -12,7 +12,8 @@ part 'albums.var.gql.g.dart';
 abstract class GAlbumsVars implements Built<GAlbumsVars, GAlbumsVarsBuilder> {
   GAlbumsVars._();
 
-  factory GAlbumsVars([Function(GAlbumsVarsBuilder b) updates]) = _$GAlbumsVars;
+  factory GAlbumsVars([void Function(GAlbumsVarsBuilder b) updates]) =
+      _$GAlbumsVars;
 
   int get offset;
   int get limit;

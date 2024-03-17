@@ -16,7 +16,7 @@ part 'work.data.gql.g.dart';
 abstract class GWorkData implements Built<GWorkData, GWorkDataBuilder> {
   GWorkData._();
 
-  factory GWorkData([Function(GWorkDataBuilder b) updates]) = _$GWorkData;
+  factory GWorkData([void Function(GWorkDataBuilder b) updates]) = _$GWorkData;
 
   static void _initializeBuilder(GWorkDataBuilder b) =>
       b..G__typename = 'Query';
@@ -42,7 +42,7 @@ abstract class GWorkData_work
     implements Built<GWorkData_work, GWorkData_workBuilder> {
   GWorkData_work._();
 
-  factory GWorkData_work([Function(GWorkData_workBuilder b) updates]) =
+  factory GWorkData_work([void Function(GWorkData_workBuilder b) updates]) =
       _$GWorkData_work;
 
   static void _initializeBuilder(GWorkData_workBuilder b) =>
@@ -80,7 +80,7 @@ abstract class GWorkData_work_image
   GWorkData_work_image._();
 
   factory GWorkData_work_image(
-          [Function(GWorkData_work_imageBuilder b) updates]) =
+          [void Function(GWorkData_work_imageBuilder b) updates]) =
       _$GWorkData_work_image;
 
   static void _initializeBuilder(GWorkData_work_imageBuilder b) =>
@@ -112,7 +112,8 @@ abstract class GWorkData_work_user
   GWorkData_work_user._();
 
   factory GWorkData_work_user(
-      [Function(GWorkData_work_userBuilder b) updates]) = _$GWorkData_work_user;
+          [void Function(GWorkData_work_userBuilder b) updates]) =
+      _$GWorkData_work_user;
 
   static void _initializeBuilder(GWorkData_work_userBuilder b) =>
       b..G__typename = 'UserNode';
@@ -153,7 +154,7 @@ abstract class GWorkData_work_user_iconImage
   GWorkData_work_user_iconImage._();
 
   factory GWorkData_work_user_iconImage(
-          [Function(GWorkData_work_user_iconImageBuilder b) updates]) =
+          [void Function(GWorkData_work_user_iconImageBuilder b) updates]) =
       _$GWorkData_work_user_iconImage;
 
   static void _initializeBuilder(GWorkData_work_user_iconImageBuilder b) =>
@@ -188,7 +189,7 @@ abstract class GWorkData_work_user_viewer
   GWorkData_work_user_viewer._();
 
   factory GWorkData_work_user_viewer(
-          [Function(GWorkData_work_user_viewerBuilder b) updates]) =
+          [void Function(GWorkData_work_user_viewerBuilder b) updates]) =
       _$GWorkData_work_user_viewer;
 
   static void _initializeBuilder(GWorkData_work_user_viewerBuilder b) =>
@@ -222,7 +223,7 @@ abstract class GWorkData_work_subWorks
   GWorkData_work_subWorks._();
 
   factory GWorkData_work_subWorks(
-          [Function(GWorkData_work_subWorksBuilder b) updates]) =
+          [void Function(GWorkData_work_subWorksBuilder b) updates]) =
       _$GWorkData_work_subWorks;
 
   static void _initializeBuilder(GWorkData_work_subWorksBuilder b) =>
@@ -261,7 +262,7 @@ abstract class GWorkData_work_subWorks_image
   GWorkData_work_subWorks_image._();
 
   factory GWorkData_work_subWorks_image(
-          [Function(GWorkData_work_subWorks_imageBuilder b) updates]) =
+          [void Function(GWorkData_work_subWorks_imageBuilder b) updates]) =
       _$GWorkData_work_subWorks_image;
 
   static void _initializeBuilder(GWorkData_work_subWorks_imageBuilder b) =>
@@ -298,8 +299,8 @@ abstract class GWorkData_work_subWorks_thumbnailImage
   GWorkData_work_subWorks_thumbnailImage._();
 
   factory GWorkData_work_subWorks_thumbnailImage(
-          [Function(GWorkData_work_subWorks_thumbnailImageBuilder b) updates]) =
-      _$GWorkData_work_subWorks_thumbnailImage;
+      [void Function(GWorkData_work_subWorks_thumbnailImageBuilder b)
+          updates]) = _$GWorkData_work_subWorks_thumbnailImage;
 
   static void _initializeBuilder(
           GWorkData_work_subWorks_thumbnailImageBuilder b) =>
@@ -334,7 +335,7 @@ abstract class GWorkData_work_viewer
   GWorkData_work_viewer._();
 
   factory GWorkData_work_viewer(
-          [Function(GWorkData_work_viewerBuilder b) updates]) =
+          [void Function(GWorkData_work_viewerBuilder b) updates]) =
       _$GWorkData_work_viewer;
 
   static void _initializeBuilder(GWorkData_work_viewerBuilder b) =>

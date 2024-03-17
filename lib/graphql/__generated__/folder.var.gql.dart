@@ -11,7 +11,8 @@ part 'folder.var.gql.g.dart';
 abstract class GFolderVars implements Built<GFolderVars, GFolderVarsBuilder> {
   GFolderVars._();
 
-  factory GFolderVars([Function(GFolderVarsBuilder b) updates]) = _$GFolderVars;
+  factory GFolderVars([void Function(GFolderVarsBuilder b) updates]) =
+      _$GFolderVars;
 
   String get id;
   static Serializer<GFolderVars> get serializer => _$gFolderVarsSerializer;

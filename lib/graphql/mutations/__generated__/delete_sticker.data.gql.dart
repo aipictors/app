@@ -12,7 +12,8 @@ abstract class GDeleteStickerData
     implements Built<GDeleteStickerData, GDeleteStickerDataBuilder> {
   GDeleteStickerData._();
 
-  factory GDeleteStickerData([Function(GDeleteStickerDataBuilder b) updates]) =
+  factory GDeleteStickerData(
+          [void Function(GDeleteStickerDataBuilder b) updates]) =
       _$GDeleteStickerData;
 
   static void _initializeBuilder(GDeleteStickerDataBuilder b) =>
@@ -43,7 +44,7 @@ abstract class GDeleteStickerData_deleteSticker
   GDeleteStickerData_deleteSticker._();
 
   factory GDeleteStickerData_deleteSticker(
-          [Function(GDeleteStickerData_deleteStickerBuilder b) updates]) =
+          [void Function(GDeleteStickerData_deleteStickerBuilder b) updates]) =
       _$GDeleteStickerData_deleteSticker;
 
   static void _initializeBuilder(GDeleteStickerData_deleteStickerBuilder b) =>

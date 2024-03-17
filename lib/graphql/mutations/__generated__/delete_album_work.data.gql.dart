@@ -13,7 +13,7 @@ abstract class GDeleteAlbumWorkData
   GDeleteAlbumWorkData._();
 
   factory GDeleteAlbumWorkData(
-          [Function(GDeleteAlbumWorkDataBuilder b) updates]) =
+          [void Function(GDeleteAlbumWorkDataBuilder b) updates]) =
       _$GDeleteAlbumWorkData;
 
   static void _initializeBuilder(GDeleteAlbumWorkDataBuilder b) =>
@@ -44,8 +44,8 @@ abstract class GDeleteAlbumWorkData_deleteAlbumWork
   GDeleteAlbumWorkData_deleteAlbumWork._();
 
   factory GDeleteAlbumWorkData_deleteAlbumWork(
-          [Function(GDeleteAlbumWorkData_deleteAlbumWorkBuilder b) updates]) =
-      _$GDeleteAlbumWorkData_deleteAlbumWork;
+      [void Function(GDeleteAlbumWorkData_deleteAlbumWorkBuilder b)
+          updates]) = _$GDeleteAlbumWorkData_deleteAlbumWork;
 
   static void _initializeBuilder(
           GDeleteAlbumWorkData_deleteAlbumWorkBuilder b) =>

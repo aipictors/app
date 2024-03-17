@@ -18,7 +18,7 @@ abstract class GFeedLatestWorksData
   GFeedLatestWorksData._();
 
   factory GFeedLatestWorksData(
-          [Function(GFeedLatestWorksDataBuilder b) updates]) =
+          [void Function(GFeedLatestWorksDataBuilder b) updates]) =
       _$GFeedLatestWorksData;
 
   static void _initializeBuilder(GFeedLatestWorksDataBuilder b) =>
@@ -49,7 +49,7 @@ abstract class GFeedLatestWorksData_works
   GFeedLatestWorksData_works._();
 
   factory GFeedLatestWorksData_works(
-          [Function(GFeedLatestWorksData_worksBuilder b) updates]) =
+          [void Function(GFeedLatestWorksData_worksBuilder b) updates]) =
       _$GFeedLatestWorksData_works;
 
   static void _initializeBuilder(GFeedLatestWorksData_worksBuilder b) =>
@@ -98,7 +98,7 @@ abstract class GFeedLatestWorksData_works_image
   GFeedLatestWorksData_works_image._();
 
   factory GFeedLatestWorksData_works_image(
-          [Function(GFeedLatestWorksData_works_imageBuilder b) updates]) =
+          [void Function(GFeedLatestWorksData_works_imageBuilder b) updates]) =
       _$GFeedLatestWorksData_works_image;
 
   static void _initializeBuilder(GFeedLatestWorksData_works_imageBuilder b) =>
@@ -136,7 +136,7 @@ abstract class GFeedLatestWorksData_works_user
   GFeedLatestWorksData_works_user._();
 
   factory GFeedLatestWorksData_works_user(
-          [Function(GFeedLatestWorksData_works_userBuilder b) updates]) =
+          [void Function(GFeedLatestWorksData_works_userBuilder b) updates]) =
       _$GFeedLatestWorksData_works_user;
 
   static void _initializeBuilder(GFeedLatestWorksData_works_userBuilder b) =>
@@ -178,7 +178,7 @@ abstract class GFeedLatestWorksData_works_user_iconImage
   GFeedLatestWorksData_works_user_iconImage._();
 
   factory GFeedLatestWorksData_works_user_iconImage(
-      [Function(GFeedLatestWorksData_works_user_iconImageBuilder b)
+      [void Function(GFeedLatestWorksData_works_user_iconImageBuilder b)
           updates]) = _$GFeedLatestWorksData_works_user_iconImage;
 
   static void _initializeBuilder(
@@ -216,8 +216,8 @@ abstract class GFeedLatestWorksData_works_user_viewer
   GFeedLatestWorksData_works_user_viewer._();
 
   factory GFeedLatestWorksData_works_user_viewer(
-          [Function(GFeedLatestWorksData_works_user_viewerBuilder b) updates]) =
-      _$GFeedLatestWorksData_works_user_viewer;
+      [void Function(GFeedLatestWorksData_works_user_viewerBuilder b)
+          updates]) = _$GFeedLatestWorksData_works_user_viewer;
 
   static void _initializeBuilder(
           GFeedLatestWorksData_works_user_viewerBuilder b) =>
@@ -252,7 +252,7 @@ abstract class GFeedLatestWorksData_works_viewer
   GFeedLatestWorksData_works_viewer._();
 
   factory GFeedLatestWorksData_works_viewer(
-          [Function(GFeedLatestWorksData_works_viewerBuilder b) updates]) =
+          [void Function(GFeedLatestWorksData_works_viewerBuilder b) updates]) =
       _$GFeedLatestWorksData_works_viewer;
 
   static void _initializeBuilder(GFeedLatestWorksData_works_viewerBuilder b) =>

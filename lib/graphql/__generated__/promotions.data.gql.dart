@@ -15,7 +15,7 @@ abstract class GPromotionsData
     implements Built<GPromotionsData, GPromotionsDataBuilder> {
   GPromotionsData._();
 
-  factory GPromotionsData([Function(GPromotionsDataBuilder b) updates]) =
+  factory GPromotionsData([void Function(GPromotionsDataBuilder b) updates]) =
       _$GPromotionsData;
 
   static void _initializeBuilder(GPromotionsDataBuilder b) =>
@@ -46,7 +46,7 @@ abstract class GPromotionsData_promotions
   GPromotionsData_promotions._();
 
   factory GPromotionsData_promotions(
-          [Function(GPromotionsData_promotionsBuilder b) updates]) =
+          [void Function(GPromotionsData_promotionsBuilder b) updates]) =
       _$GPromotionsData_promotions;
 
   static void _initializeBuilder(GPromotionsData_promotionsBuilder b) =>

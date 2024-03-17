@@ -22,7 +22,8 @@ abstract class GCommentFieldsReq
         _i1.FragmentRequest<_i2.GCommentFieldsData, _i3.GCommentFieldsVars> {
   GCommentFieldsReq._();
 
-  factory GCommentFieldsReq([Function(GCommentFieldsReqBuilder b) updates]) =
+  factory GCommentFieldsReq(
+          [void Function(GCommentFieldsReqBuilder b) updates]) =
       _$GCommentFieldsReq;
 
   static void _initializeBuilder(GCommentFieldsReqBuilder b) => b

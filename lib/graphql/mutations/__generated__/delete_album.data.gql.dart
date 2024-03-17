@@ -12,7 +12,7 @@ abstract class GDeleteAlbumData
     implements Built<GDeleteAlbumData, GDeleteAlbumDataBuilder> {
   GDeleteAlbumData._();
 
-  factory GDeleteAlbumData([Function(GDeleteAlbumDataBuilder b) updates]) =
+  factory GDeleteAlbumData([void Function(GDeleteAlbumDataBuilder b) updates]) =
       _$GDeleteAlbumData;
 
   static void _initializeBuilder(GDeleteAlbumDataBuilder b) =>
@@ -43,7 +43,7 @@ abstract class GDeleteAlbumData_deleteAlbum
   GDeleteAlbumData_deleteAlbum._();
 
   factory GDeleteAlbumData_deleteAlbum(
-          [Function(GDeleteAlbumData_deleteAlbumBuilder b) updates]) =
+          [void Function(GDeleteAlbumData_deleteAlbumBuilder b) updates]) =
       _$GDeleteAlbumData_deleteAlbum;
 
   static void _initializeBuilder(GDeleteAlbumData_deleteAlbumBuilder b) =>

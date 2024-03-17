@@ -13,7 +13,7 @@ abstract class GCreateAlbumVars
     implements Built<GCreateAlbumVars, GCreateAlbumVarsBuilder> {
   GCreateAlbumVars._();
 
-  factory GCreateAlbumVars([Function(GCreateAlbumVarsBuilder b) updates]) =
+  factory GCreateAlbumVars([void Function(GCreateAlbumVarsBuilder b) updates]) =
       _$GCreateAlbumVars;
 
   _i1.GCreateFolderInput get input;

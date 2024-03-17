@@ -25,7 +25,7 @@ abstract class GWorkCommentNotificationFieldsReq
   GWorkCommentNotificationFieldsReq._();
 
   factory GWorkCommentNotificationFieldsReq(
-          [Function(GWorkCommentNotificationFieldsReqBuilder b) updates]) =
+          [void Function(GWorkCommentNotificationFieldsReqBuilder b) updates]) =
       _$GWorkCommentNotificationFieldsReq;
 
   static void _initializeBuilder(GWorkCommentNotificationFieldsReqBuilder b) =>

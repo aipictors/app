@@ -26,7 +26,7 @@ class _$GDeleteUserStickerVarsSerializer
     final result = <Object?>[
       'input',
       serializers.serialize(object.input,
-          specifiedType: const FullType(_i1.GDeleteUserStickerInput)),
+          specifiedType: const FullType(_i1.GDeleteStickerInput)),
     ];
 
     return result;
@@ -46,8 +46,8 @@ class _$GDeleteUserStickerVarsSerializer
       switch (key) {
         case 'input':
           result.input.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i1.GDeleteUserStickerInput))!
-              as _i1.GDeleteUserStickerInput);
+                  specifiedType: const FullType(_i1.GDeleteStickerInput))!
+              as _i1.GDeleteStickerInput);
           break;
       }
     }
@@ -58,7 +58,7 @@ class _$GDeleteUserStickerVarsSerializer
 
 class _$GDeleteUserStickerVars extends GDeleteUserStickerVars {
   @override
-  final _i1.GDeleteUserStickerInput input;
+  final _i1.GDeleteStickerInput input;
 
   factory _$GDeleteUserStickerVars(
           [void Function(GDeleteUserStickerVarsBuilder)? updates]) =>
@@ -104,10 +104,10 @@ class GDeleteUserStickerVarsBuilder
     implements Builder<GDeleteUserStickerVars, GDeleteUserStickerVarsBuilder> {
   _$GDeleteUserStickerVars? _$v;
 
-  _i1.GDeleteUserStickerInputBuilder? _input;
-  _i1.GDeleteUserStickerInputBuilder get input =>
-      _$this._input ??= new _i1.GDeleteUserStickerInputBuilder();
-  set input(_i1.GDeleteUserStickerInputBuilder? input) => _$this._input = input;
+  _i1.GDeleteStickerInputBuilder? _input;
+  _i1.GDeleteStickerInputBuilder get input =>
+      _$this._input ??= new _i1.GDeleteStickerInputBuilder();
+  set input(_i1.GDeleteStickerInputBuilder? input) => _$this._input = input;
 
   GDeleteUserStickerVarsBuilder();
 

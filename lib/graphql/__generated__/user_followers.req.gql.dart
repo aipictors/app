@@ -22,7 +22,8 @@ abstract class GUserFollowersReq
         _i1.OperationRequest<_i2.GUserFollowersData, _i3.GUserFollowersVars> {
   GUserFollowersReq._();
 
-  factory GUserFollowersReq([Function(GUserFollowersReqBuilder b) updates]) =
+  factory GUserFollowersReq(
+          [void Function(GUserFollowersReqBuilder b) updates]) =
       _$GUserFollowersReq;
 
   static void _initializeBuilder(GUserFollowersReqBuilder b) => b
@@ -40,6 +41,7 @@ abstract class GUserFollowersReq
   _i4.Request get execRequest => _i4.Request(
         operation: operation,
         variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
       );
 
   @override
@@ -60,6 +62,9 @@ abstract class GUserFollowersReq
   _i1.FetchPolicy? get fetchPolicy;
   @override
   bool get executeOnListen;
+  @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
   @override
   _i2.GUserFollowersData? parseData(Map<String, dynamic> json) =>
       _i2.GUserFollowersData.fromJson(json);

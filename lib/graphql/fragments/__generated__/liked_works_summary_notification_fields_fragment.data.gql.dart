@@ -24,7 +24,7 @@ abstract class GLikedWorksSummaryNotificationFieldsData
   GLikedWorksSummaryNotificationFieldsData._();
 
   factory GLikedWorksSummaryNotificationFieldsData(
-      [Function(GLikedWorksSummaryNotificationFieldsDataBuilder b)
+      [void Function(GLikedWorksSummaryNotificationFieldsDataBuilder b)
           updates]) = _$GLikedWorksSummaryNotificationFieldsData;
 
   static void _initializeBuilder(

@@ -12,7 +12,7 @@ abstract class GUpdateWorkData
     implements Built<GUpdateWorkData, GUpdateWorkDataBuilder> {
   GUpdateWorkData._();
 
-  factory GUpdateWorkData([Function(GUpdateWorkDataBuilder b) updates]) =
+  factory GUpdateWorkData([void Function(GUpdateWorkDataBuilder b) updates]) =
       _$GUpdateWorkData;
 
   static void _initializeBuilder(GUpdateWorkDataBuilder b) =>
@@ -42,7 +42,7 @@ abstract class GUpdateWorkData_updateWork
   GUpdateWorkData_updateWork._();
 
   factory GUpdateWorkData_updateWork(
-          [Function(GUpdateWorkData_updateWorkBuilder b) updates]) =
+          [void Function(GUpdateWorkData_updateWorkBuilder b) updates]) =
       _$GUpdateWorkData_updateWork;
 
   static void _initializeBuilder(GUpdateWorkData_updateWorkBuilder b) =>

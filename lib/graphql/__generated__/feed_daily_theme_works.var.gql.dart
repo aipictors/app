@@ -14,7 +14,7 @@ abstract class GFeedDailyThemeWorksVars
   GFeedDailyThemeWorksVars._();
 
   factory GFeedDailyThemeWorksVars(
-          [Function(GFeedDailyThemeWorksVarsBuilder b) updates]) =
+          [void Function(GFeedDailyThemeWorksVarsBuilder b) updates]) =
       _$GFeedDailyThemeWorksVars;
 
   int get year;

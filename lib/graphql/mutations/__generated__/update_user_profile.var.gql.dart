@@ -14,7 +14,7 @@ abstract class GUpdateUserProfileVars
   GUpdateUserProfileVars._();
 
   factory GUpdateUserProfileVars(
-          [Function(GUpdateUserProfileVarsBuilder b) updates]) =
+          [void Function(GUpdateUserProfileVarsBuilder b) updates]) =
       _$GUpdateUserProfileVars;
 
   _i1.GUpdateUserProfileInput get input;

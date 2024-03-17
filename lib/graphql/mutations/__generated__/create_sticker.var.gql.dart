@@ -13,7 +13,8 @@ abstract class GCreateStickerVars
     implements Built<GCreateStickerVars, GCreateStickerVarsBuilder> {
   GCreateStickerVars._();
 
-  factory GCreateStickerVars([Function(GCreateStickerVarsBuilder b) updates]) =
+  factory GCreateStickerVars(
+          [void Function(GCreateStickerVarsBuilder b) updates]) =
       _$GCreateStickerVars;
 
   _i1.GCreateStickerInput get input;

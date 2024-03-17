@@ -37,7 +37,7 @@ class DailyWorkAwardsScreen extends HookConsumerWidget {
     }
 
     final request = GWorkAwardsReq((builder) {
-      return builder
+      builder
         ..vars.limit = config.graphqlQueryLimit
         ..vars.offset = 0
         ..vars.where.year = year

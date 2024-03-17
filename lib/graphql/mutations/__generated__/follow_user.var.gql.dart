@@ -13,7 +13,7 @@ abstract class GFollowUserVars
     implements Built<GFollowUserVars, GFollowUserVarsBuilder> {
   GFollowUserVars._();
 
-  factory GFollowUserVars([Function(GFollowUserVarsBuilder b) updates]) =
+  factory GFollowUserVars([void Function(GFollowUserVarsBuilder b) updates]) =
       _$GFollowUserVars;
 
   _i1.GFollowUserInput get input;

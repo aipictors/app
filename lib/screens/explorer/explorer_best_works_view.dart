@@ -25,13 +25,13 @@ class ExplorerBestWorksView extends HookConsumerWidget {
     }
 
     final request = GBestWorksReq((builder) {
-      return builder;
+      builder;
     });
 
     return RefreshIndicator(
       onRefresh: () async {
         final req = request.rebuild((builder) {
-          return builder;
+          builder;
         });
         client.value?.requestController.add(req);
         await Future.delayed(const Duration(seconds: 2));

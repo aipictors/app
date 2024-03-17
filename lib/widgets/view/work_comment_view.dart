@@ -28,7 +28,7 @@ class WorkCommentView extends HookConsumerWidget {
     return Operation(
       client: client.value!,
       operationRequest: GWorkCommentsReq((builder) {
-        return builder..vars.workId = workId;
+        builder.vars.workId = workId;
       }),
       builder: (context, response, error) {
         if (error != null) {

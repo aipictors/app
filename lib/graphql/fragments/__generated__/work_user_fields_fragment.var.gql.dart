@@ -13,7 +13,8 @@ abstract class GWorkUserFieldsVars
   GWorkUserFieldsVars._();
 
   factory GWorkUserFieldsVars(
-      [Function(GWorkUserFieldsVarsBuilder b) updates]) = _$GWorkUserFieldsVars;
+          [void Function(GWorkUserFieldsVarsBuilder b) updates]) =
+      _$GWorkUserFieldsVars;
 
   static Serializer<GWorkUserFieldsVars> get serializer =>
       _$gWorkUserFieldsVarsSerializer;

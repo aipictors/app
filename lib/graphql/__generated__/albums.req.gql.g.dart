@@ -144,6 +144,8 @@ class _$GAlbumsReq extends GAlbumsReq {
   final _i1.FetchPolicy? fetchPolicy;
   @override
   final bool executeOnListen;
+  @override
+  final _i4.Context? context;
 
   factory _$GAlbumsReq([void Function(GAlbumsReqBuilder)? updates]) =>
       (new GAlbumsReqBuilder()..update(updates))._build();
@@ -157,7 +159,8 @@ class _$GAlbumsReq extends GAlbumsReq {
       this.updateCacheHandlerKey,
       this.updateCacheHandlerContext,
       this.fetchPolicy,
-      required this.executeOnListen})
+      required this.executeOnListen,
+      this.context})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(vars, r'GAlbumsReq', 'vars');
     BuiltValueNullFieldError.checkNotNull(
@@ -186,7 +189,8 @@ class _$GAlbumsReq extends GAlbumsReq {
         updateCacheHandlerKey == other.updateCacheHandlerKey &&
         updateCacheHandlerContext == other.updateCacheHandlerContext &&
         fetchPolicy == other.fetchPolicy &&
-        executeOnListen == other.executeOnListen;
+        executeOnListen == other.executeOnListen &&
+        context == other.context;
   }
 
   @override
@@ -201,6 +205,7 @@ class _$GAlbumsReq extends GAlbumsReq {
     _$hash = $jc(_$hash, updateCacheHandlerContext.hashCode);
     _$hash = $jc(_$hash, fetchPolicy.hashCode);
     _$hash = $jc(_$hash, executeOnListen.hashCode);
+    _$hash = $jc(_$hash, context.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -216,7 +221,8 @@ class _$GAlbumsReq extends GAlbumsReq {
           ..add('updateCacheHandlerKey', updateCacheHandlerKey)
           ..add('updateCacheHandlerContext', updateCacheHandlerContext)
           ..add('fetchPolicy', fetchPolicy)
-          ..add('executeOnListen', executeOnListen))
+          ..add('executeOnListen', executeOnListen)
+          ..add('context', context))
         .toString();
   }
 }
@@ -273,6 +279,10 @@ class GAlbumsReqBuilder implements Builder<GAlbumsReq, GAlbumsReqBuilder> {
   set executeOnListen(bool? executeOnListen) =>
       _$this._executeOnListen = executeOnListen;
 
+  _i4.Context? _context;
+  _i4.Context? get context => _$this._context;
+  set context(_i4.Context? context) => _$this._context = context;
+
   GAlbumsReqBuilder() {
     GAlbumsReq._initializeBuilder(this);
   }
@@ -289,6 +299,7 @@ class GAlbumsReqBuilder implements Builder<GAlbumsReq, GAlbumsReqBuilder> {
       _updateCacheHandlerContext = $v.updateCacheHandlerContext;
       _fetchPolicy = $v.fetchPolicy;
       _executeOnListen = $v.executeOnListen;
+      _context = $v.context;
       _$v = null;
     }
     return this;
@@ -323,7 +334,8 @@ class GAlbumsReqBuilder implements Builder<GAlbumsReq, GAlbumsReqBuilder> {
               updateCacheHandlerContext: updateCacheHandlerContext,
               fetchPolicy: fetchPolicy,
               executeOnListen: BuiltValueNullFieldError.checkNotNull(
-                  executeOnListen, r'GAlbumsReq', 'executeOnListen'));
+                  executeOnListen, r'GAlbumsReq', 'executeOnListen'),
+              context: context);
     } catch (_) {
       late String _$failedField;
       try {

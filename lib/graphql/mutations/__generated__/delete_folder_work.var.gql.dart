@@ -14,7 +14,7 @@ abstract class GDeleteFolderWorkVars
   GDeleteFolderWorkVars._();
 
   factory GDeleteFolderWorkVars(
-          [Function(GDeleteFolderWorkVarsBuilder b) updates]) =
+          [void Function(GDeleteFolderWorkVarsBuilder b) updates]) =
       _$GDeleteFolderWorkVars;
 
   _i1.GDeleteFolderWorkInput get input;

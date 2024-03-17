@@ -12,7 +12,7 @@ part 'tags.var.gql.g.dart';
 abstract class GTagsVars implements Built<GTagsVars, GTagsVarsBuilder> {
   GTagsVars._();
 
-  factory GTagsVars([Function(GTagsVarsBuilder b) updates]) = _$GTagsVars;
+  factory GTagsVars([void Function(GTagsVarsBuilder b) updates]) = _$GTagsVars;
 
   int get offset;
   int get limit;

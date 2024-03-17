@@ -13,7 +13,7 @@ abstract class GPartialAlbumFieldsVars
   GPartialAlbumFieldsVars._();
 
   factory GPartialAlbumFieldsVars(
-          [Function(GPartialAlbumFieldsVarsBuilder b) updates]) =
+          [void Function(GPartialAlbumFieldsVarsBuilder b) updates]) =
       _$GPartialAlbumFieldsVars;
 
   static Serializer<GPartialAlbumFieldsVars> get serializer =>

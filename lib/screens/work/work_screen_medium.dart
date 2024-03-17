@@ -39,7 +39,7 @@ class WorkScreenMedium extends HookConsumerWidget {
     return OperationScreenBuilder(
       client: client.value!,
       operationRequest: GWorkReq((builder) {
-        return builder..vars.id = workId;
+        builder.vars.id = workId;
       }),
       builder: (context, response) {
         final work = response.data?.work;

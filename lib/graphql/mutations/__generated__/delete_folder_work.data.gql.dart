@@ -13,7 +13,7 @@ abstract class GDeleteFolderWorkData
   GDeleteFolderWorkData._();
 
   factory GDeleteFolderWorkData(
-          [Function(GDeleteFolderWorkDataBuilder b) updates]) =
+          [void Function(GDeleteFolderWorkDataBuilder b) updates]) =
       _$GDeleteFolderWorkData;
 
   static void _initializeBuilder(GDeleteFolderWorkDataBuilder b) =>
@@ -44,8 +44,8 @@ abstract class GDeleteFolderWorkData_deleteFolderWork
   GDeleteFolderWorkData_deleteFolderWork._();
 
   factory GDeleteFolderWorkData_deleteFolderWork(
-          [Function(GDeleteFolderWorkData_deleteFolderWorkBuilder b) updates]) =
-      _$GDeleteFolderWorkData_deleteFolderWork;
+      [void Function(GDeleteFolderWorkData_deleteFolderWorkBuilder b)
+          updates]) = _$GDeleteFolderWorkData_deleteFolderWork;
 
   static void _initializeBuilder(
           GDeleteFolderWorkData_deleteFolderWorkBuilder b) =>

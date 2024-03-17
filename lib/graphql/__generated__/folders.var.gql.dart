@@ -13,7 +13,7 @@ abstract class GFoldersVars
     implements Built<GFoldersVars, GFoldersVarsBuilder> {
   GFoldersVars._();
 
-  factory GFoldersVars([Function(GFoldersVarsBuilder b) updates]) =
+  factory GFoldersVars([void Function(GFoldersVarsBuilder b) updates]) =
       _$GFoldersVars;
 
   int get offset;

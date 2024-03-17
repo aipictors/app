@@ -13,7 +13,7 @@ abstract class GMuteUserVars
     implements Built<GMuteUserVars, GMuteUserVarsBuilder> {
   GMuteUserVars._();
 
-  factory GMuteUserVars([Function(GMuteUserVarsBuilder b) updates]) =
+  factory GMuteUserVars([void Function(GMuteUserVarsBuilder b) updates]) =
       _$GMuteUserVars;
 
   _i1.GMuteUserInput get input;

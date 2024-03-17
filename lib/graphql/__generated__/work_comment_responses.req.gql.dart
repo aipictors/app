@@ -24,7 +24,7 @@ abstract class GWorkCommentResponsesReq
   GWorkCommentResponsesReq._();
 
   factory GWorkCommentResponsesReq(
-          [Function(GWorkCommentResponsesReqBuilder b) updates]) =
+          [void Function(GWorkCommentResponsesReqBuilder b) updates]) =
       _$GWorkCommentResponsesReq;
 
   static void _initializeBuilder(GWorkCommentResponsesReqBuilder b) => b
@@ -42,6 +42,7 @@ abstract class GWorkCommentResponsesReq
   _i4.Request get execRequest => _i4.Request(
         operation: operation,
         variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
       );
 
   @override
@@ -62,6 +63,9 @@ abstract class GWorkCommentResponsesReq
   _i1.FetchPolicy? get fetchPolicy;
   @override
   bool get executeOnListen;
+  @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
   @override
   _i2.GWorkCommentResponsesData? parseData(Map<String, dynamic> json) =>
       _i2.GWorkCommentResponsesData.fromJson(json);

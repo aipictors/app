@@ -12,7 +12,7 @@ abstract class GPromotionsVars
     implements Built<GPromotionsVars, GPromotionsVarsBuilder> {
   GPromotionsVars._();
 
-  factory GPromotionsVars([Function(GPromotionsVarsBuilder b) updates]) =
+  factory GPromotionsVars([void Function(GPromotionsVarsBuilder b) updates]) =
       _$GPromotionsVars;
 
   int get offset;

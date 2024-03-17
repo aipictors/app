@@ -12,7 +12,8 @@ abstract class GCreateStickerData
     implements Built<GCreateStickerData, GCreateStickerDataBuilder> {
   GCreateStickerData._();
 
-  factory GCreateStickerData([Function(GCreateStickerDataBuilder b) updates]) =
+  factory GCreateStickerData(
+          [void Function(GCreateStickerDataBuilder b) updates]) =
       _$GCreateStickerData;
 
   static void _initializeBuilder(GCreateStickerDataBuilder b) =>
@@ -43,7 +44,7 @@ abstract class GCreateStickerData_createSticker
   GCreateStickerData_createSticker._();
 
   factory GCreateStickerData_createSticker(
-          [Function(GCreateStickerData_createStickerBuilder b) updates]) =
+          [void Function(GCreateStickerData_createStickerBuilder b) updates]) =
       _$GCreateStickerData_createSticker;
 
   static void _initializeBuilder(GCreateStickerData_createStickerBuilder b) =>

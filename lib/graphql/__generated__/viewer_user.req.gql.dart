@@ -22,7 +22,7 @@ abstract class GViewerUserReq
         _i1.OperationRequest<_i2.GViewerUserData, _i3.GViewerUserVars> {
   GViewerUserReq._();
 
-  factory GViewerUserReq([Function(GViewerUserReqBuilder b) updates]) =
+  factory GViewerUserReq([void Function(GViewerUserReqBuilder b) updates]) =
       _$GViewerUserReq;
 
   static void _initializeBuilder(GViewerUserReqBuilder b) => b
@@ -40,6 +40,7 @@ abstract class GViewerUserReq
   _i4.Request get execRequest => _i4.Request(
         operation: operation,
         variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
       );
 
   @override
@@ -60,6 +61,9 @@ abstract class GViewerUserReq
   _i1.FetchPolicy? get fetchPolicy;
   @override
   bool get executeOnListen;
+  @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
   @override
   _i2.GViewerUserData? parseData(Map<String, dynamic> json) =>
       _i2.GViewerUserData.fromJson(json);

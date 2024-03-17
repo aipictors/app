@@ -22,7 +22,7 @@ abstract class GWorkCommentsReq
         _i1.OperationRequest<_i2.GWorkCommentsData, _i3.GWorkCommentsVars> {
   GWorkCommentsReq._();
 
-  factory GWorkCommentsReq([Function(GWorkCommentsReqBuilder b) updates]) =
+  factory GWorkCommentsReq([void Function(GWorkCommentsReqBuilder b) updates]) =
       _$GWorkCommentsReq;
 
   static void _initializeBuilder(GWorkCommentsReqBuilder b) => b
@@ -40,6 +40,7 @@ abstract class GWorkCommentsReq
   _i4.Request get execRequest => _i4.Request(
         operation: operation,
         variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
       );
 
   @override
@@ -60,6 +61,9 @@ abstract class GWorkCommentsReq
   _i1.FetchPolicy? get fetchPolicy;
   @override
   bool get executeOnListen;
+  @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
   @override
   _i2.GWorkCommentsData? parseData(Map<String, dynamic> json) =>
       _i2.GWorkCommentsData.fromJson(json);

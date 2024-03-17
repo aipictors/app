@@ -11,7 +11,7 @@ part 'tag.var.gql.g.dart';
 abstract class GTagVars implements Built<GTagVars, GTagVarsBuilder> {
   GTagVars._();
 
-  factory GTagVars([Function(GTagVarsBuilder b) updates]) = _$GTagVars;
+  factory GTagVars([void Function(GTagVarsBuilder b) updates]) = _$GTagVars;
 
   String get name;
   static Serializer<GTagVars> get serializer => _$gTagVarsSerializer;

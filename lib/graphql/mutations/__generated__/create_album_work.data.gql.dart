@@ -13,7 +13,7 @@ abstract class GCreateAlbumWorkData
   GCreateAlbumWorkData._();
 
   factory GCreateAlbumWorkData(
-          [Function(GCreateAlbumWorkDataBuilder b) updates]) =
+          [void Function(GCreateAlbumWorkDataBuilder b) updates]) =
       _$GCreateAlbumWorkData;
 
   static void _initializeBuilder(GCreateAlbumWorkDataBuilder b) =>
@@ -44,8 +44,8 @@ abstract class GCreateAlbumWorkData_createAlbumWork
   GCreateAlbumWorkData_createAlbumWork._();
 
   factory GCreateAlbumWorkData_createAlbumWork(
-          [Function(GCreateAlbumWorkData_createAlbumWorkBuilder b) updates]) =
-      _$GCreateAlbumWorkData_createAlbumWork;
+      [void Function(GCreateAlbumWorkData_createAlbumWorkBuilder b)
+          updates]) = _$GCreateAlbumWorkData_createAlbumWork;
 
   static void _initializeBuilder(
           GCreateAlbumWorkData_createAlbumWorkBuilder b) =>

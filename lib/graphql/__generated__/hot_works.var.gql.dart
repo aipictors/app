@@ -12,7 +12,7 @@ abstract class GHotWorksVars
     implements Built<GHotWorksVars, GHotWorksVarsBuilder> {
   GHotWorksVars._();
 
-  factory GHotWorksVars([Function(GHotWorksVarsBuilder b) updates]) =
+  factory GHotWorksVars([void Function(GHotWorksVarsBuilder b) updates]) =
       _$GHotWorksVars;
 
   static Serializer<GHotWorksVars> get serializer => _$gHotWorksVarsSerializer;

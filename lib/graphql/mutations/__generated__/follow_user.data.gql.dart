@@ -12,7 +12,7 @@ abstract class GFollowUserData
     implements Built<GFollowUserData, GFollowUserDataBuilder> {
   GFollowUserData._();
 
-  factory GFollowUserData([Function(GFollowUserDataBuilder b) updates]) =
+  factory GFollowUserData([void Function(GFollowUserDataBuilder b) updates]) =
       _$GFollowUserData;
 
   static void _initializeBuilder(GFollowUserDataBuilder b) =>
@@ -42,7 +42,7 @@ abstract class GFollowUserData_followUser
   GFollowUserData_followUser._();
 
   factory GFollowUserData_followUser(
-          [Function(GFollowUserData_followUserBuilder b) updates]) =
+          [void Function(GFollowUserData_followUserBuilder b) updates]) =
       _$GFollowUserData_followUser;
 
   static void _initializeBuilder(GFollowUserData_followUserBuilder b) =>
@@ -74,7 +74,7 @@ abstract class GFollowUserData_followUser_viewer
   GFollowUserData_followUser_viewer._();
 
   factory GFollowUserData_followUser_viewer(
-          [Function(GFollowUserData_followUser_viewerBuilder b) updates]) =
+          [void Function(GFollowUserData_followUser_viewerBuilder b) updates]) =
       _$GFollowUserData_followUser_viewer;
 
   static void _initializeBuilder(GFollowUserData_followUser_viewerBuilder b) =>

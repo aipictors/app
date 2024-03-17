@@ -12,7 +12,7 @@ abstract class GReportAlbumData
     implements Built<GReportAlbumData, GReportAlbumDataBuilder> {
   GReportAlbumData._();
 
-  factory GReportAlbumData([Function(GReportAlbumDataBuilder b) updates]) =
+  factory GReportAlbumData([void Function(GReportAlbumDataBuilder b) updates]) =
       _$GReportAlbumData;
 
   static void _initializeBuilder(GReportAlbumDataBuilder b) =>

@@ -12,7 +12,7 @@ abstract class GPromotionVars
     implements Built<GPromotionVars, GPromotionVarsBuilder> {
   GPromotionVars._();
 
-  factory GPromotionVars([Function(GPromotionVarsBuilder b) updates]) =
+  factory GPromotionVars([void Function(GPromotionVarsBuilder b) updates]) =
       _$GPromotionVars;
 
   String get id;

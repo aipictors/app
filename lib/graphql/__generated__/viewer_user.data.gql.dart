@@ -12,7 +12,7 @@ abstract class GViewerUserData
     implements Built<GViewerUserData, GViewerUserDataBuilder> {
   GViewerUserData._();
 
-  factory GViewerUserData([Function(GViewerUserDataBuilder b) updates]) =
+  factory GViewerUserData([void Function(GViewerUserDataBuilder b) updates]) =
       _$GViewerUserData;
 
   static void _initializeBuilder(GViewerUserDataBuilder b) =>
@@ -41,7 +41,7 @@ abstract class GViewerUserData_viewer
   GViewerUserData_viewer._();
 
   factory GViewerUserData_viewer(
-          [Function(GViewerUserData_viewerBuilder b) updates]) =
+          [void Function(GViewerUserData_viewerBuilder b) updates]) =
       _$GViewerUserData_viewer;
 
   static void _initializeBuilder(GViewerUserData_viewerBuilder b) =>
@@ -71,7 +71,7 @@ abstract class GViewerUserData_viewer_user
   GViewerUserData_viewer_user._();
 
   factory GViewerUserData_viewer_user(
-          [Function(GViewerUserData_viewer_userBuilder b) updates]) =
+          [void Function(GViewerUserData_viewer_userBuilder b) updates]) =
       _$GViewerUserData_viewer_user;
 
   static void _initializeBuilder(GViewerUserData_viewer_userBuilder b) =>
@@ -112,8 +112,8 @@ abstract class GViewerUserData_viewer_user_iconImage
   GViewerUserData_viewer_user_iconImage._();
 
   factory GViewerUserData_viewer_user_iconImage(
-          [Function(GViewerUserData_viewer_user_iconImageBuilder b) updates]) =
-      _$GViewerUserData_viewer_user_iconImage;
+      [void Function(GViewerUserData_viewer_user_iconImageBuilder b)
+          updates]) = _$GViewerUserData_viewer_user_iconImage;
 
   static void _initializeBuilder(
           GViewerUserData_viewer_user_iconImageBuilder b) =>
@@ -146,7 +146,7 @@ abstract class GViewerUserData_viewer_user_headerImage
   GViewerUserData_viewer_user_headerImage._();
 
   factory GViewerUserData_viewer_user_headerImage(
-      [Function(GViewerUserData_viewer_user_headerImageBuilder b)
+      [void Function(GViewerUserData_viewer_user_headerImageBuilder b)
           updates]) = _$GViewerUserData_viewer_user_headerImage;
 
   static void _initializeBuilder(

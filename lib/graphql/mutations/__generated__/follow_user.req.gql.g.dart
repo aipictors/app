@@ -147,6 +147,8 @@ class _$GFollowUserReq extends GFollowUserReq {
   final _i1.FetchPolicy? fetchPolicy;
   @override
   final bool executeOnListen;
+  @override
+  final _i4.Context? context;
 
   factory _$GFollowUserReq([void Function(GFollowUserReqBuilder)? updates]) =>
       (new GFollowUserReqBuilder()..update(updates))._build();
@@ -160,7 +162,8 @@ class _$GFollowUserReq extends GFollowUserReq {
       this.updateCacheHandlerKey,
       this.updateCacheHandlerContext,
       this.fetchPolicy,
-      required this.executeOnListen})
+      required this.executeOnListen,
+      this.context})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(vars, r'GFollowUserReq', 'vars');
     BuiltValueNullFieldError.checkNotNull(
@@ -190,7 +193,8 @@ class _$GFollowUserReq extends GFollowUserReq {
         updateCacheHandlerKey == other.updateCacheHandlerKey &&
         updateCacheHandlerContext == other.updateCacheHandlerContext &&
         fetchPolicy == other.fetchPolicy &&
-        executeOnListen == other.executeOnListen;
+        executeOnListen == other.executeOnListen &&
+        context == other.context;
   }
 
   @override
@@ -205,6 +209,7 @@ class _$GFollowUserReq extends GFollowUserReq {
     _$hash = $jc(_$hash, updateCacheHandlerContext.hashCode);
     _$hash = $jc(_$hash, fetchPolicy.hashCode);
     _$hash = $jc(_$hash, executeOnListen.hashCode);
+    _$hash = $jc(_$hash, context.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -220,7 +225,8 @@ class _$GFollowUserReq extends GFollowUserReq {
           ..add('updateCacheHandlerKey', updateCacheHandlerKey)
           ..add('updateCacheHandlerContext', updateCacheHandlerContext)
           ..add('fetchPolicy', fetchPolicy)
-          ..add('executeOnListen', executeOnListen))
+          ..add('executeOnListen', executeOnListen)
+          ..add('context', context))
         .toString();
   }
 }
@@ -280,6 +286,10 @@ class GFollowUserReqBuilder
   set executeOnListen(bool? executeOnListen) =>
       _$this._executeOnListen = executeOnListen;
 
+  _i4.Context? _context;
+  _i4.Context? get context => _$this._context;
+  set context(_i4.Context? context) => _$this._context = context;
+
   GFollowUserReqBuilder() {
     GFollowUserReq._initializeBuilder(this);
   }
@@ -296,6 +306,7 @@ class GFollowUserReqBuilder
       _updateCacheHandlerContext = $v.updateCacheHandlerContext;
       _fetchPolicy = $v.fetchPolicy;
       _executeOnListen = $v.executeOnListen;
+      _context = $v.context;
       _$v = null;
     }
     return this;
@@ -330,7 +341,8 @@ class GFollowUserReqBuilder
               updateCacheHandlerContext: updateCacheHandlerContext,
               fetchPolicy: fetchPolicy,
               executeOnListen: BuiltValueNullFieldError.checkNotNull(
-                  executeOnListen, r'GFollowUserReq', 'executeOnListen'));
+                  executeOnListen, r'GFollowUserReq', 'executeOnListen'),
+              context: context);
     } catch (_) {
       late String _$failedField;
       try {

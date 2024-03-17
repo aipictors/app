@@ -51,7 +51,7 @@ class StickersSpaceScreen extends HookConsumerWidget {
     return OperationBuilder(
       client: client.value!,
       operationRequest: GStickersReq((builder) {
-        return builder
+        builder
           ..vars.limit = config.graphqlQueryLimit
           ..vars.offset = 0;
       }),

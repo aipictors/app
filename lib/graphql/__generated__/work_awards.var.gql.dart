@@ -13,7 +13,7 @@ abstract class GWorkAwardsVars
     implements Built<GWorkAwardsVars, GWorkAwardsVarsBuilder> {
   GWorkAwardsVars._();
 
-  factory GWorkAwardsVars([Function(GWorkAwardsVarsBuilder b) updates]) =
+  factory GWorkAwardsVars([void Function(GWorkAwardsVarsBuilder b) updates]) =
       _$GWorkAwardsVars;
 
   int get offset;

@@ -30,7 +30,7 @@ class TagWorksView extends HookConsumerWidget {
       child: OperationBuilder(
         client: client,
         operationRequest: GTagWorksReq((builder) {
-          return builder
+          builder
             ..vars.limit = config.graphqlQueryLimit
             ..vars.tagName = tagName
             ..vars.offset = 0;

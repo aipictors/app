@@ -13,7 +13,8 @@ abstract class GUpdateStickerVars
     implements Built<GUpdateStickerVars, GUpdateStickerVarsBuilder> {
   GUpdateStickerVars._();
 
-  factory GUpdateStickerVars([Function(GUpdateStickerVarsBuilder b) updates]) =
+  factory GUpdateStickerVars(
+          [void Function(GUpdateStickerVarsBuilder b) updates]) =
       _$GUpdateStickerVars;
 
   _i1.GUpdateStickerInput get input;

@@ -15,7 +15,7 @@ abstract class GUserAlbumsData
     implements Built<GUserAlbumsData, GUserAlbumsDataBuilder> {
   GUserAlbumsData._();
 
-  factory GUserAlbumsData([Function(GUserAlbumsDataBuilder b) updates]) =
+  factory GUserAlbumsData([void Function(GUserAlbumsDataBuilder b) updates]) =
       _$GUserAlbumsData;
 
   static void _initializeBuilder(GUserAlbumsDataBuilder b) =>
@@ -44,7 +44,7 @@ abstract class GUserAlbumsData_user
   GUserAlbumsData_user._();
 
   factory GUserAlbumsData_user(
-          [Function(GUserAlbumsData_userBuilder b) updates]) =
+          [void Function(GUserAlbumsData_userBuilder b) updates]) =
       _$GUserAlbumsData_user;
 
   static void _initializeBuilder(GUserAlbumsData_userBuilder b) =>
@@ -76,7 +76,7 @@ abstract class GUserAlbumsData_user_albums
   GUserAlbumsData_user_albums._();
 
   factory GUserAlbumsData_user_albums(
-          [Function(GUserAlbumsData_user_albumsBuilder b) updates]) =
+          [void Function(GUserAlbumsData_user_albumsBuilder b) updates]) =
       _$GUserAlbumsData_user_albums;
 
   static void _initializeBuilder(GUserAlbumsData_user_albumsBuilder b) =>
@@ -121,7 +121,7 @@ abstract class GUserAlbumsData_user_albums_thumbnailImage
   GUserAlbumsData_user_albums_thumbnailImage._();
 
   factory GUserAlbumsData_user_albums_thumbnailImage(
-      [Function(GUserAlbumsData_user_albums_thumbnailImageBuilder b)
+      [void Function(GUserAlbumsData_user_albums_thumbnailImageBuilder b)
           updates]) = _$GUserAlbumsData_user_albums_thumbnailImage;
 
   static void _initializeBuilder(

@@ -11,7 +11,7 @@ part 'user.var.gql.g.dart';
 abstract class GUserVars implements Built<GUserVars, GUserVarsBuilder> {
   GUserVars._();
 
-  factory GUserVars([Function(GUserVarsBuilder b) updates]) = _$GUserVars;
+  factory GUserVars([void Function(GUserVarsBuilder b) updates]) = _$GUserVars;
 
   String get userId;
   static Serializer<GUserVars> get serializer => _$gUserVarsSerializer;

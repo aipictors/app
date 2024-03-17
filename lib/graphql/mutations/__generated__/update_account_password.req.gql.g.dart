@@ -154,6 +154,8 @@ class _$GUpdateAccountPasswordReq extends GUpdateAccountPasswordReq {
   final _i1.FetchPolicy? fetchPolicy;
   @override
   final bool executeOnListen;
+  @override
+  final _i4.Context? context;
 
   factory _$GUpdateAccountPasswordReq(
           [void Function(GUpdateAccountPasswordReqBuilder)? updates]) =>
@@ -168,7 +170,8 @@ class _$GUpdateAccountPasswordReq extends GUpdateAccountPasswordReq {
       this.updateCacheHandlerKey,
       this.updateCacheHandlerContext,
       this.fetchPolicy,
-      required this.executeOnListen})
+      required this.executeOnListen,
+      this.context})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         vars, r'GUpdateAccountPasswordReq', 'vars');
@@ -200,7 +203,8 @@ class _$GUpdateAccountPasswordReq extends GUpdateAccountPasswordReq {
         updateCacheHandlerKey == other.updateCacheHandlerKey &&
         updateCacheHandlerContext == other.updateCacheHandlerContext &&
         fetchPolicy == other.fetchPolicy &&
-        executeOnListen == other.executeOnListen;
+        executeOnListen == other.executeOnListen &&
+        context == other.context;
   }
 
   @override
@@ -215,6 +219,7 @@ class _$GUpdateAccountPasswordReq extends GUpdateAccountPasswordReq {
     _$hash = $jc(_$hash, updateCacheHandlerContext.hashCode);
     _$hash = $jc(_$hash, fetchPolicy.hashCode);
     _$hash = $jc(_$hash, executeOnListen.hashCode);
+    _$hash = $jc(_$hash, context.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -230,7 +235,8 @@ class _$GUpdateAccountPasswordReq extends GUpdateAccountPasswordReq {
           ..add('updateCacheHandlerKey', updateCacheHandlerKey)
           ..add('updateCacheHandlerContext', updateCacheHandlerContext)
           ..add('fetchPolicy', fetchPolicy)
-          ..add('executeOnListen', executeOnListen))
+          ..add('executeOnListen', executeOnListen)
+          ..add('context', context))
         .toString();
   }
 }
@@ -296,6 +302,10 @@ class GUpdateAccountPasswordReqBuilder
   set executeOnListen(bool? executeOnListen) =>
       _$this._executeOnListen = executeOnListen;
 
+  _i4.Context? _context;
+  _i4.Context? get context => _$this._context;
+  set context(_i4.Context? context) => _$this._context = context;
+
   GUpdateAccountPasswordReqBuilder() {
     GUpdateAccountPasswordReq._initializeBuilder(this);
   }
@@ -312,6 +322,7 @@ class GUpdateAccountPasswordReqBuilder
       _updateCacheHandlerContext = $v.updateCacheHandlerContext;
       _fetchPolicy = $v.fetchPolicy;
       _executeOnListen = $v.executeOnListen;
+      _context = $v.context;
       _$v = null;
     }
     return this;
@@ -348,7 +359,8 @@ class GUpdateAccountPasswordReqBuilder
               executeOnListen: BuiltValueNullFieldError.checkNotNull(
                   executeOnListen,
                   r'GUpdateAccountPasswordReq',
-                  'executeOnListen'));
+                  'executeOnListen'),
+              context: context);
     } catch (_) {
       late String _$failedField;
       try {

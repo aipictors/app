@@ -14,7 +14,8 @@ part 'folder.data.gql.g.dart';
 abstract class GFolderData implements Built<GFolderData, GFolderDataBuilder> {
   GFolderData._();
 
-  factory GFolderData([Function(GFolderDataBuilder b) updates]) = _$GFolderData;
+  factory GFolderData([void Function(GFolderDataBuilder b) updates]) =
+      _$GFolderData;
 
   static void _initializeBuilder(GFolderDataBuilder b) =>
       b..G__typename = 'Query';
@@ -40,7 +41,8 @@ abstract class GFolderData_folder
     implements Built<GFolderData_folder, GFolderData_folderBuilder> {
   GFolderData_folder._();
 
-  factory GFolderData_folder([Function(GFolderData_folderBuilder b) updates]) =
+  factory GFolderData_folder(
+          [void Function(GFolderData_folderBuilder b) updates]) =
       _$GFolderData_folder;
 
   static void _initializeBuilder(GFolderData_folderBuilder b) =>
@@ -79,7 +81,7 @@ abstract class GFolderData_folder_user
   GFolderData_folder_user._();
 
   factory GFolderData_folder_user(
-          [Function(GFolderData_folder_userBuilder b) updates]) =
+          [void Function(GFolderData_folder_userBuilder b) updates]) =
       _$GFolderData_folder_user;
 
   static void _initializeBuilder(GFolderData_folder_userBuilder b) =>
@@ -121,7 +123,7 @@ abstract class GFolderData_folder_user_iconImage
   GFolderData_folder_user_iconImage._();
 
   factory GFolderData_folder_user_iconImage(
-          [Function(GFolderData_folder_user_iconImageBuilder b) updates]) =
+          [void Function(GFolderData_folder_user_iconImageBuilder b) updates]) =
       _$GFolderData_folder_user_iconImage;
 
   static void _initializeBuilder(GFolderData_folder_user_iconImageBuilder b) =>
@@ -158,7 +160,7 @@ abstract class GFolderData_folder_user_viewer
   GFolderData_folder_user_viewer._();
 
   factory GFolderData_folder_user_viewer(
-          [Function(GFolderData_folder_user_viewerBuilder b) updates]) =
+          [void Function(GFolderData_folder_user_viewerBuilder b) updates]) =
       _$GFolderData_folder_user_viewer;
 
   static void _initializeBuilder(GFolderData_folder_user_viewerBuilder b) =>

@@ -54,7 +54,7 @@ abstract class GFollowNotificationFieldsData
   GFollowNotificationFieldsData._();
 
   factory GFollowNotificationFieldsData(
-          [Function(GFollowNotificationFieldsDataBuilder b) updates]) =
+          [void Function(GFollowNotificationFieldsDataBuilder b) updates]) =
       _$GFollowNotificationFieldsData;
 
   static void _initializeBuilder(GFollowNotificationFieldsDataBuilder b) =>
@@ -94,8 +94,8 @@ abstract class GFollowNotificationFieldsData_user
   GFollowNotificationFieldsData_user._();
 
   factory GFollowNotificationFieldsData_user(
-          [Function(GFollowNotificationFieldsData_userBuilder b) updates]) =
-      _$GFollowNotificationFieldsData_user;
+      [void Function(GFollowNotificationFieldsData_userBuilder b)
+          updates]) = _$GFollowNotificationFieldsData_user;
 
   static void _initializeBuilder(GFollowNotificationFieldsData_userBuilder b) =>
       b..G__typename = 'UserNode';
@@ -137,7 +137,7 @@ abstract class GFollowNotificationFieldsData_user_iconImage
   GFollowNotificationFieldsData_user_iconImage._();
 
   factory GFollowNotificationFieldsData_user_iconImage(
-      [Function(GFollowNotificationFieldsData_user_iconImageBuilder b)
+      [void Function(GFollowNotificationFieldsData_user_iconImageBuilder b)
           updates]) = _$GFollowNotificationFieldsData_user_iconImage;
 
   static void _initializeBuilder(

@@ -22,7 +22,7 @@ abstract class GCreateFolderReq
         _i1.OperationRequest<_i2.GCreateFolderData, _i3.GCreateFolderVars> {
   GCreateFolderReq._();
 
-  factory GCreateFolderReq([Function(GCreateFolderReqBuilder b) updates]) =
+  factory GCreateFolderReq([void Function(GCreateFolderReqBuilder b) updates]) =
       _$GCreateFolderReq;
 
   static void _initializeBuilder(GCreateFolderReqBuilder b) => b
@@ -40,6 +40,7 @@ abstract class GCreateFolderReq
   _i4.Request get execRequest => _i4.Request(
         operation: operation,
         variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
       );
 
   @override
@@ -60,6 +61,9 @@ abstract class GCreateFolderReq
   _i1.FetchPolicy? get fetchPolicy;
   @override
   bool get executeOnListen;
+  @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
   @override
   _i2.GCreateFolderData? parseData(Map<String, dynamic> json) =>
       _i2.GCreateFolderData.fromJson(json);

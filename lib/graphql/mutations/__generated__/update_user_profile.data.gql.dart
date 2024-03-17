@@ -13,7 +13,7 @@ abstract class GUpdateUserProfileData
   GUpdateUserProfileData._();
 
   factory GUpdateUserProfileData(
-          [Function(GUpdateUserProfileDataBuilder b) updates]) =
+          [void Function(GUpdateUserProfileDataBuilder b) updates]) =
       _$GUpdateUserProfileData;
 
   static void _initializeBuilder(GUpdateUserProfileDataBuilder b) =>
@@ -44,7 +44,7 @@ abstract class GUpdateUserProfileData_updateUserProfile
   GUpdateUserProfileData_updateUserProfile._();
 
   factory GUpdateUserProfileData_updateUserProfile(
-      [Function(GUpdateUserProfileData_updateUserProfileBuilder b)
+      [void Function(GUpdateUserProfileData_updateUserProfileBuilder b)
           updates]) = _$GUpdateUserProfileData_updateUserProfile;
 
   static void _initializeBuilder(

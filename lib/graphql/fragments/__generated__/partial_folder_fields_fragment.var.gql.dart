@@ -14,7 +14,7 @@ abstract class GPartialFolderFieldsVars
   GPartialFolderFieldsVars._();
 
   factory GPartialFolderFieldsVars(
-          [Function(GPartialFolderFieldsVarsBuilder b) updates]) =
+          [void Function(GPartialFolderFieldsVarsBuilder b) updates]) =
       _$GPartialFolderFieldsVars;
 
   static Serializer<GPartialFolderFieldsVars> get serializer =>

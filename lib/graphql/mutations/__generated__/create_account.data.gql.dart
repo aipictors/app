@@ -12,7 +12,8 @@ abstract class GCreateAccountData
     implements Built<GCreateAccountData, GCreateAccountDataBuilder> {
   GCreateAccountData._();
 
-  factory GCreateAccountData([Function(GCreateAccountDataBuilder b) updates]) =
+  factory GCreateAccountData(
+          [void Function(GCreateAccountDataBuilder b) updates]) =
       _$GCreateAccountData;
 
   static void _initializeBuilder(GCreateAccountDataBuilder b) =>
@@ -43,7 +44,7 @@ abstract class GCreateAccountData_createAccount
   GCreateAccountData_createAccount._();
 
   factory GCreateAccountData_createAccount(
-          [Function(GCreateAccountData_createAccountBuilder b) updates]) =
+          [void Function(GCreateAccountData_createAccountBuilder b) updates]) =
       _$GCreateAccountData_createAccount;
 
   static void _initializeBuilder(GCreateAccountData_createAccountBuilder b) =>

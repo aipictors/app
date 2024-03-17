@@ -15,7 +15,7 @@ abstract class GAlbumWorksData
     implements Built<GAlbumWorksData, GAlbumWorksDataBuilder> {
   GAlbumWorksData._();
 
-  factory GAlbumWorksData([Function(GAlbumWorksDataBuilder b) updates]) =
+  factory GAlbumWorksData([void Function(GAlbumWorksDataBuilder b) updates]) =
       _$GAlbumWorksData;
 
   static void _initializeBuilder(GAlbumWorksDataBuilder b) =>
@@ -44,7 +44,7 @@ abstract class GAlbumWorksData_album
   GAlbumWorksData_album._();
 
   factory GAlbumWorksData_album(
-          [Function(GAlbumWorksData_albumBuilder b) updates]) =
+          [void Function(GAlbumWorksData_albumBuilder b) updates]) =
       _$GAlbumWorksData_album;
 
   static void _initializeBuilder(GAlbumWorksData_albumBuilder b) =>
@@ -77,7 +77,7 @@ abstract class GAlbumWorksData_album_works
   GAlbumWorksData_album_works._();
 
   factory GAlbumWorksData_album_works(
-          [Function(GAlbumWorksData_album_worksBuilder b) updates]) =
+          [void Function(GAlbumWorksData_album_worksBuilder b) updates]) =
       _$GAlbumWorksData_album_works;
 
   static void _initializeBuilder(GAlbumWorksData_album_worksBuilder b) =>
@@ -125,7 +125,7 @@ abstract class GAlbumWorksData_album_works_image
   GAlbumWorksData_album_works_image._();
 
   factory GAlbumWorksData_album_works_image(
-          [Function(GAlbumWorksData_album_works_imageBuilder b) updates]) =
+          [void Function(GAlbumWorksData_album_works_imageBuilder b) updates]) =
       _$GAlbumWorksData_album_works_image;
 
   static void _initializeBuilder(GAlbumWorksData_album_works_imageBuilder b) =>
@@ -162,8 +162,8 @@ abstract class GAlbumWorksData_album_works_viewer
   GAlbumWorksData_album_works_viewer._();
 
   factory GAlbumWorksData_album_works_viewer(
-          [Function(GAlbumWorksData_album_works_viewerBuilder b) updates]) =
-      _$GAlbumWorksData_album_works_viewer;
+      [void Function(GAlbumWorksData_album_works_viewerBuilder b)
+          updates]) = _$GAlbumWorksData_album_works_viewer;
 
   static void _initializeBuilder(GAlbumWorksData_album_works_viewerBuilder b) =>
       b..G__typename = 'WorkViewerNode';
@@ -195,7 +195,7 @@ abstract class GAlbumWorksData_album_viewer
   GAlbumWorksData_album_viewer._();
 
   factory GAlbumWorksData_album_viewer(
-          [Function(GAlbumWorksData_album_viewerBuilder b) updates]) =
+          [void Function(GAlbumWorksData_album_viewerBuilder b) updates]) =
       _$GAlbumWorksData_album_viewer;
 
   static void _initializeBuilder(GAlbumWorksData_album_viewerBuilder b) =>

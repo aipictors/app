@@ -13,7 +13,7 @@ abstract class GReportAlbumVars
     implements Built<GReportAlbumVars, GReportAlbumVarsBuilder> {
   GReportAlbumVars._();
 
-  factory GReportAlbumVars([Function(GReportAlbumVarsBuilder b) updates]) =
+  factory GReportAlbumVars([void Function(GReportAlbumVarsBuilder b) updates]) =
       _$GReportAlbumVars;
 
   _i1.GReportAlbumInput get input;

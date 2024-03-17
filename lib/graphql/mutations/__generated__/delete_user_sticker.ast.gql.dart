@@ -11,7 +11,7 @@ const DeleteUserSticker = _i1.OperationDefinitionNode(
     _i1.VariableDefinitionNode(
       variable: _i1.VariableNode(name: _i1.NameNode(value: 'input')),
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'DeleteUserStickerInput'),
+        name: _i1.NameNode(value: 'DeleteStickerInput'),
         isNonNull: true,
       ),
       defaultValue: _i1.DefaultValueNode(value: null),
@@ -21,7 +21,7 @@ const DeleteUserSticker = _i1.OperationDefinitionNode(
   directives: [],
   selectionSet: _i1.SelectionSetNode(selections: [
     _i1.FieldNode(
-      name: _i1.NameNode(value: 'deleteUserSticker'),
+      name: _i1.NameNode(value: 'deleteSticker'),
       alias: null,
       arguments: [
         _i1.ArgumentNode(

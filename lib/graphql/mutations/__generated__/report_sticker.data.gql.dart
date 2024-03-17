@@ -12,7 +12,8 @@ abstract class GReportStickerData
     implements Built<GReportStickerData, GReportStickerDataBuilder> {
   GReportStickerData._();
 
-  factory GReportStickerData([Function(GReportStickerDataBuilder b) updates]) =
+  factory GReportStickerData(
+          [void Function(GReportStickerDataBuilder b) updates]) =
       _$GReportStickerData;
 
   static void _initializeBuilder(GReportStickerDataBuilder b) =>

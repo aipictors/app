@@ -19,7 +19,7 @@ abstract class GTagWorksReq
         _i1.OperationRequest<_i2.GTagWorksData, _i3.GTagWorksVars> {
   GTagWorksReq._();
 
-  factory GTagWorksReq([Function(GTagWorksReqBuilder b) updates]) =
+  factory GTagWorksReq([void Function(GTagWorksReqBuilder b) updates]) =
       _$GTagWorksReq;
 
   static void _initializeBuilder(GTagWorksReqBuilder b) => b
@@ -37,6 +37,7 @@ abstract class GTagWorksReq
   _i4.Request get execRequest => _i4.Request(
         operation: operation,
         variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
       );
 
   @override
@@ -57,6 +58,9 @@ abstract class GTagWorksReq
   _i1.FetchPolicy? get fetchPolicy;
   @override
   bool get executeOnListen;
+  @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
   @override
   _i2.GTagWorksData? parseData(Map<String, dynamic> json) =>
       _i2.GTagWorksData.fromJson(json);

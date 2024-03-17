@@ -13,7 +13,7 @@ abstract class GFeedPopularWorksVars
   GFeedPopularWorksVars._();
 
   factory GFeedPopularWorksVars(
-          [Function(GFeedPopularWorksVarsBuilder b) updates]) =
+          [void Function(GFeedPopularWorksVarsBuilder b) updates]) =
       _$GFeedPopularWorksVars;
 
   static Serializer<GFeedPopularWorksVars> get serializer =>

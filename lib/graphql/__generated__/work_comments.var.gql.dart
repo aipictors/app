@@ -12,7 +12,8 @@ abstract class GWorkCommentsVars
     implements Built<GWorkCommentsVars, GWorkCommentsVarsBuilder> {
   GWorkCommentsVars._();
 
-  factory GWorkCommentsVars([Function(GWorkCommentsVarsBuilder b) updates]) =
+  factory GWorkCommentsVars(
+          [void Function(GWorkCommentsVarsBuilder b) updates]) =
       _$GWorkCommentsVars;
 
   String get workId;

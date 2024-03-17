@@ -18,7 +18,7 @@ abstract class GFeedPopularWorksData
   GFeedPopularWorksData._();
 
   factory GFeedPopularWorksData(
-          [Function(GFeedPopularWorksDataBuilder b) updates]) =
+          [void Function(GFeedPopularWorksDataBuilder b) updates]) =
       _$GFeedPopularWorksData;
 
   static void _initializeBuilder(GFeedPopularWorksDataBuilder b) =>
@@ -50,8 +50,8 @@ abstract class GFeedPopularWorksData_popularWorks
   GFeedPopularWorksData_popularWorks._();
 
   factory GFeedPopularWorksData_popularWorks(
-          [Function(GFeedPopularWorksData_popularWorksBuilder b) updates]) =
-      _$GFeedPopularWorksData_popularWorks;
+      [void Function(GFeedPopularWorksData_popularWorksBuilder b)
+          updates]) = _$GFeedPopularWorksData_popularWorks;
 
   static void _initializeBuilder(GFeedPopularWorksData_popularWorksBuilder b) =>
       b..G__typename = 'WorkNode';
@@ -100,7 +100,7 @@ abstract class GFeedPopularWorksData_popularWorks_image
   GFeedPopularWorksData_popularWorks_image._();
 
   factory GFeedPopularWorksData_popularWorks_image(
-      [Function(GFeedPopularWorksData_popularWorks_imageBuilder b)
+      [void Function(GFeedPopularWorksData_popularWorks_imageBuilder b)
           updates]) = _$GFeedPopularWorksData_popularWorks_image;
 
   static void _initializeBuilder(
@@ -139,7 +139,7 @@ abstract class GFeedPopularWorksData_popularWorks_user
   GFeedPopularWorksData_popularWorks_user._();
 
   factory GFeedPopularWorksData_popularWorks_user(
-      [Function(GFeedPopularWorksData_popularWorks_userBuilder b)
+      [void Function(GFeedPopularWorksData_popularWorks_userBuilder b)
           updates]) = _$GFeedPopularWorksData_popularWorks_user;
 
   static void _initializeBuilder(
@@ -183,7 +183,7 @@ abstract class GFeedPopularWorksData_popularWorks_user_iconImage
   GFeedPopularWorksData_popularWorks_user_iconImage._();
 
   factory GFeedPopularWorksData_popularWorks_user_iconImage(
-      [Function(GFeedPopularWorksData_popularWorks_user_iconImageBuilder b)
+      [void Function(GFeedPopularWorksData_popularWorks_user_iconImageBuilder b)
           updates]) = _$GFeedPopularWorksData_popularWorks_user_iconImage;
 
   static void _initializeBuilder(
@@ -222,7 +222,7 @@ abstract class GFeedPopularWorksData_popularWorks_user_viewer
   GFeedPopularWorksData_popularWorks_user_viewer._();
 
   factory GFeedPopularWorksData_popularWorks_user_viewer(
-      [Function(GFeedPopularWorksData_popularWorks_user_viewerBuilder b)
+      [void Function(GFeedPopularWorksData_popularWorks_user_viewerBuilder b)
           updates]) = _$GFeedPopularWorksData_popularWorks_user_viewer;
 
   static void _initializeBuilder(
@@ -258,7 +258,7 @@ abstract class GFeedPopularWorksData_popularWorks_viewer
   GFeedPopularWorksData_popularWorks_viewer._();
 
   factory GFeedPopularWorksData_popularWorks_viewer(
-      [Function(GFeedPopularWorksData_popularWorks_viewerBuilder b)
+      [void Function(GFeedPopularWorksData_popularWorks_viewerBuilder b)
           updates]) = _$GFeedPopularWorksData_popularWorks_viewer;
 
   static void _initializeBuilder(

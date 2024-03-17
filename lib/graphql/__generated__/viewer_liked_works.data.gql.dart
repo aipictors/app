@@ -16,7 +16,7 @@ abstract class GViewerLikedWorksData
   GViewerLikedWorksData._();
 
   factory GViewerLikedWorksData(
-          [Function(GViewerLikedWorksDataBuilder b) updates]) =
+          [void Function(GViewerLikedWorksDataBuilder b) updates]) =
       _$GViewerLikedWorksData;
 
   static void _initializeBuilder(GViewerLikedWorksDataBuilder b) =>
@@ -47,7 +47,7 @@ abstract class GViewerLikedWorksData_viewer
   GViewerLikedWorksData_viewer._();
 
   factory GViewerLikedWorksData_viewer(
-          [Function(GViewerLikedWorksData_viewerBuilder b) updates]) =
+          [void Function(GViewerLikedWorksData_viewerBuilder b) updates]) =
       _$GViewerLikedWorksData_viewer;
 
   static void _initializeBuilder(GViewerLikedWorksData_viewerBuilder b) =>
@@ -79,7 +79,7 @@ abstract class GViewerLikedWorksData_viewer_likedWorks
   GViewerLikedWorksData_viewer_likedWorks._();
 
   factory GViewerLikedWorksData_viewer_likedWorks(
-      [Function(GViewerLikedWorksData_viewer_likedWorksBuilder b)
+      [void Function(GViewerLikedWorksData_viewer_likedWorksBuilder b)
           updates]) = _$GViewerLikedWorksData_viewer_likedWorks;
 
   static void _initializeBuilder(
@@ -126,7 +126,8 @@ abstract class GViewerLikedWorksData_viewer_likedWorks_thumbnailImage
   GViewerLikedWorksData_viewer_likedWorks_thumbnailImage._();
 
   factory GViewerLikedWorksData_viewer_likedWorks_thumbnailImage(
-      [Function(GViewerLikedWorksData_viewer_likedWorks_thumbnailImageBuilder b)
+      [void Function(
+              GViewerLikedWorksData_viewer_likedWorks_thumbnailImageBuilder b)
           updates]) = _$GViewerLikedWorksData_viewer_likedWorks_thumbnailImage;
 
   static void _initializeBuilder(

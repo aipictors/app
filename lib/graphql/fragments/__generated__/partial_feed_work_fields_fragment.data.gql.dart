@@ -34,7 +34,7 @@ abstract class GPartialFeedWorkFieldsData
   GPartialFeedWorkFieldsData._();
 
   factory GPartialFeedWorkFieldsData(
-          [Function(GPartialFeedWorkFieldsDataBuilder b) updates]) =
+          [void Function(GPartialFeedWorkFieldsDataBuilder b) updates]) =
       _$GPartialFeedWorkFieldsData;
 
   static void _initializeBuilder(GPartialFeedWorkFieldsDataBuilder b) =>
@@ -81,7 +81,7 @@ abstract class GPartialFeedWorkFieldsData_image
   GPartialFeedWorkFieldsData_image._();
 
   factory GPartialFeedWorkFieldsData_image(
-          [Function(GPartialFeedWorkFieldsData_imageBuilder b) updates]) =
+          [void Function(GPartialFeedWorkFieldsData_imageBuilder b) updates]) =
       _$GPartialFeedWorkFieldsData_image;
 
   static void _initializeBuilder(GPartialFeedWorkFieldsData_imageBuilder b) =>

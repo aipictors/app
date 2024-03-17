@@ -125,8 +125,8 @@ abstract class GWorkCommentNotificationFieldsData
   GWorkCommentNotificationFieldsData._();
 
   factory GWorkCommentNotificationFieldsData(
-          [Function(GWorkCommentNotificationFieldsDataBuilder b) updates]) =
-      _$GWorkCommentNotificationFieldsData;
+      [void Function(GWorkCommentNotificationFieldsDataBuilder b)
+          updates]) = _$GWorkCommentNotificationFieldsData;
 
   static void _initializeBuilder(GWorkCommentNotificationFieldsDataBuilder b) =>
       b..G__typename = 'WorkCommentNotificationNode';
@@ -172,7 +172,7 @@ abstract class GWorkCommentNotificationFieldsData_work
   GWorkCommentNotificationFieldsData_work._();
 
   factory GWorkCommentNotificationFieldsData_work(
-      [Function(GWorkCommentNotificationFieldsData_workBuilder b)
+      [void Function(GWorkCommentNotificationFieldsData_workBuilder b)
           updates]) = _$GWorkCommentNotificationFieldsData_work;
 
   static void _initializeBuilder(
@@ -220,7 +220,8 @@ abstract class GWorkCommentNotificationFieldsData_work_thumbnailImage
   GWorkCommentNotificationFieldsData_work_thumbnailImage._();
 
   factory GWorkCommentNotificationFieldsData_work_thumbnailImage(
-      [Function(GWorkCommentNotificationFieldsData_work_thumbnailImageBuilder b)
+      [void Function(
+              GWorkCommentNotificationFieldsData_work_thumbnailImageBuilder b)
           updates]) = _$GWorkCommentNotificationFieldsData_work_thumbnailImage;
 
   static void _initializeBuilder(
@@ -261,7 +262,7 @@ abstract class GWorkCommentNotificationFieldsData_user
   GWorkCommentNotificationFieldsData_user._();
 
   factory GWorkCommentNotificationFieldsData_user(
-      [Function(GWorkCommentNotificationFieldsData_userBuilder b)
+      [void Function(GWorkCommentNotificationFieldsData_userBuilder b)
           updates]) = _$GWorkCommentNotificationFieldsData_user;
 
   static void _initializeBuilder(
@@ -305,7 +306,7 @@ abstract class GWorkCommentNotificationFieldsData_user_iconImage
   GWorkCommentNotificationFieldsData_user_iconImage._();
 
   factory GWorkCommentNotificationFieldsData_user_iconImage(
-      [Function(GWorkCommentNotificationFieldsData_user_iconImageBuilder b)
+      [void Function(GWorkCommentNotificationFieldsData_user_iconImageBuilder b)
           updates]) = _$GWorkCommentNotificationFieldsData_user_iconImage;
 
   static void _initializeBuilder(
@@ -346,7 +347,7 @@ abstract class GWorkCommentNotificationFieldsData_sticker
   GWorkCommentNotificationFieldsData_sticker._();
 
   factory GWorkCommentNotificationFieldsData_sticker(
-      [Function(GWorkCommentNotificationFieldsData_stickerBuilder b)
+      [void Function(GWorkCommentNotificationFieldsData_stickerBuilder b)
           updates]) = _$GWorkCommentNotificationFieldsData_sticker;
 
   static void _initializeBuilder(
@@ -394,7 +395,7 @@ abstract class GWorkCommentNotificationFieldsData_sticker_image
   GWorkCommentNotificationFieldsData_sticker_image._();
 
   factory GWorkCommentNotificationFieldsData_sticker_image(
-      [Function(GWorkCommentNotificationFieldsData_sticker_imageBuilder b)
+      [void Function(GWorkCommentNotificationFieldsData_sticker_imageBuilder b)
           updates]) = _$GWorkCommentNotificationFieldsData_sticker_image;
 
   static void _initializeBuilder(

@@ -16,7 +16,7 @@ abstract class GViewerMutedTagsData
   GViewerMutedTagsData._();
 
   factory GViewerMutedTagsData(
-          [Function(GViewerMutedTagsDataBuilder b) updates]) =
+          [void Function(GViewerMutedTagsDataBuilder b) updates]) =
       _$GViewerMutedTagsData;
 
   static void _initializeBuilder(GViewerMutedTagsDataBuilder b) =>
@@ -46,7 +46,7 @@ abstract class GViewerMutedTagsData_viewer
   GViewerMutedTagsData_viewer._();
 
   factory GViewerMutedTagsData_viewer(
-          [Function(GViewerMutedTagsData_viewerBuilder b) updates]) =
+          [void Function(GViewerMutedTagsData_viewerBuilder b) updates]) =
       _$GViewerMutedTagsData_viewer;
 
   static void _initializeBuilder(GViewerMutedTagsData_viewerBuilder b) =>
@@ -78,8 +78,8 @@ abstract class GViewerMutedTagsData_viewer_mutedTags
   GViewerMutedTagsData_viewer_mutedTags._();
 
   factory GViewerMutedTagsData_viewer_mutedTags(
-          [Function(GViewerMutedTagsData_viewer_mutedTagsBuilder b) updates]) =
-      _$GViewerMutedTagsData_viewer_mutedTags;
+      [void Function(GViewerMutedTagsData_viewer_mutedTagsBuilder b)
+          updates]) = _$GViewerMutedTagsData_viewer_mutedTags;
 
   static void _initializeBuilder(
           GViewerMutedTagsData_viewer_mutedTagsBuilder b) =>

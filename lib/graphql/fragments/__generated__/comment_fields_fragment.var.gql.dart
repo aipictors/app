@@ -12,7 +12,8 @@ abstract class GCommentFieldsVars
     implements Built<GCommentFieldsVars, GCommentFieldsVarsBuilder> {
   GCommentFieldsVars._();
 
-  factory GCommentFieldsVars([Function(GCommentFieldsVarsBuilder b) updates]) =
+  factory GCommentFieldsVars(
+          [void Function(GCommentFieldsVarsBuilder b) updates]) =
       _$GCommentFieldsVars;
 
   static Serializer<GCommentFieldsVars> get serializer =>

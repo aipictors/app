@@ -13,7 +13,7 @@ abstract class GLoginWithPasswordData
   GLoginWithPasswordData._();
 
   factory GLoginWithPasswordData(
-          [Function(GLoginWithPasswordDataBuilder b) updates]) =
+          [void Function(GLoginWithPasswordDataBuilder b) updates]) =
       _$GLoginWithPasswordData;
 
   static void _initializeBuilder(GLoginWithPasswordDataBuilder b) =>
@@ -44,7 +44,7 @@ abstract class GLoginWithPasswordData_loginWithPassword
   GLoginWithPasswordData_loginWithPassword._();
 
   factory GLoginWithPasswordData_loginWithPassword(
-      [Function(GLoginWithPasswordData_loginWithPasswordBuilder b)
+      [void Function(GLoginWithPasswordData_loginWithPasswordBuilder b)
           updates]) = _$GLoginWithPasswordData_loginWithPassword;
 
   static void _initializeBuilder(

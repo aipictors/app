@@ -12,7 +12,7 @@ abstract class GUserWorksVars
     implements Built<GUserWorksVars, GUserWorksVarsBuilder> {
   GUserWorksVars._();
 
-  factory GUserWorksVars([Function(GUserWorksVarsBuilder b) updates]) =
+  factory GUserWorksVars([void Function(GUserWorksVarsBuilder b) updates]) =
       _$GUserWorksVars;
 
   String get user_id;

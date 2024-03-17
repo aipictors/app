@@ -13,7 +13,7 @@ abstract class GCreateWorkVars
     implements Built<GCreateWorkVars, GCreateWorkVarsBuilder> {
   GCreateWorkVars._();
 
-  factory GCreateWorkVars([Function(GCreateWorkVarsBuilder b) updates]) =
+  factory GCreateWorkVars([void Function(GCreateWorkVarsBuilder b) updates]) =
       _$GCreateWorkVars;
 
   _i1.GCreateWorkInput get input;

@@ -90,7 +90,7 @@ abstract class GLikedWorkNotificationFieldsData
   GLikedWorkNotificationFieldsData._();
 
   factory GLikedWorkNotificationFieldsData(
-          [Function(GLikedWorkNotificationFieldsDataBuilder b) updates]) =
+          [void Function(GLikedWorkNotificationFieldsDataBuilder b) updates]) =
       _$GLikedWorkNotificationFieldsData;
 
   static void _initializeBuilder(GLikedWorkNotificationFieldsDataBuilder b) =>
@@ -135,8 +135,8 @@ abstract class GLikedWorkNotificationFieldsData_work
   GLikedWorkNotificationFieldsData_work._();
 
   factory GLikedWorkNotificationFieldsData_work(
-          [Function(GLikedWorkNotificationFieldsData_workBuilder b) updates]) =
-      _$GLikedWorkNotificationFieldsData_work;
+      [void Function(GLikedWorkNotificationFieldsData_workBuilder b)
+          updates]) = _$GLikedWorkNotificationFieldsData_work;
 
   static void _initializeBuilder(
           GLikedWorkNotificationFieldsData_workBuilder b) =>
@@ -183,7 +183,8 @@ abstract class GLikedWorkNotificationFieldsData_work_thumbnailImage
   GLikedWorkNotificationFieldsData_work_thumbnailImage._();
 
   factory GLikedWorkNotificationFieldsData_work_thumbnailImage(
-      [Function(GLikedWorkNotificationFieldsData_work_thumbnailImageBuilder b)
+      [void Function(
+              GLikedWorkNotificationFieldsData_work_thumbnailImageBuilder b)
           updates]) = _$GLikedWorkNotificationFieldsData_work_thumbnailImage;
 
   static void _initializeBuilder(
@@ -224,8 +225,8 @@ abstract class GLikedWorkNotificationFieldsData_user
   GLikedWorkNotificationFieldsData_user._();
 
   factory GLikedWorkNotificationFieldsData_user(
-          [Function(GLikedWorkNotificationFieldsData_userBuilder b) updates]) =
-      _$GLikedWorkNotificationFieldsData_user;
+      [void Function(GLikedWorkNotificationFieldsData_userBuilder b)
+          updates]) = _$GLikedWorkNotificationFieldsData_user;
 
   static void _initializeBuilder(
           GLikedWorkNotificationFieldsData_userBuilder b) =>
@@ -268,7 +269,7 @@ abstract class GLikedWorkNotificationFieldsData_user_iconImage
   GLikedWorkNotificationFieldsData_user_iconImage._();
 
   factory GLikedWorkNotificationFieldsData_user_iconImage(
-      [Function(GLikedWorkNotificationFieldsData_user_iconImageBuilder b)
+      [void Function(GLikedWorkNotificationFieldsData_user_iconImageBuilder b)
           updates]) = _$GLikedWorkNotificationFieldsData_user_iconImage;
 
   static void _initializeBuilder(

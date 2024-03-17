@@ -14,7 +14,7 @@ Future<GLoginWithPasswordData?> loginWithPassword({
     final client = await createClient();
 
     final req = GLoginWithPasswordReq((builder) {
-      return builder
+      builder
         ..vars.input.login = login
         ..vars.input.password = password;
     });

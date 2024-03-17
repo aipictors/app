@@ -33,7 +33,7 @@ abstract class GPartialAlbumFieldsData
   GPartialAlbumFieldsData._();
 
   factory GPartialAlbumFieldsData(
-          [Function(GPartialAlbumFieldsDataBuilder b) updates]) =
+          [void Function(GPartialAlbumFieldsDataBuilder b) updates]) =
       _$GPartialAlbumFieldsData;
 
   static void _initializeBuilder(GPartialAlbumFieldsDataBuilder b) =>
@@ -78,8 +78,8 @@ abstract class GPartialAlbumFieldsData_thumbnailImage
   GPartialAlbumFieldsData_thumbnailImage._();
 
   factory GPartialAlbumFieldsData_thumbnailImage(
-          [Function(GPartialAlbumFieldsData_thumbnailImageBuilder b) updates]) =
-      _$GPartialAlbumFieldsData_thumbnailImage;
+      [void Function(GPartialAlbumFieldsData_thumbnailImageBuilder b)
+          updates]) = _$GPartialAlbumFieldsData_thumbnailImage;
 
   static void _initializeBuilder(
           GPartialAlbumFieldsData_thumbnailImageBuilder b) =>

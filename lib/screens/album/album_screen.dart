@@ -31,7 +31,7 @@ class AlbumScreen extends HookConsumerWidget {
     }
 
     final request = GAlbumReq((builder) {
-      return builder..vars.id = albumId;
+      builder.vars.id = albumId;
     });
 
     return Scaffold(
@@ -39,7 +39,7 @@ class AlbumScreen extends HookConsumerWidget {
         onRefresh: () async {
           audio.play(AssetSource('snd_sine/progress_loop.wav'));
           final req = request.rebuild((builder) {
-            return builder..vars.id = albumId;
+            builder.vars.id = albumId;
           });
           client.value?.requestController.add(req);
           await Future.delayed(const Duration(seconds: 2));

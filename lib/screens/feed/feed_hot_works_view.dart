@@ -28,14 +28,14 @@ class FeedHotWorksView extends HookConsumerWidget {
     }
 
     final request = GFeedHotWorksReq((builder) {
-      return builder;
+      builder;
     });
 
     return RefreshIndicator(
       onRefresh: () async {
         audio.play(AssetSource('snd_sine/progress_loop.wav'));
         final req = request.rebuild((builder) {
-          return builder;
+          builder;
         });
         client.value?.requestController.add(req);
         await Future.delayed(const Duration(seconds: 2));

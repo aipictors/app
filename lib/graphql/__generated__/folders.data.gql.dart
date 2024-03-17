@@ -18,7 +18,7 @@ abstract class GFoldersData
     implements Built<GFoldersData, GFoldersDataBuilder> {
   GFoldersData._();
 
-  factory GFoldersData([Function(GFoldersDataBuilder b) updates]) =
+  factory GFoldersData([void Function(GFoldersDataBuilder b) updates]) =
       _$GFoldersData;
 
   static void _initializeBuilder(GFoldersDataBuilder b) =>
@@ -48,7 +48,7 @@ abstract class GFoldersData_folders
   GFoldersData_folders._();
 
   factory GFoldersData_folders(
-          [Function(GFoldersData_foldersBuilder b) updates]) =
+          [void Function(GFoldersData_foldersBuilder b) updates]) =
       _$GFoldersData_folders;
 
   static void _initializeBuilder(GFoldersData_foldersBuilder b) =>
@@ -91,7 +91,7 @@ abstract class GFoldersData_folders_user
   GFoldersData_folders_user._();
 
   factory GFoldersData_folders_user(
-          [Function(GFoldersData_folders_userBuilder b) updates]) =
+          [void Function(GFoldersData_folders_userBuilder b) updates]) =
       _$GFoldersData_folders_user;
 
   static void _initializeBuilder(GFoldersData_folders_userBuilder b) =>
@@ -132,8 +132,8 @@ abstract class GFoldersData_folders_user_iconImage
   GFoldersData_folders_user_iconImage._();
 
   factory GFoldersData_folders_user_iconImage(
-          [Function(GFoldersData_folders_user_iconImageBuilder b) updates]) =
-      _$GFoldersData_folders_user_iconImage;
+      [void Function(GFoldersData_folders_user_iconImageBuilder b)
+          updates]) = _$GFoldersData_folders_user_iconImage;
 
   static void _initializeBuilder(
           GFoldersData_folders_user_iconImageBuilder b) =>

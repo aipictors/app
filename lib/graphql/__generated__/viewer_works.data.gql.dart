@@ -15,7 +15,7 @@ abstract class GViewerWorksData
     implements Built<GViewerWorksData, GViewerWorksDataBuilder> {
   GViewerWorksData._();
 
-  factory GViewerWorksData([Function(GViewerWorksDataBuilder b) updates]) =
+  factory GViewerWorksData([void Function(GViewerWorksDataBuilder b) updates]) =
       _$GViewerWorksData;
 
   static void _initializeBuilder(GViewerWorksDataBuilder b) =>
@@ -44,7 +44,7 @@ abstract class GViewerWorksData_viewer
   GViewerWorksData_viewer._();
 
   factory GViewerWorksData_viewer(
-          [Function(GViewerWorksData_viewerBuilder b) updates]) =
+          [void Function(GViewerWorksData_viewerBuilder b) updates]) =
       _$GViewerWorksData_viewer;
 
   static void _initializeBuilder(GViewerWorksData_viewerBuilder b) =>
@@ -76,7 +76,7 @@ abstract class GViewerWorksData_viewer_works
   GViewerWorksData_viewer_works._();
 
   factory GViewerWorksData_viewer_works(
-          [Function(GViewerWorksData_viewer_worksBuilder b) updates]) =
+          [void Function(GViewerWorksData_viewer_worksBuilder b) updates]) =
       _$GViewerWorksData_viewer_works;
 
   static void _initializeBuilder(GViewerWorksData_viewer_worksBuilder b) =>
@@ -121,7 +121,7 @@ abstract class GViewerWorksData_viewer_works_thumbnailImage
   GViewerWorksData_viewer_works_thumbnailImage._();
 
   factory GViewerWorksData_viewer_works_thumbnailImage(
-      [Function(GViewerWorksData_viewer_works_thumbnailImageBuilder b)
+      [void Function(GViewerWorksData_viewer_works_thumbnailImageBuilder b)
           updates]) = _$GViewerWorksData_viewer_works_thumbnailImage;
 
   static void _initializeBuilder(

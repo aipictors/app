@@ -13,7 +13,7 @@ abstract class GDeleteWorkVars
     implements Built<GDeleteWorkVars, GDeleteWorkVarsBuilder> {
   GDeleteWorkVars._();
 
-  factory GDeleteWorkVars([Function(GDeleteWorkVarsBuilder b) updates]) =
+  factory GDeleteWorkVars([void Function(GDeleteWorkVarsBuilder b) updates]) =
       _$GDeleteWorkVars;
 
   _i1.GDeleteWorkInput get input;

@@ -32,7 +32,7 @@ class FeedPopularWorksView extends HookConsumerWidget {
     }
 
     final request = GFeedPopularWorksReq((builder) {
-      return builder;
+      builder;
     });
 
     final indexCount = config.homeMessage != null ? 1 : 0;
@@ -42,7 +42,7 @@ class FeedPopularWorksView extends HookConsumerWidget {
         onRefresh: () async {
           audio.play(AssetSource('snd_sine/progress_loop.wav'));
           final req = request.rebuild((builder) {
-            return builder;
+            builder;
           });
           client.value?.requestController.add(req);
           await Future.delayed(const Duration(seconds: 2));

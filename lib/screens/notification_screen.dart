@@ -33,7 +33,7 @@ class NotificationScreen extends HookConsumerWidget {
     }
 
     final request = GViewerNotificationsReq((builder) {
-      return builder
+      builder
         ..vars.limit = config.graphqlQueryLimit
         ..vars.offset = 0;
     });
@@ -45,7 +45,7 @@ class NotificationScreen extends HookConsumerWidget {
       body: RefreshIndicator(
         onRefresh: () async {
           final req = request.rebuild((builder) {
-            return builder
+            builder
               ..vars.limit = config.graphqlQueryLimit
               ..vars.offset = 0;
           });

@@ -13,7 +13,8 @@ abstract class GAnnouncementsData
     implements Built<GAnnouncementsData, GAnnouncementsDataBuilder> {
   GAnnouncementsData._();
 
-  factory GAnnouncementsData([Function(GAnnouncementsDataBuilder b) updates]) =
+  factory GAnnouncementsData(
+          [void Function(GAnnouncementsDataBuilder b) updates]) =
       _$GAnnouncementsData;
 
   static void _initializeBuilder(GAnnouncementsDataBuilder b) =>
@@ -44,7 +45,7 @@ abstract class GAnnouncementsData_announcements
   GAnnouncementsData_announcements._();
 
   factory GAnnouncementsData_announcements(
-          [Function(GAnnouncementsData_announcementsBuilder b) updates]) =
+          [void Function(GAnnouncementsData_announcementsBuilder b) updates]) =
       _$GAnnouncementsData_announcements;
 
   static void _initializeBuilder(GAnnouncementsData_announcementsBuilder b) =>

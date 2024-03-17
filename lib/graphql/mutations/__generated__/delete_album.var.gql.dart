@@ -13,7 +13,7 @@ abstract class GDeleteAlbumVars
     implements Built<GDeleteAlbumVars, GDeleteAlbumVarsBuilder> {
   GDeleteAlbumVars._();
 
-  factory GDeleteAlbumVars([Function(GDeleteAlbumVarsBuilder b) updates]) =
+  factory GDeleteAlbumVars([void Function(GDeleteAlbumVarsBuilder b) updates]) =
       _$GDeleteAlbumVars;
 
   _i1.GDeleteAlbumInput get input;

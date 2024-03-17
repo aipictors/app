@@ -14,7 +14,7 @@ abstract class GPartialStickerFieldsVars
   GPartialStickerFieldsVars._();
 
   factory GPartialStickerFieldsVars(
-          [Function(GPartialStickerFieldsVarsBuilder b) updates]) =
+          [void Function(GPartialStickerFieldsVarsBuilder b) updates]) =
       _$GPartialStickerFieldsVars;
 
   static Serializer<GPartialStickerFieldsVars> get serializer =>

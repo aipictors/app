@@ -15,7 +15,7 @@ abstract class GLikedWorkNotificationFieldsVars
   GLikedWorkNotificationFieldsVars._();
 
   factory GLikedWorkNotificationFieldsVars(
-          [Function(GLikedWorkNotificationFieldsVarsBuilder b) updates]) =
+          [void Function(GLikedWorkNotificationFieldsVarsBuilder b) updates]) =
       _$GLikedWorkNotificationFieldsVars;
 
   static Serializer<GLikedWorkNotificationFieldsVars> get serializer =>

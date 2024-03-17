@@ -33,7 +33,7 @@ class CommentDetailsModalContainer extends HookConsumerWidget {
     }
 
     final request = GWorkCommentResponsesReq((builder) {
-      return builder
+      builder
         ..vars.workId = workId
         ..vars.commentId = commentId;
     });

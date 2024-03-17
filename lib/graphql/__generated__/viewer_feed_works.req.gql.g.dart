@@ -151,6 +151,8 @@ class _$GViewerFeedWorksReq extends GViewerFeedWorksReq {
   final _i1.FetchPolicy? fetchPolicy;
   @override
   final bool executeOnListen;
+  @override
+  final _i4.Context? context;
 
   factory _$GViewerFeedWorksReq(
           [void Function(GViewerFeedWorksReqBuilder)? updates]) =>
@@ -165,7 +167,8 @@ class _$GViewerFeedWorksReq extends GViewerFeedWorksReq {
       this.updateCacheHandlerKey,
       this.updateCacheHandlerContext,
       this.fetchPolicy,
-      required this.executeOnListen})
+      required this.executeOnListen,
+      this.context})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(vars, r'GViewerFeedWorksReq', 'vars');
     BuiltValueNullFieldError.checkNotNull(
@@ -196,7 +199,8 @@ class _$GViewerFeedWorksReq extends GViewerFeedWorksReq {
         updateCacheHandlerKey == other.updateCacheHandlerKey &&
         updateCacheHandlerContext == other.updateCacheHandlerContext &&
         fetchPolicy == other.fetchPolicy &&
-        executeOnListen == other.executeOnListen;
+        executeOnListen == other.executeOnListen &&
+        context == other.context;
   }
 
   @override
@@ -211,6 +215,7 @@ class _$GViewerFeedWorksReq extends GViewerFeedWorksReq {
     _$hash = $jc(_$hash, updateCacheHandlerContext.hashCode);
     _$hash = $jc(_$hash, fetchPolicy.hashCode);
     _$hash = $jc(_$hash, executeOnListen.hashCode);
+    _$hash = $jc(_$hash, context.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -226,7 +231,8 @@ class _$GViewerFeedWorksReq extends GViewerFeedWorksReq {
           ..add('updateCacheHandlerKey', updateCacheHandlerKey)
           ..add('updateCacheHandlerContext', updateCacheHandlerContext)
           ..add('fetchPolicy', fetchPolicy)
-          ..add('executeOnListen', executeOnListen))
+          ..add('executeOnListen', executeOnListen)
+          ..add('context', context))
         .toString();
   }
 }
@@ -287,6 +293,10 @@ class GViewerFeedWorksReqBuilder
   set executeOnListen(bool? executeOnListen) =>
       _$this._executeOnListen = executeOnListen;
 
+  _i4.Context? _context;
+  _i4.Context? get context => _$this._context;
+  set context(_i4.Context? context) => _$this._context = context;
+
   GViewerFeedWorksReqBuilder() {
     GViewerFeedWorksReq._initializeBuilder(this);
   }
@@ -303,6 +313,7 @@ class GViewerFeedWorksReqBuilder
       _updateCacheHandlerContext = $v.updateCacheHandlerContext;
       _fetchPolicy = $v.fetchPolicy;
       _executeOnListen = $v.executeOnListen;
+      _context = $v.context;
       _$v = null;
     }
     return this;
@@ -337,7 +348,8 @@ class GViewerFeedWorksReqBuilder
               updateCacheHandlerContext: updateCacheHandlerContext,
               fetchPolicy: fetchPolicy,
               executeOnListen: BuiltValueNullFieldError.checkNotNull(
-                  executeOnListen, r'GViewerFeedWorksReq', 'executeOnListen'));
+                  executeOnListen, r'GViewerFeedWorksReq', 'executeOnListen'),
+              context: context);
     } catch (_) {
       late String _$failedField;
       try {

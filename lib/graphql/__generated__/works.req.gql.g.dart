@@ -144,6 +144,8 @@ class _$GWorksReq extends GWorksReq {
   final _i1.FetchPolicy? fetchPolicy;
   @override
   final bool executeOnListen;
+  @override
+  final _i4.Context? context;
 
   factory _$GWorksReq([void Function(GWorksReqBuilder)? updates]) =>
       (new GWorksReqBuilder()..update(updates))._build();
@@ -157,7 +159,8 @@ class _$GWorksReq extends GWorksReq {
       this.updateCacheHandlerKey,
       this.updateCacheHandlerContext,
       this.fetchPolicy,
-      required this.executeOnListen})
+      required this.executeOnListen,
+      this.context})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(vars, r'GWorksReq', 'vars');
     BuiltValueNullFieldError.checkNotNull(operation, r'GWorksReq', 'operation');
@@ -185,7 +188,8 @@ class _$GWorksReq extends GWorksReq {
         updateCacheHandlerKey == other.updateCacheHandlerKey &&
         updateCacheHandlerContext == other.updateCacheHandlerContext &&
         fetchPolicy == other.fetchPolicy &&
-        executeOnListen == other.executeOnListen;
+        executeOnListen == other.executeOnListen &&
+        context == other.context;
   }
 
   @override
@@ -200,6 +204,7 @@ class _$GWorksReq extends GWorksReq {
     _$hash = $jc(_$hash, updateCacheHandlerContext.hashCode);
     _$hash = $jc(_$hash, fetchPolicy.hashCode);
     _$hash = $jc(_$hash, executeOnListen.hashCode);
+    _$hash = $jc(_$hash, context.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -215,7 +220,8 @@ class _$GWorksReq extends GWorksReq {
           ..add('updateCacheHandlerKey', updateCacheHandlerKey)
           ..add('updateCacheHandlerContext', updateCacheHandlerContext)
           ..add('fetchPolicy', fetchPolicy)
-          ..add('executeOnListen', executeOnListen))
+          ..add('executeOnListen', executeOnListen)
+          ..add('context', context))
         .toString();
   }
 }
@@ -272,6 +278,10 @@ class GWorksReqBuilder implements Builder<GWorksReq, GWorksReqBuilder> {
   set executeOnListen(bool? executeOnListen) =>
       _$this._executeOnListen = executeOnListen;
 
+  _i4.Context? _context;
+  _i4.Context? get context => _$this._context;
+  set context(_i4.Context? context) => _$this._context = context;
+
   GWorksReqBuilder() {
     GWorksReq._initializeBuilder(this);
   }
@@ -288,6 +298,7 @@ class GWorksReqBuilder implements Builder<GWorksReq, GWorksReqBuilder> {
       _updateCacheHandlerContext = $v.updateCacheHandlerContext;
       _fetchPolicy = $v.fetchPolicy;
       _executeOnListen = $v.executeOnListen;
+      _context = $v.context;
       _$v = null;
     }
     return this;
@@ -322,7 +333,8 @@ class GWorksReqBuilder implements Builder<GWorksReq, GWorksReqBuilder> {
               updateCacheHandlerContext: updateCacheHandlerContext,
               fetchPolicy: fetchPolicy,
               executeOnListen: BuiltValueNullFieldError.checkNotNull(
-                  executeOnListen, r'GWorksReq', 'executeOnListen'));
+                  executeOnListen, r'GWorksReq', 'executeOnListen'),
+              context: context);
     } catch (_) {
       late String _$failedField;
       try {

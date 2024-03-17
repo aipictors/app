@@ -24,7 +24,7 @@ abstract class GPartialPromotionFieldsReq
   GPartialPromotionFieldsReq._();
 
   factory GPartialPromotionFieldsReq(
-          [Function(GPartialPromotionFieldsReqBuilder b) updates]) =
+          [void Function(GPartialPromotionFieldsReqBuilder b) updates]) =
       _$GPartialPromotionFieldsReq;
 
   static void _initializeBuilder(GPartialPromotionFieldsReqBuilder b) => b

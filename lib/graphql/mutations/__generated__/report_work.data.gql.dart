@@ -12,7 +12,7 @@ abstract class GReportWorkData
     implements Built<GReportWorkData, GReportWorkDataBuilder> {
   GReportWorkData._();
 
-  factory GReportWorkData([Function(GReportWorkDataBuilder b) updates]) =
+  factory GReportWorkData([void Function(GReportWorkDataBuilder b) updates]) =
       _$GReportWorkData;
 
   static void _initializeBuilder(GReportWorkDataBuilder b) =>

@@ -16,7 +16,7 @@ abstract class GViewerMutedUsersData
   GViewerMutedUsersData._();
 
   factory GViewerMutedUsersData(
-          [Function(GViewerMutedUsersDataBuilder b) updates]) =
+          [void Function(GViewerMutedUsersDataBuilder b) updates]) =
       _$GViewerMutedUsersData;
 
   static void _initializeBuilder(GViewerMutedUsersDataBuilder b) =>
@@ -47,7 +47,7 @@ abstract class GViewerMutedUsersData_viewer
   GViewerMutedUsersData_viewer._();
 
   factory GViewerMutedUsersData_viewer(
-          [Function(GViewerMutedUsersData_viewerBuilder b) updates]) =
+          [void Function(GViewerMutedUsersData_viewerBuilder b) updates]) =
       _$GViewerMutedUsersData_viewer;
 
   static void _initializeBuilder(GViewerMutedUsersData_viewerBuilder b) =>
@@ -79,7 +79,7 @@ abstract class GViewerMutedUsersData_viewer_mutedUsers
   GViewerMutedUsersData_viewer_mutedUsers._();
 
   factory GViewerMutedUsersData_viewer_mutedUsers(
-      [Function(GViewerMutedUsersData_viewer_mutedUsersBuilder b)
+      [void Function(GViewerMutedUsersData_viewer_mutedUsersBuilder b)
           updates]) = _$GViewerMutedUsersData_viewer_mutedUsers;
 
   static void _initializeBuilder(
@@ -122,7 +122,7 @@ abstract class GViewerMutedUsersData_viewer_mutedUsers_iconImage
   GViewerMutedUsersData_viewer_mutedUsers_iconImage._();
 
   factory GViewerMutedUsersData_viewer_mutedUsers_iconImage(
-      [Function(GViewerMutedUsersData_viewer_mutedUsers_iconImageBuilder b)
+      [void Function(GViewerMutedUsersData_viewer_mutedUsers_iconImageBuilder b)
           updates]) = _$GViewerMutedUsersData_viewer_mutedUsers_iconImage;
 
   static void _initializeBuilder(

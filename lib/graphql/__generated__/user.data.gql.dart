@@ -13,7 +13,7 @@ part 'user.data.gql.g.dart';
 abstract class GUserData implements Built<GUserData, GUserDataBuilder> {
   GUserData._();
 
-  factory GUserData([Function(GUserDataBuilder b) updates]) = _$GUserData;
+  factory GUserData([void Function(GUserDataBuilder b) updates]) = _$GUserData;
 
   static void _initializeBuilder(GUserDataBuilder b) =>
       b..G__typename = 'Query';
@@ -39,7 +39,7 @@ abstract class GUserData_user
     implements Built<GUserData_user, GUserData_userBuilder>, _i2.GUserFields {
   GUserData_user._();
 
-  factory GUserData_user([Function(GUserData_userBuilder b) updates]) =
+  factory GUserData_user([void Function(GUserData_userBuilder b) updates]) =
       _$GUserData_user;
 
   static void _initializeBuilder(GUserData_userBuilder b) =>
@@ -91,7 +91,7 @@ abstract class GUserData_user_iconImage
   GUserData_user_iconImage._();
 
   factory GUserData_user_iconImage(
-          [Function(GUserData_user_iconImageBuilder b) updates]) =
+          [void Function(GUserData_user_iconImageBuilder b) updates]) =
       _$GUserData_user_iconImage;
 
   static void _initializeBuilder(GUserData_user_iconImageBuilder b) =>
@@ -127,7 +127,7 @@ abstract class GUserData_user_headerImage
   GUserData_user_headerImage._();
 
   factory GUserData_user_headerImage(
-          [Function(GUserData_user_headerImageBuilder b) updates]) =
+          [void Function(GUserData_user_headerImageBuilder b) updates]) =
       _$GUserData_user_headerImage;
 
   static void _initializeBuilder(GUserData_user_headerImageBuilder b) =>
@@ -161,7 +161,7 @@ abstract class GUserData_user_viewer
   GUserData_user_viewer._();
 
   factory GUserData_user_viewer(
-          [Function(GUserData_user_viewerBuilder b) updates]) =
+          [void Function(GUserData_user_viewerBuilder b) updates]) =
       _$GUserData_user_viewer;
 
   static void _initializeBuilder(GUserData_user_viewerBuilder b) =>

@@ -22,7 +22,7 @@ abstract class GUpdateFolderReq
         _i1.OperationRequest<_i2.GUpdateFolderData, _i3.GUpdateFolderVars> {
   GUpdateFolderReq._();
 
-  factory GUpdateFolderReq([Function(GUpdateFolderReqBuilder b) updates]) =
+  factory GUpdateFolderReq([void Function(GUpdateFolderReqBuilder b) updates]) =
       _$GUpdateFolderReq;
 
   static void _initializeBuilder(GUpdateFolderReqBuilder b) => b
@@ -40,6 +40,7 @@ abstract class GUpdateFolderReq
   _i4.Request get execRequest => _i4.Request(
         operation: operation,
         variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
       );
 
   @override
@@ -60,6 +61,9 @@ abstract class GUpdateFolderReq
   _i1.FetchPolicy? get fetchPolicy;
   @override
   bool get executeOnListen;
+  @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
   @override
   _i2.GUpdateFolderData? parseData(Map<String, dynamic> json) =>
       _i2.GUpdateFolderData.fromJson(json);

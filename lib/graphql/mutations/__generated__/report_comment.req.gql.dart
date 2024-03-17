@@ -22,7 +22,8 @@ abstract class GReportCommentReq
         _i1.OperationRequest<_i2.GReportCommentData, _i3.GReportCommentVars> {
   GReportCommentReq._();
 
-  factory GReportCommentReq([Function(GReportCommentReqBuilder b) updates]) =
+  factory GReportCommentReq(
+          [void Function(GReportCommentReqBuilder b) updates]) =
       _$GReportCommentReq;
 
   static void _initializeBuilder(GReportCommentReqBuilder b) => b
@@ -40,6 +41,7 @@ abstract class GReportCommentReq
   _i4.Request get execRequest => _i4.Request(
         operation: operation,
         variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
       );
 
   @override
@@ -60,6 +62,9 @@ abstract class GReportCommentReq
   _i1.FetchPolicy? get fetchPolicy;
   @override
   bool get executeOnListen;
+  @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
   @override
   _i2.GReportCommentData? parseData(Map<String, dynamic> json) =>
       _i2.GReportCommentData.fromJson(json);

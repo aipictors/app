@@ -13,7 +13,7 @@ abstract class GViewerFeedWorksVars
   GViewerFeedWorksVars._();
 
   factory GViewerFeedWorksVars(
-          [Function(GViewerFeedWorksVarsBuilder b) updates]) =
+          [void Function(GViewerFeedWorksVarsBuilder b) updates]) =
       _$GViewerFeedWorksVars;
 
   int get offset;

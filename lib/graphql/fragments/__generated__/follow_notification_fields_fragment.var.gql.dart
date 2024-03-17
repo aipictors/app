@@ -15,7 +15,7 @@ abstract class GFollowNotificationFieldsVars
   GFollowNotificationFieldsVars._();
 
   factory GFollowNotificationFieldsVars(
-          [Function(GFollowNotificationFieldsVarsBuilder b) updates]) =
+          [void Function(GFollowNotificationFieldsVarsBuilder b) updates]) =
       _$GFollowNotificationFieldsVars;
 
   static Serializer<GFollowNotificationFieldsVars> get serializer =>

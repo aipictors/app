@@ -12,7 +12,8 @@ abstract class GViewerFoldersVars
     implements Built<GViewerFoldersVars, GViewerFoldersVarsBuilder> {
   GViewerFoldersVars._();
 
-  factory GViewerFoldersVars([Function(GViewerFoldersVarsBuilder b) updates]) =
+  factory GViewerFoldersVars(
+          [void Function(GViewerFoldersVarsBuilder b) updates]) =
       _$GViewerFoldersVars;
 
   int get offset;

@@ -14,7 +14,7 @@ abstract class GWorkCommentResponsesVars
   GWorkCommentResponsesVars._();
 
   factory GWorkCommentResponsesVars(
-          [Function(GWorkCommentResponsesVarsBuilder b) updates]) =
+          [void Function(GWorkCommentResponsesVarsBuilder b) updates]) =
       _$GWorkCommentResponsesVars;
 
   String get workId;

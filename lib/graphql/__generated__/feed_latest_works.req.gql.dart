@@ -24,7 +24,8 @@ abstract class GFeedLatestWorksReq
   GFeedLatestWorksReq._();
 
   factory GFeedLatestWorksReq(
-      [Function(GFeedLatestWorksReqBuilder b) updates]) = _$GFeedLatestWorksReq;
+          [void Function(GFeedLatestWorksReqBuilder b) updates]) =
+      _$GFeedLatestWorksReq;
 
   static void _initializeBuilder(GFeedLatestWorksReqBuilder b) => b
     ..operation = _i4.Operation(
@@ -41,6 +42,7 @@ abstract class GFeedLatestWorksReq
   _i4.Request get execRequest => _i4.Request(
         operation: operation,
         variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
       );
 
   @override
@@ -61,6 +63,9 @@ abstract class GFeedLatestWorksReq
   _i1.FetchPolicy? get fetchPolicy;
   @override
   bool get executeOnListen;
+  @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
   @override
   _i2.GFeedLatestWorksData? parseData(Map<String, dynamic> json) =>
       _i2.GFeedLatestWorksData.fromJson(json);

@@ -13,7 +13,7 @@ abstract class GPartialTagFieldsVars
   GPartialTagFieldsVars._();
 
   factory GPartialTagFieldsVars(
-          [Function(GPartialTagFieldsVarsBuilder b) updates]) =
+          [void Function(GPartialTagFieldsVarsBuilder b) updates]) =
       _$GPartialTagFieldsVars;
 
   static Serializer<GPartialTagFieldsVars> get serializer =>

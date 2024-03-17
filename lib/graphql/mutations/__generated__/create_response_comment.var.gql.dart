@@ -15,7 +15,7 @@ abstract class GCreateResponseCommentVars
   GCreateResponseCommentVars._();
 
   factory GCreateResponseCommentVars(
-          [Function(GCreateResponseCommentVarsBuilder b) updates]) =
+          [void Function(GCreateResponseCommentVarsBuilder b) updates]) =
       _$GCreateResponseCommentVars;
 
   _i1.GCreateResponseCommentInput get input;

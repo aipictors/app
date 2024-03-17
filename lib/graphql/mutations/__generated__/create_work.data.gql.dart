@@ -12,7 +12,7 @@ abstract class GCreateWorkData
     implements Built<GCreateWorkData, GCreateWorkDataBuilder> {
   GCreateWorkData._();
 
-  factory GCreateWorkData([Function(GCreateWorkDataBuilder b) updates]) =
+  factory GCreateWorkData([void Function(GCreateWorkDataBuilder b) updates]) =
       _$GCreateWorkData;
 
   static void _initializeBuilder(GCreateWorkDataBuilder b) =>
@@ -42,7 +42,7 @@ abstract class GCreateWorkData_createWork
   GCreateWorkData_createWork._();
 
   factory GCreateWorkData_createWork(
-          [Function(GCreateWorkData_createWorkBuilder b) updates]) =
+          [void Function(GCreateWorkData_createWorkBuilder b) updates]) =
       _$GCreateWorkData_createWork;
 
   static void _initializeBuilder(GCreateWorkData_createWorkBuilder b) =>

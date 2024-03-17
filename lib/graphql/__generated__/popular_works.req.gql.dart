@@ -22,7 +22,7 @@ abstract class GPopularWorksReq
         _i1.OperationRequest<_i2.GPopularWorksData, _i3.GPopularWorksVars> {
   GPopularWorksReq._();
 
-  factory GPopularWorksReq([Function(GPopularWorksReqBuilder b) updates]) =
+  factory GPopularWorksReq([void Function(GPopularWorksReqBuilder b) updates]) =
       _$GPopularWorksReq;
 
   static void _initializeBuilder(GPopularWorksReqBuilder b) => b
@@ -40,6 +40,7 @@ abstract class GPopularWorksReq
   _i4.Request get execRequest => _i4.Request(
         operation: operation,
         variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
       );
 
   @override
@@ -60,6 +61,9 @@ abstract class GPopularWorksReq
   _i1.FetchPolicy? get fetchPolicy;
   @override
   bool get executeOnListen;
+  @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
   @override
   _i2.GPopularWorksData? parseData(Map<String, dynamic> json) =>
       _i2.GPopularWorksData.fromJson(json);

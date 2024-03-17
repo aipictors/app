@@ -13,7 +13,7 @@ abstract class GReportUserVars
     implements Built<GReportUserVars, GReportUserVarsBuilder> {
   GReportUserVars._();
 
-  factory GReportUserVars([Function(GReportUserVarsBuilder b) updates]) =
+  factory GReportUserVars([void Function(GReportUserVarsBuilder b) updates]) =
       _$GReportUserVars;
 
   _i1.GReportUserInput get input;

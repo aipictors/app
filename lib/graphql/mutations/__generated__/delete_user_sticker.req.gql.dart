@@ -24,7 +24,7 @@ abstract class GDeleteUserStickerReq
   GDeleteUserStickerReq._();
 
   factory GDeleteUserStickerReq(
-          [Function(GDeleteUserStickerReqBuilder b) updates]) =
+          [void Function(GDeleteUserStickerReqBuilder b) updates]) =
       _$GDeleteUserStickerReq;
 
   static void _initializeBuilder(GDeleteUserStickerReqBuilder b) => b
@@ -42,6 +42,7 @@ abstract class GDeleteUserStickerReq
   _i4.Request get execRequest => _i4.Request(
         operation: operation,
         variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
       );
 
   @override
@@ -62,6 +63,9 @@ abstract class GDeleteUserStickerReq
   _i1.FetchPolicy? get fetchPolicy;
   @override
   bool get executeOnListen;
+  @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
   @override
   _i2.GDeleteUserStickerData? parseData(Map<String, dynamic> json) =>
       _i2.GDeleteUserStickerData.fromJson(json);

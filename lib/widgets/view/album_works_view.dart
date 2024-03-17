@@ -52,7 +52,7 @@ class AlbumWorksView extends HookConsumerWidget {
     return OperationBuilder(
       client: client,
       operationRequest: GAlbumWorksReq((builder) {
-        return builder
+        builder
           ..vars.limit = config.graphqlQueryLimit
           ..vars.offset = 0
           ..vars.albumId = albumId;

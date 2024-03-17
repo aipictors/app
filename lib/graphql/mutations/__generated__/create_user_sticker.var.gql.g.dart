@@ -26,7 +26,7 @@ class _$GCreateUserStickerVarsSerializer
     final result = <Object?>[
       'input',
       serializers.serialize(object.input,
-          specifiedType: const FullType(_i1.GCreateUserStickerInput)),
+          specifiedType: const FullType(_i1.GCreateStickerInput)),
     ];
 
     return result;
@@ -46,8 +46,8 @@ class _$GCreateUserStickerVarsSerializer
       switch (key) {
         case 'input':
           result.input.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i1.GCreateUserStickerInput))!
-              as _i1.GCreateUserStickerInput);
+                  specifiedType: const FullType(_i1.GCreateStickerInput))!
+              as _i1.GCreateStickerInput);
           break;
       }
     }
@@ -58,7 +58,7 @@ class _$GCreateUserStickerVarsSerializer
 
 class _$GCreateUserStickerVars extends GCreateUserStickerVars {
   @override
-  final _i1.GCreateUserStickerInput input;
+  final _i1.GCreateStickerInput input;
 
   factory _$GCreateUserStickerVars(
           [void Function(GCreateUserStickerVarsBuilder)? updates]) =>
@@ -104,10 +104,10 @@ class GCreateUserStickerVarsBuilder
     implements Builder<GCreateUserStickerVars, GCreateUserStickerVarsBuilder> {
   _$GCreateUserStickerVars? _$v;
 
-  _i1.GCreateUserStickerInputBuilder? _input;
-  _i1.GCreateUserStickerInputBuilder get input =>
-      _$this._input ??= new _i1.GCreateUserStickerInputBuilder();
-  set input(_i1.GCreateUserStickerInputBuilder? input) => _$this._input = input;
+  _i1.GCreateStickerInputBuilder? _input;
+  _i1.GCreateStickerInputBuilder get input =>
+      _$this._input ??= new _i1.GCreateStickerInputBuilder();
+  set input(_i1.GCreateStickerInputBuilder? input) => _$this._input = input;
 
   GCreateUserStickerVarsBuilder();
 

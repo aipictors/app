@@ -24,7 +24,7 @@ abstract class GViewerMutedUsersReq
   GViewerMutedUsersReq._();
 
   factory GViewerMutedUsersReq(
-          [Function(GViewerMutedUsersReqBuilder b) updates]) =
+          [void Function(GViewerMutedUsersReqBuilder b) updates]) =
       _$GViewerMutedUsersReq;
 
   static void _initializeBuilder(GViewerMutedUsersReqBuilder b) => b
@@ -42,6 +42,7 @@ abstract class GViewerMutedUsersReq
   _i4.Request get execRequest => _i4.Request(
         operation: operation,
         variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
       );
 
   @override
@@ -62,6 +63,9 @@ abstract class GViewerMutedUsersReq
   _i1.FetchPolicy? get fetchPolicy;
   @override
   bool get executeOnListen;
+  @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
   @override
   _i2.GViewerMutedUsersData? parseData(Map<String, dynamic> json) =>
       _i2.GViewerMutedUsersData.fromJson(json);

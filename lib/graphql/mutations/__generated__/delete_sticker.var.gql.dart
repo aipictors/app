@@ -13,7 +13,8 @@ abstract class GDeleteStickerVars
     implements Built<GDeleteStickerVars, GDeleteStickerVarsBuilder> {
   GDeleteStickerVars._();
 
-  factory GDeleteStickerVars([Function(GDeleteStickerVarsBuilder b) updates]) =
+  factory GDeleteStickerVars(
+          [void Function(GDeleteStickerVarsBuilder b) updates]) =
       _$GDeleteStickerVars;
 
   _i1.GDeleteStickerInput get input;

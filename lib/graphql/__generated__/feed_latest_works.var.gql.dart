@@ -14,7 +14,7 @@ abstract class GFeedLatestWorksVars
   GFeedLatestWorksVars._();
 
   factory GFeedLatestWorksVars(
-          [Function(GFeedLatestWorksVarsBuilder b) updates]) =
+          [void Function(GFeedLatestWorksVarsBuilder b) updates]) =
       _$GFeedLatestWorksVars;
 
   int get offset;

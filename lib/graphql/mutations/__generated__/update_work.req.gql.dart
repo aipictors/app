@@ -22,7 +22,7 @@ abstract class GUpdateWorkReq
         _i1.OperationRequest<_i2.GUpdateWorkData, _i3.GUpdateWorkVars> {
   GUpdateWorkReq._();
 
-  factory GUpdateWorkReq([Function(GUpdateWorkReqBuilder b) updates]) =
+  factory GUpdateWorkReq([void Function(GUpdateWorkReqBuilder b) updates]) =
       _$GUpdateWorkReq;
 
   static void _initializeBuilder(GUpdateWorkReqBuilder b) => b
@@ -40,6 +40,7 @@ abstract class GUpdateWorkReq
   _i4.Request get execRequest => _i4.Request(
         operation: operation,
         variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
       );
 
   @override
@@ -60,6 +61,9 @@ abstract class GUpdateWorkReq
   _i1.FetchPolicy? get fetchPolicy;
   @override
   bool get executeOnListen;
+  @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
   @override
   _i2.GUpdateWorkData? parseData(Map<String, dynamic> json) =>
       _i2.GUpdateWorkData.fromJson(json);

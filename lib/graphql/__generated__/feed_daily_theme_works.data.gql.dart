@@ -19,7 +19,7 @@ abstract class GFeedDailyThemeWorksData
   GFeedDailyThemeWorksData._();
 
   factory GFeedDailyThemeWorksData(
-          [Function(GFeedDailyThemeWorksDataBuilder b) updates]) =
+          [void Function(GFeedDailyThemeWorksDataBuilder b) updates]) =
       _$GFeedDailyThemeWorksData;
 
   static void _initializeBuilder(GFeedDailyThemeWorksDataBuilder b) =>
@@ -50,8 +50,8 @@ abstract class GFeedDailyThemeWorksData_dailyTheme
   GFeedDailyThemeWorksData_dailyTheme._();
 
   factory GFeedDailyThemeWorksData_dailyTheme(
-          [Function(GFeedDailyThemeWorksData_dailyThemeBuilder b) updates]) =
-      _$GFeedDailyThemeWorksData_dailyTheme;
+      [void Function(GFeedDailyThemeWorksData_dailyThemeBuilder b)
+          updates]) = _$GFeedDailyThemeWorksData_dailyTheme;
 
   static void _initializeBuilder(
           GFeedDailyThemeWorksData_dailyThemeBuilder b) =>
@@ -86,7 +86,7 @@ abstract class GFeedDailyThemeWorksData_dailyTheme_works
   GFeedDailyThemeWorksData_dailyTheme_works._();
 
   factory GFeedDailyThemeWorksData_dailyTheme_works(
-      [Function(GFeedDailyThemeWorksData_dailyTheme_worksBuilder b)
+      [void Function(GFeedDailyThemeWorksData_dailyTheme_worksBuilder b)
           updates]) = _$GFeedDailyThemeWorksData_dailyTheme_works;
 
   static void _initializeBuilder(
@@ -137,7 +137,7 @@ abstract class GFeedDailyThemeWorksData_dailyTheme_works_image
   GFeedDailyThemeWorksData_dailyTheme_works_image._();
 
   factory GFeedDailyThemeWorksData_dailyTheme_works_image(
-      [Function(GFeedDailyThemeWorksData_dailyTheme_works_imageBuilder b)
+      [void Function(GFeedDailyThemeWorksData_dailyTheme_works_imageBuilder b)
           updates]) = _$GFeedDailyThemeWorksData_dailyTheme_works_image;
 
   static void _initializeBuilder(
@@ -177,7 +177,7 @@ abstract class GFeedDailyThemeWorksData_dailyTheme_works_user
   GFeedDailyThemeWorksData_dailyTheme_works_user._();
 
   factory GFeedDailyThemeWorksData_dailyTheme_works_user(
-      [Function(GFeedDailyThemeWorksData_dailyTheme_works_userBuilder b)
+      [void Function(GFeedDailyThemeWorksData_dailyTheme_works_userBuilder b)
           updates]) = _$GFeedDailyThemeWorksData_dailyTheme_works_user;
 
   static void _initializeBuilder(
@@ -221,7 +221,7 @@ abstract class GFeedDailyThemeWorksData_dailyTheme_works_user_iconImage
   GFeedDailyThemeWorksData_dailyTheme_works_user_iconImage._();
 
   factory GFeedDailyThemeWorksData_dailyTheme_works_user_iconImage(
-      [Function(
+      [void Function(
               GFeedDailyThemeWorksData_dailyTheme_works_user_iconImageBuilder b)
           updates]) = _$GFeedDailyThemeWorksData_dailyTheme_works_user_iconImage;
 
@@ -261,7 +261,8 @@ abstract class GFeedDailyThemeWorksData_dailyTheme_works_user_viewer
   GFeedDailyThemeWorksData_dailyTheme_works_user_viewer._();
 
   factory GFeedDailyThemeWorksData_dailyTheme_works_user_viewer(
-      [Function(GFeedDailyThemeWorksData_dailyTheme_works_user_viewerBuilder b)
+      [void Function(
+              GFeedDailyThemeWorksData_dailyTheme_works_user_viewerBuilder b)
           updates]) = _$GFeedDailyThemeWorksData_dailyTheme_works_user_viewer;
 
   static void _initializeBuilder(
@@ -298,7 +299,7 @@ abstract class GFeedDailyThemeWorksData_dailyTheme_works_viewer
   GFeedDailyThemeWorksData_dailyTheme_works_viewer._();
 
   factory GFeedDailyThemeWorksData_dailyTheme_works_viewer(
-      [Function(GFeedDailyThemeWorksData_dailyTheme_works_viewerBuilder b)
+      [void Function(GFeedDailyThemeWorksData_dailyTheme_works_viewerBuilder b)
           updates]) = _$GFeedDailyThemeWorksData_dailyTheme_works_viewer;
 
   static void _initializeBuilder(

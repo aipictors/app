@@ -22,7 +22,8 @@ abstract class GUpdateStickerReq
         _i1.OperationRequest<_i2.GUpdateStickerData, _i3.GUpdateStickerVars> {
   GUpdateStickerReq._();
 
-  factory GUpdateStickerReq([Function(GUpdateStickerReqBuilder b) updates]) =
+  factory GUpdateStickerReq(
+          [void Function(GUpdateStickerReqBuilder b) updates]) =
       _$GUpdateStickerReq;
 
   static void _initializeBuilder(GUpdateStickerReqBuilder b) => b
@@ -40,6 +41,7 @@ abstract class GUpdateStickerReq
   _i4.Request get execRequest => _i4.Request(
         operation: operation,
         variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
       );
 
   @override
@@ -60,6 +62,9 @@ abstract class GUpdateStickerReq
   _i1.FetchPolicy? get fetchPolicy;
   @override
   bool get executeOnListen;
+  @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
   @override
   _i2.GUpdateStickerData? parseData(Map<String, dynamic> json) =>
       _i2.GUpdateStickerData.fromJson(json);

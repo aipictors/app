@@ -12,7 +12,7 @@ abstract class GMuteTagData
     implements Built<GMuteTagData, GMuteTagDataBuilder> {
   GMuteTagData._();
 
-  factory GMuteTagData([Function(GMuteTagDataBuilder b) updates]) =
+  factory GMuteTagData([void Function(GMuteTagDataBuilder b) updates]) =
       _$GMuteTagData;
 
   static void _initializeBuilder(GMuteTagDataBuilder b) =>
@@ -40,7 +40,7 @@ abstract class GMuteTagData_muteTag
   GMuteTagData_muteTag._();
 
   factory GMuteTagData_muteTag(
-          [Function(GMuteTagData_muteTagBuilder b) updates]) =
+          [void Function(GMuteTagData_muteTagBuilder b) updates]) =
       _$GMuteTagData_muteTag;
 
   static void _initializeBuilder(GMuteTagData_muteTagBuilder b) =>
@@ -71,7 +71,7 @@ abstract class GMuteTagData_muteTag_viewer
   GMuteTagData_muteTag_viewer._();
 
   factory GMuteTagData_muteTag_viewer(
-          [Function(GMuteTagData_muteTag_viewerBuilder b) updates]) =
+          [void Function(GMuteTagData_muteTag_viewerBuilder b) updates]) =
       _$GMuteTagData_muteTag_viewer;
 
   static void _initializeBuilder(GMuteTagData_muteTag_viewerBuilder b) =>

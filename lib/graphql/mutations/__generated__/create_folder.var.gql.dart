@@ -13,7 +13,8 @@ abstract class GCreateFolderVars
     implements Built<GCreateFolderVars, GCreateFolderVarsBuilder> {
   GCreateFolderVars._();
 
-  factory GCreateFolderVars([Function(GCreateFolderVarsBuilder b) updates]) =
+  factory GCreateFolderVars(
+          [void Function(GCreateFolderVarsBuilder b) updates]) =
       _$GCreateFolderVars;
 
   _i1.GCreateFolderInput get input;

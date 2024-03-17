@@ -30,7 +30,7 @@ class DailyThemeHomeScreen extends HookConsumerWidget {
     }
 
     final request = GFeedDailyThemeWorksReq((builder) {
-      return builder
+      builder
         ..vars.limit = config.graphqlQueryLimit
         ..vars.offset = 0
         ..vars.year = DateTime.now().year
@@ -55,7 +55,7 @@ class DailyThemeHomeScreen extends HookConsumerWidget {
       body: RefreshIndicator(
         onRefresh: () async {
           final req = request.rebuild((builder) {
-            return builder;
+            builder;
           });
           client.value?.requestController.add(req);
           await Future.delayed(const Duration(seconds: 2));

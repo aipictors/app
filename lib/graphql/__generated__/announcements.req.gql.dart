@@ -22,7 +22,8 @@ abstract class GAnnouncementsReq
         _i1.OperationRequest<_i2.GAnnouncementsData, _i3.GAnnouncementsVars> {
   GAnnouncementsReq._();
 
-  factory GAnnouncementsReq([Function(GAnnouncementsReqBuilder b) updates]) =
+  factory GAnnouncementsReq(
+          [void Function(GAnnouncementsReqBuilder b) updates]) =
       _$GAnnouncementsReq;
 
   static void _initializeBuilder(GAnnouncementsReqBuilder b) => b
@@ -40,6 +41,7 @@ abstract class GAnnouncementsReq
   _i4.Request get execRequest => _i4.Request(
         operation: operation,
         variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
       );
 
   @override
@@ -60,6 +62,9 @@ abstract class GAnnouncementsReq
   _i1.FetchPolicy? get fetchPolicy;
   @override
   bool get executeOnListen;
+  @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
   @override
   _i2.GAnnouncementsData? parseData(Map<String, dynamic> json) =>
       _i2.GAnnouncementsData.fromJson(json);

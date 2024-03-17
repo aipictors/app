@@ -14,7 +14,7 @@ abstract class GCreateResponseCommentData
   GCreateResponseCommentData._();
 
   factory GCreateResponseCommentData(
-          [Function(GCreateResponseCommentDataBuilder b) updates]) =
+          [void Function(GCreateResponseCommentDataBuilder b) updates]) =
       _$GCreateResponseCommentData;
 
   static void _initializeBuilder(GCreateResponseCommentDataBuilder b) =>
@@ -45,7 +45,7 @@ abstract class GCreateResponseCommentData_createResponseComment
   GCreateResponseCommentData_createResponseComment._();
 
   factory GCreateResponseCommentData_createResponseComment(
-      [Function(GCreateResponseCommentData_createResponseCommentBuilder b)
+      [void Function(GCreateResponseCommentData_createResponseCommentBuilder b)
           updates]) = _$GCreateResponseCommentData_createResponseComment;
 
   static void _initializeBuilder(

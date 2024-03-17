@@ -15,7 +15,7 @@ abstract class GUserWorksData
     implements Built<GUserWorksData, GUserWorksDataBuilder> {
   GUserWorksData._();
 
-  factory GUserWorksData([Function(GUserWorksDataBuilder b) updates]) =
+  factory GUserWorksData([void Function(GUserWorksDataBuilder b) updates]) =
       _$GUserWorksData;
 
   static void _initializeBuilder(GUserWorksDataBuilder b) =>
@@ -44,7 +44,8 @@ abstract class GUserWorksData_user
   GUserWorksData_user._();
 
   factory GUserWorksData_user(
-      [Function(GUserWorksData_userBuilder b) updates]) = _$GUserWorksData_user;
+          [void Function(GUserWorksData_userBuilder b) updates]) =
+      _$GUserWorksData_user;
 
   static void _initializeBuilder(GUserWorksData_userBuilder b) =>
       b..G__typename = 'UserNode';
@@ -75,7 +76,7 @@ abstract class GUserWorksData_user_works
   GUserWorksData_user_works._();
 
   factory GUserWorksData_user_works(
-          [Function(GUserWorksData_user_worksBuilder b) updates]) =
+          [void Function(GUserWorksData_user_worksBuilder b) updates]) =
       _$GUserWorksData_user_works;
 
   static void _initializeBuilder(GUserWorksData_user_worksBuilder b) =>
@@ -120,7 +121,7 @@ abstract class GUserWorksData_user_works_thumbnailImage
   GUserWorksData_user_works_thumbnailImage._();
 
   factory GUserWorksData_user_works_thumbnailImage(
-      [Function(GUserWorksData_user_works_thumbnailImageBuilder b)
+      [void Function(GUserWorksData_user_works_thumbnailImageBuilder b)
           updates]) = _$GUserWorksData_user_works_thumbnailImage;
 
   static void _initializeBuilder(

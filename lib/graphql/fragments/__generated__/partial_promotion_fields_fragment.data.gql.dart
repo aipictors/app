@@ -27,7 +27,7 @@ abstract class GPartialPromotionFieldsData
   GPartialPromotionFieldsData._();
 
   factory GPartialPromotionFieldsData(
-          [Function(GPartialPromotionFieldsDataBuilder b) updates]) =
+          [void Function(GPartialPromotionFieldsDataBuilder b) updates]) =
       _$GPartialPromotionFieldsData;
 
   static void _initializeBuilder(GPartialPromotionFieldsDataBuilder b) =>

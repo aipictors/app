@@ -22,7 +22,7 @@ abstract class GViewerWorksReq
         _i1.OperationRequest<_i2.GViewerWorksData, _i3.GViewerWorksVars> {
   GViewerWorksReq._();
 
-  factory GViewerWorksReq([Function(GViewerWorksReqBuilder b) updates]) =
+  factory GViewerWorksReq([void Function(GViewerWorksReqBuilder b) updates]) =
       _$GViewerWorksReq;
 
   static void _initializeBuilder(GViewerWorksReqBuilder b) => b
@@ -40,6 +40,7 @@ abstract class GViewerWorksReq
   _i4.Request get execRequest => _i4.Request(
         operation: operation,
         variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
       );
 
   @override
@@ -60,6 +61,9 @@ abstract class GViewerWorksReq
   _i1.FetchPolicy? get fetchPolicy;
   @override
   bool get executeOnListen;
+  @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
   @override
   _i2.GViewerWorksData? parseData(Map<String, dynamic> json) =>
       _i2.GViewerWorksData.fromJson(json);

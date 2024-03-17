@@ -13,7 +13,7 @@ abstract class GUpdateWorkVars
     implements Built<GUpdateWorkVars, GUpdateWorkVarsBuilder> {
   GUpdateWorkVars._();
 
-  factory GUpdateWorkVars([Function(GUpdateWorkVarsBuilder b) updates]) =
+  factory GUpdateWorkVars([void Function(GUpdateWorkVarsBuilder b) updates]) =
       _$GUpdateWorkVars;
 
   _i1.GUpdateWorkInput get input;

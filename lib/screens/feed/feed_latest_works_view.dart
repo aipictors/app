@@ -31,7 +31,7 @@ class FeedLatestWorksView extends HookConsumerWidget {
     }
 
     final request = GFeedLatestWorksReq((builder) {
-      return builder
+      builder
         ..vars.limit = config.graphqlQueryLimit
         ..vars.offset = 0;
     });
@@ -41,7 +41,7 @@ class FeedLatestWorksView extends HookConsumerWidget {
         onRefresh: () async {
           audio.play(AssetSource('snd_sine/progress_loop.wav'));
           final req = request.rebuild((builder) {
-            return builder
+            builder
               ..vars.limit = config.graphqlQueryLimit
               ..vars.offset = 0;
           });

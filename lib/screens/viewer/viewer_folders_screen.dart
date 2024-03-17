@@ -35,7 +35,7 @@ class ViewerFoldersScreen extends HookConsumerWidget {
       body: OperationBuilder(
         client: client.value!,
         operationRequest: GViewerFoldersReq((builder) {
-          return builder
+          builder
             ..vars.limit = config.graphqlQueryLimit
             ..vars.offset = 0;
         }),

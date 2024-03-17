@@ -29,7 +29,7 @@ class ViewerAlbumsScreen extends HookConsumerWidget {
     }
 
     final request = GViewerAlbumsReq((builder) {
-      return builder
+      builder
         ..vars.limit = config.graphqlQueryLimit
         ..vars.offset = 0;
     });

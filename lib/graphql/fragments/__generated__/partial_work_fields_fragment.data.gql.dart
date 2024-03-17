@@ -33,7 +33,7 @@ abstract class GPartialWorkFieldsData
   GPartialWorkFieldsData._();
 
   factory GPartialWorkFieldsData(
-          [Function(GPartialWorkFieldsDataBuilder b) updates]) =
+          [void Function(GPartialWorkFieldsDataBuilder b) updates]) =
       _$GPartialWorkFieldsData;
 
   static void _initializeBuilder(GPartialWorkFieldsDataBuilder b) =>
@@ -78,8 +78,8 @@ abstract class GPartialWorkFieldsData_thumbnailImage
   GPartialWorkFieldsData_thumbnailImage._();
 
   factory GPartialWorkFieldsData_thumbnailImage(
-          [Function(GPartialWorkFieldsData_thumbnailImageBuilder b) updates]) =
-      _$GPartialWorkFieldsData_thumbnailImage;
+      [void Function(GPartialWorkFieldsData_thumbnailImageBuilder b)
+          updates]) = _$GPartialWorkFieldsData_thumbnailImage;
 
   static void _initializeBuilder(
           GPartialWorkFieldsData_thumbnailImageBuilder b) =>

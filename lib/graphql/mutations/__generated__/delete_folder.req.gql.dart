@@ -22,7 +22,7 @@ abstract class GDeleteFolderReq
         _i1.OperationRequest<_i2.GDeleteFolderData, _i3.GDeleteFolderVars> {
   GDeleteFolderReq._();
 
-  factory GDeleteFolderReq([Function(GDeleteFolderReqBuilder b) updates]) =
+  factory GDeleteFolderReq([void Function(GDeleteFolderReqBuilder b) updates]) =
       _$GDeleteFolderReq;
 
   static void _initializeBuilder(GDeleteFolderReqBuilder b) => b
@@ -40,6 +40,7 @@ abstract class GDeleteFolderReq
   _i4.Request get execRequest => _i4.Request(
         operation: operation,
         variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
       );
 
   @override
@@ -60,6 +61,9 @@ abstract class GDeleteFolderReq
   _i1.FetchPolicy? get fetchPolicy;
   @override
   bool get executeOnListen;
+  @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
   @override
   _i2.GDeleteFolderData? parseData(Map<String, dynamic> json) =>
       _i2.GDeleteFolderData.fromJson(json);

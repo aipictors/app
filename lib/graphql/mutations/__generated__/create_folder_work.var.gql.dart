@@ -14,7 +14,7 @@ abstract class GCreateFolderWorkVars
   GCreateFolderWorkVars._();
 
   factory GCreateFolderWorkVars(
-          [Function(GCreateFolderWorkVarsBuilder b) updates]) =
+          [void Function(GCreateFolderWorkVarsBuilder b) updates]) =
       _$GCreateFolderWorkVars;
 
   _i1.GCreateFolderWorkInput get input;

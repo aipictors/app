@@ -33,7 +33,7 @@ class CommentModalContainer extends HookConsumerWidget {
     }
 
     final request = GWorkCommentsReq((builder) {
-      return builder..vars.workId = workId;
+      builder.vars.workId = workId;
     });
 
     return GestureDetector(
@@ -59,7 +59,7 @@ class CommentModalContainer extends HookConsumerWidget {
                   child: Operation(
                     client: client.value!,
                     operationRequest: GWorkCommentsReq((builder) {
-                      return builder..vars.workId = workId;
+                      builder.vars.workId = workId;
                     }),
                     builder: (context, response, error) {
                       if (error != null) {

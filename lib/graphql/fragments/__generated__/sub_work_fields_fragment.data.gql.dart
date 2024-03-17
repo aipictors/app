@@ -36,7 +36,8 @@ abstract class GSubWorkFieldsData
         GSubWorkFields {
   GSubWorkFieldsData._();
 
-  factory GSubWorkFieldsData([Function(GSubWorkFieldsDataBuilder b) updates]) =
+  factory GSubWorkFieldsData(
+          [void Function(GSubWorkFieldsDataBuilder b) updates]) =
       _$GSubWorkFieldsData;
 
   static void _initializeBuilder(GSubWorkFieldsDataBuilder b) =>
@@ -74,7 +75,7 @@ abstract class GSubWorkFieldsData_image
   GSubWorkFieldsData_image._();
 
   factory GSubWorkFieldsData_image(
-          [Function(GSubWorkFieldsData_imageBuilder b) updates]) =
+          [void Function(GSubWorkFieldsData_imageBuilder b) updates]) =
       _$GSubWorkFieldsData_image;
 
   static void _initializeBuilder(GSubWorkFieldsData_imageBuilder b) =>
@@ -111,7 +112,7 @@ abstract class GSubWorkFieldsData_thumbnailImage
   GSubWorkFieldsData_thumbnailImage._();
 
   factory GSubWorkFieldsData_thumbnailImage(
-          [Function(GSubWorkFieldsData_thumbnailImageBuilder b) updates]) =
+          [void Function(GSubWorkFieldsData_thumbnailImageBuilder b) updates]) =
       _$GSubWorkFieldsData_thumbnailImage;
 
   static void _initializeBuilder(GSubWorkFieldsData_thumbnailImageBuilder b) =>

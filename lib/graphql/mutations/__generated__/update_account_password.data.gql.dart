@@ -14,7 +14,7 @@ abstract class GUpdateAccountPasswordData
   GUpdateAccountPasswordData._();
 
   factory GUpdateAccountPasswordData(
-          [Function(GUpdateAccountPasswordDataBuilder b) updates]) =
+          [void Function(GUpdateAccountPasswordDataBuilder b) updates]) =
       _$GUpdateAccountPasswordData;
 
   static void _initializeBuilder(GUpdateAccountPasswordDataBuilder b) =>
@@ -45,7 +45,7 @@ abstract class GUpdateAccountPasswordData_updateAccountPassword
   GUpdateAccountPasswordData_updateAccountPassword._();
 
   factory GUpdateAccountPasswordData_updateAccountPassword(
-      [Function(GUpdateAccountPasswordData_updateAccountPasswordBuilder b)
+      [void Function(GUpdateAccountPasswordData_updateAccountPasswordBuilder b)
           updates]) = _$GUpdateAccountPasswordData_updateAccountPassword;
 
   static void _initializeBuilder(

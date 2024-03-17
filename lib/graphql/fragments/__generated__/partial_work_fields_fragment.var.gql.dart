@@ -13,7 +13,7 @@ abstract class GPartialWorkFieldsVars
   GPartialWorkFieldsVars._();
 
   factory GPartialWorkFieldsVars(
-          [Function(GPartialWorkFieldsVarsBuilder b) updates]) =
+          [void Function(GPartialWorkFieldsVarsBuilder b) updates]) =
       _$GPartialWorkFieldsVars;
 
   static Serializer<GPartialWorkFieldsVars> get serializer =>

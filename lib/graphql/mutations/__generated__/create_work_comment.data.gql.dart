@@ -13,7 +13,7 @@ abstract class GCreateWorkCommentData
   GCreateWorkCommentData._();
 
   factory GCreateWorkCommentData(
-          [Function(GCreateWorkCommentDataBuilder b) updates]) =
+          [void Function(GCreateWorkCommentDataBuilder b) updates]) =
       _$GCreateWorkCommentData;
 
   static void _initializeBuilder(GCreateWorkCommentDataBuilder b) =>
@@ -44,7 +44,7 @@ abstract class GCreateWorkCommentData_createWorkComment
   GCreateWorkCommentData_createWorkComment._();
 
   factory GCreateWorkCommentData_createWorkComment(
-      [Function(GCreateWorkCommentData_createWorkCommentBuilder b)
+      [void Function(GCreateWorkCommentData_createWorkCommentBuilder b)
           updates]) = _$GCreateWorkCommentData_createWorkComment;
 
   static void _initializeBuilder(

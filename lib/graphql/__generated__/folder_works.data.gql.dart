@@ -15,7 +15,7 @@ abstract class GFolderWorksData
     implements Built<GFolderWorksData, GFolderWorksDataBuilder> {
   GFolderWorksData._();
 
-  factory GFolderWorksData([Function(GFolderWorksDataBuilder b) updates]) =
+  factory GFolderWorksData([void Function(GFolderWorksDataBuilder b) updates]) =
       _$GFolderWorksData;
 
   static void _initializeBuilder(GFolderWorksDataBuilder b) =>
@@ -44,7 +44,7 @@ abstract class GFolderWorksData_folder
   GFolderWorksData_folder._();
 
   factory GFolderWorksData_folder(
-          [Function(GFolderWorksData_folderBuilder b) updates]) =
+          [void Function(GFolderWorksData_folderBuilder b) updates]) =
       _$GFolderWorksData_folder;
 
   static void _initializeBuilder(GFolderWorksData_folderBuilder b) =>
@@ -77,7 +77,7 @@ abstract class GFolderWorksData_folder_works
   GFolderWorksData_folder_works._();
 
   factory GFolderWorksData_folder_works(
-          [Function(GFolderWorksData_folder_worksBuilder b) updates]) =
+          [void Function(GFolderWorksData_folder_worksBuilder b) updates]) =
       _$GFolderWorksData_folder_works;
 
   static void _initializeBuilder(GFolderWorksData_folder_worksBuilder b) =>
@@ -122,7 +122,7 @@ abstract class GFolderWorksData_folder_works_thumbnailImage
   GFolderWorksData_folder_works_thumbnailImage._();
 
   factory GFolderWorksData_folder_works_thumbnailImage(
-      [Function(GFolderWorksData_folder_works_thumbnailImageBuilder b)
+      [void Function(GFolderWorksData_folder_works_thumbnailImageBuilder b)
           updates]) = _$GFolderWorksData_folder_works_thumbnailImage;
 
   static void _initializeBuilder(

@@ -24,7 +24,7 @@ abstract class GPartialStickerFieldsReq
   GPartialStickerFieldsReq._();
 
   factory GPartialStickerFieldsReq(
-          [Function(GPartialStickerFieldsReqBuilder b) updates]) =
+          [void Function(GPartialStickerFieldsReqBuilder b) updates]) =
       _$GPartialStickerFieldsReq;
 
   static void _initializeBuilder(GPartialStickerFieldsReqBuilder b) => b

@@ -15,7 +15,7 @@ abstract class GStickersData
     implements Built<GStickersData, GStickersDataBuilder> {
   GStickersData._();
 
-  factory GStickersData([Function(GStickersDataBuilder b) updates]) =
+  factory GStickersData([void Function(GStickersDataBuilder b) updates]) =
       _$GStickersData;
 
   static void _initializeBuilder(GStickersDataBuilder b) =>
@@ -45,7 +45,7 @@ abstract class GStickersData_stickers
   GStickersData_stickers._();
 
   factory GStickersData_stickers(
-          [Function(GStickersData_stickersBuilder b) updates]) =
+          [void Function(GStickersData_stickersBuilder b) updates]) =
       _$GStickersData_stickers;
 
   static void _initializeBuilder(GStickersData_stickersBuilder b) =>
@@ -90,7 +90,7 @@ abstract class GStickersData_stickers_image
   GStickersData_stickers_image._();
 
   factory GStickersData_stickers_image(
-          [Function(GStickersData_stickers_imageBuilder b) updates]) =
+          [void Function(GStickersData_stickers_imageBuilder b) updates]) =
       _$GStickersData_stickers_image;
 
   static void _initializeBuilder(GStickersData_stickers_imageBuilder b) =>

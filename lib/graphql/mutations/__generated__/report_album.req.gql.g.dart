@@ -147,6 +147,8 @@ class _$GReportAlbumReq extends GReportAlbumReq {
   final _i1.FetchPolicy? fetchPolicy;
   @override
   final bool executeOnListen;
+  @override
+  final _i4.Context? context;
 
   factory _$GReportAlbumReq([void Function(GReportAlbumReqBuilder)? updates]) =>
       (new GReportAlbumReqBuilder()..update(updates))._build();
@@ -160,7 +162,8 @@ class _$GReportAlbumReq extends GReportAlbumReq {
       this.updateCacheHandlerKey,
       this.updateCacheHandlerContext,
       this.fetchPolicy,
-      required this.executeOnListen})
+      required this.executeOnListen,
+      this.context})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(vars, r'GReportAlbumReq', 'vars');
     BuiltValueNullFieldError.checkNotNull(
@@ -190,7 +193,8 @@ class _$GReportAlbumReq extends GReportAlbumReq {
         updateCacheHandlerKey == other.updateCacheHandlerKey &&
         updateCacheHandlerContext == other.updateCacheHandlerContext &&
         fetchPolicy == other.fetchPolicy &&
-        executeOnListen == other.executeOnListen;
+        executeOnListen == other.executeOnListen &&
+        context == other.context;
   }
 
   @override
@@ -205,6 +209,7 @@ class _$GReportAlbumReq extends GReportAlbumReq {
     _$hash = $jc(_$hash, updateCacheHandlerContext.hashCode);
     _$hash = $jc(_$hash, fetchPolicy.hashCode);
     _$hash = $jc(_$hash, executeOnListen.hashCode);
+    _$hash = $jc(_$hash, context.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -220,7 +225,8 @@ class _$GReportAlbumReq extends GReportAlbumReq {
           ..add('updateCacheHandlerKey', updateCacheHandlerKey)
           ..add('updateCacheHandlerContext', updateCacheHandlerContext)
           ..add('fetchPolicy', fetchPolicy)
-          ..add('executeOnListen', executeOnListen))
+          ..add('executeOnListen', executeOnListen)
+          ..add('context', context))
         .toString();
   }
 }
@@ -280,6 +286,10 @@ class GReportAlbumReqBuilder
   set executeOnListen(bool? executeOnListen) =>
       _$this._executeOnListen = executeOnListen;
 
+  _i4.Context? _context;
+  _i4.Context? get context => _$this._context;
+  set context(_i4.Context? context) => _$this._context = context;
+
   GReportAlbumReqBuilder() {
     GReportAlbumReq._initializeBuilder(this);
   }
@@ -296,6 +306,7 @@ class GReportAlbumReqBuilder
       _updateCacheHandlerContext = $v.updateCacheHandlerContext;
       _fetchPolicy = $v.fetchPolicy;
       _executeOnListen = $v.executeOnListen;
+      _context = $v.context;
       _$v = null;
     }
     return this;
@@ -330,7 +341,8 @@ class GReportAlbumReqBuilder
               updateCacheHandlerContext: updateCacheHandlerContext,
               fetchPolicy: fetchPolicy,
               executeOnListen: BuiltValueNullFieldError.checkNotNull(
-                  executeOnListen, r'GReportAlbumReq', 'executeOnListen'));
+                  executeOnListen, r'GReportAlbumReq', 'executeOnListen'),
+              context: context);
     } catch (_) {
       late String _$failedField;
       try {

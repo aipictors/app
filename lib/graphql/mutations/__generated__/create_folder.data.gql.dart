@@ -12,7 +12,8 @@ abstract class GCreateFolderData
     implements Built<GCreateFolderData, GCreateFolderDataBuilder> {
   GCreateFolderData._();
 
-  factory GCreateFolderData([Function(GCreateFolderDataBuilder b) updates]) =
+  factory GCreateFolderData(
+          [void Function(GCreateFolderDataBuilder b) updates]) =
       _$GCreateFolderData;
 
   static void _initializeBuilder(GCreateFolderDataBuilder b) =>
@@ -43,7 +44,7 @@ abstract class GCreateFolderData_createFolder
   GCreateFolderData_createFolder._();
 
   factory GCreateFolderData_createFolder(
-          [Function(GCreateFolderData_createFolderBuilder b) updates]) =
+          [void Function(GCreateFolderData_createFolderBuilder b) updates]) =
       _$GCreateFolderData_createFolder;
 
   static void _initializeBuilder(GCreateFolderData_createFolderBuilder b) =>

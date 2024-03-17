@@ -13,7 +13,7 @@ abstract class GViewerMutedUsersVars
   GViewerMutedUsersVars._();
 
   factory GViewerMutedUsersVars(
-          [Function(GViewerMutedUsersVarsBuilder b) updates]) =
+          [void Function(GViewerMutedUsersVarsBuilder b) updates]) =
       _$GViewerMutedUsersVars;
 
   int get offset;

@@ -12,7 +12,7 @@ abstract class GViewerWorksVars
     implements Built<GViewerWorksVars, GViewerWorksVarsBuilder> {
   GViewerWorksVars._();
 
-  factory GViewerWorksVars([Function(GViewerWorksVarsBuilder b) updates]) =
+  factory GViewerWorksVars([void Function(GViewerWorksVarsBuilder b) updates]) =
       _$GViewerWorksVars;
 
   int get offset;

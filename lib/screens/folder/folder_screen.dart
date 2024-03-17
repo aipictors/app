@@ -27,7 +27,7 @@ class FolderScreen extends HookConsumerWidget {
     return OperationScreenBuilder(
       client: client.value!,
       operationRequest: GFolderReq((builder) {
-        return builder..vars.id = folderId;
+        builder.vars.id = folderId;
       }),
       builder: (context, response) {
         final folder = response.data?.folder;

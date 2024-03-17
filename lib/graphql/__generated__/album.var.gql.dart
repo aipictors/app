@@ -11,7 +11,8 @@ part 'album.var.gql.g.dart';
 abstract class GAlbumVars implements Built<GAlbumVars, GAlbumVarsBuilder> {
   GAlbumVars._();
 
-  factory GAlbumVars([Function(GAlbumVarsBuilder b) updates]) = _$GAlbumVars;
+  factory GAlbumVars([void Function(GAlbumVarsBuilder b) updates]) =
+      _$GAlbumVars;
 
   String get id;
   static Serializer<GAlbumVars> get serializer => _$gAlbumVarsSerializer;

@@ -33,7 +33,7 @@ class UserWorksContainer extends HookConsumerWidget {
     return OperationBuilder(
       client: client.value!,
       operationRequest: GUserWorksReq((builder) {
-        return builder
+        builder
           ..vars.limit = config.graphqlQueryLimit
           ..vars.user_id = userId
           ..vars.offset = 0;

@@ -12,7 +12,8 @@ abstract class GDeleteCommentData
     implements Built<GDeleteCommentData, GDeleteCommentDataBuilder> {
   GDeleteCommentData._();
 
-  factory GDeleteCommentData([Function(GDeleteCommentDataBuilder b) updates]) =
+  factory GDeleteCommentData(
+          [void Function(GDeleteCommentDataBuilder b) updates]) =
       _$GDeleteCommentData;
 
   static void _initializeBuilder(GDeleteCommentDataBuilder b) =>
@@ -43,7 +44,7 @@ abstract class GDeleteCommentData_deleteComment
   GDeleteCommentData_deleteComment._();
 
   factory GDeleteCommentData_deleteComment(
-          [Function(GDeleteCommentData_deleteCommentBuilder b) updates]) =
+          [void Function(GDeleteCommentData_deleteCommentBuilder b) updates]) =
       _$GDeleteCommentData_deleteComment;
 
   static void _initializeBuilder(GDeleteCommentData_deleteCommentBuilder b) =>

@@ -13,7 +13,7 @@ abstract class GPartialUserFieldsVars
   GPartialUserFieldsVars._();
 
   factory GPartialUserFieldsVars(
-          [Function(GPartialUserFieldsVarsBuilder b) updates]) =
+          [void Function(GPartialUserFieldsVarsBuilder b) updates]) =
       _$GPartialUserFieldsVars;
 
   static Serializer<GPartialUserFieldsVars> get serializer =>

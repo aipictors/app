@@ -12,7 +12,7 @@ abstract class GCreateAlbumData
     implements Built<GCreateAlbumData, GCreateAlbumDataBuilder> {
   GCreateAlbumData._();
 
-  factory GCreateAlbumData([Function(GCreateAlbumDataBuilder b) updates]) =
+  factory GCreateAlbumData([void Function(GCreateAlbumDataBuilder b) updates]) =
       _$GCreateAlbumData;
 
   static void _initializeBuilder(GCreateAlbumDataBuilder b) =>
@@ -43,7 +43,7 @@ abstract class GCreateAlbumData_createFolder
   GCreateAlbumData_createFolder._();
 
   factory GCreateAlbumData_createFolder(
-          [Function(GCreateAlbumData_createFolderBuilder b) updates]) =
+          [void Function(GCreateAlbumData_createFolderBuilder b) updates]) =
       _$GCreateAlbumData_createFolder;
 
   static void _initializeBuilder(GCreateAlbumData_createFolderBuilder b) =>

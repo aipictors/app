@@ -26,7 +26,7 @@ class PromotionsScreen extends HookConsumerWidget {
     }
 
     final request = GPromotionsReq((builder) {
-      return builder
+      builder
         ..vars.limit = config.graphqlQueryLimit
         ..vars.offset = 0;
     });
@@ -34,7 +34,7 @@ class PromotionsScreen extends HookConsumerWidget {
     return RefreshIndicator(
       onRefresh: () async {
         final req = request.rebuild((builder) {
-          return builder
+          builder
             ..vars.limit = config.graphqlQueryLimit
             ..vars.offset = 0;
         });

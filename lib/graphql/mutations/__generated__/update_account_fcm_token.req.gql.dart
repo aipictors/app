@@ -24,7 +24,7 @@ abstract class GUpdateAccountFcmTokenReq
   GUpdateAccountFcmTokenReq._();
 
   factory GUpdateAccountFcmTokenReq(
-          [Function(GUpdateAccountFcmTokenReqBuilder b) updates]) =
+          [void Function(GUpdateAccountFcmTokenReqBuilder b) updates]) =
       _$GUpdateAccountFcmTokenReq;
 
   static void _initializeBuilder(GUpdateAccountFcmTokenReqBuilder b) => b
@@ -42,6 +42,7 @@ abstract class GUpdateAccountFcmTokenReq
   _i4.Request get execRequest => _i4.Request(
         operation: operation,
         variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
       );
 
   @override
@@ -62,6 +63,9 @@ abstract class GUpdateAccountFcmTokenReq
   _i1.FetchPolicy? get fetchPolicy;
   @override
   bool get executeOnListen;
+  @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
   @override
   _i2.GUpdateAccountFcmTokenData? parseData(Map<String, dynamic> json) =>
       _i2.GUpdateAccountFcmTokenData.fromJson(json);

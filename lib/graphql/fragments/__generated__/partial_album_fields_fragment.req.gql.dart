@@ -24,7 +24,7 @@ abstract class GPartialAlbumFieldsReq
   GPartialAlbumFieldsReq._();
 
   factory GPartialAlbumFieldsReq(
-          [Function(GPartialAlbumFieldsReqBuilder b) updates]) =
+          [void Function(GPartialAlbumFieldsReqBuilder b) updates]) =
       _$GPartialAlbumFieldsReq;
 
   static void _initializeBuilder(GPartialAlbumFieldsReqBuilder b) => b

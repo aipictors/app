@@ -13,7 +13,8 @@ abstract class GReportStickerVars
     implements Built<GReportStickerVars, GReportStickerVarsBuilder> {
   GReportStickerVars._();
 
-  factory GReportStickerVars([Function(GReportStickerVarsBuilder b) updates]) =
+  factory GReportStickerVars(
+          [void Function(GReportStickerVarsBuilder b) updates]) =
       _$GReportStickerVars;
 
   _i1.GReportStickerInput get input;

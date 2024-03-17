@@ -15,7 +15,8 @@ abstract class GUserStickersData
     implements Built<GUserStickersData, GUserStickersDataBuilder> {
   GUserStickersData._();
 
-  factory GUserStickersData([Function(GUserStickersDataBuilder b) updates]) =
+  factory GUserStickersData(
+          [void Function(GUserStickersDataBuilder b) updates]) =
       _$GUserStickersData;
 
   static void _initializeBuilder(GUserStickersDataBuilder b) =>
@@ -45,7 +46,7 @@ abstract class GUserStickersData_viewer
   GUserStickersData_viewer._();
 
   factory GUserStickersData_viewer(
-          [Function(GUserStickersData_viewerBuilder b) updates]) =
+          [void Function(GUserStickersData_viewerBuilder b) updates]) =
       _$GUserStickersData_viewer;
 
   static void _initializeBuilder(GUserStickersData_viewerBuilder b) =>
@@ -77,8 +78,8 @@ abstract class GUserStickersData_viewer_userStickers
   GUserStickersData_viewer_userStickers._();
 
   factory GUserStickersData_viewer_userStickers(
-          [Function(GUserStickersData_viewer_userStickersBuilder b) updates]) =
-      _$GUserStickersData_viewer_userStickers;
+      [void Function(GUserStickersData_viewer_userStickersBuilder b)
+          updates]) = _$GUserStickersData_viewer_userStickers;
 
   static void _initializeBuilder(
           GUserStickersData_viewer_userStickersBuilder b) =>
@@ -124,7 +125,7 @@ abstract class GUserStickersData_viewer_userStickers_image
   GUserStickersData_viewer_userStickers_image._();
 
   factory GUserStickersData_viewer_userStickers_image(
-      [Function(GUserStickersData_viewer_userStickers_imageBuilder b)
+      [void Function(GUserStickersData_viewer_userStickers_imageBuilder b)
           updates]) = _$GUserStickersData_viewer_userStickers_image;
 
   static void _initializeBuilder(

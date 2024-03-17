@@ -15,7 +15,7 @@ abstract class GUpdateAccountPasswordVars
   GUpdateAccountPasswordVars._();
 
   factory GUpdateAccountPasswordVars(
-          [Function(GUpdateAccountPasswordVarsBuilder b) updates]) =
+          [void Function(GUpdateAccountPasswordVarsBuilder b) updates]) =
       _$GUpdateAccountPasswordVars;
 
   _i1.GUpdateAccountPasswordInput get input;

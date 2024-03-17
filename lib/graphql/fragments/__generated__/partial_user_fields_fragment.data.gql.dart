@@ -31,7 +31,7 @@ abstract class GPartialUserFieldsData
   GPartialUserFieldsData._();
 
   factory GPartialUserFieldsData(
-          [Function(GPartialUserFieldsDataBuilder b) updates]) =
+          [void Function(GPartialUserFieldsDataBuilder b) updates]) =
       _$GPartialUserFieldsData;
 
   static void _initializeBuilder(GPartialUserFieldsDataBuilder b) =>
@@ -72,7 +72,7 @@ abstract class GPartialUserFieldsData_iconImage
   GPartialUserFieldsData_iconImage._();
 
   factory GPartialUserFieldsData_iconImage(
-          [Function(GPartialUserFieldsData_iconImageBuilder b) updates]) =
+          [void Function(GPartialUserFieldsData_iconImageBuilder b) updates]) =
       _$GPartialUserFieldsData_iconImage;
 
   static void _initializeBuilder(GPartialUserFieldsData_iconImageBuilder b) =>

@@ -13,7 +13,7 @@ abstract class GStickersVars
     implements Built<GStickersVars, GStickersVarsBuilder> {
   GStickersVars._();
 
-  factory GStickersVars([Function(GStickersVarsBuilder b) updates]) =
+  factory GStickersVars([void Function(GStickersVarsBuilder b) updates]) =
       _$GStickersVars;
 
   int get offset;

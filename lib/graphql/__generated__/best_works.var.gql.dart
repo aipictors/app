@@ -12,7 +12,7 @@ abstract class GBestWorksVars
     implements Built<GBestWorksVars, GBestWorksVarsBuilder> {
   GBestWorksVars._();
 
-  factory GBestWorksVars([Function(GBestWorksVarsBuilder b) updates]) =
+  factory GBestWorksVars([void Function(GBestWorksVarsBuilder b) updates]) =
       _$GBestWorksVars;
 
   static Serializer<GBestWorksVars> get serializer =>

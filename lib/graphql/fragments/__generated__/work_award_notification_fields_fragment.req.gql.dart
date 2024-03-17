@@ -25,7 +25,7 @@ abstract class GWorkAwardNotificationFieldsReq
   GWorkAwardNotificationFieldsReq._();
 
   factory GWorkAwardNotificationFieldsReq(
-          [Function(GWorkAwardNotificationFieldsReqBuilder b) updates]) =
+          [void Function(GWorkAwardNotificationFieldsReqBuilder b) updates]) =
       _$GWorkAwardNotificationFieldsReq;
 
   static void _initializeBuilder(GWorkAwardNotificationFieldsReqBuilder b) => b

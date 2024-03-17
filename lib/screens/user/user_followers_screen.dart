@@ -31,7 +31,7 @@ class UserFollowersScreen extends HookConsumerWidget {
     }
 
     final request = GUserFollowersReq((builder) {
-      return builder
+      builder
         ..vars.limit = config.graphqlQueryLimit
         ..vars.offset = 0
         ..vars.user_id = userId;

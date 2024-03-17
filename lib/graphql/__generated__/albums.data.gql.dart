@@ -16,7 +16,8 @@ part 'albums.data.gql.g.dart';
 abstract class GAlbumsData implements Built<GAlbumsData, GAlbumsDataBuilder> {
   GAlbumsData._();
 
-  factory GAlbumsData([Function(GAlbumsDataBuilder b) updates]) = _$GAlbumsData;
+  factory GAlbumsData([void Function(GAlbumsDataBuilder b) updates]) =
+      _$GAlbumsData;
 
   static void _initializeBuilder(GAlbumsDataBuilder b) =>
       b..G__typename = 'Query';
@@ -44,7 +45,8 @@ abstract class GAlbumsData_albums
         _i2.GPartialAlbumFields {
   GAlbumsData_albums._();
 
-  factory GAlbumsData_albums([Function(GAlbumsData_albumsBuilder b) updates]) =
+  factory GAlbumsData_albums(
+          [void Function(GAlbumsData_albumsBuilder b) updates]) =
       _$GAlbumsData_albums;
 
   static void _initializeBuilder(GAlbumsData_albumsBuilder b) =>
@@ -90,7 +92,7 @@ abstract class GAlbumsData_albums_thumbnailImage
   GAlbumsData_albums_thumbnailImage._();
 
   factory GAlbumsData_albums_thumbnailImage(
-          [Function(GAlbumsData_albums_thumbnailImageBuilder b) updates]) =
+          [void Function(GAlbumsData_albums_thumbnailImageBuilder b) updates]) =
       _$GAlbumsData_albums_thumbnailImage;
 
   static void _initializeBuilder(GAlbumsData_albums_thumbnailImageBuilder b) =>
@@ -127,7 +129,7 @@ abstract class GAlbumsData_albums_user
   GAlbumsData_albums_user._();
 
   factory GAlbumsData_albums_user(
-          [Function(GAlbumsData_albums_userBuilder b) updates]) =
+          [void Function(GAlbumsData_albums_userBuilder b) updates]) =
       _$GAlbumsData_albums_user;
 
   static void _initializeBuilder(GAlbumsData_albums_userBuilder b) =>
@@ -168,7 +170,7 @@ abstract class GAlbumsData_albums_user_iconImage
   GAlbumsData_albums_user_iconImage._();
 
   factory GAlbumsData_albums_user_iconImage(
-          [Function(GAlbumsData_albums_user_iconImageBuilder b) updates]) =
+          [void Function(GAlbumsData_albums_user_iconImageBuilder b) updates]) =
       _$GAlbumsData_albums_user_iconImage;
 
   static void _initializeBuilder(GAlbumsData_albums_user_iconImageBuilder b) =>

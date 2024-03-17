@@ -41,7 +41,7 @@ abstract class GUserFieldsData
     implements Built<GUserFieldsData, GUserFieldsDataBuilder>, GUserFields {
   GUserFieldsData._();
 
-  factory GUserFieldsData([Function(GUserFieldsDataBuilder b) updates]) =
+  factory GUserFieldsData([void Function(GUserFieldsDataBuilder b) updates]) =
       _$GUserFieldsData;
 
   static void _initializeBuilder(GUserFieldsDataBuilder b) =>
@@ -93,7 +93,7 @@ abstract class GUserFieldsData_iconImage
   GUserFieldsData_iconImage._();
 
   factory GUserFieldsData_iconImage(
-          [Function(GUserFieldsData_iconImageBuilder b) updates]) =
+          [void Function(GUserFieldsData_iconImageBuilder b) updates]) =
       _$GUserFieldsData_iconImage;
 
   static void _initializeBuilder(GUserFieldsData_iconImageBuilder b) =>
@@ -129,7 +129,7 @@ abstract class GUserFieldsData_headerImage
   GUserFieldsData_headerImage._();
 
   factory GUserFieldsData_headerImage(
-          [Function(GUserFieldsData_headerImageBuilder b) updates]) =
+          [void Function(GUserFieldsData_headerImageBuilder b) updates]) =
       _$GUserFieldsData_headerImage;
 
   static void _initializeBuilder(GUserFieldsData_headerImageBuilder b) =>

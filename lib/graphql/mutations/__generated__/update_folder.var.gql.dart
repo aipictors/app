@@ -13,7 +13,8 @@ abstract class GUpdateFolderVars
     implements Built<GUpdateFolderVars, GUpdateFolderVarsBuilder> {
   GUpdateFolderVars._();
 
-  factory GUpdateFolderVars([Function(GUpdateFolderVarsBuilder b) updates]) =
+  factory GUpdateFolderVars(
+          [void Function(GUpdateFolderVarsBuilder b) updates]) =
       _$GUpdateFolderVars;
 
   _i1.GUpdateFolderInput get input;

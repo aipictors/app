@@ -25,7 +25,7 @@ abstract class GLikedWorksSummaryNotificationFieldsReq
   GLikedWorksSummaryNotificationFieldsReq._();
 
   factory GLikedWorksSummaryNotificationFieldsReq(
-      [Function(GLikedWorksSummaryNotificationFieldsReqBuilder b)
+      [void Function(GLikedWorksSummaryNotificationFieldsReqBuilder b)
           updates]) = _$GLikedWorksSummaryNotificationFieldsReq;
 
   static void _initializeBuilder(

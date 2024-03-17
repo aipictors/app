@@ -16,7 +16,8 @@ abstract class GViewerFoldersData
     implements Built<GViewerFoldersData, GViewerFoldersDataBuilder> {
   GViewerFoldersData._();
 
-  factory GViewerFoldersData([Function(GViewerFoldersDataBuilder b) updates]) =
+  factory GViewerFoldersData(
+          [void Function(GViewerFoldersDataBuilder b) updates]) =
       _$GViewerFoldersData;
 
   static void _initializeBuilder(GViewerFoldersDataBuilder b) =>
@@ -46,7 +47,7 @@ abstract class GViewerFoldersData_viewer
   GViewerFoldersData_viewer._();
 
   factory GViewerFoldersData_viewer(
-          [Function(GViewerFoldersData_viewerBuilder b) updates]) =
+          [void Function(GViewerFoldersData_viewerBuilder b) updates]) =
       _$GViewerFoldersData_viewer;
 
   static void _initializeBuilder(GViewerFoldersData_viewerBuilder b) =>
@@ -78,7 +79,7 @@ abstract class GViewerFoldersData_viewer_folders
   GViewerFoldersData_viewer_folders._();
 
   factory GViewerFoldersData_viewer_folders(
-          [Function(GViewerFoldersData_viewer_foldersBuilder b) updates]) =
+          [void Function(GViewerFoldersData_viewer_foldersBuilder b) updates]) =
       _$GViewerFoldersData_viewer_folders;
 
   static void _initializeBuilder(GViewerFoldersData_viewer_foldersBuilder b) =>

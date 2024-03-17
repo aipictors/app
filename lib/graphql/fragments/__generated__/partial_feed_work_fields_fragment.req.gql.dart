@@ -24,7 +24,7 @@ abstract class GPartialFeedWorkFieldsReq
   GPartialFeedWorkFieldsReq._();
 
   factory GPartialFeedWorkFieldsReq(
-          [Function(GPartialFeedWorkFieldsReqBuilder b) updates]) =
+          [void Function(GPartialFeedWorkFieldsReqBuilder b) updates]) =
       _$GPartialFeedWorkFieldsReq;
 
   static void _initializeBuilder(GPartialFeedWorkFieldsReqBuilder b) => b

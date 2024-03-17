@@ -151,6 +151,8 @@ class _$GCreateAlbumWorkReq extends GCreateAlbumWorkReq {
   final _i1.FetchPolicy? fetchPolicy;
   @override
   final bool executeOnListen;
+  @override
+  final _i4.Context? context;
 
   factory _$GCreateAlbumWorkReq(
           [void Function(GCreateAlbumWorkReqBuilder)? updates]) =>
@@ -165,7 +167,8 @@ class _$GCreateAlbumWorkReq extends GCreateAlbumWorkReq {
       this.updateCacheHandlerKey,
       this.updateCacheHandlerContext,
       this.fetchPolicy,
-      required this.executeOnListen})
+      required this.executeOnListen,
+      this.context})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(vars, r'GCreateAlbumWorkReq', 'vars');
     BuiltValueNullFieldError.checkNotNull(
@@ -196,7 +199,8 @@ class _$GCreateAlbumWorkReq extends GCreateAlbumWorkReq {
         updateCacheHandlerKey == other.updateCacheHandlerKey &&
         updateCacheHandlerContext == other.updateCacheHandlerContext &&
         fetchPolicy == other.fetchPolicy &&
-        executeOnListen == other.executeOnListen;
+        executeOnListen == other.executeOnListen &&
+        context == other.context;
   }
 
   @override
@@ -211,6 +215,7 @@ class _$GCreateAlbumWorkReq extends GCreateAlbumWorkReq {
     _$hash = $jc(_$hash, updateCacheHandlerContext.hashCode);
     _$hash = $jc(_$hash, fetchPolicy.hashCode);
     _$hash = $jc(_$hash, executeOnListen.hashCode);
+    _$hash = $jc(_$hash, context.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -226,7 +231,8 @@ class _$GCreateAlbumWorkReq extends GCreateAlbumWorkReq {
           ..add('updateCacheHandlerKey', updateCacheHandlerKey)
           ..add('updateCacheHandlerContext', updateCacheHandlerContext)
           ..add('fetchPolicy', fetchPolicy)
-          ..add('executeOnListen', executeOnListen))
+          ..add('executeOnListen', executeOnListen)
+          ..add('context', context))
         .toString();
   }
 }
@@ -287,6 +293,10 @@ class GCreateAlbumWorkReqBuilder
   set executeOnListen(bool? executeOnListen) =>
       _$this._executeOnListen = executeOnListen;
 
+  _i4.Context? _context;
+  _i4.Context? get context => _$this._context;
+  set context(_i4.Context? context) => _$this._context = context;
+
   GCreateAlbumWorkReqBuilder() {
     GCreateAlbumWorkReq._initializeBuilder(this);
   }
@@ -303,6 +313,7 @@ class GCreateAlbumWorkReqBuilder
       _updateCacheHandlerContext = $v.updateCacheHandlerContext;
       _fetchPolicy = $v.fetchPolicy;
       _executeOnListen = $v.executeOnListen;
+      _context = $v.context;
       _$v = null;
     }
     return this;
@@ -337,7 +348,8 @@ class GCreateAlbumWorkReqBuilder
               updateCacheHandlerContext: updateCacheHandlerContext,
               fetchPolicy: fetchPolicy,
               executeOnListen: BuiltValueNullFieldError.checkNotNull(
-                  executeOnListen, r'GCreateAlbumWorkReq', 'executeOnListen'));
+                  executeOnListen, r'GCreateAlbumWorkReq', 'executeOnListen'),
+              context: context);
     } catch (_) {
       late String _$failedField;
       try {

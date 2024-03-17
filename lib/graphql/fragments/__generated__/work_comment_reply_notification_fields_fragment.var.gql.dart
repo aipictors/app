@@ -15,7 +15,7 @@ abstract class GWorkCommentReplyNotificationFieldsVars
   GWorkCommentReplyNotificationFieldsVars._();
 
   factory GWorkCommentReplyNotificationFieldsVars(
-      [Function(GWorkCommentReplyNotificationFieldsVarsBuilder b)
+      [void Function(GWorkCommentReplyNotificationFieldsVarsBuilder b)
           updates]) = _$GWorkCommentReplyNotificationFieldsVars;
 
   static Serializer<GWorkCommentReplyNotificationFieldsVars> get serializer =>

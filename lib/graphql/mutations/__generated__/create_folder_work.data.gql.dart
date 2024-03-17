@@ -13,7 +13,7 @@ abstract class GCreateFolderWorkData
   GCreateFolderWorkData._();
 
   factory GCreateFolderWorkData(
-          [Function(GCreateFolderWorkDataBuilder b) updates]) =
+          [void Function(GCreateFolderWorkDataBuilder b) updates]) =
       _$GCreateFolderWorkData;
 
   static void _initializeBuilder(GCreateFolderWorkDataBuilder b) =>
@@ -44,8 +44,8 @@ abstract class GCreateFolderWorkData_createFolderWork
   GCreateFolderWorkData_createFolderWork._();
 
   factory GCreateFolderWorkData_createFolderWork(
-          [Function(GCreateFolderWorkData_createFolderWorkBuilder b) updates]) =
-      _$GCreateFolderWorkData_createFolderWork;
+      [void Function(GCreateFolderWorkData_createFolderWorkBuilder b)
+          updates]) = _$GCreateFolderWorkData_createFolderWork;
 
   static void _initializeBuilder(
           GCreateFolderWorkData_createFolderWorkBuilder b) =>

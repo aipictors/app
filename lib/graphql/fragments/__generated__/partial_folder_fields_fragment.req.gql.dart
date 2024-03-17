@@ -24,7 +24,7 @@ abstract class GPartialFolderFieldsReq
   GPartialFolderFieldsReq._();
 
   factory GPartialFolderFieldsReq(
-          [Function(GPartialFolderFieldsReqBuilder b) updates]) =
+          [void Function(GPartialFolderFieldsReqBuilder b) updates]) =
       _$GPartialFolderFieldsReq;
 
   static void _initializeBuilder(GPartialFolderFieldsReqBuilder b) => b

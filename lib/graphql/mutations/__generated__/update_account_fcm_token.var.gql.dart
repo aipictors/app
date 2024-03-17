@@ -15,7 +15,7 @@ abstract class GUpdateAccountFcmTokenVars
   GUpdateAccountFcmTokenVars._();
 
   factory GUpdateAccountFcmTokenVars(
-          [Function(GUpdateAccountFcmTokenVarsBuilder b) updates]) =
+          [void Function(GUpdateAccountFcmTokenVarsBuilder b) updates]) =
       _$GUpdateAccountFcmTokenVars;
 
   _i1.GUpdateAccountFcmTokenInput get input;

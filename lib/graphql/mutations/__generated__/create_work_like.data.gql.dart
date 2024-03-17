@@ -13,7 +13,8 @@ abstract class GCreateWorkLikeData
   GCreateWorkLikeData._();
 
   factory GCreateWorkLikeData(
-      [Function(GCreateWorkLikeDataBuilder b) updates]) = _$GCreateWorkLikeData;
+          [void Function(GCreateWorkLikeDataBuilder b) updates]) =
+      _$GCreateWorkLikeData;
 
   static void _initializeBuilder(GCreateWorkLikeDataBuilder b) =>
       b..G__typename = 'Mutation';
@@ -43,8 +44,8 @@ abstract class GCreateWorkLikeData_createWorkLike
   GCreateWorkLikeData_createWorkLike._();
 
   factory GCreateWorkLikeData_createWorkLike(
-          [Function(GCreateWorkLikeData_createWorkLikeBuilder b) updates]) =
-      _$GCreateWorkLikeData_createWorkLike;
+      [void Function(GCreateWorkLikeData_createWorkLikeBuilder b)
+          updates]) = _$GCreateWorkLikeData_createWorkLike;
 
   static void _initializeBuilder(GCreateWorkLikeData_createWorkLikeBuilder b) =>
       b..G__typename = 'WorkNode';
@@ -77,7 +78,7 @@ abstract class GCreateWorkLikeData_createWorkLike_viewer
   GCreateWorkLikeData_createWorkLike_viewer._();
 
   factory GCreateWorkLikeData_createWorkLike_viewer(
-      [Function(GCreateWorkLikeData_createWorkLike_viewerBuilder b)
+      [void Function(GCreateWorkLikeData_createWorkLike_viewerBuilder b)
           updates]) = _$GCreateWorkLikeData_createWorkLike_viewer;
 
   static void _initializeBuilder(

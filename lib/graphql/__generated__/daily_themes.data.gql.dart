@@ -15,7 +15,7 @@ abstract class GDailyThemesData
     implements Built<GDailyThemesData, GDailyThemesDataBuilder> {
   GDailyThemesData._();
 
-  factory GDailyThemesData([Function(GDailyThemesDataBuilder b) updates]) =
+  factory GDailyThemesData([void Function(GDailyThemesDataBuilder b) updates]) =
       _$GDailyThemesData;
 
   static void _initializeBuilder(GDailyThemesDataBuilder b) =>
@@ -46,7 +46,7 @@ abstract class GDailyThemesData_dailyThemes
   GDailyThemesData_dailyThemes._();
 
   factory GDailyThemesData_dailyThemes(
-          [Function(GDailyThemesData_dailyThemesBuilder b) updates]) =
+          [void Function(GDailyThemesData_dailyThemesBuilder b) updates]) =
       _$GDailyThemesData_dailyThemes;
 
   static void _initializeBuilder(GDailyThemesData_dailyThemesBuilder b) =>
@@ -85,8 +85,8 @@ abstract class GDailyThemesData_dailyThemes_firstWork
   GDailyThemesData_dailyThemes_firstWork._();
 
   factory GDailyThemesData_dailyThemes_firstWork(
-          [Function(GDailyThemesData_dailyThemes_firstWorkBuilder b) updates]) =
-      _$GDailyThemesData_dailyThemes_firstWork;
+      [void Function(GDailyThemesData_dailyThemes_firstWorkBuilder b)
+          updates]) = _$GDailyThemesData_dailyThemes_firstWork;
 
   static void _initializeBuilder(
           GDailyThemesData_dailyThemes_firstWorkBuilder b) =>
@@ -132,7 +132,8 @@ abstract class GDailyThemesData_dailyThemes_firstWork_thumbnailImage
   GDailyThemesData_dailyThemes_firstWork_thumbnailImage._();
 
   factory GDailyThemesData_dailyThemes_firstWork_thumbnailImage(
-      [Function(GDailyThemesData_dailyThemes_firstWork_thumbnailImageBuilder b)
+      [void Function(
+              GDailyThemesData_dailyThemes_firstWork_thumbnailImageBuilder b)
           updates]) = _$GDailyThemesData_dailyThemes_firstWork_thumbnailImage;
 
   static void _initializeBuilder(

@@ -32,7 +32,7 @@ class UserFoldersContainer extends HookConsumerWidget {
     return OperationBuilder(
       client: client.value!,
       operationRequest: GUserFoldersReq((builder) {
-        return builder
+        builder
           ..vars.limit = config.graphqlQueryLimit
           ..vars.user_id = userId
           ..vars.offset = 0;

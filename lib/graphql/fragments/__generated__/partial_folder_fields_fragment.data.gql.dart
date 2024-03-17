@@ -26,7 +26,7 @@ abstract class GPartialFolderFieldsData
   GPartialFolderFieldsData._();
 
   factory GPartialFolderFieldsData(
-          [Function(GPartialFolderFieldsDataBuilder b) updates]) =
+          [void Function(GPartialFolderFieldsDataBuilder b) updates]) =
       _$GPartialFolderFieldsData;
 
   static void _initializeBuilder(GPartialFolderFieldsDataBuilder b) =>

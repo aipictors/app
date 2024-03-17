@@ -22,7 +22,7 @@ abstract class GReportFolderReq
         _i1.OperationRequest<_i2.GReportFolderData, _i3.GReportFolderVars> {
   GReportFolderReq._();
 
-  factory GReportFolderReq([Function(GReportFolderReqBuilder b) updates]) =
+  factory GReportFolderReq([void Function(GReportFolderReqBuilder b) updates]) =
       _$GReportFolderReq;
 
   static void _initializeBuilder(GReportFolderReqBuilder b) => b
@@ -40,6 +40,7 @@ abstract class GReportFolderReq
   _i4.Request get execRequest => _i4.Request(
         operation: operation,
         variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
       );
 
   @override
@@ -60,6 +61,9 @@ abstract class GReportFolderReq
   _i1.FetchPolicy? get fetchPolicy;
   @override
   bool get executeOnListen;
+  @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
   @override
   _i2.GReportFolderData? parseData(Map<String, dynamic> json) =>
       _i2.GReportFolderData.fromJson(json);

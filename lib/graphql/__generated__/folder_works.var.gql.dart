@@ -12,7 +12,7 @@ abstract class GFolderWorksVars
     implements Built<GFolderWorksVars, GFolderWorksVarsBuilder> {
   GFolderWorksVars._();
 
-  factory GFolderWorksVars([Function(GFolderWorksVarsBuilder b) updates]) =
+  factory GFolderWorksVars([void Function(GFolderWorksVarsBuilder b) updates]) =
       _$GFolderWorksVars;
 
   String get folderId;

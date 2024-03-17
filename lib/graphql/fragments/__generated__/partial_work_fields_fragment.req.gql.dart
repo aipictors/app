@@ -24,7 +24,7 @@ abstract class GPartialWorkFieldsReq
   GPartialWorkFieldsReq._();
 
   factory GPartialWorkFieldsReq(
-          [Function(GPartialWorkFieldsReqBuilder b) updates]) =
+          [void Function(GPartialWorkFieldsReqBuilder b) updates]) =
       _$GPartialWorkFieldsReq;
 
   static void _initializeBuilder(GPartialWorkFieldsReqBuilder b) => b

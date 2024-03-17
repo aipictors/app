@@ -22,7 +22,7 @@ abstract class GFeedHotWorksReq
         _i1.OperationRequest<_i2.GFeedHotWorksData, _i3.GFeedHotWorksVars> {
   GFeedHotWorksReq._();
 
-  factory GFeedHotWorksReq([Function(GFeedHotWorksReqBuilder b) updates]) =
+  factory GFeedHotWorksReq([void Function(GFeedHotWorksReqBuilder b) updates]) =
       _$GFeedHotWorksReq;
 
   static void _initializeBuilder(GFeedHotWorksReqBuilder b) => b
@@ -40,6 +40,7 @@ abstract class GFeedHotWorksReq
   _i4.Request get execRequest => _i4.Request(
         operation: operation,
         variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
       );
 
   @override
@@ -60,6 +61,9 @@ abstract class GFeedHotWorksReq
   _i1.FetchPolicy? get fetchPolicy;
   @override
   bool get executeOnListen;
+  @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
   @override
   _i2.GFeedHotWorksData? parseData(Map<String, dynamic> json) =>
       _i2.GFeedHotWorksData.fromJson(json);

@@ -68,7 +68,7 @@ class StickersSearchScreen extends HookConsumerWidget {
         body: OperationBuilder(
           client: client.value!,
           operationRequest: GStickersReq((builder) {
-            return builder
+            builder
               ..vars.limit = config.graphqlQueryLimit
               ..vars.offset = 0
               ..vars.where.search = text;

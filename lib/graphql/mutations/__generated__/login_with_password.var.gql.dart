@@ -14,7 +14,7 @@ abstract class GLoginWithPasswordVars
   GLoginWithPasswordVars._();
 
   factory GLoginWithPasswordVars(
-          [Function(GLoginWithPasswordVarsBuilder b) updates]) =
+          [void Function(GLoginWithPasswordVarsBuilder b) updates]) =
       _$GLoginWithPasswordVars;
 
   _i1.GLoginWithPasswordInput get input;

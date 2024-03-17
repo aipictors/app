@@ -13,7 +13,7 @@ abstract class GViewerLikedWorksVars
   GViewerLikedWorksVars._();
 
   factory GViewerLikedWorksVars(
-          [Function(GViewerLikedWorksVarsBuilder b) updates]) =
+          [void Function(GViewerLikedWorksVarsBuilder b) updates]) =
       _$GViewerLikedWorksVars;
 
   int get offset;

@@ -12,7 +12,8 @@ abstract class GFeedHotWorksVars
     implements Built<GFeedHotWorksVars, GFeedHotWorksVarsBuilder> {
   GFeedHotWorksVars._();
 
-  factory GFeedHotWorksVars([Function(GFeedHotWorksVarsBuilder b) updates]) =
+  factory GFeedHotWorksVars(
+          [void Function(GFeedHotWorksVarsBuilder b) updates]) =
       _$GFeedHotWorksVars;
 
   static Serializer<GFeedHotWorksVars> get serializer =>

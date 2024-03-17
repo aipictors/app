@@ -14,7 +14,7 @@ abstract class GCreateAlbumWorkVars
   GCreateAlbumWorkVars._();
 
   factory GCreateAlbumWorkVars(
-          [Function(GCreateAlbumWorkVarsBuilder b) updates]) =
+          [void Function(GCreateAlbumWorkVarsBuilder b) updates]) =
       _$GCreateAlbumWorkVars;
 
   _i1.GCreateAlbumWorkInput get input;

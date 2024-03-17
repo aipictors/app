@@ -125,7 +125,7 @@ abstract class GWorkCommentReplyNotificationFieldsData
   GWorkCommentReplyNotificationFieldsData._();
 
   factory GWorkCommentReplyNotificationFieldsData(
-      [Function(GWorkCommentReplyNotificationFieldsDataBuilder b)
+      [void Function(GWorkCommentReplyNotificationFieldsDataBuilder b)
           updates]) = _$GWorkCommentReplyNotificationFieldsData;
 
   static void _initializeBuilder(
@@ -173,7 +173,7 @@ abstract class GWorkCommentReplyNotificationFieldsData_work
   GWorkCommentReplyNotificationFieldsData_work._();
 
   factory GWorkCommentReplyNotificationFieldsData_work(
-      [Function(GWorkCommentReplyNotificationFieldsData_workBuilder b)
+      [void Function(GWorkCommentReplyNotificationFieldsData_workBuilder b)
           updates]) = _$GWorkCommentReplyNotificationFieldsData_work;
 
   static void _initializeBuilder(
@@ -222,7 +222,7 @@ abstract class GWorkCommentReplyNotificationFieldsData_work_thumbnailImage
   GWorkCommentReplyNotificationFieldsData_work_thumbnailImage._();
 
   factory GWorkCommentReplyNotificationFieldsData_work_thumbnailImage(
-      [Function(
+      [void Function(
               GWorkCommentReplyNotificationFieldsData_work_thumbnailImageBuilder
                   b)
           updates]) = _$GWorkCommentReplyNotificationFieldsData_work_thumbnailImage;
@@ -266,7 +266,7 @@ abstract class GWorkCommentReplyNotificationFieldsData_user
   GWorkCommentReplyNotificationFieldsData_user._();
 
   factory GWorkCommentReplyNotificationFieldsData_user(
-      [Function(GWorkCommentReplyNotificationFieldsData_userBuilder b)
+      [void Function(GWorkCommentReplyNotificationFieldsData_userBuilder b)
           updates]) = _$GWorkCommentReplyNotificationFieldsData_user;
 
   static void _initializeBuilder(
@@ -310,7 +310,8 @@ abstract class GWorkCommentReplyNotificationFieldsData_user_iconImage
   GWorkCommentReplyNotificationFieldsData_user_iconImage._();
 
   factory GWorkCommentReplyNotificationFieldsData_user_iconImage(
-      [Function(GWorkCommentReplyNotificationFieldsData_user_iconImageBuilder b)
+      [void Function(
+              GWorkCommentReplyNotificationFieldsData_user_iconImageBuilder b)
           updates]) = _$GWorkCommentReplyNotificationFieldsData_user_iconImage;
 
   static void _initializeBuilder(
@@ -351,7 +352,7 @@ abstract class GWorkCommentReplyNotificationFieldsData_sticker
   GWorkCommentReplyNotificationFieldsData_sticker._();
 
   factory GWorkCommentReplyNotificationFieldsData_sticker(
-      [Function(GWorkCommentReplyNotificationFieldsData_stickerBuilder b)
+      [void Function(GWorkCommentReplyNotificationFieldsData_stickerBuilder b)
           updates]) = _$GWorkCommentReplyNotificationFieldsData_sticker;
 
   static void _initializeBuilder(
@@ -400,7 +401,8 @@ abstract class GWorkCommentReplyNotificationFieldsData_sticker_image
   GWorkCommentReplyNotificationFieldsData_sticker_image._();
 
   factory GWorkCommentReplyNotificationFieldsData_sticker_image(
-      [Function(GWorkCommentReplyNotificationFieldsData_sticker_imageBuilder b)
+      [void Function(
+              GWorkCommentReplyNotificationFieldsData_sticker_imageBuilder b)
           updates]) = _$GWorkCommentReplyNotificationFieldsData_sticker_image;
 
   static void _initializeBuilder(

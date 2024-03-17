@@ -11,7 +11,7 @@ part 'work.var.gql.g.dart';
 abstract class GWorkVars implements Built<GWorkVars, GWorkVarsBuilder> {
   GWorkVars._();
 
-  factory GWorkVars([Function(GWorkVarsBuilder b) updates]) = _$GWorkVars;
+  factory GWorkVars([void Function(GWorkVarsBuilder b) updates]) = _$GWorkVars;
 
   String get id;
   static Serializer<GWorkVars> get serializer => _$gWorkVarsSerializer;

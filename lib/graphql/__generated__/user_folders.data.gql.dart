@@ -16,7 +16,7 @@ abstract class GUserFoldersData
     implements Built<GUserFoldersData, GUserFoldersDataBuilder> {
   GUserFoldersData._();
 
-  factory GUserFoldersData([Function(GUserFoldersDataBuilder b) updates]) =
+  factory GUserFoldersData([void Function(GUserFoldersDataBuilder b) updates]) =
       _$GUserFoldersData;
 
   static void _initializeBuilder(GUserFoldersDataBuilder b) =>
@@ -45,7 +45,7 @@ abstract class GUserFoldersData_user
   GUserFoldersData_user._();
 
   factory GUserFoldersData_user(
-          [Function(GUserFoldersData_userBuilder b) updates]) =
+          [void Function(GUserFoldersData_userBuilder b) updates]) =
       _$GUserFoldersData_user;
 
   static void _initializeBuilder(GUserFoldersData_userBuilder b) =>
@@ -78,7 +78,7 @@ abstract class GUserFoldersData_user_folders
   GUserFoldersData_user_folders._();
 
   factory GUserFoldersData_user_folders(
-          [Function(GUserFoldersData_user_foldersBuilder b) updates]) =
+          [void Function(GUserFoldersData_user_foldersBuilder b) updates]) =
       _$GUserFoldersData_user_folders;
 
   static void _initializeBuilder(GUserFoldersData_user_foldersBuilder b) =>

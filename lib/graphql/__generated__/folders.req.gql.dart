@@ -19,7 +19,8 @@ abstract class GFoldersReq
         _i1.OperationRequest<_i2.GFoldersData, _i3.GFoldersVars> {
   GFoldersReq._();
 
-  factory GFoldersReq([Function(GFoldersReqBuilder b) updates]) = _$GFoldersReq;
+  factory GFoldersReq([void Function(GFoldersReqBuilder b) updates]) =
+      _$GFoldersReq;
 
   static void _initializeBuilder(GFoldersReqBuilder b) => b
     ..operation = _i4.Operation(
@@ -36,6 +37,7 @@ abstract class GFoldersReq
   _i4.Request get execRequest => _i4.Request(
         operation: operation,
         variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
       );
 
   @override
@@ -56,6 +58,9 @@ abstract class GFoldersReq
   _i1.FetchPolicy? get fetchPolicy;
   @override
   bool get executeOnListen;
+  @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
   @override
   _i2.GFoldersData? parseData(Map<String, dynamic> json) =>
       _i2.GFoldersData.fromJson(json);

@@ -22,7 +22,8 @@ abstract class GViewerFoldersReq
         _i1.OperationRequest<_i2.GViewerFoldersData, _i3.GViewerFoldersVars> {
   GViewerFoldersReq._();
 
-  factory GViewerFoldersReq([Function(GViewerFoldersReqBuilder b) updates]) =
+  factory GViewerFoldersReq(
+          [void Function(GViewerFoldersReqBuilder b) updates]) =
       _$GViewerFoldersReq;
 
   static void _initializeBuilder(GViewerFoldersReqBuilder b) => b
@@ -40,6 +41,7 @@ abstract class GViewerFoldersReq
   _i4.Request get execRequest => _i4.Request(
         operation: operation,
         variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
       );
 
   @override
@@ -60,6 +62,9 @@ abstract class GViewerFoldersReq
   _i1.FetchPolicy? get fetchPolicy;
   @override
   bool get executeOnListen;
+  @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
   @override
   _i2.GViewerFoldersData? parseData(Map<String, dynamic> json) =>
       _i2.GViewerFoldersData.fromJson(json);

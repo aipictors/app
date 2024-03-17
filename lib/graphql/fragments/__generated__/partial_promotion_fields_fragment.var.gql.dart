@@ -14,7 +14,7 @@ abstract class GPartialPromotionFieldsVars
   GPartialPromotionFieldsVars._();
 
   factory GPartialPromotionFieldsVars(
-          [Function(GPartialPromotionFieldsVarsBuilder b) updates]) =
+          [void Function(GPartialPromotionFieldsVarsBuilder b) updates]) =
       _$GPartialPromotionFieldsVars;
 
   static Serializer<GPartialPromotionFieldsVars> get serializer =>

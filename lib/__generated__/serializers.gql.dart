@@ -872,7 +872,7 @@ import 'package:aipictors/graphql/mutations/__generated__/create_sticker.req.gql
 import 'package:aipictors/graphql/mutations/__generated__/create_sticker.var.gql.dart'
     show GCreateStickerVars;
 import 'package:aipictors/graphql/mutations/__generated__/create_user_sticker.data.gql.dart'
-    show GCreateUserStickerData, GCreateUserStickerData_createUserSticker;
+    show GCreateUserStickerData, GCreateUserStickerData_createSticker;
 import 'package:aipictors/graphql/mutations/__generated__/create_user_sticker.req.gql.dart'
     show GCreateUserStickerReq;
 import 'package:aipictors/graphql/mutations/__generated__/create_user_sticker.var.gql.dart'
@@ -935,7 +935,7 @@ import 'package:aipictors/graphql/mutations/__generated__/delete_sticker.req.gql
 import 'package:aipictors/graphql/mutations/__generated__/delete_sticker.var.gql.dart'
     show GDeleteStickerVars;
 import 'package:aipictors/graphql/mutations/__generated__/delete_user_sticker.data.gql.dart'
-    show GDeleteUserStickerData, GDeleteUserStickerData_deleteUserSticker;
+    show GDeleteUserStickerData, GDeleteUserStickerData_deleteSticker;
 import 'package:aipictors/graphql/mutations/__generated__/delete_user_sticker.req.gql.dart'
     show GDeleteUserStickerReq;
 import 'package:aipictors/graphql/mutations/__generated__/delete_user_sticker.var.gql.dart'
@@ -1194,7 +1194,7 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GCreateStickerReq,
   GCreateStickerVars,
   GCreateUserStickerData,
-  GCreateUserStickerData_createUserSticker,
+  GCreateUserStickerData_createSticker,
   GCreateUserStickerInput,
   GCreateUserStickerReq,
   GCreateUserStickerVars,
@@ -1276,7 +1276,7 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GDeleteStickerReq,
   GDeleteStickerVars,
   GDeleteUserStickerData,
-  GDeleteUserStickerData_deleteUserSticker,
+  GDeleteUserStickerData_deleteSticker,
   GDeleteUserStickerInput,
   GDeleteUserStickerReq,
   GDeleteUserStickerVars,
