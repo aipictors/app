@@ -73,7 +73,7 @@ class StickersSearchScreen extends HookConsumerWidget {
             ],
             AdjustStickerSizeButton(
               currentSize: crossAxisCount,
-              maxItems: layout.notCompact ? 6 : 2,
+              maxItems: layout.notCompact ? 5 : 2,
               onSizeChanged: (int size) async {
                 final notifier =
                     ref.read(stickersScreenCrossAxisCountProvider.notifier);
