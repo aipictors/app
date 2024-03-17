@@ -17,7 +17,7 @@ abstract class GCreateUserStickerVars
           [void Function(GCreateUserStickerVarsBuilder b) updates]) =
       _$GCreateUserStickerVars;
 
-  _i1.GCreateStickerInput get input;
+  _i1.GCreateUserStickerInput get input;
   static Serializer<GCreateUserStickerVars> get serializer =>
       _$gCreateUserStickerVarsSerializer;
 

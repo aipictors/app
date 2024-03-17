@@ -8,9 +8,9 @@ part of 'delete_user_sticker.data.gql.dart';
 
 Serializer<GDeleteUserStickerData> _$gDeleteUserStickerDataSerializer =
     new _$GDeleteUserStickerDataSerializer();
-Serializer<GDeleteUserStickerData_deleteSticker>
-    _$gDeleteUserStickerDataDeleteStickerSerializer =
-    new _$GDeleteUserStickerData_deleteStickerSerializer();
+Serializer<GDeleteUserStickerData_deleteUserSticker>
+    _$gDeleteUserStickerDataDeleteUserStickerSerializer =
+    new _$GDeleteUserStickerData_deleteUserStickerSerializer();
 
 class _$GDeleteUserStickerDataSerializer
     implements StructuredSerializer<GDeleteUserStickerData> {
@@ -30,9 +30,10 @@ class _$GDeleteUserStickerDataSerializer
       '__typename',
       serializers.serialize(object.G__typename,
           specifiedType: const FullType(String)),
-      'deleteSticker',
-      serializers.serialize(object.deleteSticker,
-          specifiedType: const FullType(GDeleteUserStickerData_deleteSticker)),
+      'deleteUserSticker',
+      serializers.serialize(object.deleteUserSticker,
+          specifiedType:
+              const FullType(GDeleteUserStickerData_deleteUserSticker)),
     ];
 
     return result;
@@ -54,11 +55,11 @@ class _$GDeleteUserStickerDataSerializer
           result.G__typename = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
-        case 'deleteSticker':
-          result.deleteSticker.replace(serializers.deserialize(value,
+        case 'deleteUserSticker':
+          result.deleteUserSticker.replace(serializers.deserialize(value,
                   specifiedType:
-                      const FullType(GDeleteUserStickerData_deleteSticker))!
-              as GDeleteUserStickerData_deleteSticker);
+                      const FullType(GDeleteUserStickerData_deleteUserSticker))!
+              as GDeleteUserStickerData_deleteUserSticker);
           break;
       }
     }
@@ -67,19 +68,19 @@ class _$GDeleteUserStickerDataSerializer
   }
 }
 
-class _$GDeleteUserStickerData_deleteStickerSerializer
-    implements StructuredSerializer<GDeleteUserStickerData_deleteSticker> {
+class _$GDeleteUserStickerData_deleteUserStickerSerializer
+    implements StructuredSerializer<GDeleteUserStickerData_deleteUserSticker> {
   @override
   final Iterable<Type> types = const [
-    GDeleteUserStickerData_deleteSticker,
-    _$GDeleteUserStickerData_deleteSticker
+    GDeleteUserStickerData_deleteUserSticker,
+    _$GDeleteUserStickerData_deleteUserSticker
   ];
   @override
-  final String wireName = 'GDeleteUserStickerData_deleteSticker';
+  final String wireName = 'GDeleteUserStickerData_deleteUserSticker';
 
   @override
   Iterable<Object?> serialize(
-      Serializers serializers, GDeleteUserStickerData_deleteSticker object,
+      Serializers serializers, GDeleteUserStickerData_deleteUserSticker object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
       '__typename',
@@ -93,10 +94,10 @@ class _$GDeleteUserStickerData_deleteStickerSerializer
   }
 
   @override
-  GDeleteUserStickerData_deleteSticker deserialize(
+  GDeleteUserStickerData_deleteUserSticker deserialize(
       Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new GDeleteUserStickerData_deleteStickerBuilder();
+    final result = new GDeleteUserStickerData_deleteUserStickerBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -123,19 +124,19 @@ class _$GDeleteUserStickerData extends GDeleteUserStickerData {
   @override
   final String G__typename;
   @override
-  final GDeleteUserStickerData_deleteSticker deleteSticker;
+  final GDeleteUserStickerData_deleteUserSticker deleteUserSticker;
 
   factory _$GDeleteUserStickerData(
           [void Function(GDeleteUserStickerDataBuilder)? updates]) =>
       (new GDeleteUserStickerDataBuilder()..update(updates))._build();
 
   _$GDeleteUserStickerData._(
-      {required this.G__typename, required this.deleteSticker})
+      {required this.G__typename, required this.deleteUserSticker})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename, r'GDeleteUserStickerData', 'G__typename');
     BuiltValueNullFieldError.checkNotNull(
-        deleteSticker, r'GDeleteUserStickerData', 'deleteSticker');
+        deleteUserSticker, r'GDeleteUserStickerData', 'deleteUserSticker');
   }
 
   @override
@@ -152,14 +153,14 @@ class _$GDeleteUserStickerData extends GDeleteUserStickerData {
     if (identical(other, this)) return true;
     return other is GDeleteUserStickerData &&
         G__typename == other.G__typename &&
-        deleteSticker == other.deleteSticker;
+        deleteUserSticker == other.deleteUserSticker;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, deleteSticker.hashCode);
+    _$hash = $jc(_$hash, deleteUserSticker.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -168,7 +169,7 @@ class _$GDeleteUserStickerData extends GDeleteUserStickerData {
   String toString() {
     return (newBuiltValueToStringHelper(r'GDeleteUserStickerData')
           ..add('G__typename', G__typename)
-          ..add('deleteSticker', deleteSticker))
+          ..add('deleteUserSticker', deleteUserSticker))
         .toString();
   }
 }
@@ -181,13 +182,13 @@ class GDeleteUserStickerDataBuilder
   String? get G__typename => _$this._G__typename;
   set G__typename(String? G__typename) => _$this._G__typename = G__typename;
 
-  GDeleteUserStickerData_deleteStickerBuilder? _deleteSticker;
-  GDeleteUserStickerData_deleteStickerBuilder get deleteSticker =>
-      _$this._deleteSticker ??=
-          new GDeleteUserStickerData_deleteStickerBuilder();
-  set deleteSticker(
-          GDeleteUserStickerData_deleteStickerBuilder? deleteSticker) =>
-      _$this._deleteSticker = deleteSticker;
+  GDeleteUserStickerData_deleteUserStickerBuilder? _deleteUserSticker;
+  GDeleteUserStickerData_deleteUserStickerBuilder get deleteUserSticker =>
+      _$this._deleteUserSticker ??=
+          new GDeleteUserStickerData_deleteUserStickerBuilder();
+  set deleteUserSticker(
+          GDeleteUserStickerData_deleteUserStickerBuilder? deleteUserSticker) =>
+      _$this._deleteUserSticker = deleteUserSticker;
 
   GDeleteUserStickerDataBuilder() {
     GDeleteUserStickerData._initializeBuilder(this);
@@ -197,7 +198,7 @@ class GDeleteUserStickerDataBuilder
     final $v = _$v;
     if ($v != null) {
       _G__typename = $v.G__typename;
-      _deleteSticker = $v.deleteSticker.toBuilder();
+      _deleteUserSticker = $v.deleteUserSticker.toBuilder();
       _$v = null;
     }
     return this;
@@ -224,12 +225,12 @@ class GDeleteUserStickerDataBuilder
           new _$GDeleteUserStickerData._(
               G__typename: BuiltValueNullFieldError.checkNotNull(
                   G__typename, r'GDeleteUserStickerData', 'G__typename'),
-              deleteSticker: deleteSticker.build());
+              deleteUserSticker: deleteUserSticker.build());
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'deleteSticker';
-        deleteSticker.build();
+        _$failedField = 'deleteUserSticker';
+        deleteUserSticker.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'GDeleteUserStickerData', _$failedField, e.toString());
@@ -241,41 +242,42 @@ class GDeleteUserStickerDataBuilder
   }
 }
 
-class _$GDeleteUserStickerData_deleteSticker
-    extends GDeleteUserStickerData_deleteSticker {
+class _$GDeleteUserStickerData_deleteUserSticker
+    extends GDeleteUserStickerData_deleteUserSticker {
   @override
   final String G__typename;
   @override
   final String id;
 
-  factory _$GDeleteUserStickerData_deleteSticker(
-          [void Function(GDeleteUserStickerData_deleteStickerBuilder)?
+  factory _$GDeleteUserStickerData_deleteUserSticker(
+          [void Function(GDeleteUserStickerData_deleteUserStickerBuilder)?
               updates]) =>
-      (new GDeleteUserStickerData_deleteStickerBuilder()..update(updates))
+      (new GDeleteUserStickerData_deleteUserStickerBuilder()..update(updates))
           ._build();
 
-  _$GDeleteUserStickerData_deleteSticker._(
+  _$GDeleteUserStickerData_deleteUserSticker._(
       {required this.G__typename, required this.id})
       : super._() {
+    BuiltValueNullFieldError.checkNotNull(G__typename,
+        r'GDeleteUserStickerData_deleteUserSticker', 'G__typename');
     BuiltValueNullFieldError.checkNotNull(
-        G__typename, r'GDeleteUserStickerData_deleteSticker', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(
-        id, r'GDeleteUserStickerData_deleteSticker', 'id');
+        id, r'GDeleteUserStickerData_deleteUserSticker', 'id');
   }
 
   @override
-  GDeleteUserStickerData_deleteSticker rebuild(
-          void Function(GDeleteUserStickerData_deleteStickerBuilder) updates) =>
+  GDeleteUserStickerData_deleteUserSticker rebuild(
+          void Function(GDeleteUserStickerData_deleteUserStickerBuilder)
+              updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GDeleteUserStickerData_deleteStickerBuilder toBuilder() =>
-      new GDeleteUserStickerData_deleteStickerBuilder()..replace(this);
+  GDeleteUserStickerData_deleteUserStickerBuilder toBuilder() =>
+      new GDeleteUserStickerData_deleteUserStickerBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GDeleteUserStickerData_deleteSticker &&
+    return other is GDeleteUserStickerData_deleteUserSticker &&
         G__typename == other.G__typename &&
         id == other.id;
   }
@@ -291,18 +293,19 @@ class _$GDeleteUserStickerData_deleteSticker
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'GDeleteUserStickerData_deleteSticker')
+    return (newBuiltValueToStringHelper(
+            r'GDeleteUserStickerData_deleteUserSticker')
           ..add('G__typename', G__typename)
           ..add('id', id))
         .toString();
   }
 }
 
-class GDeleteUserStickerData_deleteStickerBuilder
+class GDeleteUserStickerData_deleteUserStickerBuilder
     implements
-        Builder<GDeleteUserStickerData_deleteSticker,
-            GDeleteUserStickerData_deleteStickerBuilder> {
-  _$GDeleteUserStickerData_deleteSticker? _$v;
+        Builder<GDeleteUserStickerData_deleteUserSticker,
+            GDeleteUserStickerData_deleteUserStickerBuilder> {
+  _$GDeleteUserStickerData_deleteUserSticker? _$v;
 
   String? _G__typename;
   String? get G__typename => _$this._G__typename;
@@ -312,11 +315,11 @@ class GDeleteUserStickerData_deleteStickerBuilder
   String? get id => _$this._id;
   set id(String? id) => _$this._id = id;
 
-  GDeleteUserStickerData_deleteStickerBuilder() {
-    GDeleteUserStickerData_deleteSticker._initializeBuilder(this);
+  GDeleteUserStickerData_deleteUserStickerBuilder() {
+    GDeleteUserStickerData_deleteUserSticker._initializeBuilder(this);
   }
 
-  GDeleteUserStickerData_deleteStickerBuilder get _$this {
+  GDeleteUserStickerData_deleteUserStickerBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _G__typename = $v.G__typename;
@@ -327,27 +330,27 @@ class GDeleteUserStickerData_deleteStickerBuilder
   }
 
   @override
-  void replace(GDeleteUserStickerData_deleteSticker other) {
+  void replace(GDeleteUserStickerData_deleteUserSticker other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GDeleteUserStickerData_deleteSticker;
+    _$v = other as _$GDeleteUserStickerData_deleteUserSticker;
   }
 
   @override
   void update(
-      void Function(GDeleteUserStickerData_deleteStickerBuilder)? updates) {
+      void Function(GDeleteUserStickerData_deleteUserStickerBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  GDeleteUserStickerData_deleteSticker build() => _build();
+  GDeleteUserStickerData_deleteUserSticker build() => _build();
 
-  _$GDeleteUserStickerData_deleteSticker _build() {
+  _$GDeleteUserStickerData_deleteUserSticker _build() {
     final _$result = _$v ??
-        new _$GDeleteUserStickerData_deleteSticker._(
+        new _$GDeleteUserStickerData_deleteUserSticker._(
             G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
-                r'GDeleteUserStickerData_deleteSticker', 'G__typename'),
+                r'GDeleteUserStickerData_deleteUserSticker', 'G__typename'),
             id: BuiltValueNullFieldError.checkNotNull(
-                id, r'GDeleteUserStickerData_deleteSticker', 'id'));
+                id, r'GDeleteUserStickerData_deleteUserSticker', 'id'));
     replace(_$result);
     return _$result;
   }

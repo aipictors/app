@@ -21,7 +21,7 @@ abstract class GDeleteUserStickerData
 
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
-  GDeleteUserStickerData_deleteSticker get deleteSticker;
+  GDeleteUserStickerData_deleteUserSticker get deleteUserSticker;
   static Serializer<GDeleteUserStickerData> get serializer =>
       _$gDeleteUserStickerDataSerializer;
 
@@ -37,35 +37,35 @@ abstract class GDeleteUserStickerData
       );
 }
 
-abstract class GDeleteUserStickerData_deleteSticker
+abstract class GDeleteUserStickerData_deleteUserSticker
     implements
-        Built<GDeleteUserStickerData_deleteSticker,
-            GDeleteUserStickerData_deleteStickerBuilder> {
-  GDeleteUserStickerData_deleteSticker._();
+        Built<GDeleteUserStickerData_deleteUserSticker,
+            GDeleteUserStickerData_deleteUserStickerBuilder> {
+  GDeleteUserStickerData_deleteUserSticker._();
 
-  factory GDeleteUserStickerData_deleteSticker(
-      [void Function(GDeleteUserStickerData_deleteStickerBuilder b)
-          updates]) = _$GDeleteUserStickerData_deleteSticker;
+  factory GDeleteUserStickerData_deleteUserSticker(
+      [void Function(GDeleteUserStickerData_deleteUserStickerBuilder b)
+          updates]) = _$GDeleteUserStickerData_deleteUserSticker;
 
   static void _initializeBuilder(
-          GDeleteUserStickerData_deleteStickerBuilder b) =>
+          GDeleteUserStickerData_deleteUserStickerBuilder b) =>
       b..G__typename = 'StickerNode';
 
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get id;
-  static Serializer<GDeleteUserStickerData_deleteSticker> get serializer =>
-      _$gDeleteUserStickerDataDeleteStickerSerializer;
+  static Serializer<GDeleteUserStickerData_deleteUserSticker> get serializer =>
+      _$gDeleteUserStickerDataDeleteUserStickerSerializer;
 
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GDeleteUserStickerData_deleteSticker.serializer,
+        GDeleteUserStickerData_deleteUserSticker.serializer,
         this,
       ) as Map<String, dynamic>);
 
-  static GDeleteUserStickerData_deleteSticker? fromJson(
+  static GDeleteUserStickerData_deleteUserSticker? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
-        GDeleteUserStickerData_deleteSticker.serializer,
+        GDeleteUserStickerData_deleteUserSticker.serializer,
         json,
       );
 }

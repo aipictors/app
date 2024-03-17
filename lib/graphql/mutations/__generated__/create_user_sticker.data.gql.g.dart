@@ -8,9 +8,9 @@ part of 'create_user_sticker.data.gql.dart';
 
 Serializer<GCreateUserStickerData> _$gCreateUserStickerDataSerializer =
     new _$GCreateUserStickerDataSerializer();
-Serializer<GCreateUserStickerData_createSticker>
-    _$gCreateUserStickerDataCreateStickerSerializer =
-    new _$GCreateUserStickerData_createStickerSerializer();
+Serializer<GCreateUserStickerData_createUserSticker>
+    _$gCreateUserStickerDataCreateUserStickerSerializer =
+    new _$GCreateUserStickerData_createUserStickerSerializer();
 
 class _$GCreateUserStickerDataSerializer
     implements StructuredSerializer<GCreateUserStickerData> {
@@ -30,9 +30,10 @@ class _$GCreateUserStickerDataSerializer
       '__typename',
       serializers.serialize(object.G__typename,
           specifiedType: const FullType(String)),
-      'createSticker',
-      serializers.serialize(object.createSticker,
-          specifiedType: const FullType(GCreateUserStickerData_createSticker)),
+      'createUserSticker',
+      serializers.serialize(object.createUserSticker,
+          specifiedType:
+              const FullType(GCreateUserStickerData_createUserSticker)),
     ];
 
     return result;
@@ -54,11 +55,11 @@ class _$GCreateUserStickerDataSerializer
           result.G__typename = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
-        case 'createSticker':
-          result.createSticker.replace(serializers.deserialize(value,
+        case 'createUserSticker':
+          result.createUserSticker.replace(serializers.deserialize(value,
                   specifiedType:
-                      const FullType(GCreateUserStickerData_createSticker))!
-              as GCreateUserStickerData_createSticker);
+                      const FullType(GCreateUserStickerData_createUserSticker))!
+              as GCreateUserStickerData_createUserSticker);
           break;
       }
     }
@@ -67,19 +68,19 @@ class _$GCreateUserStickerDataSerializer
   }
 }
 
-class _$GCreateUserStickerData_createStickerSerializer
-    implements StructuredSerializer<GCreateUserStickerData_createSticker> {
+class _$GCreateUserStickerData_createUserStickerSerializer
+    implements StructuredSerializer<GCreateUserStickerData_createUserSticker> {
   @override
   final Iterable<Type> types = const [
-    GCreateUserStickerData_createSticker,
-    _$GCreateUserStickerData_createSticker
+    GCreateUserStickerData_createUserSticker,
+    _$GCreateUserStickerData_createUserSticker
   ];
   @override
-  final String wireName = 'GCreateUserStickerData_createSticker';
+  final String wireName = 'GCreateUserStickerData_createUserSticker';
 
   @override
   Iterable<Object?> serialize(
-      Serializers serializers, GCreateUserStickerData_createSticker object,
+      Serializers serializers, GCreateUserStickerData_createUserSticker object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
       '__typename',
@@ -93,10 +94,10 @@ class _$GCreateUserStickerData_createStickerSerializer
   }
 
   @override
-  GCreateUserStickerData_createSticker deserialize(
+  GCreateUserStickerData_createUserSticker deserialize(
       Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new GCreateUserStickerData_createStickerBuilder();
+    final result = new GCreateUserStickerData_createUserStickerBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -123,19 +124,19 @@ class _$GCreateUserStickerData extends GCreateUserStickerData {
   @override
   final String G__typename;
   @override
-  final GCreateUserStickerData_createSticker createSticker;
+  final GCreateUserStickerData_createUserSticker createUserSticker;
 
   factory _$GCreateUserStickerData(
           [void Function(GCreateUserStickerDataBuilder)? updates]) =>
       (new GCreateUserStickerDataBuilder()..update(updates))._build();
 
   _$GCreateUserStickerData._(
-      {required this.G__typename, required this.createSticker})
+      {required this.G__typename, required this.createUserSticker})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename, r'GCreateUserStickerData', 'G__typename');
     BuiltValueNullFieldError.checkNotNull(
-        createSticker, r'GCreateUserStickerData', 'createSticker');
+        createUserSticker, r'GCreateUserStickerData', 'createUserSticker');
   }
 
   @override
@@ -152,14 +153,14 @@ class _$GCreateUserStickerData extends GCreateUserStickerData {
     if (identical(other, this)) return true;
     return other is GCreateUserStickerData &&
         G__typename == other.G__typename &&
-        createSticker == other.createSticker;
+        createUserSticker == other.createUserSticker;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, createSticker.hashCode);
+    _$hash = $jc(_$hash, createUserSticker.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -168,7 +169,7 @@ class _$GCreateUserStickerData extends GCreateUserStickerData {
   String toString() {
     return (newBuiltValueToStringHelper(r'GCreateUserStickerData')
           ..add('G__typename', G__typename)
-          ..add('createSticker', createSticker))
+          ..add('createUserSticker', createUserSticker))
         .toString();
   }
 }
@@ -181,13 +182,13 @@ class GCreateUserStickerDataBuilder
   String? get G__typename => _$this._G__typename;
   set G__typename(String? G__typename) => _$this._G__typename = G__typename;
 
-  GCreateUserStickerData_createStickerBuilder? _createSticker;
-  GCreateUserStickerData_createStickerBuilder get createSticker =>
-      _$this._createSticker ??=
-          new GCreateUserStickerData_createStickerBuilder();
-  set createSticker(
-          GCreateUserStickerData_createStickerBuilder? createSticker) =>
-      _$this._createSticker = createSticker;
+  GCreateUserStickerData_createUserStickerBuilder? _createUserSticker;
+  GCreateUserStickerData_createUserStickerBuilder get createUserSticker =>
+      _$this._createUserSticker ??=
+          new GCreateUserStickerData_createUserStickerBuilder();
+  set createUserSticker(
+          GCreateUserStickerData_createUserStickerBuilder? createUserSticker) =>
+      _$this._createUserSticker = createUserSticker;
 
   GCreateUserStickerDataBuilder() {
     GCreateUserStickerData._initializeBuilder(this);
@@ -197,7 +198,7 @@ class GCreateUserStickerDataBuilder
     final $v = _$v;
     if ($v != null) {
       _G__typename = $v.G__typename;
-      _createSticker = $v.createSticker.toBuilder();
+      _createUserSticker = $v.createUserSticker.toBuilder();
       _$v = null;
     }
     return this;
@@ -224,12 +225,12 @@ class GCreateUserStickerDataBuilder
           new _$GCreateUserStickerData._(
               G__typename: BuiltValueNullFieldError.checkNotNull(
                   G__typename, r'GCreateUserStickerData', 'G__typename'),
-              createSticker: createSticker.build());
+              createUserSticker: createUserSticker.build());
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'createSticker';
-        createSticker.build();
+        _$failedField = 'createUserSticker';
+        createUserSticker.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'GCreateUserStickerData', _$failedField, e.toString());
@@ -241,41 +242,42 @@ class GCreateUserStickerDataBuilder
   }
 }
 
-class _$GCreateUserStickerData_createSticker
-    extends GCreateUserStickerData_createSticker {
+class _$GCreateUserStickerData_createUserSticker
+    extends GCreateUserStickerData_createUserSticker {
   @override
   final String G__typename;
   @override
   final String id;
 
-  factory _$GCreateUserStickerData_createSticker(
-          [void Function(GCreateUserStickerData_createStickerBuilder)?
+  factory _$GCreateUserStickerData_createUserSticker(
+          [void Function(GCreateUserStickerData_createUserStickerBuilder)?
               updates]) =>
-      (new GCreateUserStickerData_createStickerBuilder()..update(updates))
+      (new GCreateUserStickerData_createUserStickerBuilder()..update(updates))
           ._build();
 
-  _$GCreateUserStickerData_createSticker._(
+  _$GCreateUserStickerData_createUserSticker._(
       {required this.G__typename, required this.id})
       : super._() {
+    BuiltValueNullFieldError.checkNotNull(G__typename,
+        r'GCreateUserStickerData_createUserSticker', 'G__typename');
     BuiltValueNullFieldError.checkNotNull(
-        G__typename, r'GCreateUserStickerData_createSticker', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(
-        id, r'GCreateUserStickerData_createSticker', 'id');
+        id, r'GCreateUserStickerData_createUserSticker', 'id');
   }
 
   @override
-  GCreateUserStickerData_createSticker rebuild(
-          void Function(GCreateUserStickerData_createStickerBuilder) updates) =>
+  GCreateUserStickerData_createUserSticker rebuild(
+          void Function(GCreateUserStickerData_createUserStickerBuilder)
+              updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GCreateUserStickerData_createStickerBuilder toBuilder() =>
-      new GCreateUserStickerData_createStickerBuilder()..replace(this);
+  GCreateUserStickerData_createUserStickerBuilder toBuilder() =>
+      new GCreateUserStickerData_createUserStickerBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GCreateUserStickerData_createSticker &&
+    return other is GCreateUserStickerData_createUserSticker &&
         G__typename == other.G__typename &&
         id == other.id;
   }
@@ -291,18 +293,19 @@ class _$GCreateUserStickerData_createSticker
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'GCreateUserStickerData_createSticker')
+    return (newBuiltValueToStringHelper(
+            r'GCreateUserStickerData_createUserSticker')
           ..add('G__typename', G__typename)
           ..add('id', id))
         .toString();
   }
 }
 
-class GCreateUserStickerData_createStickerBuilder
+class GCreateUserStickerData_createUserStickerBuilder
     implements
-        Builder<GCreateUserStickerData_createSticker,
-            GCreateUserStickerData_createStickerBuilder> {
-  _$GCreateUserStickerData_createSticker? _$v;
+        Builder<GCreateUserStickerData_createUserSticker,
+            GCreateUserStickerData_createUserStickerBuilder> {
+  _$GCreateUserStickerData_createUserSticker? _$v;
 
   String? _G__typename;
   String? get G__typename => _$this._G__typename;
@@ -312,11 +315,11 @@ class GCreateUserStickerData_createStickerBuilder
   String? get id => _$this._id;
   set id(String? id) => _$this._id = id;
 
-  GCreateUserStickerData_createStickerBuilder() {
-    GCreateUserStickerData_createSticker._initializeBuilder(this);
+  GCreateUserStickerData_createUserStickerBuilder() {
+    GCreateUserStickerData_createUserSticker._initializeBuilder(this);
   }
 
-  GCreateUserStickerData_createStickerBuilder get _$this {
+  GCreateUserStickerData_createUserStickerBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _G__typename = $v.G__typename;
@@ -327,27 +330,27 @@ class GCreateUserStickerData_createStickerBuilder
   }
 
   @override
-  void replace(GCreateUserStickerData_createSticker other) {
+  void replace(GCreateUserStickerData_createUserSticker other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GCreateUserStickerData_createSticker;
+    _$v = other as _$GCreateUserStickerData_createUserSticker;
   }
 
   @override
   void update(
-      void Function(GCreateUserStickerData_createStickerBuilder)? updates) {
+      void Function(GCreateUserStickerData_createUserStickerBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  GCreateUserStickerData_createSticker build() => _build();
+  GCreateUserStickerData_createUserSticker build() => _build();
 
-  _$GCreateUserStickerData_createSticker _build() {
+  _$GCreateUserStickerData_createUserSticker _build() {
     final _$result = _$v ??
-        new _$GCreateUserStickerData_createSticker._(
+        new _$GCreateUserStickerData_createUserSticker._(
             G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
-                r'GCreateUserStickerData_createSticker', 'G__typename'),
+                r'GCreateUserStickerData_createUserSticker', 'G__typename'),
             id: BuiltValueNullFieldError.checkNotNull(
-                id, r'GCreateUserStickerData_createSticker', 'id'));
+                id, r'GCreateUserStickerData_createUserSticker', 'id'));
     replace(_$result);
     return _$result;
   }

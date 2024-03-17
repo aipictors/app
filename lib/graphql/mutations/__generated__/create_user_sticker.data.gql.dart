@@ -21,7 +21,7 @@ abstract class GCreateUserStickerData
 
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
-  GCreateUserStickerData_createSticker get createSticker;
+  GCreateUserStickerData_createUserSticker get createUserSticker;
   static Serializer<GCreateUserStickerData> get serializer =>
       _$gCreateUserStickerDataSerializer;
 
@@ -37,35 +37,35 @@ abstract class GCreateUserStickerData
       );
 }
 
-abstract class GCreateUserStickerData_createSticker
+abstract class GCreateUserStickerData_createUserSticker
     implements
-        Built<GCreateUserStickerData_createSticker,
-            GCreateUserStickerData_createStickerBuilder> {
-  GCreateUserStickerData_createSticker._();
+        Built<GCreateUserStickerData_createUserSticker,
+            GCreateUserStickerData_createUserStickerBuilder> {
+  GCreateUserStickerData_createUserSticker._();
 
-  factory GCreateUserStickerData_createSticker(
-      [void Function(GCreateUserStickerData_createStickerBuilder b)
-          updates]) = _$GCreateUserStickerData_createSticker;
+  factory GCreateUserStickerData_createUserSticker(
+      [void Function(GCreateUserStickerData_createUserStickerBuilder b)
+          updates]) = _$GCreateUserStickerData_createUserSticker;
 
   static void _initializeBuilder(
-          GCreateUserStickerData_createStickerBuilder b) =>
+          GCreateUserStickerData_createUserStickerBuilder b) =>
       b..G__typename = 'StickerNode';
 
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get id;
-  static Serializer<GCreateUserStickerData_createSticker> get serializer =>
-      _$gCreateUserStickerDataCreateStickerSerializer;
+  static Serializer<GCreateUserStickerData_createUserSticker> get serializer =>
+      _$gCreateUserStickerDataCreateUserStickerSerializer;
 
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GCreateUserStickerData_createSticker.serializer,
+        GCreateUserStickerData_createUserSticker.serializer,
         this,
       ) as Map<String, dynamic>);
 
-  static GCreateUserStickerData_createSticker? fromJson(
+  static GCreateUserStickerData_createUserSticker? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
-        GCreateUserStickerData_createSticker.serializer,
+        GCreateUserStickerData_createUserSticker.serializer,
         json,
       );
 }
