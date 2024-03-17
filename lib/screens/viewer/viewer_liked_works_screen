@@ -29,7 +29,7 @@ class ViewerLikedWorksScreen extends HookConsumerWidget {
     }
 
     final request = GViewerLikedWorksReq((builder) {
-      return builder
+      builder
         ..vars.limit = config.graphqlQueryLimit
         ..vars.offset = 0;
     });
