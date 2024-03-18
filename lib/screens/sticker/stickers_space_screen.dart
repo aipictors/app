@@ -1,4 +1,5 @@
 import 'package:aipictors/default.i18n.dart';
+import 'package:aipictors/enums/layout.dart';
 import 'package:aipictors/graphql/__generated__/stickers.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/providers/config_provider.dart';
@@ -26,6 +27,8 @@ class StickersSpaceScreen extends HookConsumerWidget {
     final config = ref.watch(configProvider);
     final crossAxisCount = ref.watch(stickersScreenCrossAxisCountProvider);
     final searchText = useState('');
+    final layout =
+        Layout.fromWidthAndConfig(MediaQuery.of(context).size.width, config);
 
     if (client.value == null) {
       return const LoadingContainer();
@@ -46,10 +49,19 @@ class StickersSpaceScreen extends HookConsumerWidget {
         }
         return Column(children: [
           const SizedBox(height: 8),
-          StickersHeaderContainer(onSubmit: (text) async {
-            FirebaseAnalytics.instance.logSearch(searchTerm: text);
-            searchText.value = text;
-          }),
+          StickersHeaderContainer(
+            currentSize: crossAxisCount,
+            maxItems: layout.notCompact ? 5 : 2,
+            onSubmit: (text) async {
+              FirebaseAnalytics.instance.logSearch(searchTerm: text);
+              searchText.value = text;
+            },
+            onSizeChanged: (int size) {
+              final notifier =
+                  ref.read(stickersScreenCrossAxisCountProvider.notifier);
+              notifier.update(size);
+            },
+          ),
           const SizedBox(height: 8),
           if (stickerList.isEmpty) ...[
             const Spacer(),

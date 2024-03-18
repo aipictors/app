@@ -63,9 +63,18 @@ class ViewerStickersScreen extends HookConsumerWidget {
           }
 
           return Column(children: [
-            StickersHeaderContainer(onSubmit: (String text) async {
-              searchText.value = text;
-            }),
+            StickersHeaderContainer(
+              currentSize: crossAxisCount,
+              maxItems: layout.notCompact ? 5 : 2,
+              onSubmit: (String text) async {
+                searchText.value = text;
+              },
+              onSizeChanged: (int size) {
+                final notifier =
+                    ref.read(stickersScreenCrossAxisCountProvider.notifier);
+                notifier.update(size);
+              },
+            ),
             if (filteredStickerList.isEmpty) ...[
               const Spacer(),
               DataEmptyErrorContainer(message: 'あなたのスタンプは無いみたい。'.i18n),

@@ -13,7 +13,7 @@ class AdjustStickerSizeButton extends HookConsumerWidget {
 
   final int currentSize;
 
-  final Future Function(int size) onSizeChanged;
+  final Function(int size) onSizeChanged;
 
   @override
   Widget build(context, ref) {

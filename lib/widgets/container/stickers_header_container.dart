@@ -1,5 +1,3 @@
-import 'package:aipictors/enums/layout.dart';
-import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/providers/stickers_screen_cross_axis_count_provider.dart';
 import 'package:aipictors/widgets/app_bar/search_app_bar.dart';
 import 'package:aipictors/widgets/button/adjust_sticker_size_button.dart';
@@ -8,22 +6,27 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class StickersHeaderContainer extends HookConsumerWidget {
-  const StickersHeaderContainer({super.key, required this.onSubmit});
+  const StickersHeaderContainer({
+    super.key,
+    required this.currentSize,
+    required this.maxItems,
+    required this.onSubmit,
+    required this.onSizeChanged,
+  });
 
-  final Future<void> Function(String text) onSubmit;
+  final int currentSize;
+
+  final int maxItems;
+
+  final void Function(String text) onSubmit;
+
+  final void Function(int size) onSizeChanged;
 
   @override
   Widget build(context, ref) {
     final isFilled = useState(false);
 
     final searchText = useState('');
-
-    final config = ref.watch(configProvider);
-
-    final crossAxisCount = ref.watch(stickersScreenCrossAxisCountProvider);
-
-    final layout =
-        Layout.fromWidthAndConfig(MediaQuery.of(context).size.width, config);
 
     final searchContainer = SearchContainer(
       isFilled: isFilled.value,
@@ -69,12 +72,10 @@ class StickersHeaderContainer extends HookConsumerWidget {
         ),
         const SizedBox(width: 4),
         AdjustStickerSizeButton(
-          currentSize: crossAxisCount,
-          maxItems: layout.notCompact ? 5 : 2,
+          currentSize: currentSize,
+          maxItems: maxItems,
           onSizeChanged: (int size) async {
-            final notifier =
-                ref.read(stickersScreenCrossAxisCountProvider.notifier);
-            notifier.update(size);
+            onSizeChanged(size);
           },
         ),
       ],
