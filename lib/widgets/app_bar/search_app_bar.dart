@@ -4,13 +4,14 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class SearchContainer extends HookConsumerWidget {
-  SearchContainer({
-    super.key,
-    required this.isFilled,
-    this.initialText,
-    required this.onSubmit,
-    required this.onFill,
-  })  : _controller = useTextEditingController(text: initialText);
+  SearchContainer(
+      {super.key,
+      required this.isFilled,
+      this.initialText,
+      required this.onSubmit,
+      required this.onFill,
+      this.decoration})
+      : _controller = useTextEditingController(text: initialText);
 
   final bool isFilled;
 
@@ -21,6 +22,8 @@ class SearchContainer extends HookConsumerWidget {
   final String? initialText;
 
   final TextEditingController _controller;
+
+  final BoxDecoration? decoration;
 
   void _onSubmit(BuildContext context, String text) {
     if (text == '') {
@@ -45,10 +48,11 @@ class SearchContainer extends HookConsumerWidget {
           child: Container(
             width: double.infinity,
             padding: const EdgeInsets.only(left: 24, right: 0),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(40),
-              color: Theme.of(context).hoverColor,
-            ),
+            decoration: decoration ??
+                BoxDecoration(
+                  borderRadius: BorderRadius.circular(40),
+                  color: Theme.of(context).hoverColor,
+                ),
             child: TextField(
               controller: _controller,
               decoration: InputDecoration(

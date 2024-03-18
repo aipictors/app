@@ -1,16 +1,21 @@
 import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/enums/layout.dart';
+import 'package:aipictors/graphql/__generated__/user_stickers.data.gql.dart';
 import 'package:aipictors/graphql/__generated__/user_stickers.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/providers/stickers_screen_cross_axis_count_provider.dart';
+import 'package:aipictors/widgets/app_bar/search_app_bar.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
 import 'package:aipictors/widgets/button/adjust_sticker_size_button.dart';
 import 'package:aipictors/widgets/container/error/data_empty_error_container.dart';
 import 'package:aipictors/widgets/container/error/data_not_found_error_container.dart';
 import 'package:aipictors/widgets/container/loading_container.dart';
+import 'package:aipictors/widgets/container/stickers_header_container.dart';
 import 'package:aipictors/widgets/view/stickers_grid_view.dart';
+import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// 保存したスタンプ
@@ -30,6 +35,8 @@ class ViewerStickersScreen extends HookConsumerWidget {
     final layout =
         Layout.fromWidthAndConfig(MediaQuery.of(context).size.width, config);
 
+    final searchText = useState('');
+
     if (client.value == null) {
       return const LoadingContainer();
     }
@@ -47,33 +54,30 @@ class ViewerStickersScreen extends HookConsumerWidget {
           if (stickerList == null) {
             return const DataNotFoundErrorContainer();
           }
-          if (stickerList.isEmpty) {
-            return DataEmptyErrorContainer(
-              message: 'あなたのスタンプは無いみたい。'.i18n,
-            );
+          BuiltList<GUserStickersData_viewer_userStickers> filteredStickerList =
+              stickerList
+                  .where((p0) => p0.title.contains(searchText.value))
+                  .toBuiltList();
+          if (searchText.value == '') {
+            filteredStickerList = stickerList;
           }
+
           return Column(children: [
-            // TODO: マイスタンプの検索機能を実装する
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                AdjustStickerSizeButton(
-                  currentSize: crossAxisCount,
-                  maxItems: layout.notCompact ? 5 : 2,
-                  onSizeChanged: (int size) async {
-                    final notifier =
-                        ref.read(stickersScreenCrossAxisCountProvider.notifier);
-                    notifier.update(size);
-                  },
+            StickersHeaderContainer(onSubmit: (String text) async {
+              searchText.value = text;
+            }),
+            if (filteredStickerList.isEmpty) ...[
+              const Spacer(),
+              DataEmptyErrorContainer(message: 'あなたのスタンプは無いみたい。'.i18n),
+              const Spacer(),
+            ],
+            if (filteredStickerList.isNotEmpty)
+              Expanded(
+                child: StickersGridView(
+                  stickerList: filteredStickerList,
+                  crossAxisCount: crossAxisCount,
                 ),
-              ],
-            ),
-            Expanded(
-              child: StickersGridView(
-                stickerList: stickerList,
-                crossAxisCount: crossAxisCount,
-              ),
-            )
+              )
           ]);
         },
       ),
