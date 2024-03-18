@@ -36,7 +36,7 @@ class StickerGridItemContainer extends HookConsumerWidget {
                 fit: BoxFit.cover,
               ),
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 4 * 1.5),
             Row(
               children: [
                 const SizedBox(width: 8),

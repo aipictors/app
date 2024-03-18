@@ -6,11 +6,14 @@ class AdjustStickerSizeButton extends HookConsumerWidget {
     super.key,
     required this.currentSize,
     required this.onSizeChanged,
+    this.maxItems,
   });
+
+  final int? maxItems;
 
   final int currentSize;
 
-  final Future Function(int size) onSizeChanged;
+  final Function(int size) onSizeChanged;
 
   @override
   Widget build(context, ref) {
@@ -23,15 +26,24 @@ class AdjustStickerSizeButton extends HookConsumerWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           IconButton(
-            onPressed: () {
-              onSizeChanged(currentSize - 1);
-            },
+            onPressed: (1 < currentSize)
+                ? () {
+                    onSizeChanged(currentSize - 1);
+                  }
+                : null,
             icon: const Icon(Icons.remove_rounded),
           ),
+          Text(
+            currentSize.toString(),
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          ),
           IconButton(
-            onPressed: () {
-              onSizeChanged(currentSize + 1);
-            },
+            onPressed: ((maxItems != null && currentSize < maxItems!) ||
+                    maxItems == null)
+                ? () {
+                    onSizeChanged(currentSize + 1);
+                  }
+                : null,
             icon: const Icon(Icons.add_rounded),
           )
         ],
