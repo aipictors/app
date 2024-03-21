@@ -122,8 +122,7 @@ class StickerScreen extends HookConsumerWidget {
                             ?.copyWith(fontWeight: FontWeight.bold),
                       ),
                     ),
-                    StickerGenreContainer(
-                        genre: [sticker.genre.toString().i18n]),
+                    StickerGenreContainer(genre: sticker.genre.toString().i18n),
                     const SizedBox(height: 8 * 1.5),
                     StickerCategoriesContainer(
                         categories: sticker.categories.toList()),

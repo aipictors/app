@@ -12,26 +12,32 @@ class StickerCategoriesContainer extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Wrap(
-        crossAxisAlignment: WrapCrossAlignment.center,
-        spacing: 4,
-        children: [
-          const SizedBox(width: 16),
-          Text('カテゴリ'.i18n),
-          const SizedBox(width: 4),
-          for (final category in categories)
-            FilledButton.tonal(
-              style: FilledButton.styleFrom(
-                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-              ),
-              child: Text(category),
-              onPressed: () {},
+    return Row(
+      children: [
+        const SizedBox(width: 16),
+        Text('カテゴリ'.i18n),
+        const SizedBox(width: 4),
+        Expanded(
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Wrap(
+              crossAxisAlignment: WrapCrossAlignment.center,
+              spacing: 4,
+              children: [
+                for (final category in categories)
+                  FilledButton.tonal(
+                    style: FilledButton.styleFrom(
+                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    ),
+                    child: Text(category),
+                    onPressed: () {},
+                  ),
+                const SizedBox(width: 16),
+              ],
             ),
-          const SizedBox(width: 16),
-        ],
-      ),
+          ),
+        ),
+      ],
     );
   }
 }

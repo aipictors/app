@@ -8,7 +8,7 @@ class StickerGenreContainer extends HookConsumerWidget {
     required this.genre,
   });
 
-  final List<String> genre;
+  final String genre;
 
   @override
   Widget build(context, ref) {
@@ -19,14 +19,13 @@ class StickerGenreContainer extends HookConsumerWidget {
         const SizedBox(width: 16),
         Text('ジャンル'.i18n),
         const SizedBox(width: 4),
-        for (final category in genre)
-          FilledButton.tonal(
-            style: FilledButton.styleFrom(
-              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            ),
-            child: Text(category),
-            onPressed: () {},
+        FilledButton.tonal(
+          style: FilledButton.styleFrom(
+            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
           ),
+          child: Text(genre),
+          onPressed: () {},
+        ),
         const SizedBox(width: 16),
       ],
     );
