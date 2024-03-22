@@ -8,6 +8,7 @@ import 'package:aipictors/mutations/create_user_sticker.dart';
 import 'package:aipictors/providers/auth_user_id_provider.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/screens/error/data_not_found_error_screen.dart';
+import 'package:aipictors/screens/error/deleted_sticker_error_container.dart';
 import 'package:aipictors/screens/loading_screen.dart';
 import 'package:aipictors/widgets/builder/operation_screen_builder.dart';
 import 'package:aipictors/widgets/button/create_user_sticker_button.dart';
@@ -51,6 +52,9 @@ class StickerScreen extends HookConsumerWidget {
         final sticker = response.data?.sticker;
         if (sticker == null) {
           return const DataNotFoundErrorScreen();
+        }
+        if (sticker.isDeleted) {
+          return const DeletedStickerErrorScreen();
         }
         return Scaffold(
           resizeToAvoidBottomInset: true,

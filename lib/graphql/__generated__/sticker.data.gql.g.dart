@@ -125,6 +125,9 @@ class _$GStickerData_stickerSerializer
       'isDownloaded',
       serializers.serialize(object.isDownloaded,
           specifiedType: const FullType(bool)),
+      'isDeleted',
+      serializers.serialize(object.isDeleted,
+          specifiedType: const FullType(bool)),
     ];
     Object? value;
     value = object.image;
@@ -204,6 +207,10 @@ class _$GStickerData_stickerSerializer
           break;
         case 'isDownloaded':
           result.isDownloaded = serializers.deserialize(value,
+              specifiedType: const FullType(bool))! as bool;
+          break;
+        case 'isDeleted':
+          result.isDeleted = serializers.deserialize(value,
               specifiedType: const FullType(bool))! as bool;
           break;
       }
@@ -636,6 +643,8 @@ class _$GStickerData_sticker extends GStickerData_sticker {
   final BuiltList<String> categories;
   @override
   final bool isDownloaded;
+  @override
+  final bool isDeleted;
 
   factory _$GStickerData_sticker(
           [void Function(GStickerData_stickerBuilder)? updates]) =>
@@ -654,7 +663,8 @@ class _$GStickerData_sticker extends GStickerData_sticker {
       required this.usesCount,
       required this.genre,
       required this.categories,
-      required this.isDownloaded})
+      required this.isDownloaded,
+      required this.isDeleted})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename, r'GStickerData_sticker', 'G__typename');
@@ -679,6 +689,8 @@ class _$GStickerData_sticker extends GStickerData_sticker {
         categories, r'GStickerData_sticker', 'categories');
     BuiltValueNullFieldError.checkNotNull(
         isDownloaded, r'GStickerData_sticker', 'isDownloaded');
+    BuiltValueNullFieldError.checkNotNull(
+        isDeleted, r'GStickerData_sticker', 'isDeleted');
   }
 
   @override
@@ -706,7 +718,8 @@ class _$GStickerData_sticker extends GStickerData_sticker {
         usesCount == other.usesCount &&
         genre == other.genre &&
         categories == other.categories &&
-        isDownloaded == other.isDownloaded;
+        isDownloaded == other.isDownloaded &&
+        isDeleted == other.isDeleted;
   }
 
   @override
@@ -725,6 +738,7 @@ class _$GStickerData_sticker extends GStickerData_sticker {
     _$hash = $jc(_$hash, genre.hashCode);
     _$hash = $jc(_$hash, categories.hashCode);
     _$hash = $jc(_$hash, isDownloaded.hashCode);
+    _$hash = $jc(_$hash, isDeleted.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -744,7 +758,8 @@ class _$GStickerData_sticker extends GStickerData_sticker {
           ..add('usesCount', usesCount)
           ..add('genre', genre)
           ..add('categories', categories)
-          ..add('isDownloaded', isDownloaded))
+          ..add('isDownloaded', isDownloaded)
+          ..add('isDeleted', isDeleted))
         .toString();
   }
 }
@@ -810,6 +825,10 @@ class GStickerData_stickerBuilder
   bool? get isDownloaded => _$this._isDownloaded;
   set isDownloaded(bool? isDownloaded) => _$this._isDownloaded = isDownloaded;
 
+  bool? _isDeleted;
+  bool? get isDeleted => _$this._isDeleted;
+  set isDeleted(bool? isDeleted) => _$this._isDeleted = isDeleted;
+
   GStickerData_stickerBuilder() {
     GStickerData_sticker._initializeBuilder(this);
   }
@@ -830,6 +849,7 @@ class GStickerData_stickerBuilder
       _genre = $v.genre;
       _categories = $v.categories.toBuilder();
       _isDownloaded = $v.isDownloaded;
+      _isDeleted = $v.isDeleted;
       _$v = null;
     }
     return this;
@@ -875,7 +895,8 @@ class GStickerData_stickerBuilder
               genre:
                   BuiltValueNullFieldError.checkNotNull(genre, r'GStickerData_sticker', 'genre'),
               categories: categories.build(),
-              isDownloaded: BuiltValueNullFieldError.checkNotNull(isDownloaded, r'GStickerData_sticker', 'isDownloaded'));
+              isDownloaded: BuiltValueNullFieldError.checkNotNull(isDownloaded, r'GStickerData_sticker', 'isDownloaded'),
+              isDeleted: BuiltValueNullFieldError.checkNotNull(isDeleted, r'GStickerData_sticker', 'isDeleted'));
     } catch (_) {
       late String _$failedField;
       try {
