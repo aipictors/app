@@ -4,6 +4,7 @@ import 'package:aipictors/mutations/follow_user.dart';
 import 'package:aipictors/providers/auth_user_id_provider.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/screens/error/data_not_found_error_screen.dart';
+import 'package:aipictors/screens/error/deleted_work_error_container.dart';
 import 'package:aipictors/screens/loading_screen.dart';
 import 'package:aipictors/widgets/app_bar/work_bottom_app_bar.dart';
 import 'package:aipictors/widgets/builder/operation_screen_builder.dart';
@@ -45,6 +46,9 @@ class WorkScreenCompact extends HookConsumerWidget {
         final work = response.data?.work;
         if (work == null) {
           return const DataNotFoundErrorScreen();
+        }
+        if (work.isDeleted) {
+          return const DeletedWorkErrorScreen();
         }
         return Scaffold(
           resizeToAvoidBottomInset: true,

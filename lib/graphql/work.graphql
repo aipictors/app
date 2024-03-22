@@ -6,6 +6,7 @@ query Work($id: ID!) {
     id
     title
     description
+    isDeleted
     image {
       id
       downloadURL

@@ -100,6 +100,9 @@ class _$GWorkData_workSerializer
       'title',
       serializers.serialize(object.title,
           specifiedType: const FullType(String)),
+      'isDeleted',
+      serializers.serialize(object.isDeleted,
+          specifiedType: const FullType(bool)),
       'user',
       serializers.serialize(object.user,
           specifiedType: const FullType(GWorkData_work_user)),
@@ -173,6 +176,10 @@ class _$GWorkData_workSerializer
         case 'description':
           result.description = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
+          break;
+        case 'isDeleted':
+          result.isDeleted = serializers.deserialize(value,
+              specifiedType: const FullType(bool))! as bool;
           break;
         case 'image':
           result.image.replace(serializers.deserialize(value,
@@ -875,6 +882,8 @@ class _$GWorkData_work extends GWorkData_work {
   @override
   final String? description;
   @override
+  final bool isDeleted;
+  @override
   final GWorkData_work_image? image;
   @override
   final GWorkData_work_user user;
@@ -899,6 +908,7 @@ class _$GWorkData_work extends GWorkData_work {
       required this.id,
       required this.title,
       this.description,
+      required this.isDeleted,
       this.image,
       required this.user,
       required this.tagNames,
@@ -912,6 +922,8 @@ class _$GWorkData_work extends GWorkData_work {
         G__typename, r'GWorkData_work', 'G__typename');
     BuiltValueNullFieldError.checkNotNull(id, r'GWorkData_work', 'id');
     BuiltValueNullFieldError.checkNotNull(title, r'GWorkData_work', 'title');
+    BuiltValueNullFieldError.checkNotNull(
+        isDeleted, r'GWorkData_work', 'isDeleted');
     BuiltValueNullFieldError.checkNotNull(user, r'GWorkData_work', 'user');
     BuiltValueNullFieldError.checkNotNull(
         tagNames, r'GWorkData_work', 'tagNames');
@@ -941,6 +953,7 @@ class _$GWorkData_work extends GWorkData_work {
         id == other.id &&
         title == other.title &&
         description == other.description &&
+        isDeleted == other.isDeleted &&
         image == other.image &&
         user == other.user &&
         tagNames == other.tagNames &&
@@ -958,6 +971,7 @@ class _$GWorkData_work extends GWorkData_work {
     _$hash = $jc(_$hash, id.hashCode);
     _$hash = $jc(_$hash, title.hashCode);
     _$hash = $jc(_$hash, description.hashCode);
+    _$hash = $jc(_$hash, isDeleted.hashCode);
     _$hash = $jc(_$hash, image.hashCode);
     _$hash = $jc(_$hash, user.hashCode);
     _$hash = $jc(_$hash, tagNames.hashCode);
@@ -977,6 +991,7 @@ class _$GWorkData_work extends GWorkData_work {
           ..add('id', id)
           ..add('title', title)
           ..add('description', description)
+          ..add('isDeleted', isDeleted)
           ..add('image', image)
           ..add('user', user)
           ..add('tagNames', tagNames)
@@ -1008,6 +1023,10 @@ class GWorkData_workBuilder
   String? _description;
   String? get description => _$this._description;
   set description(String? description) => _$this._description = description;
+
+  bool? _isDeleted;
+  bool? get isDeleted => _$this._isDeleted;
+  set isDeleted(bool? isDeleted) => _$this._isDeleted = isDeleted;
 
   GWorkData_work_imageBuilder? _image;
   GWorkData_work_imageBuilder get image =>
@@ -1058,6 +1077,7 @@ class GWorkData_workBuilder
       _id = $v.id;
       _title = $v.title;
       _description = $v.description;
+      _isDeleted = $v.isDeleted;
       _image = $v.image?.toBuilder();
       _user = $v.user.toBuilder();
       _tagNames = $v.tagNames.toBuilder();
@@ -1097,6 +1117,8 @@ class GWorkData_workBuilder
               title: BuiltValueNullFieldError.checkNotNull(
                   title, r'GWorkData_work', 'title'),
               description: description,
+              isDeleted: BuiltValueNullFieldError.checkNotNull(
+                  isDeleted, r'GWorkData_work', 'isDeleted'),
               image: _image?.build(),
               user: user.build(),
               tagNames: tagNames.build(),

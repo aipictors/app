@@ -53,6 +53,7 @@ abstract class GWorkData_work
   String get id;
   String get title;
   String? get description;
+  bool get isDeleted;
   GWorkData_work_image? get image;
   GWorkData_work_user get user;
   BuiltList<String> get tagNames;
