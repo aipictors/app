@@ -243,6 +243,33 @@ abstract class GCancelImageGenerationMemoInput
       );
 }
 
+abstract class GCancelImageGenerationReservedTaskInput
+    implements
+        Built<GCancelImageGenerationReservedTaskInput,
+            GCancelImageGenerationReservedTaskInputBuilder> {
+  GCancelImageGenerationReservedTaskInput._();
+
+  factory GCancelImageGenerationReservedTaskInput(
+      [void Function(GCancelImageGenerationReservedTaskInputBuilder b)
+          updates]) = _$GCancelImageGenerationReservedTaskInput;
+
+  String get nanoid;
+  static Serializer<GCancelImageGenerationReservedTaskInput> get serializer =>
+      _$gCancelImageGenerationReservedTaskInputSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GCancelImageGenerationReservedTaskInput.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GCancelImageGenerationReservedTaskInput? fromJson(
+          Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GCancelImageGenerationReservedTaskInput.serializer,
+        json,
+      );
+}
+
 abstract class GCancelImageGenerationTaskInput
     implements
         Built<GCancelImageGenerationTaskInput,
@@ -532,6 +559,7 @@ abstract class GCreateImageGenerationMemoInput
   String get prompts;
   String get negativePrompts;
   String get sampler;
+  String get vae;
   int get seed;
   int get steps;
   int get scale;
@@ -888,32 +916,6 @@ abstract class GCreatePromptonFolderKeyInput
       );
 }
 
-abstract class GCreatePromptonFolderViewInput
-    implements
-        Built<GCreatePromptonFolderViewInput,
-            GCreatePromptonFolderViewInputBuilder> {
-  GCreatePromptonFolderViewInput._();
-
-  factory GCreatePromptonFolderViewInput(
-          [void Function(GCreatePromptonFolderViewInputBuilder b) updates]) =
-      _$GCreatePromptonFolderViewInput;
-
-  String get folderId;
-  static Serializer<GCreatePromptonFolderViewInput> get serializer =>
-      _$gCreatePromptonFolderViewInputSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GCreatePromptonFolderViewInput.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GCreatePromptonFolderViewInput? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GCreatePromptonFolderViewInput.serializer,
-        json,
-      );
-}
-
 abstract class GCreatePromptonImageGenerationInput
     implements
         Built<GCreatePromptonImageGenerationInput,
@@ -1069,32 +1071,6 @@ abstract class GCreatePromptonPlanRequestInput
       );
 }
 
-abstract class GCreatePromptonPlanViewInput
-    implements
-        Built<GCreatePromptonPlanViewInput,
-            GCreatePromptonPlanViewInputBuilder> {
-  GCreatePromptonPlanViewInput._();
-
-  factory GCreatePromptonPlanViewInput(
-          [void Function(GCreatePromptonPlanViewInputBuilder b) updates]) =
-      _$GCreatePromptonPlanViewInput;
-
-  String get planId;
-  static Serializer<GCreatePromptonPlanViewInput> get serializer =>
-      _$gCreatePromptonPlanViewInputSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GCreatePromptonPlanViewInput.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GCreatePromptonPlanViewInput? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GCreatePromptonPlanViewInput.serializer,
-        json,
-      );
-}
-
 abstract class GCreatePromptonProfileBlockInput
     implements
         Built<GCreatePromptonProfileBlockInput,
@@ -1239,34 +1215,6 @@ abstract class GCreatePromptonReactionInput
       );
 }
 
-abstract class GCreatePromptonThumbnailFileInput
-    implements
-        Built<GCreatePromptonThumbnailFileInput,
-            GCreatePromptonThumbnailFileInputBuilder> {
-  GCreatePromptonThumbnailFileInput._();
-
-  factory GCreatePromptonThumbnailFileInput(
-          [void Function(GCreatePromptonThumbnailFileInputBuilder b) updates]) =
-      _$GCreatePromptonThumbnailFileInput;
-
-  String get fileId;
-  String get originalFileId;
-  static Serializer<GCreatePromptonThumbnailFileInput> get serializer =>
-      _$gCreatePromptonThumbnailFileInputSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GCreatePromptonThumbnailFileInput.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GCreatePromptonThumbnailFileInput? fromJson(
-          Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GCreatePromptonThumbnailFileInput.serializer,
-        json,
-      );
-}
-
 abstract class GCreatePromptonUserFromTokenInput
     implements
         Built<GCreatePromptonUserFromTokenInput,
@@ -1316,59 +1264,6 @@ abstract class GCreatePromptonUserInput
   static GCreatePromptonUserInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GCreatePromptonUserInput.serializer,
-        json,
-      );
-}
-
-abstract class GCreatePromptonUserViewInput
-    implements
-        Built<GCreatePromptonUserViewInput,
-            GCreatePromptonUserViewInputBuilder> {
-  GCreatePromptonUserViewInput._();
-
-  factory GCreatePromptonUserViewInput(
-          [void Function(GCreatePromptonUserViewInputBuilder b) updates]) =
-      _$GCreatePromptonUserViewInput;
-
-  String get userId;
-  static Serializer<GCreatePromptonUserViewInput> get serializer =>
-      _$gCreatePromptonUserViewInputSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GCreatePromptonUserViewInput.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GCreatePromptonUserViewInput? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GCreatePromptonUserViewInput.serializer,
-        json,
-      );
-}
-
-abstract class GCreatePromptonWorkBookmarkInput
-    implements
-        Built<GCreatePromptonWorkBookmarkInput,
-            GCreatePromptonWorkBookmarkInputBuilder> {
-  GCreatePromptonWorkBookmarkInput._();
-
-  factory GCreatePromptonWorkBookmarkInput(
-          [void Function(GCreatePromptonWorkBookmarkInputBuilder b) updates]) =
-      _$GCreatePromptonWorkBookmarkInput;
-
-  String get workId;
-  static Serializer<GCreatePromptonWorkBookmarkInput> get serializer =>
-      _$gCreatePromptonWorkBookmarkInputSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GCreatePromptonWorkBookmarkInput.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GCreatePromptonWorkBookmarkInput? fromJson(
-          Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GCreatePromptonWorkBookmarkInput.serializer,
         json,
       );
 }
@@ -1424,32 +1319,6 @@ abstract class GCreatePromptonWorkLikeInput
   static GCreatePromptonWorkLikeInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GCreatePromptonWorkLikeInput.serializer,
-        json,
-      );
-}
-
-abstract class GCreatePromptonWorkViewInput
-    implements
-        Built<GCreatePromptonWorkViewInput,
-            GCreatePromptonWorkViewInputBuilder> {
-  GCreatePromptonWorkViewInput._();
-
-  factory GCreatePromptonWorkViewInput(
-          [void Function(GCreatePromptonWorkViewInputBuilder b) updates]) =
-      _$GCreatePromptonWorkViewInput;
-
-  String get workId;
-  static Serializer<GCreatePromptonWorkViewInput> get serializer =>
-      _$gCreatePromptonWorkViewInputSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GCreatePromptonWorkViewInput.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GCreatePromptonWorkViewInput? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GCreatePromptonWorkViewInput.serializer,
         json,
       );
 }
@@ -1640,30 +1509,6 @@ abstract class GCreateWorkLikeInput
   static GCreateWorkLikeInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GCreateWorkLikeInput.serializer,
-        json,
-      );
-}
-
-abstract class GCreateWorkViewInput
-    implements Built<GCreateWorkViewInput, GCreateWorkViewInputBuilder> {
-  GCreateWorkViewInput._();
-
-  factory GCreateWorkViewInput(
-          [void Function(GCreateWorkViewInputBuilder b) updates]) =
-      _$GCreateWorkViewInput;
-
-  String get workId;
-  static Serializer<GCreateWorkViewInput> get serializer =>
-      _$gCreateWorkViewInputSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GCreateWorkViewInput.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GCreateWorkViewInput? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GCreateWorkViewInput.serializer,
         json,
       );
 }
@@ -2176,33 +2021,6 @@ abstract class GDeletePromptonReactionInput
       );
 }
 
-abstract class GDeletePromptonWorkBookmarkInput
-    implements
-        Built<GDeletePromptonWorkBookmarkInput,
-            GDeletePromptonWorkBookmarkInputBuilder> {
-  GDeletePromptonWorkBookmarkInput._();
-
-  factory GDeletePromptonWorkBookmarkInput(
-          [void Function(GDeletePromptonWorkBookmarkInputBuilder b) updates]) =
-      _$GDeletePromptonWorkBookmarkInput;
-
-  String get workId;
-  static Serializer<GDeletePromptonWorkBookmarkInput> get serializer =>
-      _$gDeletePromptonWorkBookmarkInputSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GDeletePromptonWorkBookmarkInput.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GDeletePromptonWorkBookmarkInput? fromJson(
-          Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GDeletePromptonWorkBookmarkInput.serializer,
-        json,
-      );
-}
-
 abstract class GDeletePromptonWorkInput
     implements
         Built<GDeletePromptonWorkInput, GDeletePromptonWorkInputBuilder> {
@@ -2627,6 +2445,9 @@ class GImageGenerationStatus extends EnumClass {
 
   static const GImageGenerationStatus ERROR = _$gImageGenerationStatusERROR;
 
+  static const GImageGenerationStatus RESERVED =
+      _$gImageGenerationStatusRESERVED;
+
   static Serializer<GImageGenerationStatus> get serializer =>
       _$gImageGenerationStatusSerializer;
 
@@ -2664,7 +2485,9 @@ abstract class GImageGenerationTasksWhereInput
       _$GImageGenerationTasksWhereInput;
 
   String? get dateText;
+  String? get fromDate;
   int? get rating;
+  bool? get isProtected;
   int? get minRating;
   static Serializer<GImageGenerationTasksWhereInput> get serializer =>
       _$gImageGenerationTasksWhereInputSerializer;
@@ -4031,6 +3854,32 @@ abstract class GUpdateAccountPasswordInput
       );
 }
 
+abstract class GUpdateAccountWebFcmTokenInput
+    implements
+        Built<GUpdateAccountWebFcmTokenInput,
+            GUpdateAccountWebFcmTokenInputBuilder> {
+  GUpdateAccountWebFcmTokenInput._();
+
+  factory GUpdateAccountWebFcmTokenInput(
+          [void Function(GUpdateAccountWebFcmTokenInputBuilder b) updates]) =
+      _$GUpdateAccountWebFcmTokenInput;
+
+  String? get token;
+  static Serializer<GUpdateAccountWebFcmTokenInput> get serializer =>
+      _$gUpdateAccountWebFcmTokenInputSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GUpdateAccountWebFcmTokenInput.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GUpdateAccountWebFcmTokenInput? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GUpdateAccountWebFcmTokenInput.serializer,
+        json,
+      );
+}
+
 abstract class GUpdateAlbumInput
     implements Built<GUpdateAlbumInput, GUpdateAlbumInputBuilder> {
   GUpdateAlbumInput._();
@@ -4096,6 +3945,7 @@ abstract class GUpdateImageGenerationMemoInput
   String get prompts;
   String get negativePrompts;
   String get sampler;
+  String get vae;
   String get modelId;
   int get seed;
   int get steps;
@@ -4536,6 +4386,34 @@ abstract class GUpdatePromptonWorkInput
   static GUpdatePromptonWorkInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUpdatePromptonWorkInput.serializer,
+        json,
+      );
+}
+
+abstract class GUpdateProtectedImageGenerationTaskInput
+    implements
+        Built<GUpdateProtectedImageGenerationTaskInput,
+            GUpdateProtectedImageGenerationTaskInputBuilder> {
+  GUpdateProtectedImageGenerationTaskInput._();
+
+  factory GUpdateProtectedImageGenerationTaskInput(
+      [void Function(GUpdateProtectedImageGenerationTaskInputBuilder b)
+          updates]) = _$GUpdateProtectedImageGenerationTaskInput;
+
+  String get nanoid;
+  bool get isProtected;
+  static Serializer<GUpdateProtectedImageGenerationTaskInput> get serializer =>
+      _$gUpdateProtectedImageGenerationTaskInputSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GUpdateProtectedImageGenerationTaskInput.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GUpdateProtectedImageGenerationTaskInput? fromJson(
+          Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GUpdateProtectedImageGenerationTaskInput.serializer,
         json,
       );
 }

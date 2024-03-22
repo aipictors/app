@@ -623,6 +623,22 @@ const CancelImageGenerationMemoInput = _i1.InputObjectTypeDefinitionNode(
     )
   ],
 );
+const CancelImageGenerationReservedTaskInput =
+    _i1.InputObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'CancelImageGenerationReservedTaskInput'),
+  directives: [],
+  fields: [
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'nanoid'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    )
+  ],
+);
 const CancelImageGenerationTaskInput = _i1.InputObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'CancelImageGenerationTaskInput'),
   directives: [],
@@ -1105,6 +1121,15 @@ const CreateImageGenerationMemoInput = _i1.InputObjectTypeDefinitionNode(
     ),
     _i1.InputValueDefinitionNode(
       name: _i1.NameNode(value: 'sampler'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'vae'),
       directives: [],
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'String'),
@@ -1618,21 +1643,6 @@ const CreatePromptonFolderKeyInput = _i1.InputObjectTypeDefinitionNode(
     )
   ],
 );
-const CreatePromptonFolderViewInput = _i1.InputObjectTypeDefinitionNode(
-  name: _i1.NameNode(value: 'CreatePromptonFolderViewInput'),
-  directives: [],
-  fields: [
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'folderId'),
-      directives: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'String'),
-        isNonNull: true,
-      ),
-      defaultValue: null,
-    )
-  ],
-);
 const CreatePromptonImageGenerationInput = _i1.InputObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'CreatePromptonImageGenerationInput'),
   directives: [],
@@ -1958,21 +1968,6 @@ const CreatePromptonPlanRequestInput = _i1.InputObjectTypeDefinitionNode(
     ),
   ],
 );
-const CreatePromptonPlanViewInput = _i1.InputObjectTypeDefinitionNode(
-  name: _i1.NameNode(value: 'CreatePromptonPlanViewInput'),
-  directives: [],
-  fields: [
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'planId'),
-      directives: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'String'),
-        isNonNull: true,
-      ),
-      defaultValue: null,
-    )
-  ],
-);
 const CreatePromptonProfileBlockInput = _i1.InputObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'CreatePromptonProfileBlockInput'),
   directives: [],
@@ -2165,30 +2160,6 @@ const CreatePromptonReactionInput = _i1.InputObjectTypeDefinitionNode(
     ),
   ],
 );
-const CreatePromptonThumbnailFileInput = _i1.InputObjectTypeDefinitionNode(
-  name: _i1.NameNode(value: 'CreatePromptonThumbnailFileInput'),
-  directives: [],
-  fields: [
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'fileId'),
-      directives: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'String'),
-        isNonNull: true,
-      ),
-      defaultValue: null,
-    ),
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'originalFileId'),
-      directives: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'String'),
-        isNonNull: true,
-      ),
-      defaultValue: null,
-    ),
-  ],
-);
 const CreatePromptonUserFromTokenInput = _i1.InputObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'CreatePromptonUserFromTokenInput'),
   directives: [],
@@ -2219,36 +2190,6 @@ const CreatePromptonUserInput = _i1.InputObjectTypeDefinitionNode(
   fields: [
     _i1.InputValueDefinitionNode(
       name: _i1.NameNode(value: 'name'),
-      directives: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'String'),
-        isNonNull: true,
-      ),
-      defaultValue: null,
-    )
-  ],
-);
-const CreatePromptonUserViewInput = _i1.InputObjectTypeDefinitionNode(
-  name: _i1.NameNode(value: 'CreatePromptonUserViewInput'),
-  directives: [],
-  fields: [
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'userId'),
-      directives: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'String'),
-        isNonNull: true,
-      ),
-      defaultValue: null,
-    )
-  ],
-);
-const CreatePromptonWorkBookmarkInput = _i1.InputObjectTypeDefinitionNode(
-  name: _i1.NameNode(value: 'CreatePromptonWorkBookmarkInput'),
-  directives: [],
-  fields: [
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'workId'),
       directives: [],
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'String'),
@@ -2311,21 +2252,6 @@ const CreatePromptonWorkInput = _i1.InputObjectTypeDefinitionNode(
 );
 const CreatePromptonWorkLikeInput = _i1.InputObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'CreatePromptonWorkLikeInput'),
-  directives: [],
-  fields: [
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'workId'),
-      directives: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'String'),
-        isNonNull: true,
-      ),
-      defaultValue: null,
-    )
-  ],
-);
-const CreatePromptonWorkViewInput = _i1.InputObjectTypeDefinitionNode(
-  name: _i1.NameNode(value: 'CreatePromptonWorkViewInput'),
   directives: [],
   fields: [
     _i1.InputValueDefinitionNode(
@@ -2603,21 +2529,6 @@ const CreateWorkInput = _i1.InputObjectTypeDefinitionNode(
 );
 const CreateWorkLikeInput = _i1.InputObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'CreateWorkLikeInput'),
-  directives: [],
-  fields: [
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'workId'),
-      directives: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'ID'),
-        isNonNull: true,
-      ),
-      defaultValue: null,
-    )
-  ],
-);
-const CreateWorkViewInput = _i1.InputObjectTypeDefinitionNode(
-  name: _i1.NameNode(value: 'CreateWorkViewInput'),
   directives: [],
   fields: [
     _i1.InputValueDefinitionNode(
@@ -3144,21 +3055,6 @@ const DeletePromptonReactionInput = _i1.InputObjectTypeDefinitionNode(
       ),
       defaultValue: null,
     ),
-  ],
-);
-const DeletePromptonWorkBookmarkInput = _i1.InputObjectTypeDefinitionNode(
-  name: _i1.NameNode(value: 'DeletePromptonWorkBookmarkInput'),
-  directives: [],
-  fields: [
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'workId'),
-      directives: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'String'),
-        isNonNull: true,
-      ),
-      defaultValue: null,
-    )
   ],
 );
 const DeletePromptonWorkInput = _i1.InputObjectTypeDefinitionNode(
@@ -3780,6 +3676,15 @@ const ImageGenerationMemoNode = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'vae'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
       name: _i1.NameNode(value: 'model'),
       directives: [],
       args: [],
@@ -4200,6 +4105,10 @@ const ImageGenerationStatus = _i1.EnumTypeDefinitionNode(
       name: _i1.NameNode(value: 'ERROR'),
       directives: [],
     ),
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'RESERVED'),
+      directives: [],
+    ),
   ],
 );
 const ImageGenerationTaskNode = _i1.ObjectTypeDefinitionNode(
@@ -4227,6 +4136,15 @@ const ImageGenerationTaskNode = _i1.ObjectTypeDefinitionNode(
       args: [],
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'Int'),
+        isNonNull: false,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'isProtected'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Boolean'),
         isNonNull: false,
       ),
     ),
@@ -4402,6 +4320,15 @@ const ImageGenerationTaskNode = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'thumbnailToken'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: false,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
       name: _i1.NameNode(value: 'nanoid'),
       directives: [],
       args: [],
@@ -4454,10 +4381,28 @@ const ImageGenerationTasksWhereInput = _i1.InputObjectTypeDefinitionNode(
       defaultValue: null,
     ),
     _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'fromDate'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: false,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
       name: _i1.NameNode(value: 'rating'),
       directives: [],
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'Int'),
+        isNonNull: false,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'isProtected'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Boolean'),
         isNonNull: false,
       ),
       defaultValue: null,
@@ -5554,6 +5499,26 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'updateProtectedImageGenerationTask'),
+      directives: [],
+      args: [
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'input'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name:
+                _i1.NameNode(value: 'UpdateProtectedImageGenerationTaskInput'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        )
+      ],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'ImageGenerationTaskNode'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
       name: _i1.NameNode(value: 'updateRatingImageGenerationModel'),
       directives: [],
       args: [
@@ -5771,25 +5736,6 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
           directives: [],
           type: _i1.NamedTypeNode(
             name: _i1.NameNode(value: 'CreateWorkLikeInput'),
-            isNonNull: true,
-          ),
-          defaultValue: null,
-        )
-      ],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'WorkNode'),
-        isNonNull: true,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'createWorkView'),
-      directives: [],
-      args: [
-        _i1.InputValueDefinitionNode(
-          name: _i1.NameNode(value: 'input'),
-          directives: [],
-          type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'CreateWorkViewInput'),
             isNonNull: true,
           ),
           defaultValue: null,
@@ -6087,6 +6033,25 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
           directives: [],
           type: _i1.NamedTypeNode(
             name: _i1.NameNode(value: 'CancelImageGenerationTaskInput'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        )
+      ],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'ImageGenerationTaskNode'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'cancelImageGenerationReservedTask'),
+      directives: [],
+      args: [
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'input'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'CancelImageGenerationReservedTaskInput'),
             isNonNull: true,
           ),
           defaultValue: null,
@@ -6440,6 +6405,25 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'updateAccountWebFcmToken'),
+      directives: [],
+      args: [
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'input'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'UpdateAccountWebFcmTokenInput'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        )
+      ],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'UserNode'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
       name: _i1.NameNode(value: 'updateAlbum'),
       directives: [],
       args: [
@@ -6747,25 +6731,6 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'createPromptonThumbnailFile'),
-      directives: [],
-      args: [
-        _i1.InputValueDefinitionNode(
-          name: _i1.NameNode(value: 'input'),
-          directives: [],
-          type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'CreatePromptonThumbnailFileInput'),
-            isNonNull: true,
-          ),
-          defaultValue: null,
-        )
-      ],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'PromptonFileNode'),
-        isNonNull: true,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
       name: _i1.NameNode(value: 'createPromptonWork'),
       directives: [],
       args: [
@@ -6972,44 +6937,6 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'PromptonWorkNode'),
         isNonNull: true,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'createPromptonWorkBookmark'),
-      directives: [],
-      args: [
-        _i1.InputValueDefinitionNode(
-          name: _i1.NameNode(value: 'input'),
-          directives: [],
-          type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'CreatePromptonWorkBookmarkInput'),
-            isNonNull: true,
-          ),
-          defaultValue: null,
-        )
-      ],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'PromptonWorkNode'),
-        isNonNull: false,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'deletePromptonWorkBookmark'),
-      directives: [],
-      args: [
-        _i1.InputValueDefinitionNode(
-          name: _i1.NameNode(value: 'input'),
-          directives: [],
-          type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'DeletePromptonWorkBookmarkInput'),
-            isNonNull: true,
-          ),
-          defaultValue: null,
-        )
-      ],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'PromptonWorkNode'),
-        isNonNull: false,
       ),
     ),
     _i1.FieldDefinitionNode(
@@ -7769,63 +7696,6 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'createPromptonWorkView'),
-      directives: [],
-      args: [
-        _i1.InputValueDefinitionNode(
-          name: _i1.NameNode(value: 'input'),
-          directives: [],
-          type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'CreatePromptonWorkViewInput'),
-            isNonNull: true,
-          ),
-          defaultValue: null,
-        )
-      ],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'Boolean'),
-        isNonNull: false,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'createPromptonUserView'),
-      directives: [],
-      args: [
-        _i1.InputValueDefinitionNode(
-          name: _i1.NameNode(value: 'input'),
-          directives: [],
-          type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'CreatePromptonUserViewInput'),
-            isNonNull: true,
-          ),
-          defaultValue: null,
-        )
-      ],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'Boolean'),
-        isNonNull: false,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'createPromptonFolderView'),
-      directives: [],
-      args: [
-        _i1.InputValueDefinitionNode(
-          name: _i1.NameNode(value: 'input'),
-          directives: [],
-          type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'CreatePromptonFolderViewInput'),
-            isNonNull: true,
-          ),
-          defaultValue: null,
-        )
-      ],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'Boolean'),
-        isNonNull: false,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
       name: _i1.NameNode(value: 'createPromptonImageGeneration'),
       directives: [],
       args: [
@@ -7841,25 +7711,6 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
       ],
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'PromptonImageGenerationNode'),
-        isNonNull: false,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'createPromptonPlanView'),
-      directives: [],
-      args: [
-        _i1.InputValueDefinitionNode(
-          name: _i1.NameNode(value: 'input'),
-          directives: [],
-          type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'CreatePromptonPlanViewInput'),
-            isNonNull: true,
-          ),
-          defaultValue: null,
-        )
-      ],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'Boolean'),
         isNonNull: false,
       ),
     ),
@@ -12071,37 +11922,6 @@ const PromptonViewer = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'bookmarkedWorks'),
-      directives: [],
-      args: [
-        _i1.InputValueDefinitionNode(
-          name: _i1.NameNode(value: 'offset'),
-          directives: [],
-          type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'Int'),
-            isNonNull: true,
-          ),
-          defaultValue: null,
-        ),
-        _i1.InputValueDefinitionNode(
-          name: _i1.NameNode(value: 'limit'),
-          directives: [],
-          type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'Int'),
-            isNonNull: true,
-          ),
-          defaultValue: null,
-        ),
-      ],
-      type: _i1.ListTypeNode(
-        type: _i1.NamedTypeNode(
-          name: _i1.NameNode(value: 'PromptonWorkNode'),
-          isNonNull: true,
-        ),
-        isNonNull: true,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
       name: _i1.NameNode(value: 'followees'),
       directives: [],
       args: [
@@ -13400,6 +13220,25 @@ const Query = _i1.ObjectTypeDefinitionNode(
     ),
     _i1.FieldDefinitionNode(
       name: _i1.NameNode(value: 'imageGenerationTask'),
+      directives: [],
+      args: [
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'id'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'ID'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        )
+      ],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'ImageGenerationTaskNode'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'imageGenerationReservedTask'),
       directives: [],
       args: [
         _i1.InputValueDefinitionNode(
@@ -14763,6 +14602,15 @@ const StickerNode = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'isDeleted'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Boolean'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
       name: _i1.NameNode(value: 'viewer'),
       directives: [
         _i1.DirectiveNode(
@@ -15272,6 +15120,21 @@ const UpdateAccountPasswordInput = _i1.InputObjectTypeDefinitionNode(
     ),
   ],
 );
+const UpdateAccountWebFcmTokenInput = _i1.InputObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'UpdateAccountWebFcmTokenInput'),
+  directives: [],
+  fields: [
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'token'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: false,
+      ),
+      defaultValue: null,
+    )
+  ],
+);
 const UpdateAlbumInput = _i1.InputObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'UpdateAlbumInput'),
   directives: [],
@@ -15362,6 +15225,15 @@ const UpdateImageGenerationMemoInput = _i1.InputObjectTypeDefinitionNode(
     ),
     _i1.InputValueDefinitionNode(
       name: _i1.NameNode(value: 'sampler'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'vae'),
       directives: [],
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'String'),
@@ -15985,6 +15857,31 @@ const UpdatePromptonWorkInput = _i1.InputObjectTypeDefinitionNode(
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'String'),
         isNonNull: false,
+      ),
+      defaultValue: null,
+    ),
+  ],
+);
+const UpdateProtectedImageGenerationTaskInput =
+    _i1.InputObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'UpdateProtectedImageGenerationTaskInput'),
+  directives: [],
+  fields: [
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'nanoid'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'isProtected'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Boolean'),
+        isNonNull: true,
       ),
       defaultValue: null,
     ),
@@ -16647,6 +16544,15 @@ const UserNode = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'webFcmToken'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: false,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
       name: _i1.NameNode(value: 'hasSignedImageGenerationTerms'),
       directives: [],
       args: [],
@@ -17011,6 +16917,24 @@ const Viewer = _i1.ObjectTypeDefinitionNode(
     ),
     _i1.FieldDefinitionNode(
       name: _i1.NameNode(value: 'availableConsecutiveImageGenerationsCount'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Int'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'availableImageGenerationMaxRatingCount'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Int'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'imageGenerationWaitCount'),
       directives: [],
       args: [],
       type: _i1.NamedTypeNode(
@@ -18628,6 +18552,15 @@ const WorkNode = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'isDeleted'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Boolean'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
       name: _i1.NameNode(value: 'viewer'),
       directives: [
         _i1.DirectiveNode(
@@ -18849,6 +18782,7 @@ const document = _i1.DocumentNode(definitions: [
   BlockPromptonUserInput,
   CacheControlScope,
   CancelImageGenerationMemoInput,
+  CancelImageGenerationReservedTaskInput,
   CancelImageGenerationTaskInput,
   CancelPromptonRequestInput,
   CategoryNode,
@@ -18877,27 +18811,21 @@ const document = _i1.DocumentNode(definitions: [
   CreatePromptonFileInput,
   CreatePromptonFolderInput,
   CreatePromptonFolderKeyInput,
-  CreatePromptonFolderViewInput,
   CreatePromptonImageGenerationInput,
   CreatePromptonInquiryInput,
   CreatePromptonPaymentMethodInput,
   CreatePromptonPaymentMethodResult,
   CreatePromptonPlanInput,
   CreatePromptonPlanRequestInput,
-  CreatePromptonPlanViewInput,
   CreatePromptonProfileBlockInput,
   CreatePromptonPromptCategoryInput,
   CreatePromptonPromptInput,
   CreatePromptonPromptWorkInput,
   CreatePromptonReactionInput,
-  CreatePromptonThumbnailFileInput,
   CreatePromptonUserFromTokenInput,
   CreatePromptonUserInput,
-  CreatePromptonUserViewInput,
-  CreatePromptonWorkBookmarkInput,
   CreatePromptonWorkInput,
   CreatePromptonWorkLikeInput,
-  CreatePromptonWorkViewInput,
   CreateReservedImageGenerationTaskInput,
   CreateResponseCommentInput,
   CreateStickerInput,
@@ -18905,7 +18833,6 @@ const document = _i1.DocumentNode(definitions: [
   CreateWorkCommentInput,
   CreateWorkInput,
   CreateWorkLikeInput,
-  CreateWorkViewInput,
   DailyThemeNode,
   DailyThemesWhereInput,
   DecrementPromptonPlanSort,
@@ -18927,7 +18854,6 @@ const document = _i1.DocumentNode(definitions: [
   DeletePromptonPromptCategoryInput,
   DeletePromptonPromptInput,
   DeletePromptonReactionInput,
-  DeletePromptonWorkBookmarkInput,
   DeletePromptonWorkInput,
   DeletePromptonWorkLikeInput,
   DeleteStickerInput,
@@ -19059,6 +18985,7 @@ const document = _i1.DocumentNode(definitions: [
   UpdateAccountFcmTokenInput,
   UpdateAccountLoginInput,
   UpdateAccountPasswordInput,
+  UpdateAccountWebFcmTokenInput,
   UpdateAlbumInput,
   UpdateFolderInput,
   UpdateImageGenerationMemoInput,
@@ -19077,6 +19004,7 @@ const document = _i1.DocumentNode(definitions: [
   UpdatePromptonUserLoginInput,
   UpdatePromptonUserProfileInput,
   UpdatePromptonWorkInput,
+  UpdateProtectedImageGenerationTaskInput,
   UpdateRatingImageGenerationModelInput,
   UpdateRatingImageGenerationTaskInput,
   UpdateStickerInput,

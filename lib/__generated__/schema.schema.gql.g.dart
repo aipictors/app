@@ -268,6 +268,8 @@ const GImageGenerationStatus _$gImageGenerationStatusCANCELED =
     const GImageGenerationStatus._('CANCELED');
 const GImageGenerationStatus _$gImageGenerationStatusERROR =
     const GImageGenerationStatus._('ERROR');
+const GImageGenerationStatus _$gImageGenerationStatusRESERVED =
+    const GImageGenerationStatus._('RESERVED');
 
 GImageGenerationStatus _$gImageGenerationStatusValueOf(String name) {
   switch (name) {
@@ -281,6 +283,8 @@ GImageGenerationStatus _$gImageGenerationStatusValueOf(String name) {
       return _$gImageGenerationStatusCANCELED;
     case 'ERROR':
       return _$gImageGenerationStatusERROR;
+    case 'RESERVED':
+      return _$gImageGenerationStatusRESERVED;
     default:
       throw new ArgumentError(name);
   }
@@ -293,6 +297,7 @@ final BuiltSet<GImageGenerationStatus> _$gImageGenerationStatusValues =
   _$gImageGenerationStatusDONE,
   _$gImageGenerationStatusCANCELED,
   _$gImageGenerationStatusERROR,
+  _$gImageGenerationStatusRESERVED,
 ]);
 
 const GImageGenerationTaskOrderBy _$gImageGenerationTaskOrderByDATE_CREATED =
@@ -665,6 +670,9 @@ Serializer<GCacheControlScope> _$gCacheControlScopeSerializer =
 Serializer<GCancelImageGenerationMemoInput>
     _$gCancelImageGenerationMemoInputSerializer =
     new _$GCancelImageGenerationMemoInputSerializer();
+Serializer<GCancelImageGenerationReservedTaskInput>
+    _$gCancelImageGenerationReservedTaskInputSerializer =
+    new _$GCancelImageGenerationReservedTaskInputSerializer();
 Serializer<GCancelImageGenerationTaskInput>
     _$gCancelImageGenerationTaskInputSerializer =
     new _$GCancelImageGenerationTaskInputSerializer();
@@ -724,9 +732,6 @@ Serializer<GCreatePromptonFolderInput> _$gCreatePromptonFolderInputSerializer =
 Serializer<GCreatePromptonFolderKeyInput>
     _$gCreatePromptonFolderKeyInputSerializer =
     new _$GCreatePromptonFolderKeyInputSerializer();
-Serializer<GCreatePromptonFolderViewInput>
-    _$gCreatePromptonFolderViewInputSerializer =
-    new _$GCreatePromptonFolderViewInputSerializer();
 Serializer<GCreatePromptonImageGenerationInput>
     _$gCreatePromptonImageGenerationInputSerializer =
     new _$GCreatePromptonImageGenerationInputSerializer();
@@ -741,9 +746,6 @@ Serializer<GCreatePromptonPlanInput> _$gCreatePromptonPlanInputSerializer =
 Serializer<GCreatePromptonPlanRequestInput>
     _$gCreatePromptonPlanRequestInputSerializer =
     new _$GCreatePromptonPlanRequestInputSerializer();
-Serializer<GCreatePromptonPlanViewInput>
-    _$gCreatePromptonPlanViewInputSerializer =
-    new _$GCreatePromptonPlanViewInputSerializer();
 Serializer<GCreatePromptonProfileBlockInput>
     _$gCreatePromptonProfileBlockInputSerializer =
     new _$GCreatePromptonProfileBlockInputSerializer();
@@ -758,28 +760,16 @@ Serializer<GCreatePromptonPromptWorkInput>
 Serializer<GCreatePromptonReactionInput>
     _$gCreatePromptonReactionInputSerializer =
     new _$GCreatePromptonReactionInputSerializer();
-Serializer<GCreatePromptonThumbnailFileInput>
-    _$gCreatePromptonThumbnailFileInputSerializer =
-    new _$GCreatePromptonThumbnailFileInputSerializer();
 Serializer<GCreatePromptonUserFromTokenInput>
     _$gCreatePromptonUserFromTokenInputSerializer =
     new _$GCreatePromptonUserFromTokenInputSerializer();
 Serializer<GCreatePromptonUserInput> _$gCreatePromptonUserInputSerializer =
     new _$GCreatePromptonUserInputSerializer();
-Serializer<GCreatePromptonUserViewInput>
-    _$gCreatePromptonUserViewInputSerializer =
-    new _$GCreatePromptonUserViewInputSerializer();
-Serializer<GCreatePromptonWorkBookmarkInput>
-    _$gCreatePromptonWorkBookmarkInputSerializer =
-    new _$GCreatePromptonWorkBookmarkInputSerializer();
 Serializer<GCreatePromptonWorkInput> _$gCreatePromptonWorkInputSerializer =
     new _$GCreatePromptonWorkInputSerializer();
 Serializer<GCreatePromptonWorkLikeInput>
     _$gCreatePromptonWorkLikeInputSerializer =
     new _$GCreatePromptonWorkLikeInputSerializer();
-Serializer<GCreatePromptonWorkViewInput>
-    _$gCreatePromptonWorkViewInputSerializer =
-    new _$GCreatePromptonWorkViewInputSerializer();
 Serializer<GCreateReservedImageGenerationTaskInput>
     _$gCreateReservedImageGenerationTaskInputSerializer =
     new _$GCreateReservedImageGenerationTaskInputSerializer();
@@ -796,8 +786,6 @@ Serializer<GCreateWorkInput> _$gCreateWorkInputSerializer =
     new _$GCreateWorkInputSerializer();
 Serializer<GCreateWorkLikeInput> _$gCreateWorkLikeInputSerializer =
     new _$GCreateWorkLikeInputSerializer();
-Serializer<GCreateWorkViewInput> _$gCreateWorkViewInputSerializer =
-    new _$GCreateWorkViewInputSerializer();
 Serializer<GDailyThemesWhereInput> _$gDailyThemesWhereInputSerializer =
     new _$GDailyThemesWhereInputSerializer();
 Serializer<GDecrementPromptonPlanSort> _$gDecrementPromptonPlanSortSerializer =
@@ -845,9 +833,6 @@ Serializer<GDeletePromptonPromptInput> _$gDeletePromptonPromptInputSerializer =
 Serializer<GDeletePromptonReactionInput>
     _$gDeletePromptonReactionInputSerializer =
     new _$GDeletePromptonReactionInputSerializer();
-Serializer<GDeletePromptonWorkBookmarkInput>
-    _$gDeletePromptonWorkBookmarkInputSerializer =
-    new _$GDeletePromptonWorkBookmarkInputSerializer();
 Serializer<GDeletePromptonWorkInput> _$gDeletePromptonWorkInputSerializer =
     new _$GDeletePromptonWorkInputSerializer();
 Serializer<GDeletePromptonWorkLikeInput>
@@ -1013,6 +998,9 @@ Serializer<GUpdateAccountLoginInput> _$gUpdateAccountLoginInputSerializer =
 Serializer<GUpdateAccountPasswordInput>
     _$gUpdateAccountPasswordInputSerializer =
     new _$GUpdateAccountPasswordInputSerializer();
+Serializer<GUpdateAccountWebFcmTokenInput>
+    _$gUpdateAccountWebFcmTokenInputSerializer =
+    new _$GUpdateAccountWebFcmTokenInputSerializer();
 Serializer<GUpdateAlbumInput> _$gUpdateAlbumInputSerializer =
     new _$GUpdateAlbumInputSerializer();
 Serializer<GUpdateFolderInput> _$gUpdateFolderInputSerializer =
@@ -1059,6 +1047,9 @@ Serializer<GUpdatePromptonUserProfileInput>
     new _$GUpdatePromptonUserProfileInputSerializer();
 Serializer<GUpdatePromptonWorkInput> _$gUpdatePromptonWorkInputSerializer =
     new _$GUpdatePromptonWorkInputSerializer();
+Serializer<GUpdateProtectedImageGenerationTaskInput>
+    _$gUpdateProtectedImageGenerationTaskInputSerializer =
+    new _$GUpdateProtectedImageGenerationTaskInputSerializer();
 Serializer<GUpdateRatingImageGenerationModelInput>
     _$gUpdateRatingImageGenerationModelInputSerializer =
     new _$GUpdateRatingImageGenerationModelInputSerializer();
@@ -1520,6 +1511,52 @@ class _$GCancelImageGenerationMemoInputSerializer
       Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GCancelImageGenerationMemoInputBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'nanoid':
+          result.nanoid = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GCancelImageGenerationReservedTaskInputSerializer
+    implements StructuredSerializer<GCancelImageGenerationReservedTaskInput> {
+  @override
+  final Iterable<Type> types = const [
+    GCancelImageGenerationReservedTaskInput,
+    _$GCancelImageGenerationReservedTaskInput
+  ];
+  @override
+  final String wireName = 'GCancelImageGenerationReservedTaskInput';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GCancelImageGenerationReservedTaskInput object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'nanoid',
+      serializers.serialize(object.nanoid,
+          specifiedType: const FullType(String)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GCancelImageGenerationReservedTaskInput deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GCancelImageGenerationReservedTaskInputBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -2096,6 +2133,8 @@ class _$GCreateImageGenerationMemoInputSerializer
       'sampler',
       serializers.serialize(object.sampler,
           specifiedType: const FullType(String)),
+      'vae',
+      serializers.serialize(object.vae, specifiedType: const FullType(String)),
       'seed',
       serializers.serialize(object.seed, specifiedType: const FullType(int)),
       'steps',
@@ -2147,6 +2186,10 @@ class _$GCreateImageGenerationMemoInputSerializer
           break;
         case 'sampler':
           result.sampler = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'vae':
+          result.vae = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
         case 'seed':
@@ -2956,52 +2999,6 @@ class _$GCreatePromptonFolderKeyInputSerializer
   }
 }
 
-class _$GCreatePromptonFolderViewInputSerializer
-    implements StructuredSerializer<GCreatePromptonFolderViewInput> {
-  @override
-  final Iterable<Type> types = const [
-    GCreatePromptonFolderViewInput,
-    _$GCreatePromptonFolderViewInput
-  ];
-  @override
-  final String wireName = 'GCreatePromptonFolderViewInput';
-
-  @override
-  Iterable<Object?> serialize(
-      Serializers serializers, GCreatePromptonFolderViewInput object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      'folderId',
-      serializers.serialize(object.folderId,
-          specifiedType: const FullType(String)),
-    ];
-
-    return result;
-  }
-
-  @override
-  GCreatePromptonFolderViewInput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GCreatePromptonFolderViewInputBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case 'folderId':
-          result.folderId = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
 class _$GCreatePromptonImageGenerationInputSerializer
     implements StructuredSerializer<GCreatePromptonImageGenerationInput> {
   @override
@@ -3426,52 +3423,6 @@ class _$GCreatePromptonPlanRequestInputSerializer
   }
 }
 
-class _$GCreatePromptonPlanViewInputSerializer
-    implements StructuredSerializer<GCreatePromptonPlanViewInput> {
-  @override
-  final Iterable<Type> types = const [
-    GCreatePromptonPlanViewInput,
-    _$GCreatePromptonPlanViewInput
-  ];
-  @override
-  final String wireName = 'GCreatePromptonPlanViewInput';
-
-  @override
-  Iterable<Object?> serialize(
-      Serializers serializers, GCreatePromptonPlanViewInput object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      'planId',
-      serializers.serialize(object.planId,
-          specifiedType: const FullType(String)),
-    ];
-
-    return result;
-  }
-
-  @override
-  GCreatePromptonPlanViewInput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GCreatePromptonPlanViewInputBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case 'planId':
-          result.planId = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
 class _$GCreatePromptonProfileBlockInputSerializer
     implements StructuredSerializer<GCreatePromptonProfileBlockInput> {
   @override
@@ -3810,59 +3761,6 @@ class _$GCreatePromptonReactionInputSerializer
   }
 }
 
-class _$GCreatePromptonThumbnailFileInputSerializer
-    implements StructuredSerializer<GCreatePromptonThumbnailFileInput> {
-  @override
-  final Iterable<Type> types = const [
-    GCreatePromptonThumbnailFileInput,
-    _$GCreatePromptonThumbnailFileInput
-  ];
-  @override
-  final String wireName = 'GCreatePromptonThumbnailFileInput';
-
-  @override
-  Iterable<Object?> serialize(
-      Serializers serializers, GCreatePromptonThumbnailFileInput object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      'fileId',
-      serializers.serialize(object.fileId,
-          specifiedType: const FullType(String)),
-      'originalFileId',
-      serializers.serialize(object.originalFileId,
-          specifiedType: const FullType(String)),
-    ];
-
-    return result;
-  }
-
-  @override
-  GCreatePromptonThumbnailFileInput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GCreatePromptonThumbnailFileInputBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case 'fileId':
-          result.fileId = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'originalFileId':
-          result.originalFileId = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
 class _$GCreatePromptonUserFromTokenInputSerializer
     implements StructuredSerializer<GCreatePromptonUserFromTokenInput> {
   @override
@@ -3952,98 +3850,6 @@ class _$GCreatePromptonUserInputSerializer
       switch (key) {
         case 'name':
           result.name = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GCreatePromptonUserViewInputSerializer
-    implements StructuredSerializer<GCreatePromptonUserViewInput> {
-  @override
-  final Iterable<Type> types = const [
-    GCreatePromptonUserViewInput,
-    _$GCreatePromptonUserViewInput
-  ];
-  @override
-  final String wireName = 'GCreatePromptonUserViewInput';
-
-  @override
-  Iterable<Object?> serialize(
-      Serializers serializers, GCreatePromptonUserViewInput object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      'userId',
-      serializers.serialize(object.userId,
-          specifiedType: const FullType(String)),
-    ];
-
-    return result;
-  }
-
-  @override
-  GCreatePromptonUserViewInput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GCreatePromptonUserViewInputBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case 'userId':
-          result.userId = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GCreatePromptonWorkBookmarkInputSerializer
-    implements StructuredSerializer<GCreatePromptonWorkBookmarkInput> {
-  @override
-  final Iterable<Type> types = const [
-    GCreatePromptonWorkBookmarkInput,
-    _$GCreatePromptonWorkBookmarkInput
-  ];
-  @override
-  final String wireName = 'GCreatePromptonWorkBookmarkInput';
-
-  @override
-  Iterable<Object?> serialize(
-      Serializers serializers, GCreatePromptonWorkBookmarkInput object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      'workId',
-      serializers.serialize(object.workId,
-          specifiedType: const FullType(String)),
-    ];
-
-    return result;
-  }
-
-  @override
-  GCreatePromptonWorkBookmarkInput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GCreatePromptonWorkBookmarkInputBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case 'workId':
-          result.workId = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
       }
@@ -4163,52 +3969,6 @@ class _$GCreatePromptonWorkLikeInputSerializer
       Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GCreatePromptonWorkLikeInputBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case 'workId':
-          result.workId = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GCreatePromptonWorkViewInputSerializer
-    implements StructuredSerializer<GCreatePromptonWorkViewInput> {
-  @override
-  final Iterable<Type> types = const [
-    GCreatePromptonWorkViewInput,
-    _$GCreatePromptonWorkViewInput
-  ];
-  @override
-  final String wireName = 'GCreatePromptonWorkViewInput';
-
-  @override
-  Iterable<Object?> serialize(
-      Serializers serializers, GCreatePromptonWorkViewInput object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      'workId',
-      serializers.serialize(object.workId,
-          specifiedType: const FullType(String)),
-    ];
-
-    return result;
-  }
-
-  @override
-  GCreatePromptonWorkViewInput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GCreatePromptonWorkViewInputBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -4682,52 +4442,6 @@ class _$GCreateWorkLikeInputSerializer
       Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GCreateWorkLikeInputBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case 'workId':
-          result.workId = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GCreateWorkViewInputSerializer
-    implements StructuredSerializer<GCreateWorkViewInput> {
-  @override
-  final Iterable<Type> types = const [
-    GCreateWorkViewInput,
-    _$GCreateWorkViewInput
-  ];
-  @override
-  final String wireName = 'GCreateWorkViewInput';
-
-  @override
-  Iterable<Object?> serialize(
-      Serializers serializers, GCreateWorkViewInput object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      'workId',
-      serializers.serialize(object.workId,
-          specifiedType: const FullType(String)),
-    ];
-
-    return result;
-  }
-
-  @override
-  GCreateWorkViewInput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GCreateWorkViewInputBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -5726,52 +5440,6 @@ class _$GDeletePromptonReactionInputSerializer
   }
 }
 
-class _$GDeletePromptonWorkBookmarkInputSerializer
-    implements StructuredSerializer<GDeletePromptonWorkBookmarkInput> {
-  @override
-  final Iterable<Type> types = const [
-    GDeletePromptonWorkBookmarkInput,
-    _$GDeletePromptonWorkBookmarkInput
-  ];
-  @override
-  final String wireName = 'GDeletePromptonWorkBookmarkInput';
-
-  @override
-  Iterable<Object?> serialize(
-      Serializers serializers, GDeletePromptonWorkBookmarkInput object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      'workId',
-      serializers.serialize(object.workId,
-          specifiedType: const FullType(String)),
-    ];
-
-    return result;
-  }
-
-  @override
-  GDeletePromptonWorkBookmarkInput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GDeletePromptonWorkBookmarkInputBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case 'workId':
-          result.workId = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
 class _$GDeletePromptonWorkInputSerializer
     implements StructuredSerializer<GDeletePromptonWorkInput> {
   @override
@@ -6460,11 +6128,25 @@ class _$GImageGenerationTasksWhereInputSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
+    value = object.fromDate;
+    if (value != null) {
+      result
+        ..add('fromDate')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     value = object.rating;
     if (value != null) {
       result
         ..add('rating')
         ..add(serializers.serialize(value, specifiedType: const FullType(int)));
+    }
+    value = object.isProtected;
+    if (value != null) {
+      result
+        ..add('isProtected')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
     }
     value = object.minRating;
     if (value != null) {
@@ -6491,9 +6173,17 @@ class _$GImageGenerationTasksWhereInputSerializer
           result.dateText = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
+        case 'fromDate':
+          result.fromDate = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
         case 'rating':
           result.rating = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int?;
+          break;
+        case 'isProtected':
+          result.isProtected = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
           break;
         case 'minRating':
           result.minRating = serializers.deserialize(value,
@@ -9006,6 +8696,55 @@ class _$GUpdateAccountPasswordInputSerializer
   }
 }
 
+class _$GUpdateAccountWebFcmTokenInputSerializer
+    implements StructuredSerializer<GUpdateAccountWebFcmTokenInput> {
+  @override
+  final Iterable<Type> types = const [
+    GUpdateAccountWebFcmTokenInput,
+    _$GUpdateAccountWebFcmTokenInput
+  ];
+  @override
+  final String wireName = 'GUpdateAccountWebFcmTokenInput';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GUpdateAccountWebFcmTokenInput object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[];
+    Object? value;
+    value = object.token;
+    if (value != null) {
+      result
+        ..add('token')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    return result;
+  }
+
+  @override
+  GUpdateAccountWebFcmTokenInput deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GUpdateAccountWebFcmTokenInputBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'token':
+          result.token = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$GUpdateAlbumInputSerializer
     implements StructuredSerializer<GUpdateAlbumInput> {
   @override
@@ -9131,6 +8870,8 @@ class _$GUpdateImageGenerationMemoInputSerializer
       'sampler',
       serializers.serialize(object.sampler,
           specifiedType: const FullType(String)),
+      'vae',
+      serializers.serialize(object.vae, specifiedType: const FullType(String)),
       'modelId',
       serializers.serialize(object.modelId,
           specifiedType: const FullType(String)),
@@ -9186,6 +8927,10 @@ class _$GUpdateImageGenerationMemoInputSerializer
           break;
         case 'sampler':
           result.sampler = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'vae':
+          result.vae = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
         case 'modelId':
@@ -10221,6 +9966,59 @@ class _$GUpdatePromptonWorkInputSerializer
         case 'body':
           result.body = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GUpdateProtectedImageGenerationTaskInputSerializer
+    implements StructuredSerializer<GUpdateProtectedImageGenerationTaskInput> {
+  @override
+  final Iterable<Type> types = const [
+    GUpdateProtectedImageGenerationTaskInput,
+    _$GUpdateProtectedImageGenerationTaskInput
+  ];
+  @override
+  final String wireName = 'GUpdateProtectedImageGenerationTaskInput';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GUpdateProtectedImageGenerationTaskInput object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'nanoid',
+      serializers.serialize(object.nanoid,
+          specifiedType: const FullType(String)),
+      'isProtected',
+      serializers.serialize(object.isProtected,
+          specifiedType: const FullType(bool)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GUpdateProtectedImageGenerationTaskInput deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GUpdateProtectedImageGenerationTaskInputBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'nanoid':
+          result.nanoid = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'isProtected':
+          result.isProtected = serializers.deserialize(value,
+              specifiedType: const FullType(bool))! as bool;
           break;
       }
     }
@@ -11733,6 +11531,103 @@ class GCancelImageGenerationMemoInputBuilder
   }
 }
 
+class _$GCancelImageGenerationReservedTaskInput
+    extends GCancelImageGenerationReservedTaskInput {
+  @override
+  final String nanoid;
+
+  factory _$GCancelImageGenerationReservedTaskInput(
+          [void Function(GCancelImageGenerationReservedTaskInputBuilder)?
+              updates]) =>
+      (new GCancelImageGenerationReservedTaskInputBuilder()..update(updates))
+          ._build();
+
+  _$GCancelImageGenerationReservedTaskInput._({required this.nanoid})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        nanoid, r'GCancelImageGenerationReservedTaskInput', 'nanoid');
+  }
+
+  @override
+  GCancelImageGenerationReservedTaskInput rebuild(
+          void Function(GCancelImageGenerationReservedTaskInputBuilder)
+              updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GCancelImageGenerationReservedTaskInputBuilder toBuilder() =>
+      new GCancelImageGenerationReservedTaskInputBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GCancelImageGenerationReservedTaskInput &&
+        nanoid == other.nanoid;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, nanoid.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(
+            r'GCancelImageGenerationReservedTaskInput')
+          ..add('nanoid', nanoid))
+        .toString();
+  }
+}
+
+class GCancelImageGenerationReservedTaskInputBuilder
+    implements
+        Builder<GCancelImageGenerationReservedTaskInput,
+            GCancelImageGenerationReservedTaskInputBuilder> {
+  _$GCancelImageGenerationReservedTaskInput? _$v;
+
+  String? _nanoid;
+  String? get nanoid => _$this._nanoid;
+  set nanoid(String? nanoid) => _$this._nanoid = nanoid;
+
+  GCancelImageGenerationReservedTaskInputBuilder();
+
+  GCancelImageGenerationReservedTaskInputBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _nanoid = $v.nanoid;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GCancelImageGenerationReservedTaskInput other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GCancelImageGenerationReservedTaskInput;
+  }
+
+  @override
+  void update(
+      void Function(GCancelImageGenerationReservedTaskInputBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GCancelImageGenerationReservedTaskInput build() => _build();
+
+  _$GCancelImageGenerationReservedTaskInput _build() {
+    final _$result = _$v ??
+        new _$GCancelImageGenerationReservedTaskInput._(
+            nanoid: BuiltValueNullFieldError.checkNotNull(
+                nanoid, r'GCancelImageGenerationReservedTaskInput', 'nanoid'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
 class _$GCancelImageGenerationTaskInput
     extends GCancelImageGenerationTaskInput {
   @override
@@ -12766,6 +12661,8 @@ class _$GCreateImageGenerationMemoInput
   @override
   final String sampler;
   @override
+  final String vae;
+  @override
   final int seed;
   @override
   final int steps;
@@ -12790,6 +12687,7 @@ class _$GCreateImageGenerationMemoInput
       required this.prompts,
       required this.negativePrompts,
       required this.sampler,
+      required this.vae,
       required this.seed,
       required this.steps,
       required this.scale,
@@ -12808,6 +12706,8 @@ class _$GCreateImageGenerationMemoInput
         negativePrompts, r'GCreateImageGenerationMemoInput', 'negativePrompts');
     BuiltValueNullFieldError.checkNotNull(
         sampler, r'GCreateImageGenerationMemoInput', 'sampler');
+    BuiltValueNullFieldError.checkNotNull(
+        vae, r'GCreateImageGenerationMemoInput', 'vae');
     BuiltValueNullFieldError.checkNotNull(
         seed, r'GCreateImageGenerationMemoInput', 'seed');
     BuiltValueNullFieldError.checkNotNull(
@@ -12842,6 +12742,7 @@ class _$GCreateImageGenerationMemoInput
         prompts == other.prompts &&
         negativePrompts == other.negativePrompts &&
         sampler == other.sampler &&
+        vae == other.vae &&
         seed == other.seed &&
         steps == other.steps &&
         scale == other.scale &&
@@ -12859,6 +12760,7 @@ class _$GCreateImageGenerationMemoInput
     _$hash = $jc(_$hash, prompts.hashCode);
     _$hash = $jc(_$hash, negativePrompts.hashCode);
     _$hash = $jc(_$hash, sampler.hashCode);
+    _$hash = $jc(_$hash, vae.hashCode);
     _$hash = $jc(_$hash, seed.hashCode);
     _$hash = $jc(_$hash, steps.hashCode);
     _$hash = $jc(_$hash, scale.hashCode);
@@ -12878,6 +12780,7 @@ class _$GCreateImageGenerationMemoInput
           ..add('prompts', prompts)
           ..add('negativePrompts', negativePrompts)
           ..add('sampler', sampler)
+          ..add('vae', vae)
           ..add('seed', seed)
           ..add('steps', steps)
           ..add('scale', scale)
@@ -12915,6 +12818,10 @@ class GCreateImageGenerationMemoInputBuilder
   String? _sampler;
   String? get sampler => _$this._sampler;
   set sampler(String? sampler) => _$this._sampler = sampler;
+
+  String? _vae;
+  String? get vae => _$this._vae;
+  set vae(String? vae) => _$this._vae = vae;
 
   int? _seed;
   int? get seed => _$this._seed;
@@ -12954,6 +12861,7 @@ class GCreateImageGenerationMemoInputBuilder
       _prompts = $v.prompts;
       _negativePrompts = $v.negativePrompts;
       _sampler = $v.sampler;
+      _vae = $v.vae;
       _seed = $v.seed;
       _steps = $v.steps;
       _scale = $v.scale;
@@ -12995,10 +12903,11 @@ class GCreateImageGenerationMemoInputBuilder
                 'negativePrompts'),
             sampler: BuiltValueNullFieldError.checkNotNull(
                 sampler, r'GCreateImageGenerationMemoInput', 'sampler'),
+            vae: BuiltValueNullFieldError.checkNotNull(
+                vae, r'GCreateImageGenerationMemoInput', 'vae'),
             seed: BuiltValueNullFieldError.checkNotNull(
                 seed, r'GCreateImageGenerationMemoInput', 'seed'),
-            steps: BuiltValueNullFieldError.checkNotNull(
-                steps, r'GCreateImageGenerationMemoInput', 'steps'),
+            steps: BuiltValueNullFieldError.checkNotNull(steps, r'GCreateImageGenerationMemoInput', 'steps'),
             scale: BuiltValueNullFieldError.checkNotNull(scale, r'GCreateImageGenerationMemoInput', 'scale'),
             clipSkip: BuiltValueNullFieldError.checkNotNull(clipSkip, r'GCreateImageGenerationMemoInput', 'clipSkip'),
             width: BuiltValueNullFieldError.checkNotNull(width, r'GCreateImageGenerationMemoInput', 'width'),
@@ -14495,96 +14404,6 @@ class GCreatePromptonFolderKeyInputBuilder
   }
 }
 
-class _$GCreatePromptonFolderViewInput extends GCreatePromptonFolderViewInput {
-  @override
-  final String folderId;
-
-  factory _$GCreatePromptonFolderViewInput(
-          [void Function(GCreatePromptonFolderViewInputBuilder)? updates]) =>
-      (new GCreatePromptonFolderViewInputBuilder()..update(updates))._build();
-
-  _$GCreatePromptonFolderViewInput._({required this.folderId}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        folderId, r'GCreatePromptonFolderViewInput', 'folderId');
-  }
-
-  @override
-  GCreatePromptonFolderViewInput rebuild(
-          void Function(GCreatePromptonFolderViewInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GCreatePromptonFolderViewInputBuilder toBuilder() =>
-      new GCreatePromptonFolderViewInputBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GCreatePromptonFolderViewInput &&
-        folderId == other.folderId;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, folderId.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(r'GCreatePromptonFolderViewInput')
-          ..add('folderId', folderId))
-        .toString();
-  }
-}
-
-class GCreatePromptonFolderViewInputBuilder
-    implements
-        Builder<GCreatePromptonFolderViewInput,
-            GCreatePromptonFolderViewInputBuilder> {
-  _$GCreatePromptonFolderViewInput? _$v;
-
-  String? _folderId;
-  String? get folderId => _$this._folderId;
-  set folderId(String? folderId) => _$this._folderId = folderId;
-
-  GCreatePromptonFolderViewInputBuilder();
-
-  GCreatePromptonFolderViewInputBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _folderId = $v.folderId;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GCreatePromptonFolderViewInput other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GCreatePromptonFolderViewInput;
-  }
-
-  @override
-  void update(void Function(GCreatePromptonFolderViewInputBuilder)? updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GCreatePromptonFolderViewInput build() => _build();
-
-  _$GCreatePromptonFolderViewInput _build() {
-    final _$result = _$v ??
-        new _$GCreatePromptonFolderViewInput._(
-            folderId: BuiltValueNullFieldError.checkNotNull(
-                folderId, r'GCreatePromptonFolderViewInput', 'folderId'));
-    replace(_$result);
-    return _$result;
-  }
-}
-
 class _$GCreatePromptonImageGenerationInput
     extends GCreatePromptonImageGenerationInput {
   @override
@@ -15444,95 +15263,6 @@ class GCreatePromptonPlanRequestInputBuilder
   }
 }
 
-class _$GCreatePromptonPlanViewInput extends GCreatePromptonPlanViewInput {
-  @override
-  final String planId;
-
-  factory _$GCreatePromptonPlanViewInput(
-          [void Function(GCreatePromptonPlanViewInputBuilder)? updates]) =>
-      (new GCreatePromptonPlanViewInputBuilder()..update(updates))._build();
-
-  _$GCreatePromptonPlanViewInput._({required this.planId}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        planId, r'GCreatePromptonPlanViewInput', 'planId');
-  }
-
-  @override
-  GCreatePromptonPlanViewInput rebuild(
-          void Function(GCreatePromptonPlanViewInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GCreatePromptonPlanViewInputBuilder toBuilder() =>
-      new GCreatePromptonPlanViewInputBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GCreatePromptonPlanViewInput && planId == other.planId;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, planId.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(r'GCreatePromptonPlanViewInput')
-          ..add('planId', planId))
-        .toString();
-  }
-}
-
-class GCreatePromptonPlanViewInputBuilder
-    implements
-        Builder<GCreatePromptonPlanViewInput,
-            GCreatePromptonPlanViewInputBuilder> {
-  _$GCreatePromptonPlanViewInput? _$v;
-
-  String? _planId;
-  String? get planId => _$this._planId;
-  set planId(String? planId) => _$this._planId = planId;
-
-  GCreatePromptonPlanViewInputBuilder();
-
-  GCreatePromptonPlanViewInputBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _planId = $v.planId;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GCreatePromptonPlanViewInput other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GCreatePromptonPlanViewInput;
-  }
-
-  @override
-  void update(void Function(GCreatePromptonPlanViewInputBuilder)? updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GCreatePromptonPlanViewInput build() => _build();
-
-  _$GCreatePromptonPlanViewInput _build() {
-    final _$result = _$v ??
-        new _$GCreatePromptonPlanViewInput._(
-            planId: BuiltValueNullFieldError.checkNotNull(
-                planId, r'GCreatePromptonPlanViewInput', 'planId'));
-    replace(_$result);
-    return _$result;
-  }
-}
-
 class _$GCreatePromptonProfileBlockInput
     extends GCreatePromptonProfileBlockInput {
   @override
@@ -16165,118 +15895,6 @@ class GCreatePromptonReactionInputBuilder
   }
 }
 
-class _$GCreatePromptonThumbnailFileInput
-    extends GCreatePromptonThumbnailFileInput {
-  @override
-  final String fileId;
-  @override
-  final String originalFileId;
-
-  factory _$GCreatePromptonThumbnailFileInput(
-          [void Function(GCreatePromptonThumbnailFileInputBuilder)? updates]) =>
-      (new GCreatePromptonThumbnailFileInputBuilder()..update(updates))
-          ._build();
-
-  _$GCreatePromptonThumbnailFileInput._(
-      {required this.fileId, required this.originalFileId})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        fileId, r'GCreatePromptonThumbnailFileInput', 'fileId');
-    BuiltValueNullFieldError.checkNotNull(
-        originalFileId, r'GCreatePromptonThumbnailFileInput', 'originalFileId');
-  }
-
-  @override
-  GCreatePromptonThumbnailFileInput rebuild(
-          void Function(GCreatePromptonThumbnailFileInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GCreatePromptonThumbnailFileInputBuilder toBuilder() =>
-      new GCreatePromptonThumbnailFileInputBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GCreatePromptonThumbnailFileInput &&
-        fileId == other.fileId &&
-        originalFileId == other.originalFileId;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, fileId.hashCode);
-    _$hash = $jc(_$hash, originalFileId.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(r'GCreatePromptonThumbnailFileInput')
-          ..add('fileId', fileId)
-          ..add('originalFileId', originalFileId))
-        .toString();
-  }
-}
-
-class GCreatePromptonThumbnailFileInputBuilder
-    implements
-        Builder<GCreatePromptonThumbnailFileInput,
-            GCreatePromptonThumbnailFileInputBuilder> {
-  _$GCreatePromptonThumbnailFileInput? _$v;
-
-  String? _fileId;
-  String? get fileId => _$this._fileId;
-  set fileId(String? fileId) => _$this._fileId = fileId;
-
-  String? _originalFileId;
-  String? get originalFileId => _$this._originalFileId;
-  set originalFileId(String? originalFileId) =>
-      _$this._originalFileId = originalFileId;
-
-  GCreatePromptonThumbnailFileInputBuilder();
-
-  GCreatePromptonThumbnailFileInputBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _fileId = $v.fileId;
-      _originalFileId = $v.originalFileId;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GCreatePromptonThumbnailFileInput other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GCreatePromptonThumbnailFileInput;
-  }
-
-  @override
-  void update(
-      void Function(GCreatePromptonThumbnailFileInputBuilder)? updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GCreatePromptonThumbnailFileInput build() => _build();
-
-  _$GCreatePromptonThumbnailFileInput _build() {
-    final _$result = _$v ??
-        new _$GCreatePromptonThumbnailFileInput._(
-            fileId: BuiltValueNullFieldError.checkNotNull(
-                fileId, r'GCreatePromptonThumbnailFileInput', 'fileId'),
-            originalFileId: BuiltValueNullFieldError.checkNotNull(
-                originalFileId,
-                r'GCreatePromptonThumbnailFileInput',
-                'originalFileId'));
-    replace(_$result);
-    return _$result;
-  }
-}
-
 class _$GCreatePromptonUserFromTokenInput
     extends GCreatePromptonUserFromTokenInput {
   @override
@@ -16469,185 +16087,6 @@ class GCreatePromptonUserInputBuilder
         new _$GCreatePromptonUserInput._(
             name: BuiltValueNullFieldError.checkNotNull(
                 name, r'GCreatePromptonUserInput', 'name'));
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GCreatePromptonUserViewInput extends GCreatePromptonUserViewInput {
-  @override
-  final String userId;
-
-  factory _$GCreatePromptonUserViewInput(
-          [void Function(GCreatePromptonUserViewInputBuilder)? updates]) =>
-      (new GCreatePromptonUserViewInputBuilder()..update(updates))._build();
-
-  _$GCreatePromptonUserViewInput._({required this.userId}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        userId, r'GCreatePromptonUserViewInput', 'userId');
-  }
-
-  @override
-  GCreatePromptonUserViewInput rebuild(
-          void Function(GCreatePromptonUserViewInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GCreatePromptonUserViewInputBuilder toBuilder() =>
-      new GCreatePromptonUserViewInputBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GCreatePromptonUserViewInput && userId == other.userId;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, userId.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(r'GCreatePromptonUserViewInput')
-          ..add('userId', userId))
-        .toString();
-  }
-}
-
-class GCreatePromptonUserViewInputBuilder
-    implements
-        Builder<GCreatePromptonUserViewInput,
-            GCreatePromptonUserViewInputBuilder> {
-  _$GCreatePromptonUserViewInput? _$v;
-
-  String? _userId;
-  String? get userId => _$this._userId;
-  set userId(String? userId) => _$this._userId = userId;
-
-  GCreatePromptonUserViewInputBuilder();
-
-  GCreatePromptonUserViewInputBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _userId = $v.userId;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GCreatePromptonUserViewInput other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GCreatePromptonUserViewInput;
-  }
-
-  @override
-  void update(void Function(GCreatePromptonUserViewInputBuilder)? updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GCreatePromptonUserViewInput build() => _build();
-
-  _$GCreatePromptonUserViewInput _build() {
-    final _$result = _$v ??
-        new _$GCreatePromptonUserViewInput._(
-            userId: BuiltValueNullFieldError.checkNotNull(
-                userId, r'GCreatePromptonUserViewInput', 'userId'));
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GCreatePromptonWorkBookmarkInput
-    extends GCreatePromptonWorkBookmarkInput {
-  @override
-  final String workId;
-
-  factory _$GCreatePromptonWorkBookmarkInput(
-          [void Function(GCreatePromptonWorkBookmarkInputBuilder)? updates]) =>
-      (new GCreatePromptonWorkBookmarkInputBuilder()..update(updates))._build();
-
-  _$GCreatePromptonWorkBookmarkInput._({required this.workId}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        workId, r'GCreatePromptonWorkBookmarkInput', 'workId');
-  }
-
-  @override
-  GCreatePromptonWorkBookmarkInput rebuild(
-          void Function(GCreatePromptonWorkBookmarkInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GCreatePromptonWorkBookmarkInputBuilder toBuilder() =>
-      new GCreatePromptonWorkBookmarkInputBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GCreatePromptonWorkBookmarkInput && workId == other.workId;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, workId.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(r'GCreatePromptonWorkBookmarkInput')
-          ..add('workId', workId))
-        .toString();
-  }
-}
-
-class GCreatePromptonWorkBookmarkInputBuilder
-    implements
-        Builder<GCreatePromptonWorkBookmarkInput,
-            GCreatePromptonWorkBookmarkInputBuilder> {
-  _$GCreatePromptonWorkBookmarkInput? _$v;
-
-  String? _workId;
-  String? get workId => _$this._workId;
-  set workId(String? workId) => _$this._workId = workId;
-
-  GCreatePromptonWorkBookmarkInputBuilder();
-
-  GCreatePromptonWorkBookmarkInputBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _workId = $v.workId;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GCreatePromptonWorkBookmarkInput other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GCreatePromptonWorkBookmarkInput;
-  }
-
-  @override
-  void update(void Function(GCreatePromptonWorkBookmarkInputBuilder)? updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GCreatePromptonWorkBookmarkInput build() => _build();
-
-  _$GCreatePromptonWorkBookmarkInput _build() {
-    final _$result = _$v ??
-        new _$GCreatePromptonWorkBookmarkInput._(
-            workId: BuiltValueNullFieldError.checkNotNull(
-                workId, r'GCreatePromptonWorkBookmarkInput', 'workId'));
     replace(_$result);
     return _$result;
   }
@@ -16882,95 +16321,6 @@ class GCreatePromptonWorkLikeInputBuilder
         new _$GCreatePromptonWorkLikeInput._(
             workId: BuiltValueNullFieldError.checkNotNull(
                 workId, r'GCreatePromptonWorkLikeInput', 'workId'));
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GCreatePromptonWorkViewInput extends GCreatePromptonWorkViewInput {
-  @override
-  final String workId;
-
-  factory _$GCreatePromptonWorkViewInput(
-          [void Function(GCreatePromptonWorkViewInputBuilder)? updates]) =>
-      (new GCreatePromptonWorkViewInputBuilder()..update(updates))._build();
-
-  _$GCreatePromptonWorkViewInput._({required this.workId}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        workId, r'GCreatePromptonWorkViewInput', 'workId');
-  }
-
-  @override
-  GCreatePromptonWorkViewInput rebuild(
-          void Function(GCreatePromptonWorkViewInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GCreatePromptonWorkViewInputBuilder toBuilder() =>
-      new GCreatePromptonWorkViewInputBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GCreatePromptonWorkViewInput && workId == other.workId;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, workId.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(r'GCreatePromptonWorkViewInput')
-          ..add('workId', workId))
-        .toString();
-  }
-}
-
-class GCreatePromptonWorkViewInputBuilder
-    implements
-        Builder<GCreatePromptonWorkViewInput,
-            GCreatePromptonWorkViewInputBuilder> {
-  _$GCreatePromptonWorkViewInput? _$v;
-
-  String? _workId;
-  String? get workId => _$this._workId;
-  set workId(String? workId) => _$this._workId = workId;
-
-  GCreatePromptonWorkViewInputBuilder();
-
-  GCreatePromptonWorkViewInputBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _workId = $v.workId;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GCreatePromptonWorkViewInput other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GCreatePromptonWorkViewInput;
-  }
-
-  @override
-  void update(void Function(GCreatePromptonWorkViewInputBuilder)? updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GCreatePromptonWorkViewInput build() => _build();
-
-  _$GCreatePromptonWorkViewInput _build() {
-    final _$result = _$v ??
-        new _$GCreatePromptonWorkViewInput._(
-            workId: BuiltValueNullFieldError.checkNotNull(
-                workId, r'GCreatePromptonWorkViewInput', 'workId'));
     replace(_$result);
     return _$result;
   }
@@ -17861,93 +17211,6 @@ class GCreateWorkLikeInputBuilder
         new _$GCreateWorkLikeInput._(
             workId: BuiltValueNullFieldError.checkNotNull(
                 workId, r'GCreateWorkLikeInput', 'workId'));
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GCreateWorkViewInput extends GCreateWorkViewInput {
-  @override
-  final String workId;
-
-  factory _$GCreateWorkViewInput(
-          [void Function(GCreateWorkViewInputBuilder)? updates]) =>
-      (new GCreateWorkViewInputBuilder()..update(updates))._build();
-
-  _$GCreateWorkViewInput._({required this.workId}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        workId, r'GCreateWorkViewInput', 'workId');
-  }
-
-  @override
-  GCreateWorkViewInput rebuild(
-          void Function(GCreateWorkViewInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GCreateWorkViewInputBuilder toBuilder() =>
-      new GCreateWorkViewInputBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GCreateWorkViewInput && workId == other.workId;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, workId.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(r'GCreateWorkViewInput')
-          ..add('workId', workId))
-        .toString();
-  }
-}
-
-class GCreateWorkViewInputBuilder
-    implements Builder<GCreateWorkViewInput, GCreateWorkViewInputBuilder> {
-  _$GCreateWorkViewInput? _$v;
-
-  String? _workId;
-  String? get workId => _$this._workId;
-  set workId(String? workId) => _$this._workId = workId;
-
-  GCreateWorkViewInputBuilder();
-
-  GCreateWorkViewInputBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _workId = $v.workId;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GCreateWorkViewInput other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GCreateWorkViewInput;
-  }
-
-  @override
-  void update(void Function(GCreateWorkViewInputBuilder)? updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GCreateWorkViewInput build() => _build();
-
-  _$GCreateWorkViewInput _build() {
-    final _$result = _$v ??
-        new _$GCreateWorkViewInput._(
-            workId: BuiltValueNullFieldError.checkNotNull(
-                workId, r'GCreateWorkViewInput', 'workId'));
     replace(_$result);
     return _$result;
   }
@@ -19847,96 +19110,6 @@ class GDeletePromptonReactionInputBuilder
   }
 }
 
-class _$GDeletePromptonWorkBookmarkInput
-    extends GDeletePromptonWorkBookmarkInput {
-  @override
-  final String workId;
-
-  factory _$GDeletePromptonWorkBookmarkInput(
-          [void Function(GDeletePromptonWorkBookmarkInputBuilder)? updates]) =>
-      (new GDeletePromptonWorkBookmarkInputBuilder()..update(updates))._build();
-
-  _$GDeletePromptonWorkBookmarkInput._({required this.workId}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        workId, r'GDeletePromptonWorkBookmarkInput', 'workId');
-  }
-
-  @override
-  GDeletePromptonWorkBookmarkInput rebuild(
-          void Function(GDeletePromptonWorkBookmarkInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GDeletePromptonWorkBookmarkInputBuilder toBuilder() =>
-      new GDeletePromptonWorkBookmarkInputBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GDeletePromptonWorkBookmarkInput && workId == other.workId;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, workId.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(r'GDeletePromptonWorkBookmarkInput')
-          ..add('workId', workId))
-        .toString();
-  }
-}
-
-class GDeletePromptonWorkBookmarkInputBuilder
-    implements
-        Builder<GDeletePromptonWorkBookmarkInput,
-            GDeletePromptonWorkBookmarkInputBuilder> {
-  _$GDeletePromptonWorkBookmarkInput? _$v;
-
-  String? _workId;
-  String? get workId => _$this._workId;
-  set workId(String? workId) => _$this._workId = workId;
-
-  GDeletePromptonWorkBookmarkInputBuilder();
-
-  GDeletePromptonWorkBookmarkInputBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _workId = $v.workId;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GDeletePromptonWorkBookmarkInput other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GDeletePromptonWorkBookmarkInput;
-  }
-
-  @override
-  void update(void Function(GDeletePromptonWorkBookmarkInputBuilder)? updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GDeletePromptonWorkBookmarkInput build() => _build();
-
-  _$GDeletePromptonWorkBookmarkInput _build() {
-    final _$result = _$v ??
-        new _$GDeletePromptonWorkBookmarkInput._(
-            workId: BuiltValueNullFieldError.checkNotNull(
-                workId, r'GDeletePromptonWorkBookmarkInput', 'workId'));
-    replace(_$result);
-    return _$result;
-  }
-}
-
 class _$GDeletePromptonWorkInput extends GDeletePromptonWorkInput {
   @override
   final String workId;
@@ -21023,7 +20196,11 @@ class _$GImageGenerationTasksWhereInput
   @override
   final String? dateText;
   @override
+  final String? fromDate;
+  @override
   final int? rating;
+  @override
+  final bool? isProtected;
   @override
   final int? minRating;
 
@@ -21032,7 +20209,11 @@ class _$GImageGenerationTasksWhereInput
       (new GImageGenerationTasksWhereInputBuilder()..update(updates))._build();
 
   _$GImageGenerationTasksWhereInput._(
-      {this.dateText, this.rating, this.minRating})
+      {this.dateText,
+      this.fromDate,
+      this.rating,
+      this.isProtected,
+      this.minRating})
       : super._();
 
   @override
@@ -21049,7 +20230,9 @@ class _$GImageGenerationTasksWhereInput
     if (identical(other, this)) return true;
     return other is GImageGenerationTasksWhereInput &&
         dateText == other.dateText &&
+        fromDate == other.fromDate &&
         rating == other.rating &&
+        isProtected == other.isProtected &&
         minRating == other.minRating;
   }
 
@@ -21057,7 +20240,9 @@ class _$GImageGenerationTasksWhereInput
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, dateText.hashCode);
+    _$hash = $jc(_$hash, fromDate.hashCode);
     _$hash = $jc(_$hash, rating.hashCode);
+    _$hash = $jc(_$hash, isProtected.hashCode);
     _$hash = $jc(_$hash, minRating.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -21067,7 +20252,9 @@ class _$GImageGenerationTasksWhereInput
   String toString() {
     return (newBuiltValueToStringHelper(r'GImageGenerationTasksWhereInput')
           ..add('dateText', dateText)
+          ..add('fromDate', fromDate)
           ..add('rating', rating)
+          ..add('isProtected', isProtected)
           ..add('minRating', minRating))
         .toString();
   }
@@ -21083,9 +20270,17 @@ class GImageGenerationTasksWhereInputBuilder
   String? get dateText => _$this._dateText;
   set dateText(String? dateText) => _$this._dateText = dateText;
 
+  String? _fromDate;
+  String? get fromDate => _$this._fromDate;
+  set fromDate(String? fromDate) => _$this._fromDate = fromDate;
+
   int? _rating;
   int? get rating => _$this._rating;
   set rating(int? rating) => _$this._rating = rating;
+
+  bool? _isProtected;
+  bool? get isProtected => _$this._isProtected;
+  set isProtected(bool? isProtected) => _$this._isProtected = isProtected;
 
   int? _minRating;
   int? get minRating => _$this._minRating;
@@ -21097,7 +20292,9 @@ class GImageGenerationTasksWhereInputBuilder
     final $v = _$v;
     if ($v != null) {
       _dateText = $v.dateText;
+      _fromDate = $v.fromDate;
       _rating = $v.rating;
+      _isProtected = $v.isProtected;
       _minRating = $v.minRating;
       _$v = null;
     }
@@ -21121,7 +20318,11 @@ class GImageGenerationTasksWhereInputBuilder
   _$GImageGenerationTasksWhereInput _build() {
     final _$result = _$v ??
         new _$GImageGenerationTasksWhereInput._(
-            dateText: dateText, rating: rating, minRating: minRating);
+            dateText: dateText,
+            fromDate: fromDate,
+            rating: rating,
+            isProtected: isProtected,
+            minRating: minRating);
     replace(_$result);
     return _$result;
   }
@@ -25478,6 +24679,90 @@ class GUpdateAccountPasswordInputBuilder
   }
 }
 
+class _$GUpdateAccountWebFcmTokenInput extends GUpdateAccountWebFcmTokenInput {
+  @override
+  final String? token;
+
+  factory _$GUpdateAccountWebFcmTokenInput(
+          [void Function(GUpdateAccountWebFcmTokenInputBuilder)? updates]) =>
+      (new GUpdateAccountWebFcmTokenInputBuilder()..update(updates))._build();
+
+  _$GUpdateAccountWebFcmTokenInput._({this.token}) : super._();
+
+  @override
+  GUpdateAccountWebFcmTokenInput rebuild(
+          void Function(GUpdateAccountWebFcmTokenInputBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GUpdateAccountWebFcmTokenInputBuilder toBuilder() =>
+      new GUpdateAccountWebFcmTokenInputBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GUpdateAccountWebFcmTokenInput && token == other.token;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, token.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GUpdateAccountWebFcmTokenInput')
+          ..add('token', token))
+        .toString();
+  }
+}
+
+class GUpdateAccountWebFcmTokenInputBuilder
+    implements
+        Builder<GUpdateAccountWebFcmTokenInput,
+            GUpdateAccountWebFcmTokenInputBuilder> {
+  _$GUpdateAccountWebFcmTokenInput? _$v;
+
+  String? _token;
+  String? get token => _$this._token;
+  set token(String? token) => _$this._token = token;
+
+  GUpdateAccountWebFcmTokenInputBuilder();
+
+  GUpdateAccountWebFcmTokenInputBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _token = $v.token;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GUpdateAccountWebFcmTokenInput other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GUpdateAccountWebFcmTokenInput;
+  }
+
+  @override
+  void update(void Function(GUpdateAccountWebFcmTokenInputBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GUpdateAccountWebFcmTokenInput build() => _build();
+
+  _$GUpdateAccountWebFcmTokenInput _build() {
+    final _$result =
+        _$v ?? new _$GUpdateAccountWebFcmTokenInput._(token: token);
+    replace(_$result);
+    return _$result;
+  }
+}
+
 class _$GUpdateAlbumInput extends GUpdateAlbumInput {
   @override
   final String albumId;
@@ -25682,6 +24967,8 @@ class _$GUpdateImageGenerationMemoInput
   @override
   final String sampler;
   @override
+  final String vae;
+  @override
   final String modelId;
   @override
   final int seed;
@@ -25707,6 +24994,7 @@ class _$GUpdateImageGenerationMemoInput
       required this.prompts,
       required this.negativePrompts,
       required this.sampler,
+      required this.vae,
       required this.modelId,
       required this.seed,
       required this.steps,
@@ -25727,6 +25015,8 @@ class _$GUpdateImageGenerationMemoInput
         negativePrompts, r'GUpdateImageGenerationMemoInput', 'negativePrompts');
     BuiltValueNullFieldError.checkNotNull(
         sampler, r'GUpdateImageGenerationMemoInput', 'sampler');
+    BuiltValueNullFieldError.checkNotNull(
+        vae, r'GUpdateImageGenerationMemoInput', 'vae');
     BuiltValueNullFieldError.checkNotNull(
         modelId, r'GUpdateImageGenerationMemoInput', 'modelId');
     BuiltValueNullFieldError.checkNotNull(
@@ -25762,6 +25052,7 @@ class _$GUpdateImageGenerationMemoInput
         prompts == other.prompts &&
         negativePrompts == other.negativePrompts &&
         sampler == other.sampler &&
+        vae == other.vae &&
         modelId == other.modelId &&
         seed == other.seed &&
         steps == other.steps &&
@@ -25780,6 +25071,7 @@ class _$GUpdateImageGenerationMemoInput
     _$hash = $jc(_$hash, prompts.hashCode);
     _$hash = $jc(_$hash, negativePrompts.hashCode);
     _$hash = $jc(_$hash, sampler.hashCode);
+    _$hash = $jc(_$hash, vae.hashCode);
     _$hash = $jc(_$hash, modelId.hashCode);
     _$hash = $jc(_$hash, seed.hashCode);
     _$hash = $jc(_$hash, steps.hashCode);
@@ -25800,6 +25092,7 @@ class _$GUpdateImageGenerationMemoInput
           ..add('prompts', prompts)
           ..add('negativePrompts', negativePrompts)
           ..add('sampler', sampler)
+          ..add('vae', vae)
           ..add('modelId', modelId)
           ..add('seed', seed)
           ..add('steps', steps)
@@ -25842,6 +25135,10 @@ class GUpdateImageGenerationMemoInputBuilder
   String? get sampler => _$this._sampler;
   set sampler(String? sampler) => _$this._sampler = sampler;
 
+  String? _vae;
+  String? get vae => _$this._vae;
+  set vae(String? vae) => _$this._vae = vae;
+
   String? _modelId;
   String? get modelId => _$this._modelId;
   set modelId(String? modelId) => _$this._modelId = modelId;
@@ -25881,6 +25178,7 @@ class GUpdateImageGenerationMemoInputBuilder
       _prompts = $v.prompts;
       _negativePrompts = $v.negativePrompts;
       _sampler = $v.sampler;
+      _vae = $v.vae;
       _modelId = $v.modelId;
       _seed = $v.seed;
       _steps = $v.steps;
@@ -25924,8 +25222,9 @@ class GUpdateImageGenerationMemoInputBuilder
                 'negativePrompts'),
             sampler: BuiltValueNullFieldError.checkNotNull(
                 sampler, r'GUpdateImageGenerationMemoInput', 'sampler'),
-            modelId: BuiltValueNullFieldError.checkNotNull(
-                modelId, r'GUpdateImageGenerationMemoInput', 'modelId'),
+            vae: BuiltValueNullFieldError.checkNotNull(
+                vae, r'GUpdateImageGenerationMemoInput', 'vae'),
+            modelId: BuiltValueNullFieldError.checkNotNull(modelId, r'GUpdateImageGenerationMemoInput', 'modelId'),
             seed: BuiltValueNullFieldError.checkNotNull(seed, r'GUpdateImageGenerationMemoInput', 'seed'),
             steps: BuiltValueNullFieldError.checkNotNull(steps, r'GUpdateImageGenerationMemoInput', 'steps'),
             scale: BuiltValueNullFieldError.checkNotNull(scale, r'GUpdateImageGenerationMemoInput', 'scale'),
@@ -27816,6 +27115,118 @@ class GUpdatePromptonWorkInputBuilder
                 workId, r'GUpdatePromptonWorkInput', 'workId'),
             title: title,
             body: body);
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GUpdateProtectedImageGenerationTaskInput
+    extends GUpdateProtectedImageGenerationTaskInput {
+  @override
+  final String nanoid;
+  @override
+  final bool isProtected;
+
+  factory _$GUpdateProtectedImageGenerationTaskInput(
+          [void Function(GUpdateProtectedImageGenerationTaskInputBuilder)?
+              updates]) =>
+      (new GUpdateProtectedImageGenerationTaskInputBuilder()..update(updates))
+          ._build();
+
+  _$GUpdateProtectedImageGenerationTaskInput._(
+      {required this.nanoid, required this.isProtected})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        nanoid, r'GUpdateProtectedImageGenerationTaskInput', 'nanoid');
+    BuiltValueNullFieldError.checkNotNull(isProtected,
+        r'GUpdateProtectedImageGenerationTaskInput', 'isProtected');
+  }
+
+  @override
+  GUpdateProtectedImageGenerationTaskInput rebuild(
+          void Function(GUpdateProtectedImageGenerationTaskInputBuilder)
+              updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GUpdateProtectedImageGenerationTaskInputBuilder toBuilder() =>
+      new GUpdateProtectedImageGenerationTaskInputBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GUpdateProtectedImageGenerationTaskInput &&
+        nanoid == other.nanoid &&
+        isProtected == other.isProtected;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, nanoid.hashCode);
+    _$hash = $jc(_$hash, isProtected.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(
+            r'GUpdateProtectedImageGenerationTaskInput')
+          ..add('nanoid', nanoid)
+          ..add('isProtected', isProtected))
+        .toString();
+  }
+}
+
+class GUpdateProtectedImageGenerationTaskInputBuilder
+    implements
+        Builder<GUpdateProtectedImageGenerationTaskInput,
+            GUpdateProtectedImageGenerationTaskInputBuilder> {
+  _$GUpdateProtectedImageGenerationTaskInput? _$v;
+
+  String? _nanoid;
+  String? get nanoid => _$this._nanoid;
+  set nanoid(String? nanoid) => _$this._nanoid = nanoid;
+
+  bool? _isProtected;
+  bool? get isProtected => _$this._isProtected;
+  set isProtected(bool? isProtected) => _$this._isProtected = isProtected;
+
+  GUpdateProtectedImageGenerationTaskInputBuilder();
+
+  GUpdateProtectedImageGenerationTaskInputBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _nanoid = $v.nanoid;
+      _isProtected = $v.isProtected;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GUpdateProtectedImageGenerationTaskInput other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GUpdateProtectedImageGenerationTaskInput;
+  }
+
+  @override
+  void update(
+      void Function(GUpdateProtectedImageGenerationTaskInputBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GUpdateProtectedImageGenerationTaskInput build() => _build();
+
+  _$GUpdateProtectedImageGenerationTaskInput _build() {
+    final _$result = _$v ??
+        new _$GUpdateProtectedImageGenerationTaskInput._(
+            nanoid: BuiltValueNullFieldError.checkNotNull(
+                nanoid, r'GUpdateProtectedImageGenerationTaskInput', 'nanoid'),
+            isProtected: BuiltValueNullFieldError.checkNotNull(isProtected,
+                r'GUpdateProtectedImageGenerationTaskInput', 'isProtected'));
     replace(_$result);
     return _$result;
   }

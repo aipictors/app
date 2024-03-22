@@ -159,6 +159,10 @@ input CancelImageGenerationMemoInput {
   nanoid: String!
 }
 
+input CancelImageGenerationReservedTaskInput {
+  nanoid: String!
+}
+
 input CancelImageGenerationTaskInput {
   nanoid: String!
 }
@@ -260,6 +264,7 @@ input CreateImageGenerationMemoInput {
   prompts: String!
   negativePrompts: String!
   sampler: String!
+  vae: String!
   seed: Int!
   steps: Int!
   scale: Int!
@@ -353,10 +358,6 @@ input CreatePromptonFolderKeyInput {
   folderId: String!
 }
 
-input CreatePromptonFolderViewInput {
-  folderId: String!
-}
-
 input CreatePromptonImageGenerationInput {
   model: String!
   prompt: String!
@@ -406,10 +407,6 @@ input CreatePromptonPlanRequestInput {
   fileIds: [String!]!
 }
 
-input CreatePromptonPlanViewInput {
-  planId: String!
-}
-
 input CreatePromptonProfileBlockInput {
   siteURL: String
   title: String
@@ -443,11 +440,6 @@ input CreatePromptonReactionInput {
   text: String!
 }
 
-input CreatePromptonThumbnailFileInput {
-  fileId: String!
-  originalFileId: String!
-}
-
 input CreatePromptonUserFromTokenInput {
   token: String!
   userId: String!
@@ -455,14 +447,6 @@ input CreatePromptonUserFromTokenInput {
 
 input CreatePromptonUserInput {
   name: String!
-}
-
-input CreatePromptonUserViewInput {
-  userId: String!
-}
-
-input CreatePromptonWorkBookmarkInput {
-  workId: String!
 }
 
 input CreatePromptonWorkInput {
@@ -474,10 +458,6 @@ input CreatePromptonWorkInput {
 }
 
 input CreatePromptonWorkLikeInput {
-  workId: String!
-}
-
-input CreatePromptonWorkViewInput {
   workId: String!
 }
 
@@ -532,10 +512,6 @@ input CreateWorkInput {
 }
 
 input CreateWorkLikeInput {
-  workId: ID!
-}
-
-input CreateWorkViewInput {
   workId: ID!
 }
 
@@ -660,10 +636,6 @@ input DeletePromptonPromptInput {
 input DeletePromptonReactionInput {
   workId: String!
   text: String!
-}
-
-input DeletePromptonWorkBookmarkInput {
-  workId: String!
 }
 
 input DeletePromptonWorkInput {
@@ -832,6 +804,9 @@ type ImageGenerationMemoNode implements Node {
   """サンプラー"""
   sampler: String!
 
+  """VAE"""
+  vae: String!
+
   """モデル"""
   model: ImageGeneratorNode!
   seed: Int!
@@ -917,6 +892,7 @@ enum ImageGenerationStatus {
   DONE
   CANCELED
   ERROR
+  RESERVED
 }
 
 """画像生成"""
@@ -925,6 +901,9 @@ type ImageGenerationTaskNode implements Node {
 
   """お気に入り度"""
   rating: Int
+
+  """保護済みかどうか"""
+  isProtected: Boolean
 
   """生成が完了した時刻"""
   completedAt: Int
@@ -952,6 +931,7 @@ type ImageGenerationTaskNode implements Node {
   t2tDenoisingStrengthSize: String
   t2tInpaintingFillSize: String
   token: String
+  thumbnailToken: String
   nanoid: String
   clipSkip: Int!
 
@@ -965,7 +945,9 @@ enum ImageGenerationTaskOrderBy {
 
 input ImageGenerationTasksWhereInput {
   dateText: String
+  fromDate: String
   rating: Int
+  isProtected: Boolean
   minRating: Int
 }
 
@@ -1234,6 +1216,9 @@ type Mutation {
   """画像生成のタスクのレーティングを変更する"""
   updateRatingImageGenerationTask(input: UpdateRatingImageGenerationTaskInput!): ImageGenerationTaskNode!
 
+  """画像生成のタスクの保護を変更する"""
+  updateProtectedImageGenerationTask(input: UpdateProtectedImageGenerationTaskInput!): ImageGenerationTaskNode!
+
   """画像生成のモデルのレーティングを変更する"""
   updateRatingImageGenerationModel(input: UpdateRatingImageGenerationModelInput!): UserSettingNode!
 
@@ -1269,9 +1254,6 @@ type Mutation {
 
   """作品のスキを作成する"""
   createWorkLike(input: CreateWorkLikeInput!): WorkNode!
-
-  """作品の閲覧を作成する"""
-  createWorkView(input: CreateWorkViewInput!): WorkNode!
 
   """シリーズを削除する"""
   deleteAlbum(input: DeleteAlbumInput!): AlbumNode!
@@ -1320,6 +1302,9 @@ type Mutation {
 
   """生成をキャンセルする"""
   cancelImageGenerationTask(input: CancelImageGenerationTaskInput!): ImageGenerationTaskNode!
+
+  """予約生成をキャンセルする"""
+  cancelImageGenerationReservedTask(input: CancelImageGenerationReservedTaskInput!): ImageGenerationTaskNode!
 
   """ユーザをフォローする"""
   followUser(input: FollowUserInput!): UserNode!
@@ -1375,6 +1360,9 @@ type Mutation {
   """アカウントのFCMトークンを変更する"""
   updateAccountFcmToken(input: UpdateAccountFcmTokenInput!): UserNode!
 
+  """アカウントのWebFCMトークンを変更する"""
+  updateAccountWebFcmToken(input: UpdateAccountWebFcmTokenInput!): UserNode!
+
   """シリーズを更新する"""
   updateAlbum(input: UpdateAlbumInput!): AlbumNode!
 
@@ -1423,9 +1411,6 @@ type Mutation {
   """ファイルを作成する"""
   createPromptonFile(input: CreatePromptonFileInput!): PromptonFileNode!
 
-  """サムネイル用のファイルを作成する"""
-  createPromptonThumbnailFile(input: CreatePromptonThumbnailFileInput!): PromptonFileNode!
-
   """作品を作成する"""
   createPromptonWork(input: CreatePromptonWorkInput!): PromptonWorkNode!
 
@@ -1458,12 +1443,6 @@ type Mutation {
 
   """作品のスキを削除する"""
   deletePromptonWorkLike(input: DeletePromptonWorkLikeInput!): PromptonWorkNode!
-
-  """作品のブックマークを作成する"""
-  createPromptonWorkBookmark(input: CreatePromptonWorkBookmarkInput!): PromptonWorkNode
-
-  """作品のブックマークを削除する"""
-  deletePromptonWorkBookmark(input: DeletePromptonWorkBookmarkInput!): PromptonWorkNode
 
   """作品をユーザのヘッダーに設定する"""
   markPromptonWorkAsUserHeader(input: MarkPromptonWorkAsUserHeaderInput!): PromptonUserNode
@@ -1585,20 +1564,8 @@ type Mutation {
   """お問い合わせを作成する"""
   createPromptonInquiry(input: CreatePromptonInquiryInput!): Boolean
 
-  """閲覧を記録する"""
-  createPromptonWorkView(input: CreatePromptonWorkViewInput!): Boolean
-
-  """閲覧を記録する"""
-  createPromptonUserView(input: CreatePromptonUserViewInput!): Boolean
-
-  """閲覧を記録する"""
-  createPromptonFolderView(input: CreatePromptonFolderViewInput!): Boolean
-
   """画像生成のタスクを作成する"""
   createPromptonImageGeneration(input: CreatePromptonImageGenerationInput!): PromptonImageGenerationNode
-
-  """閲覧を記録する"""
-  createPromptonPlanView(input: CreatePromptonPlanViewInput!): Boolean
 
   """インテグレーション（LINE）を削除する"""
   deletePromptonIntegration(input: DeletePromptonIntegrationInput!): PromptonViewer!
@@ -2353,7 +2320,6 @@ type PromptonViewer {
   id: ID!
   user: PromptonUserNode!
   likedWorks(offset: Int!, limit: Int!): [PromptonWorkNode!]!
-  bookmarkedWorks(offset: Int!, limit: Int!): [PromptonWorkNode!]!
   followees(offset: Int!, limit: Int!): [PromptonUserNode!]!
   requests(offset: Int!, limit: Int!): [PromptonRequestNode!]!
   sentRequests(offset: Int!, limit: Int!): [PromptonRequestNode!]!
@@ -2568,6 +2534,9 @@ type Query {
 
   """画像生成履歴"""
   imageGenerationTask(id: ID!): ImageGenerationTaskNode!
+
+  """予約画像生成履歴"""
+  imageGenerationReservedTask(id: ID!): ImageGenerationTaskNode!
 
   """画像生成メモ"""
   imageGenerationMemo(id: ID!): ImageGenerationMemoNode!
@@ -2787,6 +2756,9 @@ type StickerNode implements Node {
 
   """カテゴリ"""
   categories: [String!]!
+
+  """削除済み"""
+  isDeleted: Boolean!
   viewer: StickerViewerNode @deprecated(reason: "isLikedを使用する")
 }
 
@@ -2894,6 +2866,10 @@ input UpdateAccountPasswordInput {
   newPassword: String!
 }
 
+input UpdateAccountWebFcmTokenInput {
+  token: String
+}
+
 input UpdateAlbumInput {
   albumId: ID!
 }
@@ -2910,6 +2886,7 @@ input UpdateImageGenerationMemoInput {
   prompts: String!
   negativePrompts: String!
   sampler: String!
+  vae: String!
   modelId: ID!
   seed: Int!
   steps: Int!
@@ -3013,6 +2990,11 @@ input UpdatePromptonWorkInput {
   workId: String!
   title: String
   body: String
+}
+
+input UpdateProtectedImageGenerationTaskInput {
+  nanoid: String!
+  isProtected: Boolean!
 }
 
 input UpdateRatingImageGenerationModelInput {
@@ -3148,6 +3130,9 @@ type UserNode implements Node {
   """FCMトークン"""
   fcmToken: String
 
+  """WebFCMトークン"""
+  webFcmToken: String
+
   """画像生成機能の利用規約に同意済みである"""
   hasSignedImageGenerationTerms: Boolean!
 
@@ -3225,6 +3210,12 @@ type Viewer {
 
   """連続で生成可能な最大タスク数"""
   availableConsecutiveImageGenerationsCount: Int!
+
+  """レーティング可能な最大数"""
+  availableImageGenerationMaxRatingCount: Int!
+
+  """生成待ち人数（自身も含む）"""
+  imageGenerationWaitCount: Int!
 
   """現在のパス"""
   currentPass: PassNode
@@ -3540,6 +3531,9 @@ type WorkNode implements Node {
 
   """プロモーション作品かどうか"""
   isPromotion: Boolean!
+
+  """削除済み"""
+  isDeleted: Boolean!
 
   """非推奨"""
   viewer: WorkViewerNode @deprecated(reason: "isLikedを使用する")
