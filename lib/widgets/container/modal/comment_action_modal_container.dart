@@ -13,6 +13,8 @@ class CommentActionModalContainer extends HookConsumerWidget {
     required this.commentId,
     required this.userId,
     required this.isMutedUser,
+    required this.isViewer,
+    required this.onDeleteComment,
   });
 
   final String commentId;
@@ -20,6 +22,10 @@ class CommentActionModalContainer extends HookConsumerWidget {
   final String userId;
 
   final bool isMutedUser;
+
+  final bool isViewer;
+
+  final VoidCallback onDeleteComment;
 
   @override
   Widget build(context, ref) {
@@ -30,27 +36,40 @@ class CommentActionModalContainer extends HookConsumerWidget {
           physics: const NeverScrollableScrollPhysics(),
           children: [
             const ModalHeaderContainer(title: SizedBox()),
-            ModalMuteUserListTile(
-              isActive: isMutedUser,
-              onTap: () {
-                return onMuteUser(context);
-              },
-            ),
-            const Divider(),
-            ModalReportListTile(
-              titleText: 'コメントを報告する'.i18n,
-              onTap: () {
-                context.pop();
-                context.push('/comments/$commentId/report');
-              },
-            ),
-            ModalReportListTile(
-              titleText: 'ユーザを報告する'.i18n,
-              onTap: () {
-                context.pop();
-                context.push('/users/$userId/report');
-              },
-            ),
+            if (!isViewer) ...[
+              ModalMuteUserListTile(
+                isActive: isMutedUser,
+                onTap: () {
+                  return onMuteUser(context);
+                },
+              ),
+              const Divider(),
+              ModalReportListTile(
+                titleText: 'コメントを報告する'.i18n,
+                onTap: () {
+                  context.pop();
+                  context.push('/comments/$commentId/report');
+                },
+              ),
+              ModalReportListTile(
+                titleText: 'ユーザを報告する'.i18n,
+                onTap: () {
+                  context.pop();
+                  context.push('/users/$userId/report');
+                },
+              ),
+            ],
+            if (isViewer)
+              ListTile(
+                title: Text(
+                  'コメントを削除する'.i18n,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+                onTap: () {
+                  onDeleteComment();
+                },
+                //onTap: () {}
+              )
           ],
         ),
       ),
