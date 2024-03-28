@@ -67,6 +67,7 @@ class CommentActionModalContainer extends HookConsumerWidget {
                 ),
                 onTap: () {
                   onDeleteComment();
+                  context.pop();
                 },
                 //onTap: () {}
               )
