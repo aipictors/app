@@ -1,4 +1,6 @@
 import 'package:aipictors/graphql/__generated__/work_comments.req.gql.dart';
+import 'package:aipictors/mutations/delete_comment.dart';
+import 'package:aipictors/providers/auth_user_id_provider.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/screens/loading_screen.dart';
 import 'package:aipictors/widgets/container/loading_container.dart';
@@ -21,15 +23,19 @@ class WorkCommentView extends HookConsumerWidget {
   Widget build(context, ref) {
     final client = ref.watch(clientProvider);
 
+    final authUserId = ref.watch(authUserIdProvider);
+
+    final request = GWorkCommentsReq((builder) {
+      builder.vars.workId = workId;
+    });
+
     if (client.value == null) {
       return const LoadingScreen();
     }
 
     return Operation(
       client: client.value!,
-      operationRequest: GWorkCommentsReq((builder) {
-        builder.vars.workId = workId;
-      }),
+      operationRequest: request,
       builder: (context, response, error) {
         if (error != null) {
           return const SizedBox();
@@ -58,6 +64,13 @@ class WorkCommentView extends HookConsumerWidget {
                       commentId: comment.id,
                       userId: comment.user!.id,
                       isMutedUser: comment.user!.isMuted,
+                      isViewer: authUserId.value == comment.user!.id,
+                      onDeleteComment: () async {
+                        await deleteComment((builder) {
+                          return builder..vars.input.commentId = comment.id;
+                        });
+                        client.value?.requestController.add(request);
+                      },
                     );
                   },
                 ),
@@ -69,9 +82,16 @@ class WorkCommentView extends HookConsumerWidget {
                     onLongPress: () {
                       onOpenActionModal(
                         context,
-                        commentId: comment.id,
-                        userId: comment.user!.id,
-                        isMutedUser: comment.user!.isMuted,
+                        commentId: response.id,
+                        userId: response.user!.id,
+                        isMutedUser: response.user!.isMuted,
+                        isViewer: authUserId.value == response.user!.id,
+                        onDeleteComment: () async {
+                          await deleteComment((builder) {
+                            return builder..vars.input.commentId = response.id;
+                          });
+                          client.value?.requestController.add(request);
+                        },
                       );
                     },
                   ),
@@ -87,6 +107,8 @@ class WorkCommentView extends HookConsumerWidget {
     required String commentId,
     required String userId,
     required bool isMutedUser,
+    required bool isViewer,
+    required VoidCallback onDeleteComment,
   }) {
     showModalBottomSheet(
       context: context,
@@ -95,6 +117,8 @@ class WorkCommentView extends HookConsumerWidget {
           commentId: commentId,
           userId: userId,
           isMutedUser: isMutedUser,
+          isViewer: isViewer,
+          onDeleteComment: onDeleteComment,
         );
       },
     );
