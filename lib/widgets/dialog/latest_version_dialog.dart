@@ -24,7 +24,7 @@ class LatestVersionDialog extends HookConsumerWidget {
             foregroundColor: Theme.of(context).colorScheme.error,
           ),
           onPressed: onAccept,
-          child: Text('削除する'.i18n),
+          child: Text('更新する'.i18n),
         ),
         TextButton(
           onPressed: onCancel,
