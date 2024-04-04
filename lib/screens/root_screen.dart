@@ -8,6 +8,7 @@ import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/providers/foreground_message_provider.dart';
 import 'package:aipictors/providers/home_tab_index_provider.dart';
 import 'package:aipictors/providers/initial_message_provider.dart';
+import 'package:aipictors/providers/is_update_dialog_showed_provider.dart';
 import 'package:aipictors/providers/tracking_status_provider.dart';
 import 'package:aipictors/screens/config/config_screen.dart';
 import 'package:aipictors/screens/daily_theme/daily_theme_home_screen.dart';
@@ -20,11 +21,14 @@ import 'package:aipictors/screens/home_loading_screen.dart';
 import 'package:aipictors/screens/maintenance_screen.dart';
 import 'package:aipictors/screens/notification_screen.dart';
 import 'package:aipictors/screens/update_screen.dart';
+import 'package:aipictors/widgets/dialog/latest_version_dialog.dart';
 import 'package:aipictors/widgets/navigation/home_navigation_bar.dart';
 import 'package:aipictors/widgets/navigation/home_navigation_rail.dart';
 import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class RootScreen extends HookConsumerWidget {
   const RootScreen({super.key});
@@ -84,6 +88,24 @@ class RootScreen extends HookConsumerWidget {
       messageListener(context, ref),
     );
 
+    // アップデートの通知
+    final updateDialogShowed = ref.watch(isUpdateDialogShowedProvider);
+    if (config.isNotLatestVersion && updateDialogShowed == false) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        final notifier = ref.read(isUpdateDialogShowedProvider.notifier);
+        notifier.update(true);
+        showDialog(
+            context: context,
+            builder: (_) {
+              return LatestVersionDialog(onAccept: () {
+                onOpenAppStore(context, ref);
+              }, onCancel: () {
+                context.pop();
+              });
+            });
+      });
+    }
+
     final screenList = [
       const FeedScreen(key: PageStorageKey('root_feed')),
       const DailyThemeHomeScreen(key: PageStorageKey('root_daily_theme')),
@@ -114,5 +136,16 @@ class RootScreen extends HookConsumerWidget {
         bottomNavigationBar: const HomeNavigationBar(),
       );
     });
+  }
+
+  // アプリストアを開く
+  Future onOpenAppStore(BuildContext context, WidgetRef ref) async {
+    final config = ref.read(configProvider);
+    final isAvailable = await canLaunchUrl(config.pageAppStoreURL);
+    if (!isAvailable) return;
+    await launchUrl(
+      config.pageAppStoreURL,
+      mode: LaunchMode.externalApplication,
+    );
   }
 }
