@@ -10,6 +10,7 @@ import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/screens/error/data_not_found_error_screen.dart';
 import 'package:aipictors/screens/error/deleted_sticker_error_container.dart';
 import 'package:aipictors/screens/loading_screen.dart';
+import 'package:aipictors/utils/to_sticker_genre_text.dart';
 import 'package:aipictors/widgets/builder/operation_screen_builder.dart';
 import 'package:aipictors/widgets/button/create_user_sticker_button.dart';
 import 'package:aipictors/widgets/button/follow_button.dart';
@@ -126,7 +127,8 @@ class StickerScreen extends HookConsumerWidget {
                             ?.copyWith(fontWeight: FontWeight.bold),
                       ),
                     ),
-                    StickerGenreContainer(genre: sticker.genre.toString().i18n),
+                    StickerGenreContainer(
+                        genre: toStickerGenreText(sticker.genre)),
                     const SizedBox(height: 8 * 1.5),
                     StickerCategoriesContainer(
                         categories: sticker.categories.toList()),
