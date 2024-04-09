@@ -11,6 +11,8 @@ query DailyTheme($id: ID!, $offset: Int!, $limit: Int!) {
     worksCount
     works(offset: $offset, limit: $limit) {
       ...PartialWorkFields
+      thumbnailImagePosition
+      imageAspectRatio
     }
   }
 }

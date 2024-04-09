@@ -204,6 +204,9 @@ class _$GDailyThemeData_dailyTheme_worksSerializer
       'createdAt',
       serializers.serialize(object.createdAt,
           specifiedType: const FullType(int)),
+      'imageAspectRatio',
+      serializers.serialize(object.imageAspectRatio,
+          specifiedType: const FullType(double)),
     ];
     Object? value;
     value = object.thumbnailImage;
@@ -213,6 +216,12 @@ class _$GDailyThemeData_dailyTheme_worksSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(
                 GDailyThemeData_dailyTheme_works_thumbnailImage)));
+    }
+    value = object.thumbnailImagePosition;
+    if (value != null) {
+      result
+        ..add('thumbnailImagePosition')
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
     return result;
   }
@@ -258,6 +267,14 @@ class _$GDailyThemeData_dailyTheme_worksSerializer
                   specifiedType: const FullType(
                       GDailyThemeData_dailyTheme_works_thumbnailImage))!
               as GDailyThemeData_dailyTheme_works_thumbnailImage);
+          break;
+        case 'thumbnailImagePosition':
+          result.thumbnailImagePosition = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int?;
+          break;
+        case 'imageAspectRatio':
+          result.imageAspectRatio = serializers.deserialize(value,
+              specifiedType: const FullType(double))! as double;
           break;
       }
     }
@@ -684,6 +701,10 @@ class _$GDailyThemeData_dailyTheme_works
   final int createdAt;
   @override
   final GDailyThemeData_dailyTheme_works_thumbnailImage? thumbnailImage;
+  @override
+  final int? thumbnailImagePosition;
+  @override
+  final double imageAspectRatio;
 
   factory _$GDailyThemeData_dailyTheme_works(
           [void Function(GDailyThemeData_dailyTheme_worksBuilder)? updates]) =>
@@ -696,7 +717,9 @@ class _$GDailyThemeData_dailyTheme_works
       required this.likesCount,
       required this.commentsCount,
       required this.createdAt,
-      this.thumbnailImage})
+      this.thumbnailImage,
+      this.thumbnailImagePosition,
+      required this.imageAspectRatio})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename, r'GDailyThemeData_dailyTheme_works', 'G__typename');
@@ -710,6 +733,8 @@ class _$GDailyThemeData_dailyTheme_works
         commentsCount, r'GDailyThemeData_dailyTheme_works', 'commentsCount');
     BuiltValueNullFieldError.checkNotNull(
         createdAt, r'GDailyThemeData_dailyTheme_works', 'createdAt');
+    BuiltValueNullFieldError.checkNotNull(imageAspectRatio,
+        r'GDailyThemeData_dailyTheme_works', 'imageAspectRatio');
   }
 
   @override
@@ -731,7 +756,9 @@ class _$GDailyThemeData_dailyTheme_works
         likesCount == other.likesCount &&
         commentsCount == other.commentsCount &&
         createdAt == other.createdAt &&
-        thumbnailImage == other.thumbnailImage;
+        thumbnailImage == other.thumbnailImage &&
+        thumbnailImagePosition == other.thumbnailImagePosition &&
+        imageAspectRatio == other.imageAspectRatio;
   }
 
   @override
@@ -744,6 +771,8 @@ class _$GDailyThemeData_dailyTheme_works
     _$hash = $jc(_$hash, commentsCount.hashCode);
     _$hash = $jc(_$hash, createdAt.hashCode);
     _$hash = $jc(_$hash, thumbnailImage.hashCode);
+    _$hash = $jc(_$hash, thumbnailImagePosition.hashCode);
+    _$hash = $jc(_$hash, imageAspectRatio.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -757,7 +786,9 @@ class _$GDailyThemeData_dailyTheme_works
           ..add('likesCount', likesCount)
           ..add('commentsCount', commentsCount)
           ..add('createdAt', createdAt)
-          ..add('thumbnailImage', thumbnailImage))
+          ..add('thumbnailImage', thumbnailImage)
+          ..add('thumbnailImagePosition', thumbnailImagePosition)
+          ..add('imageAspectRatio', imageAspectRatio))
         .toString();
   }
 }
@@ -802,6 +833,16 @@ class GDailyThemeData_dailyTheme_worksBuilder
               thumbnailImage) =>
       _$this._thumbnailImage = thumbnailImage;
 
+  int? _thumbnailImagePosition;
+  int? get thumbnailImagePosition => _$this._thumbnailImagePosition;
+  set thumbnailImagePosition(int? thumbnailImagePosition) =>
+      _$this._thumbnailImagePosition = thumbnailImagePosition;
+
+  double? _imageAspectRatio;
+  double? get imageAspectRatio => _$this._imageAspectRatio;
+  set imageAspectRatio(double? imageAspectRatio) =>
+      _$this._imageAspectRatio = imageAspectRatio;
+
   GDailyThemeData_dailyTheme_worksBuilder() {
     GDailyThemeData_dailyTheme_works._initializeBuilder(this);
   }
@@ -816,6 +857,8 @@ class GDailyThemeData_dailyTheme_worksBuilder
       _commentsCount = $v.commentsCount;
       _createdAt = $v.createdAt;
       _thumbnailImage = $v.thumbnailImage?.toBuilder();
+      _thumbnailImagePosition = $v.thumbnailImagePosition;
+      _imageAspectRatio = $v.imageAspectRatio;
       _$v = null;
     }
     return this;
@@ -840,21 +883,24 @@ class GDailyThemeData_dailyTheme_worksBuilder
     try {
       _$result = _$v ??
           new _$GDailyThemeData_dailyTheme_works._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
-                  r'GDailyThemeData_dailyTheme_works', 'G__typename'),
+              G__typename: BuiltValueNullFieldError.checkNotNull(
+                  G__typename, r'GDailyThemeData_dailyTheme_works', 'G__typename'),
               id: BuiltValueNullFieldError.checkNotNull(
                   id, r'GDailyThemeData_dailyTheme_works', 'id'),
               title: BuiltValueNullFieldError.checkNotNull(
                   title, r'GDailyThemeData_dailyTheme_works', 'title'),
-              likesCount: BuiltValueNullFieldError.checkNotNull(likesCount,
-                  r'GDailyThemeData_dailyTheme_works', 'likesCount'),
+              likesCount: BuiltValueNullFieldError.checkNotNull(
+                  likesCount, r'GDailyThemeData_dailyTheme_works', 'likesCount'),
               commentsCount: BuiltValueNullFieldError.checkNotNull(
-                  commentsCount,
-                  r'GDailyThemeData_dailyTheme_works',
-                  'commentsCount'),
+                  commentsCount, r'GDailyThemeData_dailyTheme_works', 'commentsCount'),
               createdAt: BuiltValueNullFieldError.checkNotNull(
                   createdAt, r'GDailyThemeData_dailyTheme_works', 'createdAt'),
-              thumbnailImage: _thumbnailImage?.build());
+              thumbnailImage: _thumbnailImage?.build(),
+              thumbnailImagePosition: thumbnailImagePosition,
+              imageAspectRatio: BuiltValueNullFieldError.checkNotNull(
+                  imageAspectRatio,
+                  r'GDailyThemeData_dailyTheme_works',
+                  'imageAspectRatio'));
     } catch (_) {
       late String _$failedField;
       try {
