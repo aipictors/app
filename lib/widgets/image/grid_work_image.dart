@@ -28,21 +28,17 @@ class GridWorkImage extends HookConsumerWidget {
     }
 
     return LayoutBuilder(builder: (context, constraints) {
-      double thumbnailOffset =
-          constraints.maxHeight * ((thumbnailImagePosition ?? 0) / 100);
+      // thumbnailImagePositionはパーセントで渡されるので、Offsetに変換する
+      final double thumbnailOffset =
+          constraints.maxWidth * ((thumbnailImagePosition ?? 0) / 100);
 
-      // サムネ位置の指定がない場合は真ん中を表示する。
-      // 縦長画像の場合、offsetは一番上の場所になる
-      // 横長画像の場合、offsetは一番左の場所になる
-      Alignment alignment = Alignment.center;
-      if (thumbnailImagePosition != 0 && (imageAspectRatio ?? 0) <= 1.0) {
-        alignment = Alignment.topCenter;
-      } else if (thumbnailImagePosition != 0 && (imageAspectRatio ?? 0) > 1.0) {
-        alignment = Alignment.topLeft;
-      }
       return FittedBox(
         fit: BoxFit.cover,
-        alignment: alignment,
+        // offsetは縦長画像の場合は一番上、横長画像の場合は一番左になる
+        alignment: ((imageAspectRatio ?? 0) <= 1.0)
+            ? Alignment.topCenter
+            : Alignment.topLeft,
+        // 画像が枠からはみ出さないようにclipBehaviorを指定。負荷が高ければClip.hardEdgeでいいかもしれない
         clipBehavior: Clip.antiAlias,
         child: Transform.translate(
           offset: ((imageAspectRatio ?? 0) <= 1.0)
@@ -51,22 +47,19 @@ class GridWorkImage extends HookConsumerWidget {
           child: CachedNetworkImage(
             imageUrl: imageURL!,
             progressIndicatorBuilder: (context, url, downloadProgress) {
-              return FittedBox(
-                  fit: BoxFit.fill,
-                  child: Container(
-                    width: constraints.maxWidth,
-                    height: constraints.maxHeight,
-                    color: Theme.of(context).colorScheme.primaryContainer,
-                  ));
+              return Container(
+                // double.infinityはエラーになってしまうので、MediaQueryを使用する
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+                color: Theme.of(context).colorScheme.primaryContainer,
+              );
             },
             errorWidget: (context, uri, error) {
-              return FittedBox(
-                  fit: BoxFit.fill,
-                  child: Container(
-                    width: constraints.maxWidth,
-                    height: constraints.maxHeight,
-                    color: Theme.of(context).disabledColor,
-                  ));
+              return Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+                color: Theme.of(context).disabledColor,
+              );
             },
           ),
         ),
