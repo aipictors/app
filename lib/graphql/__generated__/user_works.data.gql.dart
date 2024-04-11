@@ -97,6 +97,8 @@ abstract class GUserWorksData_user_works
   int get createdAt;
   @override
   GUserWorksData_user_works_thumbnailImage? get thumbnailImage;
+  int? get thumbnailImagePosition;
+  double get imageAspectRatio;
   static Serializer<GUserWorksData_user_works> get serializer =>
       _$gUserWorksDataUserWorksSerializer;
 
