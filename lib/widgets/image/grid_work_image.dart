@@ -29,46 +29,48 @@ class GridWorkImage extends HookConsumerWidget {
 
     return LayoutBuilder(builder: (context, constraints) {
       // thumbnailImagePositionはパーセントで渡されるので、Offsetに変換する
-      double thumbnailOffset = 0;
-      if (imageAspectRatio! < 1.0) {
-        thumbnailOffset = constraints.maxWidth /
-            imageAspectRatio! *
-            (thumbnailImagePosition! / 100);
-      } else if (imageAspectRatio! > 1.0) {
-        thumbnailOffset = constraints.maxHeight *
-            imageAspectRatio! *
-            (thumbnailImagePosition! / 100);
-      }
+      // 正方形にするために、短辺の長さをconstraints.maxWidth(またはHeight)に合わせる
+      // 長辺の長さはconstraints.maxWidth(またはHeight)*imageAspectRatioで計算する
 
-      if (thumbnailImagePosition == 0) {
-        thumbnailOffset =
-            (constraints.maxHeight / (imageAspectRatio ?? 1)) * (-5 / 100);
+      final double shortestSideLength = (imageAspectRatio! <= 1.0)
+          ? constraints.maxWidth // 縦長画像の短辺は横
+          : constraints.maxHeight; // 横長画像の短辺は縦
+      final double longestSideLength = (imageAspectRatio! <= 1.0)
+          ? (constraints.maxHeight / imageAspectRatio!)
+          : (constraints.maxWidth * imageAspectRatio!);
+
+      double thumbnailOffset = 0;
+      // 正方形以外はサムネ位置を調整する
+      if (imageAspectRatio! != 1.0) {
+        // サムネ位置が設定されていない場合、-5%して中心に寄せる
+        if (thumbnailImagePosition == 0) {
+          thumbnailOffset = longestSideLength * (-5 / 100);
+        } else {
+          thumbnailOffset = longestSideLength * (thumbnailImagePosition! / 100);
+        }
       }
-      // 短編:長編 = 180:y  長編＊(短編/180)=y 180*aspectratio=長編  y*thumbnailpos=offset
 
       return FittedBox(
         fit: BoxFit.cover,
-        // offsetは縦長画像の場合は一番上、横長画像の場合は一番左になる
         alignment: Alignment.topLeft,
         // 画像が枠からはみ出さないようにclipBehaviorを指定。負荷が高ければClip.hardEdgeでいいかもしれない
         clipBehavior: Clip.antiAlias,
-
         child: Transform.translate(
           offset: ((imageAspectRatio ?? 0) <= 1.0)
               ? Offset(0, thumbnailOffset)
               : Offset(thumbnailOffset, 0),
           child: SizedBox(
             width: (imageAspectRatio! <= 1.0)
-                ? constraints.maxWidth
-                : constraints.maxWidth * imageAspectRatio!,
+                ? shortestSideLength
+                : longestSideLength,
             height: (imageAspectRatio! >= 1.0)
-                ? constraints.maxHeight
-                : constraints.maxHeight / imageAspectRatio!,
+                ? shortestSideLength
+                : longestSideLength,
             child: CachedNetworkImage(
               imageUrl: imageURL!,
               progressIndicatorBuilder: (context, url, downloadProgress) {
                 return Container(
-                  // double.infinityはエラーになってしまうので、MediaQueryを使用する
+                  // サイズ指定が必要なので、double.infinityではなくMediaQueryを使用する
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height,
                   color: Theme.of(context).colorScheme.primaryContainer,
