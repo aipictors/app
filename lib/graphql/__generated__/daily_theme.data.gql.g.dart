@@ -221,7 +221,8 @@ class _$GDailyThemeData_dailyTheme_worksSerializer
     if (value != null) {
       result
         ..add('thumbnailImagePosition')
-        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(double)));
     }
     return result;
   }
@@ -270,7 +271,7 @@ class _$GDailyThemeData_dailyTheme_worksSerializer
           break;
         case 'thumbnailImagePosition':
           result.thumbnailImagePosition = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int?;
+              specifiedType: const FullType(double)) as double?;
           break;
         case 'imageAspectRatio':
           result.imageAspectRatio = serializers.deserialize(value,
@@ -702,7 +703,7 @@ class _$GDailyThemeData_dailyTheme_works
   @override
   final GDailyThemeData_dailyTheme_works_thumbnailImage? thumbnailImage;
   @override
-  final int? thumbnailImagePosition;
+  final double? thumbnailImagePosition;
   @override
   final double imageAspectRatio;
 
@@ -833,9 +834,9 @@ class GDailyThemeData_dailyTheme_worksBuilder
               thumbnailImage) =>
       _$this._thumbnailImage = thumbnailImage;
 
-  int? _thumbnailImagePosition;
-  int? get thumbnailImagePosition => _$this._thumbnailImagePosition;
-  set thumbnailImagePosition(int? thumbnailImagePosition) =>
+  double? _thumbnailImagePosition;
+  double? get thumbnailImagePosition => _$this._thumbnailImagePosition;
+  set thumbnailImagePosition(double? thumbnailImagePosition) =>
       _$this._thumbnailImagePosition = thumbnailImagePosition;
 
   double? _imageAspectRatio;

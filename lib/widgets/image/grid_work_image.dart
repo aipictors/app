@@ -13,7 +13,7 @@ class GridWorkImage extends HookConsumerWidget {
 
   final String? imageURL;
 
-  final int? thumbnailImagePosition;
+  final double? thumbnailImagePosition;
 
   final double? imageAspectRatio;
 
@@ -43,7 +43,7 @@ class GridWorkImage extends HookConsumerWidget {
       // 正方形以外はサムネ位置を調整する
       if (imageAspectRatio! != 1.0) {
         // サムネ位置が設定されていない場合、-5%して中心に寄せる
-        if (thumbnailImagePosition == 0) {
+        if (thumbnailImagePosition == null) {
           thumbnailOffset = longestSideLength * (-5 / 100);
         } else {
           thumbnailOffset = longestSideLength * (thumbnailImagePosition! / 100);

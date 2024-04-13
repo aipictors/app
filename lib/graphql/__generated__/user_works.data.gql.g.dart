@@ -181,7 +181,8 @@ class _$GUserWorksData_user_worksSerializer
     if (value != null) {
       result
         ..add('thumbnailImagePosition')
-        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(double)));
     }
     return result;
   }
@@ -230,7 +231,7 @@ class _$GUserWorksData_user_worksSerializer
           break;
         case 'thumbnailImagePosition':
           result.thumbnailImagePosition = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int?;
+              specifiedType: const FullType(double)) as double?;
           break;
         case 'imageAspectRatio':
           result.imageAspectRatio = serializers.deserialize(value,
@@ -564,7 +565,7 @@ class _$GUserWorksData_user_works extends GUserWorksData_user_works {
   @override
   final GUserWorksData_user_works_thumbnailImage? thumbnailImage;
   @override
-  final int? thumbnailImagePosition;
+  final double? thumbnailImagePosition;
   @override
   final double imageAspectRatio;
 
@@ -693,9 +694,9 @@ class GUserWorksData_user_worksBuilder
           GUserWorksData_user_works_thumbnailImageBuilder? thumbnailImage) =>
       _$this._thumbnailImage = thumbnailImage;
 
-  int? _thumbnailImagePosition;
-  int? get thumbnailImagePosition => _$this._thumbnailImagePosition;
-  set thumbnailImagePosition(int? thumbnailImagePosition) =>
+  double? _thumbnailImagePosition;
+  double? get thumbnailImagePosition => _$this._thumbnailImagePosition;
+  set thumbnailImagePosition(double? thumbnailImagePosition) =>
       _$this._thumbnailImagePosition = thumbnailImagePosition;
 
   double? _imageAspectRatio;

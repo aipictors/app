@@ -105,7 +105,7 @@ abstract class GDailyThemeData_dailyTheme_works
   int get createdAt;
   @override
   GDailyThemeData_dailyTheme_works_thumbnailImage? get thumbnailImage;
-  int? get thumbnailImagePosition;
+  double? get thumbnailImagePosition;
   double get imageAspectRatio;
   static Serializer<GDailyThemeData_dailyTheme_works> get serializer =>
       _$gDailyThemeDataDailyThemeWorksSerializer;
