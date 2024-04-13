@@ -39,7 +39,7 @@ class GridWorkImage extends HookConsumerWidget {
 
       double thumbnailOffset = 0;
       // 正方形以外はサムネ位置を調整する
-      if (imageAspectRatio! != 1.0) {
+      if (imageAspectRatio != 1.0) {
         // サムネ位置が設定されていない場合、-5%して中心に寄せる
         if (thumbnailImagePosition == null) {
           thumbnailOffset = longestSideLength * (-5 / 100);
@@ -66,6 +66,7 @@ class GridWorkImage extends HookConsumerWidget {
                 : longestSideLength,
             child: CachedNetworkImage(
               imageUrl: imageURL!,
+              fit: BoxFit.cover,
               progressIndicatorBuilder: (context, url, downloadProgress) {
                 return Container(
                   // サイズ指定が必要なので、double.infinityではなくMediaQueryを使用する
