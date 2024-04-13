@@ -608,6 +608,23 @@ abstract class GCreateImageGenerationTaskInput
   String? get t2tMaskImageUrl;
   String? get t2tDenoisingStrengthSize;
   String? get t2tInpaintingFillSize;
+  double? get upscaleSize;
+  String? get controlNetImageUrl;
+  String? get controlNetMaskImageUrl;
+  String? get controlNetControlMode;
+  bool? get controlNetEnabled;
+  int? get controlNetGuidanceEnd;
+  int? get controlNetGuidanceStart;
+  bool? get controlNetPixelPerfect;
+  int? get controlNetProcessorRes;
+  String? get controlNetResizeMode;
+  int? get controlNetThresholdA;
+  int? get controlNetThresholdB;
+  double? get controlNetWeight;
+  String? get controlNetModule;
+  String? get controlNetModel;
+  bool? get controlNetSaveDetectedMap;
+  String? get controlNetHrOption;
   static Serializer<GCreateImageGenerationTaskInput> get serializer =>
       _$gCreateImageGenerationTaskInputSerializer;
 
@@ -1349,6 +1366,23 @@ abstract class GCreateReservedImageGenerationTaskInput
   String? get t2tMaskImageUrl;
   String? get t2tDenoisingStrengthSize;
   String? get t2tInpaintingFillSize;
+  double? get upscaleSize;
+  String? get controlNetImageUrl;
+  String? get controlNetMaskImageUrl;
+  String? get controlNetControlMode;
+  bool? get controlNetEnabled;
+  int? get controlNetGuidanceEnd;
+  int? get controlNetGuidanceStart;
+  bool? get controlNetPixelPerfect;
+  int? get controlNetProcessorRes;
+  String? get controlNetResizeMode;
+  int? get controlNetThresholdA;
+  int? get controlNetThresholdB;
+  double? get controlNetWeight;
+  String? get controlNetModule;
+  String? get controlNetModel;
+  bool? get controlNetSaveDetectedMap;
+  String? get controlNetHrOption;
   static Serializer<GCreateReservedImageGenerationTaskInput> get serializer =>
       _$gCreateReservedImageGenerationTaskInputSerializer;
 
@@ -2622,6 +2656,32 @@ abstract class GLoginWithPasswordInput
       );
 }
 
+abstract class GLoginWithWordPressTokenInput
+    implements
+        Built<GLoginWithWordPressTokenInput,
+            GLoginWithWordPressTokenInputBuilder> {
+  GLoginWithWordPressTokenInput._();
+
+  factory GLoginWithWordPressTokenInput(
+          [void Function(GLoginWithWordPressTokenInputBuilder b) updates]) =
+      _$GLoginWithWordPressTokenInput;
+
+  String get token;
+  static Serializer<GLoginWithWordPressTokenInput> get serializer =>
+      _$gLoginWithWordPressTokenInputSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GLoginWithWordPressTokenInput.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GLoginWithWordPressTokenInput? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GLoginWithWordPressTokenInput.serializer,
+        json,
+      );
+}
+
 abstract class GMarkPromptonFolderAsPrivateInput
     implements
         Built<GMarkPromptonFolderAsPrivateInput,
@@ -2872,6 +2932,31 @@ abstract class GMuteUserInput
   static GMuteUserInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GMuteUserInput.serializer,
+        json,
+      );
+}
+
+abstract class GNotificationsWhereInput
+    implements
+        Built<GNotificationsWhereInput, GNotificationsWhereInputBuilder> {
+  GNotificationsWhereInput._();
+
+  factory GNotificationsWhereInput(
+          [void Function(GNotificationsWhereInputBuilder b) updates]) =
+      _$GNotificationsWhereInput;
+
+  GNotificationType? get type;
+  static Serializer<GNotificationsWhereInput> get serializer =>
+      _$gNotificationsWhereInputSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GNotificationsWhereInput.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GNotificationsWhereInput? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GNotificationsWhereInput.serializer,
         json,
       );
 }
@@ -4628,7 +4713,9 @@ abstract class GUserWorksWhereInput
       _$GUserWorksWhereInput;
 
   String? get search;
+  String? get modelName;
   bool? get isSensitive;
+  bool? get isGeneration;
   static Serializer<GUserWorksWhereInput> get serializer =>
       _$gUserWorksWhereInputSerializer;
 
@@ -4721,12 +4808,14 @@ abstract class GWorksWhereInput
   String? get search;
   BuiltList<String>? get prompts;
   bool? get hasPrompt;
-  bool? get hasGeneratorPrompt;
+  bool? get hasGenerationPrompt;
   GImageStyle? get style;
   GWorkOrderBy? get orderBy;
   BuiltList<String>? get searchTargets;
   bool? get isSensitive;
   BuiltList<String>? get tagNames;
+  bool? get isFeatured;
+  String? get generationModelId;
   static Serializer<GWorksWhereInput> get serializer =>
       _$gWorksWhereInputSerializer;
 
@@ -4812,6 +4901,7 @@ const Map<String, Set<String>> possibleTypesMap = {
     'StickerNode',
     'StickerViewerNode',
     'SubWorkNode',
+    'TagCollectionNode',
     'TagNode',
     'TagViewerNode',
     'UserNode',

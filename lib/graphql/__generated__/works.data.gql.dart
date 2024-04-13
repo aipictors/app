@@ -64,6 +64,10 @@ abstract class GWorksData_works
   int get createdAt;
   @override
   GWorksData_works_thumbnailImage? get thumbnailImage;
+  @override
+  double? get thumbnailImagePosition;
+  @override
+  double get imageAspectRatio;
   static Serializer<GWorksData_works> get serializer =>
       _$gWorksDataWorksSerializer;
 

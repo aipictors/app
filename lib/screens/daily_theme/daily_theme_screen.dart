@@ -66,6 +66,8 @@ class DailyThemeScreen extends HookConsumerWidget {
                   },
                   child: GridWorkImage(
                     imageURL: work.thumbnailImage?.downloadURL,
+                    thumbnailImagePosition: work.thumbnailImagePosition,
+                    imageAspectRatio: work.imageAspectRatio,
                   ),
                 );
               },

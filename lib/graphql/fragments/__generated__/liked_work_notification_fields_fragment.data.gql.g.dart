@@ -148,6 +148,9 @@ class _$GLikedWorkNotificationFieldsData_workSerializer
       'createdAt',
       serializers.serialize(object.createdAt,
           specifiedType: const FullType(int)),
+      'imageAspectRatio',
+      serializers.serialize(object.imageAspectRatio,
+          specifiedType: const FullType(double)),
     ];
     Object? value;
     value = object.thumbnailImage;
@@ -157,6 +160,13 @@ class _$GLikedWorkNotificationFieldsData_workSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(
                 GLikedWorkNotificationFieldsData_work_thumbnailImage)));
+    }
+    value = object.thumbnailImagePosition;
+    if (value != null) {
+      result
+        ..add('thumbnailImagePosition')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(double)));
     }
     return result;
   }
@@ -202,6 +212,14 @@ class _$GLikedWorkNotificationFieldsData_workSerializer
                   specifiedType: const FullType(
                       GLikedWorkNotificationFieldsData_work_thumbnailImage))!
               as GLikedWorkNotificationFieldsData_work_thumbnailImage);
+          break;
+        case 'thumbnailImagePosition':
+          result.thumbnailImagePosition = serializers.deserialize(value,
+              specifiedType: const FullType(double)) as double?;
+          break;
+        case 'imageAspectRatio':
+          result.imageAspectRatio = serializers.deserialize(value,
+              specifiedType: const FullType(double))! as double;
           break;
       }
     }
@@ -611,6 +629,10 @@ class _$GLikedWorkNotificationFieldsData_work
   final int createdAt;
   @override
   final GLikedWorkNotificationFieldsData_work_thumbnailImage? thumbnailImage;
+  @override
+  final double? thumbnailImagePosition;
+  @override
+  final double imageAspectRatio;
 
   factory _$GLikedWorkNotificationFieldsData_work(
           [void Function(GLikedWorkNotificationFieldsData_workBuilder)?
@@ -625,7 +647,9 @@ class _$GLikedWorkNotificationFieldsData_work
       required this.likesCount,
       required this.commentsCount,
       required this.createdAt,
-      this.thumbnailImage})
+      this.thumbnailImage,
+      this.thumbnailImagePosition,
+      required this.imageAspectRatio})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename, r'GLikedWorkNotificationFieldsData_work', 'G__typename');
@@ -639,6 +663,8 @@ class _$GLikedWorkNotificationFieldsData_work
         r'GLikedWorkNotificationFieldsData_work', 'commentsCount');
     BuiltValueNullFieldError.checkNotNull(
         createdAt, r'GLikedWorkNotificationFieldsData_work', 'createdAt');
+    BuiltValueNullFieldError.checkNotNull(imageAspectRatio,
+        r'GLikedWorkNotificationFieldsData_work', 'imageAspectRatio');
   }
 
   @override
@@ -661,7 +687,9 @@ class _$GLikedWorkNotificationFieldsData_work
         likesCount == other.likesCount &&
         commentsCount == other.commentsCount &&
         createdAt == other.createdAt &&
-        thumbnailImage == other.thumbnailImage;
+        thumbnailImage == other.thumbnailImage &&
+        thumbnailImagePosition == other.thumbnailImagePosition &&
+        imageAspectRatio == other.imageAspectRatio;
   }
 
   @override
@@ -674,6 +702,8 @@ class _$GLikedWorkNotificationFieldsData_work
     _$hash = $jc(_$hash, commentsCount.hashCode);
     _$hash = $jc(_$hash, createdAt.hashCode);
     _$hash = $jc(_$hash, thumbnailImage.hashCode);
+    _$hash = $jc(_$hash, thumbnailImagePosition.hashCode);
+    _$hash = $jc(_$hash, imageAspectRatio.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -688,7 +718,9 @@ class _$GLikedWorkNotificationFieldsData_work
           ..add('likesCount', likesCount)
           ..add('commentsCount', commentsCount)
           ..add('createdAt', createdAt)
-          ..add('thumbnailImage', thumbnailImage))
+          ..add('thumbnailImage', thumbnailImage)
+          ..add('thumbnailImagePosition', thumbnailImagePosition)
+          ..add('imageAspectRatio', imageAspectRatio))
         .toString();
   }
 }
@@ -733,6 +765,16 @@ class GLikedWorkNotificationFieldsData_workBuilder
               thumbnailImage) =>
       _$this._thumbnailImage = thumbnailImage;
 
+  double? _thumbnailImagePosition;
+  double? get thumbnailImagePosition => _$this._thumbnailImagePosition;
+  set thumbnailImagePosition(double? thumbnailImagePosition) =>
+      _$this._thumbnailImagePosition = thumbnailImagePosition;
+
+  double? _imageAspectRatio;
+  double? get imageAspectRatio => _$this._imageAspectRatio;
+  set imageAspectRatio(double? imageAspectRatio) =>
+      _$this._imageAspectRatio = imageAspectRatio;
+
   GLikedWorkNotificationFieldsData_workBuilder() {
     GLikedWorkNotificationFieldsData_work._initializeBuilder(this);
   }
@@ -747,6 +789,8 @@ class GLikedWorkNotificationFieldsData_workBuilder
       _commentsCount = $v.commentsCount;
       _createdAt = $v.createdAt;
       _thumbnailImage = $v.thumbnailImage?.toBuilder();
+      _thumbnailImagePosition = $v.thumbnailImagePosition;
+      _imageAspectRatio = $v.imageAspectRatio;
       _$v = null;
     }
     return this;
@@ -772,8 +816,8 @@ class GLikedWorkNotificationFieldsData_workBuilder
     try {
       _$result = _$v ??
           new _$GLikedWorkNotificationFieldsData_work._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
-                  r'GLikedWorkNotificationFieldsData_work', 'G__typename'),
+              G__typename: BuiltValueNullFieldError.checkNotNull(
+                  G__typename, r'GLikedWorkNotificationFieldsData_work', 'G__typename'),
               id: BuiltValueNullFieldError.checkNotNull(
                   id, r'GLikedWorkNotificationFieldsData_work', 'id'),
               title: BuiltValueNullFieldError.checkNotNull(
@@ -781,12 +825,13 @@ class GLikedWorkNotificationFieldsData_workBuilder
               likesCount: BuiltValueNullFieldError.checkNotNull(
                   likesCount, r'GLikedWorkNotificationFieldsData_work', 'likesCount'),
               commentsCount: BuiltValueNullFieldError.checkNotNull(
-                  commentsCount,
-                  r'GLikedWorkNotificationFieldsData_work',
-                  'commentsCount'),
+                  commentsCount, r'GLikedWorkNotificationFieldsData_work', 'commentsCount'),
               createdAt: BuiltValueNullFieldError.checkNotNull(
                   createdAt, r'GLikedWorkNotificationFieldsData_work', 'createdAt'),
-              thumbnailImage: _thumbnailImage?.build());
+              thumbnailImage: _thumbnailImage?.build(),
+              thumbnailImagePosition: thumbnailImagePosition,
+              imageAspectRatio: BuiltValueNullFieldError.checkNotNull(
+                  imageAspectRatio, r'GLikedWorkNotificationFieldsData_work', 'imageAspectRatio'));
     } catch (_) {
       late String _$failedField;
       try {

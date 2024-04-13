@@ -280,14 +280,32 @@ input CreateImageGenerationTaskInput {
 
   """生成の方式"""
   type: ImageGenerationType!
+
+  """モデル"""
   model: String!
+
+  """VAE"""
   vae: String!
+
+  """プロンプト"""
   prompt: String!
+
+  """ネガティブプロンプト"""
   negativePrompt: String!
+
+  """seed"""
   seed: Float!
+
+  """steps"""
   steps: Int!
+
+  """scale"""
   scale: Int!
+
+  """sampler"""
   sampler: String!
+
+  """clipSkip"""
   clipSkip: Int
 
   """画像のサイズ"""
@@ -298,6 +316,27 @@ input CreateImageGenerationTaskInput {
   t2tMaskImageUrl: String
   t2tDenoisingStrengthSize: String
   t2tInpaintingFillSize: String
+
+  """アップスケールサイズ(x2, x4, x8)"""
+  upscaleSize: Float
+
+  """ControlNetパラメータ"""
+  controlNetImageUrl: String
+  controlNetMaskImageUrl: String
+  controlNetControlMode: String
+  controlNetEnabled: Boolean
+  controlNetGuidanceEnd: Int
+  controlNetGuidanceStart: Int
+  controlNetPixelPerfect: Boolean
+  controlNetProcessorRes: Int
+  controlNetResizeMode: String
+  controlNetThresholdA: Int
+  controlNetThresholdB: Int
+  controlNetWeight: Float
+  controlNetModule: String
+  controlNetModel: String
+  controlNetSaveDetectedMap: Boolean
+  controlNetHrOption: String
 }
 
 input CreateMessageInput {
@@ -485,6 +524,27 @@ input CreateReservedImageGenerationTaskInput {
   t2tMaskImageUrl: String
   t2tDenoisingStrengthSize: String
   t2tInpaintingFillSize: String
+
+  """アップスケールサイズ(x2, x4, x8)"""
+  upscaleSize: Float
+
+  """ControlNetの設定"""
+  controlNetImageUrl: String
+  controlNetMaskImageUrl: String
+  controlNetControlMode: String
+  controlNetEnabled: Boolean
+  controlNetGuidanceEnd: Int
+  controlNetGuidanceStart: Int
+  controlNetPixelPerfect: Boolean
+  controlNetProcessorRes: Int
+  controlNetResizeMode: String
+  controlNetThresholdA: Int
+  controlNetThresholdB: Int
+  controlNetWeight: Float
+  controlNetModule: String
+  controlNetModel: String
+  controlNetSaveDetectedMap: Boolean
+  controlNetHrOption: String
 }
 
 input CreateResponseCommentInput {
@@ -753,6 +813,9 @@ type FollowNotificationNode implements Node {
 
   """ユーザ"""
   user: UserNode
+
+  """種別"""
+  type: String!
 }
 
 input FollowPromptonUserInput {
@@ -856,6 +919,27 @@ type ImageGenerationReservedTaskNode implements Node {
   t2tMaskImageUrl: String
   t2tDenoisingStrengthSize: String
   t2tInpaintingFillSize: String
+
+  """アップスケールサイズ(x2, x4, x8)"""
+  upscaleSize: Float
+
+  """ControlNetの設定"""
+  controlNetControlMode: String
+  controlNetEnabled: Boolean
+  controlNetGuidanceEnd: Int
+  controlNetGuidanceStart: Int
+  controlNetPixelPerfect: Boolean
+  controlNetProcessorRes: Int
+  controlNetResizeMode: String
+  controlNetThresholdA: Int
+  controlNetThresholdB: Int
+  controlNetWeight: Float
+  controlNetModule: String
+  controlNetModel: String
+  controlNetSaveDetectedMap: Boolean
+  controlNetHrOption: String
+
+  """Token"""
   token: String
   nanoid: String
 }
@@ -934,6 +1018,25 @@ type ImageGenerationTaskNode implements Node {
   thumbnailToken: String
   nanoid: String
   clipSkip: Int!
+
+  """アップスケールサイズ(x2, x4, x8)"""
+  upscaleSize: Float
+
+  """ControlNetの設定"""
+  controlNetControlMode: String
+  controlNetEnabled: Boolean
+  controlNetGuidanceEnd: Int
+  controlNetGuidanceStart: Int
+  controlNetPixelPerfect: Boolean
+  controlNetProcessorRes: Int
+  controlNetResizeMode: String
+  controlNetThresholdA: Int
+  controlNetThresholdB: Int
+  controlNetWeight: Float
+  controlNetModule: String
+  controlNetModel: String
+  controlNetSaveDetectedMap: Boolean
+  controlNetHrOption: String
 
   """予想生成秒数"""
   estimatedSeconds: Int
@@ -1094,6 +1197,9 @@ type LikedWorkNotificationNode implements Node {
 
   """匿名かどうか"""
   isAnonymous: Boolean!
+
+  """種別"""
+  type: String!
 }
 
 """通知（作品のいいね集計）"""
@@ -1105,6 +1211,9 @@ type LikedWorksSummaryNotificationNode implements Node {
 
   """メッセージ"""
   message: String
+
+  """種別"""
+  type: String!
 }
 
 type LoginResult {
@@ -1114,6 +1223,10 @@ type LoginResult {
 input LoginWithPasswordInput {
   login: String!
   password: String!
+}
+
+input LoginWithWordPressTokenInput {
+  token: String!
 }
 
 input MarkPromptonFolderAsPrivateInput {
@@ -1171,13 +1284,14 @@ type MessageThreadNode implements Node {
   messages(offset: Int!, limit: Int!): [MessageNode!]!
 }
 
-"""メッセージのスレッド"""
+"""マイルストーン"""
 type MilestoneNode implements Node {
   id: ID!
   title: String!
   version: String!
   description: String!
   pageURL: String!
+  dueDate: String
   isDone: Boolean!
 }
 
@@ -1311,6 +1425,9 @@ type Mutation {
 
   """パスワードでログインする"""
   loginWithPassword(input: LoginWithPasswordInput!): LoginResult!
+
+  """WordPressのトークンでログインする"""
+  loginWithWordPressToken(input: LoginWithWordPressTokenInput!): LoginResult!
 
   """タグをミュートする"""
   muteTag(input: MuteTagInput!): TagNode
@@ -1599,6 +1716,10 @@ type NoteNode implements Node {
 
 """通知"""
 union NotificationNode = LikedWorkNotificationNode | LikedWorksSummaryNotificationNode | WorkAwardNotificationNode | WorkCommentNotificationNode | WorkCommentReplyNotificationNode | FollowNotificationNode
+
+input NotificationsWhereInput {
+  type: NotificationType
+}
 
 """通知の種類"""
 enum NotificationType {
@@ -2784,6 +2905,13 @@ type SubWorkNode implements Node {
   thumbnailImage: ImageNode!
 }
 
+"""タグと関連する作品"""
+type TagCollectionNode implements Node {
+  id: ID! @deprecated
+  tagNames: [String!]
+  works: [WorkNode!]
+}
+
 """タグ"""
 type TagNode implements Node {
   id: ID!
@@ -3173,7 +3301,9 @@ type UserViewerNode implements Node {
 
 input UserWorksWhereInput {
   search: String
+  modelName: String
   isSensitive: Boolean
+  isGeneration: Boolean
 }
 
 """ログイン中のユーザ"""
@@ -3192,6 +3322,9 @@ type Viewer {
 
   """現在の生成中の画像生成のタスク"""
   inProgressImageGenerationTasksCount: Int!
+
+  """現在の生成中の画像生成のコスト"""
+  inProgressImageGenerationTasksCost: Int!
 
   """現在の予約生成中の画像生成のタスク"""
   inProgressImageGenerationReservedTasksCount: Int!
@@ -3251,7 +3384,7 @@ type Viewer {
   mutedUsers(offset: Int!, limit: Int!): [UserNode!]!
 
   """通知"""
-  notifications(offset: Int!, limit: Int!): [NotificationNode!]!
+  notifications(offset: Int!, limit: Int!, where: NotificationsWhereInput): [NotificationNode!]!
 
   """決済履歴"""
   payments: [PaymentNode!]!
@@ -3307,6 +3440,9 @@ type WorkAwardNotificationNode implements Node {
   """作品"""
   work: WorkNode
   workId: ID
+
+  """種別"""
+  type: String!
 }
 
 input WorkAwardsWhereInput {
@@ -3329,6 +3465,9 @@ type WorkCommentNotificationNode implements Node {
   stickerId: ID
   work: WorkNode
   workId: ID
+
+  """種別"""
+  type: String!
 }
 
 """通知（リプライ）"""
@@ -3350,6 +3489,9 @@ type WorkCommentReplyNotificationNode implements Node {
 
   """作品"""
   work: WorkNode
+
+  """種別"""
+  type: String!
 }
 
 """作品のコンテスト"""
@@ -3426,7 +3568,7 @@ type WorkNode implements Node {
   imageAspectRatio: Float!
 
   """サムネイル画像の位置"""
-  thumbnailImagePosition: Int
+  thumbnailImagePosition: Float
 
   """画像URL（サムネイル）"""
   thumbnailImageId: ID!
@@ -3555,7 +3697,7 @@ input WorksWhereInput {
   hasPrompt: Boolean
 
   """画像生成用のプロンプトが存在する"""
-  hasGeneratorPrompt: Boolean
+  hasGenerationPrompt: Boolean
 
   """スタイル"""
   style: ImageStyle
@@ -3571,6 +3713,12 @@ input WorksWhereInput {
 
   """タグの名前"""
   tagNames: [String!]
+
+  """画像生成の作品"""
+  isFeatured: Boolean
+
+  """画像生成の作品"""
+  generationModelId: ID
 }
 
 """作品の種類"""

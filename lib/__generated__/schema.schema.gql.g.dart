@@ -882,6 +882,9 @@ Serializer<GIncrementPromptonProfileBlockIndexInput>
     new _$GIncrementPromptonProfileBlockIndexInputSerializer();
 Serializer<GLoginWithPasswordInput> _$gLoginWithPasswordInputSerializer =
     new _$GLoginWithPasswordInputSerializer();
+Serializer<GLoginWithWordPressTokenInput>
+    _$gLoginWithWordPressTokenInputSerializer =
+    new _$GLoginWithWordPressTokenInputSerializer();
 Serializer<GMarkPromptonFolderAsPrivateInput>
     _$gMarkPromptonFolderAsPrivateInputSerializer =
     new _$GMarkPromptonFolderAsPrivateInputSerializer();
@@ -909,6 +912,8 @@ Serializer<GMuteTagInput> _$gMuteTagInputSerializer =
     new _$GMuteTagInputSerializer();
 Serializer<GMuteUserInput> _$gMuteUserInputSerializer =
     new _$GMuteUserInputSerializer();
+Serializer<GNotificationsWhereInput> _$gNotificationsWhereInputSerializer =
+    new _$GNotificationsWhereInputSerializer();
 Serializer<GNotificationType> _$gNotificationTypeSerializer =
     new _$GNotificationTypeSerializer();
 Serializer<GPassType> _$gPassTypeSerializer = new _$GPassTypeSerializer();
@@ -2306,6 +2311,120 @@ class _$GCreateImageGenerationTaskInputSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
+    value = object.upscaleSize;
+    if (value != null) {
+      result
+        ..add('upscaleSize')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(double)));
+    }
+    value = object.controlNetImageUrl;
+    if (value != null) {
+      result
+        ..add('controlNetImageUrl')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.controlNetMaskImageUrl;
+    if (value != null) {
+      result
+        ..add('controlNetMaskImageUrl')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.controlNetControlMode;
+    if (value != null) {
+      result
+        ..add('controlNetControlMode')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.controlNetEnabled;
+    if (value != null) {
+      result
+        ..add('controlNetEnabled')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
+    value = object.controlNetGuidanceEnd;
+    if (value != null) {
+      result
+        ..add('controlNetGuidanceEnd')
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
+    }
+    value = object.controlNetGuidanceStart;
+    if (value != null) {
+      result
+        ..add('controlNetGuidanceStart')
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
+    }
+    value = object.controlNetPixelPerfect;
+    if (value != null) {
+      result
+        ..add('controlNetPixelPerfect')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
+    value = object.controlNetProcessorRes;
+    if (value != null) {
+      result
+        ..add('controlNetProcessorRes')
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
+    }
+    value = object.controlNetResizeMode;
+    if (value != null) {
+      result
+        ..add('controlNetResizeMode')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.controlNetThresholdA;
+    if (value != null) {
+      result
+        ..add('controlNetThresholdA')
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
+    }
+    value = object.controlNetThresholdB;
+    if (value != null) {
+      result
+        ..add('controlNetThresholdB')
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
+    }
+    value = object.controlNetWeight;
+    if (value != null) {
+      result
+        ..add('controlNetWeight')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(double)));
+    }
+    value = object.controlNetModule;
+    if (value != null) {
+      result
+        ..add('controlNetModule')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.controlNetModel;
+    if (value != null) {
+      result
+        ..add('controlNetModel')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.controlNetSaveDetectedMap;
+    if (value != null) {
+      result
+        ..add('controlNetSaveDetectedMap')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
+    value = object.controlNetHrOption;
+    if (value != null) {
+      result
+        ..add('controlNetHrOption')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
@@ -2385,6 +2504,74 @@ class _$GCreateImageGenerationTaskInputSerializer
           break;
         case 't2tInpaintingFillSize':
           result.t2tInpaintingFillSize = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'upscaleSize':
+          result.upscaleSize = serializers.deserialize(value,
+              specifiedType: const FullType(double)) as double?;
+          break;
+        case 'controlNetImageUrl':
+          result.controlNetImageUrl = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'controlNetMaskImageUrl':
+          result.controlNetMaskImageUrl = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'controlNetControlMode':
+          result.controlNetControlMode = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'controlNetEnabled':
+          result.controlNetEnabled = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
+        case 'controlNetGuidanceEnd':
+          result.controlNetGuidanceEnd = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int?;
+          break;
+        case 'controlNetGuidanceStart':
+          result.controlNetGuidanceStart = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int?;
+          break;
+        case 'controlNetPixelPerfect':
+          result.controlNetPixelPerfect = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
+        case 'controlNetProcessorRes':
+          result.controlNetProcessorRes = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int?;
+          break;
+        case 'controlNetResizeMode':
+          result.controlNetResizeMode = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'controlNetThresholdA':
+          result.controlNetThresholdA = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int?;
+          break;
+        case 'controlNetThresholdB':
+          result.controlNetThresholdB = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int?;
+          break;
+        case 'controlNetWeight':
+          result.controlNetWeight = serializers.deserialize(value,
+              specifiedType: const FullType(double)) as double?;
+          break;
+        case 'controlNetModule':
+          result.controlNetModule = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'controlNetModel':
+          result.controlNetModel = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'controlNetSaveDetectedMap':
+          result.controlNetSaveDetectedMap = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
+        case 'controlNetHrOption':
+          result.controlNetHrOption = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
       }
@@ -4066,6 +4253,120 @@ class _$GCreateReservedImageGenerationTaskInputSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
+    value = object.upscaleSize;
+    if (value != null) {
+      result
+        ..add('upscaleSize')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(double)));
+    }
+    value = object.controlNetImageUrl;
+    if (value != null) {
+      result
+        ..add('controlNetImageUrl')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.controlNetMaskImageUrl;
+    if (value != null) {
+      result
+        ..add('controlNetMaskImageUrl')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.controlNetControlMode;
+    if (value != null) {
+      result
+        ..add('controlNetControlMode')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.controlNetEnabled;
+    if (value != null) {
+      result
+        ..add('controlNetEnabled')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
+    value = object.controlNetGuidanceEnd;
+    if (value != null) {
+      result
+        ..add('controlNetGuidanceEnd')
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
+    }
+    value = object.controlNetGuidanceStart;
+    if (value != null) {
+      result
+        ..add('controlNetGuidanceStart')
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
+    }
+    value = object.controlNetPixelPerfect;
+    if (value != null) {
+      result
+        ..add('controlNetPixelPerfect')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
+    value = object.controlNetProcessorRes;
+    if (value != null) {
+      result
+        ..add('controlNetProcessorRes')
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
+    }
+    value = object.controlNetResizeMode;
+    if (value != null) {
+      result
+        ..add('controlNetResizeMode')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.controlNetThresholdA;
+    if (value != null) {
+      result
+        ..add('controlNetThresholdA')
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
+    }
+    value = object.controlNetThresholdB;
+    if (value != null) {
+      result
+        ..add('controlNetThresholdB')
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
+    }
+    value = object.controlNetWeight;
+    if (value != null) {
+      result
+        ..add('controlNetWeight')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(double)));
+    }
+    value = object.controlNetModule;
+    if (value != null) {
+      result
+        ..add('controlNetModule')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.controlNetModel;
+    if (value != null) {
+      result
+        ..add('controlNetModel')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.controlNetSaveDetectedMap;
+    if (value != null) {
+      result
+        ..add('controlNetSaveDetectedMap')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
+    value = object.controlNetHrOption;
+    if (value != null) {
+      result
+        ..add('controlNetHrOption')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
@@ -4145,6 +4446,74 @@ class _$GCreateReservedImageGenerationTaskInputSerializer
           break;
         case 't2tInpaintingFillSize':
           result.t2tInpaintingFillSize = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'upscaleSize':
+          result.upscaleSize = serializers.deserialize(value,
+              specifiedType: const FullType(double)) as double?;
+          break;
+        case 'controlNetImageUrl':
+          result.controlNetImageUrl = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'controlNetMaskImageUrl':
+          result.controlNetMaskImageUrl = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'controlNetControlMode':
+          result.controlNetControlMode = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'controlNetEnabled':
+          result.controlNetEnabled = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
+        case 'controlNetGuidanceEnd':
+          result.controlNetGuidanceEnd = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int?;
+          break;
+        case 'controlNetGuidanceStart':
+          result.controlNetGuidanceStart = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int?;
+          break;
+        case 'controlNetPixelPerfect':
+          result.controlNetPixelPerfect = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
+        case 'controlNetProcessorRes':
+          result.controlNetProcessorRes = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int?;
+          break;
+        case 'controlNetResizeMode':
+          result.controlNetResizeMode = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'controlNetThresholdA':
+          result.controlNetThresholdA = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int?;
+          break;
+        case 'controlNetThresholdB':
+          result.controlNetThresholdB = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int?;
+          break;
+        case 'controlNetWeight':
+          result.controlNetWeight = serializers.deserialize(value,
+              specifiedType: const FullType(double)) as double?;
+          break;
+        case 'controlNetModule':
+          result.controlNetModule = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'controlNetModel':
+          result.controlNetModel = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'controlNetSaveDetectedMap':
+          result.controlNetSaveDetectedMap = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
+        case 'controlNetHrOption':
+          result.controlNetHrOption = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
       }
@@ -6348,6 +6717,52 @@ class _$GLoginWithPasswordInputSerializer
   }
 }
 
+class _$GLoginWithWordPressTokenInputSerializer
+    implements StructuredSerializer<GLoginWithWordPressTokenInput> {
+  @override
+  final Iterable<Type> types = const [
+    GLoginWithWordPressTokenInput,
+    _$GLoginWithWordPressTokenInput
+  ];
+  @override
+  final String wireName = 'GLoginWithWordPressTokenInput';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GLoginWithWordPressTokenInput object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'token',
+      serializers.serialize(object.token,
+          specifiedType: const FullType(String)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GLoginWithWordPressTokenInput deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GLoginWithWordPressTokenInputBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'token':
+          result.token = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$GMarkPromptonFolderAsPrivateInputSerializer
     implements StructuredSerializer<GMarkPromptonFolderAsPrivateInput> {
   @override
@@ -6791,6 +7206,56 @@ class _$GMuteUserInputSerializer
         case 'userId':
           result.userId = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GNotificationsWhereInputSerializer
+    implements StructuredSerializer<GNotificationsWhereInput> {
+  @override
+  final Iterable<Type> types = const [
+    GNotificationsWhereInput,
+    _$GNotificationsWhereInput
+  ];
+  @override
+  final String wireName = 'GNotificationsWhereInput';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GNotificationsWhereInput object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[];
+    Object? value;
+    value = object.type;
+    if (value != null) {
+      result
+        ..add('type')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(GNotificationType)));
+    }
+    return result;
+  }
+
+  @override
+  GNotificationsWhereInput deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GNotificationsWhereInputBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'type':
+          result.type = serializers.deserialize(value,
+                  specifiedType: const FullType(GNotificationType))
+              as GNotificationType?;
           break;
       }
     }
@@ -10466,10 +10931,24 @@ class _$GUserWorksWhereInputSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
+    value = object.modelName;
+    if (value != null) {
+      result
+        ..add('modelName')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     value = object.isSensitive;
     if (value != null) {
       result
         ..add('isSensitive')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
+    value = object.isGeneration;
+    if (value != null) {
+      result
+        ..add('isGeneration')
         ..add(
             serializers.serialize(value, specifiedType: const FullType(bool)));
     }
@@ -10492,8 +10971,16 @@ class _$GUserWorksWhereInputSerializer
           result.search = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
+        case 'modelName':
+          result.modelName = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
         case 'isSensitive':
           result.isSensitive = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
+        case 'isGeneration':
+          result.isGeneration = serializers.deserialize(value,
               specifiedType: const FullType(bool)) as bool?;
           break;
       }
@@ -10696,10 +11183,10 @@ class _$GWorksWhereInputSerializer
         ..add(
             serializers.serialize(value, specifiedType: const FullType(bool)));
     }
-    value = object.hasGeneratorPrompt;
+    value = object.hasGenerationPrompt;
     if (value != null) {
       result
-        ..add('hasGeneratorPrompt')
+        ..add('hasGenerationPrompt')
         ..add(
             serializers.serialize(value, specifiedType: const FullType(bool)));
     }
@@ -10740,6 +11227,20 @@ class _$GWorksWhereInputSerializer
             specifiedType:
                 const FullType(BuiltList, const [const FullType(String)])));
     }
+    value = object.isFeatured;
+    if (value != null) {
+      result
+        ..add('isFeatured')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
+    value = object.generationModelId;
+    if (value != null) {
+      result
+        ..add('generationModelId')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
@@ -10769,8 +11270,8 @@ class _$GWorksWhereInputSerializer
           result.hasPrompt = serializers.deserialize(value,
               specifiedType: const FullType(bool)) as bool?;
           break;
-        case 'hasGeneratorPrompt':
-          result.hasGeneratorPrompt = serializers.deserialize(value,
+        case 'hasGenerationPrompt':
+          result.hasGenerationPrompt = serializers.deserialize(value,
               specifiedType: const FullType(bool)) as bool?;
           break;
         case 'style':
@@ -10796,6 +11297,14 @@ class _$GWorksWhereInputSerializer
                   specifiedType: const FullType(
                       BuiltList, const [const FullType(String)]))!
               as BuiltList<Object?>);
+          break;
+        case 'isFeatured':
+          result.isFeatured = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
+        case 'generationModelId':
+          result.generationModelId = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
           break;
       }
     }
@@ -12952,6 +13461,40 @@ class _$GCreateImageGenerationTaskInput
   final String? t2tDenoisingStrengthSize;
   @override
   final String? t2tInpaintingFillSize;
+  @override
+  final double? upscaleSize;
+  @override
+  final String? controlNetImageUrl;
+  @override
+  final String? controlNetMaskImageUrl;
+  @override
+  final String? controlNetControlMode;
+  @override
+  final bool? controlNetEnabled;
+  @override
+  final int? controlNetGuidanceEnd;
+  @override
+  final int? controlNetGuidanceStart;
+  @override
+  final bool? controlNetPixelPerfect;
+  @override
+  final int? controlNetProcessorRes;
+  @override
+  final String? controlNetResizeMode;
+  @override
+  final int? controlNetThresholdA;
+  @override
+  final int? controlNetThresholdB;
+  @override
+  final double? controlNetWeight;
+  @override
+  final String? controlNetModule;
+  @override
+  final String? controlNetModel;
+  @override
+  final bool? controlNetSaveDetectedMap;
+  @override
+  final String? controlNetHrOption;
 
   factory _$GCreateImageGenerationTaskInput(
           [void Function(GCreateImageGenerationTaskInputBuilder)? updates]) =>
@@ -12973,7 +13516,24 @@ class _$GCreateImageGenerationTaskInput
       this.t2tImageUrl,
       this.t2tMaskImageUrl,
       this.t2tDenoisingStrengthSize,
-      this.t2tInpaintingFillSize})
+      this.t2tInpaintingFillSize,
+      this.upscaleSize,
+      this.controlNetImageUrl,
+      this.controlNetMaskImageUrl,
+      this.controlNetControlMode,
+      this.controlNetEnabled,
+      this.controlNetGuidanceEnd,
+      this.controlNetGuidanceStart,
+      this.controlNetPixelPerfect,
+      this.controlNetProcessorRes,
+      this.controlNetResizeMode,
+      this.controlNetThresholdA,
+      this.controlNetThresholdB,
+      this.controlNetWeight,
+      this.controlNetModule,
+      this.controlNetModel,
+      this.controlNetSaveDetectedMap,
+      this.controlNetHrOption})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         count, r'GCreateImageGenerationTaskInput', 'count');
@@ -13027,7 +13587,24 @@ class _$GCreateImageGenerationTaskInput
         t2tImageUrl == other.t2tImageUrl &&
         t2tMaskImageUrl == other.t2tMaskImageUrl &&
         t2tDenoisingStrengthSize == other.t2tDenoisingStrengthSize &&
-        t2tInpaintingFillSize == other.t2tInpaintingFillSize;
+        t2tInpaintingFillSize == other.t2tInpaintingFillSize &&
+        upscaleSize == other.upscaleSize &&
+        controlNetImageUrl == other.controlNetImageUrl &&
+        controlNetMaskImageUrl == other.controlNetMaskImageUrl &&
+        controlNetControlMode == other.controlNetControlMode &&
+        controlNetEnabled == other.controlNetEnabled &&
+        controlNetGuidanceEnd == other.controlNetGuidanceEnd &&
+        controlNetGuidanceStart == other.controlNetGuidanceStart &&
+        controlNetPixelPerfect == other.controlNetPixelPerfect &&
+        controlNetProcessorRes == other.controlNetProcessorRes &&
+        controlNetResizeMode == other.controlNetResizeMode &&
+        controlNetThresholdA == other.controlNetThresholdA &&
+        controlNetThresholdB == other.controlNetThresholdB &&
+        controlNetWeight == other.controlNetWeight &&
+        controlNetModule == other.controlNetModule &&
+        controlNetModel == other.controlNetModel &&
+        controlNetSaveDetectedMap == other.controlNetSaveDetectedMap &&
+        controlNetHrOption == other.controlNetHrOption;
   }
 
   @override
@@ -13049,6 +13626,23 @@ class _$GCreateImageGenerationTaskInput
     _$hash = $jc(_$hash, t2tMaskImageUrl.hashCode);
     _$hash = $jc(_$hash, t2tDenoisingStrengthSize.hashCode);
     _$hash = $jc(_$hash, t2tInpaintingFillSize.hashCode);
+    _$hash = $jc(_$hash, upscaleSize.hashCode);
+    _$hash = $jc(_$hash, controlNetImageUrl.hashCode);
+    _$hash = $jc(_$hash, controlNetMaskImageUrl.hashCode);
+    _$hash = $jc(_$hash, controlNetControlMode.hashCode);
+    _$hash = $jc(_$hash, controlNetEnabled.hashCode);
+    _$hash = $jc(_$hash, controlNetGuidanceEnd.hashCode);
+    _$hash = $jc(_$hash, controlNetGuidanceStart.hashCode);
+    _$hash = $jc(_$hash, controlNetPixelPerfect.hashCode);
+    _$hash = $jc(_$hash, controlNetProcessorRes.hashCode);
+    _$hash = $jc(_$hash, controlNetResizeMode.hashCode);
+    _$hash = $jc(_$hash, controlNetThresholdA.hashCode);
+    _$hash = $jc(_$hash, controlNetThresholdB.hashCode);
+    _$hash = $jc(_$hash, controlNetWeight.hashCode);
+    _$hash = $jc(_$hash, controlNetModule.hashCode);
+    _$hash = $jc(_$hash, controlNetModel.hashCode);
+    _$hash = $jc(_$hash, controlNetSaveDetectedMap.hashCode);
+    _$hash = $jc(_$hash, controlNetHrOption.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -13071,7 +13665,24 @@ class _$GCreateImageGenerationTaskInput
           ..add('t2tImageUrl', t2tImageUrl)
           ..add('t2tMaskImageUrl', t2tMaskImageUrl)
           ..add('t2tDenoisingStrengthSize', t2tDenoisingStrengthSize)
-          ..add('t2tInpaintingFillSize', t2tInpaintingFillSize))
+          ..add('t2tInpaintingFillSize', t2tInpaintingFillSize)
+          ..add('upscaleSize', upscaleSize)
+          ..add('controlNetImageUrl', controlNetImageUrl)
+          ..add('controlNetMaskImageUrl', controlNetMaskImageUrl)
+          ..add('controlNetControlMode', controlNetControlMode)
+          ..add('controlNetEnabled', controlNetEnabled)
+          ..add('controlNetGuidanceEnd', controlNetGuidanceEnd)
+          ..add('controlNetGuidanceStart', controlNetGuidanceStart)
+          ..add('controlNetPixelPerfect', controlNetPixelPerfect)
+          ..add('controlNetProcessorRes', controlNetProcessorRes)
+          ..add('controlNetResizeMode', controlNetResizeMode)
+          ..add('controlNetThresholdA', controlNetThresholdA)
+          ..add('controlNetThresholdB', controlNetThresholdB)
+          ..add('controlNetWeight', controlNetWeight)
+          ..add('controlNetModule', controlNetModule)
+          ..add('controlNetModel', controlNetModel)
+          ..add('controlNetSaveDetectedMap', controlNetSaveDetectedMap)
+          ..add('controlNetHrOption', controlNetHrOption))
         .toString();
   }
 }
@@ -13151,6 +13762,90 @@ class GCreateImageGenerationTaskInputBuilder
   set t2tInpaintingFillSize(String? t2tInpaintingFillSize) =>
       _$this._t2tInpaintingFillSize = t2tInpaintingFillSize;
 
+  double? _upscaleSize;
+  double? get upscaleSize => _$this._upscaleSize;
+  set upscaleSize(double? upscaleSize) => _$this._upscaleSize = upscaleSize;
+
+  String? _controlNetImageUrl;
+  String? get controlNetImageUrl => _$this._controlNetImageUrl;
+  set controlNetImageUrl(String? controlNetImageUrl) =>
+      _$this._controlNetImageUrl = controlNetImageUrl;
+
+  String? _controlNetMaskImageUrl;
+  String? get controlNetMaskImageUrl => _$this._controlNetMaskImageUrl;
+  set controlNetMaskImageUrl(String? controlNetMaskImageUrl) =>
+      _$this._controlNetMaskImageUrl = controlNetMaskImageUrl;
+
+  String? _controlNetControlMode;
+  String? get controlNetControlMode => _$this._controlNetControlMode;
+  set controlNetControlMode(String? controlNetControlMode) =>
+      _$this._controlNetControlMode = controlNetControlMode;
+
+  bool? _controlNetEnabled;
+  bool? get controlNetEnabled => _$this._controlNetEnabled;
+  set controlNetEnabled(bool? controlNetEnabled) =>
+      _$this._controlNetEnabled = controlNetEnabled;
+
+  int? _controlNetGuidanceEnd;
+  int? get controlNetGuidanceEnd => _$this._controlNetGuidanceEnd;
+  set controlNetGuidanceEnd(int? controlNetGuidanceEnd) =>
+      _$this._controlNetGuidanceEnd = controlNetGuidanceEnd;
+
+  int? _controlNetGuidanceStart;
+  int? get controlNetGuidanceStart => _$this._controlNetGuidanceStart;
+  set controlNetGuidanceStart(int? controlNetGuidanceStart) =>
+      _$this._controlNetGuidanceStart = controlNetGuidanceStart;
+
+  bool? _controlNetPixelPerfect;
+  bool? get controlNetPixelPerfect => _$this._controlNetPixelPerfect;
+  set controlNetPixelPerfect(bool? controlNetPixelPerfect) =>
+      _$this._controlNetPixelPerfect = controlNetPixelPerfect;
+
+  int? _controlNetProcessorRes;
+  int? get controlNetProcessorRes => _$this._controlNetProcessorRes;
+  set controlNetProcessorRes(int? controlNetProcessorRes) =>
+      _$this._controlNetProcessorRes = controlNetProcessorRes;
+
+  String? _controlNetResizeMode;
+  String? get controlNetResizeMode => _$this._controlNetResizeMode;
+  set controlNetResizeMode(String? controlNetResizeMode) =>
+      _$this._controlNetResizeMode = controlNetResizeMode;
+
+  int? _controlNetThresholdA;
+  int? get controlNetThresholdA => _$this._controlNetThresholdA;
+  set controlNetThresholdA(int? controlNetThresholdA) =>
+      _$this._controlNetThresholdA = controlNetThresholdA;
+
+  int? _controlNetThresholdB;
+  int? get controlNetThresholdB => _$this._controlNetThresholdB;
+  set controlNetThresholdB(int? controlNetThresholdB) =>
+      _$this._controlNetThresholdB = controlNetThresholdB;
+
+  double? _controlNetWeight;
+  double? get controlNetWeight => _$this._controlNetWeight;
+  set controlNetWeight(double? controlNetWeight) =>
+      _$this._controlNetWeight = controlNetWeight;
+
+  String? _controlNetModule;
+  String? get controlNetModule => _$this._controlNetModule;
+  set controlNetModule(String? controlNetModule) =>
+      _$this._controlNetModule = controlNetModule;
+
+  String? _controlNetModel;
+  String? get controlNetModel => _$this._controlNetModel;
+  set controlNetModel(String? controlNetModel) =>
+      _$this._controlNetModel = controlNetModel;
+
+  bool? _controlNetSaveDetectedMap;
+  bool? get controlNetSaveDetectedMap => _$this._controlNetSaveDetectedMap;
+  set controlNetSaveDetectedMap(bool? controlNetSaveDetectedMap) =>
+      _$this._controlNetSaveDetectedMap = controlNetSaveDetectedMap;
+
+  String? _controlNetHrOption;
+  String? get controlNetHrOption => _$this._controlNetHrOption;
+  set controlNetHrOption(String? controlNetHrOption) =>
+      _$this._controlNetHrOption = controlNetHrOption;
+
   GCreateImageGenerationTaskInputBuilder();
 
   GCreateImageGenerationTaskInputBuilder get _$this {
@@ -13172,6 +13867,23 @@ class GCreateImageGenerationTaskInputBuilder
       _t2tMaskImageUrl = $v.t2tMaskImageUrl;
       _t2tDenoisingStrengthSize = $v.t2tDenoisingStrengthSize;
       _t2tInpaintingFillSize = $v.t2tInpaintingFillSize;
+      _upscaleSize = $v.upscaleSize;
+      _controlNetImageUrl = $v.controlNetImageUrl;
+      _controlNetMaskImageUrl = $v.controlNetMaskImageUrl;
+      _controlNetControlMode = $v.controlNetControlMode;
+      _controlNetEnabled = $v.controlNetEnabled;
+      _controlNetGuidanceEnd = $v.controlNetGuidanceEnd;
+      _controlNetGuidanceStart = $v.controlNetGuidanceStart;
+      _controlNetPixelPerfect = $v.controlNetPixelPerfect;
+      _controlNetProcessorRes = $v.controlNetProcessorRes;
+      _controlNetResizeMode = $v.controlNetResizeMode;
+      _controlNetThresholdA = $v.controlNetThresholdA;
+      _controlNetThresholdB = $v.controlNetThresholdB;
+      _controlNetWeight = $v.controlNetWeight;
+      _controlNetModule = $v.controlNetModule;
+      _controlNetModel = $v.controlNetModel;
+      _controlNetSaveDetectedMap = $v.controlNetSaveDetectedMap;
+      _controlNetHrOption = $v.controlNetHrOption;
       _$v = null;
     }
     return this;
@@ -13219,7 +13931,24 @@ class GCreateImageGenerationTaskInputBuilder
             t2tImageUrl: t2tImageUrl,
             t2tMaskImageUrl: t2tMaskImageUrl,
             t2tDenoisingStrengthSize: t2tDenoisingStrengthSize,
-            t2tInpaintingFillSize: t2tInpaintingFillSize);
+            t2tInpaintingFillSize: t2tInpaintingFillSize,
+            upscaleSize: upscaleSize,
+            controlNetImageUrl: controlNetImageUrl,
+            controlNetMaskImageUrl: controlNetMaskImageUrl,
+            controlNetControlMode: controlNetControlMode,
+            controlNetEnabled: controlNetEnabled,
+            controlNetGuidanceEnd: controlNetGuidanceEnd,
+            controlNetGuidanceStart: controlNetGuidanceStart,
+            controlNetPixelPerfect: controlNetPixelPerfect,
+            controlNetProcessorRes: controlNetProcessorRes,
+            controlNetResizeMode: controlNetResizeMode,
+            controlNetThresholdA: controlNetThresholdA,
+            controlNetThresholdB: controlNetThresholdB,
+            controlNetWeight: controlNetWeight,
+            controlNetModule: controlNetModule,
+            controlNetModel: controlNetModel,
+            controlNetSaveDetectedMap: controlNetSaveDetectedMap,
+            controlNetHrOption: controlNetHrOption);
     replace(_$result);
     return _$result;
   }
@@ -16360,6 +17089,40 @@ class _$GCreateReservedImageGenerationTaskInput
   final String? t2tDenoisingStrengthSize;
   @override
   final String? t2tInpaintingFillSize;
+  @override
+  final double? upscaleSize;
+  @override
+  final String? controlNetImageUrl;
+  @override
+  final String? controlNetMaskImageUrl;
+  @override
+  final String? controlNetControlMode;
+  @override
+  final bool? controlNetEnabled;
+  @override
+  final int? controlNetGuidanceEnd;
+  @override
+  final int? controlNetGuidanceStart;
+  @override
+  final bool? controlNetPixelPerfect;
+  @override
+  final int? controlNetProcessorRes;
+  @override
+  final String? controlNetResizeMode;
+  @override
+  final int? controlNetThresholdA;
+  @override
+  final int? controlNetThresholdB;
+  @override
+  final double? controlNetWeight;
+  @override
+  final String? controlNetModule;
+  @override
+  final String? controlNetModel;
+  @override
+  final bool? controlNetSaveDetectedMap;
+  @override
+  final String? controlNetHrOption;
 
   factory _$GCreateReservedImageGenerationTaskInput(
           [void Function(GCreateReservedImageGenerationTaskInputBuilder)?
@@ -16383,7 +17146,24 @@ class _$GCreateReservedImageGenerationTaskInput
       this.t2tImageUrl,
       this.t2tMaskImageUrl,
       this.t2tDenoisingStrengthSize,
-      this.t2tInpaintingFillSize})
+      this.t2tInpaintingFillSize,
+      this.upscaleSize,
+      this.controlNetImageUrl,
+      this.controlNetMaskImageUrl,
+      this.controlNetControlMode,
+      this.controlNetEnabled,
+      this.controlNetGuidanceEnd,
+      this.controlNetGuidanceStart,
+      this.controlNetPixelPerfect,
+      this.controlNetProcessorRes,
+      this.controlNetResizeMode,
+      this.controlNetThresholdA,
+      this.controlNetThresholdB,
+      this.controlNetWeight,
+      this.controlNetModule,
+      this.controlNetModel,
+      this.controlNetSaveDetectedMap,
+      this.controlNetHrOption})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         count, r'GCreateReservedImageGenerationTaskInput', 'count');
@@ -16438,7 +17218,24 @@ class _$GCreateReservedImageGenerationTaskInput
         t2tImageUrl == other.t2tImageUrl &&
         t2tMaskImageUrl == other.t2tMaskImageUrl &&
         t2tDenoisingStrengthSize == other.t2tDenoisingStrengthSize &&
-        t2tInpaintingFillSize == other.t2tInpaintingFillSize;
+        t2tInpaintingFillSize == other.t2tInpaintingFillSize &&
+        upscaleSize == other.upscaleSize &&
+        controlNetImageUrl == other.controlNetImageUrl &&
+        controlNetMaskImageUrl == other.controlNetMaskImageUrl &&
+        controlNetControlMode == other.controlNetControlMode &&
+        controlNetEnabled == other.controlNetEnabled &&
+        controlNetGuidanceEnd == other.controlNetGuidanceEnd &&
+        controlNetGuidanceStart == other.controlNetGuidanceStart &&
+        controlNetPixelPerfect == other.controlNetPixelPerfect &&
+        controlNetProcessorRes == other.controlNetProcessorRes &&
+        controlNetResizeMode == other.controlNetResizeMode &&
+        controlNetThresholdA == other.controlNetThresholdA &&
+        controlNetThresholdB == other.controlNetThresholdB &&
+        controlNetWeight == other.controlNetWeight &&
+        controlNetModule == other.controlNetModule &&
+        controlNetModel == other.controlNetModel &&
+        controlNetSaveDetectedMap == other.controlNetSaveDetectedMap &&
+        controlNetHrOption == other.controlNetHrOption;
   }
 
   @override
@@ -16460,6 +17257,23 @@ class _$GCreateReservedImageGenerationTaskInput
     _$hash = $jc(_$hash, t2tMaskImageUrl.hashCode);
     _$hash = $jc(_$hash, t2tDenoisingStrengthSize.hashCode);
     _$hash = $jc(_$hash, t2tInpaintingFillSize.hashCode);
+    _$hash = $jc(_$hash, upscaleSize.hashCode);
+    _$hash = $jc(_$hash, controlNetImageUrl.hashCode);
+    _$hash = $jc(_$hash, controlNetMaskImageUrl.hashCode);
+    _$hash = $jc(_$hash, controlNetControlMode.hashCode);
+    _$hash = $jc(_$hash, controlNetEnabled.hashCode);
+    _$hash = $jc(_$hash, controlNetGuidanceEnd.hashCode);
+    _$hash = $jc(_$hash, controlNetGuidanceStart.hashCode);
+    _$hash = $jc(_$hash, controlNetPixelPerfect.hashCode);
+    _$hash = $jc(_$hash, controlNetProcessorRes.hashCode);
+    _$hash = $jc(_$hash, controlNetResizeMode.hashCode);
+    _$hash = $jc(_$hash, controlNetThresholdA.hashCode);
+    _$hash = $jc(_$hash, controlNetThresholdB.hashCode);
+    _$hash = $jc(_$hash, controlNetWeight.hashCode);
+    _$hash = $jc(_$hash, controlNetModule.hashCode);
+    _$hash = $jc(_$hash, controlNetModel.hashCode);
+    _$hash = $jc(_$hash, controlNetSaveDetectedMap.hashCode);
+    _$hash = $jc(_$hash, controlNetHrOption.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -16483,7 +17297,24 @@ class _$GCreateReservedImageGenerationTaskInput
           ..add('t2tImageUrl', t2tImageUrl)
           ..add('t2tMaskImageUrl', t2tMaskImageUrl)
           ..add('t2tDenoisingStrengthSize', t2tDenoisingStrengthSize)
-          ..add('t2tInpaintingFillSize', t2tInpaintingFillSize))
+          ..add('t2tInpaintingFillSize', t2tInpaintingFillSize)
+          ..add('upscaleSize', upscaleSize)
+          ..add('controlNetImageUrl', controlNetImageUrl)
+          ..add('controlNetMaskImageUrl', controlNetMaskImageUrl)
+          ..add('controlNetControlMode', controlNetControlMode)
+          ..add('controlNetEnabled', controlNetEnabled)
+          ..add('controlNetGuidanceEnd', controlNetGuidanceEnd)
+          ..add('controlNetGuidanceStart', controlNetGuidanceStart)
+          ..add('controlNetPixelPerfect', controlNetPixelPerfect)
+          ..add('controlNetProcessorRes', controlNetProcessorRes)
+          ..add('controlNetResizeMode', controlNetResizeMode)
+          ..add('controlNetThresholdA', controlNetThresholdA)
+          ..add('controlNetThresholdB', controlNetThresholdB)
+          ..add('controlNetWeight', controlNetWeight)
+          ..add('controlNetModule', controlNetModule)
+          ..add('controlNetModel', controlNetModel)
+          ..add('controlNetSaveDetectedMap', controlNetSaveDetectedMap)
+          ..add('controlNetHrOption', controlNetHrOption))
         .toString();
   }
 }
@@ -16563,6 +17394,90 @@ class GCreateReservedImageGenerationTaskInputBuilder
   set t2tInpaintingFillSize(String? t2tInpaintingFillSize) =>
       _$this._t2tInpaintingFillSize = t2tInpaintingFillSize;
 
+  double? _upscaleSize;
+  double? get upscaleSize => _$this._upscaleSize;
+  set upscaleSize(double? upscaleSize) => _$this._upscaleSize = upscaleSize;
+
+  String? _controlNetImageUrl;
+  String? get controlNetImageUrl => _$this._controlNetImageUrl;
+  set controlNetImageUrl(String? controlNetImageUrl) =>
+      _$this._controlNetImageUrl = controlNetImageUrl;
+
+  String? _controlNetMaskImageUrl;
+  String? get controlNetMaskImageUrl => _$this._controlNetMaskImageUrl;
+  set controlNetMaskImageUrl(String? controlNetMaskImageUrl) =>
+      _$this._controlNetMaskImageUrl = controlNetMaskImageUrl;
+
+  String? _controlNetControlMode;
+  String? get controlNetControlMode => _$this._controlNetControlMode;
+  set controlNetControlMode(String? controlNetControlMode) =>
+      _$this._controlNetControlMode = controlNetControlMode;
+
+  bool? _controlNetEnabled;
+  bool? get controlNetEnabled => _$this._controlNetEnabled;
+  set controlNetEnabled(bool? controlNetEnabled) =>
+      _$this._controlNetEnabled = controlNetEnabled;
+
+  int? _controlNetGuidanceEnd;
+  int? get controlNetGuidanceEnd => _$this._controlNetGuidanceEnd;
+  set controlNetGuidanceEnd(int? controlNetGuidanceEnd) =>
+      _$this._controlNetGuidanceEnd = controlNetGuidanceEnd;
+
+  int? _controlNetGuidanceStart;
+  int? get controlNetGuidanceStart => _$this._controlNetGuidanceStart;
+  set controlNetGuidanceStart(int? controlNetGuidanceStart) =>
+      _$this._controlNetGuidanceStart = controlNetGuidanceStart;
+
+  bool? _controlNetPixelPerfect;
+  bool? get controlNetPixelPerfect => _$this._controlNetPixelPerfect;
+  set controlNetPixelPerfect(bool? controlNetPixelPerfect) =>
+      _$this._controlNetPixelPerfect = controlNetPixelPerfect;
+
+  int? _controlNetProcessorRes;
+  int? get controlNetProcessorRes => _$this._controlNetProcessorRes;
+  set controlNetProcessorRes(int? controlNetProcessorRes) =>
+      _$this._controlNetProcessorRes = controlNetProcessorRes;
+
+  String? _controlNetResizeMode;
+  String? get controlNetResizeMode => _$this._controlNetResizeMode;
+  set controlNetResizeMode(String? controlNetResizeMode) =>
+      _$this._controlNetResizeMode = controlNetResizeMode;
+
+  int? _controlNetThresholdA;
+  int? get controlNetThresholdA => _$this._controlNetThresholdA;
+  set controlNetThresholdA(int? controlNetThresholdA) =>
+      _$this._controlNetThresholdA = controlNetThresholdA;
+
+  int? _controlNetThresholdB;
+  int? get controlNetThresholdB => _$this._controlNetThresholdB;
+  set controlNetThresholdB(int? controlNetThresholdB) =>
+      _$this._controlNetThresholdB = controlNetThresholdB;
+
+  double? _controlNetWeight;
+  double? get controlNetWeight => _$this._controlNetWeight;
+  set controlNetWeight(double? controlNetWeight) =>
+      _$this._controlNetWeight = controlNetWeight;
+
+  String? _controlNetModule;
+  String? get controlNetModule => _$this._controlNetModule;
+  set controlNetModule(String? controlNetModule) =>
+      _$this._controlNetModule = controlNetModule;
+
+  String? _controlNetModel;
+  String? get controlNetModel => _$this._controlNetModel;
+  set controlNetModel(String? controlNetModel) =>
+      _$this._controlNetModel = controlNetModel;
+
+  bool? _controlNetSaveDetectedMap;
+  bool? get controlNetSaveDetectedMap => _$this._controlNetSaveDetectedMap;
+  set controlNetSaveDetectedMap(bool? controlNetSaveDetectedMap) =>
+      _$this._controlNetSaveDetectedMap = controlNetSaveDetectedMap;
+
+  String? _controlNetHrOption;
+  String? get controlNetHrOption => _$this._controlNetHrOption;
+  set controlNetHrOption(String? controlNetHrOption) =>
+      _$this._controlNetHrOption = controlNetHrOption;
+
   GCreateReservedImageGenerationTaskInputBuilder();
 
   GCreateReservedImageGenerationTaskInputBuilder get _$this {
@@ -16584,6 +17499,23 @@ class GCreateReservedImageGenerationTaskInputBuilder
       _t2tMaskImageUrl = $v.t2tMaskImageUrl;
       _t2tDenoisingStrengthSize = $v.t2tDenoisingStrengthSize;
       _t2tInpaintingFillSize = $v.t2tInpaintingFillSize;
+      _upscaleSize = $v.upscaleSize;
+      _controlNetImageUrl = $v.controlNetImageUrl;
+      _controlNetMaskImageUrl = $v.controlNetMaskImageUrl;
+      _controlNetControlMode = $v.controlNetControlMode;
+      _controlNetEnabled = $v.controlNetEnabled;
+      _controlNetGuidanceEnd = $v.controlNetGuidanceEnd;
+      _controlNetGuidanceStart = $v.controlNetGuidanceStart;
+      _controlNetPixelPerfect = $v.controlNetPixelPerfect;
+      _controlNetProcessorRes = $v.controlNetProcessorRes;
+      _controlNetResizeMode = $v.controlNetResizeMode;
+      _controlNetThresholdA = $v.controlNetThresholdA;
+      _controlNetThresholdB = $v.controlNetThresholdB;
+      _controlNetWeight = $v.controlNetWeight;
+      _controlNetModule = $v.controlNetModule;
+      _controlNetModel = $v.controlNetModel;
+      _controlNetSaveDetectedMap = $v.controlNetSaveDetectedMap;
+      _controlNetHrOption = $v.controlNetHrOption;
       _$v = null;
     }
     return this;
@@ -16630,7 +17562,24 @@ class GCreateReservedImageGenerationTaskInputBuilder
             t2tImageUrl: t2tImageUrl,
             t2tMaskImageUrl: t2tMaskImageUrl,
             t2tDenoisingStrengthSize: t2tDenoisingStrengthSize,
-            t2tInpaintingFillSize: t2tInpaintingFillSize);
+            t2tInpaintingFillSize: t2tInpaintingFillSize,
+            upscaleSize: upscaleSize,
+            controlNetImageUrl: controlNetImageUrl,
+            controlNetMaskImageUrl: controlNetMaskImageUrl,
+            controlNetControlMode: controlNetControlMode,
+            controlNetEnabled: controlNetEnabled,
+            controlNetGuidanceEnd: controlNetGuidanceEnd,
+            controlNetGuidanceStart: controlNetGuidanceStart,
+            controlNetPixelPerfect: controlNetPixelPerfect,
+            controlNetProcessorRes: controlNetProcessorRes,
+            controlNetResizeMode: controlNetResizeMode,
+            controlNetThresholdA: controlNetThresholdA,
+            controlNetThresholdB: controlNetThresholdB,
+            controlNetWeight: controlNetWeight,
+            controlNetModule: controlNetModule,
+            controlNetModel: controlNetModel,
+            controlNetSaveDetectedMap: controlNetSaveDetectedMap,
+            controlNetHrOption: controlNetHrOption);
     replace(_$result);
     return _$result;
   }
@@ -20532,6 +21481,95 @@ class GLoginWithPasswordInputBuilder
   }
 }
 
+class _$GLoginWithWordPressTokenInput extends GLoginWithWordPressTokenInput {
+  @override
+  final String token;
+
+  factory _$GLoginWithWordPressTokenInput(
+          [void Function(GLoginWithWordPressTokenInputBuilder)? updates]) =>
+      (new GLoginWithWordPressTokenInputBuilder()..update(updates))._build();
+
+  _$GLoginWithWordPressTokenInput._({required this.token}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        token, r'GLoginWithWordPressTokenInput', 'token');
+  }
+
+  @override
+  GLoginWithWordPressTokenInput rebuild(
+          void Function(GLoginWithWordPressTokenInputBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GLoginWithWordPressTokenInputBuilder toBuilder() =>
+      new GLoginWithWordPressTokenInputBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GLoginWithWordPressTokenInput && token == other.token;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, token.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GLoginWithWordPressTokenInput')
+          ..add('token', token))
+        .toString();
+  }
+}
+
+class GLoginWithWordPressTokenInputBuilder
+    implements
+        Builder<GLoginWithWordPressTokenInput,
+            GLoginWithWordPressTokenInputBuilder> {
+  _$GLoginWithWordPressTokenInput? _$v;
+
+  String? _token;
+  String? get token => _$this._token;
+  set token(String? token) => _$this._token = token;
+
+  GLoginWithWordPressTokenInputBuilder();
+
+  GLoginWithWordPressTokenInputBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _token = $v.token;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GLoginWithWordPressTokenInput other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GLoginWithWordPressTokenInput;
+  }
+
+  @override
+  void update(void Function(GLoginWithWordPressTokenInputBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GLoginWithWordPressTokenInput build() => _build();
+
+  _$GLoginWithWordPressTokenInput _build() {
+    final _$result = _$v ??
+        new _$GLoginWithWordPressTokenInput._(
+            token: BuiltValueNullFieldError.checkNotNull(
+                token, r'GLoginWithWordPressTokenInput', 'token'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
 class _$GMarkPromptonFolderAsPrivateInput
     extends GMarkPromptonFolderAsPrivateInput {
   @override
@@ -21417,6 +22455,88 @@ class GMuteUserInputBuilder
         new _$GMuteUserInput._(
             userId: BuiltValueNullFieldError.checkNotNull(
                 userId, r'GMuteUserInput', 'userId'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GNotificationsWhereInput extends GNotificationsWhereInput {
+  @override
+  final GNotificationType? type;
+
+  factory _$GNotificationsWhereInput(
+          [void Function(GNotificationsWhereInputBuilder)? updates]) =>
+      (new GNotificationsWhereInputBuilder()..update(updates))._build();
+
+  _$GNotificationsWhereInput._({this.type}) : super._();
+
+  @override
+  GNotificationsWhereInput rebuild(
+          void Function(GNotificationsWhereInputBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GNotificationsWhereInputBuilder toBuilder() =>
+      new GNotificationsWhereInputBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GNotificationsWhereInput && type == other.type;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, type.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GNotificationsWhereInput')
+          ..add('type', type))
+        .toString();
+  }
+}
+
+class GNotificationsWhereInputBuilder
+    implements
+        Builder<GNotificationsWhereInput, GNotificationsWhereInputBuilder> {
+  _$GNotificationsWhereInput? _$v;
+
+  GNotificationType? _type;
+  GNotificationType? get type => _$this._type;
+  set type(GNotificationType? type) => _$this._type = type;
+
+  GNotificationsWhereInputBuilder();
+
+  GNotificationsWhereInputBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _type = $v.type;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GNotificationsWhereInput other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GNotificationsWhereInput;
+  }
+
+  @override
+  void update(void Function(GNotificationsWhereInputBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GNotificationsWhereInput build() => _build();
+
+  _$GNotificationsWhereInput _build() {
+    final _$result = _$v ?? new _$GNotificationsWhereInput._(type: type);
     replace(_$result);
     return _$result;
   }
@@ -28032,13 +29152,19 @@ class _$GUserWorksWhereInput extends GUserWorksWhereInput {
   @override
   final String? search;
   @override
+  final String? modelName;
+  @override
   final bool? isSensitive;
+  @override
+  final bool? isGeneration;
 
   factory _$GUserWorksWhereInput(
           [void Function(GUserWorksWhereInputBuilder)? updates]) =>
       (new GUserWorksWhereInputBuilder()..update(updates))._build();
 
-  _$GUserWorksWhereInput._({this.search, this.isSensitive}) : super._();
+  _$GUserWorksWhereInput._(
+      {this.search, this.modelName, this.isSensitive, this.isGeneration})
+      : super._();
 
   @override
   GUserWorksWhereInput rebuild(
@@ -28054,14 +29180,18 @@ class _$GUserWorksWhereInput extends GUserWorksWhereInput {
     if (identical(other, this)) return true;
     return other is GUserWorksWhereInput &&
         search == other.search &&
-        isSensitive == other.isSensitive;
+        modelName == other.modelName &&
+        isSensitive == other.isSensitive &&
+        isGeneration == other.isGeneration;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, search.hashCode);
+    _$hash = $jc(_$hash, modelName.hashCode);
     _$hash = $jc(_$hash, isSensitive.hashCode);
+    _$hash = $jc(_$hash, isGeneration.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -28070,7 +29200,9 @@ class _$GUserWorksWhereInput extends GUserWorksWhereInput {
   String toString() {
     return (newBuiltValueToStringHelper(r'GUserWorksWhereInput')
           ..add('search', search)
-          ..add('isSensitive', isSensitive))
+          ..add('modelName', modelName)
+          ..add('isSensitive', isSensitive)
+          ..add('isGeneration', isGeneration))
         .toString();
   }
 }
@@ -28083,9 +29215,17 @@ class GUserWorksWhereInputBuilder
   String? get search => _$this._search;
   set search(String? search) => _$this._search = search;
 
+  String? _modelName;
+  String? get modelName => _$this._modelName;
+  set modelName(String? modelName) => _$this._modelName = modelName;
+
   bool? _isSensitive;
   bool? get isSensitive => _$this._isSensitive;
   set isSensitive(bool? isSensitive) => _$this._isSensitive = isSensitive;
+
+  bool? _isGeneration;
+  bool? get isGeneration => _$this._isGeneration;
+  set isGeneration(bool? isGeneration) => _$this._isGeneration = isGeneration;
 
   GUserWorksWhereInputBuilder();
 
@@ -28093,7 +29233,9 @@ class GUserWorksWhereInputBuilder
     final $v = _$v;
     if ($v != null) {
       _search = $v.search;
+      _modelName = $v.modelName;
       _isSensitive = $v.isSensitive;
+      _isGeneration = $v.isGeneration;
       _$v = null;
     }
     return this;
@@ -28115,7 +29257,11 @@ class GUserWorksWhereInputBuilder
 
   _$GUserWorksWhereInput _build() {
     final _$result = _$v ??
-        new _$GUserWorksWhereInput._(search: search, isSensitive: isSensitive);
+        new _$GUserWorksWhereInput._(
+            search: search,
+            modelName: modelName,
+            isSensitive: isSensitive,
+            isGeneration: isGeneration);
     replace(_$result);
     return _$result;
   }
@@ -28356,7 +29502,7 @@ class _$GWorksWhereInput extends GWorksWhereInput {
   @override
   final bool? hasPrompt;
   @override
-  final bool? hasGeneratorPrompt;
+  final bool? hasGenerationPrompt;
   @override
   final GImageStyle? style;
   @override
@@ -28367,6 +29513,10 @@ class _$GWorksWhereInput extends GWorksWhereInput {
   final bool? isSensitive;
   @override
   final BuiltList<String>? tagNames;
+  @override
+  final bool? isFeatured;
+  @override
+  final String? generationModelId;
 
   factory _$GWorksWhereInput(
           [void Function(GWorksWhereInputBuilder)? updates]) =>
@@ -28376,12 +29526,14 @@ class _$GWorksWhereInput extends GWorksWhereInput {
       {this.search,
       this.prompts,
       this.hasPrompt,
-      this.hasGeneratorPrompt,
+      this.hasGenerationPrompt,
       this.style,
       this.orderBy,
       this.searchTargets,
       this.isSensitive,
-      this.tagNames})
+      this.tagNames,
+      this.isFeatured,
+      this.generationModelId})
       : super._();
 
   @override
@@ -28399,12 +29551,14 @@ class _$GWorksWhereInput extends GWorksWhereInput {
         search == other.search &&
         prompts == other.prompts &&
         hasPrompt == other.hasPrompt &&
-        hasGeneratorPrompt == other.hasGeneratorPrompt &&
+        hasGenerationPrompt == other.hasGenerationPrompt &&
         style == other.style &&
         orderBy == other.orderBy &&
         searchTargets == other.searchTargets &&
         isSensitive == other.isSensitive &&
-        tagNames == other.tagNames;
+        tagNames == other.tagNames &&
+        isFeatured == other.isFeatured &&
+        generationModelId == other.generationModelId;
   }
 
   @override
@@ -28413,12 +29567,14 @@ class _$GWorksWhereInput extends GWorksWhereInput {
     _$hash = $jc(_$hash, search.hashCode);
     _$hash = $jc(_$hash, prompts.hashCode);
     _$hash = $jc(_$hash, hasPrompt.hashCode);
-    _$hash = $jc(_$hash, hasGeneratorPrompt.hashCode);
+    _$hash = $jc(_$hash, hasGenerationPrompt.hashCode);
     _$hash = $jc(_$hash, style.hashCode);
     _$hash = $jc(_$hash, orderBy.hashCode);
     _$hash = $jc(_$hash, searchTargets.hashCode);
     _$hash = $jc(_$hash, isSensitive.hashCode);
     _$hash = $jc(_$hash, tagNames.hashCode);
+    _$hash = $jc(_$hash, isFeatured.hashCode);
+    _$hash = $jc(_$hash, generationModelId.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -28429,12 +29585,14 @@ class _$GWorksWhereInput extends GWorksWhereInput {
           ..add('search', search)
           ..add('prompts', prompts)
           ..add('hasPrompt', hasPrompt)
-          ..add('hasGeneratorPrompt', hasGeneratorPrompt)
+          ..add('hasGenerationPrompt', hasGenerationPrompt)
           ..add('style', style)
           ..add('orderBy', orderBy)
           ..add('searchTargets', searchTargets)
           ..add('isSensitive', isSensitive)
-          ..add('tagNames', tagNames))
+          ..add('tagNames', tagNames)
+          ..add('isFeatured', isFeatured)
+          ..add('generationModelId', generationModelId))
         .toString();
   }
 }
@@ -28456,10 +29614,10 @@ class GWorksWhereInputBuilder
   bool? get hasPrompt => _$this._hasPrompt;
   set hasPrompt(bool? hasPrompt) => _$this._hasPrompt = hasPrompt;
 
-  bool? _hasGeneratorPrompt;
-  bool? get hasGeneratorPrompt => _$this._hasGeneratorPrompt;
-  set hasGeneratorPrompt(bool? hasGeneratorPrompt) =>
-      _$this._hasGeneratorPrompt = hasGeneratorPrompt;
+  bool? _hasGenerationPrompt;
+  bool? get hasGenerationPrompt => _$this._hasGenerationPrompt;
+  set hasGenerationPrompt(bool? hasGenerationPrompt) =>
+      _$this._hasGenerationPrompt = hasGenerationPrompt;
 
   GImageStyle? _style;
   GImageStyle? get style => _$this._style;
@@ -28484,6 +29642,15 @@ class GWorksWhereInputBuilder
       _$this._tagNames ??= new ListBuilder<String>();
   set tagNames(ListBuilder<String>? tagNames) => _$this._tagNames = tagNames;
 
+  bool? _isFeatured;
+  bool? get isFeatured => _$this._isFeatured;
+  set isFeatured(bool? isFeatured) => _$this._isFeatured = isFeatured;
+
+  String? _generationModelId;
+  String? get generationModelId => _$this._generationModelId;
+  set generationModelId(String? generationModelId) =>
+      _$this._generationModelId = generationModelId;
+
   GWorksWhereInputBuilder();
 
   GWorksWhereInputBuilder get _$this {
@@ -28492,12 +29659,14 @@ class GWorksWhereInputBuilder
       _search = $v.search;
       _prompts = $v.prompts?.toBuilder();
       _hasPrompt = $v.hasPrompt;
-      _hasGeneratorPrompt = $v.hasGeneratorPrompt;
+      _hasGenerationPrompt = $v.hasGenerationPrompt;
       _style = $v.style;
       _orderBy = $v.orderBy;
       _searchTargets = $v.searchTargets?.toBuilder();
       _isSensitive = $v.isSensitive;
       _tagNames = $v.tagNames?.toBuilder();
+      _isFeatured = $v.isFeatured;
+      _generationModelId = $v.generationModelId;
       _$v = null;
     }
     return this;
@@ -28525,12 +29694,14 @@ class GWorksWhereInputBuilder
               search: search,
               prompts: _prompts?.build(),
               hasPrompt: hasPrompt,
-              hasGeneratorPrompt: hasGeneratorPrompt,
+              hasGenerationPrompt: hasGenerationPrompt,
               style: style,
               orderBy: orderBy,
               searchTargets: _searchTargets?.build(),
               isSensitive: isSensitive,
-              tagNames: _tagNames?.build());
+              tagNames: _tagNames?.build(),
+              isFeatured: isFeatured,
+              generationModelId: generationModelId);
     } catch (_) {
       late String _$failedField;
       try {

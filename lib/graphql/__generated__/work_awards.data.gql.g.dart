@@ -175,6 +175,9 @@ class _$GWorkAwardsData_workAwards_workSerializer
       'createdAt',
       serializers.serialize(object.createdAt,
           specifiedType: const FullType(int)),
+      'imageAspectRatio',
+      serializers.serialize(object.imageAspectRatio,
+          specifiedType: const FullType(double)),
     ];
     Object? value;
     value = object.thumbnailImage;
@@ -184,6 +187,13 @@ class _$GWorkAwardsData_workAwards_workSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(
                 GWorkAwardsData_workAwards_work_thumbnailImage)));
+    }
+    value = object.thumbnailImagePosition;
+    if (value != null) {
+      result
+        ..add('thumbnailImagePosition')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(double)));
     }
     return result;
   }
@@ -229,6 +239,14 @@ class _$GWorkAwardsData_workAwards_workSerializer
                   specifiedType: const FullType(
                       GWorkAwardsData_workAwards_work_thumbnailImage))!
               as GWorkAwardsData_workAwards_work_thumbnailImage);
+          break;
+        case 'thumbnailImagePosition':
+          result.thumbnailImagePosition = serializers.deserialize(value,
+              specifiedType: const FullType(double)) as double?;
+          break;
+        case 'imageAspectRatio':
+          result.imageAspectRatio = serializers.deserialize(value,
+              specifiedType: const FullType(double))! as double;
           break;
       }
     }
@@ -596,6 +614,10 @@ class _$GWorkAwardsData_workAwards_work
   final int createdAt;
   @override
   final GWorkAwardsData_workAwards_work_thumbnailImage? thumbnailImage;
+  @override
+  final double? thumbnailImagePosition;
+  @override
+  final double imageAspectRatio;
 
   factory _$GWorkAwardsData_workAwards_work(
           [void Function(GWorkAwardsData_workAwards_workBuilder)? updates]) =>
@@ -608,7 +630,9 @@ class _$GWorkAwardsData_workAwards_work
       required this.likesCount,
       required this.commentsCount,
       required this.createdAt,
-      this.thumbnailImage})
+      this.thumbnailImage,
+      this.thumbnailImagePosition,
+      required this.imageAspectRatio})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename, r'GWorkAwardsData_workAwards_work', 'G__typename');
@@ -622,6 +646,8 @@ class _$GWorkAwardsData_workAwards_work
         commentsCount, r'GWorkAwardsData_workAwards_work', 'commentsCount');
     BuiltValueNullFieldError.checkNotNull(
         createdAt, r'GWorkAwardsData_workAwards_work', 'createdAt');
+    BuiltValueNullFieldError.checkNotNull(imageAspectRatio,
+        r'GWorkAwardsData_workAwards_work', 'imageAspectRatio');
   }
 
   @override
@@ -643,7 +669,9 @@ class _$GWorkAwardsData_workAwards_work
         likesCount == other.likesCount &&
         commentsCount == other.commentsCount &&
         createdAt == other.createdAt &&
-        thumbnailImage == other.thumbnailImage;
+        thumbnailImage == other.thumbnailImage &&
+        thumbnailImagePosition == other.thumbnailImagePosition &&
+        imageAspectRatio == other.imageAspectRatio;
   }
 
   @override
@@ -656,6 +684,8 @@ class _$GWorkAwardsData_workAwards_work
     _$hash = $jc(_$hash, commentsCount.hashCode);
     _$hash = $jc(_$hash, createdAt.hashCode);
     _$hash = $jc(_$hash, thumbnailImage.hashCode);
+    _$hash = $jc(_$hash, thumbnailImagePosition.hashCode);
+    _$hash = $jc(_$hash, imageAspectRatio.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -669,7 +699,9 @@ class _$GWorkAwardsData_workAwards_work
           ..add('likesCount', likesCount)
           ..add('commentsCount', commentsCount)
           ..add('createdAt', createdAt)
-          ..add('thumbnailImage', thumbnailImage))
+          ..add('thumbnailImage', thumbnailImage)
+          ..add('thumbnailImagePosition', thumbnailImagePosition)
+          ..add('imageAspectRatio', imageAspectRatio))
         .toString();
   }
 }
@@ -714,6 +746,16 @@ class GWorkAwardsData_workAwards_workBuilder
               thumbnailImage) =>
       _$this._thumbnailImage = thumbnailImage;
 
+  double? _thumbnailImagePosition;
+  double? get thumbnailImagePosition => _$this._thumbnailImagePosition;
+  set thumbnailImagePosition(double? thumbnailImagePosition) =>
+      _$this._thumbnailImagePosition = thumbnailImagePosition;
+
+  double? _imageAspectRatio;
+  double? get imageAspectRatio => _$this._imageAspectRatio;
+  set imageAspectRatio(double? imageAspectRatio) =>
+      _$this._imageAspectRatio = imageAspectRatio;
+
   GWorkAwardsData_workAwards_workBuilder() {
     GWorkAwardsData_workAwards_work._initializeBuilder(this);
   }
@@ -728,6 +770,8 @@ class GWorkAwardsData_workAwards_workBuilder
       _commentsCount = $v.commentsCount;
       _createdAt = $v.createdAt;
       _thumbnailImage = $v.thumbnailImage?.toBuilder();
+      _thumbnailImagePosition = $v.thumbnailImagePosition;
+      _imageAspectRatio = $v.imageAspectRatio;
       _$v = null;
     }
     return this;
@@ -752,8 +796,8 @@ class GWorkAwardsData_workAwards_workBuilder
     try {
       _$result = _$v ??
           new _$GWorkAwardsData_workAwards_work._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
-                  r'GWorkAwardsData_workAwards_work', 'G__typename'),
+              G__typename: BuiltValueNullFieldError.checkNotNull(
+                  G__typename, r'GWorkAwardsData_workAwards_work', 'G__typename'),
               id: BuiltValueNullFieldError.checkNotNull(
                   id, r'GWorkAwardsData_workAwards_work', 'id'),
               title: BuiltValueNullFieldError.checkNotNull(
@@ -761,12 +805,15 @@ class GWorkAwardsData_workAwards_workBuilder
               likesCount: BuiltValueNullFieldError.checkNotNull(
                   likesCount, r'GWorkAwardsData_workAwards_work', 'likesCount'),
               commentsCount: BuiltValueNullFieldError.checkNotNull(
-                  commentsCount,
-                  r'GWorkAwardsData_workAwards_work',
-                  'commentsCount'),
+                  commentsCount, r'GWorkAwardsData_workAwards_work', 'commentsCount'),
               createdAt: BuiltValueNullFieldError.checkNotNull(
                   createdAt, r'GWorkAwardsData_workAwards_work', 'createdAt'),
-              thumbnailImage: _thumbnailImage?.build());
+              thumbnailImage: _thumbnailImage?.build(),
+              thumbnailImagePosition: thumbnailImagePosition,
+              imageAspectRatio: BuiltValueNullFieldError.checkNotNull(
+                  imageAspectRatio,
+                  r'GWorkAwardsData_workAwards_work',
+                  'imageAspectRatio'));
     } catch (_) {
       late String _$failedField;
       try {

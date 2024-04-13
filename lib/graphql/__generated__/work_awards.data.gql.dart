@@ -101,6 +101,10 @@ abstract class GWorkAwardsData_workAwards_work
   int get createdAt;
   @override
   GWorkAwardsData_workAwards_work_thumbnailImage? get thumbnailImage;
+  @override
+  double? get thumbnailImagePosition;
+  @override
+  double get imageAspectRatio;
   static Serializer<GWorkAwardsData_workAwards_work> get serializer =>
       _$gWorkAwardsDataWorkAwardsWorkSerializer;
 

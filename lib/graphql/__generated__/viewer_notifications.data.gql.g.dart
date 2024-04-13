@@ -421,6 +421,9 @@ class _$GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNo
       'createdAt',
       serializers.serialize(object.createdAt,
           specifiedType: const FullType(int)),
+      'imageAspectRatio',
+      serializers.serialize(object.imageAspectRatio,
+          specifiedType: const FullType(double)),
     ];
     Object? value;
     value = object.thumbnailImage;
@@ -430,6 +433,13 @@ class _$GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNo
         ..add(serializers.serialize(value,
             specifiedType: const FullType(
                 GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNode_work_thumbnailImage)));
+    }
+    value = object.thumbnailImagePosition;
+    if (value != null) {
+      result
+        ..add('thumbnailImagePosition')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(double)));
     }
     return result;
   }
@@ -476,6 +486,14 @@ class _$GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNo
                   specifiedType: const FullType(
                       GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNode_work_thumbnailImage))!
               as GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNode_work_thumbnailImage);
+          break;
+        case 'thumbnailImagePosition':
+          result.thumbnailImagePosition = serializers.deserialize(value,
+              specifiedType: const FullType(double)) as double?;
+          break;
+        case 'imageAspectRatio':
+          result.imageAspectRatio = serializers.deserialize(value,
+              specifiedType: const FullType(double))! as double;
           break;
       }
     }
@@ -902,6 +920,9 @@ class _$GViewerNotificationsData_viewer_notifications__asWorkAwardNotificationNo
       'createdAt',
       serializers.serialize(object.createdAt,
           specifiedType: const FullType(int)),
+      'imageAspectRatio',
+      serializers.serialize(object.imageAspectRatio,
+          specifiedType: const FullType(double)),
     ];
     Object? value;
     value = object.thumbnailImage;
@@ -911,6 +932,13 @@ class _$GViewerNotificationsData_viewer_notifications__asWorkAwardNotificationNo
         ..add(serializers.serialize(value,
             specifiedType: const FullType(
                 GViewerNotificationsData_viewer_notifications__asWorkAwardNotificationNode_work_thumbnailImage)));
+    }
+    value = object.thumbnailImagePosition;
+    if (value != null) {
+      result
+        ..add('thumbnailImagePosition')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(double)));
     }
     return result;
   }
@@ -957,6 +985,14 @@ class _$GViewerNotificationsData_viewer_notifications__asWorkAwardNotificationNo
                   specifiedType: const FullType(
                       GViewerNotificationsData_viewer_notifications__asWorkAwardNotificationNode_work_thumbnailImage))!
               as GViewerNotificationsData_viewer_notifications__asWorkAwardNotificationNode_work_thumbnailImage);
+          break;
+        case 'thumbnailImagePosition':
+          result.thumbnailImagePosition = serializers.deserialize(value,
+              specifiedType: const FullType(double)) as double?;
+          break;
+        case 'imageAspectRatio':
+          result.imageAspectRatio = serializers.deserialize(value,
+              specifiedType: const FullType(double))! as double;
           break;
       }
     }
@@ -1185,6 +1221,9 @@ class _$GViewerNotificationsData_viewer_notifications__asWorkCommentNotification
       'createdAt',
       serializers.serialize(object.createdAt,
           specifiedType: const FullType(int)),
+      'imageAspectRatio',
+      serializers.serialize(object.imageAspectRatio,
+          specifiedType: const FullType(double)),
     ];
     Object? value;
     value = object.thumbnailImage;
@@ -1194,6 +1233,13 @@ class _$GViewerNotificationsData_viewer_notifications__asWorkCommentNotification
         ..add(serializers.serialize(value,
             specifiedType: const FullType(
                 GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_work_thumbnailImage)));
+    }
+    value = object.thumbnailImagePosition;
+    if (value != null) {
+      result
+        ..add('thumbnailImagePosition')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(double)));
     }
     return result;
   }
@@ -1240,6 +1286,14 @@ class _$GViewerNotificationsData_viewer_notifications__asWorkCommentNotification
                   specifiedType: const FullType(
                       GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_work_thumbnailImage))!
               as GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_work_thumbnailImage);
+          break;
+        case 'thumbnailImagePosition':
+          result.thumbnailImagePosition = serializers.deserialize(value,
+              specifiedType: const FullType(double)) as double?;
+          break;
+        case 'imageAspectRatio':
+          result.imageAspectRatio = serializers.deserialize(value,
+              specifiedType: const FullType(double))! as double;
           break;
       }
     }
@@ -1783,6 +1837,9 @@ class _$GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotific
       'createdAt',
       serializers.serialize(object.createdAt,
           specifiedType: const FullType(int)),
+      'imageAspectRatio',
+      serializers.serialize(object.imageAspectRatio,
+          specifiedType: const FullType(double)),
     ];
     Object? value;
     value = object.thumbnailImage;
@@ -1792,6 +1849,13 @@ class _$GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotific
         ..add(serializers.serialize(value,
             specifiedType: const FullType(
                 GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_work_thumbnailImage)));
+    }
+    value = object.thumbnailImagePosition;
+    if (value != null) {
+      result
+        ..add('thumbnailImagePosition')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(double)));
     }
     return result;
   }
@@ -1838,6 +1902,14 @@ class _$GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotific
                   specifiedType: const FullType(
                       GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_work_thumbnailImage))!
               as GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_work_thumbnailImage);
+          break;
+        case 'thumbnailImagePosition':
+          result.thumbnailImagePosition = serializers.deserialize(value,
+              specifiedType: const FullType(double)) as double?;
+          break;
+        case 'imageAspectRatio':
+          result.imageAspectRatio = serializers.deserialize(value,
+              specifiedType: const FullType(double))! as double;
           break;
       }
     }
@@ -3059,6 +3131,10 @@ class _$GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNo
   @override
   final GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNode_work_thumbnailImage?
       thumbnailImage;
+  @override
+  final double? thumbnailImagePosition;
+  @override
+  final double imageAspectRatio;
 
   factory _$GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNode_work(
           [void Function(
@@ -3075,7 +3151,9 @@ class _$GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNo
       required this.likesCount,
       required this.commentsCount,
       required this.createdAt,
-      this.thumbnailImage})
+      this.thumbnailImage,
+      this.thumbnailImagePosition,
+      required this.imageAspectRatio})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename,
@@ -3101,6 +3179,10 @@ class _$GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNo
         createdAt,
         r'GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNode_work',
         'createdAt');
+    BuiltValueNullFieldError.checkNotNull(
+        imageAspectRatio,
+        r'GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNode_work',
+        'imageAspectRatio');
   }
 
   @override
@@ -3128,7 +3210,9 @@ class _$GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNo
         likesCount == other.likesCount &&
         commentsCount == other.commentsCount &&
         createdAt == other.createdAt &&
-        thumbnailImage == other.thumbnailImage;
+        thumbnailImage == other.thumbnailImage &&
+        thumbnailImagePosition == other.thumbnailImagePosition &&
+        imageAspectRatio == other.imageAspectRatio;
   }
 
   @override
@@ -3141,6 +3225,8 @@ class _$GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNo
     _$hash = $jc(_$hash, commentsCount.hashCode);
     _$hash = $jc(_$hash, createdAt.hashCode);
     _$hash = $jc(_$hash, thumbnailImage.hashCode);
+    _$hash = $jc(_$hash, thumbnailImagePosition.hashCode);
+    _$hash = $jc(_$hash, imageAspectRatio.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -3155,7 +3241,9 @@ class _$GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNo
           ..add('likesCount', likesCount)
           ..add('commentsCount', commentsCount)
           ..add('createdAt', createdAt)
-          ..add('thumbnailImage', thumbnailImage))
+          ..add('thumbnailImage', thumbnailImage)
+          ..add('thumbnailImagePosition', thumbnailImagePosition)
+          ..add('imageAspectRatio', imageAspectRatio))
         .toString();
   }
 }
@@ -3203,6 +3291,16 @@ class GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNode
               thumbnailImage) =>
       _$this._thumbnailImage = thumbnailImage;
 
+  double? _thumbnailImagePosition;
+  double? get thumbnailImagePosition => _$this._thumbnailImagePosition;
+  set thumbnailImagePosition(double? thumbnailImagePosition) =>
+      _$this._thumbnailImagePosition = thumbnailImagePosition;
+
+  double? _imageAspectRatio;
+  double? get imageAspectRatio => _$this._imageAspectRatio;
+  set imageAspectRatio(double? imageAspectRatio) =>
+      _$this._imageAspectRatio = imageAspectRatio;
+
   GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNode_workBuilder() {
     GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNode_work
         ._initializeBuilder(this);
@@ -3219,6 +3317,8 @@ class GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNode
       _commentsCount = $v.commentsCount;
       _createdAt = $v.createdAt;
       _thumbnailImage = $v.thumbnailImage?.toBuilder();
+      _thumbnailImagePosition = $v.thumbnailImagePosition;
+      _imageAspectRatio = $v.imageAspectRatio;
       _$v = null;
     }
     return this;
@@ -3268,7 +3368,9 @@ class GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNode
                   'commentsCount'),
               createdAt: BuiltValueNullFieldError.checkNotNull(
                   createdAt, r'GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNode_work', 'createdAt'),
-              thumbnailImage: _thumbnailImage?.build());
+              thumbnailImage: _thumbnailImage?.build(),
+              thumbnailImagePosition: thumbnailImagePosition,
+              imageAspectRatio: BuiltValueNullFieldError.checkNotNull(imageAspectRatio, r'GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNode_work', 'imageAspectRatio'));
     } catch (_) {
       late String _$failedField;
       try {
@@ -4213,6 +4315,10 @@ class _$GViewerNotificationsData_viewer_notifications__asWorkAwardNotificationNo
   @override
   final GViewerNotificationsData_viewer_notifications__asWorkAwardNotificationNode_work_thumbnailImage?
       thumbnailImage;
+  @override
+  final double? thumbnailImagePosition;
+  @override
+  final double imageAspectRatio;
 
   factory _$GViewerNotificationsData_viewer_notifications__asWorkAwardNotificationNode_work(
           [void Function(
@@ -4229,7 +4335,9 @@ class _$GViewerNotificationsData_viewer_notifications__asWorkAwardNotificationNo
       required this.likesCount,
       required this.commentsCount,
       required this.createdAt,
-      this.thumbnailImage})
+      this.thumbnailImage,
+      this.thumbnailImagePosition,
+      required this.imageAspectRatio})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename,
@@ -4255,6 +4363,10 @@ class _$GViewerNotificationsData_viewer_notifications__asWorkAwardNotificationNo
         createdAt,
         r'GViewerNotificationsData_viewer_notifications__asWorkAwardNotificationNode_work',
         'createdAt');
+    BuiltValueNullFieldError.checkNotNull(
+        imageAspectRatio,
+        r'GViewerNotificationsData_viewer_notifications__asWorkAwardNotificationNode_work',
+        'imageAspectRatio');
   }
 
   @override
@@ -4282,7 +4394,9 @@ class _$GViewerNotificationsData_viewer_notifications__asWorkAwardNotificationNo
         likesCount == other.likesCount &&
         commentsCount == other.commentsCount &&
         createdAt == other.createdAt &&
-        thumbnailImage == other.thumbnailImage;
+        thumbnailImage == other.thumbnailImage &&
+        thumbnailImagePosition == other.thumbnailImagePosition &&
+        imageAspectRatio == other.imageAspectRatio;
   }
 
   @override
@@ -4295,6 +4409,8 @@ class _$GViewerNotificationsData_viewer_notifications__asWorkAwardNotificationNo
     _$hash = $jc(_$hash, commentsCount.hashCode);
     _$hash = $jc(_$hash, createdAt.hashCode);
     _$hash = $jc(_$hash, thumbnailImage.hashCode);
+    _$hash = $jc(_$hash, thumbnailImagePosition.hashCode);
+    _$hash = $jc(_$hash, imageAspectRatio.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -4309,7 +4425,9 @@ class _$GViewerNotificationsData_viewer_notifications__asWorkAwardNotificationNo
           ..add('likesCount', likesCount)
           ..add('commentsCount', commentsCount)
           ..add('createdAt', createdAt)
-          ..add('thumbnailImage', thumbnailImage))
+          ..add('thumbnailImage', thumbnailImage)
+          ..add('thumbnailImagePosition', thumbnailImagePosition)
+          ..add('imageAspectRatio', imageAspectRatio))
         .toString();
   }
 }
@@ -4357,6 +4475,16 @@ class GViewerNotificationsData_viewer_notifications__asWorkAwardNotificationNode
               thumbnailImage) =>
       _$this._thumbnailImage = thumbnailImage;
 
+  double? _thumbnailImagePosition;
+  double? get thumbnailImagePosition => _$this._thumbnailImagePosition;
+  set thumbnailImagePosition(double? thumbnailImagePosition) =>
+      _$this._thumbnailImagePosition = thumbnailImagePosition;
+
+  double? _imageAspectRatio;
+  double? get imageAspectRatio => _$this._imageAspectRatio;
+  set imageAspectRatio(double? imageAspectRatio) =>
+      _$this._imageAspectRatio = imageAspectRatio;
+
   GViewerNotificationsData_viewer_notifications__asWorkAwardNotificationNode_workBuilder() {
     GViewerNotificationsData_viewer_notifications__asWorkAwardNotificationNode_work
         ._initializeBuilder(this);
@@ -4373,6 +4501,8 @@ class GViewerNotificationsData_viewer_notifications__asWorkAwardNotificationNode
       _commentsCount = $v.commentsCount;
       _createdAt = $v.createdAt;
       _thumbnailImage = $v.thumbnailImage?.toBuilder();
+      _thumbnailImagePosition = $v.thumbnailImagePosition;
+      _imageAspectRatio = $v.imageAspectRatio;
       _$v = null;
     }
     return this;
@@ -4422,7 +4552,9 @@ class GViewerNotificationsData_viewer_notifications__asWorkAwardNotificationNode
                   'commentsCount'),
               createdAt: BuiltValueNullFieldError.checkNotNull(
                   createdAt, r'GViewerNotificationsData_viewer_notifications__asWorkAwardNotificationNode_work', 'createdAt'),
-              thumbnailImage: _thumbnailImage?.build());
+              thumbnailImage: _thumbnailImage?.build(),
+              thumbnailImagePosition: thumbnailImagePosition,
+              imageAspectRatio: BuiltValueNullFieldError.checkNotNull(imageAspectRatio, r'GViewerNotificationsData_viewer_notifications__asWorkAwardNotificationNode_work', 'imageAspectRatio'));
     } catch (_) {
       late String _$failedField;
       try {
@@ -4866,6 +4998,10 @@ class _$GViewerNotificationsData_viewer_notifications__asWorkCommentNotification
   @override
   final GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_work_thumbnailImage?
       thumbnailImage;
+  @override
+  final double? thumbnailImagePosition;
+  @override
+  final double imageAspectRatio;
 
   factory _$GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_work(
           [void Function(
@@ -4882,7 +5018,9 @@ class _$GViewerNotificationsData_viewer_notifications__asWorkCommentNotification
       required this.likesCount,
       required this.commentsCount,
       required this.createdAt,
-      this.thumbnailImage})
+      this.thumbnailImage,
+      this.thumbnailImagePosition,
+      required this.imageAspectRatio})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename,
@@ -4908,6 +5046,10 @@ class _$GViewerNotificationsData_viewer_notifications__asWorkCommentNotification
         createdAt,
         r'GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_work',
         'createdAt');
+    BuiltValueNullFieldError.checkNotNull(
+        imageAspectRatio,
+        r'GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_work',
+        'imageAspectRatio');
   }
 
   @override
@@ -4935,7 +5077,9 @@ class _$GViewerNotificationsData_viewer_notifications__asWorkCommentNotification
         likesCount == other.likesCount &&
         commentsCount == other.commentsCount &&
         createdAt == other.createdAt &&
-        thumbnailImage == other.thumbnailImage;
+        thumbnailImage == other.thumbnailImage &&
+        thumbnailImagePosition == other.thumbnailImagePosition &&
+        imageAspectRatio == other.imageAspectRatio;
   }
 
   @override
@@ -4948,6 +5092,8 @@ class _$GViewerNotificationsData_viewer_notifications__asWorkCommentNotification
     _$hash = $jc(_$hash, commentsCount.hashCode);
     _$hash = $jc(_$hash, createdAt.hashCode);
     _$hash = $jc(_$hash, thumbnailImage.hashCode);
+    _$hash = $jc(_$hash, thumbnailImagePosition.hashCode);
+    _$hash = $jc(_$hash, imageAspectRatio.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -4962,7 +5108,9 @@ class _$GViewerNotificationsData_viewer_notifications__asWorkCommentNotification
           ..add('likesCount', likesCount)
           ..add('commentsCount', commentsCount)
           ..add('createdAt', createdAt)
-          ..add('thumbnailImage', thumbnailImage))
+          ..add('thumbnailImage', thumbnailImage)
+          ..add('thumbnailImagePosition', thumbnailImagePosition)
+          ..add('imageAspectRatio', imageAspectRatio))
         .toString();
   }
 }
@@ -5010,6 +5158,16 @@ class GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNo
               thumbnailImage) =>
       _$this._thumbnailImage = thumbnailImage;
 
+  double? _thumbnailImagePosition;
+  double? get thumbnailImagePosition => _$this._thumbnailImagePosition;
+  set thumbnailImagePosition(double? thumbnailImagePosition) =>
+      _$this._thumbnailImagePosition = thumbnailImagePosition;
+
+  double? _imageAspectRatio;
+  double? get imageAspectRatio => _$this._imageAspectRatio;
+  set imageAspectRatio(double? imageAspectRatio) =>
+      _$this._imageAspectRatio = imageAspectRatio;
+
   GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_workBuilder() {
     GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_work
         ._initializeBuilder(this);
@@ -5026,6 +5184,8 @@ class GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNo
       _commentsCount = $v.commentsCount;
       _createdAt = $v.createdAt;
       _thumbnailImage = $v.thumbnailImage?.toBuilder();
+      _thumbnailImagePosition = $v.thumbnailImagePosition;
+      _imageAspectRatio = $v.imageAspectRatio;
       _$v = null;
     }
     return this;
@@ -5075,7 +5235,9 @@ class GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNo
                   'commentsCount'),
               createdAt: BuiltValueNullFieldError.checkNotNull(
                   createdAt, r'GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_work', 'createdAt'),
-              thumbnailImage: _thumbnailImage?.build());
+              thumbnailImage: _thumbnailImage?.build(),
+              thumbnailImagePosition: thumbnailImagePosition,
+              imageAspectRatio: BuiltValueNullFieldError.checkNotNull(imageAspectRatio, r'GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_work', 'imageAspectRatio'));
     } catch (_) {
       late String _$failedField;
       try {
@@ -6294,6 +6456,10 @@ class _$GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotific
   @override
   final GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_work_thumbnailImage?
       thumbnailImage;
+  @override
+  final double? thumbnailImagePosition;
+  @override
+  final double imageAspectRatio;
 
   factory _$GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_work(
           [void Function(
@@ -6310,7 +6476,9 @@ class _$GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotific
       required this.likesCount,
       required this.commentsCount,
       required this.createdAt,
-      this.thumbnailImage})
+      this.thumbnailImage,
+      this.thumbnailImagePosition,
+      required this.imageAspectRatio})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename,
@@ -6336,6 +6504,10 @@ class _$GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotific
         createdAt,
         r'GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_work',
         'createdAt');
+    BuiltValueNullFieldError.checkNotNull(
+        imageAspectRatio,
+        r'GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_work',
+        'imageAspectRatio');
   }
 
   @override
@@ -6363,7 +6535,9 @@ class _$GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotific
         likesCount == other.likesCount &&
         commentsCount == other.commentsCount &&
         createdAt == other.createdAt &&
-        thumbnailImage == other.thumbnailImage;
+        thumbnailImage == other.thumbnailImage &&
+        thumbnailImagePosition == other.thumbnailImagePosition &&
+        imageAspectRatio == other.imageAspectRatio;
   }
 
   @override
@@ -6376,6 +6550,8 @@ class _$GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotific
     _$hash = $jc(_$hash, commentsCount.hashCode);
     _$hash = $jc(_$hash, createdAt.hashCode);
     _$hash = $jc(_$hash, thumbnailImage.hashCode);
+    _$hash = $jc(_$hash, thumbnailImagePosition.hashCode);
+    _$hash = $jc(_$hash, imageAspectRatio.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -6390,7 +6566,9 @@ class _$GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotific
           ..add('likesCount', likesCount)
           ..add('commentsCount', commentsCount)
           ..add('createdAt', createdAt)
-          ..add('thumbnailImage', thumbnailImage))
+          ..add('thumbnailImage', thumbnailImage)
+          ..add('thumbnailImagePosition', thumbnailImagePosition)
+          ..add('imageAspectRatio', imageAspectRatio))
         .toString();
   }
 }
@@ -6438,6 +6616,16 @@ class GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificat
               thumbnailImage) =>
       _$this._thumbnailImage = thumbnailImage;
 
+  double? _thumbnailImagePosition;
+  double? get thumbnailImagePosition => _$this._thumbnailImagePosition;
+  set thumbnailImagePosition(double? thumbnailImagePosition) =>
+      _$this._thumbnailImagePosition = thumbnailImagePosition;
+
+  double? _imageAspectRatio;
+  double? get imageAspectRatio => _$this._imageAspectRatio;
+  set imageAspectRatio(double? imageAspectRatio) =>
+      _$this._imageAspectRatio = imageAspectRatio;
+
   GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_workBuilder() {
     GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_work
         ._initializeBuilder(this);
@@ -6454,6 +6642,8 @@ class GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificat
       _commentsCount = $v.commentsCount;
       _createdAt = $v.createdAt;
       _thumbnailImage = $v.thumbnailImage?.toBuilder();
+      _thumbnailImagePosition = $v.thumbnailImagePosition;
+      _imageAspectRatio = $v.imageAspectRatio;
       _$v = null;
     }
     return this;
@@ -6503,7 +6693,9 @@ class GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificat
                   'commentsCount'),
               createdAt: BuiltValueNullFieldError.checkNotNull(
                   createdAt, r'GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_work', 'createdAt'),
-              thumbnailImage: _thumbnailImage?.build());
+              thumbnailImage: _thumbnailImage?.build(),
+              thumbnailImagePosition: thumbnailImagePosition,
+              imageAspectRatio: BuiltValueNullFieldError.checkNotNull(imageAspectRatio, r'GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_work', 'imageAspectRatio'));
     } catch (_) {
       late String _$failedField;
       try {

@@ -106,6 +106,10 @@ abstract class GHotTagsData_hotTags_firstWork
   int get createdAt;
   @override
   GHotTagsData_hotTags_firstWork_thumbnailImage? get thumbnailImage;
+  @override
+  double? get thumbnailImagePosition;
+  @override
+  double get imageAspectRatio;
   static Serializer<GHotTagsData_hotTags_firstWork> get serializer =>
       _$gHotTagsDataHotTagsFirstWorkSerializer;
 

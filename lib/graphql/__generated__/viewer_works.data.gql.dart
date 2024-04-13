@@ -97,6 +97,10 @@ abstract class GViewerWorksData_viewer_works
   int get createdAt;
   @override
   GViewerWorksData_viewer_works_thumbnailImage? get thumbnailImage;
+  @override
+  double? get thumbnailImagePosition;
+  @override
+  double get imageAspectRatio;
   static Serializer<GViewerWorksData_viewer_works> get serializer =>
       _$gViewerWorksDataViewerWorksSerializer;
 

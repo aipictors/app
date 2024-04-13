@@ -257,6 +257,10 @@ abstract class GViewerNotificationsData_viewer_notifications__asLikedWorkNotific
   @override
   GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNode_work_thumbnailImage?
       get thumbnailImage;
+  @override
+  double? get thumbnailImagePosition;
+  @override
+  double get imageAspectRatio;
   static Serializer<
           GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNode_work>
       get serializer =>
@@ -566,6 +570,10 @@ abstract class GViewerNotificationsData_viewer_notifications__asWorkAwardNotific
   @override
   GViewerNotificationsData_viewer_notifications__asWorkAwardNotificationNode_work_thumbnailImage?
       get thumbnailImage;
+  @override
+  double? get thumbnailImagePosition;
+  @override
+  double get imageAspectRatio;
   static Serializer<
           GViewerNotificationsData_viewer_notifications__asWorkAwardNotificationNode_work>
       get serializer =>
@@ -730,6 +738,10 @@ abstract class GViewerNotificationsData_viewer_notifications__asWorkCommentNotif
   @override
   GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_work_thumbnailImage?
       get thumbnailImage;
+  @override
+  double? get thumbnailImagePosition;
+  @override
+  double get imageAspectRatio;
   static Serializer<
           GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode_work>
       get serializer =>
@@ -1100,6 +1112,10 @@ abstract class GViewerNotificationsData_viewer_notifications__asWorkCommentReply
   @override
   GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_work_thumbnailImage?
       get thumbnailImage;
+  @override
+  double? get thumbnailImagePosition;
+  @override
+  double get imageAspectRatio;
   static Serializer<
           GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode_work>
       get serializer =>

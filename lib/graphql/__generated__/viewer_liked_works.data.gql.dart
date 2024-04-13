@@ -101,6 +101,10 @@ abstract class GViewerLikedWorksData_viewer_likedWorks
   int get createdAt;
   @override
   GViewerLikedWorksData_viewer_likedWorks_thumbnailImage? get thumbnailImage;
+  @override
+  double? get thumbnailImagePosition;
+  @override
+  double get imageAspectRatio;
   static Serializer<GViewerLikedWorksData_viewer_likedWorks> get serializer =>
       _$gViewerLikedWorksDataViewerLikedWorksSerializer;
 

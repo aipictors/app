@@ -67,6 +67,10 @@ abstract class GBestWorksData_bestWorks
   int get createdAt;
   @override
   GBestWorksData_bestWorks_thumbnailImage? get thumbnailImage;
+  @override
+  double? get thumbnailImagePosition;
+  @override
+  double get imageAspectRatio;
   static Serializer<GBestWorksData_bestWorks> get serializer =>
       _$gBestWorksDataBestWorksSerializer;
 

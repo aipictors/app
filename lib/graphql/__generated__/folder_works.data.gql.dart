@@ -98,6 +98,10 @@ abstract class GFolderWorksData_folder_works
   int get createdAt;
   @override
   GFolderWorksData_folder_works_thumbnailImage? get thumbnailImage;
+  @override
+  double? get thumbnailImagePosition;
+  @override
+  double get imageAspectRatio;
   static Serializer<GFolderWorksData_folder_works> get serializer =>
       _$gFolderWorksDataFolderWorksSerializer;
 

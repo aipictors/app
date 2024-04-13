@@ -66,6 +66,10 @@ abstract class GHotWorksData_hotWorks
   int get createdAt;
   @override
   GHotWorksData_hotWorks_thumbnailImage? get thumbnailImage;
+  @override
+  double? get thumbnailImagePosition;
+  @override
+  double get imageAspectRatio;
   static Serializer<GHotWorksData_hotWorks> get serializer =>
       _$gHotWorksDataHotWorksSerializer;
 

@@ -36,6 +36,10 @@ abstract class GWorkAwardNotificationFields_work
   @override
   GWorkAwardNotificationFields_work_thumbnailImage? get thumbnailImage;
   @override
+  double? get thumbnailImagePosition;
+  @override
+  double get imageAspectRatio;
+  @override
   Map<String, dynamic> toJson();
 }
 
@@ -124,6 +128,10 @@ abstract class GWorkAwardNotificationFieldsData_work
   int get createdAt;
   @override
   GWorkAwardNotificationFieldsData_work_thumbnailImage? get thumbnailImage;
+  @override
+  double? get thumbnailImagePosition;
+  @override
+  double get imageAspectRatio;
   static Serializer<GWorkAwardNotificationFieldsData_work> get serializer =>
       _$gWorkAwardNotificationFieldsDataWorkSerializer;
 

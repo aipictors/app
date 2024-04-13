@@ -91,6 +91,9 @@ class _$GWorksData_worksSerializer
       'createdAt',
       serializers.serialize(object.createdAt,
           specifiedType: const FullType(int)),
+      'imageAspectRatio',
+      serializers.serialize(object.imageAspectRatio,
+          specifiedType: const FullType(double)),
     ];
     Object? value;
     value = object.thumbnailImage;
@@ -99,6 +102,13 @@ class _$GWorksData_worksSerializer
         ..add('thumbnailImage')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(GWorksData_works_thumbnailImage)));
+    }
+    value = object.thumbnailImagePosition;
+    if (value != null) {
+      result
+        ..add('thumbnailImagePosition')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(double)));
     }
     return result;
   }
@@ -144,6 +154,14 @@ class _$GWorksData_worksSerializer
                   specifiedType:
                       const FullType(GWorksData_works_thumbnailImage))!
               as GWorksData_works_thumbnailImage);
+          break;
+        case 'thumbnailImagePosition':
+          result.thumbnailImagePosition = serializers.deserialize(value,
+              specifiedType: const FullType(double)) as double?;
+          break;
+        case 'imageAspectRatio':
+          result.imageAspectRatio = serializers.deserialize(value,
+              specifiedType: const FullType(double))! as double;
           break;
       }
     }
@@ -338,6 +356,10 @@ class _$GWorksData_works extends GWorksData_works {
   final int createdAt;
   @override
   final GWorksData_works_thumbnailImage? thumbnailImage;
+  @override
+  final double? thumbnailImagePosition;
+  @override
+  final double imageAspectRatio;
 
   factory _$GWorksData_works(
           [void Function(GWorksData_worksBuilder)? updates]) =>
@@ -350,7 +372,9 @@ class _$GWorksData_works extends GWorksData_works {
       required this.likesCount,
       required this.commentsCount,
       required this.createdAt,
-      this.thumbnailImage})
+      this.thumbnailImage,
+      this.thumbnailImagePosition,
+      required this.imageAspectRatio})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename, r'GWorksData_works', 'G__typename');
@@ -362,6 +386,8 @@ class _$GWorksData_works extends GWorksData_works {
         commentsCount, r'GWorksData_works', 'commentsCount');
     BuiltValueNullFieldError.checkNotNull(
         createdAt, r'GWorksData_works', 'createdAt');
+    BuiltValueNullFieldError.checkNotNull(
+        imageAspectRatio, r'GWorksData_works', 'imageAspectRatio');
   }
 
   @override
@@ -382,7 +408,9 @@ class _$GWorksData_works extends GWorksData_works {
         likesCount == other.likesCount &&
         commentsCount == other.commentsCount &&
         createdAt == other.createdAt &&
-        thumbnailImage == other.thumbnailImage;
+        thumbnailImage == other.thumbnailImage &&
+        thumbnailImagePosition == other.thumbnailImagePosition &&
+        imageAspectRatio == other.imageAspectRatio;
   }
 
   @override
@@ -395,6 +423,8 @@ class _$GWorksData_works extends GWorksData_works {
     _$hash = $jc(_$hash, commentsCount.hashCode);
     _$hash = $jc(_$hash, createdAt.hashCode);
     _$hash = $jc(_$hash, thumbnailImage.hashCode);
+    _$hash = $jc(_$hash, thumbnailImagePosition.hashCode);
+    _$hash = $jc(_$hash, imageAspectRatio.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -408,7 +438,9 @@ class _$GWorksData_works extends GWorksData_works {
           ..add('likesCount', likesCount)
           ..add('commentsCount', commentsCount)
           ..add('createdAt', createdAt)
-          ..add('thumbnailImage', thumbnailImage))
+          ..add('thumbnailImage', thumbnailImage)
+          ..add('thumbnailImagePosition', thumbnailImagePosition)
+          ..add('imageAspectRatio', imageAspectRatio))
         .toString();
   }
 }
@@ -448,6 +480,16 @@ class GWorksData_worksBuilder
   set thumbnailImage(GWorksData_works_thumbnailImageBuilder? thumbnailImage) =>
       _$this._thumbnailImage = thumbnailImage;
 
+  double? _thumbnailImagePosition;
+  double? get thumbnailImagePosition => _$this._thumbnailImagePosition;
+  set thumbnailImagePosition(double? thumbnailImagePosition) =>
+      _$this._thumbnailImagePosition = thumbnailImagePosition;
+
+  double? _imageAspectRatio;
+  double? get imageAspectRatio => _$this._imageAspectRatio;
+  set imageAspectRatio(double? imageAspectRatio) =>
+      _$this._imageAspectRatio = imageAspectRatio;
+
   GWorksData_worksBuilder() {
     GWorksData_works._initializeBuilder(this);
   }
@@ -462,6 +504,8 @@ class GWorksData_worksBuilder
       _commentsCount = $v.commentsCount;
       _createdAt = $v.createdAt;
       _thumbnailImage = $v.thumbnailImage?.toBuilder();
+      _thumbnailImagePosition = $v.thumbnailImagePosition;
+      _imageAspectRatio = $v.imageAspectRatio;
       _$v = null;
     }
     return this;
@@ -498,7 +542,10 @@ class GWorksData_worksBuilder
                   commentsCount, r'GWorksData_works', 'commentsCount'),
               createdAt: BuiltValueNullFieldError.checkNotNull(
                   createdAt, r'GWorksData_works', 'createdAt'),
-              thumbnailImage: _thumbnailImage?.build());
+              thumbnailImage: _thumbnailImage?.build(),
+              thumbnailImagePosition: thumbnailImagePosition,
+              imageAspectRatio: BuiltValueNullFieldError.checkNotNull(
+                  imageAspectRatio, r'GWorksData_works', 'imageAspectRatio'));
     } catch (_) {
       late String _$failedField;
       try {

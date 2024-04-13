@@ -8,4 +8,6 @@ fragment PartialWorkFields on WorkNode {
     id
     downloadURL
   }
+  thumbnailImagePosition
+  imageAspectRatio
 }
