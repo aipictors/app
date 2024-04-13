@@ -39,6 +39,10 @@ abstract class GLikedWorkNotificationFields_work
   @override
   GLikedWorkNotificationFields_work_thumbnailImage? get thumbnailImage;
   @override
+  double? get thumbnailImagePosition;
+  @override
+  double get imageAspectRatio;
+  @override
   Map<String, dynamic> toJson();
 }
 
@@ -157,6 +161,10 @@ abstract class GLikedWorkNotificationFieldsData_work
   int get createdAt;
   @override
   GLikedWorkNotificationFieldsData_work_thumbnailImage? get thumbnailImage;
+  @override
+  double? get thumbnailImagePosition;
+  @override
+  double get imageAspectRatio;
   static Serializer<GLikedWorkNotificationFieldsData_work> get serializer =>
       _$gLikedWorkNotificationFieldsDataWorkSerializer;
 

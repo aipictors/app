@@ -5,8 +5,6 @@ query UserWorks($user_id: ID!, $offset: Int!, $limit: Int!) {
     id
     works(offset: $offset, limit: $limit) {
       ...PartialWorkFields
-      thumbnailImagePosition
-      imageAspectRatio
     }
   }
 }

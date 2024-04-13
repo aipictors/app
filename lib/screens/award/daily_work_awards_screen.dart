@@ -74,6 +74,8 @@ class DailyWorkAwardsScreen extends HookConsumerWidget {
               },
               child: GridWorkImage(
                 imageURL: work.thumbnailImage?.downloadURL,
+                imageAspectRatio: work.imageAspectRatio,
+                thumbnailImagePosition: work.thumbnailImagePosition,
               ),
             );
           },

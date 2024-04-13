@@ -69,6 +69,10 @@ abstract class GPopularWorksData_popularWorks
   int get createdAt;
   @override
   GPopularWorksData_popularWorks_thumbnailImage? get thumbnailImage;
+  @override
+  double? get thumbnailImagePosition;
+  @override
+  double get imageAspectRatio;
   static Serializer<GPopularWorksData_popularWorks> get serializer =>
       _$gPopularWorksDataPopularWorksSerializer;
 

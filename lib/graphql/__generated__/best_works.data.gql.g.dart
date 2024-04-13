@@ -98,6 +98,9 @@ class _$GBestWorksData_bestWorksSerializer
       'createdAt',
       serializers.serialize(object.createdAt,
           specifiedType: const FullType(int)),
+      'imageAspectRatio',
+      serializers.serialize(object.imageAspectRatio,
+          specifiedType: const FullType(double)),
     ];
     Object? value;
     value = object.thumbnailImage;
@@ -107,6 +110,13 @@ class _$GBestWorksData_bestWorksSerializer
         ..add(serializers.serialize(value,
             specifiedType:
                 const FullType(GBestWorksData_bestWorks_thumbnailImage)));
+    }
+    value = object.thumbnailImagePosition;
+    if (value != null) {
+      result
+        ..add('thumbnailImagePosition')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(double)));
     }
     return result;
   }
@@ -152,6 +162,14 @@ class _$GBestWorksData_bestWorksSerializer
                   specifiedType:
                       const FullType(GBestWorksData_bestWorks_thumbnailImage))!
               as GBestWorksData_bestWorks_thumbnailImage);
+          break;
+        case 'thumbnailImagePosition':
+          result.thumbnailImagePosition = serializers.deserialize(value,
+              specifiedType: const FullType(double)) as double?;
+          break;
+        case 'imageAspectRatio':
+          result.imageAspectRatio = serializers.deserialize(value,
+              specifiedType: const FullType(double))! as double;
           break;
       }
     }
@@ -351,6 +369,10 @@ class _$GBestWorksData_bestWorks extends GBestWorksData_bestWorks {
   final int createdAt;
   @override
   final GBestWorksData_bestWorks_thumbnailImage? thumbnailImage;
+  @override
+  final double? thumbnailImagePosition;
+  @override
+  final double imageAspectRatio;
 
   factory _$GBestWorksData_bestWorks(
           [void Function(GBestWorksData_bestWorksBuilder)? updates]) =>
@@ -363,7 +385,9 @@ class _$GBestWorksData_bestWorks extends GBestWorksData_bestWorks {
       required this.likesCount,
       required this.commentsCount,
       required this.createdAt,
-      this.thumbnailImage})
+      this.thumbnailImage,
+      this.thumbnailImagePosition,
+      required this.imageAspectRatio})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename, r'GBestWorksData_bestWorks', 'G__typename');
@@ -377,6 +401,8 @@ class _$GBestWorksData_bestWorks extends GBestWorksData_bestWorks {
         commentsCount, r'GBestWorksData_bestWorks', 'commentsCount');
     BuiltValueNullFieldError.checkNotNull(
         createdAt, r'GBestWorksData_bestWorks', 'createdAt');
+    BuiltValueNullFieldError.checkNotNull(
+        imageAspectRatio, r'GBestWorksData_bestWorks', 'imageAspectRatio');
   }
 
   @override
@@ -398,7 +424,9 @@ class _$GBestWorksData_bestWorks extends GBestWorksData_bestWorks {
         likesCount == other.likesCount &&
         commentsCount == other.commentsCount &&
         createdAt == other.createdAt &&
-        thumbnailImage == other.thumbnailImage;
+        thumbnailImage == other.thumbnailImage &&
+        thumbnailImagePosition == other.thumbnailImagePosition &&
+        imageAspectRatio == other.imageAspectRatio;
   }
 
   @override
@@ -411,6 +439,8 @@ class _$GBestWorksData_bestWorks extends GBestWorksData_bestWorks {
     _$hash = $jc(_$hash, commentsCount.hashCode);
     _$hash = $jc(_$hash, createdAt.hashCode);
     _$hash = $jc(_$hash, thumbnailImage.hashCode);
+    _$hash = $jc(_$hash, thumbnailImagePosition.hashCode);
+    _$hash = $jc(_$hash, imageAspectRatio.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -424,7 +454,9 @@ class _$GBestWorksData_bestWorks extends GBestWorksData_bestWorks {
           ..add('likesCount', likesCount)
           ..add('commentsCount', commentsCount)
           ..add('createdAt', createdAt)
-          ..add('thumbnailImage', thumbnailImage))
+          ..add('thumbnailImage', thumbnailImage)
+          ..add('thumbnailImagePosition', thumbnailImagePosition)
+          ..add('imageAspectRatio', imageAspectRatio))
         .toString();
   }
 }
@@ -467,6 +499,16 @@ class GBestWorksData_bestWorksBuilder
           GBestWorksData_bestWorks_thumbnailImageBuilder? thumbnailImage) =>
       _$this._thumbnailImage = thumbnailImage;
 
+  double? _thumbnailImagePosition;
+  double? get thumbnailImagePosition => _$this._thumbnailImagePosition;
+  set thumbnailImagePosition(double? thumbnailImagePosition) =>
+      _$this._thumbnailImagePosition = thumbnailImagePosition;
+
+  double? _imageAspectRatio;
+  double? get imageAspectRatio => _$this._imageAspectRatio;
+  set imageAspectRatio(double? imageAspectRatio) =>
+      _$this._imageAspectRatio = imageAspectRatio;
+
   GBestWorksData_bestWorksBuilder() {
     GBestWorksData_bestWorks._initializeBuilder(this);
   }
@@ -481,6 +523,8 @@ class GBestWorksData_bestWorksBuilder
       _commentsCount = $v.commentsCount;
       _createdAt = $v.createdAt;
       _thumbnailImage = $v.thumbnailImage?.toBuilder();
+      _thumbnailImagePosition = $v.thumbnailImagePosition;
+      _imageAspectRatio = $v.imageAspectRatio;
       _$v = null;
     }
     return this;
@@ -517,7 +561,12 @@ class GBestWorksData_bestWorksBuilder
                   commentsCount, r'GBestWorksData_bestWorks', 'commentsCount'),
               createdAt: BuiltValueNullFieldError.checkNotNull(
                   createdAt, r'GBestWorksData_bestWorks', 'createdAt'),
-              thumbnailImage: _thumbnailImage?.build());
+              thumbnailImage: _thumbnailImage?.build(),
+              thumbnailImagePosition: thumbnailImagePosition,
+              imageAspectRatio: BuiltValueNullFieldError.checkNotNull(
+                  imageAspectRatio,
+                  r'GBestWorksData_bestWorks',
+                  'imageAspectRatio'));
     } catch (_) {
       late String _$failedField;
       try {

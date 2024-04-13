@@ -6,6 +6,8 @@ class WorkGridItemContainer extends HookConsumerWidget {
   const WorkGridItemContainer({
     super.key,
     required this.imageUrl,
+    required this.imageAspectRatio,
+    required this.thumbnailImagePosition,
     required this.onTap,
   });
 
@@ -13,11 +15,19 @@ class WorkGridItemContainer extends HookConsumerWidget {
 
   final VoidCallback onTap;
 
+  final double imageAspectRatio;
+
+  final double? thumbnailImagePosition;
+
   @override
   Widget build(context, ref) {
     return InkWell(
       onTap: onTap,
-      child: GridWorkImage(imageURL: imageUrl),
+      child: GridWorkImage(
+        imageURL: imageUrl,
+        imageAspectRatio: imageAspectRatio,
+        thumbnailImagePosition: thumbnailImagePosition,
+      ),
     );
   }
 }

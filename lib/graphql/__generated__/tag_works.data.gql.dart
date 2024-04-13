@@ -96,6 +96,10 @@ abstract class GTagWorksData_tag_works
   int get createdAt;
   @override
   GTagWorksData_tag_works_thumbnailImage? get thumbnailImage;
+  @override
+  double? get thumbnailImagePosition;
+  @override
+  double get imageAspectRatio;
   static Serializer<GTagWorksData_tag_works> get serializer =>
       _$gTagWorksDataTagWorksSerializer;
 

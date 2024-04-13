@@ -16,6 +16,8 @@ abstract class GPartialWorkFields {
   int get commentsCount;
   int get createdAt;
   GPartialWorkFields_thumbnailImage? get thumbnailImage;
+  double? get thumbnailImagePosition;
+  double get imageAspectRatio;
   Map<String, dynamic> toJson();
 }
 
@@ -54,6 +56,10 @@ abstract class GPartialWorkFieldsData
   int get createdAt;
   @override
   GPartialWorkFieldsData_thumbnailImage? get thumbnailImage;
+  @override
+  double? get thumbnailImagePosition;
+  @override
+  double get imageAspectRatio;
   static Serializer<GPartialWorkFieldsData> get serializer =>
       _$gPartialWorkFieldsDataSerializer;
 

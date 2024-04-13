@@ -6,16 +6,15 @@ class GridWorkImage extends HookConsumerWidget {
   const GridWorkImage({
     super.key,
     required this.imageURL,
-    //TODO: requiredにする
-    this.thumbnailImagePosition,
-    this.imageAspectRatio,
+    required this.thumbnailImagePosition,
+    required this.imageAspectRatio,
   });
 
   final String? imageURL;
 
-  final double? thumbnailImagePosition;
+  final double imageAspectRatio;
 
-  final double? imageAspectRatio;
+  final double? thumbnailImagePosition;
 
   @override
   Widget build(context, ref) {
@@ -31,13 +30,12 @@ class GridWorkImage extends HookConsumerWidget {
       // thumbnailImagePositionはパーセントで渡されるので、Offsetに変換する
       // 正方形にするために、短辺の長さをconstraints.maxWidth(またはHeight)に合わせる
       // 長辺の長さはconstraints.maxWidth(またはHeight)*imageAspectRatioで計算する
-
-      final double shortestSideLength = (imageAspectRatio! <= 1.0)
+      final double shortestSideLength = (imageAspectRatio <= 1.0)
           ? constraints.maxWidth // 縦長画像の短辺は横
           : constraints.maxHeight; // 横長画像の短辺は縦
-      final double longestSideLength = (imageAspectRatio! <= 1.0)
-          ? (constraints.maxHeight / imageAspectRatio!)
-          : (constraints.maxWidth * imageAspectRatio!);
+      final double longestSideLength = (imageAspectRatio <= 1.0)
+          ? (constraints.maxHeight / imageAspectRatio)
+          : (constraints.maxWidth * imageAspectRatio);
 
       double thumbnailOffset = 0;
       // 正方形以外はサムネ位置を調整する
@@ -56,14 +54,14 @@ class GridWorkImage extends HookConsumerWidget {
         // 画像が枠からはみ出さないようにclipBehaviorを指定。負荷が高ければClip.hardEdgeでいいかもしれない
         clipBehavior: Clip.antiAlias,
         child: Transform.translate(
-          offset: ((imageAspectRatio ?? 0) <= 1.0)
+          offset: (imageAspectRatio <= 1.0)
               ? Offset(0, thumbnailOffset)
               : Offset(thumbnailOffset, 0),
           child: SizedBox(
-            width: (imageAspectRatio! <= 1.0)
+            width: (imageAspectRatio <= 1.0)
                 ? shortestSideLength
                 : longestSideLength,
-            height: (imageAspectRatio! >= 1.0)
+            height: (imageAspectRatio >= 1.0)
                 ? shortestSideLength
                 : longestSideLength,
             child: CachedNetworkImage(

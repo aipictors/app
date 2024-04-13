@@ -42,6 +42,10 @@ abstract class GWorkCommentNotificationFields_work
   @override
   GWorkCommentNotificationFields_work_thumbnailImage? get thumbnailImage;
   @override
+  double? get thumbnailImagePosition;
+  @override
+  double get imageAspectRatio;
+  @override
   Map<String, dynamic> toJson();
 }
 
@@ -194,6 +198,10 @@ abstract class GWorkCommentNotificationFieldsData_work
   int get createdAt;
   @override
   GWorkCommentNotificationFieldsData_work_thumbnailImage? get thumbnailImage;
+  @override
+  double? get thumbnailImagePosition;
+  @override
+  double get imageAspectRatio;
   static Serializer<GWorkCommentNotificationFieldsData_work> get serializer =>
       _$gWorkCommentNotificationFieldsDataWorkSerializer;
 

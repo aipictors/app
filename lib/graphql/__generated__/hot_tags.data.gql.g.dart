@@ -171,6 +171,9 @@ class _$GHotTagsData_hotTags_firstWorkSerializer
       'createdAt',
       serializers.serialize(object.createdAt,
           specifiedType: const FullType(int)),
+      'imageAspectRatio',
+      serializers.serialize(object.imageAspectRatio,
+          specifiedType: const FullType(double)),
     ];
     Object? value;
     value = object.thumbnailImage;
@@ -180,6 +183,13 @@ class _$GHotTagsData_hotTags_firstWorkSerializer
         ..add(serializers.serialize(value,
             specifiedType:
                 const FullType(GHotTagsData_hotTags_firstWork_thumbnailImage)));
+    }
+    value = object.thumbnailImagePosition;
+    if (value != null) {
+      result
+        ..add('thumbnailImagePosition')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(double)));
     }
     return result;
   }
@@ -225,6 +235,14 @@ class _$GHotTagsData_hotTags_firstWorkSerializer
                   specifiedType: const FullType(
                       GHotTagsData_hotTags_firstWork_thumbnailImage))!
               as GHotTagsData_hotTags_firstWork_thumbnailImage);
+          break;
+        case 'thumbnailImagePosition':
+          result.thumbnailImagePosition = serializers.deserialize(value,
+              specifiedType: const FullType(double)) as double?;
+          break;
+        case 'imageAspectRatio':
+          result.imageAspectRatio = serializers.deserialize(value,
+              specifiedType: const FullType(double))! as double;
           break;
       }
     }
@@ -571,6 +589,10 @@ class _$GHotTagsData_hotTags_firstWork extends GHotTagsData_hotTags_firstWork {
   final int createdAt;
   @override
   final GHotTagsData_hotTags_firstWork_thumbnailImage? thumbnailImage;
+  @override
+  final double? thumbnailImagePosition;
+  @override
+  final double imageAspectRatio;
 
   factory _$GHotTagsData_hotTags_firstWork(
           [void Function(GHotTagsData_hotTags_firstWorkBuilder)? updates]) =>
@@ -583,7 +605,9 @@ class _$GHotTagsData_hotTags_firstWork extends GHotTagsData_hotTags_firstWork {
       required this.likesCount,
       required this.commentsCount,
       required this.createdAt,
-      this.thumbnailImage})
+      this.thumbnailImage,
+      this.thumbnailImagePosition,
+      required this.imageAspectRatio})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename, r'GHotTagsData_hotTags_firstWork', 'G__typename');
@@ -597,6 +621,8 @@ class _$GHotTagsData_hotTags_firstWork extends GHotTagsData_hotTags_firstWork {
         commentsCount, r'GHotTagsData_hotTags_firstWork', 'commentsCount');
     BuiltValueNullFieldError.checkNotNull(
         createdAt, r'GHotTagsData_hotTags_firstWork', 'createdAt');
+    BuiltValueNullFieldError.checkNotNull(imageAspectRatio,
+        r'GHotTagsData_hotTags_firstWork', 'imageAspectRatio');
   }
 
   @override
@@ -618,7 +644,9 @@ class _$GHotTagsData_hotTags_firstWork extends GHotTagsData_hotTags_firstWork {
         likesCount == other.likesCount &&
         commentsCount == other.commentsCount &&
         createdAt == other.createdAt &&
-        thumbnailImage == other.thumbnailImage;
+        thumbnailImage == other.thumbnailImage &&
+        thumbnailImagePosition == other.thumbnailImagePosition &&
+        imageAspectRatio == other.imageAspectRatio;
   }
 
   @override
@@ -631,6 +659,8 @@ class _$GHotTagsData_hotTags_firstWork extends GHotTagsData_hotTags_firstWork {
     _$hash = $jc(_$hash, commentsCount.hashCode);
     _$hash = $jc(_$hash, createdAt.hashCode);
     _$hash = $jc(_$hash, thumbnailImage.hashCode);
+    _$hash = $jc(_$hash, thumbnailImagePosition.hashCode);
+    _$hash = $jc(_$hash, imageAspectRatio.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -644,7 +674,9 @@ class _$GHotTagsData_hotTags_firstWork extends GHotTagsData_hotTags_firstWork {
           ..add('likesCount', likesCount)
           ..add('commentsCount', commentsCount)
           ..add('createdAt', createdAt)
-          ..add('thumbnailImage', thumbnailImage))
+          ..add('thumbnailImage', thumbnailImage)
+          ..add('thumbnailImagePosition', thumbnailImagePosition)
+          ..add('imageAspectRatio', imageAspectRatio))
         .toString();
   }
 }
@@ -689,6 +721,16 @@ class GHotTagsData_hotTags_firstWorkBuilder
               thumbnailImage) =>
       _$this._thumbnailImage = thumbnailImage;
 
+  double? _thumbnailImagePosition;
+  double? get thumbnailImagePosition => _$this._thumbnailImagePosition;
+  set thumbnailImagePosition(double? thumbnailImagePosition) =>
+      _$this._thumbnailImagePosition = thumbnailImagePosition;
+
+  double? _imageAspectRatio;
+  double? get imageAspectRatio => _$this._imageAspectRatio;
+  set imageAspectRatio(double? imageAspectRatio) =>
+      _$this._imageAspectRatio = imageAspectRatio;
+
   GHotTagsData_hotTags_firstWorkBuilder() {
     GHotTagsData_hotTags_firstWork._initializeBuilder(this);
   }
@@ -703,6 +745,8 @@ class GHotTagsData_hotTags_firstWorkBuilder
       _commentsCount = $v.commentsCount;
       _createdAt = $v.createdAt;
       _thumbnailImage = $v.thumbnailImage?.toBuilder();
+      _thumbnailImagePosition = $v.thumbnailImagePosition;
+      _imageAspectRatio = $v.imageAspectRatio;
       _$v = null;
     }
     return this;
@@ -727,8 +771,8 @@ class GHotTagsData_hotTags_firstWorkBuilder
     try {
       _$result = _$v ??
           new _$GHotTagsData_hotTags_firstWork._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
-                  r'GHotTagsData_hotTags_firstWork', 'G__typename'),
+              G__typename: BuiltValueNullFieldError.checkNotNull(
+                  G__typename, r'GHotTagsData_hotTags_firstWork', 'G__typename'),
               id: BuiltValueNullFieldError.checkNotNull(
                   id, r'GHotTagsData_hotTags_firstWork', 'id'),
               title: BuiltValueNullFieldError.checkNotNull(
@@ -736,12 +780,15 @@ class GHotTagsData_hotTags_firstWorkBuilder
               likesCount: BuiltValueNullFieldError.checkNotNull(
                   likesCount, r'GHotTagsData_hotTags_firstWork', 'likesCount'),
               commentsCount: BuiltValueNullFieldError.checkNotNull(
-                  commentsCount,
-                  r'GHotTagsData_hotTags_firstWork',
-                  'commentsCount'),
+                  commentsCount, r'GHotTagsData_hotTags_firstWork', 'commentsCount'),
               createdAt: BuiltValueNullFieldError.checkNotNull(
                   createdAt, r'GHotTagsData_hotTags_firstWork', 'createdAt'),
-              thumbnailImage: _thumbnailImage?.build());
+              thumbnailImage: _thumbnailImage?.build(),
+              thumbnailImagePosition: thumbnailImagePosition,
+              imageAspectRatio: BuiltValueNullFieldError.checkNotNull(
+                  imageAspectRatio,
+                  r'GHotTagsData_hotTags_firstWork',
+                  'imageAspectRatio'));
     } catch (_) {
       late String _$failedField;
       try {
