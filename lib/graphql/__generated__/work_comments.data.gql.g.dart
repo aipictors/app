@@ -115,6 +115,9 @@ class _$GWorkCommentsData_workSerializer
           specifiedType: const FullType(String)),
       'id',
       serializers.serialize(object.id, specifiedType: const FullType(String)),
+      'commentsCount',
+      serializers.serialize(object.commentsCount,
+          specifiedType: const FullType(int)),
       'comments',
       serializers.serialize(object.comments,
           specifiedType: const FullType(BuiltList,
@@ -143,6 +146,10 @@ class _$GWorkCommentsData_workSerializer
         case 'id':
           result.id = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
+          break;
+        case 'commentsCount':
+          result.commentsCount = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
           break;
         case 'comments':
           result.comments.replace(serializers.deserialize(value,
@@ -1028,6 +1035,8 @@ class _$GWorkCommentsData_work extends GWorkCommentsData_work {
   @override
   final String id;
   @override
+  final int commentsCount;
+  @override
   final BuiltList<GWorkCommentsData_work_comments> comments;
 
   factory _$GWorkCommentsData_work(
@@ -1035,11 +1044,16 @@ class _$GWorkCommentsData_work extends GWorkCommentsData_work {
       (new GWorkCommentsData_workBuilder()..update(updates))._build();
 
   _$GWorkCommentsData_work._(
-      {required this.G__typename, required this.id, required this.comments})
+      {required this.G__typename,
+      required this.id,
+      required this.commentsCount,
+      required this.comments})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename, r'GWorkCommentsData_work', 'G__typename');
     BuiltValueNullFieldError.checkNotNull(id, r'GWorkCommentsData_work', 'id');
+    BuiltValueNullFieldError.checkNotNull(
+        commentsCount, r'GWorkCommentsData_work', 'commentsCount');
     BuiltValueNullFieldError.checkNotNull(
         comments, r'GWorkCommentsData_work', 'comments');
   }
@@ -1059,6 +1073,7 @@ class _$GWorkCommentsData_work extends GWorkCommentsData_work {
     return other is GWorkCommentsData_work &&
         G__typename == other.G__typename &&
         id == other.id &&
+        commentsCount == other.commentsCount &&
         comments == other.comments;
   }
 
@@ -1067,6 +1082,7 @@ class _$GWorkCommentsData_work extends GWorkCommentsData_work {
     var _$hash = 0;
     _$hash = $jc(_$hash, G__typename.hashCode);
     _$hash = $jc(_$hash, id.hashCode);
+    _$hash = $jc(_$hash, commentsCount.hashCode);
     _$hash = $jc(_$hash, comments.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -1077,6 +1093,7 @@ class _$GWorkCommentsData_work extends GWorkCommentsData_work {
     return (newBuiltValueToStringHelper(r'GWorkCommentsData_work')
           ..add('G__typename', G__typename)
           ..add('id', id)
+          ..add('commentsCount', commentsCount)
           ..add('comments', comments))
         .toString();
   }
@@ -1094,6 +1111,11 @@ class GWorkCommentsData_workBuilder
   String? get id => _$this._id;
   set id(String? id) => _$this._id = id;
 
+  int? _commentsCount;
+  int? get commentsCount => _$this._commentsCount;
+  set commentsCount(int? commentsCount) =>
+      _$this._commentsCount = commentsCount;
+
   ListBuilder<GWorkCommentsData_work_comments>? _comments;
   ListBuilder<GWorkCommentsData_work_comments> get comments =>
       _$this._comments ??= new ListBuilder<GWorkCommentsData_work_comments>();
@@ -1109,6 +1131,7 @@ class GWorkCommentsData_workBuilder
     if ($v != null) {
       _G__typename = $v.G__typename;
       _id = $v.id;
+      _commentsCount = $v.commentsCount;
       _comments = $v.comments.toBuilder();
       _$v = null;
     }
@@ -1138,6 +1161,8 @@ class GWorkCommentsData_workBuilder
                   G__typename, r'GWorkCommentsData_work', 'G__typename'),
               id: BuiltValueNullFieldError.checkNotNull(
                   id, r'GWorkCommentsData_work', 'id'),
+              commentsCount: BuiltValueNullFieldError.checkNotNull(
+                  commentsCount, r'GWorkCommentsData_work', 'commentsCount'),
               comments: comments.build());
     } catch (_) {
       late String _$failedField;

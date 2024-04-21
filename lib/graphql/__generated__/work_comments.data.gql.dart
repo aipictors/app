@@ -56,6 +56,7 @@ abstract class GWorkCommentsData_work
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get id;
+  int get commentsCount;
   BuiltList<GWorkCommentsData_work_comments> get comments;
   static Serializer<GWorkCommentsData_work> get serializer =>
       _$gWorkCommentsDataWorkSerializer;
