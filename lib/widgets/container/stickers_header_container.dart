@@ -1,4 +1,3 @@
-import 'package:aipictors/providers/stickers_screen_cross_axis_count_provider.dart';
 import 'package:aipictors/widgets/app_bar/search_app_bar.dart';
 import 'package:aipictors/widgets/button/adjust_sticker_size_button.dart';
 import 'package:flutter/material.dart';

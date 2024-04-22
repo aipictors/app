@@ -94,13 +94,11 @@ class WorkCommentContainer extends HookConsumerWidget {
                             isViewer:
                                 authUserId.value == commentList[index].user!.id,
                             onDeleteComment: () async {
-                              print("Delete");
                               await deleteComment((builder) {
                                 return builder
                                   ..vars.input.commentId =
                                       commentList[index].id;
                               });
-                              print("Deleted");
                               client.value?.requestController.add(request);
                             },
                           );

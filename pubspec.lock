@@ -194,7 +194,7 @@ packages:
     source: hosted
     version: "5.1.1"
   built_value:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: built_value
       sha256: fedde275e0a6b798c3296963c5cd224e3e1b55d0e478d5b7e65e6b540f363a0e
@@ -426,7 +426,7 @@ packages:
     source: hosted
     version: "0.8.0"
   ferry_exec:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: ferry_exec
       sha256: dfa916794065e65f35842b716026fe6ed930dc41d3ad49496204f0ef7da55c2d
@@ -902,7 +902,7 @@ packages:
     source: hosted
     version: "0.12.3+3"
   gql:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: gql
       sha256: "994e0c530b5ca9fce716945031b90c7925eb00bd37624c43ad4cb51883f383b3"
@@ -910,7 +910,7 @@ packages:
     source: hosted
     version: "1.0.0+1"
   gql_code_builder:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: gql_code_builder
       sha256: "857c9483c054e13b8c45c349b475a73a0b5ada1e7f9d60802b6c0efca894122e"
@@ -1924,4 +1924,4 @@ packages:
     version: "3.1.2"
 sdks:
   dart: ">=3.3.0 <4.0.0"
-  flutter: ">=3.19.3"
+  flutter: ">=3.19.6"

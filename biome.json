@@ -5,13 +5,7 @@
   },
   "linter": {
     "rules": {
-      "recommended": true,
-      "complexity": {
-        "noStaticOnlyClass": "off"
-      },
-      "style": {
-        "noNonNullAssertion": "off"
-      }
+      "recommended": true
     }
   },
   "javascript": {
