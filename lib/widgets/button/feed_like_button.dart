@@ -51,10 +51,11 @@ class FeedLikeButton extends HookConsumerWidget {
         ),
       if (authUserId.value == null)
         IconButton(
-            icon: const Icon(Icons.favorite_outline_rounded, size: 28),
-            onPressed: () {
-              onShowLoginDialog(context, ref);
-            }),
+          icon: const Icon(Icons.favorite_outline_rounded, size: 28),
+          onPressed: () {
+            onShowLoginDialog(context, ref);
+          },
+        ),
       const SizedBox(width: 4),
       // 桁上がり時にUIがズレないように、あらかじめ3桁分の幅を確保しておく
       ConstrainedBox(

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class AdjustStickerSizeButton extends HookConsumerWidget {
-  const AdjustStickerSizeButton({
+class GridSizeButton extends HookConsumerWidget {
+  const GridSizeButton({
     super.key,
     required this.currentSize,
     required this.onSizeChanged,
@@ -26,6 +26,9 @@ class AdjustStickerSizeButton extends HookConsumerWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           IconButton(
+            style: FilledButton.styleFrom(
+              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            ),
             onPressed: (1 < currentSize)
                 ? () {
                     onSizeChanged(currentSize - 1);
@@ -33,11 +36,19 @@ class AdjustStickerSizeButton extends HookConsumerWidget {
                 : null,
             icon: const Icon(Icons.remove_rounded),
           ),
-          Text(
-            currentSize.toString(),
-            style: const TextStyle(fontWeight: FontWeight.bold),
+          SizedBox(
+            width: 16,
+            child: Center(
+              child: Text(
+                currentSize.toString(),
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
           ),
           IconButton(
+            style: FilledButton.styleFrom(
+              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            ),
             onPressed: ((maxItems != null && currentSize < maxItems!) ||
                     maxItems == null)
                 ? () {

@@ -1,5 +1,5 @@
 import 'package:aipictors/default.i18n.dart';
-import 'package:aipictors/screens/sticker/stickers_space_screen.dart';
+import 'package:aipictors/screens/sticker/stickers_search_screen.dart';
 import 'package:aipictors/screens/viewer/viewer_stickers_screen.dart';
 import 'package:aipictors/widgets/controller/stickers_tab_controller.dart';
 import 'package:flutter/material.dart';
@@ -16,25 +16,28 @@ class StickersScreen extends HookConsumerWidget {
     return StickersTabController(
       length: 2,
       child: Scaffold(
-          key: const PageStorageKey('stickers'),
-          appBar: AppBar(
-            title: Text('スタンプ'.i18n),
-            bottom: TabBar(
-              // isScrollable: true,
-              tabs: [
-                Tab(text: 'スタンプ広場'.i18n),
-                Tab(text: 'マイスタンプ'.i18n),
-              ],
-            ),
+        key: const PageStorageKey('stickers'),
+        appBar: AppBar(
+          title: Text('スタンプ'.i18n),
+          bottom: TabBar(
+            // isScrollable: true,
+            tabs: [
+              Tab(text: 'スタンプ広場'.i18n),
+              Tab(text: 'マイスタンプ'.i18n),
+            ],
           ),
-          body: const TabBarView(children: [
-            StickersSpaceScreen(
+        ),
+        body: const TabBarView(
+          children: [
+            StickersSearchScreen(
               key: PageStorageKey('stickers_space'),
             ),
             ViewerStickersScreen(
               key: PageStorageKey('viewer_stickers'),
             )
-          ])),
+          ],
+        ),
+      ),
     );
   }
 }

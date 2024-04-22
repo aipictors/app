@@ -15,18 +15,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-/// スタンプ広場
-class StickersSpaceScreen extends HookConsumerWidget {
-  const StickersSpaceScreen({
+/// スタンプ検索
+class StickersSearchScreen extends HookConsumerWidget {
+  const StickersSearchScreen({
     super.key,
   });
 
   @override
   Widget build(context, ref) {
     final client = ref.watch(clientProvider);
+
     final config = ref.watch(configProvider);
+
     final crossAxisCount = ref.watch(stickersScreenCrossAxisCountProvider);
+
     final searchText = useState('');
+
     final layout =
         Layout.fromWidthAndConfig(MediaQuery.of(context).size.width, config);
 
@@ -48,21 +52,24 @@ class StickersSpaceScreen extends HookConsumerWidget {
           return const UnexpectedErrorContainer();
         }
         return Column(children: [
-          const SizedBox(height: 8),
-          StickersHeaderContainer(
-            currentSize: crossAxisCount,
-            maxItems: layout.notCompact ? 5 : 2,
-            onSubmit: (text) async {
-              FirebaseAnalytics.instance.logSearch(searchTerm: text);
-              searchText.value = text;
-            },
-            onSizeChanged: (int size) {
-              final notifier =
-                  ref.read(stickersScreenCrossAxisCountProvider.notifier);
-              notifier.update(size);
-            },
+          const SizedBox(height: 16),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: StickersHeaderContainer(
+              currentSize: crossAxisCount,
+              maxItems: layout.notCompact ? 5 : 2,
+              onSubmit: (text) async {
+                FirebaseAnalytics.instance.logSearch(searchTerm: text);
+                searchText.value = text;
+              },
+              onSizeChanged: (int size) {
+                final notifier =
+                    ref.read(stickersScreenCrossAxisCountProvider.notifier);
+                notifier.update(size);
+              },
+            ),
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 16),
           if (stickerList.isEmpty) ...[
             const Spacer(),
             DataEmptyErrorContainer(
@@ -77,6 +84,7 @@ class StickersSpaceScreen extends HookConsumerWidget {
                 crossAxisCount: crossAxisCount,
               ),
             ),
+          const SizedBox(height: 16),
         ]);
       },
     );

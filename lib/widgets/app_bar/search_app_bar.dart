@@ -4,14 +4,14 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class SearchContainer extends HookConsumerWidget {
-  SearchContainer(
-      {super.key,
-      required this.isFilled,
-      this.initialText,
-      required this.onSubmit,
-      required this.onFill,
-      this.decoration})
-      : _controller = useTextEditingController(text: initialText);
+  SearchContainer({
+    super.key,
+    required this.isFilled,
+    this.initialText,
+    required this.onSubmit,
+    required this.onFill,
+    this.decoration,
+  }) : _controller = useTextEditingController(text: initialText);
 
   final bool isFilled;
 

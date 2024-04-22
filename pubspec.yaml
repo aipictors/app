@@ -4,11 +4,11 @@ description: A new Flutter project.
 
 publish_to: "none"
 
-version: 1.1.0+15
+version: 1.1.0+16
 
 environment:
   sdk: ">=3.0.2 <4.0.0"
-  flutter: 3.19.3
+  flutter: 3.19.6
 
 dependencies:
   app_tracking_transparency: ^2.0.4

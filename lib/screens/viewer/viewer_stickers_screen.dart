@@ -56,28 +56,34 @@ class ViewerStickersScreen extends HookConsumerWidget {
               stickerList
                   .where((p0) => p0.title.contains(searchText.value))
                   .toBuiltList();
+
           if (searchText.value == '') {
             filteredStickerList = stickerList;
           }
 
           return Column(children: [
-            StickersHeaderContainer(
-              currentSize: crossAxisCount,
-              maxItems: layout.notCompact ? 5 : 2,
-              onSubmit: (String text) async {
-                searchText.value = text;
-              },
-              onSizeChanged: (int size) {
-                final notifier =
-                    ref.read(stickersScreenCrossAxisCountProvider.notifier);
-                notifier.update(size);
-              },
+            const SizedBox(height: 16),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: StickersHeaderContainer(
+                currentSize: crossAxisCount,
+                maxItems: layout.notCompact ? 5 : 2,
+                onSubmit: (String text) async {
+                  searchText.value = text;
+                },
+                onSizeChanged: (int size) {
+                  final notifier =
+                      ref.read(stickersScreenCrossAxisCountProvider.notifier);
+                  notifier.update(size);
+                },
+              ),
             ),
             if (filteredStickerList.isEmpty) ...[
               const Spacer(),
               DataEmptyErrorContainer(message: 'あなたのスタンプは無いみたい。'.i18n),
               const Spacer(),
             ],
+            const SizedBox(height: 16),
             if (filteredStickerList.isNotEmpty)
               Expanded(
                 child: StickersGridView(

@@ -1,4 +1,4 @@
-import 'package:aipictors/widgets/container/sticker_grid_item_container.dart';
+import 'package:aipictors/widgets/card/sticker_card.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
@@ -22,16 +22,19 @@ class StickersGridView extends HookConsumerWidget {
   @override
   Widget build(context, ref) {
     return GridView.builder(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       shrinkWrap: true,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: crossAxisCount,
         childAspectRatio: 0.725,
+        mainAxisSpacing: 8,
+        crossAxisSpacing: 8,
       ),
       physics: (physics != null) ? physics : const ClampingScrollPhysics(),
       itemCount: stickerList.length,
       itemBuilder: (context, index) {
         final sticker = stickerList[index];
-        return StickerGridItemContainer(
+        return StickerCard(
           title: sticker.title,
           imageUrl: sticker.image!.downloadURL,
           downloadsCount: sticker.downloadsCount,

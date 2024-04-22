@@ -3,8 +3,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class StickerGridItemContainer extends HookConsumerWidget {
-  const StickerGridItemContainer({
+class StickerCard extends HookConsumerWidget {
+  const StickerCard({
     super.key,
     required this.title,
     required this.imageUrl,
@@ -26,6 +26,7 @@ class StickerGridItemContainer extends HookConsumerWidget {
     return InkWell(
       onTap: onTap,
       child: Card.outlined(
+        margin: const EdgeInsets.all(0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
