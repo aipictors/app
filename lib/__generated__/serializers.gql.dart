@@ -549,7 +549,8 @@ import 'package:aipictors/graphql/__generated__/viewer_muted_tags.data.gql.dart'
     show
         GViewerMutedTagsData,
         GViewerMutedTagsData_viewer,
-        GViewerMutedTagsData_viewer_mutedTags;
+        GViewerMutedTagsData_viewer_mutedTags,
+        GViewerMutedTagsData_viewer_user;
 import 'package:aipictors/graphql/__generated__/viewer_muted_tags.req.gql.dart'
     show GViewerMutedTagsReq;
 import 'package:aipictors/graphql/__generated__/viewer_muted_tags.var.gql.dart'
@@ -1696,6 +1697,7 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GViewerMutedTagsData,
   GViewerMutedTagsData_viewer,
   GViewerMutedTagsData_viewer_mutedTags,
+  GViewerMutedTagsData_viewer_user,
   GViewerMutedTagsReq,
   GViewerMutedTagsVars,
   GViewerMutedUsersData,
