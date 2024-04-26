@@ -34,6 +34,22 @@ final BuiltSet<GAccessType> _$gAccessTypeValues =
   _$gAccessTypeLIMITED,
 ]);
 
+const GAiModelType _$gAiModelTypeIMAGE = const GAiModelType._('IMAGE');
+
+GAiModelType _$gAiModelTypeValueOf(String name) {
+  switch (name) {
+    case 'IMAGE':
+      return _$gAiModelTypeIMAGE;
+    default:
+      throw new ArgumentError(name);
+  }
+}
+
+final BuiltSet<GAiModelType> _$gAiModelTypeValues =
+    new BuiltSet<GAiModelType>(const <GAiModelType>[
+  _$gAiModelTypeIMAGE,
+]);
+
 const GAwardType _$gAwardTypeMONTHLY = const GAwardType._('MONTHLY');
 const GAwardType _$gAwardTypeWEEKLY = const GAwardType._('WEEKLY');
 const GAwardType _$gAwardTypeDAILY = const GAwardType._('DAILY');
@@ -129,6 +145,50 @@ final BuiltSet<GFolderMode> _$gFolderModeValues =
   _$gFolderModeNORMAL,
   _$gFolderModeCOMIC_VERTICAL,
   _$gFolderModeCOMIC_HORIZONTAL,
+]);
+
+const GFolderRating _$gFolderRatingG = const GFolderRating._('G');
+const GFolderRating _$gFolderRatingR18 = const GFolderRating._('R18');
+
+GFolderRating _$gFolderRatingValueOf(String name) {
+  switch (name) {
+    case 'G':
+      return _$gFolderRatingG;
+    case 'R18':
+      return _$gFolderRatingR18;
+    default:
+      throw new ArgumentError(name);
+  }
+}
+
+final BuiltSet<GFolderRating> _$gFolderRatingValues =
+    new BuiltSet<GFolderRating>(const <GFolderRating>[
+  _$gFolderRatingG,
+  _$gFolderRatingR18,
+]);
+
+const GFolderType _$gFolderTypeBOOKMARK = const GFolderType._('BOOKMARK');
+const GFolderType _$gFolderTypePRIVATE = const GFolderType._('PRIVATE');
+const GFolderType _$gFolderTypePUBLIC = const GFolderType._('PUBLIC');
+
+GFolderType _$gFolderTypeValueOf(String name) {
+  switch (name) {
+    case 'BOOKMARK':
+      return _$gFolderTypeBOOKMARK;
+    case 'PRIVATE':
+      return _$gFolderTypePRIVATE;
+    case 'PUBLIC':
+      return _$gFolderTypePUBLIC;
+    default:
+      throw new ArgumentError(name);
+  }
+}
+
+final BuiltSet<GFolderType> _$gFolderTypeValues =
+    new BuiltSet<GFolderType>(const <GFolderType>[
+  _$gFolderTypeBOOKMARK,
+  _$gFolderTypePRIVATE,
+  _$gFolderTypePUBLIC,
 ]);
 
 const GImageGenerationSizeType _$gImageGenerationSizeTypeSD2_768_768 =
@@ -508,6 +568,37 @@ final BuiltSet<GPaymentType> _$gPaymentTypeValues =
   _$gPaymentTypePASS_LITE,
 ]);
 
+const GPreferenceRating _$gPreferenceRatingR18 =
+    const GPreferenceRating._('R18');
+const GPreferenceRating _$gPreferenceRatingR18G =
+    const GPreferenceRating._('R18G');
+const GPreferenceRating _$gPreferenceRatingR15 =
+    const GPreferenceRating._('R15');
+const GPreferenceRating _$gPreferenceRatingG = const GPreferenceRating._('G');
+
+GPreferenceRating _$gPreferenceRatingValueOf(String name) {
+  switch (name) {
+    case 'R18':
+      return _$gPreferenceRatingR18;
+    case 'R18G':
+      return _$gPreferenceRatingR18G;
+    case 'R15':
+      return _$gPreferenceRatingR15;
+    case 'G':
+      return _$gPreferenceRatingG;
+    default:
+      throw new ArgumentError(name);
+  }
+}
+
+final BuiltSet<GPreferenceRating> _$gPreferenceRatingValues =
+    new BuiltSet<GPreferenceRating>(const <GPreferenceRating>[
+  _$gPreferenceRatingR18,
+  _$gPreferenceRatingR18G,
+  _$gPreferenceRatingR15,
+  _$gPreferenceRatingG,
+]);
+
 const GRating _$gRatingG = const GRating._('G');
 const GRating _$gRatingR15 = const GRating._('R15');
 const GRating _$gRatingR18 = const GRating._('R18');
@@ -603,6 +694,28 @@ final BuiltSet<GStickerGenre> _$gStickerGenreValues =
   _$gStickerGenreOBJECT,
 ]);
 
+const GStickerOrderBy _$gStickerOrderByDATE_CREATED =
+    const GStickerOrderBy._('DATE_CREATED');
+const GStickerOrderBy _$gStickerOrderByDATE_USED =
+    const GStickerOrderBy._('DATE_USED');
+
+GStickerOrderBy _$gStickerOrderByValueOf(String name) {
+  switch (name) {
+    case 'DATE_CREATED':
+      return _$gStickerOrderByDATE_CREATED;
+    case 'DATE_USED':
+      return _$gStickerOrderByDATE_USED;
+    default:
+      throw new ArgumentError(name);
+  }
+}
+
+final BuiltSet<GStickerOrderBy> _$gStickerOrderByValues =
+    new BuiltSet<GStickerOrderBy>(const <GStickerOrderBy>[
+  _$gStickerOrderByDATE_CREATED,
+  _$gStickerOrderByDATE_USED,
+]);
+
 const GWorkOrderBy _$gWorkOrderByDATE_CREATED =
     const GWorkOrderBy._('DATE_CREATED');
 const GWorkOrderBy _$gWorkOrderByLIKES_COUNT =
@@ -628,6 +741,7 @@ final BuiltSet<GWorkOrderBy> _$gWorkOrderByValues =
 const GWorkType _$gWorkTypeWORK = const GWorkType._('WORK');
 const GWorkType _$gWorkTypeNOVEL = const GWorkType._('NOVEL');
 const GWorkType _$gWorkTypeVIDEO = const GWorkType._('VIDEO');
+const GWorkType _$gWorkTypeCOLUMN = const GWorkType._('COLUMN');
 
 GWorkType _$gWorkTypeValueOf(String name) {
   switch (name) {
@@ -637,6 +751,8 @@ GWorkType _$gWorkTypeValueOf(String name) {
       return _$gWorkTypeNOVEL;
     case 'VIDEO':
       return _$gWorkTypeVIDEO;
+    case 'COLUMN':
+      return _$gWorkTypeCOLUMN;
     default:
       throw new ArgumentError(name);
   }
@@ -647,6 +763,7 @@ final BuiltSet<GWorkType> _$gWorkTypeValues =
   _$gWorkTypeWORK,
   _$gWorkTypeNOVEL,
   _$gWorkTypeVIDEO,
+  _$gWorkTypeCOLUMN,
 ]);
 
 Serializer<GAcceptPromptonRequestInput>
@@ -658,6 +775,10 @@ Serializer<GAddPromptonTagToWorkInput> _$gAddPromptonTagToWorkInputSerializer =
 Serializer<GAddPromptonWorkToFolderInput>
     _$gAddPromptonWorkToFolderInputSerializer =
     new _$GAddPromptonWorkToFolderInputSerializer();
+Serializer<GAiModelType> _$gAiModelTypeSerializer =
+    new _$GAiModelTypeSerializer();
+Serializer<GAiModelWhereInput> _$gAiModelWhereInputSerializer =
+    new _$GAiModelWhereInputSerializer();
 Serializer<GAlbumsWhereInput> _$gAlbumsWhereInputSerializer =
     new _$GAlbumsWhereInputSerializer();
 Serializer<GAwardsWhereInput> _$gAwardsWhereInputSerializer =
@@ -770,6 +891,9 @@ Serializer<GCreatePromptonWorkInput> _$gCreatePromptonWorkInputSerializer =
 Serializer<GCreatePromptonWorkLikeInput>
     _$gCreatePromptonWorkLikeInputSerializer =
     new _$GCreatePromptonWorkLikeInputSerializer();
+Serializer<GCreateRecommendedWorkInput>
+    _$gCreateRecommendedWorkInputSerializer =
+    new _$GCreateRecommendedWorkInputSerializer();
 Serializer<GCreateReservedImageGenerationTaskInput>
     _$gCreateReservedImageGenerationTaskInputSerializer =
     new _$GCreateReservedImageGenerationTaskInputSerializer();
@@ -838,6 +962,9 @@ Serializer<GDeletePromptonWorkInput> _$gDeletePromptonWorkInputSerializer =
 Serializer<GDeletePromptonWorkLikeInput>
     _$gDeletePromptonWorkLikeInputSerializer =
     new _$GDeletePromptonWorkLikeInputSerializer();
+Serializer<GDeleteRecommendedWorkInput>
+    _$gDeleteRecommendedWorkInputSerializer =
+    new _$GDeleteRecommendedWorkInputSerializer();
 Serializer<GDeleteStickerInput> _$gDeleteStickerInputSerializer =
     new _$GDeleteStickerInputSerializer();
 Serializer<GDeleteUserStickerInput> _$gDeleteUserStickerInputSerializer =
@@ -851,8 +978,11 @@ Serializer<GFlipPromptonFolderWorkIndexInput>
     _$gFlipPromptonFolderWorkIndexInputSerializer =
     new _$GFlipPromptonFolderWorkIndexInputSerializer();
 Serializer<GFolderMode> _$gFolderModeSerializer = new _$GFolderModeSerializer();
+Serializer<GFolderRating> _$gFolderRatingSerializer =
+    new _$GFolderRatingSerializer();
 Serializer<GFoldersWhereInput> _$gFoldersWhereInputSerializer =
     new _$GFoldersWhereInputSerializer();
+Serializer<GFolderType> _$gFolderTypeSerializer = new _$GFolderTypeSerializer();
 Serializer<GFollowPromptonUserInput> _$gFollowPromptonUserInputSerializer =
     new _$GFollowPromptonUserInputSerializer();
 Serializer<GFollowUserInput> _$gFollowUserInputSerializer =
@@ -923,6 +1053,8 @@ Serializer<GPinPromptonWorkInput> _$gPinPromptonWorkInputSerializer =
     new _$GPinPromptonWorkInputSerializer();
 Serializer<GPopularWorksWhereInput> _$gPopularWorksWhereInputSerializer =
     new _$GPopularWorksWhereInputSerializer();
+Serializer<GPreferenceRating> _$gPreferenceRatingSerializer =
+    new _$GPreferenceRatingSerializer();
 Serializer<GPromptonFoldersWhereInput> _$gPromptonFoldersWhereInputSerializer =
     new _$GPromptonFoldersWhereInputSerializer();
 Serializer<GPromptonImageGenerationsWhereInput>
@@ -976,6 +1108,8 @@ Serializer<GSignImageGenerationTermsInput>
     new _$GSignImageGenerationTermsInputSerializer();
 Serializer<GStickerGenre> _$gStickerGenreSerializer =
     new _$GStickerGenreSerializer();
+Serializer<GStickerOrderBy> _$gStickerOrderBySerializer =
+    new _$GStickerOrderBySerializer();
 Serializer<GStickersWhereInput> _$gStickersWhereInputSerializer =
     new _$GStickersWhereInputSerializer();
 Serializer<GTagsWhereInput> _$gTagsWhereInputSerializer =
@@ -1065,6 +1199,8 @@ Serializer<GUpdateStickerInput> _$gUpdateStickerInputSerializer =
     new _$GUpdateStickerInputSerializer();
 Serializer<GUpdateUserProfileInput> _$gUpdateUserProfileInputSerializer =
     new _$GUpdateUserProfileInputSerializer();
+Serializer<GUpdateUserSettingInput> _$gUpdateUserSettingInputSerializer =
+    new _$GUpdateUserSettingInputSerializer();
 Serializer<GUpdateWorkInput> _$gUpdateWorkInputSerializer =
     new _$GUpdateWorkInputSerializer();
 Serializer<GUserAlbumInput> _$gUserAlbumInputSerializer =
@@ -1254,6 +1390,69 @@ class _$GAddPromptonWorkToFolderInputSerializer
   }
 }
 
+class _$GAiModelTypeSerializer implements PrimitiveSerializer<GAiModelType> {
+  @override
+  final Iterable<Type> types = const <Type>[GAiModelType];
+  @override
+  final String wireName = 'GAiModelType';
+
+  @override
+  Object serialize(Serializers serializers, GAiModelType object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      object.name;
+
+  @override
+  GAiModelType deserialize(Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      GAiModelType.valueOf(serialized as String);
+}
+
+class _$GAiModelWhereInputSerializer
+    implements StructuredSerializer<GAiModelWhereInput> {
+  @override
+  final Iterable<Type> types = const [GAiModelWhereInput, _$GAiModelWhereInput];
+  @override
+  final String wireName = 'GAiModelWhereInput';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GAiModelWhereInput object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[];
+    Object? value;
+    value = object.search;
+    if (value != null) {
+      result
+        ..add('search')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    return result;
+  }
+
+  @override
+  GAiModelWhereInput deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GAiModelWhereInputBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'search':
+          result.search = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$GAlbumsWhereInputSerializer
     implements StructuredSerializer<GAlbumsWhereInput> {
   @override
@@ -1273,10 +1472,31 @@ class _$GAlbumsWhereInputSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
+    value = object.ownerUserId;
+    if (value != null) {
+      result
+        ..add('ownerUserId')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     value = object.isSensitive;
     if (value != null) {
       result
         ..add('isSensitive')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
+    value = object.thumbnailImageExists;
+    if (value != null) {
+      result
+        ..add('thumbnailImageExists')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
+    value = object.isInspected;
+    if (value != null) {
+      result
+        ..add('isInspected')
         ..add(
             serializers.serialize(value, specifiedType: const FullType(bool)));
     }
@@ -1299,8 +1519,20 @@ class _$GAlbumsWhereInputSerializer
           result.search = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
+        case 'ownerUserId':
+          result.ownerUserId = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
         case 'isSensitive':
           result.isSensitive = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
+        case 'thumbnailImageExists':
+          result.thumbnailImageExists = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
+        case 'isInspected':
+          result.isInspected = serializers.deserialize(value,
               specifiedType: const FullType(bool)) as bool?;
           break;
       }
@@ -1845,6 +2077,14 @@ class _$GCommentsWhereInputSerializer
         ..add(
             serializers.serialize(value, specifiedType: const FullType(bool)));
     }
+    value = object.ratings;
+    if (value != null) {
+      result
+        ..add('ratings')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(GRating)])));
+    }
     return result;
   }
 
@@ -1863,6 +2103,12 @@ class _$GCommentsWhereInputSerializer
         case 'isSensitive':
           result.isSensitive = serializers.deserialize(value,
               specifiedType: const FullType(bool)) as bool?;
+          break;
+        case 'ratings':
+          result.ratings.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(GRating)]))!
+              as BuiltList<Object?>);
           break;
       }
     }
@@ -4174,6 +4420,52 @@ class _$GCreatePromptonWorkLikeInputSerializer
   }
 }
 
+class _$GCreateRecommendedWorkInputSerializer
+    implements StructuredSerializer<GCreateRecommendedWorkInput> {
+  @override
+  final Iterable<Type> types = const [
+    GCreateRecommendedWorkInput,
+    _$GCreateRecommendedWorkInput
+  ];
+  @override
+  final String wireName = 'GCreateRecommendedWorkInput';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GCreateRecommendedWorkInput object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'workId',
+      serializers.serialize(object.workId,
+          specifiedType: const FullType(String)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GCreateRecommendedWorkInput deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GCreateRecommendedWorkInputBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'workId':
+          result.workId = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$GCreateReservedImageGenerationTaskInputSerializer
     implements StructuredSerializer<GCreateReservedImageGenerationTaskInput> {
   @override
@@ -4601,11 +4893,36 @@ class _$GCreateStickerInputSerializer
       Serializers serializers, GCreateStickerInput object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
-      'title',
-      serializers.serialize(object.title,
+      'imageUrl',
+      serializers.serialize(object.imageUrl,
           specifiedType: const FullType(String)),
+      'accessType',
+      serializers.serialize(object.accessType,
+          specifiedType: const FullType(GAccessType)),
     ];
-
+    Object? value;
+    value = object.title;
+    if (value != null) {
+      result
+        ..add('title')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.genre;
+    if (value != null) {
+      result
+        ..add('genre')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(GStickerGenre)));
+    }
+    value = object.categories;
+    if (value != null) {
+      result
+        ..add('categories')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(String)])));
+    }
     return result;
   }
 
@@ -4623,7 +4940,25 @@ class _$GCreateStickerInputSerializer
       switch (key) {
         case 'title':
           result.title = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'genre':
+          result.genre = serializers.deserialize(value,
+              specifiedType: const FullType(GStickerGenre)) as GStickerGenre?;
+          break;
+        case 'categories':
+          result.categories.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(String)]))!
+              as BuiltList<Object?>);
+          break;
+        case 'imageUrl':
+          result.imageUrl = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
+          break;
+        case 'accessType':
+          result.accessType = serializers.deserialize(value,
+              specifiedType: const FullType(GAccessType))! as GAccessType;
           break;
       }
     }
@@ -5901,6 +6236,52 @@ class _$GDeletePromptonWorkLikeInputSerializer
   }
 }
 
+class _$GDeleteRecommendedWorkInputSerializer
+    implements StructuredSerializer<GDeleteRecommendedWorkInput> {
+  @override
+  final Iterable<Type> types = const [
+    GDeleteRecommendedWorkInput,
+    _$GDeleteRecommendedWorkInput
+  ];
+  @override
+  final String wireName = 'GDeleteRecommendedWorkInput';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GDeleteRecommendedWorkInput object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'workId',
+      serializers.serialize(object.workId,
+          specifiedType: const FullType(String)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GDeleteRecommendedWorkInput deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GDeleteRecommendedWorkInputBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'workId':
+          result.workId = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$GDeleteStickerInputSerializer
     implements StructuredSerializer<GDeleteStickerInput> {
   @override
@@ -6175,6 +6556,23 @@ class _$GFolderModeSerializer implements PrimitiveSerializer<GFolderMode> {
       GFolderMode.valueOf(serialized as String);
 }
 
+class _$GFolderRatingSerializer implements PrimitiveSerializer<GFolderRating> {
+  @override
+  final Iterable<Type> types = const <Type>[GFolderRating];
+  @override
+  final String wireName = 'GFolderRating';
+
+  @override
+  Object serialize(Serializers serializers, GFolderRating object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      object.name;
+
+  @override
+  GFolderRating deserialize(Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      GFolderRating.valueOf(serialized as String);
+}
+
 class _$GFoldersWhereInputSerializer
     implements StructuredSerializer<GFoldersWhereInput> {
   @override
@@ -6230,6 +6628,23 @@ class _$GFoldersWhereInputSerializer
 
     return result.build();
   }
+}
+
+class _$GFolderTypeSerializer implements PrimitiveSerializer<GFolderType> {
+  @override
+  final Iterable<Type> types = const <Type>[GFolderType];
+  @override
+  final String wireName = 'GFolderType';
+
+  @override
+  Object serialize(Serializers serializers, GFolderType object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      object.name;
+
+  @override
+  GFolderType deserialize(Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      GFolderType.valueOf(serialized as String);
 }
 
 class _$GFollowPromptonUserInputSerializer
@@ -7433,6 +7848,24 @@ class _$GPopularWorksWhereInputSerializer
   }
 }
 
+class _$GPreferenceRatingSerializer
+    implements PrimitiveSerializer<GPreferenceRating> {
+  @override
+  final Iterable<Type> types = const <Type>[GPreferenceRating];
+  @override
+  final String wireName = 'GPreferenceRating';
+
+  @override
+  Object serialize(Serializers serializers, GPreferenceRating object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      object.name;
+
+  @override
+  GPreferenceRating deserialize(Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      GPreferenceRating.valueOf(serialized as String);
+}
+
 class _$GPromptonFoldersWhereInputSerializer
     implements StructuredSerializer<GPromptonFoldersWhereInput> {
   @override
@@ -8593,6 +9026,24 @@ class _$GStickerGenreSerializer implements PrimitiveSerializer<GStickerGenre> {
       GStickerGenre.valueOf(serialized as String);
 }
 
+class _$GStickerOrderBySerializer
+    implements PrimitiveSerializer<GStickerOrderBy> {
+  @override
+  final Iterable<Type> types = const <Type>[GStickerOrderBy];
+  @override
+  final String wireName = 'GStickerOrderBy';
+
+  @override
+  Object serialize(Serializers serializers, GStickerOrderBy object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      object.name;
+
+  @override
+  GStickerOrderBy deserialize(Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      GStickerOrderBy.valueOf(serialized as String);
+}
+
 class _$GStickersWhereInputSerializer
     implements StructuredSerializer<GStickersWhereInput> {
   @override
@@ -8616,12 +9067,34 @@ class _$GStickersWhereInputSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    value = object.isSensitive;
+    value = object.ownerUserId;
     if (value != null) {
       result
-        ..add('isSensitive')
-        ..add(
-            serializers.serialize(value, specifiedType: const FullType(bool)));
+        ..add('ownerUserId')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.creatorUserId;
+    if (value != null) {
+      result
+        ..add('creatorUserId')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.genre;
+    if (value != null) {
+      result
+        ..add('genre')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(GStickerGenre)));
+    }
+    value = object.categories;
+    if (value != null) {
+      result
+        ..add('categories')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(String)])));
     }
     return result;
   }
@@ -8642,9 +9115,23 @@ class _$GStickersWhereInputSerializer
           result.search = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
-        case 'isSensitive':
-          result.isSensitive = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool?;
+        case 'ownerUserId':
+          result.ownerUserId = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'creatorUserId':
+          result.creatorUserId = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'genre':
+          result.genre = serializers.deserialize(value,
+              specifiedType: const FullType(GStickerGenre)) as GStickerGenre?;
+          break;
+        case 'categories':
+          result.categories.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(String)]))!
+              as BuiltList<Object?>);
           break;
       }
     }
@@ -10663,15 +11150,80 @@ class _$GUpdateUserProfileInputSerializer
   Iterable<Object?> serialize(
       Serializers serializers, GUpdateUserProfileInput object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      'displayName',
-      serializers.serialize(object.displayName,
-          specifiedType: const FullType(String)),
-      'biography',
-      serializers.serialize(object.biography,
-          specifiedType: const FullType(String)),
-    ];
-
+    final result = <Object?>[];
+    Object? value;
+    value = object.displayName;
+    if (value != null) {
+      result
+        ..add('displayName')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.biography;
+    if (value != null) {
+      result
+        ..add('biography')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.enBiography;
+    if (value != null) {
+      result
+        ..add('enBiography')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.iconUrl;
+    if (value != null) {
+      result
+        ..add('iconUrl')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.headerImageUrl;
+    if (value != null) {
+      result
+        ..add('headerImageUrl')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.twitterAccountId;
+    if (value != null) {
+      result
+        ..add('twitterAccountId')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.instagramAccountId;
+    if (value != null) {
+      result
+        ..add('instagramAccountId')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.githubAccountId;
+    if (value != null) {
+      result
+        ..add('githubAccountId')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.featuredWorkIds;
+    if (value != null) {
+      result
+        ..add('featuredWorkIds')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(String)])));
+    }
+    value = object.featuredSensitiveWorkIds;
+    if (value != null) {
+      result
+        ..add('featuredSensitiveWorkIds')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(String)])));
+    }
     return result;
   }
 
@@ -10689,11 +11241,97 @@ class _$GUpdateUserProfileInputSerializer
       switch (key) {
         case 'displayName':
           result.displayName = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'biography':
           result.biography = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'enBiography':
+          result.enBiography = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'iconUrl':
+          result.iconUrl = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'headerImageUrl':
+          result.headerImageUrl = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'twitterAccountId':
+          result.twitterAccountId = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'instagramAccountId':
+          result.instagramAccountId = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'githubAccountId':
+          result.githubAccountId = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'featuredWorkIds':
+          result.featuredWorkIds.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(String)]))!
+              as BuiltList<Object?>);
+          break;
+        case 'featuredSensitiveWorkIds':
+          result.featuredSensitiveWorkIds.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(String)]))!
+              as BuiltList<Object?>);
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GUpdateUserSettingInputSerializer
+    implements StructuredSerializer<GUpdateUserSettingInput> {
+  @override
+  final Iterable<Type> types = const [
+    GUpdateUserSettingInput,
+    _$GUpdateUserSettingInput
+  ];
+  @override
+  final String wireName = 'GUpdateUserSettingInput';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GUpdateUserSettingInput object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[];
+    Object? value;
+    value = object.preferenceRating;
+    if (value != null) {
+      result
+        ..add('preferenceRating')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(GPreferenceRating)));
+    }
+    return result;
+  }
+
+  @override
+  GUpdateUserSettingInput deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GUpdateUserSettingInputBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'preferenceRating':
+          result.preferenceRating = serializers.deserialize(value,
+                  specifiedType: const FullType(GPreferenceRating))
+              as GPreferenceRating?;
           break;
       }
     }
@@ -11161,6 +11799,13 @@ class _$GWorksWhereInputSerializer
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[];
     Object? value;
+    value = object.orderBy;
+    if (value != null) {
+      result
+        ..add('orderBy')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(GWorkOrderBy)));
+    }
     value = object.search;
     if (value != null) {
       result
@@ -11183,34 +11828,12 @@ class _$GWorksWhereInputSerializer
         ..add(
             serializers.serialize(value, specifiedType: const FullType(bool)));
     }
-    value = object.hasGenerationPrompt;
-    if (value != null) {
-      result
-        ..add('hasGenerationPrompt')
-        ..add(
-            serializers.serialize(value, specifiedType: const FullType(bool)));
-    }
     value = object.style;
     if (value != null) {
       result
         ..add('style')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(GImageStyle)));
-    }
-    value = object.orderBy;
-    if (value != null) {
-      result
-        ..add('orderBy')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(GWorkOrderBy)));
-    }
-    value = object.searchTargets;
-    if (value != null) {
-      result
-        ..add('searchTargets')
-        ..add(serializers.serialize(value,
-            specifiedType:
-                const FullType(BuiltList, const [const FullType(String)])));
     }
     value = object.isSensitive;
     if (value != null) {
@@ -11241,6 +11864,92 @@ class _$GWorksWhereInputSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
+    value = object.workType;
+    if (value != null) {
+      result
+        ..add('workType')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(GWorkType)));
+    }
+    value = object.modelNames;
+    if (value != null) {
+      result
+        ..add('modelNames')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(String)])));
+    }
+    value = object.serviceNames;
+    if (value != null) {
+      result
+        ..add('serviceNames')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(String)])));
+    }
+    value = object.isPromptPublic;
+    if (value != null) {
+      result
+        ..add('isPromptPublic')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
+    value = object.isThemeParticipated;
+    if (value != null) {
+      result
+        ..add('isThemeParticipated')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
+    value = object.subjectId;
+    if (value != null) {
+      result
+        ..add('subjectId')
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
+    }
+    value = object.isOneWorkPerUser;
+    if (value != null) {
+      result
+        ..add('isOneWorkPerUser')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
+    value = object.ratings;
+    if (value != null) {
+      result
+        ..add('ratings')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(GRating)])));
+    }
+    value = object.ownerName;
+    if (value != null) {
+      result
+        ..add('ownerName')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.isFollowing;
+    if (value != null) {
+      result
+        ..add('isFollowing')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
+    value = object.isNotFollowing;
+    if (value != null) {
+      result
+        ..add('isNotFollowing')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
+    value = object.isRecommended;
+    if (value != null) {
+      result
+        ..add('isRecommended')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
     return result;
   }
 
@@ -11256,6 +11965,10 @@ class _$GWorksWhereInputSerializer
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
+        case 'orderBy':
+          result.orderBy = serializers.deserialize(value,
+              specifiedType: const FullType(GWorkOrderBy)) as GWorkOrderBy?;
+          break;
         case 'search':
           result.search = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
@@ -11270,23 +11983,9 @@ class _$GWorksWhereInputSerializer
           result.hasPrompt = serializers.deserialize(value,
               specifiedType: const FullType(bool)) as bool?;
           break;
-        case 'hasGenerationPrompt':
-          result.hasGenerationPrompt = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool?;
-          break;
         case 'style':
           result.style = serializers.deserialize(value,
               specifiedType: const FullType(GImageStyle)) as GImageStyle?;
-          break;
-        case 'orderBy':
-          result.orderBy = serializers.deserialize(value,
-              specifiedType: const FullType(GWorkOrderBy)) as GWorkOrderBy?;
-          break;
-        case 'searchTargets':
-          result.searchTargets.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      BuiltList, const [const FullType(String)]))!
-              as BuiltList<Object?>);
           break;
         case 'isSensitive':
           result.isSensitive = serializers.deserialize(value,
@@ -11305,6 +12004,60 @@ class _$GWorksWhereInputSerializer
         case 'generationModelId':
           result.generationModelId = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
+          break;
+        case 'workType':
+          result.workType = serializers.deserialize(value,
+              specifiedType: const FullType(GWorkType)) as GWorkType?;
+          break;
+        case 'modelNames':
+          result.modelNames.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(String)]))!
+              as BuiltList<Object?>);
+          break;
+        case 'serviceNames':
+          result.serviceNames.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(String)]))!
+              as BuiltList<Object?>);
+          break;
+        case 'isPromptPublic':
+          result.isPromptPublic = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
+        case 'isThemeParticipated':
+          result.isThemeParticipated = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
+        case 'subjectId':
+          result.subjectId = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int?;
+          break;
+        case 'isOneWorkPerUser':
+          result.isOneWorkPerUser = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
+        case 'ratings':
+          result.ratings.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(GRating)]))!
+              as BuiltList<Object?>);
+          break;
+        case 'ownerName':
+          result.ownerName = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'isFollowing':
+          result.isFollowing = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
+        case 'isNotFollowing':
+          result.isNotFollowing = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
+        case 'isRecommended':
+          result.isRecommended = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
           break;
       }
     }
@@ -11630,17 +12383,110 @@ class GAddPromptonWorkToFolderInputBuilder
   }
 }
 
+class _$GAiModelWhereInput extends GAiModelWhereInput {
+  @override
+  final String? search;
+
+  factory _$GAiModelWhereInput(
+          [void Function(GAiModelWhereInputBuilder)? updates]) =>
+      (new GAiModelWhereInputBuilder()..update(updates))._build();
+
+  _$GAiModelWhereInput._({this.search}) : super._();
+
+  @override
+  GAiModelWhereInput rebuild(
+          void Function(GAiModelWhereInputBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GAiModelWhereInputBuilder toBuilder() =>
+      new GAiModelWhereInputBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GAiModelWhereInput && search == other.search;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, search.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GAiModelWhereInput')
+          ..add('search', search))
+        .toString();
+  }
+}
+
+class GAiModelWhereInputBuilder
+    implements Builder<GAiModelWhereInput, GAiModelWhereInputBuilder> {
+  _$GAiModelWhereInput? _$v;
+
+  String? _search;
+  String? get search => _$this._search;
+  set search(String? search) => _$this._search = search;
+
+  GAiModelWhereInputBuilder();
+
+  GAiModelWhereInputBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _search = $v.search;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GAiModelWhereInput other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GAiModelWhereInput;
+  }
+
+  @override
+  void update(void Function(GAiModelWhereInputBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GAiModelWhereInput build() => _build();
+
+  _$GAiModelWhereInput _build() {
+    final _$result = _$v ?? new _$GAiModelWhereInput._(search: search);
+    replace(_$result);
+    return _$result;
+  }
+}
+
 class _$GAlbumsWhereInput extends GAlbumsWhereInput {
   @override
   final String? search;
   @override
+  final String? ownerUserId;
+  @override
   final bool? isSensitive;
+  @override
+  final bool? thumbnailImageExists;
+  @override
+  final bool? isInspected;
 
   factory _$GAlbumsWhereInput(
           [void Function(GAlbumsWhereInputBuilder)? updates]) =>
       (new GAlbumsWhereInputBuilder()..update(updates))._build();
 
-  _$GAlbumsWhereInput._({this.search, this.isSensitive}) : super._();
+  _$GAlbumsWhereInput._(
+      {this.search,
+      this.ownerUserId,
+      this.isSensitive,
+      this.thumbnailImageExists,
+      this.isInspected})
+      : super._();
 
   @override
   GAlbumsWhereInput rebuild(void Function(GAlbumsWhereInputBuilder) updates) =>
@@ -11655,14 +12501,20 @@ class _$GAlbumsWhereInput extends GAlbumsWhereInput {
     if (identical(other, this)) return true;
     return other is GAlbumsWhereInput &&
         search == other.search &&
-        isSensitive == other.isSensitive;
+        ownerUserId == other.ownerUserId &&
+        isSensitive == other.isSensitive &&
+        thumbnailImageExists == other.thumbnailImageExists &&
+        isInspected == other.isInspected;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, search.hashCode);
+    _$hash = $jc(_$hash, ownerUserId.hashCode);
     _$hash = $jc(_$hash, isSensitive.hashCode);
+    _$hash = $jc(_$hash, thumbnailImageExists.hashCode);
+    _$hash = $jc(_$hash, isInspected.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -11671,7 +12523,10 @@ class _$GAlbumsWhereInput extends GAlbumsWhereInput {
   String toString() {
     return (newBuiltValueToStringHelper(r'GAlbumsWhereInput')
           ..add('search', search)
-          ..add('isSensitive', isSensitive))
+          ..add('ownerUserId', ownerUserId)
+          ..add('isSensitive', isSensitive)
+          ..add('thumbnailImageExists', thumbnailImageExists)
+          ..add('isInspected', isInspected))
         .toString();
   }
 }
@@ -11684,9 +12539,22 @@ class GAlbumsWhereInputBuilder
   String? get search => _$this._search;
   set search(String? search) => _$this._search = search;
 
+  String? _ownerUserId;
+  String? get ownerUserId => _$this._ownerUserId;
+  set ownerUserId(String? ownerUserId) => _$this._ownerUserId = ownerUserId;
+
   bool? _isSensitive;
   bool? get isSensitive => _$this._isSensitive;
   set isSensitive(bool? isSensitive) => _$this._isSensitive = isSensitive;
+
+  bool? _thumbnailImageExists;
+  bool? get thumbnailImageExists => _$this._thumbnailImageExists;
+  set thumbnailImageExists(bool? thumbnailImageExists) =>
+      _$this._thumbnailImageExists = thumbnailImageExists;
+
+  bool? _isInspected;
+  bool? get isInspected => _$this._isInspected;
+  set isInspected(bool? isInspected) => _$this._isInspected = isInspected;
 
   GAlbumsWhereInputBuilder();
 
@@ -11694,7 +12562,10 @@ class GAlbumsWhereInputBuilder
     final $v = _$v;
     if ($v != null) {
       _search = $v.search;
+      _ownerUserId = $v.ownerUserId;
       _isSensitive = $v.isSensitive;
+      _thumbnailImageExists = $v.thumbnailImageExists;
+      _isInspected = $v.isInspected;
       _$v = null;
     }
     return this;
@@ -11716,7 +12587,12 @@ class GAlbumsWhereInputBuilder
 
   _$GAlbumsWhereInput _build() {
     final _$result = _$v ??
-        new _$GAlbumsWhereInput._(search: search, isSensitive: isSensitive);
+        new _$GAlbumsWhereInput._(
+            search: search,
+            ownerUserId: ownerUserId,
+            isSensitive: isSensitive,
+            thumbnailImageExists: thumbnailImageExists,
+            isInspected: isInspected);
     replace(_$result);
     return _$result;
   }
@@ -12613,12 +13489,14 @@ class GCommentsOrderByBuilder
 class _$GCommentsWhereInput extends GCommentsWhereInput {
   @override
   final bool? isSensitive;
+  @override
+  final BuiltList<GRating>? ratings;
 
   factory _$GCommentsWhereInput(
           [void Function(GCommentsWhereInputBuilder)? updates]) =>
       (new GCommentsWhereInputBuilder()..update(updates))._build();
 
-  _$GCommentsWhereInput._({this.isSensitive}) : super._();
+  _$GCommentsWhereInput._({this.isSensitive, this.ratings}) : super._();
 
   @override
   GCommentsWhereInput rebuild(
@@ -12632,13 +13510,16 @@ class _$GCommentsWhereInput extends GCommentsWhereInput {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GCommentsWhereInput && isSensitive == other.isSensitive;
+    return other is GCommentsWhereInput &&
+        isSensitive == other.isSensitive &&
+        ratings == other.ratings;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, isSensitive.hashCode);
+    _$hash = $jc(_$hash, ratings.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -12646,7 +13527,8 @@ class _$GCommentsWhereInput extends GCommentsWhereInput {
   @override
   String toString() {
     return (newBuiltValueToStringHelper(r'GCommentsWhereInput')
-          ..add('isSensitive', isSensitive))
+          ..add('isSensitive', isSensitive)
+          ..add('ratings', ratings))
         .toString();
   }
 }
@@ -12659,12 +13541,18 @@ class GCommentsWhereInputBuilder
   bool? get isSensitive => _$this._isSensitive;
   set isSensitive(bool? isSensitive) => _$this._isSensitive = isSensitive;
 
+  ListBuilder<GRating>? _ratings;
+  ListBuilder<GRating> get ratings =>
+      _$this._ratings ??= new ListBuilder<GRating>();
+  set ratings(ListBuilder<GRating>? ratings) => _$this._ratings = ratings;
+
   GCommentsWhereInputBuilder();
 
   GCommentsWhereInputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _isSensitive = $v.isSensitive;
+      _ratings = $v.ratings?.toBuilder();
       _$v = null;
     }
     return this;
@@ -12685,8 +13573,22 @@ class GCommentsWhereInputBuilder
   GCommentsWhereInput build() => _build();
 
   _$GCommentsWhereInput _build() {
-    final _$result =
-        _$v ?? new _$GCommentsWhereInput._(isSensitive: isSensitive);
+    _$GCommentsWhereInput _$result;
+    try {
+      _$result = _$v ??
+          new _$GCommentsWhereInput._(
+              isSensitive: isSensitive, ratings: _ratings?.build());
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'ratings';
+        _ratings?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'GCommentsWhereInput', _$failedField, e.toString());
+      }
+      rethrow;
+    }
     replace(_$result);
     return _$result;
   }
@@ -17055,6 +17957,95 @@ class GCreatePromptonWorkLikeInputBuilder
   }
 }
 
+class _$GCreateRecommendedWorkInput extends GCreateRecommendedWorkInput {
+  @override
+  final String workId;
+
+  factory _$GCreateRecommendedWorkInput(
+          [void Function(GCreateRecommendedWorkInputBuilder)? updates]) =>
+      (new GCreateRecommendedWorkInputBuilder()..update(updates))._build();
+
+  _$GCreateRecommendedWorkInput._({required this.workId}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        workId, r'GCreateRecommendedWorkInput', 'workId');
+  }
+
+  @override
+  GCreateRecommendedWorkInput rebuild(
+          void Function(GCreateRecommendedWorkInputBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GCreateRecommendedWorkInputBuilder toBuilder() =>
+      new GCreateRecommendedWorkInputBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GCreateRecommendedWorkInput && workId == other.workId;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, workId.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GCreateRecommendedWorkInput')
+          ..add('workId', workId))
+        .toString();
+  }
+}
+
+class GCreateRecommendedWorkInputBuilder
+    implements
+        Builder<GCreateRecommendedWorkInput,
+            GCreateRecommendedWorkInputBuilder> {
+  _$GCreateRecommendedWorkInput? _$v;
+
+  String? _workId;
+  String? get workId => _$this._workId;
+  set workId(String? workId) => _$this._workId = workId;
+
+  GCreateRecommendedWorkInputBuilder();
+
+  GCreateRecommendedWorkInputBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _workId = $v.workId;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GCreateRecommendedWorkInput other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GCreateRecommendedWorkInput;
+  }
+
+  @override
+  void update(void Function(GCreateRecommendedWorkInputBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GCreateRecommendedWorkInput build() => _build();
+
+  _$GCreateRecommendedWorkInput _build() {
+    final _$result = _$v ??
+        new _$GCreateRecommendedWorkInput._(
+            workId: BuiltValueNullFieldError.checkNotNull(
+                workId, r'GCreateRecommendedWorkInput', 'workId'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
 class _$GCreateReservedImageGenerationTaskInput
     extends GCreateReservedImageGenerationTaskInput {
   @override
@@ -17704,15 +18695,31 @@ class GCreateResponseCommentInputBuilder
 
 class _$GCreateStickerInput extends GCreateStickerInput {
   @override
-  final String title;
+  final String? title;
+  @override
+  final GStickerGenre? genre;
+  @override
+  final BuiltList<String>? categories;
+  @override
+  final String imageUrl;
+  @override
+  final GAccessType accessType;
 
   factory _$GCreateStickerInput(
           [void Function(GCreateStickerInputBuilder)? updates]) =>
       (new GCreateStickerInputBuilder()..update(updates))._build();
 
-  _$GCreateStickerInput._({required this.title}) : super._() {
+  _$GCreateStickerInput._(
+      {this.title,
+      this.genre,
+      this.categories,
+      required this.imageUrl,
+      required this.accessType})
+      : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        title, r'GCreateStickerInput', 'title');
+        imageUrl, r'GCreateStickerInput', 'imageUrl');
+    BuiltValueNullFieldError.checkNotNull(
+        accessType, r'GCreateStickerInput', 'accessType');
   }
 
   @override
@@ -17727,13 +18734,22 @@ class _$GCreateStickerInput extends GCreateStickerInput {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GCreateStickerInput && title == other.title;
+    return other is GCreateStickerInput &&
+        title == other.title &&
+        genre == other.genre &&
+        categories == other.categories &&
+        imageUrl == other.imageUrl &&
+        accessType == other.accessType;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, title.hashCode);
+    _$hash = $jc(_$hash, genre.hashCode);
+    _$hash = $jc(_$hash, categories.hashCode);
+    _$hash = $jc(_$hash, imageUrl.hashCode);
+    _$hash = $jc(_$hash, accessType.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -17741,7 +18757,11 @@ class _$GCreateStickerInput extends GCreateStickerInput {
   @override
   String toString() {
     return (newBuiltValueToStringHelper(r'GCreateStickerInput')
-          ..add('title', title))
+          ..add('title', title)
+          ..add('genre', genre)
+          ..add('categories', categories)
+          ..add('imageUrl', imageUrl)
+          ..add('accessType', accessType))
         .toString();
   }
 }
@@ -17754,12 +18774,34 @@ class GCreateStickerInputBuilder
   String? get title => _$this._title;
   set title(String? title) => _$this._title = title;
 
+  GStickerGenre? _genre;
+  GStickerGenre? get genre => _$this._genre;
+  set genre(GStickerGenre? genre) => _$this._genre = genre;
+
+  ListBuilder<String>? _categories;
+  ListBuilder<String> get categories =>
+      _$this._categories ??= new ListBuilder<String>();
+  set categories(ListBuilder<String>? categories) =>
+      _$this._categories = categories;
+
+  String? _imageUrl;
+  String? get imageUrl => _$this._imageUrl;
+  set imageUrl(String? imageUrl) => _$this._imageUrl = imageUrl;
+
+  GAccessType? _accessType;
+  GAccessType? get accessType => _$this._accessType;
+  set accessType(GAccessType? accessType) => _$this._accessType = accessType;
+
   GCreateStickerInputBuilder();
 
   GCreateStickerInputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _title = $v.title;
+      _genre = $v.genre;
+      _categories = $v.categories?.toBuilder();
+      _imageUrl = $v.imageUrl;
+      _accessType = $v.accessType;
       _$v = null;
     }
     return this;
@@ -17780,10 +18822,28 @@ class GCreateStickerInputBuilder
   GCreateStickerInput build() => _build();
 
   _$GCreateStickerInput _build() {
-    final _$result = _$v ??
-        new _$GCreateStickerInput._(
-            title: BuiltValueNullFieldError.checkNotNull(
-                title, r'GCreateStickerInput', 'title'));
+    _$GCreateStickerInput _$result;
+    try {
+      _$result = _$v ??
+          new _$GCreateStickerInput._(
+              title: title,
+              genre: genre,
+              categories: _categories?.build(),
+              imageUrl: BuiltValueNullFieldError.checkNotNull(
+                  imageUrl, r'GCreateStickerInput', 'imageUrl'),
+              accessType: BuiltValueNullFieldError.checkNotNull(
+                  accessType, r'GCreateStickerInput', 'accessType'));
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'categories';
+        _categories?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'GCreateStickerInput', _$failedField, e.toString());
+      }
+      rethrow;
+    }
     replace(_$result);
     return _$result;
   }
@@ -20231,6 +21291,95 @@ class GDeletePromptonWorkLikeInputBuilder
         new _$GDeletePromptonWorkLikeInput._(
             workId: BuiltValueNullFieldError.checkNotNull(
                 workId, r'GDeletePromptonWorkLikeInput', 'workId'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GDeleteRecommendedWorkInput extends GDeleteRecommendedWorkInput {
+  @override
+  final String workId;
+
+  factory _$GDeleteRecommendedWorkInput(
+          [void Function(GDeleteRecommendedWorkInputBuilder)? updates]) =>
+      (new GDeleteRecommendedWorkInputBuilder()..update(updates))._build();
+
+  _$GDeleteRecommendedWorkInput._({required this.workId}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        workId, r'GDeleteRecommendedWorkInput', 'workId');
+  }
+
+  @override
+  GDeleteRecommendedWorkInput rebuild(
+          void Function(GDeleteRecommendedWorkInputBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GDeleteRecommendedWorkInputBuilder toBuilder() =>
+      new GDeleteRecommendedWorkInputBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GDeleteRecommendedWorkInput && workId == other.workId;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, workId.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GDeleteRecommendedWorkInput')
+          ..add('workId', workId))
+        .toString();
+  }
+}
+
+class GDeleteRecommendedWorkInputBuilder
+    implements
+        Builder<GDeleteRecommendedWorkInput,
+            GDeleteRecommendedWorkInputBuilder> {
+  _$GDeleteRecommendedWorkInput? _$v;
+
+  String? _workId;
+  String? get workId => _$this._workId;
+  set workId(String? workId) => _$this._workId = workId;
+
+  GDeleteRecommendedWorkInputBuilder();
+
+  GDeleteRecommendedWorkInputBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _workId = $v.workId;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GDeleteRecommendedWorkInput other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GDeleteRecommendedWorkInput;
+  }
+
+  @override
+  void update(void Function(GDeleteRecommendedWorkInputBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GDeleteRecommendedWorkInput build() => _build();
+
+  _$GDeleteRecommendedWorkInput _build() {
+    final _$result = _$v ??
+        new _$GDeleteRecommendedWorkInput._(
+            workId: BuiltValueNullFieldError.checkNotNull(
+                workId, r'GDeleteRecommendedWorkInput', 'workId'));
     replace(_$result);
     return _$result;
   }
@@ -24744,13 +25893,25 @@ class _$GStickersWhereInput extends GStickersWhereInput {
   @override
   final String? search;
   @override
-  final bool? isSensitive;
+  final String? ownerUserId;
+  @override
+  final String? creatorUserId;
+  @override
+  final GStickerGenre? genre;
+  @override
+  final BuiltList<String>? categories;
 
   factory _$GStickersWhereInput(
           [void Function(GStickersWhereInputBuilder)? updates]) =>
       (new GStickersWhereInputBuilder()..update(updates))._build();
 
-  _$GStickersWhereInput._({this.search, this.isSensitive}) : super._();
+  _$GStickersWhereInput._(
+      {this.search,
+      this.ownerUserId,
+      this.creatorUserId,
+      this.genre,
+      this.categories})
+      : super._();
 
   @override
   GStickersWhereInput rebuild(
@@ -24766,14 +25927,20 @@ class _$GStickersWhereInput extends GStickersWhereInput {
     if (identical(other, this)) return true;
     return other is GStickersWhereInput &&
         search == other.search &&
-        isSensitive == other.isSensitive;
+        ownerUserId == other.ownerUserId &&
+        creatorUserId == other.creatorUserId &&
+        genre == other.genre &&
+        categories == other.categories;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, search.hashCode);
-    _$hash = $jc(_$hash, isSensitive.hashCode);
+    _$hash = $jc(_$hash, ownerUserId.hashCode);
+    _$hash = $jc(_$hash, creatorUserId.hashCode);
+    _$hash = $jc(_$hash, genre.hashCode);
+    _$hash = $jc(_$hash, categories.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -24782,7 +25949,10 @@ class _$GStickersWhereInput extends GStickersWhereInput {
   String toString() {
     return (newBuiltValueToStringHelper(r'GStickersWhereInput')
           ..add('search', search)
-          ..add('isSensitive', isSensitive))
+          ..add('ownerUserId', ownerUserId)
+          ..add('creatorUserId', creatorUserId)
+          ..add('genre', genre)
+          ..add('categories', categories))
         .toString();
   }
 }
@@ -24795,9 +25965,24 @@ class GStickersWhereInputBuilder
   String? get search => _$this._search;
   set search(String? search) => _$this._search = search;
 
-  bool? _isSensitive;
-  bool? get isSensitive => _$this._isSensitive;
-  set isSensitive(bool? isSensitive) => _$this._isSensitive = isSensitive;
+  String? _ownerUserId;
+  String? get ownerUserId => _$this._ownerUserId;
+  set ownerUserId(String? ownerUserId) => _$this._ownerUserId = ownerUserId;
+
+  String? _creatorUserId;
+  String? get creatorUserId => _$this._creatorUserId;
+  set creatorUserId(String? creatorUserId) =>
+      _$this._creatorUserId = creatorUserId;
+
+  GStickerGenre? _genre;
+  GStickerGenre? get genre => _$this._genre;
+  set genre(GStickerGenre? genre) => _$this._genre = genre;
+
+  ListBuilder<String>? _categories;
+  ListBuilder<String> get categories =>
+      _$this._categories ??= new ListBuilder<String>();
+  set categories(ListBuilder<String>? categories) =>
+      _$this._categories = categories;
 
   GStickersWhereInputBuilder();
 
@@ -24805,7 +25990,10 @@ class GStickersWhereInputBuilder
     final $v = _$v;
     if ($v != null) {
       _search = $v.search;
-      _isSensitive = $v.isSensitive;
+      _ownerUserId = $v.ownerUserId;
+      _creatorUserId = $v.creatorUserId;
+      _genre = $v.genre;
+      _categories = $v.categories?.toBuilder();
       _$v = null;
     }
     return this;
@@ -24826,8 +26014,26 @@ class GStickersWhereInputBuilder
   GStickersWhereInput build() => _build();
 
   _$GStickersWhereInput _build() {
-    final _$result = _$v ??
-        new _$GStickersWhereInput._(search: search, isSensitive: isSensitive);
+    _$GStickersWhereInput _$result;
+    try {
+      _$result = _$v ??
+          new _$GStickersWhereInput._(
+              search: search,
+              ownerUserId: ownerUserId,
+              creatorUserId: creatorUserId,
+              genre: genre,
+              categories: _categories?.build());
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'categories';
+        _categories?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'GStickersWhereInput', _$failedField, e.toString());
+      }
+      rethrow;
+    }
     replace(_$result);
     return _$result;
   }
@@ -28681,22 +29887,42 @@ class GUpdateStickerInputBuilder
 
 class _$GUpdateUserProfileInput extends GUpdateUserProfileInput {
   @override
-  final String displayName;
+  final String? displayName;
   @override
-  final String biography;
+  final String? biography;
+  @override
+  final String? enBiography;
+  @override
+  final String? iconUrl;
+  @override
+  final String? headerImageUrl;
+  @override
+  final String? twitterAccountId;
+  @override
+  final String? instagramAccountId;
+  @override
+  final String? githubAccountId;
+  @override
+  final BuiltList<String>? featuredWorkIds;
+  @override
+  final BuiltList<String>? featuredSensitiveWorkIds;
 
   factory _$GUpdateUserProfileInput(
           [void Function(GUpdateUserProfileInputBuilder)? updates]) =>
       (new GUpdateUserProfileInputBuilder()..update(updates))._build();
 
   _$GUpdateUserProfileInput._(
-      {required this.displayName, required this.biography})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        displayName, r'GUpdateUserProfileInput', 'displayName');
-    BuiltValueNullFieldError.checkNotNull(
-        biography, r'GUpdateUserProfileInput', 'biography');
-  }
+      {this.displayName,
+      this.biography,
+      this.enBiography,
+      this.iconUrl,
+      this.headerImageUrl,
+      this.twitterAccountId,
+      this.instagramAccountId,
+      this.githubAccountId,
+      this.featuredWorkIds,
+      this.featuredSensitiveWorkIds})
+      : super._();
 
   @override
   GUpdateUserProfileInput rebuild(
@@ -28712,7 +29938,15 @@ class _$GUpdateUserProfileInput extends GUpdateUserProfileInput {
     if (identical(other, this)) return true;
     return other is GUpdateUserProfileInput &&
         displayName == other.displayName &&
-        biography == other.biography;
+        biography == other.biography &&
+        enBiography == other.enBiography &&
+        iconUrl == other.iconUrl &&
+        headerImageUrl == other.headerImageUrl &&
+        twitterAccountId == other.twitterAccountId &&
+        instagramAccountId == other.instagramAccountId &&
+        githubAccountId == other.githubAccountId &&
+        featuredWorkIds == other.featuredWorkIds &&
+        featuredSensitiveWorkIds == other.featuredSensitiveWorkIds;
   }
 
   @override
@@ -28720,6 +29954,14 @@ class _$GUpdateUserProfileInput extends GUpdateUserProfileInput {
     var _$hash = 0;
     _$hash = $jc(_$hash, displayName.hashCode);
     _$hash = $jc(_$hash, biography.hashCode);
+    _$hash = $jc(_$hash, enBiography.hashCode);
+    _$hash = $jc(_$hash, iconUrl.hashCode);
+    _$hash = $jc(_$hash, headerImageUrl.hashCode);
+    _$hash = $jc(_$hash, twitterAccountId.hashCode);
+    _$hash = $jc(_$hash, instagramAccountId.hashCode);
+    _$hash = $jc(_$hash, githubAccountId.hashCode);
+    _$hash = $jc(_$hash, featuredWorkIds.hashCode);
+    _$hash = $jc(_$hash, featuredSensitiveWorkIds.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -28728,7 +29970,15 @@ class _$GUpdateUserProfileInput extends GUpdateUserProfileInput {
   String toString() {
     return (newBuiltValueToStringHelper(r'GUpdateUserProfileInput')
           ..add('displayName', displayName)
-          ..add('biography', biography))
+          ..add('biography', biography)
+          ..add('enBiography', enBiography)
+          ..add('iconUrl', iconUrl)
+          ..add('headerImageUrl', headerImageUrl)
+          ..add('twitterAccountId', twitterAccountId)
+          ..add('instagramAccountId', instagramAccountId)
+          ..add('githubAccountId', githubAccountId)
+          ..add('featuredWorkIds', featuredWorkIds)
+          ..add('featuredSensitiveWorkIds', featuredSensitiveWorkIds))
         .toString();
   }
 }
@@ -28746,6 +29996,46 @@ class GUpdateUserProfileInputBuilder
   String? get biography => _$this._biography;
   set biography(String? biography) => _$this._biography = biography;
 
+  String? _enBiography;
+  String? get enBiography => _$this._enBiography;
+  set enBiography(String? enBiography) => _$this._enBiography = enBiography;
+
+  String? _iconUrl;
+  String? get iconUrl => _$this._iconUrl;
+  set iconUrl(String? iconUrl) => _$this._iconUrl = iconUrl;
+
+  String? _headerImageUrl;
+  String? get headerImageUrl => _$this._headerImageUrl;
+  set headerImageUrl(String? headerImageUrl) =>
+      _$this._headerImageUrl = headerImageUrl;
+
+  String? _twitterAccountId;
+  String? get twitterAccountId => _$this._twitterAccountId;
+  set twitterAccountId(String? twitterAccountId) =>
+      _$this._twitterAccountId = twitterAccountId;
+
+  String? _instagramAccountId;
+  String? get instagramAccountId => _$this._instagramAccountId;
+  set instagramAccountId(String? instagramAccountId) =>
+      _$this._instagramAccountId = instagramAccountId;
+
+  String? _githubAccountId;
+  String? get githubAccountId => _$this._githubAccountId;
+  set githubAccountId(String? githubAccountId) =>
+      _$this._githubAccountId = githubAccountId;
+
+  ListBuilder<String>? _featuredWorkIds;
+  ListBuilder<String> get featuredWorkIds =>
+      _$this._featuredWorkIds ??= new ListBuilder<String>();
+  set featuredWorkIds(ListBuilder<String>? featuredWorkIds) =>
+      _$this._featuredWorkIds = featuredWorkIds;
+
+  ListBuilder<String>? _featuredSensitiveWorkIds;
+  ListBuilder<String> get featuredSensitiveWorkIds =>
+      _$this._featuredSensitiveWorkIds ??= new ListBuilder<String>();
+  set featuredSensitiveWorkIds(ListBuilder<String>? featuredSensitiveWorkIds) =>
+      _$this._featuredSensitiveWorkIds = featuredSensitiveWorkIds;
+
   GUpdateUserProfileInputBuilder();
 
   GUpdateUserProfileInputBuilder get _$this {
@@ -28753,6 +30043,14 @@ class GUpdateUserProfileInputBuilder
     if ($v != null) {
       _displayName = $v.displayName;
       _biography = $v.biography;
+      _enBiography = $v.enBiography;
+      _iconUrl = $v.iconUrl;
+      _headerImageUrl = $v.headerImageUrl;
+      _twitterAccountId = $v.twitterAccountId;
+      _instagramAccountId = $v.instagramAccountId;
+      _githubAccountId = $v.githubAccountId;
+      _featuredWorkIds = $v.featuredWorkIds?.toBuilder();
+      _featuredSensitiveWorkIds = $v.featuredSensitiveWorkIds?.toBuilder();
       _$v = null;
     }
     return this;
@@ -28773,12 +30071,118 @@ class GUpdateUserProfileInputBuilder
   GUpdateUserProfileInput build() => _build();
 
   _$GUpdateUserProfileInput _build() {
+    _$GUpdateUserProfileInput _$result;
+    try {
+      _$result = _$v ??
+          new _$GUpdateUserProfileInput._(
+              displayName: displayName,
+              biography: biography,
+              enBiography: enBiography,
+              iconUrl: iconUrl,
+              headerImageUrl: headerImageUrl,
+              twitterAccountId: twitterAccountId,
+              instagramAccountId: instagramAccountId,
+              githubAccountId: githubAccountId,
+              featuredWorkIds: _featuredWorkIds?.build(),
+              featuredSensitiveWorkIds: _featuredSensitiveWorkIds?.build());
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'featuredWorkIds';
+        _featuredWorkIds?.build();
+        _$failedField = 'featuredSensitiveWorkIds';
+        _featuredSensitiveWorkIds?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'GUpdateUserProfileInput', _$failedField, e.toString());
+      }
+      rethrow;
+    }
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GUpdateUserSettingInput extends GUpdateUserSettingInput {
+  @override
+  final GPreferenceRating? preferenceRating;
+
+  factory _$GUpdateUserSettingInput(
+          [void Function(GUpdateUserSettingInputBuilder)? updates]) =>
+      (new GUpdateUserSettingInputBuilder()..update(updates))._build();
+
+  _$GUpdateUserSettingInput._({this.preferenceRating}) : super._();
+
+  @override
+  GUpdateUserSettingInput rebuild(
+          void Function(GUpdateUserSettingInputBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GUpdateUserSettingInputBuilder toBuilder() =>
+      new GUpdateUserSettingInputBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GUpdateUserSettingInput &&
+        preferenceRating == other.preferenceRating;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, preferenceRating.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GUpdateUserSettingInput')
+          ..add('preferenceRating', preferenceRating))
+        .toString();
+  }
+}
+
+class GUpdateUserSettingInputBuilder
+    implements
+        Builder<GUpdateUserSettingInput, GUpdateUserSettingInputBuilder> {
+  _$GUpdateUserSettingInput? _$v;
+
+  GPreferenceRating? _preferenceRating;
+  GPreferenceRating? get preferenceRating => _$this._preferenceRating;
+  set preferenceRating(GPreferenceRating? preferenceRating) =>
+      _$this._preferenceRating = preferenceRating;
+
+  GUpdateUserSettingInputBuilder();
+
+  GUpdateUserSettingInputBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _preferenceRating = $v.preferenceRating;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GUpdateUserSettingInput other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GUpdateUserSettingInput;
+  }
+
+  @override
+  void update(void Function(GUpdateUserSettingInputBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GUpdateUserSettingInput build() => _build();
+
+  _$GUpdateUserSettingInput _build() {
     final _$result = _$v ??
-        new _$GUpdateUserProfileInput._(
-            displayName: BuiltValueNullFieldError.checkNotNull(
-                displayName, r'GUpdateUserProfileInput', 'displayName'),
-            biography: BuiltValueNullFieldError.checkNotNull(
-                biography, r'GUpdateUserProfileInput', 'biography'));
+        new _$GUpdateUserSettingInput._(preferenceRating: preferenceRating);
     replace(_$result);
     return _$result;
   }
@@ -29496,19 +30900,15 @@ class GWorkAwardsWhereInputBuilder
 
 class _$GWorksWhereInput extends GWorksWhereInput {
   @override
+  final GWorkOrderBy? orderBy;
+  @override
   final String? search;
   @override
   final BuiltList<String>? prompts;
   @override
   final bool? hasPrompt;
   @override
-  final bool? hasGenerationPrompt;
-  @override
   final GImageStyle? style;
-  @override
-  final GWorkOrderBy? orderBy;
-  @override
-  final BuiltList<String>? searchTargets;
   @override
   final bool? isSensitive;
   @override
@@ -29517,23 +30917,57 @@ class _$GWorksWhereInput extends GWorksWhereInput {
   final bool? isFeatured;
   @override
   final String? generationModelId;
+  @override
+  final GWorkType? workType;
+  @override
+  final BuiltList<String>? modelNames;
+  @override
+  final BuiltList<String>? serviceNames;
+  @override
+  final bool? isPromptPublic;
+  @override
+  final bool? isThemeParticipated;
+  @override
+  final int? subjectId;
+  @override
+  final bool? isOneWorkPerUser;
+  @override
+  final BuiltList<GRating>? ratings;
+  @override
+  final String? ownerName;
+  @override
+  final bool? isFollowing;
+  @override
+  final bool? isNotFollowing;
+  @override
+  final bool? isRecommended;
 
   factory _$GWorksWhereInput(
           [void Function(GWorksWhereInputBuilder)? updates]) =>
       (new GWorksWhereInputBuilder()..update(updates))._build();
 
   _$GWorksWhereInput._(
-      {this.search,
+      {this.orderBy,
+      this.search,
       this.prompts,
       this.hasPrompt,
-      this.hasGenerationPrompt,
       this.style,
-      this.orderBy,
-      this.searchTargets,
       this.isSensitive,
       this.tagNames,
       this.isFeatured,
-      this.generationModelId})
+      this.generationModelId,
+      this.workType,
+      this.modelNames,
+      this.serviceNames,
+      this.isPromptPublic,
+      this.isThemeParticipated,
+      this.subjectId,
+      this.isOneWorkPerUser,
+      this.ratings,
+      this.ownerName,
+      this.isFollowing,
+      this.isNotFollowing,
+      this.isRecommended})
       : super._();
 
   @override
@@ -29548,33 +30982,53 @@ class _$GWorksWhereInput extends GWorksWhereInput {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is GWorksWhereInput &&
+        orderBy == other.orderBy &&
         search == other.search &&
         prompts == other.prompts &&
         hasPrompt == other.hasPrompt &&
-        hasGenerationPrompt == other.hasGenerationPrompt &&
         style == other.style &&
-        orderBy == other.orderBy &&
-        searchTargets == other.searchTargets &&
         isSensitive == other.isSensitive &&
         tagNames == other.tagNames &&
         isFeatured == other.isFeatured &&
-        generationModelId == other.generationModelId;
+        generationModelId == other.generationModelId &&
+        workType == other.workType &&
+        modelNames == other.modelNames &&
+        serviceNames == other.serviceNames &&
+        isPromptPublic == other.isPromptPublic &&
+        isThemeParticipated == other.isThemeParticipated &&
+        subjectId == other.subjectId &&
+        isOneWorkPerUser == other.isOneWorkPerUser &&
+        ratings == other.ratings &&
+        ownerName == other.ownerName &&
+        isFollowing == other.isFollowing &&
+        isNotFollowing == other.isNotFollowing &&
+        isRecommended == other.isRecommended;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, orderBy.hashCode);
     _$hash = $jc(_$hash, search.hashCode);
     _$hash = $jc(_$hash, prompts.hashCode);
     _$hash = $jc(_$hash, hasPrompt.hashCode);
-    _$hash = $jc(_$hash, hasGenerationPrompt.hashCode);
     _$hash = $jc(_$hash, style.hashCode);
-    _$hash = $jc(_$hash, orderBy.hashCode);
-    _$hash = $jc(_$hash, searchTargets.hashCode);
     _$hash = $jc(_$hash, isSensitive.hashCode);
     _$hash = $jc(_$hash, tagNames.hashCode);
     _$hash = $jc(_$hash, isFeatured.hashCode);
     _$hash = $jc(_$hash, generationModelId.hashCode);
+    _$hash = $jc(_$hash, workType.hashCode);
+    _$hash = $jc(_$hash, modelNames.hashCode);
+    _$hash = $jc(_$hash, serviceNames.hashCode);
+    _$hash = $jc(_$hash, isPromptPublic.hashCode);
+    _$hash = $jc(_$hash, isThemeParticipated.hashCode);
+    _$hash = $jc(_$hash, subjectId.hashCode);
+    _$hash = $jc(_$hash, isOneWorkPerUser.hashCode);
+    _$hash = $jc(_$hash, ratings.hashCode);
+    _$hash = $jc(_$hash, ownerName.hashCode);
+    _$hash = $jc(_$hash, isFollowing.hashCode);
+    _$hash = $jc(_$hash, isNotFollowing.hashCode);
+    _$hash = $jc(_$hash, isRecommended.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -29582,17 +31036,27 @@ class _$GWorksWhereInput extends GWorksWhereInput {
   @override
   String toString() {
     return (newBuiltValueToStringHelper(r'GWorksWhereInput')
+          ..add('orderBy', orderBy)
           ..add('search', search)
           ..add('prompts', prompts)
           ..add('hasPrompt', hasPrompt)
-          ..add('hasGenerationPrompt', hasGenerationPrompt)
           ..add('style', style)
-          ..add('orderBy', orderBy)
-          ..add('searchTargets', searchTargets)
           ..add('isSensitive', isSensitive)
           ..add('tagNames', tagNames)
           ..add('isFeatured', isFeatured)
-          ..add('generationModelId', generationModelId))
+          ..add('generationModelId', generationModelId)
+          ..add('workType', workType)
+          ..add('modelNames', modelNames)
+          ..add('serviceNames', serviceNames)
+          ..add('isPromptPublic', isPromptPublic)
+          ..add('isThemeParticipated', isThemeParticipated)
+          ..add('subjectId', subjectId)
+          ..add('isOneWorkPerUser', isOneWorkPerUser)
+          ..add('ratings', ratings)
+          ..add('ownerName', ownerName)
+          ..add('isFollowing', isFollowing)
+          ..add('isNotFollowing', isNotFollowing)
+          ..add('isRecommended', isRecommended))
         .toString();
   }
 }
@@ -29600,6 +31064,10 @@ class _$GWorksWhereInput extends GWorksWhereInput {
 class GWorksWhereInputBuilder
     implements Builder<GWorksWhereInput, GWorksWhereInputBuilder> {
   _$GWorksWhereInput? _$v;
+
+  GWorkOrderBy? _orderBy;
+  GWorkOrderBy? get orderBy => _$this._orderBy;
+  set orderBy(GWorkOrderBy? orderBy) => _$this._orderBy = orderBy;
 
   String? _search;
   String? get search => _$this._search;
@@ -29614,24 +31082,9 @@ class GWorksWhereInputBuilder
   bool? get hasPrompt => _$this._hasPrompt;
   set hasPrompt(bool? hasPrompt) => _$this._hasPrompt = hasPrompt;
 
-  bool? _hasGenerationPrompt;
-  bool? get hasGenerationPrompt => _$this._hasGenerationPrompt;
-  set hasGenerationPrompt(bool? hasGenerationPrompt) =>
-      _$this._hasGenerationPrompt = hasGenerationPrompt;
-
   GImageStyle? _style;
   GImageStyle? get style => _$this._style;
   set style(GImageStyle? style) => _$this._style = style;
-
-  GWorkOrderBy? _orderBy;
-  GWorkOrderBy? get orderBy => _$this._orderBy;
-  set orderBy(GWorkOrderBy? orderBy) => _$this._orderBy = orderBy;
-
-  ListBuilder<String>? _searchTargets;
-  ListBuilder<String> get searchTargets =>
-      _$this._searchTargets ??= new ListBuilder<String>();
-  set searchTargets(ListBuilder<String>? searchTargets) =>
-      _$this._searchTargets = searchTargets;
 
   bool? _isSensitive;
   bool? get isSensitive => _$this._isSensitive;
@@ -29651,22 +31104,90 @@ class GWorksWhereInputBuilder
   set generationModelId(String? generationModelId) =>
       _$this._generationModelId = generationModelId;
 
+  GWorkType? _workType;
+  GWorkType? get workType => _$this._workType;
+  set workType(GWorkType? workType) => _$this._workType = workType;
+
+  ListBuilder<String>? _modelNames;
+  ListBuilder<String> get modelNames =>
+      _$this._modelNames ??= new ListBuilder<String>();
+  set modelNames(ListBuilder<String>? modelNames) =>
+      _$this._modelNames = modelNames;
+
+  ListBuilder<String>? _serviceNames;
+  ListBuilder<String> get serviceNames =>
+      _$this._serviceNames ??= new ListBuilder<String>();
+  set serviceNames(ListBuilder<String>? serviceNames) =>
+      _$this._serviceNames = serviceNames;
+
+  bool? _isPromptPublic;
+  bool? get isPromptPublic => _$this._isPromptPublic;
+  set isPromptPublic(bool? isPromptPublic) =>
+      _$this._isPromptPublic = isPromptPublic;
+
+  bool? _isThemeParticipated;
+  bool? get isThemeParticipated => _$this._isThemeParticipated;
+  set isThemeParticipated(bool? isThemeParticipated) =>
+      _$this._isThemeParticipated = isThemeParticipated;
+
+  int? _subjectId;
+  int? get subjectId => _$this._subjectId;
+  set subjectId(int? subjectId) => _$this._subjectId = subjectId;
+
+  bool? _isOneWorkPerUser;
+  bool? get isOneWorkPerUser => _$this._isOneWorkPerUser;
+  set isOneWorkPerUser(bool? isOneWorkPerUser) =>
+      _$this._isOneWorkPerUser = isOneWorkPerUser;
+
+  ListBuilder<GRating>? _ratings;
+  ListBuilder<GRating> get ratings =>
+      _$this._ratings ??= new ListBuilder<GRating>();
+  set ratings(ListBuilder<GRating>? ratings) => _$this._ratings = ratings;
+
+  String? _ownerName;
+  String? get ownerName => _$this._ownerName;
+  set ownerName(String? ownerName) => _$this._ownerName = ownerName;
+
+  bool? _isFollowing;
+  bool? get isFollowing => _$this._isFollowing;
+  set isFollowing(bool? isFollowing) => _$this._isFollowing = isFollowing;
+
+  bool? _isNotFollowing;
+  bool? get isNotFollowing => _$this._isNotFollowing;
+  set isNotFollowing(bool? isNotFollowing) =>
+      _$this._isNotFollowing = isNotFollowing;
+
+  bool? _isRecommended;
+  bool? get isRecommended => _$this._isRecommended;
+  set isRecommended(bool? isRecommended) =>
+      _$this._isRecommended = isRecommended;
+
   GWorksWhereInputBuilder();
 
   GWorksWhereInputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _orderBy = $v.orderBy;
       _search = $v.search;
       _prompts = $v.prompts?.toBuilder();
       _hasPrompt = $v.hasPrompt;
-      _hasGenerationPrompt = $v.hasGenerationPrompt;
       _style = $v.style;
-      _orderBy = $v.orderBy;
-      _searchTargets = $v.searchTargets?.toBuilder();
       _isSensitive = $v.isSensitive;
       _tagNames = $v.tagNames?.toBuilder();
       _isFeatured = $v.isFeatured;
       _generationModelId = $v.generationModelId;
+      _workType = $v.workType;
+      _modelNames = $v.modelNames?.toBuilder();
+      _serviceNames = $v.serviceNames?.toBuilder();
+      _isPromptPublic = $v.isPromptPublic;
+      _isThemeParticipated = $v.isThemeParticipated;
+      _subjectId = $v.subjectId;
+      _isOneWorkPerUser = $v.isOneWorkPerUser;
+      _ratings = $v.ratings?.toBuilder();
+      _ownerName = $v.ownerName;
+      _isFollowing = $v.isFollowing;
+      _isNotFollowing = $v.isNotFollowing;
+      _isRecommended = $v.isRecommended;
       _$v = null;
     }
     return this;
@@ -29691,28 +31212,43 @@ class GWorksWhereInputBuilder
     try {
       _$result = _$v ??
           new _$GWorksWhereInput._(
+              orderBy: orderBy,
               search: search,
               prompts: _prompts?.build(),
               hasPrompt: hasPrompt,
-              hasGenerationPrompt: hasGenerationPrompt,
               style: style,
-              orderBy: orderBy,
-              searchTargets: _searchTargets?.build(),
               isSensitive: isSensitive,
               tagNames: _tagNames?.build(),
               isFeatured: isFeatured,
-              generationModelId: generationModelId);
+              generationModelId: generationModelId,
+              workType: workType,
+              modelNames: _modelNames?.build(),
+              serviceNames: _serviceNames?.build(),
+              isPromptPublic: isPromptPublic,
+              isThemeParticipated: isThemeParticipated,
+              subjectId: subjectId,
+              isOneWorkPerUser: isOneWorkPerUser,
+              ratings: _ratings?.build(),
+              ownerName: ownerName,
+              isFollowing: isFollowing,
+              isNotFollowing: isNotFollowing,
+              isRecommended: isRecommended);
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'prompts';
         _prompts?.build();
 
-        _$failedField = 'searchTargets';
-        _searchTargets?.build();
-
         _$failedField = 'tagNames';
         _tagNames?.build();
+
+        _$failedField = 'modelNames';
+        _modelNames?.build();
+        _$failedField = 'serviceNames';
+        _serviceNames?.build();
+
+        _$failedField = 'ratings';
+        _ratings?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'GWorksWhereInput', _$failedField, e.toString());

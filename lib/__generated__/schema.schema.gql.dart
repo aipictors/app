@@ -105,6 +105,42 @@ abstract class GAddPromptonWorkToFolderInput
       );
 }
 
+class GAiModelType extends EnumClass {
+  const GAiModelType._(String name) : super(name);
+
+  static const GAiModelType IMAGE = _$gAiModelTypeIMAGE;
+
+  static Serializer<GAiModelType> get serializer => _$gAiModelTypeSerializer;
+
+  static BuiltSet<GAiModelType> get values => _$gAiModelTypeValues;
+
+  static GAiModelType valueOf(String name) => _$gAiModelTypeValueOf(name);
+}
+
+abstract class GAiModelWhereInput
+    implements Built<GAiModelWhereInput, GAiModelWhereInputBuilder> {
+  GAiModelWhereInput._();
+
+  factory GAiModelWhereInput(
+          [void Function(GAiModelWhereInputBuilder b) updates]) =
+      _$GAiModelWhereInput;
+
+  String? get search;
+  static Serializer<GAiModelWhereInput> get serializer =>
+      _$gAiModelWhereInputSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GAiModelWhereInput.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GAiModelWhereInput? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GAiModelWhereInput.serializer,
+        json,
+      );
+}
+
 abstract class GAlbumsWhereInput
     implements Built<GAlbumsWhereInput, GAlbumsWhereInputBuilder> {
   GAlbumsWhereInput._();
@@ -114,7 +150,10 @@ abstract class GAlbumsWhereInput
       _$GAlbumsWhereInput;
 
   String? get search;
+  String? get ownerUserId;
   bool? get isSensitive;
+  bool? get thumbnailImageExists;
+  bool? get isInspected;
   static Serializer<GAlbumsWhereInput> get serializer =>
       _$gAlbumsWhereInputSerializer;
 
@@ -407,6 +446,7 @@ abstract class GCommentsWhereInput
       _$GCommentsWhereInput;
 
   bool? get isSensitive;
+  BuiltList<GRating>? get ratings;
   static Serializer<GCommentsWhereInput> get serializer =>
       _$gCommentsWhereInputSerializer;
 
@@ -1340,6 +1380,31 @@ abstract class GCreatePromptonWorkLikeInput
       );
 }
 
+abstract class GCreateRecommendedWorkInput
+    implements
+        Built<GCreateRecommendedWorkInput, GCreateRecommendedWorkInputBuilder> {
+  GCreateRecommendedWorkInput._();
+
+  factory GCreateRecommendedWorkInput(
+          [void Function(GCreateRecommendedWorkInputBuilder b) updates]) =
+      _$GCreateRecommendedWorkInput;
+
+  String get workId;
+  static Serializer<GCreateRecommendedWorkInput> get serializer =>
+      _$gCreateRecommendedWorkInputSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GCreateRecommendedWorkInput.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GCreateRecommendedWorkInput? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GCreateRecommendedWorkInput.serializer,
+        json,
+      );
+}
+
 abstract class GCreateReservedImageGenerationTaskInput
     implements
         Built<GCreateReservedImageGenerationTaskInput,
@@ -1434,7 +1499,11 @@ abstract class GCreateStickerInput
           [void Function(GCreateStickerInputBuilder b) updates]) =
       _$GCreateStickerInput;
 
-  String get title;
+  String? get title;
+  GStickerGenre? get genre;
+  BuiltList<String>? get categories;
+  String get imageUrl;
+  GAccessType get accessType;
   static Serializer<GCreateStickerInput> get serializer =>
       _$gCreateStickerInputSerializer;
 
@@ -2106,6 +2175,31 @@ abstract class GDeletePromptonWorkLikeInput
       );
 }
 
+abstract class GDeleteRecommendedWorkInput
+    implements
+        Built<GDeleteRecommendedWorkInput, GDeleteRecommendedWorkInputBuilder> {
+  GDeleteRecommendedWorkInput._();
+
+  factory GDeleteRecommendedWorkInput(
+          [void Function(GDeleteRecommendedWorkInputBuilder b) updates]) =
+      _$GDeleteRecommendedWorkInput;
+
+  String get workId;
+  static Serializer<GDeleteRecommendedWorkInput> get serializer =>
+      _$gDeleteRecommendedWorkInputSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GDeleteRecommendedWorkInput.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GDeleteRecommendedWorkInput? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GDeleteRecommendedWorkInput.serializer,
+        json,
+      );
+}
+
 abstract class GDeleteStickerInput
     implements Built<GDeleteStickerInput, GDeleteStickerInputBuilder> {
   GDeleteStickerInput._();
@@ -2260,6 +2354,20 @@ class GFolderMode extends EnumClass {
   static GFolderMode valueOf(String name) => _$gFolderModeValueOf(name);
 }
 
+class GFolderRating extends EnumClass {
+  const GFolderRating._(String name) : super(name);
+
+  static const GFolderRating G = _$gFolderRatingG;
+
+  static const GFolderRating R18 = _$gFolderRatingR18;
+
+  static Serializer<GFolderRating> get serializer => _$gFolderRatingSerializer;
+
+  static BuiltSet<GFolderRating> get values => _$gFolderRatingValues;
+
+  static GFolderRating valueOf(String name) => _$gFolderRatingValueOf(name);
+}
+
 abstract class GFoldersWhereInput
     implements Built<GFoldersWhereInput, GFoldersWhereInputBuilder> {
   GFoldersWhereInput._();
@@ -2283,6 +2391,22 @@ abstract class GFoldersWhereInput
         GFoldersWhereInput.serializer,
         json,
       );
+}
+
+class GFolderType extends EnumClass {
+  const GFolderType._(String name) : super(name);
+
+  static const GFolderType BOOKMARK = _$gFolderTypeBOOKMARK;
+
+  static const GFolderType PRIVATE = _$gFolderTypePRIVATE;
+
+  static const GFolderType PUBLIC = _$gFolderTypePUBLIC;
+
+  static Serializer<GFolderType> get serializer => _$gFolderTypeSerializer;
+
+  static BuiltSet<GFolderType> get values => _$gFolderTypeValues;
+
+  static GFolderType valueOf(String name) => _$gFolderTypeValueOf(name);
 }
 
 abstract class GFollowPromptonUserInput
@@ -3071,6 +3195,26 @@ abstract class GPopularWorksWhereInput
       );
 }
 
+class GPreferenceRating extends EnumClass {
+  const GPreferenceRating._(String name) : super(name);
+
+  static const GPreferenceRating R18 = _$gPreferenceRatingR18;
+
+  static const GPreferenceRating R18G = _$gPreferenceRatingR18G;
+
+  static const GPreferenceRating R15 = _$gPreferenceRatingR15;
+
+  static const GPreferenceRating G = _$gPreferenceRatingG;
+
+  static Serializer<GPreferenceRating> get serializer =>
+      _$gPreferenceRatingSerializer;
+
+  static BuiltSet<GPreferenceRating> get values => _$gPreferenceRatingValues;
+
+  static GPreferenceRating valueOf(String name) =>
+      _$gPreferenceRatingValueOf(name);
+}
+
 abstract class GPromptonFoldersWhereInput
     implements
         Built<GPromptonFoldersWhereInput, GPromptonFoldersWhereInputBuilder> {
@@ -3646,6 +3790,21 @@ class GStickerGenre extends EnumClass {
   static GStickerGenre valueOf(String name) => _$gStickerGenreValueOf(name);
 }
 
+class GStickerOrderBy extends EnumClass {
+  const GStickerOrderBy._(String name) : super(name);
+
+  static const GStickerOrderBy DATE_CREATED = _$gStickerOrderByDATE_CREATED;
+
+  static const GStickerOrderBy DATE_USED = _$gStickerOrderByDATE_USED;
+
+  static Serializer<GStickerOrderBy> get serializer =>
+      _$gStickerOrderBySerializer;
+
+  static BuiltSet<GStickerOrderBy> get values => _$gStickerOrderByValues;
+
+  static GStickerOrderBy valueOf(String name) => _$gStickerOrderByValueOf(name);
+}
+
 abstract class GStickersWhereInput
     implements Built<GStickersWhereInput, GStickersWhereInputBuilder> {
   GStickersWhereInput._();
@@ -3655,7 +3814,10 @@ abstract class GStickersWhereInput
       _$GStickersWhereInput;
 
   String? get search;
-  bool? get isSensitive;
+  String? get ownerUserId;
+  String? get creatorUserId;
+  GStickerGenre? get genre;
+  BuiltList<String>? get categories;
   static Serializer<GStickersWhereInput> get serializer =>
       _$gStickersWhereInputSerializer;
 
@@ -4592,8 +4754,16 @@ abstract class GUpdateUserProfileInput
           [void Function(GUpdateUserProfileInputBuilder b) updates]) =
       _$GUpdateUserProfileInput;
 
-  String get displayName;
-  String get biography;
+  String? get displayName;
+  String? get biography;
+  String? get enBiography;
+  String? get iconUrl;
+  String? get headerImageUrl;
+  String? get twitterAccountId;
+  String? get instagramAccountId;
+  String? get githubAccountId;
+  BuiltList<String>? get featuredWorkIds;
+  BuiltList<String>? get featuredSensitiveWorkIds;
   static Serializer<GUpdateUserProfileInput> get serializer =>
       _$gUpdateUserProfileInputSerializer;
 
@@ -4605,6 +4775,30 @@ abstract class GUpdateUserProfileInput
   static GUpdateUserProfileInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUpdateUserProfileInput.serializer,
+        json,
+      );
+}
+
+abstract class GUpdateUserSettingInput
+    implements Built<GUpdateUserSettingInput, GUpdateUserSettingInputBuilder> {
+  GUpdateUserSettingInput._();
+
+  factory GUpdateUserSettingInput(
+          [void Function(GUpdateUserSettingInputBuilder b) updates]) =
+      _$GUpdateUserSettingInput;
+
+  GPreferenceRating? get preferenceRating;
+  static Serializer<GUpdateUserSettingInput> get serializer =>
+      _$gUpdateUserSettingInputSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GUpdateUserSettingInput.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GUpdateUserSettingInput? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GUpdateUserSettingInput.serializer,
         json,
       );
 }
@@ -4805,17 +4999,27 @@ abstract class GWorksWhereInput
   factory GWorksWhereInput([void Function(GWorksWhereInputBuilder b) updates]) =
       _$GWorksWhereInput;
 
+  GWorkOrderBy? get orderBy;
   String? get search;
   BuiltList<String>? get prompts;
   bool? get hasPrompt;
-  bool? get hasGenerationPrompt;
   GImageStyle? get style;
-  GWorkOrderBy? get orderBy;
-  BuiltList<String>? get searchTargets;
   bool? get isSensitive;
   BuiltList<String>? get tagNames;
   bool? get isFeatured;
   String? get generationModelId;
+  GWorkType? get workType;
+  BuiltList<String>? get modelNames;
+  BuiltList<String>? get serviceNames;
+  bool? get isPromptPublic;
+  bool? get isThemeParticipated;
+  int? get subjectId;
+  bool? get isOneWorkPerUser;
+  BuiltList<GRating>? get ratings;
+  String? get ownerName;
+  bool? get isFollowing;
+  bool? get isNotFollowing;
+  bool? get isRecommended;
   static Serializer<GWorksWhereInput> get serializer =>
       _$gWorksWhereInputSerializer;
 
@@ -4840,6 +5044,8 @@ class GWorkType extends EnumClass {
 
   static const GWorkType VIDEO = _$gWorkTypeVIDEO;
 
+  static const GWorkType COLUMN = _$gWorkTypeCOLUMN;
+
   static Serializer<GWorkType> get serializer => _$gWorkTypeSerializer;
 
   static BuiltSet<GWorkType> get values => _$gWorkTypeValues;
@@ -4849,6 +5055,7 @@ class GWorkType extends EnumClass {
 
 const Map<String, Set<String>> possibleTypesMap = {
   'Node': {
+    'AiModelNode',
     'AlbumNode',
     'AlbumViewerNode',
     'AnnouncementNode',
@@ -4870,6 +5077,7 @@ const Map<String, Set<String>> possibleTypesMap = {
     'MessageNode',
     'MessageThreadNode',
     'MilestoneNode',
+    'MutedTagNode',
     'NoteNode',
     'NovelNode',
     'PassNode',

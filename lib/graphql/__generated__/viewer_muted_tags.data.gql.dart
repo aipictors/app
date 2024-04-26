@@ -83,7 +83,7 @@ abstract class GViewerMutedTagsData_viewer_mutedTags
 
   static void _initializeBuilder(
           GViewerMutedTagsData_viewer_mutedTagsBuilder b) =>
-      b..G__typename = 'TagNode';
+      b..G__typename = 'MutedTagNode';
 
   @override
   @BuiltValueField(wireName: '__typename')
