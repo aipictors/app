@@ -864,6 +864,15 @@ import 'package:aipictors/graphql/mutations/__generated__/create_folder_work.req
     show GCreateFolderWorkReq;
 import 'package:aipictors/graphql/mutations/__generated__/create_folder_work.var.gql.dart'
     show GCreateFolderWorkVars;
+import 'package:aipictors/graphql/mutations/__generated__/create_image_generation_task.data.gql.dart'
+    show
+        GCreateImageGenerationTaskData,
+        GCreateImageGenerationTaskData_createImageGenerationTask,
+        GCreateImageGenerationTaskData_createImageGenerationTask_model;
+import 'package:aipictors/graphql/mutations/__generated__/create_image_generation_task.req.gql.dart'
+    show GCreateImageGenerationTaskReq;
+import 'package:aipictors/graphql/mutations/__generated__/create_image_generation_task.var.gql.dart'
+    show GCreateImageGenerationTaskVars;
 import 'package:aipictors/graphql/mutations/__generated__/create_response_comment.data.gql.dart'
     show
         GCreateResponseCommentData,
@@ -1160,7 +1169,12 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GCreateFolderWorkReq,
   GCreateFolderWorkVars,
   GCreateImageGenerationMemoInput,
+  GCreateImageGenerationTaskData,
+  GCreateImageGenerationTaskData_createImageGenerationTask,
+  GCreateImageGenerationTaskData_createImageGenerationTask_model,
   GCreateImageGenerationTaskInput,
+  GCreateImageGenerationTaskReq,
+  GCreateImageGenerationTaskVars,
   GCreateMessageInput,
   GCreateNoteInput,
   GCreateNovelInput,
