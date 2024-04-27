@@ -841,6 +841,16 @@ import 'package:aipictors/graphql/generation/__generated__/image_models.req.gql.
     show GImageModelsReq;
 import 'package:aipictors/graphql/generation/__generated__/image_models.var.gql.dart'
     show GImageModelsVars;
+import 'package:aipictors/graphql/generation/__generated__/viewer_image_generation_tasks.data.gql.dart'
+    show
+        GViewerImageGenerationTasksData,
+        GViewerImageGenerationTasksData_viewer,
+        GViewerImageGenerationTasksData_viewer_imageGenerationTasks,
+        GViewerImageGenerationTasksData_viewer_imageGenerationTasks_model;
+import 'package:aipictors/graphql/generation/__generated__/viewer_image_generation_tasks.req.gql.dart'
+    show GViewerImageGenerationTasksReq;
+import 'package:aipictors/graphql/generation/__generated__/viewer_image_generation_tasks.var.gql.dart'
+    show GViewerImageGenerationTasksVars;
 import 'package:aipictors/graphql/mutations/__generated__/create_account.data.gql.dart'
     show GCreateAccountData, GCreateAccountData_createAccount;
 import 'package:aipictors/graphql/mutations/__generated__/create_account.req.gql.dart'
@@ -1713,6 +1723,12 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GViewerFoldersData_viewer_folders,
   GViewerFoldersReq,
   GViewerFoldersVars,
+  GViewerImageGenerationTasksData,
+  GViewerImageGenerationTasksData_viewer,
+  GViewerImageGenerationTasksData_viewer_imageGenerationTasks,
+  GViewerImageGenerationTasksData_viewer_imageGenerationTasks_model,
+  GViewerImageGenerationTasksReq,
+  GViewerImageGenerationTasksVars,
   GViewerLikedWorksData,
   GViewerLikedWorksData_viewer,
   GViewerLikedWorksData_viewer_likedWorks,

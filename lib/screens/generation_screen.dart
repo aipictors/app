@@ -1,4 +1,3 @@
-import 'package:aipictors/__generated__/schema.schema.gql.dart';
 import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/mutations/create_image_generation_task.dart';
 import 'package:aipictors/providers/client_provider.dart';
@@ -8,6 +7,7 @@ import 'package:aipictors/utils/active_image_generation.dart';
 import 'package:aipictors/widgets/container/generation/generation_model_picker.dart';
 import 'package:aipictors/widgets/container/generation/generation_prompt_form.dart';
 import 'package:aipictors/widgets/container/loading_container.dart';
+import 'package:aipictors/widgets/view/generated_images_grid_view.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -38,6 +38,7 @@ class GenerationScreen extends HookConsumerWidget {
           }),
           const SizedBox(height: 32),
           const GenerationPromptInputField(),
+          const GeneratedImagesGridView(),
         ],
       ),
       bottomNavigationBar: FilledButton(

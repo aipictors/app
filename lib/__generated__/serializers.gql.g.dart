@@ -630,6 +630,14 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GViewerFoldersData_viewer_folders.serializer)
       ..add(GViewerFoldersReq.serializer)
       ..add(GViewerFoldersVars.serializer)
+      ..add(GViewerImageGenerationTasksData.serializer)
+      ..add(GViewerImageGenerationTasksData_viewer.serializer)
+      ..add(GViewerImageGenerationTasksData_viewer_imageGenerationTasks
+          .serializer)
+      ..add(GViewerImageGenerationTasksData_viewer_imageGenerationTasks_model
+          .serializer)
+      ..add(GViewerImageGenerationTasksReq.serializer)
+      ..add(GViewerImageGenerationTasksVars.serializer)
       ..add(GViewerLikedWorksData.serializer)
       ..add(GViewerLikedWorksData_viewer.serializer)
       ..add(GViewerLikedWorksData_viewer_likedWorks.serializer)
@@ -952,6 +960,13 @@ Serializers _$serializers = (new Serializers().toBuilder()
           const FullType(BuiltList,
               const [const FullType(GViewerFoldersData_viewer_folders)]),
           () => new ListBuilder<GViewerFoldersData_viewer_folders>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [
+            const FullType(
+                GViewerImageGenerationTasksData_viewer_imageGenerationTasks)
+          ]),
+          () => new ListBuilder<
+              GViewerImageGenerationTasksData_viewer_imageGenerationTasks>())
       ..addBuilderFactory(
           const FullType(BuiltList,
               const [const FullType(GViewerLikedWorksData_viewer_likedWorks)]),
