@@ -136,11 +136,14 @@ input AlbumsWhereInput {
   """センシティブ"""
   isSensitive: Boolean
 
-  """サムネイル画像が存在する"""
-  thumbnailImageExists: Boolean
+  """全年齢とセンシティブどちらも取得するかどうか"""
+  isSensitiveAndAllRating: Boolean
 
-  """検査済み"""
-  isInspected: Boolean
+  """サムネイル画像が必ず存在しないといけないか"""
+  needsThumbnailImage: Boolean
+
+  """検査済みである必要があるかどうか"""
+  needInspected: Boolean
 }
 
 type AlbumViewerNode implements Node {

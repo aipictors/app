@@ -1,9 +1,8 @@
 # Vitepress
 /.vitepress/cache
 
-# Node.js
+# Bun
 /node_modules
-/.yarn
 
 # Flavor
 /android/app/src/main/res/mipmap*/

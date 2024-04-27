@@ -36,7 +36,7 @@ VSCodeのRunからDevelopまたはProductionを選択して実行する。
 
 定期的に Flutter を更新する必要がある。
 
-```
+```bash
 $ flutter channel stable
 $ flutter upgrade
 ```
@@ -45,7 +45,7 @@ $ flutter upgrade
 
 たぶん。
 
-```
+```bash
 $ flutter pub upgrade --tighten
 ```
 
@@ -53,8 +53,22 @@ $ flutter pub upgrade --tighten
 
 更新があった場合は取得する。
 
-```
-$ npx get-graphql-schema "https://graphql-6ouzjmdzha-an.a.run.app" > lib/schema.graphql
+```bash
+$ bunx get-graphql-schema "https://aipics.fly.dev" > lib/schema.graphql
 ```
 
-https://x-6ouzjmdzha-an.a.run.app/graphql
+https://aipics.fly.dev
+
+## ツール
+
+モジュールをインストールする。
+
+```bash
+$ bun i
+```
+
+翻訳を追加する。
+
+```bash
+$ bun run tools/i18n
+```
