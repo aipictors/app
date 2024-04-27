@@ -10,6 +10,8 @@ fragment CommentFields on CommentNode {
   }
   sticker {
     id
+    accessType
+    imageUrl
     image {
       id
       downloadURL

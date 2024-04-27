@@ -2,7 +2,8 @@
 // ignore_for_file: type=lint
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:aipictors/__generated__/serializers.gql.dart' as _i2;
+import 'package:aipictors/__generated__/schema.schema.gql.dart' as _i2;
+import 'package:aipictors/__generated__/serializers.gql.dart' as _i3;
 import 'package:aipictors/graphql/fragments/__generated__/work_user_fields_fragment.data.gql.dart'
     as _i1;
 import 'package:built_value/built_value.dart';
@@ -51,6 +52,8 @@ abstract class GCommentFields_user_iconImage
 abstract class GCommentFields_sticker {
   String get G__typename;
   String get id;
+  _i2.GAccessType get accessType;
+  String? get imageUrl;
   GCommentFields_sticker_image? get image;
   Map<String, dynamic> toJson();
 }
@@ -92,13 +95,13 @@ abstract class GCommentFieldsData
       _$gCommentFieldsDataSerializer;
 
   @override
-  Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
+  Map<String, dynamic> toJson() => (_i3.serializers.serializeWith(
         GCommentFieldsData.serializer,
         this,
       ) as Map<String, dynamic>);
 
   static GCommentFieldsData? fromJson(Map<String, dynamic> json) =>
-      _i2.serializers.deserializeWith(
+      _i3.serializers.deserializeWith(
         GCommentFieldsData.serializer,
         json,
       );
@@ -135,13 +138,13 @@ abstract class GCommentFieldsData_user
       _$gCommentFieldsDataUserSerializer;
 
   @override
-  Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
+  Map<String, dynamic> toJson() => (_i3.serializers.serializeWith(
         GCommentFieldsData_user.serializer,
         this,
       ) as Map<String, dynamic>);
 
   static GCommentFieldsData_user? fromJson(Map<String, dynamic> json) =>
-      _i2.serializers.deserializeWith(
+      _i3.serializers.deserializeWith(
         GCommentFieldsData_user.serializer,
         json,
       );
@@ -173,14 +176,14 @@ abstract class GCommentFieldsData_user_iconImage
       _$gCommentFieldsDataUserIconImageSerializer;
 
   @override
-  Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
+  Map<String, dynamic> toJson() => (_i3.serializers.serializeWith(
         GCommentFieldsData_user_iconImage.serializer,
         this,
       ) as Map<String, dynamic>);
 
   static GCommentFieldsData_user_iconImage? fromJson(
           Map<String, dynamic> json) =>
-      _i2.serializers.deserializeWith(
+      _i3.serializers.deserializeWith(
         GCommentFieldsData_user_iconImage.serializer,
         json,
       );
@@ -205,18 +208,22 @@ abstract class GCommentFieldsData_sticker
   @override
   String get id;
   @override
+  _i2.GAccessType get accessType;
+  @override
+  String? get imageUrl;
+  @override
   GCommentFieldsData_sticker_image? get image;
   static Serializer<GCommentFieldsData_sticker> get serializer =>
       _$gCommentFieldsDataStickerSerializer;
 
   @override
-  Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
+  Map<String, dynamic> toJson() => (_i3.serializers.serializeWith(
         GCommentFieldsData_sticker.serializer,
         this,
       ) as Map<String, dynamic>);
 
   static GCommentFieldsData_sticker? fromJson(Map<String, dynamic> json) =>
-      _i2.serializers.deserializeWith(
+      _i3.serializers.deserializeWith(
         GCommentFieldsData_sticker.serializer,
         json,
       );
@@ -247,14 +254,14 @@ abstract class GCommentFieldsData_sticker_image
       _$gCommentFieldsDataStickerImageSerializer;
 
   @override
-  Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
+  Map<String, dynamic> toJson() => (_i3.serializers.serializeWith(
         GCommentFieldsData_sticker_image.serializer,
         this,
       ) as Map<String, dynamic>);
 
   static GCommentFieldsData_sticker_image? fromJson(
           Map<String, dynamic> json) =>
-      _i2.serializers.deserializeWith(
+      _i3.serializers.deserializeWith(
         GCommentFieldsData_sticker_image.serializer,
         json,
       );
