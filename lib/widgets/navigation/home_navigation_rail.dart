@@ -46,6 +46,12 @@ class HomeNavigationRail extends HookConsumerWidget {
             label: Text('通知'.i18n),
             padding: const EdgeInsets.symmetric(vertical: 4),
           ),
+        if (authState.value != null)
+          NavigationRailDestination(
+            icon: const Icon(Icons.photo),
+            label: Text('画像生成'.i18n),
+            padding: const EdgeInsets.symmetric(vertical: 4),
+          ),
         NavigationRailDestination(
           icon: const Icon(Icons.more_horiz_rounded),
           label: Text('その他'.i18n),
