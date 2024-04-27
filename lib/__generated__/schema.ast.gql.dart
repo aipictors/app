@@ -494,7 +494,7 @@ const AlbumsWhereInput = _i1.InputObjectTypeDefinitionNode(
       defaultValue: null,
     ),
     _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'thumbnailImageExists'),
+      name: _i1.NameNode(value: 'isSensitiveAndAllRating'),
       directives: [],
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'Boolean'),
@@ -503,7 +503,16 @@ const AlbumsWhereInput = _i1.InputObjectTypeDefinitionNode(
       defaultValue: null,
     ),
     _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'isInspected'),
+      name: _i1.NameNode(value: 'needsThumbnailImage'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Boolean'),
+        isNonNull: false,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'needInspected'),
       directives: [],
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'Boolean'),

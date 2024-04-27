@@ -1486,17 +1486,24 @@ class _$GAlbumsWhereInputSerializer
         ..add(
             serializers.serialize(value, specifiedType: const FullType(bool)));
     }
-    value = object.thumbnailImageExists;
+    value = object.isSensitiveAndAllRating;
     if (value != null) {
       result
-        ..add('thumbnailImageExists')
+        ..add('isSensitiveAndAllRating')
         ..add(
             serializers.serialize(value, specifiedType: const FullType(bool)));
     }
-    value = object.isInspected;
+    value = object.needsThumbnailImage;
     if (value != null) {
       result
-        ..add('isInspected')
+        ..add('needsThumbnailImage')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
+    value = object.needInspected;
+    if (value != null) {
+      result
+        ..add('needInspected')
         ..add(
             serializers.serialize(value, specifiedType: const FullType(bool)));
     }
@@ -1527,12 +1534,16 @@ class _$GAlbumsWhereInputSerializer
           result.isSensitive = serializers.deserialize(value,
               specifiedType: const FullType(bool)) as bool?;
           break;
-        case 'thumbnailImageExists':
-          result.thumbnailImageExists = serializers.deserialize(value,
+        case 'isSensitiveAndAllRating':
+          result.isSensitiveAndAllRating = serializers.deserialize(value,
               specifiedType: const FullType(bool)) as bool?;
           break;
-        case 'isInspected':
-          result.isInspected = serializers.deserialize(value,
+        case 'needsThumbnailImage':
+          result.needsThumbnailImage = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
+        case 'needInspected':
+          result.needInspected = serializers.deserialize(value,
               specifiedType: const FullType(bool)) as bool?;
           break;
       }
@@ -12472,9 +12483,11 @@ class _$GAlbumsWhereInput extends GAlbumsWhereInput {
   @override
   final bool? isSensitive;
   @override
-  final bool? thumbnailImageExists;
+  final bool? isSensitiveAndAllRating;
   @override
-  final bool? isInspected;
+  final bool? needsThumbnailImage;
+  @override
+  final bool? needInspected;
 
   factory _$GAlbumsWhereInput(
           [void Function(GAlbumsWhereInputBuilder)? updates]) =>
@@ -12484,8 +12497,9 @@ class _$GAlbumsWhereInput extends GAlbumsWhereInput {
       {this.search,
       this.ownerUserId,
       this.isSensitive,
-      this.thumbnailImageExists,
-      this.isInspected})
+      this.isSensitiveAndAllRating,
+      this.needsThumbnailImage,
+      this.needInspected})
       : super._();
 
   @override
@@ -12503,8 +12517,9 @@ class _$GAlbumsWhereInput extends GAlbumsWhereInput {
         search == other.search &&
         ownerUserId == other.ownerUserId &&
         isSensitive == other.isSensitive &&
-        thumbnailImageExists == other.thumbnailImageExists &&
-        isInspected == other.isInspected;
+        isSensitiveAndAllRating == other.isSensitiveAndAllRating &&
+        needsThumbnailImage == other.needsThumbnailImage &&
+        needInspected == other.needInspected;
   }
 
   @override
@@ -12513,8 +12528,9 @@ class _$GAlbumsWhereInput extends GAlbumsWhereInput {
     _$hash = $jc(_$hash, search.hashCode);
     _$hash = $jc(_$hash, ownerUserId.hashCode);
     _$hash = $jc(_$hash, isSensitive.hashCode);
-    _$hash = $jc(_$hash, thumbnailImageExists.hashCode);
-    _$hash = $jc(_$hash, isInspected.hashCode);
+    _$hash = $jc(_$hash, isSensitiveAndAllRating.hashCode);
+    _$hash = $jc(_$hash, needsThumbnailImage.hashCode);
+    _$hash = $jc(_$hash, needInspected.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -12525,8 +12541,9 @@ class _$GAlbumsWhereInput extends GAlbumsWhereInput {
           ..add('search', search)
           ..add('ownerUserId', ownerUserId)
           ..add('isSensitive', isSensitive)
-          ..add('thumbnailImageExists', thumbnailImageExists)
-          ..add('isInspected', isInspected))
+          ..add('isSensitiveAndAllRating', isSensitiveAndAllRating)
+          ..add('needsThumbnailImage', needsThumbnailImage)
+          ..add('needInspected', needInspected))
         .toString();
   }
 }
@@ -12547,14 +12564,20 @@ class GAlbumsWhereInputBuilder
   bool? get isSensitive => _$this._isSensitive;
   set isSensitive(bool? isSensitive) => _$this._isSensitive = isSensitive;
 
-  bool? _thumbnailImageExists;
-  bool? get thumbnailImageExists => _$this._thumbnailImageExists;
-  set thumbnailImageExists(bool? thumbnailImageExists) =>
-      _$this._thumbnailImageExists = thumbnailImageExists;
+  bool? _isSensitiveAndAllRating;
+  bool? get isSensitiveAndAllRating => _$this._isSensitiveAndAllRating;
+  set isSensitiveAndAllRating(bool? isSensitiveAndAllRating) =>
+      _$this._isSensitiveAndAllRating = isSensitiveAndAllRating;
 
-  bool? _isInspected;
-  bool? get isInspected => _$this._isInspected;
-  set isInspected(bool? isInspected) => _$this._isInspected = isInspected;
+  bool? _needsThumbnailImage;
+  bool? get needsThumbnailImage => _$this._needsThumbnailImage;
+  set needsThumbnailImage(bool? needsThumbnailImage) =>
+      _$this._needsThumbnailImage = needsThumbnailImage;
+
+  bool? _needInspected;
+  bool? get needInspected => _$this._needInspected;
+  set needInspected(bool? needInspected) =>
+      _$this._needInspected = needInspected;
 
   GAlbumsWhereInputBuilder();
 
@@ -12564,8 +12587,9 @@ class GAlbumsWhereInputBuilder
       _search = $v.search;
       _ownerUserId = $v.ownerUserId;
       _isSensitive = $v.isSensitive;
-      _thumbnailImageExists = $v.thumbnailImageExists;
-      _isInspected = $v.isInspected;
+      _isSensitiveAndAllRating = $v.isSensitiveAndAllRating;
+      _needsThumbnailImage = $v.needsThumbnailImage;
+      _needInspected = $v.needInspected;
       _$v = null;
     }
     return this;
@@ -12591,8 +12615,9 @@ class GAlbumsWhereInputBuilder
             search: search,
             ownerUserId: ownerUserId,
             isSensitive: isSensitive,
-            thumbnailImageExists: thumbnailImageExists,
-            isInspected: isInspected);
+            isSensitiveAndAllRating: isSensitiveAndAllRating,
+            needsThumbnailImage: needsThumbnailImage,
+            needInspected: needInspected);
     replace(_$result);
     return _$result;
   }
