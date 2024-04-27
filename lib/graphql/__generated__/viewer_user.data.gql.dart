@@ -116,6 +116,7 @@ abstract class GViewerUserData_viewer_user
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get id;
+  String? get nanoid;
   String? get biography;
   String? get fcmToken;
   String get login;

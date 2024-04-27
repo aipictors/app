@@ -249,6 +249,13 @@ class _$GViewerUserData_viewer_userSerializer
           specifiedType: const FullType(int)),
     ];
     Object? value;
+    value = object.nanoid;
+    if (value != null) {
+      result
+        ..add('nanoid')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     value = object.biography;
     if (value != null) {
       result
@@ -301,6 +308,10 @@ class _$GViewerUserData_viewer_userSerializer
         case 'id':
           result.id = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
+          break;
+        case 'nanoid':
+          result.nanoid = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'biography':
           result.biography = serializers.deserialize(value,
@@ -867,6 +878,8 @@ class _$GViewerUserData_viewer_user extends GViewerUserData_viewer_user {
   @override
   final String id;
   @override
+  final String? nanoid;
+  @override
   final String? biography;
   @override
   final String? fcmToken;
@@ -894,6 +907,7 @@ class _$GViewerUserData_viewer_user extends GViewerUserData_viewer_user {
   _$GViewerUserData_viewer_user._(
       {required this.G__typename,
       required this.id,
+      this.nanoid,
       this.biography,
       this.fcmToken,
       required this.login,
@@ -938,6 +952,7 @@ class _$GViewerUserData_viewer_user extends GViewerUserData_viewer_user {
     return other is GViewerUserData_viewer_user &&
         G__typename == other.G__typename &&
         id == other.id &&
+        nanoid == other.nanoid &&
         biography == other.biography &&
         fcmToken == other.fcmToken &&
         login == other.login &&
@@ -955,6 +970,7 @@ class _$GViewerUserData_viewer_user extends GViewerUserData_viewer_user {
     var _$hash = 0;
     _$hash = $jc(_$hash, G__typename.hashCode);
     _$hash = $jc(_$hash, id.hashCode);
+    _$hash = $jc(_$hash, nanoid.hashCode);
     _$hash = $jc(_$hash, biography.hashCode);
     _$hash = $jc(_$hash, fcmToken.hashCode);
     _$hash = $jc(_$hash, login.hashCode);
@@ -974,6 +990,7 @@ class _$GViewerUserData_viewer_user extends GViewerUserData_viewer_user {
     return (newBuiltValueToStringHelper(r'GViewerUserData_viewer_user')
           ..add('G__typename', G__typename)
           ..add('id', id)
+          ..add('nanoid', nanoid)
           ..add('biography', biography)
           ..add('fcmToken', fcmToken)
           ..add('login', login)
@@ -1001,6 +1018,10 @@ class GViewerUserData_viewer_userBuilder
   String? _id;
   String? get id => _$this._id;
   set id(String? id) => _$this._id = id;
+
+  String? _nanoid;
+  String? get nanoid => _$this._nanoid;
+  set nanoid(String? nanoid) => _$this._nanoid = nanoid;
 
   String? _biography;
   String? get biography => _$this._biography;
@@ -1060,6 +1081,7 @@ class GViewerUserData_viewer_userBuilder
     if ($v != null) {
       _G__typename = $v.G__typename;
       _id = $v.id;
+      _nanoid = $v.nanoid;
       _biography = $v.biography;
       _fcmToken = $v.fcmToken;
       _login = $v.login;
@@ -1098,6 +1120,7 @@ class GViewerUserData_viewer_userBuilder
                   G__typename, r'GViewerUserData_viewer_user', 'G__typename'),
               id: BuiltValueNullFieldError.checkNotNull(
                   id, r'GViewerUserData_viewer_user', 'id'),
+              nanoid: nanoid,
               biography: biography,
               fcmToken: fcmToken,
               login: BuiltValueNullFieldError.checkNotNull(

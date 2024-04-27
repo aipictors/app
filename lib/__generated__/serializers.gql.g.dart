@@ -321,10 +321,10 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GImageGenerationTasksWhereInput.serializer)
       ..add(GImageGenerationType.serializer)
       ..add(GImageModelCategory.serializer)
-      ..add(GImageModelData.serializer)
-      ..add(GImageModelData_imageModel.serializer)
-      ..add(GImageModelReq.serializer)
-      ..add(GImageModelVars.serializer)
+      ..add(GImageModelsData.serializer)
+      ..add(GImageModelsData_imageModels.serializer)
+      ..add(GImageModelsReq.serializer)
+      ..add(GImageModelsVars.serializer)
       ..add(GImageStyle.serializer)
       ..add(GIncrementPromptonProfileBlockIndexInput.serializer)
       ..add(GLikedWorkNotificationFieldsData.serializer)
@@ -887,6 +887,10 @@ Serializers _$serializers = (new Serializers().toBuilder()
           const FullType(
               BuiltList, const [const FullType(GHotWorksData_hotWorks)]),
           () => new ListBuilder<GHotWorksData_hotWorks>())
+      ..addBuilderFactory(
+          const FullType(
+              BuiltList, const [const FullType(GImageModelsData_imageModels)]),
+          () => new ListBuilder<GImageModelsData_imageModels>())
       ..addBuilderFactory(
           const FullType(BuiltList,
               const [const FullType(GPopularWorksData_popularWorks)]),
