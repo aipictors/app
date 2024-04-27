@@ -605,6 +605,7 @@ import 'package:aipictors/graphql/__generated__/viewer_user.data.gql.dart'
     show
         GViewerUserData,
         GViewerUserData_viewer,
+        GViewerUserData_viewer_currentPass,
         GViewerUserData_viewer_user,
         GViewerUserData_viewer_user_headerImage,
         GViewerUserData_viewer_user_iconImage;
@@ -834,6 +835,12 @@ import 'package:aipictors/graphql/fragments/__generated__/work_user_fields_fragm
     show GWorkUserFieldsReq;
 import 'package:aipictors/graphql/fragments/__generated__/work_user_fields_fragment.var.gql.dart'
     show GWorkUserFieldsVars;
+import 'package:aipictors/graphql/generation/__generated__/image_model.data.gql.dart'
+    show GImageModelData, GImageModelData_imageModel;
+import 'package:aipictors/graphql/generation/__generated__/image_model.req.gql.dart'
+    show GImageModelReq;
+import 'package:aipictors/graphql/generation/__generated__/image_model.var.gql.dart'
+    show GImageModelVars;
 import 'package:aipictors/graphql/mutations/__generated__/create_account.data.gql.dart'
     show GCreateAccountData, GCreateAccountData_createAccount;
 import 'package:aipictors/graphql/mutations/__generated__/create_account.req.gql.dart'
@@ -1397,6 +1404,10 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GImageGenerationTasksWhereInput,
   GImageGenerationType,
   GImageModelCategory,
+  GImageModelData,
+  GImageModelData_imageModel,
+  GImageModelReq,
+  GImageModelVars,
   GImageStyle,
   GIncrementPromptonProfileBlockIndexInput,
   GLikedWorkNotificationFieldsData,
@@ -1753,6 +1764,7 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GViewerNotificationsVars,
   GViewerUserData,
   GViewerUserData_viewer,
+  GViewerUserData_viewer_currentPass,
   GViewerUserData_viewer_user,
   GViewerUserData_viewer_user_headerImage,
   GViewerUserData_viewer_user_iconImage,

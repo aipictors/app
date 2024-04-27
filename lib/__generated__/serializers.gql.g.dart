@@ -321,6 +321,10 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GImageGenerationTasksWhereInput.serializer)
       ..add(GImageGenerationType.serializer)
       ..add(GImageModelCategory.serializer)
+      ..add(GImageModelData.serializer)
+      ..add(GImageModelData_imageModel.serializer)
+      ..add(GImageModelReq.serializer)
+      ..add(GImageModelVars.serializer)
       ..add(GImageStyle.serializer)
       ..add(GIncrementPromptonProfileBlockIndexInput.serializer)
       ..add(GLikedWorkNotificationFieldsData.serializer)
@@ -729,6 +733,7 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GViewerNotificationsVars.serializer)
       ..add(GViewerUserData.serializer)
       ..add(GViewerUserData_viewer.serializer)
+      ..add(GViewerUserData_viewer_currentPass.serializer)
       ..add(GViewerUserData_viewer_user.serializer)
       ..add(GViewerUserData_viewer_user_headerImage.serializer)
       ..add(GViewerUserData_viewer_user_iconImage.serializer)
@@ -987,6 +992,9 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(GWorksData_works)]),
           () => new ListBuilder<GWorksData_works>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(String)]),
+          () => new ListBuilder<String>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(String)]),
           () => new ListBuilder<String>())
