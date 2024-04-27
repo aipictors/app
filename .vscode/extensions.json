@@ -1,0 +1,10 @@
+{
+  "recommendations": [
+    "GraphQL.vscode-graphql",
+    "GraphQL.vscode-graphql-syntax",
+    "biomejs.biome",
+    "editorconfig.editorconfig",
+    "oven.bun-vscode",
+    "streetsidesoftware.code-spell-checker"
+  ]
+}

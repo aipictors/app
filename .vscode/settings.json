@@ -1,4 +1,6 @@
 {
+  "eslint.enable": false,
+  "prettier.enable": false,
   "editor.formatOnSave": true,
   "cSpell.words": [
     "aipictors",

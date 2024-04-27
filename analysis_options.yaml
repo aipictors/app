@@ -7,5 +7,6 @@ linter:
 
 analyzer:
   exclude:
+    - "**/__generated__/**"
     - "**/*.g.dart"
     - "**/*.freezed.dart"
