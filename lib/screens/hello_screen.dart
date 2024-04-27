@@ -1,4 +1,5 @@
 import 'package:aipictors/default.i18n.dart';
+import 'package:aipictors/mutations/login_with_google.dart';
 import 'package:aipictors/mutations/login_with_password.dart';
 import 'package:aipictors/mutations/login_with_twitter.dart';
 import 'package:aipictors/utils/to_exception_message.dart';
@@ -120,29 +121,45 @@ class HelloScreen extends HookConsumerWidget {
                     const SizedBox(height: 32),
                     const Divider(height: 0),
                     const SizedBox(height: 32),
-                    Text(
-                      '現在、アプリでのログインはパスワード認証のみに対応しています。パスワードはサイトから設定または変更できます。'
-                          .i18n,
-                      style: Theme.of(context).textTheme.labelMedium,
-                    ),
-                    // const SizedBox(height: 40),
-                    // SizedBox(
-                    //   width: double.infinity,
-                    //   child: FilledButton(
-                    //     style: FilledButton.styleFrom(
-                    //       fixedSize: const Size.fromHeight(48),
-                    //     ),
-                    //     onPressed: null,
-                    //     // onPressed: isLoading.value
-                    //     //     ? null
-                    //     //     : () async {
-                    //     //         isLoading.value = true;
-                    //     //         await onLoginWithTwitter(context, ref);
-                    //     //         isLoading.value = false;
-                    //     //       },
-                    //     child: Text('X(Twitter)でログイン'.i18n),
-                    //   ),
+                    // Text(
+                    //   '現在、アプリでのログインはパスワード認証のみに対応しています。パスワードはサイトから設定または変更できます。'
+                    //       .i18n,
+                    //   style: Theme.of(context).textTheme.labelMedium,
                     // ),
+                    const SizedBox(height: 20),
+                    SizedBox(
+                      width: double.infinity,
+                      child: FilledButton(
+                        style: FilledButton.styleFrom(
+                          fixedSize: const Size.fromHeight(48),
+                        ),
+                        onPressed: isLoading.value
+                            ? null
+                            : () async {
+                                isLoading.value = true;
+                                await onLoginWithTwitter(context, ref);
+                                isLoading.value = false;
+                              },
+                        child: Text('X(Twitter)でログイン'.i18n),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    SizedBox(
+                      width: double.infinity,
+                      child: FilledButton(
+                        style: FilledButton.styleFrom(
+                          fixedSize: const Size.fromHeight(48),
+                        ),
+                        onPressed: isLoading.value
+                            ? null
+                            : () async {
+                                isLoading.value = true;
+                                await onLoginWithGoogle(context, ref);
+                                isLoading.value = false;
+                              },
+                        child: Text('Googleでログイン'.i18n),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -169,6 +186,40 @@ class HelloScreen extends HookConsumerWidget {
     try {
       await loginWithPassword(login: id, password: password);
       FirebaseAnalytics.instance.logLogin();
+      // ignore: use_build_context_synchronously
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(
+          SnackBar(content: Text('ログインしました'.i18n)),
+        );
+    } catch (exception) {
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(
+          SnackBar(content: Text(toExceptionMessage(exception))),
+        );
+    }
+    // ignore: use_build_context_synchronously
+    if (context.canPop()) {
+      // ignore: use_build_context_synchronously
+      context.pop();
+    }
+  }
+
+  onLoginWithGoogle(
+    BuildContext context,
+    WidgetRef ref,
+  ) async {
+    FocusManager.instance.primaryFocus?.unfocus();
+    showDialog<void>(
+      context: context,
+      builder: (_) {
+        return const LoadingContainer();
+      },
+    );
+    try {
+      await loginWithGoogle();
+      FirebaseAnalytics.instance.logLogin(loginMethod: 'google');
       // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context)
         ..hideCurrentSnackBar()
