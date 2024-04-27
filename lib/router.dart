@@ -31,7 +31,6 @@ import 'package:aipictors/screens/guideline_screen.dart';
 import 'package:aipictors/screens/information/information_screen.dart';
 import 'package:aipictors/screens/information/promotion_screen.dart';
 import 'package:aipictors/screens/license_screen.dart';
-import 'package:aipictors/screens/login_screen.dart';
 import 'package:aipictors/screens/privacy_screen.dart';
 import 'package:aipictors/screens/root_screen.dart';
 import 'package:aipictors/screens/search/search_screen.dart';
@@ -408,12 +407,6 @@ final _routes = [
     path: '/license',
     builder: (context, state) {
       return const LicenseScreen();
-    },
-  ),
-  GoRoute(
-    path: '/login',
-    builder: (context, state) {
-      return const LoginScreen();
     },
   ),
   GoRoute(

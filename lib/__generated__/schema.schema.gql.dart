@@ -152,8 +152,9 @@ abstract class GAlbumsWhereInput
   String? get search;
   String? get ownerUserId;
   bool? get isSensitive;
-  bool? get thumbnailImageExists;
-  bool? get isInspected;
+  bool? get isSensitiveAndAllRating;
+  bool? get needsThumbnailImage;
+  bool? get needInspected;
   static Serializer<GAlbumsWhereInput> get serializer =>
       _$gAlbumsWhereInputSerializer;
 
