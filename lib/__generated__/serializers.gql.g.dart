@@ -12,6 +12,8 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GAccessType.serializer)
       ..add(GAddPromptonTagToWorkInput.serializer)
       ..add(GAddPromptonWorkToFolderInput.serializer)
+      ..add(GAiModelType.serializer)
+      ..add(GAiModelWhereInput.serializer)
       ..add(GAlbumData.serializer)
       ..add(GAlbumData_album.serializer)
       ..add(GAlbumData_album_thumbnailImage.serializer)
@@ -116,6 +118,7 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GCreatePromptonUserInput.serializer)
       ..add(GCreatePromptonWorkInput.serializer)
       ..add(GCreatePromptonWorkLikeInput.serializer)
+      ..add(GCreateRecommendedWorkInput.serializer)
       ..add(GCreateReservedImageGenerationTaskInput.serializer)
       ..add(GCreateResponseCommentData.serializer)
       ..add(GCreateResponseCommentData_createResponseComment.serializer)
@@ -202,6 +205,7 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GDeletePromptonReactionInput.serializer)
       ..add(GDeletePromptonWorkInput.serializer)
       ..add(GDeletePromptonWorkLikeInput.serializer)
+      ..add(GDeleteRecommendedWorkInput.serializer)
       ..add(GDeleteStickerData.serializer)
       ..add(GDeleteStickerData_deleteSticker.serializer)
       ..add(GDeleteStickerInput.serializer)
@@ -263,7 +267,9 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GFolderData_folder_user_iconImage.serializer)
       ..add(GFolderData_folder_user_viewer.serializer)
       ..add(GFolderMode.serializer)
+      ..add(GFolderRating.serializer)
       ..add(GFolderReq.serializer)
+      ..add(GFolderType.serializer)
       ..add(GFolderVars.serializer)
       ..add(GFolderWorksData.serializer)
       ..add(GFolderWorksData_folder.serializer)
@@ -337,7 +343,6 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GMilestonesWhereInput.serializer)
       ..add(GMuteTagData.serializer)
       ..add(GMuteTagData_muteTag.serializer)
-      ..add(GMuteTagData_muteTag_viewer.serializer)
       ..add(GMuteTagInput.serializer)
       ..add(GMuteTagReq.serializer)
       ..add(GMuteTagVars.serializer)
@@ -387,6 +392,7 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GPopularWorksReq.serializer)
       ..add(GPopularWorksVars.serializer)
       ..add(GPopularWorksWhereInput.serializer)
+      ..add(GPreferenceRating.serializer)
       ..add(GPromotionData.serializer)
       ..add(GPromotionData_promotion.serializer)
       ..add(GPromotionReq.serializer)
@@ -442,6 +448,7 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GStickerData_sticker_user_iconImage.serializer)
       ..add(GStickerData_sticker_user_viewer.serializer)
       ..add(GStickerGenre.serializer)
+      ..add(GStickerOrderBy.serializer)
       ..add(GStickerReq.serializer)
       ..add(GStickerVars.serializer)
       ..add(GStickersData.serializer)
@@ -530,6 +537,7 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GUpdateUserProfileInput.serializer)
       ..add(GUpdateUserProfileReq.serializer)
       ..add(GUpdateUserProfileVars.serializer)
+      ..add(GUpdateUserSettingInput.serializer)
       ..add(GUpdateWorkData.serializer)
       ..add(GUpdateWorkData_updateWork.serializer)
       ..add(GUpdateWorkInput.serializer)
@@ -621,6 +629,7 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GViewerMutedTagsData.serializer)
       ..add(GViewerMutedTagsData_viewer.serializer)
       ..add(GViewerMutedTagsData_viewer_mutedTags.serializer)
+      ..add(GViewerMutedTagsData_viewer_user.serializer)
       ..add(GViewerMutedTagsReq.serializer)
       ..add(GViewerMutedTagsVars.serializer)
       ..add(GViewerMutedUsersData.serializer)
@@ -876,6 +885,9 @@ Serializers _$serializers = (new Serializers().toBuilder()
               BuiltList, const [const FullType(GPromotionsData_promotions)]),
           () => new ListBuilder<GPromotionsData_promotions>())
       ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(GRating)]),
+          () => new ListBuilder<GRating>())
+      ..addBuilderFactory(
           const FullType(
               BuiltList, const [const FullType(GStickersData_stickers)]),
           () => new ListBuilder<GStickersData_stickers>())
@@ -982,6 +994,12 @@ Serializers _$serializers = (new Serializers().toBuilder()
           const FullType(BuiltList, const [const FullType(String)]),
           () => new ListBuilder<String>())
       ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(String)]),
+          () => new ListBuilder<String>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(String)]),
+          () => new ListBuilder<String>())
+      ..addBuilderFactory(
           const FullType(
               BuiltList, const [const FullType(GWorkData_work_subWorks)]),
           () => new ListBuilder<GWorkData_work_subWorks>())
@@ -1011,7 +1029,19 @@ Serializers _$serializers = (new Serializers().toBuilder()
           () => new ListBuilder<String>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(String)]),
-          () => new ListBuilder<String>()))
+          () => new ListBuilder<String>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(String)]),
+          () => new ListBuilder<String>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(String)]),
+          () => new ListBuilder<String>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(String)]),
+          () => new ListBuilder<String>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(GRating)]),
+          () => new ListBuilder<GRating>()))
     .build();
 
 // ignore_for_file: deprecated_member_use_from_same_package,type=lint

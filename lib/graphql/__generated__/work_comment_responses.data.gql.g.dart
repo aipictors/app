@@ -438,8 +438,18 @@ class _$GWorkCommentResponsesData_work_comment_stickerSerializer
           specifiedType: const FullType(String)),
       'id',
       serializers.serialize(object.id, specifiedType: const FullType(String)),
+      'accessType',
+      serializers.serialize(object.accessType,
+          specifiedType: const FullType(_i4.GAccessType)),
     ];
     Object? value;
+    value = object.imageUrl;
+    if (value != null) {
+      result
+        ..add('imageUrl')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     value = object.image;
     if (value != null) {
       result
@@ -470,6 +480,15 @@ class _$GWorkCommentResponsesData_work_comment_stickerSerializer
         case 'id':
           result.id = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
+          break;
+        case 'accessType':
+          result.accessType = serializers.deserialize(value,
+                  specifiedType: const FullType(_i4.GAccessType))!
+              as _i4.GAccessType;
+          break;
+        case 'imageUrl':
+          result.imageUrl = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'image':
           result.image.replace(serializers.deserialize(value,
@@ -818,8 +837,18 @@ class _$GWorkCommentResponsesData_work_comment_responses_stickerSerializer
           specifiedType: const FullType(String)),
       'id',
       serializers.serialize(object.id, specifiedType: const FullType(String)),
+      'accessType',
+      serializers.serialize(object.accessType,
+          specifiedType: const FullType(_i4.GAccessType)),
     ];
     Object? value;
+    value = object.imageUrl;
+    if (value != null) {
+      result
+        ..add('imageUrl')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     value = object.image;
     if (value != null) {
       result
@@ -851,6 +880,15 @@ class _$GWorkCommentResponsesData_work_comment_responses_stickerSerializer
         case 'id':
           result.id = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
+          break;
+        case 'accessType':
+          result.accessType = serializers.deserialize(value,
+                  specifiedType: const FullType(_i4.GAccessType))!
+              as _i4.GAccessType;
+          break;
+        case 'imageUrl':
+          result.imageUrl = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'image':
           result.image.replace(serializers.deserialize(value,
@@ -1739,6 +1777,10 @@ class _$GWorkCommentResponsesData_work_comment_sticker
   @override
   final String id;
   @override
+  final _i4.GAccessType accessType;
+  @override
+  final String? imageUrl;
+  @override
   final GWorkCommentResponsesData_work_comment_sticker_image? image;
 
   factory _$GWorkCommentResponsesData_work_comment_sticker(
@@ -1749,12 +1791,18 @@ class _$GWorkCommentResponsesData_work_comment_sticker
           ._build();
 
   _$GWorkCommentResponsesData_work_comment_sticker._(
-      {required this.G__typename, required this.id, this.image})
+      {required this.G__typename,
+      required this.id,
+      required this.accessType,
+      this.imageUrl,
+      this.image})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(G__typename,
         r'GWorkCommentResponsesData_work_comment_sticker', 'G__typename');
     BuiltValueNullFieldError.checkNotNull(
         id, r'GWorkCommentResponsesData_work_comment_sticker', 'id');
+    BuiltValueNullFieldError.checkNotNull(accessType,
+        r'GWorkCommentResponsesData_work_comment_sticker', 'accessType');
   }
 
   @override
@@ -1774,6 +1822,8 @@ class _$GWorkCommentResponsesData_work_comment_sticker
     return other is GWorkCommentResponsesData_work_comment_sticker &&
         G__typename == other.G__typename &&
         id == other.id &&
+        accessType == other.accessType &&
+        imageUrl == other.imageUrl &&
         image == other.image;
   }
 
@@ -1782,6 +1832,8 @@ class _$GWorkCommentResponsesData_work_comment_sticker
     var _$hash = 0;
     _$hash = $jc(_$hash, G__typename.hashCode);
     _$hash = $jc(_$hash, id.hashCode);
+    _$hash = $jc(_$hash, accessType.hashCode);
+    _$hash = $jc(_$hash, imageUrl.hashCode);
     _$hash = $jc(_$hash, image.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -1793,6 +1845,8 @@ class _$GWorkCommentResponsesData_work_comment_sticker
             r'GWorkCommentResponsesData_work_comment_sticker')
           ..add('G__typename', G__typename)
           ..add('id', id)
+          ..add('accessType', accessType)
+          ..add('imageUrl', imageUrl)
           ..add('image', image))
         .toString();
   }
@@ -1812,6 +1866,15 @@ class GWorkCommentResponsesData_work_comment_stickerBuilder
   String? get id => _$this._id;
   set id(String? id) => _$this._id = id;
 
+  _i4.GAccessType? _accessType;
+  _i4.GAccessType? get accessType => _$this._accessType;
+  set accessType(_i4.GAccessType? accessType) =>
+      _$this._accessType = accessType;
+
+  String? _imageUrl;
+  String? get imageUrl => _$this._imageUrl;
+  set imageUrl(String? imageUrl) => _$this._imageUrl = imageUrl;
+
   GWorkCommentResponsesData_work_comment_sticker_imageBuilder? _image;
   GWorkCommentResponsesData_work_comment_sticker_imageBuilder get image =>
       _$this._image ??=
@@ -1829,6 +1892,8 @@ class GWorkCommentResponsesData_work_comment_stickerBuilder
     if ($v != null) {
       _G__typename = $v.G__typename;
       _id = $v.id;
+      _accessType = $v.accessType;
+      _imageUrl = $v.imageUrl;
       _image = $v.image?.toBuilder();
       _$v = null;
     }
@@ -1862,6 +1927,11 @@ class GWorkCommentResponsesData_work_comment_stickerBuilder
                   'G__typename'),
               id: BuiltValueNullFieldError.checkNotNull(
                   id, r'GWorkCommentResponsesData_work_comment_sticker', 'id'),
+              accessType: BuiltValueNullFieldError.checkNotNull(
+                  accessType,
+                  r'GWorkCommentResponsesData_work_comment_sticker',
+                  'accessType'),
+              imageUrl: imageUrl,
               image: _image?.build());
     } catch (_) {
       late String _$failedField;
@@ -2594,6 +2664,10 @@ class _$GWorkCommentResponsesData_work_comment_responses_sticker
   @override
   final String id;
   @override
+  final _i4.GAccessType accessType;
+  @override
+  final String? imageUrl;
+  @override
   final GWorkCommentResponsesData_work_comment_responses_sticker_image? image;
 
   factory _$GWorkCommentResponsesData_work_comment_responses_sticker(
@@ -2605,7 +2679,11 @@ class _$GWorkCommentResponsesData_work_comment_responses_sticker
           ._build();
 
   _$GWorkCommentResponsesData_work_comment_responses_sticker._(
-      {required this.G__typename, required this.id, this.image})
+      {required this.G__typename,
+      required this.id,
+      required this.accessType,
+      this.imageUrl,
+      this.image})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename,
@@ -2613,6 +2691,10 @@ class _$GWorkCommentResponsesData_work_comment_responses_sticker
         'G__typename');
     BuiltValueNullFieldError.checkNotNull(
         id, r'GWorkCommentResponsesData_work_comment_responses_sticker', 'id');
+    BuiltValueNullFieldError.checkNotNull(
+        accessType,
+        r'GWorkCommentResponsesData_work_comment_responses_sticker',
+        'accessType');
   }
 
   @override
@@ -2633,6 +2715,8 @@ class _$GWorkCommentResponsesData_work_comment_responses_sticker
     return other is GWorkCommentResponsesData_work_comment_responses_sticker &&
         G__typename == other.G__typename &&
         id == other.id &&
+        accessType == other.accessType &&
+        imageUrl == other.imageUrl &&
         image == other.image;
   }
 
@@ -2641,6 +2725,8 @@ class _$GWorkCommentResponsesData_work_comment_responses_sticker
     var _$hash = 0;
     _$hash = $jc(_$hash, G__typename.hashCode);
     _$hash = $jc(_$hash, id.hashCode);
+    _$hash = $jc(_$hash, accessType.hashCode);
+    _$hash = $jc(_$hash, imageUrl.hashCode);
     _$hash = $jc(_$hash, image.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -2652,6 +2738,8 @@ class _$GWorkCommentResponsesData_work_comment_responses_sticker
             r'GWorkCommentResponsesData_work_comment_responses_sticker')
           ..add('G__typename', G__typename)
           ..add('id', id)
+          ..add('accessType', accessType)
+          ..add('imageUrl', imageUrl)
           ..add('image', image))
         .toString();
   }
@@ -2670,6 +2758,15 @@ class GWorkCommentResponsesData_work_comment_responses_stickerBuilder
   String? _id;
   String? get id => _$this._id;
   set id(String? id) => _$this._id = id;
+
+  _i4.GAccessType? _accessType;
+  _i4.GAccessType? get accessType => _$this._accessType;
+  set accessType(_i4.GAccessType? accessType) =>
+      _$this._accessType = accessType;
+
+  String? _imageUrl;
+  String? get imageUrl => _$this._imageUrl;
+  set imageUrl(String? imageUrl) => _$this._imageUrl = imageUrl;
 
   GWorkCommentResponsesData_work_comment_responses_sticker_imageBuilder? _image;
   GWorkCommentResponsesData_work_comment_responses_sticker_imageBuilder
@@ -2690,6 +2787,8 @@ class GWorkCommentResponsesData_work_comment_responses_stickerBuilder
     if ($v != null) {
       _G__typename = $v.G__typename;
       _id = $v.id;
+      _accessType = $v.accessType;
+      _imageUrl = $v.imageUrl;
       _image = $v.image?.toBuilder();
       _$v = null;
     }
@@ -2726,6 +2825,11 @@ class GWorkCommentResponsesData_work_comment_responses_stickerBuilder
                   id,
                   r'GWorkCommentResponsesData_work_comment_responses_sticker',
                   'id'),
+              accessType: BuiltValueNullFieldError.checkNotNull(
+                  accessType,
+                  r'GWorkCommentResponsesData_work_comment_responses_sticker',
+                  'accessType'),
+              imageUrl: imageUrl,
               image: _image?.build());
     } catch (_) {
       late String _$failedField;

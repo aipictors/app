@@ -2,8 +2,6 @@
 // ignore_for_file: type=lint
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:aipictors/graphql/fragments/__generated__/partial_tag_fields_fragment.ast.gql.dart'
-    as _i2;
 import 'package:gql/ast.dart' as _i1;
 
 const ViewerMutedTags = _i1.OperationDefinitionNode(
@@ -38,6 +36,21 @@ const ViewerMutedTags = _i1.OperationDefinitionNode(
       directives: [],
       selectionSet: _i1.SelectionSetNode(selections: [
         _i1.FieldNode(
+          name: _i1.NameNode(value: 'user'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: _i1.SelectionSetNode(selections: [
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'id'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            )
+          ]),
+        ),
+        _i1.FieldNode(
           name: _i1.NameNode(value: 'mutedTags'),
           alias: null,
           arguments: [
@@ -52,17 +65,24 @@ const ViewerMutedTags = _i1.OperationDefinitionNode(
           ],
           directives: [],
           selectionSet: _i1.SelectionSetNode(selections: [
-            _i1.FragmentSpreadNode(
-              name: _i1.NameNode(value: 'PartialTagFields'),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'id'),
+              alias: null,
+              arguments: [],
               directives: [],
-            )
+              selectionSet: null,
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'name'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
           ]),
-        )
+        ),
       ]),
     )
   ]),
 );
-const document = _i1.DocumentNode(definitions: [
-  ViewerMutedTags,
-  _i2.PartialTagFields,
-]);
+const document = _i1.DocumentNode(definitions: [ViewerMutedTags]);

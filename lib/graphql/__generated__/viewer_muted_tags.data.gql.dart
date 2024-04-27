@@ -3,8 +3,6 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:aipictors/__generated__/serializers.gql.dart' as _i1;
-import 'package:aipictors/graphql/fragments/__generated__/partial_tag_fields_fragment.data.gql.dart'
-    as _i2;
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
@@ -54,6 +52,7 @@ abstract class GViewerMutedTagsData_viewer
 
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
+  GViewerMutedTagsData_viewer_user get user;
   BuiltList<GViewerMutedTagsData_viewer_mutedTags> get mutedTags;
   static Serializer<GViewerMutedTagsData_viewer> get serializer =>
       _$gViewerMutedTagsDataViewerSerializer;
@@ -70,11 +69,42 @@ abstract class GViewerMutedTagsData_viewer
       );
 }
 
+abstract class GViewerMutedTagsData_viewer_user
+    implements
+        Built<GViewerMutedTagsData_viewer_user,
+            GViewerMutedTagsData_viewer_userBuilder> {
+  GViewerMutedTagsData_viewer_user._();
+
+  factory GViewerMutedTagsData_viewer_user(
+          [void Function(GViewerMutedTagsData_viewer_userBuilder b) updates]) =
+      _$GViewerMutedTagsData_viewer_user;
+
+  static void _initializeBuilder(GViewerMutedTagsData_viewer_userBuilder b) =>
+      b..G__typename = 'UserNode';
+
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  String get id;
+  static Serializer<GViewerMutedTagsData_viewer_user> get serializer =>
+      _$gViewerMutedTagsDataViewerUserSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GViewerMutedTagsData_viewer_user.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GViewerMutedTagsData_viewer_user? fromJson(
+          Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GViewerMutedTagsData_viewer_user.serializer,
+        json,
+      );
+}
+
 abstract class GViewerMutedTagsData_viewer_mutedTags
     implements
         Built<GViewerMutedTagsData_viewer_mutedTags,
-            GViewerMutedTagsData_viewer_mutedTagsBuilder>,
-        _i2.GPartialTagFields {
+            GViewerMutedTagsData_viewer_mutedTagsBuilder> {
   GViewerMutedTagsData_viewer_mutedTags._();
 
   factory GViewerMutedTagsData_viewer_mutedTags(
@@ -83,19 +113,15 @@ abstract class GViewerMutedTagsData_viewer_mutedTags
 
   static void _initializeBuilder(
           GViewerMutedTagsData_viewer_mutedTagsBuilder b) =>
-      b..G__typename = 'TagNode';
+      b..G__typename = 'MutedTagNode';
 
-  @override
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
-  @override
   String get id;
-  @override
   String get name;
   static Serializer<GViewerMutedTagsData_viewer_mutedTags> get serializer =>
       _$gViewerMutedTagsDataViewerMutedTagsSerializer;
 
-  @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
         GViewerMutedTagsData_viewer_mutedTags.serializer,
         this,

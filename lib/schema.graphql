@@ -34,6 +34,36 @@ input AddPromptonWorkToFolderInput {
   workId: String!
 }
 
+"""モデル"""
+type AiModelNode implements Node {
+  id: ID!
+
+  """モデル名"""
+  name: String!
+
+  """モデル種別"""
+  type: AiModelType!
+
+  """生成機能のモデルID"""
+  generationModelId: ID
+
+  """投稿機能のモデルID"""
+  workModelId: ID
+
+  """サムネイル画像"""
+  thumbnailImageURL: String
+}
+
+"""モデル種別"""
+enum AiModelType {
+  """画像"""
+  IMAGE
+}
+
+input AiModelWhereInput {
+  search: String
+}
+
 """作品のシリーズ"""
 type AlbumNode implements Node {
   id: ID!
@@ -99,7 +129,18 @@ type AlbumNode implements Node {
 
 input AlbumsWhereInput {
   search: String
+
+  """所有者"""
+  ownerUserId: ID
+
+  """センシティブ"""
   isSensitive: Boolean
+
+  """サムネイル画像が存在する"""
+  thumbnailImageExists: Boolean
+
+  """検査済み"""
+  isInspected: Boolean
 }
 
 type AlbumViewerNode implements Node {
@@ -228,6 +269,7 @@ input CommentsOrderBy {
 
 input CommentsWhereInput {
   isSensitive: Boolean
+  ratings: [Rating!]
 }
 
 interface Connection {
@@ -500,6 +542,10 @@ input CreatePromptonWorkLikeInput {
   workId: String!
 }
 
+input CreateRecommendedWorkInput {
+  workId: ID!
+}
+
 input CreateReservedImageGenerationTaskInput {
   """生成する枚数"""
   count: Int!
@@ -554,7 +600,20 @@ input CreateResponseCommentInput {
 }
 
 input CreateStickerInput {
-  title: String!
+  """タイトル"""
+  title: String
+
+  """ジャンル"""
+  genre: StickerGenre
+
+  """カテゴリ"""
+  categories: [String!]
+
+  """画像URL"""
+  imageUrl: String!
+
+  """公開状態"""
+  accessType: AccessType!
 }
 
 input CreateUserStickerInput {
@@ -706,6 +765,10 @@ input DeletePromptonWorkLikeInput {
   workId: String!
 }
 
+input DeleteRecommendedWorkInput {
+  workId: ID!
+}
+
 input DeleteStickerInput {
   stickerId: ID!
 }
@@ -800,9 +863,30 @@ type FolderNode implements Node {
   shareText: String
 }
 
+"""フォルダの年齢種別"""
+enum FolderRating {
+  """全年齢"""
+  G
+
+  """センシティブ"""
+  R18
+}
+
 input FoldersWhereInput {
   search: String
   isSensitive: Boolean
+}
+
+"""フォルダの種類"""
+enum FolderType {
+  """ブックマーク"""
+  BOOKMARK
+
+  """非公開"""
+  PRIVATE
+
+  """公開"""
+  PUBLIC
 }
 
 """通知（フォロー）"""
@@ -838,10 +922,10 @@ type ImageGenerationEngineStatus {
   standardTasksCount: Int!
 
   """通常の予測生成秒数"""
-  normalPredictionGenerationSeconds: Int!
+  normalPredictionGenerationWait: Int!
 
   """優先1の予測生成秒数"""
-  standardPredictionGenerationSeconds: Int!
+  standardPredictionGenerationWait: Int!
 }
 
 """画像生成メモ"""
@@ -1363,6 +1447,9 @@ type Mutation {
   """作品を作成する"""
   createWork(input: CreateWorkInput!): WorkNode!
 
+  """推薦作品を作成する"""
+  createRecommendedWork(input: CreateRecommendedWorkInput!): WorkNode!
+
   """作品のコメントを作成する"""
   createWorkComment(input: CreateWorkCommentInput!): CommentNode!
 
@@ -1411,6 +1498,9 @@ type Mutation {
   """作品を削除する"""
   deleteWork(input: DeleteWorkInput!): WorkNode!
 
+  """推薦作品を削除する"""
+  deleteRecommendedWork(input: DeleteRecommendedWorkInput!): Boolean!
+
   """作品のスキを削除する"""
   deleteWorkLike(input: DeleteWorkLikeInput!): WorkNode!
 
@@ -1430,7 +1520,7 @@ type Mutation {
   loginWithWordPressToken(input: LoginWithWordPressTokenInput!): LoginResult!
 
   """タグをミュートする"""
-  muteTag(input: MuteTagInput!): TagNode
+  muteTag(input: MuteTagInput!): MutedTagNode
 
   """ユーザをミュートする"""
   muteUser(input: MuteUserInput!): UserNode!
@@ -1497,6 +1587,9 @@ type Mutation {
 
   """ユーザのプロフィールを作成する"""
   updateUserProfile(input: UpdateUserProfileInput!): UserNode!
+
+  """ユーザの設定を更新する"""
+  updateUserSetting(input: UpdateUserSettingInput!): UserSettingNode!
 
   """作品を更新する"""
   updateWork(input: UpdateWorkInput!): WorkNode!
@@ -1694,6 +1787,14 @@ type Mutation {
   blockPromptonUser(input: BlockPromptonUserInput!): PromptonUserNode!
 }
 
+"""ミュートタグ"""
+type MutedTagNode implements Node {
+  id: ID!
+
+  """名前"""
+  name: String!
+}
+
 input MuteTagInput {
   tagName: String!
 }
@@ -1815,6 +1916,20 @@ input PopularWorksWhereInput {
 
   """廃止予定"""
   rating: Rating
+}
+
+enum PreferenceRating {
+  """全年齢+R15+R18G+R18"""
+  R18
+
+  """全年齢+R15+R18G"""
+  R18G
+
+  """全年齢+R15"""
+  R15
+
+  """全年齢"""
+  G
 }
 
 """プロモーション"""
@@ -2617,6 +2732,9 @@ type Query {
   """日別テーマ"""
   dailyThemes(offset: Int!, limit: Int!, where: DailyThemesWhereInput): [DailyThemeNode!]!
 
+  """モデル"""
+  aiModels(offset: Int!, limit: Int!, where: AiModelWhereInput): [AiModelNode!]!
+
   """フォルダ"""
   folder(id: ID!): FolderNode
 
@@ -2842,6 +2960,7 @@ enum StickerGenre {
 type StickerNode implements Node {
   id: ID!
   createdAt: Int!
+  usedAt: Int
 
   """タイトル"""
   title: String!
@@ -2850,6 +2969,7 @@ type StickerNode implements Node {
   """画像"""
   image: ImageNode
   userId: ID!
+  imageUrl: String
 
   """ユーザ"""
   user: UserNode!
@@ -2883,9 +3003,26 @@ type StickerNode implements Node {
   viewer: StickerViewerNode @deprecated(reason: "isLikedを使用する")
 }
 
+enum StickerOrderBy {
+  DATE_CREATED
+  DATE_USED
+}
+
 input StickersWhereInput {
+  """検索ワード"""
   search: String
-  isSensitive: Boolean
+
+  """所有者"""
+  ownerUserId: ID
+
+  """作成者"""
+  creatorUserId: ID
+
+  """ジャンル"""
+  genre: StickerGenre
+
+  """カテゴリ"""
+  categories: [String!]
 }
 
 type StickerViewerNode implements Node {
@@ -3141,8 +3278,39 @@ input UpdateStickerInput {
 }
 
 input UpdateUserProfileInput {
-  displayName: String!
-  biography: String!
+  displayName: String
+
+  """紹介"""
+  biography: String
+
+  """紹介（英語）"""
+  enBiography: String
+
+  """アイコン画像"""
+  iconUrl: String
+
+  """ヘッダー画像"""
+  headerImageUrl: String
+
+  """X"""
+  twitterAccountId: String
+
+  """Instagram"""
+  instagramAccountId: String
+
+  """GitHub"""
+  githubAccountId: String
+
+  """ピックアップ作品ID"""
+  featuredWorkIds: [ID!]
+
+  """センシティブなピックアップ作品ID"""
+  featuredSensitiveWorkIds: [ID!]
+}
+
+input UpdateUserSettingInput {
+  """閲覧コンテンツ"""
+  preferenceRating: PreferenceRating
 }
 
 input UpdateWorkInput {
@@ -3221,11 +3389,17 @@ type UserNode implements Node {
   """アイコン画像"""
   iconImage: ImageNode
 
+  """アイコン画像URL"""
+  iconUrl: String
+
   """ヘッダー画像のID"""
   headerImageId: ID
 
   """ヘッダー画像"""
   headerImage: ImageNode
+
+  """ヘッダー画像URL"""
+  headerImageUrl: String
 
   """X"""
   twitterAccountId: String
@@ -3238,6 +3412,9 @@ type UserNode implements Node {
 
   """紹介"""
   biography: String
+
+  """紹介（英語）"""
+  enBiography: String
   workCreatedAt: Int
 
   """プロンプトンのユーザ"""
@@ -3272,6 +3449,12 @@ type UserNode implements Node {
 
   """ミュートしている"""
   isMuted: Boolean!
+
+  """ピックアップ作品"""
+  featuredWorks: [WorkNode!]
+
+  """センシティブなピックアップ作品"""
+  featuredSensitiveWorks: [WorkNode!]
   viewer: UserViewerNode @deprecated
   nanoid: String
 }
@@ -3282,6 +3465,9 @@ type UserSettingNode implements Node {
   userId: ID!
   user: UserNode!
   favoritedImageGenerationModelIds: [Int!]!
+
+  """閲覧コンテンツ"""
+  preferenceRating: PreferenceRating!
 
   """ダークモードを使用する"""
   useDarkMode: Boolean!
@@ -3378,7 +3564,7 @@ type Viewer {
   messageThread(threadId: ID!): MessageThreadNode
 
   """ミュートしたタグ"""
-  mutedTags(offset: Int!, limit: Int!): [TagNode!]!
+  mutedTags(offset: Int!, limit: Int!): [MutedTagNode!]!
 
   """ミュートしたユーザ"""
   mutedUsers(offset: Int!, limit: Int!): [UserNode!]!
@@ -3399,7 +3585,7 @@ type Viewer {
   user: UserNode!
 
   """保存したスタンプ"""
-  userStickers(offset: Int!, limit: Int!): [StickerNode!]!
+  userStickers(offset: Int!, limit: Int!, orderBy: StickerOrderBy): [StickerNode!]!
 
   """保存したコレクション"""
   watchedFolders(offset: Int!, limit: Int!): [FolderNode!]!
@@ -3549,6 +3735,9 @@ type WorkNode implements Node {
   tagNames: [String!]!
   tags: [TagNode!]!
 
+  """タグ編集許可"""
+  isTagEditable: Boolean!
+
   """画像URL"""
   imageURL: String!
 
@@ -3618,13 +3807,31 @@ type WorkNode implements Node {
   scale: Int
 
   """画像生成関連の設定"""
+  sampler: String
+
+  """VAE"""
+  vae: String
+
+  """clipSkip"""
+  clipSkip: Int
+
+  """その他の画像生成関連の設定"""
+  otherGenerationParams: String
+
+  """pngInfo"""
+  pngInfo: String
+
+  """画像生成関連の設定"""
+  strength: String
+
+  """画像生成関連の設定"""
   model: String
 
   """画像生成関連の設定"""
   modelHash: String
 
-  """画像生成関連の設定"""
-  sampler: String
+  """生成機で生成した場合のモデルID"""
+  generationModelId: ID
 
   """ユーザID"""
   userId: ID!
@@ -3674,8 +3881,35 @@ type WorkNode implements Node {
   """プロモーション作品かどうか"""
   isPromotion: Boolean!
 
+  """テイスト"""
+  style: ImageStyle!
+
+  """URL"""
+  url: String
+
+  """シリーズ情報"""
+  album: AlbumNode
+
   """削除済み"""
   isDeleted: Boolean!
+
+  """更新日"""
+  updatedAt: Int!
+
+  """デイリーランキング"""
+  dailyRanking: Int
+
+  """ウィークリーランキング"""
+  weeklyRanking: Int
+
+  """マンスリーランキング"""
+  monthlyRanking: Int
+
+  """関連URL"""
+  relatedUrl: String
+
+  """生成画像でプロンプト公開作品かどうか"""
+  isGeneration: Boolean!
 
   """非推奨"""
   viewer: WorkViewerNode @deprecated(reason: "isLikedを使用する")
@@ -3687,6 +3921,9 @@ enum WorkOrderBy {
 }
 
 input WorksWhereInput {
+  """ソート"""
+  orderBy: WorkOrderBy
+
   """検索"""
   search: String
 
@@ -3696,17 +3933,8 @@ input WorksWhereInput {
   """プロンプトが存在する"""
   hasPrompt: Boolean
 
-  """画像生成用のプロンプトが存在する"""
-  hasGenerationPrompt: Boolean
-
-  """スタイル"""
+  """スタイル(テイスト)"""
   style: ImageStyle
-
-  """ソート"""
-  orderBy: WorkOrderBy
-
-  """検索の対象"""
-  searchTargets: [String!]
 
   """センシティブである"""
   isSensitive: Boolean
@@ -3717,8 +3945,44 @@ input WorksWhereInput {
   """画像生成の作品"""
   isFeatured: Boolean
 
-  """画像生成の作品"""
+  """生成モデル"""
   generationModelId: ID
+
+  """作品形式"""
+  workType: WorkType
+
+  """使用モデル名"""
+  modelNames: [String!]
+
+  """使用サービス"""
+  serviceNames: [String!]
+
+  """プロンプト公開"""
+  isPromptPublic: Boolean
+
+  """お題参加"""
+  isThemeParticipated: Boolean
+
+  """お題"""
+  subjectId: Int
+
+  """1人1作品"""
+  isOneWorkPerUser: Boolean
+
+  """年齢種別"""
+  ratings: [Rating!]
+
+  """投稿者名"""
+  ownerName: String
+
+  """フォロー中のユーザのみ"""
+  isFollowing: Boolean
+
+  """フォロー外のユーザのみ"""
+  isNotFollowing: Boolean
+
+  """推薦"""
+  isRecommended: Boolean
 }
 
 """作品の種類"""
@@ -3731,6 +3995,9 @@ enum WorkType {
 
   """動画"""
   VIDEO
+
+  """コラム"""
+  COLUMN
 }
 
 type WorkViewerNode implements Node {

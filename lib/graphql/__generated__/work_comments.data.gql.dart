@@ -2,6 +2,7 @@
 // ignore_for_file: type=lint
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'package:aipictors/__generated__/schema.schema.gql.dart' as _i4;
 import 'package:aipictors/__generated__/serializers.gql.dart' as _i1;
 import 'package:aipictors/graphql/fragments/__generated__/comment_fields_fragment.data.gql.dart'
     as _i2;
@@ -224,6 +225,10 @@ abstract class GWorkCommentsData_work_comments_sticker
   @override
   String get id;
   @override
+  _i4.GAccessType get accessType;
+  @override
+  String? get imageUrl;
+  @override
   GWorkCommentsData_work_comments_sticker_image? get image;
   static Serializer<GWorkCommentsData_work_comments_sticker> get serializer =>
       _$gWorkCommentsDataWorkCommentsStickerSerializer;
@@ -434,6 +439,10 @@ abstract class GWorkCommentsData_work_comments_responses_sticker
   String get G__typename;
   @override
   String get id;
+  @override
+  _i4.GAccessType get accessType;
+  @override
+  String? get imageUrl;
   @override
   GWorkCommentsData_work_comments_responses_sticker_image? get image;
   static Serializer<GWorkCommentsData_work_comments_responses_sticker>

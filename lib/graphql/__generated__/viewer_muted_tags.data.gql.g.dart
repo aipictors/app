@@ -10,6 +10,9 @@ Serializer<GViewerMutedTagsData> _$gViewerMutedTagsDataSerializer =
     new _$GViewerMutedTagsDataSerializer();
 Serializer<GViewerMutedTagsData_viewer> _$gViewerMutedTagsDataViewerSerializer =
     new _$GViewerMutedTagsData_viewerSerializer();
+Serializer<GViewerMutedTagsData_viewer_user>
+    _$gViewerMutedTagsDataViewerUserSerializer =
+    new _$GViewerMutedTagsData_viewer_userSerializer();
 Serializer<GViewerMutedTagsData_viewer_mutedTags>
     _$gViewerMutedTagsDataViewerMutedTagsSerializer =
     new _$GViewerMutedTagsData_viewer_mutedTagsSerializer();
@@ -90,6 +93,9 @@ class _$GViewerMutedTagsData_viewerSerializer
       '__typename',
       serializers.serialize(object.G__typename,
           specifiedType: const FullType(String)),
+      'user',
+      serializers.serialize(object.user,
+          specifiedType: const FullType(GViewerMutedTagsData_viewer_user)),
       'mutedTags',
       serializers.serialize(object.mutedTags,
           specifiedType: const FullType(BuiltList,
@@ -115,11 +121,69 @@ class _$GViewerMutedTagsData_viewerSerializer
           result.G__typename = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
+        case 'user':
+          result.user.replace(serializers.deserialize(value,
+                  specifiedType:
+                      const FullType(GViewerMutedTagsData_viewer_user))!
+              as GViewerMutedTagsData_viewer_user);
+          break;
         case 'mutedTags':
           result.mutedTags.replace(serializers.deserialize(value,
               specifiedType: const FullType(BuiltList, const [
                 const FullType(GViewerMutedTagsData_viewer_mutedTags)
               ]))! as BuiltList<Object?>);
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GViewerMutedTagsData_viewer_userSerializer
+    implements StructuredSerializer<GViewerMutedTagsData_viewer_user> {
+  @override
+  final Iterable<Type> types = const [
+    GViewerMutedTagsData_viewer_user,
+    _$GViewerMutedTagsData_viewer_user
+  ];
+  @override
+  final String wireName = 'GViewerMutedTagsData_viewer_user';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GViewerMutedTagsData_viewer_user object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      '__typename',
+      serializers.serialize(object.G__typename,
+          specifiedType: const FullType(String)),
+      'id',
+      serializers.serialize(object.id, specifiedType: const FullType(String)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GViewerMutedTagsData_viewer_user deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GViewerMutedTagsData_viewer_userBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case '__typename':
+          result.G__typename = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'id':
+          result.id = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
           break;
       }
     }
@@ -307,6 +371,8 @@ class _$GViewerMutedTagsData_viewer extends GViewerMutedTagsData_viewer {
   @override
   final String G__typename;
   @override
+  final GViewerMutedTagsData_viewer_user user;
+  @override
   final BuiltList<GViewerMutedTagsData_viewer_mutedTags> mutedTags;
 
   factory _$GViewerMutedTagsData_viewer(
@@ -314,10 +380,12 @@ class _$GViewerMutedTagsData_viewer extends GViewerMutedTagsData_viewer {
       (new GViewerMutedTagsData_viewerBuilder()..update(updates))._build();
 
   _$GViewerMutedTagsData_viewer._(
-      {required this.G__typename, required this.mutedTags})
+      {required this.G__typename, required this.user, required this.mutedTags})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename, r'GViewerMutedTagsData_viewer', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(
+        user, r'GViewerMutedTagsData_viewer', 'user');
     BuiltValueNullFieldError.checkNotNull(
         mutedTags, r'GViewerMutedTagsData_viewer', 'mutedTags');
   }
@@ -336,6 +404,7 @@ class _$GViewerMutedTagsData_viewer extends GViewerMutedTagsData_viewer {
     if (identical(other, this)) return true;
     return other is GViewerMutedTagsData_viewer &&
         G__typename == other.G__typename &&
+        user == other.user &&
         mutedTags == other.mutedTags;
   }
 
@@ -343,6 +412,7 @@ class _$GViewerMutedTagsData_viewer extends GViewerMutedTagsData_viewer {
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, G__typename.hashCode);
+    _$hash = $jc(_$hash, user.hashCode);
     _$hash = $jc(_$hash, mutedTags.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -352,6 +422,7 @@ class _$GViewerMutedTagsData_viewer extends GViewerMutedTagsData_viewer {
   String toString() {
     return (newBuiltValueToStringHelper(r'GViewerMutedTagsData_viewer')
           ..add('G__typename', G__typename)
+          ..add('user', user)
           ..add('mutedTags', mutedTags))
         .toString();
   }
@@ -366,6 +437,12 @@ class GViewerMutedTagsData_viewerBuilder
   String? _G__typename;
   String? get G__typename => _$this._G__typename;
   set G__typename(String? G__typename) => _$this._G__typename = G__typename;
+
+  GViewerMutedTagsData_viewer_userBuilder? _user;
+  GViewerMutedTagsData_viewer_userBuilder get user =>
+      _$this._user ??= new GViewerMutedTagsData_viewer_userBuilder();
+  set user(GViewerMutedTagsData_viewer_userBuilder? user) =>
+      _$this._user = user;
 
   ListBuilder<GViewerMutedTagsData_viewer_mutedTags>? _mutedTags;
   ListBuilder<GViewerMutedTagsData_viewer_mutedTags> get mutedTags =>
@@ -383,6 +460,7 @@ class GViewerMutedTagsData_viewerBuilder
     final $v = _$v;
     if ($v != null) {
       _G__typename = $v.G__typename;
+      _user = $v.user.toBuilder();
       _mutedTags = $v.mutedTags.toBuilder();
       _$v = null;
     }
@@ -410,10 +488,13 @@ class GViewerMutedTagsData_viewerBuilder
           new _$GViewerMutedTagsData_viewer._(
               G__typename: BuiltValueNullFieldError.checkNotNull(
                   G__typename, r'GViewerMutedTagsData_viewer', 'G__typename'),
+              user: user.build(),
               mutedTags: mutedTags.build());
     } catch (_) {
       late String _$failedField;
       try {
+        _$failedField = 'user';
+        user.build();
         _$failedField = 'mutedTags';
         mutedTags.build();
       } catch (e) {
@@ -422,6 +503,115 @@ class GViewerMutedTagsData_viewerBuilder
       }
       rethrow;
     }
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GViewerMutedTagsData_viewer_user
+    extends GViewerMutedTagsData_viewer_user {
+  @override
+  final String G__typename;
+  @override
+  final String id;
+
+  factory _$GViewerMutedTagsData_viewer_user(
+          [void Function(GViewerMutedTagsData_viewer_userBuilder)? updates]) =>
+      (new GViewerMutedTagsData_viewer_userBuilder()..update(updates))._build();
+
+  _$GViewerMutedTagsData_viewer_user._(
+      {required this.G__typename, required this.id})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        G__typename, r'GViewerMutedTagsData_viewer_user', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(
+        id, r'GViewerMutedTagsData_viewer_user', 'id');
+  }
+
+  @override
+  GViewerMutedTagsData_viewer_user rebuild(
+          void Function(GViewerMutedTagsData_viewer_userBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GViewerMutedTagsData_viewer_userBuilder toBuilder() =>
+      new GViewerMutedTagsData_viewer_userBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GViewerMutedTagsData_viewer_user &&
+        G__typename == other.G__typename &&
+        id == other.id;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, G__typename.hashCode);
+    _$hash = $jc(_$hash, id.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GViewerMutedTagsData_viewer_user')
+          ..add('G__typename', G__typename)
+          ..add('id', id))
+        .toString();
+  }
+}
+
+class GViewerMutedTagsData_viewer_userBuilder
+    implements
+        Builder<GViewerMutedTagsData_viewer_user,
+            GViewerMutedTagsData_viewer_userBuilder> {
+  _$GViewerMutedTagsData_viewer_user? _$v;
+
+  String? _G__typename;
+  String? get G__typename => _$this._G__typename;
+  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
+
+  String? _id;
+  String? get id => _$this._id;
+  set id(String? id) => _$this._id = id;
+
+  GViewerMutedTagsData_viewer_userBuilder() {
+    GViewerMutedTagsData_viewer_user._initializeBuilder(this);
+  }
+
+  GViewerMutedTagsData_viewer_userBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _G__typename = $v.G__typename;
+      _id = $v.id;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GViewerMutedTagsData_viewer_user other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GViewerMutedTagsData_viewer_user;
+  }
+
+  @override
+  void update(void Function(GViewerMutedTagsData_viewer_userBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GViewerMutedTagsData_viewer_user build() => _build();
+
+  _$GViewerMutedTagsData_viewer_user _build() {
+    final _$result = _$v ??
+        new _$GViewerMutedTagsData_viewer_user._(
+            G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
+                r'GViewerMutedTagsData_viewer_user', 'G__typename'),
+            id: BuiltValueNullFieldError.checkNotNull(
+                id, r'GViewerMutedTagsData_viewer_user', 'id'));
     replace(_$result);
     return _$result;
   }

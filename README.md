@@ -54,21 +54,7 @@ $ flutter pub upgrade --tighten
 更新があった場合は取得する。
 
 ```
-$ npx get-graphql-schema "https://x-6ouzjmdzha-an.a.run.app/graphql" > lib/schema.graphql
+$ npx get-graphql-schema "https://graphql-6ouzjmdzha-an.a.run.app" > lib/schema.graphql
 ```
 
 https://x-6ouzjmdzha-an.a.run.app/graphql
-
-## ツール
-
-モジュールをインストールする。
-
-```
-$ bun i
-```
-
-翻訳を追加する。
-
-```
-$ bun run tools/i18n
-```
