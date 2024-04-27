@@ -54,13 +54,15 @@ class GeneratedImagesGridView extends HookConsumerWidget {
               itemCount: taskList!.length,
               itemBuilder: (context, index) {
                 final task = taskList[index];
-                print(task);
+                //print(task.token);
                 return InkWell(
                   onTap: () {
                     // context.push('/generations/${image.id}');
                   },
+                  // TODO: 生成中は違うコンポーネントにする
                   child: GridWorkImage(
-                    imageURL: 'a',
+                    imageURL:
+                        'https://www.aipictors.com/wp-content/themes/AISite/private-image-direct.php?token=${Uri.encodeComponent(task.token!)}',
                     imageAspectRatio: 1,
                     thumbnailImagePosition: null,
                   ),

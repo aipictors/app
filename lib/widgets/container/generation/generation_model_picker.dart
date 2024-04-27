@@ -30,6 +30,8 @@ class GenerationModelPicker extends HookConsumerWidget {
                 client: client.value!,
                 operationRequest: GImageModelsReq(),
                 builder: (context, response) {
+                  // TODO: 「もっと見る」ボタンを追加する
+                  // TODO: 選択中のモデルを一番上に表示し、背景色を変更する
                   final models = response.data!.imageModels.sublist(0, 3);
                   return Column(
                     children: [
