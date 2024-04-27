@@ -58,3 +58,17 @@ $ npx get-graphql-schema "https://x-6ouzjmdzha-an.a.run.app/graphql" > lib/schem
 ```
 
 https://x-6ouzjmdzha-an.a.run.app/graphql
+
+## ツール
+
+モジュールをインストールする。
+
+```
+$ bun i
+```
+
+翻訳を追加する。
+
+```
+$ bun run tools/i18n
+```

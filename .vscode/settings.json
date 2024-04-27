@@ -17,6 +17,16 @@
     "unfocus",
     "unfollow"
   ],
+  "cSpell.ignorePaths": [
+    ".vscode",
+    "android",
+    "assets",
+    "ios",
+    "lib/schema.graphql",
+    "linux",
+    "web",
+    "windows"
+  ],
   "files.associations": {
     "*.xml": "html",
     "*.svg": "html"
@@ -56,23 +66,7 @@
     "package-lock.json": true,
     "pubspec.lock": true
   },
-  "cSpell.ignorePaths": [
-    ".vscode",
-    "android",
-    "assets",
-    "ios",
-    "lib/schema.graphql",
-    "linux",
-    "web",
-    "windows"
-  ],
-  "[json]": {
-    "editor.codeActionsOnSave": {
-      "quickfix.biome": "explicit"
-    },
-    "editor.defaultFormatter": "biomejs.biome"
-  },
-  "[javascript]": {
+  "[typescript][json]": {
     "editor.codeActionsOnSave": {
       "quickfix.biome": "explicit",
       "source.organizeImports.biome": "explicit"
