@@ -6,6 +6,7 @@ import 'package:aipictors/utils/to_exception_message.dart';
 import 'package:aipictors/widgets/container/loading_container.dart';
 import 'package:aipictors/widgets/form/login_id_form.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
@@ -127,39 +128,41 @@ class HelloScreen extends HookConsumerWidget {
                     //   style: Theme.of(context).textTheme.labelMedium,
                     // ),
                     const SizedBox(height: 20),
-                    SizedBox(
-                      width: double.infinity,
-                      child: FilledButton(
-                        style: FilledButton.styleFrom(
-                          fixedSize: const Size.fromHeight(48),
+                    if (defaultTargetPlatform == TargetPlatform.android) ...[
+                      SizedBox(
+                        width: double.infinity,
+                        child: FilledButton(
+                          style: FilledButton.styleFrom(
+                            fixedSize: const Size.fromHeight(48),
+                          ),
+                          onPressed: isLoading.value
+                              ? null
+                              : () async {
+                                  isLoading.value = true;
+                                  await onLoginWithTwitter(context, ref);
+                                  isLoading.value = false;
+                                },
+                          child: Text('X(Twitter)でログイン'.i18n),
                         ),
-                        onPressed: isLoading.value
-                            ? null
-                            : () async {
-                                isLoading.value = true;
-                                await onLoginWithTwitter(context, ref);
-                                isLoading.value = false;
-                              },
-                        child: Text('X(Twitter)でログイン'.i18n),
                       ),
-                    ),
-                    const SizedBox(height: 20),
-                    SizedBox(
-                      width: double.infinity,
-                      child: FilledButton(
-                        style: FilledButton.styleFrom(
-                          fixedSize: const Size.fromHeight(48),
+                      const SizedBox(height: 20),
+                      SizedBox(
+                        width: double.infinity,
+                        child: FilledButton(
+                          style: FilledButton.styleFrom(
+                            fixedSize: const Size.fromHeight(48),
+                          ),
+                          onPressed: isLoading.value
+                              ? null
+                              : () async {
+                                  isLoading.value = true;
+                                  await onLoginWithGoogle(context, ref);
+                                  isLoading.value = false;
+                                },
+                          child: Text('Googleでログイン'.i18n),
                         ),
-                        onPressed: isLoading.value
-                            ? null
-                            : () async {
-                                isLoading.value = true;
-                                await onLoginWithGoogle(context, ref);
-                                isLoading.value = false;
-                              },
-                        child: Text('Googleでログイン'.i18n),
                       ),
-                    ),
+                    ]
                   ],
                 ),
               ),
