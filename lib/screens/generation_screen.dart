@@ -6,6 +6,7 @@ import 'package:aipictors/providers/viewer_provider.dart';
 import 'package:aipictors/states/image_generation_state.dart';
 import 'package:aipictors/utils/active_image_generation.dart';
 import 'package:aipictors/widgets/container/generation/generation_model_picker.dart';
+import 'package:aipictors/widgets/container/generation/generation_model_picker_modal.dart';
 import 'package:aipictors/widgets/container/generation/generation_prompt_form.dart';
 import 'package:aipictors/widgets/container/loading_container.dart';
 import 'package:aipictors/widgets/view/generated_images_grid_view.dart';
@@ -37,11 +38,18 @@ class GenerationScreen extends HookConsumerWidget {
       body: ListView(
         children: [
           GenerationModelPicker(
-              selectedModelName: imageGeneration.model,
-              onSelected: (String modelName) {
+            selectedModelName: imageGeneration.model,
+            onSelected: (String modelName) {
+              print(modelName);
+              imageGenerationNotifier.updateModel(modelName);
+            },
+            onShowMoreButtonPressed: () {
+              onOpenModelPickerModal(context, (String modelName) {
                 print(modelName);
                 imageGenerationNotifier.updateModel(modelName);
-              }),
+              });
+            },
+          ),
           const SizedBox(height: 32),
           GenerationPromptInputField(
             onPromptChanged: (prompt) {
@@ -61,6 +69,19 @@ class GenerationScreen extends HookConsumerWidget {
         },
       ),
     );
+  }
+
+  /// モデルピッカーを開く
+  onOpenModelPickerModal(
+      BuildContext context, Function(String modelName) onSelected) {
+    showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        showDragHandle: true,
+        builder: (context) {
+          return GenerationModelPickerModal(
+              onSelected: (String modelName) => onSelected(modelName));
+        });
   }
 
   /// 生成する

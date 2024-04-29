@@ -2,6 +2,7 @@ import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/graphql/generation/__generated__/image_models.data.gql.dart';
 import 'package:aipictors/graphql/generation/__generated__/image_models.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
+import 'package:aipictors/utils/to_model_category_text.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
 import 'package:aipictors/widgets/container/loading_container.dart';
 import 'package:aipictors/widgets/list_tile/work_info_list_tile.dart';
@@ -13,11 +14,14 @@ class GenerationModelPicker extends HookConsumerWidget {
     super.key,
     required this.selectedModelName,
     required this.onSelected,
+    required this.onShowMoreButtonPressed,
   });
 
   final String selectedModelName;
 
   final Function(String modelName) onSelected;
+
+  final VoidCallback onShowMoreButtonPressed;
 
   @override
   Widget build(context, ref) {
@@ -37,7 +41,6 @@ class GenerationModelPicker extends HookConsumerWidget {
                 client: client.value!,
                 operationRequest: GImageModelsReq(),
                 builder: (context, response) {
-                  // TODO: 「もっと見る」ボタンを追加する
                   final models = response.data!.imageModels;
 
                   // 選択中のモデルがある場合、一番上に表示する
@@ -65,7 +68,8 @@ class GenerationModelPicker extends HookConsumerWidget {
                               thumbnailImageURL:
                                   selectedModel!.thumbnailImageURL ?? '',
                               title: selectedModel!.displayName,
-                              body: Text(selectedModel!.category.name),
+                              body: Text(
+                                  toModelCategoryText(selectedModel!.category)),
                               onTap: () {
                                 onSelected(selectedModel!.name);
                               },
@@ -74,7 +78,8 @@ class GenerationModelPicker extends HookConsumerWidget {
                         WorkInfoListTile(
                           thumbnailImageURL: model.thumbnailImageURL ?? '',
                           title: model.displayName,
-                          body: Text(model.category.name),
+                          body: Text(
+                              toModelCategoryText(selectedModel!.category)),
                           onTap: () {
                             print(model.prompts);
                             onSelected(model.name);
@@ -82,7 +87,9 @@ class GenerationModelPicker extends HookConsumerWidget {
                         ),
                       OutlinedButton(
                         child: Text('もっとみる'.i18n),
-                        onPressed: () {},
+                        onPressed: () {
+                          onShowMoreButtonPressed();
+                        },
                       )
                     ],
                   );
