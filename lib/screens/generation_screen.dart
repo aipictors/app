@@ -1,8 +1,9 @@
 import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/mutations/create_image_generation_task.dart';
 import 'package:aipictors/providers/client_provider.dart';
+import 'package:aipictors/providers/image_generation_provider.dart';
 import 'package:aipictors/providers/viewer_provider.dart';
-import 'package:aipictors/repositories/image_generation_repository.dart';
+import 'package:aipictors/states/image_generation_state.dart';
 import 'package:aipictors/utils/active_image_generation.dart';
 import 'package:aipictors/widgets/container/generation/generation_model_picker.dart';
 import 'package:aipictors/widgets/container/generation/generation_prompt_form.dart';
@@ -21,7 +22,9 @@ class GenerationScreen extends HookConsumerWidget {
   Widget build(context, ref) {
     final client = ref.watch(clientProvider);
 
-    const generationRepository = ImageGenerationRepository();
+    final imageGeneration = ref.watch(imageGenerationProvider);
+
+    final imageGenerationNotifier = ref.read(imageGenerationProvider.notifier);
 
     if (client.value == null) {
       return const LoadingContainer();
@@ -33,18 +36,28 @@ class GenerationScreen extends HookConsumerWidget {
       ),
       body: ListView(
         children: [
-          GenerationModelPicker(onSelected: (String modelName) {
-            print(modelName);
-          }),
+          GenerationModelPicker(
+              selectedModelName: imageGeneration.model,
+              onSelected: (String modelName) {
+                print(modelName);
+                imageGenerationNotifier.updateModel(modelName);
+              }),
           const SizedBox(height: 32),
-          const GenerationPromptInputField(),
+          GenerationPromptInputField(
+            onPromptChanged: (prompt) {
+              imageGenerationNotifier.updatePrompt(prompt);
+            },
+            onNegativePromptChanged: (negativePrompt) {
+              imageGenerationNotifier.updateNegativePrompt(negativePrompt);
+            },
+          ),
           const GeneratedImagesGridView(),
         ],
       ),
       bottomNavigationBar: FilledButton(
         child: Text('生成する'.i18n),
         onPressed: () {
-          onCreateTask(context, ref, generationRepository);
+          onCreateTask(context, ref, imageGeneration);
         },
       ),
     );
@@ -52,24 +65,24 @@ class GenerationScreen extends HookConsumerWidget {
 
   /// 生成する
   onCreateTask(BuildContext context, WidgetRef ref,
-      ImageGenerationRepository generationRepository) async {
+      ImageGenerationState imageGeneration) async {
     final viewer = await ref.watch(viewerProvider.future);
     await activeImageGeneration(viewer!.viewer!.user.nanoid!);
     createImageGenerationTask((builder) {
       return builder
-        ..vars.input.count = generationRepository.count
-        ..vars.input.type = generationRepository.type
-        ..vars.input.model = generationRepository.model
-        ..vars.input.vae = generationRepository.vae
-        ..vars.input.prompt = generationRepository.prompt
-        ..vars.input.negativePrompt = generationRepository.negativePrompt
-        ..vars.input.seed = generationRepository.seed.toDouble()
-        ..vars.input.steps = generationRepository.steps
-        ..vars.input.scale = generationRepository.scale
-        ..vars.input.sampler = (generationRepository.sampler != '')
-            ? generationRepository.sampler
+        ..vars.input.count = imageGeneration.count
+        ..vars.input.type = imageGeneration.type
+        ..vars.input.model = imageGeneration.model
+        ..vars.input.vae = imageGeneration.vae
+        ..vars.input.prompt = imageGeneration.prompt
+        ..vars.input.negativePrompt = imageGeneration.negativePrompt
+        ..vars.input.seed = imageGeneration.seed.toDouble()
+        ..vars.input.steps = imageGeneration.steps
+        ..vars.input.scale = imageGeneration.scale
+        ..vars.input.sampler = (imageGeneration.sampler != '')
+            ? imageGeneration.sampler
             : 'DPM++ 2M Karras'
-        ..vars.input.sizeType = generationRepository.sizeType;
+        ..vars.input.sizeType = imageGeneration.sizeType;
     });
     await activeImageGeneration(viewer.viewer!.user.nanoid!);
   }
