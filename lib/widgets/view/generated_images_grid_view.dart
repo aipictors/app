@@ -1,7 +1,9 @@
+import 'package:aipictors/__generated__/schema.schema.gql.dart';
 import 'package:aipictors/graphql/generation/__generated__/viewer_image_generation_tasks.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
+import 'package:aipictors/widgets/container/generation/image_generating_container.dart';
 import 'package:aipictors/widgets/container/loading_container.dart';
 import 'package:aipictors/widgets/image/grid_work_image.dart';
 import 'package:flutter/material.dart';
@@ -44,7 +46,7 @@ class GeneratedImagesGridView extends HookConsumerWidget {
           client: client.value!,
           operationRequest: request,
           builder: (context, response) {
-            final taskList = response.data?.viewer!.imageGenerationTasks;
+            final taskList = response.data?.viewer?.imageGenerationTasks;
             return GridView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
@@ -59,13 +61,14 @@ class GeneratedImagesGridView extends HookConsumerWidget {
                   onTap: () {
                     // context.push('/generations/${image.id}');
                   },
-                  // TODO: 生成中は違うコンポーネントにする
-                  child: GridWorkImage(
-                    imageURL:
-                        'https://www.aipictors.com/wp-content/themes/AISite/private-image-direct.php?token=${Uri.encodeComponent(task.token!)}',
-                    imageAspectRatio: 1,
-                    thumbnailImagePosition: null,
-                  ),
+                  child: (task.status == GImageGenerationStatus.DONE)
+                      ? GridWorkImage(
+                          imageURL:
+                              'https://www.aipictors.com/wp-content/themes/AISite/private-image-direct.php?token=${Uri.encodeComponent(task.token!)}',
+                          imageAspectRatio: 1,
+                          thumbnailImagePosition: null,
+                        )
+                      : const ImageGeneratingContainer(),
                 );
               },
             );
