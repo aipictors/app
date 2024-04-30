@@ -152,8 +152,9 @@ abstract class GAlbumsWhereInput
   String? get search;
   String? get ownerUserId;
   bool? get isSensitive;
-  bool? get thumbnailImageExists;
-  bool? get isInspected;
+  bool? get isSensitiveAndAllRating;
+  bool? get needsThumbnailImage;
+  bool? get needInspected;
   static Serializer<GAlbumsWhereInput> get serializer =>
       _$gAlbumsWhereInputSerializer;
 
@@ -1577,6 +1578,42 @@ abstract class GCreateWorkInput
       _$GCreateWorkInput;
 
   String get title;
+  String? get entitle;
+  String? get explanation;
+  String? get enExplanation;
+  String? get prompt;
+  String? get negativePrompt;
+  String? get seed;
+  String? get steps;
+  String? get sampler;
+  String? get strength;
+  String? get noise;
+  String? get modelName;
+  String? get modelHash;
+  String? get otherGenerationParams;
+  String? get pnginfo;
+  GImageStyle? get imageStyle;
+  String? get relatedUrl;
+  BuiltList<String>? get tags;
+  bool get isTagEditable;
+  double? get thumbnailPosition;
+  String? get modelId;
+  GWorkType get type;
+  String? get subjectId;
+  String? get albumId;
+  bool? get isPromotion;
+  int? get reservedAt;
+  GAccessType get accessType;
+  String get imageUrl;
+  int get imageWidth;
+  int get imageHeight;
+  String get imageHashSha256;
+  String get smallThumbnailImageURL;
+  int get smallThumbnailImageWidth;
+  int get smallThumbnailImageHeight;
+  String get largeThumbnailImageURL;
+  int get largeThumbnailImageWidth;
+  int get largeThumbnailImageHeight;
   static Serializer<GCreateWorkInput> get serializer =>
       _$gCreateWorkInputSerializer;
 
@@ -4945,6 +4982,31 @@ abstract class GWatchFolderInput
   static GWatchFolderInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GWatchFolderInput.serializer,
+        json,
+      );
+}
+
+abstract class GWhiteListTagsInput
+    implements Built<GWhiteListTagsInput, GWhiteListTagsInputBuilder> {
+  GWhiteListTagsInput._();
+
+  factory GWhiteListTagsInput(
+          [void Function(GWhiteListTagsInputBuilder b) updates]) =
+      _$GWhiteListTagsInput;
+
+  String? get search;
+  bool? get isSensitive;
+  static Serializer<GWhiteListTagsInput> get serializer =>
+      _$gWhiteListTagsInputSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GWhiteListTagsInput.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GWhiteListTagsInput? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GWhiteListTagsInput.serializer,
         json,
       );
 }

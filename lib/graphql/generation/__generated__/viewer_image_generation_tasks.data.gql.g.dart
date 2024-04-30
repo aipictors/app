@@ -380,6 +380,20 @@ class _$GViewerImageGenerationTasksData_viewer_imageGenerationTasksSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(double)));
     }
+    value = object.imageFileName;
+    if (value != null) {
+      result
+        ..add('imageFileName')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.thumbnailImageFileName;
+    if (value != null) {
+      result
+        ..add('thumbnailImageFileName')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
@@ -568,6 +582,14 @@ class _$GViewerImageGenerationTasksData_viewer_imageGenerationTasksSerializer
         case 'upscaleSize':
           result.upscaleSize = serializers.deserialize(value,
               specifiedType: const FullType(double)) as double?;
+          break;
+        case 'imageFileName':
+          result.imageFileName = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'thumbnailImageFileName':
+          result.thumbnailImageFileName = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
           break;
       }
     }
@@ -987,6 +1009,10 @@ class _$GViewerImageGenerationTasksData_viewer_imageGenerationTasks
   final String? controlNetHrOption;
   @override
   final double? upscaleSize;
+  @override
+  final String? imageFileName;
+  @override
+  final String? thumbnailImageFileName;
 
   factory _$GViewerImageGenerationTasksData_viewer_imageGenerationTasks(
           [void Function(
@@ -1038,7 +1064,9 @@ class _$GViewerImageGenerationTasksData_viewer_imageGenerationTasks
       this.controlNetModel,
       this.controlNetSaveDetectedMap,
       this.controlNetHrOption,
-      this.upscaleSize})
+      this.upscaleSize,
+      this.imageFileName,
+      this.thumbnailImageFileName})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename,
@@ -1157,7 +1185,9 @@ class _$GViewerImageGenerationTasksData_viewer_imageGenerationTasks
         controlNetModel == other.controlNetModel &&
         controlNetSaveDetectedMap == other.controlNetSaveDetectedMap &&
         controlNetHrOption == other.controlNetHrOption &&
-        upscaleSize == other.upscaleSize;
+        upscaleSize == other.upscaleSize &&
+        imageFileName == other.imageFileName &&
+        thumbnailImageFileName == other.thumbnailImageFileName;
   }
 
   @override
@@ -1205,6 +1235,8 @@ class _$GViewerImageGenerationTasksData_viewer_imageGenerationTasks
     _$hash = $jc(_$hash, controlNetSaveDetectedMap.hashCode);
     _$hash = $jc(_$hash, controlNetHrOption.hashCode);
     _$hash = $jc(_$hash, upscaleSize.hashCode);
+    _$hash = $jc(_$hash, imageFileName.hashCode);
+    _$hash = $jc(_$hash, thumbnailImageFileName.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -1254,7 +1286,9 @@ class _$GViewerImageGenerationTasksData_viewer_imageGenerationTasks
           ..add('controlNetModel', controlNetModel)
           ..add('controlNetSaveDetectedMap', controlNetSaveDetectedMap)
           ..add('controlNetHrOption', controlNetHrOption)
-          ..add('upscaleSize', upscaleSize))
+          ..add('upscaleSize', upscaleSize)
+          ..add('imageFileName', imageFileName)
+          ..add('thumbnailImageFileName', thumbnailImageFileName))
         .toString();
   }
 }
@@ -1461,6 +1495,16 @@ class GViewerImageGenerationTasksData_viewer_imageGenerationTasksBuilder
   double? get upscaleSize => _$this._upscaleSize;
   set upscaleSize(double? upscaleSize) => _$this._upscaleSize = upscaleSize;
 
+  String? _imageFileName;
+  String? get imageFileName => _$this._imageFileName;
+  set imageFileName(String? imageFileName) =>
+      _$this._imageFileName = imageFileName;
+
+  String? _thumbnailImageFileName;
+  String? get thumbnailImageFileName => _$this._thumbnailImageFileName;
+  set thumbnailImageFileName(String? thumbnailImageFileName) =>
+      _$this._thumbnailImageFileName = thumbnailImageFileName;
+
   GViewerImageGenerationTasksData_viewer_imageGenerationTasksBuilder() {
     GViewerImageGenerationTasksData_viewer_imageGenerationTasks
         ._initializeBuilder(this);
@@ -1512,6 +1556,8 @@ class GViewerImageGenerationTasksData_viewer_imageGenerationTasksBuilder
       _controlNetSaveDetectedMap = $v.controlNetSaveDetectedMap;
       _controlNetHrOption = $v.controlNetHrOption;
       _upscaleSize = $v.upscaleSize;
+      _imageFileName = $v.imageFileName;
+      _thumbnailImageFileName = $v.thumbnailImageFileName;
       _$v = null;
     }
     return this;
@@ -1594,7 +1640,9 @@ class GViewerImageGenerationTasksData_viewer_imageGenerationTasksBuilder
               controlNetModel: controlNetModel,
               controlNetSaveDetectedMap: controlNetSaveDetectedMap,
               controlNetHrOption: controlNetHrOption,
-              upscaleSize: upscaleSize);
+              upscaleSize: upscaleSize,
+              imageFileName: imageFileName,
+              thumbnailImageFileName: thumbnailImageFileName);
     } catch (_) {
       late String _$failedField;
       try {

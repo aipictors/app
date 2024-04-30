@@ -630,7 +630,78 @@ input CreateWorkCommentInput {
 }
 
 input CreateWorkInput {
+  """題名"""
   title: String!
+  entitle: String
+
+  """説明"""
+  explanation: String
+  enExplanation: String
+
+  """生成情報"""
+  prompt: String
+  negativePrompt: String
+  seed: String
+  steps: String
+  sampler: String
+  strength: String
+  noise: String
+  modelName: String
+  modelHash: String
+  otherGenerationParams: String
+  pnginfo: String
+
+  """テイスト"""
+  imageStyle: ImageStyle
+
+  """関連リンク"""
+  relatedUrl: String
+
+  """タグ"""
+  tags: [String!]
+
+  """タグ編集許可"""
+  isTagEditable: Boolean!
+
+  """サムネイル位置"""
+  thumbnailPosition: Float
+
+  """モデル"""
+  modelId: ID
+
+  """種別"""
+  type: WorkType!
+
+  """お題ID"""
+  subjectId: ID
+
+  """シリーズID"""
+  albumId: ID
+
+  """宣伝作品かどうか"""
+  isPromotion: Boolean
+
+  """予約日"""
+  reservedAt: Int
+
+  """公開状態"""
+  accessType: AccessType!
+
+  """画像"""
+  imageUrl: String!
+  imageWidth: Int!
+  imageHeight: Int!
+  imageHashSha256: String!
+
+  """小さいサムネイル画像(最大縦横400px)"""
+  smallThumbnailImageURL: String!
+  smallThumbnailImageWidth: Int!
+  smallThumbnailImageHeight: Int!
+
+  """大きいサムネイル画像(最大縦横600px)"""
+  largeThumbnailImageURL: String!
+  largeThumbnailImageWidth: Int!
+  largeThumbnailImageHeight: Int!
 }
 
 input CreateWorkLikeInput {
@@ -1127,6 +1198,10 @@ type ImageGenerationTaskNode implements Node {
 
   """予想生成秒数"""
   estimatedSeconds: Int
+
+  """画像ファイル名"""
+  imageFileName: String
+  thumbnailImageFileName: String
 }
 
 enum ImageGenerationTaskOrderBy {
@@ -2750,6 +2825,12 @@ type Query {
   """トレンドのタグ"""
   hotTags: [TagNode!]!
 
+  """プロンプトに基づいた推奨タグ"""
+  recommendedTagsFromPrompts(prompts: String!): [TagNode!]!
+
+  """ホワイトリスト用のタグ"""
+  whiteListTags(where: WhiteListTagsInput): [TagNode!]!
+
   """
   1日以内の人気の作品
   ※キャッシュ不可
@@ -3595,10 +3676,18 @@ type Viewer {
 
   """自分の作品"""
   works(offset: Int!, limit: Int!): [WorkNode!]!
+
+  """認証トークン"""
+  token: String
 }
 
 input WatchFolderInput {
   folderId: ID!
+}
+
+input WhiteListTagsInput {
+  search: String
+  isSensitive: Boolean
 }
 
 """アワード（作品）"""

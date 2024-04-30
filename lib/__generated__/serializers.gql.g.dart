@@ -754,6 +754,7 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GViewerWorksReq.serializer)
       ..add(GViewerWorksVars.serializer)
       ..add(GWatchFolderInput.serializer)
+      ..add(GWhiteListTagsInput.serializer)
       ..add(GWorkAwardNotificationFieldsData.serializer)
       ..add(GWorkAwardNotificationFieldsData_work.serializer)
       ..add(GWorkAwardNotificationFieldsData_work_thumbnailImage.serializer)
@@ -1011,6 +1012,9 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(GWorksData_works)]),
           () => new ListBuilder<GWorksData_works>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(String)]),
+          () => new ListBuilder<String>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(String)]),
           () => new ListBuilder<String>())

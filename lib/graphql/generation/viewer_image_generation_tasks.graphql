@@ -47,6 +47,8 @@ query ViewerImageGenerationTasks($offset: Int!, $limit: Int!, $where: ImageGener
       controlNetSaveDetectedMap
       controlNetHrOption
       upscaleSize
+      imageFileName
+      thumbnailImageFileName
       }
     }
   }

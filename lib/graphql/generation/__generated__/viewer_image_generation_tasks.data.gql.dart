@@ -135,6 +135,8 @@ abstract class GViewerImageGenerationTasksData_viewer_imageGenerationTasks
   bool? get controlNetSaveDetectedMap;
   String? get controlNetHrOption;
   double? get upscaleSize;
+  String? get imageFileName;
+  String? get thumbnailImageFileName;
   static Serializer<GViewerImageGenerationTasksData_viewer_imageGenerationTasks>
       get serializer =>
           _$gViewerImageGenerationTasksDataViewerImageGenerationTasksSerializer;

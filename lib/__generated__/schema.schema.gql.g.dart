@@ -1213,6 +1213,8 @@ Serializer<GUserWorksWhereInput> _$gUserWorksWhereInputSerializer =
     new _$GUserWorksWhereInputSerializer();
 Serializer<GWatchFolderInput> _$gWatchFolderInputSerializer =
     new _$GWatchFolderInputSerializer();
+Serializer<GWhiteListTagsInput> _$gWhiteListTagsInputSerializer =
+    new _$GWhiteListTagsInputSerializer();
 Serializer<GWorkAwardsWhereInput> _$gWorkAwardsWhereInputSerializer =
     new _$GWorkAwardsWhereInputSerializer();
 Serializer<GWorkOrderBy> _$gWorkOrderBySerializer =
@@ -1486,17 +1488,24 @@ class _$GAlbumsWhereInputSerializer
         ..add(
             serializers.serialize(value, specifiedType: const FullType(bool)));
     }
-    value = object.thumbnailImageExists;
+    value = object.isSensitiveAndAllRating;
     if (value != null) {
       result
-        ..add('thumbnailImageExists')
+        ..add('isSensitiveAndAllRating')
         ..add(
             serializers.serialize(value, specifiedType: const FullType(bool)));
     }
-    value = object.isInspected;
+    value = object.needsThumbnailImage;
     if (value != null) {
       result
-        ..add('isInspected')
+        ..add('needsThumbnailImage')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
+    value = object.needInspected;
+    if (value != null) {
+      result
+        ..add('needInspected')
         ..add(
             serializers.serialize(value, specifiedType: const FullType(bool)));
     }
@@ -1527,12 +1536,16 @@ class _$GAlbumsWhereInputSerializer
           result.isSensitive = serializers.deserialize(value,
               specifiedType: const FullType(bool)) as bool?;
           break;
-        case 'thumbnailImageExists':
-          result.thumbnailImageExists = serializers.deserialize(value,
+        case 'isSensitiveAndAllRating':
+          result.isSensitiveAndAllRating = serializers.deserialize(value,
               specifiedType: const FullType(bool)) as bool?;
           break;
-        case 'isInspected':
-          result.isInspected = serializers.deserialize(value,
+        case 'needsThumbnailImage':
+          result.needsThumbnailImage = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
+        case 'needInspected':
+          result.needInspected = serializers.deserialize(value,
               specifiedType: const FullType(bool)) as bool?;
           break;
       }
@@ -5090,8 +5103,208 @@ class _$GCreateWorkInputSerializer
       'title',
       serializers.serialize(object.title,
           specifiedType: const FullType(String)),
+      'isTagEditable',
+      serializers.serialize(object.isTagEditable,
+          specifiedType: const FullType(bool)),
+      'type',
+      serializers.serialize(object.type,
+          specifiedType: const FullType(GWorkType)),
+      'accessType',
+      serializers.serialize(object.accessType,
+          specifiedType: const FullType(GAccessType)),
+      'imageUrl',
+      serializers.serialize(object.imageUrl,
+          specifiedType: const FullType(String)),
+      'imageWidth',
+      serializers.serialize(object.imageWidth,
+          specifiedType: const FullType(int)),
+      'imageHeight',
+      serializers.serialize(object.imageHeight,
+          specifiedType: const FullType(int)),
+      'imageHashSha256',
+      serializers.serialize(object.imageHashSha256,
+          specifiedType: const FullType(String)),
+      'smallThumbnailImageURL',
+      serializers.serialize(object.smallThumbnailImageURL,
+          specifiedType: const FullType(String)),
+      'smallThumbnailImageWidth',
+      serializers.serialize(object.smallThumbnailImageWidth,
+          specifiedType: const FullType(int)),
+      'smallThumbnailImageHeight',
+      serializers.serialize(object.smallThumbnailImageHeight,
+          specifiedType: const FullType(int)),
+      'largeThumbnailImageURL',
+      serializers.serialize(object.largeThumbnailImageURL,
+          specifiedType: const FullType(String)),
+      'largeThumbnailImageWidth',
+      serializers.serialize(object.largeThumbnailImageWidth,
+          specifiedType: const FullType(int)),
+      'largeThumbnailImageHeight',
+      serializers.serialize(object.largeThumbnailImageHeight,
+          specifiedType: const FullType(int)),
     ];
-
+    Object? value;
+    value = object.entitle;
+    if (value != null) {
+      result
+        ..add('entitle')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.explanation;
+    if (value != null) {
+      result
+        ..add('explanation')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.enExplanation;
+    if (value != null) {
+      result
+        ..add('enExplanation')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.prompt;
+    if (value != null) {
+      result
+        ..add('prompt')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.negativePrompt;
+    if (value != null) {
+      result
+        ..add('negativePrompt')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.seed;
+    if (value != null) {
+      result
+        ..add('seed')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.steps;
+    if (value != null) {
+      result
+        ..add('steps')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.sampler;
+    if (value != null) {
+      result
+        ..add('sampler')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.strength;
+    if (value != null) {
+      result
+        ..add('strength')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.noise;
+    if (value != null) {
+      result
+        ..add('noise')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.modelName;
+    if (value != null) {
+      result
+        ..add('modelName')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.modelHash;
+    if (value != null) {
+      result
+        ..add('modelHash')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.otherGenerationParams;
+    if (value != null) {
+      result
+        ..add('otherGenerationParams')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.pnginfo;
+    if (value != null) {
+      result
+        ..add('pnginfo')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.imageStyle;
+    if (value != null) {
+      result
+        ..add('imageStyle')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(GImageStyle)));
+    }
+    value = object.relatedUrl;
+    if (value != null) {
+      result
+        ..add('relatedUrl')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.tags;
+    if (value != null) {
+      result
+        ..add('tags')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(String)])));
+    }
+    value = object.thumbnailPosition;
+    if (value != null) {
+      result
+        ..add('thumbnailPosition')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(double)));
+    }
+    value = object.modelId;
+    if (value != null) {
+      result
+        ..add('modelId')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.subjectId;
+    if (value != null) {
+      result
+        ..add('subjectId')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.albumId;
+    if (value != null) {
+      result
+        ..add('albumId')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.isPromotion;
+    if (value != null) {
+      result
+        ..add('isPromotion')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
+    value = object.reservedAt;
+    if (value != null) {
+      result
+        ..add('reservedAt')
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
+    }
     return result;
   }
 
@@ -5110,6 +5323,152 @@ class _$GCreateWorkInputSerializer
         case 'title':
           result.title = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
+          break;
+        case 'entitle':
+          result.entitle = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'explanation':
+          result.explanation = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'enExplanation':
+          result.enExplanation = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'prompt':
+          result.prompt = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'negativePrompt':
+          result.negativePrompt = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'seed':
+          result.seed = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'steps':
+          result.steps = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'sampler':
+          result.sampler = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'strength':
+          result.strength = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'noise':
+          result.noise = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'modelName':
+          result.modelName = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'modelHash':
+          result.modelHash = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'otherGenerationParams':
+          result.otherGenerationParams = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'pnginfo':
+          result.pnginfo = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'imageStyle':
+          result.imageStyle = serializers.deserialize(value,
+              specifiedType: const FullType(GImageStyle)) as GImageStyle?;
+          break;
+        case 'relatedUrl':
+          result.relatedUrl = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'tags':
+          result.tags.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(String)]))!
+              as BuiltList<Object?>);
+          break;
+        case 'isTagEditable':
+          result.isTagEditable = serializers.deserialize(value,
+              specifiedType: const FullType(bool))! as bool;
+          break;
+        case 'thumbnailPosition':
+          result.thumbnailPosition = serializers.deserialize(value,
+              specifiedType: const FullType(double)) as double?;
+          break;
+        case 'modelId':
+          result.modelId = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'type':
+          result.type = serializers.deserialize(value,
+              specifiedType: const FullType(GWorkType))! as GWorkType;
+          break;
+        case 'subjectId':
+          result.subjectId = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'albumId':
+          result.albumId = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'isPromotion':
+          result.isPromotion = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
+        case 'reservedAt':
+          result.reservedAt = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int?;
+          break;
+        case 'accessType':
+          result.accessType = serializers.deserialize(value,
+              specifiedType: const FullType(GAccessType))! as GAccessType;
+          break;
+        case 'imageUrl':
+          result.imageUrl = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'imageWidth':
+          result.imageWidth = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'imageHeight':
+          result.imageHeight = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'imageHashSha256':
+          result.imageHashSha256 = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'smallThumbnailImageURL':
+          result.smallThumbnailImageURL = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'smallThumbnailImageWidth':
+          result.smallThumbnailImageWidth = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'smallThumbnailImageHeight':
+          result.smallThumbnailImageHeight = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'largeThumbnailImageURL':
+          result.largeThumbnailImageURL = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'largeThumbnailImageWidth':
+          result.largeThumbnailImageWidth = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'largeThumbnailImageHeight':
+          result.largeThumbnailImageHeight = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
           break;
       }
     }
@@ -11670,6 +12029,66 @@ class _$GWatchFolderInputSerializer
   }
 }
 
+class _$GWhiteListTagsInputSerializer
+    implements StructuredSerializer<GWhiteListTagsInput> {
+  @override
+  final Iterable<Type> types = const [
+    GWhiteListTagsInput,
+    _$GWhiteListTagsInput
+  ];
+  @override
+  final String wireName = 'GWhiteListTagsInput';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GWhiteListTagsInput object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[];
+    Object? value;
+    value = object.search;
+    if (value != null) {
+      result
+        ..add('search')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.isSensitive;
+    if (value != null) {
+      result
+        ..add('isSensitive')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
+    return result;
+  }
+
+  @override
+  GWhiteListTagsInput deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GWhiteListTagsInputBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'search':
+          result.search = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'isSensitive':
+          result.isSensitive = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$GWorkAwardsWhereInputSerializer
     implements StructuredSerializer<GWorkAwardsWhereInput> {
   @override
@@ -12472,9 +12891,11 @@ class _$GAlbumsWhereInput extends GAlbumsWhereInput {
   @override
   final bool? isSensitive;
   @override
-  final bool? thumbnailImageExists;
+  final bool? isSensitiveAndAllRating;
   @override
-  final bool? isInspected;
+  final bool? needsThumbnailImage;
+  @override
+  final bool? needInspected;
 
   factory _$GAlbumsWhereInput(
           [void Function(GAlbumsWhereInputBuilder)? updates]) =>
@@ -12484,8 +12905,9 @@ class _$GAlbumsWhereInput extends GAlbumsWhereInput {
       {this.search,
       this.ownerUserId,
       this.isSensitive,
-      this.thumbnailImageExists,
-      this.isInspected})
+      this.isSensitiveAndAllRating,
+      this.needsThumbnailImage,
+      this.needInspected})
       : super._();
 
   @override
@@ -12503,8 +12925,9 @@ class _$GAlbumsWhereInput extends GAlbumsWhereInput {
         search == other.search &&
         ownerUserId == other.ownerUserId &&
         isSensitive == other.isSensitive &&
-        thumbnailImageExists == other.thumbnailImageExists &&
-        isInspected == other.isInspected;
+        isSensitiveAndAllRating == other.isSensitiveAndAllRating &&
+        needsThumbnailImage == other.needsThumbnailImage &&
+        needInspected == other.needInspected;
   }
 
   @override
@@ -12513,8 +12936,9 @@ class _$GAlbumsWhereInput extends GAlbumsWhereInput {
     _$hash = $jc(_$hash, search.hashCode);
     _$hash = $jc(_$hash, ownerUserId.hashCode);
     _$hash = $jc(_$hash, isSensitive.hashCode);
-    _$hash = $jc(_$hash, thumbnailImageExists.hashCode);
-    _$hash = $jc(_$hash, isInspected.hashCode);
+    _$hash = $jc(_$hash, isSensitiveAndAllRating.hashCode);
+    _$hash = $jc(_$hash, needsThumbnailImage.hashCode);
+    _$hash = $jc(_$hash, needInspected.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -12525,8 +12949,9 @@ class _$GAlbumsWhereInput extends GAlbumsWhereInput {
           ..add('search', search)
           ..add('ownerUserId', ownerUserId)
           ..add('isSensitive', isSensitive)
-          ..add('thumbnailImageExists', thumbnailImageExists)
-          ..add('isInspected', isInspected))
+          ..add('isSensitiveAndAllRating', isSensitiveAndAllRating)
+          ..add('needsThumbnailImage', needsThumbnailImage)
+          ..add('needInspected', needInspected))
         .toString();
   }
 }
@@ -12547,14 +12972,20 @@ class GAlbumsWhereInputBuilder
   bool? get isSensitive => _$this._isSensitive;
   set isSensitive(bool? isSensitive) => _$this._isSensitive = isSensitive;
 
-  bool? _thumbnailImageExists;
-  bool? get thumbnailImageExists => _$this._thumbnailImageExists;
-  set thumbnailImageExists(bool? thumbnailImageExists) =>
-      _$this._thumbnailImageExists = thumbnailImageExists;
+  bool? _isSensitiveAndAllRating;
+  bool? get isSensitiveAndAllRating => _$this._isSensitiveAndAllRating;
+  set isSensitiveAndAllRating(bool? isSensitiveAndAllRating) =>
+      _$this._isSensitiveAndAllRating = isSensitiveAndAllRating;
 
-  bool? _isInspected;
-  bool? get isInspected => _$this._isInspected;
-  set isInspected(bool? isInspected) => _$this._isInspected = isInspected;
+  bool? _needsThumbnailImage;
+  bool? get needsThumbnailImage => _$this._needsThumbnailImage;
+  set needsThumbnailImage(bool? needsThumbnailImage) =>
+      _$this._needsThumbnailImage = needsThumbnailImage;
+
+  bool? _needInspected;
+  bool? get needInspected => _$this._needInspected;
+  set needInspected(bool? needInspected) =>
+      _$this._needInspected = needInspected;
 
   GAlbumsWhereInputBuilder();
 
@@ -12564,8 +12995,9 @@ class GAlbumsWhereInputBuilder
       _search = $v.search;
       _ownerUserId = $v.ownerUserId;
       _isSensitive = $v.isSensitive;
-      _thumbnailImageExists = $v.thumbnailImageExists;
-      _isInspected = $v.isInspected;
+      _isSensitiveAndAllRating = $v.isSensitiveAndAllRating;
+      _needsThumbnailImage = $v.needsThumbnailImage;
+      _needInspected = $v.needInspected;
       _$v = null;
     }
     return this;
@@ -12591,8 +13023,9 @@ class GAlbumsWhereInputBuilder
             search: search,
             ownerUserId: ownerUserId,
             isSensitive: isSensitive,
-            thumbnailImageExists: thumbnailImageExists,
-            isInspected: isInspected);
+            isSensitiveAndAllRating: isSensitiveAndAllRating,
+            needsThumbnailImage: needsThumbnailImage,
+            needInspected: needInspected);
     replace(_$result);
     return _$result;
   }
@@ -19056,13 +19489,148 @@ class GCreateWorkCommentInputBuilder
 class _$GCreateWorkInput extends GCreateWorkInput {
   @override
   final String title;
+  @override
+  final String? entitle;
+  @override
+  final String? explanation;
+  @override
+  final String? enExplanation;
+  @override
+  final String? prompt;
+  @override
+  final String? negativePrompt;
+  @override
+  final String? seed;
+  @override
+  final String? steps;
+  @override
+  final String? sampler;
+  @override
+  final String? strength;
+  @override
+  final String? noise;
+  @override
+  final String? modelName;
+  @override
+  final String? modelHash;
+  @override
+  final String? otherGenerationParams;
+  @override
+  final String? pnginfo;
+  @override
+  final GImageStyle? imageStyle;
+  @override
+  final String? relatedUrl;
+  @override
+  final BuiltList<String>? tags;
+  @override
+  final bool isTagEditable;
+  @override
+  final double? thumbnailPosition;
+  @override
+  final String? modelId;
+  @override
+  final GWorkType type;
+  @override
+  final String? subjectId;
+  @override
+  final String? albumId;
+  @override
+  final bool? isPromotion;
+  @override
+  final int? reservedAt;
+  @override
+  final GAccessType accessType;
+  @override
+  final String imageUrl;
+  @override
+  final int imageWidth;
+  @override
+  final int imageHeight;
+  @override
+  final String imageHashSha256;
+  @override
+  final String smallThumbnailImageURL;
+  @override
+  final int smallThumbnailImageWidth;
+  @override
+  final int smallThumbnailImageHeight;
+  @override
+  final String largeThumbnailImageURL;
+  @override
+  final int largeThumbnailImageWidth;
+  @override
+  final int largeThumbnailImageHeight;
 
   factory _$GCreateWorkInput(
           [void Function(GCreateWorkInputBuilder)? updates]) =>
       (new GCreateWorkInputBuilder()..update(updates))._build();
 
-  _$GCreateWorkInput._({required this.title}) : super._() {
+  _$GCreateWorkInput._(
+      {required this.title,
+      this.entitle,
+      this.explanation,
+      this.enExplanation,
+      this.prompt,
+      this.negativePrompt,
+      this.seed,
+      this.steps,
+      this.sampler,
+      this.strength,
+      this.noise,
+      this.modelName,
+      this.modelHash,
+      this.otherGenerationParams,
+      this.pnginfo,
+      this.imageStyle,
+      this.relatedUrl,
+      this.tags,
+      required this.isTagEditable,
+      this.thumbnailPosition,
+      this.modelId,
+      required this.type,
+      this.subjectId,
+      this.albumId,
+      this.isPromotion,
+      this.reservedAt,
+      required this.accessType,
+      required this.imageUrl,
+      required this.imageWidth,
+      required this.imageHeight,
+      required this.imageHashSha256,
+      required this.smallThumbnailImageURL,
+      required this.smallThumbnailImageWidth,
+      required this.smallThumbnailImageHeight,
+      required this.largeThumbnailImageURL,
+      required this.largeThumbnailImageWidth,
+      required this.largeThumbnailImageHeight})
+      : super._() {
     BuiltValueNullFieldError.checkNotNull(title, r'GCreateWorkInput', 'title');
+    BuiltValueNullFieldError.checkNotNull(
+        isTagEditable, r'GCreateWorkInput', 'isTagEditable');
+    BuiltValueNullFieldError.checkNotNull(type, r'GCreateWorkInput', 'type');
+    BuiltValueNullFieldError.checkNotNull(
+        accessType, r'GCreateWorkInput', 'accessType');
+    BuiltValueNullFieldError.checkNotNull(
+        imageUrl, r'GCreateWorkInput', 'imageUrl');
+    BuiltValueNullFieldError.checkNotNull(
+        imageWidth, r'GCreateWorkInput', 'imageWidth');
+    BuiltValueNullFieldError.checkNotNull(
+        imageHeight, r'GCreateWorkInput', 'imageHeight');
+    BuiltValueNullFieldError.checkNotNull(
+        imageHashSha256, r'GCreateWorkInput', 'imageHashSha256');
+    BuiltValueNullFieldError.checkNotNull(
+        smallThumbnailImageURL, r'GCreateWorkInput', 'smallThumbnailImageURL');
+    BuiltValueNullFieldError.checkNotNull(smallThumbnailImageWidth,
+        r'GCreateWorkInput', 'smallThumbnailImageWidth');
+    BuiltValueNullFieldError.checkNotNull(smallThumbnailImageHeight,
+        r'GCreateWorkInput', 'smallThumbnailImageHeight');
+    BuiltValueNullFieldError.checkNotNull(
+        largeThumbnailImageURL, r'GCreateWorkInput', 'largeThumbnailImageURL');
+    BuiltValueNullFieldError.checkNotNull(largeThumbnailImageWidth,
+        r'GCreateWorkInput', 'largeThumbnailImageWidth');
+    BuiltValueNullFieldError.checkNotNull(largeThumbnailImageHeight,
+        r'GCreateWorkInput', 'largeThumbnailImageHeight');
   }
 
   @override
@@ -19076,13 +19644,86 @@ class _$GCreateWorkInput extends GCreateWorkInput {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GCreateWorkInput && title == other.title;
+    return other is GCreateWorkInput &&
+        title == other.title &&
+        entitle == other.entitle &&
+        explanation == other.explanation &&
+        enExplanation == other.enExplanation &&
+        prompt == other.prompt &&
+        negativePrompt == other.negativePrompt &&
+        seed == other.seed &&
+        steps == other.steps &&
+        sampler == other.sampler &&
+        strength == other.strength &&
+        noise == other.noise &&
+        modelName == other.modelName &&
+        modelHash == other.modelHash &&
+        otherGenerationParams == other.otherGenerationParams &&
+        pnginfo == other.pnginfo &&
+        imageStyle == other.imageStyle &&
+        relatedUrl == other.relatedUrl &&
+        tags == other.tags &&
+        isTagEditable == other.isTagEditable &&
+        thumbnailPosition == other.thumbnailPosition &&
+        modelId == other.modelId &&
+        type == other.type &&
+        subjectId == other.subjectId &&
+        albumId == other.albumId &&
+        isPromotion == other.isPromotion &&
+        reservedAt == other.reservedAt &&
+        accessType == other.accessType &&
+        imageUrl == other.imageUrl &&
+        imageWidth == other.imageWidth &&
+        imageHeight == other.imageHeight &&
+        imageHashSha256 == other.imageHashSha256 &&
+        smallThumbnailImageURL == other.smallThumbnailImageURL &&
+        smallThumbnailImageWidth == other.smallThumbnailImageWidth &&
+        smallThumbnailImageHeight == other.smallThumbnailImageHeight &&
+        largeThumbnailImageURL == other.largeThumbnailImageURL &&
+        largeThumbnailImageWidth == other.largeThumbnailImageWidth &&
+        largeThumbnailImageHeight == other.largeThumbnailImageHeight;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, title.hashCode);
+    _$hash = $jc(_$hash, entitle.hashCode);
+    _$hash = $jc(_$hash, explanation.hashCode);
+    _$hash = $jc(_$hash, enExplanation.hashCode);
+    _$hash = $jc(_$hash, prompt.hashCode);
+    _$hash = $jc(_$hash, negativePrompt.hashCode);
+    _$hash = $jc(_$hash, seed.hashCode);
+    _$hash = $jc(_$hash, steps.hashCode);
+    _$hash = $jc(_$hash, sampler.hashCode);
+    _$hash = $jc(_$hash, strength.hashCode);
+    _$hash = $jc(_$hash, noise.hashCode);
+    _$hash = $jc(_$hash, modelName.hashCode);
+    _$hash = $jc(_$hash, modelHash.hashCode);
+    _$hash = $jc(_$hash, otherGenerationParams.hashCode);
+    _$hash = $jc(_$hash, pnginfo.hashCode);
+    _$hash = $jc(_$hash, imageStyle.hashCode);
+    _$hash = $jc(_$hash, relatedUrl.hashCode);
+    _$hash = $jc(_$hash, tags.hashCode);
+    _$hash = $jc(_$hash, isTagEditable.hashCode);
+    _$hash = $jc(_$hash, thumbnailPosition.hashCode);
+    _$hash = $jc(_$hash, modelId.hashCode);
+    _$hash = $jc(_$hash, type.hashCode);
+    _$hash = $jc(_$hash, subjectId.hashCode);
+    _$hash = $jc(_$hash, albumId.hashCode);
+    _$hash = $jc(_$hash, isPromotion.hashCode);
+    _$hash = $jc(_$hash, reservedAt.hashCode);
+    _$hash = $jc(_$hash, accessType.hashCode);
+    _$hash = $jc(_$hash, imageUrl.hashCode);
+    _$hash = $jc(_$hash, imageWidth.hashCode);
+    _$hash = $jc(_$hash, imageHeight.hashCode);
+    _$hash = $jc(_$hash, imageHashSha256.hashCode);
+    _$hash = $jc(_$hash, smallThumbnailImageURL.hashCode);
+    _$hash = $jc(_$hash, smallThumbnailImageWidth.hashCode);
+    _$hash = $jc(_$hash, smallThumbnailImageHeight.hashCode);
+    _$hash = $jc(_$hash, largeThumbnailImageURL.hashCode);
+    _$hash = $jc(_$hash, largeThumbnailImageWidth.hashCode);
+    _$hash = $jc(_$hash, largeThumbnailImageHeight.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -19090,7 +19731,43 @@ class _$GCreateWorkInput extends GCreateWorkInput {
   @override
   String toString() {
     return (newBuiltValueToStringHelper(r'GCreateWorkInput')
-          ..add('title', title))
+          ..add('title', title)
+          ..add('entitle', entitle)
+          ..add('explanation', explanation)
+          ..add('enExplanation', enExplanation)
+          ..add('prompt', prompt)
+          ..add('negativePrompt', negativePrompt)
+          ..add('seed', seed)
+          ..add('steps', steps)
+          ..add('sampler', sampler)
+          ..add('strength', strength)
+          ..add('noise', noise)
+          ..add('modelName', modelName)
+          ..add('modelHash', modelHash)
+          ..add('otherGenerationParams', otherGenerationParams)
+          ..add('pnginfo', pnginfo)
+          ..add('imageStyle', imageStyle)
+          ..add('relatedUrl', relatedUrl)
+          ..add('tags', tags)
+          ..add('isTagEditable', isTagEditable)
+          ..add('thumbnailPosition', thumbnailPosition)
+          ..add('modelId', modelId)
+          ..add('type', type)
+          ..add('subjectId', subjectId)
+          ..add('albumId', albumId)
+          ..add('isPromotion', isPromotion)
+          ..add('reservedAt', reservedAt)
+          ..add('accessType', accessType)
+          ..add('imageUrl', imageUrl)
+          ..add('imageWidth', imageWidth)
+          ..add('imageHeight', imageHeight)
+          ..add('imageHashSha256', imageHashSha256)
+          ..add('smallThumbnailImageURL', smallThumbnailImageURL)
+          ..add('smallThumbnailImageWidth', smallThumbnailImageWidth)
+          ..add('smallThumbnailImageHeight', smallThumbnailImageHeight)
+          ..add('largeThumbnailImageURL', largeThumbnailImageURL)
+          ..add('largeThumbnailImageWidth', largeThumbnailImageWidth)
+          ..add('largeThumbnailImageHeight', largeThumbnailImageHeight))
         .toString();
   }
 }
@@ -19103,12 +19780,204 @@ class GCreateWorkInputBuilder
   String? get title => _$this._title;
   set title(String? title) => _$this._title = title;
 
+  String? _entitle;
+  String? get entitle => _$this._entitle;
+  set entitle(String? entitle) => _$this._entitle = entitle;
+
+  String? _explanation;
+  String? get explanation => _$this._explanation;
+  set explanation(String? explanation) => _$this._explanation = explanation;
+
+  String? _enExplanation;
+  String? get enExplanation => _$this._enExplanation;
+  set enExplanation(String? enExplanation) =>
+      _$this._enExplanation = enExplanation;
+
+  String? _prompt;
+  String? get prompt => _$this._prompt;
+  set prompt(String? prompt) => _$this._prompt = prompt;
+
+  String? _negativePrompt;
+  String? get negativePrompt => _$this._negativePrompt;
+  set negativePrompt(String? negativePrompt) =>
+      _$this._negativePrompt = negativePrompt;
+
+  String? _seed;
+  String? get seed => _$this._seed;
+  set seed(String? seed) => _$this._seed = seed;
+
+  String? _steps;
+  String? get steps => _$this._steps;
+  set steps(String? steps) => _$this._steps = steps;
+
+  String? _sampler;
+  String? get sampler => _$this._sampler;
+  set sampler(String? sampler) => _$this._sampler = sampler;
+
+  String? _strength;
+  String? get strength => _$this._strength;
+  set strength(String? strength) => _$this._strength = strength;
+
+  String? _noise;
+  String? get noise => _$this._noise;
+  set noise(String? noise) => _$this._noise = noise;
+
+  String? _modelName;
+  String? get modelName => _$this._modelName;
+  set modelName(String? modelName) => _$this._modelName = modelName;
+
+  String? _modelHash;
+  String? get modelHash => _$this._modelHash;
+  set modelHash(String? modelHash) => _$this._modelHash = modelHash;
+
+  String? _otherGenerationParams;
+  String? get otherGenerationParams => _$this._otherGenerationParams;
+  set otherGenerationParams(String? otherGenerationParams) =>
+      _$this._otherGenerationParams = otherGenerationParams;
+
+  String? _pnginfo;
+  String? get pnginfo => _$this._pnginfo;
+  set pnginfo(String? pnginfo) => _$this._pnginfo = pnginfo;
+
+  GImageStyle? _imageStyle;
+  GImageStyle? get imageStyle => _$this._imageStyle;
+  set imageStyle(GImageStyle? imageStyle) => _$this._imageStyle = imageStyle;
+
+  String? _relatedUrl;
+  String? get relatedUrl => _$this._relatedUrl;
+  set relatedUrl(String? relatedUrl) => _$this._relatedUrl = relatedUrl;
+
+  ListBuilder<String>? _tags;
+  ListBuilder<String> get tags => _$this._tags ??= new ListBuilder<String>();
+  set tags(ListBuilder<String>? tags) => _$this._tags = tags;
+
+  bool? _isTagEditable;
+  bool? get isTagEditable => _$this._isTagEditable;
+  set isTagEditable(bool? isTagEditable) =>
+      _$this._isTagEditable = isTagEditable;
+
+  double? _thumbnailPosition;
+  double? get thumbnailPosition => _$this._thumbnailPosition;
+  set thumbnailPosition(double? thumbnailPosition) =>
+      _$this._thumbnailPosition = thumbnailPosition;
+
+  String? _modelId;
+  String? get modelId => _$this._modelId;
+  set modelId(String? modelId) => _$this._modelId = modelId;
+
+  GWorkType? _type;
+  GWorkType? get type => _$this._type;
+  set type(GWorkType? type) => _$this._type = type;
+
+  String? _subjectId;
+  String? get subjectId => _$this._subjectId;
+  set subjectId(String? subjectId) => _$this._subjectId = subjectId;
+
+  String? _albumId;
+  String? get albumId => _$this._albumId;
+  set albumId(String? albumId) => _$this._albumId = albumId;
+
+  bool? _isPromotion;
+  bool? get isPromotion => _$this._isPromotion;
+  set isPromotion(bool? isPromotion) => _$this._isPromotion = isPromotion;
+
+  int? _reservedAt;
+  int? get reservedAt => _$this._reservedAt;
+  set reservedAt(int? reservedAt) => _$this._reservedAt = reservedAt;
+
+  GAccessType? _accessType;
+  GAccessType? get accessType => _$this._accessType;
+  set accessType(GAccessType? accessType) => _$this._accessType = accessType;
+
+  String? _imageUrl;
+  String? get imageUrl => _$this._imageUrl;
+  set imageUrl(String? imageUrl) => _$this._imageUrl = imageUrl;
+
+  int? _imageWidth;
+  int? get imageWidth => _$this._imageWidth;
+  set imageWidth(int? imageWidth) => _$this._imageWidth = imageWidth;
+
+  int? _imageHeight;
+  int? get imageHeight => _$this._imageHeight;
+  set imageHeight(int? imageHeight) => _$this._imageHeight = imageHeight;
+
+  String? _imageHashSha256;
+  String? get imageHashSha256 => _$this._imageHashSha256;
+  set imageHashSha256(String? imageHashSha256) =>
+      _$this._imageHashSha256 = imageHashSha256;
+
+  String? _smallThumbnailImageURL;
+  String? get smallThumbnailImageURL => _$this._smallThumbnailImageURL;
+  set smallThumbnailImageURL(String? smallThumbnailImageURL) =>
+      _$this._smallThumbnailImageURL = smallThumbnailImageURL;
+
+  int? _smallThumbnailImageWidth;
+  int? get smallThumbnailImageWidth => _$this._smallThumbnailImageWidth;
+  set smallThumbnailImageWidth(int? smallThumbnailImageWidth) =>
+      _$this._smallThumbnailImageWidth = smallThumbnailImageWidth;
+
+  int? _smallThumbnailImageHeight;
+  int? get smallThumbnailImageHeight => _$this._smallThumbnailImageHeight;
+  set smallThumbnailImageHeight(int? smallThumbnailImageHeight) =>
+      _$this._smallThumbnailImageHeight = smallThumbnailImageHeight;
+
+  String? _largeThumbnailImageURL;
+  String? get largeThumbnailImageURL => _$this._largeThumbnailImageURL;
+  set largeThumbnailImageURL(String? largeThumbnailImageURL) =>
+      _$this._largeThumbnailImageURL = largeThumbnailImageURL;
+
+  int? _largeThumbnailImageWidth;
+  int? get largeThumbnailImageWidth => _$this._largeThumbnailImageWidth;
+  set largeThumbnailImageWidth(int? largeThumbnailImageWidth) =>
+      _$this._largeThumbnailImageWidth = largeThumbnailImageWidth;
+
+  int? _largeThumbnailImageHeight;
+  int? get largeThumbnailImageHeight => _$this._largeThumbnailImageHeight;
+  set largeThumbnailImageHeight(int? largeThumbnailImageHeight) =>
+      _$this._largeThumbnailImageHeight = largeThumbnailImageHeight;
+
   GCreateWorkInputBuilder();
 
   GCreateWorkInputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _title = $v.title;
+      _entitle = $v.entitle;
+      _explanation = $v.explanation;
+      _enExplanation = $v.enExplanation;
+      _prompt = $v.prompt;
+      _negativePrompt = $v.negativePrompt;
+      _seed = $v.seed;
+      _steps = $v.steps;
+      _sampler = $v.sampler;
+      _strength = $v.strength;
+      _noise = $v.noise;
+      _modelName = $v.modelName;
+      _modelHash = $v.modelHash;
+      _otherGenerationParams = $v.otherGenerationParams;
+      _pnginfo = $v.pnginfo;
+      _imageStyle = $v.imageStyle;
+      _relatedUrl = $v.relatedUrl;
+      _tags = $v.tags?.toBuilder();
+      _isTagEditable = $v.isTagEditable;
+      _thumbnailPosition = $v.thumbnailPosition;
+      _modelId = $v.modelId;
+      _type = $v.type;
+      _subjectId = $v.subjectId;
+      _albumId = $v.albumId;
+      _isPromotion = $v.isPromotion;
+      _reservedAt = $v.reservedAt;
+      _accessType = $v.accessType;
+      _imageUrl = $v.imageUrl;
+      _imageWidth = $v.imageWidth;
+      _imageHeight = $v.imageHeight;
+      _imageHashSha256 = $v.imageHashSha256;
+      _smallThumbnailImageURL = $v.smallThumbnailImageURL;
+      _smallThumbnailImageWidth = $v.smallThumbnailImageWidth;
+      _smallThumbnailImageHeight = $v.smallThumbnailImageHeight;
+      _largeThumbnailImageURL = $v.largeThumbnailImageURL;
+      _largeThumbnailImageWidth = $v.largeThumbnailImageWidth;
+      _largeThumbnailImageHeight = $v.largeThumbnailImageHeight;
       _$v = null;
     }
     return this;
@@ -19129,10 +19998,66 @@ class GCreateWorkInputBuilder
   GCreateWorkInput build() => _build();
 
   _$GCreateWorkInput _build() {
-    final _$result = _$v ??
-        new _$GCreateWorkInput._(
-            title: BuiltValueNullFieldError.checkNotNull(
-                title, r'GCreateWorkInput', 'title'));
+    _$GCreateWorkInput _$result;
+    try {
+      _$result = _$v ??
+          new _$GCreateWorkInput._(
+              title: BuiltValueNullFieldError.checkNotNull(
+                  title, r'GCreateWorkInput', 'title'),
+              entitle: entitle,
+              explanation: explanation,
+              enExplanation: enExplanation,
+              prompt: prompt,
+              negativePrompt: negativePrompt,
+              seed: seed,
+              steps: steps,
+              sampler: sampler,
+              strength: strength,
+              noise: noise,
+              modelName: modelName,
+              modelHash: modelHash,
+              otherGenerationParams: otherGenerationParams,
+              pnginfo: pnginfo,
+              imageStyle: imageStyle,
+              relatedUrl: relatedUrl,
+              tags: _tags?.build(),
+              isTagEditable: BuiltValueNullFieldError.checkNotNull(
+                  isTagEditable, r'GCreateWorkInput', 'isTagEditable'),
+              thumbnailPosition: thumbnailPosition,
+              modelId: modelId,
+              type: BuiltValueNullFieldError.checkNotNull(
+                  type, r'GCreateWorkInput', 'type'),
+              subjectId: subjectId,
+              albumId: albumId,
+              isPromotion: isPromotion,
+              reservedAt: reservedAt,
+              accessType: BuiltValueNullFieldError.checkNotNull(
+                  accessType, r'GCreateWorkInput', 'accessType'),
+              imageUrl: BuiltValueNullFieldError.checkNotNull(
+                  imageUrl, r'GCreateWorkInput', 'imageUrl'),
+              imageWidth: BuiltValueNullFieldError.checkNotNull(
+                  imageWidth, r'GCreateWorkInput', 'imageWidth'),
+              imageHeight: BuiltValueNullFieldError.checkNotNull(
+                  imageHeight, r'GCreateWorkInput', 'imageHeight'),
+              imageHashSha256: BuiltValueNullFieldError.checkNotNull(
+                  imageHashSha256, r'GCreateWorkInput', 'imageHashSha256'),
+              smallThumbnailImageURL: BuiltValueNullFieldError.checkNotNull(smallThumbnailImageURL, r'GCreateWorkInput', 'smallThumbnailImageURL'),
+              smallThumbnailImageWidth: BuiltValueNullFieldError.checkNotNull(smallThumbnailImageWidth, r'GCreateWorkInput', 'smallThumbnailImageWidth'),
+              smallThumbnailImageHeight: BuiltValueNullFieldError.checkNotNull(smallThumbnailImageHeight, r'GCreateWorkInput', 'smallThumbnailImageHeight'),
+              largeThumbnailImageURL: BuiltValueNullFieldError.checkNotNull(largeThumbnailImageURL, r'GCreateWorkInput', 'largeThumbnailImageURL'),
+              largeThumbnailImageWidth: BuiltValueNullFieldError.checkNotNull(largeThumbnailImageWidth, r'GCreateWorkInput', 'largeThumbnailImageWidth'),
+              largeThumbnailImageHeight: BuiltValueNullFieldError.checkNotNull(largeThumbnailImageHeight, r'GCreateWorkInput', 'largeThumbnailImageHeight'));
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'tags';
+        _tags?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'GCreateWorkInput', _$failedField, e.toString());
+      }
+      rethrow;
+    }
     replace(_$result);
     return _$result;
   }
@@ -30752,6 +31677,99 @@ class GWatchFolderInputBuilder
         new _$GWatchFolderInput._(
             folderId: BuiltValueNullFieldError.checkNotNull(
                 folderId, r'GWatchFolderInput', 'folderId'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GWhiteListTagsInput extends GWhiteListTagsInput {
+  @override
+  final String? search;
+  @override
+  final bool? isSensitive;
+
+  factory _$GWhiteListTagsInput(
+          [void Function(GWhiteListTagsInputBuilder)? updates]) =>
+      (new GWhiteListTagsInputBuilder()..update(updates))._build();
+
+  _$GWhiteListTagsInput._({this.search, this.isSensitive}) : super._();
+
+  @override
+  GWhiteListTagsInput rebuild(
+          void Function(GWhiteListTagsInputBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GWhiteListTagsInputBuilder toBuilder() =>
+      new GWhiteListTagsInputBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GWhiteListTagsInput &&
+        search == other.search &&
+        isSensitive == other.isSensitive;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, search.hashCode);
+    _$hash = $jc(_$hash, isSensitive.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GWhiteListTagsInput')
+          ..add('search', search)
+          ..add('isSensitive', isSensitive))
+        .toString();
+  }
+}
+
+class GWhiteListTagsInputBuilder
+    implements Builder<GWhiteListTagsInput, GWhiteListTagsInputBuilder> {
+  _$GWhiteListTagsInput? _$v;
+
+  String? _search;
+  String? get search => _$this._search;
+  set search(String? search) => _$this._search = search;
+
+  bool? _isSensitive;
+  bool? get isSensitive => _$this._isSensitive;
+  set isSensitive(bool? isSensitive) => _$this._isSensitive = isSensitive;
+
+  GWhiteListTagsInputBuilder();
+
+  GWhiteListTagsInputBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _search = $v.search;
+      _isSensitive = $v.isSensitive;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GWhiteListTagsInput other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GWhiteListTagsInput;
+  }
+
+  @override
+  void update(void Function(GWhiteListTagsInputBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GWhiteListTagsInput build() => _build();
+
+  _$GWhiteListTagsInput _build() {
+    final _$result = _$v ??
+        new _$GWhiteListTagsInput._(search: search, isSensitive: isSensitive);
     replace(_$result);
     return _$result;
   }
