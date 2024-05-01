@@ -2,8 +2,8 @@ import 'package:aipictors/default.i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class ImageGeneratingContainer extends HookConsumerWidget {
-  const ImageGeneratingContainer({
+class GeneratingImageContainer extends HookConsumerWidget {
+  const GeneratingImageContainer({
     super.key,
   });
 

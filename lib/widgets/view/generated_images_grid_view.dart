@@ -3,7 +3,7 @@ import 'package:aipictors/graphql/generation/__generated__/viewer_image_generati
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
-import 'package:aipictors/widgets/container/generation/image_generating_container.dart';
+import 'package:aipictors/widgets/container/generation/generating_image_container.dart';
 import 'package:aipictors/widgets/container/loading_container.dart';
 import 'package:aipictors/widgets/image/grid_work_image.dart';
 import 'package:flutter/material.dart';
@@ -56,7 +56,6 @@ class GeneratedImagesGridView extends HookConsumerWidget {
               itemCount: taskList!.length,
               itemBuilder: (context, index) {
                 final task = taskList[index];
-                //print(task.token);
                 return InkWell(
                   onTap: () {
                     // context.push('/generations/${image.id}');
@@ -64,11 +63,11 @@ class GeneratedImagesGridView extends HookConsumerWidget {
                   child: (task.status == GImageGenerationStatus.DONE)
                       ? GridWorkImage(
                           imageURL:
-                              'https://www.aipictors.com/wp-content/themes/AISite/private-image-direct.php?token=${Uri.encodeComponent(task.token!)}',
+                              'https://www.aipictors.com/wp-content/themes/AISite/private-image-direct.php?token=${Uri.encodeComponent(task.token!)}&name=${task.thumbnailImageFileName}',
                           imageAspectRatio: 1,
                           thumbnailImagePosition: null,
                         )
-                      : const ImageGeneratingContainer(),
+                      : const GeneratingImageContainer(),
                 );
               },
             );
