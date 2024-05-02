@@ -6,9 +6,15 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 class GenerationPromptInputField extends HookConsumerWidget {
   const GenerationPromptInputField({
     super.key,
+    required this.initialPrompt,
+    required this.initialNegativePrompt,
     required this.onPromptChanged,
     required this.onNegativePromptChanged,
   });
+
+  final String initialPrompt;
+
+  final String initialNegativePrompt;
 
   final Function(String prompt) onPromptChanged;
 
@@ -16,9 +22,10 @@ class GenerationPromptInputField extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
-    final promptController = useTextEditingController();
+    final promptController = useTextEditingController(text: initialPrompt);
 
-    final negativePromptController = useTextEditingController();
+    final negativePromptController =
+        useTextEditingController(text: initialNegativePrompt);
 
     return Column(
       children: [

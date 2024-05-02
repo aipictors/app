@@ -84,6 +84,8 @@ class GenerationScreen extends HookConsumerWidget {
               ),
               const SizedBox(height: 32),
               GenerationPromptInputField(
+                initialPrompt: imageGeneration.prompt,
+                initialNegativePrompt: imageGeneration.negativePrompt,
                 onPromptChanged: (prompt) {
                   imageGenerationNotifier.updatePrompt(prompt);
                 },
@@ -165,7 +167,6 @@ class GenerationScreen extends HookConsumerWidget {
             )),
           );
       }
-
       return;
     }
 
