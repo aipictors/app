@@ -84,8 +84,12 @@ class GenerationModelPickerModal extends HookConsumerWidget {
                                     filteredModels[index].thumbnailImageURL ??
                                         '',
                                 title: filteredModels[index].displayName,
-                                body: Text(toModelCategoryText(
-                                    filteredModels[index].category)),
+                                body: Row(children: [
+                                  Text(toModelCategoryText(
+                                      filteredModels[index].category)),
+                                  const SizedBox(width: 16),
+                                  Text(filteredModels[index].type),
+                                ]),
                                 onTap: () {
                                   onSelected(filteredModels[index].name);
                                   context.pop();

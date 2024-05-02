@@ -60,8 +60,12 @@ class GenerationModelPicker extends HookConsumerWidget {
                               thumbnailImageURL:
                                   selectedModel!.thumbnailImageURL ?? '',
                               title: selectedModel!.displayName,
-                              body: Text(
-                                  toModelCategoryText(selectedModel!.category)),
+                              body: Row(children: [
+                                Text(toModelCategoryText(
+                                    selectedModel!.category)),
+                                const SizedBox(width: 16),
+                                Text(selectedModel!.type),
+                              ]),
                               onTap: () {
                                 onSelected(selectedModel!.name);
                               },
@@ -70,7 +74,11 @@ class GenerationModelPicker extends HookConsumerWidget {
                         WorkInfoListTile(
                           thumbnailImageURL: model.thumbnailImageURL ?? '',
                           title: model.displayName,
-                          body: Text(toModelCategoryText(model.category)),
+                          body: Row(children: [
+                            Text(toModelCategoryText(model.category)),
+                            const SizedBox(width: 16),
+                            Text(model.type),
+                          ]),
                           onTap: () {
                             print(model.prompts);
                             onSelected(model.name);
