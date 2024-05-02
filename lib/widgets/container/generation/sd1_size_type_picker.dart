@@ -36,7 +36,7 @@ class SD1SizeTypePicker extends HookConsumerWidget {
             child: Text('【超縦長】576x1440(upscale:1.5)'.i18n),
           ),
           DropdownMenuItem(
-            value: GImageGenerationSizeType.SD1_512_512,
+            value: GImageGenerationSizeType.SD1_960_384,
             child: Text('【超横長】1440x576(upscale:1.5)'.i18n),
           ),
         ],
