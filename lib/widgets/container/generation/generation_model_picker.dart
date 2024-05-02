@@ -43,16 +43,8 @@ class GenerationModelPicker extends HookConsumerWidget {
                 builder: (context, response) {
                   final models = response.data!.imageModels;
 
-                  // 選択中のモデルがある場合、一番上に表示する
-                  if (selectedModelName.isNotEmpty &&
-                      models.any((p0) => p0.name == selectedModelName)) {
-                    selectedModel = models
-                        .singleWhere((p0) => p0.name == selectedModelName);
-                  } else {
-                    // 選択中のモデルがない場合、生成時にエラーにならないように一番上のモデルを選択する
-                    onSelected(models.first.name);
-                  }
-
+                  selectedModel =
+                      models.singleWhere((p0) => p0.name == selectedModelName);
                   // 選択中のモデル以外にも、2つのモデルを表示する
                   final topModels = models
                       .where((p0) => p0.name != selectedModelName)
@@ -78,8 +70,7 @@ class GenerationModelPicker extends HookConsumerWidget {
                         WorkInfoListTile(
                           thumbnailImageURL: model.thumbnailImageURL ?? '',
                           title: model.displayName,
-                          body: Text(
-                              toModelCategoryText(selectedModel!.category)),
+                          body: Text(toModelCategoryText(model.category)),
                           onTap: () {
                             print(model.prompts);
                             onSelected(model.name);
