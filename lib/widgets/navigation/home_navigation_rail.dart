@@ -1,7 +1,10 @@
 import 'package:aipictors/default.i18n.dart';
+import 'package:aipictors/graphql/__generated__/viewer_user.data.gql.dart';
 import 'package:aipictors/providers/auth_state_provider.dart';
 import 'package:aipictors/providers/home_tab_index_provider.dart';
+import 'package:aipictors/providers/viewer_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// https://codelabs.developers.google.com/codelabs/flutter-boring-to-beautiful?hl=ja#5
@@ -13,6 +16,9 @@ class HomeNavigationRail extends HookConsumerWidget {
     final authState = ref.watch(authStateProvider);
 
     final pageIndex = ref.watch(homeTabIndexProvider);
+
+    final ValueNotifier<GViewerUserData?> viewer = useState(null);
+    ref.watch(viewerProvider.future).then((value) => viewer.value = value);
 
     return NavigationRail(
       backgroundColor: Theme.of(context).colorScheme.onInverseSurface,
@@ -46,7 +52,8 @@ class HomeNavigationRail extends HookConsumerWidget {
             label: Text('通知'.i18n),
             padding: const EdgeInsets.symmetric(vertical: 4),
           ),
-        if (authState.value != null)
+        if (viewer.value != null &&
+            viewer.value?.viewer?.currentPass?.type != null)
           NavigationRailDestination(
             icon: const Icon(Icons.photo),
             label: Text('画像生成'.i18n),
