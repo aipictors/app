@@ -9,6 +9,7 @@ import 'package:aipictors/providers/image_generation_provider.dart';
 import 'package:aipictors/providers/viewer_provider.dart';
 import 'package:aipictors/states/image_generation_state.dart';
 import 'package:aipictors/utils/active_image_generation.dart';
+import 'package:aipictors/utils/prompt_check.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
 import 'package:aipictors/widgets/container/error/unexpected_error_container.dart';
 import 'package:aipictors/widgets/container/generation/generation_size_type_picker.dart';
@@ -129,7 +130,46 @@ class GenerationScreen extends HookConsumerWidget {
   onCreateTask(BuildContext context, WidgetRef ref,
       ImageGenerationState imageGeneration) async {
     final viewer = await ref.watch(viewerProvider.future);
-    await activeImageGeneration(viewer!.viewer!.user.nanoid!);
+
+    // プロンプトの内容を確認する
+    final ngWords = await promptCheck(
+        imageGeneration.prompt,
+        imageGeneration.negativePrompt,
+        imageGeneration.model,
+        viewer!.viewer!.user.id);
+    // NGワードがあったら生成させない
+    if (ngWords['result'] != 'no_ng_words') {
+      if (ngWords['hit_negative_words'].isNotEmpty) {
+        ScaffoldMessenger.of(context)
+          ..hideCurrentSnackBar()
+          ..showSnackBar(
+            SnackBar(
+                content: Text(
+              'ネガティブプロンプトにNGワードがあります: "_NG_WORDS_"'.i18n.replaceAllMapped(
+                    RegExp(r'_NG_WORDS_'),
+                    (match) => ngWords['hit_negative_words'],
+                  ),
+            )),
+          );
+      }
+      if (ngWords['hit_words'].isNotEmpty) {
+        ScaffoldMessenger.of(context)
+          ..hideCurrentSnackBar()
+          ..showSnackBar(
+            SnackBar(
+                content: Text(
+              'プロンプトにNGワードがあります: "_NG_WORDS_"'.i18n.replaceAllMapped(
+                    RegExp(r'_NG_WORDS_'),
+                    (match) => ngWords['hit_words'],
+                  ),
+            )),
+          );
+      }
+
+      return;
+    }
+
+    await activeImageGeneration(viewer.viewer!.user.nanoid!);
     createImageGenerationTask((builder) {
       return builder
         ..vars.input.count = imageGeneration.count
