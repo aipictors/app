@@ -84,7 +84,8 @@ class ImageGenerationRepository {
 
   /// ネガティブプロンプト
   String get negativePrompt {
-    return instance!.getString('generation_negative_prompt') ?? '';
+    return instance!.getString('generation_negative_prompt') ??
+        'nsfw, nude, EasyNegative, bad_prompt_version2, badhandv4';
   }
 
   Future updateNegativePrompt(String? value) async {
