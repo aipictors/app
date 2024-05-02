@@ -8,6 +8,7 @@ class GridWorkImage extends HookConsumerWidget {
     required this.imageURL,
     required this.thumbnailImagePosition,
     required this.imageAspectRatio,
+    this.httpHeaders,
   });
 
   final String? imageURL;
@@ -15,6 +16,8 @@ class GridWorkImage extends HookConsumerWidget {
   final double imageAspectRatio;
 
   final double? thumbnailImagePosition;
+
+  final Map<String, String>? httpHeaders;
 
   @override
   Widget build(context, ref) {
@@ -66,6 +69,7 @@ class GridWorkImage extends HookConsumerWidget {
                 : longestSideLength,
             child: CachedNetworkImage(
               imageUrl: imageURL!,
+              httpHeaders: httpHeaders,
               fit: BoxFit.cover,
               progressIndicatorBuilder: (context, url, downloadProgress) {
                 return Container(

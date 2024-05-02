@@ -64,6 +64,9 @@ class GeneratedImagesGridView extends HookConsumerWidget {
                       ? GridWorkImage(
                           imageURL:
                               'https://www.aipictors.com/wp-content/themes/AISite/private-image-direct.php?token=${Uri.encodeComponent(task.token!)}&name=${task.thumbnailImageFileName}',
+                          httpHeaders: const {
+                            'Referer': 'https://beta.aipictors.com/',
+                          },
                           imageAspectRatio: 1,
                           thumbnailImagePosition: null,
                         )
