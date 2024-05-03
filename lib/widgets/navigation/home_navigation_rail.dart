@@ -52,10 +52,9 @@ class HomeNavigationRail extends HookConsumerWidget {
             label: Text('通知'.i18n),
             padding: const EdgeInsets.symmetric(vertical: 4),
           ),
-        if (viewer.value != null &&
-            viewer.value?.viewer?.currentPass?.type != null)
+        if (viewer.value?.viewer?.currentPass?.type != null)
           NavigationRailDestination(
-            icon: const Icon(Icons.photo),
+            icon: const Icon(Icons.photo_rounded),
             label: Text('画像生成'.i18n),
             padding: const EdgeInsets.symmetric(vertical: 4),
           ),

@@ -51,6 +51,10 @@ class RootScreen extends HookConsumerWidget {
 
     final ValueNotifier<GViewerUserData?> viewer = useState(null);
     ref.watch(viewerProvider.future).then((value) => viewer.value = value);
+    if (viewer.value != null) {
+      print('viewer: ${viewer.value!.viewer?.user.id}');
+    }
+    print('displayname: ${authState.value?.displayName}');
 
     // 初期化エラー
     if (config.isFailed) {
@@ -121,8 +125,7 @@ class RootScreen extends HookConsumerWidget {
         const HelloScreen(key: PageStorageKey('root_hello')),
       if (authState.value != null)
         const NotificationScreen(key: PageStorageKey('root_notification')),
-      if (viewer.value != null &&
-          viewer.value?.viewer?.currentPass?.type != null)
+      if (viewer.value?.viewer?.currentPass?.type != null)
         const GenerationScreen(key: PageStorageKey('root_generation')),
       const ConfigScreen(key: PageStorageKey('root_config'))
     ];
