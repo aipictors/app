@@ -18,6 +18,10 @@ class GenerationSeedInput extends HookConsumerWidget {
   Widget build(context, ref) {
     final seedController =
         useTextEditingController(text: currentSeed.toString());
+    useEffect(() {
+      seedController.text = currentSeed.toString();
+      return null;
+    }, [currentSeed]);
 
     return Row(
       children: [
@@ -33,12 +37,11 @@ class GenerationSeedInput extends HookConsumerWidget {
             onChanged: (value) {
               onChanged(int.parse(value));
             },
-            decoration: InputDecoration(hintText: 'Seed値'.i18n),
+            decoration: InputDecoration(hintText: 'Seed'.i18n),
           ),
         ),
         IconButton(
             onPressed: () {
-              seedController.text = '-1';
               onChanged(-1);
             },
             icon: const Icon(Icons.casino_rounded))

@@ -26,6 +26,11 @@ class GenerationPromptInputField extends HookConsumerWidget {
 
     final negativePromptController =
         useTextEditingController(text: initialNegativePrompt);
+    useEffect(() {
+      promptController.text = initialPrompt;
+      negativePromptController.text = initialNegativePrompt;
+      return null;
+    }, [initialPrompt, initialNegativePrompt]);
 
     return Column(
       children: [

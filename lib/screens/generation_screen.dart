@@ -15,7 +15,7 @@ import 'package:aipictors/widgets/container/generation/generation_sampler_picker
 import 'package:aipictors/widgets/container/generation/generation_size_type_picker.dart';
 import 'package:aipictors/widgets/container/generation/generation_model_picker.dart';
 import 'package:aipictors/widgets/container/generation/generation_model_picker_modal.dart';
-import 'package:aipictors/widgets/container/generation/generation_prompt_form.dart';
+import 'package:aipictors/widgets/form/generation/generation_prompt_form.dart';
 import 'package:aipictors/widgets/container/generation/generation_vae_picker.dart';
 import 'package:aipictors/widgets/container/loading_container.dart';
 import 'package:aipictors/widgets/form/generation/generation_scale_input.dart';
@@ -47,12 +47,15 @@ class GenerationScreen extends HookConsumerWidget {
       return const LoadingContainer();
     }
 
+    final request = GImageModelsReq();
+
     return OperationBuilder(
       client: client.value!,
-      operationRequest: GImageModelsReq(),
+      operationRequest: request,
       builder: ((context, response) {
         final models = response.data?.imageModels;
         if (models == null) {
+          client.value?.requestController.add(request.rebuild((builder) {}));
           return const UnexpectedErrorContainer();
         }
 

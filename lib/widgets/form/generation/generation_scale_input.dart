@@ -18,6 +18,10 @@ class GenerationScaleInput extends HookConsumerWidget {
   Widget build(context, ref) {
     final scaleController =
         useTextEditingController(text: currentScale.toString());
+    useEffect(() {
+      scaleController.text = currentScale.toString();
+      return null;
+    }, [currentScale]);
 
     return Row(
       children: [

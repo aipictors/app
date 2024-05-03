@@ -18,6 +18,10 @@ class GenerationStepsInput extends HookConsumerWidget {
   Widget build(context, ref) {
     final stepsController =
         useTextEditingController(text: currentSteps.toString());
+    useEffect(() {
+      stepsController.text = currentSteps.toString();
+      return null;
+    }, [currentSteps]);
 
     return Row(
       children: [
