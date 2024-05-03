@@ -25,7 +25,10 @@ class GenerationSizeTypePicker extends HookConsumerWidget {
   Widget build(context, ref) {
     return Row(
       children: [
-        Text('サイズ: '.i18n),
+        Text(
+          'サイズ '.i18n,
+          style: const TextStyle(fontWeight: FontWeight.bold),
+        ),
         if (modelVersion == GenerationModelVersion.SD1)
           SD1SizeTypePicker(
             currentValue: (currentSizeType.name.contains('SD1'))

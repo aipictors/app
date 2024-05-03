@@ -1,4 +1,3 @@
-import 'package:aipictors/__generated__/schema.schema.gql.dart';
 import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/enums/generation_model_version.dart';
 import 'package:aipictors/graphql/generation/__generated__/image_models.data.gql.dart';
@@ -12,11 +11,16 @@ import 'package:aipictors/utils/active_image_generation.dart';
 import 'package:aipictors/utils/prompt_check.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
 import 'package:aipictors/widgets/container/error/unexpected_error_container.dart';
+import 'package:aipictors/widgets/container/generation/generation_sampler_picker.dart';
 import 'package:aipictors/widgets/container/generation/generation_size_type_picker.dart';
 import 'package:aipictors/widgets/container/generation/generation_model_picker.dart';
 import 'package:aipictors/widgets/container/generation/generation_model_picker_modal.dart';
 import 'package:aipictors/widgets/container/generation/generation_prompt_form.dart';
+import 'package:aipictors/widgets/container/generation/generation_vae_picker.dart';
 import 'package:aipictors/widgets/container/loading_container.dart';
+import 'package:aipictors/widgets/form/generation/generation_scale_input.dart';
+import 'package:aipictors/widgets/form/generation/generation_seed_input.dart';
+import 'package:aipictors/widgets/form/generation/generation_steps_input.dart';
 import 'package:aipictors/widgets/view/generated_images_grid_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -101,6 +105,55 @@ class GenerationScreen extends HookConsumerWidget {
                   imageGenerationNotifier.updateSizeType(sizeType);
                 },
               ),
+              const SizedBox(height: 8),
+              GenerationSeedInput(
+                currentSeed: imageGeneration.seed,
+                onChanged: (value) {
+                  imageGenerationNotifier.updateSeed(value);
+                },
+              ),
+              const SizedBox(height: 8),
+              Padding(
+                padding: const EdgeInsets.only(right: 48),
+                child: GenerationScaleInput(
+                  currentScale: imageGeneration.scale,
+                  onChanged: (value) {
+                    imageGenerationNotifier.updateScale(value);
+                  },
+                ),
+              ),
+              const SizedBox(height: 8),
+              Padding(
+                padding: const EdgeInsets.only(right: 48),
+                child: GenerationStepsInput(
+                  currentSteps: imageGeneration.steps,
+                  onChanged: (value) {
+                    imageGenerationNotifier.updateSteps(value);
+                  },
+                ),
+              ),
+              const SizedBox(height: 8),
+              Padding(
+                padding: const EdgeInsets.only(right: 48),
+                child: GenerationSamplerPicker(
+                  currentSampler: imageGeneration.sampler,
+                  onSelected: (value) {
+                    imageGenerationNotifier.updateSampler(value);
+                  },
+                ),
+              ),
+              const SizedBox(height: 8),
+              Padding(
+                padding: const EdgeInsets.only(right: 48),
+                child: GenerationVaePicker(
+                  modelVersion: GenerationModelVersion.fromText(
+                      selectedModel.value!.type),
+                  currentVae: imageGeneration.vae,
+                  onSelected: (value) {
+                    imageGenerationNotifier.updateVae(value);
+                  },
+                ),
+              ),
               const GeneratedImagesGridView(),
             ],
           ),
@@ -142,6 +195,7 @@ class GenerationScreen extends HookConsumerWidget {
     // NGワードがあったら生成させない
     if (ngWords['result'] != 'no_ng_words') {
       if (ngWords['hit_negative_words'].isNotEmpty) {
+        // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context)
           ..hideCurrentSnackBar()
           ..showSnackBar(
@@ -155,6 +209,7 @@ class GenerationScreen extends HookConsumerWidget {
           );
       }
       if (ngWords['hit_words'].isNotEmpty) {
+        // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context)
           ..hideCurrentSnackBar()
           ..showSnackBar(
@@ -182,9 +237,7 @@ class GenerationScreen extends HookConsumerWidget {
         ..vars.input.seed = imageGeneration.seed.toDouble()
         ..vars.input.steps = imageGeneration.steps
         ..vars.input.scale = imageGeneration.scale
-        ..vars.input.sampler = (imageGeneration.sampler != '')
-            ? imageGeneration.sampler
-            : 'DPM++ 2M Karras'
+        ..vars.input.sampler = imageGeneration.sampler
         ..vars.input.sizeType = imageGeneration.sizeType;
     });
     await activeImageGeneration(viewer.viewer!.user.nanoid!);
