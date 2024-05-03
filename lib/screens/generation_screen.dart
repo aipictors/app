@@ -241,5 +241,11 @@ class GenerationScreen extends HookConsumerWidget {
         ..vars.input.sizeType = imageGeneration.sizeType;
     });
     await activeImageGeneration(viewer.viewer!.user.nanoid!);
+    // ignore: use_build_context_synchronously
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(
+        SnackBar(content: Text('タスクを作成しました'.i18n)),
+      );
   }
 }
