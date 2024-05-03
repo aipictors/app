@@ -58,7 +58,7 @@ class ImageGenerationRepository {
 
   /// VAE
   String get vae {
-    return instance!.getString('generation_vae') ?? '';
+    return instance!.getString('generation_vae') ?? 'clearvae_v23';
   }
 
   Future updateVae(String? value) async {
@@ -71,7 +71,8 @@ class ImageGenerationRepository {
 
   /// プロンプト
   String get prompt {
-    return instance!.getString('generation_prompt') ?? '';
+    return instance!.getString('generation_prompt') ??
+        'masterpiece, best quality, extremely detailed, anime,';
   }
 
   Future updatePrompt(String? value) async {
@@ -137,7 +138,7 @@ class ImageGenerationRepository {
 
   /// sampler
   String get sampler {
-    return instance!.getString('generation_sampler') ?? '';
+    return instance!.getString('generation_sampler') ?? 'DPM++ 2M Karras';
   }
 
   Future updateSampler(String? value) async {
