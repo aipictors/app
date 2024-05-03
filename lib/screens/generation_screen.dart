@@ -24,6 +24,7 @@ import 'package:aipictors/widgets/form/generation/generation_steps_input.dart';
 import 'package:aipictors/widgets/view/generated_images_grid_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// 画像生成
@@ -55,16 +56,16 @@ class GenerationScreen extends HookConsumerWidget {
           return const UnexpectedErrorContainer();
         }
 
-        if (models.any((p0) => p0.name == imageGeneration.model)) {
-          // setState() or markNeedsBuild() called during buildを防ぐため
-          WidgetsBinding.instance.addPostFrameCallback((_) {
+        // setState() or markNeedsBuild() called during buildを防ぐため
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (models.any((p0) => p0.name == imageGeneration.model)) {
             selectedModel.value =
                 models.singleWhere(((p0) => p0.name == imageGeneration.model));
-          });
-        } else {
-          // 選択中のモデルがない場合、生成時にエラーにならないように一番上のモデルを選択する
-          imageGenerationNotifier.updateModel(models[0].name);
-        }
+          } else {
+            // 選択中のモデルがない場合、生成時にエラーにならないように一番上のモデルを選択する
+            imageGenerationNotifier.updateModel(models[0].name);
+          }
+        });
         if (selectedModel.value == null) {
           return const LoadingContainer();
         }
@@ -154,7 +155,9 @@ class GenerationScreen extends HookConsumerWidget {
                   },
                 ),
               ),
-              const GeneratedImagesGridView(),
+              GeneratedImagesGridView(onTap: (String nanoId) {
+                context.push('/generation/tasks/$nanoId');
+              }),
             ],
           ),
           bottomNavigationBar: FilledButton(

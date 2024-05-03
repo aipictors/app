@@ -2,6 +2,7 @@ import 'package:aipictors/__generated__/schema.schema.gql.dart';
 import 'package:aipictors/graphql/generation/__generated__/viewer_image_generation_tasks.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/providers/config_provider.dart';
+import 'package:aipictors/utils/to_generation_image_url.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
 import 'package:aipictors/widgets/container/generation/generating_image_container.dart';
 import 'package:aipictors/widgets/container/loading_container.dart';
@@ -13,7 +14,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 class GeneratedImagesGridView extends HookConsumerWidget {
   const GeneratedImagesGridView({
     super.key,
+    required this.onTap,
   });
+
+  final Function(String id) onTap;
 
   @override
   Widget build(context, ref) {
@@ -58,12 +62,12 @@ class GeneratedImagesGridView extends HookConsumerWidget {
                 final task = taskList[index];
                 return InkWell(
                   onTap: () {
-                    // context.push('/generations/${image.id}');
+                    onTap(task.nanoid!);
                   },
                   child: (task.status == GImageGenerationStatus.DONE)
                       ? GridWorkImage(
-                          imageURL:
-                              'https://www.aipictors.com/wp-content/themes/AISite/private-image-direct.php?token=${Uri.encodeComponent(task.thumbnailToken!)}&name=${task.thumbnailImageFileName}',
+                          imageURL: toGenerationImageUrl(task.thumbnailToken!,
+                              task.thumbnailImageFileName!),
                           httpHeaders: const {
                             'Referer': 'https://beta.aipictors.com/',
                           },

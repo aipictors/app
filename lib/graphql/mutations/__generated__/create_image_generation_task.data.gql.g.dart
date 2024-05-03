@@ -116,10 +116,10 @@ class _$GCreateImageGenerationTaskData_createImageGenerationTaskSerializer
           specifiedType: const FullType(int)),
       'sizeType',
       serializers.serialize(object.sizeType,
-          specifiedType: const FullType(_i2.GImageGenerationSizeType)),
+          specifiedType: const FullType(_i3.GImageGenerationSizeType)),
       'status',
       serializers.serialize(object.status,
-          specifiedType: const FullType(_i2.GImageGenerationStatus)),
+          specifiedType: const FullType(_i3.GImageGenerationStatus)),
       'isDeleted',
       serializers.serialize(object.isDeleted,
           specifiedType: const FullType(bool)),
@@ -127,7 +127,7 @@ class _$GCreateImageGenerationTaskData_createImageGenerationTaskSerializer
       serializers.serialize(object.count, specifiedType: const FullType(int)),
       'generationType',
       serializers.serialize(object.generationType,
-          specifiedType: const FullType(_i2.GImageGenerationType)),
+          specifiedType: const FullType(_i3.GImageGenerationType)),
       'model',
       serializers.serialize(object.model,
           specifiedType: const FullType(
@@ -185,20 +185,6 @@ class _$GCreateImageGenerationTaskData_createImageGenerationTaskSerializer
     if (value != null) {
       result
         ..add('vae')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
-    }
-    value = object.token;
-    if (value != null) {
-      result
-        ..add('token')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
-    }
-    value = object.thumbnailToken;
-    if (value != null) {
-      result
-        ..add('thumbnailToken')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
@@ -315,6 +301,34 @@ class _$GCreateImageGenerationTaskData_createImageGenerationTaskSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(double)));
     }
+    value = object.imageFileName;
+    if (value != null) {
+      result
+        ..add('imageFileName')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.thumbnailImageFileName;
+    if (value != null) {
+      result
+        ..add('thumbnailImageFileName')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.token;
+    if (value != null) {
+      result
+        ..add('token')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.thumbnailToken;
+    if (value != null) {
+      result
+        ..add('thumbnailToken')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
@@ -369,8 +383,8 @@ class _$GCreateImageGenerationTaskData_createImageGenerationTaskSerializer
           break;
         case 'sizeType':
           result.sizeType = serializers.deserialize(value,
-                  specifiedType: const FullType(_i2.GImageGenerationSizeType))!
-              as _i2.GImageGenerationSizeType;
+                  specifiedType: const FullType(_i3.GImageGenerationSizeType))!
+              as _i3.GImageGenerationSizeType;
           break;
         case 't2tImageUrl':
           result.t2tImageUrl = serializers.deserialize(value,
@@ -398,8 +412,8 @@ class _$GCreateImageGenerationTaskData_createImageGenerationTaskSerializer
           break;
         case 'status':
           result.status = serializers.deserialize(value,
-                  specifiedType: const FullType(_i2.GImageGenerationStatus))!
-              as _i2.GImageGenerationStatus;
+                  specifiedType: const FullType(_i3.GImageGenerationStatus))!
+              as _i3.GImageGenerationStatus;
           break;
         case 'isDeleted':
           result.isDeleted = serializers.deserialize(value,
@@ -415,8 +429,8 @@ class _$GCreateImageGenerationTaskData_createImageGenerationTaskSerializer
           break;
         case 'generationType':
           result.generationType = serializers.deserialize(value,
-                  specifiedType: const FullType(_i2.GImageGenerationType))!
-              as _i2.GImageGenerationType;
+                  specifiedType: const FullType(_i3.GImageGenerationType))!
+              as _i3.GImageGenerationType;
           break;
         case 'model':
           result.model.replace(serializers.deserialize(value,
@@ -426,14 +440,6 @@ class _$GCreateImageGenerationTaskData_createImageGenerationTaskSerializer
           break;
         case 'vae':
           result.vae = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
-          break;
-        case 'token':
-          result.token = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
-          break;
-        case 'thumbnailToken':
-          result.thumbnailToken = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
         case 'nanoid':
@@ -503,6 +509,22 @@ class _$GCreateImageGenerationTaskData_createImageGenerationTaskSerializer
         case 'upscaleSize':
           result.upscaleSize = serializers.deserialize(value,
               specifiedType: const FullType(double)) as double?;
+          break;
+        case 'imageFileName':
+          result.imageFileName = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'thumbnailImageFileName':
+          result.thumbnailImageFileName = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'token':
+          result.token = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'thumbnailToken':
+          result.thumbnailToken = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
           break;
       }
     }
@@ -727,7 +749,7 @@ class _$GCreateImageGenerationTaskData_createImageGenerationTask
   @override
   final int clipSkip;
   @override
-  final _i2.GImageGenerationSizeType sizeType;
+  final _i3.GImageGenerationSizeType sizeType;
   @override
   final String? t2tImageUrl;
   @override
@@ -741,7 +763,7 @@ class _$GCreateImageGenerationTaskData_createImageGenerationTask
   @override
   final int? completedAt;
   @override
-  final _i2.GImageGenerationStatus status;
+  final _i3.GImageGenerationStatus status;
   @override
   final bool isDeleted;
   @override
@@ -749,15 +771,11 @@ class _$GCreateImageGenerationTaskData_createImageGenerationTask
   @override
   final int count;
   @override
-  final _i2.GImageGenerationType generationType;
+  final _i3.GImageGenerationType generationType;
   @override
   final GCreateImageGenerationTaskData_createImageGenerationTask_model model;
   @override
   final String? vae;
-  @override
-  final String? token;
-  @override
-  final String? thumbnailToken;
   @override
   final String? nanoid;
   @override
@@ -792,6 +810,14 @@ class _$GCreateImageGenerationTaskData_createImageGenerationTask
   final String? controlNetHrOption;
   @override
   final double? upscaleSize;
+  @override
+  final String? imageFileName;
+  @override
+  final String? thumbnailImageFileName;
+  @override
+  final String? token;
+  @override
+  final String? thumbnailToken;
 
   factory _$GCreateImageGenerationTaskData_createImageGenerationTask(
           [void Function(
@@ -825,8 +851,6 @@ class _$GCreateImageGenerationTaskData_createImageGenerationTask
       required this.generationType,
       required this.model,
       this.vae,
-      this.token,
-      this.thumbnailToken,
       this.nanoid,
       this.estimatedSeconds,
       this.controlNetControlMode,
@@ -843,7 +867,11 @@ class _$GCreateImageGenerationTaskData_createImageGenerationTask
       this.controlNetModel,
       this.controlNetSaveDetectedMap,
       this.controlNetHrOption,
-      this.upscaleSize})
+      this.upscaleSize,
+      this.imageFileName,
+      this.thumbnailImageFileName,
+      this.token,
+      this.thumbnailToken})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename,
@@ -928,8 +956,6 @@ class _$GCreateImageGenerationTaskData_createImageGenerationTask
         generationType == other.generationType &&
         model == other.model &&
         vae == other.vae &&
-        token == other.token &&
-        thumbnailToken == other.thumbnailToken &&
         nanoid == other.nanoid &&
         estimatedSeconds == other.estimatedSeconds &&
         controlNetControlMode == other.controlNetControlMode &&
@@ -946,7 +972,11 @@ class _$GCreateImageGenerationTaskData_createImageGenerationTask
         controlNetModel == other.controlNetModel &&
         controlNetSaveDetectedMap == other.controlNetSaveDetectedMap &&
         controlNetHrOption == other.controlNetHrOption &&
-        upscaleSize == other.upscaleSize;
+        upscaleSize == other.upscaleSize &&
+        imageFileName == other.imageFileName &&
+        thumbnailImageFileName == other.thumbnailImageFileName &&
+        token == other.token &&
+        thumbnailToken == other.thumbnailToken;
   }
 
   @override
@@ -975,8 +1005,6 @@ class _$GCreateImageGenerationTaskData_createImageGenerationTask
     _$hash = $jc(_$hash, generationType.hashCode);
     _$hash = $jc(_$hash, model.hashCode);
     _$hash = $jc(_$hash, vae.hashCode);
-    _$hash = $jc(_$hash, token.hashCode);
-    _$hash = $jc(_$hash, thumbnailToken.hashCode);
     _$hash = $jc(_$hash, nanoid.hashCode);
     _$hash = $jc(_$hash, estimatedSeconds.hashCode);
     _$hash = $jc(_$hash, controlNetControlMode.hashCode);
@@ -994,6 +1022,10 @@ class _$GCreateImageGenerationTaskData_createImageGenerationTask
     _$hash = $jc(_$hash, controlNetSaveDetectedMap.hashCode);
     _$hash = $jc(_$hash, controlNetHrOption.hashCode);
     _$hash = $jc(_$hash, upscaleSize.hashCode);
+    _$hash = $jc(_$hash, imageFileName.hashCode);
+    _$hash = $jc(_$hash, thumbnailImageFileName.hashCode);
+    _$hash = $jc(_$hash, token.hashCode);
+    _$hash = $jc(_$hash, thumbnailToken.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -1025,8 +1057,6 @@ class _$GCreateImageGenerationTaskData_createImageGenerationTask
           ..add('generationType', generationType)
           ..add('model', model)
           ..add('vae', vae)
-          ..add('token', token)
-          ..add('thumbnailToken', thumbnailToken)
           ..add('nanoid', nanoid)
           ..add('estimatedSeconds', estimatedSeconds)
           ..add('controlNetControlMode', controlNetControlMode)
@@ -1043,7 +1073,11 @@ class _$GCreateImageGenerationTaskData_createImageGenerationTask
           ..add('controlNetModel', controlNetModel)
           ..add('controlNetSaveDetectedMap', controlNetSaveDetectedMap)
           ..add('controlNetHrOption', controlNetHrOption)
-          ..add('upscaleSize', upscaleSize))
+          ..add('upscaleSize', upscaleSize)
+          ..add('imageFileName', imageFileName)
+          ..add('thumbnailImageFileName', thumbnailImageFileName)
+          ..add('token', token)
+          ..add('thumbnailToken', thumbnailToken))
         .toString();
   }
 }
@@ -1091,9 +1125,9 @@ class GCreateImageGenerationTaskData_createImageGenerationTaskBuilder
   int? get clipSkip => _$this._clipSkip;
   set clipSkip(int? clipSkip) => _$this._clipSkip = clipSkip;
 
-  _i2.GImageGenerationSizeType? _sizeType;
-  _i2.GImageGenerationSizeType? get sizeType => _$this._sizeType;
-  set sizeType(_i2.GImageGenerationSizeType? sizeType) =>
+  _i3.GImageGenerationSizeType? _sizeType;
+  _i3.GImageGenerationSizeType? get sizeType => _$this._sizeType;
+  set sizeType(_i3.GImageGenerationSizeType? sizeType) =>
       _$this._sizeType = sizeType;
 
   String? _t2tImageUrl;
@@ -1123,9 +1157,9 @@ class GCreateImageGenerationTaskData_createImageGenerationTaskBuilder
   int? get completedAt => _$this._completedAt;
   set completedAt(int? completedAt) => _$this._completedAt = completedAt;
 
-  _i2.GImageGenerationStatus? _status;
-  _i2.GImageGenerationStatus? get status => _$this._status;
-  set status(_i2.GImageGenerationStatus? status) => _$this._status = status;
+  _i3.GImageGenerationStatus? _status;
+  _i3.GImageGenerationStatus? get status => _$this._status;
+  set status(_i3.GImageGenerationStatus? status) => _$this._status = status;
 
   bool? _isDeleted;
   bool? get isDeleted => _$this._isDeleted;
@@ -1139,9 +1173,9 @@ class GCreateImageGenerationTaskData_createImageGenerationTaskBuilder
   int? get count => _$this._count;
   set count(int? count) => _$this._count = count;
 
-  _i2.GImageGenerationType? _generationType;
-  _i2.GImageGenerationType? get generationType => _$this._generationType;
-  set generationType(_i2.GImageGenerationType? generationType) =>
+  _i3.GImageGenerationType? _generationType;
+  _i3.GImageGenerationType? get generationType => _$this._generationType;
+  set generationType(_i3.GImageGenerationType? generationType) =>
       _$this._generationType = generationType;
 
   GCreateImageGenerationTaskData_createImageGenerationTask_modelBuilder? _model;
@@ -1156,15 +1190,6 @@ class GCreateImageGenerationTaskData_createImageGenerationTaskBuilder
   String? _vae;
   String? get vae => _$this._vae;
   set vae(String? vae) => _$this._vae = vae;
-
-  String? _token;
-  String? get token => _$this._token;
-  set token(String? token) => _$this._token = token;
-
-  String? _thumbnailToken;
-  String? get thumbnailToken => _$this._thumbnailToken;
-  set thumbnailToken(String? thumbnailToken) =>
-      _$this._thumbnailToken = thumbnailToken;
 
   String? _nanoid;
   String? get nanoid => _$this._nanoid;
@@ -1249,6 +1274,25 @@ class GCreateImageGenerationTaskData_createImageGenerationTaskBuilder
   double? get upscaleSize => _$this._upscaleSize;
   set upscaleSize(double? upscaleSize) => _$this._upscaleSize = upscaleSize;
 
+  String? _imageFileName;
+  String? get imageFileName => _$this._imageFileName;
+  set imageFileName(String? imageFileName) =>
+      _$this._imageFileName = imageFileName;
+
+  String? _thumbnailImageFileName;
+  String? get thumbnailImageFileName => _$this._thumbnailImageFileName;
+  set thumbnailImageFileName(String? thumbnailImageFileName) =>
+      _$this._thumbnailImageFileName = thumbnailImageFileName;
+
+  String? _token;
+  String? get token => _$this._token;
+  set token(String? token) => _$this._token = token;
+
+  String? _thumbnailToken;
+  String? get thumbnailToken => _$this._thumbnailToken;
+  set thumbnailToken(String? thumbnailToken) =>
+      _$this._thumbnailToken = thumbnailToken;
+
   GCreateImageGenerationTaskData_createImageGenerationTaskBuilder() {
     GCreateImageGenerationTaskData_createImageGenerationTask._initializeBuilder(
         this);
@@ -1280,8 +1324,6 @@ class GCreateImageGenerationTaskData_createImageGenerationTaskBuilder
       _generationType = $v.generationType;
       _model = $v.model.toBuilder();
       _vae = $v.vae;
-      _token = $v.token;
-      _thumbnailToken = $v.thumbnailToken;
       _nanoid = $v.nanoid;
       _estimatedSeconds = $v.estimatedSeconds;
       _controlNetControlMode = $v.controlNetControlMode;
@@ -1299,6 +1341,10 @@ class GCreateImageGenerationTaskData_createImageGenerationTaskBuilder
       _controlNetSaveDetectedMap = $v.controlNetSaveDetectedMap;
       _controlNetHrOption = $v.controlNetHrOption;
       _upscaleSize = $v.upscaleSize;
+      _imageFileName = $v.imageFileName;
+      _thumbnailImageFileName = $v.thumbnailImageFileName;
+      _token = $v.token;
+      _thumbnailToken = $v.thumbnailToken;
       _$v = null;
     }
     return this;
@@ -1360,8 +1406,6 @@ class GCreateImageGenerationTaskData_createImageGenerationTaskBuilder
               generationType: BuiltValueNullFieldError.checkNotNull(generationType, r'GCreateImageGenerationTaskData_createImageGenerationTask', 'generationType'),
               model: model.build(),
               vae: vae,
-              token: token,
-              thumbnailToken: thumbnailToken,
               nanoid: nanoid,
               estimatedSeconds: estimatedSeconds,
               controlNetControlMode: controlNetControlMode,
@@ -1378,7 +1422,11 @@ class GCreateImageGenerationTaskData_createImageGenerationTaskBuilder
               controlNetModel: controlNetModel,
               controlNetSaveDetectedMap: controlNetSaveDetectedMap,
               controlNetHrOption: controlNetHrOption,
-              upscaleSize: upscaleSize);
+              upscaleSize: upscaleSize,
+              imageFileName: imageFileName,
+              thumbnailImageFileName: thumbnailImageFileName,
+              token: token,
+              thumbnailToken: thumbnailToken);
     } catch (_) {
       late String _$failedField;
       try {

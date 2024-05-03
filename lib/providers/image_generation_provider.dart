@@ -19,7 +19,6 @@ class ImageGeneration extends _$ImageGeneration {
       count: repository.count,
       type: repository.type,
       model: repository.model,
-      vae: repository.vae,
       prompt: repository.prompt,
       negativePrompt: repository.negativePrompt,
       seed: repository.seed,
@@ -28,6 +27,7 @@ class ImageGeneration extends _$ImageGeneration {
       sampler:
           (repository.sampler != '') ? repository.sampler : 'DPM++ 2M Karras',
       sizeType: repository.sizeType,
+      vae: repository.vae,
     );
   }
 
@@ -43,11 +43,6 @@ class ImageGeneration extends _$ImageGeneration {
 
   Future updateModel(String? value) async {
     const ImageGenerationRepository().updateModel(value);
-    state = _refetch();
-  }
-
-  Future updateVae(String? value) async {
-    const ImageGenerationRepository().updateVae(value);
     state = _refetch();
   }
 
@@ -83,6 +78,11 @@ class ImageGeneration extends _$ImageGeneration {
 
   Future updateSizeType(GImageGenerationSizeType? value) async {
     const ImageGenerationRepository().updateSizeType(value);
+    state = _refetch();
+  }
+
+  Future updateVae(String? value) async {
+    const ImageGenerationRepository().updateVae(value);
     state = _refetch();
   }
 }

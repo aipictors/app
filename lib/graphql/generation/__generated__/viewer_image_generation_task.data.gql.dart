@@ -9,54 +9,53 @@ import 'package:aipictors/graphql/fragments/__generated__/image_generation_task_
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'create_image_generation_task.data.gql.g.dart';
+part 'viewer_image_generation_task.data.gql.g.dart';
 
-abstract class GCreateImageGenerationTaskData
+abstract class GViewerImageGenerationTaskData
     implements
-        Built<GCreateImageGenerationTaskData,
-            GCreateImageGenerationTaskDataBuilder> {
-  GCreateImageGenerationTaskData._();
+        Built<GViewerImageGenerationTaskData,
+            GViewerImageGenerationTaskDataBuilder> {
+  GViewerImageGenerationTaskData._();
 
-  factory GCreateImageGenerationTaskData(
-          [void Function(GCreateImageGenerationTaskDataBuilder b) updates]) =
-      _$GCreateImageGenerationTaskData;
+  factory GViewerImageGenerationTaskData(
+          [void Function(GViewerImageGenerationTaskDataBuilder b) updates]) =
+      _$GViewerImageGenerationTaskData;
 
-  static void _initializeBuilder(GCreateImageGenerationTaskDataBuilder b) =>
-      b..G__typename = 'Mutation';
+  static void _initializeBuilder(GViewerImageGenerationTaskDataBuilder b) =>
+      b..G__typename = 'Query';
 
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
-  GCreateImageGenerationTaskData_createImageGenerationTask
-      get createImageGenerationTask;
-  static Serializer<GCreateImageGenerationTaskData> get serializer =>
-      _$gCreateImageGenerationTaskDataSerializer;
+  GViewerImageGenerationTaskData_imageGenerationTask get imageGenerationTask;
+  static Serializer<GViewerImageGenerationTaskData> get serializer =>
+      _$gViewerImageGenerationTaskDataSerializer;
 
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GCreateImageGenerationTaskData.serializer,
+        GViewerImageGenerationTaskData.serializer,
         this,
       ) as Map<String, dynamic>);
 
-  static GCreateImageGenerationTaskData? fromJson(Map<String, dynamic> json) =>
+  static GViewerImageGenerationTaskData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
-        GCreateImageGenerationTaskData.serializer,
+        GViewerImageGenerationTaskData.serializer,
         json,
       );
 }
 
-abstract class GCreateImageGenerationTaskData_createImageGenerationTask
+abstract class GViewerImageGenerationTaskData_imageGenerationTask
     implements
-        Built<GCreateImageGenerationTaskData_createImageGenerationTask,
-            GCreateImageGenerationTaskData_createImageGenerationTaskBuilder>,
+        Built<GViewerImageGenerationTaskData_imageGenerationTask,
+            GViewerImageGenerationTaskData_imageGenerationTaskBuilder>,
         _i2.GImageGenerationTaskFields {
-  GCreateImageGenerationTaskData_createImageGenerationTask._();
+  GViewerImageGenerationTaskData_imageGenerationTask._();
 
-  factory GCreateImageGenerationTaskData_createImageGenerationTask(
+  factory GViewerImageGenerationTaskData_imageGenerationTask(
       [void Function(
-              GCreateImageGenerationTaskData_createImageGenerationTaskBuilder b)
-          updates]) = _$GCreateImageGenerationTaskData_createImageGenerationTask;
+              GViewerImageGenerationTaskData_imageGenerationTaskBuilder b)
+          updates]) = _$GViewerImageGenerationTaskData_imageGenerationTask;
 
   static void _initializeBuilder(
-          GCreateImageGenerationTaskData_createImageGenerationTaskBuilder b) =>
+          GViewerImageGenerationTaskData_imageGenerationTaskBuilder b) =>
       b..G__typename = 'ImageGenerationTaskNode';
 
   @override
@@ -103,7 +102,7 @@ abstract class GCreateImageGenerationTaskData_createImageGenerationTask
   @override
   _i3.GImageGenerationType get generationType;
   @override
-  GCreateImageGenerationTaskData_createImageGenerationTask_model get model;
+  GViewerImageGenerationTaskData_imageGenerationTask_model get model;
   @override
   String? get vae;
   @override
@@ -148,41 +147,38 @@ abstract class GCreateImageGenerationTaskData_createImageGenerationTask
   String? get token;
   @override
   String? get thumbnailToken;
-  static Serializer<GCreateImageGenerationTaskData_createImageGenerationTask>
+  static Serializer<GViewerImageGenerationTaskData_imageGenerationTask>
       get serializer =>
-          _$gCreateImageGenerationTaskDataCreateImageGenerationTaskSerializer;
+          _$gViewerImageGenerationTaskDataImageGenerationTaskSerializer;
 
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GCreateImageGenerationTaskData_createImageGenerationTask.serializer,
+        GViewerImageGenerationTaskData_imageGenerationTask.serializer,
         this,
       ) as Map<String, dynamic>);
 
-  static GCreateImageGenerationTaskData_createImageGenerationTask? fromJson(
+  static GViewerImageGenerationTaskData_imageGenerationTask? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
-        GCreateImageGenerationTaskData_createImageGenerationTask.serializer,
+        GViewerImageGenerationTaskData_imageGenerationTask.serializer,
         json,
       );
 }
 
-abstract class GCreateImageGenerationTaskData_createImageGenerationTask_model
+abstract class GViewerImageGenerationTaskData_imageGenerationTask_model
     implements
-        Built<GCreateImageGenerationTaskData_createImageGenerationTask_model,
-            GCreateImageGenerationTaskData_createImageGenerationTask_modelBuilder>,
+        Built<GViewerImageGenerationTaskData_imageGenerationTask_model,
+            GViewerImageGenerationTaskData_imageGenerationTask_modelBuilder>,
         _i2.GImageGenerationTaskFields_model {
-  GCreateImageGenerationTaskData_createImageGenerationTask_model._();
+  GViewerImageGenerationTaskData_imageGenerationTask_model._();
 
-  factory GCreateImageGenerationTaskData_createImageGenerationTask_model(
-          [void Function(
-                  GCreateImageGenerationTaskData_createImageGenerationTask_modelBuilder
-                      b)
-              updates]) =
-      _$GCreateImageGenerationTaskData_createImageGenerationTask_model;
+  factory GViewerImageGenerationTaskData_imageGenerationTask_model(
+      [void Function(
+              GViewerImageGenerationTaskData_imageGenerationTask_modelBuilder b)
+          updates]) = _$GViewerImageGenerationTaskData_imageGenerationTask_model;
 
   static void _initializeBuilder(
-          GCreateImageGenerationTaskData_createImageGenerationTask_modelBuilder
-              b) =>
+          GViewerImageGenerationTaskData_imageGenerationTask_modelBuilder b) =>
       b..G__typename = 'ImageGeneratorNode';
 
   @override
@@ -194,22 +190,20 @@ abstract class GCreateImageGenerationTaskData_createImageGenerationTask_model
   String get name;
   @override
   String get type;
-  static Serializer<
-          GCreateImageGenerationTaskData_createImageGenerationTask_model>
+  static Serializer<GViewerImageGenerationTaskData_imageGenerationTask_model>
       get serializer =>
-          _$gCreateImageGenerationTaskDataCreateImageGenerationTaskModelSerializer;
+          _$gViewerImageGenerationTaskDataImageGenerationTaskModelSerializer;
 
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GCreateImageGenerationTaskData_createImageGenerationTask_model
-            .serializer,
+        GViewerImageGenerationTaskData_imageGenerationTask_model.serializer,
         this,
       ) as Map<String, dynamic>);
 
-  static GCreateImageGenerationTaskData_createImageGenerationTask_model?
-      fromJson(Map<String, dynamic> json) => _i1.serializers.deserializeWith(
-            GCreateImageGenerationTaskData_createImageGenerationTask_model
-                .serializer,
-            json,
-          );
+  static GViewerImageGenerationTaskData_imageGenerationTask_model? fromJson(
+          Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GViewerImageGenerationTaskData_imageGenerationTask_model.serializer,
+        json,
+      );
 }

@@ -712,6 +712,12 @@ import 'package:aipictors/graphql/fragments/__generated__/follow_notification_fi
     show GFollowNotificationFieldsReq;
 import 'package:aipictors/graphql/fragments/__generated__/follow_notification_fields_fragment.var.gql.dart'
     show GFollowNotificationFieldsVars;
+import 'package:aipictors/graphql/fragments/__generated__/image_generation_task_fields_fragment.data.gql.dart'
+    show GImageGenerationTaskFieldsData, GImageGenerationTaskFieldsData_model;
+import 'package:aipictors/graphql/fragments/__generated__/image_generation_task_fields_fragment.req.gql.dart'
+    show GImageGenerationTaskFieldsReq;
+import 'package:aipictors/graphql/fragments/__generated__/image_generation_task_fields_fragment.var.gql.dart'
+    show GImageGenerationTaskFieldsVars;
 import 'package:aipictors/graphql/fragments/__generated__/liked_work_notification_fields_fragment.data.gql.dart'
     show
         GLikedWorkNotificationFieldsData,
@@ -842,6 +848,15 @@ import 'package:aipictors/graphql/generation/__generated__/image_models.req.gql.
     show GImageModelsReq;
 import 'package:aipictors/graphql/generation/__generated__/image_models.var.gql.dart'
     show GImageModelsVars;
+import 'package:aipictors/graphql/generation/__generated__/viewer_image_generation_task.data.gql.dart'
+    show
+        GViewerImageGenerationTaskData,
+        GViewerImageGenerationTaskData_imageGenerationTask,
+        GViewerImageGenerationTaskData_imageGenerationTask_model;
+import 'package:aipictors/graphql/generation/__generated__/viewer_image_generation_task.req.gql.dart'
+    show GViewerImageGenerationTaskReq;
+import 'package:aipictors/graphql/generation/__generated__/viewer_image_generation_task.var.gql.dart'
+    show GViewerImageGenerationTaskVars;
 import 'package:aipictors/graphql/generation/__generated__/viewer_image_generation_tasks.data.gql.dart'
     show
         GViewerImageGenerationTasksData,
@@ -1411,6 +1426,10 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GImageGenerationMemoOrderBy,
   GImageGenerationSizeType,
   GImageGenerationStatus,
+  GImageGenerationTaskFieldsData,
+  GImageGenerationTaskFieldsData_model,
+  GImageGenerationTaskFieldsReq,
+  GImageGenerationTaskFieldsVars,
   GImageGenerationTaskOrderBy,
   GImageGenerationTasksWhereInput,
   GImageGenerationType,
@@ -1724,6 +1743,11 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GViewerFoldersData_viewer_folders,
   GViewerFoldersReq,
   GViewerFoldersVars,
+  GViewerImageGenerationTaskData,
+  GViewerImageGenerationTaskData_imageGenerationTask,
+  GViewerImageGenerationTaskData_imageGenerationTask_model,
+  GViewerImageGenerationTaskReq,
+  GViewerImageGenerationTaskVars,
   GViewerImageGenerationTasksData,
   GViewerImageGenerationTasksData_viewer,
   GViewerImageGenerationTasksData_viewer_imageGenerationTasks,

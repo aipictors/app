@@ -6,14 +6,14 @@ import 'package:aipictors/graphql/fragments/__generated__/image_generation_task_
     as _i2;
 import 'package:gql/ast.dart' as _i1;
 
-const CreateImageGenerationTask = _i1.OperationDefinitionNode(
-  type: _i1.OperationType.mutation,
-  name: _i1.NameNode(value: 'CreateImageGenerationTask'),
+const ViewerImageGenerationTask = _i1.OperationDefinitionNode(
+  type: _i1.OperationType.query,
+  name: _i1.NameNode(value: 'ViewerImageGenerationTask'),
   variableDefinitions: [
     _i1.VariableDefinitionNode(
-      variable: _i1.VariableNode(name: _i1.NameNode(value: 'input')),
+      variable: _i1.VariableNode(name: _i1.NameNode(value: 'id')),
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'CreateImageGenerationTaskInput'),
+        name: _i1.NameNode(value: 'ID'),
         isNonNull: true,
       ),
       defaultValue: _i1.DefaultValueNode(value: null),
@@ -23,12 +23,12 @@ const CreateImageGenerationTask = _i1.OperationDefinitionNode(
   directives: [],
   selectionSet: _i1.SelectionSetNode(selections: [
     _i1.FieldNode(
-      name: _i1.NameNode(value: 'createImageGenerationTask'),
+      name: _i1.NameNode(value: 'imageGenerationTask'),
       alias: null,
       arguments: [
         _i1.ArgumentNode(
-          name: _i1.NameNode(value: 'input'),
-          value: _i1.VariableNode(name: _i1.NameNode(value: 'input')),
+          name: _i1.NameNode(value: 'id'),
+          value: _i1.VariableNode(name: _i1.NameNode(value: 'id')),
         )
       ],
       directives: [],
@@ -42,6 +42,6 @@ const CreateImageGenerationTask = _i1.OperationDefinitionNode(
   ]),
 );
 const document = _i1.DocumentNode(definitions: [
-  CreateImageGenerationTask,
+  ViewerImageGenerationTask,
   _i2.ImageGenerationTaskFields,
 ]);

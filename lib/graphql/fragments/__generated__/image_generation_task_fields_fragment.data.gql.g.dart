@@ -1,159 +1,31 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'viewer_image_generation_tasks.data.gql.dart';
+part of 'image_generation_task_fields_fragment.data.gql.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<GViewerImageGenerationTasksData>
-    _$gViewerImageGenerationTasksDataSerializer =
-    new _$GViewerImageGenerationTasksDataSerializer();
-Serializer<GViewerImageGenerationTasksData_viewer>
-    _$gViewerImageGenerationTasksDataViewerSerializer =
-    new _$GViewerImageGenerationTasksData_viewerSerializer();
-Serializer<GViewerImageGenerationTasksData_viewer_imageGenerationTasks>
-    _$gViewerImageGenerationTasksDataViewerImageGenerationTasksSerializer =
-    new _$GViewerImageGenerationTasksData_viewer_imageGenerationTasksSerializer();
-Serializer<GViewerImageGenerationTasksData_viewer_imageGenerationTasks_model>
-    _$gViewerImageGenerationTasksDataViewerImageGenerationTasksModelSerializer =
-    new _$GViewerImageGenerationTasksData_viewer_imageGenerationTasks_modelSerializer();
+Serializer<GImageGenerationTaskFieldsData>
+    _$gImageGenerationTaskFieldsDataSerializer =
+    new _$GImageGenerationTaskFieldsDataSerializer();
+Serializer<GImageGenerationTaskFieldsData_model>
+    _$gImageGenerationTaskFieldsDataModelSerializer =
+    new _$GImageGenerationTaskFieldsData_modelSerializer();
 
-class _$GViewerImageGenerationTasksDataSerializer
-    implements StructuredSerializer<GViewerImageGenerationTasksData> {
+class _$GImageGenerationTaskFieldsDataSerializer
+    implements StructuredSerializer<GImageGenerationTaskFieldsData> {
   @override
   final Iterable<Type> types = const [
-    GViewerImageGenerationTasksData,
-    _$GViewerImageGenerationTasksData
+    GImageGenerationTaskFieldsData,
+    _$GImageGenerationTaskFieldsData
   ];
   @override
-  final String wireName = 'GViewerImageGenerationTasksData';
+  final String wireName = 'GImageGenerationTaskFieldsData';
 
   @override
   Iterable<Object?> serialize(
-      Serializers serializers, GViewerImageGenerationTasksData object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
-    ];
-    Object? value;
-    value = object.viewer;
-    if (value != null) {
-      result
-        ..add('viewer')
-        ..add(serializers.serialize(value,
-            specifiedType:
-                const FullType(GViewerImageGenerationTasksData_viewer)));
-    }
-    return result;
-  }
-
-  @override
-  GViewerImageGenerationTasksData deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GViewerImageGenerationTasksDataBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'viewer':
-          result.viewer.replace(serializers.deserialize(value,
-                  specifiedType:
-                      const FullType(GViewerImageGenerationTasksData_viewer))!
-              as GViewerImageGenerationTasksData_viewer);
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GViewerImageGenerationTasksData_viewerSerializer
-    implements StructuredSerializer<GViewerImageGenerationTasksData_viewer> {
-  @override
-  final Iterable<Type> types = const [
-    GViewerImageGenerationTasksData_viewer,
-    _$GViewerImageGenerationTasksData_viewer
-  ];
-  @override
-  final String wireName = 'GViewerImageGenerationTasksData_viewer';
-
-  @override
-  Iterable<Object?> serialize(
-      Serializers serializers, GViewerImageGenerationTasksData_viewer object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
-      'imageGenerationTasks',
-      serializers.serialize(object.imageGenerationTasks,
-          specifiedType: const FullType(BuiltList, const [
-            const FullType(
-                GViewerImageGenerationTasksData_viewer_imageGenerationTasks)
-          ])),
-    ];
-
-    return result;
-  }
-
-  @override
-  GViewerImageGenerationTasksData_viewer deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GViewerImageGenerationTasksData_viewerBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'imageGenerationTasks':
-          result.imageGenerationTasks.replace(serializers.deserialize(value,
-              specifiedType: const FullType(BuiltList, const [
-                const FullType(
-                    GViewerImageGenerationTasksData_viewer_imageGenerationTasks)
-              ]))! as BuiltList<Object?>);
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GViewerImageGenerationTasksData_viewer_imageGenerationTasksSerializer
-    implements
-        StructuredSerializer<
-            GViewerImageGenerationTasksData_viewer_imageGenerationTasks> {
-  @override
-  final Iterable<Type> types = const [
-    GViewerImageGenerationTasksData_viewer_imageGenerationTasks,
-    _$GViewerImageGenerationTasksData_viewer_imageGenerationTasks
-  ];
-  @override
-  final String wireName =
-      'GViewerImageGenerationTasksData_viewer_imageGenerationTasks';
-
-  @override
-  Iterable<Object?> serialize(Serializers serializers,
-      GViewerImageGenerationTasksData_viewer_imageGenerationTasks object,
+      Serializers serializers, GImageGenerationTaskFieldsData object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
       '__typename',
@@ -181,10 +53,10 @@ class _$GViewerImageGenerationTasksData_viewer_imageGenerationTasksSerializer
           specifiedType: const FullType(int)),
       'sizeType',
       serializers.serialize(object.sizeType,
-          specifiedType: const FullType(_i3.GImageGenerationSizeType)),
+          specifiedType: const FullType(_i1.GImageGenerationSizeType)),
       'status',
       serializers.serialize(object.status,
-          specifiedType: const FullType(_i3.GImageGenerationStatus)),
+          specifiedType: const FullType(_i1.GImageGenerationStatus)),
       'isDeleted',
       serializers.serialize(object.isDeleted,
           specifiedType: const FullType(bool)),
@@ -192,11 +64,10 @@ class _$GViewerImageGenerationTasksData_viewer_imageGenerationTasksSerializer
       serializers.serialize(object.count, specifiedType: const FullType(int)),
       'generationType',
       serializers.serialize(object.generationType,
-          specifiedType: const FullType(_i3.GImageGenerationType)),
+          specifiedType: const FullType(_i1.GImageGenerationType)),
       'model',
       serializers.serialize(object.model,
-          specifiedType: const FullType(
-              GViewerImageGenerationTasksData_viewer_imageGenerationTasks_model)),
+          specifiedType: const FullType(GImageGenerationTaskFieldsData_model)),
     ];
     Object? value;
     value = object.t2tImageUrl;
@@ -398,11 +269,10 @@ class _$GViewerImageGenerationTasksData_viewer_imageGenerationTasksSerializer
   }
 
   @override
-  GViewerImageGenerationTasksData_viewer_imageGenerationTasks deserialize(
+  GImageGenerationTaskFieldsData deserialize(
       Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result =
-        new GViewerImageGenerationTasksData_viewer_imageGenerationTasksBuilder();
+    final result = new GImageGenerationTaskFieldsDataBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -448,8 +318,8 @@ class _$GViewerImageGenerationTasksData_viewer_imageGenerationTasksSerializer
           break;
         case 'sizeType':
           result.sizeType = serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GImageGenerationSizeType))!
-              as _i3.GImageGenerationSizeType;
+                  specifiedType: const FullType(_i1.GImageGenerationSizeType))!
+              as _i1.GImageGenerationSizeType;
           break;
         case 't2tImageUrl':
           result.t2tImageUrl = serializers.deserialize(value,
@@ -477,8 +347,8 @@ class _$GViewerImageGenerationTasksData_viewer_imageGenerationTasksSerializer
           break;
         case 'status':
           result.status = serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GImageGenerationStatus))!
-              as _i3.GImageGenerationStatus;
+                  specifiedType: const FullType(_i1.GImageGenerationStatus))!
+              as _i1.GImageGenerationStatus;
           break;
         case 'isDeleted':
           result.isDeleted = serializers.deserialize(value,
@@ -494,14 +364,14 @@ class _$GViewerImageGenerationTasksData_viewer_imageGenerationTasksSerializer
           break;
         case 'generationType':
           result.generationType = serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GImageGenerationType))!
-              as _i3.GImageGenerationType;
+                  specifiedType: const FullType(_i1.GImageGenerationType))!
+              as _i1.GImageGenerationType;
           break;
         case 'model':
           result.model.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      GViewerImageGenerationTasksData_viewer_imageGenerationTasks_model))!
-              as GViewerImageGenerationTasksData_viewer_imageGenerationTasks_model);
+                  specifiedType:
+                      const FullType(GImageGenerationTaskFieldsData_model))!
+              as GImageGenerationTaskFieldsData_model);
           break;
         case 'vae':
           result.vae = serializers.deserialize(value,
@@ -598,22 +468,19 @@ class _$GViewerImageGenerationTasksData_viewer_imageGenerationTasksSerializer
   }
 }
 
-class _$GViewerImageGenerationTasksData_viewer_imageGenerationTasks_modelSerializer
-    implements
-        StructuredSerializer<
-            GViewerImageGenerationTasksData_viewer_imageGenerationTasks_model> {
+class _$GImageGenerationTaskFieldsData_modelSerializer
+    implements StructuredSerializer<GImageGenerationTaskFieldsData_model> {
   @override
   final Iterable<Type> types = const [
-    GViewerImageGenerationTasksData_viewer_imageGenerationTasks_model,
-    _$GViewerImageGenerationTasksData_viewer_imageGenerationTasks_model
+    GImageGenerationTaskFieldsData_model,
+    _$GImageGenerationTaskFieldsData_model
   ];
   @override
-  final String wireName =
-      'GViewerImageGenerationTasksData_viewer_imageGenerationTasks_model';
+  final String wireName = 'GImageGenerationTaskFieldsData_model';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers,
-      GViewerImageGenerationTasksData_viewer_imageGenerationTasks_model object,
+  Iterable<Object?> serialize(
+      Serializers serializers, GImageGenerationTaskFieldsData_model object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
       '__typename',
@@ -631,11 +498,10 @@ class _$GViewerImageGenerationTasksData_viewer_imageGenerationTasks_modelSeriali
   }
 
   @override
-  GViewerImageGenerationTasksData_viewer_imageGenerationTasks_model deserialize(
+  GImageGenerationTaskFieldsData_model deserialize(
       Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result =
-        new GViewerImageGenerationTasksData_viewer_imageGenerationTasks_modelBuilder();
+    final result = new GImageGenerationTaskFieldsData_modelBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -666,265 +532,7 @@ class _$GViewerImageGenerationTasksData_viewer_imageGenerationTasks_modelSeriali
   }
 }
 
-class _$GViewerImageGenerationTasksData
-    extends GViewerImageGenerationTasksData {
-  @override
-  final String G__typename;
-  @override
-  final GViewerImageGenerationTasksData_viewer? viewer;
-
-  factory _$GViewerImageGenerationTasksData(
-          [void Function(GViewerImageGenerationTasksDataBuilder)? updates]) =>
-      (new GViewerImageGenerationTasksDataBuilder()..update(updates))._build();
-
-  _$GViewerImageGenerationTasksData._({required this.G__typename, this.viewer})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        G__typename, r'GViewerImageGenerationTasksData', 'G__typename');
-  }
-
-  @override
-  GViewerImageGenerationTasksData rebuild(
-          void Function(GViewerImageGenerationTasksDataBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GViewerImageGenerationTasksDataBuilder toBuilder() =>
-      new GViewerImageGenerationTasksDataBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GViewerImageGenerationTasksData &&
-        G__typename == other.G__typename &&
-        viewer == other.viewer;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, viewer.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(r'GViewerImageGenerationTasksData')
-          ..add('G__typename', G__typename)
-          ..add('viewer', viewer))
-        .toString();
-  }
-}
-
-class GViewerImageGenerationTasksDataBuilder
-    implements
-        Builder<GViewerImageGenerationTasksData,
-            GViewerImageGenerationTasksDataBuilder> {
-  _$GViewerImageGenerationTasksData? _$v;
-
-  String? _G__typename;
-  String? get G__typename => _$this._G__typename;
-  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
-
-  GViewerImageGenerationTasksData_viewerBuilder? _viewer;
-  GViewerImageGenerationTasksData_viewerBuilder get viewer =>
-      _$this._viewer ??= new GViewerImageGenerationTasksData_viewerBuilder();
-  set viewer(GViewerImageGenerationTasksData_viewerBuilder? viewer) =>
-      _$this._viewer = viewer;
-
-  GViewerImageGenerationTasksDataBuilder() {
-    GViewerImageGenerationTasksData._initializeBuilder(this);
-  }
-
-  GViewerImageGenerationTasksDataBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _G__typename = $v.G__typename;
-      _viewer = $v.viewer?.toBuilder();
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GViewerImageGenerationTasksData other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GViewerImageGenerationTasksData;
-  }
-
-  @override
-  void update(void Function(GViewerImageGenerationTasksDataBuilder)? updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GViewerImageGenerationTasksData build() => _build();
-
-  _$GViewerImageGenerationTasksData _build() {
-    _$GViewerImageGenerationTasksData _$result;
-    try {
-      _$result = _$v ??
-          new _$GViewerImageGenerationTasksData._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
-                  r'GViewerImageGenerationTasksData', 'G__typename'),
-              viewer: _viewer?.build());
-    } catch (_) {
-      late String _$failedField;
-      try {
-        _$failedField = 'viewer';
-        _viewer?.build();
-      } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'GViewerImageGenerationTasksData', _$failedField, e.toString());
-      }
-      rethrow;
-    }
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GViewerImageGenerationTasksData_viewer
-    extends GViewerImageGenerationTasksData_viewer {
-  @override
-  final String G__typename;
-  @override
-  final BuiltList<GViewerImageGenerationTasksData_viewer_imageGenerationTasks>
-      imageGenerationTasks;
-
-  factory _$GViewerImageGenerationTasksData_viewer(
-          [void Function(GViewerImageGenerationTasksData_viewerBuilder)?
-              updates]) =>
-      (new GViewerImageGenerationTasksData_viewerBuilder()..update(updates))
-          ._build();
-
-  _$GViewerImageGenerationTasksData_viewer._(
-      {required this.G__typename, required this.imageGenerationTasks})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        G__typename, r'GViewerImageGenerationTasksData_viewer', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(imageGenerationTasks,
-        r'GViewerImageGenerationTasksData_viewer', 'imageGenerationTasks');
-  }
-
-  @override
-  GViewerImageGenerationTasksData_viewer rebuild(
-          void Function(GViewerImageGenerationTasksData_viewerBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GViewerImageGenerationTasksData_viewerBuilder toBuilder() =>
-      new GViewerImageGenerationTasksData_viewerBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GViewerImageGenerationTasksData_viewer &&
-        G__typename == other.G__typename &&
-        imageGenerationTasks == other.imageGenerationTasks;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, imageGenerationTasks.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(
-            r'GViewerImageGenerationTasksData_viewer')
-          ..add('G__typename', G__typename)
-          ..add('imageGenerationTasks', imageGenerationTasks))
-        .toString();
-  }
-}
-
-class GViewerImageGenerationTasksData_viewerBuilder
-    implements
-        Builder<GViewerImageGenerationTasksData_viewer,
-            GViewerImageGenerationTasksData_viewerBuilder> {
-  _$GViewerImageGenerationTasksData_viewer? _$v;
-
-  String? _G__typename;
-  String? get G__typename => _$this._G__typename;
-  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
-
-  ListBuilder<GViewerImageGenerationTasksData_viewer_imageGenerationTasks>?
-      _imageGenerationTasks;
-  ListBuilder<GViewerImageGenerationTasksData_viewer_imageGenerationTasks>
-      get imageGenerationTasks =>
-          _$this._imageGenerationTasks ??= new ListBuilder<
-              GViewerImageGenerationTasksData_viewer_imageGenerationTasks>();
-  set imageGenerationTasks(
-          ListBuilder<
-                  GViewerImageGenerationTasksData_viewer_imageGenerationTasks>?
-              imageGenerationTasks) =>
-      _$this._imageGenerationTasks = imageGenerationTasks;
-
-  GViewerImageGenerationTasksData_viewerBuilder() {
-    GViewerImageGenerationTasksData_viewer._initializeBuilder(this);
-  }
-
-  GViewerImageGenerationTasksData_viewerBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _G__typename = $v.G__typename;
-      _imageGenerationTasks = $v.imageGenerationTasks.toBuilder();
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GViewerImageGenerationTasksData_viewer other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GViewerImageGenerationTasksData_viewer;
-  }
-
-  @override
-  void update(
-      void Function(GViewerImageGenerationTasksData_viewerBuilder)? updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GViewerImageGenerationTasksData_viewer build() => _build();
-
-  _$GViewerImageGenerationTasksData_viewer _build() {
-    _$GViewerImageGenerationTasksData_viewer _$result;
-    try {
-      _$result = _$v ??
-          new _$GViewerImageGenerationTasksData_viewer._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
-                  r'GViewerImageGenerationTasksData_viewer', 'G__typename'),
-              imageGenerationTasks: imageGenerationTasks.build());
-    } catch (_) {
-      late String _$failedField;
-      try {
-        _$failedField = 'imageGenerationTasks';
-        imageGenerationTasks.build();
-      } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'GViewerImageGenerationTasksData_viewer',
-            _$failedField,
-            e.toString());
-      }
-      rethrow;
-    }
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GViewerImageGenerationTasksData_viewer_imageGenerationTasks
-    extends GViewerImageGenerationTasksData_viewer_imageGenerationTasks {
+class _$GImageGenerationTaskFieldsData extends GImageGenerationTaskFieldsData {
   @override
   final String G__typename;
   @override
@@ -944,7 +552,7 @@ class _$GViewerImageGenerationTasksData_viewer_imageGenerationTasks
   @override
   final int clipSkip;
   @override
-  final _i3.GImageGenerationSizeType sizeType;
+  final _i1.GImageGenerationSizeType sizeType;
   @override
   final String? t2tImageUrl;
   @override
@@ -958,7 +566,7 @@ class _$GViewerImageGenerationTasksData_viewer_imageGenerationTasks
   @override
   final int? completedAt;
   @override
-  final _i3.GImageGenerationStatus status;
+  final _i1.GImageGenerationStatus status;
   @override
   final bool isDeleted;
   @override
@@ -966,9 +574,9 @@ class _$GViewerImageGenerationTasksData_viewer_imageGenerationTasks
   @override
   final int count;
   @override
-  final _i3.GImageGenerationType generationType;
+  final _i1.GImageGenerationType generationType;
   @override
-  final GViewerImageGenerationTasksData_viewer_imageGenerationTasks_model model;
+  final GImageGenerationTaskFieldsData_model model;
   @override
   final String? vae;
   @override
@@ -1014,15 +622,11 @@ class _$GViewerImageGenerationTasksData_viewer_imageGenerationTasks
   @override
   final String? thumbnailToken;
 
-  factory _$GViewerImageGenerationTasksData_viewer_imageGenerationTasks(
-          [void Function(
-                  GViewerImageGenerationTasksData_viewer_imageGenerationTasksBuilder)?
-              updates]) =>
-      (new GViewerImageGenerationTasksData_viewer_imageGenerationTasksBuilder()
-            ..update(updates))
-          ._build();
+  factory _$GImageGenerationTaskFieldsData(
+          [void Function(GImageGenerationTaskFieldsDataBuilder)? updates]) =>
+      (new GImageGenerationTaskFieldsDataBuilder()..update(updates))._build();
 
-  _$GViewerImageGenerationTasksData_viewer_imageGenerationTasks._(
+  _$GImageGenerationTaskFieldsData._(
       {required this.G__typename,
       required this.id,
       required this.prompt,
@@ -1069,81 +673,50 @@ class _$GViewerImageGenerationTasksData_viewer_imageGenerationTasks
       this.thumbnailToken})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        G__typename,
-        r'GViewerImageGenerationTasksData_viewer_imageGenerationTasks',
-        'G__typename');
-    BuiltValueNullFieldError.checkNotNull(id,
-        r'GViewerImageGenerationTasksData_viewer_imageGenerationTasks', 'id');
+        G__typename, r'GImageGenerationTaskFieldsData', 'G__typename');
     BuiltValueNullFieldError.checkNotNull(
-        prompt,
-        r'GViewerImageGenerationTasksData_viewer_imageGenerationTasks',
-        'prompt');
+        id, r'GImageGenerationTaskFieldsData', 'id');
     BuiltValueNullFieldError.checkNotNull(
-        negativePrompt,
-        r'GViewerImageGenerationTasksData_viewer_imageGenerationTasks',
-        'negativePrompt');
-    BuiltValueNullFieldError.checkNotNull(seed,
-        r'GViewerImageGenerationTasksData_viewer_imageGenerationTasks', 'seed');
+        prompt, r'GImageGenerationTaskFieldsData', 'prompt');
     BuiltValueNullFieldError.checkNotNull(
-        steps,
-        r'GViewerImageGenerationTasksData_viewer_imageGenerationTasks',
-        'steps');
+        negativePrompt, r'GImageGenerationTaskFieldsData', 'negativePrompt');
     BuiltValueNullFieldError.checkNotNull(
-        scale,
-        r'GViewerImageGenerationTasksData_viewer_imageGenerationTasks',
-        'scale');
+        seed, r'GImageGenerationTaskFieldsData', 'seed');
     BuiltValueNullFieldError.checkNotNull(
-        sampler,
-        r'GViewerImageGenerationTasksData_viewer_imageGenerationTasks',
-        'sampler');
+        steps, r'GImageGenerationTaskFieldsData', 'steps');
     BuiltValueNullFieldError.checkNotNull(
-        clipSkip,
-        r'GViewerImageGenerationTasksData_viewer_imageGenerationTasks',
-        'clipSkip');
+        scale, r'GImageGenerationTaskFieldsData', 'scale');
     BuiltValueNullFieldError.checkNotNull(
-        sizeType,
-        r'GViewerImageGenerationTasksData_viewer_imageGenerationTasks',
-        'sizeType');
+        sampler, r'GImageGenerationTaskFieldsData', 'sampler');
     BuiltValueNullFieldError.checkNotNull(
-        status,
-        r'GViewerImageGenerationTasksData_viewer_imageGenerationTasks',
-        'status');
+        clipSkip, r'GImageGenerationTaskFieldsData', 'clipSkip');
     BuiltValueNullFieldError.checkNotNull(
-        isDeleted,
-        r'GViewerImageGenerationTasksData_viewer_imageGenerationTasks',
-        'isDeleted');
+        sizeType, r'GImageGenerationTaskFieldsData', 'sizeType');
     BuiltValueNullFieldError.checkNotNull(
-        count,
-        r'GViewerImageGenerationTasksData_viewer_imageGenerationTasks',
-        'count');
+        status, r'GImageGenerationTaskFieldsData', 'status');
     BuiltValueNullFieldError.checkNotNull(
-        generationType,
-        r'GViewerImageGenerationTasksData_viewer_imageGenerationTasks',
-        'generationType');
+        isDeleted, r'GImageGenerationTaskFieldsData', 'isDeleted');
     BuiltValueNullFieldError.checkNotNull(
-        model,
-        r'GViewerImageGenerationTasksData_viewer_imageGenerationTasks',
-        'model');
+        count, r'GImageGenerationTaskFieldsData', 'count');
+    BuiltValueNullFieldError.checkNotNull(
+        generationType, r'GImageGenerationTaskFieldsData', 'generationType');
+    BuiltValueNullFieldError.checkNotNull(
+        model, r'GImageGenerationTaskFieldsData', 'model');
   }
 
   @override
-  GViewerImageGenerationTasksData_viewer_imageGenerationTasks rebuild(
-          void Function(
-                  GViewerImageGenerationTasksData_viewer_imageGenerationTasksBuilder)
-              updates) =>
+  GImageGenerationTaskFieldsData rebuild(
+          void Function(GImageGenerationTaskFieldsDataBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GViewerImageGenerationTasksData_viewer_imageGenerationTasksBuilder
-      toBuilder() =>
-          new GViewerImageGenerationTasksData_viewer_imageGenerationTasksBuilder()
-            ..replace(this);
+  GImageGenerationTaskFieldsDataBuilder toBuilder() =>
+      new GImageGenerationTaskFieldsDataBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other
-            is GViewerImageGenerationTasksData_viewer_imageGenerationTasks &&
+    return other is GImageGenerationTaskFieldsData &&
         G__typename == other.G__typename &&
         id == other.id &&
         prompt == other.prompt &&
@@ -1243,8 +816,7 @@ class _$GViewerImageGenerationTasksData_viewer_imageGenerationTasks
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(
-            r'GViewerImageGenerationTasksData_viewer_imageGenerationTasks')
+    return (newBuiltValueToStringHelper(r'GImageGenerationTaskFieldsData')
           ..add('G__typename', G__typename)
           ..add('id', id)
           ..add('prompt', prompt)
@@ -1293,11 +865,11 @@ class _$GViewerImageGenerationTasksData_viewer_imageGenerationTasks
   }
 }
 
-class GViewerImageGenerationTasksData_viewer_imageGenerationTasksBuilder
+class GImageGenerationTaskFieldsDataBuilder
     implements
-        Builder<GViewerImageGenerationTasksData_viewer_imageGenerationTasks,
-            GViewerImageGenerationTasksData_viewer_imageGenerationTasksBuilder> {
-  _$GViewerImageGenerationTasksData_viewer_imageGenerationTasks? _$v;
+        Builder<GImageGenerationTaskFieldsData,
+            GImageGenerationTaskFieldsDataBuilder> {
+  _$GImageGenerationTaskFieldsData? _$v;
 
   String? _G__typename;
   String? get G__typename => _$this._G__typename;
@@ -1336,9 +908,9 @@ class GViewerImageGenerationTasksData_viewer_imageGenerationTasksBuilder
   int? get clipSkip => _$this._clipSkip;
   set clipSkip(int? clipSkip) => _$this._clipSkip = clipSkip;
 
-  _i3.GImageGenerationSizeType? _sizeType;
-  _i3.GImageGenerationSizeType? get sizeType => _$this._sizeType;
-  set sizeType(_i3.GImageGenerationSizeType? sizeType) =>
+  _i1.GImageGenerationSizeType? _sizeType;
+  _i1.GImageGenerationSizeType? get sizeType => _$this._sizeType;
+  set sizeType(_i1.GImageGenerationSizeType? sizeType) =>
       _$this._sizeType = sizeType;
 
   String? _t2tImageUrl;
@@ -1368,9 +940,9 @@ class GViewerImageGenerationTasksData_viewer_imageGenerationTasksBuilder
   int? get completedAt => _$this._completedAt;
   set completedAt(int? completedAt) => _$this._completedAt = completedAt;
 
-  _i3.GImageGenerationStatus? _status;
-  _i3.GImageGenerationStatus? get status => _$this._status;
-  set status(_i3.GImageGenerationStatus? status) => _$this._status = status;
+  _i1.GImageGenerationStatus? _status;
+  _i1.GImageGenerationStatus? get status => _$this._status;
+  set status(_i1.GImageGenerationStatus? status) => _$this._status = status;
 
   bool? _isDeleted;
   bool? get isDeleted => _$this._isDeleted;
@@ -1384,19 +956,15 @@ class GViewerImageGenerationTasksData_viewer_imageGenerationTasksBuilder
   int? get count => _$this._count;
   set count(int? count) => _$this._count = count;
 
-  _i3.GImageGenerationType? _generationType;
-  _i3.GImageGenerationType? get generationType => _$this._generationType;
-  set generationType(_i3.GImageGenerationType? generationType) =>
+  _i1.GImageGenerationType? _generationType;
+  _i1.GImageGenerationType? get generationType => _$this._generationType;
+  set generationType(_i1.GImageGenerationType? generationType) =>
       _$this._generationType = generationType;
 
-  GViewerImageGenerationTasksData_viewer_imageGenerationTasks_modelBuilder?
-      _model;
-  GViewerImageGenerationTasksData_viewer_imageGenerationTasks_modelBuilder
-      get model => _$this._model ??=
-          new GViewerImageGenerationTasksData_viewer_imageGenerationTasks_modelBuilder();
-  set model(
-          GViewerImageGenerationTasksData_viewer_imageGenerationTasks_modelBuilder?
-              model) =>
+  GImageGenerationTaskFieldsData_modelBuilder? _model;
+  GImageGenerationTaskFieldsData_modelBuilder get model =>
+      _$this._model ??= new GImageGenerationTaskFieldsData_modelBuilder();
+  set model(GImageGenerationTaskFieldsData_modelBuilder? model) =>
       _$this._model = model;
 
   String? _vae;
@@ -1505,13 +1073,11 @@ class GViewerImageGenerationTasksData_viewer_imageGenerationTasksBuilder
   set thumbnailToken(String? thumbnailToken) =>
       _$this._thumbnailToken = thumbnailToken;
 
-  GViewerImageGenerationTasksData_viewer_imageGenerationTasksBuilder() {
-    GViewerImageGenerationTasksData_viewer_imageGenerationTasks
-        ._initializeBuilder(this);
+  GImageGenerationTaskFieldsDataBuilder() {
+    GImageGenerationTaskFieldsData._initializeBuilder(this);
   }
 
-  GViewerImageGenerationTasksData_viewer_imageGenerationTasksBuilder
-      get _$this {
+  GImageGenerationTaskFieldsDataBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _G__typename = $v.G__typename;
@@ -1564,62 +1130,54 @@ class GViewerImageGenerationTasksData_viewer_imageGenerationTasksBuilder
   }
 
   @override
-  void replace(
-      GViewerImageGenerationTasksData_viewer_imageGenerationTasks other) {
+  void replace(GImageGenerationTaskFieldsData other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v =
-        other as _$GViewerImageGenerationTasksData_viewer_imageGenerationTasks;
+    _$v = other as _$GImageGenerationTaskFieldsData;
   }
 
   @override
-  void update(
-      void Function(
-              GViewerImageGenerationTasksData_viewer_imageGenerationTasksBuilder)?
-          updates) {
+  void update(void Function(GImageGenerationTaskFieldsDataBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  GViewerImageGenerationTasksData_viewer_imageGenerationTasks build() =>
-      _build();
+  GImageGenerationTaskFieldsData build() => _build();
 
-  _$GViewerImageGenerationTasksData_viewer_imageGenerationTasks _build() {
-    _$GViewerImageGenerationTasksData_viewer_imageGenerationTasks _$result;
+  _$GImageGenerationTaskFieldsData _build() {
+    _$GImageGenerationTaskFieldsData _$result;
     try {
       _$result = _$v ??
-          new _$GViewerImageGenerationTasksData_viewer_imageGenerationTasks._(
+          new _$GImageGenerationTaskFieldsData._(
               G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename,
-                  r'GViewerImageGenerationTasksData_viewer_imageGenerationTasks',
-                  'G__typename'),
+                  G__typename, r'GImageGenerationTaskFieldsData', 'G__typename'),
               id: BuiltValueNullFieldError.checkNotNull(
-                  id, r'GViewerImageGenerationTasksData_viewer_imageGenerationTasks', 'id'),
+                  id, r'GImageGenerationTaskFieldsData', 'id'),
               prompt: BuiltValueNullFieldError.checkNotNull(
-                  prompt,
-                  r'GViewerImageGenerationTasksData_viewer_imageGenerationTasks',
-                  'prompt'),
+                  prompt, r'GImageGenerationTaskFieldsData', 'prompt'),
               negativePrompt: BuiltValueNullFieldError.checkNotNull(
                   negativePrompt,
-                  r'GViewerImageGenerationTasksData_viewer_imageGenerationTasks',
+                  r'GImageGenerationTaskFieldsData',
                   'negativePrompt'),
               seed: BuiltValueNullFieldError.checkNotNull(
-                  seed, r'GViewerImageGenerationTasksData_viewer_imageGenerationTasks', 'seed'),
-              steps: BuiltValueNullFieldError.checkNotNull(steps, r'GViewerImageGenerationTasksData_viewer_imageGenerationTasks', 'steps'),
-              scale: BuiltValueNullFieldError.checkNotNull(scale, r'GViewerImageGenerationTasksData_viewer_imageGenerationTasks', 'scale'),
-              sampler: BuiltValueNullFieldError.checkNotNull(sampler, r'GViewerImageGenerationTasksData_viewer_imageGenerationTasks', 'sampler'),
-              clipSkip: BuiltValueNullFieldError.checkNotNull(clipSkip, r'GViewerImageGenerationTasksData_viewer_imageGenerationTasks', 'clipSkip'),
-              sizeType: BuiltValueNullFieldError.checkNotNull(sizeType, r'GViewerImageGenerationTasksData_viewer_imageGenerationTasks', 'sizeType'),
+                  seed, r'GImageGenerationTaskFieldsData', 'seed'),
+              steps: BuiltValueNullFieldError.checkNotNull(
+                  steps, r'GImageGenerationTaskFieldsData', 'steps'),
+              scale: BuiltValueNullFieldError.checkNotNull(
+                  scale, r'GImageGenerationTaskFieldsData', 'scale'),
+              sampler: BuiltValueNullFieldError.checkNotNull(sampler, r'GImageGenerationTaskFieldsData', 'sampler'),
+              clipSkip: BuiltValueNullFieldError.checkNotNull(clipSkip, r'GImageGenerationTaskFieldsData', 'clipSkip'),
+              sizeType: BuiltValueNullFieldError.checkNotNull(sizeType, r'GImageGenerationTaskFieldsData', 'sizeType'),
               t2tImageUrl: t2tImageUrl,
               t2tMaskImageUrl: t2tMaskImageUrl,
               t2tDenoisingStrengthSize: t2tDenoisingStrengthSize,
               t2tInpaintingFillSize: t2tInpaintingFillSize,
               rating: rating,
               completedAt: completedAt,
-              status: BuiltValueNullFieldError.checkNotNull(status, r'GViewerImageGenerationTasksData_viewer_imageGenerationTasks', 'status'),
-              isDeleted: BuiltValueNullFieldError.checkNotNull(isDeleted, r'GViewerImageGenerationTasksData_viewer_imageGenerationTasks', 'isDeleted'),
+              status: BuiltValueNullFieldError.checkNotNull(status, r'GImageGenerationTaskFieldsData', 'status'),
+              isDeleted: BuiltValueNullFieldError.checkNotNull(isDeleted, r'GImageGenerationTaskFieldsData', 'isDeleted'),
               isProtected: isProtected,
-              count: BuiltValueNullFieldError.checkNotNull(count, r'GViewerImageGenerationTasksData_viewer_imageGenerationTasks', 'count'),
-              generationType: BuiltValueNullFieldError.checkNotNull(generationType, r'GViewerImageGenerationTasksData_viewer_imageGenerationTasks', 'generationType'),
+              count: BuiltValueNullFieldError.checkNotNull(count, r'GImageGenerationTaskFieldsData', 'count'),
+              generationType: BuiltValueNullFieldError.checkNotNull(generationType, r'GImageGenerationTaskFieldsData', 'generationType'),
               model: model.build(),
               vae: vae,
               nanoid: nanoid,
@@ -1650,9 +1208,7 @@ class GViewerImageGenerationTasksData_viewer_imageGenerationTasksBuilder
         model.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'GViewerImageGenerationTasksData_viewer_imageGenerationTasks',
-            _$failedField,
-            e.toString());
+            r'GImageGenerationTaskFieldsData', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -1661,8 +1217,8 @@ class GViewerImageGenerationTasksData_viewer_imageGenerationTasksBuilder
   }
 }
 
-class _$GViewerImageGenerationTasksData_viewer_imageGenerationTasks_model
-    extends GViewerImageGenerationTasksData_viewer_imageGenerationTasks_model {
+class _$GImageGenerationTaskFieldsData_model
+    extends GImageGenerationTaskFieldsData_model {
   @override
   final String G__typename;
   @override
@@ -1672,56 +1228,41 @@ class _$GViewerImageGenerationTasksData_viewer_imageGenerationTasks_model
   @override
   final String type;
 
-  factory _$GViewerImageGenerationTasksData_viewer_imageGenerationTasks_model(
-          [void Function(
-                  GViewerImageGenerationTasksData_viewer_imageGenerationTasks_modelBuilder)?
+  factory _$GImageGenerationTaskFieldsData_model(
+          [void Function(GImageGenerationTaskFieldsData_modelBuilder)?
               updates]) =>
-      (new GViewerImageGenerationTasksData_viewer_imageGenerationTasks_modelBuilder()
-            ..update(updates))
+      (new GImageGenerationTaskFieldsData_modelBuilder()..update(updates))
           ._build();
 
-  _$GViewerImageGenerationTasksData_viewer_imageGenerationTasks_model._(
+  _$GImageGenerationTaskFieldsData_model._(
       {required this.G__typename,
       required this.id,
       required this.name,
       required this.type})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        G__typename,
-        r'GViewerImageGenerationTasksData_viewer_imageGenerationTasks_model',
-        'G__typename');
+        G__typename, r'GImageGenerationTaskFieldsData_model', 'G__typename');
     BuiltValueNullFieldError.checkNotNull(
-        id,
-        r'GViewerImageGenerationTasksData_viewer_imageGenerationTasks_model',
-        'id');
+        id, r'GImageGenerationTaskFieldsData_model', 'id');
     BuiltValueNullFieldError.checkNotNull(
-        name,
-        r'GViewerImageGenerationTasksData_viewer_imageGenerationTasks_model',
-        'name');
+        name, r'GImageGenerationTaskFieldsData_model', 'name');
     BuiltValueNullFieldError.checkNotNull(
-        type,
-        r'GViewerImageGenerationTasksData_viewer_imageGenerationTasks_model',
-        'type');
+        type, r'GImageGenerationTaskFieldsData_model', 'type');
   }
 
   @override
-  GViewerImageGenerationTasksData_viewer_imageGenerationTasks_model rebuild(
-          void Function(
-                  GViewerImageGenerationTasksData_viewer_imageGenerationTasks_modelBuilder)
-              updates) =>
+  GImageGenerationTaskFieldsData_model rebuild(
+          void Function(GImageGenerationTaskFieldsData_modelBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GViewerImageGenerationTasksData_viewer_imageGenerationTasks_modelBuilder
-      toBuilder() =>
-          new GViewerImageGenerationTasksData_viewer_imageGenerationTasks_modelBuilder()
-            ..replace(this);
+  GImageGenerationTaskFieldsData_modelBuilder toBuilder() =>
+      new GImageGenerationTaskFieldsData_modelBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other
-            is GViewerImageGenerationTasksData_viewer_imageGenerationTasks_model &&
+    return other is GImageGenerationTaskFieldsData_model &&
         G__typename == other.G__typename &&
         id == other.id &&
         name == other.name &&
@@ -1741,8 +1282,7 @@ class _$GViewerImageGenerationTasksData_viewer_imageGenerationTasks_model
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(
-            r'GViewerImageGenerationTasksData_viewer_imageGenerationTasks_model')
+    return (newBuiltValueToStringHelper(r'GImageGenerationTaskFieldsData_model')
           ..add('G__typename', G__typename)
           ..add('id', id)
           ..add('name', name)
@@ -1751,12 +1291,11 @@ class _$GViewerImageGenerationTasksData_viewer_imageGenerationTasks_model
   }
 }
 
-class GViewerImageGenerationTasksData_viewer_imageGenerationTasks_modelBuilder
+class GImageGenerationTaskFieldsData_modelBuilder
     implements
-        Builder<
-            GViewerImageGenerationTasksData_viewer_imageGenerationTasks_model,
-            GViewerImageGenerationTasksData_viewer_imageGenerationTasks_modelBuilder> {
-  _$GViewerImageGenerationTasksData_viewer_imageGenerationTasks_model? _$v;
+        Builder<GImageGenerationTaskFieldsData_model,
+            GImageGenerationTaskFieldsData_modelBuilder> {
+  _$GImageGenerationTaskFieldsData_model? _$v;
 
   String? _G__typename;
   String? get G__typename => _$this._G__typename;
@@ -1774,13 +1313,11 @@ class GViewerImageGenerationTasksData_viewer_imageGenerationTasks_modelBuilder
   String? get type => _$this._type;
   set type(String? type) => _$this._type = type;
 
-  GViewerImageGenerationTasksData_viewer_imageGenerationTasks_modelBuilder() {
-    GViewerImageGenerationTasksData_viewer_imageGenerationTasks_model
-        ._initializeBuilder(this);
+  GImageGenerationTaskFieldsData_modelBuilder() {
+    GImageGenerationTaskFieldsData_model._initializeBuilder(this);
   }
 
-  GViewerImageGenerationTasksData_viewer_imageGenerationTasks_modelBuilder
-      get _$this {
+  GImageGenerationTaskFieldsData_modelBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _G__typename = $v.G__typename;
@@ -1793,42 +1330,31 @@ class GViewerImageGenerationTasksData_viewer_imageGenerationTasks_modelBuilder
   }
 
   @override
-  void replace(
-      GViewerImageGenerationTasksData_viewer_imageGenerationTasks_model other) {
+  void replace(GImageGenerationTaskFieldsData_model other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other
-        as _$GViewerImageGenerationTasksData_viewer_imageGenerationTasks_model;
+    _$v = other as _$GImageGenerationTaskFieldsData_model;
   }
 
   @override
   void update(
-      void Function(
-              GViewerImageGenerationTasksData_viewer_imageGenerationTasks_modelBuilder)?
-          updates) {
+      void Function(GImageGenerationTaskFieldsData_modelBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  GViewerImageGenerationTasksData_viewer_imageGenerationTasks_model build() =>
-      _build();
+  GImageGenerationTaskFieldsData_model build() => _build();
 
-  _$GViewerImageGenerationTasksData_viewer_imageGenerationTasks_model _build() {
+  _$GImageGenerationTaskFieldsData_model _build() {
     final _$result = _$v ??
-        new _$GViewerImageGenerationTasksData_viewer_imageGenerationTasks_model._(
-            G__typename: BuiltValueNullFieldError.checkNotNull(
-                G__typename,
-                r'GViewerImageGenerationTasksData_viewer_imageGenerationTasks_model',
-                'G__typename'),
-            id: BuiltValueNullFieldError.checkNotNull(id,
-                r'GViewerImageGenerationTasksData_viewer_imageGenerationTasks_model', 'id'),
+        new _$GImageGenerationTaskFieldsData_model._(
+            G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
+                r'GImageGenerationTaskFieldsData_model', 'G__typename'),
+            id: BuiltValueNullFieldError.checkNotNull(
+                id, r'GImageGenerationTaskFieldsData_model', 'id'),
             name: BuiltValueNullFieldError.checkNotNull(
-                name,
-                r'GViewerImageGenerationTasksData_viewer_imageGenerationTasks_model',
-                'name'),
+                name, r'GImageGenerationTaskFieldsData_model', 'name'),
             type: BuiltValueNullFieldError.checkNotNull(
-                type,
-                r'GViewerImageGenerationTasksData_viewer_imageGenerationTasks_model',
-                'type'));
+                type, r'GImageGenerationTaskFieldsData_model', 'type'));
     replace(_$result);
     return _$result;
   }
