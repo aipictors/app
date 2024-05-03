@@ -63,7 +63,7 @@ class GeneratedImagesGridView extends HookConsumerWidget {
                   child: (task.status == GImageGenerationStatus.DONE)
                       ? GridWorkImage(
                           imageURL:
-                              'https://www.aipictors.com/wp-content/themes/AISite/private-image-direct.php?token=${Uri.encodeComponent(task.token!)}&name=${task.thumbnailImageFileName}',
+                              'https://www.aipictors.com/wp-content/themes/AISite/private-image-direct.php?token=${Uri.encodeComponent(task.thumbnailToken!)}&name=${task.thumbnailImageFileName}',
                           httpHeaders: const {
                             'Referer': 'https://beta.aipictors.com/',
                           },
