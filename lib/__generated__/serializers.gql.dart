@@ -536,6 +536,15 @@ import 'package:aipictors/graphql/__generated__/viewer_folders.req.gql.dart'
     show GViewerFoldersReq;
 import 'package:aipictors/graphql/__generated__/viewer_folders.var.gql.dart'
     show GViewerFoldersVars;
+import 'package:aipictors/graphql/__generated__/viewer_image_generation_status.data.gql.dart'
+    show
+        GViewerImageGenerationStatusData,
+        GViewerImageGenerationStatusData_imageGenerationEngineStatus,
+        GViewerImageGenerationStatusData_viewer;
+import 'package:aipictors/graphql/__generated__/viewer_image_generation_status.req.gql.dart'
+    show GViewerImageGenerationStatusReq;
+import 'package:aipictors/graphql/__generated__/viewer_image_generation_status.var.gql.dart'
+    show GViewerImageGenerationStatusVars;
 import 'package:aipictors/graphql/__generated__/viewer_liked_works.data.gql.dart'
     show
         GViewerLikedWorksData,
@@ -1743,6 +1752,11 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GViewerFoldersData_viewer_folders,
   GViewerFoldersReq,
   GViewerFoldersVars,
+  GViewerImageGenerationStatusData,
+  GViewerImageGenerationStatusData_imageGenerationEngineStatus,
+  GViewerImageGenerationStatusData_viewer,
+  GViewerImageGenerationStatusReq,
+  GViewerImageGenerationStatusVars,
   GViewerImageGenerationTaskData,
   GViewerImageGenerationTaskData_imageGenerationTask,
   GViewerImageGenerationTaskData_imageGenerationTask_model,

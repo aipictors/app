@@ -1,0 +1,19 @@
+query ViewerImageGenerationStatus {
+    imageGenerationEngineStatus {
+      normalTasksCount
+      standardTasksCount
+      normalPredictionGenerationWait
+      standardPredictionGenerationWait
+    }
+    viewer {
+      remainingImageGenerationTasksCount
+      inProgressImageGenerationTasksCount
+      inProgressImageGenerationTasksCost
+      inProgressImageGenerationReservedTasksCount
+      remainingImageGenerationTasksTotalCount
+      availableImageGenerationMaxTasksCount
+      imageGenerationWaitCount
+      availableImageGenerationLoraModelsCount
+      availableConsecutiveImageGenerationsCount
+    }
+  }

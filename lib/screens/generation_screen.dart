@@ -1,14 +1,13 @@
 import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/enums/generation_model_version.dart';
+import 'package:aipictors/graphql/__generated__/viewer_image_generation_status.data.gql.dart';
 import 'package:aipictors/graphql/generation/__generated__/image_models.data.gql.dart';
 import 'package:aipictors/graphql/generation/__generated__/image_models.req.gql.dart';
-import 'package:aipictors/mutations/create_image_generation_task.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/providers/image_generation_provider.dart';
-import 'package:aipictors/providers/viewer_provider.dart';
+import 'package:aipictors/providers/viewer_image_generation_status_provider.dart';
 import 'package:aipictors/states/image_generation_state.dart';
-import 'package:aipictors/utils/active_image_generation.dart';
-import 'package:aipictors/utils/prompt_check.dart';
+import 'package:aipictors/utils/image_generation_task_creator.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
 import 'package:aipictors/widgets/container/error/unexpected_error_container.dart';
 import 'package:aipictors/widgets/container/generation/generation_sampler_picker.dart';
@@ -40,6 +39,13 @@ class GenerationScreen extends HookConsumerWidget {
     final imageGeneration = ref.watch(imageGenerationProvider);
 
     final imageGenerationNotifier = ref.read(imageGenerationProvider.notifier);
+
+    final ValueNotifier<GViewerImageGenerationStatusData?>
+        viewerImageGenerationStatus = useState(null);
+    ref
+        .watch(viewerImageGenerationStatusProvider.future)
+        .then((value) => viewerImageGenerationStatus.value = value);
+    print(viewerImageGenerationStatus.value);
 
     final ValueNotifier<GImageModelsData_imageModels?> selectedModel =
         useState(null);
@@ -164,10 +170,49 @@ class GenerationScreen extends HookConsumerWidget {
             ],
           ),
           bottomNavigationBar: FilledButton(
-            child: Text('生成する'.i18n),
-            onPressed: () {
-              onCreateTask(context, ref, imageGeneration);
-            },
+            onPressed: (viewerImageGenerationStatus.value == null)
+                ? null
+                : () async {
+                    await onCreateTask(context, ref, imageGeneration);
+                    viewerImageGenerationStatus.value = await ref
+                        .refresh(viewerImageGenerationStatusProvider.future);
+                  },
+            child: Text(
+              '生成する( _IN_PROGRESS_TASKS_ / _AVAILABLE_TASKS_ )'
+                  .i18n
+                  .replaceAllMapped(
+                    RegExp(r'_IN_PROGRESS_TASKS_'),
+                    (match) =>
+                        viewerImageGenerationStatus
+                            .value?.viewer?.inProgressImageGenerationTasksCount
+                            .toString() ??
+                        '0',
+                  )
+                  .replaceAllMapped(
+                RegExp(r'_AVAILABLE_TASKS_'),
+                (match) {
+                  // 最大生成可能枚数 - 現在生成中の枚数 - 本日生成済みの枚数 = 残りの生成可能枚数
+                  if (viewerImageGenerationStatus.value?.viewer
+                              ?.availableImageGenerationMaxTasksCount ==
+                          null ||
+                      viewerImageGenerationStatus.value?.viewer
+                              ?.inProgressImageGenerationTasksCost ==
+                          null ||
+                      viewerImageGenerationStatus.value?.viewer
+                              ?.remainingImageGenerationTasksCount ==
+                          null) {
+                    return '0';
+                  }
+                  return (viewerImageGenerationStatus.value!.viewer!
+                              .availableImageGenerationMaxTasksCount -
+                          viewerImageGenerationStatus.value!.viewer!
+                              .inProgressImageGenerationTasksCost -
+                          viewerImageGenerationStatus.value!.viewer!
+                              .remainingImageGenerationTasksCount)
+                      .toString();
+                },
+              ),
+            ),
           ),
         );
       }),
@@ -190,68 +235,6 @@ class GenerationScreen extends HookConsumerWidget {
   /// 生成する
   onCreateTask(BuildContext context, WidgetRef ref,
       ImageGenerationState imageGeneration) async {
-    final viewer = await ref.watch(viewerProvider.future);
-
-    // プロンプトの内容を確認する
-    final ngWords = await promptCheck(
-        imageGeneration.prompt,
-        imageGeneration.negativePrompt,
-        imageGeneration.model,
-        viewer!.viewer!.user.id);
-    // NGワードがあったら生成させない
-    if (ngWords['result'] != 'no_ng_words') {
-      if (ngWords['hit_negative_words'].isNotEmpty) {
-        // ignore: use_build_context_synchronously
-        ScaffoldMessenger.of(context)
-          ..hideCurrentSnackBar()
-          ..showSnackBar(
-            SnackBar(
-                content: Text(
-              'ネガティブプロンプトにNGワードがあります: "_NG_WORDS_"'.i18n.replaceAllMapped(
-                    RegExp(r'_NG_WORDS_'),
-                    (match) => ngWords['hit_negative_words'],
-                  ),
-            )),
-          );
-      }
-      if (ngWords['hit_words'].isNotEmpty) {
-        // ignore: use_build_context_synchronously
-        ScaffoldMessenger.of(context)
-          ..hideCurrentSnackBar()
-          ..showSnackBar(
-            SnackBar(
-                content: Text(
-              'プロンプトにNGワードがあります: "_NG_WORDS_"'.i18n.replaceAllMapped(
-                    RegExp(r'_NG_WORDS_'),
-                    (match) => ngWords['hit_words'],
-                  ),
-            )),
-          );
-      }
-      return;
-    }
-
-    await activeImageGeneration(viewer.viewer!.user.nanoid!);
-    createImageGenerationTask((builder) {
-      return builder
-        ..vars.input.count = imageGeneration.count
-        ..vars.input.type = imageGeneration.type
-        ..vars.input.model = imageGeneration.model
-        ..vars.input.vae = imageGeneration.vae
-        ..vars.input.prompt = imageGeneration.prompt
-        ..vars.input.negativePrompt = imageGeneration.negativePrompt
-        ..vars.input.seed = imageGeneration.seed.toDouble()
-        ..vars.input.steps = imageGeneration.steps
-        ..vars.input.scale = imageGeneration.scale
-        ..vars.input.sampler = imageGeneration.sampler
-        ..vars.input.sizeType = imageGeneration.sizeType;
-    });
-    await activeImageGeneration(viewer.viewer!.user.nanoid!);
-    // ignore: use_build_context_synchronously
-    ScaffoldMessenger.of(context)
-      ..hideCurrentSnackBar()
-      ..showSnackBar(
-        SnackBar(content: Text('タスクを作成しました'.i18n)),
-      );
+    await imageGenerationTaskCreator(context, ref, imageGeneration);
   }
 }
