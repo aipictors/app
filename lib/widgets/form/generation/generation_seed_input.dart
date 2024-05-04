@@ -54,6 +54,9 @@ class GenerationSeedInput extends HookConsumerWidget {
               }
               return null;
             },
+            onTapOutside: (event) {
+              focusNode.unfocus();
+            },
             decoration: InputDecoration(hintText: 'Seed'.i18n),
           ),
         ),

@@ -53,6 +53,9 @@ class GenerationScaleInput extends HookConsumerWidget {
               }
               return null;
             },
+            onTapOutside: (event) {
+              focusNode.unfocus();
+            },
             decoration: InputDecoration(hintText: 'Scale'.i18n),
           ),
         ),

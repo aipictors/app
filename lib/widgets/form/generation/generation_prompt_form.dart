@@ -50,6 +50,9 @@ class GenerationPromptInputField extends HookConsumerWidget {
           onChanged: (value) {
             onPromptChanged(value);
           },
+          onTapOutside: (event) {
+            promptFocusNode.unfocus();
+          },
           decoration: InputDecoration(
             hintText: 'プロンプト'.i18n,
             filled: true,
@@ -66,6 +69,9 @@ class GenerationPromptInputField extends HookConsumerWidget {
           maxLines: null,
           onChanged: (value) {
             onNegativePromptChanged(value);
+          },
+          onTapOutside: (event) {
+            negativePromptFocusNode.unfocus();
           },
           decoration: InputDecoration(
             hintText: 'ネガティブプロンプト'.i18n,
