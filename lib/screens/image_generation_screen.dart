@@ -27,8 +27,8 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// 画像生成
-class GenerationScreen extends HookConsumerWidget {
-  const GenerationScreen({
+class ImageGenerationScreen extends HookConsumerWidget {
+  const ImageGenerationScreen({
     super.key,
   });
 
@@ -45,8 +45,6 @@ class GenerationScreen extends HookConsumerWidget {
     ref
         .watch(viewerImageGenerationStatusProvider.future)
         .then((value) => viewerImageGenerationStatus.value = value);
-    print(viewerImageGenerationStatus.value);
-
     final ValueNotifier<GImageModelsData_imageModels?> selectedModel =
         useState(null);
     if (client.value == null) {
@@ -175,7 +173,7 @@ class GenerationScreen extends HookConsumerWidget {
                 : () async {
                     await onCreateTask(context, ref, imageGeneration);
                     viewerImageGenerationStatus.value = await ref
-                        .refresh(viewerImageGenerationStatusProvider.future);
+                        .watch(viewerImageGenerationStatusProvider.future);
                   },
             child: Text(
               '生成する( _IN_PROGRESS_TASKS_ / _AVAILABLE_TASKS_ )'
