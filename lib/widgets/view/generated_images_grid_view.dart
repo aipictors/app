@@ -10,7 +10,7 @@ import 'package:aipictors/widgets/image/grid_work_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-/// 探索・人気の作品
+/// 生成画像
 class GeneratedImagesGridView extends HookConsumerWidget {
   const GeneratedImagesGridView({
     super.key,
