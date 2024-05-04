@@ -16,13 +16,18 @@ class GenerationScaleInput extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
-    final scaleController =
-        useTextEditingController(text: currentScale.toString());
+    final controller = useTextEditingController(text: currentScale.toString());
+
+    final focusNode = useFocusNode();
+
     useEffect(() {
-      scaleController.text = currentScale.toString();
+      // 入力中にカーソルが最後尾へ移動しないように、入力欄にフォーカスがある時は何もしない
+      if (focusNode.hasFocus) {
+        return null;
+      }
+      controller.text = currentScale.toString();
       return null;
     }, [currentScale]);
-
     return Row(
       children: [
         Text(
@@ -31,11 +36,22 @@ class GenerationScaleInput extends HookConsumerWidget {
         ),
         const SizedBox(width: 8),
         Expanded(
-          child: TextField(
-            controller: scaleController,
+          child: TextFormField(
+            controller: controller,
+            focusNode: focusNode,
             keyboardType: TextInputType.number,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             onChanged: (value) {
+              if (value.isEmpty) {
+                return;
+              }
               onChanged(int.parse(value));
+            },
+            validator: (value) {
+              if (value == null || value == '') {
+                return 'Scaleは空にできません'.i18n;
+              }
+              return null;
             },
             decoration: InputDecoration(hintText: 'Scale'.i18n),
           ),

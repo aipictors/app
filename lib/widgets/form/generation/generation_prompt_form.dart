@@ -26,7 +26,16 @@ class GenerationPromptInputField extends HookConsumerWidget {
 
     final negativePromptController =
         useTextEditingController(text: initialNegativePrompt);
+
+    FocusNode promptFocusNode = useFocusNode();
+
+    FocusNode negativePromptFocusNode = useFocusNode();
+
     useEffect(() {
+      // 入力中にカーソルが最後尾へ移動しないように、入力欄にフォーカスがある時は何もしない
+      if (promptFocusNode.hasFocus || negativePromptFocusNode.hasFocus) {
+        return null;
+      }
       promptController.text = initialPrompt;
       negativePromptController.text = initialNegativePrompt;
       return null;
@@ -35,6 +44,7 @@ class GenerationPromptInputField extends HookConsumerWidget {
     return Column(
       children: [
         TextField(
+          focusNode: promptFocusNode,
           controller: promptController,
           maxLines: null,
           onChanged: (value) {
@@ -51,6 +61,7 @@ class GenerationPromptInputField extends HookConsumerWidget {
         ),
         const SizedBox(height: 16),
         TextField(
+          focusNode: negativePromptFocusNode,
           controller: negativePromptController,
           maxLines: null,
           onChanged: (value) {

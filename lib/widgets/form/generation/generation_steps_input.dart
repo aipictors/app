@@ -16,10 +16,15 @@ class GenerationStepsInput extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
-    final stepsController =
-        useTextEditingController(text: currentSteps.toString());
+    final controller = useTextEditingController(text: currentSteps.toString());
+
+    final focusNode = useFocusNode();
     useEffect(() {
-      stepsController.text = currentSteps.toString();
+      // 入力中にカーソルが最後尾へ移動しないように、入力欄にフォーカスがある時は何もしない
+      if (focusNode.hasFocus) {
+        return null;
+      }
+      controller.text = currentSteps.toString();
       return null;
     }, [currentSteps]);
 
@@ -32,14 +37,19 @@ class GenerationStepsInput extends HookConsumerWidget {
         const SizedBox(width: 8),
         Expanded(
           child: TextFormField(
-            controller: stepsController,
+            controller: controller,
+            focusNode: focusNode,
             keyboardType: TextInputType.number,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             onChanged: (value) {
+              if (value.isEmpty) {
+                return;
+              }
               onChanged(int.parse(value));
             },
             validator: (value) {
-              if (value == null) {
-                return 'Stepを空にすることはできません'.i18n;
+              if (value == null || value == '') {
+                return 'Stepは空にできません'.i18n;
               }
               if (int.parse(value) < 1 || 25 < int.parse(value)) {
                 return 'Stepは1から25の範囲内に設定してください'.i18n;

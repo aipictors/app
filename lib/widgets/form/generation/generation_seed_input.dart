@@ -16,10 +16,16 @@ class GenerationSeedInput extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
-    final seedController =
-        useTextEditingController(text: currentSeed.toString());
+    final controller = useTextEditingController(text: currentSeed.toString());
+
+    final focusNode = useFocusNode();
+
     useEffect(() {
-      seedController.text = currentSeed.toString();
+      // 入力中にカーソルが最後尾へ移動しないように、入力欄にフォーカスがある時は何もしない
+      if (focusNode.hasFocus) {
+        return null;
+      }
+      controller.text = currentSeed.toString();
       return null;
     }, [currentSeed]);
 
@@ -31,11 +37,22 @@ class GenerationSeedInput extends HookConsumerWidget {
         ),
         const SizedBox(width: 8),
         Expanded(
-          child: TextField(
-            controller: seedController,
+          child: TextFormField(
+            controller: controller,
+            focusNode: focusNode,
             keyboardType: TextInputType.number,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             onChanged: (value) {
+              if (value.isEmpty) {
+                return;
+              }
               onChanged(int.parse(value));
+            },
+            validator: (value) {
+              if (value == null || value == '') {
+                return 'Seedは空にできません'.i18n;
+              }
+              return null;
             },
             decoration: InputDecoration(hintText: 'Seed'.i18n),
           ),
