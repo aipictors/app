@@ -51,10 +51,6 @@ class RootScreen extends HookConsumerWidget {
 
     final ValueNotifier<GViewerUserData?> viewer = useState(null);
     ref.watch(viewerProvider.future).then((value) => viewer.value = value);
-    if (viewer.value != null) {
-      print('viewer: ${viewer.value!.viewer?.user.id}');
-    }
-    print('displayname: ${authState.value?.displayName}');
 
     // 初期化エラー
     if (config.isFailed) {
