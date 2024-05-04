@@ -27,8 +27,8 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// 画像生成
-class ImageGenerationScreen extends HookConsumerWidget {
-  const ImageGenerationScreen({
+class GenerationView extends HookConsumerWidget {
+  const GenerationView({
     super.key,
   });
 
@@ -78,9 +78,6 @@ class ImageGenerationScreen extends HookConsumerWidget {
         }
 
         return Scaffold(
-          appBar: AppBar(
-            title: Text('画像生成'.i18n),
-          ),
           body: ListView(
             children: [
               GenerationModelPicker(

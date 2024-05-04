@@ -27,7 +27,7 @@ import 'package:aipictors/screens/folder/folder_create_screen.dart';
 import 'package:aipictors/screens/folder/folder_report_screen.dart';
 import 'package:aipictors/screens/folder/folder_screen.dart';
 import 'package:aipictors/screens/folder/folder_update_screen.dart';
-import 'package:aipictors/screens/generation_task_screen.dart';
+import 'package:aipictors/screens/generation/generation_task_screen.dart';
 import 'package:aipictors/screens/guideline_screen.dart';
 import 'package:aipictors/screens/information/information_screen.dart';
 import 'package:aipictors/screens/information/promotion_screen.dart';
