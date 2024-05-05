@@ -1,4 +1,3 @@
-import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/enums/generation_model_version.dart';
 import 'package:aipictors/graphql/__generated__/viewer_image_generation_status.data.gql.dart';
 import 'package:aipictors/graphql/generation/__generated__/image_models.data.gql.dart';
@@ -9,6 +8,7 @@ import 'package:aipictors/providers/viewer_image_generation_status_provider.dart
 import 'package:aipictors/states/image_generation_state.dart';
 import 'package:aipictors/utils/image_generation_task_creator.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
+import 'package:aipictors/widgets/button/generation_button.dart';
 import 'package:aipictors/widgets/container/error/unexpected_error_container.dart';
 import 'package:aipictors/widgets/container/generation/generation_sampler_picker.dart';
 import 'package:aipictors/widgets/container/generation/generation_size_type_picker.dart';
@@ -78,138 +78,109 @@ class GenerationView extends HookConsumerWidget {
         }
 
         return Scaffold(
-          body: ListView(
-            children: [
-              GenerationModelPicker(
-                selectedModelName: imageGeneration.model,
-                onSelected: (String modelName) {
-                  imageGenerationNotifier.updateModel(modelName);
-                },
-                onShowMoreButtonPressed: () {
-                  onOpenModelPickerModal(context, (String modelName) {
+            body: ListView(
+              children: [
+                GenerationModelPicker(
+                  selectedModelName: imageGeneration.model,
+                  onSelected: (String modelName) {
                     imageGenerationNotifier.updateModel(modelName);
-                  });
-                },
-              ),
-              const SizedBox(height: 32),
-              GenerationPromptInputField(
-                initialPrompt: imageGeneration.prompt,
-                initialNegativePrompt: imageGeneration.negativePrompt,
-                onPromptChanged: (prompt) {
-                  imageGenerationNotifier.updatePrompt(prompt);
-                },
-                onNegativePromptChanged: (negativePrompt) {
-                  imageGenerationNotifier.updateNegativePrompt(negativePrompt);
-                },
-              ),
-              GenerationSizeTypePicker(
-                modelVersion:
-                    GenerationModelVersion.fromText(selectedModel.value!.type),
-                currentSizeType: imageGeneration.sizeType,
-                onSelected: (sizeType) {
-                  imageGenerationNotifier.updateSizeType(sizeType);
-                },
-              ),
-              const SizedBox(height: 8),
-              GenerationSeedInput(
-                currentSeed: imageGeneration.seed,
-                onChanged: (value) {
-                  imageGenerationNotifier.updateSeed(value);
-                },
-              ),
-              const SizedBox(height: 8),
-              Padding(
-                padding: const EdgeInsets.only(right: 48),
-                child: GenerationScaleInput(
-                  currentScale: imageGeneration.scale,
-                  onChanged: (value) {
-                    imageGenerationNotifier.updateScale(value);
+                  },
+                  onShowMoreButtonPressed: () {
+                    onOpenModelPickerModal(context, (String modelName) {
+                      imageGenerationNotifier.updateModel(modelName);
+                    });
                   },
                 ),
-              ),
-              const SizedBox(height: 8),
-              Padding(
-                padding: const EdgeInsets.only(right: 48),
-                child: GenerationStepsInput(
-                  currentSteps: imageGeneration.steps,
-                  onChanged: (value) {
-                    imageGenerationNotifier.updateSteps(value);
+                const SizedBox(height: 32),
+                GenerationPromptInputField(
+                  initialPrompt: imageGeneration.prompt,
+                  initialNegativePrompt: imageGeneration.negativePrompt,
+                  onPromptChanged: (prompt) {
+                    imageGenerationNotifier.updatePrompt(prompt);
+                  },
+                  onNegativePromptChanged: (negativePrompt) {
+                    imageGenerationNotifier
+                        .updateNegativePrompt(negativePrompt);
                   },
                 ),
-              ),
-              const SizedBox(height: 8),
-              Padding(
-                padding: const EdgeInsets.only(right: 48),
-                child: GenerationSamplerPicker(
-                  currentSampler: imageGeneration.sampler,
-                  onSelected: (value) {
-                    imageGenerationNotifier.updateSampler(value);
-                  },
-                ),
-              ),
-              const SizedBox(height: 8),
-              Padding(
-                padding: const EdgeInsets.only(right: 48),
-                child: GenerationVaePicker(
+                GenerationSizeTypePicker(
                   modelVersion: GenerationModelVersion.fromText(
                       selectedModel.value!.type),
-                  currentVae: imageGeneration.vae,
-                  onSelected: (value) {
-                    imageGenerationNotifier.updateVae(value);
+                  currentSizeType: imageGeneration.sizeType,
+                  onSelected: (sizeType) {
+                    imageGenerationNotifier.updateSizeType(sizeType);
                   },
                 ),
-              ),
-              GeneratedImagesGridView(onTap: (String nanoId) {
-                context.push('/generation/tasks/$nanoId');
-              }),
-            ],
-          ),
-          bottomNavigationBar: FilledButton(
-            onPressed: (viewerImageGenerationStatus.value == null)
-                ? null
-                : () async {
-                    await onCreateTask(context, ref, imageGeneration);
-                    viewerImageGenerationStatus.value = await ref
-                        .watch(viewerImageGenerationStatusProvider.future);
+                const SizedBox(height: 8),
+                GenerationSeedInput(
+                  currentSeed: imageGeneration.seed,
+                  onChanged: (value) {
+                    imageGenerationNotifier.updateSeed(value);
                   },
-            child: Text(
-              '生成する( _IN_PROGRESS_TASKS_ / _AVAILABLE_TASKS_ )'
-                  .i18n
-                  .replaceAllMapped(
-                    RegExp(r'_IN_PROGRESS_TASKS_'),
-                    (match) =>
-                        viewerImageGenerationStatus
-                            .value?.viewer?.inProgressImageGenerationTasksCount
-                            .toString() ??
-                        '0',
-                  )
-                  .replaceAllMapped(
-                RegExp(r'_AVAILABLE_TASKS_'),
-                (match) {
-                  // 最大生成可能枚数 - 現在生成中の枚数 - 本日生成済みの枚数 = 残りの生成可能枚数
-                  if (viewerImageGenerationStatus.value?.viewer
-                              ?.availableImageGenerationMaxTasksCount ==
-                          null ||
-                      viewerImageGenerationStatus.value?.viewer
-                              ?.inProgressImageGenerationTasksCost ==
-                          null ||
-                      viewerImageGenerationStatus.value?.viewer
-                              ?.remainingImageGenerationTasksCount ==
-                          null) {
-                    return '0';
-                  }
-                  return (viewerImageGenerationStatus.value!.viewer!
-                              .availableImageGenerationMaxTasksCount -
-                          viewerImageGenerationStatus.value!.viewer!
-                              .inProgressImageGenerationTasksCost -
-                          viewerImageGenerationStatus.value!.viewer!
-                              .remainingImageGenerationTasksCount)
-                      .toString();
-                },
-              ),
+                ),
+                const SizedBox(height: 8),
+                Padding(
+                  padding: const EdgeInsets.only(right: 48),
+                  child: GenerationScaleInput(
+                    currentScale: imageGeneration.scale,
+                    onChanged: (value) {
+                      imageGenerationNotifier.updateScale(value);
+                    },
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Padding(
+                  padding: const EdgeInsets.only(right: 48),
+                  child: GenerationStepsInput(
+                    currentSteps: imageGeneration.steps,
+                    onChanged: (value) {
+                      imageGenerationNotifier.updateSteps(value);
+                    },
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Padding(
+                  padding: const EdgeInsets.only(right: 48),
+                  child: GenerationSamplerPicker(
+                    currentSampler: imageGeneration.sampler,
+                    onSelected: (value) {
+                      imageGenerationNotifier.updateSampler(value);
+                    },
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Padding(
+                  padding: const EdgeInsets.only(right: 48),
+                  child: GenerationVaePicker(
+                    modelVersion: GenerationModelVersion.fromText(
+                        selectedModel.value!.type),
+                    currentVae: imageGeneration.vae,
+                    onSelected: (value) {
+                      imageGenerationNotifier.updateVae(value);
+                    },
+                  ),
+                ),
+                GeneratedImagesGridView(onTap: (String nanoId) {
+                  context.push('/generation/tasks/$nanoId');
+                }),
+              ],
             ),
-          ),
-        );
+            bottomNavigationBar: (viewerImageGenerationStatus.value != null)
+                ? GenerationButton(
+                    viewerImageGenerationStatus:
+                        viewerImageGenerationStatus.value!,
+                    onPressed: () async {
+                      await onCreateTask(context, ref, imageGeneration);
+                      viewerImageGenerationStatus.value = await ref
+                          .watch(viewerImageGenerationStatusProvider.future);
+                    },
+                  )
+                : const FilledButton(
+                    onPressed: null,
+                    child: SizedBox(
+                        width: 16,
+                        height: 16,
+                        child: CircularProgressIndicator())));
       }),
     );
   }
