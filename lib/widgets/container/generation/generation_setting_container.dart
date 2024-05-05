@@ -6,11 +6,14 @@ class GenerationSettingContainer extends HookConsumerWidget {
     super.key,
     required this.name,
     required this.value,
+    this.onPressed,
   });
 
   final String name;
 
   final String value;
+
+  final Function()? onPressed;
 
   @override
   Widget build(context, ref) {
@@ -25,7 +28,7 @@ class GenerationSettingContainer extends HookConsumerWidget {
           child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: OutlinedButton(
-              onPressed: () {},
+              onPressed: onPressed,
               style: OutlinedButton.styleFrom(
                 textStyle: const TextStyle(fontWeight: FontWeight.normal),
                 foregroundColor: Theme.of(context).colorScheme.inverseSurface,

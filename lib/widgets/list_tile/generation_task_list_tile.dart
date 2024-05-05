@@ -1,6 +1,7 @@
 import 'package:aipictors/__generated__/schema.schema.gql.dart';
 import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/graphql/generation/__generated__/viewer_image_generation_tasks.data.gql.dart';
+import 'package:aipictors/providers/image_generation_provider.dart';
 import 'package:aipictors/utils/to_generation_size_type_text.dart';
 import 'package:aipictors/widgets/container/generation/generation_setting_container.dart';
 import 'package:aipictors/widgets/image/feed_image.dart';
@@ -48,6 +49,7 @@ class GenerationTaskListTile extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
+    final imageGenerationNotifier = ref.read(imageGenerationProvider.notifier);
     return ListTile(
       onTap: () {
         context.push('/generation/tasks/$taskNanoId');
@@ -99,13 +101,41 @@ class GenerationTaskListTile extends HookConsumerWidget {
           ),
         ),
         const SizedBox(height: 4),
-        GenerationSettingContainer(name: 'モデル'.i18n, value: model.name),
+        GenerationSettingContainer(
+          name: 'モデル'.i18n,
+          value: model.name,
+          onPressed: () {
+            imageGenerationNotifier.updateModel(model.name);
+            showSnackBar(context, 'モデルを設定しました'.i18n);
+          },
+        ),
         const SizedBox(height: 4),
         GenerationSettingContainer(
-            name: 'サイズ'.i18n, value: toGenerationSizeTypeText(sizeType)),
+          name: 'サイズ'.i18n,
+          value: toGenerationSizeTypeText(sizeType),
+          onPressed: () {
+            imageGenerationNotifier.updateSizeType(sizeType);
+            showSnackBar(context, 'サイズを設定しました'.i18n);
+          },
+        ),
         const SizedBox(height: 4),
-        GenerationSettingContainer(name: 'Seed'.i18n, value: seed.toString()),
+        GenerationSettingContainer(
+          name: 'Seed'.i18n,
+          value: seed.toString(),
+          onPressed: () {
+            imageGenerationNotifier.updateSeed(seed);
+            showSnackBar(context, 'Seedを設定しました'.i18n);
+          },
+        ),
       ]),
     );
+  }
+
+  void showSnackBar(BuildContext context, String text) {
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(
+        SnackBar(content: Text(text)),
+      );
   }
 }

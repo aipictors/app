@@ -99,26 +99,72 @@ class GenerationTaskScreen extends HookConsumerWidget {
                     ),
                     const SizedBox(height: 8),
                     GenerationSettingContainer(
-                        name: 'モデル'.i18n, value: task.model.name),
+                      name: 'モデル'.i18n,
+                      value: task.model.name,
+                      onPressed: () {
+                        imageGenerationNotifier.updateModel(task.model.name);
+                        showSnackBar(context, 'モデルを設定しました'.i18n);
+                      },
+                    ),
                     const SizedBox(height: 8),
                     GenerationSettingContainer(
-                        name: 'サイズ'.i18n,
-                        value: toGenerationSizeTypeText(task.sizeType)),
+                      name: 'サイズ'.i18n,
+                      value: toGenerationSizeTypeText(task.sizeType),
+                      onPressed: () {
+                        imageGenerationNotifier.updateSizeType(task.sizeType);
+                        showSnackBar(context, 'サイズを設定しました'.i18n);
+                      },
+                    ),
                     const SizedBox(height: 8),
                     GenerationSettingContainer(
-                        name: 'Seed'.i18n, value: task.seed.toInt().toString()),
+                      name: 'Seed'.i18n,
+                      value: task.seed.toInt().toString(),
+                      onPressed: () {
+                        imageGenerationNotifier.updateSeed(task.seed.toInt());
+                        showSnackBar(context, 'Seedを設定しました'.i18n);
+                      },
+                    ),
                     const SizedBox(height: 8),
                     GenerationSettingContainer(
-                        name: 'Steps'.i18n, value: task.steps.toString()),
+                      name: 'Steps'.i18n,
+                      value: task.steps.toString(),
+                      onPressed: () {
+                        imageGenerationNotifier.updateSteps(task.steps);
+                        showSnackBar(context, 'Stepsを設定しました'.i18n);
+                      },
+                    ),
                     const SizedBox(height: 8),
                     GenerationSettingContainer(
-                        name: 'Scale'.i18n, value: task.scale.toString()),
+                      name: 'Scale'.i18n,
+                      value: task.scale.toString(),
+                      onPressed: () {
+                        imageGenerationNotifier.updateScale(task.scale);
+                        showSnackBar(context, 'Scaleを設定しました'.i18n);
+                      },
+                    ),
                     const SizedBox(height: 8),
                     GenerationSettingContainer(
-                        name: 'Sampler'.i18n, value: task.sampler.toString()),
+                      name: 'Sampler'.i18n,
+                      value: task.sampler.toString(),
+                      onPressed: () {
+                        imageGenerationNotifier.updateSampler(task.sampler);
+                        showSnackBar(context, 'Samplerを設定しました'.i18n);
+                      },
+                    ),
                     const SizedBox(height: 8),
                     GenerationSettingContainer(
-                        name: 'VAE'.i18n, value: task.vae.toString()),
+                      name: 'VAE'.i18n,
+                      value: task.vae.toString(),
+                      onPressed: () {
+                        if (task.vae != 'None') {
+                          imageGenerationNotifier
+                              .updateVae(task.vae!.split('.')[0]);
+                        } else {
+                          imageGenerationNotifier.updateVae(task.vae!);
+                        }
+                        showSnackBar(context, 'VAEを設定しました'.i18n);
+                      },
+                    ),
                   ],
                 ),
               ),
@@ -145,5 +191,13 @@ class GenerationTaskScreen extends HookConsumerWidget {
         );
       },
     );
+  }
+
+  void showSnackBar(BuildContext context, String text) {
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(
+        SnackBar(content: Text(text)),
+      );
   }
 }
