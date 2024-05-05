@@ -1,29 +1,16 @@
-import 'package:aipictors/default.i18n.dart';
-import 'package:aipictors/enums/generation_model_version.dart';
 import 'package:aipictors/graphql/__generated__/viewer_image_generation_status.data.gql.dart';
-import 'package:aipictors/graphql/generation/__generated__/image_models.data.gql.dart';
-import 'package:aipictors/graphql/generation/__generated__/image_models.req.gql.dart';
 import 'package:aipictors/graphql/generation/__generated__/viewer_image_generation_tasks.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/providers/config_provider.dart';
-import 'package:aipictors/providers/image_generation_provider.dart';
 import 'package:aipictors/providers/viewer_image_generation_status_provider.dart';
 import 'package:aipictors/screens/loading_screen.dart';
 import 'package:aipictors/states/image_generation_state.dart';
 import 'package:aipictors/utils/image_generation_task_creator.dart';
+import 'package:aipictors/utils/to_generation_image_url.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
-import 'package:aipictors/widgets/container/error/unexpected_error_container.dart';
-import 'package:aipictors/widgets/container/generation/generation_sampler_picker.dart';
-import 'package:aipictors/widgets/container/generation/generation_size_type_picker.dart';
-import 'package:aipictors/widgets/container/generation/generation_model_picker.dart';
 import 'package:aipictors/widgets/container/generation/generation_model_picker_modal.dart';
-import 'package:aipictors/widgets/form/generation/generation_prompt_form.dart';
-import 'package:aipictors/widgets/container/generation/generation_vae_picker.dart';
 import 'package:aipictors/widgets/container/loading_container.dart';
-import 'package:aipictors/widgets/form/generation/generation_scale_input.dart';
-import 'package:aipictors/widgets/form/generation/generation_seed_input.dart';
-import 'package:aipictors/widgets/form/generation/generation_steps_input.dart';
-import 'package:aipictors/widgets/view/generated_images_grid_view.dart';
+import 'package:aipictors/widgets/list_tile/generation_task_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -37,10 +24,6 @@ class GenerationTasksView extends HookConsumerWidget {
   @override
   Widget build(context, ref) {
     final client = ref.watch(clientProvider);
-
-    final imageGeneration = ref.watch(imageGenerationProvider);
-
-    final imageGenerationNotifier = ref.read(imageGenerationProvider.notifier);
 
     final config = ref.watch(configProvider);
 
@@ -67,10 +50,29 @@ class GenerationTasksView extends HookConsumerWidget {
         if (taskList == null) {
           return const LoadingScreen();
         }
-        return ListView.builder(
+        return ListView.separated(
+            shrinkWrap: true,
+            separatorBuilder: (context, index) {
+              return const Column(
+                children: [Divider(height: 4), SizedBox(height: 4)],
+              );
+            },
             itemCount: taskList.length,
             itemBuilder: (context, index) {
-              return Text('開発中');
+              return GenerationTaskListTile(
+                taskNanoId: taskList[index].nanoid!,
+                imageUrl: toGenerationImageUrl(
+                    taskList[index].token!, taskList[index].imageFileName!),
+                model: taskList[index].model,
+                prompt: taskList[index].prompt,
+                negativePrompt: taskList[index].negativePrompt,
+                seed: taskList[index].seed.toInt(),
+                steps: taskList[index].steps,
+                scale: taskList[index].scale,
+                sampler: taskList[index].sampler,
+                sizeType: taskList[index].sizeType,
+                vae: taskList[index].vae!,
+              );
             });
       },
     );

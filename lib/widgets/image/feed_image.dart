@@ -8,6 +8,7 @@ class FeedImage extends HookConsumerWidget {
     super.key,
     required this.imageURL,
     required this.imageAspectRatio,
+    this.headers,
   });
 
   final String? imageURL;
@@ -15,6 +16,8 @@ class FeedImage extends HookConsumerWidget {
   final double imageAspectRatio;
 
   final double height = 240;
+
+  final Map<String, String>? headers;
 
   @override
   Widget build(context, ref) {
@@ -41,6 +44,7 @@ class FeedImage extends HookConsumerWidget {
               imageUrl: imageURL!,
               fit: BoxFit.cover,
               width: double.infinity,
+              httpHeaders: headers,
               progressIndicatorBuilder: (context, url, downloadProgress) {
                 return Container(
                   width: double.infinity,
