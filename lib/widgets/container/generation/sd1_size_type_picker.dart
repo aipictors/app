@@ -1,5 +1,5 @@
 import 'package:aipictors/__generated__/schema.schema.gql.dart';
-import 'package:aipictors/default.i18n.dart';
+import 'package:aipictors/utils/to_generation_size_type_text.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -16,29 +16,21 @@ class SD1SizeTypePicker extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
+    const values = [
+      GImageGenerationSizeType.SD1_512_512,
+      GImageGenerationSizeType.SD1_512_768,
+      GImageGenerationSizeType.SD1_768_512,
+      GImageGenerationSizeType.SD1_384_960,
+      GImageGenerationSizeType.SD1_960_384
+    ];
     return DropdownButton(
         value: currentValue,
         items: [
-          DropdownMenuItem(
-            value: GImageGenerationSizeType.SD1_512_512,
-            child: Text('【正方形】768x768(upscale:1.5)'.i18n),
-          ),
-          DropdownMenuItem(
-            value: GImageGenerationSizeType.SD1_512_768,
-            child: Text('【縦長】768x1152(upscale:1.5)'.i18n),
-          ),
-          DropdownMenuItem(
-            value: GImageGenerationSizeType.SD1_768_512,
-            child: Text('【横長】1152x768(upscale:1.5)'.i18n),
-          ),
-          DropdownMenuItem(
-            value: GImageGenerationSizeType.SD1_384_960,
-            child: Text('【超縦長】576x1440(upscale:1.5)'.i18n),
-          ),
-          DropdownMenuItem(
-            value: GImageGenerationSizeType.SD1_960_384,
-            child: Text('【超横長】1440x576(upscale:1.5)'.i18n),
-          ),
+          for (final value in values)
+            DropdownMenuItem(
+              value: value,
+              child: Text(toGenerationSizeTypeText(value)),
+            ),
         ],
         onChanged: (value) {
           onSelected(value as GImageGenerationSizeType);
