@@ -636,6 +636,13 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GViewerAlbumsData_viewer_albums_thumbnailImage.serializer)
       ..add(GViewerAlbumsReq.serializer)
       ..add(GViewerAlbumsVars.serializer)
+      ..add(GViewerFavoritedImageGenerationModelsData.serializer)
+      ..add(GViewerFavoritedImageGenerationModelsData_viewer.serializer)
+      ..add(
+          GViewerFavoritedImageGenerationModelsData_viewer_favoritedImageGenerationModels
+              .serializer)
+      ..add(GViewerFavoritedImageGenerationModelsReq.serializer)
+      ..add(GViewerFavoritedImageGenerationModelsVars.serializer)
       ..add(GViewerFeedWorksData.serializer)
       ..add(GViewerFeedWorksData_viewer.serializer)
       ..add(GViewerFeedWorksData_viewer_feedWorks.serializer)
@@ -985,6 +992,13 @@ Serializers _$serializers = (new Serializers().toBuilder()
           const FullType(BuiltList,
               const [const FullType(GViewerAlbumsData_viewer_albums)]),
           () => new ListBuilder<GViewerAlbumsData_viewer_albums>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [
+            const FullType(
+                GViewerFavoritedImageGenerationModelsData_viewer_favoritedImageGenerationModels)
+          ]),
+          () => new ListBuilder<
+              GViewerFavoritedImageGenerationModelsData_viewer_favoritedImageGenerationModels>())
       ..addBuilderFactory(
           const FullType(BuiltList,
               const [const FullType(GViewerFeedWorksData_viewer_feedWorks)]),

@@ -10,9 +10,10 @@ import 'package:aipictors/utils/image_generation_task_creator.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
 import 'package:aipictors/widgets/button/generation_button.dart';
 import 'package:aipictors/widgets/container/error/unexpected_error_container.dart';
+import 'package:aipictors/widgets/container/generation/generation_liked_model_picker_modal.dart';
+import 'package:aipictors/widgets/container/generation/generation_model_picker_tab.dart';
 import 'package:aipictors/widgets/container/generation/generation_sampler_picker.dart';
 import 'package:aipictors/widgets/container/generation/generation_size_type_picker.dart';
-import 'package:aipictors/widgets/container/generation/generation_model_picker.dart';
 import 'package:aipictors/widgets/container/generation/generation_model_picker_modal.dart';
 import 'package:aipictors/widgets/form/generation/generation_prompt_form.dart';
 import 'package:aipictors/widgets/container/generation/generation_vae_picker.dart';
@@ -21,6 +22,7 @@ import 'package:aipictors/widgets/form/generation/generation_scale_input.dart';
 import 'package:aipictors/widgets/form/generation/generation_seed_input.dart';
 import 'package:aipictors/widgets/form/generation/generation_steps_input.dart';
 import 'package:aipictors/widgets/view/generated_images_grid_view.dart';
+import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
@@ -83,9 +85,9 @@ class GenerationView extends HookConsumerWidget {
         return Scaffold(
             body: ListView(
               children: [
-                GenerationModelPicker(
+                GenerationModelPickerTab(
+                  models: models,
                   selectedModelName: imageGeneration.model,
-                  prevSelectedModelName: prevSelectedModelName.value,
                   onSelected: (String modelName, String prevSelectedModel) {
                     imageGenerationNotifier.updateModel(modelName);
                     prevSelectedModelName.value = prevSelectedModel;
@@ -95,6 +97,13 @@ class GenerationView extends HookConsumerWidget {
                       imageGenerationNotifier.updateModel(modelName);
                     });
                   },
+                  onShowMoreLikedModelsButtonPressed: () {
+                    onOpenLikedModelPickerModal(context, models,
+                        (String modelName) {
+                      imageGenerationNotifier.updateModel(modelName);
+                    });
+                  },
+                  prevSelectedModelName: prevSelectedModelName.value,
                 ),
                 const SizedBox(height: 32),
                 GenerationPromptInputField(
@@ -199,6 +208,22 @@ class GenerationView extends HookConsumerWidget {
         showDragHandle: true,
         builder: (context) {
           return GenerationModelPickerModal(
+              onSelected: (String modelName) => onSelected(modelName));
+        });
+  }
+
+  /// お気に入りモデルピッカーを開く
+  onOpenLikedModelPickerModal(
+      BuildContext context,
+      final BuiltList<GImageModelsData_imageModels> models,
+      Function(String modelName) onSelected) {
+    showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        showDragHandle: true,
+        builder: (context) {
+          return GenerationLikedModelPickerModal(
+              models: models,
               onSelected: (String modelName) => onSelected(modelName));
         });
   }

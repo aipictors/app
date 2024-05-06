@@ -857,6 +857,15 @@ import 'package:aipictors/graphql/generation/__generated__/image_models.req.gql.
     show GImageModelsReq;
 import 'package:aipictors/graphql/generation/__generated__/image_models.var.gql.dart'
     show GImageModelsVars;
+import 'package:aipictors/graphql/generation/__generated__/viewer_favorited_models.data.gql.dart'
+    show
+        GViewerFavoritedImageGenerationModelsData,
+        GViewerFavoritedImageGenerationModelsData_viewer,
+        GViewerFavoritedImageGenerationModelsData_viewer_favoritedImageGenerationModels;
+import 'package:aipictors/graphql/generation/__generated__/viewer_favorited_models.req.gql.dart'
+    show GViewerFavoritedImageGenerationModelsReq;
+import 'package:aipictors/graphql/generation/__generated__/viewer_favorited_models.var.gql.dart'
+    show GViewerFavoritedImageGenerationModelsVars;
 import 'package:aipictors/graphql/generation/__generated__/viewer_image_generation_task.data.gql.dart'
     show
         GViewerImageGenerationTaskData,
@@ -1765,6 +1774,11 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GViewerAlbumsData_viewer_albums_thumbnailImage,
   GViewerAlbumsReq,
   GViewerAlbumsVars,
+  GViewerFavoritedImageGenerationModelsData,
+  GViewerFavoritedImageGenerationModelsData_viewer,
+  GViewerFavoritedImageGenerationModelsData_viewer_favoritedImageGenerationModels,
+  GViewerFavoritedImageGenerationModelsReq,
+  GViewerFavoritedImageGenerationModelsVars,
   GViewerFeedWorksData,
   GViewerFeedWorksData_viewer,
   GViewerFeedWorksData_viewer_feedWorks,
