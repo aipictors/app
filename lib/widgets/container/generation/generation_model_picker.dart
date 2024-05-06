@@ -15,11 +15,14 @@ class GenerationModelPicker extends HookConsumerWidget {
     required this.selectedModelName,
     required this.onSelected,
     required this.onShowMoreButtonPressed,
+    this.prevSelectedModelName,
   });
 
   final String selectedModelName;
 
-  final Function(String modelName) onSelected;
+  final String? prevSelectedModelName;
+
+  final Function(String modelName, String prevSelectedModel) onSelected;
 
   final VoidCallback onShowMoreButtonPressed;
 
@@ -33,6 +36,8 @@ class GenerationModelPicker extends HookConsumerWidget {
 
     GImageModelsData_imageModels? selectedModel;
 
+    GImageModelsData_imageModels? prevSelectedModel;
+
     return Container(
         color: Theme.of(context).colorScheme.surfaceVariant,
         child: Column(
@@ -42,47 +47,58 @@ class GenerationModelPicker extends HookConsumerWidget {
                 operationRequest: GImageModelsReq(),
                 builder: (context, response) {
                   final models = response.data!.imageModels;
+                  if (models.any(
+                    (p0) => p0.name == selectedModelName,
+                  )) {
+                    selectedModel = models
+                        .singleWhere((p0) => p0.name == selectedModelName);
+                  }
+                  if (models.any(
+                    (p0) => p0.name == prevSelectedModelName,
+                  )) {
+                    prevSelectedModel = models
+                        .singleWhere((p0) => p0.name == prevSelectedModelName);
+                  }
 
-                  selectedModel =
-                      models.singleWhere((p0) => p0.name == selectedModelName);
-                  // 選択中のモデル以外にも、2つのモデルを表示する
-                  final topModels = models
-                      .where((p0) => p0.name != selectedModelName)
-                      .toList()
-                      .sublist(0, 2);
+                  // 選択中のモデルを含む合計3つのモデルを表示する
+                  List<GImageModelsData_imageModels> topModels =
+                      models.sublist(0, 3).toList();
+
+                  // 選択中のモデルがtopModelsにあり、以前選択されたモデルが指定されているがtopModelsにない場合、最下部に表示する
+                  if (prevSelectedModel != null &&
+                      topModels.any(
+                          (element) => element.name == selectedModelName) &&
+                      topModels.any((element) =>
+                              element.name == prevSelectedModelName) ==
+                          false) {
+                    topModels[2] = prevSelectedModel!;
+                    // 選択中のモデルがあり、topModelsに含まれていない場合は選択中のモデルを最下部に表示する
+                  } else if (selectedModel != null &&
+                      topModels.any(
+                              (element) => element.name == selectedModelName) ==
+                          false) {
+                    topModels[2] = selectedModel!;
+                  }
 
                   return Column(
                     children: [
-                      if (selectedModel != null)
-                        Container(
-                            color: Theme.of(context).colorScheme.inversePrimary,
-                            child: WorkInfoListTile(
-                              thumbnailImageURL:
-                                  selectedModel!.thumbnailImageURL ?? '',
-                              title: selectedModel!.displayName,
-                              body: Row(children: [
-                                Text(toModelCategoryText(
-                                    selectedModel!.category)),
-                                const SizedBox(width: 16),
-                                Text(selectedModel!.type),
-                              ]),
-                              onTap: () {
-                                onSelected(selectedModel!.name);
-                              },
-                            )),
                       for (final model in topModels)
-                        WorkInfoListTile(
-                          thumbnailImageURL: model.thumbnailImageURL ?? '',
-                          title: model.displayName,
-                          body: Row(children: [
-                            Text(toModelCategoryText(model.category)),
-                            const SizedBox(width: 16),
-                            Text(model.type),
-                          ]),
-                          onTap: () {
-                            print(model.prompts);
-                            onSelected(model.name);
-                          },
+                        Container(
+                          color: (model == selectedModel)
+                              ? Theme.of(context).colorScheme.inversePrimary
+                              : null,
+                          child: WorkInfoListTile(
+                            thumbnailImageURL: model.thumbnailImageURL ?? '',
+                            title: model.displayName,
+                            body: Row(children: [
+                              Text(toModelCategoryText(model.category)),
+                              const SizedBox(width: 16),
+                              Text(model.type),
+                            ]),
+                            onTap: () {
+                              onSelected(model.name, topModels[2].name);
+                            },
+                          ),
                         ),
                       OutlinedButton(
                         child: Text('もっとみる'.i18n),

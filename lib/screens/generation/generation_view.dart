@@ -47,6 +47,9 @@ class GenerationView extends HookConsumerWidget {
         .then((value) => viewerImageGenerationStatus.value = value);
     final ValueNotifier<GImageModelsData_imageModels?> selectedModel =
         useState(null);
+
+    final ValueNotifier<String?> prevSelectedModelName = useState(null);
+
     if (client.value == null) {
       return const LoadingContainer();
     }
@@ -82,8 +85,10 @@ class GenerationView extends HookConsumerWidget {
               children: [
                 GenerationModelPicker(
                   selectedModelName: imageGeneration.model,
-                  onSelected: (String modelName) {
+                  prevSelectedModelName: prevSelectedModelName.value,
+                  onSelected: (String modelName, String prevSelectedModel) {
                     imageGenerationNotifier.updateModel(modelName);
+                    prevSelectedModelName.value = prevSelectedModel;
                   },
                   onShowMoreButtonPressed: () {
                     onOpenModelPickerModal(context, (String modelName) {
