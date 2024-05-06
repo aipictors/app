@@ -4,6 +4,7 @@ import 'package:aipictors/graphql/generation/__generated__/viewer_image_generati
 import 'package:aipictors/providers/image_generation_provider.dart';
 import 'package:aipictors/utils/to_generation_size_type_text.dart';
 import 'package:aipictors/widgets/container/generation/generation_setting_container.dart';
+import 'package:aipictors/widgets/container/generation/prompts_container.dart';
 import 'package:aipictors/widgets/image/feed_image.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -49,7 +50,10 @@ class GenerationTaskListTile extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
+    final imageGeneration = ref.watch(imageGenerationProvider);
+
     final imageGenerationNotifier = ref.read(imageGenerationProvider.notifier);
+
     return ListTile(
       onTap: () {
         context.push('/generation/tasks/$taskNanoId');
@@ -79,27 +83,35 @@ class GenerationTaskListTile extends HookConsumerWidget {
           'プロンプト'.i18n,
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
-        TextFormField(
-          readOnly: true,
-          initialValue: prompt,
-          maxLines: null,
-          decoration: InputDecoration(
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
-          ),
-        ),
+        PromptsContainer(
+            prompts: prompt,
+            onPressed: (String prompt) {
+              imageGenerationNotifier
+                  .updatePrompt('${imageGeneration.prompt}, $prompt');
+              showSnackBar(
+                  context,
+                  'プロンプトに _PROMPT_ を追加しました'.i18n.replaceAllMapped(
+                        RegExp(r'_PROMPT_'),
+                        (match) => prompt,
+                      ));
+            }),
         const SizedBox(height: 4),
         Text(
           'ネガティブプロンプト'.i18n,
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
-        TextFormField(
-          readOnly: true,
-          initialValue: negativePrompt,
-          maxLines: null,
-          decoration: InputDecoration(
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
-          ),
-        ),
+        PromptsContainer(
+            prompts: negativePrompt,
+            onPressed: (String negativePrompt) {
+              imageGenerationNotifier.updateNegativePrompt(
+                  '${imageGeneration.negativePrompt}, $negativePrompt');
+              showSnackBar(
+                  context,
+                  'ネガティブプロンプトに _NEGATIVE_PROMPT_ を追加しました'.i18n.replaceAllMapped(
+                        RegExp(r'_NEGATIVE_PROMPT_'),
+                        (match) => negativePrompt,
+                      ));
+            }),
         const SizedBox(height: 4),
         GenerationSettingContainer(
           name: 'モデル'.i18n,
