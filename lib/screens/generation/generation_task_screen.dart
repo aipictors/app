@@ -73,6 +73,10 @@ class GenerationTaskScreen extends HookConsumerWidget {
                       },
                     ),
                     const SizedBox(height: 8),
+                    Text(
+                      'プロンプト'.i18n,
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    ),
                     PromptsContainer(
                         prompts: task.prompt,
                         onPressed: (String prompt) {
