@@ -1,5 +1,7 @@
 import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/graphql/generation/__generated__/viewer_image_generation_task.req.gql.dart';
+import 'package:aipictors/mutations/update_protected_image_generation_task.dart';
+import 'package:aipictors/mutations/update_rating_image_generation_task.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/providers/image_generation_provider.dart';
 import 'package:aipictors/screens/error/data_not_found_error_screen.dart';
@@ -8,6 +10,7 @@ import 'package:aipictors/screens/loading_screen.dart';
 import 'package:aipictors/utils/to_generation_image_url.dart';
 import 'package:aipictors/utils/to_generation_size_type_text.dart';
 import 'package:aipictors/widgets/builder/operation_screen_builder.dart';
+import 'package:aipictors/widgets/container/generation/generation_rating_container.dart';
 import 'package:aipictors/widgets/container/generation/generation_setting_container.dart';
 import 'package:aipictors/widgets/container/generation/prompts_container.dart';
 import 'package:aipictors/widgets/image/interactive_work_image.dart';
@@ -70,6 +73,14 @@ class GenerationTaskScreen extends HookConsumerWidget {
                           task.token!, task.imageFileName!),
                       headers: const {
                         'Referer': 'https://beta.aipictors.com/',
+                      },
+                    ),
+                    const SizedBox(height: 8),
+                    GenerationRatingContainer(
+                      currentRating: task.rating!,
+                      onPressed: (int rating) {
+                        onRating(context, task.nanoid!,
+                            (task.rating != rating) ? rating : 0);
                       },
                     ),
                     const SizedBox(height: 8),
@@ -210,5 +221,21 @@ class GenerationTaskScreen extends HookConsumerWidget {
       ..showSnackBar(
         SnackBar(content: Text(text)),
       );
+  }
+
+  onRating(BuildContext context, String nanoId, int rating) {
+    updateRatingImageGenerationTask((builder) {
+      return builder
+        ..vars.input.nanoid = nanoId
+        ..vars.input.rating = rating;
+    });
+  }
+
+  onProtect(BuildContext context, String nanoId, bool isProtected) {
+    updateProtectedImageGenerationTask((builder) {
+      return builder
+        ..vars.input.nanoid = nanoId
+        ..vars.input.isProtected = isProtected;
+    });
   }
 }
