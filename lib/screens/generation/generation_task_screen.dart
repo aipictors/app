@@ -9,6 +9,7 @@ import 'package:aipictors/utils/to_generation_image_url.dart';
 import 'package:aipictors/utils/to_generation_size_type_text.dart';
 import 'package:aipictors/widgets/builder/operation_screen_builder.dart';
 import 'package:aipictors/widgets/container/generation/generation_setting_container.dart';
+import 'package:aipictors/widgets/container/generation/prompts_container.dart';
 import 'package:aipictors/widgets/image/interactive_work_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -26,6 +27,8 @@ class GenerationTaskScreen extends HookConsumerWidget {
   @override
   Widget build(context, ref) {
     final client = ref.watch(clientProvider);
+
+    final imageGeneration = ref.watch(imageGenerationProvider);
 
     final imageGenerationNotifier = ref.read(imageGenerationProvider.notifier);
 
@@ -70,33 +73,37 @@ class GenerationTaskScreen extends HookConsumerWidget {
                       },
                     ),
                     const SizedBox(height: 8),
-                    Text(
-                      'プロンプト'.i18n,
-                      style: const TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    TextFormField(
-                      readOnly: true,
-                      initialValue: task.prompt,
-                      maxLines: null,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(16)),
-                      ),
-                    ),
+                    PromptsContainer(
+                        prompts: task.prompt,
+                        onPressed: (String prompt) {
+                          imageGenerationNotifier.updatePrompt(
+                              '${imageGeneration.prompt}, $prompt');
+                          showSnackBar(
+                              context,
+                              'プロンプトに _PROMPT_ を追加しました'.i18n.replaceAllMapped(
+                                    RegExp(r'_PROMPT_'),
+                                    (match) => prompt,
+                                  ));
+                        }),
                     const SizedBox(height: 8),
                     Text(
                       'ネガティブプロンプト'.i18n,
                       style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    TextFormField(
-                      readOnly: true,
-                      initialValue: task.negativePrompt,
-                      maxLines: null,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(16)),
-                      ),
-                    ),
+                    PromptsContainer(
+                        prompts: task.negativePrompt,
+                        onPressed: (String negativePrompt) {
+                          imageGenerationNotifier.updateNegativePrompt(
+                              '${imageGeneration.negativePrompt}, $negativePrompt');
+                          showSnackBar(
+                              context,
+                              'ネガティブプロンプトに _NEGATIVE_PROMPT_ を追加しました'
+                                  .i18n
+                                  .replaceAllMapped(
+                                    RegExp(r'_NEGATIVE_PROMPT_'),
+                                    (match) => negativePrompt,
+                                  ));
+                        }),
                     const SizedBox(height: 8),
                     GenerationSettingContainer(
                       name: 'モデル'.i18n,
