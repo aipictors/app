@@ -72,6 +72,8 @@ class GenerationTasksView extends HookConsumerWidget {
                 sampler: taskList[index].sampler,
                 sizeType: taskList[index].sizeType,
                 vae: taskList[index].vae!,
+                rating: taskList[index].rating ?? 0,
+                isProtected: taskList[index].isProtected ?? false,
               );
             });
       },
