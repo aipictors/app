@@ -10,6 +10,7 @@ import 'package:aipictors/screens/loading_screen.dart';
 import 'package:aipictors/utils/to_generation_image_url.dart';
 import 'package:aipictors/utils/to_generation_size_type_text.dart';
 import 'package:aipictors/widgets/builder/operation_screen_builder.dart';
+import 'package:aipictors/widgets/container/generation/generation_protect_button.dart';
 import 'package:aipictors/widgets/container/generation/generation_rating_container.dart';
 import 'package:aipictors/widgets/container/generation/generation_setting_container.dart';
 import 'package:aipictors/widgets/container/generation/prompts_container.dart';
@@ -76,13 +77,22 @@ class GenerationTaskScreen extends HookConsumerWidget {
                       },
                     ),
                     const SizedBox(height: 8),
-                    GenerationRatingContainer(
-                      currentRating: task.rating!,
-                      onPressed: (int rating) {
-                        onRating(context, task.nanoid!,
-                            (task.rating != rating) ? rating : 0);
-                      },
-                    ),
+                    Row(children: [
+                      GenerationRatingContainer(
+                        currentRating: task.rating!,
+                        onPressed: (int rating) {
+                          onRating(context, task.nanoid!,
+                              (task.rating != rating) ? rating : 0);
+                        },
+                      ),
+                      const Spacer(),
+                      GenerationProtectButton(
+                          isProtected: task.isProtected ?? false,
+                          onPressed: (bool newProtectionState) {
+                            onProtect(
+                                context, task.nanoid!, newProtectionState);
+                          })
+                    ]),
                     const SizedBox(height: 8),
                     Text(
                       'プロンプト'.i18n,

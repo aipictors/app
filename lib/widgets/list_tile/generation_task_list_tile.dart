@@ -5,6 +5,7 @@ import 'package:aipictors/mutations/update_protected_image_generation_task.dart'
 import 'package:aipictors/mutations/update_rating_image_generation_task.dart';
 import 'package:aipictors/providers/image_generation_provider.dart';
 import 'package:aipictors/utils/to_generation_size_type_text.dart';
+import 'package:aipictors/widgets/container/generation/generation_protect_button.dart';
 import 'package:aipictors/widgets/container/generation/generation_rating_container.dart';
 import 'package:aipictors/widgets/container/generation/generation_setting_container.dart';
 import 'package:aipictors/widgets/container/generation/prompts_container.dart';
@@ -88,11 +89,20 @@ class GenerationTaskListTile extends HookConsumerWidget {
         ],
       ),
       subtitle: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        GenerationRatingContainer(
+        Row(children: [
+          GenerationRatingContainer(
             currentRating: rating,
             onPressed: (int value) {
               onRating(context, taskNanoId, value);
-            }),
+            },
+          ),
+          const Spacer(),
+          GenerationProtectButton(
+              isProtected: isProtected,
+              onPressed: (newProtectionState) {
+                onProtect(context, taskNanoId, newProtectionState);
+              })
+        ]),
         Text(
           'プロンプト'.i18n,
           style: const TextStyle(fontWeight: FontWeight.bold),
