@@ -1095,6 +1095,24 @@ import 'package:aipictors/graphql/mutations/__generated__/update_folder.req.gql.
     show GUpdateFolderReq;
 import 'package:aipictors/graphql/mutations/__generated__/update_folder.var.gql.dart'
     show GUpdateFolderVars;
+import 'package:aipictors/graphql/mutations/__generated__/update_protected_image_generation_task.data.gql.dart'
+    show
+        GUpdateProtectedImageGenerationTaskData,
+        GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask,
+        GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_model;
+import 'package:aipictors/graphql/mutations/__generated__/update_protected_image_generation_task.req.gql.dart'
+    show GUpdateProtectedImageGenerationTaskReq;
+import 'package:aipictors/graphql/mutations/__generated__/update_protected_image_generation_task.var.gql.dart'
+    show GUpdateProtectedImageGenerationTaskVars;
+import 'package:aipictors/graphql/mutations/__generated__/update_rating_image_generation_task.data.gql.dart'
+    show
+        GUpdateRatingImageGenerationTaskData,
+        GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask,
+        GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_model;
+import 'package:aipictors/graphql/mutations/__generated__/update_rating_image_generation_task.req.gql.dart'
+    show GUpdateRatingImageGenerationTaskReq;
+import 'package:aipictors/graphql/mutations/__generated__/update_rating_image_generation_task.var.gql.dart'
+    show GUpdateRatingImageGenerationTaskVars;
 import 'package:aipictors/graphql/mutations/__generated__/update_sticker.data.gql.dart'
     show GUpdateStickerData, GUpdateStickerData_updateSticker;
 import 'package:aipictors/graphql/mutations/__generated__/update_sticker.req.gql.dart'
@@ -1656,9 +1674,19 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GUpdatePromptonUserLoginInput,
   GUpdatePromptonUserProfileInput,
   GUpdatePromptonWorkInput,
+  GUpdateProtectedImageGenerationTaskData,
+  GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask,
+  GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_model,
   GUpdateProtectedImageGenerationTaskInput,
+  GUpdateProtectedImageGenerationTaskReq,
+  GUpdateProtectedImageGenerationTaskVars,
   GUpdateRatingImageGenerationModelInput,
+  GUpdateRatingImageGenerationTaskData,
+  GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask,
+  GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_model,
   GUpdateRatingImageGenerationTaskInput,
+  GUpdateRatingImageGenerationTaskReq,
+  GUpdateRatingImageGenerationTaskVars,
   GUpdateStickerData,
   GUpdateStickerData_updateSticker,
   GUpdateStickerInput,

@@ -538,9 +538,26 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GUpdatePromptonUserLoginInput.serializer)
       ..add(GUpdatePromptonUserProfileInput.serializer)
       ..add(GUpdatePromptonWorkInput.serializer)
+      ..add(GUpdateProtectedImageGenerationTaskData.serializer)
+      ..add(
+          GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask
+              .serializer)
+      ..add(
+          GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_model
+              .serializer)
       ..add(GUpdateProtectedImageGenerationTaskInput.serializer)
+      ..add(GUpdateProtectedImageGenerationTaskReq.serializer)
+      ..add(GUpdateProtectedImageGenerationTaskVars.serializer)
       ..add(GUpdateRatingImageGenerationModelInput.serializer)
+      ..add(GUpdateRatingImageGenerationTaskData.serializer)
+      ..add(GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask
+          .serializer)
+      ..add(
+          GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_model
+              .serializer)
       ..add(GUpdateRatingImageGenerationTaskInput.serializer)
+      ..add(GUpdateRatingImageGenerationTaskReq.serializer)
+      ..add(GUpdateRatingImageGenerationTaskVars.serializer)
       ..add(GUpdateStickerData.serializer)
       ..add(GUpdateStickerData_updateSticker.serializer)
       ..add(GUpdateStickerInput.serializer)
