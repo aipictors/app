@@ -851,6 +851,12 @@ import 'package:aipictors/graphql/fragments/__generated__/work_user_fields_fragm
     show GWorkUserFieldsReq;
 import 'package:aipictors/graphql/fragments/__generated__/work_user_fields_fragment.var.gql.dart'
     show GWorkUserFieldsVars;
+import 'package:aipictors/graphql/generation/__generated__/image_lora_models.data.gql.dart'
+    show GImageLoraModelsData, GImageLoraModelsData_imageLoraModels;
+import 'package:aipictors/graphql/generation/__generated__/image_lora_models.req.gql.dart'
+    show GImageLoraModelsReq;
+import 'package:aipictors/graphql/generation/__generated__/image_lora_models.var.gql.dart'
+    show GImageLoraModelsVars;
 import 'package:aipictors/graphql/generation/__generated__/image_models.data.gql.dart'
     show GImageModelsData, GImageModelsData_imageModels;
 import 'package:aipictors/graphql/generation/__generated__/image_models.req.gql.dart'
@@ -1469,6 +1475,10 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GImageGenerationTaskOrderBy,
   GImageGenerationTasksWhereInput,
   GImageGenerationType,
+  GImageLoraModelsData,
+  GImageLoraModelsData_imageLoraModels,
+  GImageLoraModelsReq,
+  GImageLoraModelsVars,
   GImageModelCategory,
   GImageModelsData,
   GImageModelsData_imageModels,

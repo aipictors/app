@@ -324,6 +324,10 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GImageGenerationTaskOrderBy.serializer)
       ..add(GImageGenerationTasksWhereInput.serializer)
       ..add(GImageGenerationType.serializer)
+      ..add(GImageLoraModelsData.serializer)
+      ..add(GImageLoraModelsData_imageLoraModels.serializer)
+      ..add(GImageLoraModelsReq.serializer)
+      ..add(GImageLoraModelsVars.serializer)
       ..add(GImageModelCategory.serializer)
       ..add(GImageModelsData.serializer)
       ..add(GImageModelsData_imageModels.serializer)
@@ -936,6 +940,10 @@ Serializers _$serializers = (new Serializers().toBuilder()
               BuiltList, const [const FullType(GHotWorksData_hotWorks)]),
           () => new ListBuilder<GHotWorksData_hotWorks>())
       ..addBuilderFactory(
+          const FullType(BuiltList,
+              const [const FullType(GImageLoraModelsData_imageLoraModels)]),
+          () => new ListBuilder<GImageLoraModelsData_imageLoraModels>())
+      ..addBuilderFactory(
           const FullType(
               BuiltList, const [const FullType(GImageModelsData_imageModels)]),
           () => new ListBuilder<GImageModelsData_imageModels>())
@@ -1058,6 +1066,9 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(GWorksData_works)]),
           () => new ListBuilder<GWorksData_works>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(String)]),
+          () => new ListBuilder<String>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(String)]),
           () => new ListBuilder<String>())
