@@ -1,7 +1,6 @@
 import 'package:aipictors/graphql/generation/__generated__/image_lora_models.data.gql.dart';
 import 'package:aipictors/graphql/generation/__generated__/image_lora_models.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
-import 'package:aipictors/widgets/app_bar/search_app_bar.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
 import 'package:aipictors/widgets/container/generation/generation_lora_filter_container.dart';
 import 'package:aipictors/widgets/container/loading_container.dart';

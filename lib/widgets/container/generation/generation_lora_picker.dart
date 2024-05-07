@@ -3,8 +3,8 @@ import 'package:aipictors/graphql/generation/__generated__/image_lora_models.dat
 import 'package:aipictors/graphql/generation/__generated__/image_lora_models.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
+import 'package:aipictors/widgets/container/generation/generation_lora_container.dart';
 import 'package:aipictors/widgets/container/loading_container.dart';
-import 'package:aipictors/widgets/list_tile/work_info_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -54,12 +54,34 @@ class GenerationLoraPicker extends HookConsumerWidget {
                   return Column(
                     children: [
                       for (final selectedLora in selectedLoraMap.keys)
-                        WorkInfoListTile(
-                            thumbnailImageURL:
-                                selectedLora.thumbnailImageURL ?? '',
-                            title: selectedLora.name,
-                            body: Text(selectedLora.description ?? ''),
-                            onTap: () {}),
+                        GenerationLoraContainer(
+                          lora: selectedLora,
+                          value: selectedLoraMap[selectedLora] ?? 0,
+                          onValueChanged: (double value) {
+                            // 小数点第2桁で丸めるが、ユーザーが調整をやりやすくするために小数点第2桁は0または5にする
+                            int baseValue = (value * 100).round().abs();
+
+                            // 最後の桁が3以下なら0に、6以下なら5に、それ以外なら10にする
+                            int onesPlace = int.parse(baseValue
+                                .toString()[baseValue.toString().length - 1]);
+                            if (onesPlace <= 3) {
+                              baseValue -= onesPlace;
+                            } else if (onesPlace <= 6) {
+                              baseValue += 5 - onesPlace;
+                            } else {
+                              baseValue += 10 - onesPlace;
+                            }
+
+                            onValueChanged(
+                                selectedLora.name,
+                                (0 < value)
+                                    ? baseValue / 100
+                                    : baseValue / -100);
+                          },
+                          onValueInputted: (double value) {
+                            onValueChanged(selectedLora.name, value);
+                          },
+                        ),
                       OutlinedButton(
                         child: Text('LoRA(エフェクト)を追加'.i18n),
                         onPressed: () {
