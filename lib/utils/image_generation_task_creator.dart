@@ -1,5 +1,6 @@
 import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/mutations/create_image_generation_task.dart';
+import 'package:aipictors/providers/viewer_image_generation_status_provider.dart';
 import 'package:aipictors/providers/viewer_provider.dart';
 import 'package:aipictors/states/image_generation_state.dart';
 import 'package:aipictors/utils/active_image_generation.dart';
@@ -11,6 +12,34 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 Future<void> imageGenerationTaskCreator(BuildContext context, WidgetRef ref,
     ImageGenerationState imageGeneration) async {
   final viewer = await ref.watch(viewerProvider.future);
+
+  final viewerImageGenerationStatus =
+      await ref.watch(viewerImageGenerationStatusProvider.future);
+
+  // LoRAの数を確認する
+  final pattern = RegExp(r'(?:<lora:([^:]*):([^>]*)>)');
+  final matches = pattern.allMatches(imageGeneration.prompt);
+  final loraCount = matches.length;
+  if ((viewerImageGenerationStatus
+              ?.viewer?.availableImageGenerationLoraModelsCount ??
+          0) <
+      loraCount) {
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(
+        SnackBar(
+            content: Text(
+          'LoRAは_MAX_LORA_COUNT_個までしか使用できません'.i18n.replaceAllMapped(
+                RegExp(r'_MAX_LORA_COUNT_'),
+                (match) => (viewerImageGenerationStatus
+                            ?.viewer?.availableImageGenerationLoraModelsCount ??
+                        0)
+                    .toString(),
+              ),
+        )),
+      );
+    return;
+  }
 
   // プロンプトの内容を確認する
   final ngWords = await promptCheck(

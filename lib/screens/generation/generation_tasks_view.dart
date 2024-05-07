@@ -8,6 +8,7 @@ import 'package:aipictors/states/image_generation_state.dart';
 import 'package:aipictors/utils/image_generation_task_creator.dart';
 import 'package:aipictors/utils/to_generation_image_url.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
+import 'package:aipictors/widgets/container/error/deleted_work_error_container.dart';
 import 'package:aipictors/widgets/container/generation/generation_model_picker_modal.dart';
 import 'package:aipictors/widgets/container/loading_container.dart';
 import 'package:aipictors/widgets/list_tile/generation_task_list_tile.dart';
@@ -59,6 +60,12 @@ class GenerationTasksView extends HookConsumerWidget {
             },
             itemCount: taskList.length,
             itemBuilder: (context, index) {
+              if (taskList[index].nanoid == null ||
+                  taskList[index].token == null ||
+                  taskList[index].imageFileName == null) {
+                //TODO: 生成履歴用の削除済みエラーコンテナを作成する
+                return DeletedWorkErrorContainer();
+              }
               return GenerationTaskListTile(
                 taskNanoId: taskList[index].nanoid!,
                 imageUrl: toGenerationImageUrl(
