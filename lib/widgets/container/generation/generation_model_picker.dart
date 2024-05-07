@@ -47,17 +47,19 @@ class GenerationModelPicker extends HookConsumerWidget {
                 operationRequest: GImageModelsReq(),
                 builder: (context, response) {
                   final models = response.data!.imageModels;
-                  if (models.any(
+
+                  final int selectedModelIndex = models.indexWhere(
                     (p0) => p0.name == selectedModelName,
-                  )) {
-                    selectedModel = models
-                        .singleWhere((p0) => p0.name == selectedModelName);
+                  );
+                  if (selectedModelIndex != -1) {
+                    selectedModel = models[selectedModelIndex];
                   }
-                  if (models.any(
+
+                  final int prevSelectedModelIndex = models.indexWhere(
                     (p0) => p0.name == prevSelectedModelName,
-                  )) {
-                    prevSelectedModel = models
-                        .singleWhere((p0) => p0.name == prevSelectedModelName);
+                  );
+                  if (prevSelectedModelIndex != -1) {
+                    prevSelectedModel = models[prevSelectedModelIndex];
                   }
 
                   // 選択中のモデルを含む合計3つのモデルを表示する
