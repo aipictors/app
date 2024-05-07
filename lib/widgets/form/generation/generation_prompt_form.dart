@@ -42,7 +42,15 @@ class GenerationPromptInputField extends HookConsumerWidget {
     }, [initialPrompt, initialNegativePrompt]);
 
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        Row(children: [
+          const SizedBox(width: 8),
+          Text(
+            'プロンプト'.i18n,
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          ),
+        ]),
         TextField(
           focusNode: promptFocusNode,
           controller: promptController,
@@ -63,6 +71,13 @@ class GenerationPromptInputField extends HookConsumerWidget {
           ),
         ),
         const SizedBox(height: 16),
+        Row(children: [
+          const SizedBox(width: 8),
+          Text(
+            'ネガティブプロンプト'.i18n,
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          ),
+        ]),
         TextField(
           focusNode: negativePromptFocusNode,
           controller: negativePromptController,

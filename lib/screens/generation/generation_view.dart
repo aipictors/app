@@ -1,3 +1,4 @@
+import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/enums/generation_model_version.dart';
 import 'package:aipictors/graphql/__generated__/viewer_image_generation_status.data.gql.dart';
 import 'package:aipictors/graphql/generation/__generated__/image_models.data.gql.dart';
@@ -7,10 +8,13 @@ import 'package:aipictors/providers/image_generation_provider.dart';
 import 'package:aipictors/providers/viewer_image_generation_status_provider.dart';
 import 'package:aipictors/states/image_generation_state.dart';
 import 'package:aipictors/utils/image_generation_task_creator.dart';
+import 'package:aipictors/utils/to_generation_lora_name_map.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
 import 'package:aipictors/widgets/button/generation_button.dart';
 import 'package:aipictors/widgets/container/error/unexpected_error_container.dart';
 import 'package:aipictors/widgets/container/generation/generation_liked_model_picker_modal.dart';
+import 'package:aipictors/widgets/container/generation/generation_lora_picker.dart';
+import 'package:aipictors/widgets/container/generation/generation_lora_picker_modal.dart';
 import 'package:aipictors/widgets/container/generation/generation_model_picker_tab.dart';
 import 'package:aipictors/widgets/container/generation/generation_sampler_picker.dart';
 import 'package:aipictors/widgets/container/generation/generation_size_type_picker.dart';
@@ -70,9 +74,10 @@ class GenerationView extends HookConsumerWidget {
 
         // setState() or markNeedsBuild() called during buildを防ぐため
         WidgetsBinding.instance.addPostFrameCallback((_) {
-          if (models.any((p0) => p0.name == imageGeneration.model)) {
-            selectedModel.value =
-                models.singleWhere(((p0) => p0.name == imageGeneration.model));
+          final int selectedModelIndex =
+              models.indexWhere(((p0) => p0.name == imageGeneration.model));
+          if (selectedModelIndex != -1) {
+            selectedModel.value = models[selectedModelIndex];
           } else {
             // 選択中のモデルがない場合、生成時にエラーにならないように一番上のモデルを選択する
             imageGenerationNotifier.updateModel(models[0].name);
@@ -105,7 +110,26 @@ class GenerationView extends HookConsumerWidget {
                   },
                   prevSelectedModelName: prevSelectedModelName.value,
                 ),
-                const SizedBox(height: 32),
+                const SizedBox(height: 16),
+                Row(children: [
+                  const SizedBox(width: 8),
+                  Text(
+                    'LoRA(エフェクト)'.i18n,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ]),
+                GenerationLoraPicker(
+                  selectedLoraNameMap:
+                      toGenerationLoraNameMap(imageGeneration.prompt),
+                  onValueChanged: (loraName, value) {},
+                  addLoraButtonPressed: () {
+                    onOpenLoraPickerModal(context, (loraName) {
+                      imageGenerationNotifier.updatePrompt(
+                          '${imageGeneration.prompt}, <lora:$loraName:1>');
+                    });
+                  },
+                ),
+                const SizedBox(height: 16),
                 GenerationPromptInputField(
                   initialPrompt: imageGeneration.prompt,
                   initialNegativePrompt: imageGeneration.negativePrompt,
@@ -224,6 +248,19 @@ class GenerationView extends HookConsumerWidget {
         builder: (context) {
           return GenerationLikedModelPickerModal(
               models: models,
+              onSelected: (String modelName) => onSelected(modelName));
+        });
+  }
+
+  /// LoRAピッカーを開く
+  onOpenLoraPickerModal(
+      BuildContext context, Function(String modelName) onSelected) {
+    showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        showDragHandle: true,
+        builder: (context) {
+          return GenerationLoraPickerModal(
               onSelected: (String modelName) => onSelected(modelName));
         });
   }
