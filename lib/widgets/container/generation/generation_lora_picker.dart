@@ -53,6 +53,7 @@ class GenerationLoraPicker extends HookConsumerWidget {
 
                   return Column(
                     children: [
+                      // TODO: Dismissibleにする
                       for (final selectedLora in selectedLoraMap.keys)
                         GenerationLoraContainer(
                           lora: selectedLora,
