@@ -139,7 +139,7 @@ class GenerationTaskListTile extends HookConsumerWidget {
         const SizedBox(height: 4),
         GenerationSettingContainer(
           name: 'モデル'.i18n,
-          value: model.name,
+          value: model.name.split('.')[0],
           onPressed: () {
             imageGenerationNotifier.updateModel(model.name);
             showSnackBar(context, 'モデルを設定しました'.i18n);

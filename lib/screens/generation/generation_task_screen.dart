@@ -132,7 +132,7 @@ class GenerationTaskScreen extends HookConsumerWidget {
                     const SizedBox(height: 8),
                     GenerationSettingContainer(
                       name: 'モデル'.i18n,
-                      value: task.model.name,
+                      value: task.model.name.split('.')[0],
                       onPressed: () {
                         imageGenerationNotifier.updateModel(task.model.name);
                         showSnackBar(context, 'モデルを設定しました'.i18n);
