@@ -1001,6 +1001,15 @@ import 'package:aipictors/graphql/mutations/__generated__/delete_folder_work.req
     show GDeleteFolderWorkReq;
 import 'package:aipictors/graphql/mutations/__generated__/delete_folder_work.var.gql.dart'
     show GDeleteFolderWorkVars;
+import 'package:aipictors/graphql/mutations/__generated__/delete_image_generation_task.data.gql.dart'
+    show
+        GDeleteImageGenerationTaskData,
+        GDeleteImageGenerationTaskData_deleteImageGenerationTask,
+        GDeleteImageGenerationTaskData_deleteImageGenerationTask_model;
+import 'package:aipictors/graphql/mutations/__generated__/delete_image_generation_task.req.gql.dart'
+    show GDeleteImageGenerationTaskReq;
+import 'package:aipictors/graphql/mutations/__generated__/delete_image_generation_task.var.gql.dart'
+    show GDeleteImageGenerationTaskVars;
 import 'package:aipictors/graphql/mutations/__generated__/delete_sticker.data.gql.dart'
     show GDeleteStickerData, GDeleteStickerData_deleteSticker;
 import 'package:aipictors/graphql/mutations/__generated__/delete_sticker.req.gql.dart'
@@ -1349,7 +1358,12 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GDeleteFolderWorkReq,
   GDeleteFolderWorkVars,
   GDeleteImageGenerationMemoInput,
+  GDeleteImageGenerationTaskData,
+  GDeleteImageGenerationTaskData_deleteImageGenerationTask,
+  GDeleteImageGenerationTaskData_deleteImageGenerationTask_model,
   GDeleteImageGenerationTaskInput,
+  GDeleteImageGenerationTaskReq,
+  GDeleteImageGenerationTaskVars,
   GDeleteMessageInput,
   GDeleteNoteInput,
   GDeleteNovelInput,
