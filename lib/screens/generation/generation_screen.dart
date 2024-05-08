@@ -17,14 +17,13 @@ class GenerationScreen extends HookConsumerWidget {
       child: Scaffold(
         key: const PageStorageKey('generation'),
         appBar: AppBar(
-            title: Text('画像生成'.i18n),
-            bottom: TabBar(
-              // isScrollable: true,
-              tabs: [
-                Tab(text: '生成'.i18n),
-                Tab(text: '履歴'.i18n),
-              ],
-            )),
+            title: TabBar(
+          // isScrollable: true,
+          tabs: [
+            Tab(text: '生成'.i18n),
+            Tab(text: '履歴'.i18n),
+          ],
+        )),
         body: const TabBarView(children: [
           GenerationView(
             key: PageStorageKey('generation_image_generation'),
