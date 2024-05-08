@@ -20,7 +20,7 @@ class GenerationRatingButton extends HookConsumerWidget {
             ? const Icon(Icons.star_outline_rounded)
             : Icon(
                 Icons.star_rounded,
-                color: Theme.of(context).colorScheme.inverseSurface,
+                color: Theme.of(context).colorScheme.primary,
               ),
       ),
     ]);
