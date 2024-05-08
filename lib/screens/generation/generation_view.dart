@@ -134,6 +134,19 @@ class GenerationView extends HookConsumerWidget {
                       ),
                     );
                   },
+                  onDeleted: (loraName) {
+                    String loraText = '';
+                    imageGeneration.prompt.split(',').forEach((element) {
+                      if (!element.contains('<lora:$loraName:')) return;
+                      loraText = element;
+                    });
+                    imageGenerationNotifier.updatePrompt(
+                      imageGeneration.prompt.replaceAllMapped(
+                        RegExp(loraText),
+                        (match) => '',
+                      ),
+                    );
+                  },
                   addLoraButtonPressed: () {
                     onOpenLoraPickerModal(context, (loraName) {
                       imageGenerationNotifier.updatePrompt(

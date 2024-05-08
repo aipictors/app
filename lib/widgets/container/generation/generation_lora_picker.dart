@@ -14,6 +14,7 @@ class GenerationLoraPicker extends HookConsumerWidget {
     required this.selectedLoraNameMap,
     required this.onValueChanged,
     required this.addLoraButtonPressed,
+    required this.onDeleted,
   });
 
   final Map<String, double> selectedLoraNameMap;
@@ -21,6 +22,8 @@ class GenerationLoraPicker extends HookConsumerWidget {
   final Function(String loraName, double value) onValueChanged;
 
   final VoidCallback addLoraButtonPressed;
+
+  final Function(String loraName) onDeleted;
 
   @override
   Widget build(context, ref) {
@@ -53,35 +56,40 @@ class GenerationLoraPicker extends HookConsumerWidget {
 
                   return Column(
                     children: [
-                      // TODO: Dismissibleにする
                       for (final selectedLora in selectedLoraMap.keys)
-                        GenerationLoraContainer(
-                          lora: selectedLora,
-                          value: selectedLoraMap[selectedLora] ?? 0,
-                          onValueChanged: (double value) {
-                            // 小数点第2桁で丸めるが、ユーザーが調整をやりやすくするために小数点第2桁は0または5にする
-                            int baseValue = (value * 100).round().abs();
-
-                            // 最後の桁が3以下なら0に、6以下なら5に、それ以外なら10にする
-                            int onesPlace = int.parse(baseValue
-                                .toString()[baseValue.toString().length - 1]);
-                            if (onesPlace <= 3) {
-                              baseValue -= onesPlace;
-                            } else if (onesPlace <= 6) {
-                              baseValue += 5 - onesPlace;
-                            } else {
-                              baseValue += 10 - onesPlace;
-                            }
-
-                            onValueChanged(
-                                selectedLora.name,
-                                (0 < value)
-                                    ? baseValue / 100
-                                    : baseValue / -100);
+                        Dismissible(
+                          key: Key(selectedLora.id),
+                          onDismissed: (direction) {
+                            onDeleted(selectedLora.name);
                           },
-                          onValueInputted: (double value) {
-                            onValueChanged(selectedLora.name, value);
-                          },
+                          child: GenerationLoraContainer(
+                            lora: selectedLora,
+                            value: selectedLoraMap[selectedLora] ?? 0,
+                            onValueChanged: (double value) {
+                              // 小数点第2桁で丸めるが、ユーザーが調整をやりやすくするために小数点第2桁は0または5にする
+                              int baseValue = (value * 100).round().abs();
+
+                              // 最後の桁が3以下なら0に、6以下なら5に、それ以外なら10にする
+                              int onesPlace = int.parse(baseValue
+                                  .toString()[baseValue.toString().length - 1]);
+                              if (onesPlace <= 3) {
+                                baseValue -= onesPlace;
+                              } else if (onesPlace <= 6) {
+                                baseValue += 5 - onesPlace;
+                              } else {
+                                baseValue += 10 - onesPlace;
+                              }
+
+                              onValueChanged(
+                                  selectedLora.name,
+                                  (0 < value)
+                                      ? baseValue / 100
+                                      : baseValue / -100);
+                            },
+                            onValueInputted: (double value) {
+                              onValueChanged(selectedLora.name, value);
+                            },
+                          ),
                         ),
                       OutlinedButton(
                         child: Text('LoRA(エフェクト)を追加'.i18n),
