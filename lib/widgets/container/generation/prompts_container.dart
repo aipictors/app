@@ -37,9 +37,12 @@ class PromptsContainer extends HookConsumerWidget {
                     text: prompt,
                     style: TextStyle(
                         color: Theme.of(context).colorScheme.primary)),
-                if (index == promptLength && hasLastComma)
-                  const TextSpan(text: ','),
-                if (index != promptLength) const TextSpan(text: ',')
+                if ((index != promptLength) ||
+                    (index == promptLength && hasLastComma))
+                  TextSpan(
+                      text: ',',
+                      style: TextStyle(
+                          color: Theme.of(context).colorScheme.outline))
               ])),
             );
           }).toList()),
