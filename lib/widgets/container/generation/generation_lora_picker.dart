@@ -91,6 +91,13 @@ class GenerationLoraPicker extends HookConsumerWidget {
                             },
                           ),
                         ),
+                      if (selectedLoraMap.isEmpty)
+                        Padding(
+                          padding: const EdgeInsets.all(32),
+                          child: Text(
+                            '選択しているLoRAはないみたい。'.i18n,
+                          ),
+                        ),
                       OutlinedButton(
                         child: Text('LoRA(エフェクト)を追加'.i18n),
                         onPressed: () {

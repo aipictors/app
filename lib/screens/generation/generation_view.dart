@@ -140,6 +140,7 @@ class GenerationView extends HookConsumerWidget {
                       if (!element.contains('<lora:$loraName:')) return;
                       loraText = element;
                     });
+                    // TODO: カンマが残ってしまう問題を解決する
                     imageGenerationNotifier.updatePrompt(
                       imageGeneration.prompt.replaceAllMapped(
                         RegExp(loraText),
