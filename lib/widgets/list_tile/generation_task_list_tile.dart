@@ -5,9 +5,9 @@ import 'package:aipictors/mutations/update_protected_image_generation_task.dart'
 import 'package:aipictors/mutations/update_rating_image_generation_task.dart';
 import 'package:aipictors/providers/image_generation_provider.dart';
 import 'package:aipictors/utils/to_generation_size_type_text.dart';
+import 'package:aipictors/widgets/card/generation_setting_card.dart';
 import 'package:aipictors/widgets/container/generation/generation_protect_button.dart';
 import 'package:aipictors/widgets/container/generation/generation_rating_container.dart';
-import 'package:aipictors/widgets/container/generation/generation_setting_container.dart';
 import 'package:aipictors/widgets/container/generation/prompts_container.dart';
 import 'package:aipictors/widgets/image/feed_image.dart';
 import 'package:flutter/material.dart';
@@ -137,32 +137,47 @@ class GenerationTaskListTile extends HookConsumerWidget {
                       ));
             }),
         const SizedBox(height: 4),
-        GenerationSettingContainer(
-          name: 'モデル'.i18n,
-          value: model.name.split('.')[0],
-          onPressed: () {
-            imageGenerationNotifier.updateModel(model.name);
-            showSnackBar(context, 'モデルを設定しました'.i18n);
-          },
-        ),
-        const SizedBox(height: 4),
-        GenerationSettingContainer(
-          name: 'サイズ'.i18n,
-          value: toGenerationSizeTypeText(sizeType),
-          onPressed: () {
-            imageGenerationNotifier.updateSizeType(sizeType);
-            showSnackBar(context, 'サイズを設定しました'.i18n);
-          },
-        ),
-        const SizedBox(height: 4),
-        GenerationSettingContainer(
-          name: 'Seed'.i18n,
-          value: seed.toString(),
-          onPressed: () {
-            imageGenerationNotifier.updateSeed(seed);
-            showSnackBar(context, 'Seedを設定しました'.i18n);
-          },
-        ),
+        Text('その他'.i18n, style: const TextStyle(fontWeight: FontWeight.bold)),
+        Wrap(
+          children: [
+            GenerationSettingCard(
+              name: 'モデル'.i18n,
+              value: model.name.split('.')[0],
+              onPressed: () {
+                imageGenerationNotifier.updateModel(model.name);
+                showSnackBar(context, 'モデルを設定しました'.i18n);
+              },
+            ),
+            GenerationSettingCard(
+              name: 'サイズ'.i18n,
+              value: toGenerationSizeTypeText(sizeType),
+              onPressed: () {
+                imageGenerationNotifier.updateSizeType(sizeType);
+                showSnackBar(context, 'サイズを設定しました'.i18n);
+              },
+            ),
+            GenerationSettingCard(
+              name: 'Seed'.i18n,
+              value: seed.toString(),
+              onPressed: () {
+                imageGenerationNotifier.updateSeed(seed);
+                showSnackBar(context, 'Seedを設定しました'.i18n);
+              },
+            ),
+            GenerationSettingCard(
+              name: 'VAE'.i18n,
+              value: vae,
+              onPressed: () {
+                if (vae != 'None') {
+                  imageGenerationNotifier.updateVae(vae.split('.')[0]);
+                } else {
+                  imageGenerationNotifier.updateVae(vae);
+                }
+                showSnackBar(context, 'VAEを設定しました'.i18n);
+              },
+            ),
+          ],
+        )
       ]),
     );
   }

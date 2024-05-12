@@ -31,6 +31,8 @@ class GenerationSettingContainer extends HookConsumerWidget {
               onPressed: onPressed,
               style: OutlinedButton.styleFrom(
                 textStyle: const TextStyle(fontWeight: FontWeight.normal),
+                side: BorderSide(
+                    color: Theme.of(context).colorScheme.outlineVariant),
                 foregroundColor: Theme.of(context).colorScheme.inverseSurface,
               ),
               child: Text(value),

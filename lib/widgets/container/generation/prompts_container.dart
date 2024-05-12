@@ -18,7 +18,7 @@ class PromptsContainer extends HookConsumerWidget {
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16.0),
           border: Border.all(
-              width: 1, color: Theme.of(context).colorScheme.outline)),
+              width: 1, color: Theme.of(context).colorScheme.outlineVariant)),
       child: Wrap(
           alignment: WrapAlignment.center,
           children: prompts.split(',').asMap().entries.map((entry) {
@@ -42,7 +42,7 @@ class PromptsContainer extends HookConsumerWidget {
                   TextSpan(
                       text: ',',
                       style: TextStyle(
-                          color: Theme.of(context).colorScheme.outline))
+                          color: Theme.of(context).colorScheme.outlineVariant))
               ])),
             );
           }).toList()),
