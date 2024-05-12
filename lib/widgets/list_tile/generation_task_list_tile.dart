@@ -62,6 +62,23 @@ class GenerationTaskListTile extends HookConsumerWidget {
         ],
       ),
       subtitle: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            GenerationTaskOptionsContainer(
+              onReuseButtonPressed: () {
+                reuseImageGenerationTask(task, imageGenerationNotifier);
+                showSnackBar(context, '生成情報を復元しました'.i18n);
+              },
+            ),
+            IconButton(
+              icon: const Icon(Icons.delete_outline_rounded),
+              onPressed: () {
+                onDelete(context, task.nanoid!);
+              },
+            ),
+          ],
+        ),
         Row(children: [
           Container(
             decoration: BoxDecoration(
@@ -70,31 +87,18 @@ class GenerationTaskListTile extends HookConsumerWidget {
                     width: 1,
                     color: Theme.of(context).colorScheme.outlineVariant)),
           ),
-          GenerationTaskOptionsContainer(
-            onReuseButtonPressed: () {
-              reuseImageGenerationTask(task, imageGenerationNotifier);
-              showSnackBar(context, '生成情報を復元しました'.i18n);
-            },
-          ),
           GenerationRatingContainer(
             currentRating: task.rating ?? 0,
             onPressed: (int value) {
               onRating(context, task.nanoid!, value);
             },
           ),
-          const SizedBox(width: 16),
+          const Spacer(),
           GenerationProtectButton(
               isProtected: task.isProtected ?? false,
               onPressed: (newProtectionState) {
                 onProtect(context, task.nanoid!, newProtectionState);
               }),
-          const Spacer(),
-          IconButton(
-            icon: const Icon(Icons.delete_rounded),
-            onPressed: () {
-              onDelete(context, task.nanoid!);
-            },
-          )
         ]),
         Text(
           'プロンプト'.i18n,
