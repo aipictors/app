@@ -1,7 +1,5 @@
 import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/graphql/generation/__generated__/viewer_image_generation_tasks.data.gql.dart';
-import 'package:aipictors/mutations/update_protected_image_generation_task.dart';
-import 'package:aipictors/mutations/update_rating_image_generation_task.dart';
 import 'package:aipictors/providers/image_generation_provider.dart';
 import 'package:aipictors/utils/reuse_image_generation_task.dart';
 import 'package:aipictors/utils/to_generation_image_url.dart';
@@ -20,9 +18,18 @@ class GenerationTaskListTile extends HookConsumerWidget {
   const GenerationTaskListTile({
     super.key,
     required this.task,
+    required this.onRating,
+    required this.onProtect,
+    required this.onDelete,
   });
 
   final GViewerImageGenerationTasksData_viewer_imageGenerationTasks task;
+
+  final Function(BuildContext context, String nanoId, int value) onRating;
+
+  final Function(BuildContext context, String nanoId, bool value) onProtect;
+
+  final Function(BuildContext context, String nanoId) onDelete;
 
   @override
   Widget build(context, ref) {
@@ -86,7 +93,9 @@ class GenerationTaskListTile extends HookConsumerWidget {
           const Spacer(),
           IconButton(
             icon: const Icon(Icons.delete_rounded),
-            onPressed: () {},
+            onPressed: () {
+              onDelete(context, task.nanoid!);
+            },
           )
         ]),
         Text(
@@ -174,21 +183,5 @@ class GenerationTaskListTile extends HookConsumerWidget {
       ..showSnackBar(
         SnackBar(content: Text(text)),
       );
-  }
-
-  onRating(BuildContext context, String nanoId, int rating) {
-    updateRatingImageGenerationTask((builder) {
-      return builder
-        ..vars.input.nanoid = nanoId
-        ..vars.input.rating = rating;
-    });
-  }
-
-  onProtect(BuildContext context, String nanoId, bool isProtected) {
-    updateProtectedImageGenerationTask((builder) {
-      return builder
-        ..vars.input.nanoid = nanoId
-        ..vars.input.isProtected = isProtected;
-    });
   }
 }
