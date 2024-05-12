@@ -88,146 +88,152 @@ class GenerationView extends HookConsumerWidget {
         }
 
         return Scaffold(
-            body: ListView(
-              children: [
-                GenerationModelPickerTab(
-                  models: models,
-                  selectedModelName: imageGeneration.model,
-                  onSelected: (String modelName, String prevSelectedModel) {
-                    imageGenerationNotifier.updateModel(modelName);
-                    prevSelectedModelName.value = prevSelectedModel;
-                  },
-                  onShowMoreButtonPressed: () {
-                    onOpenModelPickerModal(context, (String modelName) {
+            body: SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                children: [
+                  GenerationModelPickerTab(
+                    models: models,
+                    selectedModelName: imageGeneration.model,
+                    onSelected: (String modelName, String prevSelectedModel) {
                       imageGenerationNotifier.updateModel(modelName);
-                    });
-                  },
-                  onShowMoreLikedModelsButtonPressed: () {
-                    onOpenLikedModelPickerModal(context, models,
-                        (String modelName) {
-                      imageGenerationNotifier.updateModel(modelName);
-                    });
-                  },
-                  prevSelectedModelName: prevSelectedModelName.value,
-                ),
-                const SizedBox(height: 16),
-                Row(children: [
-                  const SizedBox(width: 8),
-                  Text(
-                    'LoRA(エフェクト)'.i18n,
-                    style: const TextStyle(fontWeight: FontWeight.bold),
+                      prevSelectedModelName.value = prevSelectedModel;
+                    },
+                    onShowMoreButtonPressed: () {
+                      onOpenModelPickerModal(context, (String modelName) {
+                        imageGenerationNotifier.updateModel(modelName);
+                      });
+                    },
+                    onShowMoreLikedModelsButtonPressed: () {
+                      onOpenLikedModelPickerModal(context, models,
+                          (String modelName) {
+                        imageGenerationNotifier.updateModel(modelName);
+                      });
+                    },
+                    prevSelectedModelName: prevSelectedModelName.value,
                   ),
-                ]),
-                GenerationLoraPicker(
-                  selectedLoraNameMap:
-                      toGenerationLoraNameMap(imageGeneration.prompt),
-                  onValueChanged: (loraName, value) {
-                    String loraText = '';
-                    imageGeneration.prompt.split(',').forEach((element) {
-                      if (!element.contains('<lora:$loraName:')) return;
-                      loraText = element;
-                    });
-                    imageGenerationNotifier.updatePrompt(
-                      imageGeneration.prompt.replaceAllMapped(
-                        RegExp(loraText),
-                        (match) => '<lora:$loraName:$value>',
-                      ),
-                    );
-                  },
-                  onDeleted: (loraName) {
-                    String loraText = '';
-                    imageGeneration.prompt.split(',').forEach((element) {
-                      if (!element.contains('<lora:$loraName:')) return;
-                      loraText = element;
-                    });
-                    // TODO: カンマが残ってしまう問題を解決する
-                    imageGenerationNotifier.updatePrompt(
-                      imageGeneration.prompt.replaceAllMapped(
-                        RegExp(loraText),
-                        (match) => '',
-                      ),
-                    );
-                  },
-                  addLoraButtonPressed: () {
-                    onOpenLoraPickerModal(context, (loraName) {
-                      imageGenerationNotifier.updatePrompt(
-                          '${imageGeneration.prompt}, <lora:$loraName:1>');
-                    });
-                  },
-                ),
-                const SizedBox(height: 16),
-                GenerationPromptInputField(
-                  initialPrompt: imageGeneration.prompt,
-                  initialNegativePrompt: imageGeneration.negativePrompt,
-                  onPromptChanged: (prompt) {
-                    imageGenerationNotifier.updatePrompt(prompt);
-                  },
-                  onNegativePromptChanged: (negativePrompt) {
-                    imageGenerationNotifier
-                        .updateNegativePrompt(negativePrompt);
-                  },
-                ),
-                GenerationSizeTypePicker(
-                  modelVersion: GenerationModelVersion.fromText(
-                      selectedModel.value!.type),
-                  currentSizeType: imageGeneration.sizeType,
-                  onSelected: (sizeType) {
-                    imageGenerationNotifier.updateSizeType(sizeType);
-                  },
-                ),
-                const SizedBox(height: 8),
-                GenerationSeedInput(
-                  currentSeed: imageGeneration.seed,
-                  onChanged: (value) {
-                    imageGenerationNotifier.updateSeed(value);
-                  },
-                ),
-                const SizedBox(height: 8),
-                Padding(
-                  padding: const EdgeInsets.only(right: 48),
-                  child: GenerationScaleInput(
-                    currentScale: imageGeneration.scale,
-                    onChanged: (value) {
-                      imageGenerationNotifier.updateScale(value);
+                  const SizedBox(height: 16),
+                  Row(children: [
+                    const SizedBox(width: 8),
+                    Text(
+                      'LoRA(エフェクト)'.i18n,
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ]),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    child: GenerationLoraPicker(
+                      selectedLoraNameMap:
+                          toGenerationLoraNameMap(imageGeneration.prompt),
+                      onValueChanged: (loraName, value) {
+                        String loraText = '';
+                        imageGeneration.prompt.split(',').forEach((element) {
+                          if (!element.contains('<lora:$loraName:')) return;
+                          loraText = element;
+                        });
+                        imageGenerationNotifier.updatePrompt(
+                          imageGeneration.prompt.replaceAllMapped(
+                            RegExp(loraText),
+                            (match) => '<lora:$loraName:$value>',
+                          ),
+                        );
+                      },
+                      onDeleted: (loraName) {
+                        String loraText = '';
+                        imageGeneration.prompt.split(',').forEach((element) {
+                          if (!element.contains('<lora:$loraName:')) return;
+                          loraText = element;
+                        });
+                        // TODO: カンマが残ってしまう問題を解決する
+                        imageGenerationNotifier.updatePrompt(
+                          imageGeneration.prompt.replaceAllMapped(
+                            RegExp(loraText),
+                            (match) => '',
+                          ),
+                        );
+                      },
+                      addLoraButtonPressed: () {
+                        onOpenLoraPickerModal(context, (loraName) {
+                          imageGenerationNotifier.updatePrompt(
+                              '${imageGeneration.prompt}, <lora:$loraName:1>');
+                        });
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  GenerationPromptInputField(
+                    initialPrompt: imageGeneration.prompt,
+                    initialNegativePrompt: imageGeneration.negativePrompt,
+                    onPromptChanged: (prompt) {
+                      imageGenerationNotifier.updatePrompt(prompt);
+                    },
+                    onNegativePromptChanged: (negativePrompt) {
+                      imageGenerationNotifier
+                          .updateNegativePrompt(negativePrompt);
                     },
                   ),
-                ),
-                const SizedBox(height: 8),
-                Padding(
-                  padding: const EdgeInsets.only(right: 48),
-                  child: GenerationStepsInput(
-                    currentSteps: imageGeneration.steps,
-                    onChanged: (value) {
-                      imageGenerationNotifier.updateSteps(value);
-                    },
-                  ),
-                ),
-                const SizedBox(height: 8),
-                Padding(
-                  padding: const EdgeInsets.only(right: 48),
-                  child: GenerationSamplerPicker(
-                    currentSampler: imageGeneration.sampler,
-                    onSelected: (value) {
-                      imageGenerationNotifier.updateSampler(value);
-                    },
-                  ),
-                ),
-                const SizedBox(height: 8),
-                Padding(
-                  padding: const EdgeInsets.only(right: 48),
-                  child: GenerationVaePicker(
+                  GenerationSizeTypePicker(
                     modelVersion: GenerationModelVersion.fromText(
                         selectedModel.value!.type),
-                    currentVae: imageGeneration.vae,
-                    onSelected: (value) {
-                      imageGenerationNotifier.updateVae(value);
+                    currentSizeType: imageGeneration.sizeType,
+                    onSelected: (sizeType) {
+                      imageGenerationNotifier.updateSizeType(sizeType);
                     },
                   ),
-                ),
-                GeneratedImagesGridView(onTap: (String nanoId) {
-                  context.push('/generation/tasks/$nanoId');
-                }),
-              ],
+                  const SizedBox(height: 8),
+                  GenerationSeedInput(
+                    currentSeed: imageGeneration.seed,
+                    onChanged: (value) {
+                      imageGenerationNotifier.updateSeed(value);
+                    },
+                  ),
+                  const SizedBox(height: 8),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 48),
+                    child: GenerationScaleInput(
+                      currentScale: imageGeneration.scale,
+                      onChanged: (value) {
+                        imageGenerationNotifier.updateScale(value);
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 48),
+                    child: GenerationStepsInput(
+                      currentSteps: imageGeneration.steps,
+                      onChanged: (value) {
+                        imageGenerationNotifier.updateSteps(value);
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 48),
+                    child: GenerationSamplerPicker(
+                      currentSampler: imageGeneration.sampler,
+                      onSelected: (value) {
+                        imageGenerationNotifier.updateSampler(value);
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 48),
+                    child: GenerationVaePicker(
+                      modelVersion: GenerationModelVersion.fromText(
+                          selectedModel.value!.type),
+                      currentVae: imageGeneration.vae,
+                      onSelected: (value) {
+                        imageGenerationNotifier.updateVae(value);
+                      },
+                    ),
+                  ),
+                  GeneratedImagesGridView(onTap: (String nanoId) {
+                    context.push('/generation/tasks/$nanoId');
+                  }),
+                ],
+              ),
             ),
             bottomNavigationBar: (viewerImageGenerationStatus.value != null)
                 ? GenerationButton(

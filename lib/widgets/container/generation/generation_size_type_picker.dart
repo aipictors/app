@@ -7,6 +7,7 @@ import 'package:aipictors/widgets/container/generation/sdxl_size_type_picker.dar
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+//TODO: デコレーションを追加する
 class GenerationSizeTypePicker extends HookConsumerWidget {
   const GenerationSizeTypePicker({
     super.key,

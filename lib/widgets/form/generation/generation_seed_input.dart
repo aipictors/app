@@ -57,7 +57,13 @@ class GenerationSeedInput extends HookConsumerWidget {
             onTapOutside: (event) {
               focusNode.unfocus();
             },
-            decoration: InputDecoration(hintText: 'Seed'.i18n),
+            decoration: InputDecoration(
+              hintText: 'Seed'.i18n,
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(
+                    color: Theme.of(context).colorScheme.outlineVariant),
+              ),
+            ),
           ),
         ),
         IconButton(

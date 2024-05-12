@@ -63,10 +63,10 @@ class GenerationPromptInputField extends HookConsumerWidget {
           },
           decoration: InputDecoration(
             hintText: 'プロンプト'.i18n,
-            filled: true,
-            border: OutlineInputBorder(
+            enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(16),
-              borderSide: BorderSide.none,
+              borderSide: BorderSide(
+                  color: Theme.of(context).colorScheme.outlineVariant),
             ),
           ),
         ),
@@ -90,10 +90,11 @@ class GenerationPromptInputField extends HookConsumerWidget {
           },
           decoration: InputDecoration(
             hintText: 'ネガティブプロンプト'.i18n,
-            filled: true,
-            border: OutlineInputBorder(
+            enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(16),
-              borderSide: BorderSide.none,
+              borderSide: BorderSide(
+                color: Theme.of(context).colorScheme.outlineVariant,
+              ),
             ),
           ),
         )

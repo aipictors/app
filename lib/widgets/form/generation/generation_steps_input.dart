@@ -56,7 +56,13 @@ class GenerationStepsInput extends HookConsumerWidget {
               }
               return null;
             },
-            decoration: InputDecoration(hintText: 'Steps'.i18n),
+            decoration: InputDecoration(
+              hintText: 'Steps'.i18n,
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(
+                    color: Theme.of(context).colorScheme.outlineVariant),
+              ),
+            ),
           ),
         ),
       ],

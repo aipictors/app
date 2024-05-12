@@ -36,7 +36,13 @@ class GenerationLoraPicker extends HookConsumerWidget {
     Map<GImageLoraModelsData_imageLoraModels, double> selectedLoraMap = {};
 
     return Container(
-        color: Theme.of(context).colorScheme.surfaceVariant,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(16.0),
+          border: Border.all(
+            width: 1,
+            color: Theme.of(context).colorScheme.surfaceVariant,
+          ),
+        ),
         child: Column(
           children: [
             OperationBuilder(

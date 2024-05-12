@@ -38,80 +38,78 @@ class GenerationModelPicker extends HookConsumerWidget {
 
     GImageModelsData_imageModels? prevSelectedModel;
 
-    return Container(
-        color: Theme.of(context).colorScheme.surfaceVariant,
-        child: Column(
-          children: [
-            OperationBuilder(
-                client: client.value!,
-                operationRequest: GImageModelsReq(),
-                builder: (context, response) {
-                  final models = response.data!.imageModels;
+    return Column(
+      children: [
+        OperationBuilder(
+            client: client.value!,
+            operationRequest: GImageModelsReq(),
+            builder: (context, response) {
+              final models = response.data!.imageModels;
 
-                  final int selectedModelIndex = models.indexWhere(
-                    (p0) => p0.name == selectedModelName,
-                  );
-                  if (selectedModelIndex != -1) {
-                    selectedModel = models[selectedModelIndex];
-                  }
+              final int selectedModelIndex = models.indexWhere(
+                (p0) => p0.name == selectedModelName,
+              );
+              if (selectedModelIndex != -1) {
+                selectedModel = models[selectedModelIndex];
+              }
 
-                  final int prevSelectedModelIndex = models.indexWhere(
-                    (p0) => p0.name == prevSelectedModelName,
-                  );
-                  if (prevSelectedModelIndex != -1) {
-                    prevSelectedModel = models[prevSelectedModelIndex];
-                  }
+              final int prevSelectedModelIndex = models.indexWhere(
+                (p0) => p0.name == prevSelectedModelName,
+              );
+              if (prevSelectedModelIndex != -1) {
+                prevSelectedModel = models[prevSelectedModelIndex];
+              }
 
-                  // 選択中のモデルを含む合計3つのモデルを表示する
-                  List<GImageModelsData_imageModels> topModels =
-                      models.sublist(0, 3).toList();
+              // 選択中のモデルを含む合計3つのモデルを表示する
+              List<GImageModelsData_imageModels> topModels =
+                  models.sublist(0, 3).toList();
 
-                  // 選択中のモデルがtopModelsにあり、以前選択されたモデルが指定されているがtopModelsにない場合、最下部に表示する
-                  if (prevSelectedModel != null &&
-                      topModels.any(
-                          (element) => element.name == selectedModelName) &&
-                      topModels.any((element) =>
-                              element.name == prevSelectedModelName) ==
-                          false) {
-                    topModels[2] = prevSelectedModel!;
-                    // 選択中のモデルがあり、topModelsに含まれていない場合は選択中のモデルを最下部に表示する
-                  } else if (selectedModel != null &&
-                      topModels.any(
-                              (element) => element.name == selectedModelName) ==
-                          false) {
-                    topModels[2] = selectedModel!;
-                  }
+              // 選択中のモデルがtopModelsにあり、以前選択されたモデルが指定されているがtopModelsにない場合、最下部に表示する
+              if (prevSelectedModel != null &&
+                  topModels
+                      .any((element) => element.name == selectedModelName) &&
+                  topModels.any(
+                          (element) => element.name == prevSelectedModelName) ==
+                      false) {
+                topModels[2] = prevSelectedModel!;
+                // 選択中のモデルがあり、topModelsに含まれていない場合は選択中のモデルを最下部に表示する
+              } else if (selectedModel != null &&
+                  topModels.any(
+                          (element) => element.name == selectedModelName) ==
+                      false) {
+                topModels[2] = selectedModel!;
+              }
 
-                  return Column(
-                    children: [
-                      for (final model in topModels)
-                        Container(
-                          color: (model == selectedModel)
-                              ? Theme.of(context).colorScheme.inversePrimary
-                              : null,
-                          child: WorkInfoListTile(
-                            thumbnailImageURL: model.thumbnailImageURL ?? '',
-                            title: model.displayName,
-                            body: Row(children: [
-                              Text(toModelCategoryText(model.category)),
-                              const SizedBox(width: 16),
-                              Text(model.type),
-                            ]),
-                            onTap: () {
-                              onSelected(model.name, topModels[2].name);
-                            },
-                          ),
-                        ),
-                      OutlinedButton(
-                        child: Text('もっとみる'.i18n),
-                        onPressed: () {
-                          onShowMoreButtonPressed();
+              return Column(
+                children: [
+                  for (final model in topModels)
+                    Container(
+                      color: (model == selectedModel)
+                          ? Theme.of(context).colorScheme.inversePrimary
+                          : null,
+                      child: WorkInfoListTile(
+                        thumbnailImageURL: model.thumbnailImageURL ?? '',
+                        title: model.displayName,
+                        body: Row(children: [
+                          Text(toModelCategoryText(model.category)),
+                          const SizedBox(width: 16),
+                          Text(model.type),
+                        ]),
+                        onTap: () {
+                          onSelected(model.name, topModels[2].name);
                         },
-                      )
-                    ],
-                  );
-                })
-          ],
-        ));
+                      ),
+                    ),
+                  OutlinedButton(
+                    child: Text('もっとみる'.i18n),
+                    onPressed: () {
+                      onShowMoreButtonPressed();
+                    },
+                  )
+                ],
+              );
+            })
+      ],
+    );
   }
 }
