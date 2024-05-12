@@ -4,6 +4,7 @@ import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/utils/to_generation_image_url.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
+import 'package:aipictors/widgets/container/error/deleted_image_generation_task_error_container.dart';
 import 'package:aipictors/widgets/container/generation/generating_image_container.dart';
 import 'package:aipictors/widgets/container/loading_container.dart';
 import 'package:aipictors/widgets/image/grid_work_image.dart';
@@ -15,9 +16,12 @@ class GeneratedImagesGridView extends HookConsumerWidget {
   const GeneratedImagesGridView({
     super.key,
     required this.onTap,
+    required this.onUpdate,
   });
 
   final Function(String id) onTap;
+
+  final VoidCallback onUpdate;
 
   @override
   Widget build(context, ref) {
@@ -38,6 +42,7 @@ class GeneratedImagesGridView extends HookConsumerWidget {
       children: [
         FilledButton(
             onPressed: () {
+              onUpdate();
               final req = request.rebuild((builder) {
                 builder
                   ..vars.limit = config.graphqlQueryLimit
@@ -60,22 +65,31 @@ class GeneratedImagesGridView extends HookConsumerWidget {
               itemCount: taskList!.length,
               itemBuilder: (context, index) {
                 final task = taskList[index];
+                // 生成中なら進捗状況を表示する
+                if (taskList[index].status ==
+                        GImageGenerationStatus.IN_PROGRESS ||
+                    taskList[index].status == GImageGenerationStatus.PENDING ||
+                    taskList[index].status == GImageGenerationStatus.RESERVED) {
+                  return const GeneratingImageContainer();
+                }
+                if (taskList[index].nanoid == null ||
+                    taskList[index].token == null ||
+                    taskList[index].imageFileName == null) {
+                  return const DeletedImageGenerationTaskErrorContainer();
+                }
                 return InkWell(
-                  onTap: () {
-                    onTap(task.nanoid!);
-                  },
-                  child: (task.status == GImageGenerationStatus.DONE)
-                      ? GridWorkImage(
-                          imageURL: toGenerationImageUrl(task.thumbnailToken!,
-                              task.thumbnailImageFileName!),
-                          httpHeaders: const {
-                            'Referer': 'https://beta.aipictors.com/',
-                          },
-                          imageAspectRatio: 1,
-                          thumbnailImagePosition: null,
-                        )
-                      : const GeneratingImageContainer(),
-                );
+                    onTap: () {
+                      onTap(task.nanoid!);
+                    },
+                    child: GridWorkImage(
+                      imageURL: toGenerationImageUrl(
+                          task.thumbnailToken!, task.thumbnailImageFileName!),
+                      httpHeaders: const {
+                        'Referer': 'https://beta.aipictors.com/',
+                      },
+                      imageAspectRatio: 1,
+                      thumbnailImagePosition: null,
+                    ));
               },
             );
           },

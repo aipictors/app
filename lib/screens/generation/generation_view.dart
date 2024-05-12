@@ -49,7 +49,7 @@ class GenerationView extends HookConsumerWidget {
     final ValueNotifier<GViewerImageGenerationStatusData?>
         viewerImageGenerationStatus = useState(null);
     ref
-        .watch(viewerImageGenerationStatusProvider.future)
+        .read(viewerImageGenerationStatusProvider.future)
         .then((value) => viewerImageGenerationStatus.value = value);
     final ValueNotifier<GImageModelsData_imageModels?> selectedModel =
         useState(null);
@@ -230,6 +230,9 @@ class GenerationView extends HookConsumerWidget {
                   ),
                   GeneratedImagesGridView(onTap: (String nanoId) {
                     context.push('/generation/tasks/$nanoId');
+                  }, onUpdate: () {
+                    ref.read(viewerImageGenerationStatusProvider.future).then(
+                        (value) => viewerImageGenerationStatus.value = value);
                   }),
                 ],
               ),
@@ -240,8 +243,8 @@ class GenerationView extends HookConsumerWidget {
                         viewerImageGenerationStatus.value!,
                     onPressed: () async {
                       await onCreateTask(context, ref, imageGeneration);
-                      viewerImageGenerationStatus.value = await ref
-                          .watch(viewerImageGenerationStatusProvider.future);
+                      ref.read(viewerImageGenerationStatusProvider.future).then(
+                          (value) => viewerImageGenerationStatus.value = value);
                     },
                   )
                 : const FilledButton(
