@@ -46,7 +46,7 @@ class GenerationModelPickerTab extends HookConsumerWidget {
     }
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16.0),
+        borderRadius: BorderRadius.circular(16),
         border: Border.all(
           width: 1,
           color: Theme.of(context).colorScheme.surfaceVariant,
@@ -55,11 +55,10 @@ class GenerationModelPickerTab extends HookConsumerWidget {
       child: DefaultTabController(
         length: 2,
         child: Column(children: [
-          const SizedBox(height: 4),
           TabBar(
             dividerHeight: 0,
             indicator: BoxDecoration(
-                borderRadius: BorderRadius.circular(32),
+                borderRadius: BorderRadius.circular(16),
                 color: Theme.of(context).colorScheme.inversePrimary),
             labelColor: Theme.of(context).colorScheme.inverseSurface,
             indicatorSize: TabBarIndicatorSize.tab,

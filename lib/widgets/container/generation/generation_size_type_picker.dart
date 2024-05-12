@@ -7,7 +7,6 @@ import 'package:aipictors/widgets/container/generation/sdxl_size_type_picker.dar
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-//TODO: デコレーションを追加する
 class GenerationSizeTypePicker extends HookConsumerWidget {
   const GenerationSizeTypePicker({
     super.key,
@@ -24,6 +23,15 @@ class GenerationSizeTypePicker extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
+    final decoration = InputDecoration(
+      enabledBorder: UnderlineInputBorder(
+        borderSide:
+            BorderSide(color: Theme.of(context).colorScheme.outlineVariant),
+      ),
+    );
+
+    const style = TextStyle(fontWeight: FontWeight.normal);
+
     return Row(
       children: [
         Text(
@@ -38,6 +46,8 @@ class GenerationSizeTypePicker extends HookConsumerWidget {
             onSelected: (value) {
               onSelected(value);
             },
+            decoration: decoration,
+            style: style,
           ),
         if (modelVersion == GenerationModelVersion.SD2)
           SD2SizeTypePicker(
@@ -47,6 +57,8 @@ class GenerationSizeTypePicker extends HookConsumerWidget {
             onSelected: (value) {
               onSelected(value);
             },
+            decoration: decoration,
+            style: style,
           ),
         if (modelVersion == GenerationModelVersion.SDXL)
           SDXLSizeTypePicker(
@@ -56,6 +68,8 @@ class GenerationSizeTypePicker extends HookConsumerWidget {
             onSelected: (value) {
               onSelected(value);
             },
+            decoration: decoration,
+            style: style,
           ),
       ],
     );

@@ -8,11 +8,17 @@ class SDXLSizeTypePicker extends HookConsumerWidget {
     super.key,
     required this.currentValue,
     required this.onSelected,
+    this.decoration,
+    this.style,
   });
 
   final GImageGenerationSizeType currentValue;
 
   final Function(GImageGenerationSizeType sizeType) onSelected;
+
+  final InputDecoration? decoration;
+
+  final TextStyle? style;
 
   @override
   Widget build(context, ref) {
@@ -23,8 +29,11 @@ class SDXLSizeTypePicker extends HookConsumerWidget {
       GImageGenerationSizeType.SD3_640_1536,
       GImageGenerationSizeType.SD3_1536_640,
     ];
-    return DropdownButton(
+    return Expanded(
+      child: DropdownButtonFormField(
         value: currentValue,
+        decoration: decoration,
+        style: style,
         items: [
           for (final value in values)
             DropdownMenuItem(
@@ -34,6 +43,8 @@ class SDXLSizeTypePicker extends HookConsumerWidget {
         ],
         onChanged: (value) {
           onSelected(value as GImageGenerationSizeType);
-        });
+        },
+      ),
+    );
   }
 }

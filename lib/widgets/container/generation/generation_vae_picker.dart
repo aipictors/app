@@ -71,12 +71,13 @@ class GenerationVaePicker extends HookConsumerWidget {
     return Row(
       children: [
         Text(
-          'VAE '.i18n,
+          'VAE'.i18n,
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         const SizedBox(width: 8),
         Expanded(
           child: DropdownButton(
+            style: const TextStyle(fontWeight: FontWeight.normal),
             value: (isLoading.value) ? 'None' : vae.value,
             isExpanded: true,
             items: [

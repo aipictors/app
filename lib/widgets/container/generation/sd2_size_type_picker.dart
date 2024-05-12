@@ -8,11 +8,17 @@ class SD2SizeTypePicker extends HookConsumerWidget {
     super.key,
     required this.currentValue,
     required this.onSelected,
+    this.decoration,
+    this.style,
   });
 
   final GImageGenerationSizeType currentValue;
 
   final Function(GImageGenerationSizeType sizeType) onSelected;
+
+  final InputDecoration? decoration;
+
+  final TextStyle? style;
 
   @override
   Widget build(context, ref) {
@@ -21,8 +27,11 @@ class SD2SizeTypePicker extends HookConsumerWidget {
       GImageGenerationSizeType.SD2_768_1200,
       GImageGenerationSizeType.SD2_1200_768
     ];
-    return DropdownButton(
+    return Expanded(
+      child: DropdownButtonFormField(
         value: currentValue,
+        decoration: decoration,
+        style: style,
         items: [
           for (final value in values)
             DropdownMenuItem(
@@ -32,6 +41,8 @@ class SD2SizeTypePicker extends HookConsumerWidget {
         ],
         onChanged: (value) {
           onSelected(value as GImageGenerationSizeType);
-        });
+        },
+      ),
+    );
   }
 }
