@@ -12,7 +12,7 @@ class GenerationTaskOptionsContainer extends HookConsumerWidget {
   Widget build(context, ref) {
     return Row(
       children: [
-        TextButton.icon(
+        OutlinedButton.icon(
           icon: const Icon(Icons.arrow_back_rounded),
           label: Text('再利用'.i18n),
           onPressed: onReuseButtonPressed,
