@@ -1,6 +1,8 @@
 import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/enums/generation_model_version.dart';
+import 'package:aipictors/widgets/container/loading_container.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class GenerationVaePicker extends HookConsumerWidget {
@@ -19,6 +21,10 @@ class GenerationVaePicker extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
+    final vae = useState(currentVae);
+
+    final isLoading = useState(false);
+
     const vaeList = [
       'kl-f8-anime2',
       'clearvae_v23',
@@ -29,6 +35,39 @@ class GenerationVaePicker extends HookConsumerWidget {
       'sdxl_vae',
       'None',
     ];
+
+    // モデルに合わせたVAEに補正する
+    void correctVae() {
+      // SD1とSD2のVAEは互換性があるが、SDXLは互換性がない
+      if ((modelVersion == GenerationModelVersion.SD1 ||
+              modelVersion == GenerationModelVersion.SD2) &&
+          !vaeList.contains(vae.value)) {
+        isLoading.value = true;
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          onSelected(vaeList[0]);
+        });
+      } else if (modelVersion == GenerationModelVersion.SDXL &&
+          !sdxlVaeList.contains(vae.value)) {
+        isLoading.value = true;
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          onSelected(sdxlVaeList[0]);
+        });
+      } else {
+        isLoading.value = false;
+      }
+    }
+
+    correctVae();
+
+    useEffect(() {
+      correctVae();
+      vae.value = currentVae;
+      return null;
+    }, [modelVersion, currentVae]);
+
+    if (isLoading.value) {
+      return const LoadingContainer();
+    }
     return Row(
       children: [
         Text(
@@ -38,7 +77,7 @@ class GenerationVaePicker extends HookConsumerWidget {
         const SizedBox(width: 8),
         Expanded(
           child: DropdownButton(
-            value: currentVae,
+            value: (isLoading.value) ? 'None' : vae.value,
             isExpanded: true,
             items: [
               if (modelVersion == GenerationModelVersion.SD1 ||
