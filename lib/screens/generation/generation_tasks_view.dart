@@ -66,22 +66,7 @@ class GenerationTasksView extends HookConsumerWidget {
                 //TODO: 生成履歴用の削除済みエラーコンテナを作成する
                 return DeletedWorkErrorContainer();
               }
-              return GenerationTaskListTile(
-                taskNanoId: taskList[index].nanoid!,
-                imageUrl: toGenerationImageUrl(
-                    taskList[index].token!, taskList[index].imageFileName!),
-                model: taskList[index].model,
-                prompt: taskList[index].prompt,
-                negativePrompt: taskList[index].negativePrompt,
-                seed: taskList[index].seed.toInt(),
-                steps: taskList[index].steps,
-                scale: taskList[index].scale,
-                sampler: taskList[index].sampler,
-                sizeType: taskList[index].sizeType,
-                vae: taskList[index].vae!,
-                rating: taskList[index].rating ?? 0,
-                isProtected: taskList[index].isProtected ?? false,
-              );
+              return GenerationTaskListTile(task: taskList[index]);
             });
       },
     );

@@ -7,6 +7,7 @@ import 'package:aipictors/providers/image_generation_provider.dart';
 import 'package:aipictors/screens/error/data_not_found_error_screen.dart';
 import 'package:aipictors/screens/error/deleted_work_error_container.dart';
 import 'package:aipictors/screens/loading_screen.dart';
+import 'package:aipictors/utils/reuse_image_generation_task.dart';
 import 'package:aipictors/utils/to_generation_image_url.dart';
 import 'package:aipictors/utils/to_generation_size_type_text.dart';
 import 'package:aipictors/widgets/builder/operation_screen_builder.dart';
@@ -205,19 +206,8 @@ class GenerationTaskScreen extends HookConsumerWidget {
           bottomNavigationBar: FilledButton(
             child: Text('復元する'.i18n),
             onPressed: () {
-              imageGenerationNotifier.updateModel(task.model.name);
-              imageGenerationNotifier.updatePrompt(task.prompt);
-              imageGenerationNotifier.updateNegativePrompt(task.negativePrompt);
-              imageGenerationNotifier.updateSeed(task.seed.toInt());
-              imageGenerationNotifier.updateSteps(task.steps);
-              imageGenerationNotifier.updateScale(task.scale);
-              imageGenerationNotifier.updateSampler(task.sampler);
-              imageGenerationNotifier.updateSizeType(task.sizeType);
-              if (task.vae != 'None') {
-                imageGenerationNotifier.updateVae(task.vae!.split('.')[0]);
-              } else {
-                imageGenerationNotifier.updateVae(task.vae!);
-              }
+              reuseImageGenerationTask(task, imageGenerationNotifier);
+              showSnackBar(context, '生成情報を復元しました'.i18n);
             },
           ),
         );

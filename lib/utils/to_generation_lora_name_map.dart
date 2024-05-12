@@ -1,6 +1,6 @@
 Map<String, double> toGenerationLoraNameMap(String prompt) {
   Map<String, double> loraNameMap = {};
-  prompt.split(',').forEach((element) {
+  prompt.split(' ').forEach((element) {
     RegExp regex = RegExp(r'<lora:([^:]+):([^>]+)>');
     Match? match = regex.firstMatch(element);
 

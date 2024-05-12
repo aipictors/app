@@ -1,13 +1,15 @@
-import 'package:aipictors/__generated__/schema.schema.gql.dart';
 import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/graphql/generation/__generated__/viewer_image_generation_tasks.data.gql.dart';
 import 'package:aipictors/mutations/update_protected_image_generation_task.dart';
 import 'package:aipictors/mutations/update_rating_image_generation_task.dart';
 import 'package:aipictors/providers/image_generation_provider.dart';
+import 'package:aipictors/utils/reuse_image_generation_task.dart';
+import 'package:aipictors/utils/to_generation_image_url.dart';
 import 'package:aipictors/utils/to_generation_size_type_text.dart';
 import 'package:aipictors/widgets/card/generation_setting_card.dart';
 import 'package:aipictors/widgets/container/generation/generation_protect_button.dart';
 import 'package:aipictors/widgets/container/generation/generation_rating_container.dart';
+import 'package:aipictors/widgets/container/generation/generation_task_options_container.dart';
 import 'package:aipictors/widgets/container/generation/prompts_container.dart';
 import 'package:aipictors/widgets/image/feed_image.dart';
 import 'package:flutter/material.dart';
@@ -17,46 +19,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 class GenerationTaskListTile extends HookConsumerWidget {
   const GenerationTaskListTile({
     super.key,
-    required this.taskNanoId,
-    required this.imageUrl,
-    required this.model,
-    required this.prompt,
-    required this.negativePrompt,
-    required this.seed,
-    required this.steps,
-    required this.scale,
-    required this.sampler,
-    required this.sizeType,
-    required this.vae,
-    required this.rating,
-    required this.isProtected,
+    required this.task,
   });
 
-  final String taskNanoId;
-
-  final String imageUrl;
-
-  final GViewerImageGenerationTasksData_viewer_imageGenerationTasks_model model;
-
-  final String prompt;
-
-  final String negativePrompt;
-
-  final int seed;
-
-  final int steps;
-
-  final int scale;
-
-  final String sampler;
-
-  final GImageGenerationSizeType sizeType;
-
-  final String vae;
-
-  final int rating;
-
-  final bool isProtected;
+  final GViewerImageGenerationTasksData_viewer_imageGenerationTasks task;
 
   @override
   Widget build(context, ref) {
@@ -66,7 +32,7 @@ class GenerationTaskListTile extends HookConsumerWidget {
 
     return ListTile(
       onTap: () {
-        context.push('/generation/tasks/$taskNanoId');
+        context.push('/generation/tasks/${task.nanoid}');
       },
       minVerticalPadding: 0,
       contentPadding: const EdgeInsets.only(
@@ -79,7 +45,7 @@ class GenerationTaskListTile extends HookConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           FeedImage(
-            imageURL: imageUrl,
+            imageURL: toGenerationImageUrl(task.token!, task.imageFileName!),
             imageAspectRatio: 1,
             headers: const {
               'Referer': 'https://beta.aipictors.com/',
@@ -90,25 +56,45 @@ class GenerationTaskListTile extends HookConsumerWidget {
       ),
       subtitle: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Row(children: [
-          GenerationRatingContainer(
-            currentRating: rating,
-            onPressed: (int value) {
-              onRating(context, taskNanoId, value);
+          Container(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(16.0),
+                border: Border.all(
+                    width: 1,
+                    color: Theme.of(context).colorScheme.outlineVariant)),
+          ),
+          GenerationTaskOptionsContainer(
+            onReuseButtonPressed: () {
+              reuseImageGenerationTask(task, imageGenerationNotifier);
+              showSnackBar(context, '生成情報を復元しました'.i18n);
             },
           ),
-          const Spacer(),
+          GenerationRatingContainer(
+            currentRating: task.rating ?? 0,
+            onPressed: (int value) {
+              onRating(context, task.nanoid!, value);
+            },
+          ),
+          const SizedBox(
+            width: 16,
+          ),
           GenerationProtectButton(
-              isProtected: isProtected,
+              isProtected: task.isProtected ?? false,
               onPressed: (newProtectionState) {
-                onProtect(context, taskNanoId, newProtectionState);
-              })
+                onProtect(context, task.nanoid!, newProtectionState);
+              }),
+          const Spacer(),
+          IconButton(
+            icon: const Icon(Icons.delete_rounded),
+            onPressed: () {},
+          )
         ]),
         Text(
           'プロンプト'.i18n,
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         PromptsContainer(
-            prompts: prompt,
+            prompts: task.prompt,
             onPressed: (String prompt) {
               imageGenerationNotifier
                   .updatePrompt('${imageGeneration.prompt}, $prompt');
@@ -125,7 +111,7 @@ class GenerationTaskListTile extends HookConsumerWidget {
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         PromptsContainer(
-            prompts: negativePrompt,
+            prompts: task.negativePrompt,
             onPressed: (String negativePrompt) {
               imageGenerationNotifier.updateNegativePrompt(
                   '${imageGeneration.negativePrompt}, $negativePrompt');
@@ -142,42 +128,42 @@ class GenerationTaskListTile extends HookConsumerWidget {
           children: [
             GenerationSettingCard(
               name: 'モデル'.i18n,
-              value: model.name.split('.')[0],
+              value: task.model.name.split('.')[0],
               onPressed: () {
-                imageGenerationNotifier.updateModel(model.name);
+                imageGenerationNotifier.updateModel(task.model.name);
                 showSnackBar(context, 'モデルを設定しました'.i18n);
               },
             ),
             GenerationSettingCard(
               name: 'サイズ'.i18n,
-              value: toGenerationSizeTypeText(sizeType),
+              value: toGenerationSizeTypeText(task.sizeType),
               onPressed: () {
-                imageGenerationNotifier.updateSizeType(sizeType);
+                imageGenerationNotifier.updateSizeType(task.sizeType);
                 showSnackBar(context, 'サイズを設定しました'.i18n);
               },
             ),
             GenerationSettingCard(
               name: 'Seed'.i18n,
-              value: seed.toString(),
+              value: task.seed.toString(),
               onPressed: () {
-                imageGenerationNotifier.updateSeed(seed);
+                imageGenerationNotifier.updateSeed(task.seed.toInt());
                 showSnackBar(context, 'Seedを設定しました'.i18n);
               },
             ),
             GenerationSettingCard(
               name: 'VAE'.i18n,
-              value: vae,
+              value: task.vae!,
               onPressed: () {
-                if (vae != 'None') {
-                  imageGenerationNotifier.updateVae(vae.split('.')[0]);
+                if (task.vae != 'None') {
+                  imageGenerationNotifier.updateVae(task.vae!.split('.')[0]);
                 } else {
-                  imageGenerationNotifier.updateVae(vae);
+                  imageGenerationNotifier.updateVae(task.vae);
                 }
                 showSnackBar(context, 'VAEを設定しました'.i18n);
               },
             ),
           ],
-        )
+        ),
       ]),
     );
   }

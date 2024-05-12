@@ -12,7 +12,7 @@ class PromptsContainer extends HookConsumerWidget {
   @override
   Widget build(context, ref) {
     final promptLength = prompts.split(',').length - 1;
-    final hasLastComma = (prompts[prompts.length - 1] == ',') ? true : false;
+    final hasLastComma = prompts[prompts.length - 1] == ',';
     return Container(
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
