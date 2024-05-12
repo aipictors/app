@@ -79,7 +79,7 @@ class GenerationModelPickerModal extends HookConsumerWidget {
                     if (filteredModels.isEmpty)
                       Padding(
                           padding: const EdgeInsets.all(32),
-                          child: Text('条件に合うモデルがないみたい。'.i18n)),
+                          child: Text('条件に合うモデルはないみたい。'.i18n)),
                     Expanded(
                         child: ListView.builder(
                             itemCount: filteredModels.length,

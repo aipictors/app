@@ -26,30 +26,30 @@ class GenerationLoraContainer extends HookConsumerWidget {
   Widget build(context, ref) {
     final focusNode = useFocusNode();
     final controller = useTextEditingController(text: value.toString());
-    final sliderValue = useState(value);
-    if (-1 > value) {
-      sliderValue.value = -1;
-    } else if (value > 1) {
-      sliderValue.value = 1;
+    final sliderValue = useState(0.0);
+
+    double getSliderValue(double input) {
+      if (-1 > value) {
+        return -1;
+      } else if (value > 1) {
+        return 1;
+      } else {
+        return value;
+      }
     }
+
+    sliderValue.value = getSliderValue(value);
+
     useEffect(() {
       // 入力中にカーソルが最後尾へ移動しないように、入力欄にフォーカスがある時は何もしない
       if (focusNode.hasFocus) {
         return null;
       }
-
       controller.text = value.toString();
-
-      if (-1 > value) {
-        sliderValue.value = -1;
-      } else if (value > 1) {
-        sliderValue.value = 1;
-      } else {
-        sliderValue.value = value;
-      }
-
+      sliderValue.value = getSliderValue(value);
       return null;
     }, [value]);
+
     return WorkInfoListTile(
         thumbnailImageURL: lora.thumbnailImageURL ?? '',
         title: '${lora.name} (${lora.description})',
