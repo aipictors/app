@@ -1,3 +1,4 @@
+import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/graphql/generation/__generated__/image_lora_models.data.gql.dart';
 import 'package:aipictors/graphql/generation/__generated__/image_lora_models.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
@@ -62,6 +63,10 @@ class GenerationLoraPickerModal extends HookConsumerWidget {
                         modelName.value = text;
                       },
                     ),
+                    if (filteredModels.isEmpty)
+                      Padding(
+                          padding: const EdgeInsets.all(32),
+                          child: Text('条件に合うLoRAはないみたい。'.i18n)),
                     Expanded(
                         child: ListView.builder(
                             itemCount: filteredModels.length,
