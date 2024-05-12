@@ -40,14 +40,14 @@ class GenerationVaePicker extends HookConsumerWidget {
     // モデルに合わせたVAEに補正する
     void correctVae() {
       // SD1とSD2のVAEは互換性があるが、SDXLは互換性がない
-      if ((modelVersion == GenerationModelVersion.SD1 ||
-              modelVersion == GenerationModelVersion.SD2) &&
+      if ((modelVersion == GenerationModelVersion.sd1 ||
+              modelVersion == GenerationModelVersion.sd2) &&
           !vaeList.contains(vae.value)) {
         isLoading.value = true;
         WidgetsBinding.instance.addPostFrameCallback((_) {
           onSelected(vaeList[0]);
         });
-      } else if (modelVersion == GenerationModelVersion.SDXL &&
+      } else if (modelVersion == GenerationModelVersion.sdxl &&
           !sdxlVaeList.contains(vae.value)) {
         isLoading.value = true;
         WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -82,11 +82,11 @@ class GenerationVaePicker extends HookConsumerWidget {
             value: (isLoading.value) ? 'None' : vae.value,
             isExpanded: true,
             items: [
-              if (modelVersion == GenerationModelVersion.SD1 ||
-                  modelVersion == GenerationModelVersion.SD2)
+              if (modelVersion == GenerationModelVersion.sd1 ||
+                  modelVersion == GenerationModelVersion.sd2)
                 for (String vae in vaeList)
                   DropdownMenuItem(value: vae, child: Text(vae)),
-              if (modelVersion == GenerationModelVersion.SDXL)
+              if (modelVersion == GenerationModelVersion.sdxl)
                 for (String vae in sdxlVaeList)
                   DropdownMenuItem(value: vae, child: Text(vae))
             ],

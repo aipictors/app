@@ -127,7 +127,7 @@ class GenerationView extends HookConsumerWidget {
                           toGenerationLoraNameMap(imageGeneration.prompt),
                       onValueChanged: (loraName, value) {
                         String loraText = '';
-                        imageGeneration.prompt.split(',').forEach((element) {
+                        imageGeneration.prompt.split(' ').forEach((element) {
                           if (!element.contains('<lora:$loraName:')) return;
                           loraText = element;
                         });
@@ -140,11 +140,10 @@ class GenerationView extends HookConsumerWidget {
                       },
                       onDeleted: (loraName) {
                         String loraText = '';
-                        imageGeneration.prompt.split(',').forEach((element) {
+                        imageGeneration.prompt.split(' ').forEach((element) {
                           if (!element.contains('<lora:$loraName:')) return;
-                          loraText = element;
+                          loraText = ' $element';
                         });
-                        // TODO: カンマが残ってしまう問題を解決する
                         imageGenerationNotifier.updatePrompt(
                           imageGeneration.prompt.replaceAllMapped(
                             RegExp(loraText),
@@ -155,7 +154,7 @@ class GenerationView extends HookConsumerWidget {
                       addLoraButtonPressed: () {
                         onOpenLoraPickerModal(context, (loraName) {
                           imageGenerationNotifier.updatePrompt(
-                              '${imageGeneration.prompt}, <lora:$loraName:1>');
+                              '${imageGeneration.prompt} <lora:$loraName:1>');
                         });
                       },
                     ),

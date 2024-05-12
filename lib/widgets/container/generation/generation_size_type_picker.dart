@@ -38,7 +38,7 @@ class GenerationSizeTypePicker extends HookConsumerWidget {
           'サイズ '.i18n,
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
-        if (modelVersion == GenerationModelVersion.SD1)
+        if (modelVersion == GenerationModelVersion.sd1)
           SD1SizeTypePicker(
             currentValue: (currentSizeType.name.contains('SD1'))
                 ? currentSizeType
@@ -49,7 +49,7 @@ class GenerationSizeTypePicker extends HookConsumerWidget {
             decoration: decoration,
             style: style,
           ),
-        if (modelVersion == GenerationModelVersion.SD2)
+        if (modelVersion == GenerationModelVersion.sd2)
           SD2SizeTypePicker(
             currentValue: (currentSizeType.name.contains('SD2'))
                 ? currentSizeType
@@ -60,7 +60,7 @@ class GenerationSizeTypePicker extends HookConsumerWidget {
             decoration: decoration,
             style: style,
           ),
-        if (modelVersion == GenerationModelVersion.SDXL)
+        if (modelVersion == GenerationModelVersion.sdxl)
           SDXLSizeTypePicker(
             currentValue: (currentSizeType.name.contains('SD3'))
                 ? currentSizeType
