@@ -93,6 +93,11 @@ class GenerationTasksView extends HookConsumerWidget {
                 }
                 return GenerationTaskListTile(
                   task: taskList[index],
+                  onTap: () async {
+                    await context
+                        .push('/generation/tasks/${taskList[index].nanoid}');
+                    client.value?.requestController.add(request);
+                  },
                   onRating: onRating,
                   onProtect: onProtect,
                   onDelete: (BuildContext context, String nanoId) {

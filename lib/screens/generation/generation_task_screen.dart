@@ -1,5 +1,6 @@
 import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/graphql/generation/__generated__/viewer_image_generation_task.req.gql.dart';
+import 'package:aipictors/mutations/delete_image_generation_task.dart';
 import 'package:aipictors/mutations/update_protected_image_generation_task.dart';
 import 'package:aipictors/mutations/update_rating_image_generation_task.dart';
 import 'package:aipictors/providers/client_provider.dart';
@@ -14,9 +15,12 @@ import 'package:aipictors/widgets/builder/operation_screen_builder.dart';
 import 'package:aipictors/widgets/container/generation/generation_protect_button.dart';
 import 'package:aipictors/widgets/container/generation/generation_rating_container.dart';
 import 'package:aipictors/widgets/container/generation/generation_setting_container.dart';
+import 'package:aipictors/widgets/container/generation/generation_task_options_container.dart';
 import 'package:aipictors/widgets/container/generation/prompts_container.dart';
+import 'package:aipictors/widgets/dialog/delete_image_generation_task.dart';
 import 'package:aipictors/widgets/image/interactive_work_image.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// 生成画像の詳細
@@ -79,6 +83,13 @@ class GenerationTaskScreen extends HookConsumerWidget {
                     ),
                     const SizedBox(height: 8),
                     Row(children: [
+                      GenerationTaskOptionsContainer(
+                        onReuseButtonPressed: () {
+                          reuseImageGenerationTask(
+                              task, imageGenerationNotifier);
+                          showSnackBar(context, '生成情報を復元しました'.i18n);
+                        },
+                      ),
                       GenerationRatingContainer(
                         currentRating: task.rating!,
                         onPressed: (int rating) {
@@ -86,13 +97,20 @@ class GenerationTaskScreen extends HookConsumerWidget {
                               (task.rating != rating) ? rating : 0);
                         },
                       ),
-                      const Spacer(),
+                      const SizedBox(width: 16),
                       GenerationProtectButton(
                           isProtected: task.isProtected ?? false,
                           onPressed: (bool newProtectionState) {
                             onProtect(
                                 context, task.nanoid!, newProtectionState);
-                          })
+                          }),
+                      const Spacer(),
+                      IconButton(
+                        icon: const Icon(Icons.delete_rounded),
+                        onPressed: () {
+                          onDelete(context, task.nanoid!);
+                        },
+                      ),
                     ]),
                     const SizedBox(height: 8),
                     Text(
@@ -237,5 +255,32 @@ class GenerationTaskScreen extends HookConsumerWidget {
         ..vars.input.nanoid = nanoId
         ..vars.input.isProtected = isProtected;
     });
+  }
+
+  void onDelete(
+    BuildContext context,
+    String nanoId,
+  ) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) {
+        return DeleteImageGenerationTaskDialog(
+          onCancel: () {
+            context.pop();
+          },
+          onAccept: () async {
+            context.pop();
+            await deleteImageGenerationTask((builder) {
+              return builder..vars.input.nanoid = nanoId;
+            });
+            // ignore: use_build_context_synchronously
+            showSnackBar(context, '生成履歴を削除しました'.i18n);
+            // ignore: use_build_context_synchronously
+            context.pop();
+          },
+        );
+      },
+    );
   }
 }

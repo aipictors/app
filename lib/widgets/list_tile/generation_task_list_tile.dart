@@ -11,19 +11,21 @@ import 'package:aipictors/widgets/container/generation/generation_task_options_c
 import 'package:aipictors/widgets/container/generation/prompts_container.dart';
 import 'package:aipictors/widgets/image/feed_image.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class GenerationTaskListTile extends HookConsumerWidget {
   const GenerationTaskListTile({
     super.key,
     required this.task,
+    required this.onTap,
     required this.onRating,
     required this.onProtect,
     required this.onDelete,
   });
 
   final GViewerImageGenerationTasksData_viewer_imageGenerationTasks task;
+
+  final VoidCallback onTap;
 
   final Function(BuildContext context, String nanoId, int value) onRating;
 
@@ -38,9 +40,7 @@ class GenerationTaskListTile extends HookConsumerWidget {
     final imageGenerationNotifier = ref.read(imageGenerationProvider.notifier);
 
     return ListTile(
-      onTap: () {
-        context.push('/generation/tasks/${task.nanoid}');
-      },
+      onTap: onTap,
       minVerticalPadding: 0,
       contentPadding: const EdgeInsets.only(
         right: 16,
@@ -82,9 +82,7 @@ class GenerationTaskListTile extends HookConsumerWidget {
               onRating(context, task.nanoid!, value);
             },
           ),
-          const SizedBox(
-            width: 16,
-          ),
+          const SizedBox(width: 16),
           GenerationProtectButton(
               isProtected: task.isProtected ?? false,
               onPressed: (newProtectionState) {
