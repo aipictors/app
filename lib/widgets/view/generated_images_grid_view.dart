@@ -1,4 +1,5 @@
 import 'package:aipictors/__generated__/schema.schema.gql.dart';
+import 'package:aipictors/enums/layout.dart';
 import 'package:aipictors/graphql/generation/__generated__/viewer_image_generation_tasks.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/providers/config_provider.dart';
@@ -77,13 +78,19 @@ class GeneratedImagesGridView extends HookConsumerWidget {
                     taskList[index].imageFileName == null) {
                   return const DeletedImageGenerationTaskErrorContainer();
                 }
+                final layout =
+                    Layout.fromWidth(MediaQuery.of(context).size.width);
                 return InkWell(
                     onTap: () {
                       onTap(task.nanoid!);
                     },
                     child: GridWorkImage(
-                      imageURL: toGenerationImageUrl(
-                          task.thumbnailToken!, task.thumbnailImageFileName!),
+                      // スマホならサムネサイズを、タブレットなら通常サイズを表示する
+                      imageURL: (layout == Layout.compact)
+                          ? toGenerationImageUrl(task.thumbnailToken!,
+                              task.thumbnailImageFileName!)
+                          : toGenerationImageUrl(
+                              task.token!, task.imageFileName!),
                       httpHeaders: const {
                         'Referer': 'https://beta.aipictors.com/',
                       },
