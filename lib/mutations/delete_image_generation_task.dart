@@ -6,6 +6,6 @@ typedef Fn<T> = T Function(T);
 
 typedef Builder = Fn<GDeleteImageGenerationTaskReqBuilder>;
 
-Future<GDeleteImageGenerationTaskData?> DeleteImageGenerationTask(Builder b) {
+Future<GDeleteImageGenerationTaskData?> deleteImageGenerationTask(Builder b) {
   return mutate(GDeleteImageGenerationTaskReq(b));
 }

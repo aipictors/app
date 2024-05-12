@@ -152,12 +152,9 @@ class GenerationTasksView extends HookConsumerWidget {
           },
           onAccept: () async {
             context.pop();
-            print('delete');
-            await DeleteImageGenerationTask((builder) {
+            await deleteImageGenerationTask((builder) {
               return builder..vars.input.nanoid = nanoId;
             });
-            print('deleted');
-            print('refetch');
             client.requestController.add(request);
           },
         );
