@@ -45,8 +45,9 @@ class GenerationLoraPickerModal extends HookConsumerWidget {
                 final models = response.data!.imageLoraModels;
                 BuiltList<GImageLoraModelsData_imageLoraModels> filteredModels =
                     models
-                        .where(
-                            (element) => element.name.contains(modelName.value))
+                        .where((element) => element.name
+                            .toLowerCase()
+                            .contains(modelName.value.toLowerCase()))
                         .where((element) => (element.genre ?? '')
                             .contains((modelGenre.value ?? '')))
                         .toBuiltList();

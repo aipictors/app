@@ -48,7 +48,9 @@ class GenerationModelPickerModal extends HookConsumerWidget {
               builder: (context, response) {
                 final models = response.data!.imageModels;
                 BuiltList<GImageModelsData_imageModels> filteredModels = models
-                    .where((element) => element.name.contains(modelName.value))
+                    .where((element) => element.name
+                        .toLowerCase()
+                        .contains(modelName.value.toLowerCase()))
                     .toBuiltList();
 
                 if (modelCategory.value != null) {
