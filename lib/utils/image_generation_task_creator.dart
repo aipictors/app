@@ -5,6 +5,7 @@ import 'package:aipictors/providers/viewer_provider.dart';
 import 'package:aipictors/states/image_generation_state.dart';
 import 'package:aipictors/utils/active_image_generation.dart';
 import 'package:aipictors/utils/prompt_check.dart';
+import 'package:aipictors/utils/to_exception_message.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -80,26 +81,35 @@ Future<void> imageGenerationTaskCreator(BuildContext context, WidgetRef ref,
     return;
   }
 
-  await activeImageGeneration(viewer.viewer!.user.nanoid!);
-  createImageGenerationTask((builder) {
-    return builder
-      ..vars.input.count = imageGeneration.count
-      ..vars.input.type = imageGeneration.type
-      ..vars.input.model = imageGeneration.model
-      ..vars.input.vae = imageGeneration.vae
-      ..vars.input.prompt = imageGeneration.prompt
-      ..vars.input.negativePrompt = imageGeneration.negativePrompt
-      ..vars.input.seed = imageGeneration.seed.toDouble()
-      ..vars.input.steps = imageGeneration.steps
-      ..vars.input.scale = imageGeneration.scale
-      ..vars.input.sampler = imageGeneration.sampler
-      ..vars.input.sizeType = imageGeneration.sizeType;
-  });
-  await activeImageGeneration(viewer.viewer!.user.nanoid!);
-  // ignore: use_build_context_synchronously
-  ScaffoldMessenger.of(context)
-    ..hideCurrentSnackBar()
-    ..showSnackBar(
-      SnackBar(content: Text('タスクを作成しました'.i18n)),
-    );
+  try {
+    await activeImageGeneration(viewer.viewer!.user.nanoid!);
+    await createImageGenerationTask((builder) {
+      return builder
+        ..vars.input.count = imageGeneration.count
+        ..vars.input.type = imageGeneration.type
+        ..vars.input.model = imageGeneration.model
+        ..vars.input.vae = imageGeneration.vae
+        ..vars.input.prompt = imageGeneration.prompt
+        ..vars.input.negativePrompt = imageGeneration.negativePrompt
+        ..vars.input.seed = imageGeneration.seed.toDouble()
+        ..vars.input.steps = imageGeneration.steps
+        ..vars.input.scale = imageGeneration.scale
+        ..vars.input.sampler = imageGeneration.sampler
+        ..vars.input.sizeType = imageGeneration.sizeType;
+    });
+    await activeImageGeneration(viewer.viewer!.user.nanoid!);
+    // ignore: use_build_context_synchronously
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(
+        SnackBar(content: Text('タスクを作成しました'.i18n)),
+      );
+  } catch (exception) {
+    // ignore: use_build_context_synchronously
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(
+        SnackBar(content: Text(toExceptionMessage(exception))),
+      );
+  }
 }

@@ -2,6 +2,7 @@ import 'package:aipictors/default.i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+//TODO: RemoteConfigにする
 class GenerationSamplerPicker extends HookConsumerWidget {
   const GenerationSamplerPicker({
     super.key,
