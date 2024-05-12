@@ -77,8 +77,14 @@ class GenerationVaePicker extends HookConsumerWidget {
         ),
         const SizedBox(width: 8),
         Expanded(
-          child: DropdownButton(
+          child: DropdownButtonFormField(
             style: const TextStyle(fontWeight: FontWeight.normal),
+            decoration: InputDecoration(
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(
+                    color: Theme.of(context).colorScheme.outlineVariant),
+              ),
+            ),
             value: (isLoading.value) ? 'None' : vae.value,
             isExpanded: true,
             items: [

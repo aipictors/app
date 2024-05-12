@@ -140,9 +140,9 @@ class GenerationView extends HookConsumerWidget {
                       },
                       onDeleted: (loraName) {
                         String loraText = '';
-                        imageGeneration.prompt.split(' ').forEach((element) {
+                        imageGeneration.prompt.split(',').forEach((element) {
                           if (!element.contains('<lora:$loraName:')) return;
-                          loraText = ' $element';
+                          loraText = ',$element';
                         });
                         imageGenerationNotifier.updatePrompt(
                           imageGeneration.prompt.replaceAllMapped(
@@ -154,7 +154,7 @@ class GenerationView extends HookConsumerWidget {
                       addLoraButtonPressed: () {
                         onOpenLoraPickerModal(context, (loraName) {
                           imageGenerationNotifier.updatePrompt(
-                              '${imageGeneration.prompt} <lora:$loraName:1>');
+                              '${imageGeneration.prompt}, <lora:$loraName:1>');
                         });
                       },
                     ),

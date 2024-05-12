@@ -39,9 +39,15 @@ class GenerationSamplerPicker extends HookConsumerWidget {
         ),
         const SizedBox(width: 8),
         Expanded(
-          child: DropdownButton(
+          child: DropdownButtonFormField(
             value: currentSampler,
             style: const TextStyle(fontWeight: FontWeight.normal),
+            decoration: InputDecoration(
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(
+                    color: Theme.of(context).colorScheme.outlineVariant),
+              ),
+            ),
             isExpanded: true,
             items: [
               for (String sampler in samplers)
