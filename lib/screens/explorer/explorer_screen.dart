@@ -71,24 +71,24 @@ class ExplorerScreen extends HookConsumerWidget {
             bottom: TabBar(
               // isScrollable: true,
               tabs: [
-                Tab(text: 'シリーズ'.i18n),
-                Tab(text: 'タグ'.i18n),
                 Tab(text: '人気'.i18n),
                 Tab(text: 'ベスト'.i18n),
+                Tab(text: 'シリーズ'.i18n),
+                Tab(text: 'タグ'.i18n),
               ],
             )),
         body: const TabBarView(children: [
-          ExplorerAlbumsView(
-            key: PageStorageKey('explorer_latest_folders'),
-          ),
-          ExplorerHotTagsView(
-            key: PageStorageKey('explorer_hot_tags'),
-          ),
           ExplorerPopularWorksView(
             key: PageStorageKey('explorer_popular_works'),
           ),
           ExplorerBestWorksView(
             key: PageStorageKey('explorer_best_works'),
+          ),
+          ExplorerAlbumsView(
+            key: PageStorageKey('explorer_latest_folders'),
+          ),
+          ExplorerHotTagsView(
+            key: PageStorageKey('explorer_hot_tags'),
           ),
         ]),
       ),

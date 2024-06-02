@@ -50,6 +50,7 @@ class RootScreen extends HookConsumerWidget {
     final trackingStatus = ref.watch(trackingStatusProvider);
 
     final ValueNotifier<GViewerUserData?> viewer = useState(null);
+
     ref.watch(viewerProvider.future).then((value) => viewer.value = value);
 
     // 初期化エラー
@@ -97,32 +98,38 @@ class RootScreen extends HookConsumerWidget {
 
     // アップデートの通知
     final updateDialogShowed = ref.watch(isUpdateDialogShowedProvider);
+
     if (config.isNotLatestVersion && updateDialogShowed == false) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         final notifier = ref.read(isUpdateDialogShowedProvider.notifier);
         notifier.update(true);
         showDialog(
-            context: context,
-            builder: (_) {
-              return LatestVersionDialog(onAccept: () {
+          context: context,
+          builder: (_) {
+            return LatestVersionDialog(
+              onAccept: () {
                 onOpenAppStore(context, ref);
-              }, onCancel: () {
+              },
+              onCancel: () {
                 context.pop();
-              });
-            });
+              },
+            );
+          },
+        );
       });
     }
 
     final screenList = [
       const FeedScreen(key: PageStorageKey('root_feed')),
       const DailyThemeHomeScreen(key: PageStorageKey('root_daily_theme')),
-      const ExplorerScreen(key: PageStorageKey('root_explorer')),
+      if (authState.value == null)
+        const ExplorerScreen(key: PageStorageKey('root_explorer')),
+      if (authState.value != null)
+        const GenerationScreen(key: PageStorageKey('root_generation')),
       if (authState.value == null)
         const HelloScreen(key: PageStorageKey('root_hello')),
       if (authState.value != null)
         const NotificationScreen(key: PageStorageKey('root_notification')),
-      if (viewer.value?.viewer?.currentPass?.type != null)
-        const GenerationScreen(key: PageStorageKey('root_generation')),
       const ConfigScreen(key: PageStorageKey('root_config'))
     ];
 

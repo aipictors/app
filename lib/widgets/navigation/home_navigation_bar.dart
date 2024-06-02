@@ -33,10 +33,16 @@ class HomeNavigationBar extends HookConsumerWidget {
           icon: const Icon(Icons.today_rounded),
           label: 'お題'.i18n,
         ),
-        NavigationDestination(
-          icon: const Icon(Icons.explore_rounded),
-          label: '見つける'.i18n,
-        ),
+        if (authState.value == null)
+          NavigationDestination(
+            icon: const Icon(Icons.explore_rounded),
+            label: '見つける'.i18n,
+          ),
+        if (authState.value != null)
+          NavigationDestination(
+            icon: const Icon(Icons.science_rounded),
+            label: '生成'.i18n,
+          ),
         if (authState.value == null)
           NavigationDestination(
             icon: const Icon(Icons.login_rounded),

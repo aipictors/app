@@ -44,6 +44,18 @@ class ConfigScreen extends HookConsumerWidget {
       ),
       body: ListView(
         children: [
+          ListTile(
+            leading: const Icon(Icons.explore_rounded),
+            trailing: const Icon(Icons.chevron_right_rounded),
+            title: Text(
+              '見つける'.i18n,
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+            onTap: () {
+              context.push('/explorer');
+            },
+          ),
+          const Divider(),
           if (authState.value != null)
             ListTile(
               leading: const Icon(Icons.wysiwyg_rounded),

@@ -22,6 +22,7 @@ import 'package:aipictors/screens/daily_theme/daily_theme_screen.dart';
 import 'package:aipictors/screens/daily_theme/daily_themes_month_screen.dart';
 import 'package:aipictors/screens/daily_theme/daily_themes_screen.dart';
 import 'package:aipictors/screens/debug_screen.dart';
+import 'package:aipictors/screens/explorer/explorer_screen.dart';
 import 'package:aipictors/screens/feedback_screen.dart';
 import 'package:aipictors/screens/folder/folder_create_screen.dart';
 import 'package:aipictors/screens/folder/folder_report_screen.dart';
@@ -220,6 +221,12 @@ final _routes = [
     builder: (context, state) {
       final themeId = state.pathParameters['theme_id'];
       return DailyThemeScreen(themeId: themeId!);
+    },
+  ),
+  GoRoute(
+    path: '/explorer',
+    builder: (context, state) {
+      return const ExplorerScreen();
     },
   ),
   GoRoute(

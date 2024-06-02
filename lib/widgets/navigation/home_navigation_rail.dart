@@ -35,11 +35,18 @@ class HomeNavigationRail extends HookConsumerWidget {
           label: Text('お題'.i18n),
           padding: const EdgeInsets.symmetric(vertical: 4),
         ),
-        NavigationRailDestination(
-          icon: const Icon(Icons.explore_rounded),
-          label: Text('見つける'.i18n),
-          padding: const EdgeInsets.symmetric(vertical: 4),
-        ),
+        if (authState.value == null)
+          NavigationRailDestination(
+            icon: const Icon(Icons.explore_rounded),
+            label: Text('見つける'.i18n),
+            padding: const EdgeInsets.symmetric(vertical: 4),
+          ),
+        if (authState.value != null)
+          NavigationRailDestination(
+            icon: const Icon(Icons.science_rounded),
+            label: Text('生成'.i18n),
+            padding: const EdgeInsets.symmetric(vertical: 4),
+          ),
         if (authState.value == null)
           NavigationRailDestination(
             icon: const Icon(Icons.login_rounded),
