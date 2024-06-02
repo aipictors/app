@@ -219,13 +219,15 @@ class _$GCreateImageGenerationTaskData_createImageGenerationTaskSerializer
     if (value != null) {
       result
         ..add('controlNetGuidanceEnd')
-        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(double)));
     }
     value = object.controlNetGuidanceStart;
     if (value != null) {
       result
         ..add('controlNetGuidanceStart')
-        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(double)));
     }
     value = object.controlNetPixelPerfect;
     if (value != null) {
@@ -460,11 +462,11 @@ class _$GCreateImageGenerationTaskData_createImageGenerationTaskSerializer
           break;
         case 'controlNetGuidanceEnd':
           result.controlNetGuidanceEnd = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int?;
+              specifiedType: const FullType(double)) as double?;
           break;
         case 'controlNetGuidanceStart':
           result.controlNetGuidanceStart = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int?;
+              specifiedType: const FullType(double)) as double?;
           break;
         case 'controlNetPixelPerfect':
           result.controlNetPixelPerfect = serializers.deserialize(value,
@@ -785,9 +787,9 @@ class _$GCreateImageGenerationTaskData_createImageGenerationTask
   @override
   final bool? controlNetEnabled;
   @override
-  final int? controlNetGuidanceEnd;
+  final double? controlNetGuidanceEnd;
   @override
-  final int? controlNetGuidanceStart;
+  final double? controlNetGuidanceStart;
   @override
   final bool? controlNetPixelPerfect;
   @override
@@ -1210,14 +1212,14 @@ class GCreateImageGenerationTaskData_createImageGenerationTaskBuilder
   set controlNetEnabled(bool? controlNetEnabled) =>
       _$this._controlNetEnabled = controlNetEnabled;
 
-  int? _controlNetGuidanceEnd;
-  int? get controlNetGuidanceEnd => _$this._controlNetGuidanceEnd;
-  set controlNetGuidanceEnd(int? controlNetGuidanceEnd) =>
+  double? _controlNetGuidanceEnd;
+  double? get controlNetGuidanceEnd => _$this._controlNetGuidanceEnd;
+  set controlNetGuidanceEnd(double? controlNetGuidanceEnd) =>
       _$this._controlNetGuidanceEnd = controlNetGuidanceEnd;
 
-  int? _controlNetGuidanceStart;
-  int? get controlNetGuidanceStart => _$this._controlNetGuidanceStart;
-  set controlNetGuidanceStart(int? controlNetGuidanceStart) =>
+  double? _controlNetGuidanceStart;
+  double? get controlNetGuidanceStart => _$this._controlNetGuidanceStart;
+  set controlNetGuidanceStart(double? controlNetGuidanceStart) =>
       _$this._controlNetGuidanceStart = controlNetGuidanceStart;
 
   bool? _controlNetPixelPerfect;

@@ -74,7 +74,7 @@ abstract class GFeedPopularWorksData_popularWorks
   @override
   GFeedPopularWorksData_popularWorks_image? get image;
   GFeedPopularWorksData_popularWorks_user get user;
-  GFeedPopularWorksData_popularWorks_viewer? get viewer;
+  bool get isLiked;
   static Serializer<GFeedPopularWorksData_popularWorks> get serializer =>
       _$gFeedPopularWorksDataPopularWorksSerializer;
 
@@ -157,7 +157,9 @@ abstract class GFeedPopularWorksData_popularWorks_user
   String get name;
   @override
   GFeedPopularWorksData_popularWorks_user_iconImage? get iconImage;
-  GFeedPopularWorksData_popularWorks_user_viewer? get viewer;
+  bool get isFollower;
+  bool get isFollowee;
+  bool get isMuted;
   static Serializer<GFeedPopularWorksData_popularWorks_user> get serializer =>
       _$gFeedPopularWorksDataPopularWorksUserSerializer;
 
@@ -211,77 +213,6 @@ abstract class GFeedPopularWorksData_popularWorks_user_iconImage
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GFeedPopularWorksData_popularWorks_user_iconImage.serializer,
-        json,
-      );
-}
-
-abstract class GFeedPopularWorksData_popularWorks_user_viewer
-    implements
-        Built<GFeedPopularWorksData_popularWorks_user_viewer,
-            GFeedPopularWorksData_popularWorks_user_viewerBuilder> {
-  GFeedPopularWorksData_popularWorks_user_viewer._();
-
-  factory GFeedPopularWorksData_popularWorks_user_viewer(
-      [void Function(GFeedPopularWorksData_popularWorks_user_viewerBuilder b)
-          updates]) = _$GFeedPopularWorksData_popularWorks_user_viewer;
-
-  static void _initializeBuilder(
-          GFeedPopularWorksData_popularWorks_user_viewerBuilder b) =>
-      b..G__typename = 'UserViewerNode';
-
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  String get id;
-  bool get isFollower;
-  bool get isFollowee;
-  bool get isMuted;
-  static Serializer<GFeedPopularWorksData_popularWorks_user_viewer>
-      get serializer => _$gFeedPopularWorksDataPopularWorksUserViewerSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GFeedPopularWorksData_popularWorks_user_viewer.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GFeedPopularWorksData_popularWorks_user_viewer? fromJson(
-          Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GFeedPopularWorksData_popularWorks_user_viewer.serializer,
-        json,
-      );
-}
-
-abstract class GFeedPopularWorksData_popularWorks_viewer
-    implements
-        Built<GFeedPopularWorksData_popularWorks_viewer,
-            GFeedPopularWorksData_popularWorks_viewerBuilder> {
-  GFeedPopularWorksData_popularWorks_viewer._();
-
-  factory GFeedPopularWorksData_popularWorks_viewer(
-      [void Function(GFeedPopularWorksData_popularWorks_viewerBuilder b)
-          updates]) = _$GFeedPopularWorksData_popularWorks_viewer;
-
-  static void _initializeBuilder(
-          GFeedPopularWorksData_popularWorks_viewerBuilder b) =>
-      b..G__typename = 'WorkViewerNode';
-
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  String get id;
-  bool get isLiked;
-  bool get isBookmarked;
-  static Serializer<GFeedPopularWorksData_popularWorks_viewer> get serializer =>
-      _$gFeedPopularWorksDataPopularWorksViewerSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GFeedPopularWorksData_popularWorks_viewer.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GFeedPopularWorksData_popularWorks_viewer? fromJson(
-          Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GFeedPopularWorksData_popularWorks_viewer.serializer,
         json,
       );
 }

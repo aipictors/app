@@ -1,9 +1,9 @@
 query ViewerUser {
   viewer {
     currentPass{
-        type
-        isDisabled
-        isExpired
+      type
+      isDisabled
+      isExpired
     }
     user {
       id

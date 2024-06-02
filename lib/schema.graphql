@@ -1,5 +1,3 @@
-directive @cacheControl(maxAge: Int, scope: CacheControlScope, inheritMaxAge: Boolean) on FIELD_DEFINITION | OBJECT | INTERFACE | UNION
-
 """Exposes a URL that specifies the behavior of this scalar."""
 directive @specifiedBy(
   """The URL that specifies the behavior of this scalar."""
@@ -11,22 +9,25 @@ input AcceptPromptonRequestInput {
 }
 
 enum AccessType {
+  """下書き"""
+  DRAFT
+
+  """限定公開"""
+  LIMITED
+
+  """非公開"""
+  PRIVATE
+
   """公開"""
   PUBLIC
 
   """公開"""
   SILENT
-
-  """非公開"""
-  PRIVATE
-
-  """限定公開"""
-  LIMITED
 }
 
 input AddPromptonTagToWorkInput {
-  workId: String!
   tagNameJA: String!
+  workId: String!
 }
 
 input AddPromptonWorkToFolderInput {
@@ -34,24 +35,34 @@ input AddPromptonWorkToFolderInput {
   workId: String!
 }
 
+enum AdminAccessType {
+  """完全非公開"""
+  PRIVATE
+
+  """公開"""
+  PUBLIC
+
+  """一時非公開"""
+  TEMPORARY_PRIVATE
+}
+
 """モデル"""
 type AiModelNode implements Node {
+  """生成機能のモデルID"""
+  generationModelId: ID
   id: ID!
 
   """モデル名"""
   name: String!
 
+  """サムネイル画像"""
+  thumbnailImageURL: String
+
   """モデル種別"""
   type: AiModelType!
 
-  """生成機能のモデルID"""
-  generationModelId: ID
-
   """投稿機能のモデルID"""
   workModelId: ID
-
-  """サムネイル画像"""
-  thumbnailImageURL: String
 }
 
 """モデル種別"""
@@ -66,28 +77,58 @@ input AiModelWhereInput {
 
 """作品のシリーズ"""
 type AlbumNode implements Node {
-  id: ID!
-
   """作成日"""
   createdAt: Int!
+
+  """説明"""
+  description: String!
+  id: ID!
+
+  """いいねしている"""
+  isLiked: Boolean!
+
+  """センシティブである"""
+  isSensitive: Boolean!
+
+  """保存している"""
+  isWatched: Boolean!
+
+  """いいね数"""
+  likesCount: Int!
+
+  """Open Graph 説明"""
+  openGraphDescription: String
+
+  """Open Graph 画像"""
+  openGraphImageURL: String
+
+  """Open Graph タイトル"""
+  openGraphTitle: String
+
+  """年齢種別"""
+  rating: AlbumRating!
+
+  """シェア"""
+  shareText: String
 
   """スラッグ"""
   slug: String
 
+  """サムネイル"""
+  thumbnailImage: ImageNode
+
+  """サムネイル画像のURL"""
+  thumbnailImageURL: String
+
   """タイトル"""
   title: String!
-
-  """説明"""
-  description: String!
-
-  """作成者"""
-  userId: ID!
 
   """ユーザ"""
   user: UserNode!
 
-  """いいね数"""
-  likesCount: Int!
+  """作成者"""
+  userId: ID!
+  viewer: AlbumViewerNode @deprecated(reason: "isLikedを使用する")
 
   """閲覧数"""
   viewsCount: Int!
@@ -96,111 +137,98 @@ type AlbumNode implements Node {
   作品
   ※キャッシュ不可
   """
-  works(offset: Int!, limit: Int!): [WorkNode!]!
+  works(limit: Int!, offset: Int!): [WorkNode!]!
+}
 
-  """サムネイル画像のURL"""
-  thumbnailImageURL: String
+enum AlbumOrderBy {
+  """投稿日でソート"""
+  DATE_CREATED
 
-  """サムネイル"""
-  thumbnailImage: ImageNode
+  """名前でソート"""
+  NAME
+}
 
-  """センシティブである"""
-  isSensitive: Boolean!
+"""シリーズの年齢種別"""
+enum AlbumRating {
+  """全年齢"""
+  G
 
-  """Open Graph タイトル"""
-  openGraphTitle: String
-
-  """Open Graph 説明"""
-  openGraphDescription: String
-
-  """Open Graph 画像"""
-  openGraphImageURL: String
-
-  """シェア"""
-  shareText: String
-
-  """いいねしている"""
-  isLiked: Boolean!
-
-  """保存している"""
-  isWatched: Boolean!
-  viewer: AlbumViewerNode @deprecated(reason: "isLikedを使用する")
+  """センシティブ"""
+  R18
 }
 
 input AlbumsWhereInput {
-  search: String
-
-  """所有者"""
-  ownerUserId: ID
-
   """センシティブ"""
   isSensitive: Boolean
 
   """全年齢とセンシティブどちらも取得するかどうか"""
   isSensitiveAndAllRating: Boolean
 
+  """検査済みである必要があるかどうか"""
+  needInspected: Boolean
+
   """サムネイル画像が必ず存在しないといけないか"""
   needsThumbnailImage: Boolean
 
-  """検査済みである必要があるかどうか"""
-  needInspected: Boolean
+  """ソート"""
+  orderBy: AlbumOrderBy
+
+  """所有者"""
+  ownerUserId: ID
+
+  """年齢種別"""
+  ratings: [AlbumRating!]
+  search: String
+
+  """昇順/降順"""
+  sort: Sort
 }
 
 type AlbumViewerNode implements Node {
-  id: ID! @deprecated
-  isLiked: Boolean! @deprecated
-  isWatched: Boolean! @deprecated
+  id: ID!
+  isLiked: Boolean!
+  isWatched: Boolean!
 }
 
 """運営のお知らせ"""
 type AnnouncementNode implements Node {
-  id: ID!
-
-  """タイトル"""
-  title: String!
-
   """本文"""
   body: String!
+  id: ID!
 
   """作成日"""
   publishedAt: Int!
+
+  """タイトル"""
+  title: String!
 }
 
 input AwardsWhereInput {
+  date: String
+  day: Int
+  month: Int
   type: AwardType
   workType: WorkType
-  date: String
   year: Int
-  month: Int
-  day: Int
 }
 
 """アワードの種類"""
 enum AwardType {
-  """月別"""
-  MONTHLY
-
-  """週別"""
-  WEEKLY
-
   """日別"""
   DAILY
 
   """日別（テーマなし）"""
   DAILY_NO_THEME
+
+  """月別"""
+  MONTHLY
+
+  """週別"""
+  WEEKLY
 }
 
 input BlockPromptonUserInput {
   userId: String!
-}
-
-enum CacheControlScope {
-  PUBLIC
-  PRIVATE
-}
-
-input CancelImageGenerationMemoInput {
-  nanoid: String!
 }
 
 input CancelImageGenerationReservedTaskInput {
@@ -218,10 +246,10 @@ input CancelPromptonRequestInput {
 """カテゴリ"""
 type CategoryNode implements Node {
   id: ID!
+  isWatched: Boolean!
 
   """名前"""
   name: String!
-  isWatched: Boolean!
   viewer: CategoryViewerNode
 }
 
@@ -231,9 +259,9 @@ type CategoryViewerNode implements Node {
 }
 
 input ChangePromptonFolderToPaidInput {
+  featureCommercialUse: Boolean!
   folderId: String!
   price: Int!
-  featureCommercialUse: Boolean!
 }
 
 input ClosePromptonRequestInput {
@@ -242,28 +270,27 @@ input ClosePromptonRequestInput {
 
 """コメント"""
 type CommentNode implements Node {
+  """作成日"""
+  createdAt: Int!
   id: ID!
-  userId: ID
-  user: UserNode
-  workId: ID
 
-  """作品"""
-  work: WorkNode
+  """削除済み"""
+  isDeleted: Boolean!
+
+  """レスポンス"""
+  responses(limit: Int!, offset: Int!): [CommentNode!]!
 
   """スタンプ"""
   sticker: StickerNode
 
-  """作成日"""
-  createdAt: Int!
-
   """内容"""
   text: String!
+  user: UserNode
+  userId: ID
 
-  """レスポンス"""
-  responses(offset: Int!, limit: Int!): [CommentNode!]!
-
-  """削除済み"""
-  isDeleted: Boolean!
+  """作品"""
+  work: WorkNode
+  workId: ID
 }
 
 input CommentsOrderBy {
@@ -275,10 +302,23 @@ input CommentsWhereInput {
   ratings: [Rating!]
 }
 
-interface Connection {
-  totalCount: Int
-  pageInfo: PageInfo!
-  edges: [Edge!]!
+"""ControlNetテンプレート"""
+type ControlNetCategoryNode implements Node {
+  contents: [ControlNetContentNode!]!
+  enName: String!
+  id: ID!
+  name: String!
+}
+
+type ControlNetContentNode implements Node {
+  enName: String!
+  id: ID!
+  imageUrl: String!
+  model: String!
+  module: String!
+  name: String!
+  sizeKind: ImageGenerationSizeKind!
+  thumbnailImageUrl: String!
 }
 
 input CreateAccountInput {
@@ -286,7 +326,11 @@ input CreateAccountInput {
 }
 
 input CreateAlbumInput {
+  description: String
+  slug: String!
+  thumbnailUrl: String
   title: String!
+  workIds: [ID!]!
 }
 
 input CreateAlbumWorkInput {
@@ -304,84 +348,85 @@ input CreateFolderWorkInput {
 }
 
 input CreateImageGenerationMemoInput {
-  title: String!
-  explanation: String!
-  prompts: String!
-  negativePrompts: String!
-  sampler: String!
-  vae: String!
-  seed: Int!
-  steps: Int!
-  scale: Int!
   clipSkip: Int!
-  width: Int!
+  explanation: String!
   height: Int!
   modelId: ID!
+  negativePrompts: String!
+  prompts: String!
+  sampler: String!
+  scale: Int!
+  seed: Int!
+  steps: Int!
+  title: String!
+  vae: String!
+  width: Int!
 }
 
 input CreateImageGenerationTaskInput {
-  """生成する枚数"""
-  count: Int!
-
-  """生成の方式"""
-  type: ImageGenerationType!
-
-  """モデル"""
-  model: String!
-
-  """VAE"""
-  vae: String!
-
-  """プロンプト"""
-  prompt: String!
-
-  """ネガティブプロンプト"""
-  negativePrompt: String!
-
-  """seed"""
-  seed: Float!
-
-  """steps"""
-  steps: Int!
-
-  """scale"""
-  scale: Int!
-
-  """sampler"""
-  sampler: String!
-
   """clipSkip"""
   clipSkip: Int
-
-  """画像のサイズ"""
-  sizeType: ImageGenerationSizeType!
-
-  """t2tパラメータ"""
-  t2tImageUrl: String
-  t2tMaskImageUrl: String
-  t2tDenoisingStrengthSize: String
-  t2tInpaintingFillSize: String
-
-  """アップスケールサイズ(x2, x4, x8)"""
-  upscaleSize: Float
+  controlNetControlMode: String
+  controlNetEnabled: Boolean
+  controlNetGuidance: Float
+  controlNetGuidanceEnd: Float
+  controlNetGuidanceStart: Float
+  controlNetHrOption: String
 
   """ControlNetパラメータ"""
   controlNetImageUrl: String
   controlNetMaskImageUrl: String
-  controlNetControlMode: String
-  controlNetEnabled: Boolean
-  controlNetGuidanceEnd: Int
-  controlNetGuidanceStart: Int
+  controlNetModel: String
+  controlNetModule: String
   controlNetPixelPerfect: Boolean
   controlNetProcessorRes: Int
   controlNetResizeMode: String
+  controlNetSaveDetectedMap: Boolean
   controlNetThresholdA: Int
   controlNetThresholdB: Int
   controlNetWeight: Float
-  controlNetModule: String
-  controlNetModel: String
-  controlNetSaveDetectedMap: Boolean
-  controlNetHrOption: String
+
+  """生成する枚数"""
+  count: Int!
+
+  """モデル"""
+  model: String!
+
+  """ネガティブプロンプト"""
+  negativePrompt: String!
+
+  """プロンプト"""
+  prompt: String!
+
+  """sampler"""
+  sampler: String!
+
+  """scale"""
+  scale: Int!
+
+  """seed"""
+  seed: Float!
+
+  """画像のサイズ"""
+  sizeType: ImageGenerationSizeType!
+
+  """steps"""
+  steps: Int!
+  t2tDenoisingStrengthSize: String
+
+  """t2tパラメータ"""
+  t2tImageUrl: String
+  t2tInpaintingFillSize: String
+  t2tMaskImageUrl: String
+
+  """生成の方式"""
+  type: ImageGenerationType!
+
+  """アップスケールサイズ(x2, x4, x8)"""
+  upscaleSize: Float
+
+  """VAE"""
+  vae: String!
 }
 
 input CreateMessageInput {
@@ -402,9 +447,9 @@ input CreatePassCheckoutSessionInput {
 }
 
 input CreatePromptonAipicRequestInput {
+  fee: Int
   note: String!
   recipientId: String!
-  fee: Int
 }
 
 input CreatePromptonChatMessageInput {
@@ -417,25 +462,25 @@ input CreatePromptonCoffeeRequestInput {
 }
 
 input CreatePromptonDeliverableInput {
-  requestId: String!
-  fileId: String!
-  name: String
   description: String
+  fileId: String!
   fileType: String!
+  name: String
+  requestId: String!
 }
 
 input CreatePromptonFileInput {
   fileId: String!
   fileType: String!
-  width: Int
   height: Int
   path: String!
+  width: Int
 }
 
 input CreatePromptonFolderInput {
-  name: String!
   description: String!
   isPublic: Boolean!
+  name: String!
 }
 
 input CreatePromptonFolderKeyInput {
@@ -445,17 +490,17 @@ input CreatePromptonFolderKeyInput {
 input CreatePromptonImageGenerationInput {
   model: String!
   prompt: String!
-  size: String!
   quality: String!
+  size: String!
   style: String!
 }
 
 input CreatePromptonInquiryInput {
-  name: String!
+  body: String!
   companyName: String
   email: String!
+  name: String!
   phoneNumber: String
-  body: String!
 }
 
 input CreatePromptonPaymentMethodInput {
@@ -468,48 +513,42 @@ type CreatePromptonPaymentMethodResult {
 
 input CreatePromptonPlanInput {
   category: String!
-  name: String!
   description: String!
-  message: String!
-  unitPrice: Int!
-  minimumQuantity: Int!
-  maximumQuantity: Int!
-  styleSlugs: [String!]!
-  objectSlugs: [String!]!
-  featurePrivate: Boolean!
-  featureCopyrightFree: Boolean!
   featureCommercialUse: Boolean!
+  featureCopyrightFree: Boolean!
   featureFanFiction: Boolean!
+  featurePrivate: Boolean!
   imageFileId: String
+  maximumQuantity: Int!
+  message: String!
+  minimumQuantity: Int!
+  name: String!
+  objectSlugs: [String!]!
+  styleSlugs: [String!]!
+  unitPrice: Int!
 }
 
 input CreatePromptonPlanRequestInput {
+  fileIds: [String!]!
+  note: String!
   planId: String!
   quantity: Int!
-  note: String!
   recipientId: String!
-  fileIds: [String!]!
 }
 
 input CreatePromptonProfileBlockInput {
+  description: String
   siteURL: String
   title: String
-  description: String
-}
-
-input CreatePromptonPromptCategoryInput {
-  name: String!
-  description: String
-  slug: String!
 }
 
 input CreatePromptonPromptInput {
-  name: String
   description: String
-  text: String!
-  isNsfw: Boolean!
   isBase: Boolean!
+  isNsfw: Boolean!
   isSingle: Boolean!
+  name: String
+  text: String!
 }
 
 input CreatePromptonPromptWorkInput {
@@ -519,14 +558,8 @@ input CreatePromptonPromptWorkInput {
   promptId: String!
 }
 
-input CreatePromptonReactionInput {
-  workId: String!
-  text: String!
-}
-
 input CreatePromptonUserFromTokenInput {
   token: String!
-  userId: String!
 }
 
 input CreatePromptonUserInput {
@@ -536,9 +569,9 @@ input CreatePromptonUserInput {
 input CreatePromptonWorkInput {
   fileId: String!
   fileName: String!
+  fileType: String!
   folderId: String
   tagNameJA: String
-  fileType: String!
 }
 
 input CreatePromptonWorkLikeInput {
@@ -550,73 +583,75 @@ input CreateRecommendedWorkInput {
 }
 
 input CreateReservedImageGenerationTaskInput {
-  """生成する枚数"""
-  count: Int!
-
-  """生成の方式"""
-  type: ImageGenerationType!
-  model: String!
-  vae: String!
-  prompt: String!
-  negativePrompt: String!
-  seed: Float!
-  steps: Int!
-  scale: Int!
-  sampler: String!
   clipSkip: Int
-
-  """画像のサイズ"""
-  sizeType: ImageGenerationSizeType!
-
-  """t2tパラメータ"""
-  t2tImageUrl: String
-  t2tMaskImageUrl: String
-  t2tDenoisingStrengthSize: String
-  t2tInpaintingFillSize: String
-
-  """アップスケールサイズ(x2, x4, x8)"""
-  upscaleSize: Float
+  controlNetControlMode: String
+  controlNetEnabled: Boolean
+  controlNetGuidance: Float
+  controlNetGuidanceEnd: Float
+  controlNetGuidanceStart: Float
+  controlNetHrOption: String
 
   """ControlNetの設定"""
   controlNetImageUrl: String
   controlNetMaskImageUrl: String
-  controlNetControlMode: String
-  controlNetEnabled: Boolean
-  controlNetGuidanceEnd: Int
-  controlNetGuidanceStart: Int
+  controlNetModel: String
+  controlNetModule: String
   controlNetPixelPerfect: Boolean
   controlNetProcessorRes: Int
   controlNetResizeMode: String
+  controlNetSaveDetectedMap: Boolean
   controlNetThresholdA: Int
   controlNetThresholdB: Int
   controlNetWeight: Float
-  controlNetModule: String
-  controlNetModel: String
-  controlNetSaveDetectedMap: Boolean
-  controlNetHrOption: String
+
+  """生成する枚数"""
+  count: Int!
+  model: String!
+  negativePrompt: String!
+  prompt: String!
+  sampler: String!
+  scale: Int!
+  seed: Float!
+
+  """画像のサイズ"""
+  sizeType: ImageGenerationSizeType!
+  steps: Int!
+  t2tDenoisingStrengthSize: String
+
+  """t2tパラメータ"""
+  t2tImageUrl: String
+  t2tInpaintingFillSize: String
+  t2tMaskImageUrl: String
+
+  """生成の方式"""
+  type: ImageGenerationType!
+
+  """アップスケールサイズ(x2, x4, x8)"""
+  upscaleSize: Float
+  vae: String!
 }
 
 input CreateResponseCommentInput {
   commentId: ID!
-  text: String!
   stickerId: ID
+  text: String!
 }
 
 input CreateStickerInput {
-  """タイトル"""
-  title: String
-
-  """ジャンル"""
-  genre: StickerGenre
+  """公開状態"""
+  accessType: AccessType!
 
   """カテゴリ"""
   categories: [String!]
 
+  """ジャンル"""
+  genre: StickerGenre
+
   """画像URL"""
   imageUrl: String!
 
-  """公開状態"""
-  accessType: AccessType!
+  """タイトル"""
+  title: String
 }
 
 input CreateUserStickerInput {
@@ -624,84 +659,101 @@ input CreateUserStickerInput {
 }
 
 input CreateWorkCommentInput {
-  workId: ID!
-  text: String!
   stickerId: ID
+  text: String!
+  workId: ID!
 }
 
 input CreateWorkInput {
-  """題名"""
-  title: String!
+  """公開状態"""
+  accessType: AccessType!
+
+  """シリーズID"""
+  albumId: ID
+  enExplanation: String
   entitle: String
 
   """説明"""
   explanation: String
-  enExplanation: String
 
-  """生成情報"""
-  prompt: String
-  negativePrompt: String
-  seed: String
-  steps: String
-  sampler: String
-  strength: String
-  noise: String
-  modelName: String
-  modelHash: String
-  otherGenerationParams: String
-  pnginfo: String
+  """HTML"""
+  html: String
+  imageHeight: Int!
 
   """テイスト"""
-  imageStyle: ImageStyle
+  imageStyle: ImageStyle!
 
-  """関連リンク"""
-  relatedUrl: String
+  """画像"""
+  imageUrls: [String!]!
+  imageWidth: Int!
 
-  """タグ"""
-  tags: [String!]
+  """コメント許可"""
+  isCommentEditable: Boolean!
+
+  """宣伝作品かどうか"""
+  isPromotion: Boolean!
 
   """タグ編集許可"""
   isTagEditable: Boolean!
-
-  """サムネイル位置"""
-  thumbnailPosition: Float
-
-  """モデル"""
-  modelId: ID
-
-  """種別"""
-  type: WorkType!
-
-  """お題ID"""
-  subjectId: ID
-
-  """シリーズID"""
-  albumId: ID
-
-  """宣伝作品かどうか"""
-  isPromotion: Boolean
-
-  """予約日"""
-  reservedAt: Int
-
-  """公開状態"""
-  accessType: AccessType!
-
-  """画像"""
-  imageUrl: String!
-  imageWidth: Int!
-  imageHeight: Int!
-  imageHashSha256: String!
-
-  """小さいサムネイル画像(最大縦横400px)"""
-  smallThumbnailImageURL: String!
-  smallThumbnailImageWidth: Int!
-  smallThumbnailImageHeight: Int!
+  largeThumbnailImageHeight: Int!
 
   """大きいサムネイル画像(最大縦横600px)"""
   largeThumbnailImageURL: String!
   largeThumbnailImageWidth: Int!
-  largeThumbnailImageHeight: Int!
+
+  """メイン画像のハッシュ値（同じ画像の重複投稿防止に使う）"""
+  mainImageSha256: String!
+  modelHash: String
+
+  """モデル"""
+  modelId: ID
+  modelName: String
+  negativePrompt: String
+  noise: String
+
+  """OGP画像URL"""
+  ogpImageUrl: String
+  otherGenerationParams: String
+  pngInfo: String
+
+  """生成情報"""
+  prompt: String
+
+  """年齢種別"""
+  rating: Rating!
+
+  """関連リンク"""
+  relatedUrl: String
+
+  """予約日"""
+  reservedAt: Int
+  sampler: String
+  seed: String
+  smallThumbnailImageHeight: Int!
+
+  """小さいサムネイル画像(最大縦横400px)"""
+  smallThumbnailImageURL: String!
+  smallThumbnailImageWidth: Int!
+  steps: String
+  strength: String
+
+  """お題ID"""
+  subjectId: ID
+
+  """タグ"""
+  tags: [String!]
+
+  """サムネイル位置"""
+  thumbnailPosition: Float
+
+  """題名"""
+  title: String!
+
+  """種別"""
+  type: WorkType!
+
+  """動画URL"""
+  videoUrl: String
 }
 
 input CreateWorkLikeInput {
@@ -710,50 +762,45 @@ input CreateWorkLikeInput {
 
 """作品の日別テーマ"""
 type DailyThemeNode implements Node {
-  id: ID!
-
-  """不明"""
-  type: String!
-
-  """タイトル"""
-  title: String!
-
   """日付"""
   dateText: String!
-
-  """年"""
-  year: Int!
-
-  """月"""
-  month: Int!
 
   """日にち"""
   day: Int!
 
+  """作品"""
+  firstWork: WorkNode
+  id: ID!
+
+  """月"""
+  month: Int!
+
   """開始時刻"""
   startTime: Int!
 
+  """タイトル"""
+  title: String!
+
+  """不明"""
+  type: String!
+
   """作品"""
-  works(offset: Int!, limit: Int!, where: UserWorksWhereInput): [WorkNode!]!
+  works(limit: Int!, offset: Int!, where: UserWorksWhereInput): [WorkNode!]!
 
   """作品数"""
   worksCount: Int!
 
-  """作品"""
-  firstWork: WorkNode
+  """年"""
+  year: Int!
 }
 
 input DailyThemesWhereInput {
-  search: String
-  year: Int
-  month: Int
   day: Int
-  startDate: String
   endDate: String
-}
-
-input DecrementPromptonPlanSort {
-  planId: String!
+  month: Int
+  search: String
+  startDate: String
+  year: Int
 }
 
 input DecrementPromptonProfileBlockIndexInput {
@@ -818,17 +865,8 @@ input DeletePromptonProfileBlockInput {
   profileBlockId: String!
 }
 
-input DeletePromptonPromptCategoryInput {
-  promptCategoryId: String!
-}
-
 input DeletePromptonPromptInput {
   promptId: String!
-}
-
-input DeletePromptonReactionInput {
-  workId: String!
-  text: String!
 }
 
 input DeletePromptonWorkInput {
@@ -864,56 +902,26 @@ enum Direction {
   DESC
 }
 
-interface Edge {
-  cursor: String!
-  node: Node!
-}
-
 input FlipPromptonFolderWorkIndexInput {
   folderId: String!
-  workId: String!
   nextWorkId: String!
+  workId: String!
 }
 
 enum FolderMode {
-  NORMAL
-  COMIC_VERTICAL
   COMIC_HORIZONTAL
+  COMIC_VERTICAL
+  NORMAL
 }
 
 """フォルダ"""
 type FolderNode implements Node {
-  id: ID!
-
-  """ID"""
-  nanoid: ID!
-
   """作成日"""
   createdAt: Int!
 
-  """更新日"""
-  updatedAt: Int!
-
-  """タイトル"""
-  title: String!
-
   """説明"""
   description: String!
-
-  """レーティング"""
-  rating: Rating
-
-  """ユーザID"""
-  userId: ID
-
-  """ユーザ"""
-  user: UserNode
-
-  """作品"""
-  works(offset: Int!, limit: Int!): [WorkNode!]!
-
-  """サムネイル画像"""
-  thumbnailImageURL: String
+  id: ID!
 
   """削除済み"""
   isDeleted: Boolean!
@@ -924,8 +932,8 @@ type FolderNode implements Node {
   """センシティブである"""
   isSensitive: Boolean!
 
-  """Open Graph タイトル"""
-  openGraphTitle: String
+  """ID"""
+  nanoid: ID!
 
   """Open Graph 説明"""
   openGraphDescription: String
@@ -933,47 +941,58 @@ type FolderNode implements Node {
   """Open Graph 画像"""
   openGraphImageURL: String
 
+  """Open Graph タイトル"""
+  openGraphTitle: String
+
+  """レーティング"""
+  rating: Rating
+
   """シェア"""
   shareText: String
-}
 
-"""フォルダの年齢種別"""
-enum FolderRating {
-  """全年齢"""
-  G
+  """サムネイル画像"""
+  thumbnailImageURL: String
 
-  """センシティブ"""
-  R18
-}
+  """タイトル"""
+  title: String!
 
-input FoldersWhereInput {
-  search: String
-  isSensitive: Boolean
-}
-
-"""フォルダの種類"""
-enum FolderType {
-  """ブックマーク"""
-  BOOKMARK
-
-  """非公開"""
-  PRIVATE
-
-  """公開"""
-  PUBLIC
-}
-
-"""通知（フォロー）"""
-type FollowNotificationNode implements Node {
-  id: ID!
-  createdAt: Int!
-  userId: ID
+  """更新日"""
+  updatedAt: Int!
 
   """ユーザ"""
   user: UserNode
 
+  """ユーザID"""
+  userId: ID
+
+  """作品"""
+  works(limit: Int!, offset: Int!): [WorkNode!]!
+}
+
+input FoldersWhereInput {
+  isSensitive: Boolean
+  search: String
+}
+
+input FollowersWhereInput {
+  userId: Int!
+}
+
+input FollowingUsersWhereInput {
+  userId: Int!
+}
+
+"""通知（フォロー）"""
+type FollowNotificationNode implements Node {
+  createdAt: Int!
+  id: ID!
+
   """種別"""
   type: String!
+
+  """ユーザ"""
+  user: UserNode
+  userId: ID
 }
 
 input FollowPromptonUserInput {
@@ -989,59 +1008,59 @@ input HotWorksWhereInput {
 }
 
 type ImageGenerationEngineStatus {
-  """通常の生成タスク数"""
-  normalTasksCount: Int!
-
-  """優先1の生成タスク数"""
-  standardTasksCount: Int!
-
   """通常の予測生成秒数"""
   normalPredictionGenerationWait: Int!
 
+  """通常の生成タスク数"""
+  normalTasksCount: Int!
+
   """優先1の予測生成秒数"""
   standardPredictionGenerationWait: Int!
+
+  """優先1の生成タスク数"""
+  standardTasksCount: Int!
 }
 
 """画像生成メモ"""
 type ImageGenerationMemoNode implements Node {
-  id: ID!
-  nanoid: String!
+  clipSkip: Int!
 
-  """ユーザID"""
-  userId: ID
-
-  """タイトル"""
-  title: String!
+  """作成時刻"""
+  createdAt: Int
 
   """説明"""
   explanation: String!
-
-  """プロンプト"""
-  prompts: String!
-
-  """ネガティブプロンプト"""
-  negativePrompts: String!
-
-  """サンプラー"""
-  sampler: String!
-
-  """VAE"""
-  vae: String!
-
-  """モデル"""
-  model: ImageGeneratorNode!
-  seed: Int!
-  steps: Int!
-  scale: Int!
-  clipSkip: Int!
-  width: Int!
   height: Int!
+  id: ID!
 
   """削除済み"""
   isDeleted: Boolean!
 
-  """作成時刻"""
-  createdAt: Int
+  """モデル"""
+  model: ImageGeneratorNode!
+  nanoid: String!
+
+  """ネガティブプロンプト"""
+  negativePrompts: String!
+
+  """プロンプト"""
+  prompts: String!
+
+  """サンプラー"""
+  sampler: String!
+  scale: Int!
+  seed: Int!
+  steps: Int!
+
+  """タイトル"""
+  title: String!
+
+  """ユーザID"""
+  userId: ID
+
+  """VAE"""
+  vae: String!
+  width: Int!
 }
 
 input ImageGenerationMemoOrderBy {
@@ -1050,176 +1069,228 @@ input ImageGenerationMemoOrderBy {
 
 """予約済み画像生成"""
 type ImageGenerationReservedTaskNode implements Node {
-  id: ID!
+  clipSkip: Int!
+
+  """ControlNetの設定"""
+  controlNetControlMode: String
+  controlNetEnabled: Boolean
+  controlNetGuidance: Float
+  controlNetGuidanceEnd: Float
+  controlNetGuidanceStart: Float
+  controlNetHrOption: String
+  controlNetModel: String
+  controlNetModule: String
+  controlNetPixelPerfect: Boolean
+  controlNetProcessorRes: Int
+  controlNetResizeMode: String
+  controlNetSaveDetectedMap: Boolean
+  controlNetThresholdA: Int
+  controlNetThresholdB: Int
+  controlNetWeight: Float
 
   """予約開始した時刻"""
   createdAt: Int
+
+  """生成の方式"""
+  generationType: ImageGenerationType!
+  id: ID!
 
   """削除済み"""
   isDeleted: Boolean!
 
   """生成済み"""
   isGenerated: Boolean!
-
-  """生成の方式"""
-  generationType: ImageGenerationType!
   model: ImageGeneratorNode!
-  vae: String
-  prompt: String!
+  nanoid: String
   negativePrompt: String!
-  seed: Float!
-  steps: Int!
-  scale: Int!
-  clipSkip: Int!
+  prompt: String!
   sampler: String!
+  scale: Int!
+  seed: Float!
   sizeType: ImageGenerationSizeType!
-  t2tImageUrl: String
-  t2tMaskImageUrl: String
+  steps: Int!
   t2tDenoisingStrengthSize: String
+  t2tImageUrl: String
   t2tInpaintingFillSize: String
-
-  """アップスケールサイズ(x2, x4, x8)"""
-  upscaleSize: Float
-
-  """ControlNetの設定"""
-  controlNetControlMode: String
-  controlNetEnabled: Boolean
-  controlNetGuidanceEnd: Int
-  controlNetGuidanceStart: Int
-  controlNetPixelPerfect: Boolean
-  controlNetProcessorRes: Int
-  controlNetResizeMode: String
-  controlNetThresholdA: Int
-  controlNetThresholdB: Int
-  controlNetWeight: Float
-  controlNetModule: String
-  controlNetModel: String
-  controlNetSaveDetectedMap: Boolean
-  controlNetHrOption: String
+  t2tMaskImageUrl: String
 
   """Token"""
   token: String
-  nanoid: String
+
+  """アップスケールサイズ(x2, x4, x8)"""
+  upscaleSize: Float
+  vae: String
+}
+
+enum ImageGenerationSizeKind {
+  LANDSCAPE
+  PORTRAIT
+  SQUARE
+  TALL_PORTRAIT
+  WIDE_LANDSCAPE
 }
 
 enum ImageGenerationSizeType {
-  SD2_768_768
-  SD2_768_1200
-  SD2_1200_768
-  SD2_768_1152
-  SD2_1152_768
-  SD2_576_1440
-  SD2_1440_576
-  SD1_512_512
-  SD1_512_768
-  SD1_768_512
+  """SD1 384x960"""
   SD1_384_960
+
+  """SD1 512x512"""
+  SD1_512_512
+
+  """SD1 512x768"""
+  SD1_512_768
+
+  """SD1 768x512"""
+  SD1_768_512
+
+  """SD1_960_384"""
   SD1_960_384
-  SD3_1216_1216
-  SD3_832_1216
-  SD3_1216_832
-  SD3_960_384
+
+  """SD2 576x1440"""
+  SD2_576_1440
+
+  """SD2 768x768"""
+  SD2_768_768
+
+  """SD2 768x1152"""
+  SD2_768_1152
+
+  """SD2 768x1200"""
+  SD2_768_1200
+
+  """SD2 1152x768"""
+  SD2_1152_768
+
+  """SD2 1200x768"""
+  SD2_1200_768
+
+  """SD2 1440x576"""
+  SD2_1440_576
+
+  """SD3 640x1536"""
   SD3_640_1536
-  SD3_1536_640
-  SD3_1024_1024
-  SD3_896_1152
-  SD3_1152_896
-  SD3_1152_1152
+
+  """SD3 832x1216"""
+  SD3_832_1216
+
+  """SD3 896x896"""
   SD3_896_896
+
+  """SD3 896x1152"""
+  SD3_896_1152
+
+  """SD3 960x384"""
+  SD3_960_384
+
+  """SD3 1024x1024"""
+  SD3_1024_1024
+
+  """SD3 1152x896"""
+  SD3_1152_896
+
+  """SD3 1152x1152"""
+  SD3_1152_1152
+
+  """SD3 1216x832"""
+  SD3_1216_832
+
+  """SD3 1216x1216"""
+  SD3_1216_1216
+
+  """SD3 1536x640"""
+  SD3_1536_640
 }
 
 enum ImageGenerationStatus {
-  PENDING
-  IN_PROGRESS
-  DONE
   CANCELED
+  DONE
   ERROR
+  IN_PROGRESS
+  PENDING
   RESERVED
 }
 
 """画像生成"""
 type ImageGenerationTaskNode implements Node {
-  id: ID!
-
-  """お気に入り度"""
-  rating: Int
-
-  """保護済みかどうか"""
-  isProtected: Boolean
+  clipSkip: Int!
 
   """生成が完了した時刻"""
   completedAt: Int
 
-  """生成状態"""
-  status: ImageGenerationStatus!
-
-  """削除済み"""
-  isDeleted: Boolean!
-  count: Int!
-
-  """生成の方式"""
-  generationType: ImageGenerationType!
-  model: ImageGeneratorNode!
-  vae: String
-  prompt: String!
-  negativePrompt: String!
-  seed: Float!
-  steps: Int!
-  scale: Int!
-  sampler: String!
-  sizeType: ImageGenerationSizeType!
-  t2tImageUrl: String
-  t2tMaskImageUrl: String
-  t2tDenoisingStrengthSize: String
-  t2tInpaintingFillSize: String
-  token: String
-  thumbnailToken: String
-  nanoid: String
-  clipSkip: Int!
-
-  """アップスケールサイズ(x2, x4, x8)"""
-  upscaleSize: Float
-
   """ControlNetの設定"""
   controlNetControlMode: String
   controlNetEnabled: Boolean
-  controlNetGuidanceEnd: Int
-  controlNetGuidanceStart: Int
+  controlNetGuidance: Float
+  controlNetGuidanceEnd: Float
+  controlNetGuidanceStart: Float
+  controlNetHrOption: String
+  controlNetModel: String
+  controlNetModule: String
   controlNetPixelPerfect: Boolean
   controlNetProcessorRes: Int
   controlNetResizeMode: String
+  controlNetSaveDetectedMap: Boolean
   controlNetThresholdA: Int
   controlNetThresholdB: Int
   controlNetWeight: Float
-  controlNetModule: String
-  controlNetModel: String
-  controlNetSaveDetectedMap: Boolean
-  controlNetHrOption: String
+  count: Int!
 
   """予想生成秒数"""
   estimatedSeconds: Int
 
+  """生成の方式"""
+  generationType: ImageGenerationType!
+  id: ID!
+
   """画像ファイル名"""
   imageFileName: String
-  thumbnailImageFileName: String
-}
 
-enum ImageGenerationTaskOrderBy {
-  DATE_CREATED
+  """削除済み"""
+  isDeleted: Boolean!
+
+  """保護済みかどうか"""
+  isProtected: Boolean
+  model: ImageGeneratorNode!
+  nanoid: String
+  negativePrompt: String!
+  prompt: String!
+
+  """お気に入り度"""
+  rating: Int
+  sampler: String!
+  scale: Int!
+  seed: Float!
+  sizeKind: ImageGenerationSizeKind!
+  sizeType: ImageGenerationSizeType!
+
+  """生成状態"""
+  status: ImageGenerationStatus!
+  steps: Int!
+  t2tDenoisingStrengthSize: String
+  t2tImageUrl: String
+  t2tInpaintingFillSize: String
+  t2tMaskImageUrl: String
+  thumbnailImageFileName: String
+  thumbnailToken: String
+  token: String
+
+  """アップスケールサイズ(x2, x4, x8)"""
+  upscaleSize: Float
+  vae: String
 }
 
 input ImageGenerationTasksWhereInput {
   dateText: String
   fromDate: String
-  rating: Int
   isProtected: Boolean
   minRating: Int
+  rating: Int
 }
 
 enum ImageGenerationType {
-  TEXT_TO_IMAGE
   IMAGE_TO_IMAGE
   INPAINTING
+  TEXT_TO_IMAGE
 }
 
 """画像生成サービス"""
@@ -1229,113 +1300,114 @@ type ImageGeneratorNode implements Node {
   """名前"""
   name: String!
 
-  """SD種別（SD1, SD2, SDXL）"""
-  type: String!
-
   """推奨プロンプト"""
   recommendedPrompt: String!
+
+  """SD種別（SD1, SD2, SDXL）"""
+  type: String!
 }
 
 """画像生成LoRA"""
 type ImageLoraModelNode implements Node {
-  id: ID!
-
-  """名前"""
-  name: String!
-
   """説明"""
   description: String
 
-  """サムネイル画像のURL"""
-  thumbnailImageURL: String
-
-  """コード"""
-  slug: String!
+  """種別"""
+  genre: String
+  id: ID!
 
   """ライセンス"""
   license: String
 
+  """名前"""
+  name: String!
+
   """プロンプト"""
   prompts: [String!]!
 
-  """種別"""
-  genre: String
+  """コード"""
+  slug: String!
+
+  """サムネイル画像のURL"""
+  thumbnailImageURL: String
 }
 
 enum ImageModelCategory {
-  """少女イラスト"""
-  ILLUSTRATION_GIRL
+  """獣"""
+  ANIMAL
 
-  """男子イラスト"""
-  ILLUSTRATION_BOY
-
-  """グラビア"""
-  BIKINI_MODEL
+  """少女アニメ"""
+  ANIME_GIRL
 
   """背景"""
   BACKGROUND
 
-  """獣"""
-  ANIMAL
+  """グラビア"""
+  BIKINI_MODEL
 
   """フィギュア"""
   FIGURE
+
+  """男子イラスト"""
+  ILLUSTRATION_BOY
+
+  """少女イラスト"""
+  ILLUSTRATION_GIRL
 }
 
 """画像生成モデル"""
 type ImageModelNode implements Node {
-  id: ID!
-
-  """名前"""
-  name: String!
-
-  """名前"""
-  displayName: String!
+  """カテゴリ"""
+  category: ImageModelCategory!
 
   """説明"""
   description: String
 
-  """サムネイル画像"""
-  thumbnailImageURL: String
-
-  """コード"""
-  slug: String!
-
-  """StableDiffusionの種類"""
-  type: String!
+  """名前"""
+  displayName: String!
+  id: ID!
 
   """ライセンス"""
   license: String
 
-  """スタイル"""
-  style: ImageStyle!
+  """名前"""
+  name: String!
 
   """プロンプト"""
   prompts: [String!]!
 
-  """カテゴリ"""
-  category: ImageModelCategory!
+  """コード"""
+  slug: String!
+
+  """スタイル"""
+  style: ImageStyle!
+
+  """サムネイル画像"""
+  thumbnailImageURL: String
+
+  """StableDiffusionの種類"""
+  type: String!
 
   """参考作品"""
-  works(offset: Int!, limit: Int!, where: WorksWhereInput): [WorkNode!]!
+  works(limit: Int!, offset: Int!, where: WorksWhereInput): [WorkNode!]!
 }
 
 """画像"""
 type ImageNode implements Node {
-  id: ID!
-
   """ダウンロードURL"""
   downloadURL: String!
+  id: ID!
 
   """種類"""
   type: String!
 }
 
 enum ImageStyle {
+  ILLUSTRATION
+
   """リアル"""
   REAL
   SEMI_REAL
-  ILLUSTRATION
 }
 
 input IncrementPromptonProfileBlockIndexInput {
@@ -1344,10 +1416,15 @@ input IncrementPromptonProfileBlockIndexInput {
 
 """通知（いいねされた作品）"""
 type LikedWorkNotificationNode implements Node {
-  id: ID!
-
   """時刻"""
   createdAt: Int!
+  id: ID!
+
+  """匿名かどうか"""
+  isAnonymous: Boolean!
+
+  """種別"""
+  type: String!
 
   """いいねしたユーザ"""
   user: UserNode
@@ -1356,20 +1433,13 @@ type LikedWorkNotificationNode implements Node {
   """作品"""
   work: WorkNode
   workId: ID
-
-  """匿名かどうか"""
-  isAnonymous: Boolean!
-
-  """種別"""
-  type: String!
 }
 
 """通知（作品のいいね集計）"""
 type LikedWorksSummaryNotificationNode implements Node {
-  id: ID!
-
   """時刻"""
   createdAt: Int!
+  id: ID!
 
   """メッセージ"""
   message: String
@@ -1421,40 +1491,40 @@ input MarkPromptonWorkAsUserHeaderInput {
 
 """メッセージ"""
 type MessageNode implements Node {
-  id: ID!
   createdAt: Int!
-
-  """メッセージ"""
-  text: String
-
-  """送信者"""
-  user: UserNode!
+  id: ID!
 
   """既読済みである"""
   isRead: Boolean!
 
   """自身である"""
   isViewer: Boolean!
+
+  """メッセージ"""
+  text: String
+
+  """送信者"""
+  user: UserNode!
 }
 
 """メッセージのスレッド"""
 type MessageThreadNode implements Node {
   id: ID!
-  updatedAt: Int!
-  recipient: UserNode!
   latestMessage: MessageNode!
-  messages(offset: Int!, limit: Int!): [MessageNode!]!
+  messages(limit: Int!, offset: Int!): [MessageNode!]!
+  recipient: UserNode!
+  updatedAt: Int!
 }
 
 """マイルストーン"""
 type MilestoneNode implements Node {
+  description: String!
+  dueDate: String
   id: ID!
+  isDone: Boolean!
+  pageURL: String!
   title: String!
   version: String!
-  description: String!
-  pageURL: String!
-  dueDate: String
-  isDone: Boolean!
 }
 
 input MilestonesWhereInput {
@@ -1462,6 +1532,33 @@ input MilestonesWhereInput {
 }
 
 type Mutation {
+  """リクエストを受諾する"""
+  acceptPromptonRequest(input: AcceptPromptonRequestInput!): PromptonRequestNode!
+
+  """作品をフォルダに追加する"""
+  addPromptonTagToWork(input: AddPromptonTagToWorkInput!): PromptonWorkNode!
+
+  """作品をフォルダに追加する"""
+  addPromptonWorkToFolder(input: AddPromptonWorkToFolderInput!): PromptonFolderNode!
+
+  """ユーザをブロックする"""
+  blockPromptonUser(input: BlockPromptonUserInput!): PromptonUserNode!
+
+  """予約生成をキャンセルする"""
+  cancelImageGenerationReservedTask(input: CancelImageGenerationReservedTaskInput!): ImageGenerationTaskNode!
+
+  """生成をキャンセルする"""
+  cancelImageGenerationTask(input: CancelImageGenerationTaskInput!): ImageGenerationTaskNode!
+
+  """リクエストをキャンセルする"""
+  cancelPromptonRequest(input: CancelPromptonRequestInput!): PromptonRequestNode!
+
+  """フォルダを有償化にする"""
+  changePromptonFolderToPaid(input: ChangePromptonFolderToPaidInput!): PromptonFolderNode!
+
+  """リクエストを完了とする"""
+  closePromptonRequest(input: ClosePromptonRequestInput!): PromptonRequestNode!
+
   """アカウントを作成する"""
   createAccount(input: CreateAccountInput!): UserNode!
 
@@ -1475,31 +1572,16 @@ type Mutation {
   createCustomerPortalSession: String!
 
   """フォルダに作品を追加する"""
-  createFolder(input: CreateFolderInput!): WorkNode!
+  createFolder(input: CreateFolderInput!): FolderNode!
 
   """フォルダに作品を追加する"""
   createFolderWork(input: CreateFolderWorkInput!): WorkNode!
 
-  """画像生成のタスクを作成する"""
-  createImageGenerationTask(input: CreateImageGenerationTaskInput!): ImageGenerationTaskNode!
-
   """画像生成のメモを作成する"""
   createImageGenerationMemo(input: CreateImageGenerationMemoInput!): ImageGenerationMemoNode!
 
-  """予約画像生成のタスクを作成する"""
-  createReservedImageGenerationTask(input: CreateReservedImageGenerationTaskInput!): ImageGenerationReservedTaskNode!
-
-  """画像生成のタスクのレーティングを変更する"""
-  updateRatingImageGenerationTask(input: UpdateRatingImageGenerationTaskInput!): ImageGenerationTaskNode!
-
-  """画像生成のタスクの保護を変更する"""
-  updateProtectedImageGenerationTask(input: UpdateProtectedImageGenerationTaskInput!): ImageGenerationTaskNode!
-
-  """画像生成のモデルのレーティングを変更する"""
-  updateRatingImageGenerationModel(input: UpdateRatingImageGenerationModelInput!): UserSettingNode!
-
-  """画像生成のメモを変更する"""
-  updateImageGenerationMemo(input: UpdateImageGenerationMemoInput!): ImageGenerationMemoNode!
+  """画像生成のタスクを作成する"""
+  createImageGenerationTask(input: CreateImageGenerationTaskInput!): ImageGenerationTaskNode!
 
   """メッセージを作成する"""
   createMessage(input: CreateMessageInput!): MessageNode!
@@ -1510,6 +1592,72 @@ type Mutation {
   """小説を作成する"""
   createNovel(input: CreateNovelInput!): NovelNode!
 
+  """パスのチェックアウトのURLを作成する"""
+  createPassCheckoutSession(input: CreatePassCheckoutSessionInput): String!
+
+  """支援リクエストを作成する"""
+  createPromptonAipicRequest(input: CreatePromptonAipicRequestInput!): PromptonRequestNode!
+
+  """ユーザを作成する"""
+  createPromptonChatMessage(input: CreatePromptonChatMessageInput!): [PromptonMessageNode!]!
+
+  """コーヒーリクエストを作成する"""
+  createPromptonCoffeeRequest(input: CreatePromptonCoffeeRequestInput!): PromptonRequestNode!
+
+  """納品物を作成する"""
+  createPromptonDeliverable(input: CreatePromptonDeliverableInput!): PromptonWorkNode!
+
+  """ファイルを作成する"""
+  createPromptonFile(input: CreatePromptonFileInput!): PromptonFileNode!
+
+  """フォルダを作成する"""
+  createPromptonFolder(input: CreatePromptonFolderInput!): PromptonFolderNode!
+
+  """フォルダの鍵を作成する"""
+  createPromptonFolderKey(input: CreatePromptonFolderKeyInput!): PromptonFolderKeyNode!
+
+  """画像生成のタスクを作成する"""
+  createPromptonImageGeneration(input: CreatePromptonImageGenerationInput!): PromptonImageGenerationNode
+
+  """お問い合わせを作成する"""
+  createPromptonInquiry(input: CreatePromptonInquiryInput!): Boolean
+
+  """決済方法を登録する"""
+  createPromptonPaymentMethod(input: CreatePromptonPaymentMethodInput!): CreatePromptonPaymentMethodResult
+
+  """プランを作成する"""
+  createPromptonPlan(input: CreatePromptonPlanInput!): PromptonPlanNode!
+
+  """プランリクエストを作成する"""
+  createPromptonPlanRequest(input: CreatePromptonPlanRequestInput!): PromptonRequestNode!
+
+  """ユーザのプロフィールを作成する"""
+  createPromptonProfileBlock(input: CreatePromptonProfileBlockInput!): PromptonUserNode!
+
+  """プロンプトを作成する"""
+  createPromptonPrompt(input: CreatePromptonPromptInput!): PromptonPromptNode!
+
+  """プロンプトの作品を追加する"""
+  createPromptonPromptWork(input: CreatePromptonPromptWorkInput!): PromptonPromptNode!
+
+  """ユーザを作成する"""
+  createPromptonUser(input: CreatePromptonUserInput!): Boolean
+
+  """Aipictorsのトークンからユーザを作成する"""
+  createPromptonUserFromToken(input: CreatePromptonUserFromTokenInput!): Boolean
+
+  """作品を作成する"""
+  createPromptonWork(input: CreatePromptonWorkInput!): PromptonWorkNode!
+
+  """作品のスキを作成する"""
+  createPromptonWorkLike(input: CreatePromptonWorkLikeInput!): PromptonWorkNode!
+
+  """推薦作品を作成する"""
+  createRecommendedWork(input: CreateRecommendedWorkInput!): WorkNode!
+
+  """予約画像生成のタスクを作成する"""
+  createReservedImageGenerationTask(input: CreateReservedImageGenerationTaskInput!): ImageGenerationReservedTaskNode!
+
   """リプライのコメントを作成する"""
   createResponseComment(input: CreateResponseCommentInput!): CommentNode!
 
@@ -1519,20 +1667,17 @@ type Mutation {
   """マイスタンプを追加する"""
   createUserSticker(input: CreateUserStickerInput!): StickerNode!
 
-  """パスのチェックアウトのURLを作成する"""
-  createPassCheckoutSession(input: CreatePassCheckoutSessionInput): String!
-
   """作品を作成する"""
   createWork(input: CreateWorkInput!): WorkNode!
-
-  """推薦作品を作成する"""
-  createRecommendedWork(input: CreateRecommendedWorkInput!): WorkNode!
 
   """作品のコメントを作成する"""
   createWorkComment(input: CreateWorkCommentInput!): CommentNode!
 
   """作品のスキを作成する"""
   createWorkLike(input: CreateWorkLikeInput!): WorkNode!
+
+  """ユーザのプロフィールのインデックスを更新する"""
+  decrementPromptonProfileBlockIndex(input: DecrementPromptonProfileBlockIndexInput!): PromptonUserNode!
 
   """シリーズを削除する"""
   deleteAlbum(input: DeleteAlbumInput!): AlbumNode!
@@ -1549,14 +1694,11 @@ type Mutation {
   """フォルダから作品を削除する"""
   deleteFolderWork(input: DeleteFolderWorkInput!): WorkNode!
 
-  """生成履歴を削除する"""
-  deleteImageGenerationTask(input: DeleteImageGenerationTaskInput!): ImageGenerationTaskNode!
-
   """生成メモを削除する"""
   deleteImageGenerationMemo(input: DeleteImageGenerationMemoInput!): ImageGenerationMemoNode!
 
-  """予約生成履歴を削除する"""
-  deleteReservedImageGenerationTasks: [ImageGenerationReservedTaskNode]!
+  """生成履歴を削除する"""
+  deleteImageGenerationTask(input: DeleteImageGenerationTaskInput!): ImageGenerationTaskNode!
 
   """メッセージを削除する"""
   deleteMessage(input: DeleteMessageInput!): MessageNode!
@@ -1567,6 +1709,36 @@ type Mutation {
   """小説を削除する"""
   deleteNovel(input: DeleteNovelInput!): NovelNode!
 
+  """フォルダを削除する"""
+  deletePromptonFolder(input: DeletePromptonFolderInput!): PromptonFolderNode!
+
+  """インテグレーション（LINE）を削除する"""
+  deletePromptonIntegration(input: DeletePromptonIntegrationInput!): PromptonViewer!
+
+  """決済方法を削除する"""
+  deletePromptonPaymentMethod: Boolean
+
+  """プランを削除する"""
+  deletePromptonPlan(input: DeletePromptonPlanInput!): PromptonPlanNode!
+
+  """ユーザのプロフィールのインデックスを更新する"""
+  deletePromptonProfileBlock(input: DeletePromptonProfileBlockInput!): PromptonUserNode!
+
+  """プロンプトを削除する"""
+  deletePromptonPrompt(input: DeletePromptonPromptInput!): PromptonPromptNode!
+
+  """作品を削除する"""
+  deletePromptonWork(input: DeletePromptonWorkInput!): PromptonWorkNode!
+
+  """作品のスキを削除する"""
+  deletePromptonWorkLike(input: DeletePromptonWorkLikeInput!): PromptonWorkNode!
+
+  """推薦作品を削除する"""
+  deleteRecommendedWork(input: DeleteRecommendedWorkInput!): Boolean!
+
+  """予約生成履歴を削除する"""
+  deleteReservedImageGenerationTasks: [ImageGenerationReservedTaskNode]!
+
   """スタンプを削除する"""
   deleteSticker(input: DeleteStickerInput!): StickerNode!
 
@@ -1576,20 +1748,20 @@ type Mutation {
   """作品を削除する"""
   deleteWork(input: DeleteWorkInput!): WorkNode!
 
-  """推薦作品を削除する"""
-  deleteRecommendedWork(input: DeleteRecommendedWorkInput!): Boolean!
-
   """作品のスキを削除する"""
   deleteWorkLike(input: DeleteWorkLikeInput!): WorkNode!
 
-  """生成をキャンセルする"""
-  cancelImageGenerationTask(input: CancelImageGenerationTaskInput!): ImageGenerationTaskNode!
+  """ユーザのプロフィールのインデックスを更新する"""
+  flipPromptonFolderWorkIndex(input: FlipPromptonFolderWorkIndexInput!): [PromptonWorkNode!]!
 
-  """予約生成をキャンセルする"""
-  cancelImageGenerationReservedTask(input: CancelImageGenerationReservedTaskInput!): ImageGenerationTaskNode!
+  """ユーザをフォローする"""
+  followPromptonUser(input: FollowPromptonUserInput!): PromptonUserNode
 
   """ユーザをフォローする"""
   followUser(input: FollowUserInput!): UserNode!
+
+  """ユーザのプロフィールのインデックスを更新する"""
+  incrementPromptonProfileBlockIndex(input: IncrementPromptonProfileBlockIndexInput!): PromptonUserNode!
 
   """パスワードでログインする"""
   loginWithPassword(input: LoginWithPasswordInput!): LoginResult!
@@ -1597,11 +1769,44 @@ type Mutation {
   """WordPressのトークンでログインする"""
   loginWithWordPressToken(input: LoginWithWordPressTokenInput!): LoginResult!
 
+  """フォルダを非公開にする"""
+  markPromptonFolderAsPrivate(input: MarkPromptonFolderAsPrivateInput!): PromptonFolderNode!
+
+  """フォルダを公開する"""
+  markPromptonFolderAsPublic(input: MarkPromptonFolderAsPublicInput!): PromptonFolderNode!
+
+  """プランを非公開にする"""
+  markPromptonPlanAsPrivate(input: MarkPromptonPlanAsPrivateInput!): PromptonPlanNode!
+
+  """プランを公開する"""
+  markPromptonPlanAsPublic(input: MarkPromptonPlanAsPublicInput!): PromptonPlanNode!
+
+  """作品を非公開にする"""
+  markPromptonWorkAsPrivate(input: MarkPromptonWorkAsPrivateInput!): PromptonWorkNode!
+
+  """作品を公開にする"""
+  markPromptonWorkAsPublic(input: MarkPromptonWorkAsPublicInput!): PromptonWorkNode!
+
+  """作品をユーザのヘッダーに設定する"""
+  markPromptonWorkAsUserHeader(input: MarkPromptonWorkAsUserHeaderInput!): PromptonUserNode
+
   """タグをミュートする"""
   muteTag(input: MuteTagInput!): MutedTagNode
 
   """ユーザをミュートする"""
   muteUser(input: MuteUserInput!): UserNode!
+
+  """作品をピン留めする"""
+  pinPromptonWork(input: PinPromptonWorkInput!): PromptonWorkNode!
+
+  """リクエストを拒否する"""
+  rejectPromptonRequest(input: RejectPromptonRequestInput!): PromptonRequestNode!
+
+  """作品をフォルダから削除する"""
+  removePromptonTagFromWork(input: RemovePromptonTagFromWorkInput!): PromptonWorkNode!
+
+  """作品をフォルダから削除する"""
+  removePromptonWorkFromFolder(input: RemovePromptonWorkFromFolderInput!): PromptonFolderNode!
 
   """シリーズを報告する"""
   reportAlbum(input: ReportAlbumInput!): Boolean
@@ -1624,6 +1829,12 @@ type Mutation {
   """ユーザのフォローを解除する"""
   signImageGenerationTerms(input: SignImageGenerationTermsInput!): UserNode!
 
+  """テスト通知を送信する"""
+  testPromptonIntegration(input: TestPromptonIntegrationInput!): Boolean
+
+  """ユーザのフォローは解除する"""
+  unfollowPromptonUser(input: UnfollowPromptonUserInput!): PromptonUserNode
+
   """ユーザのフォローを解除する"""
   unfollowUser(input: UnfollowUserInput!): UserNode!
 
@@ -1633,17 +1844,20 @@ type Mutation {
   """ユーザのミュートを解除する"""
   unmuteUser(input: UnmuteUserInput!): UserNode!
 
+  """作品のピン留めを解除する"""
+  unpinPromptonWork(input: UnpinPromptonWorkInput!): PromptonWorkNode!
+
   """フォルダのウォッチを解除する"""
   unwatchFolder(input: UnwatchFolderInput!): UserNode!
+
+  """アカウントのFCMトークンを変更する"""
+  updateAccountFcmToken(input: UpdateAccountFcmTokenInput!): UserNode!
 
   """アカウントのログインIDを作成する"""
   updateAccountLogin(input: UpdateAccountLoginInput!): UserNode!
 
   """アカウントのパスワードを変更する"""
   updateAccountPassword(input: UpdateAccountPasswordInput!): UserNode!
-
-  """アカウントのFCMトークンを変更する"""
-  updateAccountFcmToken(input: UpdateAccountFcmTokenInput!): UserNode!
 
   """アカウントのWebFCMトークンを変更する"""
   updateAccountWebFcmToken(input: UpdateAccountWebFcmTokenInput!): UserNode!
@@ -1654,11 +1868,56 @@ type Mutation {
   """シリーズを更新する"""
   updateFolder(input: UpdateFolderInput!): FolderNode!
 
+  """画像生成のメモを変更する"""
+  updateImageGenerationMemo(input: UpdateImageGenerationMemoInput!): ImageGenerationMemoNode!
+
   """ノートを更新する"""
   updateNote(input: UpdateNoteInput!): NoteNode!
 
   """小説を更新する"""
   updateNovel(input: UpdateNovelInput!): NovelNode!
+
+  """フォルダを更新する"""
+  updatePromptonFolder(input: UpdatePromptonFolderInput!): PromptonFolderNode!
+
+  """プランを更新する"""
+  updatePromptonPlan(input: UpdatePromptonPlanInput!): PromptonPlanNode!
+
+  """プランを順序を上げる"""
+  updatePromptonPlanSort(input: UpdatePromptonPlanSortInput!): PromptonPlanNode!
+
+  """ユーザのプロフィールを更新する"""
+  updatePromptonProfileBlock(input: UpdatePromptonProfileBlockInput!): PromptonUserNode!
+
+  """プロンプトを更新する"""
+  updatePromptonPrompt(input: UpdatePromptonPromptInput!): PromptonPromptNode!
+
+  """ユーザのアイコンを更新する"""
+  updatePromptonUserAvatar(input: UpdatePromptonUserAvatarInput!): PromptonUserNode!
+
+  """ユーザのヘッダー画像を更新する"""
+  updatePromptonUserHeaderImage(input: UpdatePromptonUserHeaderImageInput!): PromptonUserNode!
+
+  """ユーザのインボイスの登録番号を更新する"""
+  updatePromptonUserInvoiceRegistrationNumber(input: UpdatePromptonUserInvoiceRegistrationNumberInput!): PromptonUserNode!
+
+  """ユーザのユーザ名を更新する"""
+  updatePromptonUserLogin(input: UpdatePromptonUserLoginInput!): PromptonUserNode!
+
+  """ユーザのプロフィールを更新する"""
+  updatePromptonUserProfile(input: UpdatePromptonUserProfileInput!): PromptonUserNode!
+
+  """作品を更新する"""
+  updatePromptonWork(input: UpdatePromptonWorkInput!): PromptonWorkNode!
+
+  """画像生成のタスクの保護を変更する"""
+  updateProtectedImageGenerationTask(input: UpdateProtectedImageGenerationTaskInput!): ImageGenerationTaskNode!
+
+  """画像生成のモデルのレーティングを変更する"""
+  updateRatingImageGenerationModel(input: UpdateRatingImageGenerationModelInput!): UserSettingNode!
+
+  """画像生成のタスクのレーティングを変更する"""
+  updateRatingImageGenerationTask(input: UpdateRatingImageGenerationTaskInput!): ImageGenerationTaskNode!
 
   """スタンプを更新する"""
   updateSticker(input: UpdateStickerInput!): StickerNode!
@@ -1674,195 +1933,6 @@ type Mutation {
 
   """フォルダをウォッチする"""
   watchFolder(input: WatchFolderInput!): FolderNode!
-
-  """ユーザを作成する"""
-  createPromptonChatMessage(input: CreatePromptonChatMessageInput!): [PromptonMessageNode!]!
-
-  """Aipictorsのトークンからユーザを作成する"""
-  createPromptonUserFromToken(input: CreatePromptonUserFromTokenInput!): Boolean
-
-  """ユーザを作成する"""
-  createPromptonUser(input: CreatePromptonUserInput!): Boolean
-
-  """ユーザのアイコンを更新する"""
-  updatePromptonUserAvatar(input: UpdatePromptonUserAvatarInput!): PromptonUserNode!
-
-  """ユーザのヘッダー画像を更新する"""
-  updatePromptonUserHeaderImage(input: UpdatePromptonUserHeaderImageInput!): PromptonUserNode!
-
-  """ユーザのプロフィールを更新する"""
-  updatePromptonUserProfile(input: UpdatePromptonUserProfileInput!): PromptonUserNode!
-
-  """ユーザのユーザ名を更新する"""
-  updatePromptonUserLogin(input: UpdatePromptonUserLoginInput!): PromptonUserNode!
-
-  """ファイルを作成する"""
-  createPromptonFile(input: CreatePromptonFileInput!): PromptonFileNode!
-
-  """作品を作成する"""
-  createPromptonWork(input: CreatePromptonWorkInput!): PromptonWorkNode!
-
-  """作品を削除する"""
-  deletePromptonWork(input: DeletePromptonWorkInput!): PromptonWorkNode!
-
-  """作品を更新する"""
-  updatePromptonWork(input: UpdatePromptonWorkInput!): PromptonWorkNode!
-
-  """作品を公開にする"""
-  markPromptonWorkAsPublic(input: MarkPromptonWorkAsPublicInput!): PromptonWorkNode!
-
-  """作品を非公開にする"""
-  markPromptonWorkAsPrivate(input: MarkPromptonWorkAsPrivateInput!): PromptonWorkNode!
-
-  """作品をピン留めする"""
-  pinPromptonWork(input: PinPromptonWorkInput!): PromptonWorkNode!
-
-  """作品のピン留めを解除する"""
-  unpinPromptonWork(input: UnpinPromptonWorkInput!): PromptonWorkNode!
-
-  """作品をフォルダに追加する"""
-  addPromptonTagToWork(input: AddPromptonTagToWorkInput!): PromptonWorkNode!
-
-  """作品をフォルダから削除する"""
-  removePromptonTagFromWork(input: RemovePromptonTagFromWorkInput!): PromptonWorkNode!
-
-  """作品のスキを作成する"""
-  createPromptonWorkLike(input: CreatePromptonWorkLikeInput!): PromptonWorkNode!
-
-  """作品のスキを削除する"""
-  deletePromptonWorkLike(input: DeletePromptonWorkLikeInput!): PromptonWorkNode!
-
-  """作品をユーザのヘッダーに設定する"""
-  markPromptonWorkAsUserHeader(input: MarkPromptonWorkAsUserHeaderInput!): PromptonUserNode
-
-  """ユーザのプロフィールのインデックスを更新する"""
-  flipPromptonFolderWorkIndex(input: FlipPromptonFolderWorkIndexInput!): [PromptonWorkNode!]!
-
-  """ユーザをフォローする"""
-  followPromptonUser(input: FollowPromptonUserInput!): PromptonUserNode
-
-  """ユーザのフォローは解除する"""
-  unfollowPromptonUser(input: UnfollowPromptonUserInput!): PromptonUserNode
-
-  """ユーザのプロフィールを作成する"""
-  createPromptonProfileBlock(input: CreatePromptonProfileBlockInput!): PromptonUserNode!
-
-  """ユーザのインボイスの登録番号を更新する"""
-  updatePromptonUserInvoiceRegistrationNumber(input: UpdatePromptonUserInvoiceRegistrationNumberInput!): PromptonUserNode!
-
-  """ユーザのプロフィールを更新する"""
-  updatePromptonProfileBlock(input: UpdatePromptonProfileBlockInput!): PromptonUserNode!
-
-  """ユーザのプロフィールのインデックスを更新する"""
-  incrementPromptonProfileBlockIndex(input: IncrementPromptonProfileBlockIndexInput!): PromptonUserNode!
-
-  """ユーザのプロフィールのインデックスを更新する"""
-  decrementPromptonProfileBlockIndex(input: DecrementPromptonProfileBlockIndexInput!): PromptonUserNode!
-
-  """ユーザのプロフィールのインデックスを更新する"""
-  deletePromptonProfileBlock(input: DeletePromptonProfileBlockInput!): PromptonUserNode!
-
-  """フォルダを作成する"""
-  createPromptonFolder(input: CreatePromptonFolderInput!): PromptonFolderNode!
-
-  """フォルダを更新する"""
-  updatePromptonFolder(input: UpdatePromptonFolderInput!): PromptonFolderNode!
-
-  """フォルダを削除する"""
-  deletePromptonFolder(input: DeletePromptonFolderInput!): PromptonFolderNode!
-
-  """フォルダを公開する"""
-  markPromptonFolderAsPublic(input: MarkPromptonFolderAsPublicInput!): PromptonFolderNode!
-
-  """フォルダを非公開にする"""
-  markPromptonFolderAsPrivate(input: MarkPromptonFolderAsPrivateInput!): PromptonFolderNode!
-
-  """フォルダを有償化にする"""
-  changePromptonFolderToPaid(input: ChangePromptonFolderToPaidInput!): PromptonFolderNode!
-
-  """作品をフォルダに追加する"""
-  addPromptonWorkToFolder(input: AddPromptonWorkToFolderInput!): PromptonFolderNode!
-
-  """作品をフォルダから削除する"""
-  removePromptonWorkFromFolder(input: RemovePromptonWorkFromFolderInput!): PromptonFolderNode!
-
-  """フォルダの鍵を作成する"""
-  createPromptonFolderKey(input: CreatePromptonFolderKeyInput!): PromptonFolderKeyNode!
-
-  """プランを作成する"""
-  createPromptonPlan(input: CreatePromptonPlanInput!): PromptonPlanNode!
-
-  """プランを更新する"""
-  updatePromptonPlan(input: UpdatePromptonPlanInput!): PromptonPlanNode!
-
-  """プランを順序を上げる"""
-  updatePromptonPlanSort(input: UpdatePromptonPlanSortInput!): PromptonPlanNode!
-
-  """プランを削除する"""
-  deletePromptonPlan(input: DeletePromptonPlanInput!): PromptonPlanNode!
-
-  """プランを公開する"""
-  markPromptonPlanAsPublic(input: MarkPromptonPlanAsPublicInput!): PromptonPlanNode!
-
-  """プランを非公開にする"""
-  markPromptonPlanAsPrivate(input: MarkPromptonPlanAsPrivateInput!): PromptonPlanNode!
-
-  """支援リクエストを作成する"""
-  createPromptonAipicRequest(input: CreatePromptonAipicRequestInput!): PromptonRequestNode!
-
-  """プランリクエストを作成する"""
-  createPromptonPlanRequest(input: CreatePromptonPlanRequestInput!): PromptonRequestNode!
-
-  """コーヒーリクエストを作成する"""
-  createPromptonCoffeeRequest(input: CreatePromptonCoffeeRequestInput!): PromptonRequestNode!
-
-  """リクエストを受諾する"""
-  acceptPromptonRequest(input: AcceptPromptonRequestInput!): PromptonRequestNode!
-
-  """リクエストを拒否する"""
-  rejectPromptonRequest(input: RejectPromptonRequestInput!): PromptonRequestNode!
-
-  """リクエストをキャンセルする"""
-  cancelPromptonRequest(input: CancelPromptonRequestInput!): PromptonRequestNode!
-
-  """リクエストを完了とする"""
-  closePromptonRequest(input: ClosePromptonRequestInput!): PromptonRequestNode!
-
-  """納品物を作成する"""
-  createPromptonDeliverable(input: CreatePromptonDeliverableInput!): PromptonWorkNode!
-
-  """決済方法を登録する"""
-  createPromptonPaymentMethod(input: CreatePromptonPaymentMethodInput!): CreatePromptonPaymentMethodResult
-
-  """決済方法を削除する"""
-  deletePromptonPaymentMethod: Boolean
-
-  """プロンプトを作成する"""
-  createPromptonPrompt(input: CreatePromptonPromptInput!): PromptonPromptNode!
-
-  """プロンプトを更新する"""
-  updatePromptonPrompt(input: UpdatePromptonPromptInput!): PromptonPromptNode!
-
-  """プロンプトを削除する"""
-  deletePromptonPrompt(input: DeletePromptonPromptInput!): PromptonPromptNode!
-
-  """プロンプトの作品を追加する"""
-  createPromptonPromptWork(input: CreatePromptonPromptWorkInput!): PromptonPromptNode!
-
-  """お問い合わせを作成する"""
-  createPromptonInquiry(input: CreatePromptonInquiryInput!): Boolean
-
-  """画像生成のタスクを作成する"""
-  createPromptonImageGeneration(input: CreatePromptonImageGenerationInput!): PromptonImageGenerationNode
-
-  """インテグレーション（LINE）を削除する"""
-  deletePromptonIntegration(input: DeletePromptonIntegrationInput!): PromptonViewer!
-
-  """テスト通知を送信する"""
-  testPromptonIntegration(input: TestPromptonIntegrationInput!): Boolean
-
-  """ユーザをブロックする"""
-  blockPromptonUser(input: BlockPromptonUserInput!): PromptonUserNode!
 }
 
 """ミュートタグ"""
@@ -1888,13 +1958,13 @@ interface Node {
 
 """ノート"""
 type NoteNode implements Node {
-  id: ID!
   createdAt: Int!
+  id: ID!
   user: UserNode!
 }
 
 """通知"""
-union NotificationNode = LikedWorkNotificationNode | LikedWorksSummaryNotificationNode | WorkAwardNotificationNode | WorkCommentNotificationNode | WorkCommentReplyNotificationNode | FollowNotificationNode
+union NotificationNode = FollowNotificationNode | LikedWorkNotificationNode | LikedWorksSummaryNotificationNode | WorkAwardNotificationNode | WorkCommentNotificationNode | WorkCommentReplyNotificationNode
 
 input NotificationsWhereInput {
   type: NotificationType
@@ -1902,6 +1972,12 @@ input NotificationsWhereInput {
 
 """通知の種類"""
 enum NotificationType {
+  """コメントの返信"""
+  COMMENT_REPLY
+
+  """フォロー"""
+  FOLLOW
+
   """作品のいいね"""
   LIKED_WORK
 
@@ -1913,41 +1989,30 @@ enum NotificationType {
 
   """作品のコメント"""
   WORK_COMMENT
-
-  """コメントの返信"""
-  COMMENT_REPLY
-
-  """フォロー"""
-  FOLLOW
 }
 
 """小説"""
 type NovelNode implements Node {
-  id: ID!
   createdAt: Int!
+  id: ID!
   user: UserNode!
-}
-
-type PageInfo {
-  endCursor: String
-  hasNextPage: Boolean!
 }
 
 type PassNode implements Node {
+  createdAt: Int!
   id: ID!
-  type: PassType!
-  user: UserNode!
-  payment: PaymentNode
 
   """無効である"""
   isDisabled: Boolean!
-  createdAt: Int!
+  isExpired: Boolean!
+  payment: PaymentNode
   periodEnd: Int!
   periodStart: Int!
-  trialPeriodStart: Int
-  trialPeriodEnd: Int
-  isExpired: Boolean!
   price: Int!
+  trialPeriodEnd: Int
+  trialPeriodStart: Int
+  type: PassType!
+  user: UserNode!
 }
 
 """パスの種類"""
@@ -1955,11 +2020,11 @@ enum PassType {
   """ライト"""
   LITE
 
-  """スタンダード"""
-  STANDARD
-
   """プレミアム"""
   PREMIUM
+
+  """スタンダード"""
+  STANDARD
 
   """2日プラン"""
   TWO_DAYS
@@ -1967,21 +2032,21 @@ enum PassType {
 
 """決済履歴"""
 type PaymentNode implements Node {
-  id: ID!
-  createdAt: Int!
-  user: UserNode!
-  type: PaymentType!
   amount: Int!
+  createdAt: Int!
+  id: ID!
   isRefunded: Boolean!
+  pass: PassNode
   stripeInvoiceId: String
   stripePaymentIntentId: String
-  pass: PassNode
+  type: PaymentType!
+  user: UserNode!
 }
 
 enum PaymentType {
-  PASS_STANDARD
-  PASS_PREMIUM
   PASS_LITE
+  PASS_PREMIUM
+  PASS_STANDARD
 }
 
 input PinPromptonWorkInput {
@@ -1997,28 +2062,28 @@ input PopularWorksWhereInput {
 }
 
 enum PreferenceRating {
+  """全年齢"""
+  G
+
+  """全年齢+R15"""
+  R15
+
   """全年齢+R15+R18G+R18"""
   R18
 
   """全年齢+R15+R18G"""
   R18G
-
-  """全年齢+R15"""
-  R15
-
-  """全年齢"""
-  G
 }
 
 """プロモーション"""
 type PromotionNode implements Node {
-  id: ID!
-  title: String!
   description: String!
+  endDateTime: Int!
+  id: ID!
   imageURL: String
   pageURL: String
   startDateTime: Int!
-  endDateTime: Int!
+  title: String!
 }
 
 """プロンプトのカテゴリー"""
@@ -2037,11 +2102,11 @@ type PromptNode implements Node {
 
 """Stripeのアカウント"""
 type PromptonAccountNode implements Node {
-  id: ID!
-  detailsSubmitted: Boolean!
-  payoutsEnabled: Boolean!
   chargesEnabled: Boolean!
+  detailsSubmitted: Boolean!
+  id: ID!
   loginLink: String
+  payoutsEnabled: Boolean!
 }
 
 """Stripeの顧客"""
@@ -2051,23 +2116,18 @@ type PromptonCustomerNode implements Node {
 
 """ファイル"""
 type PromptonFileNode implements Node {
-  id: ID!
   createdAt: Int!
-  path: String!
-  height: Int
-  width: Int
-  type: String!
   downloadURL: String
-  name: String!
-
-  """画像URL"""
-  imageURL: String!
-
-  """サムネイルのURL"""
-  thumbnailImageURL: String!
 
   """大きいサイズの画像URL"""
   headerImageURL: String!
+  height: Int
+  id: ID!
+
+  """画像URL"""
+  imageURL: String!
+  name: String!
+  path: String!
 
   """画像URL"""
   rectangleImageURL: String!
@@ -2077,131 +2137,135 @@ type PromptonFileNode implements Node {
 
   """サムネイルの正方形の画像URL"""
   squareThumbnailImageURL: String!
+
+  """サムネイルのURL"""
+  thumbnailImageURL: String!
+  type: String!
+  width: Int
 }
 
 type PromptonFolderKeyNode implements Node {
-  id: ID!
   createdAt: Int!
-  folderId: ID!
   folder: PromptonFolderNode!
-  userId: ID!
-  user: PromptonUserNode!
+  folderId: ID!
+  id: ID!
   payments: [PromptonPaymentNode!]!
+  user: PromptonUserNode!
+  userId: ID!
 }
 
 """フォルダ"""
 type PromptonFolderNode implements Node {
-  id: ID!
+  """色"""
+  color: String
 
   """作成日"""
   createdAt: Int!
 
-  """作成日"""
-  updatedAt: Int!
+  """説明"""
+  description: String
+
+  """商用利用"""
+  featureCommercialUse: Boolean
+  id: ID!
+
+  """画像ファイル"""
+  imageFile: PromptonFileNode!
+
+  """画像ファイルのID"""
+  imageFileId: ID
+
+  """削除済み"""
+  isDeleted: Boolean!
+
+  """NSFW"""
+  isNSFW: Boolean!
+
+  """有償"""
+  isPaid: Boolean!
+
+  """公開されているかどうか"""
+  isPublic: Boolean!
+
+  """表示形式"""
+  mode: FolderMode!
 
   """名前"""
   name: String!
 
-  """説明"""
-  description: String
+  """NSFW理由"""
+  nsfwReason: String
 
-  """作品"""
-  works(offset: Int!, limit: Int!): [PromptonWorkNode!]!
+  """プラン"""
+  plans: [PromptonPlanNode!]!
 
-  """作品数"""
-  worksCount: Int!
+  """値段"""
+  price: Int!
 
   """関連するタグ"""
   tags: [PromptonTagNode!]!
   tagsCount: Int!
 
-  """色"""
-  color: String
-
-  """公開されているかどうか"""
-  isPublic: Boolean!
-
-  """ユーザID"""
-  userId: ID!
+  """作成日"""
+  updatedAt: Int!
 
   """ユーザ"""
   user: PromptonUserNode!
 
-  """プラン"""
-  plans: [PromptonPlanNode!]!
-
-  """削除済み"""
-  isDeleted: Boolean!
-
-  """有償"""
-  isPaid: Boolean!
-
-  """NSFW"""
-  isNSFW: Boolean!
-
-  """NSFW理由"""
-  nsfwReason: String
-
-  """値段"""
-  price: Int!
-
-  """商用利用"""
-  featureCommercialUse: Boolean
+  """ユーザID"""
+  userId: ID!
 
   """ログインユーザ"""
   viewer: PromptonFolderViewerNode
-
-  """画像ファイルのID"""
-  imageFileId: ID
-
-  """画像ファイル"""
-  imageFile: PromptonFileNode!
-
-  """表示形式"""
-  mode: FolderMode!
 
   """フォルダの鍵のID"""
   viewerFolderId: ID!
 
   """フォルダの鍵"""
-  viewerFolderKey: PromptonFolderKeyNode @deprecated
+  viewerFolderKey: PromptonFolderKeyNode
+
+  """作品"""
+  works(limit: Int!, offset: Int!): [PromptonWorkNode!]!
+
+  """作品数"""
+  worksCount: Int!
 }
 
 input PromptonFoldersWhereInput {
-  userId: String
-  search: String
   isPaid: Boolean
+  search: String
+  userId: String
 }
 
 type PromptonFolderViewerNode implements Node {
-  id: ID! @deprecated
-  folderId: ID! @deprecated
-  folderKey: PromptonFolderKeyNode @deprecated
+  folderId: ID!
+  folderKey: PromptonFolderKeyNode
+  id: ID!
 }
 
 """ユーザの関係"""
 type PromptonFriendshipNode implements Node {
-  id: ID!
   createdAt: Int!
-  followeeId: ID!
   followee: PromptonUserNode!
-  followerId: ID!
+  followeeId: ID!
   follower: PromptonUserNode!
+  followerId: ID!
+  id: ID!
   status: String!
 }
 
 """画像生成"""
 type PromptonImageGenerationNode implements Node {
-  id: ID!
   createdAt: Int!
-  promptText: String!
-  model: String!
-  size: String!
+  id: ID!
+  image: PromptonFileNode
   isDeleted: Boolean!
   isError: Boolean!
   isPublic: Boolean!
+  model: String!
+  promptText: String!
+  size: String!
   user: PromptonUserNode
-  image: PromptonFileNode
 }
 
 input PromptonImageGenerationsWhereInput {
@@ -2209,21 +2273,21 @@ input PromptonImageGenerationsWhereInput {
 }
 
 type PromptonIntegrationNode implements Node {
-  id: ID!
   applicationId: ID!
-  userId: ID!
-  user: PromptonUserNode!
   createdAt: Int!
+  id: ID!
+  user: PromptonUserNode!
+  userId: ID!
 }
 
 """ラベル"""
 type PromptonLabelNode implements Node {
+  count: Int!
+  firstWork: PromptonWorkNode
   id: ID!
   name: String!
   nameJA: String!
-  count: Int!
-  firstWork: PromptonWorkNode
-  works(offset: Int!, limit: Int!): [PromptonWorkNode!]!
+  works(limit: Int!, offset: Int!): [PromptonWorkNode!]!
 }
 
 input PromptonLabelsWhereInput {
@@ -2232,17 +2296,17 @@ input PromptonLabelsWhereInput {
 
 """チャット"""
 type PromptonMessageNode implements Node {
-  id: ID!
-  createdAt: Int!
-  role: String!
-  text: String!
-  senderId: ID
-  sender: PromptonUserNode
-  recipientId: ID
-  recipient: PromptonUserNode
-  isDeleted: Boolean!
-  type: String!
   contextId: ID
+  createdAt: Int!
+  id: ID!
+  isDeleted: Boolean!
+  recipient: PromptonUserNode
+  recipientId: ID
+  role: String!
+  sender: PromptonUserNode
+  senderId: ID
+  text: String!
+  type: String!
 }
 
 """決済履歴"""
@@ -2251,27 +2315,27 @@ type PromptonPaymentIntentNode implements Node {
 }
 
 type PromptonPaymentMethodNode implements Node {
-  id: ID!
-  type: String!
   cardBrand: String!
-  cardLast4: String!
   cardExpMonth: String!
   cardExpYear: String!
   cardFunding: String!
+  cardLast4: String!
+  id: ID!
   isLiveMode: Boolean!
+  type: String!
 }
 
 """決済"""
 type PromptonPaymentNode implements Node {
-  id: ID!
+  amount: Int!
   createdAt: Int!
-  user: PromptonUserNode!
+  id: ID!
+  isError: Boolean!
   purpose: String!
   purposeText: String!
   request: PromptonRequestNode
-  amount: Int!
-  isError: Boolean!
   transactionId: String
+  user: PromptonUserNode!
 }
 
 """出金履歴"""
@@ -2281,147 +2345,142 @@ type PromptonPayoutNode implements Node {
 
 """プラン"""
 type PromptonPlanNode implements Node {
-  id: ID!
-  createdAt: Int!
-  updatedAt: Int!
-  name: String!
-  message: String
-  unitPrice: Int!
-  description: String!
   category: String!
-  categoryText: String!
   categoryDescription: String!
-  sort: Int!
-  userId: ID!
-  user: PromptonUserNode!
-  minimumQuantity: Int!
-  maximumQuantity: Int!
-  minimumFee: Int!
-  maximumFee: Int!
-  isFlexible: Boolean!
-  isDeleted: Boolean!
-  isPublic: Boolean!
-  isActive: Boolean!
-  requests: [PromptonRequestNode!]!
-  requestsCount: Int!
-  styleSlugs: [PromptonSlug!]!
-  objectSlugs: [PromptonSlug!]!
-  featurePrivate: Boolean!
-  featureCopyrightFree: Boolean!
+  categoryText: String!
+  createdAt: Int!
+  description: String!
   featureCommercialUse: Boolean!
+  featureCopyrightFree: Boolean!
   featureFanFiction: Boolean!
+  featurePrivate: Boolean!
   folders: [PromptonFolderNode!]!
-
-  """画像ファイルのID"""
-  imageFileId: ID
+  id: ID!
 
   """画像ファイル"""
   imageFile: PromptonFileNode!
+
+  """画像ファイルのID"""
+  imageFileId: ID
+  isActive: Boolean!
+  isDeleted: Boolean!
+  isFlexible: Boolean!
+  isPublic: Boolean!
+  maximumFee: Int!
+  maximumQuantity: Int!
+  message: String
+  minimumFee: Int!
+  minimumQuantity: Int!
+  name: String!
+  objectSlugs: [PromptonSlug!]!
+  requests: [PromptonRequestNode!]!
+  requestsCount: Int!
+  sort: Int!
+  styleSlugs: [PromptonSlug!]!
+  unitPrice: Int!
+  updatedAt: Int!
+  user: PromptonUserNode!
+  userId: ID!
 }
 
 input PromptonPlansWhereInput {
-  search: String
-  isUnique: Boolean
-  styleSlugs: [String!]
-  objectSlugs: [String!]
   category: String
   isPaid: Boolean
+  isUnique: Boolean
+  objectSlugs: [String!]
+  search: String
+  styleSlugs: [String!]
 }
 
-type PromptonProfileBlockNode {
-  id: ID!
-  index: Int!
-  type: String!
-  title: String
+type PromptonProfileBlockNode implements Node {
   description: String
-  siteURL: String
+  id: ID!
   imageURL: String
+  index: Int!
+  siteURL: String
+  title: String
+  type: String!
   userId: ID!
 }
 
 """プロンプト"""
 type PromptonPromptNode implements Node {
-  id: ID!
   createdAt: Int!
-  updatedAt: Int!
+  description: String
+  firstWork: PromptonWorkNode
+  id: ID!
+  isBase: Boolean!
+  isDeleted: Boolean!
+  isNsfw: Boolean!
+  isPublic: Boolean!
+  isSingle: Boolean!
+  likesCount: Int!
+  secondWork: PromptonWorkNode
   text: String!
   texts: [String!]!
   title: String
   titleJA: String
-  description: String
+  updatedAt: Int!
   user: PromptonUserNode
-  likesCount: Int!
-  isPublic: Boolean!
-  isNsfw: Boolean!
-  isDeleted: Boolean!
-  isSingle: Boolean!
-  isBase: Boolean!
-  firstWork: PromptonWorkNode
-  secondWork: PromptonWorkNode
   works: [PromptonWorkNode!]!
 }
 
 """リクエスト"""
 type PromptonRequestNode implements Node {
-  id: ID!
+  """手数料"""
+  commission: Int!
   createdAt: Int!
-  folder: PromptonFolderNode
-  senderId: ID!
-
-  """送ったユーザ"""
-  sender: PromptonUserNode!
-  recipientId: ID!
-
-  """受け取ったユーザ"""
-  recipient: PromptonUserNode!
 
   """納品物"""
   deliverables: [PromptonWorkNode!]!
-  firstDeliverable: PromptonWorkNode
-  files: [PromptonFileNode!]!
-  note: String!
-  noteTruncated: String!
+  featureCommercialUse: Boolean!
+  featureCopyrightFree: Boolean!
+  featureFanFiction: Boolean!
+  featurePrivate: Boolean!
   fee: Int!
-  isPending: Boolean!
+  files: [PromptonFileNode!]!
+  firstDeliverable: PromptonWorkNode
+  folder: PromptonFolderNode
+  hasSignature: Boolean!
+  id: ID!
   isAccepted: Boolean!
-  isRejected: Boolean!
-  isCompleted: Boolean!
+  isAipic: Boolean!
   isCanceled: Boolean!
-  isCanceledBySender: Boolean!
   isCanceledByRecipient: Boolean!
-  isTimeout: Boolean!
+  isCanceledBySender: Boolean!
+  isCoffee: Boolean!
+  isCompleted: Boolean!
+  isPending: Boolean!
 
   """公開されているかどうか"""
   isPublic: Boolean!
+  isRejected: Boolean!
+  isTimeout: Boolean!
+  note: String!
+  noteTruncated: String!
 
   """関連する決済"""
   payments: [PromptonPaymentNode!]!
-  hasSignature: Boolean!
-  signature: String
-
-  """手数料"""
-  commission: Int!
-  quantity: Int!
-  unitPrice: Int!
-  planId: String
   plan: PromptonPlanNode
-  planName: String
   planDescription: String
-  planUnitPrice: Int
-  planFeaturePrivate: Boolean
-  planFeatureCopyrightFree: Boolean
   planFeatureCommercialUse: Boolean
+  planFeatureCopyrightFree: Boolean
   planFeatureFanFiction: Boolean
-  featurePrivate: Boolean!
-  featureCopyrightFree: Boolean!
-  featureCommercialUse: Boolean!
-  featureFanFiction: Boolean!
-  isCoffee: Boolean!
-  isAipic: Boolean!
-}
+  planFeaturePrivate: Boolean
+  planId: String
+  planName: String
+  planUnitPrice: Int
+  quantity: Int!
 
-input PromptonRequestsWhereInput {
-  status: String
+  """受け取ったユーザ"""
+  recipient: PromptonUserNode!
+  recipientId: ID!
+
+  """送ったユーザ"""
+  sender: PromptonUserNode!
+  senderId: ID!
+  signature: String
+  unitPrice: Int!
 }
 
 type PromptonSlug {
@@ -2430,153 +2489,35 @@ type PromptonSlug {
 }
 
 type PromptonTagNode implements Node {
+  firstWork: PromptonWorkNode
+  folders: [PromptonFolderNode!]!
+  foldersCount: Int!
   id: ID!
-  updatedAt: Int!
   name: String!
   nameJA: String!
   slug: String
-  firstWork: PromptonWorkNode
-  worksCount: Int!
-  folders: [PromptonFolderNode!]!
-  foldersCount: Int!
+  updatedAt: Int!
   users: [PromptonUserNode!]!
   usersCount: Int!
-  works(offset: Int!, limit: Int!): [PromptonWorkNode!]!
+  works(limit: Int!, offset: Int!): [PromptonWorkNode!]!
+  worksCount: Int!
 }
 
 input PromptonTagsWhereInput {
-  search: String
   isPinned: Boolean
+  search: String
 }
 
 """ユーザ"""
 type PromptonUserNode implements Node {
-  id: ID!
-  updatedAt: Int!
-
-  """名前（日本語の使用が可能）"""
-  name: String!
-
-  """ログイン名（英数字のみ）"""
-  login: String!
-
-  """作品"""
-  firstWork: PromptonWorkNode
-
-  """アイコンの画像URL"""
-  avatarImageURL: String
-
-  """アイコンのID"""
-  avatarImageId: String
-
-  """アイコンのファイル"""
-  avatarImageFile: PromptonFileNode
-  headerImageFileId: String
-
-  """マイページのヘッダー画像のファイル"""
-  headerImageFile: PromptonFileNode!
-
-  """自己紹介"""
-  biography: String!
-
-  """メッセージ"""
-  message: String!
-  hasProfileURL: Boolean!
-
-  """ユーザ名"""
-  twitterUsername: String
-  twitterURL: String
-
-  """ユーザ名"""
-  githubUsername: String
-  githubURL: String
-
-  """ユーザ名"""
-  instagramUsername: String
-  instagramURL: String
-
-  """ユーザ名"""
-  pixivUsername: String
-  pixivURL: String
-
-  """ユーザ名"""
-  tumblrUsername: String
-  tumblrURL: String
-
-  """ユーザ名"""
-  deviantartUsername: String
-  deviantartURL: String
-
-  """サイトURL"""
-  siteURL: String
-  siteTitle: String
-  siteDescription: String
-  siteImageURL: String
-
-  """関連する作品"""
-  works(offset: Int!, limit: Int!, where: PromptonUserWorksWhereInput): [PromptonWorkNode!]!
-
-  """最新の作品"""
-  latestWork: PromptonWorkNode
-
-  """リクエストされた作品"""
-  latestRequestedWork: PromptonWorkNode
-
-  """リクエストされた作品"""
-  requestedWorks: [PromptonWorkNode!]!
-
-  """フォローされている数"""
-  followersCount: Int
-
-  """フォローしている数"""
-  followeesCount: Int
-
-  """依頼した数"""
-  requestsCount: Int!
+  """承認済みのリクエスト"""
+  acceptedRequests: [PromptonRequestNode!]!
 
   """依頼された数"""
   acceptedRequestsCount: Int!
 
-  """対応中のリクエスト数"""
-  queueRequestsCount: Int!
-
-  """作品の数"""
-  worksCount: Int!
-
-  """ログインしているユーザにフォローされているかどうか"""
-  isFollower: Boolean!
-
-  """ログインしているユーザをフォローしているかどうか"""
-  isFollowee: Boolean!
-
-  """関係"""
-  friendships: [PromptonFriendshipNode!]!
-  imageGenerations(offset: Int!, limit: Int!, where: PromptonImageGenerationsWhereInput): [PromptonImageGenerationNode!]!
-
-  """制作依頼を受け付けているかどうか"""
-  isRequestable: Boolean!
-
-  """Stripeの決済方法"""
-  paymentMethod: PromptonPaymentMethodNode
-
-  """プラン"""
-  plans: [PromptonPlanNode!]!
-
-  """フォルダ"""
-  firstFolder: PromptonFolderNode
-
-  """フォルダ"""
-  folders(offset: Int!, limit: Int!): [PromptonFolderNode!]!
-
-  """関連するタグ"""
-  tags: [PromptonTagNode!]!
-  tagsCount: Int!
-
-  """Stripeの顧客ID"""
-  customerId: String
-
-  """Stripeの顧客"""
-  customer: PromptonCustomerNode
+  """Stripeのアカウント"""
+  account: PromptonAccountNode
 
   """StripeのアカウントID"""
   accountId: String
@@ -2587,38 +2528,155 @@ type PromptonUserNode implements Node {
   """Stripeのアカウントのトークンを取得する"""
   accountSessionClientSecret: String
 
-  """Stripeのアカウント"""
-  account: PromptonAccountNode
+  """アイコンのファイル"""
+  avatarImageFile: PromptonFileNode
 
-  """Stripeの決済履歴"""
-  payments(offset: Int!, limit: Int!): [PromptonPaymentNode!]!
+  """アイコンのID"""
+  avatarImageId: String
 
-  """Stripeの決済履歴"""
-  paymentIntents(offset: Int!, limit: Int!): [PromptonPaymentIntentNode!]!
+  """アイコンの画像URL"""
+  avatarImageURL: String
 
-  """Stripeの出金履歴"""
-  payouts(offset: Int!, limit: Int!): [PromptonPayoutNode!]!
+  """自己紹介"""
+  biography: String!
 
-  """プロフィール"""
-  profileBlocks: [PromptonProfileBlockNode!]!
+  """Stripeの顧客"""
+  customer: PromptonCustomerNode
+
+  """Stripeの顧客ID"""
+  customerId: String
+  deviantartURL: String
+
+  """ユーザ名"""
+  deviantartUsername: String
+
+  """フォルダ"""
+  firstFolder: PromptonFolderNode
+
+  """作品"""
+  firstWork: PromptonWorkNode
+
+  """フォルダ"""
+  folders(limit: Int!, offset: Int!): [PromptonFolderNode!]!
+
+  """フォローしている数"""
+  followeesCount: Int
+
+  """フォローされている数"""
+  followersCount: Int
+
+  """関係"""
+  friendships: [PromptonFriendshipNode!]!
+  githubURL: String
+
+  """ユーザ名"""
+  githubUsername: String
+  hasProfileURL: Boolean!
+
+  """マイページのヘッダー画像のファイル"""
+  headerImageFile: PromptonFileNode!
+  headerImageFileId: String
+  id: ID!
+  imageGenerations(limit: Int!, offset: Int!, where: PromptonImageGenerationsWhereInput): [PromptonImageGenerationNode!]!
+  instagramURL: String
+
+  """ユーザ名"""
+  instagramUsername: String
+
+  """登録番号"""
+  invoiceRegistrationNumber: String
 
   """削除済みかどうか"""
   isDeleted: Boolean!
 
-  """承認済みのリクエスト"""
-  acceptedRequests: [PromptonRequestNode!]!
+  """ログインしているユーザをフォローしているかどうか"""
+  isFollowee: Boolean!
+
+  """ログインしているユーザにフォローされているかどうか"""
+  isFollower: Boolean!
+
+  """制作依頼を受け付けているかどうか"""
+  isRequestable: Boolean!
+
+  """リクエストされた作品"""
+  latestRequestedWork: PromptonWorkNode
+
+  """最新の作品"""
+  latestWork: PromptonWorkNode
+
+  """ログイン名（英数字のみ）"""
+  login: String!
+
+  """メッセージ"""
+  message: String!
+
+  """名前（日本語の使用が可能）"""
+  name: String!
+
+  """Stripeの決済履歴"""
+  paymentIntents(limit: Int!, offset: Int!): [PromptonPaymentIntentNode!]!
+
+  """Stripeの決済方法"""
+  paymentMethod: PromptonPaymentMethodNode
+
+  """Stripeの決済履歴"""
+  payments(limit: Int!, offset: Int!): [PromptonPaymentNode!]!
+
+  """Stripeの出金履歴"""
+  payouts(limit: Int!, offset: Int!): [PromptonPayoutNode!]!
+  pixivURL: String
+
+  """ユーザ名"""
+  pixivUsername: String
+
+  """プラン"""
+  plans: [PromptonPlanNode!]!
+
+  """プロフィール"""
+  profileBlocks: [PromptonProfileBlockNode!]!
+
+  """対応中のリクエスト数"""
+  queueRequestsCount: Int!
 
   """リクエスト作品"""
-  requestWorks(offset: Int!, limit: Int!): [PromptonWorkNode!]!
+  requestWorks(limit: Int!, offset: Int!): [PromptonWorkNode!]!
+
+  """リクエストされた作品"""
+  requestedWorks: [PromptonWorkNode!]!
+
+  """依頼した数"""
+  requestsCount: Int!
 
   """ユーザー"""
   rootUser: UserNode
+  siteDescription: String
+  siteImageURL: String
+  siteTitle: String
+
+  """サイトURL"""
+  siteURL: String
+
+  """関連するタグ"""
+  tags: [PromptonTagNode!]!
+  tagsCount: Int!
+  tumblrURL: String
+
+  """ユーザ名"""
+  tumblrUsername: String
+  twitterURL: String
+
+  """ユーザ名"""
+  twitterUsername: String
+  updatedAt: Int!
 
   """ユーザー"""
   user: UserNode
 
-  """登録番号"""
-  invoiceRegistrationNumber: String
+  """関連する作品"""
+  works(limit: Int!, offset: Int!, where: PromptonUserWorksWhereInput): [PromptonWorkNode!]!
+
+  """作品の数"""
+  worksCount: Int!
 }
 
 input PromptonUsersWhereInput {
@@ -2630,96 +2688,28 @@ input PromptonUserWorksWhereInput {
 }
 
 """ログインしているユーザ"""
-type PromptonViewer {
-  id: ID!
-  user: PromptonUserNode!
-  likedWorks(offset: Int!, limit: Int!): [PromptonWorkNode!]!
-  followees(offset: Int!, limit: Int!): [PromptonUserNode!]!
-  requests(offset: Int!, limit: Int!): [PromptonRequestNode!]!
-  sentRequests(offset: Int!, limit: Int!): [PromptonRequestNode!]!
-  receivedRequests(offset: Int!, limit: Int!): [PromptonRequestNode!]!
-  pendingRequests(offset: Int!, limit: Int!): [PromptonRequestNode!]!
-  currentRequests(offset: Int!, limit: Int!): [PromptonRequestNode!]!
-  deliverables(offset: Int!, limit: Int!): [PromptonWorkNode!]!
-  prompts(offset: Int!, limit: Int!): [PromptonPromptNode!]!
-  nextRequests: [PromptonRequestNode!]!
+type PromptonViewer implements Node {
+  currentRequests(limit: Int!, offset: Int!): [PromptonRequestNode!]!
+  deliverables(limit: Int!, offset: Int!): [PromptonWorkNode!]!
+  followees(limit: Int!, offset: Int!): [PromptonUserNode!]!
   hasNextRequests: Boolean!
-  integrations(offset: Int!, limit: Int!): [PromptonIntegrationNode!]!
-  imageGenerations(offset: Int!, limit: Int!, where: PromptonImageGenerationsWhereInput): [PromptonImageGenerationNode!]!
-}
-
-input PromptonViewerWorksWhereInput {
-  isUncategorized: Boolean
+  id: ID!
+  imageGenerations(limit: Int!, offset: Int!, where: PromptonImageGenerationsWhereInput): [PromptonImageGenerationNode!]!
+  integrations(limit: Int!, offset: Int!): [PromptonIntegrationNode!]!
+  likedWorks(limit: Int!, offset: Int!): [PromptonWorkNode!]!
+  nextRequests: [PromptonRequestNode!]!
+  pendingRequests(limit: Int!, offset: Int!): [PromptonRequestNode!]!
+  prompts(limit: Int!, offset: Int!): [PromptonPromptNode!]!
+  receivedRequests(limit: Int!, offset: Int!): [PromptonRequestNode!]!
+  requests(limit: Int!, offset: Int!): [PromptonRequestNode!]!
+  sentRequests(limit: Int!, offset: Int!): [PromptonRequestNode!]!
+  user: PromptonUserNode!
 }
 
 """作品"""
 type PromptonWorkNode implements Node {
-  id: ID!
-  createdAt: Int!
-  updatedAt: Int!
-
-  """タイトル"""
-  title: String
-
-  """説明"""
-  body: String
-
-  """ファイルのID"""
-  fileId: String
-
-  """ファイルのID"""
-  file: PromptonFileNode!
-
-  """ファイルのID"""
-  rectangleImageFile: PromptonFileNode
-
-  """プロンプト"""
-  inputtedPrompt: String
-
-  """検出されたプロンプト"""
-  detectedPrompt: String
-
-  """プロンプト"""
-  runtimePrompt: String
-
-  """ソフトウェア"""
-  software: String
-
-  """検出されたソフトウェア"""
-  detectedSoftware: String
-
-  """シード値"""
-  seed: String
-
-  """検出されたシード値"""
-  detectedSeed: String
-
-  """いいね数"""
-  likesCount: Int!
-
-  """ユーザ"""
-  user: PromptonUserNode!
-  folderIndex: Int!
-  homeIndex: Int!
-
-  """関連する色"""
-  colors: [String!]!
-
-  """関連するWebカラー"""
-  webColors: [String!]!
-
-  """関連するラベル"""
-  labels: [PromptonLabelNode!]!
-
-  """関連するタグ"""
-  tags: [PromptonTagNode!]!
-  tagsCount: Int!
-
   """セーフサーチ・アダルト関連の内容である可能性"""
   annotationAdult: String
-
-  """セーフサーチ・悪ふざけの内容である可能性"""
-  annotationSpoof: String
 
   """セーフサーチ・医療関連の内容である可能性"""
   annotationMedical: String
@@ -2727,26 +2717,57 @@ type PromptonWorkNode implements Node {
   """セーフサーチ・性的な内容である可能性"""
   annotationRacy: String
 
+  """セーフサーチ・悪ふざけの内容である可能性"""
+  annotationSpoof: String
+
   """セーフサーチ・暴力的な内容である可能性"""
   annotationViolence: String
 
-  """関連するリクエスト"""
-  request: PromptonRequestNode
+  """説明"""
+  body: String
 
-  """ログインしているユーザが作品に対していいね済みかどうか"""
-  isLiked: Boolean!
+  """関連する色"""
+  colors: [String!]!
+  createdAt: Int!
+
+  """検出されたプロンプト"""
+  detectedPrompt: String
+
+  """検出されたシード値"""
+  detectedSeed: String
+
+  """検出されたソフトウェア"""
+  detectedSoftware: String
+
+  """ファイルのID"""
+  file: PromptonFileNode!
+
+  """ファイルのID"""
+  fileId: String
+  folderIndex: Int!
+  homeIndex: Int!
+  id: ID!
+
+  """プロンプト"""
+  inputtedPrompt: String
 
   """ログインしているユーザが作品に対してブックマーク済みかどうか"""
   isBookmarked: Boolean!
 
+  """著作権を譲渡しているかどうか"""
+  isCopyrightFreeRequest: Boolean!
+
   """削除されているかどうか"""
   isDeleted: Boolean!
+
+  """ログインしているユーザが作品に対していいね済みかどうか"""
+  isLiked: Boolean!
 
   """自分の作品かどうか"""
   isMine: Boolean!
 
-  """公開されているかどうか"""
-  isPublic: Boolean!
+  """NSFW作品かどうか"""
+  isNSFW: Boolean!
 
   """ピン留めされているかどうか"""
   isPinned: Boolean!
@@ -2754,40 +2775,78 @@ type PromptonWorkNode implements Node {
   """プライベートリクエストかどうか"""
   isPrivateRequest: Boolean!
 
-  """著作権を譲渡しているかどうか"""
-  isCopyrightFreeRequest: Boolean!
+  """公開されているかどうか"""
+  isPublic: Boolean!
 
   """リクエスト作品かどうか"""
   isRequest: Boolean!
 
-  """NSFW作品かどうか"""
-  isNSFW: Boolean!
+  """関連するラベル"""
+  labels: [PromptonLabelNode!]!
 
-  """閲覧数"""
-  viewsCount: Int!
+  """いいね数"""
+  likesCount: Int!
 
   """NSFW理由"""
   nsfwReason: String
 
+  """ファイルのID"""
+  rectangleImageFile: PromptonFileNode
+
   """関連する作品"""
-  relatedWorks(offset: Int!, limit: Int!): [PromptonWorkNode!]!
+  relatedWorks(limit: Int!, offset: Int!): [PromptonWorkNode!]!
+
+  """関連するリクエスト"""
+  request: PromptonRequestNode
+
+  """プロンプト"""
+  runtimePrompt: String
+
+  """シード値"""
+  seed: String
+
+  """ソフトウェア"""
+  software: String
+
+  """関連するタグ"""
+  tags: [PromptonTagNode!]!
+  tagsCount: Int!
+
+  """タイトル"""
+  title: String
+  updatedAt: Int!
+
+  """ユーザ"""
+  user: PromptonUserNode!
+
+  """閲覧数"""
+  viewsCount: Int!
+
+  """関連するWebカラー"""
+  webColors: [String!]!
 }
 
 input PromptonWorksWhereInput {
-  tagSlugs: [String!]
-  search: String
   color: String
+  search: String
+  tagSlugs: [String!]
 }
 
 type Query {
+  """モデル"""
+  aiModels(limit: Int!, offset: Int!, where: AiModelWhereInput): [AiModelNode!]!
+
   """シリーズ"""
   album(id: ID!): AlbumNode
 
   """シリーズ"""
-  albums(offset: Int!, limit: Int!, where: AlbumsWhereInput): [AlbumNode!]
+  albums(limit: Int!, offset: Int!, where: AlbumsWhereInput): [AlbumNode!]
+
+  """シリーズ数"""
+  albumsCount(where: AlbumsWhereInput): Int!
 
   """運営からのお知らせ"""
-  announcements(offset: Int!, limit: Int!): [AnnouncementNode!]!
+  announcements(limit: Int!, offset: Int!): [AnnouncementNode!]!
 
   """
   全期間の人気作品
@@ -2802,34 +2861,34 @@ type Query {
   category(id: ID!): CategoryNode!
 
   """コメント"""
-  comments(offset: Int!, limit: Int!, where: CommentsWhereInput!, orderBy: CommentsOrderBy!): [CommentNode!]!
+  comments(limit: Int!, offset: Int!, orderBy: CommentsOrderBy!, where: CommentsWhereInput!): [CommentNode!]!
+
+  """ControlNetテンプレート一覧"""
+  controlNetCategories: [ControlNetCategoryNode!]!
 
   """日別テーマ"""
-  dailyTheme(id: ID, year: Int, month: Int, day: Int): DailyThemeNode
+  dailyTheme(day: Int, id: ID, month: Int, year: Int): DailyThemeNode
 
   """日別テーマ"""
-  dailyThemes(offset: Int!, limit: Int!, where: DailyThemesWhereInput): [DailyThemeNode!]!
-
-  """モデル"""
-  aiModels(offset: Int!, limit: Int!, where: AiModelWhereInput): [AiModelNode!]!
+  dailyThemes(limit: Int!, offset: Int!, where: DailyThemesWhereInput): [DailyThemeNode!]!
 
   """フォルダ"""
   folder(id: ID!): FolderNode
 
   """フォルダ"""
-  folders(offset: Int!, limit: Int!, where: FoldersWhereInput): [FolderNode!]
+  folders(limit: Int!, offset: Int!, where: FoldersWhereInput): [FolderNode!]
+
+  """フォロワー"""
+  followers(limit: Int!, offset: Int!, where: FollowersWhereInput!): [UserNode!]!
+
+  """フォロー中ユーザ"""
+  followingUsers(limit: Int!, offset: Int!, where: FollowingUsersWhereInput!): [UserNode!]!
 
   """ホームのタグ"""
   homeTags: [TagNode!]!
 
   """トレンドのタグ"""
   hotTags: [TagNode!]!
-
-  """プロンプトに基づいた推奨タグ"""
-  recommendedTagsFromPrompts(prompts: String!): [TagNode!]!
-
-  """ホワイトリスト用のタグ"""
-  whiteListTags(where: WhiteListTagsInput): [TagNode!]!
 
   """
   1日以内の人気の作品
@@ -2839,6 +2898,18 @@ type Query {
 
   """画像生成のタスク状況"""
   imageGenerationEngineStatus: ImageGenerationEngineStatus!
+
+  """画像生成メモ"""
+  imageGenerationMemo(id: ID!): ImageGenerationMemoNode!
+
+  """画像生成メモ一覧"""
+  imageGenerationMemos(limit: Int!, offset: Int!, orderBy: ImageGenerationMemoOrderBy): [ImageGenerationMemoNode]!
+
+  """予約画像生成履歴"""
+  imageGenerationReservedTask(id: ID!): ImageGenerationTaskNode!
+
+  """画像生成履歴"""
+  imageGenerationTask(id: ID!): ImageGenerationTaskNode!
 
   """画像生成サービス"""
   imageGenerators: [ImageGeneratorNode!]!
@@ -2855,20 +2926,11 @@ type Query {
   """画像生成モデル"""
   imageModels: [ImageModelNode!]!
 
-  """画像生成履歴"""
-  imageGenerationTask(id: ID!): ImageGenerationTaskNode!
-
-  """予約画像生成履歴"""
-  imageGenerationReservedTask(id: ID!): ImageGenerationTaskNode!
-
-  """画像生成メモ"""
-  imageGenerationMemo(id: ID!): ImageGenerationMemoNode!
-
-  """画像生成メモ一覧"""
-  imageGenerationMemos(offset: Int!, limit: Int!, orderBy: ImageGenerationMemoOrderBy): [ImageGenerationMemoNode]!
-
   """マイルストーン"""
   milestones(where: MilestonesWhereInput!): [MilestoneNode!]!
+
+  """画像生成ネガティブキーワード"""
+  negativePromptCategories: [PromptCategoryNode!]!
 
   """
   全期間の人気作品
@@ -2880,34 +2942,57 @@ type Query {
   promotion(id: ID!): PromotionNode
 
   """プロモーション"""
-  promotions(offset: Int!, limit: Int!): [PromotionNode!]!
+  promotions(limit: Int!, offset: Int!): [PromotionNode!]!
 
   """画像生成キーワード"""
   promptCategories: [PromptCategoryNode!]!
+  promptonFolder(id: ID!): PromptonFolderNode
+  promptonFolders(limit: Int!, offset: Int!, where: PromptonFoldersWhereInput): [PromptonFolderNode!]!
+  promptonImageGenerations(limit: Int!, offset: Int!, where: PromptonImageGenerationsWhereInput): [PromptonImageGenerationNode!]!
+  promptonLabel(id: ID, name: String): PromptonLabelNode
+  promptonLabels(limit: Int!, offset: Int!, where: PromptonLabelsWhereInput): [PromptonLabelNode!]!
+  promptonPlan(id: ID!): PromptonPlanNode
+  promptonPlans(limit: Int!, offset: Int!, where: PromptonPlansWhereInput): [PromptonPlanNode!]!
+  promptonRequest(id: ID!): PromptonRequestNode
+  promptonTag(id: ID, slug: String): PromptonTagNode
+  promptonTags(limit: Int!, offset: Int!, where: PromptonTagsWhereInput): [PromptonTagNode!]!
+  promptonUser(id: ID!): PromptonUserNode
+  promptonUsers(limit: Int!, offset: Int!, where: PromptonUsersWhereInput): [PromptonUserNode!]!
+
+  """プロンプトン"""
+  promptonViewer: PromptonViewer!
+  promptonWork(id: ID!): PromptonWorkNode
+  promptonWorks(limit: Int!, offset: Int!, where: PromptonWorksWhereInput): [PromptonWorkNode!]!
+
+  """プロンプトに基づいた推奨タグ"""
+  recommendedTagsFromPrompts(prompts: String!): [TagNode!]!
 
   """スタンプ"""
   sticker(id: ID!): StickerNode
 
   """スタンプ"""
-  stickers(offset: Int!, limit: Int!, where: StickersWhereInput): [StickerNode!]!
+  stickers(limit: Int!, offset: Int!, where: StickersWhereInput): [StickerNode!]!
 
   """タグ"""
   tag(name: String!): TagNode
 
   """全てのタグ"""
-  tags(offset: Int!, limit: Int!, where: TagsWhereInput): [TagNode!]!
+  tags(limit: Int!, offset: Int!, where: TagsWhereInput): [TagNode!]!
 
   """ユーザ"""
   user(id: ID!): UserNode
 
-  """ユーザ"""
-  users(offset: Int!, limit: Int!, where: UsersWhereInput): [UserNode!]!
-
   """ユーザ設定"""
   userSetting: UserSettingNode
 
+  """ユーザ"""
+  users(limit: Int!, offset: Int!, where: UsersWhereInput): [UserNode!]!
+
   """ログイン中のユーザ"""
   viewer: Viewer
+
+  """ホワイトリスト用のタグ"""
+  whiteListTags(where: WhiteListTagsInput): [TagNode!]!
 
   """作品"""
   work(id: ID!): WorkNode
@@ -2916,30 +3001,19 @@ type Query {
   ランキング履歴
   ※キャッシュ不可
   """
-  workAwards(offset: Int!, limit: Int!, where: WorkAwardsWhereInput!): [WorkAwardNode!]!
+  workAwards(limit: Int!, offset: Int!, where: WorkAwardsWhereInput!): [WorkAwardNode!]!
 
   """
   作品
   ※キャッシュ不可
   """
-  works(offset: Int!, limit: Int!, where: WorksWhereInput): [WorkNode!]!
+  works(limit: Int!, offset: Int!, where: WorksWhereInput): [WorkNode!]!
 
-  """プロンプトン"""
-  promptonViewer: PromptonViewer!
-  promptonFolder(id: ID!): PromptonFolderNode
-  promptonFolders(offset: Int!, limit: Int!, where: PromptonFoldersWhereInput): [PromptonFolderNode!]!
-  promptonImageGenerations(offset: Int!, limit: Int!, where: PromptonImageGenerationsWhereInput): [PromptonImageGenerationNode!]!
-  promptonLabel(id: ID, name: String): PromptonLabelNode
-  promptonLabels(offset: Int!, limit: Int!, where: PromptonLabelsWhereInput): [PromptonLabelNode!]!
-  promptonPlan(id: ID!): PromptonPlanNode
-  promptonPlans(offset: Int!, limit: Int!, where: PromptonPlansWhereInput): [PromptonPlanNode!]!
-  promptonRequest(id: ID!): PromptonRequestNode
-  promptonTag(id: ID, slug: String): PromptonTagNode
-  promptonTags(offset: Int!, limit: Int!, where: PromptonTagsWhereInput): [PromptonTagNode!]!
-  promptonUser(id: ID!): PromptonUserNode
-  promptonUsers(offset: Int!, limit: Int!, where: PromptonUsersWhereInput): [PromptonUserNode!]!
-  promptonWork(id: ID!): PromptonWorkNode
-  promptonWorks(offset: Int!, limit: Int!, where: PromptonWorksWhereInput): [PromptonWorkNode!]!
+  """
+  作品数
+  ※キャッシュ不可
+  """
+  worksCount(where: WorksWhereInput): Int!
 }
 
 """年齢制限"""
@@ -2962,8 +3036,8 @@ input RejectPromptonRequestInput {
 }
 
 input RemovePromptonTagFromWorkInput {
-  workId: String!
   tagId: String!
+  workId: String!
 }
 
 input RemovePromptonWorkFromFolderInput {
@@ -2988,53 +3062,58 @@ input ReportFolderInput {
 
 """報告理由"""
 enum ReportReason {
-  """誹謗中傷"""
-  SLANDER
-
   """著作権侵害"""
   COPYRIGHT
+
+  """その他"""
+  OTHER
 
   """センシティブ"""
   SENSITIVE
 
+  """誹謗中傷"""
+  SLANDER
+
   """スパム"""
   SPAM
-
-  """その他"""
-  OTHER
 }
 
 input ReportStickerInput {
-  stickerId: ID!
   reason: ReportReason!
+  stickerId: ID!
 }
 
 input ReportUserInput {
-  userId: ID!
   reason: ReportReason!
+  userId: ID!
 }
 
 input ReportWorkInput {
-  workId: ID!
   reason: ReportReason!
+  workId: ID!
 }
 
 input SignImageGenerationTermsInput {
   version: Int!
 }
 
-enum StickerGenre {
-  """人物"""
-  CHARACTER
+enum Sort {
+  ASC
+  DESC
+}
 
+enum StickerGenre {
   """動物"""
   ANIMAL
 
-  """機械"""
-  MACHINE
-
   """背景"""
   BACKGROUND
+
+  """人物"""
+  CHARACTER
+
+  """機械"""
+  MACHINE
 
   """物"""
   OBJECT
@@ -3042,48 +3121,47 @@ enum StickerGenre {
 
 """スタンプ"""
 type StickerNode implements Node {
-  id: ID!
-  createdAt: Int!
-  usedAt: Int
-
-  """タイトル"""
-  title: String!
-  imageId: ID
-
-  """画像"""
-  image: ImageNode
-  userId: ID!
-  imageUrl: String
-
-  """ユーザ"""
-  user: UserNode!
-
   """閲覧の種類"""
   accessType: AccessType!
 
-  """いいね数"""
-  likesCount: Int!
-
-  """使用回数"""
-  usesCount: Int!
+  """カテゴリ"""
+  categories: [String!]!
+  createdAt: Int!
 
   """ダウンロード数"""
   downloadsCount: Int!
 
-  """いいねしている"""
-  isLiked: Boolean!
+  """ジャンル"""
+  genre: StickerGenre!
+  id: ID!
+
+  """画像"""
+  image: ImageNode
+  imageId: ID
+  imageUrl: String
+
+  """削除済み"""
+  isDeleted: Boolean!
 
   """マイスタンプに追加している"""
   isDownloaded: Boolean!
 
-  """ジャンル"""
-  genre: StickerGenre!
+  """いいねしている"""
+  isLiked: Boolean!
 
-  """カテゴリ"""
-  categories: [String!]!
+  """いいね数"""
+  likesCount: Int!
 
-  """削除済み"""
-  isDeleted: Boolean!
+  """タイトル"""
+  title: String!
+  usedAt: Int
+
+  """ユーザ"""
+  user: UserNode!
+  userId: ID!
+
+  """使用回数"""
+  usesCount: Int!
   viewer: StickerViewerNode @deprecated(reason: "isLikedを使用する")
 }
 
@@ -3093,11 +3171,8 @@ enum StickerOrderBy {
 }
 
 input StickersWhereInput {
-  """検索ワード"""
-  search: String
-
-  """所有者"""
-  ownerUserId: ID
+  """カテゴリ"""
+  categories: [String!]
 
   """作成者"""
   creatorUserId: ID
@@ -3105,8 +3180,11 @@ input StickersWhereInput {
   """ジャンル"""
   genre: StickerGenre
 
-  """カテゴリ"""
-  categories: [String!]
+  """所有者"""
+  ownerUserId: ID
+
+  """検索ワード"""
+  search: String
 }
 
 type StickerViewerNode implements Node {
@@ -3116,51 +3194,43 @@ type StickerViewerNode implements Node {
 
 type SubWorkNode implements Node {
   id: ID!
-  imageId: ID
 
   """画像のURL"""
   image: ImageNode!
-  thumbnailImageId: ID!
+  imageId: ID
 
   """サムネイル画像のURL"""
   thumbnailImage: ImageNode!
-}
-
-"""タグと関連する作品"""
-type TagCollectionNode implements Node {
-  id: ID! @deprecated
-  tagNames: [String!]
-  works: [WorkNode!]
+  thumbnailImageId: ID!
 }
 
 """タグ"""
 type TagNode implements Node {
-  id: ID!
-
-  """名前"""
-  name: String!
-
-  """関連する作品"""
-  works(offset: Int!, limit: Int!, where: WorksWhereInput): [WorkNode!]!
-
-  """作品数"""
-  worksCount: Int!
-
-  """いいね数"""
-  likesCount: Int!
-
   """最初の作品"""
   firstWork: WorkNode
+  id: ID!
 
   """いいねしている"""
   isLiked: Boolean!
 
+  """ミュートしている"""
+  isMuted: Boolean!
+
   """保存している"""
   isWatched: Boolean!
 
-  """ミュートしている"""
-  isMuted: Boolean!
-  viewer: TagViewerNode @deprecated
+  """いいね数"""
+  likesCount: Int!
+
+  """名前"""
+  name: String!
+  viewer: TagViewerNode
+
+  """関連する作品"""
+  works(limit: Int!, offset: Int!, where: WorksWhereInput): [WorkNode!]!
+
+  """作品数"""
+  worksCount: Int!
 }
 
 input TagsWhereInput {
@@ -3169,9 +3239,9 @@ input TagsWhereInput {
 
 type TagViewerNode implements Node {
   id: ID!
-  isLiked: Boolean! @deprecated
-  isWatched: Boolean! @deprecated
-  isMuted: Boolean! @deprecated
+  isLiked: Boolean!
+  isMuted: Boolean!
+  isWatched: Boolean!
 }
 
 input TestPromptonIntegrationInput {
@@ -3229,20 +3299,20 @@ input UpdateFolderInput {
 }
 
 input UpdateImageGenerationMemoInput {
-  nanoid: String!
-  title: String!
+  clipSkip: Int!
   explanation: String!
-  prompts: String!
-  negativePrompts: String!
-  sampler: String!
-  vae: String!
+  height: Int!
   modelId: ID!
+  nanoid: String!
+  negativePrompts: String!
+  prompts: String!
+  sampler: String!
+  scale: Int!
   seed: Int!
   steps: Int!
-  scale: Int!
-  clipSkip: Int!
+  title: String!
+  vae: String!
   width: Int!
-  height: Int!
 }
 
 input UpdateNoteInput {
@@ -3254,32 +3324,28 @@ input UpdateNovelInput {
 }
 
 input UpdatePromptonFolderInput {
-  folderId: String!
-  name: String!
   description: String!
-  imageFileId: String
-}
-
-input UpdatePromptonFolderSortInput {
   folderId: String!
+  imageFileId: String
+  name: String!
 }
 
 input UpdatePromptonPlanInput {
-  planId: String!
   category: String!
-  name: String!
-  message: String!
   description: String!
-  unitPrice: Int!
-  minimumQuantity: Int!
-  maximumQuantity: Int!
-  styleSlugs: [String!]!
-  objectSlugs: [String!]!
-  featurePrivate: Boolean!
-  featureCopyrightFree: Boolean!
   featureCommercialUse: Boolean!
+  featureCopyrightFree: Boolean!
   featureFanFiction: Boolean!
+  featurePrivate: Boolean!
   imageFileId: String
+  maximumQuantity: Int!
+  message: String!
+  minimumQuantity: Int!
+  name: String!
+  objectSlugs: [String!]!
+  planId: String!
+  styleSlugs: [String!]!
+  unitPrice: Int!
 }
 
 input UpdatePromptonPlanSortInput {
@@ -3287,25 +3353,19 @@ input UpdatePromptonPlanSortInput {
 }
 
 input UpdatePromptonProfileBlockInput {
+  description: String
   profileBlockId: String!
   siteURL: String
   title: String
-  description: String
-}
-
-input UpdatePromptonPromptCategoryInput {
-  promptCategoryId: String!
-  name: String!
-  description: String
 }
 
 input UpdatePromptonPromptInput {
-  promptId: String!
-  name: String!
   description: String
-  isNsfw: Boolean!
   isBase: Boolean!
+  isNsfw: Boolean!
   isSingle: Boolean!
+  name: String!
+  promptId: String!
 }
 
 input UpdatePromptonUserAvatarInput {
@@ -3325,25 +3385,25 @@ input UpdatePromptonUserLoginInput {
 }
 
 input UpdatePromptonUserProfileInput {
-  name: String!
   biography: String
-  twitterUsername: String
+  deviantartUsername: String
   githubUsername: String
   instagramUsername: String
+  name: String!
   pixivUsername: String
   tumblrUsername: String
-  deviantartUsername: String
+  twitterUsername: String
 }
 
 input UpdatePromptonWorkInput {
-  workId: String!
-  title: String
   body: String
+  title: String
+  workId: String!
 }
 
 input UpdateProtectedImageGenerationTaskInput {
-  nanoid: String!
   isProtected: Boolean!
+  nanoid: String!
 }
 
 input UpdateRatingImageGenerationModelInput {
@@ -3362,34 +3422,33 @@ input UpdateStickerInput {
 }
 
 input UpdateUserProfileInput {
-  displayName: String
-
   """紹介"""
   biography: String
+  displayName: String
 
   """紹介（英語）"""
   enBiography: String
 
-  """アイコン画像"""
-  iconUrl: String
-
-  """ヘッダー画像"""
-  headerImageUrl: String
-
-  """X"""
-  twitterAccountId: String
-
-  """Instagram"""
-  instagramAccountId: String
-
-  """GitHub"""
-  githubAccountId: String
+  """センシティブなピックアップ作品ID"""
+  featuredSensitiveWorkIds: [ID!]
 
   """ピックアップ作品ID"""
   featuredWorkIds: [ID!]
 
-  """センシティブなピックアップ作品ID"""
-  featuredSensitiveWorkIds: [ID!]
+  """GitHub"""
+  githubAccountId: String
+
+  """ヘッダー画像"""
+  headerImageUrl: String
+
+  """アイコン画像"""
+  iconUrl: String
+
+  """Instagram"""
+  instagramAccountId: String
+
+  """X"""
+  twitterAccountId: String
 }
 
 input UpdateUserSettingInput {
@@ -3398,114 +3457,119 @@ input UpdateUserSettingInput {
 }
 
 input UpdateWorkInput {
-  workId: ID!
   title: String!
+  workId: ID!
 }
 
 input UserAlbumInput {
-  search: String
   isSensitive: Boolean
+  search: String
 }
 
 input UserFolderInput {
-  search: String
   isSensitive: Boolean
+  search: String
 }
 
 """ユーザ"""
 type UserNode implements Node {
-  id: ID!
-
-  """作成日"""
-  createdAt: Int!
-
-  """表示名"""
-  name: String!
-
-  """ログインID"""
-  login: String!
-
-  """サイトURL"""
-  siteURL: String
-
-  """受け取ったいいね数"""
-  receivedLikesCount: Int!
-
-  """受け取った閲覧数"""
-  receivedViewsCount: Int!
-
-  """フォロワー数"""
-  followersCount: Int!
+  """シリーズ"""
+  albums(limit: Int!, offset: Int!, where: UserAlbumInput): [AlbumNode!]!
 
   """入賞回数"""
   awardsCount: Int!
 
-  """投稿した作品数"""
-  worksCount: Int!
+  """紹介"""
+  biography: String
 
-  """
-  作品
-  ※キャッシュ不可
-  """
-  works(offset: Int!, limit: Int!, where: UserWorksWhereInput): [WorkNode!]!
+  """作成日"""
+  createdAt: Int!
 
-  """フォロワー（ユーザをフォローしているユーザ）"""
-  followers(offset: Int!, limit: Int!): [UserNode!]!
+  """付けたブックマーク数"""
+  createdBookmarksCount: Int!
 
-  """フォロー（ユーザがフォローしているユーザ)"""
-  followees(offset: Int!, limit: Int!): [UserNode!]!
+  """送ったコメント数"""
+  createdCommentsCount: Int!
 
-  """アワード（作品）"""
-  workAwards(offset: Int!, limit: Int!, where: AwardsWhereInput): [WorkAwardNode!]!
+  """送ったいいね数"""
+  createdLikesCount: Int!
 
-  """スタンプ"""
-  stickers(offset: Int!, limit: Int!): [StickerNode!]!
+  """付けた閲覧数"""
+  createdViewsCount: Int!
 
-  """シリーズ"""
-  albums(offset: Int!, limit: Int!, where: UserAlbumInput): [AlbumNode!]!
+  """紹介（英語）"""
+  enBiography: String
+
+  """FCMトークン"""
+  fcmToken: String
+
+  """センシティブなピックアップ作品"""
+  featuredSensitiveWorks: [WorkNode!]
+
+  """ピックアップ作品"""
+  featuredWorks: [WorkNode!]
 
   """フォルダ"""
-  folders(offset: Int!, limit: Int!, where: UserFolderInput): [FolderNode!]!
+  folders(limit: Int!, offset: Int!, where: UserFolderInput): [FolderNode!]!
 
-  """アイコン画像のID"""
-  iconImageId: ID
+  """フォロー数"""
+  followCount: Int!
 
-  """アイコン画像"""
-  iconImage: ImageNode
+  """フォロー（ユーザがフォローしているユーザ)"""
+  followees(limit: Int!, offset: Int!): [UserNode!]!
 
-  """アイコン画像URL"""
-  iconUrl: String
+  """フォロワー（ユーザをフォローしているユーザ）"""
+  followers(limit: Int!, offset: Int!): [UserNode!]!
 
-  """ヘッダー画像のID"""
-  headerImageId: ID
+  """フォロワー数"""
+  followersCount: Int!
 
-  """ヘッダー画像"""
-  headerImage: ImageNode
-
-  """ヘッダー画像URL"""
-  headerImageUrl: String
-
-  """X"""
-  twitterAccountId: String
-
-  """Instagram"""
-  instagramAccountId: String
+  """生成済み回数"""
+  generatedCount: Int!
 
   """GitHub"""
   githubAccountId: String
 
-  """紹介"""
-  biography: String
+  """画像生成機能の利用規約に同意済みである"""
+  hasSignedImageGenerationTerms: Boolean!
 
-  """紹介（英語）"""
-  enBiography: String
-  workCreatedAt: Int
+  """ヘッダー画像"""
+  headerImage: ImageNode
 
-  """プロンプトンのユーザ"""
-  promptonUser: PromptonUserNode
+  """ヘッダー画像のID"""
+  headerImageId: ID
 
-  """Open Graph タイトル"""
-  openGraphTitle: String
+  """ヘッダー画像URL"""
+  headerImageUrl: String
+
+  """アイコン画像"""
+  iconImage: ImageNode
+
+  """アイコン画像のID"""
+  iconImageId: ID
+
+  """アイコン画像URL"""
+  iconUrl: String
+  id: ID!
+
+  """Instagram"""
+  instagramAccountId: String
+
+  """フォローしている"""
+  isFollowee: Boolean!
+
+  """フォローされている"""
+  isFollower: Boolean!
+
+  """ミュートしている"""
+  isMuted: Boolean!
+
+  """ログインID"""
+  login: String!
+
+  """表示名"""
+  name: String!
+  nanoid: String
 
   """Open Graph 説明"""
   openGraphDescription: String
@@ -3513,42 +3577,54 @@ type UserNode implements Node {
   """Open Graph 画像"""
   openGraphImageURL: String
 
+  """Open Graph タイトル"""
+  openGraphTitle: String
+
+  """プロンプトンのユーザ"""
+  promptonUser: PromptonUserNode
+
+  """受け取ったいいね数"""
+  receivedLikesCount: Int!
+
+  """受け取った閲覧数"""
+  receivedViewsCount: Int!
+
   """シェア"""
   shareText: String
 
-  """FCMトークン"""
-  fcmToken: String
+  """サイトURL"""
+  siteURL: String
+
+  """スタンプ"""
+  stickers(limit: Int!, offset: Int!): [StickerNode!]!
+
+  """X"""
+  twitterAccountId: String
+  viewer: UserViewerNode
 
   """WebFCMトークン"""
   webFcmToken: String
 
-  """画像生成機能の利用規約に同意済みである"""
-  hasSignedImageGenerationTerms: Boolean!
+  """アワード（作品）"""
+  workAwards(limit: Int!, offset: Int!, where: AwardsWhereInput): [WorkAwardNode!]!
+  workCreatedAt: Int
 
-  """フォローされている"""
-  isFollower: Boolean!
+  """
+  作品
+  ※キャッシュ不可
+  """
+  works(limit: Int!, offset: Int!, where: UserWorksWhereInput): [WorkNode!]!
 
-  """フォローしている"""
-  isFollowee: Boolean!
-
-  """ミュートしている"""
-  isMuted: Boolean!
-
-  """ピックアップ作品"""
-  featuredWorks: [WorkNode!]
-
-  """センシティブなピックアップ作品"""
-  featuredSensitiveWorks: [WorkNode!]
-  viewer: UserViewerNode @deprecated
-  nanoid: String
+  """投稿した作品数"""
+  worksCount: Int!
 }
 
 """ユーザの設定"""
 type UserSettingNode implements Node {
-  id: ID!
-  userId: ID!
-  user: UserNode!
+  enabledEditCategory: Boolean!
   favoritedImageGenerationModelIds: [Int!]!
+  featurePromptonRequest: Boolean!
+  id: ID!
 
   """閲覧コンテンツ"""
   preferenceRating: PreferenceRating!
@@ -3556,6 +3632,8 @@ type UserSettingNode implements Node {
   """ダークモードを使用する"""
   useDarkMode: Boolean!
   useDisableGenerateTime: Int!
+  user: UserNode!
+  userId: ID!
 }
 
 input UsersWhereInput {
@@ -3563,62 +3641,41 @@ input UsersWhereInput {
 }
 
 type UserViewerNode implements Node {
-  id: ID! @deprecated
-  isFollower: Boolean! @deprecated
-  isFollowee: Boolean! @deprecated
-  isMuted: Boolean! @deprecated
+  id: ID!
+  isFollowee: Boolean!
+  isFollower: Boolean!
+  isMuted: Boolean!
 }
 
 input UserWorksWhereInput {
-  search: String
-  modelName: String
-  isSensitive: Boolean
   isGeneration: Boolean
+  isSensitive: Boolean
+  modelName: String
+  search: String
 }
 
 """ログイン中のユーザ"""
 type Viewer {
   """シリーズ"""
-  albums(offset: Int!, limit: Int!): [AlbumNode!]!
-
-  """現在の有効な画像生成のタスク"""
-  currentImageGenerationTasks: [ImageGenerationTaskNode!]!
-
-  """現在の有効な画像生成のメモ"""
-  currentImageGenerationMemos: [ImageGenerationMemoNode!]!
-
-  """お気に入りのモデル一覧"""
-  favoritedImageGenerationModels: [ImageModelNode!]!
-
-  """現在の生成中の画像生成のタスク"""
-  inProgressImageGenerationTasksCount: Int!
-
-  """現在の生成中の画像生成のコスト"""
-  inProgressImageGenerationTasksCost: Int!
-
-  """現在の予約生成中の画像生成のタスク"""
-  inProgressImageGenerationReservedTasksCount: Int!
-
-  """今日の有効な画像生成のタスクの数"""
-  remainingImageGenerationTasksCount: Int!
-
-  """現在の有効な画像生成の累計タスクの数"""
-  remainingImageGenerationTasksTotalCount: Int!
-
-  """利用可能な最大タスク数"""
-  availableImageGenerationMaxTasksCount: Int!
-
-  """利用可能なLoRA数"""
-  availableImageGenerationLoraModelsCount: Int!
+  albums(limit: Int!, offset: Int!): [AlbumNode!]!
 
   """連続で生成可能な最大タスク数"""
   availableConsecutiveImageGenerationsCount: Int!
 
+  """利用可能なLoRA数"""
+  availableImageGenerationLoraModelsCount: Int!
+
   """レーティング可能な最大数"""
   availableImageGenerationMaxRatingCount: Int!
 
-  """生成待ち人数（自身も含む）"""
-  imageGenerationWaitCount: Int!
+  """利用可能な最大タスク数"""
+  availableImageGenerationMaxTasksCount: Int!
+
+  """現在の有効な画像生成のメモ"""
+  currentImageGenerationMemos: [ImageGenerationMemoNode!]!
+
+  """現在の有効な画像生成のタスク"""
+  currentImageGenerationTasks: [ImageGenerationTaskNode!]!
 
   """現在のパス"""
   currentPass: PassNode
@@ -3629,56 +3686,83 @@ type Viewer {
   """
   customerPortalURL: String
 
+  """お気に入りのモデル一覧"""
+  favoritedImageGenerationModels: [ImageModelNode!]!
+
   """フィードの作品"""
-  feedWorks(offset: Int!, limit: Int!): [WorkNode!]!
+  feedWorks(limit: Int!, offset: Int!): [WorkNode!]!
 
   """コレクション"""
-  folders(offset: Int!, limit: Int!): [FolderNode!]!
+  folders(limit: Int!, offset: Int!): [FolderNode!]!
 
   """有効な画像生成のタスク"""
-  imageGenerationTasks(offset: Int!, limit: Int!, where: ImageGenerationTasksWhereInput): [ImageGenerationTaskNode!]!
+  imageGenerationTasks(limit: Int!, offset: Int!, where: ImageGenerationTasksWhereInput): [ImageGenerationTaskNode!]!
+
+  """生成待ち人数（自身も含む）"""
+  imageGenerationWaitCount: Int!
+
+  """現在の予約生成中の画像生成のタスク"""
+  inProgressImageGenerationReservedTasksCount: Int!
+
+  """現在の生成中の画像生成のコスト"""
+  inProgressImageGenerationTasksCost: Int!
+
+  """現在の生成中の画像生成のタスク"""
+  inProgressImageGenerationTasksCount: Int!
 
   """いいねした作品"""
-  likedWorks(offset: Int!, limit: Int!): [WorkNode!]!
+  likedWorks(limit: Int!, offset: Int!): [WorkNode!]!
 
-  """メッセージのスレッド"""
-  messageThreads(offset: Int!, limit: Int!): [MessageThreadNode!]!
+  """LINEアカウントID"""
+  lineUserId: String
 
   """メッセージのスレッド"""
   messageThread(threadId: ID!): MessageThreadNode
 
+  """メッセージのスレッド"""
+  messageThreads(limit: Int!, offset: Int!): [MessageThreadNode!]!
+
   """ミュートしたタグ"""
-  mutedTags(offset: Int!, limit: Int!): [MutedTagNode!]!
+  mutedTags(limit: Int!, offset: Int!): [MutedTagNode!]!
 
   """ミュートしたユーザ"""
-  mutedUsers(offset: Int!, limit: Int!): [UserNode!]!
+  mutedUsers(limit: Int!, offset: Int!): [UserNode!]!
 
   """通知"""
-  notifications(offset: Int!, limit: Int!, where: NotificationsWhereInput): [NotificationNode!]!
+  notifications(limit: Int!, offset: Int!, where: NotificationsWhereInput): [NotificationNode!]!
 
   """決済履歴"""
   payments: [PaymentNode!]!
 
+  """今日の有効な画像生成のタスクの数"""
+  remainingImageGenerationTasksCount: Int!
+
+  """現在の有効な画像生成の累計タスクの数"""
+  remainingImageGenerationTasksTotalCount: Int!
+
   """作成したスタンプ"""
-  stickers(offset: Int!, limit: Int!): [StickerNode!]!
+  stickers(limit: Int!, offset: Int!): [StickerNode!]!
 
   """お問い合わせ対応のメッセージ"""
-  supportMessages(offset: Int!, limit: Int!): [MessageNode!]!
+  supportMessages(limit: Int!, offset: Int!): [MessageNode!]!
+
+  """認証トークン"""
+  token: String
 
   """ユーザ"""
   user: UserNode!
 
   """保存したスタンプ"""
-  userStickers(offset: Int!, limit: Int!, orderBy: StickerOrderBy): [StickerNode!]!
+  userStickers(limit: Int!, offset: Int!, orderBy: StickerOrderBy): [StickerNode!]!
+
+  """本人確認のURL"""
+  verificationUrl: String!
 
   """保存したコレクション"""
-  watchedFolders(offset: Int!, limit: Int!): [FolderNode!]!
+  watchedFolders(limit: Int!, offset: Int!): [FolderNode!]!
 
   """自分の作品"""
-  works(offset: Int!, limit: Int!): [WorkNode!]!
-
-  """認証トークン"""
-  token: String
+  works(limit: Int!, offset: Int!): [WorkNode!]!
 }
 
 input WatchFolderInput {
@@ -3686,187 +3770,184 @@ input WatchFolderInput {
 }
 
 input WhiteListTagsInput {
-  search: String
   isSensitive: Boolean
+  search: String
 }
 
 """アワード（作品）"""
 type WorkAwardNode implements Node {
+  dateText: String!
   id: ID!
   index: Int!
-  userId: ID!
 
   """ユーザ"""
   user: UserNode!
-  workId: ID
+  userId: ID!
 
   """作品"""
   work: WorkNode!
-  dateText: String!
+  workId: ID
 }
 
 """通知（作品のランキング）"""
 type WorkAwardNotificationNode implements Node {
-  id: ID!
-
   """時刻"""
   createdAt: Int!
+  id: ID!
 
   """メッセージ"""
   message: String
 
+  """種別"""
+  type: String!
+
   """作品"""
   work: WorkNode
   workId: ID
-
-  """種別"""
-  type: String!
 }
 
 input WorkAwardsWhereInput {
-  type: AwardType
   date: String
-  year: Int
-  month: Int
   day: Int
+  month: Int
+  type: AwardType
   weekIndex: Int
+  year: Int
 }
 
 """通知（コメント）"""
 type WorkCommentNotificationNode implements Node {
-  id: ID!
   createdAt: Int!
-  user: UserNode
-  userId: ID
+  id: ID!
   message: String
   sticker: StickerNode
   stickerId: ID
-  work: WorkNode
-  workId: ID
 
   """種別"""
   type: String!
+  user: UserNode
+  userId: ID
+  work: WorkNode
+  workId: ID
 }
 
 """通知（リプライ）"""
 type WorkCommentReplyNotificationNode implements Node {
-  id: ID!
   createdAt: Int!
-  userId: ID
-
-  """ユーザ"""
-  user: UserNode
+  id: ID!
 
   """メッセージ"""
   message: String
-  stickerId: ID
 
   """スタンプ"""
   sticker: StickerNode
-  workId: ID
-
-  """作品"""
-  work: WorkNode
+  stickerId: ID
 
   """種別"""
   type: String!
-}
 
-"""作品のコンテスト"""
-type WorkEventNode implements Node {
-  id: ID!
-  title: String
-  link: String
-  description: String
-  startTime: Int!
-  endTime: Int!
-  users(offset: Int!, limit: Int!): [UserNode!]!
+  """ユーザ"""
+  user: UserNode
+  userId: ID
+
+  """作品"""
+  work: WorkNode
+  workId: ID
 }
 
 """作品"""
 type WorkNode implements Node {
-  id: ID!
+  """閲覧権限の種類"""
+  accessType: AccessType!
+
+  """運営による閲覧権限の種類"""
+  adminAccessType: AdminAccessType!
+
+  """シリーズ情報"""
+  album: AlbumNode
+
+  """ブックマーク数"""
+  bookmarksCount: Int!
+
+  """clipSkip"""
+  clipSkip: Int
+
+  """コメント"""
+  comment(id: ID!): CommentNode!
+
+  """コメント"""
+  comments(limit: Int!, offset: Int!): [CommentNode!]!
+
+  """コメント数"""
+  commentsCount: Int!
 
   """作成日"""
   createdAt: Int!
 
-  """年齢制限"""
-  rating: Rating
-
-  """センシティブである"""
-  isSensitive: Boolean!
-
-  """タイトル"""
-  title: String!
-
-  """説明"""
-  description: String
-
-  """種類"""
-  type: String!
+  """デイリーランキング"""
+  dailyRanking: Int
 
   """テーマ"""
   dailyTheme: DailyThemeNode
 
-  """閲覧権限の種類"""
-  accessType: AccessType!
+  """説明"""
+  description: String
 
-  """プロンプトの閲覧権限の種類"""
-  promptAccessType: AccessType!
-
-  """いいね数"""
-  likesCount: Int!
-
-  """いいね数"""
-  commentsCount: Int!
-
-  """閲覧数"""
-  viewsCount: Int!
-
-  """タグ名"""
-  tagNames: [String!]!
-  tags: [TagNode!]!
-
-  """タグ編集許可"""
-  isTagEditable: Boolean!
-
-  """画像URL"""
-  imageURL: String!
-
-  """画像ID"""
-  imageId: ID! @deprecated
+  """生成機で生成した場合のモデルID"""
+  generationModelId: ID
+  id: ID!
 
   """画像"""
-  image: ImageNode @deprecated
-
-  """画像の幅"""
-  imageWidth: Int!
-
-  """画像の高さ"""
-  imageHeight: Int!
+  image: ImageNode
 
   """画像の比率"""
   imageAspectRatio: Float!
 
-  """サムネイル画像の位置"""
-  thumbnailImagePosition: Float
+  """画像の高さ"""
+  imageHeight: Int!
 
-  """画像URL（サムネイル）"""
-  thumbnailImageId: ID!
-  thumbnailImage: ImageNode @deprecated
+  """画像ID"""
+  imageId: ID!
 
-  """画像（小）のURL"""
-  smallThumbnailImageURL: String!
+  """画像URL"""
+  imageURL: String!
 
-  """画像（小）の幅"""
-  smallThumbnailImageWidth: Int!
+  """画像の幅"""
+  imageWidth: Int!
 
-  """画像（小）の高さ"""
-  smallThumbnailImageHeight: Int!
-  largeThumbnailImageId: ID! @deprecated
+  """コメント編集許可"""
+  isCommentsEditable: Boolean!
+
+  """削除済み"""
+  isDeleted: Boolean!
+
+  """生成画像でプロンプト公開作品かどうか"""
+  isGeneration: Boolean!
+
+  """コレクションに追加している"""
+  isInCollection: Boolean!
+
+  """いいねしている"""
+  isLiked: Boolean!
+
+  """自分自身が推薦しているかどうか"""
+  isMyRecommended: Boolean!
+
+  """プロモーション作品かどうか"""
+  isPromotion: Boolean!
+
+  """センシティブである"""
+  isSensitive: Boolean!
+
+  """タグ編集許可"""
+  isTagEditable: Boolean!
 
   """画像（大）URL（サムネイル）"""
-  largeThumbnailImage: ImageNode @deprecated
+  largeThumbnailImage: ImageNode
+
+  """画像（大）の高さ"""
+  largeThumbnailImageHeight: Int!
+  largeThumbnailImageId: ID!
 
   """画像（大）のURL"""
   largeThumbnailImageURL: String!
@@ -3874,47 +3955,8 @@ type WorkNode implements Node {
   """画像（大）の幅"""
   largeThumbnailImageWidth: Int!
 
-  """画像（大）の高さ"""
-  largeThumbnailImageHeight: Int!
-
-  """OGP画像"""
-  ogpThumbnailImageId: ID!
-
-  """画像URL（サムネイル）"""
-  ogpThumbnailImage: ImageNode
-
-  """プロンプト"""
-  prompt: String
-
-  """ネガティブプロンプト"""
-  negativePrompt: String
-
-  """シード値"""
-  seed: Float
-
-  """画像生成関連の設定"""
-  steps: Int
-
-  """画像生成関連の設定"""
-  scale: Int
-
-  """画像生成関連の設定"""
-  sampler: String
-
-  """VAE"""
-  vae: String
-
-  """clipSkip"""
-  clipSkip: Int
-
-  """その他の画像生成関連の設定"""
-  otherGenerationParams: String
-
-  """pngInfo"""
-  pngInfo: String
-
-  """画像生成関連の設定"""
-  strength: String
+  """いいね数"""
+  likesCount: Int!
 
   """画像生成関連の設定"""
   model: String
@@ -3922,26 +3964,20 @@ type WorkNode implements Node {
   """画像生成関連の設定"""
   modelHash: String
 
-  """生成機で生成した場合のモデルID"""
-  generationModelId: ID
+  """マンスリーランキング"""
+  monthlyRanking: Int
 
-  """ユーザID"""
-  userId: ID!
+  """ネガティブプロンプト"""
+  negativePrompt: String
 
-  """ユーザ"""
-  user: UserNode!
+  """次の作品"""
+  nextWork: WorkNode
 
-  """コメント"""
-  comment(id: ID!): CommentNode! @deprecated
+  """画像URL（サムネイル）"""
+  ogpThumbnailImage: ImageNode
 
-  """コメント"""
-  comments(offset: Int!, limit: Int!): [CommentNode!]!
-
-  """作品"""
-  subWorks: [SubWorkNode!]!
-
-  """Open Graph タイトル"""
-  openGraphTitle: String
+  """OGP画像"""
+  ogpThumbnailImageId: ID!
 
   """Open Graph 説明"""
   openGraphDescription: String
@@ -3949,138 +3985,221 @@ type WorkNode implements Node {
   """Open Graph 画像"""
   openGraphImageURL: String
 
-  """シェア"""
-  shareText: String
+  """Open Graph タイトル"""
+  openGraphTitle: String
 
-  """次の作品"""
-  nextWork: WorkNode
+  """その他の画像生成関連の設定"""
+  otherGenerationParams: String
+
+  """pngInfo"""
+  pngInfo: String
 
   """前の作品"""
   previousWork: WorkNode
 
+  """プロンプト"""
+  prompt: String
+
+  """プロンプトの閲覧権限の種類"""
+  promptAccessType: AccessType!
+
+  """年齢制限"""
+  rating: Rating
+
   """関連するタグ"""
-  relatedTags(offset: Int!, limit: Int!): [TagNode!]!
-
-  """関連する作品"""
-  relatedWorks(offset: Int!, limit: Int!): [WorkNode!]!
-
-  """いいねしている"""
-  isLiked: Boolean!
-
-  """コレクションに追加している"""
-  isInCollection: Boolean!
-
-  """プロモーション作品かどうか"""
-  isPromotion: Boolean!
-
-  """テイスト"""
-  style: ImageStyle!
-
-  """URL"""
-  url: String
-
-  """シリーズ情報"""
-  album: AlbumNode
-
-  """削除済み"""
-  isDeleted: Boolean!
-
-  """更新日"""
-  updatedAt: Int!
-
-  """デイリーランキング"""
-  dailyRanking: Int
-
-  """ウィークリーランキング"""
-  weeklyRanking: Int
-
-  """マンスリーランキング"""
-  monthlyRanking: Int
+  relatedTags(limit: Int!, offset: Int!): [TagNode!]!
 
   """関連URL"""
   relatedUrl: String
 
-  """生成画像でプロンプト公開作品かどうか"""
-  isGeneration: Boolean!
+  """関連する作品"""
+  relatedWorks(limit: Int!, offset: Int!): [WorkNode!]!
+
+  """画像生成関連の設定"""
+  sampler: String
+
+  """画像生成関連の設定"""
+  scale: Int
+
+  """シード値"""
+  seed: Float
+
+  """シェア"""
+  shareText: String
+
+  """画像（小）の高さ"""
+  smallThumbnailImageHeight: Int!
+
+  """画像（小）のURL"""
+  smallThumbnailImageURL: String!
+
+  """画像（小）の幅"""
+  smallThumbnailImageWidth: Int!
+
+  """画像生成関連の設定"""
+  steps: Int
+
+  """画像生成関連の設定"""
+  strength: String
+
+  """テイスト"""
+  style: ImageStyle!
+
+  """作品"""
+  subWorks: [SubWorkNode!]!
+
+  """タグ名"""
+  tagNames: [String!]!
+  tags: [TagNode!]!
+  thumbnailImage: ImageNode
+
+  """画像URL（サムネイル）"""
+  thumbnailImageId: ID!
+
+  """サムネイル画像の位置"""
+  thumbnailImagePosition: Float
+
+  """タイトル"""
+  title: String!
+
+  """種類"""
+  type: String!
+
+  """更新日"""
+  updatedAt: Int!
+
+  """URL"""
+  url: String
+
+  """ユーザ"""
+  user: UserNode!
+
+  """ユーザID"""
+  userId: ID!
+
+  """VAE"""
+  vae: String
 
   """非推奨"""
   viewer: WorkViewerNode @deprecated(reason: "isLikedを使用する")
+
+  """閲覧数"""
+  viewsCount: Int!
+
+  """ウィークリーランキング"""
+  weeklyRanking: Int
 }
 
 enum WorkOrderBy {
+  """公開状態でソート"""
+  ACCESS_TYPE
+
+  """ブックマーク数でソート"""
+  BOOKMARKS_COUNT
+
+  """コメント数でソート"""
+  COMMENTS_COUNT
+
+  """投稿日でソート"""
   DATE_CREATED
+
+  """英語名でソート"""
+  EN_NAME
+
+  """いいね数でソート"""
   LIKES_COUNT
+
+  """名前でソート"""
+  NAME
+
+  """閲覧数でソート"""
+  VIEWS_COUNT
 }
 
 input WorksWhereInput {
-  """ソート"""
-  orderBy: WorkOrderBy
-
-  """検索"""
-  search: String
-
-  """プロンプト"""
-  prompts: [String!]
-
-  """プロンプトが存在する"""
-  hasPrompt: Boolean
-
-  """スタイル(テイスト)"""
-  style: ImageStyle
-
-  """センシティブである"""
-  isSensitive: Boolean
-
-  """タグの名前"""
-  tagNames: [String!]
-
-  """画像生成の作品"""
-  isFeatured: Boolean
+  """公開範囲"""
+  accessTypes: [AccessType!]
 
   """生成モデル"""
   generationModelId: ID
 
-  """作品形式"""
-  workType: WorkType
+  """プロンプトが存在する"""
+  hasPrompt: Boolean
 
-  """使用モデル名"""
-  modelNames: [String!]
-
-  """使用サービス"""
-  serviceNames: [String!]
-
-  """プロンプト公開"""
-  isPromptPublic: Boolean
-
-  """お題参加"""
-  isThemeParticipated: Boolean
-
-  """お題"""
-  subjectId: Int
-
-  """1人1作品"""
-  isOneWorkPerUser: Boolean
-
-  """年齢種別"""
-  ratings: [Rating!]
-
-  """投稿者名"""
-  ownerName: String
+  """画像生成の作品"""
+  isFeatured: Boolean
 
   """フォロー中のユーザのみ"""
   isFollowing: Boolean
 
+  """非公開作品も含む"""
+  isIncludePrivate: Boolean
+
   """フォロー外のユーザのみ"""
   isNotFollowing: Boolean
 
+  """1人1作品"""
+  isOneWorkPerUser: Boolean
+
+  """プロンプト公開"""
+  isPromptPublic: Boolean
+
   """推薦"""
   isRecommended: Boolean
+
+  """センシティブである"""
+  isSensitive: Boolean
+
+  """お題参加"""
+  isThemeParticipated: Boolean
+
+  """使用モデル名"""
+  modelNames: [String!]
+
+  """ソート"""
+  orderBy: WorkOrderBy
+
+  """投稿者名"""
+  ownerName: String
+
+  """プロンプト"""
+  prompts: [String!]
+
+  """年齢種別"""
+  ratings: [Rating!]
+
+  """作品を推薦したユーザID"""
+  recommendedWorksUserId: ID
+
+  """検索"""
+  search: String
+
+  """使用サービス"""
+  serviceNames: [String!]
+
+  """昇順/降順"""
+  sort: Sort
+
+  """スタイル(テイスト)"""
+  style: ImageStyle
+
+  """お題"""
+  subjectId: Int
+
+  """タグの名前"""
+  tagNames: [String!]
+
+  """ユーザID"""
+  userId: ID
+
+  """作品形式"""
+  workType: WorkType
 }
 
 """作品の種類"""
 enum WorkType {
-  """画像"""
-  WORK
+  """コラム"""
+  COLUMN
 
   """小説"""
   NOVEL
@@ -4088,13 +4207,13 @@ enum WorkType {
   """動画"""
   VIDEO
 
-  """コラム"""
-  COLUMN
+  """画像"""
+  WORK
 }
 
 type WorkViewerNode implements Node {
-  id: ID! @deprecated
-  isLiked: Boolean! @deprecated
-  isBookmarked: Boolean! @deprecated
+  id: ID!
+  isBookmarked: Boolean!
+  isLiked: Boolean!
 }
 

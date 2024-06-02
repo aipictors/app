@@ -10,9 +10,6 @@ Serializer<GMuteUserData> _$gMuteUserDataSerializer =
     new _$GMuteUserDataSerializer();
 Serializer<GMuteUserData_muteUser> _$gMuteUserDataMuteUserSerializer =
     new _$GMuteUserData_muteUserSerializer();
-Serializer<GMuteUserData_muteUser_viewer>
-    _$gMuteUserDataMuteUserViewerSerializer =
-    new _$GMuteUserData_muteUser_viewerSerializer();
 
 class _$GMuteUserDataSerializer implements StructuredSerializer<GMuteUserData> {
   @override
@@ -83,70 +80,6 @@ class _$GMuteUserData_muteUserSerializer
           specifiedType: const FullType(String)),
       'id',
       serializers.serialize(object.id, specifiedType: const FullType(String)),
-    ];
-    Object? value;
-    value = object.viewer;
-    if (value != null) {
-      result
-        ..add('viewer')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(GMuteUserData_muteUser_viewer)));
-    }
-    return result;
-  }
-
-  @override
-  GMuteUserData_muteUser deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GMuteUserData_muteUserBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'id':
-          result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'viewer':
-          result.viewer.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(GMuteUserData_muteUser_viewer))!
-              as GMuteUserData_muteUser_viewer);
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GMuteUserData_muteUser_viewerSerializer
-    implements StructuredSerializer<GMuteUserData_muteUser_viewer> {
-  @override
-  final Iterable<Type> types = const [
-    GMuteUserData_muteUser_viewer,
-    _$GMuteUserData_muteUser_viewer
-  ];
-  @override
-  final String wireName = 'GMuteUserData_muteUser_viewer';
-
-  @override
-  Iterable<Object?> serialize(
-      Serializers serializers, GMuteUserData_muteUser_viewer object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
-      'id',
-      serializers.serialize(object.id, specifiedType: const FullType(String)),
       'isMuted',
       serializers.serialize(object.isMuted,
           specifiedType: const FullType(bool)),
@@ -156,10 +89,10 @@ class _$GMuteUserData_muteUser_viewerSerializer
   }
 
   @override
-  GMuteUserData_muteUser_viewer deserialize(
+  GMuteUserData_muteUser deserialize(
       Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new GMuteUserData_muteUser_viewerBuilder();
+    final result = new GMuteUserData_muteUserBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -308,18 +241,20 @@ class _$GMuteUserData_muteUser extends GMuteUserData_muteUser {
   @override
   final String id;
   @override
-  final GMuteUserData_muteUser_viewer? viewer;
+  final bool isMuted;
 
   factory _$GMuteUserData_muteUser(
           [void Function(GMuteUserData_muteUserBuilder)? updates]) =>
       (new GMuteUserData_muteUserBuilder()..update(updates))._build();
 
   _$GMuteUserData_muteUser._(
-      {required this.G__typename, required this.id, this.viewer})
+      {required this.G__typename, required this.id, required this.isMuted})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename, r'GMuteUserData_muteUser', 'G__typename');
     BuiltValueNullFieldError.checkNotNull(id, r'GMuteUserData_muteUser', 'id');
+    BuiltValueNullFieldError.checkNotNull(
+        isMuted, r'GMuteUserData_muteUser', 'isMuted');
   }
 
   @override
@@ -337,7 +272,7 @@ class _$GMuteUserData_muteUser extends GMuteUserData_muteUser {
     return other is GMuteUserData_muteUser &&
         G__typename == other.G__typename &&
         id == other.id &&
-        viewer == other.viewer;
+        isMuted == other.isMuted;
   }
 
   @override
@@ -345,7 +280,7 @@ class _$GMuteUserData_muteUser extends GMuteUserData_muteUser {
     var _$hash = 0;
     _$hash = $jc(_$hash, G__typename.hashCode);
     _$hash = $jc(_$hash, id.hashCode);
-    _$hash = $jc(_$hash, viewer.hashCode);
+    _$hash = $jc(_$hash, isMuted.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -355,7 +290,7 @@ class _$GMuteUserData_muteUser extends GMuteUserData_muteUser {
     return (newBuiltValueToStringHelper(r'GMuteUserData_muteUser')
           ..add('G__typename', G__typename)
           ..add('id', id)
-          ..add('viewer', viewer))
+          ..add('isMuted', isMuted))
         .toString();
   }
 }
@@ -372,11 +307,9 @@ class GMuteUserData_muteUserBuilder
   String? get id => _$this._id;
   set id(String? id) => _$this._id = id;
 
-  GMuteUserData_muteUser_viewerBuilder? _viewer;
-  GMuteUserData_muteUser_viewerBuilder get viewer =>
-      _$this._viewer ??= new GMuteUserData_muteUser_viewerBuilder();
-  set viewer(GMuteUserData_muteUser_viewerBuilder? viewer) =>
-      _$this._viewer = viewer;
+  bool? _isMuted;
+  bool? get isMuted => _$this._isMuted;
+  set isMuted(bool? isMuted) => _$this._isMuted = isMuted;
 
   GMuteUserData_muteUserBuilder() {
     GMuteUserData_muteUser._initializeBuilder(this);
@@ -387,7 +320,7 @@ class GMuteUserData_muteUserBuilder
     if ($v != null) {
       _G__typename = $v.G__typename;
       _id = $v.id;
-      _viewer = $v.viewer?.toBuilder();
+      _isMuted = $v.isMuted;
       _$v = null;
     }
     return this;
@@ -408,148 +341,14 @@ class GMuteUserData_muteUserBuilder
   GMuteUserData_muteUser build() => _build();
 
   _$GMuteUserData_muteUser _build() {
-    _$GMuteUserData_muteUser _$result;
-    try {
-      _$result = _$v ??
-          new _$GMuteUserData_muteUser._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, r'GMuteUserData_muteUser', 'G__typename'),
-              id: BuiltValueNullFieldError.checkNotNull(
-                  id, r'GMuteUserData_muteUser', 'id'),
-              viewer: _viewer?.build());
-    } catch (_) {
-      late String _$failedField;
-      try {
-        _$failedField = 'viewer';
-        _viewer?.build();
-      } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'GMuteUserData_muteUser', _$failedField, e.toString());
-      }
-      rethrow;
-    }
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GMuteUserData_muteUser_viewer extends GMuteUserData_muteUser_viewer {
-  @override
-  final String G__typename;
-  @override
-  final String id;
-  @override
-  final bool isMuted;
-
-  factory _$GMuteUserData_muteUser_viewer(
-          [void Function(GMuteUserData_muteUser_viewerBuilder)? updates]) =>
-      (new GMuteUserData_muteUser_viewerBuilder()..update(updates))._build();
-
-  _$GMuteUserData_muteUser_viewer._(
-      {required this.G__typename, required this.id, required this.isMuted})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        G__typename, r'GMuteUserData_muteUser_viewer', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(
-        id, r'GMuteUserData_muteUser_viewer', 'id');
-    BuiltValueNullFieldError.checkNotNull(
-        isMuted, r'GMuteUserData_muteUser_viewer', 'isMuted');
-  }
-
-  @override
-  GMuteUserData_muteUser_viewer rebuild(
-          void Function(GMuteUserData_muteUser_viewerBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GMuteUserData_muteUser_viewerBuilder toBuilder() =>
-      new GMuteUserData_muteUser_viewerBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GMuteUserData_muteUser_viewer &&
-        G__typename == other.G__typename &&
-        id == other.id &&
-        isMuted == other.isMuted;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, id.hashCode);
-    _$hash = $jc(_$hash, isMuted.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(r'GMuteUserData_muteUser_viewer')
-          ..add('G__typename', G__typename)
-          ..add('id', id)
-          ..add('isMuted', isMuted))
-        .toString();
-  }
-}
-
-class GMuteUserData_muteUser_viewerBuilder
-    implements
-        Builder<GMuteUserData_muteUser_viewer,
-            GMuteUserData_muteUser_viewerBuilder> {
-  _$GMuteUserData_muteUser_viewer? _$v;
-
-  String? _G__typename;
-  String? get G__typename => _$this._G__typename;
-  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
-
-  String? _id;
-  String? get id => _$this._id;
-  set id(String? id) => _$this._id = id;
-
-  bool? _isMuted;
-  bool? get isMuted => _$this._isMuted;
-  set isMuted(bool? isMuted) => _$this._isMuted = isMuted;
-
-  GMuteUserData_muteUser_viewerBuilder() {
-    GMuteUserData_muteUser_viewer._initializeBuilder(this);
-  }
-
-  GMuteUserData_muteUser_viewerBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _G__typename = $v.G__typename;
-      _id = $v.id;
-      _isMuted = $v.isMuted;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GMuteUserData_muteUser_viewer other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GMuteUserData_muteUser_viewer;
-  }
-
-  @override
-  void update(void Function(GMuteUserData_muteUser_viewerBuilder)? updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GMuteUserData_muteUser_viewer build() => _build();
-
-  _$GMuteUserData_muteUser_viewer _build() {
     final _$result = _$v ??
-        new _$GMuteUserData_muteUser_viewer._(
+        new _$GMuteUserData_muteUser._(
             G__typename: BuiltValueNullFieldError.checkNotNull(
-                G__typename, r'GMuteUserData_muteUser_viewer', 'G__typename'),
+                G__typename, r'GMuteUserData_muteUser', 'G__typename'),
             id: BuiltValueNullFieldError.checkNotNull(
-                id, r'GMuteUserData_muteUser_viewer', 'id'),
+                id, r'GMuteUserData_muteUser', 'id'),
             isMuted: BuiltValueNullFieldError.checkNotNull(
-                isMuted, r'GMuteUserData_muteUser_viewer', 'isMuted'));
+                isMuted, r'GMuteUserData_muteUser', 'isMuted'));
     replace(_$result);
     return _$result;
   }

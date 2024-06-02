@@ -63,7 +63,7 @@ class WorkScreenMedium extends HookConsumerWidget {
                     userId: work.user.id,
                     userName: work.user.name,
                     workTitle: work.title,
-                    isMutedUser: work.user.viewer?.isMuted == true,
+                    isMutedUser: work.user.isMuted == true,
                   );
                 },
               ),
@@ -73,8 +73,8 @@ class WorkScreenMedium extends HookConsumerWidget {
           bottomNavigationBar: WorkBottomAppContainer(
             workId: workId,
             userId: work.user.id,
-            isLiked: work.viewer?.isLiked == true,
-            isFolded: work.viewer?.isBookmarked == true,
+            isLiked: work.isLiked == true,
+            isFolded: false,
           ),
           body: GestureDetector(
             onTap: () {
@@ -94,7 +94,7 @@ class WorkScreenMedium extends HookConsumerWidget {
                       itemBuilder: (context, index) {
                         if (index == 0) {
                           return InteractiveWorkImage(
-                            downloadURL: work.image!.downloadURL,
+                            downloadURL: work.imageURL,
                           );
                         } else {
                           return InteractiveWorkImage(
@@ -121,8 +121,7 @@ class WorkScreenMedium extends HookConsumerWidget {
                                       user: work.user)),
                               if (authUserId.value != work.user.id)
                                 FollowButton(
-                                  isActive:
-                                      work.user.viewer?.isFollowee == true,
+                                  isActive: work.user.isFollowee == true,
                                   onPressed: () {
                                     return onFollowUser(
                                       context,

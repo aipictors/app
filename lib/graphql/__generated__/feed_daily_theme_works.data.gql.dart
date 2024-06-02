@@ -111,7 +111,7 @@ abstract class GFeedDailyThemeWorksData_dailyTheme_works
   @override
   GFeedDailyThemeWorksData_dailyTheme_works_image? get image;
   GFeedDailyThemeWorksData_dailyTheme_works_user get user;
-  GFeedDailyThemeWorksData_dailyTheme_works_viewer? get viewer;
+  bool get isLiked;
   static Serializer<GFeedDailyThemeWorksData_dailyTheme_works> get serializer =>
       _$gFeedDailyThemeWorksDataDailyThemeWorksSerializer;
 
@@ -195,7 +195,9 @@ abstract class GFeedDailyThemeWorksData_dailyTheme_works_user
   String get name;
   @override
   GFeedDailyThemeWorksData_dailyTheme_works_user_iconImage? get iconImage;
-  GFeedDailyThemeWorksData_dailyTheme_works_user_viewer? get viewer;
+  bool get isFollower;
+  bool get isFollowee;
+  bool get isMuted;
   static Serializer<GFeedDailyThemeWorksData_dailyTheme_works_user>
       get serializer => _$gFeedDailyThemeWorksDataDailyThemeWorksUserSerializer;
 
@@ -250,80 +252,6 @@ abstract class GFeedDailyThemeWorksData_dailyTheme_works_user_iconImage
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GFeedDailyThemeWorksData_dailyTheme_works_user_iconImage.serializer,
-        json,
-      );
-}
-
-abstract class GFeedDailyThemeWorksData_dailyTheme_works_user_viewer
-    implements
-        Built<GFeedDailyThemeWorksData_dailyTheme_works_user_viewer,
-            GFeedDailyThemeWorksData_dailyTheme_works_user_viewerBuilder> {
-  GFeedDailyThemeWorksData_dailyTheme_works_user_viewer._();
-
-  factory GFeedDailyThemeWorksData_dailyTheme_works_user_viewer(
-      [void Function(
-              GFeedDailyThemeWorksData_dailyTheme_works_user_viewerBuilder b)
-          updates]) = _$GFeedDailyThemeWorksData_dailyTheme_works_user_viewer;
-
-  static void _initializeBuilder(
-          GFeedDailyThemeWorksData_dailyTheme_works_user_viewerBuilder b) =>
-      b..G__typename = 'UserViewerNode';
-
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  String get id;
-  bool get isFollower;
-  bool get isFollowee;
-  bool get isMuted;
-  static Serializer<GFeedDailyThemeWorksData_dailyTheme_works_user_viewer>
-      get serializer =>
-          _$gFeedDailyThemeWorksDataDailyThemeWorksUserViewerSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GFeedDailyThemeWorksData_dailyTheme_works_user_viewer.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GFeedDailyThemeWorksData_dailyTheme_works_user_viewer? fromJson(
-          Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GFeedDailyThemeWorksData_dailyTheme_works_user_viewer.serializer,
-        json,
-      );
-}
-
-abstract class GFeedDailyThemeWorksData_dailyTheme_works_viewer
-    implements
-        Built<GFeedDailyThemeWorksData_dailyTheme_works_viewer,
-            GFeedDailyThemeWorksData_dailyTheme_works_viewerBuilder> {
-  GFeedDailyThemeWorksData_dailyTheme_works_viewer._();
-
-  factory GFeedDailyThemeWorksData_dailyTheme_works_viewer(
-      [void Function(GFeedDailyThemeWorksData_dailyTheme_works_viewerBuilder b)
-          updates]) = _$GFeedDailyThemeWorksData_dailyTheme_works_viewer;
-
-  static void _initializeBuilder(
-          GFeedDailyThemeWorksData_dailyTheme_works_viewerBuilder b) =>
-      b..G__typename = 'WorkViewerNode';
-
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  String get id;
-  bool get isLiked;
-  bool get isBookmarked;
-  static Serializer<GFeedDailyThemeWorksData_dailyTheme_works_viewer>
-      get serializer =>
-          _$gFeedDailyThemeWorksDataDailyThemeWorksViewerSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GFeedDailyThemeWorksData_dailyTheme_works_viewer.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GFeedDailyThemeWorksData_dailyTheme_works_viewer? fromJson(
-          Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GFeedDailyThemeWorksData_dailyTheme_works_viewer.serializer,
         json,
       );
 }

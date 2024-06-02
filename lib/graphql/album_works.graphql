@@ -5,14 +5,8 @@ query AlbumWorks($albumId: ID!, $offset: Int!, $limit: Int!) {
     id
     works(offset: $offset, limit: $limit) {
       ...PartialFeedWorkFields
-      viewer {
-        id
-        isLiked
-      }
-    }
-    viewer {
-      id
       isLiked
     }
+    isLiked
   }
 }

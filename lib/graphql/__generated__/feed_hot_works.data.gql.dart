@@ -73,7 +73,7 @@ abstract class GFeedHotWorksData_hotWorks
   @override
   GFeedHotWorksData_hotWorks_image? get image;
   GFeedHotWorksData_hotWorks_user get user;
-  GFeedHotWorksData_hotWorks_viewer? get viewer;
+  bool get isLiked;
   static Serializer<GFeedHotWorksData_hotWorks> get serializer =>
       _$gFeedHotWorksDataHotWorksSerializer;
 
@@ -153,7 +153,9 @@ abstract class GFeedHotWorksData_hotWorks_user
   String get name;
   @override
   GFeedHotWorksData_hotWorks_user_iconImage? get iconImage;
-  GFeedHotWorksData_hotWorks_user_viewer? get viewer;
+  bool get isFollower;
+  bool get isFollowee;
+  bool get isMuted;
   static Serializer<GFeedHotWorksData_hotWorks_user> get serializer =>
       _$gFeedHotWorksDataHotWorksUserSerializer;
 
@@ -205,76 +207,6 @@ abstract class GFeedHotWorksData_hotWorks_user_iconImage
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GFeedHotWorksData_hotWorks_user_iconImage.serializer,
-        json,
-      );
-}
-
-abstract class GFeedHotWorksData_hotWorks_user_viewer
-    implements
-        Built<GFeedHotWorksData_hotWorks_user_viewer,
-            GFeedHotWorksData_hotWorks_user_viewerBuilder> {
-  GFeedHotWorksData_hotWorks_user_viewer._();
-
-  factory GFeedHotWorksData_hotWorks_user_viewer(
-      [void Function(GFeedHotWorksData_hotWorks_user_viewerBuilder b)
-          updates]) = _$GFeedHotWorksData_hotWorks_user_viewer;
-
-  static void _initializeBuilder(
-          GFeedHotWorksData_hotWorks_user_viewerBuilder b) =>
-      b..G__typename = 'UserViewerNode';
-
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  String get id;
-  bool get isFollower;
-  bool get isFollowee;
-  bool get isMuted;
-  static Serializer<GFeedHotWorksData_hotWorks_user_viewer> get serializer =>
-      _$gFeedHotWorksDataHotWorksUserViewerSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GFeedHotWorksData_hotWorks_user_viewer.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GFeedHotWorksData_hotWorks_user_viewer? fromJson(
-          Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GFeedHotWorksData_hotWorks_user_viewer.serializer,
-        json,
-      );
-}
-
-abstract class GFeedHotWorksData_hotWorks_viewer
-    implements
-        Built<GFeedHotWorksData_hotWorks_viewer,
-            GFeedHotWorksData_hotWorks_viewerBuilder> {
-  GFeedHotWorksData_hotWorks_viewer._();
-
-  factory GFeedHotWorksData_hotWorks_viewer(
-          [void Function(GFeedHotWorksData_hotWorks_viewerBuilder b) updates]) =
-      _$GFeedHotWorksData_hotWorks_viewer;
-
-  static void _initializeBuilder(GFeedHotWorksData_hotWorks_viewerBuilder b) =>
-      b..G__typename = 'WorkViewerNode';
-
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  String get id;
-  bool get isLiked;
-  bool get isBookmarked;
-  static Serializer<GFeedHotWorksData_hotWorks_viewer> get serializer =>
-      _$gFeedHotWorksDataHotWorksViewerSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GFeedHotWorksData_hotWorks_viewer.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GFeedHotWorksData_hotWorks_viewer? fromJson(
-          Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GFeedHotWorksData_hotWorks_viewer.serializer,
         json,
       );
 }

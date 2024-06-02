@@ -9,8 +9,6 @@ part of 'tags.data.gql.dart';
 Serializer<GTagsData> _$gTagsDataSerializer = new _$GTagsDataSerializer();
 Serializer<GTagsData_tags> _$gTagsDataTagsSerializer =
     new _$GTagsData_tagsSerializer();
-Serializer<GTagsData_tags_viewer> _$gTagsDataTagsViewerSerializer =
-    new _$GTagsData_tags_viewerSerializer();
 
 class _$GTagsDataSerializer implements StructuredSerializer<GTagsData> {
   @override
@@ -80,15 +78,17 @@ class _$GTagsData_tagsSerializer
       serializers.serialize(object.id, specifiedType: const FullType(String)),
       'name',
       serializers.serialize(object.name, specifiedType: const FullType(String)),
+      'isLiked',
+      serializers.serialize(object.isLiked,
+          specifiedType: const FullType(bool)),
+      'isWatched',
+      serializers.serialize(object.isWatched,
+          specifiedType: const FullType(bool)),
+      'isMuted',
+      serializers.serialize(object.isMuted,
+          specifiedType: const FullType(bool)),
     ];
-    Object? value;
-    value = object.viewer;
-    if (value != null) {
-      result
-        ..add('viewer')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(GTagsData_tags_viewer)));
-    }
+
     return result;
   }
 
@@ -114,66 +114,6 @@ class _$GTagsData_tagsSerializer
           break;
         case 'name':
           result.name = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'viewer':
-          result.viewer.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(GTagsData_tags_viewer))!
-              as GTagsData_tags_viewer);
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GTagsData_tags_viewerSerializer
-    implements StructuredSerializer<GTagsData_tags_viewer> {
-  @override
-  final Iterable<Type> types = const [
-    GTagsData_tags_viewer,
-    _$GTagsData_tags_viewer
-  ];
-  @override
-  final String wireName = 'GTagsData_tags_viewer';
-
-  @override
-  Iterable<Object?> serialize(
-      Serializers serializers, GTagsData_tags_viewer object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
-      'isLiked',
-      serializers.serialize(object.isLiked,
-          specifiedType: const FullType(bool)),
-      'isWatched',
-      serializers.serialize(object.isWatched,
-          specifiedType: const FullType(bool)),
-      'isMuted',
-      serializers.serialize(object.isMuted,
-          specifiedType: const FullType(bool)),
-    ];
-
-    return result;
-  }
-
-  @override
-  GTagsData_tags_viewer deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GTagsData_tags_viewerBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case '__typename':
-          result.G__typename = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
         case 'isLiked':
@@ -315,7 +255,11 @@ class _$GTagsData_tags extends GTagsData_tags {
   @override
   final String name;
   @override
-  final GTagsData_tags_viewer? viewer;
+  final bool isLiked;
+  @override
+  final bool isWatched;
+  @override
+  final bool isMuted;
 
   factory _$GTagsData_tags([void Function(GTagsData_tagsBuilder)? updates]) =>
       (new GTagsData_tagsBuilder()..update(updates))._build();
@@ -324,12 +268,20 @@ class _$GTagsData_tags extends GTagsData_tags {
       {required this.G__typename,
       required this.id,
       required this.name,
-      this.viewer})
+      required this.isLiked,
+      required this.isWatched,
+      required this.isMuted})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename, r'GTagsData_tags', 'G__typename');
     BuiltValueNullFieldError.checkNotNull(id, r'GTagsData_tags', 'id');
     BuiltValueNullFieldError.checkNotNull(name, r'GTagsData_tags', 'name');
+    BuiltValueNullFieldError.checkNotNull(
+        isLiked, r'GTagsData_tags', 'isLiked');
+    BuiltValueNullFieldError.checkNotNull(
+        isWatched, r'GTagsData_tags', 'isWatched');
+    BuiltValueNullFieldError.checkNotNull(
+        isMuted, r'GTagsData_tags', 'isMuted');
   }
 
   @override
@@ -347,7 +299,9 @@ class _$GTagsData_tags extends GTagsData_tags {
         G__typename == other.G__typename &&
         id == other.id &&
         name == other.name &&
-        viewer == other.viewer;
+        isLiked == other.isLiked &&
+        isWatched == other.isWatched &&
+        isMuted == other.isMuted;
   }
 
   @override
@@ -356,7 +310,9 @@ class _$GTagsData_tags extends GTagsData_tags {
     _$hash = $jc(_$hash, G__typename.hashCode);
     _$hash = $jc(_$hash, id.hashCode);
     _$hash = $jc(_$hash, name.hashCode);
-    _$hash = $jc(_$hash, viewer.hashCode);
+    _$hash = $jc(_$hash, isLiked.hashCode);
+    _$hash = $jc(_$hash, isWatched.hashCode);
+    _$hash = $jc(_$hash, isMuted.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -367,7 +323,9 @@ class _$GTagsData_tags extends GTagsData_tags {
           ..add('G__typename', G__typename)
           ..add('id', id)
           ..add('name', name)
-          ..add('viewer', viewer))
+          ..add('isLiked', isLiked)
+          ..add('isWatched', isWatched)
+          ..add('isMuted', isMuted))
         .toString();
   }
 }
@@ -388,10 +346,17 @@ class GTagsData_tagsBuilder
   String? get name => _$this._name;
   set name(String? name) => _$this._name = name;
 
-  GTagsData_tags_viewerBuilder? _viewer;
-  GTagsData_tags_viewerBuilder get viewer =>
-      _$this._viewer ??= new GTagsData_tags_viewerBuilder();
-  set viewer(GTagsData_tags_viewerBuilder? viewer) => _$this._viewer = viewer;
+  bool? _isLiked;
+  bool? get isLiked => _$this._isLiked;
+  set isLiked(bool? isLiked) => _$this._isLiked = isLiked;
+
+  bool? _isWatched;
+  bool? get isWatched => _$this._isWatched;
+  set isWatched(bool? isWatched) => _$this._isWatched = isWatched;
+
+  bool? _isMuted;
+  bool? get isMuted => _$this._isMuted;
+  set isMuted(bool? isMuted) => _$this._isMuted = isMuted;
 
   GTagsData_tagsBuilder() {
     GTagsData_tags._initializeBuilder(this);
@@ -403,7 +368,9 @@ class GTagsData_tagsBuilder
       _G__typename = $v.G__typename;
       _id = $v.id;
       _name = $v.name;
-      _viewer = $v.viewer?.toBuilder();
+      _isLiked = $v.isLiked;
+      _isWatched = $v.isWatched;
+      _isMuted = $v.isMuted;
       _$v = null;
     }
     return this;
@@ -424,165 +391,20 @@ class GTagsData_tagsBuilder
   GTagsData_tags build() => _build();
 
   _$GTagsData_tags _build() {
-    _$GTagsData_tags _$result;
-    try {
-      _$result = _$v ??
-          new _$GTagsData_tags._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, r'GTagsData_tags', 'G__typename'),
-              id: BuiltValueNullFieldError.checkNotNull(
-                  id, r'GTagsData_tags', 'id'),
-              name: BuiltValueNullFieldError.checkNotNull(
-                  name, r'GTagsData_tags', 'name'),
-              viewer: _viewer?.build());
-    } catch (_) {
-      late String _$failedField;
-      try {
-        _$failedField = 'viewer';
-        _viewer?.build();
-      } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'GTagsData_tags', _$failedField, e.toString());
-      }
-      rethrow;
-    }
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GTagsData_tags_viewer extends GTagsData_tags_viewer {
-  @override
-  final String G__typename;
-  @override
-  final bool isLiked;
-  @override
-  final bool isWatched;
-  @override
-  final bool isMuted;
-
-  factory _$GTagsData_tags_viewer(
-          [void Function(GTagsData_tags_viewerBuilder)? updates]) =>
-      (new GTagsData_tags_viewerBuilder()..update(updates))._build();
-
-  _$GTagsData_tags_viewer._(
-      {required this.G__typename,
-      required this.isLiked,
-      required this.isWatched,
-      required this.isMuted})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        G__typename, r'GTagsData_tags_viewer', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(
-        isLiked, r'GTagsData_tags_viewer', 'isLiked');
-    BuiltValueNullFieldError.checkNotNull(
-        isWatched, r'GTagsData_tags_viewer', 'isWatched');
-    BuiltValueNullFieldError.checkNotNull(
-        isMuted, r'GTagsData_tags_viewer', 'isMuted');
-  }
-
-  @override
-  GTagsData_tags_viewer rebuild(
-          void Function(GTagsData_tags_viewerBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GTagsData_tags_viewerBuilder toBuilder() =>
-      new GTagsData_tags_viewerBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GTagsData_tags_viewer &&
-        G__typename == other.G__typename &&
-        isLiked == other.isLiked &&
-        isWatched == other.isWatched &&
-        isMuted == other.isMuted;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, isLiked.hashCode);
-    _$hash = $jc(_$hash, isWatched.hashCode);
-    _$hash = $jc(_$hash, isMuted.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(r'GTagsData_tags_viewer')
-          ..add('G__typename', G__typename)
-          ..add('isLiked', isLiked)
-          ..add('isWatched', isWatched)
-          ..add('isMuted', isMuted))
-        .toString();
-  }
-}
-
-class GTagsData_tags_viewerBuilder
-    implements Builder<GTagsData_tags_viewer, GTagsData_tags_viewerBuilder> {
-  _$GTagsData_tags_viewer? _$v;
-
-  String? _G__typename;
-  String? get G__typename => _$this._G__typename;
-  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
-
-  bool? _isLiked;
-  bool? get isLiked => _$this._isLiked;
-  set isLiked(bool? isLiked) => _$this._isLiked = isLiked;
-
-  bool? _isWatched;
-  bool? get isWatched => _$this._isWatched;
-  set isWatched(bool? isWatched) => _$this._isWatched = isWatched;
-
-  bool? _isMuted;
-  bool? get isMuted => _$this._isMuted;
-  set isMuted(bool? isMuted) => _$this._isMuted = isMuted;
-
-  GTagsData_tags_viewerBuilder() {
-    GTagsData_tags_viewer._initializeBuilder(this);
-  }
-
-  GTagsData_tags_viewerBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _G__typename = $v.G__typename;
-      _isLiked = $v.isLiked;
-      _isWatched = $v.isWatched;
-      _isMuted = $v.isMuted;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GTagsData_tags_viewer other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GTagsData_tags_viewer;
-  }
-
-  @override
-  void update(void Function(GTagsData_tags_viewerBuilder)? updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GTagsData_tags_viewer build() => _build();
-
-  _$GTagsData_tags_viewer _build() {
     final _$result = _$v ??
-        new _$GTagsData_tags_viewer._(
+        new _$GTagsData_tags._(
             G__typename: BuiltValueNullFieldError.checkNotNull(
-                G__typename, r'GTagsData_tags_viewer', 'G__typename'),
+                G__typename, r'GTagsData_tags', 'G__typename'),
+            id: BuiltValueNullFieldError.checkNotNull(
+                id, r'GTagsData_tags', 'id'),
+            name: BuiltValueNullFieldError.checkNotNull(
+                name, r'GTagsData_tags', 'name'),
             isLiked: BuiltValueNullFieldError.checkNotNull(
-                isLiked, r'GTagsData_tags_viewer', 'isLiked'),
+                isLiked, r'GTagsData_tags', 'isLiked'),
             isWatched: BuiltValueNullFieldError.checkNotNull(
-                isWatched, r'GTagsData_tags_viewer', 'isWatched'),
+                isWatched, r'GTagsData_tags', 'isWatched'),
             isMuted: BuiltValueNullFieldError.checkNotNull(
-                isMuted, r'GTagsData_tags_viewer', 'isMuted'));
+                isMuted, r'GTagsData_tags', 'isMuted'));
     replace(_$result);
     return _$result;
   }

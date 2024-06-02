@@ -151,9 +151,9 @@ abstract class GViewerImageGenerationTasksData_viewer_imageGenerationTasks
   @override
   bool? get controlNetEnabled;
   @override
-  int? get controlNetGuidanceEnd;
+  double? get controlNetGuidanceEnd;
   @override
-  int? get controlNetGuidanceStart;
+  double? get controlNetGuidanceStart;
   @override
   bool? get controlNetPixelPerfect;
   @override

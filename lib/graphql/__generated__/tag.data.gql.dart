@@ -46,7 +46,9 @@ abstract class GTagData_tag
   String get G__typename;
   String get id;
   String get name;
-  GTagData_tag_viewer? get viewer;
+  bool get isLiked;
+  bool get isWatched;
+  bool get isMuted;
   static Serializer<GTagData_tag> get serializer => _$gTagDataTagSerializer;
 
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
@@ -57,37 +59,6 @@ abstract class GTagData_tag
   static GTagData_tag? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GTagData_tag.serializer,
-        json,
-      );
-}
-
-abstract class GTagData_tag_viewer
-    implements Built<GTagData_tag_viewer, GTagData_tag_viewerBuilder> {
-  GTagData_tag_viewer._();
-
-  factory GTagData_tag_viewer(
-          [void Function(GTagData_tag_viewerBuilder b) updates]) =
-      _$GTagData_tag_viewer;
-
-  static void _initializeBuilder(GTagData_tag_viewerBuilder b) =>
-      b..G__typename = 'TagViewerNode';
-
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  bool get isLiked;
-  bool get isWatched;
-  bool get isMuted;
-  static Serializer<GTagData_tag_viewer> get serializer =>
-      _$gTagDataTagViewerSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GTagData_tag_viewer.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GTagData_tag_viewer? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GTagData_tag_viewer.serializer,
         json,
       );
 }

@@ -37,8 +37,8 @@ abstract class GImageGenerationTaskFields {
   int? get estimatedSeconds;
   String? get controlNetControlMode;
   bool? get controlNetEnabled;
-  int? get controlNetGuidanceEnd;
-  int? get controlNetGuidanceStart;
+  double? get controlNetGuidanceEnd;
+  double? get controlNetGuidanceStart;
   bool? get controlNetPixelPerfect;
   int? get controlNetProcessorRes;
   String? get controlNetResizeMode;
@@ -135,9 +135,9 @@ abstract class GImageGenerationTaskFieldsData
   @override
   bool? get controlNetEnabled;
   @override
-  int? get controlNetGuidanceEnd;
+  double? get controlNetGuidanceEnd;
   @override
-  int? get controlNetGuidanceStart;
+  double? get controlNetGuidanceStart;
   @override
   bool? get controlNetPixelPerfect;
   @override

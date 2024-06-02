@@ -84,10 +84,10 @@ class FeedPopularWorksView extends HookConsumerWidget {
                   userIconImageURL: work.user.iconImage?.downloadURL,
                   likesCount: work.likesCount,
                   commentsCount: work.commentsCount,
-                  isLiked: work.viewer?.isLiked == true,
-                  isBookmarked: work.viewer?.isBookmarked == true,
-                  isFollowee: work.user.viewer?.isFollowee == true,
-                  isMutedUser: work.user.viewer?.isMuted == true,
+                  isLiked: work.isLiked == true,
+                  isBookmarked: false,
+                  isFollowee: work.user.isFollowee == true,
+                  isMutedUser: work.user.isMuted == true,
                 );
               },
             );

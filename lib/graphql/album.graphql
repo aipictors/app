@@ -8,11 +8,9 @@ query Album($id: ID!) {
     description
     user {
       ...WorkUserFields
-      viewer {
-        isFollowee
-        isFollowee
-        isMuted
-      }
+      isFollowee
+      isFollowee
+      isMuted
     }
     createdAt
     isSensitive

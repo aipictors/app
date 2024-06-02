@@ -54,7 +54,7 @@ abstract class GAlbumWorksData_album
   String get G__typename;
   String get id;
   BuiltList<GAlbumWorksData_album_works> get works;
-  GAlbumWorksData_album_viewer? get viewer;
+  bool get isLiked;
   static Serializer<GAlbumWorksData_album> get serializer =>
       _$gAlbumWorksDataAlbumSerializer;
 
@@ -100,7 +100,7 @@ abstract class GAlbumWorksData_album_works
   double get imageAspectRatio;
   @override
   GAlbumWorksData_album_works_image? get image;
-  GAlbumWorksData_album_works_viewer? get viewer;
+  bool get isLiked;
   static Serializer<GAlbumWorksData_album_works> get serializer =>
       _$gAlbumWorksDataAlbumWorksSerializer;
 
@@ -151,71 +151,6 @@ abstract class GAlbumWorksData_album_works_image
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GAlbumWorksData_album_works_image.serializer,
-        json,
-      );
-}
-
-abstract class GAlbumWorksData_album_works_viewer
-    implements
-        Built<GAlbumWorksData_album_works_viewer,
-            GAlbumWorksData_album_works_viewerBuilder> {
-  GAlbumWorksData_album_works_viewer._();
-
-  factory GAlbumWorksData_album_works_viewer(
-      [void Function(GAlbumWorksData_album_works_viewerBuilder b)
-          updates]) = _$GAlbumWorksData_album_works_viewer;
-
-  static void _initializeBuilder(GAlbumWorksData_album_works_viewerBuilder b) =>
-      b..G__typename = 'WorkViewerNode';
-
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  String get id;
-  bool get isLiked;
-  static Serializer<GAlbumWorksData_album_works_viewer> get serializer =>
-      _$gAlbumWorksDataAlbumWorksViewerSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GAlbumWorksData_album_works_viewer.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GAlbumWorksData_album_works_viewer? fromJson(
-          Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GAlbumWorksData_album_works_viewer.serializer,
-        json,
-      );
-}
-
-abstract class GAlbumWorksData_album_viewer
-    implements
-        Built<GAlbumWorksData_album_viewer,
-            GAlbumWorksData_album_viewerBuilder> {
-  GAlbumWorksData_album_viewer._();
-
-  factory GAlbumWorksData_album_viewer(
-          [void Function(GAlbumWorksData_album_viewerBuilder b) updates]) =
-      _$GAlbumWorksData_album_viewer;
-
-  static void _initializeBuilder(GAlbumWorksData_album_viewerBuilder b) =>
-      b..G__typename = 'AlbumViewerNode';
-
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  String get id;
-  bool get isLiked;
-  static Serializer<GAlbumWorksData_album_viewer> get serializer =>
-      _$gAlbumWorksDataAlbumViewerSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GAlbumWorksData_album_viewer.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GAlbumWorksData_album_viewer? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GAlbumWorksData_album_viewer.serializer,
         json,
       );
 }
