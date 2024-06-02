@@ -76,7 +76,7 @@ class AlbumScreen extends HookConsumerWidget {
                         userName: album.user.name,
                         albumTitle: album.title,
                         albumSlug: album.slug!,
-                        isMutedUser: album.user.viewer?.isMuted == true,
+                        isMutedUser: album.user.isMuted == true,
                       );
                     },
                   ),
@@ -91,7 +91,7 @@ class AlbumScreen extends HookConsumerWidget {
                 userId: album.user.id,
                 userName: album.user.name,
                 userIconImageURL: album.user.iconImage?.downloadURL,
-                isFollowee: album.user.viewer?.isFollowee == true,
+                isFollowee: album.user.isFollowee == true,
               ),
             );
           },

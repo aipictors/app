@@ -2,9 +2,9 @@ import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/graphql/__generated__/sticker.req.gql.dart';
 import 'package:aipictors/graphql/mutations/__generated__/create_user_sticker.data.gql.dart';
 import 'package:aipictors/graphql/mutations/__generated__/delete_user_sticker.data.gql.dart';
+import 'package:aipictors/mutations/create_user_sticker.dart';
 import 'package:aipictors/mutations/delete_user_sticker.dart';
 import 'package:aipictors/mutations/follow_user.dart';
-import 'package:aipictors/mutations/create_user_sticker.dart';
 import 'package:aipictors/providers/auth_user_id_provider.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/screens/error/data_not_found_error_screen.dart';
@@ -69,7 +69,7 @@ class StickerScreen extends HookConsumerWidget {
                     context,
                     userId: sticker.user.id,
                     userName: sticker.user.name,
-                    isMutedUser: sticker.user.viewer?.isMuted == true,
+                    isMutedUser: sticker.user.isMuted == true,
                   );
                 },
               ),
@@ -97,7 +97,7 @@ class StickerScreen extends HookConsumerWidget {
                           if (authUserId.value != null &&
                               authUserId.value != sticker.user.id)
                             FollowButton(
-                              isActive: sticker.user.viewer?.isFollowee == true,
+                              isActive: sticker.user.isFollowee == true,
                               onPressed: () {
                                 return onFollowUser(
                                   context,

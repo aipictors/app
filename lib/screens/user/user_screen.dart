@@ -53,7 +53,7 @@ class UserScreen extends HookConsumerWidget {
                       context,
                       userName: user.name,
                       userIconImageURL: user.iconImage?.downloadURL,
-                      isMutedUser: user.viewer?.isMuted == true,
+                      isMutedUser: user.isMuted == true,
                     );
                   },
                 ),
@@ -79,7 +79,7 @@ class UserScreen extends HookConsumerWidget {
                             userId: user.id,
                             userLogin: user.login,
                             userName: user.name,
-                            isFollowee: user.viewer?.isFollowee == true,
+                            isFollowee: user.isFollowee == true,
                           ),
                           UserProfileContainer(
                             userId: user.id,
