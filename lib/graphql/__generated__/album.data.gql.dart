@@ -95,7 +95,8 @@ abstract class GAlbumData_album_user
   String get login;
   @override
   GAlbumData_album_user_iconImage? get iconImage;
-  GAlbumData_album_user_viewer? get viewer;
+  bool get isFollowee;
+  bool get isMuted;
   static Serializer<GAlbumData_album_user> get serializer =>
       _$gAlbumDataAlbumUserSerializer;
 
@@ -145,38 +146,6 @@ abstract class GAlbumData_album_user_iconImage
   static GAlbumData_album_user_iconImage? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GAlbumData_album_user_iconImage.serializer,
-        json,
-      );
-}
-
-abstract class GAlbumData_album_user_viewer
-    implements
-        Built<GAlbumData_album_user_viewer,
-            GAlbumData_album_user_viewerBuilder> {
-  GAlbumData_album_user_viewer._();
-
-  factory GAlbumData_album_user_viewer(
-          [void Function(GAlbumData_album_user_viewerBuilder b) updates]) =
-      _$GAlbumData_album_user_viewer;
-
-  static void _initializeBuilder(GAlbumData_album_user_viewerBuilder b) =>
-      b..G__typename = 'UserViewerNode';
-
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  bool get isFollowee;
-  bool get isMuted;
-  static Serializer<GAlbumData_album_user_viewer> get serializer =>
-      _$gAlbumDataAlbumUserViewerSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GAlbumData_album_user_viewer.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GAlbumData_album_user_viewer? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GAlbumData_album_user_viewer.serializer,
         json,
       );
 }

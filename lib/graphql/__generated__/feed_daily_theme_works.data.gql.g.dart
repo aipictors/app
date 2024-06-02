@@ -23,12 +23,6 @@ Serializer<GFeedDailyThemeWorksData_dailyTheme_works_user>
 Serializer<GFeedDailyThemeWorksData_dailyTheme_works_user_iconImage>
     _$gFeedDailyThemeWorksDataDailyThemeWorksUserIconImageSerializer =
     new _$GFeedDailyThemeWorksData_dailyTheme_works_user_iconImageSerializer();
-Serializer<GFeedDailyThemeWorksData_dailyTheme_works_user_viewer>
-    _$gFeedDailyThemeWorksDataDailyThemeWorksUserViewerSerializer =
-    new _$GFeedDailyThemeWorksData_dailyTheme_works_user_viewerSerializer();
-Serializer<GFeedDailyThemeWorksData_dailyTheme_works_viewer>
-    _$gFeedDailyThemeWorksDataDailyThemeWorksViewerSerializer =
-    new _$GFeedDailyThemeWorksData_dailyTheme_works_viewerSerializer();
 
 class _$GFeedDailyThemeWorksDataSerializer
     implements StructuredSerializer<GFeedDailyThemeWorksData> {
@@ -199,6 +193,9 @@ class _$GFeedDailyThemeWorksData_dailyTheme_worksSerializer
       serializers.serialize(object.user,
           specifiedType:
               const FullType(GFeedDailyThemeWorksData_dailyTheme_works_user)),
+      'isLiked',
+      serializers.serialize(object.isLiked,
+          specifiedType: const FullType(bool)),
     ];
     Object? value;
     value = object.image;
@@ -208,14 +205,6 @@ class _$GFeedDailyThemeWorksData_dailyTheme_worksSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(
                 GFeedDailyThemeWorksData_dailyTheme_works_image)));
-    }
-    value = object.viewer;
-    if (value != null) {
-      result
-        ..add('viewer')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(
-                GFeedDailyThemeWorksData_dailyTheme_works_viewer)));
     }
     return result;
   }
@@ -272,11 +261,9 @@ class _$GFeedDailyThemeWorksData_dailyTheme_worksSerializer
                       GFeedDailyThemeWorksData_dailyTheme_works_user))!
               as GFeedDailyThemeWorksData_dailyTheme_works_user);
           break;
-        case 'viewer':
-          result.viewer.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      GFeedDailyThemeWorksData_dailyTheme_works_viewer))!
-              as GFeedDailyThemeWorksData_dailyTheme_works_viewer);
+        case 'isLiked':
+          result.isLiked = serializers.deserialize(value,
+              specifiedType: const FullType(bool))! as bool;
           break;
       }
     }
@@ -371,6 +358,15 @@ class _$GFeedDailyThemeWorksData_dailyTheme_works_userSerializer
           specifiedType: const FullType(String)),
       'name',
       serializers.serialize(object.name, specifiedType: const FullType(String)),
+      'isFollower',
+      serializers.serialize(object.isFollower,
+          specifiedType: const FullType(bool)),
+      'isFollowee',
+      serializers.serialize(object.isFollowee,
+          specifiedType: const FullType(bool)),
+      'isMuted',
+      serializers.serialize(object.isMuted,
+          specifiedType: const FullType(bool)),
     ];
     Object? value;
     value = object.iconImage;
@@ -380,14 +376,6 @@ class _$GFeedDailyThemeWorksData_dailyTheme_works_userSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(
                 GFeedDailyThemeWorksData_dailyTheme_works_user_iconImage)));
-    }
-    value = object.viewer;
-    if (value != null) {
-      result
-        ..add('viewer')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(
-                GFeedDailyThemeWorksData_dailyTheme_works_user_viewer)));
     }
     return result;
   }
@@ -426,11 +414,17 @@ class _$GFeedDailyThemeWorksData_dailyTheme_works_userSerializer
                       GFeedDailyThemeWorksData_dailyTheme_works_user_iconImage))!
               as GFeedDailyThemeWorksData_dailyTheme_works_user_iconImage);
           break;
-        case 'viewer':
-          result.viewer.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      GFeedDailyThemeWorksData_dailyTheme_works_user_viewer))!
-              as GFeedDailyThemeWorksData_dailyTheme_works_user_viewer);
+        case 'isFollower':
+          result.isFollower = serializers.deserialize(value,
+              specifiedType: const FullType(bool))! as bool;
+          break;
+        case 'isFollowee':
+          result.isFollowee = serializers.deserialize(value,
+              specifiedType: const FullType(bool))! as bool;
+          break;
+        case 'isMuted':
+          result.isMuted = serializers.deserialize(value,
+              specifiedType: const FullType(bool))! as bool;
           break;
       }
     }
@@ -494,151 +488,6 @@ class _$GFeedDailyThemeWorksData_dailyTheme_works_user_iconImageSerializer
         case 'downloadURL':
           result.downloadURL = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GFeedDailyThemeWorksData_dailyTheme_works_user_viewerSerializer
-    implements
-        StructuredSerializer<
-            GFeedDailyThemeWorksData_dailyTheme_works_user_viewer> {
-  @override
-  final Iterable<Type> types = const [
-    GFeedDailyThemeWorksData_dailyTheme_works_user_viewer,
-    _$GFeedDailyThemeWorksData_dailyTheme_works_user_viewer
-  ];
-  @override
-  final String wireName =
-      'GFeedDailyThemeWorksData_dailyTheme_works_user_viewer';
-
-  @override
-  Iterable<Object?> serialize(Serializers serializers,
-      GFeedDailyThemeWorksData_dailyTheme_works_user_viewer object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
-      'id',
-      serializers.serialize(object.id, specifiedType: const FullType(String)),
-      'isFollower',
-      serializers.serialize(object.isFollower,
-          specifiedType: const FullType(bool)),
-      'isFollowee',
-      serializers.serialize(object.isFollowee,
-          specifiedType: const FullType(bool)),
-      'isMuted',
-      serializers.serialize(object.isMuted,
-          specifiedType: const FullType(bool)),
-    ];
-
-    return result;
-  }
-
-  @override
-  GFeedDailyThemeWorksData_dailyTheme_works_user_viewer deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result =
-        new GFeedDailyThemeWorksData_dailyTheme_works_user_viewerBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'id':
-          result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'isFollower':
-          result.isFollower = serializers.deserialize(value,
-              specifiedType: const FullType(bool))! as bool;
-          break;
-        case 'isFollowee':
-          result.isFollowee = serializers.deserialize(value,
-              specifiedType: const FullType(bool))! as bool;
-          break;
-        case 'isMuted':
-          result.isMuted = serializers.deserialize(value,
-              specifiedType: const FullType(bool))! as bool;
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GFeedDailyThemeWorksData_dailyTheme_works_viewerSerializer
-    implements
-        StructuredSerializer<GFeedDailyThemeWorksData_dailyTheme_works_viewer> {
-  @override
-  final Iterable<Type> types = const [
-    GFeedDailyThemeWorksData_dailyTheme_works_viewer,
-    _$GFeedDailyThemeWorksData_dailyTheme_works_viewer
-  ];
-  @override
-  final String wireName = 'GFeedDailyThemeWorksData_dailyTheme_works_viewer';
-
-  @override
-  Iterable<Object?> serialize(Serializers serializers,
-      GFeedDailyThemeWorksData_dailyTheme_works_viewer object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
-      'id',
-      serializers.serialize(object.id, specifiedType: const FullType(String)),
-      'isLiked',
-      serializers.serialize(object.isLiked,
-          specifiedType: const FullType(bool)),
-      'isBookmarked',
-      serializers.serialize(object.isBookmarked,
-          specifiedType: const FullType(bool)),
-    ];
-
-    return result;
-  }
-
-  @override
-  GFeedDailyThemeWorksData_dailyTheme_works_viewer deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result =
-        new GFeedDailyThemeWorksData_dailyTheme_works_viewerBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'id':
-          result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'isLiked':
-          result.isLiked = serializers.deserialize(value,
-              specifiedType: const FullType(bool))! as bool;
-          break;
-        case 'isBookmarked':
-          result.isBookmarked = serializers.deserialize(value,
-              specifiedType: const FullType(bool))! as bool;
           break;
       }
     }
@@ -946,7 +795,7 @@ class _$GFeedDailyThemeWorksData_dailyTheme_works
   @override
   final GFeedDailyThemeWorksData_dailyTheme_works_user user;
   @override
-  final GFeedDailyThemeWorksData_dailyTheme_works_viewer? viewer;
+  final bool isLiked;
 
   factory _$GFeedDailyThemeWorksData_dailyTheme_works(
           [void Function(GFeedDailyThemeWorksData_dailyTheme_worksBuilder)?
@@ -964,7 +813,7 @@ class _$GFeedDailyThemeWorksData_dailyTheme_works
       required this.imageAspectRatio,
       this.image,
       required this.user,
-      this.viewer})
+      required this.isLiked})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(G__typename,
         r'GFeedDailyThemeWorksData_dailyTheme_works', 'G__typename');
@@ -982,6 +831,8 @@ class _$GFeedDailyThemeWorksData_dailyTheme_works
         r'GFeedDailyThemeWorksData_dailyTheme_works', 'imageAspectRatio');
     BuiltValueNullFieldError.checkNotNull(
         user, r'GFeedDailyThemeWorksData_dailyTheme_works', 'user');
+    BuiltValueNullFieldError.checkNotNull(
+        isLiked, r'GFeedDailyThemeWorksData_dailyTheme_works', 'isLiked');
   }
 
   @override
@@ -1007,7 +858,7 @@ class _$GFeedDailyThemeWorksData_dailyTheme_works
         imageAspectRatio == other.imageAspectRatio &&
         image == other.image &&
         user == other.user &&
-        viewer == other.viewer;
+        isLiked == other.isLiked;
   }
 
   @override
@@ -1022,7 +873,7 @@ class _$GFeedDailyThemeWorksData_dailyTheme_works
     _$hash = $jc(_$hash, imageAspectRatio.hashCode);
     _$hash = $jc(_$hash, image.hashCode);
     _$hash = $jc(_$hash, user.hashCode);
-    _$hash = $jc(_$hash, viewer.hashCode);
+    _$hash = $jc(_$hash, isLiked.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -1040,7 +891,7 @@ class _$GFeedDailyThemeWorksData_dailyTheme_works
           ..add('imageAspectRatio', imageAspectRatio)
           ..add('image', image)
           ..add('user', user)
-          ..add('viewer', viewer))
+          ..add('isLiked', isLiked))
         .toString();
   }
 }
@@ -1095,12 +946,9 @@ class GFeedDailyThemeWorksData_dailyTheme_worksBuilder
   set user(GFeedDailyThemeWorksData_dailyTheme_works_userBuilder? user) =>
       _$this._user = user;
 
-  GFeedDailyThemeWorksData_dailyTheme_works_viewerBuilder? _viewer;
-  GFeedDailyThemeWorksData_dailyTheme_works_viewerBuilder get viewer =>
-      _$this._viewer ??=
-          new GFeedDailyThemeWorksData_dailyTheme_works_viewerBuilder();
-  set viewer(GFeedDailyThemeWorksData_dailyTheme_works_viewerBuilder? viewer) =>
-      _$this._viewer = viewer;
+  bool? _isLiked;
+  bool? get isLiked => _$this._isLiked;
+  set isLiked(bool? isLiked) => _$this._isLiked = isLiked;
 
   GFeedDailyThemeWorksData_dailyTheme_worksBuilder() {
     GFeedDailyThemeWorksData_dailyTheme_works._initializeBuilder(this);
@@ -1118,7 +966,7 @@ class GFeedDailyThemeWorksData_dailyTheme_worksBuilder
       _imageAspectRatio = $v.imageAspectRatio;
       _image = $v.image?.toBuilder();
       _user = $v.user.toBuilder();
-      _viewer = $v.viewer?.toBuilder();
+      _isLiked = $v.isLiked;
       _$v = null;
     }
     return this;
@@ -1161,7 +1009,7 @@ class GFeedDailyThemeWorksData_dailyTheme_worksBuilder
                   imageAspectRatio, r'GFeedDailyThemeWorksData_dailyTheme_works', 'imageAspectRatio'),
               image: _image?.build(),
               user: user.build(),
-              viewer: _viewer?.build());
+              isLiked: BuiltValueNullFieldError.checkNotNull(isLiked, r'GFeedDailyThemeWorksData_dailyTheme_works', 'isLiked'));
     } catch (_) {
       late String _$failedField;
       try {
@@ -1169,8 +1017,6 @@ class GFeedDailyThemeWorksData_dailyTheme_worksBuilder
         _image?.build();
         _$failedField = 'user';
         user.build();
-        _$failedField = 'viewer';
-        _viewer?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'GFeedDailyThemeWorksData_dailyTheme_works',
@@ -1333,7 +1179,11 @@ class _$GFeedDailyThemeWorksData_dailyTheme_works_user
   @override
   final GFeedDailyThemeWorksData_dailyTheme_works_user_iconImage? iconImage;
   @override
-  final GFeedDailyThemeWorksData_dailyTheme_works_user_viewer? viewer;
+  final bool isFollower;
+  @override
+  final bool isFollowee;
+  @override
+  final bool isMuted;
 
   factory _$GFeedDailyThemeWorksData_dailyTheme_works_user(
           [void Function(GFeedDailyThemeWorksData_dailyTheme_works_userBuilder)?
@@ -1348,7 +1198,9 @@ class _$GFeedDailyThemeWorksData_dailyTheme_works_user
       required this.login,
       required this.name,
       this.iconImage,
-      this.viewer})
+      required this.isFollower,
+      required this.isFollowee,
+      required this.isMuted})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(G__typename,
         r'GFeedDailyThemeWorksData_dailyTheme_works_user', 'G__typename');
@@ -1358,6 +1210,12 @@ class _$GFeedDailyThemeWorksData_dailyTheme_works_user
         login, r'GFeedDailyThemeWorksData_dailyTheme_works_user', 'login');
     BuiltValueNullFieldError.checkNotNull(
         name, r'GFeedDailyThemeWorksData_dailyTheme_works_user', 'name');
+    BuiltValueNullFieldError.checkNotNull(isFollower,
+        r'GFeedDailyThemeWorksData_dailyTheme_works_user', 'isFollower');
+    BuiltValueNullFieldError.checkNotNull(isFollowee,
+        r'GFeedDailyThemeWorksData_dailyTheme_works_user', 'isFollowee');
+    BuiltValueNullFieldError.checkNotNull(
+        isMuted, r'GFeedDailyThemeWorksData_dailyTheme_works_user', 'isMuted');
   }
 
   @override
@@ -1380,7 +1238,9 @@ class _$GFeedDailyThemeWorksData_dailyTheme_works_user
         login == other.login &&
         name == other.name &&
         iconImage == other.iconImage &&
-        viewer == other.viewer;
+        isFollower == other.isFollower &&
+        isFollowee == other.isFollowee &&
+        isMuted == other.isMuted;
   }
 
   @override
@@ -1391,7 +1251,9 @@ class _$GFeedDailyThemeWorksData_dailyTheme_works_user
     _$hash = $jc(_$hash, login.hashCode);
     _$hash = $jc(_$hash, name.hashCode);
     _$hash = $jc(_$hash, iconImage.hashCode);
-    _$hash = $jc(_$hash, viewer.hashCode);
+    _$hash = $jc(_$hash, isFollower.hashCode);
+    _$hash = $jc(_$hash, isFollowee.hashCode);
+    _$hash = $jc(_$hash, isMuted.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -1405,7 +1267,9 @@ class _$GFeedDailyThemeWorksData_dailyTheme_works_user
           ..add('login', login)
           ..add('name', name)
           ..add('iconImage', iconImage)
-          ..add('viewer', viewer))
+          ..add('isFollower', isFollower)
+          ..add('isFollowee', isFollowee)
+          ..add('isMuted', isMuted))
         .toString();
   }
 }
@@ -1441,14 +1305,17 @@ class GFeedDailyThemeWorksData_dailyTheme_works_userBuilder
               iconImage) =>
       _$this._iconImage = iconImage;
 
-  GFeedDailyThemeWorksData_dailyTheme_works_user_viewerBuilder? _viewer;
-  GFeedDailyThemeWorksData_dailyTheme_works_user_viewerBuilder get viewer =>
-      _$this._viewer ??=
-          new GFeedDailyThemeWorksData_dailyTheme_works_user_viewerBuilder();
-  set viewer(
-          GFeedDailyThemeWorksData_dailyTheme_works_user_viewerBuilder?
-              viewer) =>
-      _$this._viewer = viewer;
+  bool? _isFollower;
+  bool? get isFollower => _$this._isFollower;
+  set isFollower(bool? isFollower) => _$this._isFollower = isFollower;
+
+  bool? _isFollowee;
+  bool? get isFollowee => _$this._isFollowee;
+  set isFollowee(bool? isFollowee) => _$this._isFollowee = isFollowee;
+
+  bool? _isMuted;
+  bool? get isMuted => _$this._isMuted;
+  set isMuted(bool? isMuted) => _$this._isMuted = isMuted;
 
   GFeedDailyThemeWorksData_dailyTheme_works_userBuilder() {
     GFeedDailyThemeWorksData_dailyTheme_works_user._initializeBuilder(this);
@@ -1462,7 +1329,9 @@ class GFeedDailyThemeWorksData_dailyTheme_works_userBuilder
       _login = $v.login;
       _name = $v.name;
       _iconImage = $v.iconImage?.toBuilder();
-      _viewer = $v.viewer?.toBuilder();
+      _isFollower = $v.isFollower;
+      _isFollowee = $v.isFollowee;
+      _isMuted = $v.isMuted;
       _$v = null;
     }
     return this;
@@ -1490,24 +1359,25 @@ class GFeedDailyThemeWorksData_dailyTheme_works_userBuilder
       _$result = _$v ??
           new _$GFeedDailyThemeWorksData_dailyTheme_works_user._(
               G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename,
-                  r'GFeedDailyThemeWorksData_dailyTheme_works_user',
-                  'G__typename'),
+                  G__typename, r'GFeedDailyThemeWorksData_dailyTheme_works_user', 'G__typename'),
               id: BuiltValueNullFieldError.checkNotNull(
                   id, r'GFeedDailyThemeWorksData_dailyTheme_works_user', 'id'),
-              login: BuiltValueNullFieldError.checkNotNull(login,
-                  r'GFeedDailyThemeWorksData_dailyTheme_works_user', 'login'),
-              name: BuiltValueNullFieldError.checkNotNull(name,
-                  r'GFeedDailyThemeWorksData_dailyTheme_works_user', 'name'),
+              login: BuiltValueNullFieldError.checkNotNull(
+                  login, r'GFeedDailyThemeWorksData_dailyTheme_works_user', 'login'),
+              name: BuiltValueNullFieldError.checkNotNull(
+                  name, r'GFeedDailyThemeWorksData_dailyTheme_works_user', 'name'),
               iconImage: _iconImage?.build(),
-              viewer: _viewer?.build());
+              isFollower: BuiltValueNullFieldError.checkNotNull(
+                  isFollower, r'GFeedDailyThemeWorksData_dailyTheme_works_user', 'isFollower'),
+              isFollowee: BuiltValueNullFieldError.checkNotNull(
+                  isFollowee, r'GFeedDailyThemeWorksData_dailyTheme_works_user', 'isFollowee'),
+              isMuted: BuiltValueNullFieldError.checkNotNull(
+                  isMuted, r'GFeedDailyThemeWorksData_dailyTheme_works_user', 'isMuted'));
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'iconImage';
         _iconImage?.build();
-        _$failedField = 'viewer';
-        _viewer?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'GFeedDailyThemeWorksData_dailyTheme_works_user',
@@ -1661,336 +1531,6 @@ class GFeedDailyThemeWorksData_dailyTheme_works_user_iconImageBuilder
                 downloadURL,
                 r'GFeedDailyThemeWorksData_dailyTheme_works_user_iconImage',
                 'downloadURL'));
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GFeedDailyThemeWorksData_dailyTheme_works_user_viewer
-    extends GFeedDailyThemeWorksData_dailyTheme_works_user_viewer {
-  @override
-  final String G__typename;
-  @override
-  final String id;
-  @override
-  final bool isFollower;
-  @override
-  final bool isFollowee;
-  @override
-  final bool isMuted;
-
-  factory _$GFeedDailyThemeWorksData_dailyTheme_works_user_viewer(
-          [void Function(
-                  GFeedDailyThemeWorksData_dailyTheme_works_user_viewerBuilder)?
-              updates]) =>
-      (new GFeedDailyThemeWorksData_dailyTheme_works_user_viewerBuilder()
-            ..update(updates))
-          ._build();
-
-  _$GFeedDailyThemeWorksData_dailyTheme_works_user_viewer._(
-      {required this.G__typename,
-      required this.id,
-      required this.isFollower,
-      required this.isFollowee,
-      required this.isMuted})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        G__typename,
-        r'GFeedDailyThemeWorksData_dailyTheme_works_user_viewer',
-        'G__typename');
-    BuiltValueNullFieldError.checkNotNull(
-        id, r'GFeedDailyThemeWorksData_dailyTheme_works_user_viewer', 'id');
-    BuiltValueNullFieldError.checkNotNull(isFollower,
-        r'GFeedDailyThemeWorksData_dailyTheme_works_user_viewer', 'isFollower');
-    BuiltValueNullFieldError.checkNotNull(isFollowee,
-        r'GFeedDailyThemeWorksData_dailyTheme_works_user_viewer', 'isFollowee');
-    BuiltValueNullFieldError.checkNotNull(isMuted,
-        r'GFeedDailyThemeWorksData_dailyTheme_works_user_viewer', 'isMuted');
-  }
-
-  @override
-  GFeedDailyThemeWorksData_dailyTheme_works_user_viewer rebuild(
-          void Function(
-                  GFeedDailyThemeWorksData_dailyTheme_works_user_viewerBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GFeedDailyThemeWorksData_dailyTheme_works_user_viewerBuilder toBuilder() =>
-      new GFeedDailyThemeWorksData_dailyTheme_works_user_viewerBuilder()
-        ..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GFeedDailyThemeWorksData_dailyTheme_works_user_viewer &&
-        G__typename == other.G__typename &&
-        id == other.id &&
-        isFollower == other.isFollower &&
-        isFollowee == other.isFollowee &&
-        isMuted == other.isMuted;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, id.hashCode);
-    _$hash = $jc(_$hash, isFollower.hashCode);
-    _$hash = $jc(_$hash, isFollowee.hashCode);
-    _$hash = $jc(_$hash, isMuted.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(
-            r'GFeedDailyThemeWorksData_dailyTheme_works_user_viewer')
-          ..add('G__typename', G__typename)
-          ..add('id', id)
-          ..add('isFollower', isFollower)
-          ..add('isFollowee', isFollowee)
-          ..add('isMuted', isMuted))
-        .toString();
-  }
-}
-
-class GFeedDailyThemeWorksData_dailyTheme_works_user_viewerBuilder
-    implements
-        Builder<GFeedDailyThemeWorksData_dailyTheme_works_user_viewer,
-            GFeedDailyThemeWorksData_dailyTheme_works_user_viewerBuilder> {
-  _$GFeedDailyThemeWorksData_dailyTheme_works_user_viewer? _$v;
-
-  String? _G__typename;
-  String? get G__typename => _$this._G__typename;
-  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
-
-  String? _id;
-  String? get id => _$this._id;
-  set id(String? id) => _$this._id = id;
-
-  bool? _isFollower;
-  bool? get isFollower => _$this._isFollower;
-  set isFollower(bool? isFollower) => _$this._isFollower = isFollower;
-
-  bool? _isFollowee;
-  bool? get isFollowee => _$this._isFollowee;
-  set isFollowee(bool? isFollowee) => _$this._isFollowee = isFollowee;
-
-  bool? _isMuted;
-  bool? get isMuted => _$this._isMuted;
-  set isMuted(bool? isMuted) => _$this._isMuted = isMuted;
-
-  GFeedDailyThemeWorksData_dailyTheme_works_user_viewerBuilder() {
-    GFeedDailyThemeWorksData_dailyTheme_works_user_viewer._initializeBuilder(
-        this);
-  }
-
-  GFeedDailyThemeWorksData_dailyTheme_works_user_viewerBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _G__typename = $v.G__typename;
-      _id = $v.id;
-      _isFollower = $v.isFollower;
-      _isFollowee = $v.isFollowee;
-      _isMuted = $v.isMuted;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GFeedDailyThemeWorksData_dailyTheme_works_user_viewer other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GFeedDailyThemeWorksData_dailyTheme_works_user_viewer;
-  }
-
-  @override
-  void update(
-      void Function(
-              GFeedDailyThemeWorksData_dailyTheme_works_user_viewerBuilder)?
-          updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GFeedDailyThemeWorksData_dailyTheme_works_user_viewer build() => _build();
-
-  _$GFeedDailyThemeWorksData_dailyTheme_works_user_viewer _build() {
-    final _$result = _$v ??
-        new _$GFeedDailyThemeWorksData_dailyTheme_works_user_viewer._(
-            G__typename: BuiltValueNullFieldError.checkNotNull(
-                G__typename,
-                r'GFeedDailyThemeWorksData_dailyTheme_works_user_viewer',
-                'G__typename'),
-            id: BuiltValueNullFieldError.checkNotNull(
-                id, r'GFeedDailyThemeWorksData_dailyTheme_works_user_viewer', 'id'),
-            isFollower: BuiltValueNullFieldError.checkNotNull(
-                isFollower,
-                r'GFeedDailyThemeWorksData_dailyTheme_works_user_viewer',
-                'isFollower'),
-            isFollowee: BuiltValueNullFieldError.checkNotNull(
-                isFollowee,
-                r'GFeedDailyThemeWorksData_dailyTheme_works_user_viewer',
-                'isFollowee'),
-            isMuted: BuiltValueNullFieldError.checkNotNull(
-                isMuted,
-                r'GFeedDailyThemeWorksData_dailyTheme_works_user_viewer',
-                'isMuted'));
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GFeedDailyThemeWorksData_dailyTheme_works_viewer
-    extends GFeedDailyThemeWorksData_dailyTheme_works_viewer {
-  @override
-  final String G__typename;
-  @override
-  final String id;
-  @override
-  final bool isLiked;
-  @override
-  final bool isBookmarked;
-
-  factory _$GFeedDailyThemeWorksData_dailyTheme_works_viewer(
-          [void Function(
-                  GFeedDailyThemeWorksData_dailyTheme_works_viewerBuilder)?
-              updates]) =>
-      (new GFeedDailyThemeWorksData_dailyTheme_works_viewerBuilder()
-            ..update(updates))
-          ._build();
-
-  _$GFeedDailyThemeWorksData_dailyTheme_works_viewer._(
-      {required this.G__typename,
-      required this.id,
-      required this.isLiked,
-      required this.isBookmarked})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(G__typename,
-        r'GFeedDailyThemeWorksData_dailyTheme_works_viewer', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(
-        id, r'GFeedDailyThemeWorksData_dailyTheme_works_viewer', 'id');
-    BuiltValueNullFieldError.checkNotNull(isLiked,
-        r'GFeedDailyThemeWorksData_dailyTheme_works_viewer', 'isLiked');
-    BuiltValueNullFieldError.checkNotNull(isBookmarked,
-        r'GFeedDailyThemeWorksData_dailyTheme_works_viewer', 'isBookmarked');
-  }
-
-  @override
-  GFeedDailyThemeWorksData_dailyTheme_works_viewer rebuild(
-          void Function(GFeedDailyThemeWorksData_dailyTheme_works_viewerBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GFeedDailyThemeWorksData_dailyTheme_works_viewerBuilder toBuilder() =>
-      new GFeedDailyThemeWorksData_dailyTheme_works_viewerBuilder()
-        ..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GFeedDailyThemeWorksData_dailyTheme_works_viewer &&
-        G__typename == other.G__typename &&
-        id == other.id &&
-        isLiked == other.isLiked &&
-        isBookmarked == other.isBookmarked;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, id.hashCode);
-    _$hash = $jc(_$hash, isLiked.hashCode);
-    _$hash = $jc(_$hash, isBookmarked.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(
-            r'GFeedDailyThemeWorksData_dailyTheme_works_viewer')
-          ..add('G__typename', G__typename)
-          ..add('id', id)
-          ..add('isLiked', isLiked)
-          ..add('isBookmarked', isBookmarked))
-        .toString();
-  }
-}
-
-class GFeedDailyThemeWorksData_dailyTheme_works_viewerBuilder
-    implements
-        Builder<GFeedDailyThemeWorksData_dailyTheme_works_viewer,
-            GFeedDailyThemeWorksData_dailyTheme_works_viewerBuilder> {
-  _$GFeedDailyThemeWorksData_dailyTheme_works_viewer? _$v;
-
-  String? _G__typename;
-  String? get G__typename => _$this._G__typename;
-  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
-
-  String? _id;
-  String? get id => _$this._id;
-  set id(String? id) => _$this._id = id;
-
-  bool? _isLiked;
-  bool? get isLiked => _$this._isLiked;
-  set isLiked(bool? isLiked) => _$this._isLiked = isLiked;
-
-  bool? _isBookmarked;
-  bool? get isBookmarked => _$this._isBookmarked;
-  set isBookmarked(bool? isBookmarked) => _$this._isBookmarked = isBookmarked;
-
-  GFeedDailyThemeWorksData_dailyTheme_works_viewerBuilder() {
-    GFeedDailyThemeWorksData_dailyTheme_works_viewer._initializeBuilder(this);
-  }
-
-  GFeedDailyThemeWorksData_dailyTheme_works_viewerBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _G__typename = $v.G__typename;
-      _id = $v.id;
-      _isLiked = $v.isLiked;
-      _isBookmarked = $v.isBookmarked;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GFeedDailyThemeWorksData_dailyTheme_works_viewer other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GFeedDailyThemeWorksData_dailyTheme_works_viewer;
-  }
-
-  @override
-  void update(
-      void Function(GFeedDailyThemeWorksData_dailyTheme_works_viewerBuilder)?
-          updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GFeedDailyThemeWorksData_dailyTheme_works_viewer build() => _build();
-
-  _$GFeedDailyThemeWorksData_dailyTheme_works_viewer _build() {
-    final _$result = _$v ??
-        new _$GFeedDailyThemeWorksData_dailyTheme_works_viewer._(
-            G__typename: BuiltValueNullFieldError.checkNotNull(
-                G__typename,
-                r'GFeedDailyThemeWorksData_dailyTheme_works_viewer',
-                'G__typename'),
-            id: BuiltValueNullFieldError.checkNotNull(
-                id, r'GFeedDailyThemeWorksData_dailyTheme_works_viewer', 'id'),
-            isLiked: BuiltValueNullFieldError.checkNotNull(isLiked,
-                r'GFeedDailyThemeWorksData_dailyTheme_works_viewer', 'isLiked'),
-            isBookmarked: BuiltValueNullFieldError.checkNotNull(
-                isBookmarked,
-                r'GFeedDailyThemeWorksData_dailyTheme_works_viewer',
-                'isBookmarked'));
     replace(_$result);
     return _$result;
   }

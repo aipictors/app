@@ -1,7 +1,13 @@
 query ViewerUser {
   viewer {
+    currentPass{
+      type
+      isDisabled
+      isExpired
+    }
     user {
       id
+      nanoid
       biography
       fcmToken
       login

@@ -7,18 +7,12 @@ query Work($id: ID!) {
     title
     description
     isDeleted
-    image {
-      id
-      downloadURL
-    }
+    imageURL
     user {
       ...WorkUserFields
-      viewer {
-        id
-        isFollower
-        isFollowee
-        isMuted
-      }
+      isFollower
+      isFollowee
+      isMuted
     }
     tagNames
     createdAt
@@ -27,10 +21,7 @@ query Work($id: ID!) {
     subWorks {
       ...SubWorkFields
     }
-    viewer {
-      id
-      isLiked
-      isBookmarked
-    }
+    isLiked
+    # isBookmarked
   }
 }

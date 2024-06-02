@@ -49,7 +49,7 @@ abstract class GMuteUserData_muteUser
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get id;
-  GMuteUserData_muteUser_viewer? get viewer;
+  bool get isMuted;
   static Serializer<GMuteUserData_muteUser> get serializer =>
       _$gMuteUserDataMuteUserSerializer;
 
@@ -61,38 +61,6 @@ abstract class GMuteUserData_muteUser
   static GMuteUserData_muteUser? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GMuteUserData_muteUser.serializer,
-        json,
-      );
-}
-
-abstract class GMuteUserData_muteUser_viewer
-    implements
-        Built<GMuteUserData_muteUser_viewer,
-            GMuteUserData_muteUser_viewerBuilder> {
-  GMuteUserData_muteUser_viewer._();
-
-  factory GMuteUserData_muteUser_viewer(
-          [void Function(GMuteUserData_muteUser_viewerBuilder b) updates]) =
-      _$GMuteUserData_muteUser_viewer;
-
-  static void _initializeBuilder(GMuteUserData_muteUser_viewerBuilder b) =>
-      b..G__typename = 'UserViewerNode';
-
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  String get id;
-  bool get isMuted;
-  static Serializer<GMuteUserData_muteUser_viewer> get serializer =>
-      _$gMuteUserDataMuteUserViewerSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GMuteUserData_muteUser_viewer.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GMuteUserData_muteUser_viewer? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GMuteUserData_muteUser_viewer.serializer,
         json,
       );
 }

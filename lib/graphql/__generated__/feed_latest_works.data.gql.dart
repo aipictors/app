@@ -73,7 +73,7 @@ abstract class GFeedLatestWorksData_works
   @override
   GFeedLatestWorksData_works_image? get image;
   GFeedLatestWorksData_works_user get user;
-  GFeedLatestWorksData_works_viewer? get viewer;
+  bool get isLiked;
   static Serializer<GFeedLatestWorksData_works> get serializer =>
       _$gFeedLatestWorksDataWorksSerializer;
 
@@ -153,7 +153,9 @@ abstract class GFeedLatestWorksData_works_user
   String get name;
   @override
   GFeedLatestWorksData_works_user_iconImage? get iconImage;
-  GFeedLatestWorksData_works_user_viewer? get viewer;
+  bool get isFollower;
+  bool get isFollowee;
+  bool get isMuted;
   static Serializer<GFeedLatestWorksData_works_user> get serializer =>
       _$gFeedLatestWorksDataWorksUserSerializer;
 
@@ -205,76 +207,6 @@ abstract class GFeedLatestWorksData_works_user_iconImage
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GFeedLatestWorksData_works_user_iconImage.serializer,
-        json,
-      );
-}
-
-abstract class GFeedLatestWorksData_works_user_viewer
-    implements
-        Built<GFeedLatestWorksData_works_user_viewer,
-            GFeedLatestWorksData_works_user_viewerBuilder> {
-  GFeedLatestWorksData_works_user_viewer._();
-
-  factory GFeedLatestWorksData_works_user_viewer(
-      [void Function(GFeedLatestWorksData_works_user_viewerBuilder b)
-          updates]) = _$GFeedLatestWorksData_works_user_viewer;
-
-  static void _initializeBuilder(
-          GFeedLatestWorksData_works_user_viewerBuilder b) =>
-      b..G__typename = 'UserViewerNode';
-
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  String get id;
-  bool get isFollower;
-  bool get isFollowee;
-  bool get isMuted;
-  static Serializer<GFeedLatestWorksData_works_user_viewer> get serializer =>
-      _$gFeedLatestWorksDataWorksUserViewerSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GFeedLatestWorksData_works_user_viewer.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GFeedLatestWorksData_works_user_viewer? fromJson(
-          Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GFeedLatestWorksData_works_user_viewer.serializer,
-        json,
-      );
-}
-
-abstract class GFeedLatestWorksData_works_viewer
-    implements
-        Built<GFeedLatestWorksData_works_viewer,
-            GFeedLatestWorksData_works_viewerBuilder> {
-  GFeedLatestWorksData_works_viewer._();
-
-  factory GFeedLatestWorksData_works_viewer(
-          [void Function(GFeedLatestWorksData_works_viewerBuilder b) updates]) =
-      _$GFeedLatestWorksData_works_viewer;
-
-  static void _initializeBuilder(GFeedLatestWorksData_works_viewerBuilder b) =>
-      b..G__typename = 'WorkViewerNode';
-
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  String get id;
-  bool get isLiked;
-  bool get isBookmarked;
-  static Serializer<GFeedLatestWorksData_works_viewer> get serializer =>
-      _$gFeedLatestWorksDataWorksViewerSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GFeedLatestWorksData_works_viewer.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GFeedLatestWorksData_works_viewer? fromJson(
-          Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GFeedLatestWorksData_works_viewer.serializer,
         json,
       );
 }

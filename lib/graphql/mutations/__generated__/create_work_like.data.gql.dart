@@ -54,7 +54,7 @@ abstract class GCreateWorkLikeData_createWorkLike
   String get G__typename;
   String get id;
   int get likesCount;
-  GCreateWorkLikeData_createWorkLike_viewer? get viewer;
+  bool get isLiked;
   static Serializer<GCreateWorkLikeData_createWorkLike> get serializer =>
       _$gCreateWorkLikeDataCreateWorkLikeSerializer;
 
@@ -67,40 +67,6 @@ abstract class GCreateWorkLikeData_createWorkLike
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GCreateWorkLikeData_createWorkLike.serializer,
-        json,
-      );
-}
-
-abstract class GCreateWorkLikeData_createWorkLike_viewer
-    implements
-        Built<GCreateWorkLikeData_createWorkLike_viewer,
-            GCreateWorkLikeData_createWorkLike_viewerBuilder> {
-  GCreateWorkLikeData_createWorkLike_viewer._();
-
-  factory GCreateWorkLikeData_createWorkLike_viewer(
-      [void Function(GCreateWorkLikeData_createWorkLike_viewerBuilder b)
-          updates]) = _$GCreateWorkLikeData_createWorkLike_viewer;
-
-  static void _initializeBuilder(
-          GCreateWorkLikeData_createWorkLike_viewerBuilder b) =>
-      b..G__typename = 'WorkViewerNode';
-
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  String get id;
-  bool get isLiked;
-  static Serializer<GCreateWorkLikeData_createWorkLike_viewer> get serializer =>
-      _$gCreateWorkLikeDataCreateWorkLikeViewerSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GCreateWorkLikeData_createWorkLike_viewer.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GCreateWorkLikeData_createWorkLike_viewer? fromJson(
-          Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GCreateWorkLikeData_createWorkLike_viewer.serializer,
         json,
       );
 }

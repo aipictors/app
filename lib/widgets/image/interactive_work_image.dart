@@ -7,9 +7,12 @@ class InteractiveWorkImage extends HookConsumerWidget {
   const InteractiveWorkImage({
     super.key,
     required this.downloadURL,
+    this.headers,
   });
 
   final String downloadURL;
+
+  final Map<String, String>? headers;
 
   @override
   Widget build(context, ref) {
@@ -17,6 +20,7 @@ class InteractiveWorkImage extends HookConsumerWidget {
       child: SizedBox(
         width: double.infinity,
         child: CachedNetworkImage(
+          httpHeaders: headers,
           imageUrl: downloadURL,
           fit: BoxFit.cover,
         ),
@@ -28,7 +32,7 @@ class InteractiveWorkImage extends HookConsumerWidget {
           barrierLabel: '',
           context: context,
           pageBuilder: (context, animation1, animation2) {
-            return InteractiveImageDialog(downloadURL);
+            return InteractiveImageDialog(downloadURL, headers: headers);
           },
         );
       },

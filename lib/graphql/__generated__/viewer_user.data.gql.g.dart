@@ -10,6 +10,9 @@ Serializer<GViewerUserData> _$gViewerUserDataSerializer =
     new _$GViewerUserDataSerializer();
 Serializer<GViewerUserData_viewer> _$gViewerUserDataViewerSerializer =
     new _$GViewerUserData_viewerSerializer();
+Serializer<GViewerUserData_viewer_currentPass>
+    _$gViewerUserDataViewerCurrentPassSerializer =
+    new _$GViewerUserData_viewer_currentPassSerializer();
 Serializer<GViewerUserData_viewer_user> _$gViewerUserDataViewerUserSerializer =
     new _$GViewerUserData_viewer_userSerializer();
 Serializer<GViewerUserData_viewer_user_iconImage>
@@ -95,7 +98,14 @@ class _$GViewerUserData_viewerSerializer
       serializers.serialize(object.user,
           specifiedType: const FullType(GViewerUserData_viewer_user)),
     ];
-
+    Object? value;
+    value = object.currentPass;
+    if (value != null) {
+      result
+        ..add('currentPass')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(GViewerUserData_viewer_currentPass)));
+    }
     return result;
   }
 
@@ -115,10 +125,83 @@ class _$GViewerUserData_viewerSerializer
           result.G__typename = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
+        case 'currentPass':
+          result.currentPass.replace(serializers.deserialize(value,
+                  specifiedType:
+                      const FullType(GViewerUserData_viewer_currentPass))!
+              as GViewerUserData_viewer_currentPass);
+          break;
         case 'user':
           result.user.replace(serializers.deserialize(value,
                   specifiedType: const FullType(GViewerUserData_viewer_user))!
               as GViewerUserData_viewer_user);
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GViewerUserData_viewer_currentPassSerializer
+    implements StructuredSerializer<GViewerUserData_viewer_currentPass> {
+  @override
+  final Iterable<Type> types = const [
+    GViewerUserData_viewer_currentPass,
+    _$GViewerUserData_viewer_currentPass
+  ];
+  @override
+  final String wireName = 'GViewerUserData_viewer_currentPass';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GViewerUserData_viewer_currentPass object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      '__typename',
+      serializers.serialize(object.G__typename,
+          specifiedType: const FullType(String)),
+      'type',
+      serializers.serialize(object.type,
+          specifiedType: const FullType(_i2.GPassType)),
+      'isDisabled',
+      serializers.serialize(object.isDisabled,
+          specifiedType: const FullType(bool)),
+      'isExpired',
+      serializers.serialize(object.isExpired,
+          specifiedType: const FullType(bool)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GViewerUserData_viewer_currentPass deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GViewerUserData_viewer_currentPassBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case '__typename':
+          result.G__typename = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'type':
+          result.type = serializers.deserialize(value,
+              specifiedType: const FullType(_i2.GPassType))! as _i2.GPassType;
+          break;
+        case 'isDisabled':
+          result.isDisabled = serializers.deserialize(value,
+              specifiedType: const FullType(bool))! as bool;
+          break;
+        case 'isExpired':
+          result.isExpired = serializers.deserialize(value,
+              specifiedType: const FullType(bool))! as bool;
           break;
       }
     }
@@ -166,6 +249,13 @@ class _$GViewerUserData_viewer_userSerializer
           specifiedType: const FullType(int)),
     ];
     Object? value;
+    value = object.nanoid;
+    if (value != null) {
+      result
+        ..add('nanoid')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     value = object.biography;
     if (value != null) {
       result
@@ -218,6 +308,10 @@ class _$GViewerUserData_viewer_userSerializer
         case 'id':
           result.id = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
+          break;
+        case 'nanoid':
+          result.nanoid = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'biography':
           result.biography = serializers.deserialize(value,
@@ -505,13 +599,16 @@ class _$GViewerUserData_viewer extends GViewerUserData_viewer {
   @override
   final String G__typename;
   @override
+  final GViewerUserData_viewer_currentPass? currentPass;
+  @override
   final GViewerUserData_viewer_user user;
 
   factory _$GViewerUserData_viewer(
           [void Function(GViewerUserData_viewerBuilder)? updates]) =>
       (new GViewerUserData_viewerBuilder()..update(updates))._build();
 
-  _$GViewerUserData_viewer._({required this.G__typename, required this.user})
+  _$GViewerUserData_viewer._(
+      {required this.G__typename, this.currentPass, required this.user})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename, r'GViewerUserData_viewer', 'G__typename');
@@ -533,6 +630,7 @@ class _$GViewerUserData_viewer extends GViewerUserData_viewer {
     if (identical(other, this)) return true;
     return other is GViewerUserData_viewer &&
         G__typename == other.G__typename &&
+        currentPass == other.currentPass &&
         user == other.user;
   }
 
@@ -540,6 +638,7 @@ class _$GViewerUserData_viewer extends GViewerUserData_viewer {
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, G__typename.hashCode);
+    _$hash = $jc(_$hash, currentPass.hashCode);
     _$hash = $jc(_$hash, user.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -549,6 +648,7 @@ class _$GViewerUserData_viewer extends GViewerUserData_viewer {
   String toString() {
     return (newBuiltValueToStringHelper(r'GViewerUserData_viewer')
           ..add('G__typename', G__typename)
+          ..add('currentPass', currentPass)
           ..add('user', user))
         .toString();
   }
@@ -561,6 +661,12 @@ class GViewerUserData_viewerBuilder
   String? _G__typename;
   String? get G__typename => _$this._G__typename;
   set G__typename(String? G__typename) => _$this._G__typename = G__typename;
+
+  GViewerUserData_viewer_currentPassBuilder? _currentPass;
+  GViewerUserData_viewer_currentPassBuilder get currentPass =>
+      _$this._currentPass ??= new GViewerUserData_viewer_currentPassBuilder();
+  set currentPass(GViewerUserData_viewer_currentPassBuilder? currentPass) =>
+      _$this._currentPass = currentPass;
 
   GViewerUserData_viewer_userBuilder? _user;
   GViewerUserData_viewer_userBuilder get user =>
@@ -575,6 +681,7 @@ class GViewerUserData_viewerBuilder
     final $v = _$v;
     if ($v != null) {
       _G__typename = $v.G__typename;
+      _currentPass = $v.currentPass?.toBuilder();
       _user = $v.user.toBuilder();
       _$v = null;
     }
@@ -602,10 +709,13 @@ class GViewerUserData_viewerBuilder
           new _$GViewerUserData_viewer._(
               G__typename: BuiltValueNullFieldError.checkNotNull(
                   G__typename, r'GViewerUserData_viewer', 'G__typename'),
+              currentPass: _currentPass?.build(),
               user: user.build());
     } catch (_) {
       late String _$failedField;
       try {
+        _$failedField = 'currentPass';
+        _currentPass?.build();
         _$failedField = 'user';
         user.build();
       } catch (e) {
@@ -619,11 +729,156 @@ class GViewerUserData_viewerBuilder
   }
 }
 
+class _$GViewerUserData_viewer_currentPass
+    extends GViewerUserData_viewer_currentPass {
+  @override
+  final String G__typename;
+  @override
+  final _i2.GPassType type;
+  @override
+  final bool isDisabled;
+  @override
+  final bool isExpired;
+
+  factory _$GViewerUserData_viewer_currentPass(
+          [void Function(GViewerUserData_viewer_currentPassBuilder)?
+              updates]) =>
+      (new GViewerUserData_viewer_currentPassBuilder()..update(updates))
+          ._build();
+
+  _$GViewerUserData_viewer_currentPass._(
+      {required this.G__typename,
+      required this.type,
+      required this.isDisabled,
+      required this.isExpired})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        G__typename, r'GViewerUserData_viewer_currentPass', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(
+        type, r'GViewerUserData_viewer_currentPass', 'type');
+    BuiltValueNullFieldError.checkNotNull(
+        isDisabled, r'GViewerUserData_viewer_currentPass', 'isDisabled');
+    BuiltValueNullFieldError.checkNotNull(
+        isExpired, r'GViewerUserData_viewer_currentPass', 'isExpired');
+  }
+
+  @override
+  GViewerUserData_viewer_currentPass rebuild(
+          void Function(GViewerUserData_viewer_currentPassBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GViewerUserData_viewer_currentPassBuilder toBuilder() =>
+      new GViewerUserData_viewer_currentPassBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GViewerUserData_viewer_currentPass &&
+        G__typename == other.G__typename &&
+        type == other.type &&
+        isDisabled == other.isDisabled &&
+        isExpired == other.isExpired;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, G__typename.hashCode);
+    _$hash = $jc(_$hash, type.hashCode);
+    _$hash = $jc(_$hash, isDisabled.hashCode);
+    _$hash = $jc(_$hash, isExpired.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GViewerUserData_viewer_currentPass')
+          ..add('G__typename', G__typename)
+          ..add('type', type)
+          ..add('isDisabled', isDisabled)
+          ..add('isExpired', isExpired))
+        .toString();
+  }
+}
+
+class GViewerUserData_viewer_currentPassBuilder
+    implements
+        Builder<GViewerUserData_viewer_currentPass,
+            GViewerUserData_viewer_currentPassBuilder> {
+  _$GViewerUserData_viewer_currentPass? _$v;
+
+  String? _G__typename;
+  String? get G__typename => _$this._G__typename;
+  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
+
+  _i2.GPassType? _type;
+  _i2.GPassType? get type => _$this._type;
+  set type(_i2.GPassType? type) => _$this._type = type;
+
+  bool? _isDisabled;
+  bool? get isDisabled => _$this._isDisabled;
+  set isDisabled(bool? isDisabled) => _$this._isDisabled = isDisabled;
+
+  bool? _isExpired;
+  bool? get isExpired => _$this._isExpired;
+  set isExpired(bool? isExpired) => _$this._isExpired = isExpired;
+
+  GViewerUserData_viewer_currentPassBuilder() {
+    GViewerUserData_viewer_currentPass._initializeBuilder(this);
+  }
+
+  GViewerUserData_viewer_currentPassBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _G__typename = $v.G__typename;
+      _type = $v.type;
+      _isDisabled = $v.isDisabled;
+      _isExpired = $v.isExpired;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GViewerUserData_viewer_currentPass other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GViewerUserData_viewer_currentPass;
+  }
+
+  @override
+  void update(
+      void Function(GViewerUserData_viewer_currentPassBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GViewerUserData_viewer_currentPass build() => _build();
+
+  _$GViewerUserData_viewer_currentPass _build() {
+    final _$result = _$v ??
+        new _$GViewerUserData_viewer_currentPass._(
+            G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
+                r'GViewerUserData_viewer_currentPass', 'G__typename'),
+            type: BuiltValueNullFieldError.checkNotNull(
+                type, r'GViewerUserData_viewer_currentPass', 'type'),
+            isDisabled: BuiltValueNullFieldError.checkNotNull(isDisabled,
+                r'GViewerUserData_viewer_currentPass', 'isDisabled'),
+            isExpired: BuiltValueNullFieldError.checkNotNull(
+                isExpired, r'GViewerUserData_viewer_currentPass', 'isExpired'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
 class _$GViewerUserData_viewer_user extends GViewerUserData_viewer_user {
   @override
   final String G__typename;
   @override
   final String id;
+  @override
+  final String? nanoid;
   @override
   final String? biography;
   @override
@@ -652,6 +907,7 @@ class _$GViewerUserData_viewer_user extends GViewerUserData_viewer_user {
   _$GViewerUserData_viewer_user._(
       {required this.G__typename,
       required this.id,
+      this.nanoid,
       this.biography,
       this.fcmToken,
       required this.login,
@@ -696,6 +952,7 @@ class _$GViewerUserData_viewer_user extends GViewerUserData_viewer_user {
     return other is GViewerUserData_viewer_user &&
         G__typename == other.G__typename &&
         id == other.id &&
+        nanoid == other.nanoid &&
         biography == other.biography &&
         fcmToken == other.fcmToken &&
         login == other.login &&
@@ -713,6 +970,7 @@ class _$GViewerUserData_viewer_user extends GViewerUserData_viewer_user {
     var _$hash = 0;
     _$hash = $jc(_$hash, G__typename.hashCode);
     _$hash = $jc(_$hash, id.hashCode);
+    _$hash = $jc(_$hash, nanoid.hashCode);
     _$hash = $jc(_$hash, biography.hashCode);
     _$hash = $jc(_$hash, fcmToken.hashCode);
     _$hash = $jc(_$hash, login.hashCode);
@@ -732,6 +990,7 @@ class _$GViewerUserData_viewer_user extends GViewerUserData_viewer_user {
     return (newBuiltValueToStringHelper(r'GViewerUserData_viewer_user')
           ..add('G__typename', G__typename)
           ..add('id', id)
+          ..add('nanoid', nanoid)
           ..add('biography', biography)
           ..add('fcmToken', fcmToken)
           ..add('login', login)
@@ -759,6 +1018,10 @@ class GViewerUserData_viewer_userBuilder
   String? _id;
   String? get id => _$this._id;
   set id(String? id) => _$this._id = id;
+
+  String? _nanoid;
+  String? get nanoid => _$this._nanoid;
+  set nanoid(String? nanoid) => _$this._nanoid = nanoid;
 
   String? _biography;
   String? get biography => _$this._biography;
@@ -818,6 +1081,7 @@ class GViewerUserData_viewer_userBuilder
     if ($v != null) {
       _G__typename = $v.G__typename;
       _id = $v.id;
+      _nanoid = $v.nanoid;
       _biography = $v.biography;
       _fcmToken = $v.fcmToken;
       _login = $v.login;
@@ -856,6 +1120,7 @@ class GViewerUserData_viewer_userBuilder
                   G__typename, r'GViewerUserData_viewer_user', 'G__typename'),
               id: BuiltValueNullFieldError.checkNotNull(
                   id, r'GViewerUserData_viewer_user', 'id'),
+              nanoid: nanoid,
               biography: biography,
               fcmToken: fcmToken,
               login: BuiltValueNullFieldError.checkNotNull(

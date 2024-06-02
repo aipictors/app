@@ -1,6 +1,9 @@
 {
   "name": "app",
   "type": "module",
+  "scripts": {
+    "fetch": "bunx get-graphql-schema 'https://aipics.fly.dev' > lib/schema.graphql"
+  },
   "dependencies": {
     "glob": "^10.3.10"
   },

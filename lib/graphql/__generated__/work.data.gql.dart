@@ -54,14 +54,14 @@ abstract class GWorkData_work
   String get title;
   String? get description;
   bool get isDeleted;
-  GWorkData_work_image? get image;
+  String get imageURL;
   GWorkData_work_user get user;
   BuiltList<String> get tagNames;
   int get createdAt;
   int get likesCount;
   int get viewsCount;
   BuiltList<GWorkData_work_subWorks> get subWorks;
-  GWorkData_work_viewer? get viewer;
+  bool get isLiked;
   static Serializer<GWorkData_work> get serializer => _$gWorkDataWorkSerializer;
 
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
@@ -72,36 +72,6 @@ abstract class GWorkData_work
   static GWorkData_work? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GWorkData_work.serializer,
-        json,
-      );
-}
-
-abstract class GWorkData_work_image
-    implements Built<GWorkData_work_image, GWorkData_work_imageBuilder> {
-  GWorkData_work_image._();
-
-  factory GWorkData_work_image(
-          [void Function(GWorkData_work_imageBuilder b) updates]) =
-      _$GWorkData_work_image;
-
-  static void _initializeBuilder(GWorkData_work_imageBuilder b) =>
-      b..G__typename = 'ImageNode';
-
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  String get id;
-  String get downloadURL;
-  static Serializer<GWorkData_work_image> get serializer =>
-      _$gWorkDataWorkImageSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GWorkData_work_image.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GWorkData_work_image? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GWorkData_work_image.serializer,
         json,
       );
 }
@@ -130,7 +100,9 @@ abstract class GWorkData_work_user
   String get login;
   @override
   GWorkData_work_user_iconImage? get iconImage;
-  GWorkData_work_user_viewer? get viewer;
+  bool get isFollower;
+  bool get isFollowee;
+  bool get isMuted;
   static Serializer<GWorkData_work_user> get serializer =>
       _$gWorkDataWorkUserSerializer;
 
@@ -180,39 +152,6 @@ abstract class GWorkData_work_user_iconImage
   static GWorkData_work_user_iconImage? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GWorkData_work_user_iconImage.serializer,
-        json,
-      );
-}
-
-abstract class GWorkData_work_user_viewer
-    implements
-        Built<GWorkData_work_user_viewer, GWorkData_work_user_viewerBuilder> {
-  GWorkData_work_user_viewer._();
-
-  factory GWorkData_work_user_viewer(
-          [void Function(GWorkData_work_user_viewerBuilder b) updates]) =
-      _$GWorkData_work_user_viewer;
-
-  static void _initializeBuilder(GWorkData_work_user_viewerBuilder b) =>
-      b..G__typename = 'UserViewerNode';
-
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  String get id;
-  bool get isFollower;
-  bool get isFollowee;
-  bool get isMuted;
-  static Serializer<GWorkData_work_user_viewer> get serializer =>
-      _$gWorkDataWorkUserViewerSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GWorkData_work_user_viewer.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GWorkData_work_user_viewer? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GWorkData_work_user_viewer.serializer,
         json,
       );
 }
@@ -327,37 +266,6 @@ abstract class GWorkData_work_subWorks_thumbnailImage
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GWorkData_work_subWorks_thumbnailImage.serializer,
-        json,
-      );
-}
-
-abstract class GWorkData_work_viewer
-    implements Built<GWorkData_work_viewer, GWorkData_work_viewerBuilder> {
-  GWorkData_work_viewer._();
-
-  factory GWorkData_work_viewer(
-          [void Function(GWorkData_work_viewerBuilder b) updates]) =
-      _$GWorkData_work_viewer;
-
-  static void _initializeBuilder(GWorkData_work_viewerBuilder b) =>
-      b..G__typename = 'WorkViewerNode';
-
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  String get id;
-  bool get isLiked;
-  bool get isBookmarked;
-  static Serializer<GWorkData_work_viewer> get serializer =>
-      _$gWorkDataWorkViewerSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GWorkData_work_viewer.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GWorkData_work_viewer? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GWorkData_work_viewer.serializer,
         json,
       );
 }

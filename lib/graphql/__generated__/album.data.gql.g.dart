@@ -14,8 +14,6 @@ Serializer<GAlbumData_album_user> _$gAlbumDataAlbumUserSerializer =
 Serializer<GAlbumData_album_user_iconImage>
     _$gAlbumDataAlbumUserIconImageSerializer =
     new _$GAlbumData_album_user_iconImageSerializer();
-Serializer<GAlbumData_album_user_viewer> _$gAlbumDataAlbumUserViewerSerializer =
-    new _$GAlbumData_album_user_viewerSerializer();
 Serializer<GAlbumData_album_thumbnailImage>
     _$gAlbumDataAlbumThumbnailImageSerializer =
     new _$GAlbumData_album_thumbnailImageSerializer();
@@ -205,6 +203,12 @@ class _$GAlbumData_album_userSerializer
       'login',
       serializers.serialize(object.login,
           specifiedType: const FullType(String)),
+      'isFollowee',
+      serializers.serialize(object.isFollowee,
+          specifiedType: const FullType(bool)),
+      'isMuted',
+      serializers.serialize(object.isMuted,
+          specifiedType: const FullType(bool)),
     ];
     Object? value;
     value = object.iconImage;
@@ -213,13 +217,6 @@ class _$GAlbumData_album_userSerializer
         ..add('iconImage')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(GAlbumData_album_user_iconImage)));
-    }
-    value = object.viewer;
-    if (value != null) {
-      result
-        ..add('viewer')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(GAlbumData_album_user_viewer)));
     }
     return result;
   }
@@ -258,10 +255,13 @@ class _$GAlbumData_album_userSerializer
                       const FullType(GAlbumData_album_user_iconImage))!
               as GAlbumData_album_user_iconImage);
           break;
-        case 'viewer':
-          result.viewer.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(GAlbumData_album_user_viewer))!
-              as GAlbumData_album_user_viewer);
+        case 'isFollowee':
+          result.isFollowee = serializers.deserialize(value,
+              specifiedType: const FullType(bool))! as bool;
+          break;
+        case 'isMuted':
+          result.isMuted = serializers.deserialize(value,
+              specifiedType: const FullType(bool))! as bool;
           break;
       }
     }
@@ -321,66 +321,6 @@ class _$GAlbumData_album_user_iconImageSerializer
         case 'downloadURL':
           result.downloadURL = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GAlbumData_album_user_viewerSerializer
-    implements StructuredSerializer<GAlbumData_album_user_viewer> {
-  @override
-  final Iterable<Type> types = const [
-    GAlbumData_album_user_viewer,
-    _$GAlbumData_album_user_viewer
-  ];
-  @override
-  final String wireName = 'GAlbumData_album_user_viewer';
-
-  @override
-  Iterable<Object?> serialize(
-      Serializers serializers, GAlbumData_album_user_viewer object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
-      'isFollowee',
-      serializers.serialize(object.isFollowee,
-          specifiedType: const FullType(bool)),
-      'isMuted',
-      serializers.serialize(object.isMuted,
-          specifiedType: const FullType(bool)),
-    ];
-
-    return result;
-  }
-
-  @override
-  GAlbumData_album_user_viewer deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GAlbumData_album_user_viewerBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'isFollowee':
-          result.isFollowee = serializers.deserialize(value,
-              specifiedType: const FullType(bool))! as bool;
-          break;
-        case 'isMuted':
-          result.isMuted = serializers.deserialize(value,
-              specifiedType: const FullType(bool))! as bool;
           break;
       }
     }
@@ -791,7 +731,9 @@ class _$GAlbumData_album_user extends GAlbumData_album_user {
   @override
   final GAlbumData_album_user_iconImage? iconImage;
   @override
-  final GAlbumData_album_user_viewer? viewer;
+  final bool isFollowee;
+  @override
+  final bool isMuted;
 
   factory _$GAlbumData_album_user(
           [void Function(GAlbumData_album_userBuilder)? updates]) =>
@@ -803,7 +745,8 @@ class _$GAlbumData_album_user extends GAlbumData_album_user {
       required this.name,
       required this.login,
       this.iconImage,
-      this.viewer})
+      required this.isFollowee,
+      required this.isMuted})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename, r'GAlbumData_album_user', 'G__typename');
@@ -812,6 +755,10 @@ class _$GAlbumData_album_user extends GAlbumData_album_user {
         name, r'GAlbumData_album_user', 'name');
     BuiltValueNullFieldError.checkNotNull(
         login, r'GAlbumData_album_user', 'login');
+    BuiltValueNullFieldError.checkNotNull(
+        isFollowee, r'GAlbumData_album_user', 'isFollowee');
+    BuiltValueNullFieldError.checkNotNull(
+        isMuted, r'GAlbumData_album_user', 'isMuted');
   }
 
   @override
@@ -832,7 +779,8 @@ class _$GAlbumData_album_user extends GAlbumData_album_user {
         name == other.name &&
         login == other.login &&
         iconImage == other.iconImage &&
-        viewer == other.viewer;
+        isFollowee == other.isFollowee &&
+        isMuted == other.isMuted;
   }
 
   @override
@@ -843,7 +791,8 @@ class _$GAlbumData_album_user extends GAlbumData_album_user {
     _$hash = $jc(_$hash, name.hashCode);
     _$hash = $jc(_$hash, login.hashCode);
     _$hash = $jc(_$hash, iconImage.hashCode);
-    _$hash = $jc(_$hash, viewer.hashCode);
+    _$hash = $jc(_$hash, isFollowee.hashCode);
+    _$hash = $jc(_$hash, isMuted.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -856,7 +805,8 @@ class _$GAlbumData_album_user extends GAlbumData_album_user {
           ..add('name', name)
           ..add('login', login)
           ..add('iconImage', iconImage)
-          ..add('viewer', viewer))
+          ..add('isFollowee', isFollowee)
+          ..add('isMuted', isMuted))
         .toString();
   }
 }
@@ -887,11 +837,13 @@ class GAlbumData_album_userBuilder
   set iconImage(GAlbumData_album_user_iconImageBuilder? iconImage) =>
       _$this._iconImage = iconImage;
 
-  GAlbumData_album_user_viewerBuilder? _viewer;
-  GAlbumData_album_user_viewerBuilder get viewer =>
-      _$this._viewer ??= new GAlbumData_album_user_viewerBuilder();
-  set viewer(GAlbumData_album_user_viewerBuilder? viewer) =>
-      _$this._viewer = viewer;
+  bool? _isFollowee;
+  bool? get isFollowee => _$this._isFollowee;
+  set isFollowee(bool? isFollowee) => _$this._isFollowee = isFollowee;
+
+  bool? _isMuted;
+  bool? get isMuted => _$this._isMuted;
+  set isMuted(bool? isMuted) => _$this._isMuted = isMuted;
 
   GAlbumData_album_userBuilder() {
     GAlbumData_album_user._initializeBuilder(this);
@@ -905,7 +857,8 @@ class GAlbumData_album_userBuilder
       _name = $v.name;
       _login = $v.login;
       _iconImage = $v.iconImage?.toBuilder();
-      _viewer = $v.viewer?.toBuilder();
+      _isFollowee = $v.isFollowee;
+      _isMuted = $v.isMuted;
       _$v = null;
     }
     return this;
@@ -939,14 +892,15 @@ class GAlbumData_album_userBuilder
               login: BuiltValueNullFieldError.checkNotNull(
                   login, r'GAlbumData_album_user', 'login'),
               iconImage: _iconImage?.build(),
-              viewer: _viewer?.build());
+              isFollowee: BuiltValueNullFieldError.checkNotNull(
+                  isFollowee, r'GAlbumData_album_user', 'isFollowee'),
+              isMuted: BuiltValueNullFieldError.checkNotNull(
+                  isMuted, r'GAlbumData_album_user', 'isMuted'));
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'iconImage';
         _iconImage?.build();
-        _$failedField = 'viewer';
-        _viewer?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'GAlbumData_album_user', _$failedField, e.toString());
@@ -1076,130 +1030,6 @@ class GAlbumData_album_user_iconImageBuilder
                 id, r'GAlbumData_album_user_iconImage', 'id'),
             downloadURL: BuiltValueNullFieldError.checkNotNull(downloadURL,
                 r'GAlbumData_album_user_iconImage', 'downloadURL'));
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GAlbumData_album_user_viewer extends GAlbumData_album_user_viewer {
-  @override
-  final String G__typename;
-  @override
-  final bool isFollowee;
-  @override
-  final bool isMuted;
-
-  factory _$GAlbumData_album_user_viewer(
-          [void Function(GAlbumData_album_user_viewerBuilder)? updates]) =>
-      (new GAlbumData_album_user_viewerBuilder()..update(updates))._build();
-
-  _$GAlbumData_album_user_viewer._(
-      {required this.G__typename,
-      required this.isFollowee,
-      required this.isMuted})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        G__typename, r'GAlbumData_album_user_viewer', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(
-        isFollowee, r'GAlbumData_album_user_viewer', 'isFollowee');
-    BuiltValueNullFieldError.checkNotNull(
-        isMuted, r'GAlbumData_album_user_viewer', 'isMuted');
-  }
-
-  @override
-  GAlbumData_album_user_viewer rebuild(
-          void Function(GAlbumData_album_user_viewerBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GAlbumData_album_user_viewerBuilder toBuilder() =>
-      new GAlbumData_album_user_viewerBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GAlbumData_album_user_viewer &&
-        G__typename == other.G__typename &&
-        isFollowee == other.isFollowee &&
-        isMuted == other.isMuted;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, isFollowee.hashCode);
-    _$hash = $jc(_$hash, isMuted.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(r'GAlbumData_album_user_viewer')
-          ..add('G__typename', G__typename)
-          ..add('isFollowee', isFollowee)
-          ..add('isMuted', isMuted))
-        .toString();
-  }
-}
-
-class GAlbumData_album_user_viewerBuilder
-    implements
-        Builder<GAlbumData_album_user_viewer,
-            GAlbumData_album_user_viewerBuilder> {
-  _$GAlbumData_album_user_viewer? _$v;
-
-  String? _G__typename;
-  String? get G__typename => _$this._G__typename;
-  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
-
-  bool? _isFollowee;
-  bool? get isFollowee => _$this._isFollowee;
-  set isFollowee(bool? isFollowee) => _$this._isFollowee = isFollowee;
-
-  bool? _isMuted;
-  bool? get isMuted => _$this._isMuted;
-  set isMuted(bool? isMuted) => _$this._isMuted = isMuted;
-
-  GAlbumData_album_user_viewerBuilder() {
-    GAlbumData_album_user_viewer._initializeBuilder(this);
-  }
-
-  GAlbumData_album_user_viewerBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _G__typename = $v.G__typename;
-      _isFollowee = $v.isFollowee;
-      _isMuted = $v.isMuted;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GAlbumData_album_user_viewer other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GAlbumData_album_user_viewer;
-  }
-
-  @override
-  void update(void Function(GAlbumData_album_user_viewerBuilder)? updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GAlbumData_album_user_viewer build() => _build();
-
-  _$GAlbumData_album_user_viewer _build() {
-    final _$result = _$v ??
-        new _$GAlbumData_album_user_viewer._(
-            G__typename: BuiltValueNullFieldError.checkNotNull(
-                G__typename, r'GAlbumData_album_user_viewer', 'G__typename'),
-            isFollowee: BuiltValueNullFieldError.checkNotNull(
-                isFollowee, r'GAlbumData_album_user_viewer', 'isFollowee'),
-            isMuted: BuiltValueNullFieldError.checkNotNull(
-                isMuted, r'GAlbumData_album_user_viewer', 'isMuted'));
     replace(_$result);
     return _$result;
   }

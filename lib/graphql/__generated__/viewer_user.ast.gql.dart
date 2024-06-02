@@ -17,6 +17,35 @@ const ViewerUser = _i1.OperationDefinitionNode(
       directives: [],
       selectionSet: _i1.SelectionSetNode(selections: [
         _i1.FieldNode(
+          name: _i1.NameNode(value: 'currentPass'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: _i1.SelectionSetNode(selections: [
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'type'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'isDisabled'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'isExpired'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+          ]),
+        ),
+        _i1.FieldNode(
           name: _i1.NameNode(value: 'user'),
           alias: null,
           arguments: [],
@@ -24,6 +53,13 @@ const ViewerUser = _i1.OperationDefinitionNode(
           selectionSet: _i1.SelectionSetNode(selections: [
             _i1.FieldNode(
               name: _i1.NameNode(value: 'id'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'nanoid'),
               alias: null,
               arguments: [],
               directives: [],
@@ -130,7 +166,7 @@ const ViewerUser = _i1.OperationDefinitionNode(
               ]),
             ),
           ]),
-        )
+        ),
       ]),
     )
   ]),

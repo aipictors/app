@@ -1,9 +1,6 @@
 mutation MuteUser($input: MuteUserInput!) {
   muteUser(input: $input) {
     id
-    viewer {
-      id
-      isMuted
-    }
+    isMuted
   }
 }

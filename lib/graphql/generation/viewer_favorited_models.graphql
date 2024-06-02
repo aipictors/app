@@ -1,0 +1,12 @@
+query ViewerFavoritedImageGenerationModels {
+  viewer {
+    favoritedImageGenerationModels {
+      id
+      name
+      displayName
+      category
+      thumbnailImageURL
+      type
+    }
+  }
+}

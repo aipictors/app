@@ -98,7 +98,8 @@ abstract class GFolderData_folder_user
   String get login;
   @override
   GFolderData_folder_user_iconImage? get iconImage;
-  GFolderData_folder_user_viewer? get viewer;
+  bool get isFollowee;
+  bool get isMuted;
   static Serializer<GFolderData_folder_user> get serializer =>
       _$gFolderDataFolderUserSerializer;
 
@@ -149,38 +150,6 @@ abstract class GFolderData_folder_user_iconImage
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GFolderData_folder_user_iconImage.serializer,
-        json,
-      );
-}
-
-abstract class GFolderData_folder_user_viewer
-    implements
-        Built<GFolderData_folder_user_viewer,
-            GFolderData_folder_user_viewerBuilder> {
-  GFolderData_folder_user_viewer._();
-
-  factory GFolderData_folder_user_viewer(
-          [void Function(GFolderData_folder_user_viewerBuilder b) updates]) =
-      _$GFolderData_folder_user_viewer;
-
-  static void _initializeBuilder(GFolderData_folder_user_viewerBuilder b) =>
-      b..G__typename = 'UserViewerNode';
-
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  bool get isFollowee;
-  bool get isMuted;
-  static Serializer<GFolderData_folder_user_viewer> get serializer =>
-      _$gFolderDataFolderUserViewerSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GFolderData_folder_user_viewer.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GFolderData_folder_user_viewer? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GFolderData_folder_user_viewer.serializer,
         json,
       );
 }

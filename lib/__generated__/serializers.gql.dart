@@ -7,14 +7,15 @@ import 'package:aipictors/__generated__/schema.schema.gql.dart'
         GAccessType,
         GAddPromptonTagToWorkInput,
         GAddPromptonWorkToFolderInput,
+        GAdminAccessType,
         GAiModelType,
         GAiModelWhereInput,
+        GAlbumOrderBy,
+        GAlbumRating,
         GAlbumsWhereInput,
         GAwardType,
         GAwardsWhereInput,
         GBlockPromptonUserInput,
-        GCacheControlScope,
-        GCancelImageGenerationMemoInput,
         GCancelImageGenerationReservedTaskInput,
         GCancelImageGenerationTaskInput,
         GCancelPromptonRequestInput,
@@ -46,10 +47,8 @@ import 'package:aipictors/__generated__/schema.schema.gql.dart'
         GCreatePromptonPlanInput,
         GCreatePromptonPlanRequestInput,
         GCreatePromptonProfileBlockInput,
-        GCreatePromptonPromptCategoryInput,
         GCreatePromptonPromptInput,
         GCreatePromptonPromptWorkInput,
-        GCreatePromptonReactionInput,
         GCreatePromptonUserFromTokenInput,
         GCreatePromptonUserInput,
         GCreatePromptonWorkInput,
@@ -63,7 +62,6 @@ import 'package:aipictors/__generated__/schema.schema.gql.dart'
         GCreateWorkInput,
         GCreateWorkLikeInput,
         GDailyThemesWhereInput,
-        GDecrementPromptonPlanSort,
         GDecrementPromptonProfileBlockIndexInput,
         GDeleteAlbumInput,
         GDeleteAlbumWorkInput,
@@ -79,9 +77,7 @@ import 'package:aipictors/__generated__/schema.schema.gql.dart'
         GDeletePromptonIntegrationInput,
         GDeletePromptonPlanInput,
         GDeletePromptonProfileBlockInput,
-        GDeletePromptonPromptCategoryInput,
         GDeletePromptonPromptInput,
-        GDeletePromptonReactionInput,
         GDeletePromptonWorkInput,
         GDeletePromptonWorkLikeInput,
         GDeleteRecommendedWorkInput,
@@ -92,16 +88,16 @@ import 'package:aipictors/__generated__/schema.schema.gql.dart'
         GDirection,
         GFlipPromptonFolderWorkIndexInput,
         GFolderMode,
-        GFolderRating,
-        GFolderType,
         GFoldersWhereInput,
         GFollowPromptonUserInput,
         GFollowUserInput,
+        GFollowersWhereInput,
+        GFollowingUsersWhereInput,
         GHotWorksWhereInput,
         GImageGenerationMemoOrderBy,
+        GImageGenerationSizeKind,
         GImageGenerationSizeType,
         GImageGenerationStatus,
-        GImageGenerationTaskOrderBy,
         GImageGenerationTasksWhereInput,
         GImageGenerationType,
         GImageModelCategory,
@@ -130,11 +126,9 @@ import 'package:aipictors/__generated__/schema.schema.gql.dart'
         GPromptonImageGenerationsWhereInput,
         GPromptonLabelsWhereInput,
         GPromptonPlansWhereInput,
-        GPromptonRequestsWhereInput,
         GPromptonTagsWhereInput,
         GPromptonUserWorksWhereInput,
         GPromptonUsersWhereInput,
-        GPromptonViewerWorksWhereInput,
         GPromptonWorksWhereInput,
         GRating,
         GRejectPromptonRequestInput,
@@ -148,6 +142,7 @@ import 'package:aipictors/__generated__/schema.schema.gql.dart'
         GReportUserInput,
         GReportWorkInput,
         GSignImageGenerationTermsInput,
+        GSort,
         GStickerGenre,
         GStickerOrderBy,
         GStickersWhereInput,
@@ -169,11 +164,9 @@ import 'package:aipictors/__generated__/schema.schema.gql.dart'
         GUpdateNoteInput,
         GUpdateNovelInput,
         GUpdatePromptonFolderInput,
-        GUpdatePromptonFolderSortInput,
         GUpdatePromptonPlanInput,
         GUpdatePromptonPlanSortInput,
         GUpdatePromptonProfileBlockInput,
-        GUpdatePromptonPromptCategoryInput,
         GUpdatePromptonPromptInput,
         GUpdatePromptonUserAvatarInput,
         GUpdatePromptonUserHeaderImageInput,
@@ -193,6 +186,7 @@ import 'package:aipictors/__generated__/schema.schema.gql.dart'
         GUserWorksWhereInput,
         GUsersWhereInput,
         GWatchFolderInput,
+        GWhiteListTagsInput,
         GWorkAwardsWhereInput,
         GWorkOrderBy,
         GWorkType,
@@ -203,8 +197,7 @@ import 'package:aipictors/graphql/__generated__/album.data.gql.dart'
         GAlbumData_album,
         GAlbumData_album_thumbnailImage,
         GAlbumData_album_user,
-        GAlbumData_album_user_iconImage,
-        GAlbumData_album_user_viewer;
+        GAlbumData_album_user_iconImage;
 import 'package:aipictors/graphql/__generated__/album.req.gql.dart'
     show GAlbumReq;
 import 'package:aipictors/graphql/__generated__/album.var.gql.dart'
@@ -213,10 +206,8 @@ import 'package:aipictors/graphql/__generated__/album_works.data.gql.dart'
     show
         GAlbumWorksData,
         GAlbumWorksData_album,
-        GAlbumWorksData_album_viewer,
         GAlbumWorksData_album_works,
-        GAlbumWorksData_album_works_image,
-        GAlbumWorksData_album_works_viewer;
+        GAlbumWorksData_album_works_image;
 import 'package:aipictors/graphql/__generated__/album_works.req.gql.dart'
     show GAlbumWorksReq;
 import 'package:aipictors/graphql/__generated__/album_works.var.gql.dart'
@@ -274,9 +265,7 @@ import 'package:aipictors/graphql/__generated__/feed_daily_theme_works.data.gql.
         GFeedDailyThemeWorksData_dailyTheme_works,
         GFeedDailyThemeWorksData_dailyTheme_works_image,
         GFeedDailyThemeWorksData_dailyTheme_works_user,
-        GFeedDailyThemeWorksData_dailyTheme_works_user_iconImage,
-        GFeedDailyThemeWorksData_dailyTheme_works_user_viewer,
-        GFeedDailyThemeWorksData_dailyTheme_works_viewer;
+        GFeedDailyThemeWorksData_dailyTheme_works_user_iconImage;
 import 'package:aipictors/graphql/__generated__/feed_daily_theme_works.req.gql.dart'
     show GFeedDailyThemeWorksReq;
 import 'package:aipictors/graphql/__generated__/feed_daily_theme_works.var.gql.dart'
@@ -287,9 +276,7 @@ import 'package:aipictors/graphql/__generated__/feed_hot_works.data.gql.dart'
         GFeedHotWorksData_hotWorks,
         GFeedHotWorksData_hotWorks_image,
         GFeedHotWorksData_hotWorks_user,
-        GFeedHotWorksData_hotWorks_user_iconImage,
-        GFeedHotWorksData_hotWorks_user_viewer,
-        GFeedHotWorksData_hotWorks_viewer;
+        GFeedHotWorksData_hotWorks_user_iconImage;
 import 'package:aipictors/graphql/__generated__/feed_hot_works.req.gql.dart'
     show GFeedHotWorksReq;
 import 'package:aipictors/graphql/__generated__/feed_hot_works.var.gql.dart'
@@ -300,9 +287,7 @@ import 'package:aipictors/graphql/__generated__/feed_latest_works.data.gql.dart'
         GFeedLatestWorksData_works,
         GFeedLatestWorksData_works_image,
         GFeedLatestWorksData_works_user,
-        GFeedLatestWorksData_works_user_iconImage,
-        GFeedLatestWorksData_works_user_viewer,
-        GFeedLatestWorksData_works_viewer;
+        GFeedLatestWorksData_works_user_iconImage;
 import 'package:aipictors/graphql/__generated__/feed_latest_works.req.gql.dart'
     show GFeedLatestWorksReq;
 import 'package:aipictors/graphql/__generated__/feed_latest_works.var.gql.dart'
@@ -313,9 +298,7 @@ import 'package:aipictors/graphql/__generated__/feed_popular_works.data.gql.dart
         GFeedPopularWorksData_popularWorks,
         GFeedPopularWorksData_popularWorks_image,
         GFeedPopularWorksData_popularWorks_user,
-        GFeedPopularWorksData_popularWorks_user_iconImage,
-        GFeedPopularWorksData_popularWorks_user_viewer,
-        GFeedPopularWorksData_popularWorks_viewer;
+        GFeedPopularWorksData_popularWorks_user_iconImage;
 import 'package:aipictors/graphql/__generated__/feed_popular_works.req.gql.dart'
     show GFeedPopularWorksReq;
 import 'package:aipictors/graphql/__generated__/feed_popular_works.var.gql.dart'
@@ -325,8 +308,7 @@ import 'package:aipictors/graphql/__generated__/folder.data.gql.dart'
         GFolderData,
         GFolderData_folder,
         GFolderData_folder_user,
-        GFolderData_folder_user_iconImage,
-        GFolderData_folder_user_viewer;
+        GFolderData_folder_user_iconImage;
 import 'package:aipictors/graphql/__generated__/folder.req.gql.dart'
     show GFolderReq;
 import 'package:aipictors/graphql/__generated__/folder.var.gql.dart'
@@ -397,8 +379,7 @@ import 'package:aipictors/graphql/__generated__/sticker.data.gql.dart'
         GStickerData_sticker,
         GStickerData_sticker_image,
         GStickerData_sticker_user,
-        GStickerData_sticker_user_iconImage,
-        GStickerData_sticker_user_viewer;
+        GStickerData_sticker_user_iconImage;
 import 'package:aipictors/graphql/__generated__/sticker.req.gql.dart'
     show GStickerReq;
 import 'package:aipictors/graphql/__generated__/sticker.var.gql.dart'
@@ -410,7 +391,7 @@ import 'package:aipictors/graphql/__generated__/stickers.req.gql.dart'
 import 'package:aipictors/graphql/__generated__/stickers.var.gql.dart'
     show GStickersVars;
 import 'package:aipictors/graphql/__generated__/tag.data.gql.dart'
-    show GTagData, GTagData_tag, GTagData_tag_viewer;
+    show GTagData, GTagData_tag;
 import 'package:aipictors/graphql/__generated__/tag.req.gql.dart' show GTagReq;
 import 'package:aipictors/graphql/__generated__/tag.var.gql.dart' show GTagVars;
 import 'package:aipictors/graphql/__generated__/tag_works.data.gql.dart'
@@ -424,7 +405,7 @@ import 'package:aipictors/graphql/__generated__/tag_works.req.gql.dart'
 import 'package:aipictors/graphql/__generated__/tag_works.var.gql.dart'
     show GTagWorksVars;
 import 'package:aipictors/graphql/__generated__/tags.data.gql.dart'
-    show GTagsData, GTagsData_tags, GTagsData_tags_viewer;
+    show GTagsData, GTagsData_tags;
 import 'package:aipictors/graphql/__generated__/tags.req.gql.dart'
     show GTagsReq;
 import 'package:aipictors/graphql/__generated__/tags.var.gql.dart'
@@ -434,8 +415,7 @@ import 'package:aipictors/graphql/__generated__/user.data.gql.dart'
         GUserData,
         GUserData_user,
         GUserData_user_headerImage,
-        GUserData_user_iconImage,
-        GUserData_user_viewer;
+        GUserData_user_iconImage;
 import 'package:aipictors/graphql/__generated__/user.req.gql.dart'
     show GUserReq;
 import 'package:aipictors/graphql/__generated__/user.var.gql.dart'
@@ -535,6 +515,15 @@ import 'package:aipictors/graphql/__generated__/viewer_folders.req.gql.dart'
     show GViewerFoldersReq;
 import 'package:aipictors/graphql/__generated__/viewer_folders.var.gql.dart'
     show GViewerFoldersVars;
+import 'package:aipictors/graphql/__generated__/viewer_image_generation_status.data.gql.dart'
+    show
+        GViewerImageGenerationStatusData,
+        GViewerImageGenerationStatusData_imageGenerationEngineStatus,
+        GViewerImageGenerationStatusData_viewer;
+import 'package:aipictors/graphql/__generated__/viewer_image_generation_status.req.gql.dart'
+    show GViewerImageGenerationStatusReq;
+import 'package:aipictors/graphql/__generated__/viewer_image_generation_status.var.gql.dart'
+    show GViewerImageGenerationStatusVars;
 import 'package:aipictors/graphql/__generated__/viewer_liked_works.data.gql.dart'
     show
         GViewerLikedWorksData,
@@ -605,6 +594,7 @@ import 'package:aipictors/graphql/__generated__/viewer_user.data.gql.dart'
     show
         GViewerUserData,
         GViewerUserData_viewer,
+        GViewerUserData_viewer_currentPass,
         GViewerUserData_viewer_user,
         GViewerUserData_viewer_user_headerImage,
         GViewerUserData_viewer_user_iconImage;
@@ -626,14 +616,11 @@ import 'package:aipictors/graphql/__generated__/work.data.gql.dart'
     show
         GWorkData,
         GWorkData_work,
-        GWorkData_work_image,
         GWorkData_work_subWorks,
         GWorkData_work_subWorks_image,
         GWorkData_work_subWorks_thumbnailImage,
         GWorkData_work_user,
-        GWorkData_work_user_iconImage,
-        GWorkData_work_user_viewer,
-        GWorkData_work_viewer;
+        GWorkData_work_user_iconImage;
 import 'package:aipictors/graphql/__generated__/work.req.gql.dart'
     show GWorkReq;
 import 'package:aipictors/graphql/__generated__/work.var.gql.dart'
@@ -710,6 +697,12 @@ import 'package:aipictors/graphql/fragments/__generated__/follow_notification_fi
     show GFollowNotificationFieldsReq;
 import 'package:aipictors/graphql/fragments/__generated__/follow_notification_fields_fragment.var.gql.dart'
     show GFollowNotificationFieldsVars;
+import 'package:aipictors/graphql/fragments/__generated__/image_generation_task_fields_fragment.data.gql.dart'
+    show GImageGenerationTaskFieldsData, GImageGenerationTaskFieldsData_model;
+import 'package:aipictors/graphql/fragments/__generated__/image_generation_task_fields_fragment.req.gql.dart'
+    show GImageGenerationTaskFieldsReq;
+import 'package:aipictors/graphql/fragments/__generated__/image_generation_task_fields_fragment.var.gql.dart'
+    show GImageGenerationTaskFieldsVars;
 import 'package:aipictors/graphql/fragments/__generated__/liked_work_notification_fields_fragment.data.gql.dart'
     show
         GLikedWorkNotificationFieldsData,
@@ -834,6 +827,46 @@ import 'package:aipictors/graphql/fragments/__generated__/work_user_fields_fragm
     show GWorkUserFieldsReq;
 import 'package:aipictors/graphql/fragments/__generated__/work_user_fields_fragment.var.gql.dart'
     show GWorkUserFieldsVars;
+import 'package:aipictors/graphql/generation/__generated__/image_lora_models.data.gql.dart'
+    show GImageLoraModelsData, GImageLoraModelsData_imageLoraModels;
+import 'package:aipictors/graphql/generation/__generated__/image_lora_models.req.gql.dart'
+    show GImageLoraModelsReq;
+import 'package:aipictors/graphql/generation/__generated__/image_lora_models.var.gql.dart'
+    show GImageLoraModelsVars;
+import 'package:aipictors/graphql/generation/__generated__/image_models.data.gql.dart'
+    show GImageModelsData, GImageModelsData_imageModels;
+import 'package:aipictors/graphql/generation/__generated__/image_models.req.gql.dart'
+    show GImageModelsReq;
+import 'package:aipictors/graphql/generation/__generated__/image_models.var.gql.dart'
+    show GImageModelsVars;
+import 'package:aipictors/graphql/generation/__generated__/viewer_favorited_models.data.gql.dart'
+    show
+        GViewerFavoritedImageGenerationModelsData,
+        GViewerFavoritedImageGenerationModelsData_viewer,
+        GViewerFavoritedImageGenerationModelsData_viewer_favoritedImageGenerationModels;
+import 'package:aipictors/graphql/generation/__generated__/viewer_favorited_models.req.gql.dart'
+    show GViewerFavoritedImageGenerationModelsReq;
+import 'package:aipictors/graphql/generation/__generated__/viewer_favorited_models.var.gql.dart'
+    show GViewerFavoritedImageGenerationModelsVars;
+import 'package:aipictors/graphql/generation/__generated__/viewer_image_generation_task.data.gql.dart'
+    show
+        GViewerImageGenerationTaskData,
+        GViewerImageGenerationTaskData_imageGenerationTask,
+        GViewerImageGenerationTaskData_imageGenerationTask_model;
+import 'package:aipictors/graphql/generation/__generated__/viewer_image_generation_task.req.gql.dart'
+    show GViewerImageGenerationTaskReq;
+import 'package:aipictors/graphql/generation/__generated__/viewer_image_generation_task.var.gql.dart'
+    show GViewerImageGenerationTaskVars;
+import 'package:aipictors/graphql/generation/__generated__/viewer_image_generation_tasks.data.gql.dart'
+    show
+        GViewerImageGenerationTasksData,
+        GViewerImageGenerationTasksData_viewer,
+        GViewerImageGenerationTasksData_viewer_imageGenerationTasks,
+        GViewerImageGenerationTasksData_viewer_imageGenerationTasks_model;
+import 'package:aipictors/graphql/generation/__generated__/viewer_image_generation_tasks.req.gql.dart'
+    show GViewerImageGenerationTasksReq;
+import 'package:aipictors/graphql/generation/__generated__/viewer_image_generation_tasks.var.gql.dart'
+    show GViewerImageGenerationTasksVars;
 import 'package:aipictors/graphql/mutations/__generated__/create_account.data.gql.dart'
     show GCreateAccountData, GCreateAccountData_createAccount;
 import 'package:aipictors/graphql/mutations/__generated__/create_account.req.gql.dart'
@@ -864,6 +897,15 @@ import 'package:aipictors/graphql/mutations/__generated__/create_folder_work.req
     show GCreateFolderWorkReq;
 import 'package:aipictors/graphql/mutations/__generated__/create_folder_work.var.gql.dart'
     show GCreateFolderWorkVars;
+import 'package:aipictors/graphql/mutations/__generated__/create_image_generation_task.data.gql.dart'
+    show
+        GCreateImageGenerationTaskData,
+        GCreateImageGenerationTaskData_createImageGenerationTask,
+        GCreateImageGenerationTaskData_createImageGenerationTask_model;
+import 'package:aipictors/graphql/mutations/__generated__/create_image_generation_task.req.gql.dart'
+    show GCreateImageGenerationTaskReq;
+import 'package:aipictors/graphql/mutations/__generated__/create_image_generation_task.var.gql.dart'
+    show GCreateImageGenerationTaskVars;
 import 'package:aipictors/graphql/mutations/__generated__/create_response_comment.data.gql.dart'
     show
         GCreateResponseCommentData,
@@ -897,10 +939,7 @@ import 'package:aipictors/graphql/mutations/__generated__/create_work_comment.re
 import 'package:aipictors/graphql/mutations/__generated__/create_work_comment.var.gql.dart'
     show GCreateWorkCommentVars;
 import 'package:aipictors/graphql/mutations/__generated__/create_work_like.data.gql.dart'
-    show
-        GCreateWorkLikeData,
-        GCreateWorkLikeData_createWorkLike,
-        GCreateWorkLikeData_createWorkLike_viewer;
+    show GCreateWorkLikeData, GCreateWorkLikeData_createWorkLike;
 import 'package:aipictors/graphql/mutations/__generated__/create_work_like.req.gql.dart'
     show GCreateWorkLikeReq;
 import 'package:aipictors/graphql/mutations/__generated__/create_work_like.var.gql.dart'
@@ -935,6 +974,15 @@ import 'package:aipictors/graphql/mutations/__generated__/delete_folder_work.req
     show GDeleteFolderWorkReq;
 import 'package:aipictors/graphql/mutations/__generated__/delete_folder_work.var.gql.dart'
     show GDeleteFolderWorkVars;
+import 'package:aipictors/graphql/mutations/__generated__/delete_image_generation_task.data.gql.dart'
+    show
+        GDeleteImageGenerationTaskData,
+        GDeleteImageGenerationTaskData_deleteImageGenerationTask,
+        GDeleteImageGenerationTaskData_deleteImageGenerationTask_model;
+import 'package:aipictors/graphql/mutations/__generated__/delete_image_generation_task.req.gql.dart'
+    show GDeleteImageGenerationTaskReq;
+import 'package:aipictors/graphql/mutations/__generated__/delete_image_generation_task.var.gql.dart'
+    show GDeleteImageGenerationTaskVars;
 import 'package:aipictors/graphql/mutations/__generated__/delete_sticker.data.gql.dart'
     show GDeleteStickerData, GDeleteStickerData_deleteSticker;
 import 'package:aipictors/graphql/mutations/__generated__/delete_sticker.req.gql.dart'
@@ -954,10 +1002,7 @@ import 'package:aipictors/graphql/mutations/__generated__/delete_work.req.gql.da
 import 'package:aipictors/graphql/mutations/__generated__/delete_work.var.gql.dart'
     show GDeleteWorkVars;
 import 'package:aipictors/graphql/mutations/__generated__/follow_user.data.gql.dart'
-    show
-        GFollowUserData,
-        GFollowUserData_followUser,
-        GFollowUserData_followUser_viewer;
+    show GFollowUserData, GFollowUserData_followUser;
 import 'package:aipictors/graphql/mutations/__generated__/follow_user.req.gql.dart'
     show GFollowUserReq;
 import 'package:aipictors/graphql/mutations/__generated__/follow_user.var.gql.dart'
@@ -975,7 +1020,7 @@ import 'package:aipictors/graphql/mutations/__generated__/mute_tag.req.gql.dart'
 import 'package:aipictors/graphql/mutations/__generated__/mute_tag.var.gql.dart'
     show GMuteTagVars;
 import 'package:aipictors/graphql/mutations/__generated__/mute_user.data.gql.dart'
-    show GMuteUserData, GMuteUserData_muteUser, GMuteUserData_muteUser_viewer;
+    show GMuteUserData, GMuteUserData_muteUser;
 import 'package:aipictors/graphql/mutations/__generated__/mute_user.req.gql.dart'
     show GMuteUserReq;
 import 'package:aipictors/graphql/mutations/__generated__/mute_user.var.gql.dart'
@@ -1044,6 +1089,24 @@ import 'package:aipictors/graphql/mutations/__generated__/update_folder.req.gql.
     show GUpdateFolderReq;
 import 'package:aipictors/graphql/mutations/__generated__/update_folder.var.gql.dart'
     show GUpdateFolderVars;
+import 'package:aipictors/graphql/mutations/__generated__/update_protected_image_generation_task.data.gql.dart'
+    show
+        GUpdateProtectedImageGenerationTaskData,
+        GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask,
+        GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_model;
+import 'package:aipictors/graphql/mutations/__generated__/update_protected_image_generation_task.req.gql.dart'
+    show GUpdateProtectedImageGenerationTaskReq;
+import 'package:aipictors/graphql/mutations/__generated__/update_protected_image_generation_task.var.gql.dart'
+    show GUpdateProtectedImageGenerationTaskVars;
+import 'package:aipictors/graphql/mutations/__generated__/update_rating_image_generation_task.data.gql.dart'
+    show
+        GUpdateRatingImageGenerationTaskData,
+        GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask,
+        GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_model;
+import 'package:aipictors/graphql/mutations/__generated__/update_rating_image_generation_task.req.gql.dart'
+    show GUpdateRatingImageGenerationTaskReq;
+import 'package:aipictors/graphql/mutations/__generated__/update_rating_image_generation_task.var.gql.dart'
+    show GUpdateRatingImageGenerationTaskVars;
 import 'package:aipictors/graphql/mutations/__generated__/update_sticker.data.gql.dart'
     show GUpdateStickerData, GUpdateStickerData_updateSticker;
 import 'package:aipictors/graphql/mutations/__generated__/update_sticker.req.gql.dart'
@@ -1080,6 +1143,7 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GAccessType,
   GAddPromptonTagToWorkInput,
   GAddPromptonWorkToFolderInput,
+  GAdminAccessType,
   GAiModelType,
   GAiModelWhereInput,
   GAlbumData,
@@ -1087,15 +1151,14 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GAlbumData_album_thumbnailImage,
   GAlbumData_album_user,
   GAlbumData_album_user_iconImage,
-  GAlbumData_album_user_viewer,
+  GAlbumOrderBy,
+  GAlbumRating,
   GAlbumReq,
   GAlbumVars,
   GAlbumWorksData,
   GAlbumWorksData_album,
-  GAlbumWorksData_album_viewer,
   GAlbumWorksData_album_works,
   GAlbumWorksData_album_works_image,
-  GAlbumWorksData_album_works_viewer,
   GAlbumWorksReq,
   GAlbumWorksVars,
   GAlbumsData,
@@ -1118,8 +1181,6 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GBestWorksReq,
   GBestWorksVars,
   GBlockPromptonUserInput,
-  GCacheControlScope,
-  GCancelImageGenerationMemoInput,
   GCancelImageGenerationReservedTaskInput,
   GCancelImageGenerationTaskInput,
   GCancelPromptonRequestInput,
@@ -1160,7 +1221,12 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GCreateFolderWorkReq,
   GCreateFolderWorkVars,
   GCreateImageGenerationMemoInput,
+  GCreateImageGenerationTaskData,
+  GCreateImageGenerationTaskData_createImageGenerationTask,
+  GCreateImageGenerationTaskData_createImageGenerationTask_model,
   GCreateImageGenerationTaskInput,
+  GCreateImageGenerationTaskReq,
+  GCreateImageGenerationTaskVars,
   GCreateMessageInput,
   GCreateNoteInput,
   GCreateNovelInput,
@@ -1178,10 +1244,8 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GCreatePromptonPlanInput,
   GCreatePromptonPlanRequestInput,
   GCreatePromptonProfileBlockInput,
-  GCreatePromptonPromptCategoryInput,
   GCreatePromptonPromptInput,
   GCreatePromptonPromptWorkInput,
-  GCreatePromptonReactionInput,
   GCreatePromptonUserFromTokenInput,
   GCreatePromptonUserInput,
   GCreatePromptonWorkInput,
@@ -1213,7 +1277,6 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GCreateWorkInput,
   GCreateWorkLikeData,
   GCreateWorkLikeData_createWorkLike,
-  GCreateWorkLikeData_createWorkLike_viewer,
   GCreateWorkLikeInput,
   GCreateWorkLikeReq,
   GCreateWorkLikeVars,
@@ -1232,7 +1295,6 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GDailyThemesReq,
   GDailyThemesVars,
   GDailyThemesWhereInput,
-  GDecrementPromptonPlanSort,
   GDecrementPromptonProfileBlockIndexInput,
   GDeleteAlbumData,
   GDeleteAlbumData_deleteAlbum,
@@ -1260,7 +1322,12 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GDeleteFolderWorkReq,
   GDeleteFolderWorkVars,
   GDeleteImageGenerationMemoInput,
+  GDeleteImageGenerationTaskData,
+  GDeleteImageGenerationTaskData_deleteImageGenerationTask,
+  GDeleteImageGenerationTaskData_deleteImageGenerationTask_model,
   GDeleteImageGenerationTaskInput,
+  GDeleteImageGenerationTaskReq,
+  GDeleteImageGenerationTaskVars,
   GDeleteMessageInput,
   GDeleteNoteInput,
   GDeleteNovelInput,
@@ -1268,9 +1335,7 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GDeletePromptonIntegrationInput,
   GDeletePromptonPlanInput,
   GDeletePromptonProfileBlockInput,
-  GDeletePromptonPromptCategoryInput,
   GDeletePromptonPromptInput,
-  GDeletePromptonReactionInput,
   GDeletePromptonWorkInput,
   GDeletePromptonWorkLikeInput,
   GDeleteRecommendedWorkInput,
@@ -1297,8 +1362,6 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GFeedDailyThemeWorksData_dailyTheme_works_image,
   GFeedDailyThemeWorksData_dailyTheme_works_user,
   GFeedDailyThemeWorksData_dailyTheme_works_user_iconImage,
-  GFeedDailyThemeWorksData_dailyTheme_works_user_viewer,
-  GFeedDailyThemeWorksData_dailyTheme_works_viewer,
   GFeedDailyThemeWorksReq,
   GFeedDailyThemeWorksVars,
   GFeedHotWorksData,
@@ -1306,8 +1369,6 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GFeedHotWorksData_hotWorks_image,
   GFeedHotWorksData_hotWorks_user,
   GFeedHotWorksData_hotWorks_user_iconImage,
-  GFeedHotWorksData_hotWorks_user_viewer,
-  GFeedHotWorksData_hotWorks_viewer,
   GFeedHotWorksReq,
   GFeedHotWorksVars,
   GFeedLatestWorksData,
@@ -1315,8 +1376,6 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GFeedLatestWorksData_works_image,
   GFeedLatestWorksData_works_user,
   GFeedLatestWorksData_works_user_iconImage,
-  GFeedLatestWorksData_works_user_viewer,
-  GFeedLatestWorksData_works_viewer,
   GFeedLatestWorksReq,
   GFeedLatestWorksVars,
   GFeedPopularWorksData,
@@ -1324,8 +1383,6 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GFeedPopularWorksData_popularWorks_image,
   GFeedPopularWorksData_popularWorks_user,
   GFeedPopularWorksData_popularWorks_user_iconImage,
-  GFeedPopularWorksData_popularWorks_user_viewer,
-  GFeedPopularWorksData_popularWorks_viewer,
   GFeedPopularWorksReq,
   GFeedPopularWorksVars,
   GFlipPromptonFolderWorkIndexInput,
@@ -1333,11 +1390,8 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GFolderData_folder,
   GFolderData_folder_user,
   GFolderData_folder_user_iconImage,
-  GFolderData_folder_user_viewer,
   GFolderMode,
-  GFolderRating,
   GFolderReq,
-  GFolderType,
   GFolderVars,
   GFolderWorksData,
   GFolderWorksData_folder,
@@ -1360,10 +1414,11 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GFollowPromptonUserInput,
   GFollowUserData,
   GFollowUserData_followUser,
-  GFollowUserData_followUser_viewer,
   GFollowUserInput,
   GFollowUserReq,
   GFollowUserVars,
+  GFollowersWhereInput,
+  GFollowingUsersWhereInput,
   GHotTagsData,
   GHotTagsData_hotTags,
   GHotTagsData_hotTags_firstWork,
@@ -1377,12 +1432,24 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GHotWorksVars,
   GHotWorksWhereInput,
   GImageGenerationMemoOrderBy,
+  GImageGenerationSizeKind,
   GImageGenerationSizeType,
   GImageGenerationStatus,
-  GImageGenerationTaskOrderBy,
+  GImageGenerationTaskFieldsData,
+  GImageGenerationTaskFieldsData_model,
+  GImageGenerationTaskFieldsReq,
+  GImageGenerationTaskFieldsVars,
   GImageGenerationTasksWhereInput,
   GImageGenerationType,
+  GImageLoraModelsData,
+  GImageLoraModelsData_imageLoraModels,
+  GImageLoraModelsReq,
+  GImageLoraModelsVars,
   GImageModelCategory,
+  GImageModelsData,
+  GImageModelsData_imageModels,
+  GImageModelsReq,
+  GImageModelsVars,
   GImageStyle,
   GIncrementPromptonProfileBlockIndexInput,
   GLikedWorkNotificationFieldsData,
@@ -1416,7 +1483,6 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GMuteTagVars,
   GMuteUserData,
   GMuteUserData_muteUser,
-  GMuteUserData_muteUser_viewer,
   GMuteUserInput,
   GMuteUserReq,
   GMuteUserVars,
@@ -1473,11 +1539,9 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GPromptonImageGenerationsWhereInput,
   GPromptonLabelsWhereInput,
   GPromptonPlansWhereInput,
-  GPromptonRequestsWhereInput,
   GPromptonTagsWhereInput,
   GPromptonUserWorksWhereInput,
   GPromptonUsersWhereInput,
-  GPromptonViewerWorksWhereInput,
   GPromptonWorksWhereInput,
   GRating,
   GRejectPromptonRequestInput,
@@ -1509,12 +1573,12 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GReportWorkReq,
   GReportWorkVars,
   GSignImageGenerationTermsInput,
+  GSort,
   GStickerData,
   GStickerData_sticker,
   GStickerData_sticker_image,
   GStickerData_sticker_user,
   GStickerData_sticker_user_iconImage,
-  GStickerData_sticker_user_viewer,
   GStickerGenre,
   GStickerOrderBy,
   GStickerReq,
@@ -1532,7 +1596,6 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GSubWorkFieldsVars,
   GTagData,
   GTagData_tag,
-  GTagData_tag_viewer,
   GTagReq,
   GTagVars,
   GTagWorksData,
@@ -1543,7 +1606,6 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GTagWorksVars,
   GTagsData,
   GTagsData_tags,
-  GTagsData_tags_viewer,
   GTagsReq,
   GTagsVars,
   GTagsWhereInput,
@@ -1580,11 +1642,9 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GUpdateNoteInput,
   GUpdateNovelInput,
   GUpdatePromptonFolderInput,
-  GUpdatePromptonFolderSortInput,
   GUpdatePromptonPlanInput,
   GUpdatePromptonPlanSortInput,
   GUpdatePromptonProfileBlockInput,
-  GUpdatePromptonPromptCategoryInput,
   GUpdatePromptonPromptInput,
   GUpdatePromptonUserAvatarInput,
   GUpdatePromptonUserHeaderImageInput,
@@ -1592,9 +1652,19 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GUpdatePromptonUserLoginInput,
   GUpdatePromptonUserProfileInput,
   GUpdatePromptonWorkInput,
+  GUpdateProtectedImageGenerationTaskData,
+  GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask,
+  GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_model,
   GUpdateProtectedImageGenerationTaskInput,
+  GUpdateProtectedImageGenerationTaskReq,
+  GUpdateProtectedImageGenerationTaskVars,
   GUpdateRatingImageGenerationModelInput,
+  GUpdateRatingImageGenerationTaskData,
+  GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask,
+  GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_model,
   GUpdateRatingImageGenerationTaskInput,
+  GUpdateRatingImageGenerationTaskReq,
+  GUpdateRatingImageGenerationTaskVars,
   GUpdateStickerData,
   GUpdateStickerData_updateSticker,
   GUpdateStickerInput,
@@ -1622,7 +1692,6 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GUserData_user,
   GUserData_user_headerImage,
   GUserData_user_iconImage,
-  GUserData_user_viewer,
   GUserFieldsData,
   GUserFieldsData_headerImage,
   GUserFieldsData_iconImage,
@@ -1673,6 +1742,11 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GViewerAlbumsData_viewer_albums_thumbnailImage,
   GViewerAlbumsReq,
   GViewerAlbumsVars,
+  GViewerFavoritedImageGenerationModelsData,
+  GViewerFavoritedImageGenerationModelsData_viewer,
+  GViewerFavoritedImageGenerationModelsData_viewer_favoritedImageGenerationModels,
+  GViewerFavoritedImageGenerationModelsReq,
+  GViewerFavoritedImageGenerationModelsVars,
   GViewerFeedWorksData,
   GViewerFeedWorksData_viewer,
   GViewerFeedWorksData_viewer_feedWorks,
@@ -1688,6 +1762,22 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GViewerFoldersData_viewer_folders,
   GViewerFoldersReq,
   GViewerFoldersVars,
+  GViewerImageGenerationStatusData,
+  GViewerImageGenerationStatusData_imageGenerationEngineStatus,
+  GViewerImageGenerationStatusData_viewer,
+  GViewerImageGenerationStatusReq,
+  GViewerImageGenerationStatusVars,
+  GViewerImageGenerationTaskData,
+  GViewerImageGenerationTaskData_imageGenerationTask,
+  GViewerImageGenerationTaskData_imageGenerationTask_model,
+  GViewerImageGenerationTaskReq,
+  GViewerImageGenerationTaskVars,
+  GViewerImageGenerationTasksData,
+  GViewerImageGenerationTasksData_viewer,
+  GViewerImageGenerationTasksData_viewer_imageGenerationTasks,
+  GViewerImageGenerationTasksData_viewer_imageGenerationTasks_model,
+  GViewerImageGenerationTasksReq,
+  GViewerImageGenerationTasksVars,
   GViewerLikedWorksData,
   GViewerLikedWorksData_viewer,
   GViewerLikedWorksData_viewer_likedWorks,
@@ -1739,6 +1829,7 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GViewerNotificationsVars,
   GViewerUserData,
   GViewerUserData_viewer,
+  GViewerUserData_viewer_currentPass,
   GViewerUserData_viewer_user,
   GViewerUserData_viewer_user_headerImage,
   GViewerUserData_viewer_user_iconImage,
@@ -1751,6 +1842,7 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GViewerWorksReq,
   GViewerWorksVars,
   GWatchFolderInput,
+  GWhiteListTagsInput,
   GWorkAwardNotificationFieldsData,
   GWorkAwardNotificationFieldsData_work,
   GWorkAwardNotificationFieldsData_work_thumbnailImage,
@@ -1811,14 +1903,11 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GWorkCommentsVars,
   GWorkData,
   GWorkData_work,
-  GWorkData_work_image,
   GWorkData_work_subWorks,
   GWorkData_work_subWorks_image,
   GWorkData_work_subWorks_thumbnailImage,
   GWorkData_work_user,
   GWorkData_work_user_iconImage,
-  GWorkData_work_user_viewer,
-  GWorkData_work_viewer,
   GWorkOrderBy,
   GWorkReq,
   GWorkType,

@@ -11,12 +11,9 @@ query Sticker($id: ID!) {
     }
     user {
       ...WorkUserFields
-      viewer {
-        id
-        isFollower
-        isFollowee
-        isMuted
-      }
+      isFollower
+      isFollowee
+      isMuted
     }
     isLiked
     downloadsCount

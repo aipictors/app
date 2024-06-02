@@ -22,11 +22,13 @@ import 'package:aipictors/screens/daily_theme/daily_theme_screen.dart';
 import 'package:aipictors/screens/daily_theme/daily_themes_month_screen.dart';
 import 'package:aipictors/screens/daily_theme/daily_themes_screen.dart';
 import 'package:aipictors/screens/debug_screen.dart';
+import 'package:aipictors/screens/explorer/explorer_screen.dart';
 import 'package:aipictors/screens/feedback_screen.dart';
 import 'package:aipictors/screens/folder/folder_create_screen.dart';
 import 'package:aipictors/screens/folder/folder_report_screen.dart';
 import 'package:aipictors/screens/folder/folder_screen.dart';
 import 'package:aipictors/screens/folder/folder_update_screen.dart';
+import 'package:aipictors/screens/generation/generation_task_screen.dart';
 import 'package:aipictors/screens/guideline_screen.dart';
 import 'package:aipictors/screens/information/information_screen.dart';
 import 'package:aipictors/screens/information/promotion_screen.dart';
@@ -222,6 +224,12 @@ final _routes = [
     },
   ),
   GoRoute(
+    path: '/explorer',
+    builder: (context, state) {
+      return const ExplorerScreen();
+    },
+  ),
+  GoRoute(
     path: '/folders/create',
     builder: (context, state) {
       return const FolderCreateScreen();
@@ -396,6 +404,13 @@ final _routes = [
     builder: (context, state) {
       final text = state.pathParameters['text'];
       return SearchScreen(text: text!);
+    },
+  ),
+  GoRoute(
+    path: '/generation/tasks/:task_nano_id',
+    builder: (context, state) {
+      final taskNanoId = state.pathParameters['task_nano_id'];
+      return GenerationTaskScreen(taskNanoId: taskNanoId!);
     },
   ),
   GoRoute(

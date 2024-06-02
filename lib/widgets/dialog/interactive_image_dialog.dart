@@ -7,8 +7,11 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class InteractiveImageDialog extends HookConsumerWidget {
-  const InteractiveImageDialog(this.imageURL, {super.key});
+  const InteractiveImageDialog(this.imageURL, {this.headers, super.key});
+
   final String imageURL;
+
+  final Map<String, String>? headers;
 
   @override
   Widget build(context, ref) {
@@ -93,6 +96,7 @@ class InteractiveImageDialog extends HookConsumerWidget {
                     child: CachedNetworkImage(
                       imageUrl: imageURL,
                       fit: BoxFit.contain,
+                      httpHeaders: headers,
                       width: double.infinity,
                       progressIndicatorBuilder: (_, __, ___) {
                         return const LoadingContainer();

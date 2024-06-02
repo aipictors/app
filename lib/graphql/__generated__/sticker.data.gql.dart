@@ -135,7 +135,9 @@ abstract class GStickerData_sticker_user
   String get login;
   @override
   GStickerData_sticker_user_iconImage? get iconImage;
-  GStickerData_sticker_user_viewer? get viewer;
+  bool get isFollower;
+  bool get isFollowee;
+  bool get isMuted;
   static Serializer<GStickerData_sticker_user> get serializer =>
       _$gStickerDataStickerUserSerializer;
 
@@ -187,41 +189,6 @@ abstract class GStickerData_sticker_user_iconImage
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GStickerData_sticker_user_iconImage.serializer,
-        json,
-      );
-}
-
-abstract class GStickerData_sticker_user_viewer
-    implements
-        Built<GStickerData_sticker_user_viewer,
-            GStickerData_sticker_user_viewerBuilder> {
-  GStickerData_sticker_user_viewer._();
-
-  factory GStickerData_sticker_user_viewer(
-          [void Function(GStickerData_sticker_user_viewerBuilder b) updates]) =
-      _$GStickerData_sticker_user_viewer;
-
-  static void _initializeBuilder(GStickerData_sticker_user_viewerBuilder b) =>
-      b..G__typename = 'UserViewerNode';
-
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  String get id;
-  bool get isFollower;
-  bool get isFollowee;
-  bool get isMuted;
-  static Serializer<GStickerData_sticker_user_viewer> get serializer =>
-      _$gStickerDataStickerUserViewerSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GStickerData_sticker_user_viewer.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GStickerData_sticker_user_viewer? fromJson(
-          Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GStickerData_sticker_user_viewer.serializer,
         json,
       );
 }

@@ -1,0 +1,6 @@
+# import '../fragments/image_generation_task_fields_fragment.graphql'
+mutation DeleteImageGenerationTask($input: DeleteImageGenerationTaskInput!) {
+  deleteImageGenerationTask(input: $input) {
+    ...ImageGenerationTaskFields
+  }
+}

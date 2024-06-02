@@ -2,10 +2,8 @@ query Tag($name: String!) {
   tag(name: $name) {
     id
     name
-    viewer {
-      isLiked
-      isWatched
-      isMuted
-    }
+    isLiked
+    isWatched
+    isMuted
   }
 }

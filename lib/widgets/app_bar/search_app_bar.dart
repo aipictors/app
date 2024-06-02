@@ -7,10 +7,10 @@ class SearchContainer extends HookConsumerWidget {
   SearchContainer({
     super.key,
     required this.isFilled,
-    this.initialText,
     required this.onSubmit,
     required this.onFill,
     this.decoration,
+    this.initialText,
   }) : _controller = useTextEditingController(text: initialText);
 
   final bool isFilled;
