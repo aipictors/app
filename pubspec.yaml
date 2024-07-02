@@ -16,8 +16,8 @@ dependencies:
   audioplayers: ^6.0.0
   built_collection: ^5.1.1
   cached_network_image: ^3.3.1
-  connectivity_plus: ^6.0.3
-  device_info_plus: ^10.1.0
+  connectivity_plus: 5.0.2 # Execution failed for task ':connectivity_plus:compileReleaseJavaWithJavac'.
+  device_info_plus: ^10.1.0 # Execution failed for task ':device_info_plus:compileReleaseJavaWithJavac'
   dynamic_color: ^1.7.0
   ferry: ^0.15.0+1
   ferry_flutter: ^0.9.0
