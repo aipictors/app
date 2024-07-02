@@ -17,7 +17,7 @@ import 'package:aipictors/screens/daily_theme/daily_theme_home_screen.dart';
 import 'package:aipictors/screens/error/config_error_screen.dart';
 import 'package:aipictors/screens/explorer/explorer_screen.dart';
 import 'package:aipictors/screens/feed/feed_screen.dart';
-import 'package:aipictors/screens/generation/generation_screen.dart';
+import 'package:aipictors/screens/generation/generation_%20construction_screen.dart';
 import 'package:aipictors/screens/hello_screen.dart';
 import 'package:aipictors/screens/hello_terms_screen.dart';
 import 'package:aipictors/screens/home_loading_screen.dart';
@@ -125,7 +125,10 @@ class RootScreen extends HookConsumerWidget {
       if (authState.value == null)
         const ExplorerScreen(key: PageStorageKey('root_explorer')),
       if (authState.value != null)
-        const GenerationScreen(key: PageStorageKey('root_generation')),
+        const GenerationConstructionScreen(
+          key: PageStorageKey('root_generation'),
+        ),
+      // const GenerationScreen(key: PageStorageKey('root_generation')),
       if (authState.value == null)
         const HelloScreen(key: PageStorageKey('root_hello')),
       if (authState.value != null)

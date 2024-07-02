@@ -40,23 +40,27 @@ abstract class GWorkCommentNotificationFields_work
   @override
   int get createdAt;
   @override
-  GWorkCommentNotificationFields_work_thumbnailImage? get thumbnailImage;
+  String get imageURL;
+  @override
+  int get imageWidth;
+  @override
+  int get imageHeight;
+  @override
+  String get largeThumbnailImageURL;
+  @override
+  int get largeThumbnailImageWidth;
+  @override
+  int get largeThumbnailImageHeight;
+  @override
+  String get smallThumbnailImageURL;
+  @override
+  int get smallThumbnailImageWidth;
+  @override
+  int get smallThumbnailImageHeight;
   @override
   double? get thumbnailImagePosition;
   @override
   double get imageAspectRatio;
-  @override
-  Map<String, dynamic> toJson();
-}
-
-abstract class GWorkCommentNotificationFields_work_thumbnailImage
-    implements _i1.GPartialWorkFields_thumbnailImage {
-  @override
-  String get G__typename;
-  @override
-  String get id;
-  @override
-  String get downloadURL;
   @override
   Map<String, dynamic> toJson();
 }
@@ -72,19 +76,7 @@ abstract class GWorkCommentNotificationFields_user
   @override
   String get name;
   @override
-  GWorkCommentNotificationFields_user_iconImage? get iconImage;
-  @override
-  Map<String, dynamic> toJson();
-}
-
-abstract class GWorkCommentNotificationFields_user_iconImage
-    implements _i2.GPartialUserFields_iconImage {
-  @override
-  String get G__typename;
-  @override
-  String get id;
-  @override
-  String get downloadURL;
+  String? get iconUrl;
   @override
   Map<String, dynamic> toJson();
 }
@@ -98,25 +90,13 @@ abstract class GWorkCommentNotificationFields_sticker
   @override
   String get title;
   @override
-  GWorkCommentNotificationFields_sticker_image? get image;
+  String? get imageUrl;
   @override
   int get likesCount;
   @override
   int get downloadsCount;
   @override
   int get usesCount;
-  @override
-  Map<String, dynamic> toJson();
-}
-
-abstract class GWorkCommentNotificationFields_sticker_image
-    implements _i3.GPartialStickerFields_image {
-  @override
-  String get G__typename;
-  @override
-  String get id;
-  @override
-  String get downloadURL;
   @override
   Map<String, dynamic> toJson();
 }
@@ -197,7 +177,23 @@ abstract class GWorkCommentNotificationFieldsData_work
   @override
   int get createdAt;
   @override
-  GWorkCommentNotificationFieldsData_work_thumbnailImage? get thumbnailImage;
+  String get imageURL;
+  @override
+  int get imageWidth;
+  @override
+  int get imageHeight;
+  @override
+  String get largeThumbnailImageURL;
+  @override
+  int get largeThumbnailImageWidth;
+  @override
+  int get largeThumbnailImageHeight;
+  @override
+  String get smallThumbnailImageURL;
+  @override
+  int get smallThumbnailImageWidth;
+  @override
+  int get smallThumbnailImageHeight;
   @override
   double? get thumbnailImagePosition;
   @override
@@ -215,48 +211,6 @@ abstract class GWorkCommentNotificationFieldsData_work
           Map<String, dynamic> json) =>
       _i4.serializers.deserializeWith(
         GWorkCommentNotificationFieldsData_work.serializer,
-        json,
-      );
-}
-
-abstract class GWorkCommentNotificationFieldsData_work_thumbnailImage
-    implements
-        Built<GWorkCommentNotificationFieldsData_work_thumbnailImage,
-            GWorkCommentNotificationFieldsData_work_thumbnailImageBuilder>,
-        GWorkCommentNotificationFields_work_thumbnailImage,
-        _i1.GPartialWorkFields_thumbnailImage {
-  GWorkCommentNotificationFieldsData_work_thumbnailImage._();
-
-  factory GWorkCommentNotificationFieldsData_work_thumbnailImage(
-      [void Function(
-              GWorkCommentNotificationFieldsData_work_thumbnailImageBuilder b)
-          updates]) = _$GWorkCommentNotificationFieldsData_work_thumbnailImage;
-
-  static void _initializeBuilder(
-          GWorkCommentNotificationFieldsData_work_thumbnailImageBuilder b) =>
-      b..G__typename = 'ImageNode';
-
-  @override
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  @override
-  String get id;
-  @override
-  String get downloadURL;
-  static Serializer<GWorkCommentNotificationFieldsData_work_thumbnailImage>
-      get serializer =>
-          _$gWorkCommentNotificationFieldsDataWorkThumbnailImageSerializer;
-
-  @override
-  Map<String, dynamic> toJson() => (_i4.serializers.serializeWith(
-        GWorkCommentNotificationFieldsData_work_thumbnailImage.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GWorkCommentNotificationFieldsData_work_thumbnailImage? fromJson(
-          Map<String, dynamic> json) =>
-      _i4.serializers.deserializeWith(
-        GWorkCommentNotificationFieldsData_work_thumbnailImage.serializer,
         json,
       );
 }
@@ -287,7 +241,7 @@ abstract class GWorkCommentNotificationFieldsData_user
   @override
   String get name;
   @override
-  GWorkCommentNotificationFieldsData_user_iconImage? get iconImage;
+  String? get iconUrl;
   static Serializer<GWorkCommentNotificationFieldsData_user> get serializer =>
       _$gWorkCommentNotificationFieldsDataUserSerializer;
 
@@ -301,47 +255,6 @@ abstract class GWorkCommentNotificationFieldsData_user
           Map<String, dynamic> json) =>
       _i4.serializers.deserializeWith(
         GWorkCommentNotificationFieldsData_user.serializer,
-        json,
-      );
-}
-
-abstract class GWorkCommentNotificationFieldsData_user_iconImage
-    implements
-        Built<GWorkCommentNotificationFieldsData_user_iconImage,
-            GWorkCommentNotificationFieldsData_user_iconImageBuilder>,
-        GWorkCommentNotificationFields_user_iconImage,
-        _i2.GPartialUserFields_iconImage {
-  GWorkCommentNotificationFieldsData_user_iconImage._();
-
-  factory GWorkCommentNotificationFieldsData_user_iconImage(
-      [void Function(GWorkCommentNotificationFieldsData_user_iconImageBuilder b)
-          updates]) = _$GWorkCommentNotificationFieldsData_user_iconImage;
-
-  static void _initializeBuilder(
-          GWorkCommentNotificationFieldsData_user_iconImageBuilder b) =>
-      b..G__typename = 'ImageNode';
-
-  @override
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  @override
-  String get id;
-  @override
-  String get downloadURL;
-  static Serializer<GWorkCommentNotificationFieldsData_user_iconImage>
-      get serializer =>
-          _$gWorkCommentNotificationFieldsDataUserIconImageSerializer;
-
-  @override
-  Map<String, dynamic> toJson() => (_i4.serializers.serializeWith(
-        GWorkCommentNotificationFieldsData_user_iconImage.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GWorkCommentNotificationFieldsData_user_iconImage? fromJson(
-          Map<String, dynamic> json) =>
-      _i4.serializers.deserializeWith(
-        GWorkCommentNotificationFieldsData_user_iconImage.serializer,
         json,
       );
 }
@@ -370,7 +283,7 @@ abstract class GWorkCommentNotificationFieldsData_sticker
   @override
   String get title;
   @override
-  GWorkCommentNotificationFieldsData_sticker_image? get image;
+  String? get imageUrl;
   @override
   int get likesCount;
   @override
@@ -390,47 +303,6 @@ abstract class GWorkCommentNotificationFieldsData_sticker
           Map<String, dynamic> json) =>
       _i4.serializers.deserializeWith(
         GWorkCommentNotificationFieldsData_sticker.serializer,
-        json,
-      );
-}
-
-abstract class GWorkCommentNotificationFieldsData_sticker_image
-    implements
-        Built<GWorkCommentNotificationFieldsData_sticker_image,
-            GWorkCommentNotificationFieldsData_sticker_imageBuilder>,
-        GWorkCommentNotificationFields_sticker_image,
-        _i3.GPartialStickerFields_image {
-  GWorkCommentNotificationFieldsData_sticker_image._();
-
-  factory GWorkCommentNotificationFieldsData_sticker_image(
-      [void Function(GWorkCommentNotificationFieldsData_sticker_imageBuilder b)
-          updates]) = _$GWorkCommentNotificationFieldsData_sticker_image;
-
-  static void _initializeBuilder(
-          GWorkCommentNotificationFieldsData_sticker_imageBuilder b) =>
-      b..G__typename = 'ImageNode';
-
-  @override
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  @override
-  String get id;
-  @override
-  String get downloadURL;
-  static Serializer<GWorkCommentNotificationFieldsData_sticker_image>
-      get serializer =>
-          _$gWorkCommentNotificationFieldsDataStickerImageSerializer;
-
-  @override
-  Map<String, dynamic> toJson() => (_i4.serializers.serializeWith(
-        GWorkCommentNotificationFieldsData_sticker_image.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GWorkCommentNotificationFieldsData_sticker_image? fromJson(
-          Map<String, dynamic> json) =>
-      _i4.serializers.deserializeWith(
-        GWorkCommentNotificationFieldsData_sticker_image.serializer,
         json,
       );
 }

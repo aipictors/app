@@ -4,10 +4,15 @@ fragment PartialWorkFields on WorkNode {
   likesCount
   commentsCount
   createdAt
-  thumbnailImage {
-    id
-    downloadURL
-  }
+  imageURL
+  imageWidth
+  imageHeight
+  largeThumbnailImageURL
+  largeThumbnailImageWidth
+  largeThumbnailImageHeight
+  smallThumbnailImageURL
+  smallThumbnailImageWidth
+  smallThumbnailImageHeight
   thumbnailImagePosition
   imageAspectRatio
 }

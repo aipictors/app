@@ -97,7 +97,23 @@ abstract class GFolderWorksData_folder_works
   @override
   int get createdAt;
   @override
-  GFolderWorksData_folder_works_thumbnailImage? get thumbnailImage;
+  String get imageURL;
+  @override
+  int get imageWidth;
+  @override
+  int get imageHeight;
+  @override
+  String get largeThumbnailImageURL;
+  @override
+  int get largeThumbnailImageWidth;
+  @override
+  int get largeThumbnailImageHeight;
+  @override
+  String get smallThumbnailImageURL;
+  @override
+  int get smallThumbnailImageWidth;
+  @override
+  int get smallThumbnailImageHeight;
   @override
   double? get thumbnailImagePosition;
   @override
@@ -114,45 +130,6 @@ abstract class GFolderWorksData_folder_works
   static GFolderWorksData_folder_works? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GFolderWorksData_folder_works.serializer,
-        json,
-      );
-}
-
-abstract class GFolderWorksData_folder_works_thumbnailImage
-    implements
-        Built<GFolderWorksData_folder_works_thumbnailImage,
-            GFolderWorksData_folder_works_thumbnailImageBuilder>,
-        _i2.GPartialWorkFields_thumbnailImage {
-  GFolderWorksData_folder_works_thumbnailImage._();
-
-  factory GFolderWorksData_folder_works_thumbnailImage(
-      [void Function(GFolderWorksData_folder_works_thumbnailImageBuilder b)
-          updates]) = _$GFolderWorksData_folder_works_thumbnailImage;
-
-  static void _initializeBuilder(
-          GFolderWorksData_folder_works_thumbnailImageBuilder b) =>
-      b..G__typename = 'ImageNode';
-
-  @override
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  @override
-  String get id;
-  @override
-  String get downloadURL;
-  static Serializer<GFolderWorksData_folder_works_thumbnailImage>
-      get serializer => _$gFolderWorksDataFolderWorksThumbnailImageSerializer;
-
-  @override
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GFolderWorksData_folder_works_thumbnailImage.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GFolderWorksData_folder_works_thumbnailImage? fromJson(
-          Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GFolderWorksData_folder_works_thumbnailImage.serializer,
         json,
       );
 }

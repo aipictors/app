@@ -96,7 +96,23 @@ abstract class GViewerWorksData_viewer_works
   @override
   int get createdAt;
   @override
-  GViewerWorksData_viewer_works_thumbnailImage? get thumbnailImage;
+  String get imageURL;
+  @override
+  int get imageWidth;
+  @override
+  int get imageHeight;
+  @override
+  String get largeThumbnailImageURL;
+  @override
+  int get largeThumbnailImageWidth;
+  @override
+  int get largeThumbnailImageHeight;
+  @override
+  String get smallThumbnailImageURL;
+  @override
+  int get smallThumbnailImageWidth;
+  @override
+  int get smallThumbnailImageHeight;
   @override
   double? get thumbnailImagePosition;
   @override
@@ -113,45 +129,6 @@ abstract class GViewerWorksData_viewer_works
   static GViewerWorksData_viewer_works? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GViewerWorksData_viewer_works.serializer,
-        json,
-      );
-}
-
-abstract class GViewerWorksData_viewer_works_thumbnailImage
-    implements
-        Built<GViewerWorksData_viewer_works_thumbnailImage,
-            GViewerWorksData_viewer_works_thumbnailImageBuilder>,
-        _i2.GPartialWorkFields_thumbnailImage {
-  GViewerWorksData_viewer_works_thumbnailImage._();
-
-  factory GViewerWorksData_viewer_works_thumbnailImage(
-      [void Function(GViewerWorksData_viewer_works_thumbnailImageBuilder b)
-          updates]) = _$GViewerWorksData_viewer_works_thumbnailImage;
-
-  static void _initializeBuilder(
-          GViewerWorksData_viewer_works_thumbnailImageBuilder b) =>
-      b..G__typename = 'ImageNode';
-
-  @override
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  @override
-  String get id;
-  @override
-  String get downloadURL;
-  static Serializer<GViewerWorksData_viewer_works_thumbnailImage>
-      get serializer => _$gViewerWorksDataViewerWorksThumbnailImageSerializer;
-
-  @override
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GViewerWorksData_viewer_works_thumbnailImage.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GViewerWorksData_viewer_works_thumbnailImage? fromJson(
-          Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GViewerWorksData_viewer_works_thumbnailImage.serializer,
         json,
       );
 }

@@ -12,9 +12,6 @@ Serializer<GAlbumWorksData_album> _$gAlbumWorksDataAlbumSerializer =
     new _$GAlbumWorksData_albumSerializer();
 Serializer<GAlbumWorksData_album_works> _$gAlbumWorksDataAlbumWorksSerializer =
     new _$GAlbumWorksData_album_worksSerializer();
-Serializer<GAlbumWorksData_album_works_image>
-    _$gAlbumWorksDataAlbumWorksImageSerializer =
-    new _$GAlbumWorksData_album_works_imageSerializer();
 
 class _$GAlbumWorksDataSerializer
     implements StructuredSerializer<GAlbumWorksData> {
@@ -174,18 +171,14 @@ class _$GAlbumWorksData_album_worksSerializer
       'imageAspectRatio',
       serializers.serialize(object.imageAspectRatio,
           specifiedType: const FullType(double)),
+      'imageURL',
+      serializers.serialize(object.imageURL,
+          specifiedType: const FullType(String)),
       'isLiked',
       serializers.serialize(object.isLiked,
           specifiedType: const FullType(bool)),
     ];
-    Object? value;
-    value = object.image;
-    if (value != null) {
-      result
-        ..add('image')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(GAlbumWorksData_album_works_image)));
-    }
+
     return result;
   }
 
@@ -229,74 +222,13 @@ class _$GAlbumWorksData_album_worksSerializer
           result.imageAspectRatio = serializers.deserialize(value,
               specifiedType: const FullType(double))! as double;
           break;
-        case 'image':
-          result.image.replace(serializers.deserialize(value,
-                  specifiedType:
-                      const FullType(GAlbumWorksData_album_works_image))!
-              as GAlbumWorksData_album_works_image);
+        case 'imageURL':
+          result.imageURL = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
           break;
         case 'isLiked':
           result.isLiked = serializers.deserialize(value,
               specifiedType: const FullType(bool))! as bool;
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GAlbumWorksData_album_works_imageSerializer
-    implements StructuredSerializer<GAlbumWorksData_album_works_image> {
-  @override
-  final Iterable<Type> types = const [
-    GAlbumWorksData_album_works_image,
-    _$GAlbumWorksData_album_works_image
-  ];
-  @override
-  final String wireName = 'GAlbumWorksData_album_works_image';
-
-  @override
-  Iterable<Object?> serialize(
-      Serializers serializers, GAlbumWorksData_album_works_image object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
-      'id',
-      serializers.serialize(object.id, specifiedType: const FullType(String)),
-      'downloadURL',
-      serializers.serialize(object.downloadURL,
-          specifiedType: const FullType(String)),
-    ];
-
-    return result;
-  }
-
-  @override
-  GAlbumWorksData_album_works_image deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GAlbumWorksData_album_works_imageBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'id':
-          result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'downloadURL':
-          result.downloadURL = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
           break;
       }
     }
@@ -584,7 +516,7 @@ class _$GAlbumWorksData_album_works extends GAlbumWorksData_album_works {
   @override
   final double imageAspectRatio;
   @override
-  final GAlbumWorksData_album_works_image? image;
+  final String imageURL;
   @override
   final bool isLiked;
 
@@ -600,7 +532,7 @@ class _$GAlbumWorksData_album_works extends GAlbumWorksData_album_works {
       required this.commentsCount,
       required this.createdAt,
       required this.imageAspectRatio,
-      this.image,
+      required this.imageURL,
       required this.isLiked})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
@@ -617,6 +549,8 @@ class _$GAlbumWorksData_album_works extends GAlbumWorksData_album_works {
         createdAt, r'GAlbumWorksData_album_works', 'createdAt');
     BuiltValueNullFieldError.checkNotNull(
         imageAspectRatio, r'GAlbumWorksData_album_works', 'imageAspectRatio');
+    BuiltValueNullFieldError.checkNotNull(
+        imageURL, r'GAlbumWorksData_album_works', 'imageURL');
     BuiltValueNullFieldError.checkNotNull(
         isLiked, r'GAlbumWorksData_album_works', 'isLiked');
   }
@@ -641,7 +575,7 @@ class _$GAlbumWorksData_album_works extends GAlbumWorksData_album_works {
         commentsCount == other.commentsCount &&
         createdAt == other.createdAt &&
         imageAspectRatio == other.imageAspectRatio &&
-        image == other.image &&
+        imageURL == other.imageURL &&
         isLiked == other.isLiked;
   }
 
@@ -655,7 +589,7 @@ class _$GAlbumWorksData_album_works extends GAlbumWorksData_album_works {
     _$hash = $jc(_$hash, commentsCount.hashCode);
     _$hash = $jc(_$hash, createdAt.hashCode);
     _$hash = $jc(_$hash, imageAspectRatio.hashCode);
-    _$hash = $jc(_$hash, image.hashCode);
+    _$hash = $jc(_$hash, imageURL.hashCode);
     _$hash = $jc(_$hash, isLiked.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -671,7 +605,7 @@ class _$GAlbumWorksData_album_works extends GAlbumWorksData_album_works {
           ..add('commentsCount', commentsCount)
           ..add('createdAt', createdAt)
           ..add('imageAspectRatio', imageAspectRatio)
-          ..add('image', image)
+          ..add('imageURL', imageURL)
           ..add('isLiked', isLiked))
         .toString();
   }
@@ -713,11 +647,9 @@ class GAlbumWorksData_album_worksBuilder
   set imageAspectRatio(double? imageAspectRatio) =>
       _$this._imageAspectRatio = imageAspectRatio;
 
-  GAlbumWorksData_album_works_imageBuilder? _image;
-  GAlbumWorksData_album_works_imageBuilder get image =>
-      _$this._image ??= new GAlbumWorksData_album_works_imageBuilder();
-  set image(GAlbumWorksData_album_works_imageBuilder? image) =>
-      _$this._image = image;
+  String? _imageURL;
+  String? get imageURL => _$this._imageURL;
+  set imageURL(String? imageURL) => _$this._imageURL = imageURL;
 
   bool? _isLiked;
   bool? get isLiked => _$this._isLiked;
@@ -737,7 +669,7 @@ class GAlbumWorksData_album_worksBuilder
       _commentsCount = $v.commentsCount;
       _createdAt = $v.createdAt;
       _imageAspectRatio = $v.imageAspectRatio;
-      _image = $v.image?.toBuilder();
+      _imageURL = $v.imageURL;
       _isLiked = $v.isLiked;
       _$v = null;
     }
@@ -759,164 +691,25 @@ class GAlbumWorksData_album_worksBuilder
   GAlbumWorksData_album_works build() => _build();
 
   _$GAlbumWorksData_album_works _build() {
-    _$GAlbumWorksData_album_works _$result;
-    try {
-      _$result = _$v ??
-          new _$GAlbumWorksData_album_works._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, r'GAlbumWorksData_album_works', 'G__typename'),
-              id: BuiltValueNullFieldError.checkNotNull(
-                  id, r'GAlbumWorksData_album_works', 'id'),
-              title: BuiltValueNullFieldError.checkNotNull(
-                  title, r'GAlbumWorksData_album_works', 'title'),
-              likesCount: BuiltValueNullFieldError.checkNotNull(
-                  likesCount, r'GAlbumWorksData_album_works', 'likesCount'),
-              commentsCount: BuiltValueNullFieldError.checkNotNull(
-                  commentsCount, r'GAlbumWorksData_album_works', 'commentsCount'),
-              createdAt: BuiltValueNullFieldError.checkNotNull(
-                  createdAt, r'GAlbumWorksData_album_works', 'createdAt'),
-              imageAspectRatio: BuiltValueNullFieldError.checkNotNull(
-                  imageAspectRatio,
-                  r'GAlbumWorksData_album_works',
-                  'imageAspectRatio'),
-              image: _image?.build(),
-              isLiked: BuiltValueNullFieldError.checkNotNull(isLiked, r'GAlbumWorksData_album_works', 'isLiked'));
-    } catch (_) {
-      late String _$failedField;
-      try {
-        _$failedField = 'image';
-        _image?.build();
-      } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'GAlbumWorksData_album_works', _$failedField, e.toString());
-      }
-      rethrow;
-    }
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GAlbumWorksData_album_works_image
-    extends GAlbumWorksData_album_works_image {
-  @override
-  final String G__typename;
-  @override
-  final String id;
-  @override
-  final String downloadURL;
-
-  factory _$GAlbumWorksData_album_works_image(
-          [void Function(GAlbumWorksData_album_works_imageBuilder)? updates]) =>
-      (new GAlbumWorksData_album_works_imageBuilder()..update(updates))
-          ._build();
-
-  _$GAlbumWorksData_album_works_image._(
-      {required this.G__typename, required this.id, required this.downloadURL})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        G__typename, r'GAlbumWorksData_album_works_image', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(
-        id, r'GAlbumWorksData_album_works_image', 'id');
-    BuiltValueNullFieldError.checkNotNull(
-        downloadURL, r'GAlbumWorksData_album_works_image', 'downloadURL');
-  }
-
-  @override
-  GAlbumWorksData_album_works_image rebuild(
-          void Function(GAlbumWorksData_album_works_imageBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GAlbumWorksData_album_works_imageBuilder toBuilder() =>
-      new GAlbumWorksData_album_works_imageBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GAlbumWorksData_album_works_image &&
-        G__typename == other.G__typename &&
-        id == other.id &&
-        downloadURL == other.downloadURL;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, id.hashCode);
-    _$hash = $jc(_$hash, downloadURL.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(r'GAlbumWorksData_album_works_image')
-          ..add('G__typename', G__typename)
-          ..add('id', id)
-          ..add('downloadURL', downloadURL))
-        .toString();
-  }
-}
-
-class GAlbumWorksData_album_works_imageBuilder
-    implements
-        Builder<GAlbumWorksData_album_works_image,
-            GAlbumWorksData_album_works_imageBuilder> {
-  _$GAlbumWorksData_album_works_image? _$v;
-
-  String? _G__typename;
-  String? get G__typename => _$this._G__typename;
-  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
-
-  String? _id;
-  String? get id => _$this._id;
-  set id(String? id) => _$this._id = id;
-
-  String? _downloadURL;
-  String? get downloadURL => _$this._downloadURL;
-  set downloadURL(String? downloadURL) => _$this._downloadURL = downloadURL;
-
-  GAlbumWorksData_album_works_imageBuilder() {
-    GAlbumWorksData_album_works_image._initializeBuilder(this);
-  }
-
-  GAlbumWorksData_album_works_imageBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _G__typename = $v.G__typename;
-      _id = $v.id;
-      _downloadURL = $v.downloadURL;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GAlbumWorksData_album_works_image other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GAlbumWorksData_album_works_image;
-  }
-
-  @override
-  void update(
-      void Function(GAlbumWorksData_album_works_imageBuilder)? updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GAlbumWorksData_album_works_image build() => _build();
-
-  _$GAlbumWorksData_album_works_image _build() {
     final _$result = _$v ??
-        new _$GAlbumWorksData_album_works_image._(
-            G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
-                r'GAlbumWorksData_album_works_image', 'G__typename'),
+        new _$GAlbumWorksData_album_works._(
+            G__typename: BuiltValueNullFieldError.checkNotNull(
+                G__typename, r'GAlbumWorksData_album_works', 'G__typename'),
             id: BuiltValueNullFieldError.checkNotNull(
-                id, r'GAlbumWorksData_album_works_image', 'id'),
-            downloadURL: BuiltValueNullFieldError.checkNotNull(downloadURL,
-                r'GAlbumWorksData_album_works_image', 'downloadURL'));
+                id, r'GAlbumWorksData_album_works', 'id'),
+            title: BuiltValueNullFieldError.checkNotNull(
+                title, r'GAlbumWorksData_album_works', 'title'),
+            likesCount: BuiltValueNullFieldError.checkNotNull(
+                likesCount, r'GAlbumWorksData_album_works', 'likesCount'),
+            commentsCount: BuiltValueNullFieldError.checkNotNull(
+                commentsCount, r'GAlbumWorksData_album_works', 'commentsCount'),
+            createdAt: BuiltValueNullFieldError.checkNotNull(
+                createdAt, r'GAlbumWorksData_album_works', 'createdAt'),
+            imageAspectRatio: BuiltValueNullFieldError.checkNotNull(
+                imageAspectRatio, r'GAlbumWorksData_album_works', 'imageAspectRatio'),
+            imageURL: BuiltValueNullFieldError.checkNotNull(
+                imageURL, r'GAlbumWorksData_album_works', 'imageURL'),
+            isLiked: BuiltValueNullFieldError.checkNotNull(isLiked, r'GAlbumWorksData_album_works', 'isLiked'));
     replace(_$result);
     return _$result;
   }

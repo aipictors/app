@@ -60,8 +60,8 @@ class ExplorerAlbumsView extends HookConsumerWidget {
               return AlbumListTile(
                 title: album.title,
                 userName: album.user.name,
-                userIconImageURL: album.user.iconImage?.downloadURL,
-                imageURL: album.thumbnailImage?.downloadURL,
+                userIconImageURL: album.user.iconUrl,
+                imageURL: album.thumbnailImageURL,
                 onTap: () {
                   FirebaseAnalytics.instance.logSelectContent(
                     contentType: 'album',

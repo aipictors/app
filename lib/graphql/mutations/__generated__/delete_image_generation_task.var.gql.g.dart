@@ -27,7 +27,7 @@ class _$GDeleteImageGenerationTaskVarsSerializer
     final result = <Object?>[
       'input',
       serializers.serialize(object.input,
-          specifiedType: const FullType(_i1.GDeleteImageGenerationTaskInput)),
+          specifiedType: const FullType(_i1.GDeleteImageGenerationResultInput)),
     ];
 
     return result;
@@ -48,8 +48,8 @@ class _$GDeleteImageGenerationTaskVarsSerializer
         case 'input':
           result.input.replace(serializers.deserialize(value,
                   specifiedType:
-                      const FullType(_i1.GDeleteImageGenerationTaskInput))!
-              as _i1.GDeleteImageGenerationTaskInput);
+                      const FullType(_i1.GDeleteImageGenerationResultInput))!
+              as _i1.GDeleteImageGenerationResultInput);
           break;
       }
     }
@@ -60,7 +60,7 @@ class _$GDeleteImageGenerationTaskVarsSerializer
 
 class _$GDeleteImageGenerationTaskVars extends GDeleteImageGenerationTaskVars {
   @override
-  final _i1.GDeleteImageGenerationTaskInput input;
+  final _i1.GDeleteImageGenerationResultInput input;
 
   factory _$GDeleteImageGenerationTaskVars(
           [void Function(GDeleteImageGenerationTaskVarsBuilder)? updates]) =>
@@ -108,10 +108,10 @@ class GDeleteImageGenerationTaskVarsBuilder
             GDeleteImageGenerationTaskVarsBuilder> {
   _$GDeleteImageGenerationTaskVars? _$v;
 
-  _i1.GDeleteImageGenerationTaskInputBuilder? _input;
-  _i1.GDeleteImageGenerationTaskInputBuilder get input =>
-      _$this._input ??= new _i1.GDeleteImageGenerationTaskInputBuilder();
-  set input(_i1.GDeleteImageGenerationTaskInputBuilder? input) =>
+  _i1.GDeleteImageGenerationResultInputBuilder? _input;
+  _i1.GDeleteImageGenerationResultInputBuilder get input =>
+      _$this._input ??= new _i1.GDeleteImageGenerationResultInputBuilder();
+  set input(_i1.GDeleteImageGenerationResultInputBuilder? input) =>
       _$this._input = input;
 
   GDeleteImageGenerationTaskVarsBuilder();

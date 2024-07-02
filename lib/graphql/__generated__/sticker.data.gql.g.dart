@@ -10,8 +10,6 @@ Serializer<GStickerData> _$gStickerDataSerializer =
     new _$GStickerDataSerializer();
 Serializer<GStickerData_sticker> _$gStickerDataStickerSerializer =
     new _$GStickerData_stickerSerializer();
-Serializer<GStickerData_sticker_image> _$gStickerDataStickerImageSerializer =
-    new _$GStickerData_sticker_imageSerializer();
 Serializer<GStickerData_sticker_user> _$gStickerDataStickerUserSerializer =
     new _$GStickerData_sticker_userSerializer();
 Serializer<GStickerData_sticker_user_iconImage>
@@ -127,12 +125,12 @@ class _$GStickerData_stickerSerializer
           specifiedType: const FullType(bool)),
     ];
     Object? value;
-    value = object.image;
+    value = object.imageUrl;
     if (value != null) {
       result
-        ..add('image')
+        ..add('imageUrl')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(GStickerData_sticker_image)));
+            specifiedType: const FullType(String)));
     }
     return result;
   }
@@ -165,10 +163,9 @@ class _$GStickerData_stickerSerializer
           result.title = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
-        case 'image':
-          result.image.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(GStickerData_sticker_image))!
-              as GStickerData_sticker_image);
+        case 'imageUrl':
+          result.imageUrl = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'user':
           result.user.replace(serializers.deserialize(value,
@@ -209,65 +206,6 @@ class _$GStickerData_stickerSerializer
         case 'isDeleted':
           result.isDeleted = serializers.deserialize(value,
               specifiedType: const FullType(bool))! as bool;
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GStickerData_sticker_imageSerializer
-    implements StructuredSerializer<GStickerData_sticker_image> {
-  @override
-  final Iterable<Type> types = const [
-    GStickerData_sticker_image,
-    _$GStickerData_sticker_image
-  ];
-  @override
-  final String wireName = 'GStickerData_sticker_image';
-
-  @override
-  Iterable<Object?> serialize(
-      Serializers serializers, GStickerData_sticker_image object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
-      'id',
-      serializers.serialize(object.id, specifiedType: const FullType(String)),
-      'downloadURL',
-      serializers.serialize(object.downloadURL,
-          specifiedType: const FullType(String)),
-    ];
-
-    return result;
-  }
-
-  @override
-  GStickerData_sticker_image deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GStickerData_sticker_imageBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'id':
-          result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'downloadURL':
-          result.downloadURL = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
           break;
       }
     }
@@ -558,7 +496,7 @@ class _$GStickerData_sticker extends GStickerData_sticker {
   @override
   final String title;
   @override
-  final GStickerData_sticker_image? image;
+  final String? imageUrl;
   @override
   final GStickerData_sticker_user user;
   @override
@@ -587,7 +525,7 @@ class _$GStickerData_sticker extends GStickerData_sticker {
       required this.id,
       required this.createdAt,
       required this.title,
-      this.image,
+      this.imageUrl,
       required this.user,
       required this.isLiked,
       required this.downloadsCount,
@@ -642,7 +580,7 @@ class _$GStickerData_sticker extends GStickerData_sticker {
         id == other.id &&
         createdAt == other.createdAt &&
         title == other.title &&
-        image == other.image &&
+        imageUrl == other.imageUrl &&
         user == other.user &&
         isLiked == other.isLiked &&
         downloadsCount == other.downloadsCount &&
@@ -661,7 +599,7 @@ class _$GStickerData_sticker extends GStickerData_sticker {
     _$hash = $jc(_$hash, id.hashCode);
     _$hash = $jc(_$hash, createdAt.hashCode);
     _$hash = $jc(_$hash, title.hashCode);
-    _$hash = $jc(_$hash, image.hashCode);
+    _$hash = $jc(_$hash, imageUrl.hashCode);
     _$hash = $jc(_$hash, user.hashCode);
     _$hash = $jc(_$hash, isLiked.hashCode);
     _$hash = $jc(_$hash, downloadsCount.hashCode);
@@ -682,7 +620,7 @@ class _$GStickerData_sticker extends GStickerData_sticker {
           ..add('id', id)
           ..add('createdAt', createdAt)
           ..add('title', title)
-          ..add('image', image)
+          ..add('imageUrl', imageUrl)
           ..add('user', user)
           ..add('isLiked', isLiked)
           ..add('downloadsCount', downloadsCount)
@@ -716,10 +654,9 @@ class GStickerData_stickerBuilder
   String? get title => _$this._title;
   set title(String? title) => _$this._title = title;
 
-  GStickerData_sticker_imageBuilder? _image;
-  GStickerData_sticker_imageBuilder get image =>
-      _$this._image ??= new GStickerData_sticker_imageBuilder();
-  set image(GStickerData_sticker_imageBuilder? image) => _$this._image = image;
+  String? _imageUrl;
+  String? get imageUrl => _$this._imageUrl;
+  set imageUrl(String? imageUrl) => _$this._imageUrl = imageUrl;
 
   GStickerData_sticker_userBuilder? _user;
   GStickerData_sticker_userBuilder get user =>
@@ -772,7 +709,7 @@ class GStickerData_stickerBuilder
       _id = $v.id;
       _createdAt = $v.createdAt;
       _title = $v.title;
-      _image = $v.image?.toBuilder();
+      _imageUrl = $v.imageUrl;
       _user = $v.user.toBuilder();
       _isLiked = $v.isLiked;
       _downloadsCount = $v.downloadsCount;
@@ -814,7 +751,7 @@ class GStickerData_stickerBuilder
                   createdAt, r'GStickerData_sticker', 'createdAt'),
               title: BuiltValueNullFieldError.checkNotNull(
                   title, r'GStickerData_sticker', 'title'),
-              image: _image?.build(),
+              imageUrl: imageUrl,
               user: user.build(),
               isLiked: BuiltValueNullFieldError.checkNotNull(
                   isLiked, r'GStickerData_sticker', 'isLiked'),
@@ -832,8 +769,6 @@ class GStickerData_stickerBuilder
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'image';
-        _image?.build();
         _$failedField = 'user';
         user.build();
 
@@ -845,127 +780,6 @@ class GStickerData_stickerBuilder
       }
       rethrow;
     }
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GStickerData_sticker_image extends GStickerData_sticker_image {
-  @override
-  final String G__typename;
-  @override
-  final String id;
-  @override
-  final String downloadURL;
-
-  factory _$GStickerData_sticker_image(
-          [void Function(GStickerData_sticker_imageBuilder)? updates]) =>
-      (new GStickerData_sticker_imageBuilder()..update(updates))._build();
-
-  _$GStickerData_sticker_image._(
-      {required this.G__typename, required this.id, required this.downloadURL})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        G__typename, r'GStickerData_sticker_image', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(
-        id, r'GStickerData_sticker_image', 'id');
-    BuiltValueNullFieldError.checkNotNull(
-        downloadURL, r'GStickerData_sticker_image', 'downloadURL');
-  }
-
-  @override
-  GStickerData_sticker_image rebuild(
-          void Function(GStickerData_sticker_imageBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GStickerData_sticker_imageBuilder toBuilder() =>
-      new GStickerData_sticker_imageBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GStickerData_sticker_image &&
-        G__typename == other.G__typename &&
-        id == other.id &&
-        downloadURL == other.downloadURL;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, id.hashCode);
-    _$hash = $jc(_$hash, downloadURL.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(r'GStickerData_sticker_image')
-          ..add('G__typename', G__typename)
-          ..add('id', id)
-          ..add('downloadURL', downloadURL))
-        .toString();
-  }
-}
-
-class GStickerData_sticker_imageBuilder
-    implements
-        Builder<GStickerData_sticker_image, GStickerData_sticker_imageBuilder> {
-  _$GStickerData_sticker_image? _$v;
-
-  String? _G__typename;
-  String? get G__typename => _$this._G__typename;
-  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
-
-  String? _id;
-  String? get id => _$this._id;
-  set id(String? id) => _$this._id = id;
-
-  String? _downloadURL;
-  String? get downloadURL => _$this._downloadURL;
-  set downloadURL(String? downloadURL) => _$this._downloadURL = downloadURL;
-
-  GStickerData_sticker_imageBuilder() {
-    GStickerData_sticker_image._initializeBuilder(this);
-  }
-
-  GStickerData_sticker_imageBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _G__typename = $v.G__typename;
-      _id = $v.id;
-      _downloadURL = $v.downloadURL;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GStickerData_sticker_image other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GStickerData_sticker_image;
-  }
-
-  @override
-  void update(void Function(GStickerData_sticker_imageBuilder)? updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GStickerData_sticker_image build() => _build();
-
-  _$GStickerData_sticker_image _build() {
-    final _$result = _$v ??
-        new _$GStickerData_sticker_image._(
-            G__typename: BuiltValueNullFieldError.checkNotNull(
-                G__typename, r'GStickerData_sticker_image', 'G__typename'),
-            id: BuiltValueNullFieldError.checkNotNull(
-                id, r'GStickerData_sticker_image', 'id'),
-            downloadURL: BuiltValueNullFieldError.checkNotNull(
-                downloadURL, r'GStickerData_sticker_image', 'downloadURL'));
     replace(_$result);
     return _$result;
   }

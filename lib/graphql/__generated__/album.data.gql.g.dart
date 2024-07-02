@@ -14,9 +14,6 @@ Serializer<GAlbumData_album_user> _$gAlbumDataAlbumUserSerializer =
 Serializer<GAlbumData_album_user_iconImage>
     _$gAlbumDataAlbumUserIconImageSerializer =
     new _$GAlbumData_album_user_iconImageSerializer();
-Serializer<GAlbumData_album_thumbnailImage>
-    _$gAlbumDataAlbumThumbnailImageSerializer =
-    new _$GAlbumData_album_thumbnailImageSerializer();
 
 class _$GAlbumDataSerializer implements StructuredSerializer<GAlbumData> {
   @override
@@ -110,12 +107,12 @@ class _$GAlbumData_albumSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    value = object.thumbnailImage;
+    value = object.thumbnailImageURL;
     if (value != null) {
       result
-        ..add('thumbnailImage')
+        ..add('thumbnailImageURL')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(GAlbumData_album_thumbnailImage)));
+            specifiedType: const FullType(String)));
     }
     return result;
   }
@@ -165,11 +162,9 @@ class _$GAlbumData_albumSerializer
           result.isSensitive = serializers.deserialize(value,
               specifiedType: const FullType(bool))! as bool;
           break;
-        case 'thumbnailImage':
-          result.thumbnailImage.replace(serializers.deserialize(value,
-                  specifiedType:
-                      const FullType(GAlbumData_album_thumbnailImage))!
-              as GAlbumData_album_thumbnailImage);
+        case 'thumbnailImageURL':
+          result.thumbnailImageURL = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
           break;
       }
     }
@@ -329,65 +324,6 @@ class _$GAlbumData_album_user_iconImageSerializer
   }
 }
 
-class _$GAlbumData_album_thumbnailImageSerializer
-    implements StructuredSerializer<GAlbumData_album_thumbnailImage> {
-  @override
-  final Iterable<Type> types = const [
-    GAlbumData_album_thumbnailImage,
-    _$GAlbumData_album_thumbnailImage
-  ];
-  @override
-  final String wireName = 'GAlbumData_album_thumbnailImage';
-
-  @override
-  Iterable<Object?> serialize(
-      Serializers serializers, GAlbumData_album_thumbnailImage object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
-      'id',
-      serializers.serialize(object.id, specifiedType: const FullType(String)),
-      'downloadURL',
-      serializers.serialize(object.downloadURL,
-          specifiedType: const FullType(String)),
-    ];
-
-    return result;
-  }
-
-  @override
-  GAlbumData_album_thumbnailImage deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GAlbumData_album_thumbnailImageBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'id':
-          result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'downloadURL':
-          result.downloadURL = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
 class _$GAlbumData extends GAlbumData {
   @override
   final String G__typename;
@@ -517,7 +453,7 @@ class _$GAlbumData_album extends GAlbumData_album {
   @override
   final bool isSensitive;
   @override
-  final GAlbumData_album_thumbnailImage? thumbnailImage;
+  final String? thumbnailImageURL;
 
   factory _$GAlbumData_album(
           [void Function(GAlbumData_albumBuilder)? updates]) =>
@@ -532,7 +468,7 @@ class _$GAlbumData_album extends GAlbumData_album {
       required this.user,
       required this.createdAt,
       required this.isSensitive,
-      this.thumbnailImage})
+      this.thumbnailImageURL})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename, r'GAlbumData_album', 'G__typename');
@@ -567,7 +503,7 @@ class _$GAlbumData_album extends GAlbumData_album {
         user == other.user &&
         createdAt == other.createdAt &&
         isSensitive == other.isSensitive &&
-        thumbnailImage == other.thumbnailImage;
+        thumbnailImageURL == other.thumbnailImageURL;
   }
 
   @override
@@ -581,7 +517,7 @@ class _$GAlbumData_album extends GAlbumData_album {
     _$hash = $jc(_$hash, user.hashCode);
     _$hash = $jc(_$hash, createdAt.hashCode);
     _$hash = $jc(_$hash, isSensitive.hashCode);
-    _$hash = $jc(_$hash, thumbnailImage.hashCode);
+    _$hash = $jc(_$hash, thumbnailImageURL.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -597,7 +533,7 @@ class _$GAlbumData_album extends GAlbumData_album {
           ..add('user', user)
           ..add('createdAt', createdAt)
           ..add('isSensitive', isSensitive)
-          ..add('thumbnailImage', thumbnailImage))
+          ..add('thumbnailImageURL', thumbnailImageURL))
         .toString();
   }
 }
@@ -639,11 +575,10 @@ class GAlbumData_albumBuilder
   bool? get isSensitive => _$this._isSensitive;
   set isSensitive(bool? isSensitive) => _$this._isSensitive = isSensitive;
 
-  GAlbumData_album_thumbnailImageBuilder? _thumbnailImage;
-  GAlbumData_album_thumbnailImageBuilder get thumbnailImage =>
-      _$this._thumbnailImage ??= new GAlbumData_album_thumbnailImageBuilder();
-  set thumbnailImage(GAlbumData_album_thumbnailImageBuilder? thumbnailImage) =>
-      _$this._thumbnailImage = thumbnailImage;
+  String? _thumbnailImageURL;
+  String? get thumbnailImageURL => _$this._thumbnailImageURL;
+  set thumbnailImageURL(String? thumbnailImageURL) =>
+      _$this._thumbnailImageURL = thumbnailImageURL;
 
   GAlbumData_albumBuilder() {
     GAlbumData_album._initializeBuilder(this);
@@ -660,7 +595,7 @@ class GAlbumData_albumBuilder
       _user = $v.user.toBuilder();
       _createdAt = $v.createdAt;
       _isSensitive = $v.isSensitive;
-      _thumbnailImage = $v.thumbnailImage?.toBuilder();
+      _thumbnailImageURL = $v.thumbnailImageURL;
       _$v = null;
     }
     return this;
@@ -699,15 +634,12 @@ class GAlbumData_albumBuilder
                   createdAt, r'GAlbumData_album', 'createdAt'),
               isSensitive: BuiltValueNullFieldError.checkNotNull(
                   isSensitive, r'GAlbumData_album', 'isSensitive'),
-              thumbnailImage: _thumbnailImage?.build());
+              thumbnailImageURL: thumbnailImageURL);
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'user';
         user.build();
-
-        _$failedField = 'thumbnailImage';
-        _thumbnailImage?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'GAlbumData_album', _$failedField, e.toString());
@@ -1030,129 +962,6 @@ class GAlbumData_album_user_iconImageBuilder
                 id, r'GAlbumData_album_user_iconImage', 'id'),
             downloadURL: BuiltValueNullFieldError.checkNotNull(downloadURL,
                 r'GAlbumData_album_user_iconImage', 'downloadURL'));
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GAlbumData_album_thumbnailImage
-    extends GAlbumData_album_thumbnailImage {
-  @override
-  final String G__typename;
-  @override
-  final String id;
-  @override
-  final String downloadURL;
-
-  factory _$GAlbumData_album_thumbnailImage(
-          [void Function(GAlbumData_album_thumbnailImageBuilder)? updates]) =>
-      (new GAlbumData_album_thumbnailImageBuilder()..update(updates))._build();
-
-  _$GAlbumData_album_thumbnailImage._(
-      {required this.G__typename, required this.id, required this.downloadURL})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        G__typename, r'GAlbumData_album_thumbnailImage', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(
-        id, r'GAlbumData_album_thumbnailImage', 'id');
-    BuiltValueNullFieldError.checkNotNull(
-        downloadURL, r'GAlbumData_album_thumbnailImage', 'downloadURL');
-  }
-
-  @override
-  GAlbumData_album_thumbnailImage rebuild(
-          void Function(GAlbumData_album_thumbnailImageBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GAlbumData_album_thumbnailImageBuilder toBuilder() =>
-      new GAlbumData_album_thumbnailImageBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GAlbumData_album_thumbnailImage &&
-        G__typename == other.G__typename &&
-        id == other.id &&
-        downloadURL == other.downloadURL;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, id.hashCode);
-    _$hash = $jc(_$hash, downloadURL.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(r'GAlbumData_album_thumbnailImage')
-          ..add('G__typename', G__typename)
-          ..add('id', id)
-          ..add('downloadURL', downloadURL))
-        .toString();
-  }
-}
-
-class GAlbumData_album_thumbnailImageBuilder
-    implements
-        Builder<GAlbumData_album_thumbnailImage,
-            GAlbumData_album_thumbnailImageBuilder> {
-  _$GAlbumData_album_thumbnailImage? _$v;
-
-  String? _G__typename;
-  String? get G__typename => _$this._G__typename;
-  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
-
-  String? _id;
-  String? get id => _$this._id;
-  set id(String? id) => _$this._id = id;
-
-  String? _downloadURL;
-  String? get downloadURL => _$this._downloadURL;
-  set downloadURL(String? downloadURL) => _$this._downloadURL = downloadURL;
-
-  GAlbumData_album_thumbnailImageBuilder() {
-    GAlbumData_album_thumbnailImage._initializeBuilder(this);
-  }
-
-  GAlbumData_album_thumbnailImageBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _G__typename = $v.G__typename;
-      _id = $v.id;
-      _downloadURL = $v.downloadURL;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GAlbumData_album_thumbnailImage other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GAlbumData_album_thumbnailImage;
-  }
-
-  @override
-  void update(void Function(GAlbumData_album_thumbnailImageBuilder)? updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GAlbumData_album_thumbnailImage build() => _build();
-
-  _$GAlbumData_album_thumbnailImage _build() {
-    final _$result = _$v ??
-        new _$GAlbumData_album_thumbnailImage._(
-            G__typename: BuiltValueNullFieldError.checkNotNull(
-                G__typename, r'GAlbumData_album_thumbnailImage', 'G__typename'),
-            id: BuiltValueNullFieldError.checkNotNull(
-                id, r'GAlbumData_album_thumbnailImage', 'id'),
-            downloadURL: BuiltValueNullFieldError.checkNotNull(downloadURL,
-                r'GAlbumData_album_thumbnailImage', 'downloadURL'));
     replace(_$result);
     return _$result;
   }

@@ -54,7 +54,7 @@ class ExplorerHotTagsView extends HookConsumerWidget {
               final tag = tagList[index];
               return TagListTile(
                 title: tag.name,
-                imageURL: tag.firstWork?.thumbnailImage?.downloadURL,
+                imageURL: tag.firstWork?.largeThumbnailImageURL,
                 onTap: () {
                   FirebaseAnalytics.instance.logSelectContent(
                     contentType: 'tag',

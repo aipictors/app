@@ -125,8 +125,8 @@ abstract class GViewerUserData_viewer_user
   int get receivedViewsCount;
   int get awardsCount;
   int get followersCount;
-  GViewerUserData_viewer_user_iconImage? get iconImage;
-  GViewerUserData_viewer_user_headerImage? get headerImage;
+  String? get iconUrl;
+  String? get headerImageUrl;
   static Serializer<GViewerUserData_viewer_user> get serializer =>
       _$gViewerUserDataViewerUserSerializer;
 
@@ -138,74 +138,6 @@ abstract class GViewerUserData_viewer_user
   static GViewerUserData_viewer_user? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GViewerUserData_viewer_user.serializer,
-        json,
-      );
-}
-
-abstract class GViewerUserData_viewer_user_iconImage
-    implements
-        Built<GViewerUserData_viewer_user_iconImage,
-            GViewerUserData_viewer_user_iconImageBuilder> {
-  GViewerUserData_viewer_user_iconImage._();
-
-  factory GViewerUserData_viewer_user_iconImage(
-      [void Function(GViewerUserData_viewer_user_iconImageBuilder b)
-          updates]) = _$GViewerUserData_viewer_user_iconImage;
-
-  static void _initializeBuilder(
-          GViewerUserData_viewer_user_iconImageBuilder b) =>
-      b..G__typename = 'ImageNode';
-
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  String get id;
-  String get downloadURL;
-  static Serializer<GViewerUserData_viewer_user_iconImage> get serializer =>
-      _$gViewerUserDataViewerUserIconImageSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GViewerUserData_viewer_user_iconImage.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GViewerUserData_viewer_user_iconImage? fromJson(
-          Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GViewerUserData_viewer_user_iconImage.serializer,
-        json,
-      );
-}
-
-abstract class GViewerUserData_viewer_user_headerImage
-    implements
-        Built<GViewerUserData_viewer_user_headerImage,
-            GViewerUserData_viewer_user_headerImageBuilder> {
-  GViewerUserData_viewer_user_headerImage._();
-
-  factory GViewerUserData_viewer_user_headerImage(
-      [void Function(GViewerUserData_viewer_user_headerImageBuilder b)
-          updates]) = _$GViewerUserData_viewer_user_headerImage;
-
-  static void _initializeBuilder(
-          GViewerUserData_viewer_user_headerImageBuilder b) =>
-      b..G__typename = 'ImageNode';
-
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  String get id;
-  String get downloadURL;
-  static Serializer<GViewerUserData_viewer_user_headerImage> get serializer =>
-      _$gViewerUserDataViewerUserHeaderImageSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GViewerUserData_viewer_user_headerImage.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GViewerUserData_viewer_user_headerImage? fromJson(
-          Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GViewerUserData_viewer_user_headerImage.serializer,
         json,
       );
 }

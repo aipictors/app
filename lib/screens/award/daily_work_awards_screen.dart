@@ -73,7 +73,7 @@ class DailyWorkAwardsScreen extends HookConsumerWidget {
                 context.push('/works/${work.id}');
               },
               child: GridWorkImage(
-                imageURL: work.thumbnailImage?.downloadURL,
+                imageURL: work.largeThumbnailImageURL,
                 imageAspectRatio: work.imageAspectRatio,
                 thumbnailImagePosition: work.thumbnailImagePosition,
               ),

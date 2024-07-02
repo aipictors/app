@@ -98,8 +98,7 @@ class WorkScreenMedium extends HookConsumerWidget {
                           );
                         } else {
                           return InteractiveWorkImage(
-                            downloadURL:
-                                work.subWorks[index - 1].image.downloadURL,
+                            downloadURL: work.subWorks[index - 1].imageUrl!,
                           );
                         }
                       }),

@@ -30,12 +30,16 @@ class _$GDeleteFolderWorkDataSerializer
       '__typename',
       serializers.serialize(object.G__typename,
           specifiedType: const FullType(String)),
-      'deleteFolderWork',
-      serializers.serialize(object.deleteFolderWork,
-          specifiedType:
-              const FullType(GDeleteFolderWorkData_deleteFolderWork)),
     ];
-
+    Object? value;
+    value = object.deleteFolderWork;
+    if (value != null) {
+      result
+        ..add('deleteFolderWork')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(GDeleteFolderWorkData_deleteFolderWork)));
+    }
     return result;
   }
 
@@ -124,19 +128,16 @@ class _$GDeleteFolderWorkData extends GDeleteFolderWorkData {
   @override
   final String G__typename;
   @override
-  final GDeleteFolderWorkData_deleteFolderWork deleteFolderWork;
+  final GDeleteFolderWorkData_deleteFolderWork? deleteFolderWork;
 
   factory _$GDeleteFolderWorkData(
           [void Function(GDeleteFolderWorkDataBuilder)? updates]) =>
       (new GDeleteFolderWorkDataBuilder()..update(updates))._build();
 
-  _$GDeleteFolderWorkData._(
-      {required this.G__typename, required this.deleteFolderWork})
+  _$GDeleteFolderWorkData._({required this.G__typename, this.deleteFolderWork})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename, r'GDeleteFolderWorkData', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(
-        deleteFolderWork, r'GDeleteFolderWorkData', 'deleteFolderWork');
   }
 
   @override
@@ -198,7 +199,7 @@ class GDeleteFolderWorkDataBuilder
     final $v = _$v;
     if ($v != null) {
       _G__typename = $v.G__typename;
-      _deleteFolderWork = $v.deleteFolderWork.toBuilder();
+      _deleteFolderWork = $v.deleteFolderWork?.toBuilder();
       _$v = null;
     }
     return this;
@@ -225,12 +226,12 @@ class GDeleteFolderWorkDataBuilder
           new _$GDeleteFolderWorkData._(
               G__typename: BuiltValueNullFieldError.checkNotNull(
                   G__typename, r'GDeleteFolderWorkData', 'G__typename'),
-              deleteFolderWork: deleteFolderWork.build());
+              deleteFolderWork: _deleteFolderWork?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'deleteFolderWork';
-        deleteFolderWork.build();
+        _deleteFolderWork?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'GDeleteFolderWorkData', _$failedField, e.toString());

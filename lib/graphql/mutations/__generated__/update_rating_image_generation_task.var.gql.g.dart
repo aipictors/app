@@ -28,7 +28,7 @@ class _$GUpdateRatingImageGenerationTaskVarsSerializer
       'input',
       serializers.serialize(object.input,
           specifiedType:
-              const FullType(_i1.GUpdateRatingImageGenerationTaskInput)),
+              const FullType(_i1.GUpdateRatingImageGenerationResultInput)),
     ];
 
     return result;
@@ -49,8 +49,8 @@ class _$GUpdateRatingImageGenerationTaskVarsSerializer
         case 'input':
           result.input.replace(serializers.deserialize(value,
                   specifiedType: const FullType(
-                      _i1.GUpdateRatingImageGenerationTaskInput))!
-              as _i1.GUpdateRatingImageGenerationTaskInput);
+                      _i1.GUpdateRatingImageGenerationResultInput))!
+              as _i1.GUpdateRatingImageGenerationResultInput);
           break;
       }
     }
@@ -62,7 +62,7 @@ class _$GUpdateRatingImageGenerationTaskVarsSerializer
 class _$GUpdateRatingImageGenerationTaskVars
     extends GUpdateRatingImageGenerationTaskVars {
   @override
-  final _i1.GUpdateRatingImageGenerationTaskInput input;
+  final _i1.GUpdateRatingImageGenerationResultInput input;
 
   factory _$GUpdateRatingImageGenerationTaskVars(
           [void Function(GUpdateRatingImageGenerationTaskVarsBuilder)?
@@ -113,10 +113,11 @@ class GUpdateRatingImageGenerationTaskVarsBuilder
             GUpdateRatingImageGenerationTaskVarsBuilder> {
   _$GUpdateRatingImageGenerationTaskVars? _$v;
 
-  _i1.GUpdateRatingImageGenerationTaskInputBuilder? _input;
-  _i1.GUpdateRatingImageGenerationTaskInputBuilder get input =>
-      _$this._input ??= new _i1.GUpdateRatingImageGenerationTaskInputBuilder();
-  set input(_i1.GUpdateRatingImageGenerationTaskInputBuilder? input) =>
+  _i1.GUpdateRatingImageGenerationResultInputBuilder? _input;
+  _i1.GUpdateRatingImageGenerationResultInputBuilder get input =>
+      _$this._input ??=
+          new _i1.GUpdateRatingImageGenerationResultInputBuilder();
+  set input(_i1.GUpdateRatingImageGenerationResultInputBuilder? input) =>
       _$this._input = input;
 
   GUpdateRatingImageGenerationTaskVarsBuilder();

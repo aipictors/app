@@ -96,7 +96,7 @@ abstract class GViewerMutedUsersData_viewer_mutedUsers
   @override
   String get name;
   @override
-  GViewerMutedUsersData_viewer_mutedUsers_iconImage? get iconImage;
+  String? get iconUrl;
   static Serializer<GViewerMutedUsersData_viewer_mutedUsers> get serializer =>
       _$gViewerMutedUsersDataViewerMutedUsersSerializer;
 
@@ -110,46 +110,6 @@ abstract class GViewerMutedUsersData_viewer_mutedUsers
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GViewerMutedUsersData_viewer_mutedUsers.serializer,
-        json,
-      );
-}
-
-abstract class GViewerMutedUsersData_viewer_mutedUsers_iconImage
-    implements
-        Built<GViewerMutedUsersData_viewer_mutedUsers_iconImage,
-            GViewerMutedUsersData_viewer_mutedUsers_iconImageBuilder>,
-        _i2.GPartialUserFields_iconImage {
-  GViewerMutedUsersData_viewer_mutedUsers_iconImage._();
-
-  factory GViewerMutedUsersData_viewer_mutedUsers_iconImage(
-      [void Function(GViewerMutedUsersData_viewer_mutedUsers_iconImageBuilder b)
-          updates]) = _$GViewerMutedUsersData_viewer_mutedUsers_iconImage;
-
-  static void _initializeBuilder(
-          GViewerMutedUsersData_viewer_mutedUsers_iconImageBuilder b) =>
-      b..G__typename = 'ImageNode';
-
-  @override
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  @override
-  String get id;
-  @override
-  String get downloadURL;
-  static Serializer<GViewerMutedUsersData_viewer_mutedUsers_iconImage>
-      get serializer =>
-          _$gViewerMutedUsersDataViewerMutedUsersIconImageSerializer;
-
-  @override
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GViewerMutedUsersData_viewer_mutedUsers_iconImage.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GViewerMutedUsersData_viewer_mutedUsers_iconImage? fromJson(
-          Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GViewerMutedUsersData_viewer_mutedUsers_iconImage.serializer,
         json,
       );
 }

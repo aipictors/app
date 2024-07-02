@@ -29,19 +29,7 @@ abstract class GFollowNotificationFields_user
   @override
   String get name;
   @override
-  GFollowNotificationFields_user_iconImage? get iconImage;
-  @override
-  Map<String, dynamic> toJson();
-}
-
-abstract class GFollowNotificationFields_user_iconImage
-    implements _i1.GPartialUserFields_iconImage {
-  @override
-  String get G__typename;
-  @override
-  String get id;
-  @override
-  String get downloadURL;
+  String? get iconUrl;
   @override
   Map<String, dynamic> toJson();
 }
@@ -110,7 +98,7 @@ abstract class GFollowNotificationFieldsData_user
   @override
   String get name;
   @override
-  GFollowNotificationFieldsData_user_iconImage? get iconImage;
+  String? get iconUrl;
   static Serializer<GFollowNotificationFieldsData_user> get serializer =>
       _$gFollowNotificationFieldsDataUserSerializer;
 
@@ -124,46 +112,6 @@ abstract class GFollowNotificationFieldsData_user
           Map<String, dynamic> json) =>
       _i2.serializers.deserializeWith(
         GFollowNotificationFieldsData_user.serializer,
-        json,
-      );
-}
-
-abstract class GFollowNotificationFieldsData_user_iconImage
-    implements
-        Built<GFollowNotificationFieldsData_user_iconImage,
-            GFollowNotificationFieldsData_user_iconImageBuilder>,
-        GFollowNotificationFields_user_iconImage,
-        _i1.GPartialUserFields_iconImage {
-  GFollowNotificationFieldsData_user_iconImage._();
-
-  factory GFollowNotificationFieldsData_user_iconImage(
-      [void Function(GFollowNotificationFieldsData_user_iconImageBuilder b)
-          updates]) = _$GFollowNotificationFieldsData_user_iconImage;
-
-  static void _initializeBuilder(
-          GFollowNotificationFieldsData_user_iconImageBuilder b) =>
-      b..G__typename = 'ImageNode';
-
-  @override
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  @override
-  String get id;
-  @override
-  String get downloadURL;
-  static Serializer<GFollowNotificationFieldsData_user_iconImage>
-      get serializer => _$gFollowNotificationFieldsDataUserIconImageSerializer;
-
-  @override
-  Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
-        GFollowNotificationFieldsData_user_iconImage.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GFollowNotificationFieldsData_user_iconImage? fromJson(
-          Map<String, dynamic> json) =>
-      _i2.serializers.deserializeWith(
-        GFollowNotificationFieldsData_user_iconImage.serializer,
         json,
       );
 }

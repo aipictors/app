@@ -12,17 +12,10 @@ abstract class GPartialStickerFields {
   String get G__typename;
   String get id;
   String get title;
-  GPartialStickerFields_image? get image;
+  String? get imageUrl;
   int get likesCount;
   int get downloadsCount;
   int get usesCount;
-  Map<String, dynamic> toJson();
-}
-
-abstract class GPartialStickerFields_image {
-  String get G__typename;
-  String get id;
-  String get downloadURL;
   Map<String, dynamic> toJson();
 }
 
@@ -47,7 +40,7 @@ abstract class GPartialStickerFieldsData
   @override
   String get title;
   @override
-  GPartialStickerFieldsData_image? get image;
+  String? get imageUrl;
   @override
   int get likesCount;
   @override
@@ -66,43 +59,6 @@ abstract class GPartialStickerFieldsData
   static GPartialStickerFieldsData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GPartialStickerFieldsData.serializer,
-        json,
-      );
-}
-
-abstract class GPartialStickerFieldsData_image
-    implements
-        Built<GPartialStickerFieldsData_image,
-            GPartialStickerFieldsData_imageBuilder>,
-        GPartialStickerFields_image {
-  GPartialStickerFieldsData_image._();
-
-  factory GPartialStickerFieldsData_image(
-          [void Function(GPartialStickerFieldsData_imageBuilder b) updates]) =
-      _$GPartialStickerFieldsData_image;
-
-  static void _initializeBuilder(GPartialStickerFieldsData_imageBuilder b) =>
-      b..G__typename = 'ImageNode';
-
-  @override
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  @override
-  String get id;
-  @override
-  String get downloadURL;
-  static Serializer<GPartialStickerFieldsData_image> get serializer =>
-      _$gPartialStickerFieldsDataImageSerializer;
-
-  @override
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GPartialStickerFieldsData_image.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GPartialStickerFieldsData_image? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GPartialStickerFieldsData_image.serializer,
         json,
       );
 }

@@ -10,13 +10,13 @@ Serializer<GUpdateProtectedImageGenerationTaskData>
     _$gUpdateProtectedImageGenerationTaskDataSerializer =
     new _$GUpdateProtectedImageGenerationTaskDataSerializer();
 Serializer<
-        GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask>
-    _$gUpdateProtectedImageGenerationTaskDataUpdateProtectedImageGenerationTaskSerializer =
-    new _$GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTaskSerializer();
+        GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult>
+    _$gUpdateProtectedImageGenerationTaskDataUpdateProtectedImageGenerationResultSerializer =
+    new _$GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResultSerializer();
 Serializer<
-        GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_model>
-    _$gUpdateProtectedImageGenerationTaskDataUpdateProtectedImageGenerationTaskModelSerializer =
-    new _$GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_modelSerializer();
+        GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult_model>
+    _$gUpdateProtectedImageGenerationTaskDataUpdateProtectedImageGenerationResultModelSerializer =
+    new _$GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult_modelSerializer();
 
 class _$GUpdateProtectedImageGenerationTaskDataSerializer
     implements StructuredSerializer<GUpdateProtectedImageGenerationTaskData> {
@@ -36,10 +36,10 @@ class _$GUpdateProtectedImageGenerationTaskDataSerializer
       '__typename',
       serializers.serialize(object.G__typename,
           specifiedType: const FullType(String)),
-      'updateProtectedImageGenerationTask',
-      serializers.serialize(object.updateProtectedImageGenerationTask,
+      'updateProtectedImageGenerationResult',
+      serializers.serialize(object.updateProtectedImageGenerationResult,
           specifiedType: const FullType(
-              GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask)),
+              GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult)),
     ];
 
     return result;
@@ -61,12 +61,12 @@ class _$GUpdateProtectedImageGenerationTaskDataSerializer
           result.G__typename = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
-        case 'updateProtectedImageGenerationTask':
-          result.updateProtectedImageGenerationTask.replace(serializers.deserialize(
-                  value,
-                  specifiedType: const FullType(
-                      GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask))!
-              as GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask);
+        case 'updateProtectedImageGenerationResult':
+          result.updateProtectedImageGenerationResult.replace(serializers
+                  .deserialize(value,
+                      specifiedType: const FullType(
+                          GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult))!
+              as GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult);
           break;
       }
     }
@@ -75,23 +75,23 @@ class _$GUpdateProtectedImageGenerationTaskDataSerializer
   }
 }
 
-class _$GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTaskSerializer
+class _$GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResultSerializer
     implements
         StructuredSerializer<
-            GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask> {
+            GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult> {
   @override
   final Iterable<Type> types = const [
-    GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask,
-    _$GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask
+    GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult,
+    _$GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult
   ];
   @override
   final String wireName =
-      'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask';
+      'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult';
 
   @override
   Iterable<Object?> serialize(
       Serializers serializers,
-      GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask
+      GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult
           object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
@@ -124,18 +124,13 @@ class _$GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTa
       'status',
       serializers.serialize(object.status,
           specifiedType: const FullType(_i3.GImageGenerationStatus)),
-      'isDeleted',
-      serializers.serialize(object.isDeleted,
-          specifiedType: const FullType(bool)),
-      'count',
-      serializers.serialize(object.count, specifiedType: const FullType(int)),
       'generationType',
       serializers.serialize(object.generationType,
           specifiedType: const FullType(_i3.GImageGenerationType)),
       'model',
       serializers.serialize(object.model,
           specifiedType: const FullType(
-              GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_model)),
+              GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult_model)),
     ];
     Object? value;
     value = object.t2tImageUrl;
@@ -339,11 +334,11 @@ class _$GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTa
   }
 
   @override
-  GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask
+  GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult
       deserialize(Serializers serializers, Iterable<Object?> serialized,
           {FullType specifiedType = FullType.unspecified}) {
     final result =
-        new GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTaskBuilder();
+        new GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResultBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -421,17 +416,9 @@ class _$GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTa
                   specifiedType: const FullType(_i3.GImageGenerationStatus))!
               as _i3.GImageGenerationStatus;
           break;
-        case 'isDeleted':
-          result.isDeleted = serializers.deserialize(value,
-              specifiedType: const FullType(bool))! as bool;
-          break;
         case 'isProtected':
           result.isProtected = serializers.deserialize(value,
               specifiedType: const FullType(bool)) as bool?;
-          break;
-        case 'count':
-          result.count = serializers.deserialize(value,
-              specifiedType: const FullType(int))! as int;
           break;
         case 'generationType':
           result.generationType = serializers.deserialize(value,
@@ -441,8 +428,8 @@ class _$GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTa
         case 'model':
           result.model.replace(serializers.deserialize(value,
                   specifiedType: const FullType(
-                      GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_model))!
-              as GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_model);
+                      GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult_model))!
+              as GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult_model);
           break;
         case 'vae':
           result.vae = serializers.deserialize(value,
@@ -539,23 +526,23 @@ class _$GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTa
   }
 }
 
-class _$GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_modelSerializer
+class _$GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult_modelSerializer
     implements
         StructuredSerializer<
-            GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_model> {
+            GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult_model> {
   @override
   final Iterable<Type> types = const [
-    GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_model,
-    _$GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_model
+    GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult_model,
+    _$GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult_model
   ];
   @override
   final String wireName =
-      'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_model';
+      'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult_model';
 
   @override
   Iterable<Object?> serialize(
       Serializers serializers,
-      GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_model
+      GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult_model
           object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
@@ -574,11 +561,11 @@ class _$GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTa
   }
 
   @override
-  GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_model
+  GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult_model
       deserialize(Serializers serializers, Iterable<Object?> serialized,
           {FullType specifiedType = FullType.unspecified}) {
     final result =
-        new GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_modelBuilder();
+        new GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult_modelBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -614,8 +601,8 @@ class _$GUpdateProtectedImageGenerationTaskData
   @override
   final String G__typename;
   @override
-  final GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask
-      updateProtectedImageGenerationTask;
+  final GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult
+      updateProtectedImageGenerationResult;
 
   factory _$GUpdateProtectedImageGenerationTaskData(
           [void Function(GUpdateProtectedImageGenerationTaskDataBuilder)?
@@ -625,14 +612,14 @@ class _$GUpdateProtectedImageGenerationTaskData
 
   _$GUpdateProtectedImageGenerationTaskData._(
       {required this.G__typename,
-      required this.updateProtectedImageGenerationTask})
+      required this.updateProtectedImageGenerationResult})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename, r'GUpdateProtectedImageGenerationTaskData', 'G__typename');
     BuiltValueNullFieldError.checkNotNull(
-        updateProtectedImageGenerationTask,
+        updateProtectedImageGenerationResult,
         r'GUpdateProtectedImageGenerationTaskData',
-        'updateProtectedImageGenerationTask');
+        'updateProtectedImageGenerationResult');
   }
 
   @override
@@ -650,15 +637,15 @@ class _$GUpdateProtectedImageGenerationTaskData
     if (identical(other, this)) return true;
     return other is GUpdateProtectedImageGenerationTaskData &&
         G__typename == other.G__typename &&
-        updateProtectedImageGenerationTask ==
-            other.updateProtectedImageGenerationTask;
+        updateProtectedImageGenerationResult ==
+            other.updateProtectedImageGenerationResult;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, updateProtectedImageGenerationTask.hashCode);
+    _$hash = $jc(_$hash, updateProtectedImageGenerationResult.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -668,8 +655,8 @@ class _$GUpdateProtectedImageGenerationTaskData
     return (newBuiltValueToStringHelper(
             r'GUpdateProtectedImageGenerationTaskData')
           ..add('G__typename', G__typename)
-          ..add('updateProtectedImageGenerationTask',
-              updateProtectedImageGenerationTask))
+          ..add('updateProtectedImageGenerationResult',
+              updateProtectedImageGenerationResult))
         .toString();
   }
 }
@@ -684,17 +671,17 @@ class GUpdateProtectedImageGenerationTaskDataBuilder
   String? get G__typename => _$this._G__typename;
   set G__typename(String? G__typename) => _$this._G__typename = G__typename;
 
-  GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTaskBuilder?
-      _updateProtectedImageGenerationTask;
-  GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTaskBuilder
-      get updateProtectedImageGenerationTask => _$this
-              ._updateProtectedImageGenerationTask ??=
-          new GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTaskBuilder();
-  set updateProtectedImageGenerationTask(
-          GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTaskBuilder?
-              updateProtectedImageGenerationTask) =>
-      _$this._updateProtectedImageGenerationTask =
-          updateProtectedImageGenerationTask;
+  GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResultBuilder?
+      _updateProtectedImageGenerationResult;
+  GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResultBuilder
+      get updateProtectedImageGenerationResult => _$this
+              ._updateProtectedImageGenerationResult ??=
+          new GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResultBuilder();
+  set updateProtectedImageGenerationResult(
+          GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResultBuilder?
+              updateProtectedImageGenerationResult) =>
+      _$this._updateProtectedImageGenerationResult =
+          updateProtectedImageGenerationResult;
 
   GUpdateProtectedImageGenerationTaskDataBuilder() {
     GUpdateProtectedImageGenerationTaskData._initializeBuilder(this);
@@ -704,8 +691,8 @@ class GUpdateProtectedImageGenerationTaskDataBuilder
     final $v = _$v;
     if ($v != null) {
       _G__typename = $v.G__typename;
-      _updateProtectedImageGenerationTask =
-          $v.updateProtectedImageGenerationTask.toBuilder();
+      _updateProtectedImageGenerationResult =
+          $v.updateProtectedImageGenerationResult.toBuilder();
       _$v = null;
     }
     return this;
@@ -733,13 +720,13 @@ class GUpdateProtectedImageGenerationTaskDataBuilder
           new _$GUpdateProtectedImageGenerationTaskData._(
               G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
                   r'GUpdateProtectedImageGenerationTaskData', 'G__typename'),
-              updateProtectedImageGenerationTask:
-                  updateProtectedImageGenerationTask.build());
+              updateProtectedImageGenerationResult:
+                  updateProtectedImageGenerationResult.build());
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'updateProtectedImageGenerationTask';
-        updateProtectedImageGenerationTask.build();
+        _$failedField = 'updateProtectedImageGenerationResult';
+        updateProtectedImageGenerationResult.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'GUpdateProtectedImageGenerationTaskData',
@@ -753,8 +740,8 @@ class GUpdateProtectedImageGenerationTaskDataBuilder
   }
 }
 
-class _$GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask
-    extends GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask {
+class _$GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult
+    extends GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult {
   @override
   final String G__typename;
   @override
@@ -790,15 +777,11 @@ class _$GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTa
   @override
   final _i3.GImageGenerationStatus status;
   @override
-  final bool isDeleted;
-  @override
   final bool? isProtected;
-  @override
-  final int count;
   @override
   final _i3.GImageGenerationType generationType;
   @override
-  final GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_model
+  final GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult_model
       model;
   @override
   final String? vae;
@@ -845,15 +828,15 @@ class _$GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTa
   @override
   final String? thumbnailToken;
 
-  factory _$GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask(
+  factory _$GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult(
           [void Function(
-                  GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTaskBuilder)?
+                  GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResultBuilder)?
               updates]) =>
-      (new GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTaskBuilder()
+      (new GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResultBuilder()
             ..update(updates))
           ._build();
 
-  _$GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask._(
+  _$GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult._(
       {required this.G__typename,
       required this.id,
       required this.prompt,
@@ -871,9 +854,7 @@ class _$GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTa
       this.rating,
       this.completedAt,
       required this.status,
-      required this.isDeleted,
       this.isProtected,
-      required this.count,
       required this.generationType,
       required this.model,
       this.vae,
@@ -901,85 +882,77 @@ class _$GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTa
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename,
-        r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask',
+        r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult',
         'G__typename');
     BuiltValueNullFieldError.checkNotNull(
         id,
-        r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask',
+        r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult',
         'id');
     BuiltValueNullFieldError.checkNotNull(
         prompt,
-        r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask',
+        r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult',
         'prompt');
     BuiltValueNullFieldError.checkNotNull(
         negativePrompt,
-        r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask',
+        r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult',
         'negativePrompt');
     BuiltValueNullFieldError.checkNotNull(
         seed,
-        r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask',
+        r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult',
         'seed');
     BuiltValueNullFieldError.checkNotNull(
         steps,
-        r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask',
+        r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult',
         'steps');
     BuiltValueNullFieldError.checkNotNull(
         scale,
-        r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask',
+        r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult',
         'scale');
     BuiltValueNullFieldError.checkNotNull(
         sampler,
-        r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask',
+        r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult',
         'sampler');
     BuiltValueNullFieldError.checkNotNull(
         clipSkip,
-        r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask',
+        r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult',
         'clipSkip');
     BuiltValueNullFieldError.checkNotNull(
         sizeType,
-        r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask',
+        r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult',
         'sizeType');
     BuiltValueNullFieldError.checkNotNull(
         status,
-        r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask',
+        r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult',
         'status');
     BuiltValueNullFieldError.checkNotNull(
-        isDeleted,
-        r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask',
-        'isDeleted');
-    BuiltValueNullFieldError.checkNotNull(
-        count,
-        r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask',
-        'count');
-    BuiltValueNullFieldError.checkNotNull(
         generationType,
-        r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask',
+        r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult',
         'generationType');
     BuiltValueNullFieldError.checkNotNull(
         model,
-        r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask',
+        r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult',
         'model');
   }
 
   @override
-  GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask
+  GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult
       rebuild(
               void Function(
-                      GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTaskBuilder)
+                      GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResultBuilder)
                   updates) =>
           (toBuilder()..update(updates)).build();
 
   @override
-  GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTaskBuilder
+  GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResultBuilder
       toBuilder() =>
-          new GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTaskBuilder()
+          new GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResultBuilder()
             ..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other
-            is GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask &&
+            is GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult &&
         G__typename == other.G__typename &&
         id == other.id &&
         prompt == other.prompt &&
@@ -997,9 +970,7 @@ class _$GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTa
         rating == other.rating &&
         completedAt == other.completedAt &&
         status == other.status &&
-        isDeleted == other.isDeleted &&
         isProtected == other.isProtected &&
-        count == other.count &&
         generationType == other.generationType &&
         model == other.model &&
         vae == other.vae &&
@@ -1046,9 +1017,7 @@ class _$GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTa
     _$hash = $jc(_$hash, rating.hashCode);
     _$hash = $jc(_$hash, completedAt.hashCode);
     _$hash = $jc(_$hash, status.hashCode);
-    _$hash = $jc(_$hash, isDeleted.hashCode);
     _$hash = $jc(_$hash, isProtected.hashCode);
-    _$hash = $jc(_$hash, count.hashCode);
     _$hash = $jc(_$hash, generationType.hashCode);
     _$hash = $jc(_$hash, model.hashCode);
     _$hash = $jc(_$hash, vae.hashCode);
@@ -1080,7 +1049,7 @@ class _$GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTa
   @override
   String toString() {
     return (newBuiltValueToStringHelper(
-            r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask')
+            r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult')
           ..add('G__typename', G__typename)
           ..add('id', id)
           ..add('prompt', prompt)
@@ -1098,9 +1067,7 @@ class _$GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTa
           ..add('rating', rating)
           ..add('completedAt', completedAt)
           ..add('status', status)
-          ..add('isDeleted', isDeleted)
           ..add('isProtected', isProtected)
-          ..add('count', count)
           ..add('generationType', generationType)
           ..add('model', model)
           ..add('vae', vae)
@@ -1129,12 +1096,12 @@ class _$GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTa
   }
 }
 
-class GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTaskBuilder
+class GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResultBuilder
     implements
         Builder<
-            GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask,
-            GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTaskBuilder> {
-  _$GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask?
+            GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult,
+            GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResultBuilder> {
+  _$GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult?
       _$v;
 
   String? _G__typename;
@@ -1210,30 +1177,22 @@ class GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask
   _i3.GImageGenerationStatus? get status => _$this._status;
   set status(_i3.GImageGenerationStatus? status) => _$this._status = status;
 
-  bool? _isDeleted;
-  bool? get isDeleted => _$this._isDeleted;
-  set isDeleted(bool? isDeleted) => _$this._isDeleted = isDeleted;
-
   bool? _isProtected;
   bool? get isProtected => _$this._isProtected;
   set isProtected(bool? isProtected) => _$this._isProtected = isProtected;
-
-  int? _count;
-  int? get count => _$this._count;
-  set count(int? count) => _$this._count = count;
 
   _i3.GImageGenerationType? _generationType;
   _i3.GImageGenerationType? get generationType => _$this._generationType;
   set generationType(_i3.GImageGenerationType? generationType) =>
       _$this._generationType = generationType;
 
-  GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_modelBuilder?
+  GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult_modelBuilder?
       _model;
-  GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_modelBuilder
+  GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult_modelBuilder
       get model => _$this._model ??=
-          new GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_modelBuilder();
+          new GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult_modelBuilder();
   set model(
-          GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_modelBuilder?
+          GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult_modelBuilder?
               model) =>
       _$this._model = model;
 
@@ -1343,12 +1302,12 @@ class GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask
   set thumbnailToken(String? thumbnailToken) =>
       _$this._thumbnailToken = thumbnailToken;
 
-  GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTaskBuilder() {
-    GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask
+  GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResultBuilder() {
+    GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult
         ._initializeBuilder(this);
   }
 
-  GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTaskBuilder
+  GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResultBuilder
       get _$this {
     final $v = _$v;
     if ($v != null) {
@@ -1369,9 +1328,7 @@ class GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask
       _rating = $v.rating;
       _completedAt = $v.completedAt;
       _status = $v.status;
-      _isDeleted = $v.isDeleted;
       _isProtected = $v.isProtected;
-      _count = $v.count;
       _generationType = $v.generationType;
       _model = $v.model.toBuilder();
       _vae = $v.vae;
@@ -1403,64 +1360,62 @@ class GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask
 
   @override
   void replace(
-      GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask
+      GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult
           other) {
     ArgumentError.checkNotNull(other, 'other');
     _$v = other
-        as _$GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask;
+        as _$GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult;
   }
 
   @override
   void update(
       void Function(
-              GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTaskBuilder)?
+              GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResultBuilder)?
           updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask
+  GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult
       build() => _build();
 
-  _$GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask
+  _$GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult
       _build() {
-    _$GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask
+    _$GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult
         _$result;
     try {
       _$result = _$v ??
-          new _$GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask._(
+          new _$GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult._(
               G__typename: BuiltValueNullFieldError.checkNotNull(
                   G__typename,
-                  r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask',
+                  r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult',
                   'G__typename'),
               id: BuiltValueNullFieldError.checkNotNull(
-                  id, r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask', 'id'),
+                  id, r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult', 'id'),
               prompt: BuiltValueNullFieldError.checkNotNull(
                   prompt,
-                  r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask',
+                  r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult',
                   'prompt'),
               negativePrompt: BuiltValueNullFieldError.checkNotNull(
                   negativePrompt,
-                  r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask',
+                  r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult',
                   'negativePrompt'),
               seed: BuiltValueNullFieldError.checkNotNull(
-                  seed, r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask', 'seed'),
-              steps: BuiltValueNullFieldError.checkNotNull(steps, r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask', 'steps'),
-              scale: BuiltValueNullFieldError.checkNotNull(scale, r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask', 'scale'),
-              sampler: BuiltValueNullFieldError.checkNotNull(sampler, r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask', 'sampler'),
-              clipSkip: BuiltValueNullFieldError.checkNotNull(clipSkip, r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask', 'clipSkip'),
-              sizeType: BuiltValueNullFieldError.checkNotNull(sizeType, r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask', 'sizeType'),
+                  seed, r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult', 'seed'),
+              steps: BuiltValueNullFieldError.checkNotNull(steps, r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult', 'steps'),
+              scale: BuiltValueNullFieldError.checkNotNull(scale, r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult', 'scale'),
+              sampler: BuiltValueNullFieldError.checkNotNull(sampler, r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult', 'sampler'),
+              clipSkip: BuiltValueNullFieldError.checkNotNull(clipSkip, r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult', 'clipSkip'),
+              sizeType: BuiltValueNullFieldError.checkNotNull(sizeType, r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult', 'sizeType'),
               t2tImageUrl: t2tImageUrl,
               t2tMaskImageUrl: t2tMaskImageUrl,
               t2tDenoisingStrengthSize: t2tDenoisingStrengthSize,
               t2tInpaintingFillSize: t2tInpaintingFillSize,
               rating: rating,
               completedAt: completedAt,
-              status: BuiltValueNullFieldError.checkNotNull(status, r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask', 'status'),
-              isDeleted: BuiltValueNullFieldError.checkNotNull(isDeleted, r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask', 'isDeleted'),
+              status: BuiltValueNullFieldError.checkNotNull(status, r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult', 'status'),
               isProtected: isProtected,
-              count: BuiltValueNullFieldError.checkNotNull(count, r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask', 'count'),
-              generationType: BuiltValueNullFieldError.checkNotNull(generationType, r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask', 'generationType'),
+              generationType: BuiltValueNullFieldError.checkNotNull(generationType, r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult', 'generationType'),
               model: model.build(),
               vae: vae,
               nanoid: nanoid,
@@ -1491,7 +1446,7 @@ class GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask
         model.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask',
+            r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult',
             _$failedField,
             e.toString());
       }
@@ -1502,8 +1457,8 @@ class GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask
   }
 }
 
-class _$GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_model
-    extends GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_model {
+class _$GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult_model
+    extends GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult_model {
   @override
   final String G__typename;
   @override
@@ -1513,15 +1468,15 @@ class _$GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTa
   @override
   final String type;
 
-  factory _$GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_model(
+  factory _$GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult_model(
           [void Function(
-                  GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_modelBuilder)?
+                  GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult_modelBuilder)?
               updates]) =>
-      (new GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_modelBuilder()
+      (new GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult_modelBuilder()
             ..update(updates))
           ._build();
 
-  _$GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_model._(
+  _$GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult_model._(
       {required this.G__typename,
       required this.id,
       required this.name,
@@ -1529,41 +1484,41 @@ class _$GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTa
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename,
-        r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_model',
+        r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult_model',
         'G__typename');
     BuiltValueNullFieldError.checkNotNull(
         id,
-        r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_model',
+        r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult_model',
         'id');
     BuiltValueNullFieldError.checkNotNull(
         name,
-        r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_model',
+        r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult_model',
         'name');
     BuiltValueNullFieldError.checkNotNull(
         type,
-        r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_model',
+        r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult_model',
         'type');
   }
 
   @override
-  GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_model
+  GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult_model
       rebuild(
               void Function(
-                      GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_modelBuilder)
+                      GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult_modelBuilder)
                   updates) =>
           (toBuilder()..update(updates)).build();
 
   @override
-  GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_modelBuilder
+  GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult_modelBuilder
       toBuilder() =>
-          new GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_modelBuilder()
+          new GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult_modelBuilder()
             ..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other
-            is GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_model &&
+            is GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult_model &&
         G__typename == other.G__typename &&
         id == other.id &&
         name == other.name &&
@@ -1584,7 +1539,7 @@ class _$GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTa
   @override
   String toString() {
     return (newBuiltValueToStringHelper(
-            r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_model')
+            r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult_model')
           ..add('G__typename', G__typename)
           ..add('id', id)
           ..add('name', name)
@@ -1593,12 +1548,12 @@ class _$GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTa
   }
 }
 
-class GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_modelBuilder
+class GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult_modelBuilder
     implements
         Builder<
-            GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_model,
-            GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_modelBuilder> {
-  _$GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_model?
+            GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult_model,
+            GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult_modelBuilder> {
+  _$GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult_model?
       _$v;
 
   String? _G__typename;
@@ -1617,12 +1572,12 @@ class GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask
   String? get type => _$this._type;
   set type(String? type) => _$this._type = type;
 
-  GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_modelBuilder() {
-    GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_model
+  GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult_modelBuilder() {
+    GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult_model
         ._initializeBuilder(this);
   }
 
-  GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_modelBuilder
+  GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult_modelBuilder
       get _$this {
     final $v = _$v;
     if ($v != null) {
@@ -1637,42 +1592,42 @@ class GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask
 
   @override
   void replace(
-      GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_model
+      GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult_model
           other) {
     ArgumentError.checkNotNull(other, 'other');
     _$v = other
-        as _$GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_model;
+        as _$GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult_model;
   }
 
   @override
   void update(
       void Function(
-              GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_modelBuilder)?
+              GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult_modelBuilder)?
           updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_model
+  GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult_model
       build() => _build();
 
-  _$GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_model
+  _$GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult_model
       _build() {
     final _$result = _$v ??
-        new _$GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_model._(
+        new _$GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult_model._(
             G__typename: BuiltValueNullFieldError.checkNotNull(
                 G__typename,
-                r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_model',
+                r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult_model',
                 'G__typename'),
             id: BuiltValueNullFieldError.checkNotNull(id,
-                r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_model', 'id'),
+                r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult_model', 'id'),
             name: BuiltValueNullFieldError.checkNotNull(
                 name,
-                r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_model',
+                r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult_model',
                 'name'),
             type: BuiltValueNullFieldError.checkNotNull(
                 type,
-                r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_model',
+                r'GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult_model',
                 'type'));
     replace(_$result);
     return _$result;

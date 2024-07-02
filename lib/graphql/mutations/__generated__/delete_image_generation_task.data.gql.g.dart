@@ -9,12 +9,12 @@ part of 'delete_image_generation_task.data.gql.dart';
 Serializer<GDeleteImageGenerationTaskData>
     _$gDeleteImageGenerationTaskDataSerializer =
     new _$GDeleteImageGenerationTaskDataSerializer();
-Serializer<GDeleteImageGenerationTaskData_deleteImageGenerationTask>
-    _$gDeleteImageGenerationTaskDataDeleteImageGenerationTaskSerializer =
-    new _$GDeleteImageGenerationTaskData_deleteImageGenerationTaskSerializer();
-Serializer<GDeleteImageGenerationTaskData_deleteImageGenerationTask_model>
-    _$gDeleteImageGenerationTaskDataDeleteImageGenerationTaskModelSerializer =
-    new _$GDeleteImageGenerationTaskData_deleteImageGenerationTask_modelSerializer();
+Serializer<GDeleteImageGenerationTaskData_deleteImageGenerationResult>
+    _$gDeleteImageGenerationTaskDataDeleteImageGenerationResultSerializer =
+    new _$GDeleteImageGenerationTaskData_deleteImageGenerationResultSerializer();
+Serializer<GDeleteImageGenerationTaskData_deleteImageGenerationResult_model>
+    _$gDeleteImageGenerationTaskDataDeleteImageGenerationResultModelSerializer =
+    new _$GDeleteImageGenerationTaskData_deleteImageGenerationResult_modelSerializer();
 
 class _$GDeleteImageGenerationTaskDataSerializer
     implements StructuredSerializer<GDeleteImageGenerationTaskData> {
@@ -34,10 +34,10 @@ class _$GDeleteImageGenerationTaskDataSerializer
       '__typename',
       serializers.serialize(object.G__typename,
           specifiedType: const FullType(String)),
-      'deleteImageGenerationTask',
-      serializers.serialize(object.deleteImageGenerationTask,
+      'deleteImageGenerationResult',
+      serializers.serialize(object.deleteImageGenerationResult,
           specifiedType: const FullType(
-              GDeleteImageGenerationTaskData_deleteImageGenerationTask)),
+              GDeleteImageGenerationTaskData_deleteImageGenerationResult)),
     ];
 
     return result;
@@ -59,12 +59,12 @@ class _$GDeleteImageGenerationTaskDataSerializer
           result.G__typename = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
-        case 'deleteImageGenerationTask':
-          result.deleteImageGenerationTask.replace(serializers.deserialize(
+        case 'deleteImageGenerationResult':
+          result.deleteImageGenerationResult.replace(serializers.deserialize(
                   value,
                   specifiedType: const FullType(
-                      GDeleteImageGenerationTaskData_deleteImageGenerationTask))!
-              as GDeleteImageGenerationTaskData_deleteImageGenerationTask);
+                      GDeleteImageGenerationTaskData_deleteImageGenerationResult))!
+              as GDeleteImageGenerationTaskData_deleteImageGenerationResult);
           break;
       }
     }
@@ -73,22 +73,22 @@ class _$GDeleteImageGenerationTaskDataSerializer
   }
 }
 
-class _$GDeleteImageGenerationTaskData_deleteImageGenerationTaskSerializer
+class _$GDeleteImageGenerationTaskData_deleteImageGenerationResultSerializer
     implements
         StructuredSerializer<
-            GDeleteImageGenerationTaskData_deleteImageGenerationTask> {
+            GDeleteImageGenerationTaskData_deleteImageGenerationResult> {
   @override
   final Iterable<Type> types = const [
-    GDeleteImageGenerationTaskData_deleteImageGenerationTask,
-    _$GDeleteImageGenerationTaskData_deleteImageGenerationTask
+    GDeleteImageGenerationTaskData_deleteImageGenerationResult,
+    _$GDeleteImageGenerationTaskData_deleteImageGenerationResult
   ];
   @override
   final String wireName =
-      'GDeleteImageGenerationTaskData_deleteImageGenerationTask';
+      'GDeleteImageGenerationTaskData_deleteImageGenerationResult';
 
   @override
   Iterable<Object?> serialize(Serializers serializers,
-      GDeleteImageGenerationTaskData_deleteImageGenerationTask object,
+      GDeleteImageGenerationTaskData_deleteImageGenerationResult object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
       '__typename',
@@ -120,18 +120,13 @@ class _$GDeleteImageGenerationTaskData_deleteImageGenerationTaskSerializer
       'status',
       serializers.serialize(object.status,
           specifiedType: const FullType(_i3.GImageGenerationStatus)),
-      'isDeleted',
-      serializers.serialize(object.isDeleted,
-          specifiedType: const FullType(bool)),
-      'count',
-      serializers.serialize(object.count, specifiedType: const FullType(int)),
       'generationType',
       serializers.serialize(object.generationType,
           specifiedType: const FullType(_i3.GImageGenerationType)),
       'model',
       serializers.serialize(object.model,
           specifiedType: const FullType(
-              GDeleteImageGenerationTaskData_deleteImageGenerationTask_model)),
+              GDeleteImageGenerationTaskData_deleteImageGenerationResult_model)),
     ];
     Object? value;
     value = object.t2tImageUrl;
@@ -335,11 +330,11 @@ class _$GDeleteImageGenerationTaskData_deleteImageGenerationTaskSerializer
   }
 
   @override
-  GDeleteImageGenerationTaskData_deleteImageGenerationTask deserialize(
+  GDeleteImageGenerationTaskData_deleteImageGenerationResult deserialize(
       Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result =
-        new GDeleteImageGenerationTaskData_deleteImageGenerationTaskBuilder();
+        new GDeleteImageGenerationTaskData_deleteImageGenerationResultBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -417,17 +412,9 @@ class _$GDeleteImageGenerationTaskData_deleteImageGenerationTaskSerializer
                   specifiedType: const FullType(_i3.GImageGenerationStatus))!
               as _i3.GImageGenerationStatus;
           break;
-        case 'isDeleted':
-          result.isDeleted = serializers.deserialize(value,
-              specifiedType: const FullType(bool))! as bool;
-          break;
         case 'isProtected':
           result.isProtected = serializers.deserialize(value,
               specifiedType: const FullType(bool)) as bool?;
-          break;
-        case 'count':
-          result.count = serializers.deserialize(value,
-              specifiedType: const FullType(int))! as int;
           break;
         case 'generationType':
           result.generationType = serializers.deserialize(value,
@@ -437,8 +424,8 @@ class _$GDeleteImageGenerationTaskData_deleteImageGenerationTaskSerializer
         case 'model':
           result.model.replace(serializers.deserialize(value,
                   specifiedType: const FullType(
-                      GDeleteImageGenerationTaskData_deleteImageGenerationTask_model))!
-              as GDeleteImageGenerationTaskData_deleteImageGenerationTask_model);
+                      GDeleteImageGenerationTaskData_deleteImageGenerationResult_model))!
+              as GDeleteImageGenerationTaskData_deleteImageGenerationResult_model);
           break;
         case 'vae':
           result.vae = serializers.deserialize(value,
@@ -535,22 +522,22 @@ class _$GDeleteImageGenerationTaskData_deleteImageGenerationTaskSerializer
   }
 }
 
-class _$GDeleteImageGenerationTaskData_deleteImageGenerationTask_modelSerializer
+class _$GDeleteImageGenerationTaskData_deleteImageGenerationResult_modelSerializer
     implements
         StructuredSerializer<
-            GDeleteImageGenerationTaskData_deleteImageGenerationTask_model> {
+            GDeleteImageGenerationTaskData_deleteImageGenerationResult_model> {
   @override
   final Iterable<Type> types = const [
-    GDeleteImageGenerationTaskData_deleteImageGenerationTask_model,
-    _$GDeleteImageGenerationTaskData_deleteImageGenerationTask_model
+    GDeleteImageGenerationTaskData_deleteImageGenerationResult_model,
+    _$GDeleteImageGenerationTaskData_deleteImageGenerationResult_model
   ];
   @override
   final String wireName =
-      'GDeleteImageGenerationTaskData_deleteImageGenerationTask_model';
+      'GDeleteImageGenerationTaskData_deleteImageGenerationResult_model';
 
   @override
   Iterable<Object?> serialize(Serializers serializers,
-      GDeleteImageGenerationTaskData_deleteImageGenerationTask_model object,
+      GDeleteImageGenerationTaskData_deleteImageGenerationResult_model object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
       '__typename',
@@ -568,11 +555,11 @@ class _$GDeleteImageGenerationTaskData_deleteImageGenerationTask_modelSerializer
   }
 
   @override
-  GDeleteImageGenerationTaskData_deleteImageGenerationTask_model deserialize(
+  GDeleteImageGenerationTaskData_deleteImageGenerationResult_model deserialize(
       Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result =
-        new GDeleteImageGenerationTaskData_deleteImageGenerationTask_modelBuilder();
+        new GDeleteImageGenerationTaskData_deleteImageGenerationResult_modelBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -607,20 +594,20 @@ class _$GDeleteImageGenerationTaskData extends GDeleteImageGenerationTaskData {
   @override
   final String G__typename;
   @override
-  final GDeleteImageGenerationTaskData_deleteImageGenerationTask
-      deleteImageGenerationTask;
+  final GDeleteImageGenerationTaskData_deleteImageGenerationResult
+      deleteImageGenerationResult;
 
   factory _$GDeleteImageGenerationTaskData(
           [void Function(GDeleteImageGenerationTaskDataBuilder)? updates]) =>
       (new GDeleteImageGenerationTaskDataBuilder()..update(updates))._build();
 
   _$GDeleteImageGenerationTaskData._(
-      {required this.G__typename, required this.deleteImageGenerationTask})
+      {required this.G__typename, required this.deleteImageGenerationResult})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename, r'GDeleteImageGenerationTaskData', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(deleteImageGenerationTask,
-        r'GDeleteImageGenerationTaskData', 'deleteImageGenerationTask');
+    BuiltValueNullFieldError.checkNotNull(deleteImageGenerationResult,
+        r'GDeleteImageGenerationTaskData', 'deleteImageGenerationResult');
   }
 
   @override
@@ -637,14 +624,14 @@ class _$GDeleteImageGenerationTaskData extends GDeleteImageGenerationTaskData {
     if (identical(other, this)) return true;
     return other is GDeleteImageGenerationTaskData &&
         G__typename == other.G__typename &&
-        deleteImageGenerationTask == other.deleteImageGenerationTask;
+        deleteImageGenerationResult == other.deleteImageGenerationResult;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, deleteImageGenerationTask.hashCode);
+    _$hash = $jc(_$hash, deleteImageGenerationResult.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -653,7 +640,7 @@ class _$GDeleteImageGenerationTaskData extends GDeleteImageGenerationTaskData {
   String toString() {
     return (newBuiltValueToStringHelper(r'GDeleteImageGenerationTaskData')
           ..add('G__typename', G__typename)
-          ..add('deleteImageGenerationTask', deleteImageGenerationTask))
+          ..add('deleteImageGenerationResult', deleteImageGenerationResult))
         .toString();
   }
 }
@@ -668,15 +655,15 @@ class GDeleteImageGenerationTaskDataBuilder
   String? get G__typename => _$this._G__typename;
   set G__typename(String? G__typename) => _$this._G__typename = G__typename;
 
-  GDeleteImageGenerationTaskData_deleteImageGenerationTaskBuilder?
-      _deleteImageGenerationTask;
-  GDeleteImageGenerationTaskData_deleteImageGenerationTaskBuilder
-      get deleteImageGenerationTask => _$this._deleteImageGenerationTask ??=
-          new GDeleteImageGenerationTaskData_deleteImageGenerationTaskBuilder();
-  set deleteImageGenerationTask(
-          GDeleteImageGenerationTaskData_deleteImageGenerationTaskBuilder?
-              deleteImageGenerationTask) =>
-      _$this._deleteImageGenerationTask = deleteImageGenerationTask;
+  GDeleteImageGenerationTaskData_deleteImageGenerationResultBuilder?
+      _deleteImageGenerationResult;
+  GDeleteImageGenerationTaskData_deleteImageGenerationResultBuilder
+      get deleteImageGenerationResult => _$this._deleteImageGenerationResult ??=
+          new GDeleteImageGenerationTaskData_deleteImageGenerationResultBuilder();
+  set deleteImageGenerationResult(
+          GDeleteImageGenerationTaskData_deleteImageGenerationResultBuilder?
+              deleteImageGenerationResult) =>
+      _$this._deleteImageGenerationResult = deleteImageGenerationResult;
 
   GDeleteImageGenerationTaskDataBuilder() {
     GDeleteImageGenerationTaskData._initializeBuilder(this);
@@ -686,7 +673,7 @@ class GDeleteImageGenerationTaskDataBuilder
     final $v = _$v;
     if ($v != null) {
       _G__typename = $v.G__typename;
-      _deleteImageGenerationTask = $v.deleteImageGenerationTask.toBuilder();
+      _deleteImageGenerationResult = $v.deleteImageGenerationResult.toBuilder();
       _$v = null;
     }
     return this;
@@ -713,12 +700,12 @@ class GDeleteImageGenerationTaskDataBuilder
           new _$GDeleteImageGenerationTaskData._(
               G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
                   r'GDeleteImageGenerationTaskData', 'G__typename'),
-              deleteImageGenerationTask: deleteImageGenerationTask.build());
+              deleteImageGenerationResult: deleteImageGenerationResult.build());
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'deleteImageGenerationTask';
-        deleteImageGenerationTask.build();
+        _$failedField = 'deleteImageGenerationResult';
+        deleteImageGenerationResult.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'GDeleteImageGenerationTaskData', _$failedField, e.toString());
@@ -730,8 +717,8 @@ class GDeleteImageGenerationTaskDataBuilder
   }
 }
 
-class _$GDeleteImageGenerationTaskData_deleteImageGenerationTask
-    extends GDeleteImageGenerationTaskData_deleteImageGenerationTask {
+class _$GDeleteImageGenerationTaskData_deleteImageGenerationResult
+    extends GDeleteImageGenerationTaskData_deleteImageGenerationResult {
   @override
   final String G__typename;
   @override
@@ -767,15 +754,11 @@ class _$GDeleteImageGenerationTaskData_deleteImageGenerationTask
   @override
   final _i3.GImageGenerationStatus status;
   @override
-  final bool isDeleted;
-  @override
   final bool? isProtected;
-  @override
-  final int count;
   @override
   final _i3.GImageGenerationType generationType;
   @override
-  final GDeleteImageGenerationTaskData_deleteImageGenerationTask_model model;
+  final GDeleteImageGenerationTaskData_deleteImageGenerationResult_model model;
   @override
   final String? vae;
   @override
@@ -821,15 +804,15 @@ class _$GDeleteImageGenerationTaskData_deleteImageGenerationTask
   @override
   final String? thumbnailToken;
 
-  factory _$GDeleteImageGenerationTaskData_deleteImageGenerationTask(
+  factory _$GDeleteImageGenerationTaskData_deleteImageGenerationResult(
           [void Function(
-                  GDeleteImageGenerationTaskData_deleteImageGenerationTaskBuilder)?
+                  GDeleteImageGenerationTaskData_deleteImageGenerationResultBuilder)?
               updates]) =>
-      (new GDeleteImageGenerationTaskData_deleteImageGenerationTaskBuilder()
+      (new GDeleteImageGenerationTaskData_deleteImageGenerationResultBuilder()
             ..update(updates))
           ._build();
 
-  _$GDeleteImageGenerationTaskData_deleteImageGenerationTask._(
+  _$GDeleteImageGenerationTaskData_deleteImageGenerationResult._(
       {required this.G__typename,
       required this.id,
       required this.prompt,
@@ -847,9 +830,7 @@ class _$GDeleteImageGenerationTaskData_deleteImageGenerationTask
       this.rating,
       this.completedAt,
       required this.status,
-      required this.isDeleted,
       this.isProtected,
-      required this.count,
       required this.generationType,
       required this.model,
       this.vae,
@@ -877,64 +858,66 @@ class _$GDeleteImageGenerationTaskData_deleteImageGenerationTask
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename,
-        r'GDeleteImageGenerationTaskData_deleteImageGenerationTask',
+        r'GDeleteImageGenerationTaskData_deleteImageGenerationResult',
         'G__typename');
+    BuiltValueNullFieldError.checkNotNull(id,
+        r'GDeleteImageGenerationTaskData_deleteImageGenerationResult', 'id');
     BuiltValueNullFieldError.checkNotNull(
-        id, r'GDeleteImageGenerationTaskData_deleteImageGenerationTask', 'id');
-    BuiltValueNullFieldError.checkNotNull(prompt,
-        r'GDeleteImageGenerationTaskData_deleteImageGenerationTask', 'prompt');
+        prompt,
+        r'GDeleteImageGenerationTaskData_deleteImageGenerationResult',
+        'prompt');
     BuiltValueNullFieldError.checkNotNull(
         negativePrompt,
-        r'GDeleteImageGenerationTaskData_deleteImageGenerationTask',
+        r'GDeleteImageGenerationTaskData_deleteImageGenerationResult',
         'negativePrompt');
     BuiltValueNullFieldError.checkNotNull(seed,
-        r'GDeleteImageGenerationTaskData_deleteImageGenerationTask', 'seed');
+        r'GDeleteImageGenerationTaskData_deleteImageGenerationResult', 'seed');
     BuiltValueNullFieldError.checkNotNull(steps,
-        r'GDeleteImageGenerationTaskData_deleteImageGenerationTask', 'steps');
+        r'GDeleteImageGenerationTaskData_deleteImageGenerationResult', 'steps');
     BuiltValueNullFieldError.checkNotNull(scale,
-        r'GDeleteImageGenerationTaskData_deleteImageGenerationTask', 'scale');
-    BuiltValueNullFieldError.checkNotNull(sampler,
-        r'GDeleteImageGenerationTaskData_deleteImageGenerationTask', 'sampler');
+        r'GDeleteImageGenerationTaskData_deleteImageGenerationResult', 'scale');
+    BuiltValueNullFieldError.checkNotNull(
+        sampler,
+        r'GDeleteImageGenerationTaskData_deleteImageGenerationResult',
+        'sampler');
     BuiltValueNullFieldError.checkNotNull(
         clipSkip,
-        r'GDeleteImageGenerationTaskData_deleteImageGenerationTask',
+        r'GDeleteImageGenerationTaskData_deleteImageGenerationResult',
         'clipSkip');
     BuiltValueNullFieldError.checkNotNull(
         sizeType,
-        r'GDeleteImageGenerationTaskData_deleteImageGenerationTask',
+        r'GDeleteImageGenerationTaskData_deleteImageGenerationResult',
         'sizeType');
-    BuiltValueNullFieldError.checkNotNull(status,
-        r'GDeleteImageGenerationTaskData_deleteImageGenerationTask', 'status');
     BuiltValueNullFieldError.checkNotNull(
-        isDeleted,
-        r'GDeleteImageGenerationTaskData_deleteImageGenerationTask',
-        'isDeleted');
-    BuiltValueNullFieldError.checkNotNull(count,
-        r'GDeleteImageGenerationTaskData_deleteImageGenerationTask', 'count');
+        status,
+        r'GDeleteImageGenerationTaskData_deleteImageGenerationResult',
+        'status');
     BuiltValueNullFieldError.checkNotNull(
         generationType,
-        r'GDeleteImageGenerationTaskData_deleteImageGenerationTask',
+        r'GDeleteImageGenerationTaskData_deleteImageGenerationResult',
         'generationType');
     BuiltValueNullFieldError.checkNotNull(model,
-        r'GDeleteImageGenerationTaskData_deleteImageGenerationTask', 'model');
+        r'GDeleteImageGenerationTaskData_deleteImageGenerationResult', 'model');
   }
 
   @override
-  GDeleteImageGenerationTaskData_deleteImageGenerationTask rebuild(
+  GDeleteImageGenerationTaskData_deleteImageGenerationResult rebuild(
           void Function(
-                  GDeleteImageGenerationTaskData_deleteImageGenerationTaskBuilder)
+                  GDeleteImageGenerationTaskData_deleteImageGenerationResultBuilder)
               updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GDeleteImageGenerationTaskData_deleteImageGenerationTaskBuilder toBuilder() =>
-      new GDeleteImageGenerationTaskData_deleteImageGenerationTaskBuilder()
-        ..replace(this);
+  GDeleteImageGenerationTaskData_deleteImageGenerationResultBuilder
+      toBuilder() =>
+          new GDeleteImageGenerationTaskData_deleteImageGenerationResultBuilder()
+            ..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GDeleteImageGenerationTaskData_deleteImageGenerationTask &&
+    return other
+            is GDeleteImageGenerationTaskData_deleteImageGenerationResult &&
         G__typename == other.G__typename &&
         id == other.id &&
         prompt == other.prompt &&
@@ -952,9 +935,7 @@ class _$GDeleteImageGenerationTaskData_deleteImageGenerationTask
         rating == other.rating &&
         completedAt == other.completedAt &&
         status == other.status &&
-        isDeleted == other.isDeleted &&
         isProtected == other.isProtected &&
-        count == other.count &&
         generationType == other.generationType &&
         model == other.model &&
         vae == other.vae &&
@@ -1001,9 +982,7 @@ class _$GDeleteImageGenerationTaskData_deleteImageGenerationTask
     _$hash = $jc(_$hash, rating.hashCode);
     _$hash = $jc(_$hash, completedAt.hashCode);
     _$hash = $jc(_$hash, status.hashCode);
-    _$hash = $jc(_$hash, isDeleted.hashCode);
     _$hash = $jc(_$hash, isProtected.hashCode);
-    _$hash = $jc(_$hash, count.hashCode);
     _$hash = $jc(_$hash, generationType.hashCode);
     _$hash = $jc(_$hash, model.hashCode);
     _$hash = $jc(_$hash, vae.hashCode);
@@ -1035,7 +1014,7 @@ class _$GDeleteImageGenerationTaskData_deleteImageGenerationTask
   @override
   String toString() {
     return (newBuiltValueToStringHelper(
-            r'GDeleteImageGenerationTaskData_deleteImageGenerationTask')
+            r'GDeleteImageGenerationTaskData_deleteImageGenerationResult')
           ..add('G__typename', G__typename)
           ..add('id', id)
           ..add('prompt', prompt)
@@ -1053,9 +1032,7 @@ class _$GDeleteImageGenerationTaskData_deleteImageGenerationTask
           ..add('rating', rating)
           ..add('completedAt', completedAt)
           ..add('status', status)
-          ..add('isDeleted', isDeleted)
           ..add('isProtected', isProtected)
-          ..add('count', count)
           ..add('generationType', generationType)
           ..add('model', model)
           ..add('vae', vae)
@@ -1084,11 +1061,11 @@ class _$GDeleteImageGenerationTaskData_deleteImageGenerationTask
   }
 }
 
-class GDeleteImageGenerationTaskData_deleteImageGenerationTaskBuilder
+class GDeleteImageGenerationTaskData_deleteImageGenerationResultBuilder
     implements
-        Builder<GDeleteImageGenerationTaskData_deleteImageGenerationTask,
-            GDeleteImageGenerationTaskData_deleteImageGenerationTaskBuilder> {
-  _$GDeleteImageGenerationTaskData_deleteImageGenerationTask? _$v;
+        Builder<GDeleteImageGenerationTaskData_deleteImageGenerationResult,
+            GDeleteImageGenerationTaskData_deleteImageGenerationResultBuilder> {
+  _$GDeleteImageGenerationTaskData_deleteImageGenerationResult? _$v;
 
   String? _G__typename;
   String? get G__typename => _$this._G__typename;
@@ -1163,29 +1140,22 @@ class GDeleteImageGenerationTaskData_deleteImageGenerationTaskBuilder
   _i3.GImageGenerationStatus? get status => _$this._status;
   set status(_i3.GImageGenerationStatus? status) => _$this._status = status;
 
-  bool? _isDeleted;
-  bool? get isDeleted => _$this._isDeleted;
-  set isDeleted(bool? isDeleted) => _$this._isDeleted = isDeleted;
-
   bool? _isProtected;
   bool? get isProtected => _$this._isProtected;
   set isProtected(bool? isProtected) => _$this._isProtected = isProtected;
-
-  int? _count;
-  int? get count => _$this._count;
-  set count(int? count) => _$this._count = count;
 
   _i3.GImageGenerationType? _generationType;
   _i3.GImageGenerationType? get generationType => _$this._generationType;
   set generationType(_i3.GImageGenerationType? generationType) =>
       _$this._generationType = generationType;
 
-  GDeleteImageGenerationTaskData_deleteImageGenerationTask_modelBuilder? _model;
-  GDeleteImageGenerationTaskData_deleteImageGenerationTask_modelBuilder
+  GDeleteImageGenerationTaskData_deleteImageGenerationResult_modelBuilder?
+      _model;
+  GDeleteImageGenerationTaskData_deleteImageGenerationResult_modelBuilder
       get model => _$this._model ??=
-          new GDeleteImageGenerationTaskData_deleteImageGenerationTask_modelBuilder();
+          new GDeleteImageGenerationTaskData_deleteImageGenerationResult_modelBuilder();
   set model(
-          GDeleteImageGenerationTaskData_deleteImageGenerationTask_modelBuilder?
+          GDeleteImageGenerationTaskData_deleteImageGenerationResult_modelBuilder?
               model) =>
       _$this._model = model;
 
@@ -1295,12 +1265,12 @@ class GDeleteImageGenerationTaskData_deleteImageGenerationTaskBuilder
   set thumbnailToken(String? thumbnailToken) =>
       _$this._thumbnailToken = thumbnailToken;
 
-  GDeleteImageGenerationTaskData_deleteImageGenerationTaskBuilder() {
-    GDeleteImageGenerationTaskData_deleteImageGenerationTask._initializeBuilder(
-        this);
+  GDeleteImageGenerationTaskData_deleteImageGenerationResultBuilder() {
+    GDeleteImageGenerationTaskData_deleteImageGenerationResult
+        ._initializeBuilder(this);
   }
 
-  GDeleteImageGenerationTaskData_deleteImageGenerationTaskBuilder get _$this {
+  GDeleteImageGenerationTaskData_deleteImageGenerationResultBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _G__typename = $v.G__typename;
@@ -1320,9 +1290,7 @@ class GDeleteImageGenerationTaskData_deleteImageGenerationTaskBuilder
       _rating = $v.rating;
       _completedAt = $v.completedAt;
       _status = $v.status;
-      _isDeleted = $v.isDeleted;
       _isProtected = $v.isProtected;
-      _count = $v.count;
       _generationType = $v.generationType;
       _model = $v.model.toBuilder();
       _vae = $v.vae;
@@ -1353,59 +1321,59 @@ class GDeleteImageGenerationTaskData_deleteImageGenerationTaskBuilder
   }
 
   @override
-  void replace(GDeleteImageGenerationTaskData_deleteImageGenerationTask other) {
+  void replace(
+      GDeleteImageGenerationTaskData_deleteImageGenerationResult other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GDeleteImageGenerationTaskData_deleteImageGenerationTask;
+    _$v = other as _$GDeleteImageGenerationTaskData_deleteImageGenerationResult;
   }
 
   @override
   void update(
       void Function(
-              GDeleteImageGenerationTaskData_deleteImageGenerationTaskBuilder)?
+              GDeleteImageGenerationTaskData_deleteImageGenerationResultBuilder)?
           updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  GDeleteImageGenerationTaskData_deleteImageGenerationTask build() => _build();
+  GDeleteImageGenerationTaskData_deleteImageGenerationResult build() =>
+      _build();
 
-  _$GDeleteImageGenerationTaskData_deleteImageGenerationTask _build() {
-    _$GDeleteImageGenerationTaskData_deleteImageGenerationTask _$result;
+  _$GDeleteImageGenerationTaskData_deleteImageGenerationResult _build() {
+    _$GDeleteImageGenerationTaskData_deleteImageGenerationResult _$result;
     try {
       _$result = _$v ??
-          new _$GDeleteImageGenerationTaskData_deleteImageGenerationTask._(
+          new _$GDeleteImageGenerationTaskData_deleteImageGenerationResult._(
               G__typename: BuiltValueNullFieldError.checkNotNull(
                   G__typename,
-                  r'GDeleteImageGenerationTaskData_deleteImageGenerationTask',
+                  r'GDeleteImageGenerationTaskData_deleteImageGenerationResult',
                   'G__typename'),
               id: BuiltValueNullFieldError.checkNotNull(
-                  id, r'GDeleteImageGenerationTaskData_deleteImageGenerationTask', 'id'),
+                  id, r'GDeleteImageGenerationTaskData_deleteImageGenerationResult', 'id'),
               prompt: BuiltValueNullFieldError.checkNotNull(
                   prompt,
-                  r'GDeleteImageGenerationTaskData_deleteImageGenerationTask',
+                  r'GDeleteImageGenerationTaskData_deleteImageGenerationResult',
                   'prompt'),
               negativePrompt: BuiltValueNullFieldError.checkNotNull(
                   negativePrompt,
-                  r'GDeleteImageGenerationTaskData_deleteImageGenerationTask',
+                  r'GDeleteImageGenerationTaskData_deleteImageGenerationResult',
                   'negativePrompt'),
               seed: BuiltValueNullFieldError.checkNotNull(
-                  seed, r'GDeleteImageGenerationTaskData_deleteImageGenerationTask', 'seed'),
-              steps: BuiltValueNullFieldError.checkNotNull(steps, r'GDeleteImageGenerationTaskData_deleteImageGenerationTask', 'steps'),
-              scale: BuiltValueNullFieldError.checkNotNull(scale, r'GDeleteImageGenerationTaskData_deleteImageGenerationTask', 'scale'),
-              sampler: BuiltValueNullFieldError.checkNotNull(sampler, r'GDeleteImageGenerationTaskData_deleteImageGenerationTask', 'sampler'),
-              clipSkip: BuiltValueNullFieldError.checkNotNull(clipSkip, r'GDeleteImageGenerationTaskData_deleteImageGenerationTask', 'clipSkip'),
-              sizeType: BuiltValueNullFieldError.checkNotNull(sizeType, r'GDeleteImageGenerationTaskData_deleteImageGenerationTask', 'sizeType'),
+                  seed, r'GDeleteImageGenerationTaskData_deleteImageGenerationResult', 'seed'),
+              steps: BuiltValueNullFieldError.checkNotNull(steps, r'GDeleteImageGenerationTaskData_deleteImageGenerationResult', 'steps'),
+              scale: BuiltValueNullFieldError.checkNotNull(scale, r'GDeleteImageGenerationTaskData_deleteImageGenerationResult', 'scale'),
+              sampler: BuiltValueNullFieldError.checkNotNull(sampler, r'GDeleteImageGenerationTaskData_deleteImageGenerationResult', 'sampler'),
+              clipSkip: BuiltValueNullFieldError.checkNotNull(clipSkip, r'GDeleteImageGenerationTaskData_deleteImageGenerationResult', 'clipSkip'),
+              sizeType: BuiltValueNullFieldError.checkNotNull(sizeType, r'GDeleteImageGenerationTaskData_deleteImageGenerationResult', 'sizeType'),
               t2tImageUrl: t2tImageUrl,
               t2tMaskImageUrl: t2tMaskImageUrl,
               t2tDenoisingStrengthSize: t2tDenoisingStrengthSize,
               t2tInpaintingFillSize: t2tInpaintingFillSize,
               rating: rating,
               completedAt: completedAt,
-              status: BuiltValueNullFieldError.checkNotNull(status, r'GDeleteImageGenerationTaskData_deleteImageGenerationTask', 'status'),
-              isDeleted: BuiltValueNullFieldError.checkNotNull(isDeleted, r'GDeleteImageGenerationTaskData_deleteImageGenerationTask', 'isDeleted'),
+              status: BuiltValueNullFieldError.checkNotNull(status, r'GDeleteImageGenerationTaskData_deleteImageGenerationResult', 'status'),
               isProtected: isProtected,
-              count: BuiltValueNullFieldError.checkNotNull(count, r'GDeleteImageGenerationTaskData_deleteImageGenerationTask', 'count'),
-              generationType: BuiltValueNullFieldError.checkNotNull(generationType, r'GDeleteImageGenerationTaskData_deleteImageGenerationTask', 'generationType'),
+              generationType: BuiltValueNullFieldError.checkNotNull(generationType, r'GDeleteImageGenerationTaskData_deleteImageGenerationResult', 'generationType'),
               model: model.build(),
               vae: vae,
               nanoid: nanoid,
@@ -1436,7 +1404,7 @@ class GDeleteImageGenerationTaskData_deleteImageGenerationTaskBuilder
         model.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'GDeleteImageGenerationTaskData_deleteImageGenerationTask',
+            r'GDeleteImageGenerationTaskData_deleteImageGenerationResult',
             _$failedField,
             e.toString());
       }
@@ -1447,8 +1415,8 @@ class GDeleteImageGenerationTaskData_deleteImageGenerationTaskBuilder
   }
 }
 
-class _$GDeleteImageGenerationTaskData_deleteImageGenerationTask_model
-    extends GDeleteImageGenerationTaskData_deleteImageGenerationTask_model {
+class _$GDeleteImageGenerationTaskData_deleteImageGenerationResult_model
+    extends GDeleteImageGenerationTaskData_deleteImageGenerationResult_model {
   @override
   final String G__typename;
   @override
@@ -1458,15 +1426,15 @@ class _$GDeleteImageGenerationTaskData_deleteImageGenerationTask_model
   @override
   final String type;
 
-  factory _$GDeleteImageGenerationTaskData_deleteImageGenerationTask_model(
+  factory _$GDeleteImageGenerationTaskData_deleteImageGenerationResult_model(
           [void Function(
-                  GDeleteImageGenerationTaskData_deleteImageGenerationTask_modelBuilder)?
+                  GDeleteImageGenerationTaskData_deleteImageGenerationResult_modelBuilder)?
               updates]) =>
-      (new GDeleteImageGenerationTaskData_deleteImageGenerationTask_modelBuilder()
+      (new GDeleteImageGenerationTaskData_deleteImageGenerationResult_modelBuilder()
             ..update(updates))
           ._build();
 
-  _$GDeleteImageGenerationTaskData_deleteImageGenerationTask_model._(
+  _$GDeleteImageGenerationTaskData_deleteImageGenerationResult_model._(
       {required this.G__typename,
       required this.id,
       required this.name,
@@ -1474,40 +1442,40 @@ class _$GDeleteImageGenerationTaskData_deleteImageGenerationTask_model
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename,
-        r'GDeleteImageGenerationTaskData_deleteImageGenerationTask_model',
+        r'GDeleteImageGenerationTaskData_deleteImageGenerationResult_model',
         'G__typename');
     BuiltValueNullFieldError.checkNotNull(
         id,
-        r'GDeleteImageGenerationTaskData_deleteImageGenerationTask_model',
+        r'GDeleteImageGenerationTaskData_deleteImageGenerationResult_model',
         'id');
     BuiltValueNullFieldError.checkNotNull(
         name,
-        r'GDeleteImageGenerationTaskData_deleteImageGenerationTask_model',
+        r'GDeleteImageGenerationTaskData_deleteImageGenerationResult_model',
         'name');
     BuiltValueNullFieldError.checkNotNull(
         type,
-        r'GDeleteImageGenerationTaskData_deleteImageGenerationTask_model',
+        r'GDeleteImageGenerationTaskData_deleteImageGenerationResult_model',
         'type');
   }
 
   @override
-  GDeleteImageGenerationTaskData_deleteImageGenerationTask_model rebuild(
+  GDeleteImageGenerationTaskData_deleteImageGenerationResult_model rebuild(
           void Function(
-                  GDeleteImageGenerationTaskData_deleteImageGenerationTask_modelBuilder)
+                  GDeleteImageGenerationTaskData_deleteImageGenerationResult_modelBuilder)
               updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GDeleteImageGenerationTaskData_deleteImageGenerationTask_modelBuilder
+  GDeleteImageGenerationTaskData_deleteImageGenerationResult_modelBuilder
       toBuilder() =>
-          new GDeleteImageGenerationTaskData_deleteImageGenerationTask_modelBuilder()
+          new GDeleteImageGenerationTaskData_deleteImageGenerationResult_modelBuilder()
             ..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other
-            is GDeleteImageGenerationTaskData_deleteImageGenerationTask_model &&
+            is GDeleteImageGenerationTaskData_deleteImageGenerationResult_model &&
         G__typename == other.G__typename &&
         id == other.id &&
         name == other.name &&
@@ -1528,7 +1496,7 @@ class _$GDeleteImageGenerationTaskData_deleteImageGenerationTask_model
   @override
   String toString() {
     return (newBuiltValueToStringHelper(
-            r'GDeleteImageGenerationTaskData_deleteImageGenerationTask_model')
+            r'GDeleteImageGenerationTaskData_deleteImageGenerationResult_model')
           ..add('G__typename', G__typename)
           ..add('id', id)
           ..add('name', name)
@@ -1537,11 +1505,12 @@ class _$GDeleteImageGenerationTaskData_deleteImageGenerationTask_model
   }
 }
 
-class GDeleteImageGenerationTaskData_deleteImageGenerationTask_modelBuilder
+class GDeleteImageGenerationTaskData_deleteImageGenerationResult_modelBuilder
     implements
-        Builder<GDeleteImageGenerationTaskData_deleteImageGenerationTask_model,
-            GDeleteImageGenerationTaskData_deleteImageGenerationTask_modelBuilder> {
-  _$GDeleteImageGenerationTaskData_deleteImageGenerationTask_model? _$v;
+        Builder<
+            GDeleteImageGenerationTaskData_deleteImageGenerationResult_model,
+            GDeleteImageGenerationTaskData_deleteImageGenerationResult_modelBuilder> {
+  _$GDeleteImageGenerationTaskData_deleteImageGenerationResult_model? _$v;
 
   String? _G__typename;
   String? get G__typename => _$this._G__typename;
@@ -1559,12 +1528,12 @@ class GDeleteImageGenerationTaskData_deleteImageGenerationTask_modelBuilder
   String? get type => _$this._type;
   set type(String? type) => _$this._type = type;
 
-  GDeleteImageGenerationTaskData_deleteImageGenerationTask_modelBuilder() {
-    GDeleteImageGenerationTaskData_deleteImageGenerationTask_model
+  GDeleteImageGenerationTaskData_deleteImageGenerationResult_modelBuilder() {
+    GDeleteImageGenerationTaskData_deleteImageGenerationResult_model
         ._initializeBuilder(this);
   }
 
-  GDeleteImageGenerationTaskData_deleteImageGenerationTask_modelBuilder
+  GDeleteImageGenerationTaskData_deleteImageGenerationResult_modelBuilder
       get _$this {
     final $v = _$v;
     if ($v != null) {
@@ -1579,40 +1548,40 @@ class GDeleteImageGenerationTaskData_deleteImageGenerationTask_modelBuilder
 
   @override
   void replace(
-      GDeleteImageGenerationTaskData_deleteImageGenerationTask_model other) {
+      GDeleteImageGenerationTaskData_deleteImageGenerationResult_model other) {
     ArgumentError.checkNotNull(other, 'other');
     _$v = other
-        as _$GDeleteImageGenerationTaskData_deleteImageGenerationTask_model;
+        as _$GDeleteImageGenerationTaskData_deleteImageGenerationResult_model;
   }
 
   @override
   void update(
       void Function(
-              GDeleteImageGenerationTaskData_deleteImageGenerationTask_modelBuilder)?
+              GDeleteImageGenerationTaskData_deleteImageGenerationResult_modelBuilder)?
           updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  GDeleteImageGenerationTaskData_deleteImageGenerationTask_model build() =>
+  GDeleteImageGenerationTaskData_deleteImageGenerationResult_model build() =>
       _build();
 
-  _$GDeleteImageGenerationTaskData_deleteImageGenerationTask_model _build() {
+  _$GDeleteImageGenerationTaskData_deleteImageGenerationResult_model _build() {
     final _$result = _$v ??
-        new _$GDeleteImageGenerationTaskData_deleteImageGenerationTask_model._(
+        new _$GDeleteImageGenerationTaskData_deleteImageGenerationResult_model._(
             G__typename: BuiltValueNullFieldError.checkNotNull(
                 G__typename,
-                r'GDeleteImageGenerationTaskData_deleteImageGenerationTask_model',
+                r'GDeleteImageGenerationTaskData_deleteImageGenerationResult_model',
                 'G__typename'),
             id: BuiltValueNullFieldError.checkNotNull(id,
-                r'GDeleteImageGenerationTaskData_deleteImageGenerationTask_model', 'id'),
+                r'GDeleteImageGenerationTaskData_deleteImageGenerationResult_model', 'id'),
             name: BuiltValueNullFieldError.checkNotNull(
                 name,
-                r'GDeleteImageGenerationTaskData_deleteImageGenerationTask_model',
+                r'GDeleteImageGenerationTaskData_deleteImageGenerationResult_model',
                 'name'),
             type: BuiltValueNullFieldError.checkNotNull(
                 type,
-                r'GDeleteImageGenerationTaskData_deleteImageGenerationTask_model',
+                r'GDeleteImageGenerationTaskData_deleteImageGenerationResult_model',
                 'type'));
     replace(_$result);
     return _$result;

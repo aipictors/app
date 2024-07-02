@@ -54,7 +54,7 @@ class UserAlbumsContainer extends HookConsumerWidget {
               title: album.title,
               userName: null,
               userIconImageURL: null,
-              imageURL: album.thumbnailImage?.downloadURL,
+              imageURL: album.thumbnailImageURL,
               onTap: () {
                 FirebaseAnalytics.instance.logSelectContent(
                   contentType: 'album',

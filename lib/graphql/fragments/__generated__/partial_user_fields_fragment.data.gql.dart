@@ -13,14 +13,7 @@ abstract class GPartialUserFields {
   String get id;
   String get login;
   String get name;
-  GPartialUserFields_iconImage? get iconImage;
-  Map<String, dynamic> toJson();
-}
-
-abstract class GPartialUserFields_iconImage {
-  String get G__typename;
-  String get id;
-  String get downloadURL;
+  String? get iconUrl;
   Map<String, dynamic> toJson();
 }
 
@@ -47,7 +40,7 @@ abstract class GPartialUserFieldsData
   @override
   String get name;
   @override
-  GPartialUserFieldsData_iconImage? get iconImage;
+  String? get iconUrl;
   static Serializer<GPartialUserFieldsData> get serializer =>
       _$gPartialUserFieldsDataSerializer;
 
@@ -60,44 +53,6 @@ abstract class GPartialUserFieldsData
   static GPartialUserFieldsData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GPartialUserFieldsData.serializer,
-        json,
-      );
-}
-
-abstract class GPartialUserFieldsData_iconImage
-    implements
-        Built<GPartialUserFieldsData_iconImage,
-            GPartialUserFieldsData_iconImageBuilder>,
-        GPartialUserFields_iconImage {
-  GPartialUserFieldsData_iconImage._();
-
-  factory GPartialUserFieldsData_iconImage(
-          [void Function(GPartialUserFieldsData_iconImageBuilder b) updates]) =
-      _$GPartialUserFieldsData_iconImage;
-
-  static void _initializeBuilder(GPartialUserFieldsData_iconImageBuilder b) =>
-      b..G__typename = 'ImageNode';
-
-  @override
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  @override
-  String get id;
-  @override
-  String get downloadURL;
-  static Serializer<GPartialUserFieldsData_iconImage> get serializer =>
-      _$gPartialUserFieldsDataIconImageSerializer;
-
-  @override
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GPartialUserFieldsData_iconImage.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GPartialUserFieldsData_iconImage? fromJson(
-          Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GPartialUserFieldsData_iconImage.serializer,
         json,
       );
 }

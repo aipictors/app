@@ -10,15 +10,9 @@ Serializer<GFeedLatestWorksData> _$gFeedLatestWorksDataSerializer =
     new _$GFeedLatestWorksDataSerializer();
 Serializer<GFeedLatestWorksData_works> _$gFeedLatestWorksDataWorksSerializer =
     new _$GFeedLatestWorksData_worksSerializer();
-Serializer<GFeedLatestWorksData_works_image>
-    _$gFeedLatestWorksDataWorksImageSerializer =
-    new _$GFeedLatestWorksData_works_imageSerializer();
 Serializer<GFeedLatestWorksData_works_user>
     _$gFeedLatestWorksDataWorksUserSerializer =
     new _$GFeedLatestWorksData_works_userSerializer();
-Serializer<GFeedLatestWorksData_works_user_iconImage>
-    _$gFeedLatestWorksDataWorksUserIconImageSerializer =
-    new _$GFeedLatestWorksData_works_user_iconImageSerializer();
 
 class _$GFeedLatestWorksDataSerializer
     implements StructuredSerializer<GFeedLatestWorksData> {
@@ -111,6 +105,9 @@ class _$GFeedLatestWorksData_worksSerializer
       'imageAspectRatio',
       serializers.serialize(object.imageAspectRatio,
           specifiedType: const FullType(double)),
+      'imageURL',
+      serializers.serialize(object.imageURL,
+          specifiedType: const FullType(String)),
       'user',
       serializers.serialize(object.user,
           specifiedType: const FullType(GFeedLatestWorksData_works_user)),
@@ -118,14 +115,7 @@ class _$GFeedLatestWorksData_worksSerializer
       serializers.serialize(object.isLiked,
           specifiedType: const FullType(bool)),
     ];
-    Object? value;
-    value = object.image;
-    if (value != null) {
-      result
-        ..add('image')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(GFeedLatestWorksData_works_image)));
-    }
+
     return result;
   }
 
@@ -169,11 +159,9 @@ class _$GFeedLatestWorksData_worksSerializer
           result.imageAspectRatio = serializers.deserialize(value,
               specifiedType: const FullType(double))! as double;
           break;
-        case 'image':
-          result.image.replace(serializers.deserialize(value,
-                  specifiedType:
-                      const FullType(GFeedLatestWorksData_works_image))!
-              as GFeedLatestWorksData_works_image);
+        case 'imageURL':
+          result.imageURL = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
           break;
         case 'user':
           result.user.replace(serializers.deserialize(value,
@@ -184,65 +172,6 @@ class _$GFeedLatestWorksData_worksSerializer
         case 'isLiked':
           result.isLiked = serializers.deserialize(value,
               specifiedType: const FullType(bool))! as bool;
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GFeedLatestWorksData_works_imageSerializer
-    implements StructuredSerializer<GFeedLatestWorksData_works_image> {
-  @override
-  final Iterable<Type> types = const [
-    GFeedLatestWorksData_works_image,
-    _$GFeedLatestWorksData_works_image
-  ];
-  @override
-  final String wireName = 'GFeedLatestWorksData_works_image';
-
-  @override
-  Iterable<Object?> serialize(
-      Serializers serializers, GFeedLatestWorksData_works_image object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
-      'id',
-      serializers.serialize(object.id, specifiedType: const FullType(String)),
-      'downloadURL',
-      serializers.serialize(object.downloadURL,
-          specifiedType: const FullType(String)),
-    ];
-
-    return result;
-  }
-
-  @override
-  GFeedLatestWorksData_works_image deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GFeedLatestWorksData_works_imageBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'id':
-          result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'downloadURL':
-          result.downloadURL = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
           break;
       }
     }
@@ -287,13 +216,12 @@ class _$GFeedLatestWorksData_works_userSerializer
           specifiedType: const FullType(bool)),
     ];
     Object? value;
-    value = object.iconImage;
+    value = object.iconUrl;
     if (value != null) {
       result
-        ..add('iconImage')
+        ..add('iconUrl')
         ..add(serializers.serialize(value,
-            specifiedType:
-                const FullType(GFeedLatestWorksData_works_user_iconImage)));
+            specifiedType: const FullType(String)));
     }
     return result;
   }
@@ -326,11 +254,9 @@ class _$GFeedLatestWorksData_works_userSerializer
           result.name = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
-        case 'iconImage':
-          result.iconImage.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      GFeedLatestWorksData_works_user_iconImage))!
-              as GFeedLatestWorksData_works_user_iconImage);
+        case 'iconUrl':
+          result.iconUrl = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'isFollower':
           result.isFollower = serializers.deserialize(value,
@@ -343,65 +269,6 @@ class _$GFeedLatestWorksData_works_userSerializer
         case 'isMuted':
           result.isMuted = serializers.deserialize(value,
               specifiedType: const FullType(bool))! as bool;
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GFeedLatestWorksData_works_user_iconImageSerializer
-    implements StructuredSerializer<GFeedLatestWorksData_works_user_iconImage> {
-  @override
-  final Iterable<Type> types = const [
-    GFeedLatestWorksData_works_user_iconImage,
-    _$GFeedLatestWorksData_works_user_iconImage
-  ];
-  @override
-  final String wireName = 'GFeedLatestWorksData_works_user_iconImage';
-
-  @override
-  Iterable<Object?> serialize(
-      Serializers serializers, GFeedLatestWorksData_works_user_iconImage object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
-      'id',
-      serializers.serialize(object.id, specifiedType: const FullType(String)),
-      'downloadURL',
-      serializers.serialize(object.downloadURL,
-          specifiedType: const FullType(String)),
-    ];
-
-    return result;
-  }
-
-  @override
-  GFeedLatestWorksData_works_user_iconImage deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GFeedLatestWorksData_works_user_iconImageBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'id':
-          result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'downloadURL':
-          result.downloadURL = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
           break;
       }
     }
@@ -545,7 +412,7 @@ class _$GFeedLatestWorksData_works extends GFeedLatestWorksData_works {
   @override
   final double imageAspectRatio;
   @override
-  final GFeedLatestWorksData_works_image? image;
+  final String imageURL;
   @override
   final GFeedLatestWorksData_works_user user;
   @override
@@ -563,7 +430,7 @@ class _$GFeedLatestWorksData_works extends GFeedLatestWorksData_works {
       required this.commentsCount,
       required this.createdAt,
       required this.imageAspectRatio,
-      this.image,
+      required this.imageURL,
       required this.user,
       required this.isLiked})
       : super._() {
@@ -581,6 +448,8 @@ class _$GFeedLatestWorksData_works extends GFeedLatestWorksData_works {
         createdAt, r'GFeedLatestWorksData_works', 'createdAt');
     BuiltValueNullFieldError.checkNotNull(
         imageAspectRatio, r'GFeedLatestWorksData_works', 'imageAspectRatio');
+    BuiltValueNullFieldError.checkNotNull(
+        imageURL, r'GFeedLatestWorksData_works', 'imageURL');
     BuiltValueNullFieldError.checkNotNull(
         user, r'GFeedLatestWorksData_works', 'user');
     BuiltValueNullFieldError.checkNotNull(
@@ -607,7 +476,7 @@ class _$GFeedLatestWorksData_works extends GFeedLatestWorksData_works {
         commentsCount == other.commentsCount &&
         createdAt == other.createdAt &&
         imageAspectRatio == other.imageAspectRatio &&
-        image == other.image &&
+        imageURL == other.imageURL &&
         user == other.user &&
         isLiked == other.isLiked;
   }
@@ -622,7 +491,7 @@ class _$GFeedLatestWorksData_works extends GFeedLatestWorksData_works {
     _$hash = $jc(_$hash, commentsCount.hashCode);
     _$hash = $jc(_$hash, createdAt.hashCode);
     _$hash = $jc(_$hash, imageAspectRatio.hashCode);
-    _$hash = $jc(_$hash, image.hashCode);
+    _$hash = $jc(_$hash, imageURL.hashCode);
     _$hash = $jc(_$hash, user.hashCode);
     _$hash = $jc(_$hash, isLiked.hashCode);
     _$hash = $jf(_$hash);
@@ -639,7 +508,7 @@ class _$GFeedLatestWorksData_works extends GFeedLatestWorksData_works {
           ..add('commentsCount', commentsCount)
           ..add('createdAt', createdAt)
           ..add('imageAspectRatio', imageAspectRatio)
-          ..add('image', image)
+          ..add('imageURL', imageURL)
           ..add('user', user)
           ..add('isLiked', isLiked))
         .toString();
@@ -681,11 +550,9 @@ class GFeedLatestWorksData_worksBuilder
   set imageAspectRatio(double? imageAspectRatio) =>
       _$this._imageAspectRatio = imageAspectRatio;
 
-  GFeedLatestWorksData_works_imageBuilder? _image;
-  GFeedLatestWorksData_works_imageBuilder get image =>
-      _$this._image ??= new GFeedLatestWorksData_works_imageBuilder();
-  set image(GFeedLatestWorksData_works_imageBuilder? image) =>
-      _$this._image = image;
+  String? _imageURL;
+  String? get imageURL => _$this._imageURL;
+  set imageURL(String? imageURL) => _$this._imageURL = imageURL;
 
   GFeedLatestWorksData_works_userBuilder? _user;
   GFeedLatestWorksData_works_userBuilder get user =>
@@ -710,7 +577,7 @@ class GFeedLatestWorksData_worksBuilder
       _commentsCount = $v.commentsCount;
       _createdAt = $v.createdAt;
       _imageAspectRatio = $v.imageAspectRatio;
-      _image = $v.image?.toBuilder();
+      _imageURL = $v.imageURL;
       _user = $v.user.toBuilder();
       _isLiked = $v.isLiked;
       _$v = null;
@@ -753,14 +620,12 @@ class GFeedLatestWorksData_worksBuilder
                   imageAspectRatio,
                   r'GFeedLatestWorksData_works',
                   'imageAspectRatio'),
-              image: _image?.build(),
+              imageURL: BuiltValueNullFieldError.checkNotNull(imageURL, r'GFeedLatestWorksData_works', 'imageURL'),
               user: user.build(),
               isLiked: BuiltValueNullFieldError.checkNotNull(isLiked, r'GFeedLatestWorksData_works', 'isLiked'));
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'image';
-        _image?.build();
         _$failedField = 'user';
         user.build();
       } catch (e) {
@@ -769,129 +634,6 @@ class GFeedLatestWorksData_worksBuilder
       }
       rethrow;
     }
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GFeedLatestWorksData_works_image
-    extends GFeedLatestWorksData_works_image {
-  @override
-  final String G__typename;
-  @override
-  final String id;
-  @override
-  final String downloadURL;
-
-  factory _$GFeedLatestWorksData_works_image(
-          [void Function(GFeedLatestWorksData_works_imageBuilder)? updates]) =>
-      (new GFeedLatestWorksData_works_imageBuilder()..update(updates))._build();
-
-  _$GFeedLatestWorksData_works_image._(
-      {required this.G__typename, required this.id, required this.downloadURL})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        G__typename, r'GFeedLatestWorksData_works_image', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(
-        id, r'GFeedLatestWorksData_works_image', 'id');
-    BuiltValueNullFieldError.checkNotNull(
-        downloadURL, r'GFeedLatestWorksData_works_image', 'downloadURL');
-  }
-
-  @override
-  GFeedLatestWorksData_works_image rebuild(
-          void Function(GFeedLatestWorksData_works_imageBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GFeedLatestWorksData_works_imageBuilder toBuilder() =>
-      new GFeedLatestWorksData_works_imageBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GFeedLatestWorksData_works_image &&
-        G__typename == other.G__typename &&
-        id == other.id &&
-        downloadURL == other.downloadURL;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, id.hashCode);
-    _$hash = $jc(_$hash, downloadURL.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(r'GFeedLatestWorksData_works_image')
-          ..add('G__typename', G__typename)
-          ..add('id', id)
-          ..add('downloadURL', downloadURL))
-        .toString();
-  }
-}
-
-class GFeedLatestWorksData_works_imageBuilder
-    implements
-        Builder<GFeedLatestWorksData_works_image,
-            GFeedLatestWorksData_works_imageBuilder> {
-  _$GFeedLatestWorksData_works_image? _$v;
-
-  String? _G__typename;
-  String? get G__typename => _$this._G__typename;
-  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
-
-  String? _id;
-  String? get id => _$this._id;
-  set id(String? id) => _$this._id = id;
-
-  String? _downloadURL;
-  String? get downloadURL => _$this._downloadURL;
-  set downloadURL(String? downloadURL) => _$this._downloadURL = downloadURL;
-
-  GFeedLatestWorksData_works_imageBuilder() {
-    GFeedLatestWorksData_works_image._initializeBuilder(this);
-  }
-
-  GFeedLatestWorksData_works_imageBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _G__typename = $v.G__typename;
-      _id = $v.id;
-      _downloadURL = $v.downloadURL;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GFeedLatestWorksData_works_image other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GFeedLatestWorksData_works_image;
-  }
-
-  @override
-  void update(void Function(GFeedLatestWorksData_works_imageBuilder)? updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GFeedLatestWorksData_works_image build() => _build();
-
-  _$GFeedLatestWorksData_works_image _build() {
-    final _$result = _$v ??
-        new _$GFeedLatestWorksData_works_image._(
-            G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
-                r'GFeedLatestWorksData_works_image', 'G__typename'),
-            id: BuiltValueNullFieldError.checkNotNull(
-                id, r'GFeedLatestWorksData_works_image', 'id'),
-            downloadURL: BuiltValueNullFieldError.checkNotNull(downloadURL,
-                r'GFeedLatestWorksData_works_image', 'downloadURL'));
     replace(_$result);
     return _$result;
   }
@@ -908,7 +650,7 @@ class _$GFeedLatestWorksData_works_user
   @override
   final String name;
   @override
-  final GFeedLatestWorksData_works_user_iconImage? iconImage;
+  final String? iconUrl;
   @override
   final bool isFollower;
   @override
@@ -925,7 +667,7 @@ class _$GFeedLatestWorksData_works_user
       required this.id,
       required this.login,
       required this.name,
-      this.iconImage,
+      this.iconUrl,
       required this.isFollower,
       required this.isFollowee,
       required this.isMuted})
@@ -963,7 +705,7 @@ class _$GFeedLatestWorksData_works_user
         id == other.id &&
         login == other.login &&
         name == other.name &&
-        iconImage == other.iconImage &&
+        iconUrl == other.iconUrl &&
         isFollower == other.isFollower &&
         isFollowee == other.isFollowee &&
         isMuted == other.isMuted;
@@ -976,7 +718,7 @@ class _$GFeedLatestWorksData_works_user
     _$hash = $jc(_$hash, id.hashCode);
     _$hash = $jc(_$hash, login.hashCode);
     _$hash = $jc(_$hash, name.hashCode);
-    _$hash = $jc(_$hash, iconImage.hashCode);
+    _$hash = $jc(_$hash, iconUrl.hashCode);
     _$hash = $jc(_$hash, isFollower.hashCode);
     _$hash = $jc(_$hash, isFollowee.hashCode);
     _$hash = $jc(_$hash, isMuted.hashCode);
@@ -991,7 +733,7 @@ class _$GFeedLatestWorksData_works_user
           ..add('id', id)
           ..add('login', login)
           ..add('name', name)
-          ..add('iconImage', iconImage)
+          ..add('iconUrl', iconUrl)
           ..add('isFollower', isFollower)
           ..add('isFollowee', isFollowee)
           ..add('isMuted', isMuted))
@@ -1021,12 +763,9 @@ class GFeedLatestWorksData_works_userBuilder
   String? get name => _$this._name;
   set name(String? name) => _$this._name = name;
 
-  GFeedLatestWorksData_works_user_iconImageBuilder? _iconImage;
-  GFeedLatestWorksData_works_user_iconImageBuilder get iconImage =>
-      _$this._iconImage ??=
-          new GFeedLatestWorksData_works_user_iconImageBuilder();
-  set iconImage(GFeedLatestWorksData_works_user_iconImageBuilder? iconImage) =>
-      _$this._iconImage = iconImage;
+  String? _iconUrl;
+  String? get iconUrl => _$this._iconUrl;
+  set iconUrl(String? iconUrl) => _$this._iconUrl = iconUrl;
 
   bool? _isFollower;
   bool? get isFollower => _$this._isFollower;
@@ -1051,7 +790,7 @@ class GFeedLatestWorksData_works_userBuilder
       _id = $v.id;
       _login = $v.login;
       _name = $v.name;
-      _iconImage = $v.iconImage?.toBuilder();
+      _iconUrl = $v.iconUrl;
       _isFollower = $v.isFollower;
       _isFollowee = $v.isFollowee;
       _isMuted = $v.isMuted;
@@ -1075,165 +814,23 @@ class GFeedLatestWorksData_works_userBuilder
   GFeedLatestWorksData_works_user build() => _build();
 
   _$GFeedLatestWorksData_works_user _build() {
-    _$GFeedLatestWorksData_works_user _$result;
-    try {
-      _$result = _$v ??
-          new _$GFeedLatestWorksData_works_user._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
-                  r'GFeedLatestWorksData_works_user', 'G__typename'),
-              id: BuiltValueNullFieldError.checkNotNull(
-                  id, r'GFeedLatestWorksData_works_user', 'id'),
-              login: BuiltValueNullFieldError.checkNotNull(
-                  login, r'GFeedLatestWorksData_works_user', 'login'),
-              name: BuiltValueNullFieldError.checkNotNull(
-                  name, r'GFeedLatestWorksData_works_user', 'name'),
-              iconImage: _iconImage?.build(),
-              isFollower: BuiltValueNullFieldError.checkNotNull(
-                  isFollower, r'GFeedLatestWorksData_works_user', 'isFollower'),
-              isFollowee: BuiltValueNullFieldError.checkNotNull(
-                  isFollowee, r'GFeedLatestWorksData_works_user', 'isFollowee'),
-              isMuted: BuiltValueNullFieldError.checkNotNull(
-                  isMuted, r'GFeedLatestWorksData_works_user', 'isMuted'));
-    } catch (_) {
-      late String _$failedField;
-      try {
-        _$failedField = 'iconImage';
-        _iconImage?.build();
-      } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'GFeedLatestWorksData_works_user', _$failedField, e.toString());
-      }
-      rethrow;
-    }
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GFeedLatestWorksData_works_user_iconImage
-    extends GFeedLatestWorksData_works_user_iconImage {
-  @override
-  final String G__typename;
-  @override
-  final String id;
-  @override
-  final String downloadURL;
-
-  factory _$GFeedLatestWorksData_works_user_iconImage(
-          [void Function(GFeedLatestWorksData_works_user_iconImageBuilder)?
-              updates]) =>
-      (new GFeedLatestWorksData_works_user_iconImageBuilder()..update(updates))
-          ._build();
-
-  _$GFeedLatestWorksData_works_user_iconImage._(
-      {required this.G__typename, required this.id, required this.downloadURL})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(G__typename,
-        r'GFeedLatestWorksData_works_user_iconImage', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(
-        id, r'GFeedLatestWorksData_works_user_iconImage', 'id');
-    BuiltValueNullFieldError.checkNotNull(downloadURL,
-        r'GFeedLatestWorksData_works_user_iconImage', 'downloadURL');
-  }
-
-  @override
-  GFeedLatestWorksData_works_user_iconImage rebuild(
-          void Function(GFeedLatestWorksData_works_user_iconImageBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GFeedLatestWorksData_works_user_iconImageBuilder toBuilder() =>
-      new GFeedLatestWorksData_works_user_iconImageBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GFeedLatestWorksData_works_user_iconImage &&
-        G__typename == other.G__typename &&
-        id == other.id &&
-        downloadURL == other.downloadURL;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, id.hashCode);
-    _$hash = $jc(_$hash, downloadURL.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(
-            r'GFeedLatestWorksData_works_user_iconImage')
-          ..add('G__typename', G__typename)
-          ..add('id', id)
-          ..add('downloadURL', downloadURL))
-        .toString();
-  }
-}
-
-class GFeedLatestWorksData_works_user_iconImageBuilder
-    implements
-        Builder<GFeedLatestWorksData_works_user_iconImage,
-            GFeedLatestWorksData_works_user_iconImageBuilder> {
-  _$GFeedLatestWorksData_works_user_iconImage? _$v;
-
-  String? _G__typename;
-  String? get G__typename => _$this._G__typename;
-  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
-
-  String? _id;
-  String? get id => _$this._id;
-  set id(String? id) => _$this._id = id;
-
-  String? _downloadURL;
-  String? get downloadURL => _$this._downloadURL;
-  set downloadURL(String? downloadURL) => _$this._downloadURL = downloadURL;
-
-  GFeedLatestWorksData_works_user_iconImageBuilder() {
-    GFeedLatestWorksData_works_user_iconImage._initializeBuilder(this);
-  }
-
-  GFeedLatestWorksData_works_user_iconImageBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _G__typename = $v.G__typename;
-      _id = $v.id;
-      _downloadURL = $v.downloadURL;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GFeedLatestWorksData_works_user_iconImage other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GFeedLatestWorksData_works_user_iconImage;
-  }
-
-  @override
-  void update(
-      void Function(GFeedLatestWorksData_works_user_iconImageBuilder)?
-          updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GFeedLatestWorksData_works_user_iconImage build() => _build();
-
-  _$GFeedLatestWorksData_works_user_iconImage _build() {
     final _$result = _$v ??
-        new _$GFeedLatestWorksData_works_user_iconImage._(
-            G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
-                r'GFeedLatestWorksData_works_user_iconImage', 'G__typename'),
+        new _$GFeedLatestWorksData_works_user._(
+            G__typename: BuiltValueNullFieldError.checkNotNull(
+                G__typename, r'GFeedLatestWorksData_works_user', 'G__typename'),
             id: BuiltValueNullFieldError.checkNotNull(
-                id, r'GFeedLatestWorksData_works_user_iconImage', 'id'),
-            downloadURL: BuiltValueNullFieldError.checkNotNull(downloadURL,
-                r'GFeedLatestWorksData_works_user_iconImage', 'downloadURL'));
+                id, r'GFeedLatestWorksData_works_user', 'id'),
+            login: BuiltValueNullFieldError.checkNotNull(
+                login, r'GFeedLatestWorksData_works_user', 'login'),
+            name: BuiltValueNullFieldError.checkNotNull(
+                name, r'GFeedLatestWorksData_works_user', 'name'),
+            iconUrl: iconUrl,
+            isFollower: BuiltValueNullFieldError.checkNotNull(
+                isFollower, r'GFeedLatestWorksData_works_user', 'isFollower'),
+            isFollowee: BuiltValueNullFieldError.checkNotNull(
+                isFollowee, r'GFeedLatestWorksData_works_user', 'isFollowee'),
+            isMuted: BuiltValueNullFieldError.checkNotNull(
+                isMuted, r'GFeedLatestWorksData_works_user', 'isMuted'));
     replace(_$result);
     return _$result;
   }

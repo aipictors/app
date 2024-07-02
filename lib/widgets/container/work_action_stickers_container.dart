@@ -146,8 +146,7 @@ class WorkActionStickersContainer extends HookConsumerWidget {
                             return SelectableCommentStickerContainer(
                               downloadURL: filteredStickerList[
                                       index - defaultStickersCount]
-                                  .image!
-                                  .downloadURL,
+                                  .imageUrl!,
                               isSelected: stickerId ==
                                   filteredStickerList[
                                           index - defaultStickersCount]

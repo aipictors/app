@@ -11,15 +11,9 @@ Serializer<GFeedPopularWorksData> _$gFeedPopularWorksDataSerializer =
 Serializer<GFeedPopularWorksData_popularWorks>
     _$gFeedPopularWorksDataPopularWorksSerializer =
     new _$GFeedPopularWorksData_popularWorksSerializer();
-Serializer<GFeedPopularWorksData_popularWorks_image>
-    _$gFeedPopularWorksDataPopularWorksImageSerializer =
-    new _$GFeedPopularWorksData_popularWorks_imageSerializer();
 Serializer<GFeedPopularWorksData_popularWorks_user>
     _$gFeedPopularWorksDataPopularWorksUserSerializer =
     new _$GFeedPopularWorksData_popularWorks_userSerializer();
-Serializer<GFeedPopularWorksData_popularWorks_user_iconImage>
-    _$gFeedPopularWorksDataPopularWorksUserIconImageSerializer =
-    new _$GFeedPopularWorksData_popularWorks_user_iconImageSerializer();
 
 class _$GFeedPopularWorksDataSerializer
     implements StructuredSerializer<GFeedPopularWorksData> {
@@ -112,6 +106,9 @@ class _$GFeedPopularWorksData_popularWorksSerializer
       'imageAspectRatio',
       serializers.serialize(object.imageAspectRatio,
           specifiedType: const FullType(double)),
+      'imageURL',
+      serializers.serialize(object.imageURL,
+          specifiedType: const FullType(String)),
       'user',
       serializers.serialize(object.user,
           specifiedType:
@@ -120,15 +117,7 @@ class _$GFeedPopularWorksData_popularWorksSerializer
       serializers.serialize(object.isLiked,
           specifiedType: const FullType(bool)),
     ];
-    Object? value;
-    value = object.image;
-    if (value != null) {
-      result
-        ..add('image')
-        ..add(serializers.serialize(value,
-            specifiedType:
-                const FullType(GFeedPopularWorksData_popularWorks_image)));
-    }
+
     return result;
   }
 
@@ -172,11 +161,9 @@ class _$GFeedPopularWorksData_popularWorksSerializer
           result.imageAspectRatio = serializers.deserialize(value,
               specifiedType: const FullType(double))! as double;
           break;
-        case 'image':
-          result.image.replace(serializers.deserialize(value,
-                  specifiedType:
-                      const FullType(GFeedPopularWorksData_popularWorks_image))!
-              as GFeedPopularWorksData_popularWorks_image);
+        case 'imageURL':
+          result.imageURL = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
           break;
         case 'user':
           result.user.replace(serializers.deserialize(value,
@@ -187,65 +174,6 @@ class _$GFeedPopularWorksData_popularWorksSerializer
         case 'isLiked':
           result.isLiked = serializers.deserialize(value,
               specifiedType: const FullType(bool))! as bool;
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GFeedPopularWorksData_popularWorks_imageSerializer
-    implements StructuredSerializer<GFeedPopularWorksData_popularWorks_image> {
-  @override
-  final Iterable<Type> types = const [
-    GFeedPopularWorksData_popularWorks_image,
-    _$GFeedPopularWorksData_popularWorks_image
-  ];
-  @override
-  final String wireName = 'GFeedPopularWorksData_popularWorks_image';
-
-  @override
-  Iterable<Object?> serialize(
-      Serializers serializers, GFeedPopularWorksData_popularWorks_image object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
-      'id',
-      serializers.serialize(object.id, specifiedType: const FullType(String)),
-      'downloadURL',
-      serializers.serialize(object.downloadURL,
-          specifiedType: const FullType(String)),
-    ];
-
-    return result;
-  }
-
-  @override
-  GFeedPopularWorksData_popularWorks_image deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GFeedPopularWorksData_popularWorks_imageBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'id':
-          result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'downloadURL':
-          result.downloadURL = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
           break;
       }
     }
@@ -290,13 +218,12 @@ class _$GFeedPopularWorksData_popularWorks_userSerializer
           specifiedType: const FullType(bool)),
     ];
     Object? value;
-    value = object.iconImage;
+    value = object.iconUrl;
     if (value != null) {
       result
-        ..add('iconImage')
+        ..add('iconUrl')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(
-                GFeedPopularWorksData_popularWorks_user_iconImage)));
+            specifiedType: const FullType(String)));
     }
     return result;
   }
@@ -329,11 +256,9 @@ class _$GFeedPopularWorksData_popularWorks_userSerializer
           result.name = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
-        case 'iconImage':
-          result.iconImage.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      GFeedPopularWorksData_popularWorks_user_iconImage))!
-              as GFeedPopularWorksData_popularWorks_user_iconImage);
+        case 'iconUrl':
+          result.iconUrl = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'isFollower':
           result.isFollower = serializers.deserialize(value,
@@ -346,68 +271,6 @@ class _$GFeedPopularWorksData_popularWorks_userSerializer
         case 'isMuted':
           result.isMuted = serializers.deserialize(value,
               specifiedType: const FullType(bool))! as bool;
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GFeedPopularWorksData_popularWorks_user_iconImageSerializer
-    implements
-        StructuredSerializer<
-            GFeedPopularWorksData_popularWorks_user_iconImage> {
-  @override
-  final Iterable<Type> types = const [
-    GFeedPopularWorksData_popularWorks_user_iconImage,
-    _$GFeedPopularWorksData_popularWorks_user_iconImage
-  ];
-  @override
-  final String wireName = 'GFeedPopularWorksData_popularWorks_user_iconImage';
-
-  @override
-  Iterable<Object?> serialize(Serializers serializers,
-      GFeedPopularWorksData_popularWorks_user_iconImage object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
-      'id',
-      serializers.serialize(object.id, specifiedType: const FullType(String)),
-      'downloadURL',
-      serializers.serialize(object.downloadURL,
-          specifiedType: const FullType(String)),
-    ];
-
-    return result;
-  }
-
-  @override
-  GFeedPopularWorksData_popularWorks_user_iconImage deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result =
-        new GFeedPopularWorksData_popularWorks_user_iconImageBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'id':
-          result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'downloadURL':
-          result.downloadURL = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
           break;
       }
     }
@@ -555,7 +418,7 @@ class _$GFeedPopularWorksData_popularWorks
   @override
   final double imageAspectRatio;
   @override
-  final GFeedPopularWorksData_popularWorks_image? image;
+  final String imageURL;
   @override
   final GFeedPopularWorksData_popularWorks_user user;
   @override
@@ -575,7 +438,7 @@ class _$GFeedPopularWorksData_popularWorks
       required this.commentsCount,
       required this.createdAt,
       required this.imageAspectRatio,
-      this.image,
+      required this.imageURL,
       required this.user,
       required this.isLiked})
       : super._() {
@@ -593,6 +456,8 @@ class _$GFeedPopularWorksData_popularWorks
         createdAt, r'GFeedPopularWorksData_popularWorks', 'createdAt');
     BuiltValueNullFieldError.checkNotNull(imageAspectRatio,
         r'GFeedPopularWorksData_popularWorks', 'imageAspectRatio');
+    BuiltValueNullFieldError.checkNotNull(
+        imageURL, r'GFeedPopularWorksData_popularWorks', 'imageURL');
     BuiltValueNullFieldError.checkNotNull(
         user, r'GFeedPopularWorksData_popularWorks', 'user');
     BuiltValueNullFieldError.checkNotNull(
@@ -619,7 +484,7 @@ class _$GFeedPopularWorksData_popularWorks
         commentsCount == other.commentsCount &&
         createdAt == other.createdAt &&
         imageAspectRatio == other.imageAspectRatio &&
-        image == other.image &&
+        imageURL == other.imageURL &&
         user == other.user &&
         isLiked == other.isLiked;
   }
@@ -634,7 +499,7 @@ class _$GFeedPopularWorksData_popularWorks
     _$hash = $jc(_$hash, commentsCount.hashCode);
     _$hash = $jc(_$hash, createdAt.hashCode);
     _$hash = $jc(_$hash, imageAspectRatio.hashCode);
-    _$hash = $jc(_$hash, image.hashCode);
+    _$hash = $jc(_$hash, imageURL.hashCode);
     _$hash = $jc(_$hash, user.hashCode);
     _$hash = $jc(_$hash, isLiked.hashCode);
     _$hash = $jf(_$hash);
@@ -651,7 +516,7 @@ class _$GFeedPopularWorksData_popularWorks
           ..add('commentsCount', commentsCount)
           ..add('createdAt', createdAt)
           ..add('imageAspectRatio', imageAspectRatio)
-          ..add('image', image)
+          ..add('imageURL', imageURL)
           ..add('user', user)
           ..add('isLiked', isLiked))
         .toString();
@@ -694,11 +559,9 @@ class GFeedPopularWorksData_popularWorksBuilder
   set imageAspectRatio(double? imageAspectRatio) =>
       _$this._imageAspectRatio = imageAspectRatio;
 
-  GFeedPopularWorksData_popularWorks_imageBuilder? _image;
-  GFeedPopularWorksData_popularWorks_imageBuilder get image =>
-      _$this._image ??= new GFeedPopularWorksData_popularWorks_imageBuilder();
-  set image(GFeedPopularWorksData_popularWorks_imageBuilder? image) =>
-      _$this._image = image;
+  String? _imageURL;
+  String? get imageURL => _$this._imageURL;
+  set imageURL(String? imageURL) => _$this._imageURL = imageURL;
 
   GFeedPopularWorksData_popularWorks_userBuilder? _user;
   GFeedPopularWorksData_popularWorks_userBuilder get user =>
@@ -724,7 +587,7 @@ class GFeedPopularWorksData_popularWorksBuilder
       _commentsCount = $v.commentsCount;
       _createdAt = $v.createdAt;
       _imageAspectRatio = $v.imageAspectRatio;
-      _image = $v.image?.toBuilder();
+      _imageURL = $v.imageURL;
       _user = $v.user.toBuilder();
       _isLiked = $v.isLiked;
       _$v = null;
@@ -768,14 +631,12 @@ class GFeedPopularWorksData_popularWorksBuilder
                   imageAspectRatio,
                   r'GFeedPopularWorksData_popularWorks',
                   'imageAspectRatio'),
-              image: _image?.build(),
+              imageURL: BuiltValueNullFieldError.checkNotNull(imageURL, r'GFeedPopularWorksData_popularWorks', 'imageURL'),
               user: user.build(),
               isLiked: BuiltValueNullFieldError.checkNotNull(isLiked, r'GFeedPopularWorksData_popularWorks', 'isLiked'));
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'image';
-        _image?.build();
         _$failedField = 'user';
         user.build();
       } catch (e) {
@@ -784,134 +645,6 @@ class GFeedPopularWorksData_popularWorksBuilder
       }
       rethrow;
     }
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GFeedPopularWorksData_popularWorks_image
-    extends GFeedPopularWorksData_popularWorks_image {
-  @override
-  final String G__typename;
-  @override
-  final String id;
-  @override
-  final String downloadURL;
-
-  factory _$GFeedPopularWorksData_popularWorks_image(
-          [void Function(GFeedPopularWorksData_popularWorks_imageBuilder)?
-              updates]) =>
-      (new GFeedPopularWorksData_popularWorks_imageBuilder()..update(updates))
-          ._build();
-
-  _$GFeedPopularWorksData_popularWorks_image._(
-      {required this.G__typename, required this.id, required this.downloadURL})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(G__typename,
-        r'GFeedPopularWorksData_popularWorks_image', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(
-        id, r'GFeedPopularWorksData_popularWorks_image', 'id');
-    BuiltValueNullFieldError.checkNotNull(downloadURL,
-        r'GFeedPopularWorksData_popularWorks_image', 'downloadURL');
-  }
-
-  @override
-  GFeedPopularWorksData_popularWorks_image rebuild(
-          void Function(GFeedPopularWorksData_popularWorks_imageBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GFeedPopularWorksData_popularWorks_imageBuilder toBuilder() =>
-      new GFeedPopularWorksData_popularWorks_imageBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GFeedPopularWorksData_popularWorks_image &&
-        G__typename == other.G__typename &&
-        id == other.id &&
-        downloadURL == other.downloadURL;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, id.hashCode);
-    _$hash = $jc(_$hash, downloadURL.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(
-            r'GFeedPopularWorksData_popularWorks_image')
-          ..add('G__typename', G__typename)
-          ..add('id', id)
-          ..add('downloadURL', downloadURL))
-        .toString();
-  }
-}
-
-class GFeedPopularWorksData_popularWorks_imageBuilder
-    implements
-        Builder<GFeedPopularWorksData_popularWorks_image,
-            GFeedPopularWorksData_popularWorks_imageBuilder> {
-  _$GFeedPopularWorksData_popularWorks_image? _$v;
-
-  String? _G__typename;
-  String? get G__typename => _$this._G__typename;
-  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
-
-  String? _id;
-  String? get id => _$this._id;
-  set id(String? id) => _$this._id = id;
-
-  String? _downloadURL;
-  String? get downloadURL => _$this._downloadURL;
-  set downloadURL(String? downloadURL) => _$this._downloadURL = downloadURL;
-
-  GFeedPopularWorksData_popularWorks_imageBuilder() {
-    GFeedPopularWorksData_popularWorks_image._initializeBuilder(this);
-  }
-
-  GFeedPopularWorksData_popularWorks_imageBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _G__typename = $v.G__typename;
-      _id = $v.id;
-      _downloadURL = $v.downloadURL;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GFeedPopularWorksData_popularWorks_image other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GFeedPopularWorksData_popularWorks_image;
-  }
-
-  @override
-  void update(
-      void Function(GFeedPopularWorksData_popularWorks_imageBuilder)? updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GFeedPopularWorksData_popularWorks_image build() => _build();
-
-  _$GFeedPopularWorksData_popularWorks_image _build() {
-    final _$result = _$v ??
-        new _$GFeedPopularWorksData_popularWorks_image._(
-            G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
-                r'GFeedPopularWorksData_popularWorks_image', 'G__typename'),
-            id: BuiltValueNullFieldError.checkNotNull(
-                id, r'GFeedPopularWorksData_popularWorks_image', 'id'),
-            downloadURL: BuiltValueNullFieldError.checkNotNull(downloadURL,
-                r'GFeedPopularWorksData_popularWorks_image', 'downloadURL'));
     replace(_$result);
     return _$result;
   }
@@ -928,7 +661,7 @@ class _$GFeedPopularWorksData_popularWorks_user
   @override
   final String name;
   @override
-  final GFeedPopularWorksData_popularWorks_user_iconImage? iconImage;
+  final String? iconUrl;
   @override
   final bool isFollower;
   @override
@@ -947,7 +680,7 @@ class _$GFeedPopularWorksData_popularWorks_user
       required this.id,
       required this.login,
       required this.name,
-      this.iconImage,
+      this.iconUrl,
       required this.isFollower,
       required this.isFollowee,
       required this.isMuted})
@@ -986,7 +719,7 @@ class _$GFeedPopularWorksData_popularWorks_user
         id == other.id &&
         login == other.login &&
         name == other.name &&
-        iconImage == other.iconImage &&
+        iconUrl == other.iconUrl &&
         isFollower == other.isFollower &&
         isFollowee == other.isFollowee &&
         isMuted == other.isMuted;
@@ -999,7 +732,7 @@ class _$GFeedPopularWorksData_popularWorks_user
     _$hash = $jc(_$hash, id.hashCode);
     _$hash = $jc(_$hash, login.hashCode);
     _$hash = $jc(_$hash, name.hashCode);
-    _$hash = $jc(_$hash, iconImage.hashCode);
+    _$hash = $jc(_$hash, iconUrl.hashCode);
     _$hash = $jc(_$hash, isFollower.hashCode);
     _$hash = $jc(_$hash, isFollowee.hashCode);
     _$hash = $jc(_$hash, isMuted.hashCode);
@@ -1015,7 +748,7 @@ class _$GFeedPopularWorksData_popularWorks_user
           ..add('id', id)
           ..add('login', login)
           ..add('name', name)
-          ..add('iconImage', iconImage)
+          ..add('iconUrl', iconUrl)
           ..add('isFollower', isFollower)
           ..add('isFollowee', isFollowee)
           ..add('isMuted', isMuted))
@@ -1045,14 +778,9 @@ class GFeedPopularWorksData_popularWorks_userBuilder
   String? get name => _$this._name;
   set name(String? name) => _$this._name = name;
 
-  GFeedPopularWorksData_popularWorks_user_iconImageBuilder? _iconImage;
-  GFeedPopularWorksData_popularWorks_user_iconImageBuilder get iconImage =>
-      _$this._iconImage ??=
-          new GFeedPopularWorksData_popularWorks_user_iconImageBuilder();
-  set iconImage(
-          GFeedPopularWorksData_popularWorks_user_iconImageBuilder?
-              iconImage) =>
-      _$this._iconImage = iconImage;
+  String? _iconUrl;
+  String? get iconUrl => _$this._iconUrl;
+  set iconUrl(String? iconUrl) => _$this._iconUrl = iconUrl;
 
   bool? _isFollower;
   bool? get isFollower => _$this._isFollower;
@@ -1077,7 +805,7 @@ class GFeedPopularWorksData_popularWorks_userBuilder
       _id = $v.id;
       _login = $v.login;
       _name = $v.name;
-      _iconImage = $v.iconImage?.toBuilder();
+      _iconUrl = $v.iconUrl;
       _isFollower = $v.isFollower;
       _isFollowee = $v.isFollowee;
       _isMuted = $v.isMuted;
@@ -1102,175 +830,23 @@ class GFeedPopularWorksData_popularWorks_userBuilder
   GFeedPopularWorksData_popularWorks_user build() => _build();
 
   _$GFeedPopularWorksData_popularWorks_user _build() {
-    _$GFeedPopularWorksData_popularWorks_user _$result;
-    try {
-      _$result = _$v ??
-          new _$GFeedPopularWorksData_popularWorks_user._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
-                  r'GFeedPopularWorksData_popularWorks_user', 'G__typename'),
-              id: BuiltValueNullFieldError.checkNotNull(
-                  id, r'GFeedPopularWorksData_popularWorks_user', 'id'),
-              login: BuiltValueNullFieldError.checkNotNull(
-                  login, r'GFeedPopularWorksData_popularWorks_user', 'login'),
-              name: BuiltValueNullFieldError.checkNotNull(
-                  name, r'GFeedPopularWorksData_popularWorks_user', 'name'),
-              iconImage: _iconImage?.build(),
-              isFollower: BuiltValueNullFieldError.checkNotNull(
-                  isFollower, r'GFeedPopularWorksData_popularWorks_user', 'isFollower'),
-              isFollowee: BuiltValueNullFieldError.checkNotNull(
-                  isFollowee, r'GFeedPopularWorksData_popularWorks_user', 'isFollowee'),
-              isMuted: BuiltValueNullFieldError.checkNotNull(
-                  isMuted, r'GFeedPopularWorksData_popularWorks_user', 'isMuted'));
-    } catch (_) {
-      late String _$failedField;
-      try {
-        _$failedField = 'iconImage';
-        _iconImage?.build();
-      } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'GFeedPopularWorksData_popularWorks_user',
-            _$failedField,
-            e.toString());
-      }
-      rethrow;
-    }
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GFeedPopularWorksData_popularWorks_user_iconImage
-    extends GFeedPopularWorksData_popularWorks_user_iconImage {
-  @override
-  final String G__typename;
-  @override
-  final String id;
-  @override
-  final String downloadURL;
-
-  factory _$GFeedPopularWorksData_popularWorks_user_iconImage(
-          [void Function(
-                  GFeedPopularWorksData_popularWorks_user_iconImageBuilder)?
-              updates]) =>
-      (new GFeedPopularWorksData_popularWorks_user_iconImageBuilder()
-            ..update(updates))
-          ._build();
-
-  _$GFeedPopularWorksData_popularWorks_user_iconImage._(
-      {required this.G__typename, required this.id, required this.downloadURL})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(G__typename,
-        r'GFeedPopularWorksData_popularWorks_user_iconImage', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(
-        id, r'GFeedPopularWorksData_popularWorks_user_iconImage', 'id');
-    BuiltValueNullFieldError.checkNotNull(downloadURL,
-        r'GFeedPopularWorksData_popularWorks_user_iconImage', 'downloadURL');
-  }
-
-  @override
-  GFeedPopularWorksData_popularWorks_user_iconImage rebuild(
-          void Function(
-                  GFeedPopularWorksData_popularWorks_user_iconImageBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GFeedPopularWorksData_popularWorks_user_iconImageBuilder toBuilder() =>
-      new GFeedPopularWorksData_popularWorks_user_iconImageBuilder()
-        ..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GFeedPopularWorksData_popularWorks_user_iconImage &&
-        G__typename == other.G__typename &&
-        id == other.id &&
-        downloadURL == other.downloadURL;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, id.hashCode);
-    _$hash = $jc(_$hash, downloadURL.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(
-            r'GFeedPopularWorksData_popularWorks_user_iconImage')
-          ..add('G__typename', G__typename)
-          ..add('id', id)
-          ..add('downloadURL', downloadURL))
-        .toString();
-  }
-}
-
-class GFeedPopularWorksData_popularWorks_user_iconImageBuilder
-    implements
-        Builder<GFeedPopularWorksData_popularWorks_user_iconImage,
-            GFeedPopularWorksData_popularWorks_user_iconImageBuilder> {
-  _$GFeedPopularWorksData_popularWorks_user_iconImage? _$v;
-
-  String? _G__typename;
-  String? get G__typename => _$this._G__typename;
-  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
-
-  String? _id;
-  String? get id => _$this._id;
-  set id(String? id) => _$this._id = id;
-
-  String? _downloadURL;
-  String? get downloadURL => _$this._downloadURL;
-  set downloadURL(String? downloadURL) => _$this._downloadURL = downloadURL;
-
-  GFeedPopularWorksData_popularWorks_user_iconImageBuilder() {
-    GFeedPopularWorksData_popularWorks_user_iconImage._initializeBuilder(this);
-  }
-
-  GFeedPopularWorksData_popularWorks_user_iconImageBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _G__typename = $v.G__typename;
-      _id = $v.id;
-      _downloadURL = $v.downloadURL;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GFeedPopularWorksData_popularWorks_user_iconImage other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GFeedPopularWorksData_popularWorks_user_iconImage;
-  }
-
-  @override
-  void update(
-      void Function(GFeedPopularWorksData_popularWorks_user_iconImageBuilder)?
-          updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GFeedPopularWorksData_popularWorks_user_iconImage build() => _build();
-
-  _$GFeedPopularWorksData_popularWorks_user_iconImage _build() {
     final _$result = _$v ??
-        new _$GFeedPopularWorksData_popularWorks_user_iconImage._(
-            G__typename: BuiltValueNullFieldError.checkNotNull(
-                G__typename,
-                r'GFeedPopularWorksData_popularWorks_user_iconImage',
-                'G__typename'),
+        new _$GFeedPopularWorksData_popularWorks_user._(
+            G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
+                r'GFeedPopularWorksData_popularWorks_user', 'G__typename'),
             id: BuiltValueNullFieldError.checkNotNull(
-                id, r'GFeedPopularWorksData_popularWorks_user_iconImage', 'id'),
-            downloadURL: BuiltValueNullFieldError.checkNotNull(
-                downloadURL,
-                r'GFeedPopularWorksData_popularWorks_user_iconImage',
-                'downloadURL'));
+                id, r'GFeedPopularWorksData_popularWorks_user', 'id'),
+            login: BuiltValueNullFieldError.checkNotNull(
+                login, r'GFeedPopularWorksData_popularWorks_user', 'login'),
+            name: BuiltValueNullFieldError.checkNotNull(
+                name, r'GFeedPopularWorksData_popularWorks_user', 'name'),
+            iconUrl: iconUrl,
+            isFollower: BuiltValueNullFieldError.checkNotNull(
+                isFollower, r'GFeedPopularWorksData_popularWorks_user', 'isFollower'),
+            isFollowee: BuiltValueNullFieldError.checkNotNull(
+                isFollowee, r'GFeedPopularWorksData_popularWorks_user', 'isFollowee'),
+            isMuted: BuiltValueNullFieldError.checkNotNull(
+                isMuted, r'GFeedPopularWorksData_popularWorks_user', 'isMuted'));
     replace(_$result);
     return _$result;
   }

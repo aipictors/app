@@ -52,7 +52,7 @@ import 'package:aipictors/screens/user/user_report_screen.dart';
 import 'package:aipictors/screens/user/user_screen.dart';
 import 'package:aipictors/screens/viewer/viewer_albums_screen.dart';
 import 'package:aipictors/screens/viewer/viewer_folders_screen.dart';
-import 'package:aipictors/screens/viewer/viewer_liked_works_screen';
+import 'package:aipictors/screens/viewer/viewer_liked_works_screen.dart';
 import 'package:aipictors/screens/viewer/viewer_screen.dart';
 import 'package:aipictors/screens/viewer/viewer_works_screen.dart';
 import 'package:aipictors/screens/work/work_create_screen.dart';

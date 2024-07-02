@@ -12,9 +12,6 @@ Serializer<GFollowNotificationFieldsData>
 Serializer<GFollowNotificationFieldsData_user>
     _$gFollowNotificationFieldsDataUserSerializer =
     new _$GFollowNotificationFieldsData_userSerializer();
-Serializer<GFollowNotificationFieldsData_user_iconImage>
-    _$gFollowNotificationFieldsDataUserIconImageSerializer =
-    new _$GFollowNotificationFieldsData_user_iconImageSerializer();
 
 class _$GFollowNotificationFieldsDataSerializer
     implements StructuredSerializer<GFollowNotificationFieldsData> {
@@ -115,13 +112,12 @@ class _$GFollowNotificationFieldsData_userSerializer
       serializers.serialize(object.name, specifiedType: const FullType(String)),
     ];
     Object? value;
-    value = object.iconImage;
+    value = object.iconUrl;
     if (value != null) {
       result
-        ..add('iconImage')
+        ..add('iconUrl')
         ..add(serializers.serialize(value,
-            specifiedType:
-                const FullType(GFollowNotificationFieldsData_user_iconImage)));
+            specifiedType: const FullType(String)));
     }
     return result;
   }
@@ -154,71 +150,9 @@ class _$GFollowNotificationFieldsData_userSerializer
           result.name = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
-        case 'iconImage':
-          result.iconImage.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      GFollowNotificationFieldsData_user_iconImage))!
-              as GFollowNotificationFieldsData_user_iconImage);
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GFollowNotificationFieldsData_user_iconImageSerializer
-    implements
-        StructuredSerializer<GFollowNotificationFieldsData_user_iconImage> {
-  @override
-  final Iterable<Type> types = const [
-    GFollowNotificationFieldsData_user_iconImage,
-    _$GFollowNotificationFieldsData_user_iconImage
-  ];
-  @override
-  final String wireName = 'GFollowNotificationFieldsData_user_iconImage';
-
-  @override
-  Iterable<Object?> serialize(Serializers serializers,
-      GFollowNotificationFieldsData_user_iconImage object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
-      'id',
-      serializers.serialize(object.id, specifiedType: const FullType(String)),
-      'downloadURL',
-      serializers.serialize(object.downloadURL,
-          specifiedType: const FullType(String)),
-    ];
-
-    return result;
-  }
-
-  @override
-  GFollowNotificationFieldsData_user_iconImage deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GFollowNotificationFieldsData_user_iconImageBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'id':
-          result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'downloadURL':
-          result.downloadURL = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
+        case 'iconUrl':
+          result.iconUrl = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
           break;
       }
     }
@@ -389,7 +323,7 @@ class _$GFollowNotificationFieldsData_user
   @override
   final String name;
   @override
-  final GFollowNotificationFieldsData_user_iconImage? iconImage;
+  final String? iconUrl;
 
   factory _$GFollowNotificationFieldsData_user(
           [void Function(GFollowNotificationFieldsData_userBuilder)?
@@ -402,7 +336,7 @@ class _$GFollowNotificationFieldsData_user
       required this.id,
       required this.login,
       required this.name,
-      this.iconImage})
+      this.iconUrl})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename, r'GFollowNotificationFieldsData_user', 'G__typename');
@@ -431,7 +365,7 @@ class _$GFollowNotificationFieldsData_user
         id == other.id &&
         login == other.login &&
         name == other.name &&
-        iconImage == other.iconImage;
+        iconUrl == other.iconUrl;
   }
 
   @override
@@ -441,7 +375,7 @@ class _$GFollowNotificationFieldsData_user
     _$hash = $jc(_$hash, id.hashCode);
     _$hash = $jc(_$hash, login.hashCode);
     _$hash = $jc(_$hash, name.hashCode);
-    _$hash = $jc(_$hash, iconImage.hashCode);
+    _$hash = $jc(_$hash, iconUrl.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -453,7 +387,7 @@ class _$GFollowNotificationFieldsData_user
           ..add('id', id)
           ..add('login', login)
           ..add('name', name)
-          ..add('iconImage', iconImage))
+          ..add('iconUrl', iconUrl))
         .toString();
   }
 }
@@ -480,13 +414,9 @@ class GFollowNotificationFieldsData_userBuilder
   String? get name => _$this._name;
   set name(String? name) => _$this._name = name;
 
-  GFollowNotificationFieldsData_user_iconImageBuilder? _iconImage;
-  GFollowNotificationFieldsData_user_iconImageBuilder get iconImage =>
-      _$this._iconImage ??=
-          new GFollowNotificationFieldsData_user_iconImageBuilder();
-  set iconImage(
-          GFollowNotificationFieldsData_user_iconImageBuilder? iconImage) =>
-      _$this._iconImage = iconImage;
+  String? _iconUrl;
+  String? get iconUrl => _$this._iconUrl;
+  set iconUrl(String? iconUrl) => _$this._iconUrl = iconUrl;
 
   GFollowNotificationFieldsData_userBuilder() {
     GFollowNotificationFieldsData_user._initializeBuilder(this);
@@ -499,7 +429,7 @@ class GFollowNotificationFieldsData_userBuilder
       _id = $v.id;
       _login = $v.login;
       _name = $v.name;
-      _iconImage = $v.iconImage?.toBuilder();
+      _iconUrl = $v.iconUrl;
       _$v = null;
     }
     return this;
@@ -521,162 +451,17 @@ class GFollowNotificationFieldsData_userBuilder
   GFollowNotificationFieldsData_user build() => _build();
 
   _$GFollowNotificationFieldsData_user _build() {
-    _$GFollowNotificationFieldsData_user _$result;
-    try {
-      _$result = _$v ??
-          new _$GFollowNotificationFieldsData_user._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
-                  r'GFollowNotificationFieldsData_user', 'G__typename'),
-              id: BuiltValueNullFieldError.checkNotNull(
-                  id, r'GFollowNotificationFieldsData_user', 'id'),
-              login: BuiltValueNullFieldError.checkNotNull(
-                  login, r'GFollowNotificationFieldsData_user', 'login'),
-              name: BuiltValueNullFieldError.checkNotNull(
-                  name, r'GFollowNotificationFieldsData_user', 'name'),
-              iconImage: _iconImage?.build());
-    } catch (_) {
-      late String _$failedField;
-      try {
-        _$failedField = 'iconImage';
-        _iconImage?.build();
-      } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'GFollowNotificationFieldsData_user', _$failedField, e.toString());
-      }
-      rethrow;
-    }
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GFollowNotificationFieldsData_user_iconImage
-    extends GFollowNotificationFieldsData_user_iconImage {
-  @override
-  final String G__typename;
-  @override
-  final String id;
-  @override
-  final String downloadURL;
-
-  factory _$GFollowNotificationFieldsData_user_iconImage(
-          [void Function(GFollowNotificationFieldsData_user_iconImageBuilder)?
-              updates]) =>
-      (new GFollowNotificationFieldsData_user_iconImageBuilder()
-            ..update(updates))
-          ._build();
-
-  _$GFollowNotificationFieldsData_user_iconImage._(
-      {required this.G__typename, required this.id, required this.downloadURL})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(G__typename,
-        r'GFollowNotificationFieldsData_user_iconImage', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(
-        id, r'GFollowNotificationFieldsData_user_iconImage', 'id');
-    BuiltValueNullFieldError.checkNotNull(downloadURL,
-        r'GFollowNotificationFieldsData_user_iconImage', 'downloadURL');
-  }
-
-  @override
-  GFollowNotificationFieldsData_user_iconImage rebuild(
-          void Function(GFollowNotificationFieldsData_user_iconImageBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GFollowNotificationFieldsData_user_iconImageBuilder toBuilder() =>
-      new GFollowNotificationFieldsData_user_iconImageBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GFollowNotificationFieldsData_user_iconImage &&
-        G__typename == other.G__typename &&
-        id == other.id &&
-        downloadURL == other.downloadURL;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, id.hashCode);
-    _$hash = $jc(_$hash, downloadURL.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(
-            r'GFollowNotificationFieldsData_user_iconImage')
-          ..add('G__typename', G__typename)
-          ..add('id', id)
-          ..add('downloadURL', downloadURL))
-        .toString();
-  }
-}
-
-class GFollowNotificationFieldsData_user_iconImageBuilder
-    implements
-        Builder<GFollowNotificationFieldsData_user_iconImage,
-            GFollowNotificationFieldsData_user_iconImageBuilder> {
-  _$GFollowNotificationFieldsData_user_iconImage? _$v;
-
-  String? _G__typename;
-  String? get G__typename => _$this._G__typename;
-  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
-
-  String? _id;
-  String? get id => _$this._id;
-  set id(String? id) => _$this._id = id;
-
-  String? _downloadURL;
-  String? get downloadURL => _$this._downloadURL;
-  set downloadURL(String? downloadURL) => _$this._downloadURL = downloadURL;
-
-  GFollowNotificationFieldsData_user_iconImageBuilder() {
-    GFollowNotificationFieldsData_user_iconImage._initializeBuilder(this);
-  }
-
-  GFollowNotificationFieldsData_user_iconImageBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _G__typename = $v.G__typename;
-      _id = $v.id;
-      _downloadURL = $v.downloadURL;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GFollowNotificationFieldsData_user_iconImage other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GFollowNotificationFieldsData_user_iconImage;
-  }
-
-  @override
-  void update(
-      void Function(GFollowNotificationFieldsData_user_iconImageBuilder)?
-          updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GFollowNotificationFieldsData_user_iconImage build() => _build();
-
-  _$GFollowNotificationFieldsData_user_iconImage _build() {
     final _$result = _$v ??
-        new _$GFollowNotificationFieldsData_user_iconImage._(
+        new _$GFollowNotificationFieldsData_user._(
             G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
-                r'GFollowNotificationFieldsData_user_iconImage', 'G__typename'),
+                r'GFollowNotificationFieldsData_user', 'G__typename'),
             id: BuiltValueNullFieldError.checkNotNull(
-                id, r'GFollowNotificationFieldsData_user_iconImage', 'id'),
-            downloadURL: BuiltValueNullFieldError.checkNotNull(
-                downloadURL,
-                r'GFollowNotificationFieldsData_user_iconImage',
-                'downloadURL'));
+                id, r'GFollowNotificationFieldsData_user', 'id'),
+            login: BuiltValueNullFieldError.checkNotNull(
+                login, r'GFollowNotificationFieldsData_user', 'login'),
+            name: BuiltValueNullFieldError.checkNotNull(
+                name, r'GFollowNotificationFieldsData_user', 'name'),
+            iconUrl: iconUrl);
     replace(_$result);
     return _$result;
   }

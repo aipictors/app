@@ -58,7 +58,7 @@ class ViewerAlbumsScreen extends HookConsumerWidget {
               final folder = albumList[index];
               return ViewerFolderListTile(
                 title: folder.title,
-                imageURL: folder.thumbnailImage?.downloadURL,
+                imageURL: folder.thumbnailImageURL,
                 onTap: () {
                   FirebaseAnalytics.instance.logSelectContent(
                     contentType: 'album',

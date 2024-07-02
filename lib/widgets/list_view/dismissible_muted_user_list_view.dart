@@ -30,7 +30,7 @@ class DismissibleMutedUserListView extends HookConsumerWidget {
           child: MutedUserListTile(
             userName: user.name,
             userLogin: user.login,
-            userIconImageURL: user.iconImage?.downloadURL,
+            userIconImageURL: user.iconUrl,
             onTap: () {
               context.push('/users/${user.id}');
             },

@@ -8,5 +8,7 @@ part 'network_provider.g.dart';
 @riverpod
 Future<ConnectivityResult> network(NetworkRef ref) async {
   ref.keepAlive();
-  return Connectivity().checkConnectivity();
+  final resultList = await Connectivity().checkConnectivity();
+
+  return resultList.first;
 }

@@ -13,9 +13,6 @@ Serializer<GUserFolloweesData_user> _$gUserFolloweesDataUserSerializer =
 Serializer<GUserFolloweesData_user_followees>
     _$gUserFolloweesDataUserFolloweesSerializer =
     new _$GUserFolloweesData_user_followeesSerializer();
-Serializer<GUserFolloweesData_user_followees_iconImage>
-    _$gUserFolloweesDataUserFolloweesIconImageSerializer =
-    new _$GUserFolloweesData_user_followees_iconImageSerializer();
 
 class _$GUserFolloweesDataSerializer
     implements StructuredSerializer<GUserFolloweesData> {
@@ -161,13 +158,12 @@ class _$GUserFolloweesData_user_followeesSerializer
       serializers.serialize(object.name, specifiedType: const FullType(String)),
     ];
     Object? value;
-    value = object.iconImage;
+    value = object.iconUrl;
     if (value != null) {
       result
-        ..add('iconImage')
+        ..add('iconUrl')
         ..add(serializers.serialize(value,
-            specifiedType:
-                const FullType(GUserFolloweesData_user_followees_iconImage)));
+            specifiedType: const FullType(String)));
     }
     return result;
   }
@@ -200,71 +196,9 @@ class _$GUserFolloweesData_user_followeesSerializer
           result.name = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
-        case 'iconImage':
-          result.iconImage.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      GUserFolloweesData_user_followees_iconImage))!
-              as GUserFolloweesData_user_followees_iconImage);
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GUserFolloweesData_user_followees_iconImageSerializer
-    implements
-        StructuredSerializer<GUserFolloweesData_user_followees_iconImage> {
-  @override
-  final Iterable<Type> types = const [
-    GUserFolloweesData_user_followees_iconImage,
-    _$GUserFolloweesData_user_followees_iconImage
-  ];
-  @override
-  final String wireName = 'GUserFolloweesData_user_followees_iconImage';
-
-  @override
-  Iterable<Object?> serialize(Serializers serializers,
-      GUserFolloweesData_user_followees_iconImage object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
-      'id',
-      serializers.serialize(object.id, specifiedType: const FullType(String)),
-      'downloadURL',
-      serializers.serialize(object.downloadURL,
-          specifiedType: const FullType(String)),
-    ];
-
-    return result;
-  }
-
-  @override
-  GUserFolloweesData_user_followees_iconImage deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GUserFolloweesData_user_followees_iconImageBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'id':
-          result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'downloadURL':
-          result.downloadURL = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
+        case 'iconUrl':
+          result.iconUrl = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
           break;
       }
     }
@@ -534,7 +468,7 @@ class _$GUserFolloweesData_user_followees
   @override
   final String name;
   @override
-  final GUserFolloweesData_user_followees_iconImage? iconImage;
+  final String? iconUrl;
 
   factory _$GUserFolloweesData_user_followees(
           [void Function(GUserFolloweesData_user_followeesBuilder)? updates]) =>
@@ -546,7 +480,7 @@ class _$GUserFolloweesData_user_followees
       required this.id,
       required this.login,
       required this.name,
-      this.iconImage})
+      this.iconUrl})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename, r'GUserFolloweesData_user_followees', 'G__typename');
@@ -575,7 +509,7 @@ class _$GUserFolloweesData_user_followees
         id == other.id &&
         login == other.login &&
         name == other.name &&
-        iconImage == other.iconImage;
+        iconUrl == other.iconUrl;
   }
 
   @override
@@ -585,7 +519,7 @@ class _$GUserFolloweesData_user_followees
     _$hash = $jc(_$hash, id.hashCode);
     _$hash = $jc(_$hash, login.hashCode);
     _$hash = $jc(_$hash, name.hashCode);
-    _$hash = $jc(_$hash, iconImage.hashCode);
+    _$hash = $jc(_$hash, iconUrl.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -597,7 +531,7 @@ class _$GUserFolloweesData_user_followees
           ..add('id', id)
           ..add('login', login)
           ..add('name', name)
-          ..add('iconImage', iconImage))
+          ..add('iconUrl', iconUrl))
         .toString();
   }
 }
@@ -624,13 +558,9 @@ class GUserFolloweesData_user_followeesBuilder
   String? get name => _$this._name;
   set name(String? name) => _$this._name = name;
 
-  GUserFolloweesData_user_followees_iconImageBuilder? _iconImage;
-  GUserFolloweesData_user_followees_iconImageBuilder get iconImage =>
-      _$this._iconImage ??=
-          new GUserFolloweesData_user_followees_iconImageBuilder();
-  set iconImage(
-          GUserFolloweesData_user_followees_iconImageBuilder? iconImage) =>
-      _$this._iconImage = iconImage;
+  String? _iconUrl;
+  String? get iconUrl => _$this._iconUrl;
+  set iconUrl(String? iconUrl) => _$this._iconUrl = iconUrl;
 
   GUserFolloweesData_user_followeesBuilder() {
     GUserFolloweesData_user_followees._initializeBuilder(this);
@@ -643,7 +573,7 @@ class GUserFolloweesData_user_followeesBuilder
       _id = $v.id;
       _login = $v.login;
       _name = $v.name;
-      _iconImage = $v.iconImage?.toBuilder();
+      _iconUrl = $v.iconUrl;
       _$v = null;
     }
     return this;
@@ -665,160 +595,17 @@ class GUserFolloweesData_user_followeesBuilder
   GUserFolloweesData_user_followees build() => _build();
 
   _$GUserFolloweesData_user_followees _build() {
-    _$GUserFolloweesData_user_followees _$result;
-    try {
-      _$result = _$v ??
-          new _$GUserFolloweesData_user_followees._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
-                  r'GUserFolloweesData_user_followees', 'G__typename'),
-              id: BuiltValueNullFieldError.checkNotNull(
-                  id, r'GUserFolloweesData_user_followees', 'id'),
-              login: BuiltValueNullFieldError.checkNotNull(
-                  login, r'GUserFolloweesData_user_followees', 'login'),
-              name: BuiltValueNullFieldError.checkNotNull(
-                  name, r'GUserFolloweesData_user_followees', 'name'),
-              iconImage: _iconImage?.build());
-    } catch (_) {
-      late String _$failedField;
-      try {
-        _$failedField = 'iconImage';
-        _iconImage?.build();
-      } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'GUserFolloweesData_user_followees', _$failedField, e.toString());
-      }
-      rethrow;
-    }
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GUserFolloweesData_user_followees_iconImage
-    extends GUserFolloweesData_user_followees_iconImage {
-  @override
-  final String G__typename;
-  @override
-  final String id;
-  @override
-  final String downloadURL;
-
-  factory _$GUserFolloweesData_user_followees_iconImage(
-          [void Function(GUserFolloweesData_user_followees_iconImageBuilder)?
-              updates]) =>
-      (new GUserFolloweesData_user_followees_iconImageBuilder()
-            ..update(updates))
-          ._build();
-
-  _$GUserFolloweesData_user_followees_iconImage._(
-      {required this.G__typename, required this.id, required this.downloadURL})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(G__typename,
-        r'GUserFolloweesData_user_followees_iconImage', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(
-        id, r'GUserFolloweesData_user_followees_iconImage', 'id');
-    BuiltValueNullFieldError.checkNotNull(downloadURL,
-        r'GUserFolloweesData_user_followees_iconImage', 'downloadURL');
-  }
-
-  @override
-  GUserFolloweesData_user_followees_iconImage rebuild(
-          void Function(GUserFolloweesData_user_followees_iconImageBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GUserFolloweesData_user_followees_iconImageBuilder toBuilder() =>
-      new GUserFolloweesData_user_followees_iconImageBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GUserFolloweesData_user_followees_iconImage &&
-        G__typename == other.G__typename &&
-        id == other.id &&
-        downloadURL == other.downloadURL;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, id.hashCode);
-    _$hash = $jc(_$hash, downloadURL.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(
-            r'GUserFolloweesData_user_followees_iconImage')
-          ..add('G__typename', G__typename)
-          ..add('id', id)
-          ..add('downloadURL', downloadURL))
-        .toString();
-  }
-}
-
-class GUserFolloweesData_user_followees_iconImageBuilder
-    implements
-        Builder<GUserFolloweesData_user_followees_iconImage,
-            GUserFolloweesData_user_followees_iconImageBuilder> {
-  _$GUserFolloweesData_user_followees_iconImage? _$v;
-
-  String? _G__typename;
-  String? get G__typename => _$this._G__typename;
-  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
-
-  String? _id;
-  String? get id => _$this._id;
-  set id(String? id) => _$this._id = id;
-
-  String? _downloadURL;
-  String? get downloadURL => _$this._downloadURL;
-  set downloadURL(String? downloadURL) => _$this._downloadURL = downloadURL;
-
-  GUserFolloweesData_user_followees_iconImageBuilder() {
-    GUserFolloweesData_user_followees_iconImage._initializeBuilder(this);
-  }
-
-  GUserFolloweesData_user_followees_iconImageBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _G__typename = $v.G__typename;
-      _id = $v.id;
-      _downloadURL = $v.downloadURL;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GUserFolloweesData_user_followees_iconImage other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GUserFolloweesData_user_followees_iconImage;
-  }
-
-  @override
-  void update(
-      void Function(GUserFolloweesData_user_followees_iconImageBuilder)?
-          updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GUserFolloweesData_user_followees_iconImage build() => _build();
-
-  _$GUserFolloweesData_user_followees_iconImage _build() {
     final _$result = _$v ??
-        new _$GUserFolloweesData_user_followees_iconImage._(
+        new _$GUserFolloweesData_user_followees._(
             G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
-                r'GUserFolloweesData_user_followees_iconImage', 'G__typename'),
+                r'GUserFolloweesData_user_followees', 'G__typename'),
             id: BuiltValueNullFieldError.checkNotNull(
-                id, r'GUserFolloweesData_user_followees_iconImage', 'id'),
-            downloadURL: BuiltValueNullFieldError.checkNotNull(downloadURL,
-                r'GUserFolloweesData_user_followees_iconImage', 'downloadURL'));
+                id, r'GUserFolloweesData_user_followees', 'id'),
+            login: BuiltValueNullFieldError.checkNotNull(
+                login, r'GUserFolloweesData_user_followees', 'login'),
+            name: BuiltValueNullFieldError.checkNotNull(
+                name, r'GUserFolloweesData_user_followees', 'name'),
+            iconUrl: iconUrl);
     replace(_$result);
     return _$result;
   }

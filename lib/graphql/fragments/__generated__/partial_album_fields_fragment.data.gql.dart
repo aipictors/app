@@ -15,14 +15,7 @@ abstract class GPartialAlbumFields {
   bool get isSensitive;
   int get likesCount;
   int get viewsCount;
-  GPartialAlbumFields_thumbnailImage? get thumbnailImage;
-  Map<String, dynamic> toJson();
-}
-
-abstract class GPartialAlbumFields_thumbnailImage {
-  String get G__typename;
-  String get id;
-  String get downloadURL;
+  String? get thumbnailImageURL;
   Map<String, dynamic> toJson();
 }
 
@@ -53,7 +46,7 @@ abstract class GPartialAlbumFieldsData
   @override
   int get viewsCount;
   @override
-  GPartialAlbumFieldsData_thumbnailImage? get thumbnailImage;
+  String? get thumbnailImageURL;
   static Serializer<GPartialAlbumFieldsData> get serializer =>
       _$gPartialAlbumFieldsDataSerializer;
 
@@ -66,45 +59,6 @@ abstract class GPartialAlbumFieldsData
   static GPartialAlbumFieldsData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GPartialAlbumFieldsData.serializer,
-        json,
-      );
-}
-
-abstract class GPartialAlbumFieldsData_thumbnailImage
-    implements
-        Built<GPartialAlbumFieldsData_thumbnailImage,
-            GPartialAlbumFieldsData_thumbnailImageBuilder>,
-        GPartialAlbumFields_thumbnailImage {
-  GPartialAlbumFieldsData_thumbnailImage._();
-
-  factory GPartialAlbumFieldsData_thumbnailImage(
-      [void Function(GPartialAlbumFieldsData_thumbnailImageBuilder b)
-          updates]) = _$GPartialAlbumFieldsData_thumbnailImage;
-
-  static void _initializeBuilder(
-          GPartialAlbumFieldsData_thumbnailImageBuilder b) =>
-      b..G__typename = 'ImageNode';
-
-  @override
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  @override
-  String get id;
-  @override
-  String get downloadURL;
-  static Serializer<GPartialAlbumFieldsData_thumbnailImage> get serializer =>
-      _$gPartialAlbumFieldsDataThumbnailImageSerializer;
-
-  @override
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GPartialAlbumFieldsData_thumbnailImage.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GPartialAlbumFieldsData_thumbnailImage? fromJson(
-          Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GPartialAlbumFieldsData_thumbnailImage.serializer,
         json,
       );
 }

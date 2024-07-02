@@ -55,7 +55,7 @@ class ViewerWorksScreen extends HookConsumerWidget {
             itemBuilder: (context, index) {
               final work = workList[index];
               return WorkInfoListTile(
-                thumbnailImageURL: work.thumbnailImage!.downloadURL,
+                thumbnailImageURL: work.largeThumbnailImageURL,
                 title: work.title,
                 body: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,

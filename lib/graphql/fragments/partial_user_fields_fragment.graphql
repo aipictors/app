@@ -2,8 +2,5 @@ fragment PartialUserFields on UserNode {
   id
   login
   name
-  iconImage {
-    id
-    downloadURL
-  }
+  iconUrl
 }

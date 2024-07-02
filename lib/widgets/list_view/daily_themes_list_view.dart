@@ -93,7 +93,7 @@ class DailyThemesListView extends HookConsumerWidget {
               weekDay: toWeekday(year, month, dailyTheme.day),
               title: dailyTheme.title,
               worksCount: dailyTheme.worksCount,
-              imageURL: firstWork?.thumbnailImage?.downloadURL,
+              imageURL: firstWork?.largeThumbnailImageURL,
               onTap: () {
                 FirebaseAnalytics.instance.logSelectContent(
                   contentType: 'daily_theme',

@@ -4,7 +4,7 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:aipictors/__generated__/schema.schema.gql.dart' as _i3;
 import 'package:aipictors/__generated__/serializers.gql.dart' as _i1;
-import 'package:aipictors/graphql/fragments/__generated__/image_generation_task_fields_fragment.data.gql.dart'
+import 'package:aipictors/graphql/fragments/__generated__/image_generation_result_fields_fragment.data.gql.dart'
     as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
@@ -26,8 +26,8 @@ abstract class GDeleteImageGenerationTaskData
 
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
-  GDeleteImageGenerationTaskData_deleteImageGenerationTask
-      get deleteImageGenerationTask;
+  GDeleteImageGenerationTaskData_deleteImageGenerationResult
+      get deleteImageGenerationResult;
   static Serializer<GDeleteImageGenerationTaskData> get serializer =>
       _$gDeleteImageGenerationTaskDataSerializer;
 
@@ -43,21 +43,23 @@ abstract class GDeleteImageGenerationTaskData
       );
 }
 
-abstract class GDeleteImageGenerationTaskData_deleteImageGenerationTask
+abstract class GDeleteImageGenerationTaskData_deleteImageGenerationResult
     implements
-        Built<GDeleteImageGenerationTaskData_deleteImageGenerationTask,
-            GDeleteImageGenerationTaskData_deleteImageGenerationTaskBuilder>,
-        _i2.GImageGenerationTaskFields {
-  GDeleteImageGenerationTaskData_deleteImageGenerationTask._();
+        Built<GDeleteImageGenerationTaskData_deleteImageGenerationResult,
+            GDeleteImageGenerationTaskData_deleteImageGenerationResultBuilder>,
+        _i2.GImageGenerationResultFields {
+  GDeleteImageGenerationTaskData_deleteImageGenerationResult._();
 
-  factory GDeleteImageGenerationTaskData_deleteImageGenerationTask(
+  factory GDeleteImageGenerationTaskData_deleteImageGenerationResult(
       [void Function(
-              GDeleteImageGenerationTaskData_deleteImageGenerationTaskBuilder b)
-          updates]) = _$GDeleteImageGenerationTaskData_deleteImageGenerationTask;
+              GDeleteImageGenerationTaskData_deleteImageGenerationResultBuilder
+                  b)
+          updates]) = _$GDeleteImageGenerationTaskData_deleteImageGenerationResult;
 
   static void _initializeBuilder(
-          GDeleteImageGenerationTaskData_deleteImageGenerationTaskBuilder b) =>
-      b..G__typename = 'ImageGenerationTaskNode';
+          GDeleteImageGenerationTaskData_deleteImageGenerationResultBuilder
+              b) =>
+      b..G__typename = 'ImageGenerationResultNode';
 
   @override
   @BuiltValueField(wireName: '__typename')
@@ -95,15 +97,11 @@ abstract class GDeleteImageGenerationTaskData_deleteImageGenerationTask
   @override
   _i3.GImageGenerationStatus get status;
   @override
-  bool get isDeleted;
-  @override
   bool? get isProtected;
-  @override
-  int get count;
   @override
   _i3.GImageGenerationType get generationType;
   @override
-  GDeleteImageGenerationTaskData_deleteImageGenerationTask_model get model;
+  GDeleteImageGenerationTaskData_deleteImageGenerationResult_model get model;
   @override
   String? get vae;
   @override
@@ -148,40 +146,40 @@ abstract class GDeleteImageGenerationTaskData_deleteImageGenerationTask
   String? get token;
   @override
   String? get thumbnailToken;
-  static Serializer<GDeleteImageGenerationTaskData_deleteImageGenerationTask>
+  static Serializer<GDeleteImageGenerationTaskData_deleteImageGenerationResult>
       get serializer =>
-          _$gDeleteImageGenerationTaskDataDeleteImageGenerationTaskSerializer;
+          _$gDeleteImageGenerationTaskDataDeleteImageGenerationResultSerializer;
 
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GDeleteImageGenerationTaskData_deleteImageGenerationTask.serializer,
+        GDeleteImageGenerationTaskData_deleteImageGenerationResult.serializer,
         this,
       ) as Map<String, dynamic>);
 
-  static GDeleteImageGenerationTaskData_deleteImageGenerationTask? fromJson(
+  static GDeleteImageGenerationTaskData_deleteImageGenerationResult? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
-        GDeleteImageGenerationTaskData_deleteImageGenerationTask.serializer,
+        GDeleteImageGenerationTaskData_deleteImageGenerationResult.serializer,
         json,
       );
 }
 
-abstract class GDeleteImageGenerationTaskData_deleteImageGenerationTask_model
+abstract class GDeleteImageGenerationTaskData_deleteImageGenerationResult_model
     implements
-        Built<GDeleteImageGenerationTaskData_deleteImageGenerationTask_model,
-            GDeleteImageGenerationTaskData_deleteImageGenerationTask_modelBuilder>,
-        _i2.GImageGenerationTaskFields_model {
-  GDeleteImageGenerationTaskData_deleteImageGenerationTask_model._();
+        Built<GDeleteImageGenerationTaskData_deleteImageGenerationResult_model,
+            GDeleteImageGenerationTaskData_deleteImageGenerationResult_modelBuilder>,
+        _i2.GImageGenerationResultFields_model {
+  GDeleteImageGenerationTaskData_deleteImageGenerationResult_model._();
 
-  factory GDeleteImageGenerationTaskData_deleteImageGenerationTask_model(
+  factory GDeleteImageGenerationTaskData_deleteImageGenerationResult_model(
           [void Function(
-                  GDeleteImageGenerationTaskData_deleteImageGenerationTask_modelBuilder
+                  GDeleteImageGenerationTaskData_deleteImageGenerationResult_modelBuilder
                       b)
               updates]) =
-      _$GDeleteImageGenerationTaskData_deleteImageGenerationTask_model;
+      _$GDeleteImageGenerationTaskData_deleteImageGenerationResult_model;
 
   static void _initializeBuilder(
-          GDeleteImageGenerationTaskData_deleteImageGenerationTask_modelBuilder
+          GDeleteImageGenerationTaskData_deleteImageGenerationResult_modelBuilder
               b) =>
       b..G__typename = 'ImageGeneratorNode';
 
@@ -195,20 +193,20 @@ abstract class GDeleteImageGenerationTaskData_deleteImageGenerationTask_model
   @override
   String get type;
   static Serializer<
-          GDeleteImageGenerationTaskData_deleteImageGenerationTask_model>
+          GDeleteImageGenerationTaskData_deleteImageGenerationResult_model>
       get serializer =>
-          _$gDeleteImageGenerationTaskDataDeleteImageGenerationTaskModelSerializer;
+          _$gDeleteImageGenerationTaskDataDeleteImageGenerationResultModelSerializer;
 
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GDeleteImageGenerationTaskData_deleteImageGenerationTask_model
+        GDeleteImageGenerationTaskData_deleteImageGenerationResult_model
             .serializer,
         this,
       ) as Map<String, dynamic>);
 
-  static GDeleteImageGenerationTaskData_deleteImageGenerationTask_model?
+  static GDeleteImageGenerationTaskData_deleteImageGenerationResult_model?
       fromJson(Map<String, dynamic> json) => _i1.serializers.deserializeWith(
-            GDeleteImageGenerationTaskData_deleteImageGenerationTask_model
+            GDeleteImageGenerationTaskData_deleteImageGenerationResult_model
                 .serializer,
             json,
           );

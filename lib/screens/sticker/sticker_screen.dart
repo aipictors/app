@@ -108,10 +108,12 @@ class StickerScreen extends HookConsumerWidget {
                         ],
                       ),
                     ),
-                    const SizedBox(height: 8 * 1.5),
-                    InteractiveWorkImage(
-                      downloadURL: sticker.image!.downloadURL,
-                    ),
+                    if (sticker.imageUrl != null)
+                      const SizedBox(height: 8 * 1.5),
+                    if (sticker.imageUrl != null)
+                      InteractiveWorkImage(
+                        downloadURL: sticker.imageUrl!,
+                      ),
                     const SizedBox(height: 8 * 2),
                     StickerStatusContainer(
                         downloadsCount: sticker.downloadsCount,

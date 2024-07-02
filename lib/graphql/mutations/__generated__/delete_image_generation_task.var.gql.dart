@@ -19,7 +19,7 @@ abstract class GDeleteImageGenerationTaskVars
           [void Function(GDeleteImageGenerationTaskVarsBuilder b) updates]) =
       _$GDeleteImageGenerationTaskVars;
 
-  _i1.GDeleteImageGenerationTaskInput get input;
+  _i1.GDeleteImageGenerationResultInput get input;
   static Serializer<GDeleteImageGenerationTaskVars> get serializer =>
       _$gDeleteImageGenerationTaskVarsSerializer;
 

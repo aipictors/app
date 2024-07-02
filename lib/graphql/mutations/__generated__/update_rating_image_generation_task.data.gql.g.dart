@@ -9,13 +9,14 @@ part of 'update_rating_image_generation_task.data.gql.dart';
 Serializer<GUpdateRatingImageGenerationTaskData>
     _$gUpdateRatingImageGenerationTaskDataSerializer =
     new _$GUpdateRatingImageGenerationTaskDataSerializer();
-Serializer<GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask>
-    _$gUpdateRatingImageGenerationTaskDataUpdateRatingImageGenerationTaskSerializer =
-    new _$GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTaskSerializer();
 Serializer<
-        GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_model>
-    _$gUpdateRatingImageGenerationTaskDataUpdateRatingImageGenerationTaskModelSerializer =
-    new _$GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_modelSerializer();
+        GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult>
+    _$gUpdateRatingImageGenerationTaskDataUpdateRatingImageGenerationResultSerializer =
+    new _$GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResultSerializer();
+Serializer<
+        GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult_model>
+    _$gUpdateRatingImageGenerationTaskDataUpdateRatingImageGenerationResultModelSerializer =
+    new _$GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult_modelSerializer();
 
 class _$GUpdateRatingImageGenerationTaskDataSerializer
     implements StructuredSerializer<GUpdateRatingImageGenerationTaskData> {
@@ -35,10 +36,10 @@ class _$GUpdateRatingImageGenerationTaskDataSerializer
       '__typename',
       serializers.serialize(object.G__typename,
           specifiedType: const FullType(String)),
-      'updateRatingImageGenerationTask',
-      serializers.serialize(object.updateRatingImageGenerationTask,
+      'updateRatingImageGenerationResult',
+      serializers.serialize(object.updateRatingImageGenerationResult,
           specifiedType: const FullType(
-              GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask)),
+              GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult)),
     ];
 
     return result;
@@ -60,12 +61,12 @@ class _$GUpdateRatingImageGenerationTaskDataSerializer
           result.G__typename = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
-        case 'updateRatingImageGenerationTask':
-          result.updateRatingImageGenerationTask.replace(serializers.deserialize(
+        case 'updateRatingImageGenerationResult':
+          result.updateRatingImageGenerationResult.replace(serializers.deserialize(
                   value,
                   specifiedType: const FullType(
-                      GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask))!
-              as GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask);
+                      GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult))!
+              as GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult);
           break;
       }
     }
@@ -74,23 +75,23 @@ class _$GUpdateRatingImageGenerationTaskDataSerializer
   }
 }
 
-class _$GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTaskSerializer
+class _$GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResultSerializer
     implements
         StructuredSerializer<
-            GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask> {
+            GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult> {
   @override
   final Iterable<Type> types = const [
-    GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask,
-    _$GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask
+    GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult,
+    _$GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult
   ];
   @override
   final String wireName =
-      'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask';
+      'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult';
 
   @override
   Iterable<Object?> serialize(
       Serializers serializers,
-      GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask
+      GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult
           object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
@@ -123,18 +124,13 @@ class _$GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTaskSeri
       'status',
       serializers.serialize(object.status,
           specifiedType: const FullType(_i3.GImageGenerationStatus)),
-      'isDeleted',
-      serializers.serialize(object.isDeleted,
-          specifiedType: const FullType(bool)),
-      'count',
-      serializers.serialize(object.count, specifiedType: const FullType(int)),
       'generationType',
       serializers.serialize(object.generationType,
           specifiedType: const FullType(_i3.GImageGenerationType)),
       'model',
       serializers.serialize(object.model,
           specifiedType: const FullType(
-              GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_model)),
+              GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult_model)),
     ];
     Object? value;
     value = object.t2tImageUrl;
@@ -338,11 +334,11 @@ class _$GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTaskSeri
   }
 
   @override
-  GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask
+  GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult
       deserialize(Serializers serializers, Iterable<Object?> serialized,
           {FullType specifiedType = FullType.unspecified}) {
     final result =
-        new GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTaskBuilder();
+        new GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResultBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -420,17 +416,9 @@ class _$GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTaskSeri
                   specifiedType: const FullType(_i3.GImageGenerationStatus))!
               as _i3.GImageGenerationStatus;
           break;
-        case 'isDeleted':
-          result.isDeleted = serializers.deserialize(value,
-              specifiedType: const FullType(bool))! as bool;
-          break;
         case 'isProtected':
           result.isProtected = serializers.deserialize(value,
               specifiedType: const FullType(bool)) as bool?;
-          break;
-        case 'count':
-          result.count = serializers.deserialize(value,
-              specifiedType: const FullType(int))! as int;
           break;
         case 'generationType':
           result.generationType = serializers.deserialize(value,
@@ -440,8 +428,8 @@ class _$GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTaskSeri
         case 'model':
           result.model.replace(serializers.deserialize(value,
                   specifiedType: const FullType(
-                      GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_model))!
-              as GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_model);
+                      GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult_model))!
+              as GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult_model);
           break;
         case 'vae':
           result.vae = serializers.deserialize(value,
@@ -538,23 +526,23 @@ class _$GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTaskSeri
   }
 }
 
-class _$GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_modelSerializer
+class _$GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult_modelSerializer
     implements
         StructuredSerializer<
-            GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_model> {
+            GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult_model> {
   @override
   final Iterable<Type> types = const [
-    GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_model,
-    _$GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_model
+    GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult_model,
+    _$GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult_model
   ];
   @override
   final String wireName =
-      'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_model';
+      'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult_model';
 
   @override
   Iterable<Object?> serialize(
       Serializers serializers,
-      GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_model
+      GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult_model
           object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
@@ -573,11 +561,11 @@ class _$GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_mod
   }
 
   @override
-  GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_model
+  GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult_model
       deserialize(Serializers serializers, Iterable<Object?> serialized,
           {FullType specifiedType = FullType.unspecified}) {
     final result =
-        new GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_modelBuilder();
+        new GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult_modelBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -613,8 +601,8 @@ class _$GUpdateRatingImageGenerationTaskData
   @override
   final String G__typename;
   @override
-  final GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask
-      updateRatingImageGenerationTask;
+  final GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult
+      updateRatingImageGenerationResult;
 
   factory _$GUpdateRatingImageGenerationTaskData(
           [void Function(GUpdateRatingImageGenerationTaskDataBuilder)?
@@ -624,14 +612,14 @@ class _$GUpdateRatingImageGenerationTaskData
 
   _$GUpdateRatingImageGenerationTaskData._(
       {required this.G__typename,
-      required this.updateRatingImageGenerationTask})
+      required this.updateRatingImageGenerationResult})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename, r'GUpdateRatingImageGenerationTaskData', 'G__typename');
     BuiltValueNullFieldError.checkNotNull(
-        updateRatingImageGenerationTask,
+        updateRatingImageGenerationResult,
         r'GUpdateRatingImageGenerationTaskData',
-        'updateRatingImageGenerationTask');
+        'updateRatingImageGenerationResult');
   }
 
   @override
@@ -648,15 +636,15 @@ class _$GUpdateRatingImageGenerationTaskData
     if (identical(other, this)) return true;
     return other is GUpdateRatingImageGenerationTaskData &&
         G__typename == other.G__typename &&
-        updateRatingImageGenerationTask ==
-            other.updateRatingImageGenerationTask;
+        updateRatingImageGenerationResult ==
+            other.updateRatingImageGenerationResult;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, updateRatingImageGenerationTask.hashCode);
+    _$hash = $jc(_$hash, updateRatingImageGenerationResult.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -665,8 +653,8 @@ class _$GUpdateRatingImageGenerationTaskData
   String toString() {
     return (newBuiltValueToStringHelper(r'GUpdateRatingImageGenerationTaskData')
           ..add('G__typename', G__typename)
-          ..add('updateRatingImageGenerationTask',
-              updateRatingImageGenerationTask))
+          ..add('updateRatingImageGenerationResult',
+              updateRatingImageGenerationResult))
         .toString();
   }
 }
@@ -681,16 +669,17 @@ class GUpdateRatingImageGenerationTaskDataBuilder
   String? get G__typename => _$this._G__typename;
   set G__typename(String? G__typename) => _$this._G__typename = G__typename;
 
-  GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTaskBuilder?
-      _updateRatingImageGenerationTask;
-  GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTaskBuilder
-      get updateRatingImageGenerationTask => _$this
-              ._updateRatingImageGenerationTask ??=
-          new GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTaskBuilder();
-  set updateRatingImageGenerationTask(
-          GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTaskBuilder?
-              updateRatingImageGenerationTask) =>
-      _$this._updateRatingImageGenerationTask = updateRatingImageGenerationTask;
+  GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResultBuilder?
+      _updateRatingImageGenerationResult;
+  GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResultBuilder
+      get updateRatingImageGenerationResult => _$this
+              ._updateRatingImageGenerationResult ??=
+          new GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResultBuilder();
+  set updateRatingImageGenerationResult(
+          GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResultBuilder?
+              updateRatingImageGenerationResult) =>
+      _$this._updateRatingImageGenerationResult =
+          updateRatingImageGenerationResult;
 
   GUpdateRatingImageGenerationTaskDataBuilder() {
     GUpdateRatingImageGenerationTaskData._initializeBuilder(this);
@@ -700,8 +689,8 @@ class GUpdateRatingImageGenerationTaskDataBuilder
     final $v = _$v;
     if ($v != null) {
       _G__typename = $v.G__typename;
-      _updateRatingImageGenerationTask =
-          $v.updateRatingImageGenerationTask.toBuilder();
+      _updateRatingImageGenerationResult =
+          $v.updateRatingImageGenerationResult.toBuilder();
       _$v = null;
     }
     return this;
@@ -729,13 +718,13 @@ class GUpdateRatingImageGenerationTaskDataBuilder
           new _$GUpdateRatingImageGenerationTaskData._(
               G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
                   r'GUpdateRatingImageGenerationTaskData', 'G__typename'),
-              updateRatingImageGenerationTask:
-                  updateRatingImageGenerationTask.build());
+              updateRatingImageGenerationResult:
+                  updateRatingImageGenerationResult.build());
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'updateRatingImageGenerationTask';
-        updateRatingImageGenerationTask.build();
+        _$failedField = 'updateRatingImageGenerationResult';
+        updateRatingImageGenerationResult.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'GUpdateRatingImageGenerationTaskData',
@@ -749,8 +738,8 @@ class GUpdateRatingImageGenerationTaskDataBuilder
   }
 }
 
-class _$GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask
-    extends GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask {
+class _$GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult
+    extends GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult {
   @override
   final String G__typename;
   @override
@@ -786,15 +775,11 @@ class _$GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask
   @override
   final _i3.GImageGenerationStatus status;
   @override
-  final bool isDeleted;
-  @override
   final bool? isProtected;
-  @override
-  final int count;
   @override
   final _i3.GImageGenerationType generationType;
   @override
-  final GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_model
+  final GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult_model
       model;
   @override
   final String? vae;
@@ -841,15 +826,15 @@ class _$GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask
   @override
   final String? thumbnailToken;
 
-  factory _$GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask(
+  factory _$GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult(
           [void Function(
-                  GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTaskBuilder)?
+                  GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResultBuilder)?
               updates]) =>
-      (new GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTaskBuilder()
+      (new GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResultBuilder()
             ..update(updates))
           ._build();
 
-  _$GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask._(
+  _$GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult._(
       {required this.G__typename,
       required this.id,
       required this.prompt,
@@ -867,9 +852,7 @@ class _$GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask
       this.rating,
       this.completedAt,
       required this.status,
-      required this.isDeleted,
       this.isProtected,
-      required this.count,
       required this.generationType,
       required this.model,
       this.vae,
@@ -897,84 +880,76 @@ class _$GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename,
-        r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask',
+        r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult',
         'G__typename');
     BuiltValueNullFieldError.checkNotNull(
         id,
-        r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask',
+        r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult',
         'id');
     BuiltValueNullFieldError.checkNotNull(
         prompt,
-        r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask',
+        r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult',
         'prompt');
     BuiltValueNullFieldError.checkNotNull(
         negativePrompt,
-        r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask',
+        r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult',
         'negativePrompt');
     BuiltValueNullFieldError.checkNotNull(
         seed,
-        r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask',
+        r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult',
         'seed');
     BuiltValueNullFieldError.checkNotNull(
         steps,
-        r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask',
+        r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult',
         'steps');
     BuiltValueNullFieldError.checkNotNull(
         scale,
-        r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask',
+        r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult',
         'scale');
     BuiltValueNullFieldError.checkNotNull(
         sampler,
-        r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask',
+        r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult',
         'sampler');
     BuiltValueNullFieldError.checkNotNull(
         clipSkip,
-        r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask',
+        r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult',
         'clipSkip');
     BuiltValueNullFieldError.checkNotNull(
         sizeType,
-        r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask',
+        r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult',
         'sizeType');
     BuiltValueNullFieldError.checkNotNull(
         status,
-        r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask',
+        r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult',
         'status');
     BuiltValueNullFieldError.checkNotNull(
-        isDeleted,
-        r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask',
-        'isDeleted');
-    BuiltValueNullFieldError.checkNotNull(
-        count,
-        r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask',
-        'count');
-    BuiltValueNullFieldError.checkNotNull(
         generationType,
-        r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask',
+        r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult',
         'generationType');
     BuiltValueNullFieldError.checkNotNull(
         model,
-        r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask',
+        r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult',
         'model');
   }
 
   @override
-  GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask rebuild(
+  GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult rebuild(
           void Function(
-                  GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTaskBuilder)
+                  GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResultBuilder)
               updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTaskBuilder
+  GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResultBuilder
       toBuilder() =>
-          new GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTaskBuilder()
+          new GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResultBuilder()
             ..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other
-            is GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask &&
+            is GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult &&
         G__typename == other.G__typename &&
         id == other.id &&
         prompt == other.prompt &&
@@ -992,9 +967,7 @@ class _$GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask
         rating == other.rating &&
         completedAt == other.completedAt &&
         status == other.status &&
-        isDeleted == other.isDeleted &&
         isProtected == other.isProtected &&
-        count == other.count &&
         generationType == other.generationType &&
         model == other.model &&
         vae == other.vae &&
@@ -1041,9 +1014,7 @@ class _$GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask
     _$hash = $jc(_$hash, rating.hashCode);
     _$hash = $jc(_$hash, completedAt.hashCode);
     _$hash = $jc(_$hash, status.hashCode);
-    _$hash = $jc(_$hash, isDeleted.hashCode);
     _$hash = $jc(_$hash, isProtected.hashCode);
-    _$hash = $jc(_$hash, count.hashCode);
     _$hash = $jc(_$hash, generationType.hashCode);
     _$hash = $jc(_$hash, model.hashCode);
     _$hash = $jc(_$hash, vae.hashCode);
@@ -1075,7 +1046,7 @@ class _$GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask
   @override
   String toString() {
     return (newBuiltValueToStringHelper(
-            r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask')
+            r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult')
           ..add('G__typename', G__typename)
           ..add('id', id)
           ..add('prompt', prompt)
@@ -1093,9 +1064,7 @@ class _$GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask
           ..add('rating', rating)
           ..add('completedAt', completedAt)
           ..add('status', status)
-          ..add('isDeleted', isDeleted)
           ..add('isProtected', isProtected)
-          ..add('count', count)
           ..add('generationType', generationType)
           ..add('model', model)
           ..add('vae', vae)
@@ -1124,12 +1093,12 @@ class _$GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask
   }
 }
 
-class GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTaskBuilder
+class GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResultBuilder
     implements
         Builder<
-            GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask,
-            GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTaskBuilder> {
-  _$GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask? _$v;
+            GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult,
+            GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResultBuilder> {
+  _$GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult? _$v;
 
   String? _G__typename;
   String? get G__typename => _$this._G__typename;
@@ -1204,30 +1173,22 @@ class GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTaskBuilde
   _i3.GImageGenerationStatus? get status => _$this._status;
   set status(_i3.GImageGenerationStatus? status) => _$this._status = status;
 
-  bool? _isDeleted;
-  bool? get isDeleted => _$this._isDeleted;
-  set isDeleted(bool? isDeleted) => _$this._isDeleted = isDeleted;
-
   bool? _isProtected;
   bool? get isProtected => _$this._isProtected;
   set isProtected(bool? isProtected) => _$this._isProtected = isProtected;
-
-  int? _count;
-  int? get count => _$this._count;
-  set count(int? count) => _$this._count = count;
 
   _i3.GImageGenerationType? _generationType;
   _i3.GImageGenerationType? get generationType => _$this._generationType;
   set generationType(_i3.GImageGenerationType? generationType) =>
       _$this._generationType = generationType;
 
-  GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_modelBuilder?
+  GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult_modelBuilder?
       _model;
-  GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_modelBuilder
+  GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult_modelBuilder
       get model => _$this._model ??=
-          new GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_modelBuilder();
+          new GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult_modelBuilder();
   set model(
-          GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_modelBuilder?
+          GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult_modelBuilder?
               model) =>
       _$this._model = model;
 
@@ -1337,12 +1298,12 @@ class GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTaskBuilde
   set thumbnailToken(String? thumbnailToken) =>
       _$this._thumbnailToken = thumbnailToken;
 
-  GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTaskBuilder() {
-    GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask
+  GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResultBuilder() {
+    GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult
         ._initializeBuilder(this);
   }
 
-  GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTaskBuilder
+  GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResultBuilder
       get _$this {
     final $v = _$v;
     if ($v != null) {
@@ -1363,9 +1324,7 @@ class GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTaskBuilde
       _rating = $v.rating;
       _completedAt = $v.completedAt;
       _status = $v.status;
-      _isDeleted = $v.isDeleted;
       _isProtected = $v.isProtected;
-      _count = $v.count;
       _generationType = $v.generationType;
       _model = $v.model.toBuilder();
       _vae = $v.vae;
@@ -1397,64 +1356,62 @@ class GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTaskBuilde
 
   @override
   void replace(
-      GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask
+      GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult
           other) {
     ArgumentError.checkNotNull(other, 'other');
     _$v = other
-        as _$GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask;
+        as _$GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult;
   }
 
   @override
   void update(
       void Function(
-              GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTaskBuilder)?
+              GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResultBuilder)?
           updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask
+  GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult
       build() => _build();
 
-  _$GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask
+  _$GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult
       _build() {
-    _$GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask
+    _$GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult
         _$result;
     try {
       _$result = _$v ??
-          new _$GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask._(
+          new _$GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult._(
               G__typename: BuiltValueNullFieldError.checkNotNull(
                   G__typename,
-                  r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask',
+                  r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult',
                   'G__typename'),
               id: BuiltValueNullFieldError.checkNotNull(
-                  id, r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask', 'id'),
+                  id, r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult', 'id'),
               prompt: BuiltValueNullFieldError.checkNotNull(
                   prompt,
-                  r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask',
+                  r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult',
                   'prompt'),
               negativePrompt: BuiltValueNullFieldError.checkNotNull(
                   negativePrompt,
-                  r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask',
+                  r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult',
                   'negativePrompt'),
               seed: BuiltValueNullFieldError.checkNotNull(
-                  seed, r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask', 'seed'),
-              steps: BuiltValueNullFieldError.checkNotNull(steps, r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask', 'steps'),
-              scale: BuiltValueNullFieldError.checkNotNull(scale, r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask', 'scale'),
-              sampler: BuiltValueNullFieldError.checkNotNull(sampler, r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask', 'sampler'),
-              clipSkip: BuiltValueNullFieldError.checkNotNull(clipSkip, r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask', 'clipSkip'),
-              sizeType: BuiltValueNullFieldError.checkNotNull(sizeType, r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask', 'sizeType'),
+                  seed, r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult', 'seed'),
+              steps: BuiltValueNullFieldError.checkNotNull(steps, r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult', 'steps'),
+              scale: BuiltValueNullFieldError.checkNotNull(scale, r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult', 'scale'),
+              sampler: BuiltValueNullFieldError.checkNotNull(sampler, r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult', 'sampler'),
+              clipSkip: BuiltValueNullFieldError.checkNotNull(clipSkip, r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult', 'clipSkip'),
+              sizeType: BuiltValueNullFieldError.checkNotNull(sizeType, r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult', 'sizeType'),
               t2tImageUrl: t2tImageUrl,
               t2tMaskImageUrl: t2tMaskImageUrl,
               t2tDenoisingStrengthSize: t2tDenoisingStrengthSize,
               t2tInpaintingFillSize: t2tInpaintingFillSize,
               rating: rating,
               completedAt: completedAt,
-              status: BuiltValueNullFieldError.checkNotNull(status, r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask', 'status'),
-              isDeleted: BuiltValueNullFieldError.checkNotNull(isDeleted, r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask', 'isDeleted'),
+              status: BuiltValueNullFieldError.checkNotNull(status, r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult', 'status'),
               isProtected: isProtected,
-              count: BuiltValueNullFieldError.checkNotNull(count, r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask', 'count'),
-              generationType: BuiltValueNullFieldError.checkNotNull(generationType, r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask', 'generationType'),
+              generationType: BuiltValueNullFieldError.checkNotNull(generationType, r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult', 'generationType'),
               model: model.build(),
               vae: vae,
               nanoid: nanoid,
@@ -1485,7 +1442,7 @@ class GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTaskBuilde
         model.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask',
+            r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult',
             _$failedField,
             e.toString());
       }
@@ -1496,8 +1453,8 @@ class GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTaskBuilde
   }
 }
 
-class _$GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_model
-    extends GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_model {
+class _$GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult_model
+    extends GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult_model {
   @override
   final String G__typename;
   @override
@@ -1507,15 +1464,15 @@ class _$GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_mod
   @override
   final String type;
 
-  factory _$GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_model(
+  factory _$GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult_model(
           [void Function(
-                  GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_modelBuilder)?
+                  GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult_modelBuilder)?
               updates]) =>
-      (new GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_modelBuilder()
+      (new GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult_modelBuilder()
             ..update(updates))
           ._build();
 
-  _$GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_model._(
+  _$GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult_model._(
       {required this.G__typename,
       required this.id,
       required this.name,
@@ -1523,41 +1480,41 @@ class _$GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_mod
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename,
-        r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_model',
+        r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult_model',
         'G__typename');
     BuiltValueNullFieldError.checkNotNull(
         id,
-        r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_model',
+        r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult_model',
         'id');
     BuiltValueNullFieldError.checkNotNull(
         name,
-        r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_model',
+        r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult_model',
         'name');
     BuiltValueNullFieldError.checkNotNull(
         type,
-        r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_model',
+        r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult_model',
         'type');
   }
 
   @override
-  GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_model
+  GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult_model
       rebuild(
               void Function(
-                      GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_modelBuilder)
+                      GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult_modelBuilder)
                   updates) =>
           (toBuilder()..update(updates)).build();
 
   @override
-  GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_modelBuilder
+  GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult_modelBuilder
       toBuilder() =>
-          new GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_modelBuilder()
+          new GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult_modelBuilder()
             ..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other
-            is GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_model &&
+            is GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult_model &&
         G__typename == other.G__typename &&
         id == other.id &&
         name == other.name &&
@@ -1578,7 +1535,7 @@ class _$GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_mod
   @override
   String toString() {
     return (newBuiltValueToStringHelper(
-            r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_model')
+            r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult_model')
           ..add('G__typename', G__typename)
           ..add('id', id)
           ..add('name', name)
@@ -1587,12 +1544,12 @@ class _$GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_mod
   }
 }
 
-class GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_modelBuilder
+class GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult_modelBuilder
     implements
         Builder<
-            GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_model,
-            GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_modelBuilder> {
-  _$GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_model?
+            GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult_model,
+            GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult_modelBuilder> {
+  _$GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult_model?
       _$v;
 
   String? _G__typename;
@@ -1611,12 +1568,12 @@ class GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_model
   String? get type => _$this._type;
   set type(String? type) => _$this._type = type;
 
-  GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_modelBuilder() {
-    GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_model
+  GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult_modelBuilder() {
+    GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult_model
         ._initializeBuilder(this);
   }
 
-  GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_modelBuilder
+  GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult_modelBuilder
       get _$this {
     final $v = _$v;
     if ($v != null) {
@@ -1631,42 +1588,42 @@ class GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_model
 
   @override
   void replace(
-      GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_model
+      GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult_model
           other) {
     ArgumentError.checkNotNull(other, 'other');
     _$v = other
-        as _$GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_model;
+        as _$GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult_model;
   }
 
   @override
   void update(
       void Function(
-              GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_modelBuilder)?
+              GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult_modelBuilder)?
           updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_model
+  GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult_model
       build() => _build();
 
-  _$GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_model
+  _$GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult_model
       _build() {
     final _$result = _$v ??
-        new _$GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_model._(
+        new _$GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult_model._(
             G__typename: BuiltValueNullFieldError.checkNotNull(
                 G__typename,
-                r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_model',
+                r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult_model',
                 'G__typename'),
             id: BuiltValueNullFieldError.checkNotNull(id,
-                r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_model', 'id'),
+                r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult_model', 'id'),
             name: BuiltValueNullFieldError.checkNotNull(
                 name,
-                r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_model',
+                r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult_model',
                 'name'),
             type: BuiltValueNullFieldError.checkNotNull(
                 type,
-                r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_model',
+                r'GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult_model',
                 'type'));
     replace(_$result);
     return _$result;

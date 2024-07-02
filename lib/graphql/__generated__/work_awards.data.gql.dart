@@ -100,7 +100,23 @@ abstract class GWorkAwardsData_workAwards_work
   @override
   int get createdAt;
   @override
-  GWorkAwardsData_workAwards_work_thumbnailImage? get thumbnailImage;
+  String get imageURL;
+  @override
+  int get imageWidth;
+  @override
+  int get imageHeight;
+  @override
+  String get largeThumbnailImageURL;
+  @override
+  int get largeThumbnailImageWidth;
+  @override
+  int get largeThumbnailImageHeight;
+  @override
+  String get smallThumbnailImageURL;
+  @override
+  int get smallThumbnailImageWidth;
+  @override
+  int get smallThumbnailImageHeight;
   @override
   double? get thumbnailImagePosition;
   @override
@@ -117,45 +133,6 @@ abstract class GWorkAwardsData_workAwards_work
   static GWorkAwardsData_workAwards_work? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GWorkAwardsData_workAwards_work.serializer,
-        json,
-      );
-}
-
-abstract class GWorkAwardsData_workAwards_work_thumbnailImage
-    implements
-        Built<GWorkAwardsData_workAwards_work_thumbnailImage,
-            GWorkAwardsData_workAwards_work_thumbnailImageBuilder>,
-        _i2.GPartialWorkFields_thumbnailImage {
-  GWorkAwardsData_workAwards_work_thumbnailImage._();
-
-  factory GWorkAwardsData_workAwards_work_thumbnailImage(
-      [void Function(GWorkAwardsData_workAwards_work_thumbnailImageBuilder b)
-          updates]) = _$GWorkAwardsData_workAwards_work_thumbnailImage;
-
-  static void _initializeBuilder(
-          GWorkAwardsData_workAwards_work_thumbnailImageBuilder b) =>
-      b..G__typename = 'ImageNode';
-
-  @override
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  @override
-  String get id;
-  @override
-  String get downloadURL;
-  static Serializer<GWorkAwardsData_workAwards_work_thumbnailImage>
-      get serializer => _$gWorkAwardsDataWorkAwardsWorkThumbnailImageSerializer;
-
-  @override
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GWorkAwardsData_workAwards_work_thumbnailImage.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GWorkAwardsData_workAwards_work_thumbnailImage? fromJson(
-          Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GWorkAwardsData_workAwards_work_thumbnailImage.serializer,
         json,
       );
 }

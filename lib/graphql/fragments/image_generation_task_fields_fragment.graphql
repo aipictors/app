@@ -48,5 +48,4 @@ fragment ImageGenerationTaskFields on ImageGenerationTaskNode {
     thumbnailImageFileName
     token
     thumbnailToken
-    
   }

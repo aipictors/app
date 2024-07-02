@@ -197,6 +197,33 @@ final BuiltSet<GFolderMode> _$gFolderModeValues =
   _$gFolderModeNORMAL,
 ]);
 
+const GGenerationAccessType _$gGenerationAccessTypePRIVATE =
+    const GGenerationAccessType._('PRIVATE');
+const GGenerationAccessType _$gGenerationAccessTypePUBLIC =
+    const GGenerationAccessType._('PUBLIC');
+const GGenerationAccessType _$gGenerationAccessTypePUBLIC_IN_OWN_PRODUCT =
+    const GGenerationAccessType._('PUBLIC_IN_OWN_PRODUCT');
+
+GGenerationAccessType _$gGenerationAccessTypeValueOf(String name) {
+  switch (name) {
+    case 'PRIVATE':
+      return _$gGenerationAccessTypePRIVATE;
+    case 'PUBLIC':
+      return _$gGenerationAccessTypePUBLIC;
+    case 'PUBLIC_IN_OWN_PRODUCT':
+      return _$gGenerationAccessTypePUBLIC_IN_OWN_PRODUCT;
+    default:
+      throw new ArgumentError(name);
+  }
+}
+
+final BuiltSet<GGenerationAccessType> _$gGenerationAccessTypeValues =
+    new BuiltSet<GGenerationAccessType>(const <GGenerationAccessType>[
+  _$gGenerationAccessTypePRIVATE,
+  _$gGenerationAccessTypePUBLIC,
+  _$gGenerationAccessTypePUBLIC_IN_OWN_PRODUCT,
+]);
+
 const GImageGenerationSizeKind _$gImageGenerationSizeKindLANDSCAPE =
     const GImageGenerationSizeKind._('LANDSCAPE');
 const GImageGenerationSizeKind _$gImageGenerationSizeKindPORTRAIT =
@@ -709,6 +736,28 @@ final BuiltSet<GSort> _$gSortValues = new BuiltSet<GSort>(const <GSort>[
   _$gSortDESC,
 ]);
 
+const GStickerAccessType _$gStickerAccessTypePRIVATE =
+    const GStickerAccessType._('PRIVATE');
+const GStickerAccessType _$gStickerAccessTypePUBLIC =
+    const GStickerAccessType._('PUBLIC');
+
+GStickerAccessType _$gStickerAccessTypeValueOf(String name) {
+  switch (name) {
+    case 'PRIVATE':
+      return _$gStickerAccessTypePRIVATE;
+    case 'PUBLIC':
+      return _$gStickerAccessTypePUBLIC;
+    default:
+      throw new ArgumentError(name);
+  }
+}
+
+final BuiltSet<GStickerAccessType> _$gStickerAccessTypeValues =
+    new BuiltSet<GStickerAccessType>(const <GStickerAccessType>[
+  _$gStickerAccessTypePRIVATE,
+  _$gStickerAccessTypePUBLIC,
+]);
+
 const GStickerGenre _$gStickerGenreANIMAL = const GStickerGenre._('ANIMAL');
 const GStickerGenre _$gStickerGenreBACKGROUND =
     const GStickerGenre._('BACKGROUND');
@@ -765,6 +814,33 @@ final BuiltSet<GStickerOrderBy> _$gStickerOrderByValues =
   _$gStickerOrderByDATE_USED,
 ]);
 
+const GStickerSavedType _$gStickerSavedTypeDOWNLOADED =
+    const GStickerSavedType._('DOWNLOADED');
+const GStickerSavedType _$gStickerSavedTypePRIVATE_CREATED =
+    const GStickerSavedType._('PRIVATE_CREATED');
+const GStickerSavedType _$gStickerSavedTypePUBLIC_CREATED =
+    const GStickerSavedType._('PUBLIC_CREATED');
+
+GStickerSavedType _$gStickerSavedTypeValueOf(String name) {
+  switch (name) {
+    case 'DOWNLOADED':
+      return _$gStickerSavedTypeDOWNLOADED;
+    case 'PRIVATE_CREATED':
+      return _$gStickerSavedTypePRIVATE_CREATED;
+    case 'PUBLIC_CREATED':
+      return _$gStickerSavedTypePUBLIC_CREATED;
+    default:
+      throw new ArgumentError(name);
+  }
+}
+
+final BuiltSet<GStickerSavedType> _$gStickerSavedTypeValues =
+    new BuiltSet<GStickerSavedType>(const <GStickerSavedType>[
+  _$gStickerSavedTypeDOWNLOADED,
+  _$gStickerSavedTypePRIVATE_CREATED,
+  _$gStickerSavedTypePUBLIC_CREATED,
+]);
+
 const GWorkOrderBy _$gWorkOrderByACCESS_TYPE =
     const GWorkOrderBy._('ACCESS_TYPE');
 const GWorkOrderBy _$gWorkOrderByBOOKMARKS_COUNT =
@@ -779,6 +855,7 @@ const GWorkOrderBy _$gWorkOrderByLIKES_COUNT =
 const GWorkOrderBy _$gWorkOrderByNAME = const GWorkOrderBy._('NAME');
 const GWorkOrderBy _$gWorkOrderByVIEWS_COUNT =
     const GWorkOrderBy._('VIEWS_COUNT');
+const GWorkOrderBy _$gWorkOrderByWORK_TYPE = const GWorkOrderBy._('WORK_TYPE');
 
 GWorkOrderBy _$gWorkOrderByValueOf(String name) {
   switch (name) {
@@ -798,6 +875,8 @@ GWorkOrderBy _$gWorkOrderByValueOf(String name) {
       return _$gWorkOrderByNAME;
     case 'VIEWS_COUNT':
       return _$gWorkOrderByVIEWS_COUNT;
+    case 'WORK_TYPE':
+      return _$gWorkOrderByWORK_TYPE;
     default:
       throw new ArgumentError(name);
   }
@@ -813,6 +892,7 @@ final BuiltSet<GWorkOrderBy> _$gWorkOrderByValues =
   _$gWorkOrderByLIKES_COUNT,
   _$gWorkOrderByNAME,
   _$gWorkOrderByVIEWS_COUNT,
+  _$gWorkOrderByWORK_TYPE,
 ]);
 
 const GWorkType _$gWorkTypeCOLUMN = const GWorkType._('COLUMN');
@@ -864,6 +944,8 @@ Serializer<GAlbumRating> _$gAlbumRatingSerializer =
     new _$GAlbumRatingSerializer();
 Serializer<GAlbumsWhereInput> _$gAlbumsWhereInputSerializer =
     new _$GAlbumsWhereInputSerializer();
+Serializer<GAppEventsWhereInput> _$gAppEventsWhereInputSerializer =
+    new _$GAppEventsWhereInputSerializer();
 Serializer<GAwardsWhereInput> _$gAwardsWhereInputSerializer =
     new _$GAwardsWhereInputSerializer();
 Serializer<GAwardType> _$gAwardTypeSerializer = new _$GAwardTypeSerializer();
@@ -881,6 +963,9 @@ Serializer<GCancelPromptonRequestInput>
 Serializer<GChangePromptonFolderToPaidInput>
     _$gChangePromptonFolderToPaidInputSerializer =
     new _$GChangePromptonFolderToPaidInputSerializer();
+Serializer<GChangeUserStickerAccessTypeInput>
+    _$gChangeUserStickerAccessTypeInputSerializer =
+    new _$GChangeUserStickerAccessTypeInputSerializer();
 Serializer<GClosePromptonRequestInput> _$gClosePromptonRequestInputSerializer =
     new _$GClosePromptonRequestInputSerializer();
 Serializer<GCommentsOrderBy> _$gCommentsOrderBySerializer =
@@ -931,9 +1016,6 @@ Serializer<GCreatePromptonFolderInput> _$gCreatePromptonFolderInputSerializer =
 Serializer<GCreatePromptonFolderKeyInput>
     _$gCreatePromptonFolderKeyInputSerializer =
     new _$GCreatePromptonFolderKeyInputSerializer();
-Serializer<GCreatePromptonImageGenerationInput>
-    _$gCreatePromptonImageGenerationInputSerializer =
-    new _$GCreatePromptonImageGenerationInputSerializer();
 Serializer<GCreatePromptonInquiryInput>
     _$gCreatePromptonInquiryInputSerializer =
     new _$GCreatePromptonInquiryInputSerializer();
@@ -1000,9 +1082,9 @@ Serializer<GDeleteFolderWorkInput> _$gDeleteFolderWorkInputSerializer =
 Serializer<GDeleteImageGenerationMemoInput>
     _$gDeleteImageGenerationMemoInputSerializer =
     new _$GDeleteImageGenerationMemoInputSerializer();
-Serializer<GDeleteImageGenerationTaskInput>
-    _$gDeleteImageGenerationTaskInputSerializer =
-    new _$GDeleteImageGenerationTaskInputSerializer();
+Serializer<GDeleteImageGenerationResultInput>
+    _$gDeleteImageGenerationResultInputSerializer =
+    new _$GDeleteImageGenerationResultInputSerializer();
 Serializer<GDeleteMessageInput> _$gDeleteMessageInputSerializer =
     new _$GDeleteMessageInputSerializer();
 Serializer<GDeleteNoteInput> _$gDeleteNoteInputSerializer =
@@ -1038,6 +1120,9 @@ Serializer<GDeleteWorkInput> _$gDeleteWorkInputSerializer =
 Serializer<GDeleteWorkLikeInput> _$gDeleteWorkLikeInputSerializer =
     new _$GDeleteWorkLikeInputSerializer();
 Serializer<GDirection> _$gDirectionSerializer = new _$GDirectionSerializer();
+Serializer<GFeaturePromptonRequestWhereInput>
+    _$gFeaturePromptonRequestWhereInputSerializer =
+    new _$GFeaturePromptonRequestWhereInputSerializer();
 Serializer<GFlipPromptonFolderWorkIndexInput>
     _$gFlipPromptonFolderWorkIndexInputSerializer =
     new _$GFlipPromptonFolderWorkIndexInputSerializer();
@@ -1052,11 +1137,16 @@ Serializer<GFollowPromptonUserInput> _$gFollowPromptonUserInputSerializer =
     new _$GFollowPromptonUserInputSerializer();
 Serializer<GFollowUserInput> _$gFollowUserInputSerializer =
     new _$GFollowUserInputSerializer();
+Serializer<GGenerationAccessType> _$gGenerationAccessTypeSerializer =
+    new _$GGenerationAccessTypeSerializer();
 Serializer<GHotWorksWhereInput> _$gHotWorksWhereInputSerializer =
     new _$GHotWorksWhereInputSerializer();
 Serializer<GImageGenerationMemoOrderBy>
     _$gImageGenerationMemoOrderBySerializer =
     new _$GImageGenerationMemoOrderBySerializer();
+Serializer<GImageGenerationResultsWhereInput>
+    _$gImageGenerationResultsWhereInputSerializer =
+    new _$GImageGenerationResultsWhereInputSerializer();
 Serializer<GImageGenerationSizeKind> _$gImageGenerationSizeKindSerializer =
     new _$GImageGenerationSizeKindSerializer();
 Serializer<GImageGenerationSizeType> _$gImageGenerationSizeTypeSerializer =
@@ -1121,9 +1211,6 @@ Serializer<GPreferenceRating> _$gPreferenceRatingSerializer =
     new _$GPreferenceRatingSerializer();
 Serializer<GPromptonFoldersWhereInput> _$gPromptonFoldersWhereInputSerializer =
     new _$GPromptonFoldersWhereInputSerializer();
-Serializer<GPromptonImageGenerationsWhereInput>
-    _$gPromptonImageGenerationsWhereInputSerializer =
-    new _$GPromptonImageGenerationsWhereInputSerializer();
 Serializer<GPromptonLabelsWhereInput> _$gPromptonLabelsWhereInputSerializer =
     new _$GPromptonLabelsWhereInputSerializer();
 Serializer<GPromptonPlansWhereInput> _$gPromptonPlansWhereInputSerializer =
@@ -1161,14 +1248,20 @@ Serializer<GReportUserInput> _$gReportUserInputSerializer =
     new _$GReportUserInputSerializer();
 Serializer<GReportWorkInput> _$gReportWorkInputSerializer =
     new _$GReportWorkInputSerializer();
+Serializer<GSendPromptonMessageInput> _$gSendPromptonMessageInputSerializer =
+    new _$GSendPromptonMessageInputSerializer();
 Serializer<GSignImageGenerationTermsInput>
     _$gSignImageGenerationTermsInputSerializer =
     new _$GSignImageGenerationTermsInputSerializer();
 Serializer<GSort> _$gSortSerializer = new _$GSortSerializer();
+Serializer<GStickerAccessType> _$gStickerAccessTypeSerializer =
+    new _$GStickerAccessTypeSerializer();
 Serializer<GStickerGenre> _$gStickerGenreSerializer =
     new _$GStickerGenreSerializer();
 Serializer<GStickerOrderBy> _$gStickerOrderBySerializer =
     new _$GStickerOrderBySerializer();
+Serializer<GStickerSavedType> _$gStickerSavedTypeSerializer =
+    new _$GStickerSavedTypeSerializer();
 Serializer<GStickersWhereInput> _$gStickersWhereInputSerializer =
     new _$GStickersWhereInputSerializer();
 Serializer<GTagsWhereInput> _$gTagsWhereInputSerializer =
@@ -1239,15 +1332,15 @@ Serializer<GUpdatePromptonUserProfileInput>
     new _$GUpdatePromptonUserProfileInputSerializer();
 Serializer<GUpdatePromptonWorkInput> _$gUpdatePromptonWorkInputSerializer =
     new _$GUpdatePromptonWorkInputSerializer();
-Serializer<GUpdateProtectedImageGenerationTaskInput>
-    _$gUpdateProtectedImageGenerationTaskInputSerializer =
-    new _$GUpdateProtectedImageGenerationTaskInputSerializer();
+Serializer<GUpdateProtectedImageGenerationResultInput>
+    _$gUpdateProtectedImageGenerationResultInputSerializer =
+    new _$GUpdateProtectedImageGenerationResultInputSerializer();
 Serializer<GUpdateRatingImageGenerationModelInput>
     _$gUpdateRatingImageGenerationModelInputSerializer =
     new _$GUpdateRatingImageGenerationModelInputSerializer();
-Serializer<GUpdateRatingImageGenerationTaskInput>
-    _$gUpdateRatingImageGenerationTaskInputSerializer =
-    new _$GUpdateRatingImageGenerationTaskInputSerializer();
+Serializer<GUpdateRatingImageGenerationResultInput>
+    _$gUpdateRatingImageGenerationResultInputSerializer =
+    new _$GUpdateRatingImageGenerationResultInputSerializer();
 Serializer<GUpdateStickerInput> _$gUpdateStickerInputSerializer =
     new _$GUpdateStickerInputSerializer();
 Serializer<GUpdateUserProfileInput> _$gUpdateUserProfileInputSerializer =
@@ -1258,8 +1351,12 @@ Serializer<GUpdateWorkInput> _$gUpdateWorkInputSerializer =
     new _$GUpdateWorkInputSerializer();
 Serializer<GUserAlbumInput> _$gUserAlbumInputSerializer =
     new _$GUserAlbumInputSerializer();
+Serializer<GUserAlbumWhereInput> _$gUserAlbumWhereInputSerializer =
+    new _$GUserAlbumWhereInputSerializer();
 Serializer<GUserFolderInput> _$gUserFolderInputSerializer =
     new _$GUserFolderInputSerializer();
+Serializer<GUserStickersWhereInput> _$gUserStickersWhereInputSerializer =
+    new _$GUserStickersWhereInputSerializer();
 Serializer<GUsersWhereInput> _$gUsersWhereInputSerializer =
     new _$GUsersWhereInputSerializer();
 Serializer<GUserWorksWhereInput> _$gUserWorksWhereInputSerializer =
@@ -1696,6 +1793,99 @@ class _$GAlbumsWhereInputSerializer
   }
 }
 
+class _$GAppEventsWhereInputSerializer
+    implements StructuredSerializer<GAppEventsWhereInput> {
+  @override
+  final Iterable<Type> types = const [
+    GAppEventsWhereInput,
+    _$GAppEventsWhereInput
+  ];
+  @override
+  final String wireName = 'GAppEventsWhereInput';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GAppEventsWhereInput object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[];
+    Object? value;
+    value = object.endAt;
+    if (value != null) {
+      result
+        ..add('endAt')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.slug;
+    if (value != null) {
+      result
+        ..add('slug')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.startAt;
+    if (value != null) {
+      result
+        ..add('startAt')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.tag;
+    if (value != null) {
+      result
+        ..add('tag')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.title;
+    if (value != null) {
+      result
+        ..add('title')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    return result;
+  }
+
+  @override
+  GAppEventsWhereInput deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GAppEventsWhereInputBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'endAt':
+          result.endAt = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'slug':
+          result.slug = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'startAt':
+          result.startAt = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'tag':
+          result.tag = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'title':
+          result.title = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$GAwardsWhereInputSerializer
     implements StructuredSerializer<GAwardsWhereInput> {
   @override
@@ -2045,6 +2235,96 @@ class _$GChangePromptonFolderToPaidInputSerializer
         case 'price':
           result.price = serializers.deserialize(value,
               specifiedType: const FullType(int))! as int;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GChangeUserStickerAccessTypeInputSerializer
+    implements StructuredSerializer<GChangeUserStickerAccessTypeInput> {
+  @override
+  final Iterable<Type> types = const [
+    GChangeUserStickerAccessTypeInput,
+    _$GChangeUserStickerAccessTypeInput
+  ];
+  @override
+  final String wireName = 'GChangeUserStickerAccessTypeInput';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GChangeUserStickerAccessTypeInput object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'accessType',
+      serializers.serialize(object.accessType,
+          specifiedType: const FullType(GStickerAccessType)),
+      'stickerId',
+      serializers.serialize(object.stickerId,
+          specifiedType: const FullType(String)),
+    ];
+    Object? value;
+    value = object.categories;
+    if (value != null) {
+      result
+        ..add('categories')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(String)])));
+    }
+    value = object.genre;
+    if (value != null) {
+      result
+        ..add('genre')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(GStickerGenre)));
+    }
+    value = object.title;
+    if (value != null) {
+      result
+        ..add('title')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    return result;
+  }
+
+  @override
+  GChangeUserStickerAccessTypeInput deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GChangeUserStickerAccessTypeInputBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'accessType':
+          result.accessType = serializers.deserialize(value,
+                  specifiedType: const FullType(GStickerAccessType))!
+              as GStickerAccessType;
+          break;
+        case 'categories':
+          result.categories.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(String)]))!
+              as BuiltList<Object?>);
+          break;
+        case 'genre':
+          result.genre = serializers.deserialize(value,
+              specifiedType: const FullType(GStickerGenre)) as GStickerGenre?;
+          break;
+        case 'stickerId':
+          result.stickerId = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'title':
+          result.title = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
           break;
       }
     }
@@ -3163,8 +3443,6 @@ class _$GCreatePromptonAipicRequestInputSerializer
       Serializers serializers, GCreatePromptonAipicRequestInput object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
-      'note',
-      serializers.serialize(object.note, specifiedType: const FullType(String)),
       'recipientId',
       serializers.serialize(object.recipientId,
           specifiedType: const FullType(String)),
@@ -3175,6 +3453,13 @@ class _$GCreatePromptonAipicRequestInputSerializer
       result
         ..add('fee')
         ..add(serializers.serialize(value, specifiedType: const FullType(int)));
+    }
+    value = object.note;
+    if (value != null) {
+      result
+        ..add('note')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
     }
     return result;
   }
@@ -3197,7 +3482,7 @@ class _$GCreatePromptonAipicRequestInputSerializer
           break;
         case 'note':
           result.note = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'recipientId':
           result.recipientId = serializers.deserialize(value,
@@ -3564,79 +3849,6 @@ class _$GCreatePromptonFolderKeyInputSerializer
       switch (key) {
         case 'folderId':
           result.folderId = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GCreatePromptonImageGenerationInputSerializer
-    implements StructuredSerializer<GCreatePromptonImageGenerationInput> {
-  @override
-  final Iterable<Type> types = const [
-    GCreatePromptonImageGenerationInput,
-    _$GCreatePromptonImageGenerationInput
-  ];
-  @override
-  final String wireName = 'GCreatePromptonImageGenerationInput';
-
-  @override
-  Iterable<Object?> serialize(
-      Serializers serializers, GCreatePromptonImageGenerationInput object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      'model',
-      serializers.serialize(object.model,
-          specifiedType: const FullType(String)),
-      'prompt',
-      serializers.serialize(object.prompt,
-          specifiedType: const FullType(String)),
-      'quality',
-      serializers.serialize(object.quality,
-          specifiedType: const FullType(String)),
-      'size',
-      serializers.serialize(object.size, specifiedType: const FullType(String)),
-      'style',
-      serializers.serialize(object.style,
-          specifiedType: const FullType(String)),
-    ];
-
-    return result;
-  }
-
-  @override
-  GCreatePromptonImageGenerationInput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GCreatePromptonImageGenerationInputBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case 'model':
-          result.model = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'prompt':
-          result.prompt = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'quality':
-          result.quality = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'size':
-          result.size = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'style':
-          result.style = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
       }
@@ -5120,6 +5332,9 @@ class _$GCreateWorkInputSerializer
   Iterable<Object?> serialize(Serializers serializers, GCreateWorkInput object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
+      'accessGenerationType',
+      serializers.serialize(object.accessGenerationType,
+          specifiedType: const FullType(GGenerationAccessType)),
       'accessType',
       serializers.serialize(object.accessType,
           specifiedType: const FullType(GAccessType)),
@@ -5360,6 +5575,11 @@ class _$GCreateWorkInputSerializer
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
+        case 'accessGenerationType':
+          result.accessGenerationType = serializers.deserialize(value,
+                  specifiedType: const FullType(GGenerationAccessType))!
+              as GGenerationAccessType;
+          break;
         case 'accessType':
           result.accessType = serializers.deserialize(value,
               specifiedType: const FullType(GAccessType))! as GAccessType;
@@ -6015,19 +6235,19 @@ class _$GDeleteImageGenerationMemoInputSerializer
   }
 }
 
-class _$GDeleteImageGenerationTaskInputSerializer
-    implements StructuredSerializer<GDeleteImageGenerationTaskInput> {
+class _$GDeleteImageGenerationResultInputSerializer
+    implements StructuredSerializer<GDeleteImageGenerationResultInput> {
   @override
   final Iterable<Type> types = const [
-    GDeleteImageGenerationTaskInput,
-    _$GDeleteImageGenerationTaskInput
+    GDeleteImageGenerationResultInput,
+    _$GDeleteImageGenerationResultInput
   ];
   @override
-  final String wireName = 'GDeleteImageGenerationTaskInput';
+  final String wireName = 'GDeleteImageGenerationResultInput';
 
   @override
   Iterable<Object?> serialize(
-      Serializers serializers, GDeleteImageGenerationTaskInput object,
+      Serializers serializers, GDeleteImageGenerationResultInput object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
       'nanoid',
@@ -6039,10 +6259,10 @@ class _$GDeleteImageGenerationTaskInputSerializer
   }
 
   @override
-  GDeleteImageGenerationTaskInput deserialize(
+  GDeleteImageGenerationResultInput deserialize(
       Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new GDeleteImageGenerationTaskInputBuilder();
+    final result = new GDeleteImageGenerationResultInputBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -6756,6 +6976,52 @@ class _$GDirectionSerializer implements PrimitiveSerializer<GDirection> {
       GDirection.valueOf(serialized as String);
 }
 
+class _$GFeaturePromptonRequestWhereInputSerializer
+    implements StructuredSerializer<GFeaturePromptonRequestWhereInput> {
+  @override
+  final Iterable<Type> types = const [
+    GFeaturePromptonRequestWhereInput,
+    _$GFeaturePromptonRequestWhereInput
+  ];
+  @override
+  final String wireName = 'GFeaturePromptonRequestWhereInput';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GFeaturePromptonRequestWhereInput object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'userId',
+      serializers.serialize(object.userId,
+          specifiedType: const FullType(String)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GFeaturePromptonRequestWhereInput deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GFeaturePromptonRequestWhereInputBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'userId':
+          result.userId = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$GFlipPromptonFolderWorkIndexInputSerializer
     implements StructuredSerializer<GFlipPromptonFolderWorkIndexInput> {
   @override
@@ -6860,6 +7126,21 @@ class _$GFoldersWhereInputSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
+    value = object.tags;
+    if (value != null) {
+      result
+        ..add('tags')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(String)])));
+    }
+    value = object.userId;
+    if (value != null) {
+      result
+        ..add('userId')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
@@ -6881,6 +7162,16 @@ class _$GFoldersWhereInputSerializer
           break;
         case 'search':
           result.search = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'tags':
+          result.tags.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(String)]))!
+              as BuiltList<Object?>);
+          break;
+        case 'userId':
+          result.userId = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
       }
@@ -7068,6 +7359,24 @@ class _$GFollowUserInputSerializer
   }
 }
 
+class _$GGenerationAccessTypeSerializer
+    implements PrimitiveSerializer<GGenerationAccessType> {
+  @override
+  final Iterable<Type> types = const <Type>[GGenerationAccessType];
+  @override
+  final String wireName = 'GGenerationAccessType';
+
+  @override
+  Object serialize(Serializers serializers, GGenerationAccessType object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      object.name;
+
+  @override
+  GGenerationAccessType deserialize(Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      GGenerationAccessType.valueOf(serialized as String);
+}
+
 class _$GHotWorksWhereInputSerializer
     implements StructuredSerializer<GHotWorksWhereInput> {
   @override
@@ -7158,6 +7467,97 @@ class _$GImageGenerationMemoOrderBySerializer
         case 'createdAt':
           result.createdAt = serializers.deserialize(value,
               specifiedType: const FullType(GDirection)) as GDirection?;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GImageGenerationResultsWhereInputSerializer
+    implements StructuredSerializer<GImageGenerationResultsWhereInput> {
+  @override
+  final Iterable<Type> types = const [
+    GImageGenerationResultsWhereInput,
+    _$GImageGenerationResultsWhereInput
+  ];
+  @override
+  final String wireName = 'GImageGenerationResultsWhereInput';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GImageGenerationResultsWhereInput object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[];
+    Object? value;
+    value = object.dateText;
+    if (value != null) {
+      result
+        ..add('dateText')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.fromDate;
+    if (value != null) {
+      result
+        ..add('fromDate')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.isProtected;
+    if (value != null) {
+      result
+        ..add('isProtected')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
+    value = object.minRating;
+    if (value != null) {
+      result
+        ..add('minRating')
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
+    }
+    value = object.rating;
+    if (value != null) {
+      result
+        ..add('rating')
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
+    }
+    return result;
+  }
+
+  @override
+  GImageGenerationResultsWhereInput deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GImageGenerationResultsWhereInputBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'dateText':
+          result.dateText = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'fromDate':
+          result.fromDate = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'isProtected':
+          result.isProtected = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
+        case 'minRating':
+          result.minRating = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int?;
+          break;
+        case 'rating':
+          result.rating = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int?;
           break;
       }
     }
@@ -8270,55 +8670,6 @@ class _$GPromptonFoldersWhereInputSerializer
   }
 }
 
-class _$GPromptonImageGenerationsWhereInputSerializer
-    implements StructuredSerializer<GPromptonImageGenerationsWhereInput> {
-  @override
-  final Iterable<Type> types = const [
-    GPromptonImageGenerationsWhereInput,
-    _$GPromptonImageGenerationsWhereInput
-  ];
-  @override
-  final String wireName = 'GPromptonImageGenerationsWhereInput';
-
-  @override
-  Iterable<Object?> serialize(
-      Serializers serializers, GPromptonImageGenerationsWhereInput object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[];
-    Object? value;
-    value = object.search;
-    if (value != null) {
-      result
-        ..add('search')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
-    }
-    return result;
-  }
-
-  @override
-  GPromptonImageGenerationsWhereInput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GPromptonImageGenerationsWhereInputBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case 'search':
-          result.search = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
 class _$GPromptonLabelsWhereInputSerializer
     implements StructuredSerializer<GPromptonLabelsWhereInput> {
   @override
@@ -9199,6 +9550,58 @@ class _$GReportWorkInputSerializer
   }
 }
 
+class _$GSendPromptonMessageInputSerializer
+    implements StructuredSerializer<GSendPromptonMessageInput> {
+  @override
+  final Iterable<Type> types = const [
+    GSendPromptonMessageInput,
+    _$GSendPromptonMessageInput
+  ];
+  @override
+  final String wireName = 'GSendPromptonMessageInput';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GSendPromptonMessageInput object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'recipientId',
+      serializers.serialize(object.recipientId,
+          specifiedType: const FullType(String)),
+      'text',
+      serializers.serialize(object.text, specifiedType: const FullType(String)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GSendPromptonMessageInput deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GSendPromptonMessageInputBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'recipientId':
+          result.recipientId = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'text':
+          result.text = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$GSignImageGenerationTermsInputSerializer
     implements StructuredSerializer<GSignImageGenerationTermsInput> {
   @override
@@ -9261,6 +9664,24 @@ class _$GSortSerializer implements PrimitiveSerializer<GSort> {
       GSort.valueOf(serialized as String);
 }
 
+class _$GStickerAccessTypeSerializer
+    implements PrimitiveSerializer<GStickerAccessType> {
+  @override
+  final Iterable<Type> types = const <Type>[GStickerAccessType];
+  @override
+  final String wireName = 'GStickerAccessType';
+
+  @override
+  Object serialize(Serializers serializers, GStickerAccessType object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      object.name;
+
+  @override
+  GStickerAccessType deserialize(Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      GStickerAccessType.valueOf(serialized as String);
+}
+
 class _$GStickerGenreSerializer implements PrimitiveSerializer<GStickerGenre> {
   @override
   final Iterable<Type> types = const <Type>[GStickerGenre];
@@ -9294,6 +9715,24 @@ class _$GStickerOrderBySerializer
   GStickerOrderBy deserialize(Serializers serializers, Object serialized,
           {FullType specifiedType = FullType.unspecified}) =>
       GStickerOrderBy.valueOf(serialized as String);
+}
+
+class _$GStickerSavedTypeSerializer
+    implements PrimitiveSerializer<GStickerSavedType> {
+  @override
+  final Iterable<Type> types = const <Type>[GStickerSavedType];
+  @override
+  final String wireName = 'GStickerSavedType';
+
+  @override
+  Object serialize(Serializers serializers, GStickerSavedType object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      object.name;
+
+  @override
+  GStickerSavedType deserialize(Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      GStickerSavedType.valueOf(serialized as String);
 }
 
 class _$GStickersWhereInputSerializer
@@ -9334,13 +9773,6 @@ class _$GStickersWhereInputSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(GStickerGenre)));
     }
-    value = object.ownerUserId;
-    if (value != null) {
-      result
-        ..add('ownerUserId')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
-    }
     value = object.search;
     if (value != null) {
       result
@@ -9376,10 +9808,6 @@ class _$GStickersWhereInputSerializer
         case 'genre':
           result.genre = serializers.deserialize(value,
               specifiedType: const FullType(GStickerGenre)) as GStickerGenre?;
-          break;
-        case 'ownerUserId':
-          result.ownerUserId = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
           break;
         case 'search':
           result.search = serializers.deserialize(value,
@@ -9964,7 +10392,36 @@ class _$GUpdateAlbumInputSerializer
       serializers.serialize(object.albumId,
           specifiedType: const FullType(String)),
     ];
-
+    Object? value;
+    value = object.description;
+    if (value != null) {
+      result
+        ..add('description')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.headerImageUrl;
+    if (value != null) {
+      result
+        ..add('headerImageUrl')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.title;
+    if (value != null) {
+      result
+        ..add('title')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.workIds;
+    if (value != null) {
+      result
+        ..add('workIds')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(String)])));
+    }
     return result;
   }
 
@@ -9983,6 +10440,24 @@ class _$GUpdateAlbumInputSerializer
         case 'albumId':
           result.albumId = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
+          break;
+        case 'description':
+          result.description = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'headerImageUrl':
+          result.headerImageUrl = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'title':
+          result.title = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'workIds':
+          result.workIds.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(String)]))!
+              as BuiltList<Object?>);
           break;
       }
     }
@@ -11069,19 +11544,20 @@ class _$GUpdatePromptonWorkInputSerializer
   }
 }
 
-class _$GUpdateProtectedImageGenerationTaskInputSerializer
-    implements StructuredSerializer<GUpdateProtectedImageGenerationTaskInput> {
+class _$GUpdateProtectedImageGenerationResultInputSerializer
+    implements
+        StructuredSerializer<GUpdateProtectedImageGenerationResultInput> {
   @override
   final Iterable<Type> types = const [
-    GUpdateProtectedImageGenerationTaskInput,
-    _$GUpdateProtectedImageGenerationTaskInput
+    GUpdateProtectedImageGenerationResultInput,
+    _$GUpdateProtectedImageGenerationResultInput
   ];
   @override
-  final String wireName = 'GUpdateProtectedImageGenerationTaskInput';
+  final String wireName = 'GUpdateProtectedImageGenerationResultInput';
 
   @override
-  Iterable<Object?> serialize(
-      Serializers serializers, GUpdateProtectedImageGenerationTaskInput object,
+  Iterable<Object?> serialize(Serializers serializers,
+      GUpdateProtectedImageGenerationResultInput object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
       'isProtected',
@@ -11096,10 +11572,10 @@ class _$GUpdateProtectedImageGenerationTaskInputSerializer
   }
 
   @override
-  GUpdateProtectedImageGenerationTaskInput deserialize(
+  GUpdateProtectedImageGenerationResultInput deserialize(
       Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new GUpdateProtectedImageGenerationTaskInputBuilder();
+    final result = new GUpdateProtectedImageGenerationResultInputBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -11174,19 +11650,19 @@ class _$GUpdateRatingImageGenerationModelInputSerializer
   }
 }
 
-class _$GUpdateRatingImageGenerationTaskInputSerializer
-    implements StructuredSerializer<GUpdateRatingImageGenerationTaskInput> {
+class _$GUpdateRatingImageGenerationResultInputSerializer
+    implements StructuredSerializer<GUpdateRatingImageGenerationResultInput> {
   @override
   final Iterable<Type> types = const [
-    GUpdateRatingImageGenerationTaskInput,
-    _$GUpdateRatingImageGenerationTaskInput
+    GUpdateRatingImageGenerationResultInput,
+    _$GUpdateRatingImageGenerationResultInput
   ];
   @override
-  final String wireName = 'GUpdateRatingImageGenerationTaskInput';
+  final String wireName = 'GUpdateRatingImageGenerationResultInput';
 
   @override
   Iterable<Object?> serialize(
-      Serializers serializers, GUpdateRatingImageGenerationTaskInput object,
+      Serializers serializers, GUpdateRatingImageGenerationResultInput object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
       'nanoid',
@@ -11200,10 +11676,10 @@ class _$GUpdateRatingImageGenerationTaskInputSerializer
   }
 
   @override
-  GUpdateRatingImageGenerationTaskInput deserialize(
+  GUpdateRatingImageGenerationResultInput deserialize(
       Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new GUpdateRatingImageGenerationTaskInputBuilder();
+    final result = new GUpdateRatingImageGenerationResultInputBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -11346,6 +11822,13 @@ class _$GUpdateUserProfileInputSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
+    value = object.homeUrl;
+    if (value != null) {
+      result
+        ..add('homeUrl')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     value = object.iconUrl;
     if (value != null) {
       result
@@ -11357,6 +11840,13 @@ class _$GUpdateUserProfileInputSerializer
     if (value != null) {
       result
         ..add('instagramAccountId')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.mailAddress;
+    if (value != null) {
+      result
+        ..add('mailAddress')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
@@ -11414,12 +11904,20 @@ class _$GUpdateUserProfileInputSerializer
           result.headerImageUrl = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
+        case 'homeUrl':
+          result.homeUrl = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
         case 'iconUrl':
           result.iconUrl = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
         case 'instagramAccountId':
           result.instagramAccountId = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'mailAddress':
+          result.mailAddress = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
         case 'twitterAccountId':
@@ -11449,12 +11947,54 @@ class _$GUpdateUserSettingInputSerializer
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[];
     Object? value;
+    value = object.featurePromptonRequest;
+    if (value != null) {
+      result
+        ..add('featurePromptonRequest')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
+    value = object.isAnonymousLike;
+    if (value != null) {
+      result
+        ..add('isAnonymousLike')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
+    value = object.isAnonymousSensitiveLike;
+    if (value != null) {
+      result
+        ..add('isAnonymousSensitiveLike')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
+    value = object.isBlurSensitiveImage;
+    if (value != null) {
+      result
+        ..add('isBlurSensitiveImage')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
+    value = object.isNotifyComment;
+    if (value != null) {
+      result
+        ..add('isNotifyComment')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
     value = object.preferenceRating;
     if (value != null) {
       result
         ..add('preferenceRating')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(GPreferenceRating)));
+    }
+    value = object.safetyMode;
+    if (value != null) {
+      result
+        ..add('safetyMode')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
     }
     return result;
   }
@@ -11471,10 +12011,34 @@ class _$GUpdateUserSettingInputSerializer
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
+        case 'featurePromptonRequest':
+          result.featurePromptonRequest = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
+        case 'isAnonymousLike':
+          result.isAnonymousLike = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
+        case 'isAnonymousSensitiveLike':
+          result.isAnonymousSensitiveLike = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
+        case 'isBlurSensitiveImage':
+          result.isBlurSensitiveImage = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
+        case 'isNotifyComment':
+          result.isNotifyComment = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
         case 'preferenceRating':
           result.preferenceRating = serializers.deserialize(value,
                   specifiedType: const FullType(GPreferenceRating))
               as GPreferenceRating?;
+          break;
+        case 'safetyMode':
+          result.safetyMode = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
           break;
       }
     }
@@ -11494,14 +12058,236 @@ class _$GUpdateWorkInputSerializer
   Iterable<Object?> serialize(Serializers serializers, GUpdateWorkInput object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
+      'accessGenerationType',
+      serializers.serialize(object.accessGenerationType,
+          specifiedType: const FullType(GGenerationAccessType)),
+      'accessType',
+      serializers.serialize(object.accessType,
+          specifiedType: const FullType(GAccessType)),
+      'id',
+      serializers.serialize(object.id, specifiedType: const FullType(String)),
+      'imageHeight',
+      serializers.serialize(object.imageHeight,
+          specifiedType: const FullType(int)),
+      'imageStyle',
+      serializers.serialize(object.imageStyle,
+          specifiedType: const FullType(GImageStyle)),
+      'imageUrls',
+      serializers.serialize(object.imageUrls,
+          specifiedType:
+              const FullType(BuiltList, const [const FullType(String)])),
+      'imageWidth',
+      serializers.serialize(object.imageWidth,
+          specifiedType: const FullType(int)),
+      'isCommentEditable',
+      serializers.serialize(object.isCommentEditable,
+          specifiedType: const FullType(bool)),
+      'isPromotion',
+      serializers.serialize(object.isPromotion,
+          specifiedType: const FullType(bool)),
+      'isTagEditable',
+      serializers.serialize(object.isTagEditable,
+          specifiedType: const FullType(bool)),
+      'largeThumbnailImageHeight',
+      serializers.serialize(object.largeThumbnailImageHeight,
+          specifiedType: const FullType(int)),
+      'largeThumbnailImageURL',
+      serializers.serialize(object.largeThumbnailImageURL,
+          specifiedType: const FullType(String)),
+      'largeThumbnailImageWidth',
+      serializers.serialize(object.largeThumbnailImageWidth,
+          specifiedType: const FullType(int)),
+      'mainImageSha256',
+      serializers.serialize(object.mainImageSha256,
+          specifiedType: const FullType(String)),
+      'rating',
+      serializers.serialize(object.rating,
+          specifiedType: const FullType(GRating)),
+      'smallThumbnailImageHeight',
+      serializers.serialize(object.smallThumbnailImageHeight,
+          specifiedType: const FullType(int)),
+      'smallThumbnailImageURL',
+      serializers.serialize(object.smallThumbnailImageURL,
+          specifiedType: const FullType(String)),
+      'smallThumbnailImageWidth',
+      serializers.serialize(object.smallThumbnailImageWidth,
+          specifiedType: const FullType(int)),
       'title',
       serializers.serialize(object.title,
           specifiedType: const FullType(String)),
-      'workId',
-      serializers.serialize(object.workId,
-          specifiedType: const FullType(String)),
+      'type',
+      serializers.serialize(object.type,
+          specifiedType: const FullType(GWorkType)),
     ];
-
+    Object? value;
+    value = object.albumId;
+    if (value != null) {
+      result
+        ..add('albumId')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.enExplanation;
+    if (value != null) {
+      result
+        ..add('enExplanation')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.entitle;
+    if (value != null) {
+      result
+        ..add('entitle')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.explanation;
+    if (value != null) {
+      result
+        ..add('explanation')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.html;
+    if (value != null) {
+      result
+        ..add('html')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.modelHash;
+    if (value != null) {
+      result
+        ..add('modelHash')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.modelId;
+    if (value != null) {
+      result
+        ..add('modelId')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.modelName;
+    if (value != null) {
+      result
+        ..add('modelName')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.negativePrompt;
+    if (value != null) {
+      result
+        ..add('negativePrompt')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.noise;
+    if (value != null) {
+      result
+        ..add('noise')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.ogpImageUrl;
+    if (value != null) {
+      result
+        ..add('ogpImageUrl')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.otherGenerationParams;
+    if (value != null) {
+      result
+        ..add('otherGenerationParams')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.pngInfo;
+    if (value != null) {
+      result
+        ..add('pngInfo')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.prompt;
+    if (value != null) {
+      result
+        ..add('prompt')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.relatedUrl;
+    if (value != null) {
+      result
+        ..add('relatedUrl')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.reservedAt;
+    if (value != null) {
+      result
+        ..add('reservedAt')
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
+    }
+    value = object.sampler;
+    if (value != null) {
+      result
+        ..add('sampler')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.seed;
+    if (value != null) {
+      result
+        ..add('seed')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.steps;
+    if (value != null) {
+      result
+        ..add('steps')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.strength;
+    if (value != null) {
+      result
+        ..add('strength')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.subjectId;
+    if (value != null) {
+      result
+        ..add('subjectId')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.tags;
+    if (value != null) {
+      result
+        ..add('tags')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(String)])));
+    }
+    value = object.thumbnailPosition;
+    if (value != null) {
+      result
+        ..add('thumbnailPosition')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(double)));
+    }
+    value = object.videoUrl;
+    if (value != null) {
+      result
+        ..add('videoUrl')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
@@ -11517,13 +12303,186 @@ class _$GUpdateWorkInputSerializer
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
+        case 'accessGenerationType':
+          result.accessGenerationType = serializers.deserialize(value,
+                  specifiedType: const FullType(GGenerationAccessType))!
+              as GGenerationAccessType;
+          break;
+        case 'accessType':
+          result.accessType = serializers.deserialize(value,
+              specifiedType: const FullType(GAccessType))! as GAccessType;
+          break;
+        case 'albumId':
+          result.albumId = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'enExplanation':
+          result.enExplanation = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'entitle':
+          result.entitle = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'explanation':
+          result.explanation = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'html':
+          result.html = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'id':
+          result.id = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'imageHeight':
+          result.imageHeight = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'imageStyle':
+          result.imageStyle = serializers.deserialize(value,
+              specifiedType: const FullType(GImageStyle))! as GImageStyle;
+          break;
+        case 'imageUrls':
+          result.imageUrls.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(String)]))!
+              as BuiltList<Object?>);
+          break;
+        case 'imageWidth':
+          result.imageWidth = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'isCommentEditable':
+          result.isCommentEditable = serializers.deserialize(value,
+              specifiedType: const FullType(bool))! as bool;
+          break;
+        case 'isPromotion':
+          result.isPromotion = serializers.deserialize(value,
+              specifiedType: const FullType(bool))! as bool;
+          break;
+        case 'isTagEditable':
+          result.isTagEditable = serializers.deserialize(value,
+              specifiedType: const FullType(bool))! as bool;
+          break;
+        case 'largeThumbnailImageHeight':
+          result.largeThumbnailImageHeight = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'largeThumbnailImageURL':
+          result.largeThumbnailImageURL = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'largeThumbnailImageWidth':
+          result.largeThumbnailImageWidth = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'mainImageSha256':
+          result.mainImageSha256 = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'modelHash':
+          result.modelHash = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'modelId':
+          result.modelId = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'modelName':
+          result.modelName = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'negativePrompt':
+          result.negativePrompt = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'noise':
+          result.noise = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'ogpImageUrl':
+          result.ogpImageUrl = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'otherGenerationParams':
+          result.otherGenerationParams = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'pngInfo':
+          result.pngInfo = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'prompt':
+          result.prompt = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'rating':
+          result.rating = serializers.deserialize(value,
+              specifiedType: const FullType(GRating))! as GRating;
+          break;
+        case 'relatedUrl':
+          result.relatedUrl = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'reservedAt':
+          result.reservedAt = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int?;
+          break;
+        case 'sampler':
+          result.sampler = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'seed':
+          result.seed = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'smallThumbnailImageHeight':
+          result.smallThumbnailImageHeight = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'smallThumbnailImageURL':
+          result.smallThumbnailImageURL = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'smallThumbnailImageWidth':
+          result.smallThumbnailImageWidth = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'steps':
+          result.steps = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'strength':
+          result.strength = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'subjectId':
+          result.subjectId = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'tags':
+          result.tags.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(String)]))!
+              as BuiltList<Object?>);
+          break;
+        case 'thumbnailPosition':
+          result.thumbnailPosition = serializers.deserialize(value,
+              specifiedType: const FullType(double)) as double?;
+          break;
         case 'title':
           result.title = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
-        case 'workId':
-          result.workId = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
+        case 'type':
+          result.type = serializers.deserialize(value,
+              specifiedType: const FullType(GWorkType))! as GWorkType;
+          break;
+        case 'videoUrl':
+          result.videoUrl = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
           break;
       }
     }
@@ -11588,6 +12547,58 @@ class _$GUserAlbumInputSerializer
   }
 }
 
+class _$GUserAlbumWhereInputSerializer
+    implements StructuredSerializer<GUserAlbumWhereInput> {
+  @override
+  final Iterable<Type> types = const [
+    GUserAlbumWhereInput,
+    _$GUserAlbumWhereInput
+  ];
+  @override
+  final String wireName = 'GUserAlbumWhereInput';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GUserAlbumWhereInput object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'link',
+      serializers.serialize(object.link, specifiedType: const FullType(String)),
+      'userId',
+      serializers.serialize(object.userId,
+          specifiedType: const FullType(String)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GUserAlbumWhereInput deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GUserAlbumWhereInputBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'link':
+          result.link = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'userId':
+          result.userId = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$GUserFolderInputSerializer
     implements StructuredSerializer<GUserFolderInput> {
   @override
@@ -11632,6 +12643,83 @@ class _$GUserFolderInputSerializer
         case 'isSensitive':
           result.isSensitive = serializers.deserialize(value,
               specifiedType: const FullType(bool)) as bool?;
+          break;
+        case 'search':
+          result.search = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GUserStickersWhereInputSerializer
+    implements StructuredSerializer<GUserStickersWhereInput> {
+  @override
+  final Iterable<Type> types = const [
+    GUserStickersWhereInput,
+    _$GUserStickersWhereInput
+  ];
+  @override
+  final String wireName = 'GUserStickersWhereInput';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GUserStickersWhereInput object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[];
+    Object? value;
+    value = object.categories;
+    if (value != null) {
+      result
+        ..add('categories')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(String)])));
+    }
+    value = object.savedTypes;
+    if (value != null) {
+      result
+        ..add('savedTypes')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(
+                BuiltList, const [const FullType(GStickerSavedType)])));
+    }
+    value = object.search;
+    if (value != null) {
+      result
+        ..add('search')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    return result;
+  }
+
+  @override
+  GUserStickersWhereInput deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GUserStickersWhereInputBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'categories':
+          result.categories.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(String)]))!
+              as BuiltList<Object?>);
+          break;
+        case 'savedTypes':
+          result.savedTypes.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(GStickerSavedType)]))!
+              as BuiltList<Object?>);
           break;
         case 'search':
           result.search = serializers.deserialize(value,
@@ -11902,6 +12990,13 @@ class _$GWorkAwardsWhereInputSerializer
         ..add('day')
         ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
+    value = object.isSensitive;
+    if (value != null) {
+      result
+        ..add('isSensitive')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
     value = object.month;
     if (value != null) {
       result
@@ -11949,6 +13044,10 @@ class _$GWorkAwardsWhereInputSerializer
         case 'day':
           result.day = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int?;
+          break;
+        case 'isSensitive':
+          result.isSensitive = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
           break;
         case 'month':
           result.month = serializers.deserialize(value,
@@ -12010,6 +13109,20 @@ class _$GWorksWhereInputSerializer
             specifiedType: const FullType(
                 BuiltList, const [const FullType(GAccessType)])));
     }
+    value = object.beforeCreatedAt;
+    if (value != null) {
+      result
+        ..add('beforeCreatedAt')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.createdAtAfter;
+    if (value != null) {
+      result
+        ..add('createdAtAfter')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     value = object.generationModelId;
     if (value != null) {
       result
@@ -12023,6 +13136,14 @@ class _$GWorksWhereInputSerializer
         ..add('hasPrompt')
         ..add(
             serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
+    value = object.ids;
+    if (value != null) {
+      result
+        ..add('ids')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(String)])));
     }
     value = object.isFeatured;
     if (value != null) {
@@ -12049,6 +13170,13 @@ class _$GWorksWhereInputSerializer
     if (value != null) {
       result
         ..add('isNotFollowing')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
+    value = object.isNowCreatedAt;
+    if (value != null) {
+      result
+        ..add('isNowCreatedAt')
         ..add(
             serializers.serialize(value, specifiedType: const FullType(bool)));
     }
@@ -12189,6 +13317,14 @@ class _$GWorksWhereInputSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(GWorkType)));
     }
+    value = object.workTypes;
+    if (value != null) {
+      result
+        ..add('workTypes')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(GWorkType)])));
+    }
     return result;
   }
 
@@ -12210,6 +13346,14 @@ class _$GWorksWhereInputSerializer
                       BuiltList, const [const FullType(GAccessType)]))!
               as BuiltList<Object?>);
           break;
+        case 'beforeCreatedAt':
+          result.beforeCreatedAt = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'createdAtAfter':
+          result.createdAtAfter = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
         case 'generationModelId':
           result.generationModelId = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
@@ -12217,6 +13361,12 @@ class _$GWorksWhereInputSerializer
         case 'hasPrompt':
           result.hasPrompt = serializers.deserialize(value,
               specifiedType: const FullType(bool)) as bool?;
+          break;
+        case 'ids':
+          result.ids.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(String)]))!
+              as BuiltList<Object?>);
           break;
         case 'isFeatured':
           result.isFeatured = serializers.deserialize(value,
@@ -12232,6 +13382,10 @@ class _$GWorksWhereInputSerializer
           break;
         case 'isNotFollowing':
           result.isNotFollowing = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
+        case 'isNowCreatedAt':
+          result.isNowCreatedAt = serializers.deserialize(value,
               specifiedType: const FullType(bool)) as bool?;
           break;
         case 'isOneWorkPerUser':
@@ -12319,6 +13473,12 @@ class _$GWorksWhereInputSerializer
         case 'workType':
           result.workType = serializers.deserialize(value,
               specifiedType: const FullType(GWorkType)) as GWorkType?;
+          break;
+        case 'workTypes':
+          result.workTypes.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(GWorkType)]))!
+              as BuiltList<Object?>);
           break;
       }
     }
@@ -12918,6 +14078,132 @@ class GAlbumsWhereInputBuilder
       }
       rethrow;
     }
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GAppEventsWhereInput extends GAppEventsWhereInput {
+  @override
+  final String? endAt;
+  @override
+  final String? slug;
+  @override
+  final String? startAt;
+  @override
+  final String? tag;
+  @override
+  final String? title;
+
+  factory _$GAppEventsWhereInput(
+          [void Function(GAppEventsWhereInputBuilder)? updates]) =>
+      (new GAppEventsWhereInputBuilder()..update(updates))._build();
+
+  _$GAppEventsWhereInput._(
+      {this.endAt, this.slug, this.startAt, this.tag, this.title})
+      : super._();
+
+  @override
+  GAppEventsWhereInput rebuild(
+          void Function(GAppEventsWhereInputBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GAppEventsWhereInputBuilder toBuilder() =>
+      new GAppEventsWhereInputBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GAppEventsWhereInput &&
+        endAt == other.endAt &&
+        slug == other.slug &&
+        startAt == other.startAt &&
+        tag == other.tag &&
+        title == other.title;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, endAt.hashCode);
+    _$hash = $jc(_$hash, slug.hashCode);
+    _$hash = $jc(_$hash, startAt.hashCode);
+    _$hash = $jc(_$hash, tag.hashCode);
+    _$hash = $jc(_$hash, title.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GAppEventsWhereInput')
+          ..add('endAt', endAt)
+          ..add('slug', slug)
+          ..add('startAt', startAt)
+          ..add('tag', tag)
+          ..add('title', title))
+        .toString();
+  }
+}
+
+class GAppEventsWhereInputBuilder
+    implements Builder<GAppEventsWhereInput, GAppEventsWhereInputBuilder> {
+  _$GAppEventsWhereInput? _$v;
+
+  String? _endAt;
+  String? get endAt => _$this._endAt;
+  set endAt(String? endAt) => _$this._endAt = endAt;
+
+  String? _slug;
+  String? get slug => _$this._slug;
+  set slug(String? slug) => _$this._slug = slug;
+
+  String? _startAt;
+  String? get startAt => _$this._startAt;
+  set startAt(String? startAt) => _$this._startAt = startAt;
+
+  String? _tag;
+  String? get tag => _$this._tag;
+  set tag(String? tag) => _$this._tag = tag;
+
+  String? _title;
+  String? get title => _$this._title;
+  set title(String? title) => _$this._title = title;
+
+  GAppEventsWhereInputBuilder();
+
+  GAppEventsWhereInputBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _endAt = $v.endAt;
+      _slug = $v.slug;
+      _startAt = $v.startAt;
+      _tag = $v.tag;
+      _title = $v.title;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GAppEventsWhereInput other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GAppEventsWhereInput;
+  }
+
+  @override
+  void update(void Function(GAppEventsWhereInputBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GAppEventsWhereInput build() => _build();
+
+  _$GAppEventsWhereInput _build() {
+    final _$result = _$v ??
+        new _$GAppEventsWhereInput._(
+            endAt: endAt, slug: slug, startAt: startAt, tag: tag, title: title);
     replace(_$result);
     return _$result;
   }
@@ -13548,6 +14834,168 @@ class GChangePromptonFolderToPaidInputBuilder
                 folderId, r'GChangePromptonFolderToPaidInput', 'folderId'),
             price: BuiltValueNullFieldError.checkNotNull(
                 price, r'GChangePromptonFolderToPaidInput', 'price'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GChangeUserStickerAccessTypeInput
+    extends GChangeUserStickerAccessTypeInput {
+  @override
+  final GStickerAccessType accessType;
+  @override
+  final BuiltList<String>? categories;
+  @override
+  final GStickerGenre? genre;
+  @override
+  final String stickerId;
+  @override
+  final String? title;
+
+  factory _$GChangeUserStickerAccessTypeInput(
+          [void Function(GChangeUserStickerAccessTypeInputBuilder)? updates]) =>
+      (new GChangeUserStickerAccessTypeInputBuilder()..update(updates))
+          ._build();
+
+  _$GChangeUserStickerAccessTypeInput._(
+      {required this.accessType,
+      this.categories,
+      this.genre,
+      required this.stickerId,
+      this.title})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        accessType, r'GChangeUserStickerAccessTypeInput', 'accessType');
+    BuiltValueNullFieldError.checkNotNull(
+        stickerId, r'GChangeUserStickerAccessTypeInput', 'stickerId');
+  }
+
+  @override
+  GChangeUserStickerAccessTypeInput rebuild(
+          void Function(GChangeUserStickerAccessTypeInputBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GChangeUserStickerAccessTypeInputBuilder toBuilder() =>
+      new GChangeUserStickerAccessTypeInputBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GChangeUserStickerAccessTypeInput &&
+        accessType == other.accessType &&
+        categories == other.categories &&
+        genre == other.genre &&
+        stickerId == other.stickerId &&
+        title == other.title;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, accessType.hashCode);
+    _$hash = $jc(_$hash, categories.hashCode);
+    _$hash = $jc(_$hash, genre.hashCode);
+    _$hash = $jc(_$hash, stickerId.hashCode);
+    _$hash = $jc(_$hash, title.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GChangeUserStickerAccessTypeInput')
+          ..add('accessType', accessType)
+          ..add('categories', categories)
+          ..add('genre', genre)
+          ..add('stickerId', stickerId)
+          ..add('title', title))
+        .toString();
+  }
+}
+
+class GChangeUserStickerAccessTypeInputBuilder
+    implements
+        Builder<GChangeUserStickerAccessTypeInput,
+            GChangeUserStickerAccessTypeInputBuilder> {
+  _$GChangeUserStickerAccessTypeInput? _$v;
+
+  GStickerAccessType? _accessType;
+  GStickerAccessType? get accessType => _$this._accessType;
+  set accessType(GStickerAccessType? accessType) =>
+      _$this._accessType = accessType;
+
+  ListBuilder<String>? _categories;
+  ListBuilder<String> get categories =>
+      _$this._categories ??= new ListBuilder<String>();
+  set categories(ListBuilder<String>? categories) =>
+      _$this._categories = categories;
+
+  GStickerGenre? _genre;
+  GStickerGenre? get genre => _$this._genre;
+  set genre(GStickerGenre? genre) => _$this._genre = genre;
+
+  String? _stickerId;
+  String? get stickerId => _$this._stickerId;
+  set stickerId(String? stickerId) => _$this._stickerId = stickerId;
+
+  String? _title;
+  String? get title => _$this._title;
+  set title(String? title) => _$this._title = title;
+
+  GChangeUserStickerAccessTypeInputBuilder();
+
+  GChangeUserStickerAccessTypeInputBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _accessType = $v.accessType;
+      _categories = $v.categories?.toBuilder();
+      _genre = $v.genre;
+      _stickerId = $v.stickerId;
+      _title = $v.title;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GChangeUserStickerAccessTypeInput other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GChangeUserStickerAccessTypeInput;
+  }
+
+  @override
+  void update(
+      void Function(GChangeUserStickerAccessTypeInputBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GChangeUserStickerAccessTypeInput build() => _build();
+
+  _$GChangeUserStickerAccessTypeInput _build() {
+    _$GChangeUserStickerAccessTypeInput _$result;
+    try {
+      _$result = _$v ??
+          new _$GChangeUserStickerAccessTypeInput._(
+              accessType: BuiltValueNullFieldError.checkNotNull(accessType,
+                  r'GChangeUserStickerAccessTypeInput', 'accessType'),
+              categories: _categories?.build(),
+              genre: genre,
+              stickerId: BuiltValueNullFieldError.checkNotNull(
+                  stickerId, r'GChangeUserStickerAccessTypeInput', 'stickerId'),
+              title: title);
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'categories';
+        _categories?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'GChangeUserStickerAccessTypeInput', _$failedField, e.toString());
+      }
+      rethrow;
+    }
     replace(_$result);
     return _$result;
   }
@@ -15538,7 +16986,7 @@ class _$GCreatePromptonAipicRequestInput
   @override
   final int? fee;
   @override
-  final String note;
+  final String? note;
   @override
   final String recipientId;
 
@@ -15547,10 +16995,8 @@ class _$GCreatePromptonAipicRequestInput
       (new GCreatePromptonAipicRequestInputBuilder()..update(updates))._build();
 
   _$GCreatePromptonAipicRequestInput._(
-      {this.fee, required this.note, required this.recipientId})
+      {this.fee, this.note, required this.recipientId})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        note, r'GCreatePromptonAipicRequestInput', 'note');
     BuiltValueNullFieldError.checkNotNull(
         recipientId, r'GCreatePromptonAipicRequestInput', 'recipientId');
   }
@@ -15642,8 +17088,7 @@ class GCreatePromptonAipicRequestInputBuilder
     final _$result = _$v ??
         new _$GCreatePromptonAipicRequestInput._(
             fee: fee,
-            note: BuiltValueNullFieldError.checkNotNull(
-                note, r'GCreatePromptonAipicRequestInput', 'note'),
+            note: note,
             recipientId: BuiltValueNullFieldError.checkNotNull(recipientId,
                 r'GCreatePromptonAipicRequestInput', 'recipientId'));
     replace(_$result);
@@ -16345,162 +17790,6 @@ class GCreatePromptonFolderKeyInputBuilder
         new _$GCreatePromptonFolderKeyInput._(
             folderId: BuiltValueNullFieldError.checkNotNull(
                 folderId, r'GCreatePromptonFolderKeyInput', 'folderId'));
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GCreatePromptonImageGenerationInput
-    extends GCreatePromptonImageGenerationInput {
-  @override
-  final String model;
-  @override
-  final String prompt;
-  @override
-  final String quality;
-  @override
-  final String size;
-  @override
-  final String style;
-
-  factory _$GCreatePromptonImageGenerationInput(
-          [void Function(GCreatePromptonImageGenerationInputBuilder)?
-              updates]) =>
-      (new GCreatePromptonImageGenerationInputBuilder()..update(updates))
-          ._build();
-
-  _$GCreatePromptonImageGenerationInput._(
-      {required this.model,
-      required this.prompt,
-      required this.quality,
-      required this.size,
-      required this.style})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        model, r'GCreatePromptonImageGenerationInput', 'model');
-    BuiltValueNullFieldError.checkNotNull(
-        prompt, r'GCreatePromptonImageGenerationInput', 'prompt');
-    BuiltValueNullFieldError.checkNotNull(
-        quality, r'GCreatePromptonImageGenerationInput', 'quality');
-    BuiltValueNullFieldError.checkNotNull(
-        size, r'GCreatePromptonImageGenerationInput', 'size');
-    BuiltValueNullFieldError.checkNotNull(
-        style, r'GCreatePromptonImageGenerationInput', 'style');
-  }
-
-  @override
-  GCreatePromptonImageGenerationInput rebuild(
-          void Function(GCreatePromptonImageGenerationInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GCreatePromptonImageGenerationInputBuilder toBuilder() =>
-      new GCreatePromptonImageGenerationInputBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GCreatePromptonImageGenerationInput &&
-        model == other.model &&
-        prompt == other.prompt &&
-        quality == other.quality &&
-        size == other.size &&
-        style == other.style;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, model.hashCode);
-    _$hash = $jc(_$hash, prompt.hashCode);
-    _$hash = $jc(_$hash, quality.hashCode);
-    _$hash = $jc(_$hash, size.hashCode);
-    _$hash = $jc(_$hash, style.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(r'GCreatePromptonImageGenerationInput')
-          ..add('model', model)
-          ..add('prompt', prompt)
-          ..add('quality', quality)
-          ..add('size', size)
-          ..add('style', style))
-        .toString();
-  }
-}
-
-class GCreatePromptonImageGenerationInputBuilder
-    implements
-        Builder<GCreatePromptonImageGenerationInput,
-            GCreatePromptonImageGenerationInputBuilder> {
-  _$GCreatePromptonImageGenerationInput? _$v;
-
-  String? _model;
-  String? get model => _$this._model;
-  set model(String? model) => _$this._model = model;
-
-  String? _prompt;
-  String? get prompt => _$this._prompt;
-  set prompt(String? prompt) => _$this._prompt = prompt;
-
-  String? _quality;
-  String? get quality => _$this._quality;
-  set quality(String? quality) => _$this._quality = quality;
-
-  String? _size;
-  String? get size => _$this._size;
-  set size(String? size) => _$this._size = size;
-
-  String? _style;
-  String? get style => _$this._style;
-  set style(String? style) => _$this._style = style;
-
-  GCreatePromptonImageGenerationInputBuilder();
-
-  GCreatePromptonImageGenerationInputBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _model = $v.model;
-      _prompt = $v.prompt;
-      _quality = $v.quality;
-      _size = $v.size;
-      _style = $v.style;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GCreatePromptonImageGenerationInput other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GCreatePromptonImageGenerationInput;
-  }
-
-  @override
-  void update(
-      void Function(GCreatePromptonImageGenerationInputBuilder)? updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GCreatePromptonImageGenerationInput build() => _build();
-
-  _$GCreatePromptonImageGenerationInput _build() {
-    final _$result = _$v ??
-        new _$GCreatePromptonImageGenerationInput._(
-            model: BuiltValueNullFieldError.checkNotNull(
-                model, r'GCreatePromptonImageGenerationInput', 'model'),
-            prompt: BuiltValueNullFieldError.checkNotNull(
-                prompt, r'GCreatePromptonImageGenerationInput', 'prompt'),
-            quality: BuiltValueNullFieldError.checkNotNull(
-                quality, r'GCreatePromptonImageGenerationInput', 'quality'),
-            size: BuiltValueNullFieldError.checkNotNull(
-                size, r'GCreatePromptonImageGenerationInput', 'size'),
-            style: BuiltValueNullFieldError.checkNotNull(
-                style, r'GCreatePromptonImageGenerationInput', 'style'));
     replace(_$result);
     return _$result;
   }
@@ -19140,6 +20429,8 @@ class GCreateWorkCommentInputBuilder
 
 class _$GCreateWorkInput extends GCreateWorkInput {
   @override
+  final GGenerationAccessType accessGenerationType;
+  @override
   final GAccessType accessType;
   @override
   final String? albumId;
@@ -19229,7 +20520,8 @@ class _$GCreateWorkInput extends GCreateWorkInput {
       (new GCreateWorkInputBuilder()..update(updates))._build();
 
   _$GCreateWorkInput._(
-      {required this.accessType,
+      {required this.accessGenerationType,
+      required this.accessType,
       this.albumId,
       this.enExplanation,
       this.entitle,
@@ -19272,6 +20564,8 @@ class _$GCreateWorkInput extends GCreateWorkInput {
       required this.type,
       this.videoUrl})
       : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        accessGenerationType, r'GCreateWorkInput', 'accessGenerationType');
     BuiltValueNullFieldError.checkNotNull(
         accessType, r'GCreateWorkInput', 'accessType');
     BuiltValueNullFieldError.checkNotNull(
@@ -19320,6 +20614,7 @@ class _$GCreateWorkInput extends GCreateWorkInput {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is GCreateWorkInput &&
+        accessGenerationType == other.accessGenerationType &&
         accessType == other.accessType &&
         albumId == other.albumId &&
         enExplanation == other.enExplanation &&
@@ -19367,6 +20662,7 @@ class _$GCreateWorkInput extends GCreateWorkInput {
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, accessGenerationType.hashCode);
     _$hash = $jc(_$hash, accessType.hashCode);
     _$hash = $jc(_$hash, albumId.hashCode);
     _$hash = $jc(_$hash, enExplanation.hashCode);
@@ -19416,6 +20712,7 @@ class _$GCreateWorkInput extends GCreateWorkInput {
   @override
   String toString() {
     return (newBuiltValueToStringHelper(r'GCreateWorkInput')
+          ..add('accessGenerationType', accessGenerationType)
           ..add('accessType', accessType)
           ..add('albumId', albumId)
           ..add('enExplanation', enExplanation)
@@ -19465,6 +20762,12 @@ class _$GCreateWorkInput extends GCreateWorkInput {
 class GCreateWorkInputBuilder
     implements Builder<GCreateWorkInput, GCreateWorkInputBuilder> {
   _$GCreateWorkInput? _$v;
+
+  GGenerationAccessType? _accessGenerationType;
+  GGenerationAccessType? get accessGenerationType =>
+      _$this._accessGenerationType;
+  set accessGenerationType(GGenerationAccessType? accessGenerationType) =>
+      _$this._accessGenerationType = accessGenerationType;
 
   GAccessType? _accessType;
   GAccessType? get accessType => _$this._accessType;
@@ -19654,6 +20957,7 @@ class GCreateWorkInputBuilder
   GCreateWorkInputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _accessGenerationType = $v.accessGenerationType;
       _accessType = $v.accessType;
       _albumId = $v.albumId;
       _enExplanation = $v.enExplanation;
@@ -19720,6 +21024,8 @@ class GCreateWorkInputBuilder
     try {
       _$result = _$v ??
           new _$GCreateWorkInput._(
+              accessGenerationType: BuiltValueNullFieldError.checkNotNull(
+                  accessGenerationType, r'GCreateWorkInput', 'accessGenerationType'),
               accessType: BuiltValueNullFieldError.checkNotNull(
                   accessType, r'GCreateWorkInput', 'accessType'),
               albumId: albumId,
@@ -19738,10 +21044,9 @@ class GCreateWorkInputBuilder
                   isCommentEditable, r'GCreateWorkInput', 'isCommentEditable'),
               isPromotion: BuiltValueNullFieldError.checkNotNull(
                   isPromotion, r'GCreateWorkInput', 'isPromotion'),
-              isTagEditable: BuiltValueNullFieldError.checkNotNull(
-                  isTagEditable, r'GCreateWorkInput', 'isTagEditable'),
-              largeThumbnailImageHeight: BuiltValueNullFieldError.checkNotNull(
-                  largeThumbnailImageHeight, r'GCreateWorkInput', 'largeThumbnailImageHeight'),
+              isTagEditable:
+                  BuiltValueNullFieldError.checkNotNull(isTagEditable, r'GCreateWorkInput', 'isTagEditable'),
+              largeThumbnailImageHeight: BuiltValueNullFieldError.checkNotNull(largeThumbnailImageHeight, r'GCreateWorkInput', 'largeThumbnailImageHeight'),
               largeThumbnailImageURL: BuiltValueNullFieldError.checkNotNull(largeThumbnailImageURL, r'GCreateWorkInput', 'largeThumbnailImageURL'),
               largeThumbnailImageWidth: BuiltValueNullFieldError.checkNotNull(largeThumbnailImageWidth, r'GCreateWorkInput', 'largeThumbnailImageWidth'),
               mainImageSha256: BuiltValueNullFieldError.checkNotNull(mainImageSha256, r'GCreateWorkInput', 'mainImageSha256'),
@@ -20678,33 +21983,34 @@ class GDeleteImageGenerationMemoInputBuilder
   }
 }
 
-class _$GDeleteImageGenerationTaskInput
-    extends GDeleteImageGenerationTaskInput {
+class _$GDeleteImageGenerationResultInput
+    extends GDeleteImageGenerationResultInput {
   @override
   final String nanoid;
 
-  factory _$GDeleteImageGenerationTaskInput(
-          [void Function(GDeleteImageGenerationTaskInputBuilder)? updates]) =>
-      (new GDeleteImageGenerationTaskInputBuilder()..update(updates))._build();
+  factory _$GDeleteImageGenerationResultInput(
+          [void Function(GDeleteImageGenerationResultInputBuilder)? updates]) =>
+      (new GDeleteImageGenerationResultInputBuilder()..update(updates))
+          ._build();
 
-  _$GDeleteImageGenerationTaskInput._({required this.nanoid}) : super._() {
+  _$GDeleteImageGenerationResultInput._({required this.nanoid}) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        nanoid, r'GDeleteImageGenerationTaskInput', 'nanoid');
+        nanoid, r'GDeleteImageGenerationResultInput', 'nanoid');
   }
 
   @override
-  GDeleteImageGenerationTaskInput rebuild(
-          void Function(GDeleteImageGenerationTaskInputBuilder) updates) =>
+  GDeleteImageGenerationResultInput rebuild(
+          void Function(GDeleteImageGenerationResultInputBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GDeleteImageGenerationTaskInputBuilder toBuilder() =>
-      new GDeleteImageGenerationTaskInputBuilder()..replace(this);
+  GDeleteImageGenerationResultInputBuilder toBuilder() =>
+      new GDeleteImageGenerationResultInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GDeleteImageGenerationTaskInput && nanoid == other.nanoid;
+    return other is GDeleteImageGenerationResultInput && nanoid == other.nanoid;
   }
 
   @override
@@ -20717,25 +22023,25 @@ class _$GDeleteImageGenerationTaskInput
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'GDeleteImageGenerationTaskInput')
+    return (newBuiltValueToStringHelper(r'GDeleteImageGenerationResultInput')
           ..add('nanoid', nanoid))
         .toString();
   }
 }
 
-class GDeleteImageGenerationTaskInputBuilder
+class GDeleteImageGenerationResultInputBuilder
     implements
-        Builder<GDeleteImageGenerationTaskInput,
-            GDeleteImageGenerationTaskInputBuilder> {
-  _$GDeleteImageGenerationTaskInput? _$v;
+        Builder<GDeleteImageGenerationResultInput,
+            GDeleteImageGenerationResultInputBuilder> {
+  _$GDeleteImageGenerationResultInput? _$v;
 
   String? _nanoid;
   String? get nanoid => _$this._nanoid;
   set nanoid(String? nanoid) => _$this._nanoid = nanoid;
 
-  GDeleteImageGenerationTaskInputBuilder();
+  GDeleteImageGenerationResultInputBuilder();
 
-  GDeleteImageGenerationTaskInputBuilder get _$this {
+  GDeleteImageGenerationResultInputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _nanoid = $v.nanoid;
@@ -20745,24 +22051,25 @@ class GDeleteImageGenerationTaskInputBuilder
   }
 
   @override
-  void replace(GDeleteImageGenerationTaskInput other) {
+  void replace(GDeleteImageGenerationResultInput other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GDeleteImageGenerationTaskInput;
+    _$v = other as _$GDeleteImageGenerationResultInput;
   }
 
   @override
-  void update(void Function(GDeleteImageGenerationTaskInputBuilder)? updates) {
+  void update(
+      void Function(GDeleteImageGenerationResultInputBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  GDeleteImageGenerationTaskInput build() => _build();
+  GDeleteImageGenerationResultInput build() => _build();
 
-  _$GDeleteImageGenerationTaskInput _build() {
+  _$GDeleteImageGenerationResultInput _build() {
     final _$result = _$v ??
-        new _$GDeleteImageGenerationTaskInput._(
+        new _$GDeleteImageGenerationResultInput._(
             nanoid: BuiltValueNullFieldError.checkNotNull(
-                nanoid, r'GDeleteImageGenerationTaskInput', 'nanoid'));
+                nanoid, r'GDeleteImageGenerationResultInput', 'nanoid'));
     replace(_$result);
     return _$result;
   }
@@ -22093,6 +23400,98 @@ class GDeleteWorkLikeInputBuilder
   }
 }
 
+class _$GFeaturePromptonRequestWhereInput
+    extends GFeaturePromptonRequestWhereInput {
+  @override
+  final String userId;
+
+  factory _$GFeaturePromptonRequestWhereInput(
+          [void Function(GFeaturePromptonRequestWhereInputBuilder)? updates]) =>
+      (new GFeaturePromptonRequestWhereInputBuilder()..update(updates))
+          ._build();
+
+  _$GFeaturePromptonRequestWhereInput._({required this.userId}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        userId, r'GFeaturePromptonRequestWhereInput', 'userId');
+  }
+
+  @override
+  GFeaturePromptonRequestWhereInput rebuild(
+          void Function(GFeaturePromptonRequestWhereInputBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GFeaturePromptonRequestWhereInputBuilder toBuilder() =>
+      new GFeaturePromptonRequestWhereInputBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GFeaturePromptonRequestWhereInput && userId == other.userId;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, userId.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GFeaturePromptonRequestWhereInput')
+          ..add('userId', userId))
+        .toString();
+  }
+}
+
+class GFeaturePromptonRequestWhereInputBuilder
+    implements
+        Builder<GFeaturePromptonRequestWhereInput,
+            GFeaturePromptonRequestWhereInputBuilder> {
+  _$GFeaturePromptonRequestWhereInput? _$v;
+
+  String? _userId;
+  String? get userId => _$this._userId;
+  set userId(String? userId) => _$this._userId = userId;
+
+  GFeaturePromptonRequestWhereInputBuilder();
+
+  GFeaturePromptonRequestWhereInputBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _userId = $v.userId;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GFeaturePromptonRequestWhereInput other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GFeaturePromptonRequestWhereInput;
+  }
+
+  @override
+  void update(
+      void Function(GFeaturePromptonRequestWhereInputBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GFeaturePromptonRequestWhereInput build() => _build();
+
+  _$GFeaturePromptonRequestWhereInput _build() {
+    final _$result = _$v ??
+        new _$GFeaturePromptonRequestWhereInput._(
+            userId: BuiltValueNullFieldError.checkNotNull(
+                userId, r'GFeaturePromptonRequestWhereInput', 'userId'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
 class _$GFlipPromptonFolderWorkIndexInput
     extends GFlipPromptonFolderWorkIndexInput {
   @override
@@ -22221,12 +23620,18 @@ class _$GFoldersWhereInput extends GFoldersWhereInput {
   final bool? isSensitive;
   @override
   final String? search;
+  @override
+  final BuiltList<String>? tags;
+  @override
+  final String? userId;
 
   factory _$GFoldersWhereInput(
           [void Function(GFoldersWhereInputBuilder)? updates]) =>
       (new GFoldersWhereInputBuilder()..update(updates))._build();
 
-  _$GFoldersWhereInput._({this.isSensitive, this.search}) : super._();
+  _$GFoldersWhereInput._(
+      {this.isSensitive, this.search, this.tags, this.userId})
+      : super._();
 
   @override
   GFoldersWhereInput rebuild(
@@ -22242,7 +23647,9 @@ class _$GFoldersWhereInput extends GFoldersWhereInput {
     if (identical(other, this)) return true;
     return other is GFoldersWhereInput &&
         isSensitive == other.isSensitive &&
-        search == other.search;
+        search == other.search &&
+        tags == other.tags &&
+        userId == other.userId;
   }
 
   @override
@@ -22250,6 +23657,8 @@ class _$GFoldersWhereInput extends GFoldersWhereInput {
     var _$hash = 0;
     _$hash = $jc(_$hash, isSensitive.hashCode);
     _$hash = $jc(_$hash, search.hashCode);
+    _$hash = $jc(_$hash, tags.hashCode);
+    _$hash = $jc(_$hash, userId.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -22258,7 +23667,9 @@ class _$GFoldersWhereInput extends GFoldersWhereInput {
   String toString() {
     return (newBuiltValueToStringHelper(r'GFoldersWhereInput')
           ..add('isSensitive', isSensitive)
-          ..add('search', search))
+          ..add('search', search)
+          ..add('tags', tags)
+          ..add('userId', userId))
         .toString();
   }
 }
@@ -22275,6 +23686,14 @@ class GFoldersWhereInputBuilder
   String? get search => _$this._search;
   set search(String? search) => _$this._search = search;
 
+  ListBuilder<String>? _tags;
+  ListBuilder<String> get tags => _$this._tags ??= new ListBuilder<String>();
+  set tags(ListBuilder<String>? tags) => _$this._tags = tags;
+
+  String? _userId;
+  String? get userId => _$this._userId;
+  set userId(String? userId) => _$this._userId = userId;
+
   GFoldersWhereInputBuilder();
 
   GFoldersWhereInputBuilder get _$this {
@@ -22282,6 +23701,8 @@ class GFoldersWhereInputBuilder
     if ($v != null) {
       _isSensitive = $v.isSensitive;
       _search = $v.search;
+      _tags = $v.tags?.toBuilder();
+      _userId = $v.userId;
       _$v = null;
     }
     return this;
@@ -22302,8 +23723,25 @@ class GFoldersWhereInputBuilder
   GFoldersWhereInput build() => _build();
 
   _$GFoldersWhereInput _build() {
-    final _$result = _$v ??
-        new _$GFoldersWhereInput._(isSensitive: isSensitive, search: search);
+    _$GFoldersWhereInput _$result;
+    try {
+      _$result = _$v ??
+          new _$GFoldersWhereInput._(
+              isSensitive: isSensitive,
+              search: search,
+              tags: _tags?.build(),
+              userId: userId);
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'tags';
+        _tags?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'GFoldersWhereInput', _$failedField, e.toString());
+      }
+      rethrow;
+    }
     replace(_$result);
     return _$result;
   }
@@ -22819,6 +24257,145 @@ class GImageGenerationMemoOrderByBuilder
   _$GImageGenerationMemoOrderBy _build() {
     final _$result =
         _$v ?? new _$GImageGenerationMemoOrderBy._(createdAt: createdAt);
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GImageGenerationResultsWhereInput
+    extends GImageGenerationResultsWhereInput {
+  @override
+  final String? dateText;
+  @override
+  final String? fromDate;
+  @override
+  final bool? isProtected;
+  @override
+  final int? minRating;
+  @override
+  final int? rating;
+
+  factory _$GImageGenerationResultsWhereInput(
+          [void Function(GImageGenerationResultsWhereInputBuilder)? updates]) =>
+      (new GImageGenerationResultsWhereInputBuilder()..update(updates))
+          ._build();
+
+  _$GImageGenerationResultsWhereInput._(
+      {this.dateText,
+      this.fromDate,
+      this.isProtected,
+      this.minRating,
+      this.rating})
+      : super._();
+
+  @override
+  GImageGenerationResultsWhereInput rebuild(
+          void Function(GImageGenerationResultsWhereInputBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GImageGenerationResultsWhereInputBuilder toBuilder() =>
+      new GImageGenerationResultsWhereInputBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GImageGenerationResultsWhereInput &&
+        dateText == other.dateText &&
+        fromDate == other.fromDate &&
+        isProtected == other.isProtected &&
+        minRating == other.minRating &&
+        rating == other.rating;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, dateText.hashCode);
+    _$hash = $jc(_$hash, fromDate.hashCode);
+    _$hash = $jc(_$hash, isProtected.hashCode);
+    _$hash = $jc(_$hash, minRating.hashCode);
+    _$hash = $jc(_$hash, rating.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GImageGenerationResultsWhereInput')
+          ..add('dateText', dateText)
+          ..add('fromDate', fromDate)
+          ..add('isProtected', isProtected)
+          ..add('minRating', minRating)
+          ..add('rating', rating))
+        .toString();
+  }
+}
+
+class GImageGenerationResultsWhereInputBuilder
+    implements
+        Builder<GImageGenerationResultsWhereInput,
+            GImageGenerationResultsWhereInputBuilder> {
+  _$GImageGenerationResultsWhereInput? _$v;
+
+  String? _dateText;
+  String? get dateText => _$this._dateText;
+  set dateText(String? dateText) => _$this._dateText = dateText;
+
+  String? _fromDate;
+  String? get fromDate => _$this._fromDate;
+  set fromDate(String? fromDate) => _$this._fromDate = fromDate;
+
+  bool? _isProtected;
+  bool? get isProtected => _$this._isProtected;
+  set isProtected(bool? isProtected) => _$this._isProtected = isProtected;
+
+  int? _minRating;
+  int? get minRating => _$this._minRating;
+  set minRating(int? minRating) => _$this._minRating = minRating;
+
+  int? _rating;
+  int? get rating => _$this._rating;
+  set rating(int? rating) => _$this._rating = rating;
+
+  GImageGenerationResultsWhereInputBuilder();
+
+  GImageGenerationResultsWhereInputBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _dateText = $v.dateText;
+      _fromDate = $v.fromDate;
+      _isProtected = $v.isProtected;
+      _minRating = $v.minRating;
+      _rating = $v.rating;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GImageGenerationResultsWhereInput other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GImageGenerationResultsWhereInput;
+  }
+
+  @override
+  void update(
+      void Function(GImageGenerationResultsWhereInputBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GImageGenerationResultsWhereInput build() => _build();
+
+  _$GImageGenerationResultsWhereInput _build() {
+    final _$result = _$v ??
+        new _$GImageGenerationResultsWhereInput._(
+            dateText: dateText,
+            fromDate: fromDate,
+            isProtected: isProtected,
+            minRating: minRating,
+            rating: rating);
     replace(_$result);
     return _$result;
   }
@@ -24525,95 +26102,6 @@ class GPromptonFoldersWhereInputBuilder
   }
 }
 
-class _$GPromptonImageGenerationsWhereInput
-    extends GPromptonImageGenerationsWhereInput {
-  @override
-  final String? search;
-
-  factory _$GPromptonImageGenerationsWhereInput(
-          [void Function(GPromptonImageGenerationsWhereInputBuilder)?
-              updates]) =>
-      (new GPromptonImageGenerationsWhereInputBuilder()..update(updates))
-          ._build();
-
-  _$GPromptonImageGenerationsWhereInput._({this.search}) : super._();
-
-  @override
-  GPromptonImageGenerationsWhereInput rebuild(
-          void Function(GPromptonImageGenerationsWhereInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GPromptonImageGenerationsWhereInputBuilder toBuilder() =>
-      new GPromptonImageGenerationsWhereInputBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GPromptonImageGenerationsWhereInput &&
-        search == other.search;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, search.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(r'GPromptonImageGenerationsWhereInput')
-          ..add('search', search))
-        .toString();
-  }
-}
-
-class GPromptonImageGenerationsWhereInputBuilder
-    implements
-        Builder<GPromptonImageGenerationsWhereInput,
-            GPromptonImageGenerationsWhereInputBuilder> {
-  _$GPromptonImageGenerationsWhereInput? _$v;
-
-  String? _search;
-  String? get search => _$this._search;
-  set search(String? search) => _$this._search = search;
-
-  GPromptonImageGenerationsWhereInputBuilder();
-
-  GPromptonImageGenerationsWhereInputBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _search = $v.search;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GPromptonImageGenerationsWhereInput other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GPromptonImageGenerationsWhereInput;
-  }
-
-  @override
-  void update(
-      void Function(GPromptonImageGenerationsWhereInputBuilder)? updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GPromptonImageGenerationsWhereInput build() => _build();
-
-  _$GPromptonImageGenerationsWhereInput _build() {
-    final _$result =
-        _$v ?? new _$GPromptonImageGenerationsWhereInput._(search: search);
-    replace(_$result);
-    return _$result;
-  }
-}
-
 class _$GPromptonLabelsWhereInput extends GPromptonLabelsWhereInput {
   @override
   final String? search;
@@ -26166,6 +27654,110 @@ class GReportWorkInputBuilder
   }
 }
 
+class _$GSendPromptonMessageInput extends GSendPromptonMessageInput {
+  @override
+  final String recipientId;
+  @override
+  final String text;
+
+  factory _$GSendPromptonMessageInput(
+          [void Function(GSendPromptonMessageInputBuilder)? updates]) =>
+      (new GSendPromptonMessageInputBuilder()..update(updates))._build();
+
+  _$GSendPromptonMessageInput._({required this.recipientId, required this.text})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        recipientId, r'GSendPromptonMessageInput', 'recipientId');
+    BuiltValueNullFieldError.checkNotNull(
+        text, r'GSendPromptonMessageInput', 'text');
+  }
+
+  @override
+  GSendPromptonMessageInput rebuild(
+          void Function(GSendPromptonMessageInputBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GSendPromptonMessageInputBuilder toBuilder() =>
+      new GSendPromptonMessageInputBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GSendPromptonMessageInput &&
+        recipientId == other.recipientId &&
+        text == other.text;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, recipientId.hashCode);
+    _$hash = $jc(_$hash, text.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GSendPromptonMessageInput')
+          ..add('recipientId', recipientId)
+          ..add('text', text))
+        .toString();
+  }
+}
+
+class GSendPromptonMessageInputBuilder
+    implements
+        Builder<GSendPromptonMessageInput, GSendPromptonMessageInputBuilder> {
+  _$GSendPromptonMessageInput? _$v;
+
+  String? _recipientId;
+  String? get recipientId => _$this._recipientId;
+  set recipientId(String? recipientId) => _$this._recipientId = recipientId;
+
+  String? _text;
+  String? get text => _$this._text;
+  set text(String? text) => _$this._text = text;
+
+  GSendPromptonMessageInputBuilder();
+
+  GSendPromptonMessageInputBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _recipientId = $v.recipientId;
+      _text = $v.text;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GSendPromptonMessageInput other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GSendPromptonMessageInput;
+  }
+
+  @override
+  void update(void Function(GSendPromptonMessageInputBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GSendPromptonMessageInput build() => _build();
+
+  _$GSendPromptonMessageInput _build() {
+    final _$result = _$v ??
+        new _$GSendPromptonMessageInput._(
+            recipientId: BuiltValueNullFieldError.checkNotNull(
+                recipientId, r'GSendPromptonMessageInput', 'recipientId'),
+            text: BuiltValueNullFieldError.checkNotNull(
+                text, r'GSendPromptonMessageInput', 'text'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
 class _$GSignImageGenerationTermsInput extends GSignImageGenerationTermsInput {
   @override
   final int version;
@@ -26263,8 +27855,6 @@ class _$GStickersWhereInput extends GStickersWhereInput {
   @override
   final GStickerGenre? genre;
   @override
-  final String? ownerUserId;
-  @override
   final String? search;
 
   factory _$GStickersWhereInput(
@@ -26272,11 +27862,7 @@ class _$GStickersWhereInput extends GStickersWhereInput {
       (new GStickersWhereInputBuilder()..update(updates))._build();
 
   _$GStickersWhereInput._(
-      {this.categories,
-      this.creatorUserId,
-      this.genre,
-      this.ownerUserId,
-      this.search})
+      {this.categories, this.creatorUserId, this.genre, this.search})
       : super._();
 
   @override
@@ -26295,7 +27881,6 @@ class _$GStickersWhereInput extends GStickersWhereInput {
         categories == other.categories &&
         creatorUserId == other.creatorUserId &&
         genre == other.genre &&
-        ownerUserId == other.ownerUserId &&
         search == other.search;
   }
 
@@ -26305,7 +27890,6 @@ class _$GStickersWhereInput extends GStickersWhereInput {
     _$hash = $jc(_$hash, categories.hashCode);
     _$hash = $jc(_$hash, creatorUserId.hashCode);
     _$hash = $jc(_$hash, genre.hashCode);
-    _$hash = $jc(_$hash, ownerUserId.hashCode);
     _$hash = $jc(_$hash, search.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -26317,7 +27901,6 @@ class _$GStickersWhereInput extends GStickersWhereInput {
           ..add('categories', categories)
           ..add('creatorUserId', creatorUserId)
           ..add('genre', genre)
-          ..add('ownerUserId', ownerUserId)
           ..add('search', search))
         .toString();
   }
@@ -26342,10 +27925,6 @@ class GStickersWhereInputBuilder
   GStickerGenre? get genre => _$this._genre;
   set genre(GStickerGenre? genre) => _$this._genre = genre;
 
-  String? _ownerUserId;
-  String? get ownerUserId => _$this._ownerUserId;
-  set ownerUserId(String? ownerUserId) => _$this._ownerUserId = ownerUserId;
-
   String? _search;
   String? get search => _$this._search;
   set search(String? search) => _$this._search = search;
@@ -26358,7 +27937,6 @@ class GStickersWhereInputBuilder
       _categories = $v.categories?.toBuilder();
       _creatorUserId = $v.creatorUserId;
       _genre = $v.genre;
-      _ownerUserId = $v.ownerUserId;
       _search = $v.search;
       _$v = null;
     }
@@ -26387,7 +27965,6 @@ class GStickersWhereInputBuilder
               categories: _categories?.build(),
               creatorUserId: creatorUserId,
               genre: genre,
-              ownerUserId: ownerUserId,
               search: search);
     } catch (_) {
       late String _$failedField;
@@ -27458,12 +29035,26 @@ class GUpdateAccountWebFcmTokenInputBuilder
 class _$GUpdateAlbumInput extends GUpdateAlbumInput {
   @override
   final String albumId;
+  @override
+  final String? description;
+  @override
+  final String? headerImageUrl;
+  @override
+  final String? title;
+  @override
+  final BuiltList<String>? workIds;
 
   factory _$GUpdateAlbumInput(
           [void Function(GUpdateAlbumInputBuilder)? updates]) =>
       (new GUpdateAlbumInputBuilder()..update(updates))._build();
 
-  _$GUpdateAlbumInput._({required this.albumId}) : super._() {
+  _$GUpdateAlbumInput._(
+      {required this.albumId,
+      this.description,
+      this.headerImageUrl,
+      this.title,
+      this.workIds})
+      : super._() {
     BuiltValueNullFieldError.checkNotNull(
         albumId, r'GUpdateAlbumInput', 'albumId');
   }
@@ -27479,13 +29070,22 @@ class _$GUpdateAlbumInput extends GUpdateAlbumInput {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GUpdateAlbumInput && albumId == other.albumId;
+    return other is GUpdateAlbumInput &&
+        albumId == other.albumId &&
+        description == other.description &&
+        headerImageUrl == other.headerImageUrl &&
+        title == other.title &&
+        workIds == other.workIds;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, albumId.hashCode);
+    _$hash = $jc(_$hash, description.hashCode);
+    _$hash = $jc(_$hash, headerImageUrl.hashCode);
+    _$hash = $jc(_$hash, title.hashCode);
+    _$hash = $jc(_$hash, workIds.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -27493,7 +29093,11 @@ class _$GUpdateAlbumInput extends GUpdateAlbumInput {
   @override
   String toString() {
     return (newBuiltValueToStringHelper(r'GUpdateAlbumInput')
-          ..add('albumId', albumId))
+          ..add('albumId', albumId)
+          ..add('description', description)
+          ..add('headerImageUrl', headerImageUrl)
+          ..add('title', title)
+          ..add('workIds', workIds))
         .toString();
   }
 }
@@ -27506,12 +29110,34 @@ class GUpdateAlbumInputBuilder
   String? get albumId => _$this._albumId;
   set albumId(String? albumId) => _$this._albumId = albumId;
 
+  String? _description;
+  String? get description => _$this._description;
+  set description(String? description) => _$this._description = description;
+
+  String? _headerImageUrl;
+  String? get headerImageUrl => _$this._headerImageUrl;
+  set headerImageUrl(String? headerImageUrl) =>
+      _$this._headerImageUrl = headerImageUrl;
+
+  String? _title;
+  String? get title => _$this._title;
+  set title(String? title) => _$this._title = title;
+
+  ListBuilder<String>? _workIds;
+  ListBuilder<String> get workIds =>
+      _$this._workIds ??= new ListBuilder<String>();
+  set workIds(ListBuilder<String>? workIds) => _$this._workIds = workIds;
+
   GUpdateAlbumInputBuilder();
 
   GUpdateAlbumInputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _albumId = $v.albumId;
+      _description = $v.description;
+      _headerImageUrl = $v.headerImageUrl;
+      _title = $v.title;
+      _workIds = $v.workIds?.toBuilder();
       _$v = null;
     }
     return this;
@@ -27532,10 +29158,27 @@ class GUpdateAlbumInputBuilder
   GUpdateAlbumInput build() => _build();
 
   _$GUpdateAlbumInput _build() {
-    final _$result = _$v ??
-        new _$GUpdateAlbumInput._(
-            albumId: BuiltValueNullFieldError.checkNotNull(
-                albumId, r'GUpdateAlbumInput', 'albumId'));
+    _$GUpdateAlbumInput _$result;
+    try {
+      _$result = _$v ??
+          new _$GUpdateAlbumInput._(
+              albumId: BuiltValueNullFieldError.checkNotNull(
+                  albumId, r'GUpdateAlbumInput', 'albumId'),
+              description: description,
+              headerImageUrl: headerImageUrl,
+              title: title,
+              workIds: _workIds?.build());
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'workIds';
+        _workIds?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'GUpdateAlbumInput', _$failedField, e.toString());
+      }
+      rethrow;
+    }
     replace(_$result);
     return _$result;
   }
@@ -29598,42 +31241,42 @@ class GUpdatePromptonWorkInputBuilder
   }
 }
 
-class _$GUpdateProtectedImageGenerationTaskInput
-    extends GUpdateProtectedImageGenerationTaskInput {
+class _$GUpdateProtectedImageGenerationResultInput
+    extends GUpdateProtectedImageGenerationResultInput {
   @override
   final bool isProtected;
   @override
   final String nanoid;
 
-  factory _$GUpdateProtectedImageGenerationTaskInput(
-          [void Function(GUpdateProtectedImageGenerationTaskInputBuilder)?
+  factory _$GUpdateProtectedImageGenerationResultInput(
+          [void Function(GUpdateProtectedImageGenerationResultInputBuilder)?
               updates]) =>
-      (new GUpdateProtectedImageGenerationTaskInputBuilder()..update(updates))
+      (new GUpdateProtectedImageGenerationResultInputBuilder()..update(updates))
           ._build();
 
-  _$GUpdateProtectedImageGenerationTaskInput._(
+  _$GUpdateProtectedImageGenerationResultInput._(
       {required this.isProtected, required this.nanoid})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(isProtected,
-        r'GUpdateProtectedImageGenerationTaskInput', 'isProtected');
+        r'GUpdateProtectedImageGenerationResultInput', 'isProtected');
     BuiltValueNullFieldError.checkNotNull(
-        nanoid, r'GUpdateProtectedImageGenerationTaskInput', 'nanoid');
+        nanoid, r'GUpdateProtectedImageGenerationResultInput', 'nanoid');
   }
 
   @override
-  GUpdateProtectedImageGenerationTaskInput rebuild(
-          void Function(GUpdateProtectedImageGenerationTaskInputBuilder)
+  GUpdateProtectedImageGenerationResultInput rebuild(
+          void Function(GUpdateProtectedImageGenerationResultInputBuilder)
               updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GUpdateProtectedImageGenerationTaskInputBuilder toBuilder() =>
-      new GUpdateProtectedImageGenerationTaskInputBuilder()..replace(this);
+  GUpdateProtectedImageGenerationResultInputBuilder toBuilder() =>
+      new GUpdateProtectedImageGenerationResultInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GUpdateProtectedImageGenerationTaskInput &&
+    return other is GUpdateProtectedImageGenerationResultInput &&
         isProtected == other.isProtected &&
         nanoid == other.nanoid;
   }
@@ -29650,18 +31293,18 @@ class _$GUpdateProtectedImageGenerationTaskInput
   @override
   String toString() {
     return (newBuiltValueToStringHelper(
-            r'GUpdateProtectedImageGenerationTaskInput')
+            r'GUpdateProtectedImageGenerationResultInput')
           ..add('isProtected', isProtected)
           ..add('nanoid', nanoid))
         .toString();
   }
 }
 
-class GUpdateProtectedImageGenerationTaskInputBuilder
+class GUpdateProtectedImageGenerationResultInputBuilder
     implements
-        Builder<GUpdateProtectedImageGenerationTaskInput,
-            GUpdateProtectedImageGenerationTaskInputBuilder> {
-  _$GUpdateProtectedImageGenerationTaskInput? _$v;
+        Builder<GUpdateProtectedImageGenerationResultInput,
+            GUpdateProtectedImageGenerationResultInputBuilder> {
+  _$GUpdateProtectedImageGenerationResultInput? _$v;
 
   bool? _isProtected;
   bool? get isProtected => _$this._isProtected;
@@ -29671,9 +31314,9 @@ class GUpdateProtectedImageGenerationTaskInputBuilder
   String? get nanoid => _$this._nanoid;
   set nanoid(String? nanoid) => _$this._nanoid = nanoid;
 
-  GUpdateProtectedImageGenerationTaskInputBuilder();
+  GUpdateProtectedImageGenerationResultInputBuilder();
 
-  GUpdateProtectedImageGenerationTaskInputBuilder get _$this {
+  GUpdateProtectedImageGenerationResultInputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _isProtected = $v.isProtected;
@@ -29684,27 +31327,28 @@ class GUpdateProtectedImageGenerationTaskInputBuilder
   }
 
   @override
-  void replace(GUpdateProtectedImageGenerationTaskInput other) {
+  void replace(GUpdateProtectedImageGenerationResultInput other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GUpdateProtectedImageGenerationTaskInput;
+    _$v = other as _$GUpdateProtectedImageGenerationResultInput;
   }
 
   @override
   void update(
-      void Function(GUpdateProtectedImageGenerationTaskInputBuilder)? updates) {
+      void Function(GUpdateProtectedImageGenerationResultInputBuilder)?
+          updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  GUpdateProtectedImageGenerationTaskInput build() => _build();
+  GUpdateProtectedImageGenerationResultInput build() => _build();
 
-  _$GUpdateProtectedImageGenerationTaskInput _build() {
+  _$GUpdateProtectedImageGenerationResultInput _build() {
     final _$result = _$v ??
-        new _$GUpdateProtectedImageGenerationTaskInput._(
+        new _$GUpdateProtectedImageGenerationResultInput._(
             isProtected: BuiltValueNullFieldError.checkNotNull(isProtected,
-                r'GUpdateProtectedImageGenerationTaskInput', 'isProtected'),
-            nanoid: BuiltValueNullFieldError.checkNotNull(
-                nanoid, r'GUpdateProtectedImageGenerationTaskInput', 'nanoid'));
+                r'GUpdateProtectedImageGenerationResultInput', 'isProtected'),
+            nanoid: BuiltValueNullFieldError.checkNotNull(nanoid,
+                r'GUpdateProtectedImageGenerationResultInput', 'nanoid'));
     replace(_$result);
     return _$result;
   }
@@ -29822,42 +31466,42 @@ class GUpdateRatingImageGenerationModelInputBuilder
   }
 }
 
-class _$GUpdateRatingImageGenerationTaskInput
-    extends GUpdateRatingImageGenerationTaskInput {
+class _$GUpdateRatingImageGenerationResultInput
+    extends GUpdateRatingImageGenerationResultInput {
   @override
   final String nanoid;
   @override
   final int rating;
 
-  factory _$GUpdateRatingImageGenerationTaskInput(
-          [void Function(GUpdateRatingImageGenerationTaskInputBuilder)?
+  factory _$GUpdateRatingImageGenerationResultInput(
+          [void Function(GUpdateRatingImageGenerationResultInputBuilder)?
               updates]) =>
-      (new GUpdateRatingImageGenerationTaskInputBuilder()..update(updates))
+      (new GUpdateRatingImageGenerationResultInputBuilder()..update(updates))
           ._build();
 
-  _$GUpdateRatingImageGenerationTaskInput._(
+  _$GUpdateRatingImageGenerationResultInput._(
       {required this.nanoid, required this.rating})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        nanoid, r'GUpdateRatingImageGenerationTaskInput', 'nanoid');
+        nanoid, r'GUpdateRatingImageGenerationResultInput', 'nanoid');
     BuiltValueNullFieldError.checkNotNull(
-        rating, r'GUpdateRatingImageGenerationTaskInput', 'rating');
+        rating, r'GUpdateRatingImageGenerationResultInput', 'rating');
   }
 
   @override
-  GUpdateRatingImageGenerationTaskInput rebuild(
-          void Function(GUpdateRatingImageGenerationTaskInputBuilder)
+  GUpdateRatingImageGenerationResultInput rebuild(
+          void Function(GUpdateRatingImageGenerationResultInputBuilder)
               updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GUpdateRatingImageGenerationTaskInputBuilder toBuilder() =>
-      new GUpdateRatingImageGenerationTaskInputBuilder()..replace(this);
+  GUpdateRatingImageGenerationResultInputBuilder toBuilder() =>
+      new GUpdateRatingImageGenerationResultInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GUpdateRatingImageGenerationTaskInput &&
+    return other is GUpdateRatingImageGenerationResultInput &&
         nanoid == other.nanoid &&
         rating == other.rating;
   }
@@ -29874,18 +31518,18 @@ class _$GUpdateRatingImageGenerationTaskInput
   @override
   String toString() {
     return (newBuiltValueToStringHelper(
-            r'GUpdateRatingImageGenerationTaskInput')
+            r'GUpdateRatingImageGenerationResultInput')
           ..add('nanoid', nanoid)
           ..add('rating', rating))
         .toString();
   }
 }
 
-class GUpdateRatingImageGenerationTaskInputBuilder
+class GUpdateRatingImageGenerationResultInputBuilder
     implements
-        Builder<GUpdateRatingImageGenerationTaskInput,
-            GUpdateRatingImageGenerationTaskInputBuilder> {
-  _$GUpdateRatingImageGenerationTaskInput? _$v;
+        Builder<GUpdateRatingImageGenerationResultInput,
+            GUpdateRatingImageGenerationResultInputBuilder> {
+  _$GUpdateRatingImageGenerationResultInput? _$v;
 
   String? _nanoid;
   String? get nanoid => _$this._nanoid;
@@ -29895,9 +31539,9 @@ class GUpdateRatingImageGenerationTaskInputBuilder
   int? get rating => _$this._rating;
   set rating(int? rating) => _$this._rating = rating;
 
-  GUpdateRatingImageGenerationTaskInputBuilder();
+  GUpdateRatingImageGenerationResultInputBuilder();
 
-  GUpdateRatingImageGenerationTaskInputBuilder get _$this {
+  GUpdateRatingImageGenerationResultInputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _nanoid = $v.nanoid;
@@ -29908,27 +31552,27 @@ class GUpdateRatingImageGenerationTaskInputBuilder
   }
 
   @override
-  void replace(GUpdateRatingImageGenerationTaskInput other) {
+  void replace(GUpdateRatingImageGenerationResultInput other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GUpdateRatingImageGenerationTaskInput;
+    _$v = other as _$GUpdateRatingImageGenerationResultInput;
   }
 
   @override
   void update(
-      void Function(GUpdateRatingImageGenerationTaskInputBuilder)? updates) {
+      void Function(GUpdateRatingImageGenerationResultInputBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  GUpdateRatingImageGenerationTaskInput build() => _build();
+  GUpdateRatingImageGenerationResultInput build() => _build();
 
-  _$GUpdateRatingImageGenerationTaskInput _build() {
+  _$GUpdateRatingImageGenerationResultInput _build() {
     final _$result = _$v ??
-        new _$GUpdateRatingImageGenerationTaskInput._(
+        new _$GUpdateRatingImageGenerationResultInput._(
             nanoid: BuiltValueNullFieldError.checkNotNull(
-                nanoid, r'GUpdateRatingImageGenerationTaskInput', 'nanoid'),
+                nanoid, r'GUpdateRatingImageGenerationResultInput', 'nanoid'),
             rating: BuiltValueNullFieldError.checkNotNull(
-                rating, r'GUpdateRatingImageGenerationTaskInput', 'rating'));
+                rating, r'GUpdateRatingImageGenerationResultInput', 'rating'));
     replace(_$result);
     return _$result;
   }
@@ -30053,9 +31697,13 @@ class _$GUpdateUserProfileInput extends GUpdateUserProfileInput {
   @override
   final String? headerImageUrl;
   @override
+  final String? homeUrl;
+  @override
   final String? iconUrl;
   @override
   final String? instagramAccountId;
+  @override
+  final String? mailAddress;
   @override
   final String? twitterAccountId;
 
@@ -30071,8 +31719,10 @@ class _$GUpdateUserProfileInput extends GUpdateUserProfileInput {
       this.featuredWorkIds,
       this.githubAccountId,
       this.headerImageUrl,
+      this.homeUrl,
       this.iconUrl,
       this.instagramAccountId,
+      this.mailAddress,
       this.twitterAccountId})
       : super._();
 
@@ -30096,8 +31746,10 @@ class _$GUpdateUserProfileInput extends GUpdateUserProfileInput {
         featuredWorkIds == other.featuredWorkIds &&
         githubAccountId == other.githubAccountId &&
         headerImageUrl == other.headerImageUrl &&
+        homeUrl == other.homeUrl &&
         iconUrl == other.iconUrl &&
         instagramAccountId == other.instagramAccountId &&
+        mailAddress == other.mailAddress &&
         twitterAccountId == other.twitterAccountId;
   }
 
@@ -30111,8 +31763,10 @@ class _$GUpdateUserProfileInput extends GUpdateUserProfileInput {
     _$hash = $jc(_$hash, featuredWorkIds.hashCode);
     _$hash = $jc(_$hash, githubAccountId.hashCode);
     _$hash = $jc(_$hash, headerImageUrl.hashCode);
+    _$hash = $jc(_$hash, homeUrl.hashCode);
     _$hash = $jc(_$hash, iconUrl.hashCode);
     _$hash = $jc(_$hash, instagramAccountId.hashCode);
+    _$hash = $jc(_$hash, mailAddress.hashCode);
     _$hash = $jc(_$hash, twitterAccountId.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -30128,8 +31782,10 @@ class _$GUpdateUserProfileInput extends GUpdateUserProfileInput {
           ..add('featuredWorkIds', featuredWorkIds)
           ..add('githubAccountId', githubAccountId)
           ..add('headerImageUrl', headerImageUrl)
+          ..add('homeUrl', homeUrl)
           ..add('iconUrl', iconUrl)
           ..add('instagramAccountId', instagramAccountId)
+          ..add('mailAddress', mailAddress)
           ..add('twitterAccountId', twitterAccountId))
         .toString();
   }
@@ -30174,6 +31830,10 @@ class GUpdateUserProfileInputBuilder
   set headerImageUrl(String? headerImageUrl) =>
       _$this._headerImageUrl = headerImageUrl;
 
+  String? _homeUrl;
+  String? get homeUrl => _$this._homeUrl;
+  set homeUrl(String? homeUrl) => _$this._homeUrl = homeUrl;
+
   String? _iconUrl;
   String? get iconUrl => _$this._iconUrl;
   set iconUrl(String? iconUrl) => _$this._iconUrl = iconUrl;
@@ -30182,6 +31842,10 @@ class GUpdateUserProfileInputBuilder
   String? get instagramAccountId => _$this._instagramAccountId;
   set instagramAccountId(String? instagramAccountId) =>
       _$this._instagramAccountId = instagramAccountId;
+
+  String? _mailAddress;
+  String? get mailAddress => _$this._mailAddress;
+  set mailAddress(String? mailAddress) => _$this._mailAddress = mailAddress;
 
   String? _twitterAccountId;
   String? get twitterAccountId => _$this._twitterAccountId;
@@ -30200,8 +31864,10 @@ class GUpdateUserProfileInputBuilder
       _featuredWorkIds = $v.featuredWorkIds?.toBuilder();
       _githubAccountId = $v.githubAccountId;
       _headerImageUrl = $v.headerImageUrl;
+      _homeUrl = $v.homeUrl;
       _iconUrl = $v.iconUrl;
       _instagramAccountId = $v.instagramAccountId;
+      _mailAddress = $v.mailAddress;
       _twitterAccountId = $v.twitterAccountId;
       _$v = null;
     }
@@ -30234,8 +31900,10 @@ class GUpdateUserProfileInputBuilder
               featuredWorkIds: _featuredWorkIds?.build(),
               githubAccountId: githubAccountId,
               headerImageUrl: headerImageUrl,
+              homeUrl: homeUrl,
               iconUrl: iconUrl,
               instagramAccountId: instagramAccountId,
+              mailAddress: mailAddress,
               twitterAccountId: twitterAccountId);
     } catch (_) {
       late String _$failedField;
@@ -30257,13 +31925,33 @@ class GUpdateUserProfileInputBuilder
 
 class _$GUpdateUserSettingInput extends GUpdateUserSettingInput {
   @override
+  final bool? featurePromptonRequest;
+  @override
+  final bool? isAnonymousLike;
+  @override
+  final bool? isAnonymousSensitiveLike;
+  @override
+  final bool? isBlurSensitiveImage;
+  @override
+  final bool? isNotifyComment;
+  @override
   final GPreferenceRating? preferenceRating;
+  @override
+  final bool? safetyMode;
 
   factory _$GUpdateUserSettingInput(
           [void Function(GUpdateUserSettingInputBuilder)? updates]) =>
       (new GUpdateUserSettingInputBuilder()..update(updates))._build();
 
-  _$GUpdateUserSettingInput._({this.preferenceRating}) : super._();
+  _$GUpdateUserSettingInput._(
+      {this.featurePromptonRequest,
+      this.isAnonymousLike,
+      this.isAnonymousSensitiveLike,
+      this.isBlurSensitiveImage,
+      this.isNotifyComment,
+      this.preferenceRating,
+      this.safetyMode})
+      : super._();
 
   @override
   GUpdateUserSettingInput rebuild(
@@ -30278,13 +31966,25 @@ class _$GUpdateUserSettingInput extends GUpdateUserSettingInput {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is GUpdateUserSettingInput &&
-        preferenceRating == other.preferenceRating;
+        featurePromptonRequest == other.featurePromptonRequest &&
+        isAnonymousLike == other.isAnonymousLike &&
+        isAnonymousSensitiveLike == other.isAnonymousSensitiveLike &&
+        isBlurSensitiveImage == other.isBlurSensitiveImage &&
+        isNotifyComment == other.isNotifyComment &&
+        preferenceRating == other.preferenceRating &&
+        safetyMode == other.safetyMode;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, featurePromptonRequest.hashCode);
+    _$hash = $jc(_$hash, isAnonymousLike.hashCode);
+    _$hash = $jc(_$hash, isAnonymousSensitiveLike.hashCode);
+    _$hash = $jc(_$hash, isBlurSensitiveImage.hashCode);
+    _$hash = $jc(_$hash, isNotifyComment.hashCode);
     _$hash = $jc(_$hash, preferenceRating.hashCode);
+    _$hash = $jc(_$hash, safetyMode.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -30292,7 +31992,13 @@ class _$GUpdateUserSettingInput extends GUpdateUserSettingInput {
   @override
   String toString() {
     return (newBuiltValueToStringHelper(r'GUpdateUserSettingInput')
-          ..add('preferenceRating', preferenceRating))
+          ..add('featurePromptonRequest', featurePromptonRequest)
+          ..add('isAnonymousLike', isAnonymousLike)
+          ..add('isAnonymousSensitiveLike', isAnonymousSensitiveLike)
+          ..add('isBlurSensitiveImage', isBlurSensitiveImage)
+          ..add('isNotifyComment', isNotifyComment)
+          ..add('preferenceRating', preferenceRating)
+          ..add('safetyMode', safetyMode))
         .toString();
   }
 }
@@ -30302,17 +32008,52 @@ class GUpdateUserSettingInputBuilder
         Builder<GUpdateUserSettingInput, GUpdateUserSettingInputBuilder> {
   _$GUpdateUserSettingInput? _$v;
 
+  bool? _featurePromptonRequest;
+  bool? get featurePromptonRequest => _$this._featurePromptonRequest;
+  set featurePromptonRequest(bool? featurePromptonRequest) =>
+      _$this._featurePromptonRequest = featurePromptonRequest;
+
+  bool? _isAnonymousLike;
+  bool? get isAnonymousLike => _$this._isAnonymousLike;
+  set isAnonymousLike(bool? isAnonymousLike) =>
+      _$this._isAnonymousLike = isAnonymousLike;
+
+  bool? _isAnonymousSensitiveLike;
+  bool? get isAnonymousSensitiveLike => _$this._isAnonymousSensitiveLike;
+  set isAnonymousSensitiveLike(bool? isAnonymousSensitiveLike) =>
+      _$this._isAnonymousSensitiveLike = isAnonymousSensitiveLike;
+
+  bool? _isBlurSensitiveImage;
+  bool? get isBlurSensitiveImage => _$this._isBlurSensitiveImage;
+  set isBlurSensitiveImage(bool? isBlurSensitiveImage) =>
+      _$this._isBlurSensitiveImage = isBlurSensitiveImage;
+
+  bool? _isNotifyComment;
+  bool? get isNotifyComment => _$this._isNotifyComment;
+  set isNotifyComment(bool? isNotifyComment) =>
+      _$this._isNotifyComment = isNotifyComment;
+
   GPreferenceRating? _preferenceRating;
   GPreferenceRating? get preferenceRating => _$this._preferenceRating;
   set preferenceRating(GPreferenceRating? preferenceRating) =>
       _$this._preferenceRating = preferenceRating;
+
+  bool? _safetyMode;
+  bool? get safetyMode => _$this._safetyMode;
+  set safetyMode(bool? safetyMode) => _$this._safetyMode = safetyMode;
 
   GUpdateUserSettingInputBuilder();
 
   GUpdateUserSettingInputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _featurePromptonRequest = $v.featurePromptonRequest;
+      _isAnonymousLike = $v.isAnonymousLike;
+      _isAnonymousSensitiveLike = $v.isAnonymousSensitiveLike;
+      _isBlurSensitiveImage = $v.isBlurSensitiveImage;
+      _isNotifyComment = $v.isNotifyComment;
       _preferenceRating = $v.preferenceRating;
+      _safetyMode = $v.safetyMode;
       _$v = null;
     }
     return this;
@@ -30334,7 +32075,14 @@ class GUpdateUserSettingInputBuilder
 
   _$GUpdateUserSettingInput _build() {
     final _$result = _$v ??
-        new _$GUpdateUserSettingInput._(preferenceRating: preferenceRating);
+        new _$GUpdateUserSettingInput._(
+            featurePromptonRequest: featurePromptonRequest,
+            isAnonymousLike: isAnonymousLike,
+            isAnonymousSensitiveLike: isAnonymousSensitiveLike,
+            isBlurSensitiveImage: isBlurSensitiveImage,
+            isNotifyComment: isNotifyComment,
+            preferenceRating: preferenceRating,
+            safetyMode: safetyMode);
     replace(_$result);
     return _$result;
   }
@@ -30342,19 +32090,181 @@ class GUpdateUserSettingInputBuilder
 
 class _$GUpdateWorkInput extends GUpdateWorkInput {
   @override
+  final GGenerationAccessType accessGenerationType;
+  @override
+  final GAccessType accessType;
+  @override
+  final String? albumId;
+  @override
+  final String? enExplanation;
+  @override
+  final String? entitle;
+  @override
+  final String? explanation;
+  @override
+  final String? html;
+  @override
+  final String id;
+  @override
+  final int imageHeight;
+  @override
+  final GImageStyle imageStyle;
+  @override
+  final BuiltList<String> imageUrls;
+  @override
+  final int imageWidth;
+  @override
+  final bool isCommentEditable;
+  @override
+  final bool isPromotion;
+  @override
+  final bool isTagEditable;
+  @override
+  final int largeThumbnailImageHeight;
+  @override
+  final String largeThumbnailImageURL;
+  @override
+  final int largeThumbnailImageWidth;
+  @override
+  final String mainImageSha256;
+  @override
+  final String? modelHash;
+  @override
+  final String? modelId;
+  @override
+  final String? modelName;
+  @override
+  final String? negativePrompt;
+  @override
+  final String? noise;
+  @override
+  final String? ogpImageUrl;
+  @override
+  final String? otherGenerationParams;
+  @override
+  final String? pngInfo;
+  @override
+  final String? prompt;
+  @override
+  final GRating rating;
+  @override
+  final String? relatedUrl;
+  @override
+  final int? reservedAt;
+  @override
+  final String? sampler;
+  @override
+  final String? seed;
+  @override
+  final int smallThumbnailImageHeight;
+  @override
+  final String smallThumbnailImageURL;
+  @override
+  final int smallThumbnailImageWidth;
+  @override
+  final String? steps;
+  @override
+  final String? strength;
+  @override
+  final String? subjectId;
+  @override
+  final BuiltList<String>? tags;
+  @override
+  final double? thumbnailPosition;
+  @override
   final String title;
   @override
-  final String workId;
+  final GWorkType type;
+  @override
+  final String? videoUrl;
 
   factory _$GUpdateWorkInput(
           [void Function(GUpdateWorkInputBuilder)? updates]) =>
       (new GUpdateWorkInputBuilder()..update(updates))._build();
 
-  _$GUpdateWorkInput._({required this.title, required this.workId})
+  _$GUpdateWorkInput._(
+      {required this.accessGenerationType,
+      required this.accessType,
+      this.albumId,
+      this.enExplanation,
+      this.entitle,
+      this.explanation,
+      this.html,
+      required this.id,
+      required this.imageHeight,
+      required this.imageStyle,
+      required this.imageUrls,
+      required this.imageWidth,
+      required this.isCommentEditable,
+      required this.isPromotion,
+      required this.isTagEditable,
+      required this.largeThumbnailImageHeight,
+      required this.largeThumbnailImageURL,
+      required this.largeThumbnailImageWidth,
+      required this.mainImageSha256,
+      this.modelHash,
+      this.modelId,
+      this.modelName,
+      this.negativePrompt,
+      this.noise,
+      this.ogpImageUrl,
+      this.otherGenerationParams,
+      this.pngInfo,
+      this.prompt,
+      required this.rating,
+      this.relatedUrl,
+      this.reservedAt,
+      this.sampler,
+      this.seed,
+      required this.smallThumbnailImageHeight,
+      required this.smallThumbnailImageURL,
+      required this.smallThumbnailImageWidth,
+      this.steps,
+      this.strength,
+      this.subjectId,
+      this.tags,
+      this.thumbnailPosition,
+      required this.title,
+      required this.type,
+      this.videoUrl})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(title, r'GUpdateWorkInput', 'title');
     BuiltValueNullFieldError.checkNotNull(
-        workId, r'GUpdateWorkInput', 'workId');
+        accessGenerationType, r'GUpdateWorkInput', 'accessGenerationType');
+    BuiltValueNullFieldError.checkNotNull(
+        accessType, r'GUpdateWorkInput', 'accessType');
+    BuiltValueNullFieldError.checkNotNull(id, r'GUpdateWorkInput', 'id');
+    BuiltValueNullFieldError.checkNotNull(
+        imageHeight, r'GUpdateWorkInput', 'imageHeight');
+    BuiltValueNullFieldError.checkNotNull(
+        imageStyle, r'GUpdateWorkInput', 'imageStyle');
+    BuiltValueNullFieldError.checkNotNull(
+        imageUrls, r'GUpdateWorkInput', 'imageUrls');
+    BuiltValueNullFieldError.checkNotNull(
+        imageWidth, r'GUpdateWorkInput', 'imageWidth');
+    BuiltValueNullFieldError.checkNotNull(
+        isCommentEditable, r'GUpdateWorkInput', 'isCommentEditable');
+    BuiltValueNullFieldError.checkNotNull(
+        isPromotion, r'GUpdateWorkInput', 'isPromotion');
+    BuiltValueNullFieldError.checkNotNull(
+        isTagEditable, r'GUpdateWorkInput', 'isTagEditable');
+    BuiltValueNullFieldError.checkNotNull(largeThumbnailImageHeight,
+        r'GUpdateWorkInput', 'largeThumbnailImageHeight');
+    BuiltValueNullFieldError.checkNotNull(
+        largeThumbnailImageURL, r'GUpdateWorkInput', 'largeThumbnailImageURL');
+    BuiltValueNullFieldError.checkNotNull(largeThumbnailImageWidth,
+        r'GUpdateWorkInput', 'largeThumbnailImageWidth');
+    BuiltValueNullFieldError.checkNotNull(
+        mainImageSha256, r'GUpdateWorkInput', 'mainImageSha256');
+    BuiltValueNullFieldError.checkNotNull(
+        rating, r'GUpdateWorkInput', 'rating');
+    BuiltValueNullFieldError.checkNotNull(smallThumbnailImageHeight,
+        r'GUpdateWorkInput', 'smallThumbnailImageHeight');
+    BuiltValueNullFieldError.checkNotNull(
+        smallThumbnailImageURL, r'GUpdateWorkInput', 'smallThumbnailImageURL');
+    BuiltValueNullFieldError.checkNotNull(smallThumbnailImageWidth,
+        r'GUpdateWorkInput', 'smallThumbnailImageWidth');
+    BuiltValueNullFieldError.checkNotNull(title, r'GUpdateWorkInput', 'title');
+    BuiltValueNullFieldError.checkNotNull(type, r'GUpdateWorkInput', 'type');
   }
 
   @override
@@ -30369,15 +32279,99 @@ class _$GUpdateWorkInput extends GUpdateWorkInput {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is GUpdateWorkInput &&
+        accessGenerationType == other.accessGenerationType &&
+        accessType == other.accessType &&
+        albumId == other.albumId &&
+        enExplanation == other.enExplanation &&
+        entitle == other.entitle &&
+        explanation == other.explanation &&
+        html == other.html &&
+        id == other.id &&
+        imageHeight == other.imageHeight &&
+        imageStyle == other.imageStyle &&
+        imageUrls == other.imageUrls &&
+        imageWidth == other.imageWidth &&
+        isCommentEditable == other.isCommentEditable &&
+        isPromotion == other.isPromotion &&
+        isTagEditable == other.isTagEditable &&
+        largeThumbnailImageHeight == other.largeThumbnailImageHeight &&
+        largeThumbnailImageURL == other.largeThumbnailImageURL &&
+        largeThumbnailImageWidth == other.largeThumbnailImageWidth &&
+        mainImageSha256 == other.mainImageSha256 &&
+        modelHash == other.modelHash &&
+        modelId == other.modelId &&
+        modelName == other.modelName &&
+        negativePrompt == other.negativePrompt &&
+        noise == other.noise &&
+        ogpImageUrl == other.ogpImageUrl &&
+        otherGenerationParams == other.otherGenerationParams &&
+        pngInfo == other.pngInfo &&
+        prompt == other.prompt &&
+        rating == other.rating &&
+        relatedUrl == other.relatedUrl &&
+        reservedAt == other.reservedAt &&
+        sampler == other.sampler &&
+        seed == other.seed &&
+        smallThumbnailImageHeight == other.smallThumbnailImageHeight &&
+        smallThumbnailImageURL == other.smallThumbnailImageURL &&
+        smallThumbnailImageWidth == other.smallThumbnailImageWidth &&
+        steps == other.steps &&
+        strength == other.strength &&
+        subjectId == other.subjectId &&
+        tags == other.tags &&
+        thumbnailPosition == other.thumbnailPosition &&
         title == other.title &&
-        workId == other.workId;
+        type == other.type &&
+        videoUrl == other.videoUrl;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, accessGenerationType.hashCode);
+    _$hash = $jc(_$hash, accessType.hashCode);
+    _$hash = $jc(_$hash, albumId.hashCode);
+    _$hash = $jc(_$hash, enExplanation.hashCode);
+    _$hash = $jc(_$hash, entitle.hashCode);
+    _$hash = $jc(_$hash, explanation.hashCode);
+    _$hash = $jc(_$hash, html.hashCode);
+    _$hash = $jc(_$hash, id.hashCode);
+    _$hash = $jc(_$hash, imageHeight.hashCode);
+    _$hash = $jc(_$hash, imageStyle.hashCode);
+    _$hash = $jc(_$hash, imageUrls.hashCode);
+    _$hash = $jc(_$hash, imageWidth.hashCode);
+    _$hash = $jc(_$hash, isCommentEditable.hashCode);
+    _$hash = $jc(_$hash, isPromotion.hashCode);
+    _$hash = $jc(_$hash, isTagEditable.hashCode);
+    _$hash = $jc(_$hash, largeThumbnailImageHeight.hashCode);
+    _$hash = $jc(_$hash, largeThumbnailImageURL.hashCode);
+    _$hash = $jc(_$hash, largeThumbnailImageWidth.hashCode);
+    _$hash = $jc(_$hash, mainImageSha256.hashCode);
+    _$hash = $jc(_$hash, modelHash.hashCode);
+    _$hash = $jc(_$hash, modelId.hashCode);
+    _$hash = $jc(_$hash, modelName.hashCode);
+    _$hash = $jc(_$hash, negativePrompt.hashCode);
+    _$hash = $jc(_$hash, noise.hashCode);
+    _$hash = $jc(_$hash, ogpImageUrl.hashCode);
+    _$hash = $jc(_$hash, otherGenerationParams.hashCode);
+    _$hash = $jc(_$hash, pngInfo.hashCode);
+    _$hash = $jc(_$hash, prompt.hashCode);
+    _$hash = $jc(_$hash, rating.hashCode);
+    _$hash = $jc(_$hash, relatedUrl.hashCode);
+    _$hash = $jc(_$hash, reservedAt.hashCode);
+    _$hash = $jc(_$hash, sampler.hashCode);
+    _$hash = $jc(_$hash, seed.hashCode);
+    _$hash = $jc(_$hash, smallThumbnailImageHeight.hashCode);
+    _$hash = $jc(_$hash, smallThumbnailImageURL.hashCode);
+    _$hash = $jc(_$hash, smallThumbnailImageWidth.hashCode);
+    _$hash = $jc(_$hash, steps.hashCode);
+    _$hash = $jc(_$hash, strength.hashCode);
+    _$hash = $jc(_$hash, subjectId.hashCode);
+    _$hash = $jc(_$hash, tags.hashCode);
+    _$hash = $jc(_$hash, thumbnailPosition.hashCode);
     _$hash = $jc(_$hash, title.hashCode);
-    _$hash = $jc(_$hash, workId.hashCode);
+    _$hash = $jc(_$hash, type.hashCode);
+    _$hash = $jc(_$hash, videoUrl.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -30385,8 +32379,50 @@ class _$GUpdateWorkInput extends GUpdateWorkInput {
   @override
   String toString() {
     return (newBuiltValueToStringHelper(r'GUpdateWorkInput')
+          ..add('accessGenerationType', accessGenerationType)
+          ..add('accessType', accessType)
+          ..add('albumId', albumId)
+          ..add('enExplanation', enExplanation)
+          ..add('entitle', entitle)
+          ..add('explanation', explanation)
+          ..add('html', html)
+          ..add('id', id)
+          ..add('imageHeight', imageHeight)
+          ..add('imageStyle', imageStyle)
+          ..add('imageUrls', imageUrls)
+          ..add('imageWidth', imageWidth)
+          ..add('isCommentEditable', isCommentEditable)
+          ..add('isPromotion', isPromotion)
+          ..add('isTagEditable', isTagEditable)
+          ..add('largeThumbnailImageHeight', largeThumbnailImageHeight)
+          ..add('largeThumbnailImageURL', largeThumbnailImageURL)
+          ..add('largeThumbnailImageWidth', largeThumbnailImageWidth)
+          ..add('mainImageSha256', mainImageSha256)
+          ..add('modelHash', modelHash)
+          ..add('modelId', modelId)
+          ..add('modelName', modelName)
+          ..add('negativePrompt', negativePrompt)
+          ..add('noise', noise)
+          ..add('ogpImageUrl', ogpImageUrl)
+          ..add('otherGenerationParams', otherGenerationParams)
+          ..add('pngInfo', pngInfo)
+          ..add('prompt', prompt)
+          ..add('rating', rating)
+          ..add('relatedUrl', relatedUrl)
+          ..add('reservedAt', reservedAt)
+          ..add('sampler', sampler)
+          ..add('seed', seed)
+          ..add('smallThumbnailImageHeight', smallThumbnailImageHeight)
+          ..add('smallThumbnailImageURL', smallThumbnailImageURL)
+          ..add('smallThumbnailImageWidth', smallThumbnailImageWidth)
+          ..add('steps', steps)
+          ..add('strength', strength)
+          ..add('subjectId', subjectId)
+          ..add('tags', tags)
+          ..add('thumbnailPosition', thumbnailPosition)
           ..add('title', title)
-          ..add('workId', workId))
+          ..add('type', type)
+          ..add('videoUrl', videoUrl))
         .toString();
   }
 }
@@ -30395,21 +32431,248 @@ class GUpdateWorkInputBuilder
     implements Builder<GUpdateWorkInput, GUpdateWorkInputBuilder> {
   _$GUpdateWorkInput? _$v;
 
+  GGenerationAccessType? _accessGenerationType;
+  GGenerationAccessType? get accessGenerationType =>
+      _$this._accessGenerationType;
+  set accessGenerationType(GGenerationAccessType? accessGenerationType) =>
+      _$this._accessGenerationType = accessGenerationType;
+
+  GAccessType? _accessType;
+  GAccessType? get accessType => _$this._accessType;
+  set accessType(GAccessType? accessType) => _$this._accessType = accessType;
+
+  String? _albumId;
+  String? get albumId => _$this._albumId;
+  set albumId(String? albumId) => _$this._albumId = albumId;
+
+  String? _enExplanation;
+  String? get enExplanation => _$this._enExplanation;
+  set enExplanation(String? enExplanation) =>
+      _$this._enExplanation = enExplanation;
+
+  String? _entitle;
+  String? get entitle => _$this._entitle;
+  set entitle(String? entitle) => _$this._entitle = entitle;
+
+  String? _explanation;
+  String? get explanation => _$this._explanation;
+  set explanation(String? explanation) => _$this._explanation = explanation;
+
+  String? _html;
+  String? get html => _$this._html;
+  set html(String? html) => _$this._html = html;
+
+  String? _id;
+  String? get id => _$this._id;
+  set id(String? id) => _$this._id = id;
+
+  int? _imageHeight;
+  int? get imageHeight => _$this._imageHeight;
+  set imageHeight(int? imageHeight) => _$this._imageHeight = imageHeight;
+
+  GImageStyle? _imageStyle;
+  GImageStyle? get imageStyle => _$this._imageStyle;
+  set imageStyle(GImageStyle? imageStyle) => _$this._imageStyle = imageStyle;
+
+  ListBuilder<String>? _imageUrls;
+  ListBuilder<String> get imageUrls =>
+      _$this._imageUrls ??= new ListBuilder<String>();
+  set imageUrls(ListBuilder<String>? imageUrls) =>
+      _$this._imageUrls = imageUrls;
+
+  int? _imageWidth;
+  int? get imageWidth => _$this._imageWidth;
+  set imageWidth(int? imageWidth) => _$this._imageWidth = imageWidth;
+
+  bool? _isCommentEditable;
+  bool? get isCommentEditable => _$this._isCommentEditable;
+  set isCommentEditable(bool? isCommentEditable) =>
+      _$this._isCommentEditable = isCommentEditable;
+
+  bool? _isPromotion;
+  bool? get isPromotion => _$this._isPromotion;
+  set isPromotion(bool? isPromotion) => _$this._isPromotion = isPromotion;
+
+  bool? _isTagEditable;
+  bool? get isTagEditable => _$this._isTagEditable;
+  set isTagEditable(bool? isTagEditable) =>
+      _$this._isTagEditable = isTagEditable;
+
+  int? _largeThumbnailImageHeight;
+  int? get largeThumbnailImageHeight => _$this._largeThumbnailImageHeight;
+  set largeThumbnailImageHeight(int? largeThumbnailImageHeight) =>
+      _$this._largeThumbnailImageHeight = largeThumbnailImageHeight;
+
+  String? _largeThumbnailImageURL;
+  String? get largeThumbnailImageURL => _$this._largeThumbnailImageURL;
+  set largeThumbnailImageURL(String? largeThumbnailImageURL) =>
+      _$this._largeThumbnailImageURL = largeThumbnailImageURL;
+
+  int? _largeThumbnailImageWidth;
+  int? get largeThumbnailImageWidth => _$this._largeThumbnailImageWidth;
+  set largeThumbnailImageWidth(int? largeThumbnailImageWidth) =>
+      _$this._largeThumbnailImageWidth = largeThumbnailImageWidth;
+
+  String? _mainImageSha256;
+  String? get mainImageSha256 => _$this._mainImageSha256;
+  set mainImageSha256(String? mainImageSha256) =>
+      _$this._mainImageSha256 = mainImageSha256;
+
+  String? _modelHash;
+  String? get modelHash => _$this._modelHash;
+  set modelHash(String? modelHash) => _$this._modelHash = modelHash;
+
+  String? _modelId;
+  String? get modelId => _$this._modelId;
+  set modelId(String? modelId) => _$this._modelId = modelId;
+
+  String? _modelName;
+  String? get modelName => _$this._modelName;
+  set modelName(String? modelName) => _$this._modelName = modelName;
+
+  String? _negativePrompt;
+  String? get negativePrompt => _$this._negativePrompt;
+  set negativePrompt(String? negativePrompt) =>
+      _$this._negativePrompt = negativePrompt;
+
+  String? _noise;
+  String? get noise => _$this._noise;
+  set noise(String? noise) => _$this._noise = noise;
+
+  String? _ogpImageUrl;
+  String? get ogpImageUrl => _$this._ogpImageUrl;
+  set ogpImageUrl(String? ogpImageUrl) => _$this._ogpImageUrl = ogpImageUrl;
+
+  String? _otherGenerationParams;
+  String? get otherGenerationParams => _$this._otherGenerationParams;
+  set otherGenerationParams(String? otherGenerationParams) =>
+      _$this._otherGenerationParams = otherGenerationParams;
+
+  String? _pngInfo;
+  String? get pngInfo => _$this._pngInfo;
+  set pngInfo(String? pngInfo) => _$this._pngInfo = pngInfo;
+
+  String? _prompt;
+  String? get prompt => _$this._prompt;
+  set prompt(String? prompt) => _$this._prompt = prompt;
+
+  GRating? _rating;
+  GRating? get rating => _$this._rating;
+  set rating(GRating? rating) => _$this._rating = rating;
+
+  String? _relatedUrl;
+  String? get relatedUrl => _$this._relatedUrl;
+  set relatedUrl(String? relatedUrl) => _$this._relatedUrl = relatedUrl;
+
+  int? _reservedAt;
+  int? get reservedAt => _$this._reservedAt;
+  set reservedAt(int? reservedAt) => _$this._reservedAt = reservedAt;
+
+  String? _sampler;
+  String? get sampler => _$this._sampler;
+  set sampler(String? sampler) => _$this._sampler = sampler;
+
+  String? _seed;
+  String? get seed => _$this._seed;
+  set seed(String? seed) => _$this._seed = seed;
+
+  int? _smallThumbnailImageHeight;
+  int? get smallThumbnailImageHeight => _$this._smallThumbnailImageHeight;
+  set smallThumbnailImageHeight(int? smallThumbnailImageHeight) =>
+      _$this._smallThumbnailImageHeight = smallThumbnailImageHeight;
+
+  String? _smallThumbnailImageURL;
+  String? get smallThumbnailImageURL => _$this._smallThumbnailImageURL;
+  set smallThumbnailImageURL(String? smallThumbnailImageURL) =>
+      _$this._smallThumbnailImageURL = smallThumbnailImageURL;
+
+  int? _smallThumbnailImageWidth;
+  int? get smallThumbnailImageWidth => _$this._smallThumbnailImageWidth;
+  set smallThumbnailImageWidth(int? smallThumbnailImageWidth) =>
+      _$this._smallThumbnailImageWidth = smallThumbnailImageWidth;
+
+  String? _steps;
+  String? get steps => _$this._steps;
+  set steps(String? steps) => _$this._steps = steps;
+
+  String? _strength;
+  String? get strength => _$this._strength;
+  set strength(String? strength) => _$this._strength = strength;
+
+  String? _subjectId;
+  String? get subjectId => _$this._subjectId;
+  set subjectId(String? subjectId) => _$this._subjectId = subjectId;
+
+  ListBuilder<String>? _tags;
+  ListBuilder<String> get tags => _$this._tags ??= new ListBuilder<String>();
+  set tags(ListBuilder<String>? tags) => _$this._tags = tags;
+
+  double? _thumbnailPosition;
+  double? get thumbnailPosition => _$this._thumbnailPosition;
+  set thumbnailPosition(double? thumbnailPosition) =>
+      _$this._thumbnailPosition = thumbnailPosition;
+
   String? _title;
   String? get title => _$this._title;
   set title(String? title) => _$this._title = title;
 
-  String? _workId;
-  String? get workId => _$this._workId;
-  set workId(String? workId) => _$this._workId = workId;
+  GWorkType? _type;
+  GWorkType? get type => _$this._type;
+  set type(GWorkType? type) => _$this._type = type;
+
+  String? _videoUrl;
+  String? get videoUrl => _$this._videoUrl;
+  set videoUrl(String? videoUrl) => _$this._videoUrl = videoUrl;
 
   GUpdateWorkInputBuilder();
 
   GUpdateWorkInputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _accessGenerationType = $v.accessGenerationType;
+      _accessType = $v.accessType;
+      _albumId = $v.albumId;
+      _enExplanation = $v.enExplanation;
+      _entitle = $v.entitle;
+      _explanation = $v.explanation;
+      _html = $v.html;
+      _id = $v.id;
+      _imageHeight = $v.imageHeight;
+      _imageStyle = $v.imageStyle;
+      _imageUrls = $v.imageUrls.toBuilder();
+      _imageWidth = $v.imageWidth;
+      _isCommentEditable = $v.isCommentEditable;
+      _isPromotion = $v.isPromotion;
+      _isTagEditable = $v.isTagEditable;
+      _largeThumbnailImageHeight = $v.largeThumbnailImageHeight;
+      _largeThumbnailImageURL = $v.largeThumbnailImageURL;
+      _largeThumbnailImageWidth = $v.largeThumbnailImageWidth;
+      _mainImageSha256 = $v.mainImageSha256;
+      _modelHash = $v.modelHash;
+      _modelId = $v.modelId;
+      _modelName = $v.modelName;
+      _negativePrompt = $v.negativePrompt;
+      _noise = $v.noise;
+      _ogpImageUrl = $v.ogpImageUrl;
+      _otherGenerationParams = $v.otherGenerationParams;
+      _pngInfo = $v.pngInfo;
+      _prompt = $v.prompt;
+      _rating = $v.rating;
+      _relatedUrl = $v.relatedUrl;
+      _reservedAt = $v.reservedAt;
+      _sampler = $v.sampler;
+      _seed = $v.seed;
+      _smallThumbnailImageHeight = $v.smallThumbnailImageHeight;
+      _smallThumbnailImageURL = $v.smallThumbnailImageURL;
+      _smallThumbnailImageWidth = $v.smallThumbnailImageWidth;
+      _steps = $v.steps;
+      _strength = $v.strength;
+      _subjectId = $v.subjectId;
+      _tags = $v.tags?.toBuilder();
+      _thumbnailPosition = $v.thumbnailPosition;
       _title = $v.title;
-      _workId = $v.workId;
+      _type = $v.type;
+      _videoUrl = $v.videoUrl;
       _$v = null;
     }
     return this;
@@ -30430,12 +32693,76 @@ class GUpdateWorkInputBuilder
   GUpdateWorkInput build() => _build();
 
   _$GUpdateWorkInput _build() {
-    final _$result = _$v ??
-        new _$GUpdateWorkInput._(
-            title: BuiltValueNullFieldError.checkNotNull(
-                title, r'GUpdateWorkInput', 'title'),
-            workId: BuiltValueNullFieldError.checkNotNull(
-                workId, r'GUpdateWorkInput', 'workId'));
+    _$GUpdateWorkInput _$result;
+    try {
+      _$result = _$v ??
+          new _$GUpdateWorkInput._(
+              accessGenerationType: BuiltValueNullFieldError.checkNotNull(
+                  accessGenerationType, r'GUpdateWorkInput', 'accessGenerationType'),
+              accessType: BuiltValueNullFieldError.checkNotNull(
+                  accessType, r'GUpdateWorkInput', 'accessType'),
+              albumId: albumId,
+              enExplanation: enExplanation,
+              entitle: entitle,
+              explanation: explanation,
+              html: html,
+              id: BuiltValueNullFieldError.checkNotNull(
+                  id, r'GUpdateWorkInput', 'id'),
+              imageHeight: BuiltValueNullFieldError.checkNotNull(
+                  imageHeight, r'GUpdateWorkInput', 'imageHeight'),
+              imageStyle: BuiltValueNullFieldError.checkNotNull(
+                  imageStyle, r'GUpdateWorkInput', 'imageStyle'),
+              imageUrls: imageUrls.build(),
+              imageWidth: BuiltValueNullFieldError.checkNotNull(
+                  imageWidth, r'GUpdateWorkInput', 'imageWidth'),
+              isCommentEditable: BuiltValueNullFieldError.checkNotNull(
+                  isCommentEditable, r'GUpdateWorkInput', 'isCommentEditable'),
+              isPromotion:
+                  BuiltValueNullFieldError.checkNotNull(isPromotion, r'GUpdateWorkInput', 'isPromotion'),
+              isTagEditable: BuiltValueNullFieldError.checkNotNull(isTagEditable, r'GUpdateWorkInput', 'isTagEditable'),
+              largeThumbnailImageHeight: BuiltValueNullFieldError.checkNotNull(largeThumbnailImageHeight, r'GUpdateWorkInput', 'largeThumbnailImageHeight'),
+              largeThumbnailImageURL: BuiltValueNullFieldError.checkNotNull(largeThumbnailImageURL, r'GUpdateWorkInput', 'largeThumbnailImageURL'),
+              largeThumbnailImageWidth: BuiltValueNullFieldError.checkNotNull(largeThumbnailImageWidth, r'GUpdateWorkInput', 'largeThumbnailImageWidth'),
+              mainImageSha256: BuiltValueNullFieldError.checkNotNull(mainImageSha256, r'GUpdateWorkInput', 'mainImageSha256'),
+              modelHash: modelHash,
+              modelId: modelId,
+              modelName: modelName,
+              negativePrompt: negativePrompt,
+              noise: noise,
+              ogpImageUrl: ogpImageUrl,
+              otherGenerationParams: otherGenerationParams,
+              pngInfo: pngInfo,
+              prompt: prompt,
+              rating: BuiltValueNullFieldError.checkNotNull(rating, r'GUpdateWorkInput', 'rating'),
+              relatedUrl: relatedUrl,
+              reservedAt: reservedAt,
+              sampler: sampler,
+              seed: seed,
+              smallThumbnailImageHeight: BuiltValueNullFieldError.checkNotNull(smallThumbnailImageHeight, r'GUpdateWorkInput', 'smallThumbnailImageHeight'),
+              smallThumbnailImageURL: BuiltValueNullFieldError.checkNotNull(smallThumbnailImageURL, r'GUpdateWorkInput', 'smallThumbnailImageURL'),
+              smallThumbnailImageWidth: BuiltValueNullFieldError.checkNotNull(smallThumbnailImageWidth, r'GUpdateWorkInput', 'smallThumbnailImageWidth'),
+              steps: steps,
+              strength: strength,
+              subjectId: subjectId,
+              tags: _tags?.build(),
+              thumbnailPosition: thumbnailPosition,
+              title: BuiltValueNullFieldError.checkNotNull(title, r'GUpdateWorkInput', 'title'),
+              type: BuiltValueNullFieldError.checkNotNull(type, r'GUpdateWorkInput', 'type'),
+              videoUrl: videoUrl);
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'imageUrls';
+        imageUrls.build();
+
+        _$failedField = 'tags';
+        _tags?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'GUpdateWorkInput', _$failedField, e.toString());
+      }
+      rethrow;
+    }
     replace(_$result);
     return _$result;
   }
@@ -30532,6 +32859,109 @@ class GUserAlbumInputBuilder
   }
 }
 
+class _$GUserAlbumWhereInput extends GUserAlbumWhereInput {
+  @override
+  final String link;
+  @override
+  final String userId;
+
+  factory _$GUserAlbumWhereInput(
+          [void Function(GUserAlbumWhereInputBuilder)? updates]) =>
+      (new GUserAlbumWhereInputBuilder()..update(updates))._build();
+
+  _$GUserAlbumWhereInput._({required this.link, required this.userId})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        link, r'GUserAlbumWhereInput', 'link');
+    BuiltValueNullFieldError.checkNotNull(
+        userId, r'GUserAlbumWhereInput', 'userId');
+  }
+
+  @override
+  GUserAlbumWhereInput rebuild(
+          void Function(GUserAlbumWhereInputBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GUserAlbumWhereInputBuilder toBuilder() =>
+      new GUserAlbumWhereInputBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GUserAlbumWhereInput &&
+        link == other.link &&
+        userId == other.userId;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, link.hashCode);
+    _$hash = $jc(_$hash, userId.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GUserAlbumWhereInput')
+          ..add('link', link)
+          ..add('userId', userId))
+        .toString();
+  }
+}
+
+class GUserAlbumWhereInputBuilder
+    implements Builder<GUserAlbumWhereInput, GUserAlbumWhereInputBuilder> {
+  _$GUserAlbumWhereInput? _$v;
+
+  String? _link;
+  String? get link => _$this._link;
+  set link(String? link) => _$this._link = link;
+
+  String? _userId;
+  String? get userId => _$this._userId;
+  set userId(String? userId) => _$this._userId = userId;
+
+  GUserAlbumWhereInputBuilder();
+
+  GUserAlbumWhereInputBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _link = $v.link;
+      _userId = $v.userId;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GUserAlbumWhereInput other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GUserAlbumWhereInput;
+  }
+
+  @override
+  void update(void Function(GUserAlbumWhereInputBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GUserAlbumWhereInput build() => _build();
+
+  _$GUserAlbumWhereInput _build() {
+    final _$result = _$v ??
+        new _$GUserAlbumWhereInput._(
+            link: BuiltValueNullFieldError.checkNotNull(
+                link, r'GUserAlbumWhereInput', 'link'),
+            userId: BuiltValueNullFieldError.checkNotNull(
+                userId, r'GUserAlbumWhereInput', 'userId'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
 class _$GUserFolderInput extends GUserFolderInput {
   @override
   final bool? isSensitive;
@@ -30619,6 +33049,133 @@ class GUserFolderInputBuilder
   _$GUserFolderInput _build() {
     final _$result = _$v ??
         new _$GUserFolderInput._(isSensitive: isSensitive, search: search);
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GUserStickersWhereInput extends GUserStickersWhereInput {
+  @override
+  final BuiltList<String>? categories;
+  @override
+  final BuiltList<GStickerSavedType>? savedTypes;
+  @override
+  final String? search;
+
+  factory _$GUserStickersWhereInput(
+          [void Function(GUserStickersWhereInputBuilder)? updates]) =>
+      (new GUserStickersWhereInputBuilder()..update(updates))._build();
+
+  _$GUserStickersWhereInput._({this.categories, this.savedTypes, this.search})
+      : super._();
+
+  @override
+  GUserStickersWhereInput rebuild(
+          void Function(GUserStickersWhereInputBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GUserStickersWhereInputBuilder toBuilder() =>
+      new GUserStickersWhereInputBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GUserStickersWhereInput &&
+        categories == other.categories &&
+        savedTypes == other.savedTypes &&
+        search == other.search;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, categories.hashCode);
+    _$hash = $jc(_$hash, savedTypes.hashCode);
+    _$hash = $jc(_$hash, search.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GUserStickersWhereInput')
+          ..add('categories', categories)
+          ..add('savedTypes', savedTypes)
+          ..add('search', search))
+        .toString();
+  }
+}
+
+class GUserStickersWhereInputBuilder
+    implements
+        Builder<GUserStickersWhereInput, GUserStickersWhereInputBuilder> {
+  _$GUserStickersWhereInput? _$v;
+
+  ListBuilder<String>? _categories;
+  ListBuilder<String> get categories =>
+      _$this._categories ??= new ListBuilder<String>();
+  set categories(ListBuilder<String>? categories) =>
+      _$this._categories = categories;
+
+  ListBuilder<GStickerSavedType>? _savedTypes;
+  ListBuilder<GStickerSavedType> get savedTypes =>
+      _$this._savedTypes ??= new ListBuilder<GStickerSavedType>();
+  set savedTypes(ListBuilder<GStickerSavedType>? savedTypes) =>
+      _$this._savedTypes = savedTypes;
+
+  String? _search;
+  String? get search => _$this._search;
+  set search(String? search) => _$this._search = search;
+
+  GUserStickersWhereInputBuilder();
+
+  GUserStickersWhereInputBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _categories = $v.categories?.toBuilder();
+      _savedTypes = $v.savedTypes?.toBuilder();
+      _search = $v.search;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GUserStickersWhereInput other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GUserStickersWhereInput;
+  }
+
+  @override
+  void update(void Function(GUserStickersWhereInputBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GUserStickersWhereInput build() => _build();
+
+  _$GUserStickersWhereInput _build() {
+    _$GUserStickersWhereInput _$result;
+    try {
+      _$result = _$v ??
+          new _$GUserStickersWhereInput._(
+              categories: _categories?.build(),
+              savedTypes: _savedTypes?.build(),
+              search: search);
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'categories';
+        _categories?.build();
+        _$failedField = 'savedTypes';
+        _savedTypes?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'GUserStickersWhereInput', _$failedField, e.toString());
+      }
+      rethrow;
+    }
     replace(_$result);
     return _$result;
   }
@@ -31008,6 +33565,8 @@ class _$GWorkAwardsWhereInput extends GWorkAwardsWhereInput {
   @override
   final int? day;
   @override
+  final bool? isSensitive;
+  @override
   final int? month;
   @override
   final GAwardType? type;
@@ -31021,7 +33580,13 @@ class _$GWorkAwardsWhereInput extends GWorkAwardsWhereInput {
       (new GWorkAwardsWhereInputBuilder()..update(updates))._build();
 
   _$GWorkAwardsWhereInput._(
-      {this.date, this.day, this.month, this.type, this.weekIndex, this.year})
+      {this.date,
+      this.day,
+      this.isSensitive,
+      this.month,
+      this.type,
+      this.weekIndex,
+      this.year})
       : super._();
 
   @override
@@ -31039,6 +33604,7 @@ class _$GWorkAwardsWhereInput extends GWorkAwardsWhereInput {
     return other is GWorkAwardsWhereInput &&
         date == other.date &&
         day == other.day &&
+        isSensitive == other.isSensitive &&
         month == other.month &&
         type == other.type &&
         weekIndex == other.weekIndex &&
@@ -31050,6 +33616,7 @@ class _$GWorkAwardsWhereInput extends GWorkAwardsWhereInput {
     var _$hash = 0;
     _$hash = $jc(_$hash, date.hashCode);
     _$hash = $jc(_$hash, day.hashCode);
+    _$hash = $jc(_$hash, isSensitive.hashCode);
     _$hash = $jc(_$hash, month.hashCode);
     _$hash = $jc(_$hash, type.hashCode);
     _$hash = $jc(_$hash, weekIndex.hashCode);
@@ -31063,6 +33630,7 @@ class _$GWorkAwardsWhereInput extends GWorkAwardsWhereInput {
     return (newBuiltValueToStringHelper(r'GWorkAwardsWhereInput')
           ..add('date', date)
           ..add('day', day)
+          ..add('isSensitive', isSensitive)
           ..add('month', month)
           ..add('type', type)
           ..add('weekIndex', weekIndex)
@@ -31082,6 +33650,10 @@ class GWorkAwardsWhereInputBuilder
   int? _day;
   int? get day => _$this._day;
   set day(int? day) => _$this._day = day;
+
+  bool? _isSensitive;
+  bool? get isSensitive => _$this._isSensitive;
+  set isSensitive(bool? isSensitive) => _$this._isSensitive = isSensitive;
 
   int? _month;
   int? get month => _$this._month;
@@ -31106,6 +33678,7 @@ class GWorkAwardsWhereInputBuilder
     if ($v != null) {
       _date = $v.date;
       _day = $v.day;
+      _isSensitive = $v.isSensitive;
       _month = $v.month;
       _type = $v.type;
       _weekIndex = $v.weekIndex;
@@ -31134,6 +33707,7 @@ class GWorkAwardsWhereInputBuilder
         new _$GWorkAwardsWhereInput._(
             date: date,
             day: day,
+            isSensitive: isSensitive,
             month: month,
             type: type,
             weekIndex: weekIndex,
@@ -31147,9 +33721,15 @@ class _$GWorksWhereInput extends GWorksWhereInput {
   @override
   final BuiltList<GAccessType>? accessTypes;
   @override
+  final String? beforeCreatedAt;
+  @override
+  final String? createdAtAfter;
+  @override
   final String? generationModelId;
   @override
   final bool? hasPrompt;
+  @override
+  final BuiltList<String>? ids;
   @override
   final bool? isFeatured;
   @override
@@ -31158,6 +33738,8 @@ class _$GWorksWhereInput extends GWorksWhereInput {
   final bool? isIncludePrivate;
   @override
   final bool? isNotFollowing;
+  @override
+  final bool? isNowCreatedAt;
   @override
   final bool? isOneWorkPerUser;
   @override
@@ -31196,6 +33778,8 @@ class _$GWorksWhereInput extends GWorksWhereInput {
   final String? userId;
   @override
   final GWorkType? workType;
+  @override
+  final BuiltList<GWorkType>? workTypes;
 
   factory _$GWorksWhereInput(
           [void Function(GWorksWhereInputBuilder)? updates]) =>
@@ -31203,12 +33787,16 @@ class _$GWorksWhereInput extends GWorksWhereInput {
 
   _$GWorksWhereInput._(
       {this.accessTypes,
+      this.beforeCreatedAt,
+      this.createdAtAfter,
       this.generationModelId,
       this.hasPrompt,
+      this.ids,
       this.isFeatured,
       this.isFollowing,
       this.isIncludePrivate,
       this.isNotFollowing,
+      this.isNowCreatedAt,
       this.isOneWorkPerUser,
       this.isPromptPublic,
       this.isRecommended,
@@ -31227,7 +33815,8 @@ class _$GWorksWhereInput extends GWorksWhereInput {
       this.subjectId,
       this.tagNames,
       this.userId,
-      this.workType})
+      this.workType,
+      this.workTypes})
       : super._();
 
   @override
@@ -31243,12 +33832,16 @@ class _$GWorksWhereInput extends GWorksWhereInput {
     if (identical(other, this)) return true;
     return other is GWorksWhereInput &&
         accessTypes == other.accessTypes &&
+        beforeCreatedAt == other.beforeCreatedAt &&
+        createdAtAfter == other.createdAtAfter &&
         generationModelId == other.generationModelId &&
         hasPrompt == other.hasPrompt &&
+        ids == other.ids &&
         isFeatured == other.isFeatured &&
         isFollowing == other.isFollowing &&
         isIncludePrivate == other.isIncludePrivate &&
         isNotFollowing == other.isNotFollowing &&
+        isNowCreatedAt == other.isNowCreatedAt &&
         isOneWorkPerUser == other.isOneWorkPerUser &&
         isPromptPublic == other.isPromptPublic &&
         isRecommended == other.isRecommended &&
@@ -31267,19 +33860,24 @@ class _$GWorksWhereInput extends GWorksWhereInput {
         subjectId == other.subjectId &&
         tagNames == other.tagNames &&
         userId == other.userId &&
-        workType == other.workType;
+        workType == other.workType &&
+        workTypes == other.workTypes;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, accessTypes.hashCode);
+    _$hash = $jc(_$hash, beforeCreatedAt.hashCode);
+    _$hash = $jc(_$hash, createdAtAfter.hashCode);
     _$hash = $jc(_$hash, generationModelId.hashCode);
     _$hash = $jc(_$hash, hasPrompt.hashCode);
+    _$hash = $jc(_$hash, ids.hashCode);
     _$hash = $jc(_$hash, isFeatured.hashCode);
     _$hash = $jc(_$hash, isFollowing.hashCode);
     _$hash = $jc(_$hash, isIncludePrivate.hashCode);
     _$hash = $jc(_$hash, isNotFollowing.hashCode);
+    _$hash = $jc(_$hash, isNowCreatedAt.hashCode);
     _$hash = $jc(_$hash, isOneWorkPerUser.hashCode);
     _$hash = $jc(_$hash, isPromptPublic.hashCode);
     _$hash = $jc(_$hash, isRecommended.hashCode);
@@ -31299,6 +33897,7 @@ class _$GWorksWhereInput extends GWorksWhereInput {
     _$hash = $jc(_$hash, tagNames.hashCode);
     _$hash = $jc(_$hash, userId.hashCode);
     _$hash = $jc(_$hash, workType.hashCode);
+    _$hash = $jc(_$hash, workTypes.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -31307,12 +33906,16 @@ class _$GWorksWhereInput extends GWorksWhereInput {
   String toString() {
     return (newBuiltValueToStringHelper(r'GWorksWhereInput')
           ..add('accessTypes', accessTypes)
+          ..add('beforeCreatedAt', beforeCreatedAt)
+          ..add('createdAtAfter', createdAtAfter)
           ..add('generationModelId', generationModelId)
           ..add('hasPrompt', hasPrompt)
+          ..add('ids', ids)
           ..add('isFeatured', isFeatured)
           ..add('isFollowing', isFollowing)
           ..add('isIncludePrivate', isIncludePrivate)
           ..add('isNotFollowing', isNotFollowing)
+          ..add('isNowCreatedAt', isNowCreatedAt)
           ..add('isOneWorkPerUser', isOneWorkPerUser)
           ..add('isPromptPublic', isPromptPublic)
           ..add('isRecommended', isRecommended)
@@ -31331,7 +33934,8 @@ class _$GWorksWhereInput extends GWorksWhereInput {
           ..add('subjectId', subjectId)
           ..add('tagNames', tagNames)
           ..add('userId', userId)
-          ..add('workType', workType))
+          ..add('workType', workType)
+          ..add('workTypes', workTypes))
         .toString();
   }
 }
@@ -31346,6 +33950,16 @@ class GWorksWhereInputBuilder
   set accessTypes(ListBuilder<GAccessType>? accessTypes) =>
       _$this._accessTypes = accessTypes;
 
+  String? _beforeCreatedAt;
+  String? get beforeCreatedAt => _$this._beforeCreatedAt;
+  set beforeCreatedAt(String? beforeCreatedAt) =>
+      _$this._beforeCreatedAt = beforeCreatedAt;
+
+  String? _createdAtAfter;
+  String? get createdAtAfter => _$this._createdAtAfter;
+  set createdAtAfter(String? createdAtAfter) =>
+      _$this._createdAtAfter = createdAtAfter;
+
   String? _generationModelId;
   String? get generationModelId => _$this._generationModelId;
   set generationModelId(String? generationModelId) =>
@@ -31354,6 +33968,10 @@ class GWorksWhereInputBuilder
   bool? _hasPrompt;
   bool? get hasPrompt => _$this._hasPrompt;
   set hasPrompt(bool? hasPrompt) => _$this._hasPrompt = hasPrompt;
+
+  ListBuilder<String>? _ids;
+  ListBuilder<String> get ids => _$this._ids ??= new ListBuilder<String>();
+  set ids(ListBuilder<String>? ids) => _$this._ids = ids;
 
   bool? _isFeatured;
   bool? get isFeatured => _$this._isFeatured;
@@ -31372,6 +33990,11 @@ class GWorksWhereInputBuilder
   bool? get isNotFollowing => _$this._isNotFollowing;
   set isNotFollowing(bool? isNotFollowing) =>
       _$this._isNotFollowing = isNotFollowing;
+
+  bool? _isNowCreatedAt;
+  bool? get isNowCreatedAt => _$this._isNowCreatedAt;
+  set isNowCreatedAt(bool? isNowCreatedAt) =>
+      _$this._isNowCreatedAt = isNowCreatedAt;
 
   bool? _isOneWorkPerUser;
   bool? get isOneWorkPerUser => _$this._isOneWorkPerUser;
@@ -31461,18 +34084,28 @@ class GWorksWhereInputBuilder
   GWorkType? get workType => _$this._workType;
   set workType(GWorkType? workType) => _$this._workType = workType;
 
+  ListBuilder<GWorkType>? _workTypes;
+  ListBuilder<GWorkType> get workTypes =>
+      _$this._workTypes ??= new ListBuilder<GWorkType>();
+  set workTypes(ListBuilder<GWorkType>? workTypes) =>
+      _$this._workTypes = workTypes;
+
   GWorksWhereInputBuilder();
 
   GWorksWhereInputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _accessTypes = $v.accessTypes?.toBuilder();
+      _beforeCreatedAt = $v.beforeCreatedAt;
+      _createdAtAfter = $v.createdAtAfter;
       _generationModelId = $v.generationModelId;
       _hasPrompt = $v.hasPrompt;
+      _ids = $v.ids?.toBuilder();
       _isFeatured = $v.isFeatured;
       _isFollowing = $v.isFollowing;
       _isIncludePrivate = $v.isIncludePrivate;
       _isNotFollowing = $v.isNotFollowing;
+      _isNowCreatedAt = $v.isNowCreatedAt;
       _isOneWorkPerUser = $v.isOneWorkPerUser;
       _isPromptPublic = $v.isPromptPublic;
       _isRecommended = $v.isRecommended;
@@ -31492,6 +34125,7 @@ class GWorksWhereInputBuilder
       _tagNames = $v.tagNames?.toBuilder();
       _userId = $v.userId;
       _workType = $v.workType;
+      _workTypes = $v.workTypes?.toBuilder();
       _$v = null;
     }
     return this;
@@ -31517,12 +34151,16 @@ class GWorksWhereInputBuilder
       _$result = _$v ??
           new _$GWorksWhereInput._(
               accessTypes: _accessTypes?.build(),
+              beforeCreatedAt: beforeCreatedAt,
+              createdAtAfter: createdAtAfter,
               generationModelId: generationModelId,
               hasPrompt: hasPrompt,
+              ids: _ids?.build(),
               isFeatured: isFeatured,
               isFollowing: isFollowing,
               isIncludePrivate: isIncludePrivate,
               isNotFollowing: isNotFollowing,
+              isNowCreatedAt: isNowCreatedAt,
               isOneWorkPerUser: isOneWorkPerUser,
               isPromptPublic: isPromptPublic,
               isRecommended: isRecommended,
@@ -31541,12 +34179,16 @@ class GWorksWhereInputBuilder
               subjectId: subjectId,
               tagNames: _tagNames?.build(),
               userId: userId,
-              workType: workType);
+              workType: workType,
+              workTypes: _workTypes?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'accessTypes';
         _accessTypes?.build();
+
+        _$failedField = 'ids';
+        _ids?.build();
 
         _$failedField = 'modelNames';
         _modelNames?.build();
@@ -31561,6 +34203,9 @@ class GWorksWhereInputBuilder
 
         _$failedField = 'tagNames';
         _tagNames?.build();
+
+        _$failedField = 'workTypes';
+        _workTypes?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'GWorksWhereInput', _$failedField, e.toString());

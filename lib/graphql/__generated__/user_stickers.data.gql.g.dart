@@ -13,9 +13,6 @@ Serializer<GUserStickersData_viewer> _$gUserStickersDataViewerSerializer =
 Serializer<GUserStickersData_viewer_userStickers>
     _$gUserStickersDataViewerUserStickersSerializer =
     new _$GUserStickersData_viewer_userStickersSerializer();
-Serializer<GUserStickersData_viewer_userStickers_image>
-    _$gUserStickersDataViewerUserStickersImageSerializer =
-    new _$GUserStickersData_viewer_userStickers_imageSerializer();
 
 class _$GUserStickersDataSerializer
     implements StructuredSerializer<GUserStickersData> {
@@ -161,13 +158,12 @@ class _$GUserStickersData_viewer_userStickersSerializer
           specifiedType: const FullType(int)),
     ];
     Object? value;
-    value = object.image;
+    value = object.imageUrl;
     if (value != null) {
       result
-        ..add('image')
+        ..add('imageUrl')
         ..add(serializers.serialize(value,
-            specifiedType:
-                const FullType(GUserStickersData_viewer_userStickers_image)));
+            specifiedType: const FullType(String)));
     }
     return result;
   }
@@ -196,11 +192,9 @@ class _$GUserStickersData_viewer_userStickersSerializer
           result.title = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
-        case 'image':
-          result.image.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      GUserStickersData_viewer_userStickers_image))!
-              as GUserStickersData_viewer_userStickers_image);
+        case 'imageUrl':
+          result.imageUrl = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'likesCount':
           result.likesCount = serializers.deserialize(value,
@@ -213,66 +207,6 @@ class _$GUserStickersData_viewer_userStickersSerializer
         case 'usesCount':
           result.usesCount = serializers.deserialize(value,
               specifiedType: const FullType(int))! as int;
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GUserStickersData_viewer_userStickers_imageSerializer
-    implements
-        StructuredSerializer<GUserStickersData_viewer_userStickers_image> {
-  @override
-  final Iterable<Type> types = const [
-    GUserStickersData_viewer_userStickers_image,
-    _$GUserStickersData_viewer_userStickers_image
-  ];
-  @override
-  final String wireName = 'GUserStickersData_viewer_userStickers_image';
-
-  @override
-  Iterable<Object?> serialize(Serializers serializers,
-      GUserStickersData_viewer_userStickers_image object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
-      'id',
-      serializers.serialize(object.id, specifiedType: const FullType(String)),
-      'downloadURL',
-      serializers.serialize(object.downloadURL,
-          specifiedType: const FullType(String)),
-    ];
-
-    return result;
-  }
-
-  @override
-  GUserStickersData_viewer_userStickers_image deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GUserStickersData_viewer_userStickers_imageBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'id':
-          result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'downloadURL':
-          result.downloadURL = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
           break;
       }
     }
@@ -528,7 +462,7 @@ class _$GUserStickersData_viewer_userStickers
   @override
   final String title;
   @override
-  final GUserStickersData_viewer_userStickers_image? image;
+  final String? imageUrl;
   @override
   final int likesCount;
   @override
@@ -546,7 +480,7 @@ class _$GUserStickersData_viewer_userStickers
       {required this.G__typename,
       required this.id,
       required this.title,
-      this.image,
+      this.imageUrl,
       required this.likesCount,
       required this.downloadsCount,
       required this.usesCount})
@@ -582,7 +516,7 @@ class _$GUserStickersData_viewer_userStickers
         G__typename == other.G__typename &&
         id == other.id &&
         title == other.title &&
-        image == other.image &&
+        imageUrl == other.imageUrl &&
         likesCount == other.likesCount &&
         downloadsCount == other.downloadsCount &&
         usesCount == other.usesCount;
@@ -594,7 +528,7 @@ class _$GUserStickersData_viewer_userStickers
     _$hash = $jc(_$hash, G__typename.hashCode);
     _$hash = $jc(_$hash, id.hashCode);
     _$hash = $jc(_$hash, title.hashCode);
-    _$hash = $jc(_$hash, image.hashCode);
+    _$hash = $jc(_$hash, imageUrl.hashCode);
     _$hash = $jc(_$hash, likesCount.hashCode);
     _$hash = $jc(_$hash, downloadsCount.hashCode);
     _$hash = $jc(_$hash, usesCount.hashCode);
@@ -609,7 +543,7 @@ class _$GUserStickersData_viewer_userStickers
           ..add('G__typename', G__typename)
           ..add('id', id)
           ..add('title', title)
-          ..add('image', image)
+          ..add('imageUrl', imageUrl)
           ..add('likesCount', likesCount)
           ..add('downloadsCount', downloadsCount)
           ..add('usesCount', usesCount))
@@ -635,12 +569,9 @@ class GUserStickersData_viewer_userStickersBuilder
   String? get title => _$this._title;
   set title(String? title) => _$this._title = title;
 
-  GUserStickersData_viewer_userStickers_imageBuilder? _image;
-  GUserStickersData_viewer_userStickers_imageBuilder get image =>
-      _$this._image ??=
-          new GUserStickersData_viewer_userStickers_imageBuilder();
-  set image(GUserStickersData_viewer_userStickers_imageBuilder? image) =>
-      _$this._image = image;
+  String? _imageUrl;
+  String? get imageUrl => _$this._imageUrl;
+  set imageUrl(String? imageUrl) => _$this._imageUrl = imageUrl;
 
   int? _likesCount;
   int? get likesCount => _$this._likesCount;
@@ -665,7 +596,7 @@ class GUserStickersData_viewer_userStickersBuilder
       _G__typename = $v.G__typename;
       _id = $v.id;
       _title = $v.title;
-      _image = $v.image?.toBuilder();
+      _imageUrl = $v.imageUrl;
       _likesCount = $v.likesCount;
       _downloadsCount = $v.downloadsCount;
       _usesCount = $v.usesCount;
@@ -690,168 +621,23 @@ class GUserStickersData_viewer_userStickersBuilder
   GUserStickersData_viewer_userStickers build() => _build();
 
   _$GUserStickersData_viewer_userStickers _build() {
-    _$GUserStickersData_viewer_userStickers _$result;
-    try {
-      _$result = _$v ??
-          new _$GUserStickersData_viewer_userStickers._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
-                  r'GUserStickersData_viewer_userStickers', 'G__typename'),
-              id: BuiltValueNullFieldError.checkNotNull(
-                  id, r'GUserStickersData_viewer_userStickers', 'id'),
-              title: BuiltValueNullFieldError.checkNotNull(
-                  title, r'GUserStickersData_viewer_userStickers', 'title'),
-              image: _image?.build(),
-              likesCount: BuiltValueNullFieldError.checkNotNull(
-                  likesCount, r'GUserStickersData_viewer_userStickers', 'likesCount'),
-              downloadsCount: BuiltValueNullFieldError.checkNotNull(
-                  downloadsCount,
-                  r'GUserStickersData_viewer_userStickers',
-                  'downloadsCount'),
-              usesCount: BuiltValueNullFieldError.checkNotNull(
-                  usesCount, r'GUserStickersData_viewer_userStickers', 'usesCount'));
-    } catch (_) {
-      late String _$failedField;
-      try {
-        _$failedField = 'image';
-        _image?.build();
-      } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'GUserStickersData_viewer_userStickers',
-            _$failedField,
-            e.toString());
-      }
-      rethrow;
-    }
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GUserStickersData_viewer_userStickers_image
-    extends GUserStickersData_viewer_userStickers_image {
-  @override
-  final String G__typename;
-  @override
-  final String id;
-  @override
-  final String downloadURL;
-
-  factory _$GUserStickersData_viewer_userStickers_image(
-          [void Function(GUserStickersData_viewer_userStickers_imageBuilder)?
-              updates]) =>
-      (new GUserStickersData_viewer_userStickers_imageBuilder()
-            ..update(updates))
-          ._build();
-
-  _$GUserStickersData_viewer_userStickers_image._(
-      {required this.G__typename, required this.id, required this.downloadURL})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(G__typename,
-        r'GUserStickersData_viewer_userStickers_image', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(
-        id, r'GUserStickersData_viewer_userStickers_image', 'id');
-    BuiltValueNullFieldError.checkNotNull(downloadURL,
-        r'GUserStickersData_viewer_userStickers_image', 'downloadURL');
-  }
-
-  @override
-  GUserStickersData_viewer_userStickers_image rebuild(
-          void Function(GUserStickersData_viewer_userStickers_imageBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GUserStickersData_viewer_userStickers_imageBuilder toBuilder() =>
-      new GUserStickersData_viewer_userStickers_imageBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GUserStickersData_viewer_userStickers_image &&
-        G__typename == other.G__typename &&
-        id == other.id &&
-        downloadURL == other.downloadURL;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, id.hashCode);
-    _$hash = $jc(_$hash, downloadURL.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(
-            r'GUserStickersData_viewer_userStickers_image')
-          ..add('G__typename', G__typename)
-          ..add('id', id)
-          ..add('downloadURL', downloadURL))
-        .toString();
-  }
-}
-
-class GUserStickersData_viewer_userStickers_imageBuilder
-    implements
-        Builder<GUserStickersData_viewer_userStickers_image,
-            GUserStickersData_viewer_userStickers_imageBuilder> {
-  _$GUserStickersData_viewer_userStickers_image? _$v;
-
-  String? _G__typename;
-  String? get G__typename => _$this._G__typename;
-  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
-
-  String? _id;
-  String? get id => _$this._id;
-  set id(String? id) => _$this._id = id;
-
-  String? _downloadURL;
-  String? get downloadURL => _$this._downloadURL;
-  set downloadURL(String? downloadURL) => _$this._downloadURL = downloadURL;
-
-  GUserStickersData_viewer_userStickers_imageBuilder() {
-    GUserStickersData_viewer_userStickers_image._initializeBuilder(this);
-  }
-
-  GUserStickersData_viewer_userStickers_imageBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _G__typename = $v.G__typename;
-      _id = $v.id;
-      _downloadURL = $v.downloadURL;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GUserStickersData_viewer_userStickers_image other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GUserStickersData_viewer_userStickers_image;
-  }
-
-  @override
-  void update(
-      void Function(GUserStickersData_viewer_userStickers_imageBuilder)?
-          updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GUserStickersData_viewer_userStickers_image build() => _build();
-
-  _$GUserStickersData_viewer_userStickers_image _build() {
     final _$result = _$v ??
-        new _$GUserStickersData_viewer_userStickers_image._(
+        new _$GUserStickersData_viewer_userStickers._(
             G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
-                r'GUserStickersData_viewer_userStickers_image', 'G__typename'),
+                r'GUserStickersData_viewer_userStickers', 'G__typename'),
             id: BuiltValueNullFieldError.checkNotNull(
-                id, r'GUserStickersData_viewer_userStickers_image', 'id'),
-            downloadURL: BuiltValueNullFieldError.checkNotNull(downloadURL,
-                r'GUserStickersData_viewer_userStickers_image', 'downloadURL'));
+                id, r'GUserStickersData_viewer_userStickers', 'id'),
+            title: BuiltValueNullFieldError.checkNotNull(
+                title, r'GUserStickersData_viewer_userStickers', 'title'),
+            imageUrl: imageUrl,
+            likesCount: BuiltValueNullFieldError.checkNotNull(likesCount,
+                r'GUserStickersData_viewer_userStickers', 'likesCount'),
+            downloadsCount: BuiltValueNullFieldError.checkNotNull(
+                downloadsCount,
+                r'GUserStickersData_viewer_userStickers',
+                'downloadsCount'),
+            usesCount: BuiltValueNullFieldError.checkNotNull(
+                usesCount, r'GUserStickersData_viewer_userStickers', 'usesCount'));
     replace(_$result);
     return _$result;
   }

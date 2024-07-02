@@ -66,7 +66,23 @@ abstract class GBestWorksData_bestWorks
   @override
   int get createdAt;
   @override
-  GBestWorksData_bestWorks_thumbnailImage? get thumbnailImage;
+  String get imageURL;
+  @override
+  int get imageWidth;
+  @override
+  int get imageHeight;
+  @override
+  String get largeThumbnailImageURL;
+  @override
+  int get largeThumbnailImageWidth;
+  @override
+  int get largeThumbnailImageHeight;
+  @override
+  String get smallThumbnailImageURL;
+  @override
+  int get smallThumbnailImageWidth;
+  @override
+  int get smallThumbnailImageHeight;
   @override
   double? get thumbnailImagePosition;
   @override
@@ -83,45 +99,6 @@ abstract class GBestWorksData_bestWorks
   static GBestWorksData_bestWorks? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GBestWorksData_bestWorks.serializer,
-        json,
-      );
-}
-
-abstract class GBestWorksData_bestWorks_thumbnailImage
-    implements
-        Built<GBestWorksData_bestWorks_thumbnailImage,
-            GBestWorksData_bestWorks_thumbnailImageBuilder>,
-        _i2.GPartialWorkFields_thumbnailImage {
-  GBestWorksData_bestWorks_thumbnailImage._();
-
-  factory GBestWorksData_bestWorks_thumbnailImage(
-      [void Function(GBestWorksData_bestWorks_thumbnailImageBuilder b)
-          updates]) = _$GBestWorksData_bestWorks_thumbnailImage;
-
-  static void _initializeBuilder(
-          GBestWorksData_bestWorks_thumbnailImageBuilder b) =>
-      b..G__typename = 'ImageNode';
-
-  @override
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  @override
-  String get id;
-  @override
-  String get downloadURL;
-  static Serializer<GBestWorksData_bestWorks_thumbnailImage> get serializer =>
-      _$gBestWorksDataBestWorksThumbnailImageSerializer;
-
-  @override
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GBestWorksData_bestWorks_thumbnailImage.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GBestWorksData_bestWorks_thumbnailImage? fromJson(
-          Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GBestWorksData_bestWorks_thumbnailImage.serializer,
         json,
       );
 }

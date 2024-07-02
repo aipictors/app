@@ -59,7 +59,7 @@ abstract class GUsersData_users
   @override
   String get name;
   @override
-  GUsersData_users_iconImage? get iconImage;
+  String? get iconUrl;
   static Serializer<GUsersData_users> get serializer =>
       _$gUsersDataUsersSerializer;
 
@@ -72,42 +72,6 @@ abstract class GUsersData_users
   static GUsersData_users? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUsersData_users.serializer,
-        json,
-      );
-}
-
-abstract class GUsersData_users_iconImage
-    implements
-        Built<GUsersData_users_iconImage, GUsersData_users_iconImageBuilder>,
-        _i2.GPartialUserFields_iconImage {
-  GUsersData_users_iconImage._();
-
-  factory GUsersData_users_iconImage(
-          [void Function(GUsersData_users_iconImageBuilder b) updates]) =
-      _$GUsersData_users_iconImage;
-
-  static void _initializeBuilder(GUsersData_users_iconImageBuilder b) =>
-      b..G__typename = 'ImageNode';
-
-  @override
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  @override
-  String get id;
-  @override
-  String get downloadURL;
-  static Serializer<GUsersData_users_iconImage> get serializer =>
-      _$gUsersDataUsersIconImageSerializer;
-
-  @override
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GUsersData_users_iconImage.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GUsersData_users_iconImage? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GUsersData_users_iconImage.serializer,
         json,
       );
 }

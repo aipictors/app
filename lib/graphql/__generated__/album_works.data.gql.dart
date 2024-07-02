@@ -99,7 +99,7 @@ abstract class GAlbumWorksData_album_works
   @override
   double get imageAspectRatio;
   @override
-  GAlbumWorksData_album_works_image? get image;
+  String get imageURL;
   bool get isLiked;
   static Serializer<GAlbumWorksData_album_works> get serializer =>
       _$gAlbumWorksDataAlbumWorksSerializer;
@@ -113,44 +113,6 @@ abstract class GAlbumWorksData_album_works
   static GAlbumWorksData_album_works? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GAlbumWorksData_album_works.serializer,
-        json,
-      );
-}
-
-abstract class GAlbumWorksData_album_works_image
-    implements
-        Built<GAlbumWorksData_album_works_image,
-            GAlbumWorksData_album_works_imageBuilder>,
-        _i2.GPartialFeedWorkFields_image {
-  GAlbumWorksData_album_works_image._();
-
-  factory GAlbumWorksData_album_works_image(
-          [void Function(GAlbumWorksData_album_works_imageBuilder b) updates]) =
-      _$GAlbumWorksData_album_works_image;
-
-  static void _initializeBuilder(GAlbumWorksData_album_works_imageBuilder b) =>
-      b..G__typename = 'ImageNode';
-
-  @override
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  @override
-  String get id;
-  @override
-  String get downloadURL;
-  static Serializer<GAlbumWorksData_album_works_image> get serializer =>
-      _$gAlbumWorksDataAlbumWorksImageSerializer;
-
-  @override
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GAlbumWorksData_album_works_image.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GAlbumWorksData_album_works_image? fromJson(
-          Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GAlbumWorksData_album_works_image.serializer,
         json,
       );
 }

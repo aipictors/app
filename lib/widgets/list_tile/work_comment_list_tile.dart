@@ -57,7 +57,7 @@ class WorkCommentListTile extends HookConsumerWidget {
           if (comment.sticker != null) const SizedBox(height: 4),
           if (comment.sticker != null)
             StickerImage(
-              imageURL: comment.sticker!.image?.downloadURL,
+              imageURL: comment.sticker!.imageUrl,
             ),
           const SizedBox(height: 8),
           Text(

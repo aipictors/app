@@ -15,16 +15,17 @@ abstract class GPartialWorkFields {
   int get likesCount;
   int get commentsCount;
   int get createdAt;
-  GPartialWorkFields_thumbnailImage? get thumbnailImage;
+  String get imageURL;
+  int get imageWidth;
+  int get imageHeight;
+  String get largeThumbnailImageURL;
+  int get largeThumbnailImageWidth;
+  int get largeThumbnailImageHeight;
+  String get smallThumbnailImageURL;
+  int get smallThumbnailImageWidth;
+  int get smallThumbnailImageHeight;
   double? get thumbnailImagePosition;
   double get imageAspectRatio;
-  Map<String, dynamic> toJson();
-}
-
-abstract class GPartialWorkFields_thumbnailImage {
-  String get G__typename;
-  String get id;
-  String get downloadURL;
   Map<String, dynamic> toJson();
 }
 
@@ -55,7 +56,23 @@ abstract class GPartialWorkFieldsData
   @override
   int get createdAt;
   @override
-  GPartialWorkFieldsData_thumbnailImage? get thumbnailImage;
+  String get imageURL;
+  @override
+  int get imageWidth;
+  @override
+  int get imageHeight;
+  @override
+  String get largeThumbnailImageURL;
+  @override
+  int get largeThumbnailImageWidth;
+  @override
+  int get largeThumbnailImageHeight;
+  @override
+  String get smallThumbnailImageURL;
+  @override
+  int get smallThumbnailImageWidth;
+  @override
+  int get smallThumbnailImageHeight;
   @override
   double? get thumbnailImagePosition;
   @override
@@ -72,45 +89,6 @@ abstract class GPartialWorkFieldsData
   static GPartialWorkFieldsData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GPartialWorkFieldsData.serializer,
-        json,
-      );
-}
-
-abstract class GPartialWorkFieldsData_thumbnailImage
-    implements
-        Built<GPartialWorkFieldsData_thumbnailImage,
-            GPartialWorkFieldsData_thumbnailImageBuilder>,
-        GPartialWorkFields_thumbnailImage {
-  GPartialWorkFieldsData_thumbnailImage._();
-
-  factory GPartialWorkFieldsData_thumbnailImage(
-      [void Function(GPartialWorkFieldsData_thumbnailImageBuilder b)
-          updates]) = _$GPartialWorkFieldsData_thumbnailImage;
-
-  static void _initializeBuilder(
-          GPartialWorkFieldsData_thumbnailImageBuilder b) =>
-      b..G__typename = 'ImageNode';
-
-  @override
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  @override
-  String get id;
-  @override
-  String get downloadURL;
-  static Serializer<GPartialWorkFieldsData_thumbnailImage> get serializer =>
-      _$gPartialWorkFieldsDataThumbnailImageSerializer;
-
-  @override
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GPartialWorkFieldsData_thumbnailImage.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GPartialWorkFieldsData_thumbnailImage? fromJson(
-          Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GPartialWorkFieldsData_thumbnailImage.serializer,
         json,
       );
 }

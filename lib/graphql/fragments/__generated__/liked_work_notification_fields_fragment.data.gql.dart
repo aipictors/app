@@ -37,23 +37,27 @@ abstract class GLikedWorkNotificationFields_work
   @override
   int get createdAt;
   @override
-  GLikedWorkNotificationFields_work_thumbnailImage? get thumbnailImage;
+  String get imageURL;
+  @override
+  int get imageWidth;
+  @override
+  int get imageHeight;
+  @override
+  String get largeThumbnailImageURL;
+  @override
+  int get largeThumbnailImageWidth;
+  @override
+  int get largeThumbnailImageHeight;
+  @override
+  String get smallThumbnailImageURL;
+  @override
+  int get smallThumbnailImageWidth;
+  @override
+  int get smallThumbnailImageHeight;
   @override
   double? get thumbnailImagePosition;
   @override
   double get imageAspectRatio;
-  @override
-  Map<String, dynamic> toJson();
-}
-
-abstract class GLikedWorkNotificationFields_work_thumbnailImage
-    implements _i1.GPartialWorkFields_thumbnailImage {
-  @override
-  String get G__typename;
-  @override
-  String get id;
-  @override
-  String get downloadURL;
   @override
   Map<String, dynamic> toJson();
 }
@@ -69,19 +73,7 @@ abstract class GLikedWorkNotificationFields_user
   @override
   String get name;
   @override
-  GLikedWorkNotificationFields_user_iconImage? get iconImage;
-  @override
-  Map<String, dynamic> toJson();
-}
-
-abstract class GLikedWorkNotificationFields_user_iconImage
-    implements _i2.GPartialUserFields_iconImage {
-  @override
-  String get G__typename;
-  @override
-  String get id;
-  @override
-  String get downloadURL;
+  String? get iconUrl;
   @override
   Map<String, dynamic> toJson();
 }
@@ -160,7 +152,23 @@ abstract class GLikedWorkNotificationFieldsData_work
   @override
   int get createdAt;
   @override
-  GLikedWorkNotificationFieldsData_work_thumbnailImage? get thumbnailImage;
+  String get imageURL;
+  @override
+  int get imageWidth;
+  @override
+  int get imageHeight;
+  @override
+  String get largeThumbnailImageURL;
+  @override
+  int get largeThumbnailImageWidth;
+  @override
+  int get largeThumbnailImageHeight;
+  @override
+  String get smallThumbnailImageURL;
+  @override
+  int get smallThumbnailImageWidth;
+  @override
+  int get smallThumbnailImageHeight;
   @override
   double? get thumbnailImagePosition;
   @override
@@ -178,48 +186,6 @@ abstract class GLikedWorkNotificationFieldsData_work
           Map<String, dynamic> json) =>
       _i3.serializers.deserializeWith(
         GLikedWorkNotificationFieldsData_work.serializer,
-        json,
-      );
-}
-
-abstract class GLikedWorkNotificationFieldsData_work_thumbnailImage
-    implements
-        Built<GLikedWorkNotificationFieldsData_work_thumbnailImage,
-            GLikedWorkNotificationFieldsData_work_thumbnailImageBuilder>,
-        GLikedWorkNotificationFields_work_thumbnailImage,
-        _i1.GPartialWorkFields_thumbnailImage {
-  GLikedWorkNotificationFieldsData_work_thumbnailImage._();
-
-  factory GLikedWorkNotificationFieldsData_work_thumbnailImage(
-      [void Function(
-              GLikedWorkNotificationFieldsData_work_thumbnailImageBuilder b)
-          updates]) = _$GLikedWorkNotificationFieldsData_work_thumbnailImage;
-
-  static void _initializeBuilder(
-          GLikedWorkNotificationFieldsData_work_thumbnailImageBuilder b) =>
-      b..G__typename = 'ImageNode';
-
-  @override
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  @override
-  String get id;
-  @override
-  String get downloadURL;
-  static Serializer<GLikedWorkNotificationFieldsData_work_thumbnailImage>
-      get serializer =>
-          _$gLikedWorkNotificationFieldsDataWorkThumbnailImageSerializer;
-
-  @override
-  Map<String, dynamic> toJson() => (_i3.serializers.serializeWith(
-        GLikedWorkNotificationFieldsData_work_thumbnailImage.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GLikedWorkNotificationFieldsData_work_thumbnailImage? fromJson(
-          Map<String, dynamic> json) =>
-      _i3.serializers.deserializeWith(
-        GLikedWorkNotificationFieldsData_work_thumbnailImage.serializer,
         json,
       );
 }
@@ -250,7 +216,7 @@ abstract class GLikedWorkNotificationFieldsData_user
   @override
   String get name;
   @override
-  GLikedWorkNotificationFieldsData_user_iconImage? get iconImage;
+  String? get iconUrl;
   static Serializer<GLikedWorkNotificationFieldsData_user> get serializer =>
       _$gLikedWorkNotificationFieldsDataUserSerializer;
 
@@ -264,47 +230,6 @@ abstract class GLikedWorkNotificationFieldsData_user
           Map<String, dynamic> json) =>
       _i3.serializers.deserializeWith(
         GLikedWorkNotificationFieldsData_user.serializer,
-        json,
-      );
-}
-
-abstract class GLikedWorkNotificationFieldsData_user_iconImage
-    implements
-        Built<GLikedWorkNotificationFieldsData_user_iconImage,
-            GLikedWorkNotificationFieldsData_user_iconImageBuilder>,
-        GLikedWorkNotificationFields_user_iconImage,
-        _i2.GPartialUserFields_iconImage {
-  GLikedWorkNotificationFieldsData_user_iconImage._();
-
-  factory GLikedWorkNotificationFieldsData_user_iconImage(
-      [void Function(GLikedWorkNotificationFieldsData_user_iconImageBuilder b)
-          updates]) = _$GLikedWorkNotificationFieldsData_user_iconImage;
-
-  static void _initializeBuilder(
-          GLikedWorkNotificationFieldsData_user_iconImageBuilder b) =>
-      b..G__typename = 'ImageNode';
-
-  @override
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  @override
-  String get id;
-  @override
-  String get downloadURL;
-  static Serializer<GLikedWorkNotificationFieldsData_user_iconImage>
-      get serializer =>
-          _$gLikedWorkNotificationFieldsDataUserIconImageSerializer;
-
-  @override
-  Map<String, dynamic> toJson() => (_i3.serializers.serializeWith(
-        GLikedWorkNotificationFieldsData_user_iconImage.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GLikedWorkNotificationFieldsData_user_iconImage? fromJson(
-          Map<String, dynamic> json) =>
-      _i3.serializers.deserializeWith(
-        GLikedWorkNotificationFieldsData_user_iconImage.serializer,
         json,
       );
 }

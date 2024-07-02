@@ -13,15 +13,9 @@ Serializer<GViewerFeedWorksData_viewer> _$gViewerFeedWorksDataViewerSerializer =
 Serializer<GViewerFeedWorksData_viewer_feedWorks>
     _$gViewerFeedWorksDataViewerFeedWorksSerializer =
     new _$GViewerFeedWorksData_viewer_feedWorksSerializer();
-Serializer<GViewerFeedWorksData_viewer_feedWorks_image>
-    _$gViewerFeedWorksDataViewerFeedWorksImageSerializer =
-    new _$GViewerFeedWorksData_viewer_feedWorks_imageSerializer();
 Serializer<GViewerFeedWorksData_viewer_feedWorks_user>
     _$gViewerFeedWorksDataViewerFeedWorksUserSerializer =
     new _$GViewerFeedWorksData_viewer_feedWorks_userSerializer();
-Serializer<GViewerFeedWorksData_viewer_feedWorks_user_iconImage>
-    _$gViewerFeedWorksDataViewerFeedWorksUserIconImageSerializer =
-    new _$GViewerFeedWorksData_viewer_feedWorks_user_iconImageSerializer();
 Serializer<GViewerFeedWorksData_viewer_feedWorks_user_viewer>
     _$gViewerFeedWorksDataViewerFeedWorksUserViewerSerializer =
     new _$GViewerFeedWorksData_viewer_feedWorks_user_viewerSerializer();
@@ -178,20 +172,15 @@ class _$GViewerFeedWorksData_viewer_feedWorksSerializer
       'imageAspectRatio',
       serializers.serialize(object.imageAspectRatio,
           specifiedType: const FullType(double)),
+      'imageURL',
+      serializers.serialize(object.imageURL,
+          specifiedType: const FullType(String)),
       'user',
       serializers.serialize(object.user,
           specifiedType:
               const FullType(GViewerFeedWorksData_viewer_feedWorks_user)),
     ];
     Object? value;
-    value = object.image;
-    if (value != null) {
-      result
-        ..add('image')
-        ..add(serializers.serialize(value,
-            specifiedType:
-                const FullType(GViewerFeedWorksData_viewer_feedWorks_image)));
-    }
     value = object.viewer;
     if (value != null) {
       result
@@ -243,11 +232,9 @@ class _$GViewerFeedWorksData_viewer_feedWorksSerializer
           result.imageAspectRatio = serializers.deserialize(value,
               specifiedType: const FullType(double))! as double;
           break;
-        case 'image':
-          result.image.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      GViewerFeedWorksData_viewer_feedWorks_image))!
-              as GViewerFeedWorksData_viewer_feedWorks_image);
+        case 'imageURL':
+          result.imageURL = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
           break;
         case 'user':
           result.user.replace(serializers.deserialize(value,
@@ -260,66 +247,6 @@ class _$GViewerFeedWorksData_viewer_feedWorksSerializer
                   specifiedType: const FullType(
                       GViewerFeedWorksData_viewer_feedWorks_viewer))!
               as GViewerFeedWorksData_viewer_feedWorks_viewer);
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GViewerFeedWorksData_viewer_feedWorks_imageSerializer
-    implements
-        StructuredSerializer<GViewerFeedWorksData_viewer_feedWorks_image> {
-  @override
-  final Iterable<Type> types = const [
-    GViewerFeedWorksData_viewer_feedWorks_image,
-    _$GViewerFeedWorksData_viewer_feedWorks_image
-  ];
-  @override
-  final String wireName = 'GViewerFeedWorksData_viewer_feedWorks_image';
-
-  @override
-  Iterable<Object?> serialize(Serializers serializers,
-      GViewerFeedWorksData_viewer_feedWorks_image object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
-      'id',
-      serializers.serialize(object.id, specifiedType: const FullType(String)),
-      'downloadURL',
-      serializers.serialize(object.downloadURL,
-          specifiedType: const FullType(String)),
-    ];
-
-    return result;
-  }
-
-  @override
-  GViewerFeedWorksData_viewer_feedWorks_image deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GViewerFeedWorksData_viewer_feedWorks_imageBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'id':
-          result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'downloadURL':
-          result.downloadURL = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
           break;
       }
     }
@@ -356,13 +283,12 @@ class _$GViewerFeedWorksData_viewer_feedWorks_userSerializer
       serializers.serialize(object.name, specifiedType: const FullType(String)),
     ];
     Object? value;
-    value = object.iconImage;
+    value = object.iconUrl;
     if (value != null) {
       result
-        ..add('iconImage')
+        ..add('iconUrl')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(
-                GViewerFeedWorksData_viewer_feedWorks_user_iconImage)));
+            specifiedType: const FullType(String)));
     }
     value = object.viewer;
     if (value != null) {
@@ -403,80 +329,15 @@ class _$GViewerFeedWorksData_viewer_feedWorks_userSerializer
           result.name = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
-        case 'iconImage':
-          result.iconImage.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      GViewerFeedWorksData_viewer_feedWorks_user_iconImage))!
-              as GViewerFeedWorksData_viewer_feedWorks_user_iconImage);
+        case 'iconUrl':
+          result.iconUrl = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'viewer':
           result.viewer.replace(serializers.deserialize(value,
                   specifiedType: const FullType(
                       GViewerFeedWorksData_viewer_feedWorks_user_viewer))!
               as GViewerFeedWorksData_viewer_feedWorks_user_viewer);
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GViewerFeedWorksData_viewer_feedWorks_user_iconImageSerializer
-    implements
-        StructuredSerializer<
-            GViewerFeedWorksData_viewer_feedWorks_user_iconImage> {
-  @override
-  final Iterable<Type> types = const [
-    GViewerFeedWorksData_viewer_feedWorks_user_iconImage,
-    _$GViewerFeedWorksData_viewer_feedWorks_user_iconImage
-  ];
-  @override
-  final String wireName =
-      'GViewerFeedWorksData_viewer_feedWorks_user_iconImage';
-
-  @override
-  Iterable<Object?> serialize(Serializers serializers,
-      GViewerFeedWorksData_viewer_feedWorks_user_iconImage object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
-      'id',
-      serializers.serialize(object.id, specifiedType: const FullType(String)),
-      'downloadURL',
-      serializers.serialize(object.downloadURL,
-          specifiedType: const FullType(String)),
-    ];
-
-    return result;
-  }
-
-  @override
-  GViewerFeedWorksData_viewer_feedWorks_user_iconImage deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result =
-        new GViewerFeedWorksData_viewer_feedWorks_user_iconImageBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'id':
-          result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'downloadURL':
-          result.downloadURL = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
           break;
       }
     }
@@ -886,7 +747,7 @@ class _$GViewerFeedWorksData_viewer_feedWorks
   @override
   final double imageAspectRatio;
   @override
-  final GViewerFeedWorksData_viewer_feedWorks_image? image;
+  final String imageURL;
   @override
   final GViewerFeedWorksData_viewer_feedWorks_user user;
   @override
@@ -906,7 +767,7 @@ class _$GViewerFeedWorksData_viewer_feedWorks
       required this.commentsCount,
       required this.createdAt,
       required this.imageAspectRatio,
-      this.image,
+      required this.imageURL,
       required this.user,
       this.viewer})
       : super._() {
@@ -924,6 +785,8 @@ class _$GViewerFeedWorksData_viewer_feedWorks
         createdAt, r'GViewerFeedWorksData_viewer_feedWorks', 'createdAt');
     BuiltValueNullFieldError.checkNotNull(imageAspectRatio,
         r'GViewerFeedWorksData_viewer_feedWorks', 'imageAspectRatio');
+    BuiltValueNullFieldError.checkNotNull(
+        imageURL, r'GViewerFeedWorksData_viewer_feedWorks', 'imageURL');
     BuiltValueNullFieldError.checkNotNull(
         user, r'GViewerFeedWorksData_viewer_feedWorks', 'user');
   }
@@ -949,7 +812,7 @@ class _$GViewerFeedWorksData_viewer_feedWorks
         commentsCount == other.commentsCount &&
         createdAt == other.createdAt &&
         imageAspectRatio == other.imageAspectRatio &&
-        image == other.image &&
+        imageURL == other.imageURL &&
         user == other.user &&
         viewer == other.viewer;
   }
@@ -964,7 +827,7 @@ class _$GViewerFeedWorksData_viewer_feedWorks
     _$hash = $jc(_$hash, commentsCount.hashCode);
     _$hash = $jc(_$hash, createdAt.hashCode);
     _$hash = $jc(_$hash, imageAspectRatio.hashCode);
-    _$hash = $jc(_$hash, image.hashCode);
+    _$hash = $jc(_$hash, imageURL.hashCode);
     _$hash = $jc(_$hash, user.hashCode);
     _$hash = $jc(_$hash, viewer.hashCode);
     _$hash = $jf(_$hash);
@@ -982,7 +845,7 @@ class _$GViewerFeedWorksData_viewer_feedWorks
           ..add('commentsCount', commentsCount)
           ..add('createdAt', createdAt)
           ..add('imageAspectRatio', imageAspectRatio)
-          ..add('image', image)
+          ..add('imageURL', imageURL)
           ..add('user', user)
           ..add('viewer', viewer))
         .toString();
@@ -1025,12 +888,9 @@ class GViewerFeedWorksData_viewer_feedWorksBuilder
   set imageAspectRatio(double? imageAspectRatio) =>
       _$this._imageAspectRatio = imageAspectRatio;
 
-  GViewerFeedWorksData_viewer_feedWorks_imageBuilder? _image;
-  GViewerFeedWorksData_viewer_feedWorks_imageBuilder get image =>
-      _$this._image ??=
-          new GViewerFeedWorksData_viewer_feedWorks_imageBuilder();
-  set image(GViewerFeedWorksData_viewer_feedWorks_imageBuilder? image) =>
-      _$this._image = image;
+  String? _imageURL;
+  String? get imageURL => _$this._imageURL;
+  set imageURL(String? imageURL) => _$this._imageURL = imageURL;
 
   GViewerFeedWorksData_viewer_feedWorks_userBuilder? _user;
   GViewerFeedWorksData_viewer_feedWorks_userBuilder get user =>
@@ -1059,7 +919,7 @@ class GViewerFeedWorksData_viewer_feedWorksBuilder
       _commentsCount = $v.commentsCount;
       _createdAt = $v.createdAt;
       _imageAspectRatio = $v.imageAspectRatio;
-      _image = $v.image?.toBuilder();
+      _imageURL = $v.imageURL;
       _user = $v.user.toBuilder();
       _viewer = $v.viewer?.toBuilder();
       _$v = null;
@@ -1101,14 +961,12 @@ class GViewerFeedWorksData_viewer_feedWorksBuilder
                   createdAt, r'GViewerFeedWorksData_viewer_feedWorks', 'createdAt'),
               imageAspectRatio: BuiltValueNullFieldError.checkNotNull(
                   imageAspectRatio, r'GViewerFeedWorksData_viewer_feedWorks', 'imageAspectRatio'),
-              image: _image?.build(),
+              imageURL: BuiltValueNullFieldError.checkNotNull(imageURL, r'GViewerFeedWorksData_viewer_feedWorks', 'imageURL'),
               user: user.build(),
               viewer: _viewer?.build());
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'image';
-        _image?.build();
         _$failedField = 'user';
         user.build();
         _$failedField = 'viewer';
@@ -1126,136 +984,6 @@ class GViewerFeedWorksData_viewer_feedWorksBuilder
   }
 }
 
-class _$GViewerFeedWorksData_viewer_feedWorks_image
-    extends GViewerFeedWorksData_viewer_feedWorks_image {
-  @override
-  final String G__typename;
-  @override
-  final String id;
-  @override
-  final String downloadURL;
-
-  factory _$GViewerFeedWorksData_viewer_feedWorks_image(
-          [void Function(GViewerFeedWorksData_viewer_feedWorks_imageBuilder)?
-              updates]) =>
-      (new GViewerFeedWorksData_viewer_feedWorks_imageBuilder()
-            ..update(updates))
-          ._build();
-
-  _$GViewerFeedWorksData_viewer_feedWorks_image._(
-      {required this.G__typename, required this.id, required this.downloadURL})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(G__typename,
-        r'GViewerFeedWorksData_viewer_feedWorks_image', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(
-        id, r'GViewerFeedWorksData_viewer_feedWorks_image', 'id');
-    BuiltValueNullFieldError.checkNotNull(downloadURL,
-        r'GViewerFeedWorksData_viewer_feedWorks_image', 'downloadURL');
-  }
-
-  @override
-  GViewerFeedWorksData_viewer_feedWorks_image rebuild(
-          void Function(GViewerFeedWorksData_viewer_feedWorks_imageBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GViewerFeedWorksData_viewer_feedWorks_imageBuilder toBuilder() =>
-      new GViewerFeedWorksData_viewer_feedWorks_imageBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GViewerFeedWorksData_viewer_feedWorks_image &&
-        G__typename == other.G__typename &&
-        id == other.id &&
-        downloadURL == other.downloadURL;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, id.hashCode);
-    _$hash = $jc(_$hash, downloadURL.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(
-            r'GViewerFeedWorksData_viewer_feedWorks_image')
-          ..add('G__typename', G__typename)
-          ..add('id', id)
-          ..add('downloadURL', downloadURL))
-        .toString();
-  }
-}
-
-class GViewerFeedWorksData_viewer_feedWorks_imageBuilder
-    implements
-        Builder<GViewerFeedWorksData_viewer_feedWorks_image,
-            GViewerFeedWorksData_viewer_feedWorks_imageBuilder> {
-  _$GViewerFeedWorksData_viewer_feedWorks_image? _$v;
-
-  String? _G__typename;
-  String? get G__typename => _$this._G__typename;
-  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
-
-  String? _id;
-  String? get id => _$this._id;
-  set id(String? id) => _$this._id = id;
-
-  String? _downloadURL;
-  String? get downloadURL => _$this._downloadURL;
-  set downloadURL(String? downloadURL) => _$this._downloadURL = downloadURL;
-
-  GViewerFeedWorksData_viewer_feedWorks_imageBuilder() {
-    GViewerFeedWorksData_viewer_feedWorks_image._initializeBuilder(this);
-  }
-
-  GViewerFeedWorksData_viewer_feedWorks_imageBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _G__typename = $v.G__typename;
-      _id = $v.id;
-      _downloadURL = $v.downloadURL;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GViewerFeedWorksData_viewer_feedWorks_image other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GViewerFeedWorksData_viewer_feedWorks_image;
-  }
-
-  @override
-  void update(
-      void Function(GViewerFeedWorksData_viewer_feedWorks_imageBuilder)?
-          updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GViewerFeedWorksData_viewer_feedWorks_image build() => _build();
-
-  _$GViewerFeedWorksData_viewer_feedWorks_image _build() {
-    final _$result = _$v ??
-        new _$GViewerFeedWorksData_viewer_feedWorks_image._(
-            G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
-                r'GViewerFeedWorksData_viewer_feedWorks_image', 'G__typename'),
-            id: BuiltValueNullFieldError.checkNotNull(
-                id, r'GViewerFeedWorksData_viewer_feedWorks_image', 'id'),
-            downloadURL: BuiltValueNullFieldError.checkNotNull(downloadURL,
-                r'GViewerFeedWorksData_viewer_feedWorks_image', 'downloadURL'));
-    replace(_$result);
-    return _$result;
-  }
-}
-
 class _$GViewerFeedWorksData_viewer_feedWorks_user
     extends GViewerFeedWorksData_viewer_feedWorks_user {
   @override
@@ -1267,7 +995,7 @@ class _$GViewerFeedWorksData_viewer_feedWorks_user
   @override
   final String name;
   @override
-  final GViewerFeedWorksData_viewer_feedWorks_user_iconImage? iconImage;
+  final String? iconUrl;
   @override
   final GViewerFeedWorksData_viewer_feedWorks_user_viewer? viewer;
 
@@ -1282,7 +1010,7 @@ class _$GViewerFeedWorksData_viewer_feedWorks_user
       required this.id,
       required this.login,
       required this.name,
-      this.iconImage,
+      this.iconUrl,
       this.viewer})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(G__typename,
@@ -1313,7 +1041,7 @@ class _$GViewerFeedWorksData_viewer_feedWorks_user
         id == other.id &&
         login == other.login &&
         name == other.name &&
-        iconImage == other.iconImage &&
+        iconUrl == other.iconUrl &&
         viewer == other.viewer;
   }
 
@@ -1324,7 +1052,7 @@ class _$GViewerFeedWorksData_viewer_feedWorks_user
     _$hash = $jc(_$hash, id.hashCode);
     _$hash = $jc(_$hash, login.hashCode);
     _$hash = $jc(_$hash, name.hashCode);
-    _$hash = $jc(_$hash, iconImage.hashCode);
+    _$hash = $jc(_$hash, iconUrl.hashCode);
     _$hash = $jc(_$hash, viewer.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -1338,7 +1066,7 @@ class _$GViewerFeedWorksData_viewer_feedWorks_user
           ..add('id', id)
           ..add('login', login)
           ..add('name', name)
-          ..add('iconImage', iconImage)
+          ..add('iconUrl', iconUrl)
           ..add('viewer', viewer))
         .toString();
   }
@@ -1366,14 +1094,9 @@ class GViewerFeedWorksData_viewer_feedWorks_userBuilder
   String? get name => _$this._name;
   set name(String? name) => _$this._name = name;
 
-  GViewerFeedWorksData_viewer_feedWorks_user_iconImageBuilder? _iconImage;
-  GViewerFeedWorksData_viewer_feedWorks_user_iconImageBuilder get iconImage =>
-      _$this._iconImage ??=
-          new GViewerFeedWorksData_viewer_feedWorks_user_iconImageBuilder();
-  set iconImage(
-          GViewerFeedWorksData_viewer_feedWorks_user_iconImageBuilder?
-              iconImage) =>
-      _$this._iconImage = iconImage;
+  String? _iconUrl;
+  String? get iconUrl => _$this._iconUrl;
+  set iconUrl(String? iconUrl) => _$this._iconUrl = iconUrl;
 
   GViewerFeedWorksData_viewer_feedWorks_user_viewerBuilder? _viewer;
   GViewerFeedWorksData_viewer_feedWorks_user_viewerBuilder get viewer =>
@@ -1394,7 +1117,7 @@ class GViewerFeedWorksData_viewer_feedWorks_userBuilder
       _id = $v.id;
       _login = $v.login;
       _name = $v.name;
-      _iconImage = $v.iconImage?.toBuilder();
+      _iconUrl = $v.iconUrl;
       _viewer = $v.viewer?.toBuilder();
       _$v = null;
     }
@@ -1430,13 +1153,11 @@ class GViewerFeedWorksData_viewer_feedWorks_userBuilder
                   r'GViewerFeedWorksData_viewer_feedWorks_user', 'login'),
               name: BuiltValueNullFieldError.checkNotNull(
                   name, r'GViewerFeedWorksData_viewer_feedWorks_user', 'name'),
-              iconImage: _iconImage?.build(),
+              iconUrl: iconUrl,
               viewer: _viewer?.build());
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'iconImage';
-        _iconImage?.build();
         _$failedField = 'viewer';
         _viewer?.build();
       } catch (e) {
@@ -1447,145 +1168,6 @@ class GViewerFeedWorksData_viewer_feedWorks_userBuilder
       }
       rethrow;
     }
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GViewerFeedWorksData_viewer_feedWorks_user_iconImage
-    extends GViewerFeedWorksData_viewer_feedWorks_user_iconImage {
-  @override
-  final String G__typename;
-  @override
-  final String id;
-  @override
-  final String downloadURL;
-
-  factory _$GViewerFeedWorksData_viewer_feedWorks_user_iconImage(
-          [void Function(
-                  GViewerFeedWorksData_viewer_feedWorks_user_iconImageBuilder)?
-              updates]) =>
-      (new GViewerFeedWorksData_viewer_feedWorks_user_iconImageBuilder()
-            ..update(updates))
-          ._build();
-
-  _$GViewerFeedWorksData_viewer_feedWorks_user_iconImage._(
-      {required this.G__typename, required this.id, required this.downloadURL})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(G__typename,
-        r'GViewerFeedWorksData_viewer_feedWorks_user_iconImage', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(
-        id, r'GViewerFeedWorksData_viewer_feedWorks_user_iconImage', 'id');
-    BuiltValueNullFieldError.checkNotNull(downloadURL,
-        r'GViewerFeedWorksData_viewer_feedWorks_user_iconImage', 'downloadURL');
-  }
-
-  @override
-  GViewerFeedWorksData_viewer_feedWorks_user_iconImage rebuild(
-          void Function(
-                  GViewerFeedWorksData_viewer_feedWorks_user_iconImageBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GViewerFeedWorksData_viewer_feedWorks_user_iconImageBuilder toBuilder() =>
-      new GViewerFeedWorksData_viewer_feedWorks_user_iconImageBuilder()
-        ..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GViewerFeedWorksData_viewer_feedWorks_user_iconImage &&
-        G__typename == other.G__typename &&
-        id == other.id &&
-        downloadURL == other.downloadURL;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, id.hashCode);
-    _$hash = $jc(_$hash, downloadURL.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(
-            r'GViewerFeedWorksData_viewer_feedWorks_user_iconImage')
-          ..add('G__typename', G__typename)
-          ..add('id', id)
-          ..add('downloadURL', downloadURL))
-        .toString();
-  }
-}
-
-class GViewerFeedWorksData_viewer_feedWorks_user_iconImageBuilder
-    implements
-        Builder<GViewerFeedWorksData_viewer_feedWorks_user_iconImage,
-            GViewerFeedWorksData_viewer_feedWorks_user_iconImageBuilder> {
-  _$GViewerFeedWorksData_viewer_feedWorks_user_iconImage? _$v;
-
-  String? _G__typename;
-  String? get G__typename => _$this._G__typename;
-  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
-
-  String? _id;
-  String? get id => _$this._id;
-  set id(String? id) => _$this._id = id;
-
-  String? _downloadURL;
-  String? get downloadURL => _$this._downloadURL;
-  set downloadURL(String? downloadURL) => _$this._downloadURL = downloadURL;
-
-  GViewerFeedWorksData_viewer_feedWorks_user_iconImageBuilder() {
-    GViewerFeedWorksData_viewer_feedWorks_user_iconImage._initializeBuilder(
-        this);
-  }
-
-  GViewerFeedWorksData_viewer_feedWorks_user_iconImageBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _G__typename = $v.G__typename;
-      _id = $v.id;
-      _downloadURL = $v.downloadURL;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GViewerFeedWorksData_viewer_feedWorks_user_iconImage other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GViewerFeedWorksData_viewer_feedWorks_user_iconImage;
-  }
-
-  @override
-  void update(
-      void Function(
-              GViewerFeedWorksData_viewer_feedWorks_user_iconImageBuilder)?
-          updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GViewerFeedWorksData_viewer_feedWorks_user_iconImage build() => _build();
-
-  _$GViewerFeedWorksData_viewer_feedWorks_user_iconImage _build() {
-    final _$result = _$v ??
-        new _$GViewerFeedWorksData_viewer_feedWorks_user_iconImage._(
-            G__typename: BuiltValueNullFieldError.checkNotNull(
-                G__typename,
-                r'GViewerFeedWorksData_viewer_feedWorks_user_iconImage',
-                'G__typename'),
-            id: BuiltValueNullFieldError.checkNotNull(id,
-                r'GViewerFeedWorksData_viewer_feedWorks_user_iconImage', 'id'),
-            downloadURL: BuiltValueNullFieldError.checkNotNull(
-                downloadURL,
-                r'GViewerFeedWorksData_viewer_feedWorks_user_iconImage',
-                'downloadURL'));
     replace(_$result);
     return _$result;
   }

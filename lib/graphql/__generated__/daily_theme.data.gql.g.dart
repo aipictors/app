@@ -13,9 +13,6 @@ Serializer<GDailyThemeData_dailyTheme> _$gDailyThemeDataDailyThemeSerializer =
 Serializer<GDailyThemeData_dailyTheme_works>
     _$gDailyThemeDataDailyThemeWorksSerializer =
     new _$GDailyThemeData_dailyTheme_worksSerializer();
-Serializer<GDailyThemeData_dailyTheme_works_thumbnailImage>
-    _$gDailyThemeDataDailyThemeWorksThumbnailImageSerializer =
-    new _$GDailyThemeData_dailyTheme_works_thumbnailImageSerializer();
 
 class _$GDailyThemeDataSerializer
     implements StructuredSerializer<GDailyThemeData> {
@@ -204,19 +201,38 @@ class _$GDailyThemeData_dailyTheme_worksSerializer
       'createdAt',
       serializers.serialize(object.createdAt,
           specifiedType: const FullType(int)),
+      'imageURL',
+      serializers.serialize(object.imageURL,
+          specifiedType: const FullType(String)),
+      'imageWidth',
+      serializers.serialize(object.imageWidth,
+          specifiedType: const FullType(int)),
+      'imageHeight',
+      serializers.serialize(object.imageHeight,
+          specifiedType: const FullType(int)),
+      'largeThumbnailImageURL',
+      serializers.serialize(object.largeThumbnailImageURL,
+          specifiedType: const FullType(String)),
+      'largeThumbnailImageWidth',
+      serializers.serialize(object.largeThumbnailImageWidth,
+          specifiedType: const FullType(int)),
+      'largeThumbnailImageHeight',
+      serializers.serialize(object.largeThumbnailImageHeight,
+          specifiedType: const FullType(int)),
+      'smallThumbnailImageURL',
+      serializers.serialize(object.smallThumbnailImageURL,
+          specifiedType: const FullType(String)),
+      'smallThumbnailImageWidth',
+      serializers.serialize(object.smallThumbnailImageWidth,
+          specifiedType: const FullType(int)),
+      'smallThumbnailImageHeight',
+      serializers.serialize(object.smallThumbnailImageHeight,
+          specifiedType: const FullType(int)),
       'imageAspectRatio',
       serializers.serialize(object.imageAspectRatio,
           specifiedType: const FullType(double)),
     ];
     Object? value;
-    value = object.thumbnailImage;
-    if (value != null) {
-      result
-        ..add('thumbnailImage')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(
-                GDailyThemeData_dailyTheme_works_thumbnailImage)));
-    }
     value = object.thumbnailImagePosition;
     if (value != null) {
       result
@@ -263,11 +279,41 @@ class _$GDailyThemeData_dailyTheme_worksSerializer
           result.createdAt = serializers.deserialize(value,
               specifiedType: const FullType(int))! as int;
           break;
-        case 'thumbnailImage':
-          result.thumbnailImage.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      GDailyThemeData_dailyTheme_works_thumbnailImage))!
-              as GDailyThemeData_dailyTheme_works_thumbnailImage);
+        case 'imageURL':
+          result.imageURL = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'imageWidth':
+          result.imageWidth = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'imageHeight':
+          result.imageHeight = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'largeThumbnailImageURL':
+          result.largeThumbnailImageURL = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'largeThumbnailImageWidth':
+          result.largeThumbnailImageWidth = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'largeThumbnailImageHeight':
+          result.largeThumbnailImageHeight = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'smallThumbnailImageURL':
+          result.smallThumbnailImageURL = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'smallThumbnailImageWidth':
+          result.smallThumbnailImageWidth = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'smallThumbnailImageHeight':
+          result.smallThumbnailImageHeight = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
           break;
         case 'thumbnailImagePosition':
           result.thumbnailImagePosition = serializers.deserialize(value,
@@ -276,66 +322,6 @@ class _$GDailyThemeData_dailyTheme_worksSerializer
         case 'imageAspectRatio':
           result.imageAspectRatio = serializers.deserialize(value,
               specifiedType: const FullType(double))! as double;
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GDailyThemeData_dailyTheme_works_thumbnailImageSerializer
-    implements
-        StructuredSerializer<GDailyThemeData_dailyTheme_works_thumbnailImage> {
-  @override
-  final Iterable<Type> types = const [
-    GDailyThemeData_dailyTheme_works_thumbnailImage,
-    _$GDailyThemeData_dailyTheme_works_thumbnailImage
-  ];
-  @override
-  final String wireName = 'GDailyThemeData_dailyTheme_works_thumbnailImage';
-
-  @override
-  Iterable<Object?> serialize(Serializers serializers,
-      GDailyThemeData_dailyTheme_works_thumbnailImage object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
-      'id',
-      serializers.serialize(object.id, specifiedType: const FullType(String)),
-      'downloadURL',
-      serializers.serialize(object.downloadURL,
-          specifiedType: const FullType(String)),
-    ];
-
-    return result;
-  }
-
-  @override
-  GDailyThemeData_dailyTheme_works_thumbnailImage deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GDailyThemeData_dailyTheme_works_thumbnailImageBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'id':
-          result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'downloadURL':
-          result.downloadURL = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
           break;
       }
     }
@@ -701,7 +687,23 @@ class _$GDailyThemeData_dailyTheme_works
   @override
   final int createdAt;
   @override
-  final GDailyThemeData_dailyTheme_works_thumbnailImage? thumbnailImage;
+  final String imageURL;
+  @override
+  final int imageWidth;
+  @override
+  final int imageHeight;
+  @override
+  final String largeThumbnailImageURL;
+  @override
+  final int largeThumbnailImageWidth;
+  @override
+  final int largeThumbnailImageHeight;
+  @override
+  final String smallThumbnailImageURL;
+  @override
+  final int smallThumbnailImageWidth;
+  @override
+  final int smallThumbnailImageHeight;
   @override
   final double? thumbnailImagePosition;
   @override
@@ -718,7 +720,15 @@ class _$GDailyThemeData_dailyTheme_works
       required this.likesCount,
       required this.commentsCount,
       required this.createdAt,
-      this.thumbnailImage,
+      required this.imageURL,
+      required this.imageWidth,
+      required this.imageHeight,
+      required this.largeThumbnailImageURL,
+      required this.largeThumbnailImageWidth,
+      required this.largeThumbnailImageHeight,
+      required this.smallThumbnailImageURL,
+      required this.smallThumbnailImageWidth,
+      required this.smallThumbnailImageHeight,
       this.thumbnailImagePosition,
       required this.imageAspectRatio})
       : super._() {
@@ -734,6 +744,24 @@ class _$GDailyThemeData_dailyTheme_works
         commentsCount, r'GDailyThemeData_dailyTheme_works', 'commentsCount');
     BuiltValueNullFieldError.checkNotNull(
         createdAt, r'GDailyThemeData_dailyTheme_works', 'createdAt');
+    BuiltValueNullFieldError.checkNotNull(
+        imageURL, r'GDailyThemeData_dailyTheme_works', 'imageURL');
+    BuiltValueNullFieldError.checkNotNull(
+        imageWidth, r'GDailyThemeData_dailyTheme_works', 'imageWidth');
+    BuiltValueNullFieldError.checkNotNull(
+        imageHeight, r'GDailyThemeData_dailyTheme_works', 'imageHeight');
+    BuiltValueNullFieldError.checkNotNull(largeThumbnailImageURL,
+        r'GDailyThemeData_dailyTheme_works', 'largeThumbnailImageURL');
+    BuiltValueNullFieldError.checkNotNull(largeThumbnailImageWidth,
+        r'GDailyThemeData_dailyTheme_works', 'largeThumbnailImageWidth');
+    BuiltValueNullFieldError.checkNotNull(largeThumbnailImageHeight,
+        r'GDailyThemeData_dailyTheme_works', 'largeThumbnailImageHeight');
+    BuiltValueNullFieldError.checkNotNull(smallThumbnailImageURL,
+        r'GDailyThemeData_dailyTheme_works', 'smallThumbnailImageURL');
+    BuiltValueNullFieldError.checkNotNull(smallThumbnailImageWidth,
+        r'GDailyThemeData_dailyTheme_works', 'smallThumbnailImageWidth');
+    BuiltValueNullFieldError.checkNotNull(smallThumbnailImageHeight,
+        r'GDailyThemeData_dailyTheme_works', 'smallThumbnailImageHeight');
     BuiltValueNullFieldError.checkNotNull(imageAspectRatio,
         r'GDailyThemeData_dailyTheme_works', 'imageAspectRatio');
   }
@@ -757,7 +785,15 @@ class _$GDailyThemeData_dailyTheme_works
         likesCount == other.likesCount &&
         commentsCount == other.commentsCount &&
         createdAt == other.createdAt &&
-        thumbnailImage == other.thumbnailImage &&
+        imageURL == other.imageURL &&
+        imageWidth == other.imageWidth &&
+        imageHeight == other.imageHeight &&
+        largeThumbnailImageURL == other.largeThumbnailImageURL &&
+        largeThumbnailImageWidth == other.largeThumbnailImageWidth &&
+        largeThumbnailImageHeight == other.largeThumbnailImageHeight &&
+        smallThumbnailImageURL == other.smallThumbnailImageURL &&
+        smallThumbnailImageWidth == other.smallThumbnailImageWidth &&
+        smallThumbnailImageHeight == other.smallThumbnailImageHeight &&
         thumbnailImagePosition == other.thumbnailImagePosition &&
         imageAspectRatio == other.imageAspectRatio;
   }
@@ -771,7 +807,15 @@ class _$GDailyThemeData_dailyTheme_works
     _$hash = $jc(_$hash, likesCount.hashCode);
     _$hash = $jc(_$hash, commentsCount.hashCode);
     _$hash = $jc(_$hash, createdAt.hashCode);
-    _$hash = $jc(_$hash, thumbnailImage.hashCode);
+    _$hash = $jc(_$hash, imageURL.hashCode);
+    _$hash = $jc(_$hash, imageWidth.hashCode);
+    _$hash = $jc(_$hash, imageHeight.hashCode);
+    _$hash = $jc(_$hash, largeThumbnailImageURL.hashCode);
+    _$hash = $jc(_$hash, largeThumbnailImageWidth.hashCode);
+    _$hash = $jc(_$hash, largeThumbnailImageHeight.hashCode);
+    _$hash = $jc(_$hash, smallThumbnailImageURL.hashCode);
+    _$hash = $jc(_$hash, smallThumbnailImageWidth.hashCode);
+    _$hash = $jc(_$hash, smallThumbnailImageHeight.hashCode);
     _$hash = $jc(_$hash, thumbnailImagePosition.hashCode);
     _$hash = $jc(_$hash, imageAspectRatio.hashCode);
     _$hash = $jf(_$hash);
@@ -787,7 +831,15 @@ class _$GDailyThemeData_dailyTheme_works
           ..add('likesCount', likesCount)
           ..add('commentsCount', commentsCount)
           ..add('createdAt', createdAt)
-          ..add('thumbnailImage', thumbnailImage)
+          ..add('imageURL', imageURL)
+          ..add('imageWidth', imageWidth)
+          ..add('imageHeight', imageHeight)
+          ..add('largeThumbnailImageURL', largeThumbnailImageURL)
+          ..add('largeThumbnailImageWidth', largeThumbnailImageWidth)
+          ..add('largeThumbnailImageHeight', largeThumbnailImageHeight)
+          ..add('smallThumbnailImageURL', smallThumbnailImageURL)
+          ..add('smallThumbnailImageWidth', smallThumbnailImageWidth)
+          ..add('smallThumbnailImageHeight', smallThumbnailImageHeight)
           ..add('thumbnailImagePosition', thumbnailImagePosition)
           ..add('imageAspectRatio', imageAspectRatio))
         .toString();
@@ -825,14 +877,47 @@ class GDailyThemeData_dailyTheme_worksBuilder
   int? get createdAt => _$this._createdAt;
   set createdAt(int? createdAt) => _$this._createdAt = createdAt;
 
-  GDailyThemeData_dailyTheme_works_thumbnailImageBuilder? _thumbnailImage;
-  GDailyThemeData_dailyTheme_works_thumbnailImageBuilder get thumbnailImage =>
-      _$this._thumbnailImage ??=
-          new GDailyThemeData_dailyTheme_works_thumbnailImageBuilder();
-  set thumbnailImage(
-          GDailyThemeData_dailyTheme_works_thumbnailImageBuilder?
-              thumbnailImage) =>
-      _$this._thumbnailImage = thumbnailImage;
+  String? _imageURL;
+  String? get imageURL => _$this._imageURL;
+  set imageURL(String? imageURL) => _$this._imageURL = imageURL;
+
+  int? _imageWidth;
+  int? get imageWidth => _$this._imageWidth;
+  set imageWidth(int? imageWidth) => _$this._imageWidth = imageWidth;
+
+  int? _imageHeight;
+  int? get imageHeight => _$this._imageHeight;
+  set imageHeight(int? imageHeight) => _$this._imageHeight = imageHeight;
+
+  String? _largeThumbnailImageURL;
+  String? get largeThumbnailImageURL => _$this._largeThumbnailImageURL;
+  set largeThumbnailImageURL(String? largeThumbnailImageURL) =>
+      _$this._largeThumbnailImageURL = largeThumbnailImageURL;
+
+  int? _largeThumbnailImageWidth;
+  int? get largeThumbnailImageWidth => _$this._largeThumbnailImageWidth;
+  set largeThumbnailImageWidth(int? largeThumbnailImageWidth) =>
+      _$this._largeThumbnailImageWidth = largeThumbnailImageWidth;
+
+  int? _largeThumbnailImageHeight;
+  int? get largeThumbnailImageHeight => _$this._largeThumbnailImageHeight;
+  set largeThumbnailImageHeight(int? largeThumbnailImageHeight) =>
+      _$this._largeThumbnailImageHeight = largeThumbnailImageHeight;
+
+  String? _smallThumbnailImageURL;
+  String? get smallThumbnailImageURL => _$this._smallThumbnailImageURL;
+  set smallThumbnailImageURL(String? smallThumbnailImageURL) =>
+      _$this._smallThumbnailImageURL = smallThumbnailImageURL;
+
+  int? _smallThumbnailImageWidth;
+  int? get smallThumbnailImageWidth => _$this._smallThumbnailImageWidth;
+  set smallThumbnailImageWidth(int? smallThumbnailImageWidth) =>
+      _$this._smallThumbnailImageWidth = smallThumbnailImageWidth;
+
+  int? _smallThumbnailImageHeight;
+  int? get smallThumbnailImageHeight => _$this._smallThumbnailImageHeight;
+  set smallThumbnailImageHeight(int? smallThumbnailImageHeight) =>
+      _$this._smallThumbnailImageHeight = smallThumbnailImageHeight;
 
   double? _thumbnailImagePosition;
   double? get thumbnailImagePosition => _$this._thumbnailImagePosition;
@@ -857,7 +942,15 @@ class GDailyThemeData_dailyTheme_worksBuilder
       _likesCount = $v.likesCount;
       _commentsCount = $v.commentsCount;
       _createdAt = $v.createdAt;
-      _thumbnailImage = $v.thumbnailImage?.toBuilder();
+      _imageURL = $v.imageURL;
+      _imageWidth = $v.imageWidth;
+      _imageHeight = $v.imageHeight;
+      _largeThumbnailImageURL = $v.largeThumbnailImageURL;
+      _largeThumbnailImageWidth = $v.largeThumbnailImageWidth;
+      _largeThumbnailImageHeight = $v.largeThumbnailImageHeight;
+      _smallThumbnailImageURL = $v.smallThumbnailImageURL;
+      _smallThumbnailImageWidth = $v.smallThumbnailImageWidth;
+      _smallThumbnailImageHeight = $v.smallThumbnailImageHeight;
       _thumbnailImagePosition = $v.thumbnailImagePosition;
       _imageAspectRatio = $v.imageAspectRatio;
       _$v = null;
@@ -880,175 +973,32 @@ class GDailyThemeData_dailyTheme_worksBuilder
   GDailyThemeData_dailyTheme_works build() => _build();
 
   _$GDailyThemeData_dailyTheme_works _build() {
-    _$GDailyThemeData_dailyTheme_works _$result;
-    try {
-      _$result = _$v ??
-          new _$GDailyThemeData_dailyTheme_works._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, r'GDailyThemeData_dailyTheme_works', 'G__typename'),
-              id: BuiltValueNullFieldError.checkNotNull(
-                  id, r'GDailyThemeData_dailyTheme_works', 'id'),
-              title: BuiltValueNullFieldError.checkNotNull(
-                  title, r'GDailyThemeData_dailyTheme_works', 'title'),
-              likesCount: BuiltValueNullFieldError.checkNotNull(
-                  likesCount, r'GDailyThemeData_dailyTheme_works', 'likesCount'),
-              commentsCount: BuiltValueNullFieldError.checkNotNull(
-                  commentsCount, r'GDailyThemeData_dailyTheme_works', 'commentsCount'),
-              createdAt: BuiltValueNullFieldError.checkNotNull(
-                  createdAt, r'GDailyThemeData_dailyTheme_works', 'createdAt'),
-              thumbnailImage: _thumbnailImage?.build(),
-              thumbnailImagePosition: thumbnailImagePosition,
-              imageAspectRatio: BuiltValueNullFieldError.checkNotNull(
-                  imageAspectRatio,
-                  r'GDailyThemeData_dailyTheme_works',
-                  'imageAspectRatio'));
-    } catch (_) {
-      late String _$failedField;
-      try {
-        _$failedField = 'thumbnailImage';
-        _thumbnailImage?.build();
-      } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'GDailyThemeData_dailyTheme_works', _$failedField, e.toString());
-      }
-      rethrow;
-    }
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GDailyThemeData_dailyTheme_works_thumbnailImage
-    extends GDailyThemeData_dailyTheme_works_thumbnailImage {
-  @override
-  final String G__typename;
-  @override
-  final String id;
-  @override
-  final String downloadURL;
-
-  factory _$GDailyThemeData_dailyTheme_works_thumbnailImage(
-          [void Function(
-                  GDailyThemeData_dailyTheme_works_thumbnailImageBuilder)?
-              updates]) =>
-      (new GDailyThemeData_dailyTheme_works_thumbnailImageBuilder()
-            ..update(updates))
-          ._build();
-
-  _$GDailyThemeData_dailyTheme_works_thumbnailImage._(
-      {required this.G__typename, required this.id, required this.downloadURL})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(G__typename,
-        r'GDailyThemeData_dailyTheme_works_thumbnailImage', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(
-        id, r'GDailyThemeData_dailyTheme_works_thumbnailImage', 'id');
-    BuiltValueNullFieldError.checkNotNull(downloadURL,
-        r'GDailyThemeData_dailyTheme_works_thumbnailImage', 'downloadURL');
-  }
-
-  @override
-  GDailyThemeData_dailyTheme_works_thumbnailImage rebuild(
-          void Function(GDailyThemeData_dailyTheme_works_thumbnailImageBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GDailyThemeData_dailyTheme_works_thumbnailImageBuilder toBuilder() =>
-      new GDailyThemeData_dailyTheme_works_thumbnailImageBuilder()
-        ..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GDailyThemeData_dailyTheme_works_thumbnailImage &&
-        G__typename == other.G__typename &&
-        id == other.id &&
-        downloadURL == other.downloadURL;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, id.hashCode);
-    _$hash = $jc(_$hash, downloadURL.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(
-            r'GDailyThemeData_dailyTheme_works_thumbnailImage')
-          ..add('G__typename', G__typename)
-          ..add('id', id)
-          ..add('downloadURL', downloadURL))
-        .toString();
-  }
-}
-
-class GDailyThemeData_dailyTheme_works_thumbnailImageBuilder
-    implements
-        Builder<GDailyThemeData_dailyTheme_works_thumbnailImage,
-            GDailyThemeData_dailyTheme_works_thumbnailImageBuilder> {
-  _$GDailyThemeData_dailyTheme_works_thumbnailImage? _$v;
-
-  String? _G__typename;
-  String? get G__typename => _$this._G__typename;
-  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
-
-  String? _id;
-  String? get id => _$this._id;
-  set id(String? id) => _$this._id = id;
-
-  String? _downloadURL;
-  String? get downloadURL => _$this._downloadURL;
-  set downloadURL(String? downloadURL) => _$this._downloadURL = downloadURL;
-
-  GDailyThemeData_dailyTheme_works_thumbnailImageBuilder() {
-    GDailyThemeData_dailyTheme_works_thumbnailImage._initializeBuilder(this);
-  }
-
-  GDailyThemeData_dailyTheme_works_thumbnailImageBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _G__typename = $v.G__typename;
-      _id = $v.id;
-      _downloadURL = $v.downloadURL;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GDailyThemeData_dailyTheme_works_thumbnailImage other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GDailyThemeData_dailyTheme_works_thumbnailImage;
-  }
-
-  @override
-  void update(
-      void Function(GDailyThemeData_dailyTheme_works_thumbnailImageBuilder)?
-          updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GDailyThemeData_dailyTheme_works_thumbnailImage build() => _build();
-
-  _$GDailyThemeData_dailyTheme_works_thumbnailImage _build() {
     final _$result = _$v ??
-        new _$GDailyThemeData_dailyTheme_works_thumbnailImage._(
+        new _$GDailyThemeData_dailyTheme_works._(
             G__typename: BuiltValueNullFieldError.checkNotNull(
-                G__typename,
-                r'GDailyThemeData_dailyTheme_works_thumbnailImage',
-                'G__typename'),
+                G__typename, r'GDailyThemeData_dailyTheme_works', 'G__typename'),
             id: BuiltValueNullFieldError.checkNotNull(
-                id, r'GDailyThemeData_dailyTheme_works_thumbnailImage', 'id'),
-            downloadURL: BuiltValueNullFieldError.checkNotNull(
-                downloadURL,
-                r'GDailyThemeData_dailyTheme_works_thumbnailImage',
-                'downloadURL'));
+                id, r'GDailyThemeData_dailyTheme_works', 'id'),
+            title: BuiltValueNullFieldError.checkNotNull(
+                title, r'GDailyThemeData_dailyTheme_works', 'title'),
+            likesCount: BuiltValueNullFieldError.checkNotNull(
+                likesCount, r'GDailyThemeData_dailyTheme_works', 'likesCount'),
+            commentsCount: BuiltValueNullFieldError.checkNotNull(
+                commentsCount, r'GDailyThemeData_dailyTheme_works', 'commentsCount'),
+            createdAt: BuiltValueNullFieldError.checkNotNull(
+                createdAt, r'GDailyThemeData_dailyTheme_works', 'createdAt'),
+            imageURL: BuiltValueNullFieldError.checkNotNull(
+                imageURL, r'GDailyThemeData_dailyTheme_works', 'imageURL'),
+            imageWidth: BuiltValueNullFieldError.checkNotNull(imageWidth, r'GDailyThemeData_dailyTheme_works', 'imageWidth'),
+            imageHeight: BuiltValueNullFieldError.checkNotNull(imageHeight, r'GDailyThemeData_dailyTheme_works', 'imageHeight'),
+            largeThumbnailImageURL: BuiltValueNullFieldError.checkNotNull(largeThumbnailImageURL, r'GDailyThemeData_dailyTheme_works', 'largeThumbnailImageURL'),
+            largeThumbnailImageWidth: BuiltValueNullFieldError.checkNotNull(largeThumbnailImageWidth, r'GDailyThemeData_dailyTheme_works', 'largeThumbnailImageWidth'),
+            largeThumbnailImageHeight: BuiltValueNullFieldError.checkNotNull(largeThumbnailImageHeight, r'GDailyThemeData_dailyTheme_works', 'largeThumbnailImageHeight'),
+            smallThumbnailImageURL: BuiltValueNullFieldError.checkNotNull(smallThumbnailImageURL, r'GDailyThemeData_dailyTheme_works', 'smallThumbnailImageURL'),
+            smallThumbnailImageWidth: BuiltValueNullFieldError.checkNotNull(smallThumbnailImageWidth, r'GDailyThemeData_dailyTheme_works', 'smallThumbnailImageWidth'),
+            smallThumbnailImageHeight: BuiltValueNullFieldError.checkNotNull(smallThumbnailImageHeight, r'GDailyThemeData_dailyTheme_works', 'smallThumbnailImageHeight'),
+            thumbnailImagePosition: thumbnailImagePosition,
+            imageAspectRatio: BuiltValueNullFieldError.checkNotNull(imageAspectRatio, r'GDailyThemeData_dailyTheme_works', 'imageAspectRatio'));
     replace(_$result);
     return _$result;
   }

@@ -175,9 +175,7 @@ abstract class GWorkData_work_subWorks
   @override
   String get id;
   @override
-  GWorkData_work_subWorks_image get image;
-  @override
-  GWorkData_work_subWorks_thumbnailImage get thumbnailImage;
+  String? get imageUrl;
   static Serializer<GWorkData_work_subWorks> get serializer =>
       _$gWorkDataWorkSubWorksSerializer;
 
@@ -190,82 +188,6 @@ abstract class GWorkData_work_subWorks
   static GWorkData_work_subWorks? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GWorkData_work_subWorks.serializer,
-        json,
-      );
-}
-
-abstract class GWorkData_work_subWorks_image
-    implements
-        Built<GWorkData_work_subWorks_image,
-            GWorkData_work_subWorks_imageBuilder>,
-        _i3.GSubWorkFields_image {
-  GWorkData_work_subWorks_image._();
-
-  factory GWorkData_work_subWorks_image(
-          [void Function(GWorkData_work_subWorks_imageBuilder b) updates]) =
-      _$GWorkData_work_subWorks_image;
-
-  static void _initializeBuilder(GWorkData_work_subWorks_imageBuilder b) =>
-      b..G__typename = 'ImageNode';
-
-  @override
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  @override
-  String get id;
-  @override
-  String get downloadURL;
-  static Serializer<GWorkData_work_subWorks_image> get serializer =>
-      _$gWorkDataWorkSubWorksImageSerializer;
-
-  @override
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GWorkData_work_subWorks_image.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GWorkData_work_subWorks_image? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GWorkData_work_subWorks_image.serializer,
-        json,
-      );
-}
-
-abstract class GWorkData_work_subWorks_thumbnailImage
-    implements
-        Built<GWorkData_work_subWorks_thumbnailImage,
-            GWorkData_work_subWorks_thumbnailImageBuilder>,
-        _i3.GSubWorkFields_thumbnailImage {
-  GWorkData_work_subWorks_thumbnailImage._();
-
-  factory GWorkData_work_subWorks_thumbnailImage(
-      [void Function(GWorkData_work_subWorks_thumbnailImageBuilder b)
-          updates]) = _$GWorkData_work_subWorks_thumbnailImage;
-
-  static void _initializeBuilder(
-          GWorkData_work_subWorks_thumbnailImageBuilder b) =>
-      b..G__typename = 'ImageNode';
-
-  @override
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  @override
-  String get id;
-  @override
-  String get downloadURL;
-  static Serializer<GWorkData_work_subWorks_thumbnailImage> get serializer =>
-      _$gWorkDataWorkSubWorksThumbnailImageSerializer;
-
-  @override
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GWorkData_work_subWorks_thumbnailImage.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GWorkData_work_subWorks_thumbnailImage? fromJson(
-          Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GWorkData_work_subWorks_thumbnailImage.serializer,
         json,
       );
 }

@@ -12,9 +12,6 @@ fragment CommentFields on CommentNode {
     id
     accessType
     imageUrl
-    image {
-      id
-      downloadURL
-    }
+    imageUrl
   }
 }

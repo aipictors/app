@@ -112,7 +112,7 @@ class WorkScreenCompact extends HookConsumerWidget {
                     InteractiveWorkImage(downloadURL: work.imageURL),
                     for (final subWork in work.subWorks)
                       InteractiveWorkImage(
-                        downloadURL: subWork.image.downloadURL,
+                        downloadURL: subWork.imageUrl!,
                       ),
                     const SizedBox(height: 8 * 2),
                     WorkStatusContainer(

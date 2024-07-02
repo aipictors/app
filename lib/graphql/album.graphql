@@ -14,9 +14,6 @@ query Album($id: ID!) {
     }
     createdAt
     isSensitive
-    thumbnailImage {
-      id
-      downloadURL
-    }
+    thumbnailImageURL
   }
 }

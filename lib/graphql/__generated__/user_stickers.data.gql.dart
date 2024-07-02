@@ -93,7 +93,7 @@ abstract class GUserStickersData_viewer_userStickers
   @override
   String get title;
   @override
-  GUserStickersData_viewer_userStickers_image? get image;
+  String? get imageUrl;
   @override
   int get likesCount;
   @override
@@ -113,45 +113,6 @@ abstract class GUserStickersData_viewer_userStickers
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUserStickersData_viewer_userStickers.serializer,
-        json,
-      );
-}
-
-abstract class GUserStickersData_viewer_userStickers_image
-    implements
-        Built<GUserStickersData_viewer_userStickers_image,
-            GUserStickersData_viewer_userStickers_imageBuilder>,
-        _i2.GPartialStickerFields_image {
-  GUserStickersData_viewer_userStickers_image._();
-
-  factory GUserStickersData_viewer_userStickers_image(
-      [void Function(GUserStickersData_viewer_userStickers_imageBuilder b)
-          updates]) = _$GUserStickersData_viewer_userStickers_image;
-
-  static void _initializeBuilder(
-          GUserStickersData_viewer_userStickers_imageBuilder b) =>
-      b..G__typename = 'ImageNode';
-
-  @override
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  @override
-  String get id;
-  @override
-  String get downloadURL;
-  static Serializer<GUserStickersData_viewer_userStickers_image>
-      get serializer => _$gUserStickersDataViewerUserStickersImageSerializer;
-
-  @override
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GUserStickersData_viewer_userStickers_image.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GUserStickersData_viewer_userStickers_image? fromJson(
-          Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GUserStickersData_viewer_userStickers_image.serializer,
         json,
       );
 }

@@ -14,9 +14,6 @@ Serializer<GViewerMutedUsersData_viewer>
 Serializer<GViewerMutedUsersData_viewer_mutedUsers>
     _$gViewerMutedUsersDataViewerMutedUsersSerializer =
     new _$GViewerMutedUsersData_viewer_mutedUsersSerializer();
-Serializer<GViewerMutedUsersData_viewer_mutedUsers_iconImage>
-    _$gViewerMutedUsersDataViewerMutedUsersIconImageSerializer =
-    new _$GViewerMutedUsersData_viewer_mutedUsers_iconImageSerializer();
 
 class _$GViewerMutedUsersDataSerializer
     implements StructuredSerializer<GViewerMutedUsersData> {
@@ -159,13 +156,12 @@ class _$GViewerMutedUsersData_viewer_mutedUsersSerializer
       serializers.serialize(object.name, specifiedType: const FullType(String)),
     ];
     Object? value;
-    value = object.iconImage;
+    value = object.iconUrl;
     if (value != null) {
       result
-        ..add('iconImage')
+        ..add('iconUrl')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(
-                GViewerMutedUsersData_viewer_mutedUsers_iconImage)));
+            specifiedType: const FullType(String)));
     }
     return result;
   }
@@ -198,73 +194,9 @@ class _$GViewerMutedUsersData_viewer_mutedUsersSerializer
           result.name = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
-        case 'iconImage':
-          result.iconImage.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      GViewerMutedUsersData_viewer_mutedUsers_iconImage))!
-              as GViewerMutedUsersData_viewer_mutedUsers_iconImage);
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GViewerMutedUsersData_viewer_mutedUsers_iconImageSerializer
-    implements
-        StructuredSerializer<
-            GViewerMutedUsersData_viewer_mutedUsers_iconImage> {
-  @override
-  final Iterable<Type> types = const [
-    GViewerMutedUsersData_viewer_mutedUsers_iconImage,
-    _$GViewerMutedUsersData_viewer_mutedUsers_iconImage
-  ];
-  @override
-  final String wireName = 'GViewerMutedUsersData_viewer_mutedUsers_iconImage';
-
-  @override
-  Iterable<Object?> serialize(Serializers serializers,
-      GViewerMutedUsersData_viewer_mutedUsers_iconImage object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
-      'id',
-      serializers.serialize(object.id, specifiedType: const FullType(String)),
-      'downloadURL',
-      serializers.serialize(object.downloadURL,
-          specifiedType: const FullType(String)),
-    ];
-
-    return result;
-  }
-
-  @override
-  GViewerMutedUsersData_viewer_mutedUsers_iconImage deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result =
-        new GViewerMutedUsersData_viewer_mutedUsers_iconImageBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'id':
-          result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'downloadURL':
-          result.downloadURL = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
+        case 'iconUrl':
+          result.iconUrl = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
           break;
       }
     }
@@ -525,7 +457,7 @@ class _$GViewerMutedUsersData_viewer_mutedUsers
   @override
   final String name;
   @override
-  final GViewerMutedUsersData_viewer_mutedUsers_iconImage? iconImage;
+  final String? iconUrl;
 
   factory _$GViewerMutedUsersData_viewer_mutedUsers(
           [void Function(GViewerMutedUsersData_viewer_mutedUsersBuilder)?
@@ -538,7 +470,7 @@ class _$GViewerMutedUsersData_viewer_mutedUsers
       required this.id,
       required this.login,
       required this.name,
-      this.iconImage})
+      this.iconUrl})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename, r'GViewerMutedUsersData_viewer_mutedUsers', 'G__typename');
@@ -568,7 +500,7 @@ class _$GViewerMutedUsersData_viewer_mutedUsers
         id == other.id &&
         login == other.login &&
         name == other.name &&
-        iconImage == other.iconImage;
+        iconUrl == other.iconUrl;
   }
 
   @override
@@ -578,7 +510,7 @@ class _$GViewerMutedUsersData_viewer_mutedUsers
     _$hash = $jc(_$hash, id.hashCode);
     _$hash = $jc(_$hash, login.hashCode);
     _$hash = $jc(_$hash, name.hashCode);
-    _$hash = $jc(_$hash, iconImage.hashCode);
+    _$hash = $jc(_$hash, iconUrl.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -591,7 +523,7 @@ class _$GViewerMutedUsersData_viewer_mutedUsers
           ..add('id', id)
           ..add('login', login)
           ..add('name', name)
-          ..add('iconImage', iconImage))
+          ..add('iconUrl', iconUrl))
         .toString();
   }
 }
@@ -618,14 +550,9 @@ class GViewerMutedUsersData_viewer_mutedUsersBuilder
   String? get name => _$this._name;
   set name(String? name) => _$this._name = name;
 
-  GViewerMutedUsersData_viewer_mutedUsers_iconImageBuilder? _iconImage;
-  GViewerMutedUsersData_viewer_mutedUsers_iconImageBuilder get iconImage =>
-      _$this._iconImage ??=
-          new GViewerMutedUsersData_viewer_mutedUsers_iconImageBuilder();
-  set iconImage(
-          GViewerMutedUsersData_viewer_mutedUsers_iconImageBuilder?
-              iconImage) =>
-      _$this._iconImage = iconImage;
+  String? _iconUrl;
+  String? get iconUrl => _$this._iconUrl;
+  set iconUrl(String? iconUrl) => _$this._iconUrl = iconUrl;
 
   GViewerMutedUsersData_viewer_mutedUsersBuilder() {
     GViewerMutedUsersData_viewer_mutedUsers._initializeBuilder(this);
@@ -638,7 +565,7 @@ class GViewerMutedUsersData_viewer_mutedUsersBuilder
       _id = $v.id;
       _login = $v.login;
       _name = $v.name;
-      _iconImage = $v.iconImage?.toBuilder();
+      _iconUrl = $v.iconUrl;
       _$v = null;
     }
     return this;
@@ -660,169 +587,17 @@ class GViewerMutedUsersData_viewer_mutedUsersBuilder
   GViewerMutedUsersData_viewer_mutedUsers build() => _build();
 
   _$GViewerMutedUsersData_viewer_mutedUsers _build() {
-    _$GViewerMutedUsersData_viewer_mutedUsers _$result;
-    try {
-      _$result = _$v ??
-          new _$GViewerMutedUsersData_viewer_mutedUsers._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
-                  r'GViewerMutedUsersData_viewer_mutedUsers', 'G__typename'),
-              id: BuiltValueNullFieldError.checkNotNull(
-                  id, r'GViewerMutedUsersData_viewer_mutedUsers', 'id'),
-              login: BuiltValueNullFieldError.checkNotNull(
-                  login, r'GViewerMutedUsersData_viewer_mutedUsers', 'login'),
-              name: BuiltValueNullFieldError.checkNotNull(
-                  name, r'GViewerMutedUsersData_viewer_mutedUsers', 'name'),
-              iconImage: _iconImage?.build());
-    } catch (_) {
-      late String _$failedField;
-      try {
-        _$failedField = 'iconImage';
-        _iconImage?.build();
-      } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'GViewerMutedUsersData_viewer_mutedUsers',
-            _$failedField,
-            e.toString());
-      }
-      rethrow;
-    }
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GViewerMutedUsersData_viewer_mutedUsers_iconImage
-    extends GViewerMutedUsersData_viewer_mutedUsers_iconImage {
-  @override
-  final String G__typename;
-  @override
-  final String id;
-  @override
-  final String downloadURL;
-
-  factory _$GViewerMutedUsersData_viewer_mutedUsers_iconImage(
-          [void Function(
-                  GViewerMutedUsersData_viewer_mutedUsers_iconImageBuilder)?
-              updates]) =>
-      (new GViewerMutedUsersData_viewer_mutedUsers_iconImageBuilder()
-            ..update(updates))
-          ._build();
-
-  _$GViewerMutedUsersData_viewer_mutedUsers_iconImage._(
-      {required this.G__typename, required this.id, required this.downloadURL})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(G__typename,
-        r'GViewerMutedUsersData_viewer_mutedUsers_iconImage', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(
-        id, r'GViewerMutedUsersData_viewer_mutedUsers_iconImage', 'id');
-    BuiltValueNullFieldError.checkNotNull(downloadURL,
-        r'GViewerMutedUsersData_viewer_mutedUsers_iconImage', 'downloadURL');
-  }
-
-  @override
-  GViewerMutedUsersData_viewer_mutedUsers_iconImage rebuild(
-          void Function(
-                  GViewerMutedUsersData_viewer_mutedUsers_iconImageBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GViewerMutedUsersData_viewer_mutedUsers_iconImageBuilder toBuilder() =>
-      new GViewerMutedUsersData_viewer_mutedUsers_iconImageBuilder()
-        ..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GViewerMutedUsersData_viewer_mutedUsers_iconImage &&
-        G__typename == other.G__typename &&
-        id == other.id &&
-        downloadURL == other.downloadURL;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, id.hashCode);
-    _$hash = $jc(_$hash, downloadURL.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(
-            r'GViewerMutedUsersData_viewer_mutedUsers_iconImage')
-          ..add('G__typename', G__typename)
-          ..add('id', id)
-          ..add('downloadURL', downloadURL))
-        .toString();
-  }
-}
-
-class GViewerMutedUsersData_viewer_mutedUsers_iconImageBuilder
-    implements
-        Builder<GViewerMutedUsersData_viewer_mutedUsers_iconImage,
-            GViewerMutedUsersData_viewer_mutedUsers_iconImageBuilder> {
-  _$GViewerMutedUsersData_viewer_mutedUsers_iconImage? _$v;
-
-  String? _G__typename;
-  String? get G__typename => _$this._G__typename;
-  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
-
-  String? _id;
-  String? get id => _$this._id;
-  set id(String? id) => _$this._id = id;
-
-  String? _downloadURL;
-  String? get downloadURL => _$this._downloadURL;
-  set downloadURL(String? downloadURL) => _$this._downloadURL = downloadURL;
-
-  GViewerMutedUsersData_viewer_mutedUsers_iconImageBuilder() {
-    GViewerMutedUsersData_viewer_mutedUsers_iconImage._initializeBuilder(this);
-  }
-
-  GViewerMutedUsersData_viewer_mutedUsers_iconImageBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _G__typename = $v.G__typename;
-      _id = $v.id;
-      _downloadURL = $v.downloadURL;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GViewerMutedUsersData_viewer_mutedUsers_iconImage other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GViewerMutedUsersData_viewer_mutedUsers_iconImage;
-  }
-
-  @override
-  void update(
-      void Function(GViewerMutedUsersData_viewer_mutedUsers_iconImageBuilder)?
-          updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GViewerMutedUsersData_viewer_mutedUsers_iconImage build() => _build();
-
-  _$GViewerMutedUsersData_viewer_mutedUsers_iconImage _build() {
     final _$result = _$v ??
-        new _$GViewerMutedUsersData_viewer_mutedUsers_iconImage._(
-            G__typename: BuiltValueNullFieldError.checkNotNull(
-                G__typename,
-                r'GViewerMutedUsersData_viewer_mutedUsers_iconImage',
-                'G__typename'),
+        new _$GViewerMutedUsersData_viewer_mutedUsers._(
+            G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
+                r'GViewerMutedUsersData_viewer_mutedUsers', 'G__typename'),
             id: BuiltValueNullFieldError.checkNotNull(
-                id, r'GViewerMutedUsersData_viewer_mutedUsers_iconImage', 'id'),
-            downloadURL: BuiltValueNullFieldError.checkNotNull(
-                downloadURL,
-                r'GViewerMutedUsersData_viewer_mutedUsers_iconImage',
-                'downloadURL'));
+                id, r'GViewerMutedUsersData_viewer_mutedUsers', 'id'),
+            login: BuiltValueNullFieldError.checkNotNull(
+                login, r'GViewerMutedUsersData_viewer_mutedUsers', 'login'),
+            name: BuiltValueNullFieldError.checkNotNull(
+                name, r'GViewerMutedUsersData_viewer_mutedUsers', 'name'),
+            iconUrl: iconUrl);
     replace(_$result);
     return _$result;
   }

@@ -109,26 +109,11 @@ const Album = _i1.OperationDefinitionNode(
           selectionSet: null,
         ),
         _i1.FieldNode(
-          name: _i1.NameNode(value: 'thumbnailImage'),
+          name: _i1.NameNode(value: 'thumbnailImageURL'),
           alias: null,
           arguments: [],
           directives: [],
-          selectionSet: _i1.SelectionSetNode(selections: [
-            _i1.FieldNode(
-              name: _i1.NameNode(value: 'id'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: null,
-            ),
-            _i1.FieldNode(
-              name: _i1.NameNode(value: 'downloadURL'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: null,
-            ),
-          ]),
+          selectionSet: null,
         ),
       ]),
     )

@@ -54,7 +54,7 @@ class UserScreen extends HookConsumerWidget {
               headerSliverBuilder: (context, innerBoxIsScrolled) {
                 return [
                   UserAppBar(
-                    headerImageURL: user.headerImage?.downloadURL ?? '',
+                    headerImageURL: user.headerImageUrl ?? '',
                     innerBoxIsScrolled: innerBoxIsScrolled,
                     userName: user.name,
                   ),
@@ -65,7 +65,7 @@ class UserScreen extends HookConsumerWidget {
                         children: [
                           UserHeaderContainer(
                             userId: userId,
-                            iconImageURL: user.iconImage?.downloadURL,
+                            iconImageURL: user.iconUrl,
                             isFollowee: user.isFollowee == true,
                           ),
                           const SizedBox(height: 8),

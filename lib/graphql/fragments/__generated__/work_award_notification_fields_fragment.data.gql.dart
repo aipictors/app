@@ -34,23 +34,27 @@ abstract class GWorkAwardNotificationFields_work
   @override
   int get createdAt;
   @override
-  GWorkAwardNotificationFields_work_thumbnailImage? get thumbnailImage;
+  String get imageURL;
+  @override
+  int get imageWidth;
+  @override
+  int get imageHeight;
+  @override
+  String get largeThumbnailImageURL;
+  @override
+  int get largeThumbnailImageWidth;
+  @override
+  int get largeThumbnailImageHeight;
+  @override
+  String get smallThumbnailImageURL;
+  @override
+  int get smallThumbnailImageWidth;
+  @override
+  int get smallThumbnailImageHeight;
   @override
   double? get thumbnailImagePosition;
   @override
   double get imageAspectRatio;
-  @override
-  Map<String, dynamic> toJson();
-}
-
-abstract class GWorkAwardNotificationFields_work_thumbnailImage
-    implements _i1.GPartialWorkFields_thumbnailImage {
-  @override
-  String get G__typename;
-  @override
-  String get id;
-  @override
-  String get downloadURL;
   @override
   Map<String, dynamic> toJson();
 }
@@ -127,7 +131,23 @@ abstract class GWorkAwardNotificationFieldsData_work
   @override
   int get createdAt;
   @override
-  GWorkAwardNotificationFieldsData_work_thumbnailImage? get thumbnailImage;
+  String get imageURL;
+  @override
+  int get imageWidth;
+  @override
+  int get imageHeight;
+  @override
+  String get largeThumbnailImageURL;
+  @override
+  int get largeThumbnailImageWidth;
+  @override
+  int get largeThumbnailImageHeight;
+  @override
+  String get smallThumbnailImageURL;
+  @override
+  int get smallThumbnailImageWidth;
+  @override
+  int get smallThumbnailImageHeight;
   @override
   double? get thumbnailImagePosition;
   @override
@@ -145,48 +165,6 @@ abstract class GWorkAwardNotificationFieldsData_work
           Map<String, dynamic> json) =>
       _i2.serializers.deserializeWith(
         GWorkAwardNotificationFieldsData_work.serializer,
-        json,
-      );
-}
-
-abstract class GWorkAwardNotificationFieldsData_work_thumbnailImage
-    implements
-        Built<GWorkAwardNotificationFieldsData_work_thumbnailImage,
-            GWorkAwardNotificationFieldsData_work_thumbnailImageBuilder>,
-        GWorkAwardNotificationFields_work_thumbnailImage,
-        _i1.GPartialWorkFields_thumbnailImage {
-  GWorkAwardNotificationFieldsData_work_thumbnailImage._();
-
-  factory GWorkAwardNotificationFieldsData_work_thumbnailImage(
-      [void Function(
-              GWorkAwardNotificationFieldsData_work_thumbnailImageBuilder b)
-          updates]) = _$GWorkAwardNotificationFieldsData_work_thumbnailImage;
-
-  static void _initializeBuilder(
-          GWorkAwardNotificationFieldsData_work_thumbnailImageBuilder b) =>
-      b..G__typename = 'ImageNode';
-
-  @override
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  @override
-  String get id;
-  @override
-  String get downloadURL;
-  static Serializer<GWorkAwardNotificationFieldsData_work_thumbnailImage>
-      get serializer =>
-          _$gWorkAwardNotificationFieldsDataWorkThumbnailImageSerializer;
-
-  @override
-  Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
-        GWorkAwardNotificationFieldsData_work_thumbnailImage.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GWorkAwardNotificationFieldsData_work_thumbnailImage? fromJson(
-          Map<String, dynamic> json) =>
-      _i2.serializers.deserializeWith(
-        GWorkAwardNotificationFieldsData_work_thumbnailImage.serializer,
         json,
       );
 }

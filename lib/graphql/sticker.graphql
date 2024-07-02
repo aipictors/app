@@ -5,10 +5,7 @@ query Sticker($id: ID!) {
     id
     createdAt
     title
-    image {
-      id
-      downloadURL
-    }
+    imageUrl
     user {
       ...WorkUserFields
       isFollower

@@ -52,7 +52,7 @@ class UserScreen extends HookConsumerWidget {
                     onOpenActionModal(
                       context,
                       userName: user.name,
-                      userIconImageURL: user.iconImage?.downloadURL,
+                      userIconImageURL: user.iconUrl,
                       isMutedUser: user.isMuted == true,
                     );
                   },
@@ -75,7 +75,7 @@ class UserScreen extends HookConsumerWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           UserHeaderActionContainer(
-                            iconImageURL: user.iconImage?.downloadURL,
+                            iconImageURL: user.iconUrl,
                             userId: user.id,
                             userLogin: user.login,
                             userName: user.name,

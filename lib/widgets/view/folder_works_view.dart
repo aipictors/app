@@ -43,7 +43,7 @@ class FolderWorksView extends HookConsumerWidget {
             itemBuilder: (context, index) {
               final work = workList[index];
               return WorkGridItemContainer(
-                imageUrl: work.thumbnailImage?.downloadURL,
+                imageUrl: work.largeThumbnailImageURL,
                 imageAspectRatio: work.imageAspectRatio,
                 thumbnailImagePosition: work.thumbnailImagePosition,
                 onTap: () {

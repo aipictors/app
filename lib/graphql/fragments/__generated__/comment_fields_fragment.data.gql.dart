@@ -54,14 +54,6 @@ abstract class GCommentFields_sticker {
   String get id;
   _i2.GAccessType get accessType;
   String? get imageUrl;
-  GCommentFields_sticker_image? get image;
-  Map<String, dynamic> toJson();
-}
-
-abstract class GCommentFields_sticker_image {
-  String get G__typename;
-  String get id;
-  String get downloadURL;
   Map<String, dynamic> toJson();
 }
 
@@ -211,8 +203,6 @@ abstract class GCommentFieldsData_sticker
   _i2.GAccessType get accessType;
   @override
   String? get imageUrl;
-  @override
-  GCommentFieldsData_sticker_image? get image;
   static Serializer<GCommentFieldsData_sticker> get serializer =>
       _$gCommentFieldsDataStickerSerializer;
 
@@ -225,44 +215,6 @@ abstract class GCommentFieldsData_sticker
   static GCommentFieldsData_sticker? fromJson(Map<String, dynamic> json) =>
       _i3.serializers.deserializeWith(
         GCommentFieldsData_sticker.serializer,
-        json,
-      );
-}
-
-abstract class GCommentFieldsData_sticker_image
-    implements
-        Built<GCommentFieldsData_sticker_image,
-            GCommentFieldsData_sticker_imageBuilder>,
-        GCommentFields_sticker_image {
-  GCommentFieldsData_sticker_image._();
-
-  factory GCommentFieldsData_sticker_image(
-          [void Function(GCommentFieldsData_sticker_imageBuilder b) updates]) =
-      _$GCommentFieldsData_sticker_image;
-
-  static void _initializeBuilder(GCommentFieldsData_sticker_imageBuilder b) =>
-      b..G__typename = 'ImageNode';
-
-  @override
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  @override
-  String get id;
-  @override
-  String get downloadURL;
-  static Serializer<GCommentFieldsData_sticker_image> get serializer =>
-      _$gCommentFieldsDataStickerImageSerializer;
-
-  @override
-  Map<String, dynamic> toJson() => (_i3.serializers.serializeWith(
-        GCommentFieldsData_sticker_image.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GCommentFieldsData_sticker_image? fromJson(
-          Map<String, dynamic> json) =>
-      _i3.serializers.deserializeWith(
-        GCommentFieldsData_sticker_image.serializer,
         json,
       );
 }

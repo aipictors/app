@@ -93,7 +93,7 @@ class AlbumWorksView extends HookConsumerWidget {
             return AlbumWorkListTile(
               workId: work.id,
               workTitle: work.title,
-              workImageURL: work.image!.downloadURL,
+              workImageURL: work.imageURL,
               workCreatedAt: work.createdAt,
               workImageAspectRatio: work.imageAspectRatio,
               userId: userId,

@@ -28,7 +28,7 @@ class _$GUpdateProtectedImageGenerationTaskVarsSerializer
       'input',
       serializers.serialize(object.input,
           specifiedType:
-              const FullType(_i1.GUpdateProtectedImageGenerationTaskInput)),
+              const FullType(_i1.GUpdateProtectedImageGenerationResultInput)),
     ];
 
     return result;
@@ -49,8 +49,8 @@ class _$GUpdateProtectedImageGenerationTaskVarsSerializer
         case 'input':
           result.input.replace(serializers.deserialize(value,
                   specifiedType: const FullType(
-                      _i1.GUpdateProtectedImageGenerationTaskInput))!
-              as _i1.GUpdateProtectedImageGenerationTaskInput);
+                      _i1.GUpdateProtectedImageGenerationResultInput))!
+              as _i1.GUpdateProtectedImageGenerationResultInput);
           break;
       }
     }
@@ -62,7 +62,7 @@ class _$GUpdateProtectedImageGenerationTaskVarsSerializer
 class _$GUpdateProtectedImageGenerationTaskVars
     extends GUpdateProtectedImageGenerationTaskVars {
   @override
-  final _i1.GUpdateProtectedImageGenerationTaskInput input;
+  final _i1.GUpdateProtectedImageGenerationResultInput input;
 
   factory _$GUpdateProtectedImageGenerationTaskVars(
           [void Function(GUpdateProtectedImageGenerationTaskVarsBuilder)?
@@ -116,11 +116,11 @@ class GUpdateProtectedImageGenerationTaskVarsBuilder
             GUpdateProtectedImageGenerationTaskVarsBuilder> {
   _$GUpdateProtectedImageGenerationTaskVars? _$v;
 
-  _i1.GUpdateProtectedImageGenerationTaskInputBuilder? _input;
-  _i1.GUpdateProtectedImageGenerationTaskInputBuilder get input =>
+  _i1.GUpdateProtectedImageGenerationResultInputBuilder? _input;
+  _i1.GUpdateProtectedImageGenerationResultInputBuilder get input =>
       _$this._input ??=
-          new _i1.GUpdateProtectedImageGenerationTaskInputBuilder();
-  set input(_i1.GUpdateProtectedImageGenerationTaskInputBuilder? input) =>
+          new _i1.GUpdateProtectedImageGenerationResultInputBuilder();
+  set input(_i1.GUpdateProtectedImageGenerationResultInputBuilder? input) =>
       _$this._input = input;
 
   GUpdateProtectedImageGenerationTaskVarsBuilder();

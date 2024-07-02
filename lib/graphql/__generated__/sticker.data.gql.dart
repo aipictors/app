@@ -55,7 +55,7 @@ abstract class GStickerData_sticker
   String get id;
   int get createdAt;
   String get title;
-  GStickerData_sticker_image? get image;
+  String? get imageUrl;
   GStickerData_sticker_user get user;
   bool get isLiked;
   int get downloadsCount;
@@ -76,37 +76,6 @@ abstract class GStickerData_sticker
   static GStickerData_sticker? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GStickerData_sticker.serializer,
-        json,
-      );
-}
-
-abstract class GStickerData_sticker_image
-    implements
-        Built<GStickerData_sticker_image, GStickerData_sticker_imageBuilder> {
-  GStickerData_sticker_image._();
-
-  factory GStickerData_sticker_image(
-          [void Function(GStickerData_sticker_imageBuilder b) updates]) =
-      _$GStickerData_sticker_image;
-
-  static void _initializeBuilder(GStickerData_sticker_imageBuilder b) =>
-      b..G__typename = 'ImageNode';
-
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  String get id;
-  String get downloadURL;
-  static Serializer<GStickerData_sticker_image> get serializer =>
-      _$gStickerDataStickerImageSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GStickerData_sticker_image.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GStickerData_sticker_image? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GStickerData_sticker_image.serializer,
         json,
       );
 }

@@ -222,6 +222,34 @@ abstract class GAlbumsWhereInput
       );
 }
 
+abstract class GAppEventsWhereInput
+    implements Built<GAppEventsWhereInput, GAppEventsWhereInputBuilder> {
+  GAppEventsWhereInput._();
+
+  factory GAppEventsWhereInput(
+          [void Function(GAppEventsWhereInputBuilder b) updates]) =
+      _$GAppEventsWhereInput;
+
+  String? get endAt;
+  String? get slug;
+  String? get startAt;
+  String? get tag;
+  String? get title;
+  static Serializer<GAppEventsWhereInput> get serializer =>
+      _$gAppEventsWhereInputSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GAppEventsWhereInput.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GAppEventsWhereInput? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GAppEventsWhereInput.serializer,
+        json,
+      );
+}
+
 abstract class GAwardsWhereInput
     implements Built<GAwardsWhereInput, GAwardsWhereInputBuilder> {
   GAwardsWhereInput._();
@@ -396,6 +424,37 @@ abstract class GChangePromptonFolderToPaidInput
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GChangePromptonFolderToPaidInput.serializer,
+        json,
+      );
+}
+
+abstract class GChangeUserStickerAccessTypeInput
+    implements
+        Built<GChangeUserStickerAccessTypeInput,
+            GChangeUserStickerAccessTypeInputBuilder> {
+  GChangeUserStickerAccessTypeInput._();
+
+  factory GChangeUserStickerAccessTypeInput(
+          [void Function(GChangeUserStickerAccessTypeInputBuilder b) updates]) =
+      _$GChangeUserStickerAccessTypeInput;
+
+  GStickerAccessType get accessType;
+  BuiltList<String>? get categories;
+  GStickerGenre? get genre;
+  String get stickerId;
+  String? get title;
+  static Serializer<GChangeUserStickerAccessTypeInput> get serializer =>
+      _$gChangeUserStickerAccessTypeInputSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GChangeUserStickerAccessTypeInput.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GChangeUserStickerAccessTypeInput? fromJson(
+          Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GChangeUserStickerAccessTypeInput.serializer,
         json,
       );
 }
@@ -805,7 +864,7 @@ abstract class GCreatePromptonAipicRequestInput
       _$GCreatePromptonAipicRequestInput;
 
   int? get fee;
-  String get note;
+  String? get note;
   String get recipientId;
   static Serializer<GCreatePromptonAipicRequestInput> get serializer =>
       _$gCreatePromptonAipicRequestInputSerializer;
@@ -985,37 +1044,6 @@ abstract class GCreatePromptonFolderKeyInput
   static GCreatePromptonFolderKeyInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GCreatePromptonFolderKeyInput.serializer,
-        json,
-      );
-}
-
-abstract class GCreatePromptonImageGenerationInput
-    implements
-        Built<GCreatePromptonImageGenerationInput,
-            GCreatePromptonImageGenerationInputBuilder> {
-  GCreatePromptonImageGenerationInput._();
-
-  factory GCreatePromptonImageGenerationInput(
-      [void Function(GCreatePromptonImageGenerationInputBuilder b)
-          updates]) = _$GCreatePromptonImageGenerationInput;
-
-  String get model;
-  String get prompt;
-  String get quality;
-  String get size;
-  String get style;
-  static Serializer<GCreatePromptonImageGenerationInput> get serializer =>
-      _$gCreatePromptonImageGenerationInputSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GCreatePromptonImageGenerationInput.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GCreatePromptonImageGenerationInput? fromJson(
-          Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GCreatePromptonImageGenerationInput.serializer,
         json,
       );
 }
@@ -1536,6 +1564,7 @@ abstract class GCreateWorkInput
   factory GCreateWorkInput([void Function(GCreateWorkInputBuilder b) updates]) =
       _$GCreateWorkInput;
 
+  GGenerationAccessType get accessGenerationType;
   GAccessType get accessType;
   String? get albumId;
   String? get enExplanation;
@@ -1821,28 +1850,29 @@ abstract class GDeleteImageGenerationMemoInput
       );
 }
 
-abstract class GDeleteImageGenerationTaskInput
+abstract class GDeleteImageGenerationResultInput
     implements
-        Built<GDeleteImageGenerationTaskInput,
-            GDeleteImageGenerationTaskInputBuilder> {
-  GDeleteImageGenerationTaskInput._();
+        Built<GDeleteImageGenerationResultInput,
+            GDeleteImageGenerationResultInputBuilder> {
+  GDeleteImageGenerationResultInput._();
 
-  factory GDeleteImageGenerationTaskInput(
-          [void Function(GDeleteImageGenerationTaskInputBuilder b) updates]) =
-      _$GDeleteImageGenerationTaskInput;
+  factory GDeleteImageGenerationResultInput(
+          [void Function(GDeleteImageGenerationResultInputBuilder b) updates]) =
+      _$GDeleteImageGenerationResultInput;
 
   String get nanoid;
-  static Serializer<GDeleteImageGenerationTaskInput> get serializer =>
-      _$gDeleteImageGenerationTaskInputSerializer;
+  static Serializer<GDeleteImageGenerationResultInput> get serializer =>
+      _$gDeleteImageGenerationResultInputSerializer;
 
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GDeleteImageGenerationTaskInput.serializer,
+        GDeleteImageGenerationResultInput.serializer,
         this,
       ) as Map<String, dynamic>);
 
-  static GDeleteImageGenerationTaskInput? fromJson(Map<String, dynamic> json) =>
+  static GDeleteImageGenerationResultInput? fromJson(
+          Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
-        GDeleteImageGenerationTaskInput.serializer,
+        GDeleteImageGenerationResultInput.serializer,
         json,
       );
 }
@@ -2231,6 +2261,33 @@ class GDirection extends EnumClass {
   static GDirection valueOf(String name) => _$gDirectionValueOf(name);
 }
 
+abstract class GFeaturePromptonRequestWhereInput
+    implements
+        Built<GFeaturePromptonRequestWhereInput,
+            GFeaturePromptonRequestWhereInputBuilder> {
+  GFeaturePromptonRequestWhereInput._();
+
+  factory GFeaturePromptonRequestWhereInput(
+          [void Function(GFeaturePromptonRequestWhereInputBuilder b) updates]) =
+      _$GFeaturePromptonRequestWhereInput;
+
+  String get userId;
+  static Serializer<GFeaturePromptonRequestWhereInput> get serializer =>
+      _$gFeaturePromptonRequestWhereInputSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GFeaturePromptonRequestWhereInput.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GFeaturePromptonRequestWhereInput? fromJson(
+          Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GFeaturePromptonRequestWhereInput.serializer,
+        json,
+      );
+}
+
 abstract class GFlipPromptonFolderWorkIndexInput
     implements
         Built<GFlipPromptonFolderWorkIndexInput,
@@ -2286,6 +2343,8 @@ abstract class GFoldersWhereInput
 
   bool? get isSensitive;
   String? get search;
+  BuiltList<String>? get tags;
+  String? get userId;
   static Serializer<GFoldersWhereInput> get serializer =>
       _$gFoldersWhereInputSerializer;
 
@@ -2398,6 +2457,26 @@ abstract class GFollowUserInput
       );
 }
 
+class GGenerationAccessType extends EnumClass {
+  const GGenerationAccessType._(String name) : super(name);
+
+  static const GGenerationAccessType PRIVATE = _$gGenerationAccessTypePRIVATE;
+
+  static const GGenerationAccessType PUBLIC = _$gGenerationAccessTypePUBLIC;
+
+  static const GGenerationAccessType PUBLIC_IN_OWN_PRODUCT =
+      _$gGenerationAccessTypePUBLIC_IN_OWN_PRODUCT;
+
+  static Serializer<GGenerationAccessType> get serializer =>
+      _$gGenerationAccessTypeSerializer;
+
+  static BuiltSet<GGenerationAccessType> get values =>
+      _$gGenerationAccessTypeValues;
+
+  static GGenerationAccessType valueOf(String name) =>
+      _$gGenerationAccessTypeValueOf(name);
+}
+
 abstract class GHotWorksWhereInput
     implements Built<GHotWorksWhereInput, GHotWorksWhereInputBuilder> {
   GHotWorksWhereInput._();
@@ -2443,6 +2522,37 @@ abstract class GImageGenerationMemoOrderBy
   static GImageGenerationMemoOrderBy? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GImageGenerationMemoOrderBy.serializer,
+        json,
+      );
+}
+
+abstract class GImageGenerationResultsWhereInput
+    implements
+        Built<GImageGenerationResultsWhereInput,
+            GImageGenerationResultsWhereInputBuilder> {
+  GImageGenerationResultsWhereInput._();
+
+  factory GImageGenerationResultsWhereInput(
+          [void Function(GImageGenerationResultsWhereInputBuilder b) updates]) =
+      _$GImageGenerationResultsWhereInput;
+
+  String? get dateText;
+  String? get fromDate;
+  bool? get isProtected;
+  int? get minRating;
+  int? get rating;
+  static Serializer<GImageGenerationResultsWhereInput> get serializer =>
+      _$gImageGenerationResultsWhereInputSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GImageGenerationResultsWhereInput.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GImageGenerationResultsWhereInput? fromJson(
+          Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GImageGenerationResultsWhereInput.serializer,
         json,
       );
 }
@@ -3197,33 +3307,6 @@ abstract class GPromptonFoldersWhereInput
       );
 }
 
-abstract class GPromptonImageGenerationsWhereInput
-    implements
-        Built<GPromptonImageGenerationsWhereInput,
-            GPromptonImageGenerationsWhereInputBuilder> {
-  GPromptonImageGenerationsWhereInput._();
-
-  factory GPromptonImageGenerationsWhereInput(
-      [void Function(GPromptonImageGenerationsWhereInputBuilder b)
-          updates]) = _$GPromptonImageGenerationsWhereInput;
-
-  String? get search;
-  static Serializer<GPromptonImageGenerationsWhereInput> get serializer =>
-      _$gPromptonImageGenerationsWhereInputSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GPromptonImageGenerationsWhereInput.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GPromptonImageGenerationsWhereInput? fromJson(
-          Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GPromptonImageGenerationsWhereInput.serializer,
-        json,
-      );
-}
-
 abstract class GPromptonLabelsWhereInput
     implements
         Built<GPromptonLabelsWhereInput, GPromptonLabelsWhereInputBuilder> {
@@ -3648,6 +3731,32 @@ abstract class GReportWorkInput
       );
 }
 
+abstract class GSendPromptonMessageInput
+    implements
+        Built<GSendPromptonMessageInput, GSendPromptonMessageInputBuilder> {
+  GSendPromptonMessageInput._();
+
+  factory GSendPromptonMessageInput(
+          [void Function(GSendPromptonMessageInputBuilder b) updates]) =
+      _$GSendPromptonMessageInput;
+
+  String get recipientId;
+  String get text;
+  static Serializer<GSendPromptonMessageInput> get serializer =>
+      _$gSendPromptonMessageInputSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GSendPromptonMessageInput.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GSendPromptonMessageInput? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GSendPromptonMessageInput.serializer,
+        json,
+      );
+}
+
 abstract class GSignImageGenerationTermsInput
     implements
         Built<GSignImageGenerationTermsInput,
@@ -3688,6 +3797,22 @@ class GSort extends EnumClass {
   static GSort valueOf(String name) => _$gSortValueOf(name);
 }
 
+class GStickerAccessType extends EnumClass {
+  const GStickerAccessType._(String name) : super(name);
+
+  static const GStickerAccessType PRIVATE = _$gStickerAccessTypePRIVATE;
+
+  static const GStickerAccessType PUBLIC = _$gStickerAccessTypePUBLIC;
+
+  static Serializer<GStickerAccessType> get serializer =>
+      _$gStickerAccessTypeSerializer;
+
+  static BuiltSet<GStickerAccessType> get values => _$gStickerAccessTypeValues;
+
+  static GStickerAccessType valueOf(String name) =>
+      _$gStickerAccessTypeValueOf(name);
+}
+
 class GStickerGenre extends EnumClass {
   const GStickerGenre._(String name) : super(name);
 
@@ -3723,6 +3848,26 @@ class GStickerOrderBy extends EnumClass {
   static GStickerOrderBy valueOf(String name) => _$gStickerOrderByValueOf(name);
 }
 
+class GStickerSavedType extends EnumClass {
+  const GStickerSavedType._(String name) : super(name);
+
+  static const GStickerSavedType DOWNLOADED = _$gStickerSavedTypeDOWNLOADED;
+
+  static const GStickerSavedType PRIVATE_CREATED =
+      _$gStickerSavedTypePRIVATE_CREATED;
+
+  static const GStickerSavedType PUBLIC_CREATED =
+      _$gStickerSavedTypePUBLIC_CREATED;
+
+  static Serializer<GStickerSavedType> get serializer =>
+      _$gStickerSavedTypeSerializer;
+
+  static BuiltSet<GStickerSavedType> get values => _$gStickerSavedTypeValues;
+
+  static GStickerSavedType valueOf(String name) =>
+      _$gStickerSavedTypeValueOf(name);
+}
+
 abstract class GStickersWhereInput
     implements Built<GStickersWhereInput, GStickersWhereInputBuilder> {
   GStickersWhereInput._();
@@ -3734,7 +3879,6 @@ abstract class GStickersWhereInput
   BuiltList<String>? get categories;
   String? get creatorUserId;
   GStickerGenre? get genre;
-  String? get ownerUserId;
   String? get search;
   static Serializer<GStickersWhereInput> get serializer =>
       _$gStickersWhereInputSerializer;
@@ -4054,6 +4198,10 @@ abstract class GUpdateAlbumInput
       _$GUpdateAlbumInput;
 
   String get albumId;
+  String? get description;
+  String? get headerImageUrl;
+  String? get title;
+  BuiltList<String>? get workIds;
   static Serializer<GUpdateAlbumInput> get serializer =>
       _$gUpdateAlbumInputSerializer;
 
@@ -4500,30 +4648,30 @@ abstract class GUpdatePromptonWorkInput
       );
 }
 
-abstract class GUpdateProtectedImageGenerationTaskInput
+abstract class GUpdateProtectedImageGenerationResultInput
     implements
-        Built<GUpdateProtectedImageGenerationTaskInput,
-            GUpdateProtectedImageGenerationTaskInputBuilder> {
-  GUpdateProtectedImageGenerationTaskInput._();
+        Built<GUpdateProtectedImageGenerationResultInput,
+            GUpdateProtectedImageGenerationResultInputBuilder> {
+  GUpdateProtectedImageGenerationResultInput._();
 
-  factory GUpdateProtectedImageGenerationTaskInput(
-      [void Function(GUpdateProtectedImageGenerationTaskInputBuilder b)
-          updates]) = _$GUpdateProtectedImageGenerationTaskInput;
+  factory GUpdateProtectedImageGenerationResultInput(
+      [void Function(GUpdateProtectedImageGenerationResultInputBuilder b)
+          updates]) = _$GUpdateProtectedImageGenerationResultInput;
 
   bool get isProtected;
   String get nanoid;
-  static Serializer<GUpdateProtectedImageGenerationTaskInput> get serializer =>
-      _$gUpdateProtectedImageGenerationTaskInputSerializer;
+  static Serializer<GUpdateProtectedImageGenerationResultInput>
+      get serializer => _$gUpdateProtectedImageGenerationResultInputSerializer;
 
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GUpdateProtectedImageGenerationTaskInput.serializer,
+        GUpdateProtectedImageGenerationResultInput.serializer,
         this,
       ) as Map<String, dynamic>);
 
-  static GUpdateProtectedImageGenerationTaskInput? fromJson(
+  static GUpdateProtectedImageGenerationResultInput? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
-        GUpdateProtectedImageGenerationTaskInput.serializer,
+        GUpdateProtectedImageGenerationResultInput.serializer,
         json,
       );
 }
@@ -4556,30 +4704,30 @@ abstract class GUpdateRatingImageGenerationModelInput
       );
 }
 
-abstract class GUpdateRatingImageGenerationTaskInput
+abstract class GUpdateRatingImageGenerationResultInput
     implements
-        Built<GUpdateRatingImageGenerationTaskInput,
-            GUpdateRatingImageGenerationTaskInputBuilder> {
-  GUpdateRatingImageGenerationTaskInput._();
+        Built<GUpdateRatingImageGenerationResultInput,
+            GUpdateRatingImageGenerationResultInputBuilder> {
+  GUpdateRatingImageGenerationResultInput._();
 
-  factory GUpdateRatingImageGenerationTaskInput(
-      [void Function(GUpdateRatingImageGenerationTaskInputBuilder b)
-          updates]) = _$GUpdateRatingImageGenerationTaskInput;
+  factory GUpdateRatingImageGenerationResultInput(
+      [void Function(GUpdateRatingImageGenerationResultInputBuilder b)
+          updates]) = _$GUpdateRatingImageGenerationResultInput;
 
   String get nanoid;
   int get rating;
-  static Serializer<GUpdateRatingImageGenerationTaskInput> get serializer =>
-      _$gUpdateRatingImageGenerationTaskInputSerializer;
+  static Serializer<GUpdateRatingImageGenerationResultInput> get serializer =>
+      _$gUpdateRatingImageGenerationResultInputSerializer;
 
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GUpdateRatingImageGenerationTaskInput.serializer,
+        GUpdateRatingImageGenerationResultInput.serializer,
         this,
       ) as Map<String, dynamic>);
 
-  static GUpdateRatingImageGenerationTaskInput? fromJson(
+  static GUpdateRatingImageGenerationResultInput? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
-        GUpdateRatingImageGenerationTaskInput.serializer,
+        GUpdateRatingImageGenerationResultInput.serializer,
         json,
       );
 }
@@ -4624,8 +4772,10 @@ abstract class GUpdateUserProfileInput
   BuiltList<String>? get featuredWorkIds;
   String? get githubAccountId;
   String? get headerImageUrl;
+  String? get homeUrl;
   String? get iconUrl;
   String? get instagramAccountId;
+  String? get mailAddress;
   String? get twitterAccountId;
   static Serializer<GUpdateUserProfileInput> get serializer =>
       _$gUpdateUserProfileInputSerializer;
@@ -4650,7 +4800,13 @@ abstract class GUpdateUserSettingInput
           [void Function(GUpdateUserSettingInputBuilder b) updates]) =
       _$GUpdateUserSettingInput;
 
+  bool? get featurePromptonRequest;
+  bool? get isAnonymousLike;
+  bool? get isAnonymousSensitiveLike;
+  bool? get isBlurSensitiveImage;
+  bool? get isNotifyComment;
   GPreferenceRating? get preferenceRating;
+  bool? get safetyMode;
   static Serializer<GUpdateUserSettingInput> get serializer =>
       _$gUpdateUserSettingInputSerializer;
 
@@ -4673,8 +4829,50 @@ abstract class GUpdateWorkInput
   factory GUpdateWorkInput([void Function(GUpdateWorkInputBuilder b) updates]) =
       _$GUpdateWorkInput;
 
+  GGenerationAccessType get accessGenerationType;
+  GAccessType get accessType;
+  String? get albumId;
+  String? get enExplanation;
+  String? get entitle;
+  String? get explanation;
+  String? get html;
+  String get id;
+  int get imageHeight;
+  GImageStyle get imageStyle;
+  BuiltList<String> get imageUrls;
+  int get imageWidth;
+  bool get isCommentEditable;
+  bool get isPromotion;
+  bool get isTagEditable;
+  int get largeThumbnailImageHeight;
+  String get largeThumbnailImageURL;
+  int get largeThumbnailImageWidth;
+  String get mainImageSha256;
+  String? get modelHash;
+  String? get modelId;
+  String? get modelName;
+  String? get negativePrompt;
+  String? get noise;
+  String? get ogpImageUrl;
+  String? get otherGenerationParams;
+  String? get pngInfo;
+  String? get prompt;
+  GRating get rating;
+  String? get relatedUrl;
+  int? get reservedAt;
+  String? get sampler;
+  String? get seed;
+  int get smallThumbnailImageHeight;
+  String get smallThumbnailImageURL;
+  int get smallThumbnailImageWidth;
+  String? get steps;
+  String? get strength;
+  String? get subjectId;
+  BuiltList<String>? get tags;
+  double? get thumbnailPosition;
   String get title;
-  String get workId;
+  GWorkType get type;
+  String? get videoUrl;
   static Serializer<GUpdateWorkInput> get serializer =>
       _$gUpdateWorkInputSerializer;
 
@@ -4714,6 +4912,31 @@ abstract class GUserAlbumInput
       );
 }
 
+abstract class GUserAlbumWhereInput
+    implements Built<GUserAlbumWhereInput, GUserAlbumWhereInputBuilder> {
+  GUserAlbumWhereInput._();
+
+  factory GUserAlbumWhereInput(
+          [void Function(GUserAlbumWhereInputBuilder b) updates]) =
+      _$GUserAlbumWhereInput;
+
+  String get link;
+  String get userId;
+  static Serializer<GUserAlbumWhereInput> get serializer =>
+      _$gUserAlbumWhereInputSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GUserAlbumWhereInput.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GUserAlbumWhereInput? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GUserAlbumWhereInput.serializer,
+        json,
+      );
+}
+
 abstract class GUserFolderInput
     implements Built<GUserFolderInput, GUserFolderInputBuilder> {
   GUserFolderInput._();
@@ -4734,6 +4957,32 @@ abstract class GUserFolderInput
   static GUserFolderInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUserFolderInput.serializer,
+        json,
+      );
+}
+
+abstract class GUserStickersWhereInput
+    implements Built<GUserStickersWhereInput, GUserStickersWhereInputBuilder> {
+  GUserStickersWhereInput._();
+
+  factory GUserStickersWhereInput(
+          [void Function(GUserStickersWhereInputBuilder b) updates]) =
+      _$GUserStickersWhereInput;
+
+  BuiltList<String>? get categories;
+  BuiltList<GStickerSavedType>? get savedTypes;
+  String? get search;
+  static Serializer<GUserStickersWhereInput> get serializer =>
+      _$gUserStickersWhereInputSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GUserStickersWhereInput.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GUserStickersWhereInput? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GUserStickersWhereInput.serializer,
         json,
       );
 }
@@ -4847,6 +5096,7 @@ abstract class GWorkAwardsWhereInput
 
   String? get date;
   int? get day;
+  bool? get isSensitive;
   int? get month;
   GAwardType? get type;
   int? get weekIndex;
@@ -4885,6 +5135,8 @@ class GWorkOrderBy extends EnumClass {
 
   static const GWorkOrderBy VIEWS_COUNT = _$gWorkOrderByVIEWS_COUNT;
 
+  static const GWorkOrderBy WORK_TYPE = _$gWorkOrderByWORK_TYPE;
+
   static Serializer<GWorkOrderBy> get serializer => _$gWorkOrderBySerializer;
 
   static BuiltSet<GWorkOrderBy> get values => _$gWorkOrderByValues;
@@ -4900,12 +5152,16 @@ abstract class GWorksWhereInput
       _$GWorksWhereInput;
 
   BuiltList<GAccessType>? get accessTypes;
+  String? get beforeCreatedAt;
+  String? get createdAtAfter;
   String? get generationModelId;
   bool? get hasPrompt;
+  BuiltList<String>? get ids;
   bool? get isFeatured;
   bool? get isFollowing;
   bool? get isIncludePrivate;
   bool? get isNotFollowing;
+  bool? get isNowCreatedAt;
   bool? get isOneWorkPerUser;
   bool? get isPromptPublic;
   bool? get isRecommended;
@@ -4925,6 +5181,7 @@ abstract class GWorksWhereInput
   BuiltList<String>? get tagNames;
   String? get userId;
   GWorkType? get workType;
+  BuiltList<GWorkType>? get workTypes;
   static Serializer<GWorksWhereInput> get serializer =>
       _$gWorksWhereInputSerializer;
 
@@ -4964,6 +5221,7 @@ const Map<String, Set<String>> possibleTypesMap = {
     'AlbumNode',
     'AlbumViewerNode',
     'AnnouncementNode',
+    'AppEventNode',
     'CategoryNode',
     'CategoryViewerNode',
     'CommentNode',
@@ -4974,6 +5232,7 @@ const Map<String, Set<String>> possibleTypesMap = {
     'FollowNotificationNode',
     'ImageGenerationMemoNode',
     'ImageGenerationReservedTaskNode',
+    'ImageGenerationResultNode',
     'ImageGenerationTaskNode',
     'ImageGeneratorNode',
     'ImageLoraModelNode',
@@ -4999,10 +5258,10 @@ const Map<String, Set<String>> possibleTypesMap = {
     'PromptonFolderNode',
     'PromptonFolderViewerNode',
     'PromptonFriendshipNode',
-    'PromptonImageGenerationNode',
     'PromptonIntegrationNode',
     'PromptonLabelNode',
     'PromptonMessageNode',
+    'PromptonMessageThreadNode',
     'PromptonPaymentIntentNode',
     'PromptonPaymentMethodNode',
     'PromptonPaymentNode',
@@ -5013,7 +5272,6 @@ const Map<String, Set<String>> possibleTypesMap = {
     'PromptonRequestNode',
     'PromptonTagNode',
     'PromptonUserNode',
-    'PromptonViewer',
     'PromptonWorkNode',
     'StickerNode',
     'StickerViewerNode',

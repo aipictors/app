@@ -4,7 +4,7 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:aipictors/__generated__/schema.schema.gql.dart' as _i3;
 import 'package:aipictors/__generated__/serializers.gql.dart' as _i1;
-import 'package:aipictors/graphql/fragments/__generated__/image_generation_task_fields_fragment.data.gql.dart'
+import 'package:aipictors/graphql/fragments/__generated__/image_generation_result_fields_fragment.data.gql.dart'
     as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
@@ -27,8 +27,8 @@ abstract class GUpdateRatingImageGenerationTaskData
 
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
-  GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask
-      get updateRatingImageGenerationTask;
+  GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult
+      get updateRatingImageGenerationResult;
   static Serializer<GUpdateRatingImageGenerationTaskData> get serializer =>
       _$gUpdateRatingImageGenerationTaskDataSerializer;
 
@@ -45,25 +45,25 @@ abstract class GUpdateRatingImageGenerationTaskData
       );
 }
 
-abstract class GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask
+abstract class GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult
     implements
         Built<
-            GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask,
-            GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTaskBuilder>,
-        _i2.GImageGenerationTaskFields {
-  GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask._();
+            GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult,
+            GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResultBuilder>,
+        _i2.GImageGenerationResultFields {
+  GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult._();
 
-  factory GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask(
+  factory GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult(
           [void Function(
-                  GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTaskBuilder
+                  GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResultBuilder
                       b)
               updates]) =
-      _$GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask;
+      _$GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult;
 
   static void _initializeBuilder(
-          GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTaskBuilder
+          GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResultBuilder
               b) =>
-      b..G__typename = 'ImageGenerationTaskNode';
+      b..G__typename = 'ImageGenerationResultNode';
 
   @override
   @BuiltValueField(wireName: '__typename')
@@ -101,15 +101,11 @@ abstract class GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationT
   @override
   _i3.GImageGenerationStatus get status;
   @override
-  bool get isDeleted;
-  @override
   bool? get isProtected;
-  @override
-  int get count;
   @override
   _i3.GImageGenerationType get generationType;
   @override
-  GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_model
+  GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult_model
       get model;
   @override
   String? get vae;
@@ -156,42 +152,42 @@ abstract class GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationT
   @override
   String? get thumbnailToken;
   static Serializer<
-          GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask>
+          GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult>
       get serializer =>
-          _$gUpdateRatingImageGenerationTaskDataUpdateRatingImageGenerationTaskSerializer;
+          _$gUpdateRatingImageGenerationTaskDataUpdateRatingImageGenerationResultSerializer;
 
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask
+        GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult
             .serializer,
         this,
       ) as Map<String, dynamic>);
 
-  static GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask?
+  static GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult?
       fromJson(Map<String, dynamic> json) => _i1.serializers.deserializeWith(
-            GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask
+            GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult
                 .serializer,
             json,
           );
 }
 
-abstract class GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_model
+abstract class GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult_model
     implements
         Built<
-            GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_model,
-            GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_modelBuilder>,
-        _i2.GImageGenerationTaskFields_model {
-  GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_model._();
+            GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult_model,
+            GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult_modelBuilder>,
+        _i2.GImageGenerationResultFields_model {
+  GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult_model._();
 
-  factory GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_model(
+  factory GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult_model(
           [void Function(
-                  GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_modelBuilder
+                  GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult_modelBuilder
                       b)
               updates]) =
-      _$GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_model;
+      _$GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult_model;
 
   static void _initializeBuilder(
-          GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_modelBuilder
+          GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult_modelBuilder
               b) =>
       b..G__typename = 'ImageGeneratorNode';
 
@@ -205,20 +201,20 @@ abstract class GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationT
   @override
   String get type;
   static Serializer<
-          GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_model>
+          GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult_model>
       get serializer =>
-          _$gUpdateRatingImageGenerationTaskDataUpdateRatingImageGenerationTaskModelSerializer;
+          _$gUpdateRatingImageGenerationTaskDataUpdateRatingImageGenerationResultModelSerializer;
 
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_model
+        GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult_model
             .serializer,
         this,
       ) as Map<String, dynamic>);
 
-  static GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_model?
+  static GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult_model?
       fromJson(Map<String, dynamic> json) => _i1.serializers.deserializeWith(
-            GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationTask_model
+            GUpdateRatingImageGenerationTaskData_updateRatingImageGenerationResult_model
                 .serializer,
             json,
           );

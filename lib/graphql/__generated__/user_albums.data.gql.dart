@@ -96,7 +96,7 @@ abstract class GUserAlbumsData_user_albums
   @override
   int get viewsCount;
   @override
-  GUserAlbumsData_user_albums_thumbnailImage? get thumbnailImage;
+  String? get thumbnailImageURL;
   static Serializer<GUserAlbumsData_user_albums> get serializer =>
       _$gUserAlbumsDataUserAlbumsSerializer;
 
@@ -109,45 +109,6 @@ abstract class GUserAlbumsData_user_albums
   static GUserAlbumsData_user_albums? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUserAlbumsData_user_albums.serializer,
-        json,
-      );
-}
-
-abstract class GUserAlbumsData_user_albums_thumbnailImage
-    implements
-        Built<GUserAlbumsData_user_albums_thumbnailImage,
-            GUserAlbumsData_user_albums_thumbnailImageBuilder>,
-        _i2.GPartialAlbumFields_thumbnailImage {
-  GUserAlbumsData_user_albums_thumbnailImage._();
-
-  factory GUserAlbumsData_user_albums_thumbnailImage(
-      [void Function(GUserAlbumsData_user_albums_thumbnailImageBuilder b)
-          updates]) = _$GUserAlbumsData_user_albums_thumbnailImage;
-
-  static void _initializeBuilder(
-          GUserAlbumsData_user_albums_thumbnailImageBuilder b) =>
-      b..G__typename = 'ImageNode';
-
-  @override
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  @override
-  String get id;
-  @override
-  String get downloadURL;
-  static Serializer<GUserAlbumsData_user_albums_thumbnailImage>
-      get serializer => _$gUserAlbumsDataUserAlbumsThumbnailImageSerializer;
-
-  @override
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GUserAlbumsData_user_albums_thumbnailImage.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GUserAlbumsData_user_albums_thumbnailImage? fromJson(
-          Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GUserAlbumsData_user_albums_thumbnailImage.serializer,
         json,
       );
 }

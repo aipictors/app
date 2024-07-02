@@ -19,7 +19,7 @@ abstract class GUpdateRatingImageGenerationTaskVars
       [void Function(GUpdateRatingImageGenerationTaskVarsBuilder b)
           updates]) = _$GUpdateRatingImageGenerationTaskVars;
 
-  _i1.GUpdateRatingImageGenerationTaskInput get input;
+  _i1.GUpdateRatingImageGenerationResultInput get input;
   static Serializer<GUpdateRatingImageGenerationTaskVars> get serializer =>
       _$gUpdateRatingImageGenerationTaskVarsSerializer;
 

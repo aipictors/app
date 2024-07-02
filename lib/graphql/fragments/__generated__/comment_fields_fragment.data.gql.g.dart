@@ -15,9 +15,6 @@ Serializer<GCommentFieldsData_user_iconImage>
     new _$GCommentFieldsData_user_iconImageSerializer();
 Serializer<GCommentFieldsData_sticker> _$gCommentFieldsDataStickerSerializer =
     new _$GCommentFieldsData_stickerSerializer();
-Serializer<GCommentFieldsData_sticker_image>
-    _$gCommentFieldsDataStickerImageSerializer =
-    new _$GCommentFieldsData_sticker_imageSerializer();
 
 class _$GCommentFieldsDataSerializer
     implements StructuredSerializer<GCommentFieldsData> {
@@ -281,13 +278,6 @@ class _$GCommentFieldsData_stickerSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    value = object.image;
-    if (value != null) {
-      result
-        ..add('image')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(GCommentFieldsData_sticker_image)));
-    }
     return result;
   }
 
@@ -319,71 +309,6 @@ class _$GCommentFieldsData_stickerSerializer
         case 'imageUrl':
           result.imageUrl = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
-          break;
-        case 'image':
-          result.image.replace(serializers.deserialize(value,
-                  specifiedType:
-                      const FullType(GCommentFieldsData_sticker_image))!
-              as GCommentFieldsData_sticker_image);
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GCommentFieldsData_sticker_imageSerializer
-    implements StructuredSerializer<GCommentFieldsData_sticker_image> {
-  @override
-  final Iterable<Type> types = const [
-    GCommentFieldsData_sticker_image,
-    _$GCommentFieldsData_sticker_image
-  ];
-  @override
-  final String wireName = 'GCommentFieldsData_sticker_image';
-
-  @override
-  Iterable<Object?> serialize(
-      Serializers serializers, GCommentFieldsData_sticker_image object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
-      'id',
-      serializers.serialize(object.id, specifiedType: const FullType(String)),
-      'downloadURL',
-      serializers.serialize(object.downloadURL,
-          specifiedType: const FullType(String)),
-    ];
-
-    return result;
-  }
-
-  @override
-  GCommentFieldsData_sticker_image deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GCommentFieldsData_sticker_imageBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'id':
-          result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'downloadURL':
-          result.downloadURL = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
           break;
       }
     }
@@ -882,8 +807,6 @@ class _$GCommentFieldsData_sticker extends GCommentFieldsData_sticker {
   final _i2.GAccessType accessType;
   @override
   final String? imageUrl;
-  @override
-  final GCommentFieldsData_sticker_image? image;
 
   factory _$GCommentFieldsData_sticker(
           [void Function(GCommentFieldsData_stickerBuilder)? updates]) =>
@@ -893,8 +816,7 @@ class _$GCommentFieldsData_sticker extends GCommentFieldsData_sticker {
       {required this.G__typename,
       required this.id,
       required this.accessType,
-      this.imageUrl,
-      this.image})
+      this.imageUrl})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename, r'GCommentFieldsData_sticker', 'G__typename');
@@ -920,8 +842,7 @@ class _$GCommentFieldsData_sticker extends GCommentFieldsData_sticker {
         G__typename == other.G__typename &&
         id == other.id &&
         accessType == other.accessType &&
-        imageUrl == other.imageUrl &&
-        image == other.image;
+        imageUrl == other.imageUrl;
   }
 
   @override
@@ -931,7 +852,6 @@ class _$GCommentFieldsData_sticker extends GCommentFieldsData_sticker {
     _$hash = $jc(_$hash, id.hashCode);
     _$hash = $jc(_$hash, accessType.hashCode);
     _$hash = $jc(_$hash, imageUrl.hashCode);
-    _$hash = $jc(_$hash, image.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -942,8 +862,7 @@ class _$GCommentFieldsData_sticker extends GCommentFieldsData_sticker {
           ..add('G__typename', G__typename)
           ..add('id', id)
           ..add('accessType', accessType)
-          ..add('imageUrl', imageUrl)
-          ..add('image', image))
+          ..add('imageUrl', imageUrl))
         .toString();
   }
 }
@@ -970,12 +889,6 @@ class GCommentFieldsData_stickerBuilder
   String? get imageUrl => _$this._imageUrl;
   set imageUrl(String? imageUrl) => _$this._imageUrl = imageUrl;
 
-  GCommentFieldsData_sticker_imageBuilder? _image;
-  GCommentFieldsData_sticker_imageBuilder get image =>
-      _$this._image ??= new GCommentFieldsData_sticker_imageBuilder();
-  set image(GCommentFieldsData_sticker_imageBuilder? image) =>
-      _$this._image = image;
-
   GCommentFieldsData_stickerBuilder() {
     GCommentFieldsData_sticker._initializeBuilder(this);
   }
@@ -987,7 +900,6 @@ class GCommentFieldsData_stickerBuilder
       _id = $v.id;
       _accessType = $v.accessType;
       _imageUrl = $v.imageUrl;
-      _image = $v.image?.toBuilder();
       _$v = null;
     }
     return this;
@@ -1008,152 +920,15 @@ class GCommentFieldsData_stickerBuilder
   GCommentFieldsData_sticker build() => _build();
 
   _$GCommentFieldsData_sticker _build() {
-    _$GCommentFieldsData_sticker _$result;
-    try {
-      _$result = _$v ??
-          new _$GCommentFieldsData_sticker._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, r'GCommentFieldsData_sticker', 'G__typename'),
-              id: BuiltValueNullFieldError.checkNotNull(
-                  id, r'GCommentFieldsData_sticker', 'id'),
-              accessType: BuiltValueNullFieldError.checkNotNull(
-                  accessType, r'GCommentFieldsData_sticker', 'accessType'),
-              imageUrl: imageUrl,
-              image: _image?.build());
-    } catch (_) {
-      late String _$failedField;
-      try {
-        _$failedField = 'image';
-        _image?.build();
-      } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'GCommentFieldsData_sticker', _$failedField, e.toString());
-      }
-      rethrow;
-    }
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GCommentFieldsData_sticker_image
-    extends GCommentFieldsData_sticker_image {
-  @override
-  final String G__typename;
-  @override
-  final String id;
-  @override
-  final String downloadURL;
-
-  factory _$GCommentFieldsData_sticker_image(
-          [void Function(GCommentFieldsData_sticker_imageBuilder)? updates]) =>
-      (new GCommentFieldsData_sticker_imageBuilder()..update(updates))._build();
-
-  _$GCommentFieldsData_sticker_image._(
-      {required this.G__typename, required this.id, required this.downloadURL})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        G__typename, r'GCommentFieldsData_sticker_image', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(
-        id, r'GCommentFieldsData_sticker_image', 'id');
-    BuiltValueNullFieldError.checkNotNull(
-        downloadURL, r'GCommentFieldsData_sticker_image', 'downloadURL');
-  }
-
-  @override
-  GCommentFieldsData_sticker_image rebuild(
-          void Function(GCommentFieldsData_sticker_imageBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GCommentFieldsData_sticker_imageBuilder toBuilder() =>
-      new GCommentFieldsData_sticker_imageBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GCommentFieldsData_sticker_image &&
-        G__typename == other.G__typename &&
-        id == other.id &&
-        downloadURL == other.downloadURL;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, id.hashCode);
-    _$hash = $jc(_$hash, downloadURL.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(r'GCommentFieldsData_sticker_image')
-          ..add('G__typename', G__typename)
-          ..add('id', id)
-          ..add('downloadURL', downloadURL))
-        .toString();
-  }
-}
-
-class GCommentFieldsData_sticker_imageBuilder
-    implements
-        Builder<GCommentFieldsData_sticker_image,
-            GCommentFieldsData_sticker_imageBuilder> {
-  _$GCommentFieldsData_sticker_image? _$v;
-
-  String? _G__typename;
-  String? get G__typename => _$this._G__typename;
-  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
-
-  String? _id;
-  String? get id => _$this._id;
-  set id(String? id) => _$this._id = id;
-
-  String? _downloadURL;
-  String? get downloadURL => _$this._downloadURL;
-  set downloadURL(String? downloadURL) => _$this._downloadURL = downloadURL;
-
-  GCommentFieldsData_sticker_imageBuilder() {
-    GCommentFieldsData_sticker_image._initializeBuilder(this);
-  }
-
-  GCommentFieldsData_sticker_imageBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _G__typename = $v.G__typename;
-      _id = $v.id;
-      _downloadURL = $v.downloadURL;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GCommentFieldsData_sticker_image other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GCommentFieldsData_sticker_image;
-  }
-
-  @override
-  void update(void Function(GCommentFieldsData_sticker_imageBuilder)? updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GCommentFieldsData_sticker_image build() => _build();
-
-  _$GCommentFieldsData_sticker_image _build() {
     final _$result = _$v ??
-        new _$GCommentFieldsData_sticker_image._(
-            G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
-                r'GCommentFieldsData_sticker_image', 'G__typename'),
+        new _$GCommentFieldsData_sticker._(
+            G__typename: BuiltValueNullFieldError.checkNotNull(
+                G__typename, r'GCommentFieldsData_sticker', 'G__typename'),
             id: BuiltValueNullFieldError.checkNotNull(
-                id, r'GCommentFieldsData_sticker_image', 'id'),
-            downloadURL: BuiltValueNullFieldError.checkNotNull(downloadURL,
-                r'GCommentFieldsData_sticker_image', 'downloadURL'));
+                id, r'GCommentFieldsData_sticker', 'id'),
+            accessType: BuiltValueNullFieldError.checkNotNull(
+                accessType, r'GCommentFieldsData_sticker', 'accessType'),
+            imageUrl: imageUrl);
     replace(_$result);
     return _$result;
   }

@@ -4,8 +4,5 @@ fragment PartialAlbumFields on AlbumNode {
   isSensitive
   likesCount
   viewsCount
-  thumbnailImage {
-    id
-    downloadURL
-  }
+  thumbnailImageURL
 }

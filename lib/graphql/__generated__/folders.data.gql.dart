@@ -107,7 +107,7 @@ abstract class GFoldersData_folders_user
   @override
   String get name;
   @override
-  GFoldersData_folders_user_iconImage? get iconImage;
+  String? get iconUrl;
   static Serializer<GFoldersData_folders_user> get serializer =>
       _$gFoldersDataFoldersUserSerializer;
 
@@ -120,45 +120,6 @@ abstract class GFoldersData_folders_user
   static GFoldersData_folders_user? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GFoldersData_folders_user.serializer,
-        json,
-      );
-}
-
-abstract class GFoldersData_folders_user_iconImage
-    implements
-        Built<GFoldersData_folders_user_iconImage,
-            GFoldersData_folders_user_iconImageBuilder>,
-        _i4.GPartialUserFields_iconImage {
-  GFoldersData_folders_user_iconImage._();
-
-  factory GFoldersData_folders_user_iconImage(
-      [void Function(GFoldersData_folders_user_iconImageBuilder b)
-          updates]) = _$GFoldersData_folders_user_iconImage;
-
-  static void _initializeBuilder(
-          GFoldersData_folders_user_iconImageBuilder b) =>
-      b..G__typename = 'ImageNode';
-
-  @override
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  @override
-  String get id;
-  @override
-  String get downloadURL;
-  static Serializer<GFoldersData_folders_user_iconImage> get serializer =>
-      _$gFoldersDataFoldersUserIconImageSerializer;
-
-  @override
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GFoldersData_folders_user_iconImage.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GFoldersData_folders_user_iconImage? fromJson(
-          Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GFoldersData_folders_user_iconImage.serializer,
         json,
       );
 }

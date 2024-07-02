@@ -234,8 +234,6 @@ abstract class GWorkCommentResponsesData_work_comment_sticker
   _i4.GAccessType get accessType;
   @override
   String? get imageUrl;
-  @override
-  GWorkCommentResponsesData_work_comment_sticker_image? get image;
   static Serializer<GWorkCommentResponsesData_work_comment_sticker>
       get serializer => _$gWorkCommentResponsesDataWorkCommentStickerSerializer;
 
@@ -249,47 +247,6 @@ abstract class GWorkCommentResponsesData_work_comment_sticker
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GWorkCommentResponsesData_work_comment_sticker.serializer,
-        json,
-      );
-}
-
-abstract class GWorkCommentResponsesData_work_comment_sticker_image
-    implements
-        Built<GWorkCommentResponsesData_work_comment_sticker_image,
-            GWorkCommentResponsesData_work_comment_sticker_imageBuilder>,
-        _i2.GCommentFields_sticker_image {
-  GWorkCommentResponsesData_work_comment_sticker_image._();
-
-  factory GWorkCommentResponsesData_work_comment_sticker_image(
-      [void Function(
-              GWorkCommentResponsesData_work_comment_sticker_imageBuilder b)
-          updates]) = _$GWorkCommentResponsesData_work_comment_sticker_image;
-
-  static void _initializeBuilder(
-          GWorkCommentResponsesData_work_comment_sticker_imageBuilder b) =>
-      b..G__typename = 'ImageNode';
-
-  @override
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  @override
-  String get id;
-  @override
-  String get downloadURL;
-  static Serializer<GWorkCommentResponsesData_work_comment_sticker_image>
-      get serializer =>
-          _$gWorkCommentResponsesDataWorkCommentStickerImageSerializer;
-
-  @override
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GWorkCommentResponsesData_work_comment_sticker_image.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GWorkCommentResponsesData_work_comment_sticker_image? fromJson(
-          Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GWorkCommentResponsesData_work_comment_sticker_image.serializer,
         json,
       );
 }
@@ -461,8 +418,6 @@ abstract class GWorkCommentResponsesData_work_comment_responses_sticker
   _i4.GAccessType get accessType;
   @override
   String? get imageUrl;
-  @override
-  GWorkCommentResponsesData_work_comment_responses_sticker_image? get image;
   static Serializer<GWorkCommentResponsesData_work_comment_responses_sticker>
       get serializer =>
           _$gWorkCommentResponsesDataWorkCommentResponsesStickerSerializer;
@@ -479,50 +434,4 @@ abstract class GWorkCommentResponsesData_work_comment_responses_sticker
         GWorkCommentResponsesData_work_comment_responses_sticker.serializer,
         json,
       );
-}
-
-abstract class GWorkCommentResponsesData_work_comment_responses_sticker_image
-    implements
-        Built<GWorkCommentResponsesData_work_comment_responses_sticker_image,
-            GWorkCommentResponsesData_work_comment_responses_sticker_imageBuilder>,
-        _i2.GCommentFields_sticker_image {
-  GWorkCommentResponsesData_work_comment_responses_sticker_image._();
-
-  factory GWorkCommentResponsesData_work_comment_responses_sticker_image(
-          [void Function(
-                  GWorkCommentResponsesData_work_comment_responses_sticker_imageBuilder
-                      b)
-              updates]) =
-      _$GWorkCommentResponsesData_work_comment_responses_sticker_image;
-
-  static void _initializeBuilder(
-          GWorkCommentResponsesData_work_comment_responses_sticker_imageBuilder
-              b) =>
-      b..G__typename = 'ImageNode';
-
-  @override
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  @override
-  String get id;
-  @override
-  String get downloadURL;
-  static Serializer<
-          GWorkCommentResponsesData_work_comment_responses_sticker_image>
-      get serializer =>
-          _$gWorkCommentResponsesDataWorkCommentResponsesStickerImageSerializer;
-
-  @override
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GWorkCommentResponsesData_work_comment_responses_sticker_image
-            .serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GWorkCommentResponsesData_work_comment_responses_sticker_image?
-      fromJson(Map<String, dynamic> json) => _i1.serializers.deserializeWith(
-            GWorkCommentResponsesData_work_comment_responses_sticker_image
-                .serializer,
-            json,
-          );
 }

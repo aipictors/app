@@ -79,10 +79,10 @@ class NotificationScreen extends HookConsumerWidget {
                     createdAt: notification.createdAt,
                     userId: user?.id,
                     userName: user?.name,
-                    userIconImageURL: user?.iconImage?.downloadURL,
+                    userIconImageURL: user?.iconUrl,
                     workId: notification.work?.id,
                     workTitle: work?.title,
-                    workImageURL: work?.thumbnailImage?.downloadURL,
+                    workImageURL: work?.largeThumbnailImageURL,
                   );
                 }
                 if (notification
@@ -100,7 +100,7 @@ class NotificationScreen extends HookConsumerWidget {
                     message: notification.message,
                     workId: notification.work?.id,
                     workTitle: work?.title,
-                    workImageURL: work?.thumbnailImage?.downloadURL,
+                    workImageURL: work?.largeThumbnailImageURL,
                   );
                 }
                 if (notification
@@ -113,11 +113,11 @@ class NotificationScreen extends HookConsumerWidget {
                     message: notification.message,
                     userId: user?.id,
                     userName: user?.name,
-                    userIconImageURL: user?.iconImage?.downloadURL,
+                    userIconImageURL: user?.iconUrl,
                     workId: notification.work?.id,
                     workTitle: work?.title,
-                    workImageURL: work?.thumbnailImage?.downloadURL,
-                    stickerImageURL: sticker?.image?.downloadURL,
+                    workImageURL: work?.largeThumbnailImageURL,
+                    stickerImageURL: sticker?.imageUrl,
                   );
                 }
                 if (notification
@@ -130,11 +130,11 @@ class NotificationScreen extends HookConsumerWidget {
                     message: notification.message,
                     userId: user?.id,
                     userName: user?.name,
-                    userIconImageURL: user?.iconImage?.downloadURL,
+                    userIconImageURL: user?.iconUrl,
                     workId: notification.work?.id,
                     workTitle: work?.title,
-                    workImageURL: work?.thumbnailImage?.downloadURL,
-                    stickerImageURL: sticker?.image?.downloadURL,
+                    workImageURL: work?.largeThumbnailImageURL,
+                    stickerImageURL: sticker?.imageUrl,
                   );
                 }
                 if (notification
@@ -144,7 +144,7 @@ class NotificationScreen extends HookConsumerWidget {
                     createdAt: notification.createdAt,
                     userId: user?.id,
                     userName: user?.name,
-                    userIconImageURL: user?.iconImage?.downloadURL,
+                    userIconImageURL: user?.iconUrl,
                   );
                 }
                 return Container();

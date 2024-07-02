@@ -4,7 +4,7 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:aipictors/__generated__/schema.schema.gql.dart' as _i3;
 import 'package:aipictors/__generated__/serializers.gql.dart' as _i1;
-import 'package:aipictors/graphql/fragments/__generated__/image_generation_task_fields_fragment.data.gql.dart'
+import 'package:aipictors/graphql/fragments/__generated__/image_generation_result_fields_fragment.data.gql.dart'
     as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
@@ -27,8 +27,8 @@ abstract class GUpdateProtectedImageGenerationTaskData
 
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
-  GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask
-      get updateProtectedImageGenerationTask;
+  GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult
+      get updateProtectedImageGenerationResult;
   static Serializer<GUpdateProtectedImageGenerationTaskData> get serializer =>
       _$gUpdateProtectedImageGenerationTaskDataSerializer;
 
@@ -45,25 +45,25 @@ abstract class GUpdateProtectedImageGenerationTaskData
       );
 }
 
-abstract class GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask
+abstract class GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult
     implements
         Built<
-            GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask,
-            GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTaskBuilder>,
-        _i2.GImageGenerationTaskFields {
-  GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask._();
+            GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult,
+            GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResultBuilder>,
+        _i2.GImageGenerationResultFields {
+  GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult._();
 
-  factory GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask(
+  factory GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult(
           [void Function(
-                  GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTaskBuilder
+                  GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResultBuilder
                       b)
               updates]) =
-      _$GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask;
+      _$GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult;
 
   static void _initializeBuilder(
-          GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTaskBuilder
+          GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResultBuilder
               b) =>
-      b..G__typename = 'ImageGenerationTaskNode';
+      b..G__typename = 'ImageGenerationResultNode';
 
   @override
   @BuiltValueField(wireName: '__typename')
@@ -101,15 +101,11 @@ abstract class GUpdateProtectedImageGenerationTaskData_updateProtectedImageGener
   @override
   _i3.GImageGenerationStatus get status;
   @override
-  bool get isDeleted;
-  @override
   bool? get isProtected;
-  @override
-  int get count;
   @override
   _i3.GImageGenerationType get generationType;
   @override
-  GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_model
+  GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult_model
       get model;
   @override
   String? get vae;
@@ -156,42 +152,42 @@ abstract class GUpdateProtectedImageGenerationTaskData_updateProtectedImageGener
   @override
   String? get thumbnailToken;
   static Serializer<
-          GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask>
+          GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult>
       get serializer =>
-          _$gUpdateProtectedImageGenerationTaskDataUpdateProtectedImageGenerationTaskSerializer;
+          _$gUpdateProtectedImageGenerationTaskDataUpdateProtectedImageGenerationResultSerializer;
 
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask
+        GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult
             .serializer,
         this,
       ) as Map<String, dynamic>);
 
-  static GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask?
+  static GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult?
       fromJson(Map<String, dynamic> json) => _i1.serializers.deserializeWith(
-            GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask
+            GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult
                 .serializer,
             json,
           );
 }
 
-abstract class GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_model
+abstract class GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult_model
     implements
         Built<
-            GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_model,
-            GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_modelBuilder>,
-        _i2.GImageGenerationTaskFields_model {
-  GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_model._();
+            GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult_model,
+            GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult_modelBuilder>,
+        _i2.GImageGenerationResultFields_model {
+  GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult_model._();
 
-  factory GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_model(
+  factory GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult_model(
           [void Function(
-                  GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_modelBuilder
+                  GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult_modelBuilder
                       b)
               updates]) =
-      _$GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_model;
+      _$GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult_model;
 
   static void _initializeBuilder(
-          GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_modelBuilder
+          GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult_modelBuilder
               b) =>
       b..G__typename = 'ImageGeneratorNode';
 
@@ -205,20 +201,20 @@ abstract class GUpdateProtectedImageGenerationTaskData_updateProtectedImageGener
   @override
   String get type;
   static Serializer<
-          GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_model>
+          GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult_model>
       get serializer =>
-          _$gUpdateProtectedImageGenerationTaskDataUpdateProtectedImageGenerationTaskModelSerializer;
+          _$gUpdateProtectedImageGenerationTaskDataUpdateProtectedImageGenerationResultModelSerializer;
 
   @override
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_model
+        GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult_model
             .serializer,
         this,
       ) as Map<String, dynamic>);
 
-  static GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_model?
+  static GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult_model?
       fromJson(Map<String, dynamic> json) => _i1.serializers.deserializeWith(
-            GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationTask_model
+            GUpdateProtectedImageGenerationTaskData_updateProtectedImageGenerationResult_model
                 .serializer,
             json,
           );

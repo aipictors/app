@@ -55,7 +55,7 @@ abstract class GAlbumData_album
   GAlbumData_album_user get user;
   int get createdAt;
   bool get isSensitive;
-  GAlbumData_album_thumbnailImage? get thumbnailImage;
+  String? get thumbnailImageURL;
   static Serializer<GAlbumData_album> get serializer =>
       _$gAlbumDataAlbumSerializer;
 
@@ -146,38 +146,6 @@ abstract class GAlbumData_album_user_iconImage
   static GAlbumData_album_user_iconImage? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GAlbumData_album_user_iconImage.serializer,
-        json,
-      );
-}
-
-abstract class GAlbumData_album_thumbnailImage
-    implements
-        Built<GAlbumData_album_thumbnailImage,
-            GAlbumData_album_thumbnailImageBuilder> {
-  GAlbumData_album_thumbnailImage._();
-
-  factory GAlbumData_album_thumbnailImage(
-          [void Function(GAlbumData_album_thumbnailImageBuilder b) updates]) =
-      _$GAlbumData_album_thumbnailImage;
-
-  static void _initializeBuilder(GAlbumData_album_thumbnailImageBuilder b) =>
-      b..G__typename = 'ImageNode';
-
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  String get id;
-  String get downloadURL;
-  static Serializer<GAlbumData_album_thumbnailImage> get serializer =>
-      _$gAlbumDataAlbumThumbnailImageSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GAlbumData_album_thumbnailImage.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GAlbumData_album_thumbnailImage? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GAlbumData_album_thumbnailImage.serializer,
         json,
       );
 }

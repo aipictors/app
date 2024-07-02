@@ -23,9 +23,6 @@ Serializer<GWorkCommentResponsesData_work_comment_user_iconImage>
 Serializer<GWorkCommentResponsesData_work_comment_sticker>
     _$gWorkCommentResponsesDataWorkCommentStickerSerializer =
     new _$GWorkCommentResponsesData_work_comment_stickerSerializer();
-Serializer<GWorkCommentResponsesData_work_comment_sticker_image>
-    _$gWorkCommentResponsesDataWorkCommentStickerImageSerializer =
-    new _$GWorkCommentResponsesData_work_comment_sticker_imageSerializer();
 Serializer<GWorkCommentResponsesData_work_comment_responses>
     _$gWorkCommentResponsesDataWorkCommentResponsesSerializer =
     new _$GWorkCommentResponsesData_work_comment_responsesSerializer();
@@ -38,9 +35,6 @@ Serializer<GWorkCommentResponsesData_work_comment_responses_user_iconImage>
 Serializer<GWorkCommentResponsesData_work_comment_responses_sticker>
     _$gWorkCommentResponsesDataWorkCommentResponsesStickerSerializer =
     new _$GWorkCommentResponsesData_work_comment_responses_stickerSerializer();
-Serializer<GWorkCommentResponsesData_work_comment_responses_sticker_image>
-    _$gWorkCommentResponsesDataWorkCommentResponsesStickerImageSerializer =
-    new _$GWorkCommentResponsesData_work_comment_responses_sticker_imageSerializer();
 
 class _$GWorkCommentResponsesDataSerializer
     implements StructuredSerializer<GWorkCommentResponsesData> {
@@ -450,14 +444,6 @@ class _$GWorkCommentResponsesData_work_comment_stickerSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    value = object.image;
-    if (value != null) {
-      result
-        ..add('image')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(
-                GWorkCommentResponsesData_work_comment_sticker_image)));
-    }
     return result;
   }
 
@@ -489,75 +475,6 @@ class _$GWorkCommentResponsesData_work_comment_stickerSerializer
         case 'imageUrl':
           result.imageUrl = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
-          break;
-        case 'image':
-          result.image.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      GWorkCommentResponsesData_work_comment_sticker_image))!
-              as GWorkCommentResponsesData_work_comment_sticker_image);
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GWorkCommentResponsesData_work_comment_sticker_imageSerializer
-    implements
-        StructuredSerializer<
-            GWorkCommentResponsesData_work_comment_sticker_image> {
-  @override
-  final Iterable<Type> types = const [
-    GWorkCommentResponsesData_work_comment_sticker_image,
-    _$GWorkCommentResponsesData_work_comment_sticker_image
-  ];
-  @override
-  final String wireName =
-      'GWorkCommentResponsesData_work_comment_sticker_image';
-
-  @override
-  Iterable<Object?> serialize(Serializers serializers,
-      GWorkCommentResponsesData_work_comment_sticker_image object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
-      'id',
-      serializers.serialize(object.id, specifiedType: const FullType(String)),
-      'downloadURL',
-      serializers.serialize(object.downloadURL,
-          specifiedType: const FullType(String)),
-    ];
-
-    return result;
-  }
-
-  @override
-  GWorkCommentResponsesData_work_comment_sticker_image deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result =
-        new GWorkCommentResponsesData_work_comment_sticker_imageBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'id':
-          result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'downloadURL':
-          result.downloadURL = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
           break;
       }
     }
@@ -849,14 +766,6 @@ class _$GWorkCommentResponsesData_work_comment_responses_stickerSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    value = object.image;
-    if (value != null) {
-      result
-        ..add('image')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(
-                GWorkCommentResponsesData_work_comment_responses_sticker_image)));
-    }
     return result;
   }
 
@@ -889,75 +798,6 @@ class _$GWorkCommentResponsesData_work_comment_responses_stickerSerializer
         case 'imageUrl':
           result.imageUrl = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
-          break;
-        case 'image':
-          result.image.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      GWorkCommentResponsesData_work_comment_responses_sticker_image))!
-              as GWorkCommentResponsesData_work_comment_responses_sticker_image);
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GWorkCommentResponsesData_work_comment_responses_sticker_imageSerializer
-    implements
-        StructuredSerializer<
-            GWorkCommentResponsesData_work_comment_responses_sticker_image> {
-  @override
-  final Iterable<Type> types = const [
-    GWorkCommentResponsesData_work_comment_responses_sticker_image,
-    _$GWorkCommentResponsesData_work_comment_responses_sticker_image
-  ];
-  @override
-  final String wireName =
-      'GWorkCommentResponsesData_work_comment_responses_sticker_image';
-
-  @override
-  Iterable<Object?> serialize(Serializers serializers,
-      GWorkCommentResponsesData_work_comment_responses_sticker_image object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
-      'id',
-      serializers.serialize(object.id, specifiedType: const FullType(String)),
-      'downloadURL',
-      serializers.serialize(object.downloadURL,
-          specifiedType: const FullType(String)),
-    ];
-
-    return result;
-  }
-
-  @override
-  GWorkCommentResponsesData_work_comment_responses_sticker_image deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result =
-        new GWorkCommentResponsesData_work_comment_responses_sticker_imageBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'id':
-          result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'downloadURL':
-          result.downloadURL = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
           break;
       }
     }
@@ -1780,8 +1620,6 @@ class _$GWorkCommentResponsesData_work_comment_sticker
   final _i4.GAccessType accessType;
   @override
   final String? imageUrl;
-  @override
-  final GWorkCommentResponsesData_work_comment_sticker_image? image;
 
   factory _$GWorkCommentResponsesData_work_comment_sticker(
           [void Function(GWorkCommentResponsesData_work_comment_stickerBuilder)?
@@ -1794,8 +1632,7 @@ class _$GWorkCommentResponsesData_work_comment_sticker
       {required this.G__typename,
       required this.id,
       required this.accessType,
-      this.imageUrl,
-      this.image})
+      this.imageUrl})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(G__typename,
         r'GWorkCommentResponsesData_work_comment_sticker', 'G__typename');
@@ -1823,8 +1660,7 @@ class _$GWorkCommentResponsesData_work_comment_sticker
         G__typename == other.G__typename &&
         id == other.id &&
         accessType == other.accessType &&
-        imageUrl == other.imageUrl &&
-        image == other.image;
+        imageUrl == other.imageUrl;
   }
 
   @override
@@ -1834,7 +1670,6 @@ class _$GWorkCommentResponsesData_work_comment_sticker
     _$hash = $jc(_$hash, id.hashCode);
     _$hash = $jc(_$hash, accessType.hashCode);
     _$hash = $jc(_$hash, imageUrl.hashCode);
-    _$hash = $jc(_$hash, image.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -1846,8 +1681,7 @@ class _$GWorkCommentResponsesData_work_comment_sticker
           ..add('G__typename', G__typename)
           ..add('id', id)
           ..add('accessType', accessType)
-          ..add('imageUrl', imageUrl)
-          ..add('image', image))
+          ..add('imageUrl', imageUrl))
         .toString();
   }
 }
@@ -1875,14 +1709,6 @@ class GWorkCommentResponsesData_work_comment_stickerBuilder
   String? get imageUrl => _$this._imageUrl;
   set imageUrl(String? imageUrl) => _$this._imageUrl = imageUrl;
 
-  GWorkCommentResponsesData_work_comment_sticker_imageBuilder? _image;
-  GWorkCommentResponsesData_work_comment_sticker_imageBuilder get image =>
-      _$this._image ??=
-          new GWorkCommentResponsesData_work_comment_sticker_imageBuilder();
-  set image(
-          GWorkCommentResponsesData_work_comment_sticker_imageBuilder? image) =>
-      _$this._image = image;
-
   GWorkCommentResponsesData_work_comment_stickerBuilder() {
     GWorkCommentResponsesData_work_comment_sticker._initializeBuilder(this);
   }
@@ -1894,7 +1720,6 @@ class GWorkCommentResponsesData_work_comment_stickerBuilder
       _id = $v.id;
       _accessType = $v.accessType;
       _imageUrl = $v.imageUrl;
-      _image = $v.image?.toBuilder();
       _$v = null;
     }
     return this;
@@ -1917,174 +1742,19 @@ class GWorkCommentResponsesData_work_comment_stickerBuilder
   GWorkCommentResponsesData_work_comment_sticker build() => _build();
 
   _$GWorkCommentResponsesData_work_comment_sticker _build() {
-    _$GWorkCommentResponsesData_work_comment_sticker _$result;
-    try {
-      _$result = _$v ??
-          new _$GWorkCommentResponsesData_work_comment_sticker._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename,
-                  r'GWorkCommentResponsesData_work_comment_sticker',
-                  'G__typename'),
-              id: BuiltValueNullFieldError.checkNotNull(
-                  id, r'GWorkCommentResponsesData_work_comment_sticker', 'id'),
-              accessType: BuiltValueNullFieldError.checkNotNull(
-                  accessType,
-                  r'GWorkCommentResponsesData_work_comment_sticker',
-                  'accessType'),
-              imageUrl: imageUrl,
-              image: _image?.build());
-    } catch (_) {
-      late String _$failedField;
-      try {
-        _$failedField = 'image';
-        _image?.build();
-      } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'GWorkCommentResponsesData_work_comment_sticker',
-            _$failedField,
-            e.toString());
-      }
-      rethrow;
-    }
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GWorkCommentResponsesData_work_comment_sticker_image
-    extends GWorkCommentResponsesData_work_comment_sticker_image {
-  @override
-  final String G__typename;
-  @override
-  final String id;
-  @override
-  final String downloadURL;
-
-  factory _$GWorkCommentResponsesData_work_comment_sticker_image(
-          [void Function(
-                  GWorkCommentResponsesData_work_comment_sticker_imageBuilder)?
-              updates]) =>
-      (new GWorkCommentResponsesData_work_comment_sticker_imageBuilder()
-            ..update(updates))
-          ._build();
-
-  _$GWorkCommentResponsesData_work_comment_sticker_image._(
-      {required this.G__typename, required this.id, required this.downloadURL})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(G__typename,
-        r'GWorkCommentResponsesData_work_comment_sticker_image', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(
-        id, r'GWorkCommentResponsesData_work_comment_sticker_image', 'id');
-    BuiltValueNullFieldError.checkNotNull(downloadURL,
-        r'GWorkCommentResponsesData_work_comment_sticker_image', 'downloadURL');
-  }
-
-  @override
-  GWorkCommentResponsesData_work_comment_sticker_image rebuild(
-          void Function(
-                  GWorkCommentResponsesData_work_comment_sticker_imageBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GWorkCommentResponsesData_work_comment_sticker_imageBuilder toBuilder() =>
-      new GWorkCommentResponsesData_work_comment_sticker_imageBuilder()
-        ..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GWorkCommentResponsesData_work_comment_sticker_image &&
-        G__typename == other.G__typename &&
-        id == other.id &&
-        downloadURL == other.downloadURL;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, id.hashCode);
-    _$hash = $jc(_$hash, downloadURL.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(
-            r'GWorkCommentResponsesData_work_comment_sticker_image')
-          ..add('G__typename', G__typename)
-          ..add('id', id)
-          ..add('downloadURL', downloadURL))
-        .toString();
-  }
-}
-
-class GWorkCommentResponsesData_work_comment_sticker_imageBuilder
-    implements
-        Builder<GWorkCommentResponsesData_work_comment_sticker_image,
-            GWorkCommentResponsesData_work_comment_sticker_imageBuilder> {
-  _$GWorkCommentResponsesData_work_comment_sticker_image? _$v;
-
-  String? _G__typename;
-  String? get G__typename => _$this._G__typename;
-  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
-
-  String? _id;
-  String? get id => _$this._id;
-  set id(String? id) => _$this._id = id;
-
-  String? _downloadURL;
-  String? get downloadURL => _$this._downloadURL;
-  set downloadURL(String? downloadURL) => _$this._downloadURL = downloadURL;
-
-  GWorkCommentResponsesData_work_comment_sticker_imageBuilder() {
-    GWorkCommentResponsesData_work_comment_sticker_image._initializeBuilder(
-        this);
-  }
-
-  GWorkCommentResponsesData_work_comment_sticker_imageBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _G__typename = $v.G__typename;
-      _id = $v.id;
-      _downloadURL = $v.downloadURL;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GWorkCommentResponsesData_work_comment_sticker_image other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GWorkCommentResponsesData_work_comment_sticker_image;
-  }
-
-  @override
-  void update(
-      void Function(
-              GWorkCommentResponsesData_work_comment_sticker_imageBuilder)?
-          updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GWorkCommentResponsesData_work_comment_sticker_image build() => _build();
-
-  _$GWorkCommentResponsesData_work_comment_sticker_image _build() {
     final _$result = _$v ??
-        new _$GWorkCommentResponsesData_work_comment_sticker_image._(
+        new _$GWorkCommentResponsesData_work_comment_sticker._(
             G__typename: BuiltValueNullFieldError.checkNotNull(
                 G__typename,
-                r'GWorkCommentResponsesData_work_comment_sticker_image',
+                r'GWorkCommentResponsesData_work_comment_sticker',
                 'G__typename'),
-            id: BuiltValueNullFieldError.checkNotNull(id,
-                r'GWorkCommentResponsesData_work_comment_sticker_image', 'id'),
-            downloadURL: BuiltValueNullFieldError.checkNotNull(
-                downloadURL,
-                r'GWorkCommentResponsesData_work_comment_sticker_image',
-                'downloadURL'));
+            id: BuiltValueNullFieldError.checkNotNull(
+                id, r'GWorkCommentResponsesData_work_comment_sticker', 'id'),
+            accessType: BuiltValueNullFieldError.checkNotNull(
+                accessType,
+                r'GWorkCommentResponsesData_work_comment_sticker',
+                'accessType'),
+            imageUrl: imageUrl);
     replace(_$result);
     return _$result;
   }
@@ -2667,8 +2337,6 @@ class _$GWorkCommentResponsesData_work_comment_responses_sticker
   final _i4.GAccessType accessType;
   @override
   final String? imageUrl;
-  @override
-  final GWorkCommentResponsesData_work_comment_responses_sticker_image? image;
 
   factory _$GWorkCommentResponsesData_work_comment_responses_sticker(
           [void Function(
@@ -2682,8 +2350,7 @@ class _$GWorkCommentResponsesData_work_comment_responses_sticker
       {required this.G__typename,
       required this.id,
       required this.accessType,
-      this.imageUrl,
-      this.image})
+      this.imageUrl})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename,
@@ -2716,8 +2383,7 @@ class _$GWorkCommentResponsesData_work_comment_responses_sticker
         G__typename == other.G__typename &&
         id == other.id &&
         accessType == other.accessType &&
-        imageUrl == other.imageUrl &&
-        image == other.image;
+        imageUrl == other.imageUrl;
   }
 
   @override
@@ -2727,7 +2393,6 @@ class _$GWorkCommentResponsesData_work_comment_responses_sticker
     _$hash = $jc(_$hash, id.hashCode);
     _$hash = $jc(_$hash, accessType.hashCode);
     _$hash = $jc(_$hash, imageUrl.hashCode);
-    _$hash = $jc(_$hash, image.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -2739,8 +2404,7 @@ class _$GWorkCommentResponsesData_work_comment_responses_sticker
           ..add('G__typename', G__typename)
           ..add('id', id)
           ..add('accessType', accessType)
-          ..add('imageUrl', imageUrl)
-          ..add('image', image))
+          ..add('imageUrl', imageUrl))
         .toString();
   }
 }
@@ -2768,15 +2432,6 @@ class GWorkCommentResponsesData_work_comment_responses_stickerBuilder
   String? get imageUrl => _$this._imageUrl;
   set imageUrl(String? imageUrl) => _$this._imageUrl = imageUrl;
 
-  GWorkCommentResponsesData_work_comment_responses_sticker_imageBuilder? _image;
-  GWorkCommentResponsesData_work_comment_responses_sticker_imageBuilder
-      get image => _$this._image ??=
-          new GWorkCommentResponsesData_work_comment_responses_sticker_imageBuilder();
-  set image(
-          GWorkCommentResponsesData_work_comment_responses_sticker_imageBuilder?
-              image) =>
-      _$this._image = image;
-
   GWorkCommentResponsesData_work_comment_responses_stickerBuilder() {
     GWorkCommentResponsesData_work_comment_responses_sticker._initializeBuilder(
         this);
@@ -2789,7 +2444,6 @@ class GWorkCommentResponsesData_work_comment_responses_stickerBuilder
       _id = $v.id;
       _accessType = $v.accessType;
       _imageUrl = $v.imageUrl;
-      _image = $v.image?.toBuilder();
       _$v = null;
     }
     return this;
@@ -2813,190 +2467,21 @@ class GWorkCommentResponsesData_work_comment_responses_stickerBuilder
   GWorkCommentResponsesData_work_comment_responses_sticker build() => _build();
 
   _$GWorkCommentResponsesData_work_comment_responses_sticker _build() {
-    _$GWorkCommentResponsesData_work_comment_responses_sticker _$result;
-    try {
-      _$result = _$v ??
-          new _$GWorkCommentResponsesData_work_comment_responses_sticker._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename,
-                  r'GWorkCommentResponsesData_work_comment_responses_sticker',
-                  'G__typename'),
-              id: BuiltValueNullFieldError.checkNotNull(
-                  id,
-                  r'GWorkCommentResponsesData_work_comment_responses_sticker',
-                  'id'),
-              accessType: BuiltValueNullFieldError.checkNotNull(
-                  accessType,
-                  r'GWorkCommentResponsesData_work_comment_responses_sticker',
-                  'accessType'),
-              imageUrl: imageUrl,
-              image: _image?.build());
-    } catch (_) {
-      late String _$failedField;
-      try {
-        _$failedField = 'image';
-        _image?.build();
-      } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'GWorkCommentResponsesData_work_comment_responses_sticker',
-            _$failedField,
-            e.toString());
-      }
-      rethrow;
-    }
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GWorkCommentResponsesData_work_comment_responses_sticker_image
-    extends GWorkCommentResponsesData_work_comment_responses_sticker_image {
-  @override
-  final String G__typename;
-  @override
-  final String id;
-  @override
-  final String downloadURL;
-
-  factory _$GWorkCommentResponsesData_work_comment_responses_sticker_image(
-          [void Function(
-                  GWorkCommentResponsesData_work_comment_responses_sticker_imageBuilder)?
-              updates]) =>
-      (new GWorkCommentResponsesData_work_comment_responses_sticker_imageBuilder()
-            ..update(updates))
-          ._build();
-
-  _$GWorkCommentResponsesData_work_comment_responses_sticker_image._(
-      {required this.G__typename, required this.id, required this.downloadURL})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        G__typename,
-        r'GWorkCommentResponsesData_work_comment_responses_sticker_image',
-        'G__typename');
-    BuiltValueNullFieldError.checkNotNull(
-        id,
-        r'GWorkCommentResponsesData_work_comment_responses_sticker_image',
-        'id');
-    BuiltValueNullFieldError.checkNotNull(
-        downloadURL,
-        r'GWorkCommentResponsesData_work_comment_responses_sticker_image',
-        'downloadURL');
-  }
-
-  @override
-  GWorkCommentResponsesData_work_comment_responses_sticker_image rebuild(
-          void Function(
-                  GWorkCommentResponsesData_work_comment_responses_sticker_imageBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GWorkCommentResponsesData_work_comment_responses_sticker_imageBuilder
-      toBuilder() =>
-          new GWorkCommentResponsesData_work_comment_responses_sticker_imageBuilder()
-            ..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other
-            is GWorkCommentResponsesData_work_comment_responses_sticker_image &&
-        G__typename == other.G__typename &&
-        id == other.id &&
-        downloadURL == other.downloadURL;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, id.hashCode);
-    _$hash = $jc(_$hash, downloadURL.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(
-            r'GWorkCommentResponsesData_work_comment_responses_sticker_image')
-          ..add('G__typename', G__typename)
-          ..add('id', id)
-          ..add('downloadURL', downloadURL))
-        .toString();
-  }
-}
-
-class GWorkCommentResponsesData_work_comment_responses_sticker_imageBuilder
-    implements
-        Builder<GWorkCommentResponsesData_work_comment_responses_sticker_image,
-            GWorkCommentResponsesData_work_comment_responses_sticker_imageBuilder> {
-  _$GWorkCommentResponsesData_work_comment_responses_sticker_image? _$v;
-
-  String? _G__typename;
-  String? get G__typename => _$this._G__typename;
-  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
-
-  String? _id;
-  String? get id => _$this._id;
-  set id(String? id) => _$this._id = id;
-
-  String? _downloadURL;
-  String? get downloadURL => _$this._downloadURL;
-  set downloadURL(String? downloadURL) => _$this._downloadURL = downloadURL;
-
-  GWorkCommentResponsesData_work_comment_responses_sticker_imageBuilder() {
-    GWorkCommentResponsesData_work_comment_responses_sticker_image
-        ._initializeBuilder(this);
-  }
-
-  GWorkCommentResponsesData_work_comment_responses_sticker_imageBuilder
-      get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _G__typename = $v.G__typename;
-      _id = $v.id;
-      _downloadURL = $v.downloadURL;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(
-      GWorkCommentResponsesData_work_comment_responses_sticker_image other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other
-        as _$GWorkCommentResponsesData_work_comment_responses_sticker_image;
-  }
-
-  @override
-  void update(
-      void Function(
-              GWorkCommentResponsesData_work_comment_responses_sticker_imageBuilder)?
-          updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GWorkCommentResponsesData_work_comment_responses_sticker_image build() =>
-      _build();
-
-  _$GWorkCommentResponsesData_work_comment_responses_sticker_image _build() {
     final _$result = _$v ??
-        new _$GWorkCommentResponsesData_work_comment_responses_sticker_image._(
+        new _$GWorkCommentResponsesData_work_comment_responses_sticker._(
             G__typename: BuiltValueNullFieldError.checkNotNull(
                 G__typename,
-                r'GWorkCommentResponsesData_work_comment_responses_sticker_image',
+                r'GWorkCommentResponsesData_work_comment_responses_sticker',
                 'G__typename'),
             id: BuiltValueNullFieldError.checkNotNull(
                 id,
-                r'GWorkCommentResponsesData_work_comment_responses_sticker_image',
+                r'GWorkCommentResponsesData_work_comment_responses_sticker',
                 'id'),
-            downloadURL: BuiltValueNullFieldError.checkNotNull(
-                downloadURL,
-                r'GWorkCommentResponsesData_work_comment_responses_sticker_image',
-                'downloadURL'));
+            accessType: BuiltValueNullFieldError.checkNotNull(
+                accessType,
+                r'GWorkCommentResponsesData_work_comment_responses_sticker',
+                'accessType'),
+            imageUrl: imageUrl);
     replace(_$result);
     return _$result;
   }

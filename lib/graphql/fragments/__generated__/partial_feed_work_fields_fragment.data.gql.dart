@@ -16,14 +16,7 @@ abstract class GPartialFeedWorkFields {
   int get commentsCount;
   int get createdAt;
   double get imageAspectRatio;
-  GPartialFeedWorkFields_image? get image;
-  Map<String, dynamic> toJson();
-}
-
-abstract class GPartialFeedWorkFields_image {
-  String get G__typename;
-  String get id;
-  String get downloadURL;
+  String get imageURL;
   Map<String, dynamic> toJson();
 }
 
@@ -56,7 +49,7 @@ abstract class GPartialFeedWorkFieldsData
   @override
   double get imageAspectRatio;
   @override
-  GPartialFeedWorkFieldsData_image? get image;
+  String get imageURL;
   static Serializer<GPartialFeedWorkFieldsData> get serializer =>
       _$gPartialFeedWorkFieldsDataSerializer;
 
@@ -69,44 +62,6 @@ abstract class GPartialFeedWorkFieldsData
   static GPartialFeedWorkFieldsData? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GPartialFeedWorkFieldsData.serializer,
-        json,
-      );
-}
-
-abstract class GPartialFeedWorkFieldsData_image
-    implements
-        Built<GPartialFeedWorkFieldsData_image,
-            GPartialFeedWorkFieldsData_imageBuilder>,
-        GPartialFeedWorkFields_image {
-  GPartialFeedWorkFieldsData_image._();
-
-  factory GPartialFeedWorkFieldsData_image(
-          [void Function(GPartialFeedWorkFieldsData_imageBuilder b) updates]) =
-      _$GPartialFeedWorkFieldsData_image;
-
-  static void _initializeBuilder(GPartialFeedWorkFieldsData_imageBuilder b) =>
-      b..G__typename = 'ImageNode';
-
-  @override
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  @override
-  String get id;
-  @override
-  String get downloadURL;
-  static Serializer<GPartialFeedWorkFieldsData_image> get serializer =>
-      _$gPartialFeedWorkFieldsDataImageSerializer;
-
-  @override
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GPartialFeedWorkFieldsData_image.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GPartialFeedWorkFieldsData_image? fromJson(
-          Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GPartialFeedWorkFieldsData_image.serializer,
         json,
       );
 }

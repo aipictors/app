@@ -71,7 +71,7 @@ abstract class GFeedLatestWorksData_works
   @override
   double get imageAspectRatio;
   @override
-  GFeedLatestWorksData_works_image? get image;
+  String get imageURL;
   GFeedLatestWorksData_works_user get user;
   bool get isLiked;
   static Serializer<GFeedLatestWorksData_works> get serializer =>
@@ -86,44 +86,6 @@ abstract class GFeedLatestWorksData_works
   static GFeedLatestWorksData_works? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GFeedLatestWorksData_works.serializer,
-        json,
-      );
-}
-
-abstract class GFeedLatestWorksData_works_image
-    implements
-        Built<GFeedLatestWorksData_works_image,
-            GFeedLatestWorksData_works_imageBuilder>,
-        _i2.GPartialFeedWorkFields_image {
-  GFeedLatestWorksData_works_image._();
-
-  factory GFeedLatestWorksData_works_image(
-          [void Function(GFeedLatestWorksData_works_imageBuilder b) updates]) =
-      _$GFeedLatestWorksData_works_image;
-
-  static void _initializeBuilder(GFeedLatestWorksData_works_imageBuilder b) =>
-      b..G__typename = 'ImageNode';
-
-  @override
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  @override
-  String get id;
-  @override
-  String get downloadURL;
-  static Serializer<GFeedLatestWorksData_works_image> get serializer =>
-      _$gFeedLatestWorksDataWorksImageSerializer;
-
-  @override
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GFeedLatestWorksData_works_image.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GFeedLatestWorksData_works_image? fromJson(
-          Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GFeedLatestWorksData_works_image.serializer,
         json,
       );
 }
@@ -152,7 +114,7 @@ abstract class GFeedLatestWorksData_works_user
   @override
   String get name;
   @override
-  GFeedLatestWorksData_works_user_iconImage? get iconImage;
+  String? get iconUrl;
   bool get isFollower;
   bool get isFollowee;
   bool get isMuted;
@@ -168,45 +130,6 @@ abstract class GFeedLatestWorksData_works_user
   static GFeedLatestWorksData_works_user? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GFeedLatestWorksData_works_user.serializer,
-        json,
-      );
-}
-
-abstract class GFeedLatestWorksData_works_user_iconImage
-    implements
-        Built<GFeedLatestWorksData_works_user_iconImage,
-            GFeedLatestWorksData_works_user_iconImageBuilder>,
-        _i3.GPartialUserFields_iconImage {
-  GFeedLatestWorksData_works_user_iconImage._();
-
-  factory GFeedLatestWorksData_works_user_iconImage(
-      [void Function(GFeedLatestWorksData_works_user_iconImageBuilder b)
-          updates]) = _$GFeedLatestWorksData_works_user_iconImage;
-
-  static void _initializeBuilder(
-          GFeedLatestWorksData_works_user_iconImageBuilder b) =>
-      b..G__typename = 'ImageNode';
-
-  @override
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  @override
-  String get id;
-  @override
-  String get downloadURL;
-  static Serializer<GFeedLatestWorksData_works_user_iconImage> get serializer =>
-      _$gFeedLatestWorksDataWorksUserIconImageSerializer;
-
-  @override
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GFeedLatestWorksData_works_user_iconImage.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GFeedLatestWorksData_works_user_iconImage? fromJson(
-          Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GFeedLatestWorksData_works_user_iconImage.serializer,
         json,
       );
 }

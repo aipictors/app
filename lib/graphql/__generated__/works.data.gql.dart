@@ -63,7 +63,23 @@ abstract class GWorksData_works
   @override
   int get createdAt;
   @override
-  GWorksData_works_thumbnailImage? get thumbnailImage;
+  String get imageURL;
+  @override
+  int get imageWidth;
+  @override
+  int get imageHeight;
+  @override
+  String get largeThumbnailImageURL;
+  @override
+  int get largeThumbnailImageWidth;
+  @override
+  int get largeThumbnailImageHeight;
+  @override
+  String get smallThumbnailImageURL;
+  @override
+  int get smallThumbnailImageWidth;
+  @override
+  int get smallThumbnailImageHeight;
   @override
   double? get thumbnailImagePosition;
   @override
@@ -80,43 +96,6 @@ abstract class GWorksData_works
   static GWorksData_works? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GWorksData_works.serializer,
-        json,
-      );
-}
-
-abstract class GWorksData_works_thumbnailImage
-    implements
-        Built<GWorksData_works_thumbnailImage,
-            GWorksData_works_thumbnailImageBuilder>,
-        _i2.GPartialWorkFields_thumbnailImage {
-  GWorksData_works_thumbnailImage._();
-
-  factory GWorksData_works_thumbnailImage(
-          [void Function(GWorksData_works_thumbnailImageBuilder b) updates]) =
-      _$GWorksData_works_thumbnailImage;
-
-  static void _initializeBuilder(GWorksData_works_thumbnailImageBuilder b) =>
-      b..G__typename = 'ImageNode';
-
-  @override
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  @override
-  String get id;
-  @override
-  String get downloadURL;
-  static Serializer<GWorksData_works_thumbnailImage> get serializer =>
-      _$gWorksDataWorksThumbnailImageSerializer;
-
-  @override
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GWorksData_works_thumbnailImage.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GWorksData_works_thumbnailImage? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GWorksData_works_thumbnailImage.serializer,
         json,
       );
 }

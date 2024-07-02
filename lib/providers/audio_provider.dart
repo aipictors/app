@@ -6,7 +6,7 @@ part 'audio_provider.g.dart';
 @riverpod
 AudioPlayer audio(AudioRef ref) {
   final config = AudioContextConfig(
-    duckAudio: true,
+    stayAwake: true,
     respectSilence: true,
   );
 

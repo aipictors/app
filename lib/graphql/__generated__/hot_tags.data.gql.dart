@@ -105,7 +105,23 @@ abstract class GHotTagsData_hotTags_firstWork
   @override
   int get createdAt;
   @override
-  GHotTagsData_hotTags_firstWork_thumbnailImage? get thumbnailImage;
+  String get imageURL;
+  @override
+  int get imageWidth;
+  @override
+  int get imageHeight;
+  @override
+  String get largeThumbnailImageURL;
+  @override
+  int get largeThumbnailImageWidth;
+  @override
+  int get largeThumbnailImageHeight;
+  @override
+  String get smallThumbnailImageURL;
+  @override
+  int get smallThumbnailImageWidth;
+  @override
+  int get smallThumbnailImageHeight;
   @override
   double? get thumbnailImagePosition;
   @override
@@ -122,45 +138,6 @@ abstract class GHotTagsData_hotTags_firstWork
   static GHotTagsData_hotTags_firstWork? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GHotTagsData_hotTags_firstWork.serializer,
-        json,
-      );
-}
-
-abstract class GHotTagsData_hotTags_firstWork_thumbnailImage
-    implements
-        Built<GHotTagsData_hotTags_firstWork_thumbnailImage,
-            GHotTagsData_hotTags_firstWork_thumbnailImageBuilder>,
-        _i3.GPartialWorkFields_thumbnailImage {
-  GHotTagsData_hotTags_firstWork_thumbnailImage._();
-
-  factory GHotTagsData_hotTags_firstWork_thumbnailImage(
-      [void Function(GHotTagsData_hotTags_firstWork_thumbnailImageBuilder b)
-          updates]) = _$GHotTagsData_hotTags_firstWork_thumbnailImage;
-
-  static void _initializeBuilder(
-          GHotTagsData_hotTags_firstWork_thumbnailImageBuilder b) =>
-      b..G__typename = 'ImageNode';
-
-  @override
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  @override
-  String get id;
-  @override
-  String get downloadURL;
-  static Serializer<GHotTagsData_hotTags_firstWork_thumbnailImage>
-      get serializer => _$gHotTagsDataHotTagsFirstWorkThumbnailImageSerializer;
-
-  @override
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GHotTagsData_hotTags_firstWork_thumbnailImage.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GHotTagsData_hotTags_firstWork_thumbnailImage? fromJson(
-          Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GHotTagsData_hotTags_firstWork_thumbnailImage.serializer,
         json,
       );
 }

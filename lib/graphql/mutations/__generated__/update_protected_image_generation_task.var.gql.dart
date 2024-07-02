@@ -19,7 +19,7 @@ abstract class GUpdateProtectedImageGenerationTaskVars
       [void Function(GUpdateProtectedImageGenerationTaskVarsBuilder b)
           updates]) = _$GUpdateProtectedImageGenerationTaskVars;
 
-  _i1.GUpdateProtectedImageGenerationTaskInput get input;
+  _i1.GUpdateProtectedImageGenerationResultInput get input;
   static Serializer<GUpdateProtectedImageGenerationTaskVars> get serializer =>
       _$gUpdateProtectedImageGenerationTaskVarsSerializer;
 

@@ -21,7 +21,7 @@ abstract class GDeleteFolderWorkData
 
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
-  GDeleteFolderWorkData_deleteFolderWork get deleteFolderWork;
+  GDeleteFolderWorkData_deleteFolderWork? get deleteFolderWork;
   static Serializer<GDeleteFolderWorkData> get serializer =>
       _$gDeleteFolderWorkDataSerializer;
 
@@ -49,7 +49,7 @@ abstract class GDeleteFolderWorkData_deleteFolderWork
 
   static void _initializeBuilder(
           GDeleteFolderWorkData_deleteFolderWorkBuilder b) =>
-      b..G__typename = 'WorkNode';
+      b..G__typename = 'FolderNode';
 
   @BuiltValueField(wireName: '__typename')
   String get G__typename;

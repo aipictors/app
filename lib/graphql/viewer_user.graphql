@@ -16,14 +16,8 @@ query ViewerUser {
       receivedViewsCount
       awardsCount
       followersCount
-      iconImage {
-        id
-        downloadURL
-      }
-      headerImage {
-        id
-        downloadURL
-      }
+      iconUrl
+      headerImageUrl
     }
   }
 }

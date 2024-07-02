@@ -95,7 +95,23 @@ abstract class GTagWorksData_tag_works
   @override
   int get createdAt;
   @override
-  GTagWorksData_tag_works_thumbnailImage? get thumbnailImage;
+  String get imageURL;
+  @override
+  int get imageWidth;
+  @override
+  int get imageHeight;
+  @override
+  String get largeThumbnailImageURL;
+  @override
+  int get largeThumbnailImageWidth;
+  @override
+  int get largeThumbnailImageHeight;
+  @override
+  String get smallThumbnailImageURL;
+  @override
+  int get smallThumbnailImageWidth;
+  @override
+  int get smallThumbnailImageHeight;
   @override
   double? get thumbnailImagePosition;
   @override
@@ -112,45 +128,6 @@ abstract class GTagWorksData_tag_works
   static GTagWorksData_tag_works? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GTagWorksData_tag_works.serializer,
-        json,
-      );
-}
-
-abstract class GTagWorksData_tag_works_thumbnailImage
-    implements
-        Built<GTagWorksData_tag_works_thumbnailImage,
-            GTagWorksData_tag_works_thumbnailImageBuilder>,
-        _i2.GPartialWorkFields_thumbnailImage {
-  GTagWorksData_tag_works_thumbnailImage._();
-
-  factory GTagWorksData_tag_works_thumbnailImage(
-      [void Function(GTagWorksData_tag_works_thumbnailImageBuilder b)
-          updates]) = _$GTagWorksData_tag_works_thumbnailImage;
-
-  static void _initializeBuilder(
-          GTagWorksData_tag_works_thumbnailImageBuilder b) =>
-      b..G__typename = 'ImageNode';
-
-  @override
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  @override
-  String get id;
-  @override
-  String get downloadURL;
-  static Serializer<GTagWorksData_tag_works_thumbnailImage> get serializer =>
-      _$gTagWorksDataTagWorksThumbnailImageSerializer;
-
-  @override
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GTagWorksData_tag_works_thumbnailImage.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GTagWorksData_tag_works_thumbnailImage? fromJson(
-          Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GTagWorksData_tag_works_thumbnailImage.serializer,
         json,
       );
 }

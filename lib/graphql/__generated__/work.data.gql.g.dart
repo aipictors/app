@@ -16,12 +16,6 @@ Serializer<GWorkData_work_user_iconImage>
     new _$GWorkData_work_user_iconImageSerializer();
 Serializer<GWorkData_work_subWorks> _$gWorkDataWorkSubWorksSerializer =
     new _$GWorkData_work_subWorksSerializer();
-Serializer<GWorkData_work_subWorks_image>
-    _$gWorkDataWorkSubWorksImageSerializer =
-    new _$GWorkData_work_subWorks_imageSerializer();
-Serializer<GWorkData_work_subWorks_thumbnailImage>
-    _$gWorkDataWorkSubWorksThumbnailImageSerializer =
-    new _$GWorkData_work_subWorks_thumbnailImageSerializer();
 
 class _$GWorkDataSerializer implements StructuredSerializer<GWorkData> {
   @override
@@ -388,15 +382,15 @@ class _$GWorkData_work_subWorksSerializer
           specifiedType: const FullType(String)),
       'id',
       serializers.serialize(object.id, specifiedType: const FullType(String)),
-      'image',
-      serializers.serialize(object.image,
-          specifiedType: const FullType(GWorkData_work_subWorks_image)),
-      'thumbnailImage',
-      serializers.serialize(object.thumbnailImage,
-          specifiedType:
-              const FullType(GWorkData_work_subWorks_thumbnailImage)),
     ];
-
+    Object? value;
+    value = object.imageUrl;
+    if (value != null) {
+      result
+        ..add('imageUrl')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
@@ -420,134 +414,9 @@ class _$GWorkData_work_subWorksSerializer
           result.id = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
-        case 'image':
-          result.image.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(GWorkData_work_subWorks_image))!
-              as GWorkData_work_subWorks_image);
-          break;
-        case 'thumbnailImage':
-          result.thumbnailImage.replace(serializers.deserialize(value,
-                  specifiedType:
-                      const FullType(GWorkData_work_subWorks_thumbnailImage))!
-              as GWorkData_work_subWorks_thumbnailImage);
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GWorkData_work_subWorks_imageSerializer
-    implements StructuredSerializer<GWorkData_work_subWorks_image> {
-  @override
-  final Iterable<Type> types = const [
-    GWorkData_work_subWorks_image,
-    _$GWorkData_work_subWorks_image
-  ];
-  @override
-  final String wireName = 'GWorkData_work_subWorks_image';
-
-  @override
-  Iterable<Object?> serialize(
-      Serializers serializers, GWorkData_work_subWorks_image object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
-      'id',
-      serializers.serialize(object.id, specifiedType: const FullType(String)),
-      'downloadURL',
-      serializers.serialize(object.downloadURL,
-          specifiedType: const FullType(String)),
-    ];
-
-    return result;
-  }
-
-  @override
-  GWorkData_work_subWorks_image deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GWorkData_work_subWorks_imageBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'id':
-          result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'downloadURL':
-          result.downloadURL = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GWorkData_work_subWorks_thumbnailImageSerializer
-    implements StructuredSerializer<GWorkData_work_subWorks_thumbnailImage> {
-  @override
-  final Iterable<Type> types = const [
-    GWorkData_work_subWorks_thumbnailImage,
-    _$GWorkData_work_subWorks_thumbnailImage
-  ];
-  @override
-  final String wireName = 'GWorkData_work_subWorks_thumbnailImage';
-
-  @override
-  Iterable<Object?> serialize(
-      Serializers serializers, GWorkData_work_subWorks_thumbnailImage object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
-      'id',
-      serializers.serialize(object.id, specifiedType: const FullType(String)),
-      'downloadURL',
-      serializers.serialize(object.downloadURL,
-          specifiedType: const FullType(String)),
-    ];
-
-    return result;
-  }
-
-  @override
-  GWorkData_work_subWorks_thumbnailImage deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GWorkData_work_subWorks_thumbnailImageBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'id':
-          result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'downloadURL':
-          result.downloadURL = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
+        case 'imageUrl':
+          result.imageUrl = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
           break;
       }
     }
@@ -1285,27 +1154,18 @@ class _$GWorkData_work_subWorks extends GWorkData_work_subWorks {
   @override
   final String id;
   @override
-  final GWorkData_work_subWorks_image image;
-  @override
-  final GWorkData_work_subWorks_thumbnailImage thumbnailImage;
+  final String? imageUrl;
 
   factory _$GWorkData_work_subWorks(
           [void Function(GWorkData_work_subWorksBuilder)? updates]) =>
       (new GWorkData_work_subWorksBuilder()..update(updates))._build();
 
   _$GWorkData_work_subWorks._(
-      {required this.G__typename,
-      required this.id,
-      required this.image,
-      required this.thumbnailImage})
+      {required this.G__typename, required this.id, this.imageUrl})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename, r'GWorkData_work_subWorks', 'G__typename');
     BuiltValueNullFieldError.checkNotNull(id, r'GWorkData_work_subWorks', 'id');
-    BuiltValueNullFieldError.checkNotNull(
-        image, r'GWorkData_work_subWorks', 'image');
-    BuiltValueNullFieldError.checkNotNull(
-        thumbnailImage, r'GWorkData_work_subWorks', 'thumbnailImage');
   }
 
   @override
@@ -1323,8 +1183,7 @@ class _$GWorkData_work_subWorks extends GWorkData_work_subWorks {
     return other is GWorkData_work_subWorks &&
         G__typename == other.G__typename &&
         id == other.id &&
-        image == other.image &&
-        thumbnailImage == other.thumbnailImage;
+        imageUrl == other.imageUrl;
   }
 
   @override
@@ -1332,8 +1191,7 @@ class _$GWorkData_work_subWorks extends GWorkData_work_subWorks {
     var _$hash = 0;
     _$hash = $jc(_$hash, G__typename.hashCode);
     _$hash = $jc(_$hash, id.hashCode);
-    _$hash = $jc(_$hash, image.hashCode);
-    _$hash = $jc(_$hash, thumbnailImage.hashCode);
+    _$hash = $jc(_$hash, imageUrl.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -1343,8 +1201,7 @@ class _$GWorkData_work_subWorks extends GWorkData_work_subWorks {
     return (newBuiltValueToStringHelper(r'GWorkData_work_subWorks')
           ..add('G__typename', G__typename)
           ..add('id', id)
-          ..add('image', image)
-          ..add('thumbnailImage', thumbnailImage))
+          ..add('imageUrl', imageUrl))
         .toString();
   }
 }
@@ -1362,19 +1219,9 @@ class GWorkData_work_subWorksBuilder
   String? get id => _$this._id;
   set id(String? id) => _$this._id = id;
 
-  GWorkData_work_subWorks_imageBuilder? _image;
-  GWorkData_work_subWorks_imageBuilder get image =>
-      _$this._image ??= new GWorkData_work_subWorks_imageBuilder();
-  set image(GWorkData_work_subWorks_imageBuilder? image) =>
-      _$this._image = image;
-
-  GWorkData_work_subWorks_thumbnailImageBuilder? _thumbnailImage;
-  GWorkData_work_subWorks_thumbnailImageBuilder get thumbnailImage =>
-      _$this._thumbnailImage ??=
-          new GWorkData_work_subWorks_thumbnailImageBuilder();
-  set thumbnailImage(
-          GWorkData_work_subWorks_thumbnailImageBuilder? thumbnailImage) =>
-      _$this._thumbnailImage = thumbnailImage;
+  String? _imageUrl;
+  String? get imageUrl => _$this._imageUrl;
+  set imageUrl(String? imageUrl) => _$this._imageUrl = imageUrl;
 
   GWorkData_work_subWorksBuilder() {
     GWorkData_work_subWorks._initializeBuilder(this);
@@ -1385,8 +1232,7 @@ class GWorkData_work_subWorksBuilder
     if ($v != null) {
       _G__typename = $v.G__typename;
       _id = $v.id;
-      _image = $v.image.toBuilder();
-      _thumbnailImage = $v.thumbnailImage.toBuilder();
+      _imageUrl = $v.imageUrl;
       _$v = null;
     }
     return this;
@@ -1407,279 +1253,13 @@ class GWorkData_work_subWorksBuilder
   GWorkData_work_subWorks build() => _build();
 
   _$GWorkData_work_subWorks _build() {
-    _$GWorkData_work_subWorks _$result;
-    try {
-      _$result = _$v ??
-          new _$GWorkData_work_subWorks._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, r'GWorkData_work_subWorks', 'G__typename'),
-              id: BuiltValueNullFieldError.checkNotNull(
-                  id, r'GWorkData_work_subWorks', 'id'),
-              image: image.build(),
-              thumbnailImage: thumbnailImage.build());
-    } catch (_) {
-      late String _$failedField;
-      try {
-        _$failedField = 'image';
-        image.build();
-        _$failedField = 'thumbnailImage';
-        thumbnailImage.build();
-      } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'GWorkData_work_subWorks', _$failedField, e.toString());
-      }
-      rethrow;
-    }
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GWorkData_work_subWorks_image extends GWorkData_work_subWorks_image {
-  @override
-  final String G__typename;
-  @override
-  final String id;
-  @override
-  final String downloadURL;
-
-  factory _$GWorkData_work_subWorks_image(
-          [void Function(GWorkData_work_subWorks_imageBuilder)? updates]) =>
-      (new GWorkData_work_subWorks_imageBuilder()..update(updates))._build();
-
-  _$GWorkData_work_subWorks_image._(
-      {required this.G__typename, required this.id, required this.downloadURL})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        G__typename, r'GWorkData_work_subWorks_image', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(
-        id, r'GWorkData_work_subWorks_image', 'id');
-    BuiltValueNullFieldError.checkNotNull(
-        downloadURL, r'GWorkData_work_subWorks_image', 'downloadURL');
-  }
-
-  @override
-  GWorkData_work_subWorks_image rebuild(
-          void Function(GWorkData_work_subWorks_imageBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GWorkData_work_subWorks_imageBuilder toBuilder() =>
-      new GWorkData_work_subWorks_imageBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GWorkData_work_subWorks_image &&
-        G__typename == other.G__typename &&
-        id == other.id &&
-        downloadURL == other.downloadURL;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, id.hashCode);
-    _$hash = $jc(_$hash, downloadURL.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(r'GWorkData_work_subWorks_image')
-          ..add('G__typename', G__typename)
-          ..add('id', id)
-          ..add('downloadURL', downloadURL))
-        .toString();
-  }
-}
-
-class GWorkData_work_subWorks_imageBuilder
-    implements
-        Builder<GWorkData_work_subWorks_image,
-            GWorkData_work_subWorks_imageBuilder> {
-  _$GWorkData_work_subWorks_image? _$v;
-
-  String? _G__typename;
-  String? get G__typename => _$this._G__typename;
-  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
-
-  String? _id;
-  String? get id => _$this._id;
-  set id(String? id) => _$this._id = id;
-
-  String? _downloadURL;
-  String? get downloadURL => _$this._downloadURL;
-  set downloadURL(String? downloadURL) => _$this._downloadURL = downloadURL;
-
-  GWorkData_work_subWorks_imageBuilder() {
-    GWorkData_work_subWorks_image._initializeBuilder(this);
-  }
-
-  GWorkData_work_subWorks_imageBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _G__typename = $v.G__typename;
-      _id = $v.id;
-      _downloadURL = $v.downloadURL;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GWorkData_work_subWorks_image other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GWorkData_work_subWorks_image;
-  }
-
-  @override
-  void update(void Function(GWorkData_work_subWorks_imageBuilder)? updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GWorkData_work_subWorks_image build() => _build();
-
-  _$GWorkData_work_subWorks_image _build() {
     final _$result = _$v ??
-        new _$GWorkData_work_subWorks_image._(
+        new _$GWorkData_work_subWorks._(
             G__typename: BuiltValueNullFieldError.checkNotNull(
-                G__typename, r'GWorkData_work_subWorks_image', 'G__typename'),
+                G__typename, r'GWorkData_work_subWorks', 'G__typename'),
             id: BuiltValueNullFieldError.checkNotNull(
-                id, r'GWorkData_work_subWorks_image', 'id'),
-            downloadURL: BuiltValueNullFieldError.checkNotNull(
-                downloadURL, r'GWorkData_work_subWorks_image', 'downloadURL'));
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GWorkData_work_subWorks_thumbnailImage
-    extends GWorkData_work_subWorks_thumbnailImage {
-  @override
-  final String G__typename;
-  @override
-  final String id;
-  @override
-  final String downloadURL;
-
-  factory _$GWorkData_work_subWorks_thumbnailImage(
-          [void Function(GWorkData_work_subWorks_thumbnailImageBuilder)?
-              updates]) =>
-      (new GWorkData_work_subWorks_thumbnailImageBuilder()..update(updates))
-          ._build();
-
-  _$GWorkData_work_subWorks_thumbnailImage._(
-      {required this.G__typename, required this.id, required this.downloadURL})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        G__typename, r'GWorkData_work_subWorks_thumbnailImage', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(
-        id, r'GWorkData_work_subWorks_thumbnailImage', 'id');
-    BuiltValueNullFieldError.checkNotNull(
-        downloadURL, r'GWorkData_work_subWorks_thumbnailImage', 'downloadURL');
-  }
-
-  @override
-  GWorkData_work_subWorks_thumbnailImage rebuild(
-          void Function(GWorkData_work_subWorks_thumbnailImageBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GWorkData_work_subWorks_thumbnailImageBuilder toBuilder() =>
-      new GWorkData_work_subWorks_thumbnailImageBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GWorkData_work_subWorks_thumbnailImage &&
-        G__typename == other.G__typename &&
-        id == other.id &&
-        downloadURL == other.downloadURL;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, id.hashCode);
-    _$hash = $jc(_$hash, downloadURL.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(
-            r'GWorkData_work_subWorks_thumbnailImage')
-          ..add('G__typename', G__typename)
-          ..add('id', id)
-          ..add('downloadURL', downloadURL))
-        .toString();
-  }
-}
-
-class GWorkData_work_subWorks_thumbnailImageBuilder
-    implements
-        Builder<GWorkData_work_subWorks_thumbnailImage,
-            GWorkData_work_subWorks_thumbnailImageBuilder> {
-  _$GWorkData_work_subWorks_thumbnailImage? _$v;
-
-  String? _G__typename;
-  String? get G__typename => _$this._G__typename;
-  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
-
-  String? _id;
-  String? get id => _$this._id;
-  set id(String? id) => _$this._id = id;
-
-  String? _downloadURL;
-  String? get downloadURL => _$this._downloadURL;
-  set downloadURL(String? downloadURL) => _$this._downloadURL = downloadURL;
-
-  GWorkData_work_subWorks_thumbnailImageBuilder() {
-    GWorkData_work_subWorks_thumbnailImage._initializeBuilder(this);
-  }
-
-  GWorkData_work_subWorks_thumbnailImageBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _G__typename = $v.G__typename;
-      _id = $v.id;
-      _downloadURL = $v.downloadURL;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GWorkData_work_subWorks_thumbnailImage other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GWorkData_work_subWorks_thumbnailImage;
-  }
-
-  @override
-  void update(
-      void Function(GWorkData_work_subWorks_thumbnailImageBuilder)? updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GWorkData_work_subWorks_thumbnailImage build() => _build();
-
-  _$GWorkData_work_subWorks_thumbnailImage _build() {
-    final _$result = _$v ??
-        new _$GWorkData_work_subWorks_thumbnailImage._(
-            G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
-                r'GWorkData_work_subWorks_thumbnailImage', 'G__typename'),
-            id: BuiltValueNullFieldError.checkNotNull(
-                id, r'GWorkData_work_subWorks_thumbnailImage', 'id'),
-            downloadURL: BuiltValueNullFieldError.checkNotNull(downloadURL,
-                r'GWorkData_work_subWorks_thumbnailImage', 'downloadURL'));
+                id, r'GWorkData_work_subWorks', 'id'),
+            imageUrl: imageUrl);
     replace(_$result);
     return _$result;
   }

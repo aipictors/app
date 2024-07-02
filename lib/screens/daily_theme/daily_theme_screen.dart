@@ -65,7 +65,7 @@ class DailyThemeScreen extends HookConsumerWidget {
                     context.push('/works/${work.id}');
                   },
                   child: GridWorkImage(
-                    imageURL: work.thumbnailImage?.downloadURL,
+                    imageURL: work.largeThumbnailImageURL,
                     thumbnailImagePosition: work.thumbnailImagePosition,
                     imageAspectRatio: work.imageAspectRatio,
                   ),

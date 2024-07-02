@@ -13,9 +13,6 @@ Serializer<GViewerAlbumsData_viewer> _$gViewerAlbumsDataViewerSerializer =
 Serializer<GViewerAlbumsData_viewer_albums>
     _$gViewerAlbumsDataViewerAlbumsSerializer =
     new _$GViewerAlbumsData_viewer_albumsSerializer();
-Serializer<GViewerAlbumsData_viewer_albums_thumbnailImage>
-    _$gViewerAlbumsDataViewerAlbumsThumbnailImageSerializer =
-    new _$GViewerAlbumsData_viewer_albums_thumbnailImageSerializer();
 
 class _$GViewerAlbumsDataSerializer
     implements StructuredSerializer<GViewerAlbumsData> {
@@ -161,13 +158,12 @@ class _$GViewerAlbumsData_viewer_albumsSerializer
           specifiedType: const FullType(int)),
     ];
     Object? value;
-    value = object.thumbnailImage;
+    value = object.thumbnailImageURL;
     if (value != null) {
       result
-        ..add('thumbnailImage')
+        ..add('thumbnailImageURL')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(
-                GViewerAlbumsData_viewer_albums_thumbnailImage)));
+            specifiedType: const FullType(String)));
     }
     return result;
   }
@@ -208,71 +204,9 @@ class _$GViewerAlbumsData_viewer_albumsSerializer
           result.viewsCount = serializers.deserialize(value,
               specifiedType: const FullType(int))! as int;
           break;
-        case 'thumbnailImage':
-          result.thumbnailImage.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      GViewerAlbumsData_viewer_albums_thumbnailImage))!
-              as GViewerAlbumsData_viewer_albums_thumbnailImage);
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GViewerAlbumsData_viewer_albums_thumbnailImageSerializer
-    implements
-        StructuredSerializer<GViewerAlbumsData_viewer_albums_thumbnailImage> {
-  @override
-  final Iterable<Type> types = const [
-    GViewerAlbumsData_viewer_albums_thumbnailImage,
-    _$GViewerAlbumsData_viewer_albums_thumbnailImage
-  ];
-  @override
-  final String wireName = 'GViewerAlbumsData_viewer_albums_thumbnailImage';
-
-  @override
-  Iterable<Object?> serialize(Serializers serializers,
-      GViewerAlbumsData_viewer_albums_thumbnailImage object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
-      'id',
-      serializers.serialize(object.id, specifiedType: const FullType(String)),
-      'downloadURL',
-      serializers.serialize(object.downloadURL,
-          specifiedType: const FullType(String)),
-    ];
-
-    return result;
-  }
-
-  @override
-  GViewerAlbumsData_viewer_albums_thumbnailImage deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GViewerAlbumsData_viewer_albums_thumbnailImageBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'id':
-          result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'downloadURL':
-          result.downloadURL = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
+        case 'thumbnailImageURL':
+          result.thumbnailImageURL = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
           break;
       }
     }
@@ -532,7 +466,7 @@ class _$GViewerAlbumsData_viewer_albums
   @override
   final int viewsCount;
   @override
-  final GViewerAlbumsData_viewer_albums_thumbnailImage? thumbnailImage;
+  final String? thumbnailImageURL;
 
   factory _$GViewerAlbumsData_viewer_albums(
           [void Function(GViewerAlbumsData_viewer_albumsBuilder)? updates]) =>
@@ -545,7 +479,7 @@ class _$GViewerAlbumsData_viewer_albums
       required this.isSensitive,
       required this.likesCount,
       required this.viewsCount,
-      this.thumbnailImage})
+      this.thumbnailImageURL})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename, r'GViewerAlbumsData_viewer_albums', 'G__typename');
@@ -580,7 +514,7 @@ class _$GViewerAlbumsData_viewer_albums
         isSensitive == other.isSensitive &&
         likesCount == other.likesCount &&
         viewsCount == other.viewsCount &&
-        thumbnailImage == other.thumbnailImage;
+        thumbnailImageURL == other.thumbnailImageURL;
   }
 
   @override
@@ -592,7 +526,7 @@ class _$GViewerAlbumsData_viewer_albums
     _$hash = $jc(_$hash, isSensitive.hashCode);
     _$hash = $jc(_$hash, likesCount.hashCode);
     _$hash = $jc(_$hash, viewsCount.hashCode);
-    _$hash = $jc(_$hash, thumbnailImage.hashCode);
+    _$hash = $jc(_$hash, thumbnailImageURL.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -606,7 +540,7 @@ class _$GViewerAlbumsData_viewer_albums
           ..add('isSensitive', isSensitive)
           ..add('likesCount', likesCount)
           ..add('viewsCount', viewsCount)
-          ..add('thumbnailImage', thumbnailImage))
+          ..add('thumbnailImageURL', thumbnailImageURL))
         .toString();
   }
 }
@@ -641,14 +575,10 @@ class GViewerAlbumsData_viewer_albumsBuilder
   int? get viewsCount => _$this._viewsCount;
   set viewsCount(int? viewsCount) => _$this._viewsCount = viewsCount;
 
-  GViewerAlbumsData_viewer_albums_thumbnailImageBuilder? _thumbnailImage;
-  GViewerAlbumsData_viewer_albums_thumbnailImageBuilder get thumbnailImage =>
-      _$this._thumbnailImage ??=
-          new GViewerAlbumsData_viewer_albums_thumbnailImageBuilder();
-  set thumbnailImage(
-          GViewerAlbumsData_viewer_albums_thumbnailImageBuilder?
-              thumbnailImage) =>
-      _$this._thumbnailImage = thumbnailImage;
+  String? _thumbnailImageURL;
+  String? get thumbnailImageURL => _$this._thumbnailImageURL;
+  set thumbnailImageURL(String? thumbnailImageURL) =>
+      _$this._thumbnailImageURL = thumbnailImageURL;
 
   GViewerAlbumsData_viewer_albumsBuilder() {
     GViewerAlbumsData_viewer_albums._initializeBuilder(this);
@@ -663,7 +593,7 @@ class GViewerAlbumsData_viewer_albumsBuilder
       _isSensitive = $v.isSensitive;
       _likesCount = $v.likesCount;
       _viewsCount = $v.viewsCount;
-      _thumbnailImage = $v.thumbnailImage?.toBuilder();
+      _thumbnailImageURL = $v.thumbnailImageURL;
       _$v = null;
     }
     return this;
@@ -684,169 +614,21 @@ class GViewerAlbumsData_viewer_albumsBuilder
   GViewerAlbumsData_viewer_albums build() => _build();
 
   _$GViewerAlbumsData_viewer_albums _build() {
-    _$GViewerAlbumsData_viewer_albums _$result;
-    try {
-      _$result = _$v ??
-          new _$GViewerAlbumsData_viewer_albums._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
-                  r'GViewerAlbumsData_viewer_albums', 'G__typename'),
-              id: BuiltValueNullFieldError.checkNotNull(
-                  id, r'GViewerAlbumsData_viewer_albums', 'id'),
-              title: BuiltValueNullFieldError.checkNotNull(
-                  title, r'GViewerAlbumsData_viewer_albums', 'title'),
-              isSensitive: BuiltValueNullFieldError.checkNotNull(isSensitive,
-                  r'GViewerAlbumsData_viewer_albums', 'isSensitive'),
-              likesCount: BuiltValueNullFieldError.checkNotNull(
-                  likesCount, r'GViewerAlbumsData_viewer_albums', 'likesCount'),
-              viewsCount: BuiltValueNullFieldError.checkNotNull(
-                  viewsCount, r'GViewerAlbumsData_viewer_albums', 'viewsCount'),
-              thumbnailImage: _thumbnailImage?.build());
-    } catch (_) {
-      late String _$failedField;
-      try {
-        _$failedField = 'thumbnailImage';
-        _thumbnailImage?.build();
-      } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'GViewerAlbumsData_viewer_albums', _$failedField, e.toString());
-      }
-      rethrow;
-    }
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GViewerAlbumsData_viewer_albums_thumbnailImage
-    extends GViewerAlbumsData_viewer_albums_thumbnailImage {
-  @override
-  final String G__typename;
-  @override
-  final String id;
-  @override
-  final String downloadURL;
-
-  factory _$GViewerAlbumsData_viewer_albums_thumbnailImage(
-          [void Function(GViewerAlbumsData_viewer_albums_thumbnailImageBuilder)?
-              updates]) =>
-      (new GViewerAlbumsData_viewer_albums_thumbnailImageBuilder()
-            ..update(updates))
-          ._build();
-
-  _$GViewerAlbumsData_viewer_albums_thumbnailImage._(
-      {required this.G__typename, required this.id, required this.downloadURL})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(G__typename,
-        r'GViewerAlbumsData_viewer_albums_thumbnailImage', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(
-        id, r'GViewerAlbumsData_viewer_albums_thumbnailImage', 'id');
-    BuiltValueNullFieldError.checkNotNull(downloadURL,
-        r'GViewerAlbumsData_viewer_albums_thumbnailImage', 'downloadURL');
-  }
-
-  @override
-  GViewerAlbumsData_viewer_albums_thumbnailImage rebuild(
-          void Function(GViewerAlbumsData_viewer_albums_thumbnailImageBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GViewerAlbumsData_viewer_albums_thumbnailImageBuilder toBuilder() =>
-      new GViewerAlbumsData_viewer_albums_thumbnailImageBuilder()
-        ..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GViewerAlbumsData_viewer_albums_thumbnailImage &&
-        G__typename == other.G__typename &&
-        id == other.id &&
-        downloadURL == other.downloadURL;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, id.hashCode);
-    _$hash = $jc(_$hash, downloadURL.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(
-            r'GViewerAlbumsData_viewer_albums_thumbnailImage')
-          ..add('G__typename', G__typename)
-          ..add('id', id)
-          ..add('downloadURL', downloadURL))
-        .toString();
-  }
-}
-
-class GViewerAlbumsData_viewer_albums_thumbnailImageBuilder
-    implements
-        Builder<GViewerAlbumsData_viewer_albums_thumbnailImage,
-            GViewerAlbumsData_viewer_albums_thumbnailImageBuilder> {
-  _$GViewerAlbumsData_viewer_albums_thumbnailImage? _$v;
-
-  String? _G__typename;
-  String? get G__typename => _$this._G__typename;
-  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
-
-  String? _id;
-  String? get id => _$this._id;
-  set id(String? id) => _$this._id = id;
-
-  String? _downloadURL;
-  String? get downloadURL => _$this._downloadURL;
-  set downloadURL(String? downloadURL) => _$this._downloadURL = downloadURL;
-
-  GViewerAlbumsData_viewer_albums_thumbnailImageBuilder() {
-    GViewerAlbumsData_viewer_albums_thumbnailImage._initializeBuilder(this);
-  }
-
-  GViewerAlbumsData_viewer_albums_thumbnailImageBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _G__typename = $v.G__typename;
-      _id = $v.id;
-      _downloadURL = $v.downloadURL;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GViewerAlbumsData_viewer_albums_thumbnailImage other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GViewerAlbumsData_viewer_albums_thumbnailImage;
-  }
-
-  @override
-  void update(
-      void Function(GViewerAlbumsData_viewer_albums_thumbnailImageBuilder)?
-          updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GViewerAlbumsData_viewer_albums_thumbnailImage build() => _build();
-
-  _$GViewerAlbumsData_viewer_albums_thumbnailImage _build() {
     final _$result = _$v ??
-        new _$GViewerAlbumsData_viewer_albums_thumbnailImage._(
+        new _$GViewerAlbumsData_viewer_albums._(
             G__typename: BuiltValueNullFieldError.checkNotNull(
-                G__typename,
-                r'GViewerAlbumsData_viewer_albums_thumbnailImage',
-                'G__typename'),
+                G__typename, r'GViewerAlbumsData_viewer_albums', 'G__typename'),
             id: BuiltValueNullFieldError.checkNotNull(
-                id, r'GViewerAlbumsData_viewer_albums_thumbnailImage', 'id'),
-            downloadURL: BuiltValueNullFieldError.checkNotNull(
-                downloadURL,
-                r'GViewerAlbumsData_viewer_albums_thumbnailImage',
-                'downloadURL'));
+                id, r'GViewerAlbumsData_viewer_albums', 'id'),
+            title: BuiltValueNullFieldError.checkNotNull(
+                title, r'GViewerAlbumsData_viewer_albums', 'title'),
+            isSensitive: BuiltValueNullFieldError.checkNotNull(
+                isSensitive, r'GViewerAlbumsData_viewer_albums', 'isSensitive'),
+            likesCount: BuiltValueNullFieldError.checkNotNull(
+                likesCount, r'GViewerAlbumsData_viewer_albums', 'likesCount'),
+            viewsCount: BuiltValueNullFieldError.checkNotNull(
+                viewsCount, r'GViewerAlbumsData_viewer_albums', 'viewsCount'),
+            thumbnailImageURL: thumbnailImageURL);
     replace(_$result);
     return _$result;
   }

@@ -65,7 +65,23 @@ abstract class GHotWorksData_hotWorks
   @override
   int get createdAt;
   @override
-  GHotWorksData_hotWorks_thumbnailImage? get thumbnailImage;
+  String get imageURL;
+  @override
+  int get imageWidth;
+  @override
+  int get imageHeight;
+  @override
+  String get largeThumbnailImageURL;
+  @override
+  int get largeThumbnailImageWidth;
+  @override
+  int get largeThumbnailImageHeight;
+  @override
+  String get smallThumbnailImageURL;
+  @override
+  int get smallThumbnailImageWidth;
+  @override
+  int get smallThumbnailImageHeight;
   @override
   double? get thumbnailImagePosition;
   @override
@@ -82,45 +98,6 @@ abstract class GHotWorksData_hotWorks
   static GHotWorksData_hotWorks? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GHotWorksData_hotWorks.serializer,
-        json,
-      );
-}
-
-abstract class GHotWorksData_hotWorks_thumbnailImage
-    implements
-        Built<GHotWorksData_hotWorks_thumbnailImage,
-            GHotWorksData_hotWorks_thumbnailImageBuilder>,
-        _i2.GPartialWorkFields_thumbnailImage {
-  GHotWorksData_hotWorks_thumbnailImage._();
-
-  factory GHotWorksData_hotWorks_thumbnailImage(
-      [void Function(GHotWorksData_hotWorks_thumbnailImageBuilder b)
-          updates]) = _$GHotWorksData_hotWorks_thumbnailImage;
-
-  static void _initializeBuilder(
-          GHotWorksData_hotWorks_thumbnailImageBuilder b) =>
-      b..G__typename = 'ImageNode';
-
-  @override
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  @override
-  String get id;
-  @override
-  String get downloadURL;
-  static Serializer<GHotWorksData_hotWorks_thumbnailImage> get serializer =>
-      _$gHotWorksDataHotWorksThumbnailImageSerializer;
-
-  @override
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GHotWorksData_hotWorks_thumbnailImage.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GHotWorksData_hotWorks_thumbnailImage? fromJson(
-          Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GHotWorksData_hotWorks_thumbnailImage.serializer,
         json,
       );
 }

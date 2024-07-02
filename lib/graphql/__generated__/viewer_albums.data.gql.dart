@@ -98,7 +98,7 @@ abstract class GViewerAlbumsData_viewer_albums
   @override
   int get viewsCount;
   @override
-  GViewerAlbumsData_viewer_albums_thumbnailImage? get thumbnailImage;
+  String? get thumbnailImageURL;
   static Serializer<GViewerAlbumsData_viewer_albums> get serializer =>
       _$gViewerAlbumsDataViewerAlbumsSerializer;
 
@@ -111,45 +111,6 @@ abstract class GViewerAlbumsData_viewer_albums
   static GViewerAlbumsData_viewer_albums? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GViewerAlbumsData_viewer_albums.serializer,
-        json,
-      );
-}
-
-abstract class GViewerAlbumsData_viewer_albums_thumbnailImage
-    implements
-        Built<GViewerAlbumsData_viewer_albums_thumbnailImage,
-            GViewerAlbumsData_viewer_albums_thumbnailImageBuilder>,
-        _i2.GPartialAlbumFields_thumbnailImage {
-  GViewerAlbumsData_viewer_albums_thumbnailImage._();
-
-  factory GViewerAlbumsData_viewer_albums_thumbnailImage(
-      [void Function(GViewerAlbumsData_viewer_albums_thumbnailImageBuilder b)
-          updates]) = _$GViewerAlbumsData_viewer_albums_thumbnailImage;
-
-  static void _initializeBuilder(
-          GViewerAlbumsData_viewer_albums_thumbnailImageBuilder b) =>
-      b..G__typename = 'ImageNode';
-
-  @override
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  @override
-  String get id;
-  @override
-  String get downloadURL;
-  static Serializer<GViewerAlbumsData_viewer_albums_thumbnailImage>
-      get serializer => _$gViewerAlbumsDataViewerAlbumsThumbnailImageSerializer;
-
-  @override
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GViewerAlbumsData_viewer_albums_thumbnailImage.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GViewerAlbumsData_viewer_albums_thumbnailImage? fromJson(
-          Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GViewerAlbumsData_viewer_albums_thumbnailImage.serializer,
         json,
       );
 }
