@@ -10,7 +10,10 @@ class GenerationConstructionScreen extends HookConsumerWidget {
   @override
   Widget build(context, ref) {
     return Scaffold(
-      appBar: AppBar(title: const Text('画像生成')),
+      appBar: AppBar(
+        centerTitle: false,
+        title: const Text('画像生成'),
+      ),
       body: const Center(
         child: Text(
           '準備中',

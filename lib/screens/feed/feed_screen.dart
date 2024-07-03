@@ -4,7 +4,6 @@ import 'package:aipictors/screens/feed/feed_home_view.dart';
 import 'package:aipictors/screens/feed/feed_hot_works_view.dart';
 import 'package:aipictors/screens/feed/feed_latest_works_view.dart';
 import 'package:aipictors/screens/feed/feed_popular_works_view.dart';
-import 'package:aipictors/widgets/container/home_logo_container.dart';
 import 'package:aipictors/widgets/controller/feed_tab_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -27,7 +26,8 @@ class FeedScreen extends HookConsumerWidget {
       length: tabSize,
       child: Scaffold(
         appBar: AppBar(
-          title: const HomeLogoContainer(),
+          centerTitle: false,
+          title: const Text('フィード'),
           // actions: [
           //   IconButton(
           //     icon: const Icon(Icons.newspaper_rounded),

@@ -13,7 +13,7 @@ PODS:
     - Flutter
   - connectivity_plus (0.0.1):
     - Flutter
-    - FlutterMacOS
+    - ReachabilitySwift
   - device_info_plus (0.0.1):
     - Flutter
   - Firebase/Analytics (10.27.0):
@@ -247,6 +247,7 @@ PODS:
   - PromisesObjC (2.4.0)
   - PromisesSwift (2.4.0):
     - PromisesObjC (= 2.4.0)
+  - ReachabilitySwift (5.2.3)
   - RecaptchaInterop (100.0.0)
   - Sentry/HybridSDK (8.29.0)
   - sentry_flutter (8.3.0):
@@ -272,7 +273,7 @@ DEPENDENCIES:
   - app_links (from `.symlinks/plugins/app_links/ios`)
   - app_tracking_transparency (from `.symlinks/plugins/app_tracking_transparency/ios`)
   - audioplayers_darwin (from `.symlinks/plugins/audioplayers_darwin/ios`)
-  - connectivity_plus (from `.symlinks/plugins/connectivity_plus/darwin`)
+  - connectivity_plus (from `.symlinks/plugins/connectivity_plus/ios`)
   - device_info_plus (from `.symlinks/plugins/device_info_plus/ios`)
   - firebase_analytics (from `.symlinks/plugins/firebase_analytics/ios`)
   - firebase_app_installations (from `.symlinks/plugins/firebase_app_installations/ios`)
@@ -325,6 +326,7 @@ SPEC REPOS:
     - nanopb
     - PromisesObjC
     - PromisesSwift
+    - ReachabilitySwift
     - RecaptchaInterop
     - Sentry
 
@@ -336,7 +338,7 @@ EXTERNAL SOURCES:
   audioplayers_darwin:
     :path: ".symlinks/plugins/audioplayers_darwin/ios"
   connectivity_plus:
-    :path: ".symlinks/plugins/connectivity_plus/darwin"
+    :path: ".symlinks/plugins/connectivity_plus/ios"
   device_info_plus:
     :path: ".symlinks/plugins/device_info_plus/ios"
   firebase_analytics:
@@ -389,7 +391,7 @@ SPEC CHECKSUMS:
   app_tracking_transparency: e169b653478da7bb15a6c61209015378ca73e375
   AppAuth: 501c04eda8a8d11f179dbe8637b7a91bb7e5d2fa
   audioplayers_darwin: 877d9a4d06331c5c374595e46e16453ac7eafa40
-  connectivity_plus: ddd7f30999e1faaef5967c23d5b6d503d10434db
+  connectivity_plus: bf0076dd84a130856aa636df1c71ccaff908fa1d
   device_info_plus: 97af1d7e84681a90d0693e63169a5d50e0839a0d
   Firebase: 26b040b20866a55f55eb3611b9fcf3ae64816b86
   firebase_analytics: cc6e3ca8f159facf99fb1ceb2d81bda9cc811556
@@ -431,6 +433,7 @@ SPEC CHECKSUMS:
   path_provider_foundation: 2b6b4c569c0fb62ec74538f866245ac84301af46
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
   PromisesSwift: 9d77319bbe72ebf6d872900551f7eeba9bce2851
+  ReachabilitySwift: 7f151ff156cea1481a8411701195ac6a984f4979
   RecaptchaInterop: 7d1a4a01a6b2cb1610a47ef3f85f0c411434cb21
   Sentry: 016de45ee5ce5fca2a829996f1bfafeb5e62e8b4
   sentry_flutter: 5fb57c5b7e6427a9dc1fedde4269eb65823982d4

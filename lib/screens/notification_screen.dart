@@ -40,6 +40,7 @@ class NotificationScreen extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
+        centerTitle: false,
         title: Text('通知'.i18n),
       ),
       body: RefreshIndicator(

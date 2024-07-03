@@ -40,6 +40,7 @@ class ConfigScreen extends HookConsumerWidget {
     return Scaffold(
       key: const PageStorageKey('config'),
       appBar: AppBar(
+        centerTitle: false,
         title: Text('その他'.i18n),
       ),
       body: ListView(
