@@ -1,7 +1,0 @@
-# import '../fragments/image_generation_result_fields_fragment.graphql'
-
-mutation UpdateProtectedImageGenerationTask($input: UpdateProtectedImageGenerationResultInput!) {
-  updateProtectedImageGenerationResult(input: $input) {
-    ...ImageGenerationResultFields
-  }
-}

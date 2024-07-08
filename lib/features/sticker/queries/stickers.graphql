@@ -1,0 +1,7 @@
+# import '../../../fragments/partial_sticker_fields_fragment.graphql'
+
+query Stickers($offset: Int!, $limit: Int!, $where: StickersWhereInput) {
+  stickers(offset: $offset, limit: $limit, where: $where) {
+    ...PartialStickerFields
+  }
+}

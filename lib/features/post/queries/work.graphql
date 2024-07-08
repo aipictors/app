@@ -1,0 +1,27 @@
+# import '../../../fragments/work_user_fields_fragment.graphql'
+# import '../../../fragments/sub_work_fields_fragment.graphql'
+
+query Work($id: ID!) {
+  work(id: $id) {
+    id
+    title
+    description
+    isDeleted
+    imageURL
+    user {
+      ...WorkUserFields
+      isFollower
+      isFollowee
+      isMuted
+    }
+    tagNames
+    createdAt
+    likesCount
+    viewsCount
+    subWorks {
+      ...SubWorkFields
+    }
+    isLiked
+    # isBookmarked
+  }
+}

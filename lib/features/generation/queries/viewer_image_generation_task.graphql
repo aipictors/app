@@ -1,0 +1,7 @@
+# import '../../../graphql/fragments/image_generation_task_fields_fragment.graphql'
+
+query ViewerImageGenerationTask($id: ID!) {
+  imageGenerationTask(id: $id) {
+      ...ImageGenerationTaskFields
+    }
+}

@@ -1,9 +1,0 @@
-# import './fragments/partial_user_fields_fragment.graphql'
-
-query ViewerMutedUsers($offset: Int!, $limit: Int!) {
-  viewer {
-    mutedUsers(offset: $offset, limit: $limit) {
-      ...PartialUserFields
-    }
-  }
-}

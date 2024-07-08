@@ -1,6 +1,6 @@
 import 'package:aipictors/features/notification/widgets/notification_user_container.dart';
 import 'package:aipictors/features/post/widgets/sticker_image.dart';
-import 'package:aipictors/graphql/fragments/__generated__/comment_fields_fragment.data.gql.dart';
+import 'package:aipictors/fragments/__generated__/comment_fields_fragment.data.gql.dart';
 import 'package:aipictors/utils/to_readable_date_time.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';

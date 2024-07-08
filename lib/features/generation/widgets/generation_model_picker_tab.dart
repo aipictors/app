@@ -1,7 +1,7 @@
 import 'package:aipictors/default.i18n.dart';
+import 'package:aipictors/features/generation/queries/__generated__/image_models.data.gql.dart';
 import 'package:aipictors/features/generation/widgets/generation_liked_model_picker.dart';
 import 'package:aipictors/features/generation/widgets/generation_model_picker.dart';
-import 'package:aipictors/graphql/generation/__generated__/image_models.data.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/widgets/loading_progress.dart';
 import 'package:built_collection/built_collection.dart';

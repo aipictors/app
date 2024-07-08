@@ -1,7 +1,7 @@
 import 'package:aipictors/default.i18n.dart';
+import 'package:aipictors/features/generation/queries/__generated__/image_lora_models.data.gql.dart';
+import 'package:aipictors/features/generation/queries/__generated__/image_lora_models.req.gql.dart';
 import 'package:aipictors/features/generation/widgets/generation_lora_container.dart';
-import 'package:aipictors/graphql/generation/__generated__/image_lora_models.data.gql.dart';
-import 'package:aipictors/graphql/generation/__generated__/image_lora_models.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
 import 'package:aipictors/widgets/loading_progress.dart';

@@ -1,7 +1,0 @@
-# import './fragments/partial_work_fields_fragment.graphql'
-
-query BestWorks {
-  bestWorks(where: { rating: G }) {
-    ...PartialWorkFields
-  }
-}

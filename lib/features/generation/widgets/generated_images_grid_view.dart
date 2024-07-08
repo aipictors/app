@@ -1,8 +1,8 @@
 import 'package:aipictors/__generated__/schema.schema.gql.dart';
 import 'package:aipictors/enums/layout.dart';
+import 'package:aipictors/features/generation/queries/__generated__/viewer_image_generation_tasks.req.gql.dart';
 import 'package:aipictors/features/generation/utils/to_generation_image_url.dart';
 import 'package:aipictors/features/generation/widgets/generating_image_container.dart';
-import 'package:aipictors/graphql/generation/__generated__/viewer_image_generation_tasks.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';

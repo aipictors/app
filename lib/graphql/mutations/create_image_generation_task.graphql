@@ -1,7 +1,0 @@
-# import '../fragments/image_generation_task_fields_fragment.graphql'
-
-mutation CreateImageGenerationTask($input: CreateImageGenerationTaskInput!) {
-  createImageGenerationTask(input: $input) {
-    ...ImageGenerationTaskFields
-  }
-}

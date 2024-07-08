@@ -1,7 +1,0 @@
-# import './fragments/partial_user_fields_fragment.graphql'
-
-query Users($offset: Int!, $limit: Int!, $where: UsersWhereInput) {
-  users(offset: $offset, limit: $limit, where: $where) {
-    ...PartialUserFields
-  }
-}

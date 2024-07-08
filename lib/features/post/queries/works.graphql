@@ -1,0 +1,7 @@
+# import '../../../fragments/partial_work_fields_fragment.graphql'
+
+query Works($offset: Int!, $limit: Int!, $where: WorksWhereInput) {
+  works(offset: $offset, limit: $limit, where: $where) {
+    ...PartialWorkFields
+  }
+}

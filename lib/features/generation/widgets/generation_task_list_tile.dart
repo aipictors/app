@@ -1,4 +1,5 @@
 import 'package:aipictors/default.i18n.dart';
+import 'package:aipictors/features/generation/queries/__generated__/viewer_image_generation_tasks.data.gql.dart';
 import 'package:aipictors/features/generation/utils/reuse_image_generation_task.dart';
 import 'package:aipictors/features/generation/utils/to_generation_image_url.dart';
 import 'package:aipictors/features/generation/utils/to_generation_size_type_text.dart';
@@ -7,7 +8,6 @@ import 'package:aipictors/features/generation/widgets/generation_rating_containe
 import 'package:aipictors/features/generation/widgets/generation_setting_card.dart';
 import 'package:aipictors/features/generation/widgets/generation_task_options_container.dart';
 import 'package:aipictors/features/generation/widgets/prompts_container.dart';
-import 'package:aipictors/graphql/generation/__generated__/viewer_image_generation_tasks.data.gql.dart';
 import 'package:aipictors/providers/image_generation_provider.dart';
 import 'package:aipictors/widgets/image/feed_image.dart';
 import 'package:flutter/material.dart';

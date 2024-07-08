@@ -1,0 +1,17 @@
+# import 'work_user_fields_fragment.graphql'
+
+fragment CommentFields on CommentNode {
+  id
+  createdAt
+  text
+  user {
+    ...WorkUserFields
+    isMuted
+  }
+  sticker {
+    id
+    accessType
+    imageUrl
+    imageUrl
+  }
+}

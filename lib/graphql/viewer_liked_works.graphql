@@ -1,9 +1,0 @@
-# import './fragments/partial_work_fields_fragment.graphql'
-
-query ViewerLikedWorks($offset: Int!, $limit: Int!) {
-  viewer {
-    likedWorks(offset: $offset, limit: $limit) {
-      ...PartialWorkFields
-    }
-  }
-}

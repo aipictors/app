@@ -1,0 +1,9 @@
+# import 'partial_user_fields_fragment.graphql'
+
+fragment FollowNotificationFields on FollowNotificationNode {
+  id
+  createdAt
+  user {
+    ...PartialUserFields
+  }
+}

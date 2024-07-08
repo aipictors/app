@@ -1,9 +1,0 @@
-# import './fragments/partial_sticker_fields_fragment.graphql'
-
-query UserStickers($offset: Int!, $limit: Int!) {
-  viewer {
-    userStickers(offset: $offset, limit: $limit) {
-      ...PartialStickerFields
-    }
-  }
-}

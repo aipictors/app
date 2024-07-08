@@ -2,6 +2,7 @@ import 'package:aipictors/__generated__/schema.schema.gql.dart';
 import 'package:aipictors/features/generation/functions/delete_image_generation_task.dart';
 import 'package:aipictors/features/generation/functions/update_protected_image_generation_task.dart';
 import 'package:aipictors/features/generation/functions/update_rating_image_generation_task.dart';
+import 'package:aipictors/features/generation/queries/__generated__/viewer_image_generation_tasks.req.gql.dart';
 import 'package:aipictors/features/generation/utils/image_generation_task_creator.dart';
 import 'package:aipictors/features/generation/widgets/delete_image_generation_task.dart';
 import 'package:aipictors/features/generation/widgets/generating_image_container.dart';
@@ -9,7 +10,6 @@ import 'package:aipictors/features/generation/widgets/generation_model_picker_mo
 import 'package:aipictors/features/generation/widgets/generation_task_list_tile.dart';
 import 'package:aipictors/features/home/widgets/loading_screen.dart';
 import 'package:aipictors/graphql/__generated__/viewer_image_generation_status.data.gql.dart';
-import 'package:aipictors/graphql/generation/__generated__/viewer_image_generation_tasks.req.gql.dart';
 import 'package:aipictors/providers/audio_provider.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/providers/config_provider.dart';

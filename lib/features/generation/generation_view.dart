@@ -1,5 +1,7 @@
 import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/enums/generation_model_version.dart';
+import 'package:aipictors/features/generation/queries/__generated__/image_models.data.gql.dart';
+import 'package:aipictors/features/generation/queries/__generated__/image_models.req.gql.dart';
 import 'package:aipictors/features/generation/utils/image_generation_task_creator.dart';
 import 'package:aipictors/features/generation/utils/to_generation_lora_name_map.dart';
 import 'package:aipictors/features/generation/widgets/form/generation_prompt_form.dart';
@@ -17,8 +19,6 @@ import 'package:aipictors/features/generation/widgets/generation_sampler_picker.
 import 'package:aipictors/features/generation/widgets/generation_size_type_picker.dart';
 import 'package:aipictors/features/generation/widgets/generation_vae_picker.dart';
 import 'package:aipictors/graphql/__generated__/viewer_image_generation_status.data.gql.dart';
-import 'package:aipictors/graphql/generation/__generated__/image_models.data.gql.dart';
-import 'package:aipictors/graphql/generation/__generated__/image_models.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/providers/image_generation_provider.dart';
 import 'package:aipictors/providers/viewer_image_generation_status_provider.dart';

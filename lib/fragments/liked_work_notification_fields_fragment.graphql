@@ -1,0 +1,14 @@
+# import 'partial_work_fields_fragment.graphql'
+# import 'partial_user_fields_fragment.graphql'
+
+fragment LikedWorkNotificationFields on LikedWorkNotificationNode {
+  id
+  createdAt
+  isAnonymous
+  work {
+    ...PartialWorkFields
+  }
+  user {
+    ...PartialUserFields
+  }
+}

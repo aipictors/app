@@ -1,8 +1,8 @@
 import 'package:aipictors/default.i18n.dart';
+import 'package:aipictors/features/generation/queries/__generated__/image_models.data.gql.dart';
+import 'package:aipictors/features/generation/queries/__generated__/viewer_favorited_models.req.gql.dart';
 import 'package:aipictors/features/generation/utils/to_model_category_text.dart';
 import 'package:aipictors/features/home/widgets/loading_screen.dart';
-import 'package:aipictors/graphql/generation/__generated__/image_models.data.gql.dart';
-import 'package:aipictors/graphql/generation/__generated__/viewer_favorited_models.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
 import 'package:aipictors/widgets/list_tile/work_info_list_tile.dart';

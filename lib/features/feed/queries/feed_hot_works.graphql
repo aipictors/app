@@ -1,0 +1,16 @@
+# import '../../../fragments/partial_feed_work_fields_fragment.graphql'
+# import '../../../fragments/partial_user_fields_fragment.graphql'
+
+query FeedHotWorks {
+  hotWorks {
+    ...PartialFeedWorkFields
+    user {
+      ...PartialUserFields
+      isFollower
+      isFollowee
+      isMuted
+    }
+    isLiked
+    # isBookmarked
+  }
+}

@@ -1,7 +1,7 @@
 import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/features/config/widgets/muted_user_list_tile.dart';
 import 'package:aipictors/features/user/functions/mute_user.dart';
-import 'package:aipictors/graphql/fragments/__generated__/partial_user_fields_fragment.data.gql.dart';
+import 'package:aipictors/fragments/__generated__/partial_user_fields_fragment.data.gql.dart';
 import 'package:aipictors/widgets/dismissible_background.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';

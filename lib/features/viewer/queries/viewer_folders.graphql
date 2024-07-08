@@ -1,0 +1,9 @@
+# import '../../../fragments/partial_folder_fields_fragment.graphql'
+
+query ViewerFolders($offset: Int!, $limit: Int!) {
+  viewer {
+    folders(offset: $offset, limit: $limit) {
+      ...PartialFolderFields
+    }
+  }
+}
