@@ -1,5 +1,5 @@
 import 'package:aipictors/default.i18n.dart';
-import 'package:aipictors/graphql/__generated__/viewer_image_generation_status.data.gql.dart';
+import 'package:aipictors/features/viewer/queries/__generated__/viewer_image_generation_status.data.gql.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

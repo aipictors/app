@@ -1,6 +1,6 @@
 import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/features/home/widgets/loading_screen.dart';
-import 'package:aipictors/graphql/__generated__/viewer_works.req.gql.dart';
+import 'package:aipictors/features/viewer/queries/__generated__/viewer_works.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/utils/to_readable_number.dart';

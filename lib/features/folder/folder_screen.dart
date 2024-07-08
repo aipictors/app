@@ -1,7 +1,7 @@
+import 'package:aipictors/features/folder/queries/__generated__/folder.req.gql.dart';
 import 'package:aipictors/features/folder/widgets/folder_works_view.dart';
 import 'package:aipictors/features/home/widgets/data_not_found_error_screen.dart';
 import 'package:aipictors/features/home/widgets/loading_screen.dart';
-import 'package:aipictors/graphql/__generated__/folder.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/widgets/builder/operation_screen_builder.dart';
 import 'package:flutter/material.dart';

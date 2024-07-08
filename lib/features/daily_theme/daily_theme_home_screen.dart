@@ -1,7 +1,7 @@
 import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/features/daily_theme/widgets/daily_theme_title_list_tile.dart';
+import 'package:aipictors/features/feed/queries/__generated__/feed_daily_theme_works.req.gql.dart';
 import 'package:aipictors/features/feed/widgets/feed_work_list_tile.dart';
-import 'package:aipictors/graphql/__generated__/feed_daily_theme_works.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';

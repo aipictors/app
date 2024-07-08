@@ -18,7 +18,7 @@ import 'package:aipictors/features/generation/widgets/generation_model_picker_ta
 import 'package:aipictors/features/generation/widgets/generation_sampler_picker.dart';
 import 'package:aipictors/features/generation/widgets/generation_size_type_picker.dart';
 import 'package:aipictors/features/generation/widgets/generation_vae_picker.dart';
-import 'package:aipictors/graphql/__generated__/viewer_image_generation_status.data.gql.dart';
+import 'package:aipictors/features/viewer/queries/__generated__/viewer_image_generation_status.data.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/providers/image_generation_provider.dart';
 import 'package:aipictors/providers/viewer_image_generation_status_provider.dart';

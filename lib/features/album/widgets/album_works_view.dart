@@ -2,7 +2,7 @@ import 'package:aipictors/features/album/widgets/album_header.dart';
 import 'package:aipictors/features/album/widgets/album_work_list_tile.dart';
 import 'package:aipictors/features/config/widgets/about_follow_dialog.dart';
 import 'package:aipictors/features/user/functions/follow_user.dart';
-import 'package:aipictors/graphql/__generated__/album_works.req.gql.dart';
+import 'package:aipictors/features/album/queries/__generated__/album_works.req.gql.dart';
 import 'package:aipictors/providers/auth_user_id_provider.dart';
 import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/providers/home_tab_index_provider.dart';

@@ -1,6 +1,6 @@
 import 'package:aipictors/client.dart';
-import 'package:aipictors/graphql/__generated__/viewer_user.data.gql.dart';
-import 'package:aipictors/graphql/__generated__/viewer_user.req.gql.dart';
+import 'package:aipictors/features/viewer/queries/__generated__/viewer_user.data.gql.dart';
+import 'package:aipictors/features/viewer/queries/__generated__/viewer_user.req.gql.dart';
 import 'package:aipictors/utils/to_response_data.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

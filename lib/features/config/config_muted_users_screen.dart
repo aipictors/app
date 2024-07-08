@@ -1,7 +1,7 @@
 import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/features/config/widgets/dismissible_muted_user_list_view.dart';
 import 'package:aipictors/features/home/widgets/loading_screen.dart';
-import 'package:aipictors/graphql/__generated__/viewer_muted_users.req.gql.dart';
+import 'package:aipictors/features/viewer/queries/__generated__/viewer_muted_users.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';

@@ -5,8 +5,8 @@ import 'package:aipictors/features/notification/widgets/list_tile/notification_l
 import 'package:aipictors/features/notification/widgets/list_tile/notification_work_award_list_tile.dart';
 import 'package:aipictors/features/notification/widgets/list_tile/notification_work_comment_list_tile.dart';
 import 'package:aipictors/features/notification/widgets/list_tile/notification_work_comment_reply_list_tile.dart';
-import 'package:aipictors/graphql/__generated__/viewer_notifications.data.gql.dart';
-import 'package:aipictors/graphql/__generated__/viewer_notifications.req.gql.dart';
+import 'package:aipictors/features/viewer/queries/__generated__/viewer_notifications.data.gql.dart';
+import 'package:aipictors/features/viewer/queries/__generated__/viewer_notifications.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';

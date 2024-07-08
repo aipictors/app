@@ -1,4 +1,5 @@
-# import '../../../graphql/fragments/image_generation_task_fields_fragment.graphql'
+# import '../../../fragments/image_generation_task_fields_fragment.graphql'
+
 query ViewerImageGenerationTasks($offset: Int!, $limit: Int!, $where: ImageGenerationTasksWhereInput) {
 
   viewer {

@@ -1,9 +1,9 @@
 import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/features/post/functions/create_work_comment.dart';
 import 'package:aipictors/features/post/functions/create_work_like.dart';
+import 'package:aipictors/features/post/queries/__generated__/work_comments.req.gql.dart';
 import 'package:aipictors/features/post/widgets/about_like_dialog.dart';
 import 'package:aipictors/features/post/widgets/work_shortcut_action_stickers.dart';
-import 'package:aipictors/graphql/__generated__/work_comments.req.gql.dart';
 import 'package:aipictors/providers/auth_user_id_provider.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/providers/home_tab_index_provider.dart';

@@ -1,6 +1,6 @@
 import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/features/explorer/widgets/explorer_tab_controller.dart';
-import 'package:aipictors/features/promotion/promotions_screen.dart';
+import 'package:aipictors/features/information/promotions_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

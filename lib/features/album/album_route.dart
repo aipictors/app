@@ -3,7 +3,7 @@ import 'package:aipictors/features/album/widgets/album_action_modal_container.da
 import 'package:aipictors/features/album/widgets/album_works_view.dart';
 import 'package:aipictors/features/home/widgets/data_not_found_error_screen.dart';
 import 'package:aipictors/features/home/widgets/loading_screen.dart';
-import 'package:aipictors/graphql/__generated__/album.req.gql.dart';
+import 'package:aipictors/features/album/queries/__generated__/album.req.gql.dart';
 import 'package:aipictors/providers/audio_provider.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/widgets/builder/operation_screen_builder.dart';

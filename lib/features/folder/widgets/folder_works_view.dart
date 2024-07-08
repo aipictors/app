@@ -1,5 +1,5 @@
+import 'package:aipictors/features/folder/queries/__generated__/folder_works.req.gql.dart';
 import 'package:aipictors/features/post/widgets/work_grid_item_container.dart';
-import 'package:aipictors/graphql/__generated__/folder_works.req.gql.dart';
 import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
 import 'package:aipictors/widgets/works_grid_view.dart';

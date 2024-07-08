@@ -9,7 +9,7 @@ import 'package:aipictors/features/generation/widgets/generating_image_container
 import 'package:aipictors/features/generation/widgets/generation_model_picker_modal.dart';
 import 'package:aipictors/features/generation/widgets/generation_task_list_tile.dart';
 import 'package:aipictors/features/home/widgets/loading_screen.dart';
-import 'package:aipictors/graphql/__generated__/viewer_image_generation_status.data.gql.dart';
+import 'package:aipictors/features/viewer/queries/__generated__/viewer_image_generation_status.data.gql.dart';
 import 'package:aipictors/providers/audio_provider.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/providers/config_provider.dart';

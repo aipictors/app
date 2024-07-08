@@ -1,7 +1,7 @@
 import 'package:aipictors/features/post/widgets/selectable_comment_sticker_container.dart';
+import 'package:aipictors/features/sticker/queries/__generated__/user_stickers.data.gql.dart';
+import 'package:aipictors/features/sticker/queries/__generated__/user_stickers.req.gql.dart';
 import 'package:aipictors/features/sticker/widgets/stickers_header_container.dart';
-import 'package:aipictors/graphql/__generated__/user_stickers.data.gql.dart';
-import 'package:aipictors/graphql/__generated__/user_stickers.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/providers/stickers_container_cross_axis_count_provider.dart';

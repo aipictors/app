@@ -1,5 +1,5 @@
-import 'package:aipictors/graphql/mutations/__generated__/create_work_like.data.gql.dart';
-import 'package:aipictors/graphql/mutations/__generated__/create_work_like.req.gql.dart';
+import 'package:aipictors/features/post/mutations/__generated__/create_work_like.data.gql.dart';
+import 'package:aipictors/features/post/mutations/__generated__/create_work_like.req.gql.dart';
 import 'package:aipictors/utils/mutate.dart';
 
 typedef Fn<T> = T Function(T);

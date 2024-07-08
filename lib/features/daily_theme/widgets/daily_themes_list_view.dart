@@ -1,6 +1,6 @@
+import 'package:aipictors/features/daily_theme/queries/__generated__/daily_themes.req.gql.dart';
 import 'package:aipictors/features/daily_theme/widgets/daily_theme_list_tile.dart';
 import 'package:aipictors/features/home/widgets/loading_screen.dart';
-import 'package:aipictors/graphql/__generated__/daily_themes.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/utils/to_weekday.dart';

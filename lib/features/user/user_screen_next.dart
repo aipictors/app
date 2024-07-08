@@ -1,11 +1,11 @@
 import 'package:aipictors/delegates/tab_header_delegate.dart';
 import 'package:aipictors/features/home/widgets/loading_screen.dart';
+import 'package:aipictors/features/user/queries/__generated__/user.req.gql.dart';
 import 'package:aipictors/features/user/widgets/user_app_bar.dart';
 import 'package:aipictors/features/user/widgets/user_folders_container.dart';
 import 'package:aipictors/features/user/widgets/user_header_container.dart';
 import 'package:aipictors/features/user/widgets/user_profile_container.dart';
 import 'package:aipictors/features/user/widgets/user_works_container.dart';
-import 'package:aipictors/graphql/__generated__/user.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
 import 'package:aipictors/widgets/error/data_not_found_error_container.dart';

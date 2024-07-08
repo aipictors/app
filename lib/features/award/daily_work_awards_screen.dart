@@ -1,4 +1,4 @@
-import 'package:aipictors/graphql/__generated__/work_awards.req.gql.dart';
+import 'package:aipictors/features/award/queries/__generated__/work_awards.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';

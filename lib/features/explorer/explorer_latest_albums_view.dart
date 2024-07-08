@@ -1,6 +1,6 @@
 import 'package:aipictors/features/home/widgets/loading_screen.dart';
 import 'package:aipictors/features/user/widgets/album_list_tile.dart';
-import 'package:aipictors/graphql/__generated__/albums.req.gql.dart';
+import 'package:aipictors/features/album/queries/__generated__/albums.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';

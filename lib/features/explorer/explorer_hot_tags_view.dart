@@ -1,5 +1,5 @@
+import 'package:aipictors/features/explorer/queries/__generated__/hot_tags.req.gql.dart';
 import 'package:aipictors/features/explorer/widgets/tag_list_tile.dart';
-import 'package:aipictors/graphql/__generated__/hot_tags.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
 import 'package:aipictors/widgets/error/data_empty_error_container.dart';

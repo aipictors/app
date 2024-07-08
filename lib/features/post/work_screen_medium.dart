@@ -1,6 +1,7 @@
 import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/features/home/widgets/data_not_found_error_screen.dart';
 import 'package:aipictors/features/home/widgets/loading_screen.dart';
+import 'package:aipictors/features/post/queries/__generated__/work.req.gql.dart';
 import 'package:aipictors/features/post/widgets/deleted_work_error_container.dart';
 import 'package:aipictors/features/post/widgets/work_action_modal_container.dart';
 import 'package:aipictors/features/post/widgets/work_bottom_app_bar.dart';
@@ -11,7 +12,6 @@ import 'package:aipictors/features/post/widgets/work_text_container.dart';
 import 'package:aipictors/features/post/widgets/work_user_profile_container.dart';
 import 'package:aipictors/features/user/functions/follow_user.dart';
 import 'package:aipictors/features/user/widgets/follow_button.dart';
-import 'package:aipictors/graphql/__generated__/work.req.gql.dart';
 import 'package:aipictors/providers/auth_user_id_provider.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/widgets/builder/operation_screen_builder.dart';

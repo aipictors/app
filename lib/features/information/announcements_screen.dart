@@ -1,6 +1,6 @@
 import 'package:aipictors/features/home/widgets/loading_screen.dart';
+import 'package:aipictors/features/information/queries/__generated__/announcements.req.gql.dart';
 import 'package:aipictors/features/information/widgets/announcement_list_tile.dart';
-import 'package:aipictors/graphql/__generated__/announcements.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
 import 'package:aipictors/widgets/error/data_empty_error_container.dart';

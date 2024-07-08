@@ -1,6 +1,6 @@
+import 'package:aipictors/features/feed/queries/__generated__/feed_popular_works.req.gql.dart';
 import 'package:aipictors/features/feed/widgets/feed_work_list_tile.dart';
 import 'package:aipictors/features/feed/widgets/home_message_list_tile.dart';
-import 'package:aipictors/graphql/__generated__/feed_popular_works.req.gql.dart';
 import 'package:aipictors/providers/audio_provider.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/providers/config_provider.dart';
