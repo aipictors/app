@@ -1,6 +1,6 @@
 import 'package:aipictors/providers/interactive_image_dialog_matrix4_provider.dart';
-import 'package:aipictors/screens/error/unexpected_error_screen.dart';
-import 'package:aipictors/widgets/container/loading_container.dart';
+import 'package:aipictors/routes/home/widgets/unexpected_error_screen.dart';
+import 'package:aipictors/widgets/loading_progress.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -99,7 +99,7 @@ class InteractiveImageDialog extends HookConsumerWidget {
                       httpHeaders: headers,
                       width: double.infinity,
                       progressIndicatorBuilder: (_, __, ___) {
-                        return const LoadingContainer();
+                        return const LoadingProgress();
                       },
                       errorWidget: (context, uri, error) {
                         return const UnexpectedErrorScreen();

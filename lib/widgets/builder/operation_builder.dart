@@ -1,7 +1,7 @@
-import 'package:aipictors/widgets/container/error/data_not_found_error_container.dart';
-import 'package:aipictors/widgets/container/error/operation_error_container.dart';
-import 'package:aipictors/widgets/container/error/unexpected_error_container.dart';
-import 'package:aipictors/widgets/container/loading_container.dart';
+import 'package:aipictors/widgets/error/data_not_found_error_container.dart';
+import 'package:aipictors/widgets/error/operation_error_container.dart';
+import 'package:aipictors/widgets/error/unexpected_error_container.dart';
+import 'package:aipictors/widgets/loading_progress.dart';
 import 'package:ferry/ferry.dart';
 import 'package:ferry_flutter/ferry_flutter.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +39,7 @@ class OperationBuilder<T, U> extends HookConsumerWidget {
         }
 
         if (response == null || response.loading) {
-          return const LoadingContainer();
+          return const LoadingProgress();
         }
 
         if (response.graphqlErrors != null) {

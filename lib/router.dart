@@ -1,64 +1,64 @@
-import 'package:aipictors/screens/account/account_create_screen.dart';
-import 'package:aipictors/screens/account/account_delete_screen.dart';
-import 'package:aipictors/screens/account/account_login_screen.dart';
-import 'package:aipictors/screens/account/account_password_screen.dart';
-import 'package:aipictors/screens/account/account_screen.dart';
-import 'package:aipictors/screens/album/album_create_screen.dart';
-import 'package:aipictors/screens/album/album_report_screen.dart';
-import 'package:aipictors/screens/album/album_screen.dart';
-import 'package:aipictors/screens/album/album_update_screen.dart';
-import 'package:aipictors/screens/award/novel_awards_screen.dart';
-import 'package:aipictors/screens/award/work_awards_screen.dart';
-import 'package:aipictors/screens/comment/comment_report_screen.dart';
-import 'package:aipictors/screens/config/config_code_screen.dart';
-import 'package:aipictors/screens/config/config_language_screen.dart';
-import 'package:aipictors/screens/config/config_muted_tags_screen.dart';
-import 'package:aipictors/screens/config/config_muted_users_screen.dart';
-import 'package:aipictors/screens/config/config_notification_screen.dart';
-import 'package:aipictors/screens/config/config_pass_screen.dart';
-import 'package:aipictors/screens/config/config_profile_screen.dart';
-import 'package:aipictors/screens/config/config_theme_screen.dart';
-import 'package:aipictors/screens/daily_theme/daily_theme_screen.dart';
-import 'package:aipictors/screens/daily_theme/daily_themes_month_screen.dart';
-import 'package:aipictors/screens/daily_theme/daily_themes_screen.dart';
-import 'package:aipictors/screens/debug_screen.dart';
-import 'package:aipictors/screens/explorer/explorer_screen.dart';
-import 'package:aipictors/screens/feedback_screen.dart';
-import 'package:aipictors/screens/folder/folder_create_screen.dart';
-import 'package:aipictors/screens/folder/folder_report_screen.dart';
-import 'package:aipictors/screens/folder/folder_screen.dart';
-import 'package:aipictors/screens/folder/folder_update_screen.dart';
-import 'package:aipictors/screens/generation/generation_task_screen.dart';
-import 'package:aipictors/screens/guideline_screen.dart';
-import 'package:aipictors/screens/information/information_screen.dart';
-import 'package:aipictors/screens/information/promotion_screen.dart';
-import 'package:aipictors/screens/license_screen.dart';
-import 'package:aipictors/screens/login_screen.dart';
-import 'package:aipictors/screens/privacy_screen.dart';
-import 'package:aipictors/screens/root_screen.dart';
-import 'package:aipictors/screens/search/search_screen.dart';
-import 'package:aipictors/screens/secret_screen.dart';
-import 'package:aipictors/screens/sticker/sticker_report_screen.dart';
-import 'package:aipictors/screens/sticker/sticker_screen.dart';
-import 'package:aipictors/screens/sticker/stickers_screen.dart';
-import 'package:aipictors/screens/surveys_screen.dart';
-import 'package:aipictors/screens/tag/tag_screen.dart';
-import 'package:aipictors/screens/terms_eula_screen.dart';
-import 'package:aipictors/screens/terms_screen.dart';
-import 'package:aipictors/screens/tutorial_screen.dart';
-import 'package:aipictors/screens/user/user_followees_screen.dart';
-import 'package:aipictors/screens/user/user_followers_screen.dart';
-import 'package:aipictors/screens/user/user_report_screen.dart';
-import 'package:aipictors/screens/user/user_screen.dart';
-import 'package:aipictors/screens/viewer/viewer_albums_screen.dart';
-import 'package:aipictors/screens/viewer/viewer_folders_screen.dart';
-import 'package:aipictors/screens/viewer/viewer_liked_works_screen.dart';
-import 'package:aipictors/screens/viewer/viewer_screen.dart';
-import 'package:aipictors/screens/viewer/viewer_works_screen.dart';
-import 'package:aipictors/screens/work/work_create_screen.dart';
-import 'package:aipictors/screens/work/work_report_screen.dart';
-import 'package:aipictors/screens/work/work_screen.dart';
-import 'package:aipictors/screens/work/work_update_screen.dart';
+import 'package:aipictors/routes/account/account_create_route.dart';
+import 'package:aipictors/routes/account/account_delete_route.dart';
+import 'package:aipictors/routes/account/account_login_route.dart';
+import 'package:aipictors/routes/account/account_password_route.dart';
+import 'package:aipictors/routes/account/route.dart';
+import 'package:aipictors/routes/album/album_create_route.dart';
+import 'package:aipictors/routes/album/album_report_route.dart';
+import 'package:aipictors/routes/album/album_route.dart';
+import 'package:aipictors/routes/album/album_update_route.dart';
+import 'package:aipictors/routes/award/novel_awards_screen.dart';
+import 'package:aipictors/routes/award/work_awards_screen.dart';
+import 'package:aipictors/routes/comments/comment_report_screen.dart';
+import 'package:aipictors/routes/config/config_code_screen.dart';
+import 'package:aipictors/routes/config/config_language_screen.dart';
+import 'package:aipictors/routes/config/config_muted_tags_screen.dart';
+import 'package:aipictors/routes/config/config_muted_users_screen.dart';
+import 'package:aipictors/routes/config/config_notification_screen.dart';
+import 'package:aipictors/routes/config/config_pass_screen.dart';
+import 'package:aipictors/routes/config/config_profile_screen.dart';
+import 'package:aipictors/routes/config/config_theme_screen.dart';
+import 'package:aipictors/routes/daily_theme/daily_theme_screen.dart';
+import 'package:aipictors/routes/daily_theme/daily_themes_month_screen.dart';
+import 'package:aipictors/routes/daily_theme/daily_themes_screen.dart';
+import 'package:aipictors/routes/debug/debug_screen.dart';
+import 'package:aipictors/routes/explorer/explorer_screen.dart';
+import 'package:aipictors/routes/feedback/feedback_screen.dart';
+import 'package:aipictors/routes/folder/folder_create_screen.dart';
+import 'package:aipictors/routes/folder/folder_report_screen.dart';
+import 'package:aipictors/routes/folder/folder_screen.dart';
+import 'package:aipictors/routes/folder/folder_update_screen.dart';
+import 'package:aipictors/routes/generation/generation_task_screen.dart';
+import 'package:aipictors/routes/guideline/guideline_screen.dart';
+import 'package:aipictors/routes/home/root_screen.dart';
+import 'package:aipictors/routes/information/information_screen.dart';
+import 'package:aipictors/routes/license/license_screen.dart';
+import 'package:aipictors/routes/login/login_screen.dart';
+import 'package:aipictors/routes/my/viewer_albums_screen.dart';
+import 'package:aipictors/routes/my/viewer_folders_screen.dart';
+import 'package:aipictors/routes/my/viewer_liked_works_screen.dart';
+import 'package:aipictors/routes/my/viewer_screen.dart';
+import 'package:aipictors/routes/my/viewer_works_screen.dart';
+import 'package:aipictors/routes/post/work_create_screen.dart';
+import 'package:aipictors/routes/post/work_report_screen.dart';
+import 'package:aipictors/routes/post/work_screen.dart';
+import 'package:aipictors/routes/post/work_update_screen.dart';
+import 'package:aipictors/routes/privacy/privacy_screen.dart';
+import 'package:aipictors/routes/promotion/promotion_screen.dart';
+import 'package:aipictors/routes/search/search_screen.dart';
+import 'package:aipictors/routes/secret/secret_screen.dart';
+import 'package:aipictors/routes/sticker/sticker_report_screen.dart';
+import 'package:aipictors/routes/sticker/sticker_screen.dart';
+import 'package:aipictors/routes/sticker/stickers_screen.dart';
+import 'package:aipictors/routes/survey/surveys_screen.dart';
+import 'package:aipictors/routes/tag/tag_screen.dart';
+import 'package:aipictors/routes/terms/terms_eula_screen.dart';
+import 'package:aipictors/routes/terms/terms_screen.dart';
+import 'package:aipictors/routes/tutorial/tutorial_screen.dart';
+import 'package:aipictors/routes/user/user_followees_screen.dart';
+import 'package:aipictors/routes/user/user_followers_screen.dart';
+import 'package:aipictors/routes/user/user_report_screen.dart';
+import 'package:aipictors/routes/user/user_screen.dart';
 import 'package:aipictors/utils/name_extractor.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/widgets.dart';
@@ -111,23 +111,23 @@ final _routes = [
     },
   ),
   GoRoute(
-    path: '/albums/:album_id',
+    path: '/albums/:album',
     builder: (context, state) {
-      final albumId = state.pathParameters['album_id'];
+      final albumId = state.pathParameters['album'];
       return AlbumScreen(albumId: albumId!);
     },
   ),
   GoRoute(
-    path: '/albums/:album_id/report',
+    path: '/albums/:album/report',
     builder: (context, state) {
-      final albumId = state.pathParameters['album_id'];
+      final albumId = state.pathParameters['album'];
       return AlbumReportScreen(albumId: albumId!);
     },
   ),
   GoRoute(
-    path: '/albums/:album_id/update',
+    path: '/albums/:album/update',
     builder: (context, state) {
-      final albumId = state.pathParameters['album_id'];
+      final albumId = state.pathParameters['album'];
       return AlbumUpdateScreen(albumId: albumId!);
     },
   ),
@@ -144,16 +144,10 @@ final _routes = [
     },
   ),
   GoRoute(
-    path: '/comments/:comment_id/report',
+    path: '/comments/:comment/report',
     builder: (context, state) {
-      final commentId = state.pathParameters['comment_id'];
+      final commentId = state.pathParameters['comment'];
       return CommentReportScreen(commentId: commentId!);
-    },
-  ),
-  GoRoute(
-    path: '/config/code',
-    builder: (context, state) {
-      return const ConfigCodeScreen();
     },
   ),
   GoRoute(
@@ -217,9 +211,9 @@ final _routes = [
     },
   ),
   GoRoute(
-    path: '/daily_themes/:theme_id',
+    path: '/daily_themes/:theme',
     builder: (context, state) {
-      final themeId = state.pathParameters['theme_id'];
+      final themeId = state.pathParameters['theme'];
       return DailyThemeScreen(themeId: themeId!);
     },
   ),
@@ -236,23 +230,23 @@ final _routes = [
     },
   ),
   GoRoute(
-    path: '/folders/:folder_id',
+    path: '/folders/:folder',
     builder: (context, state) {
-      final folderId = state.pathParameters['folder_id'];
+      final folderId = state.pathParameters['folder'];
       return FolderScreen(folderId: folderId!);
     },
   ),
   GoRoute(
-    path: '/folders/:folder_id/report',
+    path: '/folders/:folder/report',
     builder: (context, state) {
-      final folderId = state.pathParameters['folder_id'];
+      final folderId = state.pathParameters['folder'];
       return FolderReportScreen(folderId: folderId!);
     },
   ),
   GoRoute(
-    path: '/folders/:folder_id/update',
+    path: '/folders/:folder/update',
     builder: (context, state) {
-      final folderId = state.pathParameters['folder_id'];
+      final folderId = state.pathParameters['folder'];
       return FolderUpdateScreen(folderId: folderId!);
     },
   ),
@@ -263,9 +257,9 @@ final _routes = [
     },
   ),
   GoRoute(
-    path: '/promotions/:promotion_id',
+    path: '/promotions/:promotion',
     builder: (context, state) {
-      final promotionId = state.pathParameters['promotion_id'];
+      final promotionId = state.pathParameters['promotion'];
       return PromotionScreen(promotionId: promotionId!);
     },
   ),
@@ -276,16 +270,16 @@ final _routes = [
     },
   ),
   GoRoute(
-    path: '/stickers/:sticker_id',
+    path: '/stickers/:sticker',
     builder: (context, state) {
-      final stickerId = state.pathParameters['sticker_id'];
+      final stickerId = state.pathParameters['sticker'];
       return StickerScreen(stickerId: stickerId!);
     },
   ),
   GoRoute(
-    path: '/stickers/:sticker_id/report',
+    path: '/stickers/:sticker/report',
     builder: (context, state) {
-      final stickerId = state.pathParameters['sticker_id'];
+      final stickerId = state.pathParameters['sticker'];
       return StickerReportScreen(stickerId: stickerId!);
     },
   ),
@@ -297,30 +291,30 @@ final _routes = [
     },
   ),
   GoRoute(
-    path: '/users/:user_id',
+    path: '/users/:user',
     builder: (context, state) {
-      final userId = state.pathParameters['user_id'];
+      final userId = state.pathParameters['user'];
       return UserScreen(userId: userId!);
     },
   ),
   GoRoute(
-    path: '/users/:user_id/followees',
+    path: '/users/:user/followees',
     builder: (context, state) {
-      final userId = state.pathParameters['user_id'];
+      final userId = state.pathParameters['user'];
       return UserFolloweesScreen(userId: userId!);
     },
   ),
   GoRoute(
-    path: '/users/:user_id/followers',
+    path: '/users/:user/followers',
     builder: (context, state) {
-      final userId = state.pathParameters['user_id'];
+      final userId = state.pathParameters['user'];
       return UserFollowersScreen(userId: userId!);
     },
   ),
   GoRoute(
-    path: '/users/:user_id/report',
+    path: '/users/:user/report',
     builder: (context, state) {
-      final userId = state.pathParameters['user_id'];
+      final userId = state.pathParameters['user'];
       return UserReportScreen(userId: userId!);
     },
   ),
@@ -361,23 +355,23 @@ final _routes = [
     },
   ),
   GoRoute(
-    path: '/works/:work_id',
+    path: '/works/:post',
     builder: (context, state) {
-      final workId = state.pathParameters['work_id'];
+      final workId = state.pathParameters['post'];
       return WorkScreen(workId: workId!);
     },
   ),
   GoRoute(
-    path: '/works/:work_id/report',
+    path: '/works/:work/report',
     builder: (context, state) {
-      final workId = state.pathParameters['work_id'];
+      final workId = state.pathParameters['work'];
       return WorkReportScreen(workId: workId!);
     },
   ),
   GoRoute(
-    path: '/works/:work_id/update',
+    path: '/works/:work/update',
     builder: (context, state) {
-      final workId = state.pathParameters['work_id'];
+      final workId = state.pathParameters['work'];
       return WorkUpdateScreen(workId: workId!);
     },
   ),
@@ -407,9 +401,9 @@ final _routes = [
     },
   ),
   GoRoute(
-    path: '/generation/tasks/:task_nano_id',
+    path: '/generation/tasks/:task',
     builder: (context, state) {
-      final taskNanoId = state.pathParameters['task_nano_id'];
+      final taskNanoId = state.pathParameters['task'];
       return GenerationTaskScreen(taskNanoId: taskNanoId!);
     },
   ),

@@ -1,6 +1,6 @@
+import 'package:aipictors/widgets/list_tile_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:aipictors/widgets/container/list_tile_image_container.dart';
 
 /// 作品・シリーズ・コレクション等に利用できる、汎用ウィジェット
 class WorkInfoListTile extends HookConsumerWidget {
