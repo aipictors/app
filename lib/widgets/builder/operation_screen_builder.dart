@@ -1,7 +1,7 @@
-import 'package:aipictors/routes/home/widgets/data_not_found_error_screen.dart';
-import 'package:aipictors/routes/home/widgets/loading_screen.dart';
-import 'package:aipictors/routes/home/widgets/operation_error_screen.dart';
-import 'package:aipictors/routes/home/widgets/unexpected_error_screen.dart';
+import 'package:aipictors/features/home/widgets/data_not_found_error_screen.dart';
+import 'package:aipictors/features/home/widgets/loading_screen.dart';
+import 'package:aipictors/features/home/widgets/operation_error_screen.dart';
+import 'package:aipictors/features/home/widgets/unexpected_error_screen.dart';
 import 'package:ferry/ferry.dart';
 import 'package:ferry_flutter/ferry_flutter.dart';
 import 'package:flutter/material.dart';

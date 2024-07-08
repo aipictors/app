@@ -1,5 +1,5 @@
+import 'package:aipictors/features/home/widgets/unexpected_error_screen.dart';
 import 'package:aipictors/providers/interactive_image_dialog_matrix4_provider.dart';
-import 'package:aipictors/routes/home/widgets/unexpected_error_screen.dart';
 import 'package:aipictors/widgets/loading_progress.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';

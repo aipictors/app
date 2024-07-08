@@ -1,9 +1,9 @@
 import 'dart:io';
 
+import 'package:aipictors/features/config/utils/to_color.dart';
+import 'package:aipictors/features/config/utils/to_theme_mode.dart';
 import 'package:aipictors/repositories/config_repository.dart';
 import 'package:aipictors/states/config_state.dart';
-import 'package:aipictors/utils/to_color.dart';
-import 'package:aipictors/utils/to_theme_mode.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
