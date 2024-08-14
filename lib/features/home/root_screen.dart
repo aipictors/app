@@ -32,7 +32,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:url_launcher/url_launcher.dart';
+// import 'package:url_launcher/url_launcher.dart';
 
 class RootScreen extends HookConsumerWidget {
   const RootScreen({super.key});
@@ -160,11 +160,11 @@ class RootScreen extends HookConsumerWidget {
   // アプリストアを開く
   Future onOpenAppStore(BuildContext context, WidgetRef ref) async {
     final config = ref.read(configProvider);
-    final isAvailable = await canLaunchUrl(config.pageAppStoreURL);
-    if (!isAvailable) return;
-    await launchUrl(
-      config.pageAppStoreURL,
-      mode: LaunchMode.externalApplication,
-    );
+    // final isAvailable = await canLaunchUrl(config.pageAppStoreURL);
+    // if (!isAvailable) return;
+    // await launchUrl(
+    //   config.pageAppStoreURL,
+    //   mode: LaunchMode.externalApplication,
+    // );
   }
 }

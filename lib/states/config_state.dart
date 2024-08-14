@@ -7,7 +7,8 @@ import 'package:aipictors/utils/to_readable_time.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:sentry_flutter/sentry_flutter.dart';
+
+// import 'package:sentry_flutter/sentry_flutter.dart';
 
 part 'config_state.freezed.dart';
 
@@ -75,7 +76,7 @@ class ConfigState with _$ConfigState {
       }
       return value;
     } catch (exception, stackTrace) {
-      Sentry.captureException(exception, stackTrace: stackTrace);
+      // Sentry.captureException(exception, stackTrace: stackTrace);
       return null;
     }
   }
@@ -102,7 +103,7 @@ class ConfigState with _$ConfigState {
       }
       return false;
     } catch (exception, stackTrace) {
-      Sentry.captureException(exception, stackTrace: stackTrace);
+      // Sentry.captureException(exception, stackTrace: stackTrace);
       return true;
     }
   }
@@ -132,7 +133,7 @@ class ConfigState with _$ConfigState {
       }
       return false;
     } catch (exception, stackTrace) {
-      Sentry.captureException(exception, stackTrace: stackTrace);
+      // Sentry.captureException(exception, stackTrace: stackTrace);
       return true;
     }
   }

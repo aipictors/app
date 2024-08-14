@@ -1,5 +1,7 @@
-# Vitepress
-/.vitepress/cache
+# GraphQL
+**/*.gql.dart
+**/*.freezed.dart
+**/*.g.dart
 
 # Bun
 /node_modules

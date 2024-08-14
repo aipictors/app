@@ -4,7 +4,7 @@ import 'package:aipictors/features/login/mutations/__generated__/login_with_pass
 import 'package:aipictors/utils/to_response_data.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
-import 'package:sentry_flutter/sentry_flutter.dart';
+// import 'package:sentry_flutter/sentry_flutter.dart';
 
 Future<GLoginWithPasswordData?> loginWithPassword({
   required String login,
@@ -33,7 +33,7 @@ Future<GLoginWithPasswordData?> loginWithPassword({
 
     return data;
   } catch (exception, stackTrace) {
-    Sentry.captureException(exception, stackTrace: stackTrace);
+    // Sentry.captureException(exception, stackTrace: stackTrace);
     rethrow;
   }
 }

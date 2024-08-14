@@ -2,7 +2,7 @@ import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/providers/config_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:url_launcher/url_launcher.dart';
+// import 'package:url_launcher/url_launcher.dart';
 
 /// メンテナンス
 class MaintenanceScreen extends HookConsumerWidget {
@@ -27,16 +27,16 @@ class MaintenanceScreen extends HookConsumerWidget {
             ),
             const SizedBox(height: 16),
             Text(config.messageMaintenance),
-            const SizedBox(height: 40),
-            FilledButton.tonal(
-              style: FilledButton.styleFrom(
-                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-              ),
-              onPressed: () {
-                onOpenDiscord(context, ref);
-              },
-              child: Text('ディスコで確認する'.i18n),
-            ),
+            // const SizedBox(height: 40),
+            // FilledButton.tonal(
+            //   style: FilledButton.styleFrom(
+            //     tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            //   ),
+            //   onPressed: () {
+            //     onOpenDiscord(context, ref);
+            //   },
+            //   child: Text('ディスコで確認する'.i18n),
+            // ),
           ]),
         ),
       ),
@@ -45,11 +45,11 @@ class MaintenanceScreen extends HookConsumerWidget {
 
   Future onOpenDiscord(BuildContext context, WidgetRef ref) async {
     final config = ref.read(configProvider);
-    final isAvailable = await canLaunchUrl(config.pageDiscordURL);
-    if (!isAvailable) return;
-    await launchUrl(
-      config.pageDiscordURL,
-      mode: LaunchMode.externalApplication,
-    );
+    // final isAvailable = await canLaunchUrl(config.pageDiscordURL);
+    // if (!isAvailable) return;
+    // await launchUrl(
+    //   config.pageDiscordURL,
+    //   mode: LaunchMode.externalApplication,
+    // );
   }
 }

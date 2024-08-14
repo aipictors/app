@@ -8,7 +8,7 @@ import 'package:aipictors/widgets/builder/operation_builder.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:sentry_flutter/sentry_flutter.dart';
+// import 'package:sentry_flutter/sentry_flutter.dart';
 
 /// 設定・通知
 class ConfigNotificationScreen extends HookConsumerWidget {
@@ -65,10 +65,10 @@ class ConfigNotificationScreen extends HookConsumerWidget {
                     });
                     client.value?.requestController.add(request);
                   } catch (exception, stackTrace) {
-                    await Sentry.captureException(
-                      exception,
-                      stackTrace: stackTrace,
-                    );
+                    // await Sentry.captureException(
+                    //   exception,
+                    //   stackTrace: stackTrace,
+                    // );
                     ScaffoldMessenger.of(context)
                       ..hideCurrentSnackBar()
                       ..showSnackBar(

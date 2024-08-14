@@ -15,7 +15,7 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:url_launcher/url_launcher.dart';
+// import 'package:url_launcher/url_launcher.dart';
 
 /// 設定
 class ConfigScreen extends HookConsumerWidget {
@@ -397,42 +397,42 @@ class ConfigScreen extends HookConsumerWidget {
 
   Future onOpenRepository(BuildContext context, WidgetRef ref) async {
     final config = ref.read(configProvider);
-    final isAvailable = await canLaunchUrl(config.pageRepositoryURL);
-    if (!isAvailable) return;
-    await launchUrl(
-      config.pageRepositoryURL,
-      mode: LaunchMode.externalApplication,
-    );
+    // final isAvailable = await canLaunchUrl(config.pageRepositoryURL);
+    // if (!isAvailable) return;
+    // await launchUrl(
+    //   config.pageRepositoryURL,
+    //   mode: LaunchMode.externalApplication,
+    // );
   }
 
   Future onOpenDiscord(BuildContext context, WidgetRef ref) async {
     final config = ref.read(configProvider);
-    final isAvailable = await canLaunchUrl(config.pageDiscordURL);
-    if (!isAvailable) return;
-    await launchUrl(
-      config.pageDiscordURL,
-      mode: LaunchMode.externalApplication,
-    );
+    // final isAvailable = await canLaunchUrl(config.pageDiscordURL);
+    // if (!isAvailable) return;
+    // await launchUrl(
+    //   config.pageDiscordURL,
+    //   mode: LaunchMode.externalApplication,
+    // );
   }
 
   Future onOpenTwitter(BuildContext context, WidgetRef ref) async {
     final config = ref.read(configProvider);
-    final isAvailable = await canLaunchUrl(config.pageTwitterURL);
-    if (!isAvailable) return;
-    await launchUrl(
-      config.pageTwitterURL,
-      mode: LaunchMode.externalApplication,
-    );
+    // final isAvailable = await canLaunchUrl(config.pageTwitterURL);
+    // if (!isAvailable) return;
+    // await launchUrl(
+    //   config.pageTwitterURL,
+    //   mode: LaunchMode.externalApplication,
+    // );
   }
 
   Future onOpenTwitterPrompton(BuildContext context, WidgetRef ref) async {
     final config = ref.read(configProvider);
-    final isAvailable = await canLaunchUrl(config.pageTwitterPromptonURL);
-    if (!isAvailable) return;
-    await launchUrl(
-      config.pageTwitterPromptonURL,
-      mode: LaunchMode.externalApplication,
-    );
+    // final isAvailable = await canLaunchUrl(config.pageTwitterPromptonURL);
+    // if (!isAvailable) return;
+    // await launchUrl(
+    //   config.pageTwitterPromptonURL,
+    //   mode: LaunchMode.externalApplication,
+    // );
   }
 
   Future onShowLogoutDialog(BuildContext context, WidgetRef ref) async {

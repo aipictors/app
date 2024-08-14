@@ -1,10 +1,9 @@
-import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/utils/to_readable_date.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:url_launcher/link.dart';
+// import 'package:url_launcher/link.dart';
 
 class PromotionListTile extends HookConsumerWidget {
   const PromotionListTile({
@@ -70,26 +69,26 @@ class PromotionListTile extends HookConsumerWidget {
               ),
             ),
           ),
-          if (pageURL != null) const SizedBox(height: 8),
-          if (pageURL != null)
-            SizedBox(
-              width: double.infinity,
-              child: Link(
-                uri: Uri.parse(pageURL!).replace(queryParameters: {
-                  'prefers-color-scheme': config.isDarkMode ? 'dark' : 'light',
-                }),
-                target: LinkTarget.blank,
-                builder: (context, openLink) {
-                  return FilledButton.tonal(
-                    style: FilledButton.styleFrom(
-                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    ),
-                    onPressed: openLink,
-                    child: Text('ページを開く'.i18n),
-                  );
-                },
-              ),
-            ),
+          // if (pageURL != null) const SizedBox(height: 8),
+          // if (pageURL != null)
+          //   SizedBox(
+          //     width: double.infinity,
+          //     child: Link(
+          //       uri: Uri.parse(pageURL!).replace(queryParameters: {
+          //         'prefers-color-scheme': config.isDarkMode ? 'dark' : 'light',
+          //       }),
+          //       target: LinkTarget.blank,
+          //       builder: (context, openLink) {
+          //         return FilledButton.tonal(
+          //           style: FilledButton.styleFrom(
+          //             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          //           ),
+          //           onPressed: openLink,
+          //           child: Text('ページを開く'.i18n),
+          //         );
+          //       },
+          //     ),
+          //   ),
         ],
       ),
     );

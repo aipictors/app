@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_badger/flutter_app_badger.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:sentry_flutter/sentry_flutter.dart';
+// import 'package:sentry_flutter/sentry_flutter.dart';
 
 typedef Listener = void Function(
   AsyncValue<RemoteMessage?>? _,
@@ -38,7 +38,7 @@ Listener messageListener(BuildContext context, WidgetRef ref) {
         );
       }
     } catch (error, stackTrace) {
-      Sentry.captureException(error, stackTrace: stackTrace);
+      // Sentry.captureException(error, stackTrace: stackTrace);
       rethrow;
     }
   };

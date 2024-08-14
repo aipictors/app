@@ -1,6 +1,3 @@
 schema: "https://aipics.fly.dev"
 documents:
-  - "lib/graphql/fragments/*.graphql"
-  - "lib/graphql/mutations/*.graphql"
-  - "lib/graphql/queries/*.graphql"
-  - "lib/graphql/*.graphql"
+  - "lib/**/*.graphql"

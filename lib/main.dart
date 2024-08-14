@@ -9,7 +9,7 @@ import 'package:aipictors/repositories/translation_repository.dart';
 import 'package:aipictors/utils/to_locale.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+// import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_in_app_messaging/firebase_in_app_messaging.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
@@ -26,10 +26,10 @@ void main() async {
   // Firebaseを初期化する
   await Firebase.initializeApp();
 
-  PlatformDispatcher.instance.onError = (error, stack) {
-    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
-    return true;
-  };
+  // PlatformDispatcher.instance.onError = (error, stack) {
+  //   FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+  //   return true;
+  // };
 
   // 設定を初期化する
   await DefaultConfig.activate();
@@ -65,9 +65,10 @@ void main() async {
   FirebaseMessaging.onBackgroundMessage(backgroundMessageHandler);
 
   // Crashlyticsを初期化する
-  FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
+  // 動作しないので廃止
+  // FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
 
-  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+  // FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
 
   // ユーザのアプリ内の言語設定を取得する
   final language = const ConfigRepository().language;
@@ -130,4 +131,13 @@ void main() async {
       );
     },
   );
+
+  // runApp(
+  //   ProviderScope(
+  //     child: I18n(
+  //       initialLocale: toLocale(language),
+  //       child: const App(),
+  //     ),
+  //   ),
+  // );
 }
