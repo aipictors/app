@@ -14,7 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
+import 'dart:developer';
 class DailyThemesListView extends HookConsumerWidget {
   const DailyThemesListView({
     super.key,
@@ -37,6 +37,8 @@ class DailyThemesListView extends HookConsumerWidget {
     }
 
     final useCache = useState(true);
+    print(month);
+    print(year);
 
     final request = GDailyThemesReq((builder) {
       builder
@@ -80,7 +82,7 @@ class DailyThemesListView extends HookConsumerWidget {
             response.dataSource == DataSource.Cache) {
           return const LoadingProgress();
         }
-
+        inspect(dailyThemeList);
         return ListView.builder(
           padding: const EdgeInsets.only(bottom: 16, left: 0, right: 0),
           itemCount: dailyThemeList.length,
