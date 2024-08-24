@@ -104,36 +104,37 @@ class WorkCommentContainer extends HookConsumerWidget {
                           );
                         },
                       ),
-                      for (final response in commentList[index].responses)
-                        WorkCommentListTile(
-                          comment: response,
-                          isResponse: true,
-                          onTap: () {
-                            if (commentList[index].user!.id ==
-                                authUserId.value) {
-                              return;
-                            }
-                            onOpenDetailsModal(context,
-                                workId: workId,
-                                commentId: commentList[index].id);
-                          },
-                          onLongPress: () {
-                            onOpenActionModal(
-                              context,
-                              commentId: response.id,
-                              userId: response.user!.id,
-                              isMutedUser: response.user!.isMuted,
-                              isViewer: authUserId.value == response.user!.id,
-                              onDeleteComment: () async {
-                                await deleteComment((builder) {
-                                  return builder
-                                    ..vars.input.commentId = response.id;
-                                });
-                                client.value?.requestController.add(request);
-                              },
-                            );
-                          },
-                        ),
+                      if (commentList[index].responses != null)
+                        for (final response in commentList[index].responses!)
+                          WorkCommentListTile(
+                            comment: response,
+                            isResponse: true,
+                            onTap: () {
+                              if (commentList[index].user!.id ==
+                                  authUserId.value) {
+                                return;
+                              }
+                              onOpenDetailsModal(context,
+                                  workId: workId,
+                                  commentId: commentList[index].id);
+                            },
+                            onLongPress: () {
+                              onOpenActionModal(
+                                context,
+                                commentId: response.id,
+                                userId: response.user!.id,
+                                isMutedUser: response.user!.isMuted,
+                                isViewer: authUserId.value == response.user!.id,
+                                onDeleteComment: () async {
+                                  await deleteComment((builder) {
+                                    return builder
+                                      ..vars.input.commentId = response.id;
+                                  });
+                                  client.value?.requestController.add(request);
+                                },
+                              );
+                            },
+                          ),
                     ],
                   );
                 });
