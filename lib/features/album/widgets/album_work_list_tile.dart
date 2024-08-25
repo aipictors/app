@@ -1,4 +1,5 @@
 import 'package:aipictors/default.i18n.dart';
+import 'package:aipictors/features/album/widgets/__generated__/album_work_list_tile.data.gql.dart';
 import 'package:aipictors/features/feed/widgets/comment_modal_container.dart';
 import 'package:aipictors/features/feed/widgets/feed_like_button.dart';
 import 'package:aipictors/features/feed/widgets/share_work_button.dart';
@@ -14,37 +15,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 class AlbumWorkListTile extends HookConsumerWidget {
   const AlbumWorkListTile({
     super.key,
-    required this.workId,
-    required this.workTitle,
-    required this.workImageURL,
-    required this.workCreatedAt,
-    required this.workImageAspectRatio,
-    required this.userId,
-    required this.userName,
-    required this.isLiked,
-    required this.likesCount,
-    required this.commentsCount,
+    required this.work,
   });
 
-  final String workId;
-
-  final String workTitle;
-
-  final int workCreatedAt;
-
-  final double workImageAspectRatio;
-
-  final String? workImageURL;
-
-  final int likesCount;
-
-  final int commentsCount;
-
-  final String userId;
-
-  final String userName;
-
-  final bool isLiked;
+  final GAlbumWorkListTile work;
 
   @override
   Widget build(context, ref) {
@@ -52,7 +26,7 @@ class AlbumWorkListTile extends HookConsumerWidget {
 
     return ListTile(
       onTap: () {
-        context.push('/works/$workId');
+        context.push('/works/$work.id');
       },
       minVerticalPadding: 0,
       contentPadding: const EdgeInsets.only(
@@ -66,17 +40,17 @@ class AlbumWorkListTile extends HookConsumerWidget {
         children: [
           const SizedBox(height: 16),
           FeedImage(
-            imageURL: workImageURL,
-            imageAspectRatio: workImageAspectRatio,
+            imageURL: work.imageURL,
+            imageAspectRatio: work.imageAspectRatio,
           ),
           const SizedBox(height: 12),
           Text(
-            workTitle,
+            work.title,
             style: Theme.of(context).textTheme.bodyMedium,
           ),
           const SizedBox(height: 4),
           Text(
-            toReadableDateTime(workCreatedAt),
+            toReadableDateTime(work.createdAt),
             style: Theme.of(context).textTheme.bodySmall,
           ),
         ],
@@ -88,30 +62,30 @@ class AlbumWorkListTile extends HookConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(children: [
-                if (authUserId.value != userId)
+                if (authUserId.value != work.user.id)
                   FeedLikeButton(
-                    count: likesCount,
-                    isActive: isLiked,
+                    count: work.likesCount,
+                    isActive: work.isLiked,
                     onTap: () async {
                       onCreateLike(context);
                     },
                   ),
-                if (authUserId.value == userId)
+                if (authUserId.value == work.user.id)
                   const Icon(
                     Icons.favorite_rounded,
                     size: 28,
                   ),
-                if (authUserId.value == userId) const SizedBox(width: 8),
-                if (authUserId.value == userId)
+                if (authUserId.value == work.user.id) const SizedBox(width: 8),
+                if (authUserId.value == work.user.id)
                   Text(
-                    likesCount.toString(),
+                    work.likesCount.toString(),
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                 const SizedBox(width: 8),
                 ShareWorkButton(
-                  workId: workId,
-                  workTitle: workTitle,
-                  userName: userName,
+                  workId: work.id,
+                  workTitle: work.title,
+                  userName: work.user.name,
                 ),
               ]),
               FilledButton.tonal(
@@ -125,7 +99,7 @@ class AlbumWorkListTile extends HookConsumerWidget {
                   '_COMMENTS_COUNT_件のコメント'.i18n.replaceAllMapped(
                     RegExp(r'_COMMENTS_COUNT_'),
                     (match) {
-                      return commentsCount.toString();
+                      return work.commentsCount.toString();
                     },
                   ),
                 ),
@@ -143,11 +117,11 @@ class AlbumWorkListTile extends HookConsumerWidget {
     FirebaseAnalytics.instance.logEvent(
       name: 'create_work_like',
       parameters: {
-        'item_id': workId,
+        'item_id': work.id,
       },
     );
     createWorkLike((builder) {
-      return builder..vars.input.workId = workId;
+      return builder..vars.input.workId = work.id;
     });
   }
 
@@ -158,9 +132,9 @@ class AlbumWorkListTile extends HookConsumerWidget {
   void onOpenWork(BuildContext context) {
     FirebaseAnalytics.instance.logSelectContent(
       contentType: 'work',
-      itemId: workId,
+      itemId: work.id,
     );
-    context.push('/works/$workId');
+    context.push('/works/${work.id}');
   }
 
   /// 作品のコメントを開く
@@ -169,7 +143,7 @@ class AlbumWorkListTile extends HookConsumerWidget {
       context: context,
       isScrollControlled: true,
       builder: (context) {
-        return CommentModalContainer(workId: workId);
+        return CommentModalContainer(workId: work.id);
       },
     );
   }

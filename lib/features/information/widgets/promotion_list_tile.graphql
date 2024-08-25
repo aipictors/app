@@ -1,0 +1,9 @@
+fragment PromotionListTile on PromotionNode {
+  id
+  title
+  description
+  imageURL
+  pageURL
+  startDateTime
+  endDateTime
+}

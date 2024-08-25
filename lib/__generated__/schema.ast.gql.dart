@@ -5226,6 +5226,20 @@ const EnablePromptonRequestChatInput = _i1.InputObjectTypeDefinitionNode(
     )
   ],
 );
+const FavoritedStickerType = _i1.EnumTypeDefinitionNode(
+  name: _i1.NameNode(value: 'FavoritedStickerType'),
+  directives: [],
+  values: [
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'comment'),
+      directives: [],
+    ),
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'reply'),
+      directives: [],
+    ),
+  ],
+);
 const FeaturePromptonRequestWhereInput = _i1.InputObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'FeaturePromptonRequestWhereInput'),
   directives: [],
@@ -11722,6 +11736,25 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'AlbumNode'),
         isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'updateFavoritedSticker'),
+      directives: [],
+      args: [
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'input'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'UpdateFavoritedStickerInput'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        )
+      ],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'StickerNode'),
+        isNonNull: false,
       ),
     ),
     _i1.FieldDefinitionNode(
@@ -21723,6 +21756,39 @@ const UpdateAlbumInput = _i1.InputObjectTypeDefinitionNode(
     ),
   ],
 );
+const UpdateFavoritedStickerInput = _i1.InputObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'UpdateFavoritedStickerInput'),
+  directives: [],
+  fields: [
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'isFavorited'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Boolean'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'stickerId'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'ID'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'type'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'FavoritedStickerType'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    ),
+  ],
+);
 const UpdateFolderInput = _i1.InputObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'UpdateFolderInput'),
   directives: [],
@@ -24478,6 +24544,46 @@ const Viewer = _i1.ObjectTypeDefinitionNode(
       type: _i1.ListTypeNode(
         type: _i1.NamedTypeNode(
           name: _i1.NameNode(value: 'ImageModelNode'),
+          isNonNull: true,
+        ),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'favoritedStickers'),
+      directives: [],
+      args: [
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'limit'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'Int'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        ),
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'offset'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'Int'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        ),
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'type'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'FavoritedStickerType'),
+            isNonNull: false,
+          ),
+          defaultValue: null,
+        ),
+      ],
+      type: _i1.ListTypeNode(
+        type: _i1.NamedTypeNode(
+          name: _i1.NameNode(value: 'StickerNode'),
           isNonNull: true,
         ),
         isNonNull: true,
@@ -27733,6 +27839,7 @@ const document = _i1.DocumentNode(definitions: [
   DeleteWorkLikeInput,
   Direction,
   EnablePromptonRequestChatInput,
+  FavoritedStickerType,
   FeaturePromptonRequestWhereInput,
   FeedNode,
   FeedPostNode,
@@ -27889,6 +27996,7 @@ const document = _i1.DocumentNode(definitions: [
   UpdateAccountPasswordInput,
   UpdateAccountWebFcmTokenInput,
   UpdateAlbumInput,
+  UpdateFavoritedStickerInput,
   UpdateFolderInput,
   UpdateImageGenerationMemoInput,
   UpdateNoteInput,

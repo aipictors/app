@@ -2289,6 +2289,23 @@ abstract class GEnablePromptonRequestChatInput
       );
 }
 
+class GFavoritedStickerType extends EnumClass {
+  const GFavoritedStickerType._(String name) : super(name);
+
+  static const GFavoritedStickerType comment = _$gFavoritedStickerTypecomment;
+
+  static const GFavoritedStickerType reply = _$gFavoritedStickerTypereply;
+
+  static Serializer<GFavoritedStickerType> get serializer =>
+      _$gFavoritedStickerTypeSerializer;
+
+  static BuiltSet<GFavoritedStickerType> get values =>
+      _$gFavoritedStickerTypeValues;
+
+  static GFavoritedStickerType valueOf(String name) =>
+      _$gFavoritedStickerTypeValueOf(name);
+}
+
 abstract class GFeaturePromptonRequestWhereInput
     implements
         Built<GFeaturePromptonRequestWhereInput,
@@ -4610,6 +4627,34 @@ abstract class GUpdateAlbumInput
   static GUpdateAlbumInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUpdateAlbumInput.serializer,
+        json,
+      );
+}
+
+abstract class GUpdateFavoritedStickerInput
+    implements
+        Built<GUpdateFavoritedStickerInput,
+            GUpdateFavoritedStickerInputBuilder> {
+  GUpdateFavoritedStickerInput._();
+
+  factory GUpdateFavoritedStickerInput(
+          [void Function(GUpdateFavoritedStickerInputBuilder b) updates]) =
+      _$GUpdateFavoritedStickerInput;
+
+  bool get isFavorited;
+  String get stickerId;
+  GFavoritedStickerType get type;
+  static Serializer<GUpdateFavoritedStickerInput> get serializer =>
+      _$gUpdateFavoritedStickerInputSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GUpdateFavoritedStickerInput.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GUpdateFavoritedStickerInput? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GUpdateFavoritedStickerInput.serializer,
         json,
       );
 }

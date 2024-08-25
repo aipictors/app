@@ -1,0 +1,10 @@
+# import './widgets/album_action_list.graphql'
+# import './widgets/album_list_item_header.graphql'
+# import './widgets/album_work_list_tile.graphql'
+
+query Album($id: ID!) {
+  album(id: $id) {
+    ...AlbumActionList
+    ...AlbumListItemHeader
+  }
+}

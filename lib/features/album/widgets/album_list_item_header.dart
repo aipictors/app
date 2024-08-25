@@ -1,3 +1,4 @@
+import 'package:aipictors/features/album/widgets/__generated__/album_list_item_header.data.gql.dart';
 import 'package:aipictors/features/notification/widgets/notification_user_container.dart';
 import 'package:aipictors/features/user/widgets/follow_button.dart';
 import 'package:aipictors/providers/auth_user_id_provider.dart';
@@ -5,32 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class AlbumHeader extends HookConsumerWidget {
-  const AlbumHeader({
+class AlbumListItemHeader extends HookConsumerWidget {
+  const AlbumListItemHeader({
     super.key,
-    required this.albumId,
-    required this.albumTitle,
-    required this.albumDescription,
-    required this.userId,
-    required this.userName,
-    required this.userIconImageURL,
-    required this.isFollowee,
+    required this.album,
     required this.onFollow,
   });
 
-  final String albumId;
-
-  final String albumTitle;
-
-  final String albumDescription;
-
-  final String userId;
-
-  final String userName;
-
-  final String? userIconImageURL;
-
-  final bool isFollowee;
+  final GAlbumListItemHeader album;
 
   final Future<dynamic> Function() onFollow;
 
@@ -48,17 +31,17 @@ class AlbumHeader extends HookConsumerWidget {
             Expanded(
               child: GestureDetector(
                 onTap: () {
-                  context.push('/users/$userId');
+                  context.push('/users/${album.user.id}');
                 },
                 child: NotificationUserContainer(
-                  userName: userName,
-                  userIconImageURL: userIconImageURL,
+                  userName: album.user.name,
+                  userIconImageURL: album.user.iconUrl,
                 ),
               ),
             ),
-            if (authUserId.value != userId)
+            if (authUserId.value != album.user.id)
               FollowButton(
-                isActive: isFollowee,
+                isActive: album.user.isFollowee,
                 onPressed: () {
                   return onFollow();
                 },
@@ -70,14 +53,14 @@ class AlbumHeader extends HookConsumerWidget {
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Text(
-            albumTitle,
+            album.title,
             style: Theme.of(context).textTheme.titleMedium,
           ),
         ),
         const SizedBox(height: 4),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Text(albumDescription),
+          child: Text(album.description),
         ),
         const SizedBox(height: 16),
       ],

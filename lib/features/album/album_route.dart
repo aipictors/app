@@ -1,9 +1,11 @@
 import 'package:aipictors/default.i18n.dart';
-import 'package:aipictors/features/album/widgets/album_action_modal_container.dart';
-import 'package:aipictors/features/album/widgets/album_works_view.dart';
+import 'package:aipictors/features/album/__generated__/album.req.gql.g.dart';
+import 'package:aipictors/features/album/queries/__generated__/album.req.gql.dart';
+import 'package:aipictors/features/album/widgets/__generated__/album_action_list.data.gql.dart';
+import 'package:aipictors/features/album/widgets/album_action_list.dart';
+import 'package:aipictors/features/album/widgets/album_work_list_view.dart';
 import 'package:aipictors/features/home/widgets/data_not_found_error_screen.dart';
 import 'package:aipictors/features/home/widgets/loading_screen.dart';
-import 'package:aipictors/features/album/queries/__generated__/album.req.gql.dart';
 import 'package:aipictors/providers/audio_provider.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/widgets/builder/operation_screen_builder.dart';
@@ -70,20 +72,13 @@ class AlbumScreen extends HookConsumerWidget {
                   IconButton(
                     icon: const Icon(Icons.more_horiz_rounded),
                     onPressed: () {
-                      onOpenActionModal(
-                        context,
-                        userId: album.user.id,
-                        userName: album.user.name,
-                        albumTitle: album.title,
-                        albumSlug: album.slug!,
-                        isMutedUser: album.user.isMuted == true,
-                      );
+                      onOpenActionModal(context, album: album.user);
                     },
                   ),
                 ],
               ),
               extendBody: true,
-              body: AlbumWorksView(
+              body: AlbumWorkListView(
                 client: client.value!,
                 albumId: albumId,
                 albumTitle: album.title,
@@ -102,23 +97,12 @@ class AlbumScreen extends HookConsumerWidget {
 
   onOpenActionModal(
     BuildContext context, {
-    required String userId,
-    required String userName,
-    required String albumTitle,
-    required String albumSlug,
-    required bool isMutedUser,
+    required GAlbumActionList album,
   }) {
     showModalBottomSheet(
       context: context,
       builder: (context) {
-        return AlbumActionModalContainer(
-          albumId: albumId,
-          albumTitle: albumTitle,
-          albumSlug: albumSlug,
-          userId: userId,
-          userName: userName,
-          isMutedUser: isMutedUser,
-        );
+        return AlbumActionList(album: album);
       },
     );
   }

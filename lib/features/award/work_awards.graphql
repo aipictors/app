@@ -1,12 +1,7 @@
-# import '../../../fragments/partial_work_fields_fragment.graphql'
+# import './widgets/work_award_grid_item.graphql'
 
 query WorkAwards($offset: Int!, $limit: Int!, $where: WorkAwardsWhereInput!) {
   workAwards(offset: $offset, limit: $limit, where: $where) {
-    id
-    index
-    dateText
-    work {
-      ...PartialWorkFields
-    }
+    ...WorkAwardGridItem
   }
 }

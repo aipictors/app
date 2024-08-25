@@ -1,5 +1,6 @@
 import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/features/album/utils/to_share_album_text.dart';
+import 'package:aipictors/features/album/widgets/__generated__/album_action_list.data.gql.dart';
 import 'package:aipictors/features/post/widgets/modal_mute_user_list_tile.dart';
 import 'package:aipictors/features/user/functions/mute_user.dart';
 import 'package:aipictors/features/user/utils/to_share_user_text.dart';
@@ -12,28 +13,13 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class AlbumActionModalContainer extends HookConsumerWidget {
-  const AlbumActionModalContainer({
+class AlbumActionList extends HookConsumerWidget {
+  const AlbumActionList({
     super.key,
-    required this.albumId,
-    required this.albumTitle,
-    required this.albumSlug,
-    required this.userId,
-    required this.userName,
-    required this.isMutedUser,
+    required this.album,
   });
 
-  final String albumId;
-
-  final String albumTitle;
-
-  final String albumSlug;
-
-  final String userId;
-
-  final String userName;
-
-  final bool isMutedUser;
+  final GAlbumActionList album;
 
   @override
   Widget build(context, ref) {
@@ -50,10 +36,10 @@ class AlbumActionModalContainer extends HookConsumerWidget {
             ModalShareListTile(
               titleText: 'シリーズをシェアする'.i18n,
               shareText: toShareAlbumText(
-                userId: userId,
-                albumSlug: albumSlug,
-                albumTitle: albumTitle,
-                userName: userName,
+                userId: album.user.id,
+                albumSlug: album.slug ?? '',
+                albumTitle: album.title,
+                userName: album.user.name,
                 hashtagText: config.xPostText,
               ),
               onTap: () {
@@ -63,21 +49,21 @@ class AlbumActionModalContainer extends HookConsumerWidget {
             ModalShareListTile(
               titleText: 'ユーザをシェアする'.i18n,
               shareText: toShareUserText(
-                userId: userId,
-                userName: userName,
+                userId: album.user.id,
+                userName: album.user.name,
                 hashtagText: config.xPostText,
               ),
               onTap: () {
                 context.pop();
               },
             ),
-            if (authUserId.value != userId) ...[
+            if (authUserId.value != album.user.id) ...[
               const Divider(),
 
               /// ログイン時のみミュートボタンを表示する
               if (authUserId.value != null)
                 ModalMuteUserListTile(
-                  isActive: isMutedUser,
+                  isActive: album.user.isMuted,
                   onTap: () {
                     return onMuteUser(context);
                   },
@@ -86,14 +72,14 @@ class AlbumActionModalContainer extends HookConsumerWidget {
                 titleText: 'シリーズを報告する'.i18n,
                 onTap: () {
                   context.pop();
-                  context.push('/albums/$albumId/report');
+                  context.push('/albums/${album.id}/report');
                 },
               ),
               ModalReportListTile(
                 titleText: 'ユーザを報告する'.i18n,
                 onTap: () {
                   context.pop();
-                  context.push('/users/$userId/report');
+                  context.push('/users/${album.user.id}/report');
                 },
               ),
             ],

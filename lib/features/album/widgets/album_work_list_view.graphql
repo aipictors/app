@@ -1,0 +1,11 @@
+# import './album_work_list_tile.graphql'
+
+query AlbumWorkListView($albumId: ID!, $offset: Int!, $limit: Int!) {
+  album(id: $albumId) {
+    id
+    isLiked
+    works(offset: $offset, limit: $limit) {
+      ...AlbumWorkListTile
+    }
+  }
+}

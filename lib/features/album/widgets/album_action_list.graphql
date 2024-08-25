@@ -1,0 +1,10 @@
+fragment AlbumActionList on AlbumNode {
+  id
+  slug
+  title
+  user {
+    id
+    name
+    isMuted
+  }
+}

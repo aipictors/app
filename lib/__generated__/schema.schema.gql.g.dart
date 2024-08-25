@@ -171,6 +171,28 @@ final BuiltSet<GDirection> _$gDirectionValues =
   _$gDirectionDESC,
 ]);
 
+const GFavoritedStickerType _$gFavoritedStickerTypecomment =
+    const GFavoritedStickerType._('comment');
+const GFavoritedStickerType _$gFavoritedStickerTypereply =
+    const GFavoritedStickerType._('reply');
+
+GFavoritedStickerType _$gFavoritedStickerTypeValueOf(String name) {
+  switch (name) {
+    case 'comment':
+      return _$gFavoritedStickerTypecomment;
+    case 'reply':
+      return _$gFavoritedStickerTypereply;
+    default:
+      throw new ArgumentError(name);
+  }
+}
+
+final BuiltSet<GFavoritedStickerType> _$gFavoritedStickerTypeValues =
+    new BuiltSet<GFavoritedStickerType>(const <GFavoritedStickerType>[
+  _$gFavoritedStickerTypecomment,
+  _$gFavoritedStickerTypereply,
+]);
+
 const GFolderMode _$gFolderModeCOMIC_HORIZONTAL =
     const GFolderMode._('COMIC_HORIZONTAL');
 const GFolderMode _$gFolderModeCOMIC_VERTICAL =
@@ -1246,6 +1268,8 @@ Serializer<GDirection> _$gDirectionSerializer = new _$GDirectionSerializer();
 Serializer<GEnablePromptonRequestChatInput>
     _$gEnablePromptonRequestChatInputSerializer =
     new _$GEnablePromptonRequestChatInputSerializer();
+Serializer<GFavoritedStickerType> _$gFavoritedStickerTypeSerializer =
+    new _$GFavoritedStickerTypeSerializer();
 Serializer<GFeaturePromptonRequestWhereInput>
     _$gFeaturePromptonRequestWhereInputSerializer =
     new _$GFeaturePromptonRequestWhereInputSerializer();
@@ -1448,6 +1472,9 @@ Serializer<GUpdateAccountWebFcmTokenInput>
     new _$GUpdateAccountWebFcmTokenInputSerializer();
 Serializer<GUpdateAlbumInput> _$gUpdateAlbumInputSerializer =
     new _$GUpdateAlbumInputSerializer();
+Serializer<GUpdateFavoritedStickerInput>
+    _$gUpdateFavoritedStickerInputSerializer =
+    new _$GUpdateFavoritedStickerInputSerializer();
 Serializer<GUpdateFolderInput> _$gUpdateFolderInputSerializer =
     new _$GUpdateFolderInputSerializer();
 Serializer<GUpdateImageGenerationMemoInput>
@@ -7237,6 +7264,24 @@ class _$GEnablePromptonRequestChatInputSerializer
   }
 }
 
+class _$GFavoritedStickerTypeSerializer
+    implements PrimitiveSerializer<GFavoritedStickerType> {
+  @override
+  final Iterable<Type> types = const <Type>[GFavoritedStickerType];
+  @override
+  final String wireName = 'GFavoritedStickerType';
+
+  @override
+  Object serialize(Serializers serializers, GFavoritedStickerType object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      object.name;
+
+  @override
+  GFavoritedStickerType deserialize(Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      GFavoritedStickerType.valueOf(serialized as String);
+}
+
 class _$GFeaturePromptonRequestWhereInputSerializer
     implements StructuredSerializer<GFeaturePromptonRequestWhereInput> {
   @override
@@ -11556,6 +11601,67 @@ class _$GUpdateAlbumInputSerializer
                   specifiedType: const FullType(
                       BuiltList, const [const FullType(String)]))!
               as BuiltList<Object?>);
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GUpdateFavoritedStickerInputSerializer
+    implements StructuredSerializer<GUpdateFavoritedStickerInput> {
+  @override
+  final Iterable<Type> types = const [
+    GUpdateFavoritedStickerInput,
+    _$GUpdateFavoritedStickerInput
+  ];
+  @override
+  final String wireName = 'GUpdateFavoritedStickerInput';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GUpdateFavoritedStickerInput object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'isFavorited',
+      serializers.serialize(object.isFavorited,
+          specifiedType: const FullType(bool)),
+      'stickerId',
+      serializers.serialize(object.stickerId,
+          specifiedType: const FullType(String)),
+      'type',
+      serializers.serialize(object.type,
+          specifiedType: const FullType(GFavoritedStickerType)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GUpdateFavoritedStickerInput deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GUpdateFavoritedStickerInputBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'isFavorited':
+          result.isFavorited = serializers.deserialize(value,
+              specifiedType: const FullType(bool))! as bool;
+          break;
+        case 'stickerId':
+          result.stickerId = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'type':
+          result.type = serializers.deserialize(value,
+                  specifiedType: const FullType(GFavoritedStickerType))!
+              as GFavoritedStickerType;
           break;
       }
     }
@@ -31844,6 +31950,126 @@ class GUpdateAlbumInputBuilder
       }
       rethrow;
     }
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GUpdateFavoritedStickerInput extends GUpdateFavoritedStickerInput {
+  @override
+  final bool isFavorited;
+  @override
+  final String stickerId;
+  @override
+  final GFavoritedStickerType type;
+
+  factory _$GUpdateFavoritedStickerInput(
+          [void Function(GUpdateFavoritedStickerInputBuilder)? updates]) =>
+      (new GUpdateFavoritedStickerInputBuilder()..update(updates))._build();
+
+  _$GUpdateFavoritedStickerInput._(
+      {required this.isFavorited, required this.stickerId, required this.type})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        isFavorited, r'GUpdateFavoritedStickerInput', 'isFavorited');
+    BuiltValueNullFieldError.checkNotNull(
+        stickerId, r'GUpdateFavoritedStickerInput', 'stickerId');
+    BuiltValueNullFieldError.checkNotNull(
+        type, r'GUpdateFavoritedStickerInput', 'type');
+  }
+
+  @override
+  GUpdateFavoritedStickerInput rebuild(
+          void Function(GUpdateFavoritedStickerInputBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GUpdateFavoritedStickerInputBuilder toBuilder() =>
+      new GUpdateFavoritedStickerInputBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GUpdateFavoritedStickerInput &&
+        isFavorited == other.isFavorited &&
+        stickerId == other.stickerId &&
+        type == other.type;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, isFavorited.hashCode);
+    _$hash = $jc(_$hash, stickerId.hashCode);
+    _$hash = $jc(_$hash, type.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GUpdateFavoritedStickerInput')
+          ..add('isFavorited', isFavorited)
+          ..add('stickerId', stickerId)
+          ..add('type', type))
+        .toString();
+  }
+}
+
+class GUpdateFavoritedStickerInputBuilder
+    implements
+        Builder<GUpdateFavoritedStickerInput,
+            GUpdateFavoritedStickerInputBuilder> {
+  _$GUpdateFavoritedStickerInput? _$v;
+
+  bool? _isFavorited;
+  bool? get isFavorited => _$this._isFavorited;
+  set isFavorited(bool? isFavorited) => _$this._isFavorited = isFavorited;
+
+  String? _stickerId;
+  String? get stickerId => _$this._stickerId;
+  set stickerId(String? stickerId) => _$this._stickerId = stickerId;
+
+  GFavoritedStickerType? _type;
+  GFavoritedStickerType? get type => _$this._type;
+  set type(GFavoritedStickerType? type) => _$this._type = type;
+
+  GUpdateFavoritedStickerInputBuilder();
+
+  GUpdateFavoritedStickerInputBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _isFavorited = $v.isFavorited;
+      _stickerId = $v.stickerId;
+      _type = $v.type;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GUpdateFavoritedStickerInput other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GUpdateFavoritedStickerInput;
+  }
+
+  @override
+  void update(void Function(GUpdateFavoritedStickerInputBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GUpdateFavoritedStickerInput build() => _build();
+
+  _$GUpdateFavoritedStickerInput _build() {
+    final _$result = _$v ??
+        new _$GUpdateFavoritedStickerInput._(
+            isFavorited: BuiltValueNullFieldError.checkNotNull(
+                isFavorited, r'GUpdateFavoritedStickerInput', 'isFavorited'),
+            stickerId: BuiltValueNullFieldError.checkNotNull(
+                stickerId, r'GUpdateFavoritedStickerInput', 'stickerId'),
+            type: BuiltValueNullFieldError.checkNotNull(
+                type, r'GUpdateFavoritedStickerInput', 'type'));
     replace(_$result);
     return _$result;
   }

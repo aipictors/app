@@ -1,0 +1,17 @@
+fragment AlbumListItemHeader on AlbumNode {
+  id
+  slug
+  title
+  description
+  createdAt
+  isSensitive
+  thumbnailImageURL
+  user {
+    id
+    login
+    name
+    iconUrl
+    isFollowee
+    isMuted
+  }
+}

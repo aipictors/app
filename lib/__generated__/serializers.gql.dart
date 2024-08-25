@@ -88,6 +88,7 @@ import 'package:aipictors/__generated__/schema.schema.gql.dart'
         GDeleteWorkLikeInput,
         GDirection,
         GEnablePromptonRequestChatInput,
+        GFavoritedStickerType,
         GFeaturePromptonRequestWhereInput,
         GFeedPostsWhereInput,
         GFlipPromptonFolderWorkIndexInput,
@@ -180,6 +181,7 @@ import 'package:aipictors/__generated__/schema.schema.gql.dart'
         GUpdateAccountPasswordInput,
         GUpdateAccountWebFcmTokenInput,
         GUpdateAlbumInput,
+        GUpdateFavoritedStickerInput,
         GUpdateFolderInput,
         GUpdateImageGenerationMemoInput,
         GUpdateNoteInput,
@@ -243,6 +245,12 @@ import 'package:aipictors/features/account/mutations/__generated__/update_accoun
     show GUpdateAccountPasswordReq;
 import 'package:aipictors/features/account/mutations/__generated__/update_account_password.var.gql.dart'
     show GUpdateAccountPasswordVars;
+import 'package:aipictors/features/album/__generated__/album.data.gql.dart'
+    show GAlbumData, GAlbumData_album, GAlbumData_album_user;
+import 'package:aipictors/features/album/__generated__/album.req.gql.dart'
+    show GAlbumReq;
+import 'package:aipictors/features/album/__generated__/album.var.gql.dart'
+    show GAlbumVars;
 import 'package:aipictors/features/album/mutations/__generated__/create_album.data.gql.dart'
     show GCreateAlbumData, GCreateAlbumData_createFolder;
 import 'package:aipictors/features/album/mutations/__generated__/create_album.req.gql.dart'
@@ -273,37 +281,49 @@ import 'package:aipictors/features/album/mutations/__generated__/report_album.re
     show GReportAlbumReq;
 import 'package:aipictors/features/album/mutations/__generated__/report_album.var.gql.dart'
     show GReportAlbumVars;
-import 'package:aipictors/features/album/queries/__generated__/album.data.gql.dart'
+import 'package:aipictors/features/album/widgets/__generated__/album_action_list.data.gql.dart'
+    show GAlbumActionListData, GAlbumActionListData_user;
+import 'package:aipictors/features/album/widgets/__generated__/album_action_list.req.gql.dart'
+    show GAlbumActionListReq;
+import 'package:aipictors/features/album/widgets/__generated__/album_action_list.var.gql.dart'
+    show GAlbumActionListVars;
+import 'package:aipictors/features/album/widgets/__generated__/album_list_item_header.data.gql.dart'
+    show GAlbumListItemHeaderData, GAlbumListItemHeaderData_user;
+import 'package:aipictors/features/album/widgets/__generated__/album_list_item_header.req.gql.dart'
+    show GAlbumListItemHeaderReq;
+import 'package:aipictors/features/album/widgets/__generated__/album_list_item_header.var.gql.dart'
+    show GAlbumListItemHeaderVars;
+import 'package:aipictors/features/album/widgets/__generated__/album_work_list_tile.data.gql.dart'
+    show GAlbumWorkListTileData, GAlbumWorkListTileData_user;
+import 'package:aipictors/features/album/widgets/__generated__/album_work_list_tile.req.gql.dart'
+    show GAlbumWorkListTileReq;
+import 'package:aipictors/features/album/widgets/__generated__/album_work_list_tile.var.gql.dart'
+    show GAlbumWorkListTileVars;
+import 'package:aipictors/features/album/widgets/__generated__/album_work_list_view.data.gql.dart'
     show
-        GAlbumData,
-        GAlbumData_album,
-        GAlbumData_album_user,
-        GAlbumData_album_user_iconImage;
-import 'package:aipictors/features/album/queries/__generated__/album.req.gql.dart'
-    show GAlbumReq;
-import 'package:aipictors/features/album/queries/__generated__/album.var.gql.dart'
-    show GAlbumVars;
-import 'package:aipictors/features/album/queries/__generated__/album_works.data.gql.dart'
-    show GAlbumWorksData, GAlbumWorksData_album, GAlbumWorksData_album_works;
-import 'package:aipictors/features/album/queries/__generated__/album_works.req.gql.dart'
-    show GAlbumWorksReq;
-import 'package:aipictors/features/album/queries/__generated__/album_works.var.gql.dart'
-    show GAlbumWorksVars;
-import 'package:aipictors/features/album/queries/__generated__/albums.data.gql.dart'
-    show GAlbumsData, GAlbumsData_albums, GAlbumsData_albums_user;
-import 'package:aipictors/features/album/queries/__generated__/albums.req.gql.dart'
-    show GAlbumsReq;
-import 'package:aipictors/features/album/queries/__generated__/albums.var.gql.dart'
-    show GAlbumsVars;
-import 'package:aipictors/features/award/queries/__generated__/work_awards.data.gql.dart'
+        GAlbumWorkListViewData,
+        GAlbumWorkListViewData_album,
+        GAlbumWorkListViewData_album_works,
+        GAlbumWorkListViewData_album_works_user;
+import 'package:aipictors/features/album/widgets/__generated__/album_work_list_view.req.gql.dart'
+    show GAlbumWorkListViewReq;
+import 'package:aipictors/features/album/widgets/__generated__/album_work_list_view.var.gql.dart'
+    show GAlbumWorkListViewVars;
+import 'package:aipictors/features/award/__generated__/work_awards.data.gql.dart'
     show
         GWorkAwardsData,
         GWorkAwardsData_workAwards,
         GWorkAwardsData_workAwards_work;
-import 'package:aipictors/features/award/queries/__generated__/work_awards.req.gql.dart'
+import 'package:aipictors/features/award/__generated__/work_awards.req.gql.dart'
     show GWorkAwardsReq;
-import 'package:aipictors/features/award/queries/__generated__/work_awards.var.gql.dart'
+import 'package:aipictors/features/award/__generated__/work_awards.var.gql.dart'
     show GWorkAwardsVars;
+import 'package:aipictors/features/award/widgets/__generated__/work_award_grid_item.data.gql.dart'
+    show GWorkAwardGridItemData, GWorkAwardGridItemData_work;
+import 'package:aipictors/features/award/widgets/__generated__/work_award_grid_item.req.gql.dart'
+    show GWorkAwardGridItemReq;
+import 'package:aipictors/features/award/widgets/__generated__/work_award_grid_item.var.gql.dart'
+    show GWorkAwardGridItemVars;
 import 'package:aipictors/features/daily_theme/queries/__generated__/daily_theme.data.gql.dart'
     show
         GDailyThemeData,
@@ -520,24 +540,30 @@ import 'package:aipictors/features/generation/queries/__generated__/viewer_image
     show GViewerImageGenerationTasksReq;
 import 'package:aipictors/features/generation/queries/__generated__/viewer_image_generation_tasks.var.gql.dart'
     show GViewerImageGenerationTasksVars;
-import 'package:aipictors/features/information/queries/__generated__/announcements.data.gql.dart'
+import 'package:aipictors/features/information/__generated__/announcements.data.gql.dart'
     show GAnnouncementsData, GAnnouncementsData_announcements;
-import 'package:aipictors/features/information/queries/__generated__/announcements.req.gql.dart'
+import 'package:aipictors/features/information/__generated__/announcements.req.gql.dart'
     show GAnnouncementsReq;
-import 'package:aipictors/features/information/queries/__generated__/announcements.var.gql.dart'
+import 'package:aipictors/features/information/__generated__/announcements.var.gql.dart'
     show GAnnouncementsVars;
-import 'package:aipictors/features/information/queries/__generated__/promotion.data.gql.dart'
+import 'package:aipictors/features/information/__generated__/promotion.data.gql.dart'
     show GPromotionData, GPromotionData_promotion;
-import 'package:aipictors/features/information/queries/__generated__/promotion.req.gql.dart'
+import 'package:aipictors/features/information/__generated__/promotion.req.gql.dart'
     show GPromotionReq;
-import 'package:aipictors/features/information/queries/__generated__/promotion.var.gql.dart'
+import 'package:aipictors/features/information/__generated__/promotion.var.gql.dart'
     show GPromotionVars;
-import 'package:aipictors/features/information/queries/__generated__/promotions.data.gql.dart'
+import 'package:aipictors/features/information/__generated__/promotions.data.gql.dart'
     show GPromotionsData, GPromotionsData_promotions;
-import 'package:aipictors/features/information/queries/__generated__/promotions.req.gql.dart'
+import 'package:aipictors/features/information/__generated__/promotions.req.gql.dart'
     show GPromotionsReq;
-import 'package:aipictors/features/information/queries/__generated__/promotions.var.gql.dart'
+import 'package:aipictors/features/information/__generated__/promotions.var.gql.dart'
     show GPromotionsVars;
+import 'package:aipictors/features/information/widgets/__generated__/promotion_list_tile.data.gql.dart'
+    show GPromotionListTileData;
+import 'package:aipictors/features/information/widgets/__generated__/promotion_list_tile.req.gql.dart'
+    show GPromotionListTileReq;
+import 'package:aipictors/features/information/widgets/__generated__/promotion_list_tile.var.gql.dart'
+    show GPromotionListTileVars;
 import 'package:aipictors/features/login/mutations/__generated__/login_with_password.data.gql.dart'
     show GLoginWithPasswordData, GLoginWithPasswordData_loginWithPassword;
 import 'package:aipictors/features/login/mutations/__generated__/login_with_password.req.gql.dart'
@@ -1078,24 +1104,31 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GAdminAccessType,
   GAiModelType,
   GAiModelWhereInput,
+  GAlbumActionListData,
+  GAlbumActionListData_user,
+  GAlbumActionListReq,
+  GAlbumActionListVars,
   GAlbumData,
   GAlbumData_album,
   GAlbumData_album_user,
-  GAlbumData_album_user_iconImage,
+  GAlbumListItemHeaderData,
+  GAlbumListItemHeaderData_user,
+  GAlbumListItemHeaderReq,
+  GAlbumListItemHeaderVars,
   GAlbumOrderBy,
   GAlbumRating,
   GAlbumReq,
   GAlbumVars,
-  GAlbumWorksData,
-  GAlbumWorksData_album,
-  GAlbumWorksData_album_works,
-  GAlbumWorksReq,
-  GAlbumWorksVars,
-  GAlbumsData,
-  GAlbumsData_albums,
-  GAlbumsData_albums_user,
-  GAlbumsReq,
-  GAlbumsVars,
+  GAlbumWorkListTileData,
+  GAlbumWorkListTileData_user,
+  GAlbumWorkListTileReq,
+  GAlbumWorkListTileVars,
+  GAlbumWorkListViewData,
+  GAlbumWorkListViewData_album,
+  GAlbumWorkListViewData_album_works,
+  GAlbumWorkListViewData_album_works_user,
+  GAlbumWorkListViewReq,
+  GAlbumWorkListViewVars,
   GAlbumsWhereInput,
   GAnnouncementsData,
   GAnnouncementsData_announcements,
@@ -1282,6 +1315,7 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GDeleteWorkVars,
   GDirection,
   GEnablePromptonRequestChatInput,
+  GFavoritedStickerType,
   GFeaturePromptonRequestWhereInput,
   GFeedDailyThemeWorksData,
   GFeedDailyThemeWorksData_dailyTheme,
@@ -1450,6 +1484,9 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GPreferenceRating,
   GPromotionData,
   GPromotionData_promotion,
+  GPromotionListTileData,
+  GPromotionListTileReq,
+  GPromotionListTileVars,
   GPromotionReq,
   GPromotionVars,
   GPromotionsData,
@@ -1556,6 +1593,7 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GUpdateAccountPasswordVars,
   GUpdateAccountWebFcmTokenInput,
   GUpdateAlbumInput,
+  GUpdateFavoritedStickerInput,
   GUpdateFolderData,
   GUpdateFolderData_updateFolder,
   GUpdateFolderInput,
@@ -1741,6 +1779,10 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GViewerWorksVars,
   GWatchFolderInput,
   GWhiteListTagsInput,
+  GWorkAwardGridItemData,
+  GWorkAwardGridItemData_work,
+  GWorkAwardGridItemReq,
+  GWorkAwardGridItemVars,
   GWorkAwardNotificationFieldsData,
   GWorkAwardNotificationFieldsData_work,
   GWorkAwardNotificationFieldsReq,

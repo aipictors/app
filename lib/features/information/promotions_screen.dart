@@ -1,5 +1,5 @@
 import 'package:aipictors/features/home/widgets/loading_screen.dart';
-import 'package:aipictors/features/information/queries/__generated__/promotions.req.gql.dart';
+import 'package:aipictors/features/information/__generated__/promotions.req.gql.dart';
 import 'package:aipictors/features/information/widgets/promotion_list_tile.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/providers/config_provider.dart';
@@ -60,14 +60,7 @@ class PromotionsScreen extends HookConsumerWidget {
             itemCount: promotionList.length,
             itemBuilder: (context, index) {
               final promotion = promotionList[index];
-              return PromotionListTile(
-                title: promotion.title,
-                description: promotion.description,
-                pageURL: promotion.pageURL,
-                imageURL: promotion.imageURL,
-                startDateTime: promotion.startDateTime,
-                endDateTime: promotion.endDateTime,
-              );
+              return PromotionListTile(promotion: promotion);
             },
           );
         },

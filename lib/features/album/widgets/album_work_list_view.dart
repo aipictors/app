@@ -1,8 +1,7 @@
-import 'package:aipictors/features/album/widgets/album_header.dart';
+import 'package:aipictors/features/album/widgets/album_list_item_header.dart';
 import 'package:aipictors/features/album/widgets/album_work_list_tile.dart';
 import 'package:aipictors/features/config/widgets/about_follow_dialog.dart';
 import 'package:aipictors/features/user/functions/follow_user.dart';
-import 'package:aipictors/features/album/queries/__generated__/album_works.req.gql.dart';
 import 'package:aipictors/providers/auth_user_id_provider.dart';
 import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/providers/home_tab_index_provider.dart';
@@ -14,8 +13,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class AlbumWorksView extends HookConsumerWidget {
-  const AlbumWorksView({
+class AlbumWorkListView extends HookConsumerWidget {
+  const AlbumWorkListView({
     super.key,
     required this.client,
     required this.albumId,
@@ -51,7 +50,7 @@ class AlbumWorksView extends HookConsumerWidget {
 
     return OperationBuilder(
       client: client,
-      operationRequest: GAlbumWorksReq((builder) {
+      operationRequest: GAlbumWorkListViewReq((builder) {
         builder
           ..vars.limit = config.graphqlQueryLimit
           ..vars.offset = 0
@@ -70,7 +69,7 @@ class AlbumWorksView extends HookConsumerWidget {
           itemCount: workList.length + 2,
           itemBuilder: (context, index) {
             if (index == 0) {
-              return AlbumHeader(
+              return AlbumListItemHeader(
                 albumId: albumId,
                 albumTitle: albumTitle,
                 albumDescription: albumDescription,
@@ -90,18 +89,7 @@ class AlbumWorksView extends HookConsumerWidget {
               return const EndOfContentContainer();
             }
             final work = workList[index - 1];
-            return AlbumWorkListTile(
-              workId: work.id,
-              workTitle: work.title,
-              workImageURL: work.imageURL,
-              workCreatedAt: work.createdAt,
-              workImageAspectRatio: work.imageAspectRatio,
-              userId: userId,
-              userName: userName,
-              likesCount: work.likesCount,
-              commentsCount: work.commentsCount,
-              isLiked: work.isLiked == true,
-            );
+            return AlbumWorkListTile(work: work);
           },
         );
       },

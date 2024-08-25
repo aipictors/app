@@ -1,0 +1,7 @@
+# import './widgets/promotion_list_tile.graphql'
+
+query Promotions($offset: Int!, $limit: Int!) {
+  promotions(offset: $offset, limit: $limit) {
+    ...PromotionListTile
+  }
+}
