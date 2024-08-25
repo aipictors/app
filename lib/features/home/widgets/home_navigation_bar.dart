@@ -53,11 +53,6 @@ class HomeNavigationBar extends HookConsumerWidget {
             icon: const Icon(Icons.notifications_rounded),
             label: '通知'.i18n,
           ),
-        if (viewer.value?.viewer?.currentPass?.type != null)
-          NavigationDestination(
-            icon: const Icon(Icons.photo_rounded),
-            label: '画像生成'.i18n,
-          ),
         NavigationDestination(
           icon: const Icon(Icons.more_horiz_rounded),
           label: 'その他'.i18n,
