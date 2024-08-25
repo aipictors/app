@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-/// アルバムの報告
+/// シリーズの報告
 class AlbumReportScreen extends HookConsumerWidget {
   const AlbumReportScreen({
     super.key,
@@ -19,7 +19,7 @@ class AlbumReportScreen extends HookConsumerWidget {
   @override
   Widget build(context, ref) {
     return ReportScreen(
-      title: 'アルバムの報告'.i18n,
+      title: 'シリーズの報告'.i18n,
       onSubmit: (GReportReason reason, String comment) {
         onReport(context, reason, comment);
       },
