@@ -1,6 +1,7 @@
 import 'package:aipictors/__generated__/schema.schema.gql.dart';
 import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/features/post/functions/report_work.dart';
+import 'package:aipictors/features/report/report_screen.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -17,45 +18,24 @@ class WorkReportScreen extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('作品の報告'.i18n),
-      ),
-      body: ListView(children: [
-        ListTile(title: Text('該当する報告理由を選択してください。'.i18n)),
-        ListTile(
-          title: Text(
-            '誹謗中傷'.i18n,
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
-          subtitle: Text('他人に誹謗中傷など嫌がらせをしている。'.i18n),
-          onTap: () {
-            onReport(context, GReportReason.SLANDER);
-          },
-        ),
-        ListTile(
-          title: Text(
-            'スパム'.i18n,
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
-          subtitle: Text('イラストとは関係のない商品のURLなどを大量に投稿している。'.i18n),
-          onTap: () {
-            onReport(context, GReportReason.SPAM);
-          },
-        ),
-      ]),
+    return ReportScreen(
+      title: '作品の報告'.i18n,
+      onSubmit: (GReportReason reason, String comment) {
+        onReport(context, reason, comment);
+      },
     );
   }
 
   /// レポートを送信する
-  onReport(BuildContext context, GReportReason reason) async {
+  onReport(BuildContext context, GReportReason reason, String comment) async {
     FirebaseAnalytics.instance.logEvent(
       name: 'report_work',
     );
     reportWork((builder) {
       return builder
         ..vars.input.workId = workId
-        ..vars.input.reason = reason;
+        ..vars.input.reason = reason
+        ..vars.input.comment = comment;
     });
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()

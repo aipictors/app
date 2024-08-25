@@ -224,7 +224,7 @@
     "kr": "아이디는 4~254자 사이여야 합니다."
   },
   {
-    "ja": "MM月dd日H時m分",
+    "ja": "MM月dd日HH時mm分",
     "en": "",
     "zh_cn": "",
     "zh_tw": "",
@@ -288,7 +288,7 @@
     "kr": "X(Twitter)로 로그인하세요"
   },
   {
-    "ja": "yyyy年MM月dd日H時m分",
+    "ja": "yyyy年MM月dd日HH時mm分",
     "en": "",
     "zh_cn": "",
     "zh_tw": "",

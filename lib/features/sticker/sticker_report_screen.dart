@@ -1,6 +1,7 @@
 import 'package:aipictors/__generated__/schema.schema.gql.dart';
 import 'package:aipictors/config.dart';
 import 'package:aipictors/default.i18n.dart';
+import 'package:aipictors/features/report/report_screen.dart';
 import 'package:aipictors/features/sticker/functions/report_sticker.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
@@ -18,41 +19,20 @@ class StickerReportScreen extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('スタンプの報告'.i18n),
-      ),
-      body: ListView(children: [
-        ListTile(title: Text('該当する報告理由を選択してください。'.i18n)),
-        ListTile(
-          title: Text(
-            '誹謗中傷'.i18n,
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
-          subtitle: Text('他人に誹謗中傷など嫌がらせをしている。'.i18n),
-          onTap: () {
-            onReport(context, GReportReason.SLANDER);
-          },
-        ),
-        ListTile(
-          title: Text(
-            'スパム'.i18n,
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
-          subtitle: Text('イラストとは関係のない商品のURLなどを大量に投稿している。'.i18n),
-          onTap: () {
-            onReport(context, GReportReason.SPAM);
-          },
-        ),
-      ]),
+    return ReportScreen(
+      title: 'スタンプの報告'.i18n,
+      onSubmit: (GReportReason reason, String comment) {
+        onReport(context, reason, comment);
+      },
     );
   }
 
   /// レポートを送信する
-  onReport(BuildContext context, GReportReason reason) async {
+  onReport(BuildContext context, GReportReason reason, String comment) async {
     FirebaseAnalytics.instance.logEvent(
       name: DefaultConfig.customEvent['report_sticker'],
     );
+    //todo: graphql側にコメント機能を追加する
     reportSticker((builder) {
       return builder
         ..vars.input.stickerId = stickerId

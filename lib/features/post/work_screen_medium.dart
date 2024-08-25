@@ -14,6 +14,7 @@ import 'package:aipictors/features/user/functions/follow_user.dart';
 import 'package:aipictors/features/user/widgets/follow_button.dart';
 import 'package:aipictors/providers/auth_user_id_provider.dart';
 import 'package:aipictors/providers/client_provider.dart';
+import 'package:aipictors/utils/to_readable_date_time.dart';
 import 'package:aipictors/widgets/builder/operation_screen_builder.dart';
 import 'package:aipictors/widgets/image/interactive_work_image.dart';
 import 'package:flutter/material.dart';
@@ -139,6 +140,17 @@ class WorkScreenMedium extends HookConsumerWidget {
                         WorkTextContainer(
                           title: work.title,
                           description: work.description,
+                        ),
+                        const SizedBox(height: 8 * 2),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 16),
+                          child: Text(
+                            toReadableDateTime(work.createdAt),
+                            softWrap: true,
+                            style: TextStyle(
+                              color: Theme.of(context).dividerColor,
+                            ),
+                          ),
                         ),
                         const SizedBox(height: 8 * 2),
                         WorkTagsContainer(tagNames: work.tagNames.toList()),

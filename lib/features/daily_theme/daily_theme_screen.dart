@@ -43,7 +43,9 @@ class DailyThemeScreen extends HookConsumerWidget {
       operationRequest: request,
       builder: (context, response) {
         final dailyTheme = response.data?.dailyTheme;
-        if (dailyTheme == null || dailyTheme.works.isEmpty) {
+        if (dailyTheme == null ||
+            dailyTheme.works == null ||
+            dailyTheme.works!.isEmpty) {
           return Scaffold(
             appBar: AppBar(title: Text('お題'.i18n)),
             body: const DataNotFoundErrorScreen(),
@@ -53,9 +55,9 @@ class DailyThemeScreen extends HookConsumerWidget {
           appBar: AppBar(title: Text(dailyTheme.title)),
           body: SingleChildScrollView(
             child: WorksGridView(
-              itemCount: dailyTheme.works.length,
+              itemCount: dailyTheme.works!.length,
               itemBuilder: (context, index) {
-                final work = dailyTheme.works[index];
+                final work = dailyTheme.works![index];
                 return GestureDetector(
                   onTap: () {
                     FirebaseAnalytics.instance.logSelectContent(

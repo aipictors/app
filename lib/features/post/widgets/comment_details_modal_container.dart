@@ -101,30 +101,32 @@ class CommentDetailsModalContainer extends HookConsumerWidget {
                                 );
                               },
                             ),
-                            for (final response in comment.responses)
-                              WorkCommentListTile(
-                                comment: response,
-                                isResponse: true,
-                                onTap: () {},
-                                onLongPress: () {
-                                  onOpenActionModal(
-                                    context,
-                                    commentId: response.id,
-                                    userId: response.user!.id,
-                                    isMutedUser: response.user!.isMuted,
-                                    isViewer:
-                                        authUserId.value == response.user!.id,
-                                    onDeleteComment: () async {
-                                      await deleteComment((builder) {
-                                        return builder
-                                          ..vars.input.commentId = response.id;
-                                      });
-                                      client.value?.requestController
-                                          .add(request);
-                                    },
-                                  );
-                                },
-                              ),
+                            if (comment.responses != null)
+                              for (final response in comment.responses!)
+                                WorkCommentListTile(
+                                  comment: response,
+                                  isResponse: true,
+                                  onTap: () {},
+                                  onLongPress: () {
+                                    onOpenActionModal(
+                                      context,
+                                      commentId: response.id,
+                                      userId: response.user!.id,
+                                      isMutedUser: response.user!.isMuted,
+                                      isViewer:
+                                          authUserId.value == response.user!.id,
+                                      onDeleteComment: () async {
+                                        await deleteComment((builder) {
+                                          return builder
+                                            ..vars.input.commentId =
+                                                response.id;
+                                        });
+                                        client.value?.requestController
+                                            .add(request);
+                                      },
+                                    );
+                                  },
+                                ),
                           ],
                         );
                       },

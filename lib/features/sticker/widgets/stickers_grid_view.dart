@@ -26,7 +26,7 @@ class StickersGridView extends HookConsumerWidget {
       shrinkWrap: true,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: crossAxisCount,
-        childAspectRatio: 0.725,
+        childAspectRatio: 0.723,
         mainAxisSpacing: 8,
         crossAxisSpacing: 8,
       ),
@@ -36,7 +36,7 @@ class StickersGridView extends HookConsumerWidget {
         final sticker = stickerList[index];
         return StickerCard(
           title: sticker.title,
-          imageUrl: sticker.image!.downloadURL,
+          imageUrl: sticker.imageUrl,
           downloadsCount: sticker.downloadsCount,
           usesCount: sticker.usesCount,
           onTap: () {

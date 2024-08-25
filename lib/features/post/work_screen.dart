@@ -19,7 +19,10 @@ class WorkScreen extends HookConsumerWidget {
     final config = ref.watch(configProvider);
     final layout = Layout.fromWidth(MediaQuery.of(context).size.width);
 
-    if (layout.notCompact && !config.themeCompactLayout) {
+    if (layout.notCompact &&
+        !config.themeCompactLayout &&
+        MediaQuery.of(context).size.height <
+            MediaQuery.of(context).size.width) {
       return WorkScreenMedium(workId: workId);
     }
 
