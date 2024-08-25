@@ -293,6 +293,16 @@ import 'package:aipictors/features/album/widgets/__generated__/album_list_item_h
     show GAlbumListItemHeaderReq;
 import 'package:aipictors/features/album/widgets/__generated__/album_list_item_header.var.gql.dart'
     show GAlbumListItemHeaderVars;
+import 'package:aipictors/features/album/widgets/__generated__/album_work_list.data.gql.dart'
+    show
+        GAlbumWorkListData,
+        GAlbumWorkListData_album,
+        GAlbumWorkListData_album_works,
+        GAlbumWorkListData_album_works_user;
+import 'package:aipictors/features/album/widgets/__generated__/album_work_list.req.gql.dart'
+    show GAlbumWorkListReq;
+import 'package:aipictors/features/album/widgets/__generated__/album_work_list.var.gql.dart'
+    show GAlbumWorkListVars;
 import 'package:aipictors/features/album/widgets/__generated__/album_work_list_tile.data.gql.dart'
     show GAlbumWorkListTileData, GAlbumWorkListTileData_user;
 import 'package:aipictors/features/album/widgets/__generated__/album_work_list_tile.req.gql.dart'
@@ -300,11 +310,7 @@ import 'package:aipictors/features/album/widgets/__generated__/album_work_list_t
 import 'package:aipictors/features/album/widgets/__generated__/album_work_list_tile.var.gql.dart'
     show GAlbumWorkListTileVars;
 import 'package:aipictors/features/album/widgets/__generated__/album_work_list_view.data.gql.dart'
-    show
-        GAlbumWorkListViewData,
-        GAlbumWorkListViewData_album,
-        GAlbumWorkListViewData_album_works,
-        GAlbumWorkListViewData_album_works_user;
+    show GAlbumWorkListViewData, GAlbumWorkListViewData_user;
 import 'package:aipictors/features/album/widgets/__generated__/album_work_list_view.req.gql.dart'
     show GAlbumWorkListViewReq;
 import 'package:aipictors/features/album/widgets/__generated__/album_work_list_view.var.gql.dart'
@@ -324,6 +330,16 @@ import 'package:aipictors/features/award/widgets/__generated__/work_award_grid_i
     show GWorkAwardGridItemReq;
 import 'package:aipictors/features/award/widgets/__generated__/work_award_grid_item.var.gql.dart'
     show GWorkAwardGridItemVars;
+import 'package:aipictors/features/daily_theme/__generated__/daily_themes_route.data.gql.dart'
+    show
+        GDailyThemesRouteData,
+        GDailyThemesRouteData_dailyTheme,
+        GDailyThemesRouteData_dailyTheme_works,
+        GDailyThemesRouteData_dailyTheme_works_user;
+import 'package:aipictors/features/daily_theme/__generated__/daily_themes_route.req.gql.dart'
+    show GDailyThemesRouteReq;
+import 'package:aipictors/features/daily_theme/__generated__/daily_themes_route.var.gql.dart'
+    show GDailyThemesRouteVars;
 import 'package:aipictors/features/daily_theme/queries/__generated__/daily_theme.data.gql.dart'
     show
         GDailyThemeData,
@@ -366,43 +382,49 @@ import 'package:aipictors/features/explorer/queries/__generated__/popular_works.
     show GPopularWorksReq;
 import 'package:aipictors/features/explorer/queries/__generated__/popular_works.var.gql.dart'
     show GPopularWorksVars;
-import 'package:aipictors/features/feed/queries/__generated__/feed_daily_theme_works.data.gql.dart'
-    show
-        GFeedDailyThemeWorksData,
-        GFeedDailyThemeWorksData_dailyTheme,
-        GFeedDailyThemeWorksData_dailyTheme_works,
-        GFeedDailyThemeWorksData_dailyTheme_works_user;
-import 'package:aipictors/features/feed/queries/__generated__/feed_daily_theme_works.req.gql.dart'
-    show GFeedDailyThemeWorksReq;
-import 'package:aipictors/features/feed/queries/__generated__/feed_daily_theme_works.var.gql.dart'
-    show GFeedDailyThemeWorksVars;
-import 'package:aipictors/features/feed/queries/__generated__/feed_hot_works.data.gql.dart'
+import 'package:aipictors/features/feed/__generated__/feed_hot_works.data.gql.dart'
     show
         GFeedHotWorksData,
         GFeedHotWorksData_hotWorks,
         GFeedHotWorksData_hotWorks_user;
-import 'package:aipictors/features/feed/queries/__generated__/feed_hot_works.req.gql.dart'
+import 'package:aipictors/features/feed/__generated__/feed_hot_works.req.gql.dart'
     show GFeedHotWorksReq;
-import 'package:aipictors/features/feed/queries/__generated__/feed_hot_works.var.gql.dart'
+import 'package:aipictors/features/feed/__generated__/feed_hot_works.var.gql.dart'
     show GFeedHotWorksVars;
-import 'package:aipictors/features/feed/queries/__generated__/feed_latest_works.data.gql.dart'
+import 'package:aipictors/features/feed/__generated__/feed_latest_works.data.gql.dart'
     show
         GFeedLatestWorksData,
         GFeedLatestWorksData_works,
         GFeedLatestWorksData_works_user;
-import 'package:aipictors/features/feed/queries/__generated__/feed_latest_works.req.gql.dart'
+import 'package:aipictors/features/feed/__generated__/feed_latest_works.req.gql.dart'
     show GFeedLatestWorksReq;
-import 'package:aipictors/features/feed/queries/__generated__/feed_latest_works.var.gql.dart'
+import 'package:aipictors/features/feed/__generated__/feed_latest_works.var.gql.dart'
     show GFeedLatestWorksVars;
-import 'package:aipictors/features/feed/queries/__generated__/feed_popular_works.data.gql.dart'
+import 'package:aipictors/features/feed/__generated__/feed_popular_works.data.gql.dart'
     show
         GFeedPopularWorksData,
         GFeedPopularWorksData_popularWorks,
         GFeedPopularWorksData_popularWorks_user;
-import 'package:aipictors/features/feed/queries/__generated__/feed_popular_works.req.gql.dart'
+import 'package:aipictors/features/feed/__generated__/feed_popular_works.req.gql.dart'
     show GFeedPopularWorksReq;
-import 'package:aipictors/features/feed/queries/__generated__/feed_popular_works.var.gql.dart'
+import 'package:aipictors/features/feed/__generated__/feed_popular_works.var.gql.dart'
     show GFeedPopularWorksVars;
+import 'package:aipictors/features/feed/__generated__/viewer_feed_works.data.gql.dart'
+    show
+        GViewerFeedWorksData,
+        GViewerFeedWorksData_viewer,
+        GViewerFeedWorksData_viewer_feedWorks,
+        GViewerFeedWorksData_viewer_feedWorks_user;
+import 'package:aipictors/features/feed/__generated__/viewer_feed_works.req.gql.dart'
+    show GViewerFeedWorksReq;
+import 'package:aipictors/features/feed/__generated__/viewer_feed_works.var.gql.dart'
+    show GViewerFeedWorksVars;
+import 'package:aipictors/features/feed/widgets/__generated__/feed_work_list_tile.data.gql.dart'
+    show GFeedWorkListTileData, GFeedWorkListTileData_user;
+import 'package:aipictors/features/feed/widgets/__generated__/feed_work_list_tile.req.gql.dart'
+    show GFeedWorkListTileReq;
+import 'package:aipictors/features/feed/widgets/__generated__/feed_work_list_tile.var.gql.dart'
+    show GFeedWorkListTileVars;
 import 'package:aipictors/features/folder/mutations/__generated__/create_folder.data.gql.dart'
     show GCreateFolderData, GCreateFolderData_createFolder;
 import 'package:aipictors/features/folder/mutations/__generated__/create_folder.req.gql.dart'
@@ -540,23 +562,23 @@ import 'package:aipictors/features/generation/queries/__generated__/viewer_image
     show GViewerImageGenerationTasksReq;
 import 'package:aipictors/features/generation/queries/__generated__/viewer_image_generation_tasks.var.gql.dart'
     show GViewerImageGenerationTasksVars;
-import 'package:aipictors/features/information/__generated__/announcements.data.gql.dart'
+import 'package:aipictors/features/information/queries/__generated__/announcements.data.gql.dart'
     show GAnnouncementsData, GAnnouncementsData_announcements;
-import 'package:aipictors/features/information/__generated__/announcements.req.gql.dart'
+import 'package:aipictors/features/information/queries/__generated__/announcements.req.gql.dart'
     show GAnnouncementsReq;
-import 'package:aipictors/features/information/__generated__/announcements.var.gql.dart'
+import 'package:aipictors/features/information/queries/__generated__/announcements.var.gql.dart'
     show GAnnouncementsVars;
-import 'package:aipictors/features/information/__generated__/promotion.data.gql.dart'
+import 'package:aipictors/features/information/queries/__generated__/promotion.data.gql.dart'
     show GPromotionData, GPromotionData_promotion;
-import 'package:aipictors/features/information/__generated__/promotion.req.gql.dart'
+import 'package:aipictors/features/information/queries/__generated__/promotion.req.gql.dart'
     show GPromotionReq;
-import 'package:aipictors/features/information/__generated__/promotion.var.gql.dart'
+import 'package:aipictors/features/information/queries/__generated__/promotion.var.gql.dart'
     show GPromotionVars;
-import 'package:aipictors/features/information/__generated__/promotions.data.gql.dart'
+import 'package:aipictors/features/information/queries/__generated__/promotions.data.gql.dart'
     show GPromotionsData, GPromotionsData_promotions;
-import 'package:aipictors/features/information/__generated__/promotions.req.gql.dart'
+import 'package:aipictors/features/information/queries/__generated__/promotions.req.gql.dart'
     show GPromotionsReq;
-import 'package:aipictors/features/information/__generated__/promotions.var.gql.dart'
+import 'package:aipictors/features/information/queries/__generated__/promotions.var.gql.dart'
     show GPromotionsVars;
 import 'package:aipictors/features/information/widgets/__generated__/promotion_list_tile.data.gql.dart'
     show GPromotionListTileData;
@@ -841,18 +863,6 @@ import 'package:aipictors/features/viewer/queries/__generated__/viewer_albums.re
     show GViewerAlbumsReq;
 import 'package:aipictors/features/viewer/queries/__generated__/viewer_albums.var.gql.dart'
     show GViewerAlbumsVars;
-import 'package:aipictors/features/viewer/queries/__generated__/viewer_feed_works.data.gql.dart'
-    show
-        GViewerFeedWorksData,
-        GViewerFeedWorksData_viewer,
-        GViewerFeedWorksData_viewer_feedWorks,
-        GViewerFeedWorksData_viewer_feedWorks_user,
-        GViewerFeedWorksData_viewer_feedWorks_user_viewer,
-        GViewerFeedWorksData_viewer_feedWorks_viewer;
-import 'package:aipictors/features/viewer/queries/__generated__/viewer_feed_works.req.gql.dart'
-    show GViewerFeedWorksReq;
-import 'package:aipictors/features/viewer/queries/__generated__/viewer_feed_works.var.gql.dart'
-    show GViewerFeedWorksVars;
 import 'package:aipictors/features/viewer/queries/__generated__/viewer_folders.data.gql.dart'
     show
         GViewerFoldersData,
@@ -1119,14 +1129,18 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GAlbumRating,
   GAlbumReq,
   GAlbumVars,
+  GAlbumWorkListData,
+  GAlbumWorkListData_album,
+  GAlbumWorkListData_album_works,
+  GAlbumWorkListData_album_works_user,
+  GAlbumWorkListReq,
   GAlbumWorkListTileData,
   GAlbumWorkListTileData_user,
   GAlbumWorkListTileReq,
   GAlbumWorkListTileVars,
+  GAlbumWorkListVars,
   GAlbumWorkListViewData,
-  GAlbumWorkListViewData_album,
-  GAlbumWorkListViewData_album_works,
-  GAlbumWorkListViewData_album_works_user,
+  GAlbumWorkListViewData_user,
   GAlbumWorkListViewReq,
   GAlbumWorkListViewVars,
   GAlbumsWhereInput,
@@ -1251,6 +1265,12 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GDailyThemesData_dailyThemes,
   GDailyThemesData_dailyThemes_firstWork,
   GDailyThemesReq,
+  GDailyThemesRouteData,
+  GDailyThemesRouteData_dailyTheme,
+  GDailyThemesRouteData_dailyTheme_works,
+  GDailyThemesRouteData_dailyTheme_works_user,
+  GDailyThemesRouteReq,
+  GDailyThemesRouteVars,
   GDailyThemesVars,
   GDailyThemesWhereInput,
   GDecrementPromptonProfileBlockIndexInput,
@@ -1317,12 +1337,6 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GEnablePromptonRequestChatInput,
   GFavoritedStickerType,
   GFeaturePromptonRequestWhereInput,
-  GFeedDailyThemeWorksData,
-  GFeedDailyThemeWorksData_dailyTheme,
-  GFeedDailyThemeWorksData_dailyTheme_works,
-  GFeedDailyThemeWorksData_dailyTheme_works_user,
-  GFeedDailyThemeWorksReq,
-  GFeedDailyThemeWorksVars,
   GFeedHotWorksData,
   GFeedHotWorksData_hotWorks,
   GFeedHotWorksData_hotWorks_user,
@@ -1339,6 +1353,10 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GFeedPopularWorksReq,
   GFeedPopularWorksVars,
   GFeedPostsWhereInput,
+  GFeedWorkListTileData,
+  GFeedWorkListTileData_user,
+  GFeedWorkListTileReq,
+  GFeedWorkListTileVars,
   GFlipPromptonFolderWorkIndexInput,
   GFolderData,
   GFolderData_folder,
@@ -1704,8 +1722,6 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GViewerFeedWorksData_viewer,
   GViewerFeedWorksData_viewer_feedWorks,
   GViewerFeedWorksData_viewer_feedWorks_user,
-  GViewerFeedWorksData_viewer_feedWorks_user_viewer,
-  GViewerFeedWorksData_viewer_feedWorks_viewer,
   GViewerFeedWorksReq,
   GViewerFeedWorksVars,
   GViewerFoldersData,

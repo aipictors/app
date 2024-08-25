@@ -1,0 +1,9 @@
+# import './widgets/feed_work_list_tile.graphql'
+
+query ViewerFeedWorks($offset: Int!, $limit: Int!) {
+  viewer {
+    feedWorks(offset: $offset, limit: $limit) {
+      ...FeedWorkListTile
+    }
+  }
+}

@@ -19,7 +19,7 @@ import 'package:aipictors/features/config/config_profile_screen.dart';
 import 'package:aipictors/features/config/config_theme_screen.dart';
 import 'package:aipictors/features/daily_theme/daily_theme_screen.dart';
 import 'package:aipictors/features/daily_theme/daily_themes_month_screen.dart';
-import 'package:aipictors/features/daily_theme/daily_themes_screen.dart';
+import 'package:aipictors/features/daily_theme/daily_themes_route.dart';
 import 'package:aipictors/features/debug/debug_screen.dart';
 import 'package:aipictors/features/explorer/explorer_screen.dart';
 import 'package:aipictors/features/feedback/feedback_screen.dart';

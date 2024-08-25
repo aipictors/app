@@ -1,6 +1,6 @@
 import 'package:aipictors/default.i18n.dart';
+import 'package:aipictors/features/daily_theme/__generated__/daily_themes_route.req.gql.dart';
 import 'package:aipictors/features/daily_theme/widgets/daily_theme_title_list_tile.dart';
-import 'package:aipictors/features/feed/queries/__generated__/feed_daily_theme_works.req.gql.dart';
 import 'package:aipictors/features/feed/widgets/feed_work_list_tile.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/providers/config_provider.dart';
@@ -14,8 +14,8 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// 日別テーマの作品の一覧
-class DailyThemeHomeScreen extends HookConsumerWidget {
-  const DailyThemeHomeScreen({
+class DailyThemeHomeRoute extends HookConsumerWidget {
+  const DailyThemeHomeRoute({
     super.key,
   });
 
@@ -29,7 +29,7 @@ class DailyThemeHomeScreen extends HookConsumerWidget {
       return const LoadingProgress();
     }
 
-    final request = GFeedDailyThemeWorksReq((builder) {
+    final request = GDailyThemesRouteReq((builder) {
       builder
         ..vars.limit = config.graphqlQueryLimit
         ..vars.offset = 0
@@ -88,22 +88,7 @@ class DailyThemeHomeScreen extends HookConsumerWidget {
                   return const EndOfContentContainer();
                 }
                 final work = workList[index - 1];
-                return FeedWorkListTile(
-                  workId: work.id,
-                  workTitle: work.title,
-                  workImageURL: work.imageURL,
-                  workCreatedAt: work.createdAt,
-                  workImageAspectRatio: work.imageAspectRatio,
-                  userId: work.user.id,
-                  userName: work.user.name,
-                  userIconImageURL: work.user.iconUrl,
-                  likesCount: work.likesCount,
-                  commentsCount: work.commentsCount,
-                  isLiked: work.isLiked == true,
-                  isBookmarked: false,
-                  isFollowee: work.user.isFollowee == true,
-                  isMutedUser: work.user.isMuted == true,
-                );
+                return FeedWorkListTile(work: work);
               },
             );
           },

@@ -1,0 +1,10 @@
+# import './album_work_list_tile.graphql'
+
+query AlbumWorkList($albumId: ID!, $offset: Int!, $limit: Int!) {
+  album(id: $albumId) {
+    id
+    works(offset: $offset, limit: $limit) {
+      ...AlbumWorkListTile
+    }
+  }
+}

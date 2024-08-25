@@ -1,6 +1,6 @@
+import 'package:aipictors/features/feed/__generated__/viewer_feed_works.req.gql.dart';
 import 'package:aipictors/features/feed/widgets/feed_work_list_tile.dart';
 import 'package:aipictors/features/feed/widgets/home_message_list_tile.dart';
-import 'package:aipictors/features/viewer/queries/__generated__/viewer_feed_works.req.gql.dart';
 import 'package:aipictors/providers/audio_provider.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/providers/config_provider.dart';
@@ -76,22 +76,7 @@ class FeedHomeView extends HookConsumerWidget {
                 return const EndOfContentContainer();
               }
               final work = workList[index - indexCount];
-              return FeedWorkListTile(
-                workId: work.id,
-                workTitle: work.title,
-                workImageURL: work.imageURL,
-                workCreatedAt: work.createdAt,
-                workImageAspectRatio: work.imageAspectRatio,
-                userId: work.user.id,
-                userName: work.user.name,
-                userIconImageURL: work.user.iconUrl,
-                likesCount: work.likesCount,
-                commentsCount: work.commentsCount,
-                isLiked: work.viewer?.isLiked == true,
-                isBookmarked: work.viewer?.isBookmarked == true,
-                isFollowee: work.user.viewer?.isFollowee == true,
-                isMutedUser: work.user.viewer?.isMuted == true,
-              );
+              return FeedWorkListTile(work: work);
             },
           );
         },

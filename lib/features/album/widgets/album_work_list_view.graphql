@@ -1,11 +1,7 @@
-# import './album_work_list_tile.graphql'
+# import './album_action_list.graphql'
+# import './album_list_item_header.graphql'
 
-query AlbumWorkListView($albumId: ID!, $offset: Int!, $limit: Int!) {
-  album(id: $albumId) {
-    id
-    isLiked
-    works(offset: $offset, limit: $limit) {
-      ...AlbumWorkListTile
-    }
-  }
+fragment AlbumWorkListView on AlbumNode {
+  ...AlbumActionList
+  ...AlbumListItemHeader
 }

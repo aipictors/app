@@ -1,0 +1,7 @@
+# import './widgets/feed_work_list_tile.graphql'
+
+query FeedHotWorks {
+  hotWorks {
+    ...FeedWorkListTile
+  }
+}

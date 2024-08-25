@@ -1,8 +1,6 @@
 import 'package:aipictors/config.dart';
 import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/features/explorer/explorer_best_works_view.dart';
-import 'package:aipictors/features/explorer/explorer_hot_tags_view.dart';
-import 'package:aipictors/features/explorer/explorer_latest_albums_view.dart';
 import 'package:aipictors/features/explorer/explorer_popular_works_view.dart';
 import 'package:aipictors/features/explorer/widgets/explorer_tab_controller.dart';
 import 'package:aipictors/features/search/widgets/search_app_bar.dart';
@@ -73,8 +71,6 @@ class ExplorerScreen extends HookConsumerWidget {
               tabs: [
                 Tab(text: '人気'.i18n),
                 Tab(text: 'ベスト'.i18n),
-                Tab(text: 'シリーズ'.i18n),
-                Tab(text: 'タグ'.i18n),
               ],
             )),
         body: const TabBarView(children: [
@@ -83,12 +79,6 @@ class ExplorerScreen extends HookConsumerWidget {
           ),
           ExplorerBestWorksView(
             key: PageStorageKey('explorer_best_works'),
-          ),
-          ExplorerAlbumsView(
-            key: PageStorageKey('explorer_latest_folders'),
-          ),
-          ExplorerHotTagsView(
-            key: PageStorageKey('explorer_hot_tags'),
           ),
         ]),
       ),

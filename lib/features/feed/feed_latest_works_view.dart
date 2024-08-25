@@ -1,4 +1,4 @@
-import 'package:aipictors/features/feed/queries/__generated__/feed_latest_works.req.gql.dart';
+import 'package:aipictors/features/feed/__generated__/feed_latest_works.req.gql.dart';
 import 'package:aipictors/features/feed/widgets/feed_work_list_tile.dart';
 import 'package:aipictors/providers/audio_provider.dart';
 import 'package:aipictors/providers/client_provider.dart';
@@ -71,22 +71,7 @@ class FeedLatestWorksView extends HookConsumerWidget {
                   return const EndOfContentContainer();
                 }
                 final work = workList[index];
-                return FeedWorkListTile(
-                  workId: work.id,
-                  workTitle: work.title,
-                  workImageURL: work.imageURL,
-                  workCreatedAt: work.createdAt,
-                  workImageAspectRatio: work.imageAspectRatio,
-                  userId: work.user.id,
-                  userName: work.user.name,
-                  userIconImageURL: work.user.iconUrl,
-                  likesCount: work.likesCount,
-                  commentsCount: work.commentsCount,
-                  isLiked: work.isLiked == true,
-                  isBookmarked: false,
-                  isFollowee: work.user.isFollowee == true,
-                  isMutedUser: work.user.isMuted == true,
-                );
+                return FeedWorkListTile(work: work);
               },
             );
           },

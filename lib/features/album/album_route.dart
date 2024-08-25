@@ -1,6 +1,5 @@
 import 'package:aipictors/default.i18n.dart';
-import 'package:aipictors/features/album/__generated__/album.req.gql.g.dart';
-import 'package:aipictors/features/album/queries/__generated__/album.req.gql.dart';
+import 'package:aipictors/features/album/__generated__/album.req.gql.dart';
 import 'package:aipictors/features/album/widgets/__generated__/album_action_list.data.gql.dart';
 import 'package:aipictors/features/album/widgets/album_action_list.dart';
 import 'package:aipictors/features/album/widgets/album_work_list_view.dart';
@@ -72,22 +71,13 @@ class AlbumScreen extends HookConsumerWidget {
                   IconButton(
                     icon: const Icon(Icons.more_horiz_rounded),
                     onPressed: () {
-                      onOpenActionModal(context, album: album.user);
+                      onOpenActionModal(context, album: album);
                     },
                   ),
                 ],
               ),
               extendBody: true,
-              body: AlbumWorkListView(
-                client: client.value!,
-                albumId: albumId,
-                albumTitle: album.title,
-                albumDescription: album.description,
-                userId: album.user.id,
-                userName: album.user.name,
-                userIconImageURL: album.user.iconImage?.downloadURL,
-                isFollowee: album.user.isFollowee == true,
-              ),
+              body: AlbumWorkListView(client: client.value!, album: album),
             );
           },
         ),

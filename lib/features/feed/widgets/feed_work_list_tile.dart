@@ -1,5 +1,6 @@
 import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/features/config/widgets/about_follow_dialog.dart';
+import 'package:aipictors/features/feed/widgets/__generated__/feed_work_list_tile.data.gql.dart';
 import 'package:aipictors/features/feed/widgets/comment_modal_container.dart';
 import 'package:aipictors/features/feed/widgets/feed_action_modal_container.dart';
 import 'package:aipictors/features/feed/widgets/feed_like_button.dart';
@@ -18,51 +19,9 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class FeedWorkListTile extends HookConsumerWidget {
-  const FeedWorkListTile({
-    super.key,
-    required this.workId,
-    required this.workTitle,
-    required this.workImageURL,
-    required this.workCreatedAt,
-    required this.workImageAspectRatio,
-    required this.userId,
-    required this.userName,
-    required this.userIconImageURL,
-    required this.isLiked,
-    required this.isBookmarked,
-    required this.likesCount,
-    required this.commentsCount,
-    required this.isMutedUser,
-    required this.isFollowee,
-  });
+  const FeedWorkListTile({super.key, required this.work});
 
-  final String workId;
-
-  final String workTitle;
-
-  final int workCreatedAt;
-
-  final double workImageAspectRatio;
-
-  final String userId;
-
-  final String userName;
-
-  final String? userIconImageURL;
-
-  final String? workImageURL;
-
-  final int likesCount;
-
-  final int commentsCount;
-
-  final bool isLiked;
-
-  final bool isBookmarked;
-
-  final bool isMutedUser;
-
-  final bool isFollowee;
+  final GFeedWorkListTile work;
 
   @override
   Widget build(context, ref) {
@@ -70,7 +29,7 @@ class FeedWorkListTile extends HookConsumerWidget {
 
     return ListTile(
       onTap: () {
-        context.push('/works/$workId');
+        context.push('/works/${work.id}');
       },
       minVerticalPadding: 0,
       contentPadding: const EdgeInsets.only(
@@ -87,22 +46,22 @@ class FeedWorkListTile extends HookConsumerWidget {
             Expanded(
               child: GestureDetector(
                 onTap: () {
-                  context.push('/users/$userId');
+                  context.push('/users/${work.user.id}');
                 },
                 child: NotificationUserContainer(
-                  userName: userName,
-                  userIconImageURL: userIconImageURL,
+                  userName: work.user.name,
+                  userIconImageURL: work.user.iconUrl,
                 ),
               ),
             ),
-            if (authUserId.value != userId)
+            if (authUserId.value != work.user.id)
               FollowTextButton(
-                isActive: isFollowee,
+                isActive: work.user.isFollowee,
                 onPressed: () {
                   if (authUserId.value == null) {
                     return onShowLoginDialog(context, ref);
                   }
-                  return onFollowUser(context, userId: userId);
+                  return onFollowUser(context, userId: work.user.id);
                 },
               ),
             const SizedBox(width: 8),
@@ -118,17 +77,17 @@ class FeedWorkListTile extends HookConsumerWidget {
           ]),
           const SizedBox(height: 8),
           FeedImage(
-            imageURL: workImageURL,
-            imageAspectRatio: workImageAspectRatio,
+            imageURL: work.imageURL,
+            imageAspectRatio: work.imageAspectRatio,
           ),
           const SizedBox(height: 12),
           Text(
-            workTitle,
+            work.title,
             style: Theme.of(context).textTheme.bodyMedium,
           ),
           const SizedBox(height: 4),
           Text(
-            toReadableDateTime(workCreatedAt),
+            toReadableDateTime(work.createdAt),
             style: Theme.of(context).textTheme.bodySmall,
           ),
         ],
@@ -147,30 +106,30 @@ class FeedWorkListTile extends HookConsumerWidget {
                 //   },
                 // ),
                 // const SizedBox(width: 8),
-                if (authUserId.value != userId)
+                if (authUserId.value != work.user.id)
                   FeedLikeButton(
-                    count: likesCount,
-                    isActive: isLiked,
+                    count: work.likesCount,
+                    isActive: work.isLiked,
                     onTap: () async {
                       onCreateLike(context);
                     },
                   ),
-                if (authUserId.value == userId)
+                if (authUserId.value == work.user.id)
                   const Icon(
                     Icons.favorite_rounded,
                     size: 28,
                   ),
-                if (authUserId.value == userId) const SizedBox(width: 8),
-                if (authUserId.value == userId)
+                if (authUserId.value == work.user.id) const SizedBox(width: 8),
+                if (authUserId.value == work.user.id)
                   Text(
-                    likesCount.toString(),
+                    work.likesCount.toString(),
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                 const SizedBox(width: 8),
                 ShareWorkButton(
-                  workId: workId,
-                  workTitle: workTitle,
-                  userName: userName,
+                  workId: work.id,
+                  workTitle: work.title,
+                  userName: work.user.name,
                 ),
               ]),
               FilledButton.tonal(
@@ -184,7 +143,7 @@ class FeedWorkListTile extends HookConsumerWidget {
                   '_COMMENTS_COUNT_件のコメント'.i18n.replaceAllMapped(
                     RegExp(r'_COMMENTS_COUNT_'),
                     (match) {
-                      return commentsCount.toString();
+                      return work.commentsCount.toString();
                     },
                   ),
                 ),
@@ -202,11 +161,11 @@ class FeedWorkListTile extends HookConsumerWidget {
     FirebaseAnalytics.instance.logEvent(
       name: 'create_work_like',
       parameters: {
-        'item_id': workId,
+        'item_id': work.id,
       },
     );
     createWorkLike((builder) {
-      return builder..vars.input.workId = workId;
+      return builder..vars.input.workId = work.id;
     });
   }
 
@@ -217,9 +176,9 @@ class FeedWorkListTile extends HookConsumerWidget {
   void onOpenWork(BuildContext context) {
     FirebaseAnalytics.instance.logSelectContent(
       contentType: 'work',
-      itemId: workId,
+      itemId: work.id,
     );
-    context.push('/works/$workId');
+    context.push('/works/${work.id}');
   }
 
   /// 作品のコメントを開く
@@ -228,7 +187,7 @@ class FeedWorkListTile extends HookConsumerWidget {
       context: context,
       isScrollControlled: true,
       builder: (context) {
-        return CommentModalContainer(workId: workId);
+        return CommentModalContainer(workId: work.id);
       },
     );
   }
@@ -239,13 +198,13 @@ class FeedWorkListTile extends HookConsumerWidget {
       context: context,
       builder: (context) {
         return FeedActionModalContainer(
-          workId: workId,
-          userId: userId,
-          userName: userName,
-          workTitle: workTitle,
-          userIconImageURL: userIconImageURL,
-          isFollowee: isFollowee,
-          isMutedUser: isMutedUser,
+          workId: work.id,
+          userId: work.user.id,
+          userName: work.user.name,
+          workTitle: work.title,
+          userIconImageURL: work.user.iconUrl,
+          isFollowee: work.user.isFollowee,
+          isMutedUser: work.user.isMuted,
         );
       },
     );

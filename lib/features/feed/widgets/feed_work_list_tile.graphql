@@ -1,0 +1,19 @@
+fragment FeedWorkListTile on WorkNode {
+  id
+  title
+  likesCount
+  commentsCount
+  createdAt
+  imageAspectRatio
+  imageURL
+  isLiked
+  user {
+    id
+    login
+    name
+    iconUrl
+    isFollower
+    isFollowee
+    isMuted
+  }
+}
