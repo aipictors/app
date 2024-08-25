@@ -70,6 +70,15 @@ type AiModelNode implements Node {
 
   """投稿機能のモデルID"""
   workModelId: ID
+
+  """
+  作品
+  ※キャッシュ不可
+  """
+  works(limit: Int!, offset: Int!, where: WorksWhereInput): [WorkNode!]!
+
+  """作品数"""
+  worksCount(where: WorksWhereInput): Int!
 }
 
 """AIモデルの種類"""
@@ -880,6 +889,36 @@ input CreateStickerInput {
   title: String
 }
 
+input CreateUserProfileInput {
+  """紹介"""
+  biography: String
+  displayName: String
+
+  """紹介（英語）"""
+  enBiography: String
+
+  """GitHub"""
+  githubAccountId: String
+
+  """ヘッダー画像"""
+  headerImageUrl: String
+
+  """ホームURL"""
+  homeUrl: String
+
+  """アイコン画像"""
+  iconUrl: String
+
+  """Instagram"""
+  instagramAccountId: String
+
+  """メールアドレス"""
+  mailAddress: String
+
+  """X"""
+  twitterAccountId: String
+}
+
 input CreateUserStickerInput {
   stickerId: ID!
 }
@@ -1134,6 +1173,15 @@ enum Direction {
 
 input EnablePromptonRequestChatInput {
   requestId: String!
+}
+
+"""お気に入りスタンプ種別"""
+enum FavoritedStickerType {
+  """コメント"""
+  comment
+
+  """返信"""
+  reply
 }
 
 input FeaturePromptonRequestWhereInput {
@@ -1796,12 +1844,15 @@ type ImageModelNode implements Node {
   """説明"""
   description: String
 
-  """名前"""
+  """表示名"""
   displayName: String!
   id: ID!
 
   """ライセンス"""
   license: String
+
+  """モデル名"""
+  modelName: String!
 
   """名前"""
   name: String!
@@ -1823,6 +1874,14 @@ type ImageModelNode implements Node {
 
   """参考作品"""
   works(limit: Int!, offset: Int!, where: WorksWhereInput): [WorkNode!]!
+}
+
+input ImageModelWhereInput {
+  """ID"""
+  id: [ID!]
+
+  """モデル名(空白は詰める)"""
+  name: String
 }
 
 """画像"""
@@ -2235,6 +2294,9 @@ type Mutation {
   """フォルダを有償化にする"""
   changePromptonFolderToPaid(input: ChangePromptonFolderToPaidInput!): PromptonFolderNode!
 
+  """ユーザ設定有無を確認する（初ログインかどうか）"""
+  checkUserSetting: Boolean!
+
   """リクエストを完了とする"""
   closePromptonRequest(input: ClosePromptonRequestInput!): PromptonRequestNode!
 
@@ -2336,6 +2398,12 @@ type Mutation {
 
   """スタンプを作成する"""
   createSticker(input: CreateStickerInput!): StickerNode!
+
+  """ユーザ情報が存在するかチェックして存在しない場合は作成する"""
+  createUserInfo: UserNode!
+
+  """ユーザのプロフィールを作成する"""
+  createUserProfile(input: CreateUserProfileInput!): UserNode!
 
   """マイスタンプを追加する"""
   createUserSticker(input: CreateUserStickerInput!): StickerNode!
@@ -2520,11 +2588,11 @@ type Mutation {
   """テスト通知を送信する"""
   testPromptonIntegration(input: TestPromptonIntegrationInput!): Boolean
 
-  """タグをフォロー解除する"""
-  unFollowTag(input: UnFollowTagInput!): Boolean!
-
   """ユーザのフォローは解除する"""
   unfollowPromptonUser(input: UnfollowPromptonUserInput!): PromptonUserNode
+
+  """タグをフォロー解除する"""
+  unfollowTag(input: UnfollowTagInput!): Boolean!
 
   """ユーザのフォローを解除する"""
   unfollowUser(input: UnfollowUserInput!): UserNode!
@@ -2556,11 +2624,17 @@ type Mutation {
   """シリーズを更新する"""
   updateAlbum(input: UpdateAlbumInput!): AlbumNode!
 
+  """お気に入りスタンプを更新する"""
+  updateFavoritedSticker(input: UpdateFavoritedStickerInput!): StickerNode
+
   """シリーズを更新する"""
   updateFolder(input: UpdateFolderInput!): FolderNode!
 
   """画像生成のメモを変更する"""
   updateImageGenerationMemo(input: UpdateImageGenerationMemoInput!): ImageGenerationMemoNode!
+
+  """ログイン時間を更新する"""
+  updateLoggedInAt(input: CreateUserProfileInput!): Boolean!
 
   """ノートを更新する"""
   updateNote(input: UpdateNoteInput!): NoteNode!
@@ -2643,6 +2717,35 @@ input MuteTagInput {
 
 input MuteUserInput {
   userId: ID!
+}
+
+input NewCommentsWhereInput {
+  """センシティブである"""
+  isSensitive: Boolean
+
+  """年齢種別"""
+  ratings: [Rating!]
+}
+
+input NewUsersWorksWhereInput {
+  """フォロー中のユーザのみ"""
+  isFollowing: Boolean
+
+  """フォロー外のユーザのみ"""
+  isNotFollowing: Boolean
+
+  """(〜)最新の日付"""
+  isNowCreatedAt: Boolean
+  isSensitive: Boolean
+
+  """年齢種別"""
+  ratings: [Rating!]
+
+  """昇順/降順"""
+  sort: Sort
+
+  """スタイル(テイスト)"""
+  style: ImageStyle
 }
 
 """ノード"""
@@ -3587,7 +3690,26 @@ type PromptonRequestNode implements Node {
   sender: PromptonUserNode!
   senderId: ID!
   signature: String
+  status: PromptonRequestStatus!
   unitPrice: Int!
+}
+
+"""状況"""
+enum PromptonRequestStatus {
+  """キャンセル"""
+  CANCELED
+
+  """完了"""
+  COMPLETED
+
+  """取組中"""
+  IN_PROGRESS
+
+  """拒否"""
+  REJECTED
+
+  """時間切れ"""
+  TIMEOUT
 }
 
 type PromptonSlug {
@@ -3888,6 +4010,9 @@ input PromptonWorksWhereInput {
 
 type Query {
   """モデル"""
+  aiModel(where: AiModelWhereInput!): AiModelNode
+
+  """モデル"""
   aiModels(limit: Int!, offset: Int!, where: AiModelWhereInput): [AiModelNode!]
 
   """シリーズ"""
@@ -3996,7 +4121,7 @@ type Query {
   imageLoraModels: [ImageLoraModelNode!]!
 
   """画像生成モデル"""
-  imageModel(id: ID!): ImageModelNode!
+  imageModel(where: ImageModelWhereInput): ImageModelNode!
 
   """画像生成モデル"""
   imageModels: [ImageModelNode!]!
@@ -4006,6 +4131,18 @@ type Query {
 
   """画像生成ネガティブキーワード"""
   negativePromptCategories: [PromptCategoryNode!]!
+
+  """新規コメント"""
+  newComments(limit: Int!, offset: Int!, where: NewCommentsWhereInput): [CommentNode!]!
+
+  """新規投稿ユーザ"""
+  newPostedUsers(limit: Int!, offset: Int!): [UserNode!]!
+
+  """
+  新しいユーザの初投稿作品一覧
+  ※キャッシュ不可
+  """
+  newUserWorks(limit: Int!, offset: Int!, where: NewUsersWorksWhereInput): [WorkNode!]!
 
   """
   全期間の人気作品
@@ -4046,6 +4183,12 @@ type Query {
 
   """プロンプトに基づいた推奨タグ"""
   recommendedTagsFromPrompts(prompts: String!): [TagNode!]!
+
+  """おすすめユーザ"""
+  recommendedUsers(limit: Int!, offset: Int!): [UserNode!]!
+
+  """支援リクエスト"""
+  requests(limit: Int!, offset: Int!, where: RequestsWhereInput!): [PromptonRequestNode!]!
 
   """スタンプ"""
   sticker(id: ID!): StickerNode
@@ -4203,6 +4346,10 @@ input ReportWorkInput {
   comment: String!
   reason: ReportReason!
   workId: ID!
+}
+
+input RequestsWhereInput {
+  status: PromptonRequestStatus
 }
 
 input SendPromptonMessageInput {
@@ -4405,7 +4552,7 @@ input UnfollowPromptonUserInput {
 }
 
 """タグのフォローを解除する"""
-input UnFollowTagInput {
+input UnfollowTagInput {
   tagName: String!
 }
 
@@ -4454,6 +4601,18 @@ input UpdateAlbumInput {
   headerImageUrl: String
   title: String
   workIds: [ID!]
+}
+
+"""お気に入りスタンプを更新する"""
+input UpdateFavoritedStickerInput {
+  """お気に入りするか、解除するかどうか"""
+  isFavorited: Boolean!
+
+  """スタンプID"""
+  stickerId: ID!
+
+  """お気に入りスタンプ種別（返信、コメント）"""
+  type: FavoritedStickerType!
 }
 
 input UpdateFolderInput {
@@ -4986,9 +5145,16 @@ type UserViewerNode implements Node {
 }
 
 input UserWorksWhereInput {
+  """Aipictorsで生成された作品を取得するかどうか"""
   isGeneration: Boolean
+
+  """センシティブな作品を取得するかどうか"""
   isSensitive: Boolean
+
+  """モデル名"""
   modelName: String
+
+  """検索ワード"""
   search: String
 }
 
@@ -5033,6 +5199,9 @@ type Viewer {
 
   """お気に入りのモデル一覧"""
   favoritedImageGenerationModels: [ImageModelNode!]!
+
+  """お気に入りスタンプ一覧"""
+  favoritedStickers(limit: Int!, offset: Int!, type: FavoritedStickerType): [StickerNode!]!
 
   """全年齢作品のいいねを匿名にする"""
   featureAnonymousLike: Boolean!
@@ -5189,6 +5358,9 @@ type WorkAwardNode implements Node {
   dateText: String!
   id: ID!
   index: Int!
+
+  """ランキング集計時のいいね数"""
+  snapshotLikedCount: Int!
 
   """ユーザ"""
   user: UserNode!
