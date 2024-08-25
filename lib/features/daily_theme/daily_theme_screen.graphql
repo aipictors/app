@@ -1,0 +1,16 @@
+# import 'widgets/daily_theme_work_grid_item.graphql'
+
+query DailyThemeScreen($id: ID!, $offset: Int!, $limit: Int!) {
+  dailyTheme(id: $id) {
+    id
+    title
+    dateText
+    year
+    month
+    day
+    worksCount
+    works(offset: $offset, limit: $limit) {
+      ...DailyThemeWorkGridItem
+    }
+  }
+}

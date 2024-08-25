@@ -330,34 +330,46 @@ import 'package:aipictors/features/award/widgets/__generated__/work_award_grid_i
     show GWorkAwardGridItemReq;
 import 'package:aipictors/features/award/widgets/__generated__/work_award_grid_item.var.gql.dart'
     show GWorkAwardGridItemVars;
-import 'package:aipictors/features/daily_theme/__generated__/daily_themes_route.data.gql.dart'
+import 'package:aipictors/features/daily_theme/__generated__/daily_theme_home_screen.data.gql.dart'
     show
-        GDailyThemesRouteData,
-        GDailyThemesRouteData_dailyTheme,
-        GDailyThemesRouteData_dailyTheme_works,
-        GDailyThemesRouteData_dailyTheme_works_user;
-import 'package:aipictors/features/daily_theme/__generated__/daily_themes_route.req.gql.dart'
-    show GDailyThemesRouteReq;
-import 'package:aipictors/features/daily_theme/__generated__/daily_themes_route.var.gql.dart'
-    show GDailyThemesRouteVars;
-import 'package:aipictors/features/daily_theme/queries/__generated__/daily_theme.data.gql.dart'
+        GDailyThemeHomeScreenData,
+        GDailyThemeHomeScreenData_dailyTheme,
+        GDailyThemeHomeScreenData_dailyTheme_works,
+        GDailyThemeHomeScreenData_dailyTheme_works_user;
+import 'package:aipictors/features/daily_theme/__generated__/daily_theme_home_screen.req.gql.dart'
+    show GDailyThemeHomeScreenReq;
+import 'package:aipictors/features/daily_theme/__generated__/daily_theme_home_screen.var.gql.dart'
+    show GDailyThemeHomeScreenVars;
+import 'package:aipictors/features/daily_theme/__generated__/daily_theme_screen.data.gql.dart'
     show
-        GDailyThemeData,
-        GDailyThemeData_dailyTheme,
-        GDailyThemeData_dailyTheme_works;
-import 'package:aipictors/features/daily_theme/queries/__generated__/daily_theme.req.gql.dart'
-    show GDailyThemeReq;
-import 'package:aipictors/features/daily_theme/queries/__generated__/daily_theme.var.gql.dart'
-    show GDailyThemeVars;
-import 'package:aipictors/features/daily_theme/queries/__generated__/daily_themes.data.gql.dart'
+        GDailyThemeScreenData,
+        GDailyThemeScreenData_dailyTheme,
+        GDailyThemeScreenData_dailyTheme_works;
+import 'package:aipictors/features/daily_theme/__generated__/daily_theme_screen.req.gql.dart'
+    show GDailyThemeScreenReq;
+import 'package:aipictors/features/daily_theme/__generated__/daily_theme_screen.var.gql.dart'
+    show GDailyThemeScreenVars;
+import 'package:aipictors/features/daily_theme/widgets/__generated__/daily_theme_list.data.gql.dart'
     show
-        GDailyThemesData,
-        GDailyThemesData_dailyThemes,
-        GDailyThemesData_dailyThemes_firstWork;
-import 'package:aipictors/features/daily_theme/queries/__generated__/daily_themes.req.gql.dart'
-    show GDailyThemesReq;
-import 'package:aipictors/features/daily_theme/queries/__generated__/daily_themes.var.gql.dart'
-    show GDailyThemesVars;
+        GDailyThemeListData,
+        GDailyThemeListData_dailyThemes,
+        GDailyThemeListData_dailyThemes_firstWork;
+import 'package:aipictors/features/daily_theme/widgets/__generated__/daily_theme_list.req.gql.dart'
+    show GDailyThemeListReq;
+import 'package:aipictors/features/daily_theme/widgets/__generated__/daily_theme_list.var.gql.dart'
+    show GDailyThemeListVars;
+import 'package:aipictors/features/daily_theme/widgets/__generated__/daily_theme_list_tile.data.gql.dart'
+    show GDailyThemeListTileData, GDailyThemeListTileData_firstWork;
+import 'package:aipictors/features/daily_theme/widgets/__generated__/daily_theme_list_tile.req.gql.dart'
+    show GDailyThemeListTileReq;
+import 'package:aipictors/features/daily_theme/widgets/__generated__/daily_theme_list_tile.var.gql.dart'
+    show GDailyThemeListTileVars;
+import 'package:aipictors/features/daily_theme/widgets/__generated__/daily_theme_work_grid_item.data.gql.dart'
+    show GDailyThemeWorkGridItemData;
+import 'package:aipictors/features/daily_theme/widgets/__generated__/daily_theme_work_grid_item.req.gql.dart'
+    show GDailyThemeWorkGridItemReq;
+import 'package:aipictors/features/daily_theme/widgets/__generated__/daily_theme_work_grid_item.var.gql.dart'
+    show GDailyThemeWorkGridItemVars;
 import 'package:aipictors/features/explorer/queries/__generated__/best_works.data.gql.dart'
     show GBestWorksData, GBestWorksData_bestWorks;
 import 'package:aipictors/features/explorer/queries/__generated__/best_works.req.gql.dart'
@@ -425,6 +437,12 @@ import 'package:aipictors/features/feed/widgets/__generated__/feed_work_list_til
     show GFeedWorkListTileReq;
 import 'package:aipictors/features/feed/widgets/__generated__/feed_work_list_tile.var.gql.dart'
     show GFeedWorkListTileVars;
+import 'package:aipictors/features/folder/__generated__/folder_screen.data.gql.dart'
+    show GFolderScreenData, GFolderScreenData_folder;
+import 'package:aipictors/features/folder/__generated__/folder_screen.req.gql.dart'
+    show GFolderScreenReq;
+import 'package:aipictors/features/folder/__generated__/folder_screen.var.gql.dart'
+    show GFolderScreenVars;
 import 'package:aipictors/features/folder/mutations/__generated__/create_folder.data.gql.dart'
     show GCreateFolderData, GCreateFolderData_createFolder;
 import 'package:aipictors/features/folder/mutations/__generated__/create_folder.req.gql.dart'
@@ -461,31 +479,21 @@ import 'package:aipictors/features/folder/mutations/__generated__/update_folder.
     show GUpdateFolderReq;
 import 'package:aipictors/features/folder/mutations/__generated__/update_folder.var.gql.dart'
     show GUpdateFolderVars;
-import 'package:aipictors/features/folder/queries/__generated__/folder.data.gql.dart'
+import 'package:aipictors/features/folder/widgets/__generated__/folder_post_grid_item.data.gql.dart'
+    show GFolderPostGridItemData;
+import 'package:aipictors/features/folder/widgets/__generated__/folder_post_grid_item.req.gql.dart'
+    show GFolderPostGridItemReq;
+import 'package:aipictors/features/folder/widgets/__generated__/folder_post_grid_item.var.gql.dart'
+    show GFolderPostGridItemVars;
+import 'package:aipictors/features/folder/widgets/__generated__/folder_work_list_view.data.gql.dart'
     show
-        GFolderData,
-        GFolderData_folder,
-        GFolderData_folder_user,
-        GFolderData_folder_user_iconImage;
-import 'package:aipictors/features/folder/queries/__generated__/folder.req.gql.dart'
-    show GFolderReq;
-import 'package:aipictors/features/folder/queries/__generated__/folder.var.gql.dart'
-    show GFolderVars;
-import 'package:aipictors/features/folder/queries/__generated__/folder_works.data.gql.dart'
-    show
-        GFolderWorksData,
-        GFolderWorksData_folder,
-        GFolderWorksData_folder_works;
-import 'package:aipictors/features/folder/queries/__generated__/folder_works.req.gql.dart'
-    show GFolderWorksReq;
-import 'package:aipictors/features/folder/queries/__generated__/folder_works.var.gql.dart'
-    show GFolderWorksVars;
-import 'package:aipictors/features/folder/queries/__generated__/folders.data.gql.dart'
-    show GFoldersData, GFoldersData_folders, GFoldersData_folders_user;
-import 'package:aipictors/features/folder/queries/__generated__/folders.req.gql.dart'
-    show GFoldersReq;
-import 'package:aipictors/features/folder/queries/__generated__/folders.var.gql.dart'
-    show GFoldersVars;
+        GFolderWorkListViewData,
+        GFolderWorkListViewData_folder,
+        GFolderWorkListViewData_folder_works;
+import 'package:aipictors/features/folder/widgets/__generated__/folder_work_list_view.req.gql.dart'
+    show GFolderWorkListViewReq;
+import 'package:aipictors/features/folder/widgets/__generated__/folder_work_list_view.var.gql.dart'
+    show GFolderWorkListViewVars;
 import 'package:aipictors/features/generation/mutations/__generated__/create_image_generation_task.data.gql.dart'
     show
         GCreateImageGenerationTaskData,
@@ -758,30 +766,39 @@ import 'package:aipictors/features/sticker/queries/__generated__/user_stickers.r
     show GUserStickersReq;
 import 'package:aipictors/features/sticker/queries/__generated__/user_stickers.var.gql.dart'
     show GUserStickersVars;
+import 'package:aipictors/features/tag/__generated__/tag_screen.data.gql.dart'
+    show GTagScreenData, GTagScreenData_tag;
+import 'package:aipictors/features/tag/__generated__/tag_screen.req.gql.dart'
+    show GTagScreenReq;
+import 'package:aipictors/features/tag/__generated__/tag_screen.var.gql.dart'
+    show GTagScreenVars;
+import 'package:aipictors/features/tag/__generated__/tags.data.gql.dart'
+    show GTagsData, GTagsData_tags;
+import 'package:aipictors/features/tag/__generated__/tags.req.gql.dart'
+    show GTagsReq;
+import 'package:aipictors/features/tag/__generated__/tags.var.gql.dart'
+    show GTagsVars;
 import 'package:aipictors/features/tag/mutations/__generated__/mute_tag.data.gql.dart'
     show GMuteTagData, GMuteTagData_muteTag;
 import 'package:aipictors/features/tag/mutations/__generated__/mute_tag.req.gql.dart'
     show GMuteTagReq;
 import 'package:aipictors/features/tag/mutations/__generated__/mute_tag.var.gql.dart'
     show GMuteTagVars;
-import 'package:aipictors/features/tag/queries/__generated__/tag.data.gql.dart'
-    show GTagData, GTagData_tag;
-import 'package:aipictors/features/tag/queries/__generated__/tag.req.gql.dart'
-    show GTagReq;
-import 'package:aipictors/features/tag/queries/__generated__/tag.var.gql.dart'
-    show GTagVars;
-import 'package:aipictors/features/tag/queries/__generated__/tag_works.data.gql.dart'
-    show GTagWorksData, GTagWorksData_tag, GTagWorksData_tag_works;
-import 'package:aipictors/features/tag/queries/__generated__/tag_works.req.gql.dart'
-    show GTagWorksReq;
-import 'package:aipictors/features/tag/queries/__generated__/tag_works.var.gql.dart'
-    show GTagWorksVars;
-import 'package:aipictors/features/tag/queries/__generated__/tags.data.gql.dart'
-    show GTagsData, GTagsData_tags;
-import 'package:aipictors/features/tag/queries/__generated__/tags.req.gql.dart'
-    show GTagsReq;
-import 'package:aipictors/features/tag/queries/__generated__/tags.var.gql.dart'
-    show GTagsVars;
+import 'package:aipictors/features/tag/widgets/__generated__/tag_work_grid_item.data.gql.dart'
+    show GTagWorkGridItemData;
+import 'package:aipictors/features/tag/widgets/__generated__/tag_work_grid_item.req.gql.dart'
+    show GTagWorkGridItemReq;
+import 'package:aipictors/features/tag/widgets/__generated__/tag_work_grid_item.var.gql.dart'
+    show GTagWorkGridItemVars;
+import 'package:aipictors/features/tag/widgets/__generated__/tag_work_list_view.data.gql.dart'
+    show
+        GTagWorkListViewData,
+        GTagWorkListViewData_tag,
+        GTagWorkListViewData_tag_works;
+import 'package:aipictors/features/tag/widgets/__generated__/tag_work_list_view.req.gql.dart'
+    show GTagWorkListViewReq;
+import 'package:aipictors/features/tag/widgets/__generated__/tag_work_list_view.var.gql.dart'
+    show GTagWorkListViewVars;
 import 'package:aipictors/features/user/mutations/__generated__/follow_user.data.gql.dart'
     show GFollowUserData, GFollowUserData_followUser;
 import 'package:aipictors/features/user/mutations/__generated__/follow_user.req.gql.dart'
@@ -1256,22 +1273,29 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GCreateWorkLikeVars,
   GCreateWorkReq,
   GCreateWorkVars,
-  GDailyThemeData,
-  GDailyThemeData_dailyTheme,
-  GDailyThemeData_dailyTheme_works,
-  GDailyThemeReq,
-  GDailyThemeVars,
-  GDailyThemesData,
-  GDailyThemesData_dailyThemes,
-  GDailyThemesData_dailyThemes_firstWork,
-  GDailyThemesReq,
-  GDailyThemesRouteData,
-  GDailyThemesRouteData_dailyTheme,
-  GDailyThemesRouteData_dailyTheme_works,
-  GDailyThemesRouteData_dailyTheme_works_user,
-  GDailyThemesRouteReq,
-  GDailyThemesRouteVars,
-  GDailyThemesVars,
+  GDailyThemeHomeScreenData,
+  GDailyThemeHomeScreenData_dailyTheme,
+  GDailyThemeHomeScreenData_dailyTheme_works,
+  GDailyThemeHomeScreenData_dailyTheme_works_user,
+  GDailyThemeHomeScreenReq,
+  GDailyThemeHomeScreenVars,
+  GDailyThemeListData,
+  GDailyThemeListData_dailyThemes,
+  GDailyThemeListData_dailyThemes_firstWork,
+  GDailyThemeListReq,
+  GDailyThemeListTileData,
+  GDailyThemeListTileData_firstWork,
+  GDailyThemeListTileReq,
+  GDailyThemeListTileVars,
+  GDailyThemeListVars,
+  GDailyThemeScreenData,
+  GDailyThemeScreenData_dailyTheme,
+  GDailyThemeScreenData_dailyTheme_works,
+  GDailyThemeScreenReq,
+  GDailyThemeScreenVars,
+  GDailyThemeWorkGridItemData,
+  GDailyThemeWorkGridItemReq,
+  GDailyThemeWorkGridItemVars,
   GDailyThemesWhereInput,
   GDecrementPromptonProfileBlockIndexInput,
   GDeleteAlbumData,
@@ -1358,25 +1382,21 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GFeedWorkListTileReq,
   GFeedWorkListTileVars,
   GFlipPromptonFolderWorkIndexInput,
-  GFolderData,
-  GFolderData_folder,
-  GFolderData_folder_user,
-  GFolderData_folder_user_iconImage,
   GFolderMode,
-  GFolderReq,
+  GFolderPostGridItemData,
+  GFolderPostGridItemReq,
+  GFolderPostGridItemVars,
+  GFolderScreenData,
+  GFolderScreenData_folder,
+  GFolderScreenReq,
+  GFolderScreenVars,
   GFolderType,
-  GFolderVars,
   GFolderWhereInput,
-  GFolderWorksData,
-  GFolderWorksData_folder,
-  GFolderWorksData_folder_works,
-  GFolderWorksReq,
-  GFolderWorksVars,
-  GFoldersData,
-  GFoldersData_folders,
-  GFoldersData_folders_user,
-  GFoldersReq,
-  GFoldersVars,
+  GFolderWorkListViewData,
+  GFolderWorkListViewData_folder,
+  GFolderWorkListViewData_folder_works,
+  GFolderWorkListViewReq,
+  GFolderWorkListViewVars,
   GFoldersWhereInput,
   GFollowNotificationFieldsData,
   GFollowNotificationFieldsData_user,
@@ -1572,15 +1592,18 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GSubWorkFieldsData,
   GSubWorkFieldsReq,
   GSubWorkFieldsVars,
-  GTagData,
-  GTagData_tag,
-  GTagReq,
-  GTagVars,
-  GTagWorksData,
-  GTagWorksData_tag,
-  GTagWorksData_tag_works,
-  GTagWorksReq,
-  GTagWorksVars,
+  GTagScreenData,
+  GTagScreenData_tag,
+  GTagScreenReq,
+  GTagScreenVars,
+  GTagWorkGridItemData,
+  GTagWorkGridItemReq,
+  GTagWorkGridItemVars,
+  GTagWorkListViewData,
+  GTagWorkListViewData_tag,
+  GTagWorkListViewData_tag_works,
+  GTagWorkListViewReq,
+  GTagWorkListViewVars,
   GTagsData,
   GTagsData_tags,
   GTagsReq,

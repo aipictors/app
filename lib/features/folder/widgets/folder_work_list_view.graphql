@@ -1,0 +1,10 @@
+# import 'folder_post_grid_item.graphql'
+
+query FolderWorkListView($folderId: ID!, $offset: Int!, $limit: Int!) {
+  folder(id: $folderId) {
+    id
+    works(offset: $offset, limit: $limit) {
+      ...FolderPostGridItem
+    }
+  }
+}

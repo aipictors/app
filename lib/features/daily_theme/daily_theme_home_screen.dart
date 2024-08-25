@@ -1,5 +1,5 @@
 import 'package:aipictors/default.i18n.dart';
-import 'package:aipictors/features/daily_theme/__generated__/daily_themes_route.req.gql.dart';
+import 'package:aipictors/features/daily_theme/__generated__/daily_theme_home_screen.req.gql.dart';
 import 'package:aipictors/features/daily_theme/widgets/daily_theme_title_list_tile.dart';
 import 'package:aipictors/features/feed/widgets/feed_work_list_tile.dart';
 import 'package:aipictors/providers/client_provider.dart';
@@ -14,8 +14,8 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// 日別テーマの作品の一覧
-class DailyThemeHomeRoute extends HookConsumerWidget {
-  const DailyThemeHomeRoute({
+class DailyThemeHomeScreen extends HookConsumerWidget {
+  const DailyThemeHomeScreen({
     super.key,
   });
 
@@ -29,7 +29,7 @@ class DailyThemeHomeRoute extends HookConsumerWidget {
       return const LoadingProgress();
     }
 
-    final request = GDailyThemesRouteReq((builder) {
+    final request = GDailyThemeHomeScreenReq((builder) {
       builder
         ..vars.limit = config.graphqlQueryLimit
         ..vars.offset = 0

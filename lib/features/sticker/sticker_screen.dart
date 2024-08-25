@@ -1,7 +1,7 @@
 import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/features/home/widgets/data_not_found_error_screen.dart';
 import 'package:aipictors/features/home/widgets/loading_screen.dart';
-import 'package:aipictors/features/post/widgets/work_user_profile_container.dart';
+import 'package:aipictors/features/post/widgets/work_user_profile.dart';
 import 'package:aipictors/features/sticker/functions/create_user_sticker.dart';
 import 'package:aipictors/features/sticker/functions/delete_user_sticker.dart';
 import 'package:aipictors/features/sticker/mutations/__generated__/create_user_sticker.data.gql.dart';
@@ -92,7 +92,7 @@ class StickerScreen extends HookConsumerWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Expanded(
-                            child: WorkUserProfileContainer(user: sticker.user),
+                            child: WorkUserProfile(user: sticker.user),
                           ),
                           if (authUserId.value != null &&
                               authUserId.value != sticker.user.id)

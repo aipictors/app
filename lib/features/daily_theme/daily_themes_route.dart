@@ -1,5 +1,5 @@
 import 'package:aipictors/default.i18n.dart';
-import 'package:aipictors/features/daily_theme/widgets/daily_themes_list_view.dart';
+import 'package:aipictors/features/daily_theme/widgets/daily_theme_list_view.dart';
 import 'package:aipictors/features/home/widgets/loading_screen.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:flutter/material.dart';
@@ -63,7 +63,7 @@ class DailyThemesScreen extends HookConsumerWidget {
           month.value = newDate.month;
         },
         itemBuilder: (context, index) {
-          return DailyThemesListView(month: month.value, year: year.value);
+          return DailyThemeListView(month: month.value, year: year.value);
         },
       ),
     );

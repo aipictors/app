@@ -3,7 +3,7 @@ import 'package:aipictors/features/post/functions/create_response_comment.dart';
 import 'package:aipictors/features/post/functions/delete_comment.dart';
 import 'package:aipictors/features/post/queries/__generated__/work_comment_responses.req.gql.dart';
 import 'package:aipictors/features/post/widgets/comment_action_modal_container.dart';
-import 'package:aipictors/features/post/widgets/work_comment_form_container.dart';
+import 'package:aipictors/features/post/widgets/work_comment_form.dart';
 import 'package:aipictors/features/post/widgets/work_comment_list_tile.dart';
 import 'package:aipictors/providers/auth_state_provider.dart';
 import 'package:aipictors/providers/auth_user_id_provider.dart';
@@ -149,7 +149,7 @@ class CommentDetailsModalContainer extends HookConsumerWidget {
                   ),
                 ),
               if (authState.value?.uid != null)
-                WorkCommentFormContainer(
+                WorkCommentForm(
                   onSubmit: (text, stickerId) async {
                     await createResponseComment((builder) {
                       return builder

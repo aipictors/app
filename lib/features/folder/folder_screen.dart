@@ -1,5 +1,5 @@
-import 'package:aipictors/features/folder/queries/__generated__/folder.req.gql.dart';
-import 'package:aipictors/features/folder/widgets/folder_works_view.dart';
+import 'package:aipictors/features/folder/__generated__/folder_screen.req.gql.dart';
+import 'package:aipictors/features/folder/widgets/folder_work_list_view.dart';
 import 'package:aipictors/features/home/widgets/data_not_found_error_screen.dart';
 import 'package:aipictors/features/home/widgets/loading_screen.dart';
 import 'package:aipictors/providers/client_provider.dart';
@@ -26,7 +26,7 @@ class FolderScreen extends HookConsumerWidget {
 
     return OperationScreenBuilder(
       client: client.value!,
-      operationRequest: GFolderReq((builder) {
+      operationRequest: GFolderScreenReq((builder) {
         builder.vars.id = folderId;
       }),
       builder: (context, response) {
@@ -44,7 +44,7 @@ class FolderScreen extends HookConsumerWidget {
             ),
           ),
           extendBody: true,
-          body: FolderWorksView(
+          body: FolderWorkListView(
             client: client.value!,
             folderId: folderId,
           ),

@@ -1,4 +1,4 @@
-import 'package:aipictors/widgets/image/grid_work_image.dart';
+import 'package:aipictors/widgets/image/post_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -14,7 +14,7 @@ class WorkAwardGridItem extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
-    return GridWorkImage(
+    return PostImage(
       imageURL: workAward.work.imageURL,
       imageAspectRatio: workAward.work.imageAspectRatio,
       thumbnailImagePosition: workAward.work.thumbnailImagePosition,

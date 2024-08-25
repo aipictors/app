@@ -1,0 +1,10 @@
+# import 'tag_work_grid_item.graphql'
+
+query TagWorkListView($tagName: String!, $offset: Int!, $limit: Int!) {
+  tag(name: $tagName) {
+    id
+    works(offset: $offset, limit: $limit) {
+      ...TagWorkGridItem
+    }
+  }
+}

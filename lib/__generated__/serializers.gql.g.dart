@@ -158,22 +158,29 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GCreateWorkLikeVars.serializer)
       ..add(GCreateWorkReq.serializer)
       ..add(GCreateWorkVars.serializer)
-      ..add(GDailyThemeData.serializer)
-      ..add(GDailyThemeData_dailyTheme.serializer)
-      ..add(GDailyThemeData_dailyTheme_works.serializer)
-      ..add(GDailyThemeReq.serializer)
-      ..add(GDailyThemeVars.serializer)
-      ..add(GDailyThemesData.serializer)
-      ..add(GDailyThemesData_dailyThemes.serializer)
-      ..add(GDailyThemesData_dailyThemes_firstWork.serializer)
-      ..add(GDailyThemesReq.serializer)
-      ..add(GDailyThemesRouteData.serializer)
-      ..add(GDailyThemesRouteData_dailyTheme.serializer)
-      ..add(GDailyThemesRouteData_dailyTheme_works.serializer)
-      ..add(GDailyThemesRouteData_dailyTheme_works_user.serializer)
-      ..add(GDailyThemesRouteReq.serializer)
-      ..add(GDailyThemesRouteVars.serializer)
-      ..add(GDailyThemesVars.serializer)
+      ..add(GDailyThemeHomeScreenData.serializer)
+      ..add(GDailyThemeHomeScreenData_dailyTheme.serializer)
+      ..add(GDailyThemeHomeScreenData_dailyTheme_works.serializer)
+      ..add(GDailyThemeHomeScreenData_dailyTheme_works_user.serializer)
+      ..add(GDailyThemeHomeScreenReq.serializer)
+      ..add(GDailyThemeHomeScreenVars.serializer)
+      ..add(GDailyThemeListData.serializer)
+      ..add(GDailyThemeListData_dailyThemes.serializer)
+      ..add(GDailyThemeListData_dailyThemes_firstWork.serializer)
+      ..add(GDailyThemeListReq.serializer)
+      ..add(GDailyThemeListTileData.serializer)
+      ..add(GDailyThemeListTileData_firstWork.serializer)
+      ..add(GDailyThemeListTileReq.serializer)
+      ..add(GDailyThemeListTileVars.serializer)
+      ..add(GDailyThemeListVars.serializer)
+      ..add(GDailyThemeScreenData.serializer)
+      ..add(GDailyThemeScreenData_dailyTheme.serializer)
+      ..add(GDailyThemeScreenData_dailyTheme_works.serializer)
+      ..add(GDailyThemeScreenReq.serializer)
+      ..add(GDailyThemeScreenVars.serializer)
+      ..add(GDailyThemeWorkGridItemData.serializer)
+      ..add(GDailyThemeWorkGridItemReq.serializer)
+      ..add(GDailyThemeWorkGridItemVars.serializer)
       ..add(GDailyThemesWhereInput.serializer)
       ..add(GDecrementPromptonProfileBlockIndexInput.serializer)
       ..add(GDeleteAlbumData.serializer)
@@ -262,25 +269,21 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GFeedWorkListTileReq.serializer)
       ..add(GFeedWorkListTileVars.serializer)
       ..add(GFlipPromptonFolderWorkIndexInput.serializer)
-      ..add(GFolderData.serializer)
-      ..add(GFolderData_folder.serializer)
-      ..add(GFolderData_folder_user.serializer)
-      ..add(GFolderData_folder_user_iconImage.serializer)
       ..add(GFolderMode.serializer)
-      ..add(GFolderReq.serializer)
+      ..add(GFolderPostGridItemData.serializer)
+      ..add(GFolderPostGridItemReq.serializer)
+      ..add(GFolderPostGridItemVars.serializer)
+      ..add(GFolderScreenData.serializer)
+      ..add(GFolderScreenData_folder.serializer)
+      ..add(GFolderScreenReq.serializer)
+      ..add(GFolderScreenVars.serializer)
       ..add(GFolderType.serializer)
-      ..add(GFolderVars.serializer)
       ..add(GFolderWhereInput.serializer)
-      ..add(GFolderWorksData.serializer)
-      ..add(GFolderWorksData_folder.serializer)
-      ..add(GFolderWorksData_folder_works.serializer)
-      ..add(GFolderWorksReq.serializer)
-      ..add(GFolderWorksVars.serializer)
-      ..add(GFoldersData.serializer)
-      ..add(GFoldersData_folders.serializer)
-      ..add(GFoldersData_folders_user.serializer)
-      ..add(GFoldersReq.serializer)
-      ..add(GFoldersVars.serializer)
+      ..add(GFolderWorkListViewData.serializer)
+      ..add(GFolderWorkListViewData_folder.serializer)
+      ..add(GFolderWorkListViewData_folder_works.serializer)
+      ..add(GFolderWorkListViewReq.serializer)
+      ..add(GFolderWorkListViewVars.serializer)
       ..add(GFoldersWhereInput.serializer)
       ..add(GFollowNotificationFieldsData.serializer)
       ..add(GFollowNotificationFieldsData_user.serializer)
@@ -476,15 +479,18 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GSubWorkFieldsData.serializer)
       ..add(GSubWorkFieldsReq.serializer)
       ..add(GSubWorkFieldsVars.serializer)
-      ..add(GTagData.serializer)
-      ..add(GTagData_tag.serializer)
-      ..add(GTagReq.serializer)
-      ..add(GTagVars.serializer)
-      ..add(GTagWorksData.serializer)
-      ..add(GTagWorksData_tag.serializer)
-      ..add(GTagWorksData_tag_works.serializer)
-      ..add(GTagWorksReq.serializer)
-      ..add(GTagWorksVars.serializer)
+      ..add(GTagScreenData.serializer)
+      ..add(GTagScreenData_tag.serializer)
+      ..add(GTagScreenReq.serializer)
+      ..add(GTagScreenVars.serializer)
+      ..add(GTagWorkGridItemData.serializer)
+      ..add(GTagWorkGridItemReq.serializer)
+      ..add(GTagWorkGridItemVars.serializer)
+      ..add(GTagWorkListViewData.serializer)
+      ..add(GTagWorkListViewData_tag.serializer)
+      ..add(GTagWorkListViewData_tag_works.serializer)
+      ..add(GTagWorkListViewReq.serializer)
+      ..add(GTagWorkListViewVars.serializer)
       ..add(GTagsData.serializer)
       ..add(GTagsData_tags.serializer)
       ..add(GTagsReq.serializer)
@@ -859,17 +865,18 @@ Serializers _$serializers = (new Serializers().toBuilder()
               BuiltList, const [const FullType(GBestWorksData_bestWorks)]),
           () => new ListBuilder<GBestWorksData_bestWorks>())
       ..addBuilderFactory(
-          const FullType(BuiltList,
-              const [const FullType(GDailyThemeData_dailyTheme_works)]),
-          () => new ListBuilder<GDailyThemeData_dailyTheme_works>())
-      ..addBuilderFactory(
-          const FullType(
-              BuiltList, const [const FullType(GDailyThemesData_dailyThemes)]),
-          () => new ListBuilder<GDailyThemesData_dailyThemes>())
+          const FullType(BuiltList, const [
+            const FullType(GDailyThemeHomeScreenData_dailyTheme_works)
+          ]),
+          () => new ListBuilder<GDailyThemeHomeScreenData_dailyTheme_works>())
       ..addBuilderFactory(
           const FullType(BuiltList,
-              const [const FullType(GDailyThemesRouteData_dailyTheme_works)]),
-          () => new ListBuilder<GDailyThemesRouteData_dailyTheme_works>())
+              const [const FullType(GDailyThemeListData_dailyThemes)]),
+          () => new ListBuilder<GDailyThemeListData_dailyThemes>())
+      ..addBuilderFactory(
+          const FullType(BuiltList,
+              const [const FullType(GDailyThemeScreenData_dailyTheme_works)]),
+          () => new ListBuilder<GDailyThemeScreenData_dailyTheme_works>())
       ..addBuilderFactory(
           const FullType(
               BuiltList, const [const FullType(GFeedHotWorksData_hotWorks)]),
@@ -883,13 +890,9 @@ Serializers _$serializers = (new Serializers().toBuilder()
               const [const FullType(GFeedPopularWorksData_popularWorks)]),
           () => new ListBuilder<GFeedPopularWorksData_popularWorks>())
       ..addBuilderFactory(
-          const FullType(
-              BuiltList, const [const FullType(GFolderWorksData_folder_works)]),
-          () => new ListBuilder<GFolderWorksData_folder_works>())
-      ..addBuilderFactory(
-          const FullType(
-              BuiltList, const [const FullType(GFoldersData_folders)]),
-          () => new ListBuilder<GFoldersData_folders>())
+          const FullType(BuiltList,
+              const [const FullType(GFolderWorkListViewData_folder_works)]),
+          () => new ListBuilder<GFolderWorkListViewData_folder_works>())
       ..addBuilderFactory(
           const FullType(
               BuiltList, const [const FullType(GHotTagsData_hotTags)]),
@@ -931,9 +934,9 @@ Serializers _$serializers = (new Serializers().toBuilder()
               BuiltList, const [const FullType(GStickersData_stickers)]),
           () => new ListBuilder<GStickersData_stickers>())
       ..addBuilderFactory(
-          const FullType(
-              BuiltList, const [const FullType(GTagWorksData_tag_works)]),
-          () => new ListBuilder<GTagWorksData_tag_works>())
+          const FullType(BuiltList,
+              const [const FullType(GTagWorkListViewData_tag_works)]),
+          () => new ListBuilder<GTagWorkListViewData_tag_works>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(GTagsData_tags)]),
           () => new ListBuilder<GTagsData_tags>())

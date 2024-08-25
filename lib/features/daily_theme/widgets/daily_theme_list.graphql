@@ -1,0 +1,7 @@
+# import './daily_theme_list_tile.graphql'
+
+query DailyThemeList($offset: Int!, $limit: Int!, $where: DailyThemesWhereInput!) {
+  dailyThemes(offset: $offset, limit: $limit, where: $where) {
+    ...DailyThemeListTile
+  }
+}

@@ -1,22 +1,8 @@
 fragment WorkAwardGridItem on WorkAwardNode {
   id
-  index
-  dateText
   work {
     id
-    title
-    likesCount
-    commentsCount
-    createdAt
     imageURL
-    imageWidth
-    imageHeight
-    largeThumbnailImageURL
-    largeThumbnailImageWidth
-    largeThumbnailImageHeight
-    smallThumbnailImageURL
-    smallThumbnailImageWidth
-    smallThumbnailImageHeight
     thumbnailImagePosition
     imageAspectRatio
   }

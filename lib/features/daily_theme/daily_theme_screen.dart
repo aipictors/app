@@ -1,15 +1,13 @@
 import 'package:aipictors/default.i18n.dart';
-import 'package:aipictors/features/daily_theme/queries/__generated__/daily_theme.req.gql.dart';
+import 'package:aipictors/features/daily_theme/__generated__/daily_theme_screen.req.gql.dart';
+import 'package:aipictors/features/daily_theme/widgets/daily_theme_work_grid_item.dart';
 import 'package:aipictors/features/home/widgets/data_not_found_error_screen.dart';
 import 'package:aipictors/features/home/widgets/loading_screen.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/widgets/builder/operation_screen_builder.dart';
-import 'package:aipictors/widgets/image/grid_work_image.dart';
 import 'package:aipictors/widgets/works_grid_view.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// 日別テーマ
@@ -31,7 +29,7 @@ class DailyThemeScreen extends HookConsumerWidget {
       return const LoadingScreen();
     }
 
-    final request = GDailyThemeReq((builder) {
+    final request = GDailyThemeScreenReq((builder) {
       builder
         ..vars.limit = config.graphqlQueryLimit
         ..vars.offset = 0
@@ -58,20 +56,7 @@ class DailyThemeScreen extends HookConsumerWidget {
               itemCount: dailyTheme.works!.length,
               itemBuilder: (context, index) {
                 final work = dailyTheme.works![index];
-                return GestureDetector(
-                  onTap: () {
-                    FirebaseAnalytics.instance.logSelectContent(
-                      contentType: 'work',
-                      itemId: work.id,
-                    );
-                    context.push('/works/${work.id}');
-                  },
-                  child: GridWorkImage(
-                    imageURL: work.largeThumbnailImageURL,
-                    thumbnailImagePosition: work.thumbnailImagePosition,
-                    imageAspectRatio: work.imageAspectRatio,
-                  ),
-                );
+                return DailyThemeWorkGridItem(work: work);
               },
             ),
           ),

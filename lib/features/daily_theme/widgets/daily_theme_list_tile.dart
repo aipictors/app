@@ -1,4 +1,6 @@
 import 'package:aipictors/default.i18n.dart';
+import 'package:aipictors/features/daily_theme/widgets/__generated__/daily_theme_list_tile.data.gql.dart';
+import 'package:aipictors/utils/to_weekday.dart';
 import 'package:aipictors/widgets/list_tile_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -6,31 +8,22 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 class DailyThemeListTile extends HookConsumerWidget {
   const DailyThemeListTile({
     super.key,
-    required this.isCurrent,
-    required this.day,
-    required this.weekDay,
-    required this.title,
-    required this.worksCount,
-    required this.imageURL,
+    required this.dailyTheme,
     required this.onTap,
   });
 
-  final bool isCurrent;
-
-  final int day;
-
-  final String weekDay;
-
-  final String title;
-
-  final int worksCount;
-
-  final String? imageURL;
+  final GDailyThemeListTile dailyTheme;
 
   final VoidCallback? onTap;
 
   @override
   Widget build(context, ref) {
+    final weekDay = toWeekday(
+      dailyTheme.year,
+      dailyTheme.month,
+      dailyTheme.day,
+    );
+
     return ListTile(
       contentPadding: const EdgeInsets.only(
         right: 16,
@@ -42,12 +35,12 @@ class DailyThemeListTile extends HookConsumerWidget {
           ? Theme.of(context).colorScheme.primaryContainer
           : Colors.transparent,
       trailing: ListTileImageContainer(
-        thumbnailImageURL: imageURL,
+        thumbnailImageURL: dailyTheme.firstWork?.largeThumbnailImageURL,
       ),
       onTap: onTap,
       title: Text(
-        '_WORKS_COUNT_件'.i18n.replaceAllMapped(
-            RegExp(r'_WORKS_COUNT_'), (match) => worksCount.toString()),
+        '_WORKS_COUNT_件'.i18n.replaceAllMapped(RegExp(r'_WORKS_COUNT_'),
+            (match) => dailyTheme.worksCount.toString()),
         style: Theme.of(context).textTheme.labelSmall,
       ),
       leading: Column(
@@ -57,7 +50,7 @@ class DailyThemeListTile extends HookConsumerWidget {
             isCurrent
                 ? '今日'.i18n
                 : '_DAY_日'.i18n.replaceAllMapped(
-                    RegExp(r'_DAY_'), (match) => day.toString()),
+                    RegExp(r'_DAY_'), (match) => dailyTheme.day.toString()),
             style: TextStyle(
               fontWeight: FontWeight.bold,
               color: Theme.of(context).colorScheme.primary,
@@ -78,11 +71,18 @@ class DailyThemeListTile extends HookConsumerWidget {
         ],
       ),
       subtitle: Text(
-        title,
+        dailyTheme.title,
         style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
             ),
       ),
     );
+  }
+
+  bool get isCurrent {
+    final now = DateTime.now();
+    return dailyTheme.year == now.year &&
+        dailyTheme.month == now.month &&
+        dailyTheme.day == now.day;
   }
 }

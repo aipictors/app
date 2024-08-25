@@ -56,7 +56,7 @@ class AlbumWorkListView extends HookConsumerWidget {
                   if (authUserId.value == null) {
                     return onShowLoginDialog(context, ref);
                   }
-                  return onFollowUser(context, userId: userId);
+                  return onFollowUser(context, userId: album.user.id);
                 },
               );
             }

@@ -3,13 +3,13 @@ import 'package:aipictors/features/home/widgets/data_not_found_error_screen.dart
 import 'package:aipictors/features/home/widgets/loading_screen.dart';
 import 'package:aipictors/features/post/queries/__generated__/work.req.gql.dart';
 import 'package:aipictors/features/post/widgets/deleted_work_error_container.dart';
-import 'package:aipictors/features/post/widgets/work_action_modal_container.dart';
+import 'package:aipictors/features/post/widgets/work_action_list.dart';
 import 'package:aipictors/features/post/widgets/work_bottom_app_bar.dart';
-import 'package:aipictors/features/post/widgets/work_comment_container.dart';
-import 'package:aipictors/features/post/widgets/work_status_container.dart';
-import 'package:aipictors/features/post/widgets/work_tags_container.dart';
-import 'package:aipictors/features/post/widgets/work_text_container.dart';
-import 'package:aipictors/features/post/widgets/work_user_profile_container.dart';
+import 'package:aipictors/features/post/widgets/work_comment.dart';
+import 'package:aipictors/features/post/widgets/work_status.dart';
+import 'package:aipictors/features/post/widgets/work_tag_list.dart';
+import 'package:aipictors/features/post/widgets/work_text.dart';
+import 'package:aipictors/features/post/widgets/work_user_profile.dart';
 import 'package:aipictors/features/user/functions/follow_user.dart';
 import 'package:aipictors/features/user/widgets/follow_button.dart';
 import 'package:aipictors/providers/auth_user_id_provider.dart';
@@ -116,9 +116,7 @@ class WorkScreenMedium extends HookConsumerWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Expanded(
-                                  child: WorkUserProfileContainer(
-                                      user: work.user)),
+                              Expanded(child: WorkUserProfile(user: work.user)),
                               if (authUserId.value != work.user.id)
                                 FollowButton(
                                   isActive: work.user.isFollowee == true,
@@ -132,12 +130,12 @@ class WorkScreenMedium extends HookConsumerWidget {
                             ],
                           ),
                         ),
-                        WorkStatusContainer(
+                        WorkStatus(
                           likesCount: work.likesCount,
                           viewsCount: work.viewsCount,
                         ),
                         const SizedBox(height: 8),
-                        WorkTextContainer(
+                        WorkText(
                           title: work.title,
                           description: work.description,
                         ),
@@ -153,10 +151,10 @@ class WorkScreenMedium extends HookConsumerWidget {
                           ),
                         ),
                         const SizedBox(height: 8 * 2),
-                        WorkTagsContainer(tagNames: work.tagNames.toList()),
+                        WorkTagList(tagNames: work.tagNames.toList()),
                         const SizedBox(height: 8 * 2),
                         const Divider(height: 0),
-                        WorkCommentContainer(workId: workId),
+                        WorkComment(workId: workId),
                         const SizedBox(height: 8 * 2),
                       ],
                     ),
@@ -180,7 +178,7 @@ class WorkScreenMedium extends HookConsumerWidget {
     showModalBottomSheet(
       context: context,
       builder: (context) {
-        return WorkActionModalContainer(
+        return WorkActionList(
           workId: workId,
           workTitle: workTitle,
           userId: userId,

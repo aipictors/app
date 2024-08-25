@@ -1,0 +1,9 @@
+query TagScreen($name: String!) {
+  tag(name: $name) {
+    id
+    name
+    isLiked
+    isWatched
+    isMuted
+  }
+}

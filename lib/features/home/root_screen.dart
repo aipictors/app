@@ -121,7 +121,7 @@ class RootScreen extends HookConsumerWidget {
 
     final screenList = [
       const FeedScreen(key: PageStorageKey('root_feed')),
-      const DailyThemeHomeRoute(key: PageStorageKey('root_daily_theme')),
+      const DailyThemeHomeScreen(key: PageStorageKey('root_daily_theme')),
       if (authState.value == null)
         const ExplorerScreen(key: PageStorageKey('root_explorer')),
       if (authState.value != null)

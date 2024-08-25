@@ -3,7 +3,7 @@ import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
 import 'package:aipictors/widgets/error/data_empty_error_container.dart';
 import 'package:aipictors/widgets/error/data_not_found_error_container.dart';
-import 'package:aipictors/widgets/image/grid_work_image.dart';
+import 'package:aipictors/widgets/image/post_image.dart';
 import 'package:aipictors/widgets/loading_progress.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
@@ -62,7 +62,7 @@ class ExplorerBestWorksView extends HookConsumerWidget {
                   );
                   context.push('/works/${work.id}');
                 },
-                child: GridWorkImage(
+                child: PostImage(
                   imageURL: work.largeThumbnailImageURL,
                   imageAspectRatio: work.imageAspectRatio,
                   thumbnailImagePosition: work.thumbnailImagePosition,

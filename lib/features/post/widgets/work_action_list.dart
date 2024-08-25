@@ -1,11 +1,10 @@
 import 'package:aipictors/default.i18n.dart';
-import 'package:aipictors/features/album/utils/to_share_album_text.dart';
-import 'package:aipictors/features/album/widgets/__generated__/album_action_list.data.gql.dart';
 import 'package:aipictors/features/post/widgets/modal_mute_user_list_tile.dart';
 import 'package:aipictors/features/user/functions/mute_user.dart';
 import 'package:aipictors/features/user/utils/to_share_user_text.dart';
 import 'package:aipictors/providers/auth_user_id_provider.dart';
 import 'package:aipictors/providers/config_provider.dart';
+import 'package:aipictors/utils/to_share_work_text.dart';
 import 'package:aipictors/widgets/list_tile/modal_report_list_tile.dart';
 import 'package:aipictors/widgets/list_tile/modal_share_list_tile.dart';
 import 'package:aipictors/widgets/modal_header.dart';
@@ -13,13 +12,25 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class AlbumActionList extends HookConsumerWidget {
-  const AlbumActionList({
+class WorkActionList extends HookConsumerWidget {
+  const WorkActionList({
     super.key,
-    required this.album,
+    required this.workId,
+    required this.workTitle,
+    required this.userId,
+    required this.userName,
+    required this.isMutedUser,
   });
 
-  final GAlbumActionList album;
+  final String workId;
+
+  final String workTitle;
+
+  final String userId;
+
+  final String userName;
+
+  final bool isMutedUser;
 
   @override
   Widget build(context, ref) {
@@ -34,12 +45,11 @@ class AlbumActionList extends HookConsumerWidget {
           children: [
             const ModalHeaderContainer(title: SizedBox()),
             ModalShareListTile(
-              titleText: 'シリーズをシェアする'.i18n,
-              shareText: toShareAlbumText(
-                userId: album.user.id,
-                albumSlug: album.slug ?? '',
-                albumTitle: album.title,
-                userName: album.user.name,
+              titleText: '作品をシェアする'.i18n,
+              shareText: toShareWorkText(
+                workId: workId,
+                workTitle: workTitle,
+                userName: userName,
                 hashtagText: config.xPostText,
               ),
               onTap: () {
@@ -49,37 +59,37 @@ class AlbumActionList extends HookConsumerWidget {
             ModalShareListTile(
               titleText: 'ユーザをシェアする'.i18n,
               shareText: toShareUserText(
-                userId: album.user.id,
-                userName: album.user.name,
+                userId: userId,
+                userName: userName,
                 hashtagText: config.xPostText,
               ),
               onTap: () {
                 context.pop();
               },
             ),
-            if (authUserId.value != album.user.id) ...[
+            if (authUserId.value != userId) ...[
               const Divider(),
 
               /// ログイン時のみミュートボタンを表示する
               if (authUserId.value != null)
                 ModalMuteUserListTile(
-                  isActive: album.user.isMuted,
+                  isActive: isMutedUser,
                   onTap: () {
                     return onMuteUser(context);
                   },
                 ),
               ModalReportListTile(
-                titleText: 'シリーズを報告する'.i18n,
+                titleText: '作品を報告する'.i18n,
                 onTap: () {
                   context.pop();
-                  context.push('/albums/${album.id}/report');
+                  context.push('/works/$workId/report');
                 },
               ),
               ModalReportListTile(
                 titleText: 'ユーザを報告する'.i18n,
                 onTap: () {
                   context.pop();
-                  context.push('/users/${album.user.id}/report');
+                  context.push('/users/$userId/report');
                 },
               ),
             ],
@@ -92,7 +102,7 @@ class AlbumActionList extends HookConsumerWidget {
   /// ユーザをミュートする
   onMuteUser(BuildContext context) {
     return muteUser((builder) {
-      return builder..vars.input.userId = album.user.id;
+      return builder..vars.input.userId = userId;
     });
   }
 }

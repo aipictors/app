@@ -1,0 +1,6 @@
+fragment DailyThemeWorkGridItem on WorkNode {
+  id
+  imageURL
+  thumbnailImagePosition
+  imageAspectRatio
+}

@@ -7,7 +7,7 @@ import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
 import 'package:aipictors/widgets/error/deleted_image_generation_task_error_container.dart';
-import 'package:aipictors/widgets/image/grid_work_image.dart';
+import 'package:aipictors/widgets/image/post_image.dart';
 import 'package:aipictors/widgets/loading_progress.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -84,7 +84,7 @@ class GeneratedImagesGridView extends HookConsumerWidget {
                     onTap: () {
                       onTap(task.nanoid!);
                     },
-                    child: GridWorkImage(
+                    child: PostImage(
                       // スマホならサムネサイズを、タブレットなら通常サイズを表示する
                       imageURL: (layout == Layout.compact)
                           ? toGenerationImageUrl(task.thumbnailToken!,

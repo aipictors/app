@@ -1,0 +1,27 @@
+fragment DailyThemeListTile on DailyThemeNode {
+  id
+  title
+  dateText
+  year
+  month
+  day
+  worksCount
+  firstWork {
+    id
+    title
+    likesCount
+    commentsCount
+    createdAt
+    imageURL
+    imageWidth
+    imageHeight
+    largeThumbnailImageURL
+    largeThumbnailImageWidth
+    largeThumbnailImageHeight
+    smallThumbnailImageURL
+    smallThumbnailImageWidth
+    smallThumbnailImageHeight
+    thumbnailImagePosition
+    imageAspectRatio
+  }
+}

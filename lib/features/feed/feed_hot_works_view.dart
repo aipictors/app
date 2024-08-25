@@ -1,5 +1,4 @@
 import 'package:aipictors/features/feed/__generated__/feed_hot_works.req.gql.dart';
-import 'package:aipictors/features/feed/queries/__generated__/feed_hot_works.req.gql.dart';
 import 'package:aipictors/features/feed/widgets/feed_work_list_tile.dart';
 import 'package:aipictors/providers/audio_provider.dart';
 import 'package:aipictors/providers/client_provider.dart';

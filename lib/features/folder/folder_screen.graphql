@@ -1,0 +1,8 @@
+# import '../../../fragments/work_user_fields_fragment.graphql'
+
+query FolderScreen($id: ID!) {
+  folder(where: { nanoid: "" }) {
+    id
+    title
+  }
+}

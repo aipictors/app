@@ -1,7 +1,7 @@
 import 'package:aipictors/features/home/widgets/data_not_found_error_screen.dart';
 import 'package:aipictors/features/home/widgets/loading_screen.dart';
-import 'package:aipictors/features/tag/queries/__generated__/tag.req.gql.dart';
-import 'package:aipictors/features/tag/widgets/tag_works_view.dart';
+import 'package:aipictors/features/tag/__generated__/tag_screen.req.gql.dart';
+import 'package:aipictors/features/tag/widgets/tag_work_list_view.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/widgets/builder/operation_screen_builder.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +26,7 @@ class TagScreen extends HookConsumerWidget {
 
     return OperationScreenBuilder(
       client: client.value!,
-      operationRequest: GTagReq((builder) {
+      operationRequest: GTagScreenReq((builder) {
         builder.vars.name = tagName;
       }),
       builder: (context, response) {
@@ -43,7 +43,7 @@ class TagScreen extends HookConsumerWidget {
             ),
           ),
           extendBody: true,
-          body: TagWorksView(
+          body: TagWorkListView(
             client: client.value!,
             tagName: tagName,
           ),

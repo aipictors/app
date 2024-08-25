@@ -1,0 +1,6 @@
+fragment TagWorkGridItem on WorkNode {
+  id
+  imageURL
+  thumbnailImagePosition
+  imageAspectRatio
+}
