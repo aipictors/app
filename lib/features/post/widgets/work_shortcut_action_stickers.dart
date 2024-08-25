@@ -23,12 +23,10 @@ class WorkShortcutActionStickers extends HookConsumerWidget {
       return const LoadingProgress();
     }
 
+    //todo: graphqlから取得するように変更する
     const downloadURLs = [
-      'https://www.aipictors.com/wp-content/uploads/2023/08/stamp_0.webp',
-      'https://www.aipictors.com/wp-content/uploads/2023/08/stamp_1.webp',
-      'https://www.aipictors.com/wp-content/uploads/2023/08/stamp_2.webp',
-      'https://www.aipictors.com/wp-content/uploads/2023/08/stamp_3.webp',
-      'https://www.aipictors.com/wp-content/uploads/2023/08/stamp_4.webp'
+      'https://files.aipictors.com/431f3f95-a4e2-4763-a808-dffe8943d037',
+      'https://files.aipictors.com/bfa27f23-e028-479d-aeae-6949df17c87c',
     ];
 
     return ListView(
