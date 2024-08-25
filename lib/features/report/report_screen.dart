@@ -40,16 +40,15 @@ class ReportScreen extends HookConsumerWidget {
             child: Row(
               children: [
                 const Icon(Icons.send_rounded),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                  child: Text(
-                    '送信'.i18n,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                    ),
+                const SizedBox(width: 8),
+                Text(
+                  '送信'.i18n,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
                   ),
                 ),
+                const SizedBox(width: 16),
               ],
             ),
           ),
