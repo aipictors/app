@@ -1,0 +1,11 @@
+query ViewerBookmarkedStickers($limit: Int!, $offset: Int!, $type: BookmarkedStickerType,) {
+  viewer {
+    bookmarkedStickers(limit: $limit, offset: $offset, type: $type) {
+      id
+      title
+      imageUrl
+      downloadsCount
+      usesCount
+    }
+  }
+}

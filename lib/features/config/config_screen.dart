@@ -166,6 +166,17 @@ class ConfigScreen extends HookConsumerWidget {
             },
           ),
           ListTile(
+            leading: const Icon(Icons.star),
+            trailing: const Icon(Icons.chevron_right_rounded),
+            title: Text(
+              'ブックマークしたスタンプ'.i18n,
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+            onTap: () {
+              context.push('/viewer/bookmarked_stickers');
+            },
+          ),
+          ListTile(
             leading: const Icon(Icons.translate_rounded),
             trailing: const Icon(Icons.chevron_right_rounded),
             title: Text(
