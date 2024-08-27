@@ -1,0 +1,6 @@
+fragment FollowerListTile on UserNode {
+  id
+  name
+  login
+  iconUrl
+}

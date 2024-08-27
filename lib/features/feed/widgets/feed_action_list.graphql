@@ -1,0 +1,11 @@
+# import 'feed_user_profile.graphql'
+
+fragment FeedActionList on WorkNode {
+  id
+  title
+  user {
+    ...FeedUserProfile
+    isFollowee
+    isMuted
+  }
+}

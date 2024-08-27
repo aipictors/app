@@ -1,10 +1,10 @@
 import 'package:aipictors/default.i18n.dart';
-import 'package:aipictors/features/generation/queries/__generated__/image_models.data.gql.dart';
-import 'package:aipictors/features/generation/queries/__generated__/image_models.req.gql.dart';
+import 'package:aipictors/features/generation/__generated__/image_models.data.gql.dart';
+import 'package:aipictors/features/generation/__generated__/image_models.req.gql.dart';
 import 'package:aipictors/features/generation/utils/to_model_category_text.dart';
+import 'package:aipictors/features/generation/widgets/work_info_list_tile.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
-import 'package:aipictors/widgets/list_tile/work_info_list_tile.dart';
 import 'package:aipictors/widgets/loading_progress.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';

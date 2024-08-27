@@ -1,8 +1,0 @@
-fragment PartialStickerFields on StickerNode {
-  id
-  title
-  imageUrl
-  likesCount
-  downloadsCount
-  usesCount
-}

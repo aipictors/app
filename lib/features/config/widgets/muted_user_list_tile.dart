@@ -1,3 +1,4 @@
+import 'package:aipictors/features/config/widgets/__generated__/muted_user_list_tile.data.gql.dart';
 import 'package:aipictors/features/user/widgets/user_profile_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -5,17 +6,11 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 class MutedUserListTile extends HookConsumerWidget {
   const MutedUserListTile({
     super.key,
-    required this.userName,
-    required this.userLogin,
-    required this.userIconImageURL,
+    required this.user,
     required this.onTap,
   });
 
-  final String userName;
-
-  final String userLogin;
-
-  final String? userIconImageURL;
+  final GMutedUserListTile user;
 
   final VoidCallback? onTap;
 
@@ -24,12 +19,12 @@ class MutedUserListTile extends HookConsumerWidget {
     return ListTile(
       minVerticalPadding: 0,
       title: Text(
-        userName,
+        user.name,
         style: Theme.of(context).textTheme.titleMedium,
       ),
-      subtitle: Text('@$userLogin'),
+      subtitle: Text('@${user.login}'),
       onTap: onTap,
-      leading: UserProfileAvatar(imageURL: userIconImageURL),
+      leading: UserProfileAvatar(imageURL: user.iconUrl),
     );
   }
 }

@@ -1,10 +1,8 @@
-import 'package:aipictors/providers/config_provider.dart';
+import 'package:aipictors/features/information/widgets/__generated__/promotion_list_tile.data.gql.dart';
 import 'package:aipictors/utils/to_readable_date.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-import './__generated__/promotion_list_tile.data.gql.dart';
 // import 'package:url_launcher/link.dart';
 
 class PromotionListTile extends HookConsumerWidget {
@@ -17,8 +15,6 @@ class PromotionListTile extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
-    final config = ref.watch(configProvider);
-
     return ListTile(
       title: Text(toReadableDate(promotion.startDateTime)),
       subtitle: Column(

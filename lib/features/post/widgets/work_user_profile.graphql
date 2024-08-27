@@ -1,0 +1,9 @@
+fragment WorkUserProfile on UserNode {
+  id
+  name
+  login
+  iconImage {
+    id
+    downloadURL
+  }
+}

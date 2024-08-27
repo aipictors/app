@@ -1,0 +1,7 @@
+# import 'widgets/tag_list_tile.graphql'
+
+query ExplorerHotTagListView {
+  hotTags {
+    ...TagListTileFragment
+  }
+}

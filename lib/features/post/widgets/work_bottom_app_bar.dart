@@ -1,7 +1,8 @@
 import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/features/post/functions/create_work_comment.dart';
 import 'package:aipictors/features/post/functions/create_work_like.dart';
-import 'package:aipictors/features/post/queries/__generated__/work_comments.req.gql.dart';
+import 'package:aipictors/features/post/widgets/__generated__/work_bottom_app_bar.data.gql.dart';
+import 'package:aipictors/features/post/widgets/__generated__/work_comments.req.gql.dart';
 import 'package:aipictors/features/post/widgets/about_like_dialog.dart';
 import 'package:aipictors/features/post/widgets/work_shortcut_action_stickers.dart';
 import 'package:aipictors/providers/auth_user_id_provider.dart';
@@ -14,22 +15,13 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class WorkBottomAppContainer extends HookConsumerWidget {
-  const WorkBottomAppContainer({
+class WorkBottomAppBar extends HookConsumerWidget {
+  const WorkBottomAppBar({
     super.key,
-    required this.workId,
-    required this.userId,
-    required this.isLiked,
-    required this.isFolded,
+    required this.work,
   });
 
-  final String workId;
-
-  final String userId;
-
-  final bool isLiked;
-
-  final bool isFolded;
+  final GWorkBottomAppBar work;
 
   @override
   Widget build(context, ref) {
@@ -39,14 +31,14 @@ class WorkBottomAppContainer extends HookConsumerWidget {
       return const SizedBox();
     }
 
-    final isLikedInMemory = useState(isLiked);
+    final isLikedInMemory = useState(work.isLiked);
 
     // final isFoldedInMemory = useState(isFolded);
 
     final authUserId = ref.watch(authUserIdProvider);
 
     // TODO: 自分の作品の場合
-    if (authUserId.value == userId) {
+    if (authUserId.value == work.user.id) {
       return const SizedBox();
     }
 
@@ -107,11 +99,11 @@ class WorkBottomAppContainer extends HookConsumerWidget {
           WorkShortcutActionStickers(onSend: (stickerId) async {
             try {
               final request = GWorkCommentsReq((builder) {
-                builder.vars.workId = workId;
+                builder.vars.workId = work.id;
               });
               await createWorkComment((builder) {
                 return builder
-                  ..vars.input.workId = workId
+                  ..vars.input.workId = work.id
                   ..vars.input.text = ''
                   ..vars.input.stickerId = stickerId;
               });
@@ -131,7 +123,7 @@ class WorkBottomAppContainer extends HookConsumerWidget {
 
   onCreateWorkLike() {
     createWorkLike((builder) {
-      return builder..vars.input.workId = workId;
+      return builder..vars.input.workId = work.id;
     });
   }
 

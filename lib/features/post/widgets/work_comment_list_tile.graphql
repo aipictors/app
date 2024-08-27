@@ -1,0 +1,21 @@
+# import 'work_user_profile.graphql'
+# import 'comment_action_modal.graphql'
+
+fragment WorkCommentListTile on CommentNode {
+  id
+  createdAt
+  text
+  ...CommentActionModal
+  workId
+  user {
+    id
+    isMuted
+    ...WorkUserProfile
+  }
+  sticker {
+    id
+    accessType
+    imageUrl
+    imageUrl
+  }
+}

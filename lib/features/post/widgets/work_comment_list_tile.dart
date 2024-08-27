@@ -1,6 +1,9 @@
-import 'package:aipictors/features/notification/widgets/notification_user_container.dart';
+import 'package:aipictors/features/post/functions/delete_comment.dart';
+import 'package:aipictors/features/post/widgets/__generated__/work_comment_list_tile.data.gql.dart';
+import 'package:aipictors/features/post/widgets/comment_action_modal.dart';
+import 'package:aipictors/features/post/widgets/comment_details_modal.dart';
 import 'package:aipictors/features/post/widgets/sticker_image.dart';
-import 'package:aipictors/fragments/__generated__/comment_fields_fragment.data.gql.dart';
+import 'package:aipictors/features/post/widgets/work_user_profile.dart';
 import 'package:aipictors/utils/to_readable_date_time.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -9,29 +12,23 @@ class WorkCommentListTile extends HookConsumerWidget {
   const WorkCommentListTile({
     super.key,
     required this.comment,
+    required this.isMine,
     required this.isResponse,
-    required this.onTap,
-    required this.onLongPress,
+    required this.onDelete,
   });
 
-  final GCommentFields comment;
+  final GWorkCommentListTile comment;
+
+  final bool isMine;
 
   final bool isResponse;
 
-  final VoidCallback onTap;
-
-  final VoidCallback onLongPress;
+  final VoidCallback onDelete;
 
   @override
   Widget build(context, ref) {
     return ListTile(
       minVerticalPadding: 0,
-      onTap: () {
-        onTap();
-      },
-      onLongPress: () {
-        onLongPress();
-      },
       leading: isResponse
           ? Icon(
               Icons.subdirectory_arrow_right_rounded,
@@ -41,10 +38,7 @@ class WorkCommentListTile extends HookConsumerWidget {
       title: Column(
         children: [
           const SizedBox(height: 16),
-          NotificationUserContainer(
-            userName: comment.user?.name,
-            userIconImageURL: comment.user?.iconImage?.downloadURL,
-          ),
+          WorkUserProfile(user: comment.user!),
           const SizedBox(height: 8),
         ],
       ),
@@ -70,6 +64,34 @@ class WorkCommentListTile extends HookConsumerWidget {
           const SizedBox(height: 16),
         ],
       ),
+      onTap: () {
+        showModalBottomSheet(
+          context: context,
+          builder: (context) {
+            return CommentDetailsModal(
+              workId: comment.workId!,
+              commentId: comment.id,
+            );
+          },
+        );
+      },
+      onLongPress: () {
+        showModalBottomSheet(
+          context: context,
+          builder: (context) {
+            return CommentActionModal(
+              comment: comment,
+              isMine: isMine,
+              onDeleteComment: () async {
+                await deleteComment((builder) {
+                  return builder..vars.input.commentId = comment.id;
+                });
+                onDelete();
+              },
+            );
+          },
+        );
+      },
     );
   }
 }

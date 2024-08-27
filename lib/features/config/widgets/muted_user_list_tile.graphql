@@ -1,0 +1,7 @@
+
+fragment MutedUserListTile on UserNode {
+  id
+  login
+  name
+  iconUrl
+}

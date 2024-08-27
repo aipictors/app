@@ -1,0 +1,10 @@
+# import 'widgets/user_folder_list_tile.graphql'
+
+query UserFolders($user_id: ID!, $offset: Int!, $limit: Int!) {
+  user(id: $user_id) {
+    id
+    folders(offset: $offset, limit: $limit) {
+      ...UserFolderListTile
+    }
+  }
+}

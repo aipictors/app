@@ -1,0 +1,18 @@
+# import 'notification_work.graphql'
+# import 'notification_user_profile.graphql'
+
+fragment NotificationWorkCommentReplyListTile on WorkCommentReplyNotificationNode {
+  id
+  createdAt
+  message
+  work {
+    ...NotificationWork
+  }
+  user {
+    ...NotificationUserProfile
+  }
+  sticker {
+    id
+    imageUrl
+  }
+}

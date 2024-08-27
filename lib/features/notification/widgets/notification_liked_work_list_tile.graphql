@@ -1,0 +1,14 @@
+# import 'notification_work.graphql'
+# import 'notification_user_profile.graphql'
+
+fragment NotificationLikedWorkListTile on LikedWorkNotificationNode {
+  id
+  createdAt
+  isAnonymous
+  work {
+    ...NotificationWork
+  }
+  user {
+    ...NotificationUserProfile
+  }
+}

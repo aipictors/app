@@ -1,0 +1,13 @@
+# import 'work_comment_list_tile.graphql'
+
+query CommentResponseList($workId: ID!, $commentId: ID!) {
+  work(id: $workId) {
+    id
+    comment(id: $commentId) {
+      ...WorkCommentListTile
+      responses(offset: 0, limit: 128) {
+        ...WorkCommentListTile
+      }
+    }
+  }
+}

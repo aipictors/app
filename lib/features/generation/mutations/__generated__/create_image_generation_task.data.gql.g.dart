@@ -116,18 +116,13 @@ class _$GCreateImageGenerationTaskData_createImageGenerationTaskSerializer
           specifiedType: const FullType(int)),
       'sizeType',
       serializers.serialize(object.sizeType,
-          specifiedType: const FullType(_i3.GImageGenerationSizeType)),
+          specifiedType: const FullType(_i2.GImageGenerationSizeType)),
       'status',
       serializers.serialize(object.status,
-          specifiedType: const FullType(_i3.GImageGenerationStatus)),
-      'isDeleted',
-      serializers.serialize(object.isDeleted,
-          specifiedType: const FullType(bool)),
-      'count',
-      serializers.serialize(object.count, specifiedType: const FullType(int)),
+          specifiedType: const FullType(_i2.GImageGenerationStatus)),
       'generationType',
       serializers.serialize(object.generationType,
-          specifiedType: const FullType(_i3.GImageGenerationType)),
+          specifiedType: const FullType(_i2.GImageGenerationType)),
       'model',
       serializers.serialize(object.model,
           specifiedType: const FullType(
@@ -385,8 +380,8 @@ class _$GCreateImageGenerationTaskData_createImageGenerationTaskSerializer
           break;
         case 'sizeType':
           result.sizeType = serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GImageGenerationSizeType))!
-              as _i3.GImageGenerationSizeType;
+                  specifiedType: const FullType(_i2.GImageGenerationSizeType))!
+              as _i2.GImageGenerationSizeType;
           break;
         case 't2tImageUrl':
           result.t2tImageUrl = serializers.deserialize(value,
@@ -414,25 +409,17 @@ class _$GCreateImageGenerationTaskData_createImageGenerationTaskSerializer
           break;
         case 'status':
           result.status = serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GImageGenerationStatus))!
-              as _i3.GImageGenerationStatus;
-          break;
-        case 'isDeleted':
-          result.isDeleted = serializers.deserialize(value,
-              specifiedType: const FullType(bool))! as bool;
+                  specifiedType: const FullType(_i2.GImageGenerationStatus))!
+              as _i2.GImageGenerationStatus;
           break;
         case 'isProtected':
           result.isProtected = serializers.deserialize(value,
               specifiedType: const FullType(bool)) as bool?;
           break;
-        case 'count':
-          result.count = serializers.deserialize(value,
-              specifiedType: const FullType(int))! as int;
-          break;
         case 'generationType':
           result.generationType = serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GImageGenerationType))!
-              as _i3.GImageGenerationType;
+                  specifiedType: const FullType(_i2.GImageGenerationType))!
+              as _i2.GImageGenerationType;
           break;
         case 'model':
           result.model.replace(serializers.deserialize(value,
@@ -751,7 +738,7 @@ class _$GCreateImageGenerationTaskData_createImageGenerationTask
   @override
   final int clipSkip;
   @override
-  final _i3.GImageGenerationSizeType sizeType;
+  final _i2.GImageGenerationSizeType sizeType;
   @override
   final String? t2tImageUrl;
   @override
@@ -765,15 +752,11 @@ class _$GCreateImageGenerationTaskData_createImageGenerationTask
   @override
   final int? completedAt;
   @override
-  final _i3.GImageGenerationStatus status;
-  @override
-  final bool isDeleted;
+  final _i2.GImageGenerationStatus status;
   @override
   final bool? isProtected;
   @override
-  final int count;
-  @override
-  final _i3.GImageGenerationType generationType;
+  final _i2.GImageGenerationType generationType;
   @override
   final GCreateImageGenerationTaskData_createImageGenerationTask_model model;
   @override
@@ -847,9 +830,7 @@ class _$GCreateImageGenerationTaskData_createImageGenerationTask
       this.rating,
       this.completedAt,
       required this.status,
-      required this.isDeleted,
       this.isProtected,
-      required this.count,
       required this.generationType,
       required this.model,
       this.vae,
@@ -906,12 +887,6 @@ class _$GCreateImageGenerationTaskData_createImageGenerationTask
     BuiltValueNullFieldError.checkNotNull(status,
         r'GCreateImageGenerationTaskData_createImageGenerationTask', 'status');
     BuiltValueNullFieldError.checkNotNull(
-        isDeleted,
-        r'GCreateImageGenerationTaskData_createImageGenerationTask',
-        'isDeleted');
-    BuiltValueNullFieldError.checkNotNull(count,
-        r'GCreateImageGenerationTaskData_createImageGenerationTask', 'count');
-    BuiltValueNullFieldError.checkNotNull(
         generationType,
         r'GCreateImageGenerationTaskData_createImageGenerationTask',
         'generationType');
@@ -952,9 +927,7 @@ class _$GCreateImageGenerationTaskData_createImageGenerationTask
         rating == other.rating &&
         completedAt == other.completedAt &&
         status == other.status &&
-        isDeleted == other.isDeleted &&
         isProtected == other.isProtected &&
-        count == other.count &&
         generationType == other.generationType &&
         model == other.model &&
         vae == other.vae &&
@@ -1001,9 +974,7 @@ class _$GCreateImageGenerationTaskData_createImageGenerationTask
     _$hash = $jc(_$hash, rating.hashCode);
     _$hash = $jc(_$hash, completedAt.hashCode);
     _$hash = $jc(_$hash, status.hashCode);
-    _$hash = $jc(_$hash, isDeleted.hashCode);
     _$hash = $jc(_$hash, isProtected.hashCode);
-    _$hash = $jc(_$hash, count.hashCode);
     _$hash = $jc(_$hash, generationType.hashCode);
     _$hash = $jc(_$hash, model.hashCode);
     _$hash = $jc(_$hash, vae.hashCode);
@@ -1053,9 +1024,7 @@ class _$GCreateImageGenerationTaskData_createImageGenerationTask
           ..add('rating', rating)
           ..add('completedAt', completedAt)
           ..add('status', status)
-          ..add('isDeleted', isDeleted)
           ..add('isProtected', isProtected)
-          ..add('count', count)
           ..add('generationType', generationType)
           ..add('model', model)
           ..add('vae', vae)
@@ -1127,9 +1096,9 @@ class GCreateImageGenerationTaskData_createImageGenerationTaskBuilder
   int? get clipSkip => _$this._clipSkip;
   set clipSkip(int? clipSkip) => _$this._clipSkip = clipSkip;
 
-  _i3.GImageGenerationSizeType? _sizeType;
-  _i3.GImageGenerationSizeType? get sizeType => _$this._sizeType;
-  set sizeType(_i3.GImageGenerationSizeType? sizeType) =>
+  _i2.GImageGenerationSizeType? _sizeType;
+  _i2.GImageGenerationSizeType? get sizeType => _$this._sizeType;
+  set sizeType(_i2.GImageGenerationSizeType? sizeType) =>
       _$this._sizeType = sizeType;
 
   String? _t2tImageUrl;
@@ -1159,25 +1128,17 @@ class GCreateImageGenerationTaskData_createImageGenerationTaskBuilder
   int? get completedAt => _$this._completedAt;
   set completedAt(int? completedAt) => _$this._completedAt = completedAt;
 
-  _i3.GImageGenerationStatus? _status;
-  _i3.GImageGenerationStatus? get status => _$this._status;
-  set status(_i3.GImageGenerationStatus? status) => _$this._status = status;
-
-  bool? _isDeleted;
-  bool? get isDeleted => _$this._isDeleted;
-  set isDeleted(bool? isDeleted) => _$this._isDeleted = isDeleted;
+  _i2.GImageGenerationStatus? _status;
+  _i2.GImageGenerationStatus? get status => _$this._status;
+  set status(_i2.GImageGenerationStatus? status) => _$this._status = status;
 
   bool? _isProtected;
   bool? get isProtected => _$this._isProtected;
   set isProtected(bool? isProtected) => _$this._isProtected = isProtected;
 
-  int? _count;
-  int? get count => _$this._count;
-  set count(int? count) => _$this._count = count;
-
-  _i3.GImageGenerationType? _generationType;
-  _i3.GImageGenerationType? get generationType => _$this._generationType;
-  set generationType(_i3.GImageGenerationType? generationType) =>
+  _i2.GImageGenerationType? _generationType;
+  _i2.GImageGenerationType? get generationType => _$this._generationType;
+  set generationType(_i2.GImageGenerationType? generationType) =>
       _$this._generationType = generationType;
 
   GCreateImageGenerationTaskData_createImageGenerationTask_modelBuilder? _model;
@@ -1320,9 +1281,7 @@ class GCreateImageGenerationTaskData_createImageGenerationTaskBuilder
       _rating = $v.rating;
       _completedAt = $v.completedAt;
       _status = $v.status;
-      _isDeleted = $v.isDeleted;
       _isProtected = $v.isProtected;
-      _count = $v.count;
       _generationType = $v.generationType;
       _model = $v.model.toBuilder();
       _vae = $v.vae;
@@ -1402,9 +1361,7 @@ class GCreateImageGenerationTaskData_createImageGenerationTaskBuilder
               rating: rating,
               completedAt: completedAt,
               status: BuiltValueNullFieldError.checkNotNull(status, r'GCreateImageGenerationTaskData_createImageGenerationTask', 'status'),
-              isDeleted: BuiltValueNullFieldError.checkNotNull(isDeleted, r'GCreateImageGenerationTaskData_createImageGenerationTask', 'isDeleted'),
               isProtected: isProtected,
-              count: BuiltValueNullFieldError.checkNotNull(count, r'GCreateImageGenerationTaskData_createImageGenerationTask', 'count'),
               generationType: BuiltValueNullFieldError.checkNotNull(generationType, r'GCreateImageGenerationTaskData_createImageGenerationTask', 'generationType'),
               model: model.build(),
               vae: vae,

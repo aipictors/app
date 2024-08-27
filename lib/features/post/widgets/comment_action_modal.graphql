@@ -1,0 +1,7 @@
+fragment CommentActionModal on CommentNode {
+  id
+  user {
+    id
+    isMuted
+  }
+}

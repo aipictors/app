@@ -1,6 +1,0 @@
-fragment PartialUserFields on UserNode {
-  id
-  login
-  name
-  iconUrl
-}

@@ -1,0 +1,28 @@
+# import 'widgets/work_user_profile.graphql'
+# import 'widgets/work_action_modal.graphql'
+# import 'widgets/work_bottom_app_bar.graphql'
+
+query Work($id: ID!) {
+  work(id: $id) {
+    id
+    title
+    description
+    imageURL
+    likesCount
+    viewsCount
+    isDeleted
+    createdAt
+    tagNames
+    ...WorkBottomAppBar
+    ...WorkActionModal
+    user {
+      id
+      isFollowee
+      ...WorkUserProfile
+    }
+    subWorks {
+      id
+      imageUrl
+    }
+  }
+}

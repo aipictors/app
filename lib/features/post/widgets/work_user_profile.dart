@@ -1,5 +1,5 @@
+import 'package:aipictors/features/post/widgets/__generated__/work_user_profile.data.gql.dart';
 import 'package:aipictors/features/user/widgets/user_profile_avatar.dart';
-import 'package:aipictors/fragments/__generated__/work_user_fields_fragment.data.gql.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -11,7 +11,7 @@ class WorkUserProfile extends HookConsumerWidget {
     required this.user,
   });
 
-  final GWorkUserFields user;
+  final GWorkUserProfile user;
 
   @override
   Widget build(context, ref) {

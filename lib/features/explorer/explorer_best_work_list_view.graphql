@@ -1,0 +1,7 @@
+# import 'widgets/explorer_post_grid_item.graphql'
+
+query ExplorerBestWorkListView {
+  bestWorks(where: { rating: G }) {
+    ...ExplorerPostGridItem
+  }
+}

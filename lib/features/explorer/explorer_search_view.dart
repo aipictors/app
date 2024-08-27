@@ -1,14 +1,12 @@
+import 'package:aipictors/features/explorer/__generated__/explorer_search_view.req.gql.dart';
+import 'package:aipictors/features/explorer/widgets/explorer_post_grid_item.dart';
 import 'package:aipictors/features/home/widgets/loading_screen.dart';
-import 'package:aipictors/features/post/queries/__generated__/works.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
 import 'package:aipictors/widgets/error/data_empty_error_container.dart';
 import 'package:aipictors/widgets/error/data_not_found_error_container.dart';
-import 'package:aipictors/widgets/image/post_image.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// 探索・検索結果
@@ -32,7 +30,7 @@ class ExplorerSearchView extends HookConsumerWidget {
 
     return OperationBuilder(
       client: client.value!,
-      operationRequest: GWorksReq((builder) {
+      operationRequest: GExplorerSearchViewReq((builder) {
         builder
           ..vars.limit = config.graphqlQueryLimit
           ..vars.offset = 0
@@ -54,20 +52,7 @@ class ExplorerSearchView extends HookConsumerWidget {
           itemCount: workList.length,
           itemBuilder: (context, index) {
             final work = workList[index];
-            return InkWell(
-              onTap: () {
-                FirebaseAnalytics.instance.logSelectContent(
-                  contentType: 'work',
-                  itemId: work.id,
-                );
-                context.push('/works/${work.id}');
-              },
-              child: PostImage(
-                imageURL: work.largeThumbnailImageURL,
-                imageAspectRatio: work.imageAspectRatio,
-                thumbnailImagePosition: work.thumbnailImagePosition,
-              ),
-            );
+            return ExplorerPostGridItem(work: work);
           },
         );
       },

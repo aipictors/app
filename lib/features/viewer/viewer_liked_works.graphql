@@ -1,0 +1,10 @@
+# import 'widgets/my_post_grid_item.graphql'
+
+query ViewerLikedWorks($offset: Int!, $limit: Int!) {
+  viewer {
+    id
+    likedWorks(offset: $offset, limit: $limit) {
+      ...MyPostGridItem
+    }
+  }
+}

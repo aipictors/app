@@ -1,9 +1,0 @@
-fragment WorkUserFields on UserNode {
-  id
-  name
-  login
-  iconImage {
-    id
-    downloadURL
-  }
-}

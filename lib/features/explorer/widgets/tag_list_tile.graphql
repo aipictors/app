@@ -1,0 +1,8 @@
+fragment TagListTileFragment on TagNode {
+  id
+  name
+  firstWork {
+    id
+    smallThumbnailImageURL
+  }
+}

@@ -1,5 +1,5 @@
 import 'package:aipictors/default.i18n.dart';
-import 'package:aipictors/features/viewer/queries/__generated__/viewer_image_generation_status.data.gql.dart';
+import 'package:aipictors/features/generation/widgets/__generated__/viewer_image_generation_status.data.gql.dart';
 import 'package:aipictors/providers/viewer_image_generation_status_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';

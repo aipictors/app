@@ -1,0 +1,9 @@
+# import 'widgets/my_album_list_tile.graphql'
+
+query ViewerAlbums($offset: Int!, $limit: Int!) {
+  viewer {
+    albums(offset: $offset, limit: $limit) {
+      ...MyAlbumListTile
+    }
+  }
+}

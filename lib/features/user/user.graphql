@@ -1,0 +1,15 @@
+# import 'widgets/user_action_modal.graphql'
+# import 'widgets/user_header_action.graphql'
+# import 'widgets/user_header_profile.graphql'
+
+query User($userId: ID!) {
+  user(id: $userId) {
+    id
+    isFollower
+    isFollowee
+    isMuted
+    ...UserHeaderAction
+    ...UserHeaderProfile
+    ...UserActionModal
+  }
+}

@@ -1,0 +1,13 @@
+# import 'sticker_status.graphql'
+
+fragment StickerCard on StickerNode {
+  id
+  title
+  imageUrl
+  ...StickerStatus
+  user {
+    id
+    name
+    isMuted
+  }
+}

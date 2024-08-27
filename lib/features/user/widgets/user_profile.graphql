@@ -1,0 +1,5 @@
+fragment UserProfile on UserNode {
+  id
+  name
+  iconUrl
+}

@@ -1,19 +1,19 @@
 import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/features/home/widgets/data_not_found_error_screen.dart';
 import 'package:aipictors/features/home/widgets/loading_screen.dart';
-import 'package:aipictors/features/post/widgets/work_user_profile.dart';
+import 'package:aipictors/features/sticker/__generated__/sticker.req.gql.dart';
+import 'package:aipictors/features/sticker/deleted_sticker_error_screen.dart';
 import 'package:aipictors/features/sticker/functions/create_user_sticker.dart';
 import 'package:aipictors/features/sticker/functions/delete_user_sticker.dart';
 import 'package:aipictors/features/sticker/mutations/__generated__/create_user_sticker.data.gql.dart';
 import 'package:aipictors/features/sticker/mutations/__generated__/delete_user_sticker.data.gql.dart';
-import 'package:aipictors/features/sticker/queries/__generated__/sticker.req.gql.dart';
 import 'package:aipictors/features/sticker/utils/to_sticker_genre_text.dart';
 import 'package:aipictors/features/sticker/widgets/create_user_sticker_button.dart';
-import 'package:aipictors/features/sticker/widgets/deleted_sticker_error_container.dart';
-import 'package:aipictors/features/sticker/widgets/sticker_action_modal_container.dart';
-import 'package:aipictors/features/sticker/widgets/sticker_categories_container.dart';
-import 'package:aipictors/features/sticker/widgets/sticker_genre_container.dart';
-import 'package:aipictors/features/sticker/widgets/sticker_status_container.dart';
+import 'package:aipictors/features/sticker/widgets/sticker_action_modal.dart';
+import 'package:aipictors/features/sticker/widgets/sticker_categories.dart';
+import 'package:aipictors/features/sticker/widgets/sticker_category.dart';
+import 'package:aipictors/features/sticker/widgets/sticker_status.dart';
+import 'package:aipictors/features/sticker/widgets/sticker_user_profile.dart';
 import 'package:aipictors/features/user/functions/follow_user.dart';
 import 'package:aipictors/features/user/widgets/follow_button.dart';
 import 'package:aipictors/providers/auth_user_id_provider.dart';
@@ -65,11 +65,11 @@ class StickerScreen extends HookConsumerWidget {
               IconButton(
                 icon: const Icon(Icons.more_horiz_rounded),
                 onPressed: () {
-                  onOpenActionModal(
-                    context,
-                    userId: sticker.user.id,
-                    userName: sticker.user.name,
-                    isMutedUser: sticker.user.isMuted == true,
+                  showModalBottomSheet(
+                    context: context,
+                    builder: (context) {
+                      return StickerActionModal(sticker: sticker);
+                    },
                   );
                 },
               ),
@@ -92,7 +92,7 @@ class StickerScreen extends HookConsumerWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Expanded(
-                            child: WorkUserProfile(user: sticker.user),
+                            child: StickerUserProfile(user: sticker.user),
                           ),
                           if (authUserId.value != null &&
                               authUserId.value != sticker.user.id)
@@ -115,9 +115,7 @@ class StickerScreen extends HookConsumerWidget {
                         downloadURL: sticker.imageUrl!,
                       ),
                     const SizedBox(height: 8 * 2),
-                    StickerStatusContainer(
-                        downloadsCount: sticker.downloadsCount,
-                        usesCount: sticker.usesCount),
+                    StickerStatus(sticker: sticker),
                     const SizedBox(height: 4),
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -129,11 +127,12 @@ class StickerScreen extends HookConsumerWidget {
                             ?.copyWith(fontWeight: FontWeight.bold),
                       ),
                     ),
-                    StickerGenreContainer(
-                        genre: toStickerGenreText(sticker.genre)),
+                    StickerCategory(
+                        category: toStickerGenreText(sticker.genre)),
                     const SizedBox(height: 8 * 1.5),
-                    StickerCategoriesContainer(
-                        categories: sticker.categories.toList()),
+                    StickerCategories(
+                      sticker: sticker,
+                    ),
                   ],
                 ),
               ),
@@ -167,25 +166,6 @@ class StickerScreen extends HookConsumerWidget {
                   ),
                 )
               : null,
-        );
-      },
-    );
-  }
-
-  onOpenActionModal(
-    BuildContext context, {
-    required String userId,
-    required String userName,
-    required bool isMutedUser,
-  }) {
-    showModalBottomSheet(
-      context: context,
-      builder: (context) {
-        return StickerActionModalContainer(
-          stickerId: stickerId,
-          userId: userId,
-          userName: userName,
-          isMutedUser: isMutedUser,
         );
       },
     );

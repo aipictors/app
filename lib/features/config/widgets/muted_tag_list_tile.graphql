@@ -1,0 +1,5 @@
+
+fragment MutedTagListTile on TagNode {
+  id
+  name
+}

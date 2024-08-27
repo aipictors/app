@@ -16,7 +16,7 @@ import 'package:aipictors/features/home/widgets/home_navigation_bar.dart';
 import 'package:aipictors/features/home/widgets/home_navigation_rail.dart';
 import 'package:aipictors/features/home/widgets/latest_version_dialog.dart';
 import 'package:aipictors/features/notification/notification_screen.dart';
-import 'package:aipictors/features/viewer/queries/__generated__/viewer_user.data.gql.dart';
+import 'package:aipictors/features/viewer/__generated__/viewer_user.data.gql.dart';
 import 'package:aipictors/handlers/message_handler.dart';
 import 'package:aipictors/providers/auth_state_provider.dart';
 import 'package:aipictors/providers/background_message_provider.dart';

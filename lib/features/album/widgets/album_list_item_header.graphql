@@ -1,3 +1,5 @@
+# import 'album_user_profile.graphql'
+
 fragment AlbumListItemHeader on AlbumNode {
   id
   slug
@@ -7,11 +9,7 @@ fragment AlbumListItemHeader on AlbumNode {
   isSensitive
   thumbnailImageURL
   user {
-    id
-    login
-    name
-    iconUrl
     isFollowee
-    isMuted
+    ...AlbumUserProfile
   }
 }

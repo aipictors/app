@@ -1,4 +1,0 @@
-fragment PartialTagFields on TagNode {
-  id
-  name
-}

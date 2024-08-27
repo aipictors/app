@@ -1,11 +1,11 @@
 import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/features/home/widgets/data_not_found_error_screen.dart';
 import 'package:aipictors/features/home/widgets/loading_screen.dart';
-import 'package:aipictors/features/post/queries/__generated__/work.req.gql.dart';
+import 'package:aipictors/features/post/__generated__/work.req.gql.dart';
 import 'package:aipictors/features/post/widgets/deleted_work_error_container.dart';
-import 'package:aipictors/features/post/widgets/work_action_list.dart';
+import 'package:aipictors/features/post/widgets/work_action_modal.dart';
 import 'package:aipictors/features/post/widgets/work_bottom_app_bar.dart';
-import 'package:aipictors/features/post/widgets/work_comment.dart';
+import 'package:aipictors/features/post/widgets/work_comment_list.dart';
 import 'package:aipictors/features/post/widgets/work_status.dart';
 import 'package:aipictors/features/post/widgets/work_tag_list.dart';
 import 'package:aipictors/features/post/widgets/work_text.dart';
@@ -59,24 +59,18 @@ class WorkScreenMedium extends HookConsumerWidget {
               IconButton(
                 icon: const Icon(Icons.more_horiz_rounded),
                 onPressed: () {
-                  onOpenActionModal(
-                    context,
-                    userId: work.user.id,
-                    userName: work.user.name,
-                    workTitle: work.title,
-                    isMutedUser: work.user.isMuted == true,
+                  showModalBottomSheet(
+                    context: context,
+                    builder: (context) {
+                      return WorkActionModal(work: work);
+                    },
                   );
                 },
               ),
             ],
           ),
           extendBody: true,
-          bottomNavigationBar: WorkBottomAppContainer(
-            workId: workId,
-            userId: work.user.id,
-            isLiked: work.isLiked == true,
-            isFolded: false,
-          ),
+          bottomNavigationBar: WorkBottomAppBar(work: work),
           body: GestureDetector(
             onTap: () {
               FocusManager.instance.primaryFocus?.unfocus();
@@ -89,20 +83,20 @@ class WorkScreenMedium extends HookConsumerWidget {
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.6,
                   child: ListView.builder(
-                      itemCount: (work.subWorks.isEmpty)
-                          ? 1
-                          : work.subWorks.length + 1,
-                      itemBuilder: (context, index) {
-                        if (index == 0) {
-                          return InteractiveWorkImage(
-                            downloadURL: work.imageURL,
-                          );
-                        } else {
-                          return InteractiveWorkImage(
-                            downloadURL: work.subWorks[index - 1].imageUrl!,
-                          );
-                        }
-                      }),
+                    itemCount:
+                        (work.subWorks.isEmpty) ? 1 : work.subWorks.length + 1,
+                    itemBuilder: (context, index) {
+                      if (index == 0) {
+                        return InteractiveWorkImage(
+                          downloadURL: work.imageURL,
+                        );
+                      } else {
+                        return InteractiveWorkImage(
+                          downloadURL: work.subWorks[index - 1].imageUrl!,
+                        );
+                      }
+                    },
+                  ),
                 ),
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.4,
@@ -154,7 +148,7 @@ class WorkScreenMedium extends HookConsumerWidget {
                         WorkTagList(tagNames: work.tagNames.toList()),
                         const SizedBox(height: 8 * 2),
                         const Divider(height: 0),
-                        WorkComment(workId: workId),
+                        WorkCommentList(workId: workId),
                         const SizedBox(height: 8 * 2),
                       ],
                     ),
@@ -163,27 +157,6 @@ class WorkScreenMedium extends HookConsumerWidget {
               ],
             )),
           ),
-        );
-      },
-    );
-  }
-
-  onOpenActionModal(
-    BuildContext context, {
-    required String userId,
-    required String userName,
-    required String workTitle,
-    required bool isMutedUser,
-  }) {
-    showModalBottomSheet(
-      context: context,
-      builder: (context) {
-        return WorkActionList(
-          workId: workId,
-          workTitle: workTitle,
-          userId: userId,
-          userName: userName,
-          isMutedUser: isMutedUser,
         );
       },
     );

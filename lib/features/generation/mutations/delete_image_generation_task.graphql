@@ -1,7 +1,5 @@
-# import '../../../fragments/image_generation_result_fields_fragment.graphql'
-
 mutation DeleteImageGenerationTask($input: DeleteImageGenerationResultInput!) {
   deleteImageGenerationResult(input: $input) {
-    ...ImageGenerationResultFields
+    id
   }
 }

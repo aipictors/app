@@ -1,0 +1,10 @@
+# import 'widgets/muted_user_list_tile.graphql'
+
+query ViewerMutedUsers($offset: Int!, $limit: Int!) {
+  viewer {
+    id
+    mutedUsers(offset: $offset, limit: $limit) {
+      ...MutedUserListTile
+    }
+  }
+}

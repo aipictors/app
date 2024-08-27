@@ -1,7 +1,51 @@
-# import '../../../fragments/image_generation_task_fields_fragment.graphql'
-
 mutation CreateImageGenerationTask($input: CreateImageGenerationTaskInput!) {
   createImageGenerationTask(input: $input) {
-    ...ImageGenerationTaskFields
+    id
+    prompt
+    negativePrompt
+    seed
+    steps
+    scale
+    sampler
+    clipSkip
+    sizeType
+    t2tImageUrl
+    t2tMaskImageUrl
+    t2tDenoisingStrengthSize
+    t2tInpaintingFillSize
+    rating
+    completedAt
+    status
+    isProtected
+    generationType
+    model {
+      id
+      name
+      type
+    }
+    vae
+    nanoid
+    estimatedSeconds
+    controlNetControlMode
+    controlNetEnabled
+    controlNetGuidanceEnd
+    controlNetGuidanceStart
+    controlNetPixelPerfect
+    controlNetProcessorRes
+    controlNetResizeMode
+    controlNetThresholdA
+    controlNetThresholdB
+    controlNetWeight
+    controlNetModule
+    controlNetModel
+    controlNetSaveDetectedMap
+    controlNetHrOption
+    upscaleSize
+    imageFileName
+    thumbnailImageFileName
+    imageFileName
+    thumbnailImageFileName
+    token
+    thumbnailToken
   }
 }

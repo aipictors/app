@@ -151,6 +151,28 @@ final BuiltSet<GAwardType> _$gAwardTypeValues =
   _$gAwardTypeWEEKLY,
 ]);
 
+const GBookmarkedStickerType _$gBookmarkedStickerTypecomment =
+    const GBookmarkedStickerType._('comment');
+const GBookmarkedStickerType _$gBookmarkedStickerTypereply =
+    const GBookmarkedStickerType._('reply');
+
+GBookmarkedStickerType _$gBookmarkedStickerTypeValueOf(String name) {
+  switch (name) {
+    case 'comment':
+      return _$gBookmarkedStickerTypecomment;
+    case 'reply':
+      return _$gBookmarkedStickerTypereply;
+    default:
+      throw new ArgumentError(name);
+  }
+}
+
+final BuiltSet<GBookmarkedStickerType> _$gBookmarkedStickerTypeValues =
+    new BuiltSet<GBookmarkedStickerType>(const <GBookmarkedStickerType>[
+  _$gBookmarkedStickerTypecomment,
+  _$gBookmarkedStickerTypereply,
+]);
+
 const GDirection _$gDirectionASC = const GDirection._('ASC');
 const GDirection _$gDirectionDESC = const GDirection._('DESC');
 
@@ -169,28 +191,6 @@ final BuiltSet<GDirection> _$gDirectionValues =
     new BuiltSet<GDirection>(const <GDirection>[
   _$gDirectionASC,
   _$gDirectionDESC,
-]);
-
-const GFavoritedStickerType _$gFavoritedStickerTypecomment =
-    const GFavoritedStickerType._('comment');
-const GFavoritedStickerType _$gFavoritedStickerTypereply =
-    const GFavoritedStickerType._('reply');
-
-GFavoritedStickerType _$gFavoritedStickerTypeValueOf(String name) {
-  switch (name) {
-    case 'comment':
-      return _$gFavoritedStickerTypecomment;
-    case 'reply':
-      return _$gFavoritedStickerTypereply;
-    default:
-      throw new ArgumentError(name);
-  }
-}
-
-final BuiltSet<GFavoritedStickerType> _$gFavoritedStickerTypeValues =
-    new BuiltSet<GFavoritedStickerType>(const <GFavoritedStickerType>[
-  _$gFavoritedStickerTypecomment,
-  _$gFavoritedStickerTypereply,
 ]);
 
 const GFolderMode _$gFolderModeCOMIC_HORIZONTAL =
@@ -1097,6 +1097,8 @@ Serializer<GAwardsWhereInput> _$gAwardsWhereInputSerializer =
 Serializer<GAwardType> _$gAwardTypeSerializer = new _$GAwardTypeSerializer();
 Serializer<GBlockPromptonUserInput> _$gBlockPromptonUserInputSerializer =
     new _$GBlockPromptonUserInputSerializer();
+Serializer<GBookmarkedStickerType> _$gBookmarkedStickerTypeSerializer =
+    new _$GBookmarkedStickerTypeSerializer();
 Serializer<GCancelImageGenerationReservedTaskInput>
     _$gCancelImageGenerationReservedTaskInputSerializer =
     new _$GCancelImageGenerationReservedTaskInputSerializer();
@@ -1268,8 +1270,6 @@ Serializer<GDirection> _$gDirectionSerializer = new _$GDirectionSerializer();
 Serializer<GEnablePromptonRequestChatInput>
     _$gEnablePromptonRequestChatInputSerializer =
     new _$GEnablePromptonRequestChatInputSerializer();
-Serializer<GFavoritedStickerType> _$gFavoritedStickerTypeSerializer =
-    new _$GFavoritedStickerTypeSerializer();
 Serializer<GFeaturePromptonRequestWhereInput>
     _$gFeaturePromptonRequestWhereInputSerializer =
     new _$GFeaturePromptonRequestWhereInputSerializer();
@@ -1472,9 +1472,9 @@ Serializer<GUpdateAccountWebFcmTokenInput>
     new _$GUpdateAccountWebFcmTokenInputSerializer();
 Serializer<GUpdateAlbumInput> _$gUpdateAlbumInputSerializer =
     new _$GUpdateAlbumInputSerializer();
-Serializer<GUpdateFavoritedStickerInput>
-    _$gUpdateFavoritedStickerInputSerializer =
-    new _$GUpdateFavoritedStickerInputSerializer();
+Serializer<GUpdateBookmarkedStickerInput>
+    _$gUpdateBookmarkedStickerInputSerializer =
+    new _$GUpdateBookmarkedStickerInputSerializer();
 Serializer<GUpdateFolderInput> _$gUpdateFolderInputSerializer =
     new _$GUpdateFolderInputSerializer();
 Serializer<GUpdateImageGenerationMemoInput>
@@ -2227,6 +2227,24 @@ class _$GBlockPromptonUserInputSerializer
 
     return result.build();
   }
+}
+
+class _$GBookmarkedStickerTypeSerializer
+    implements PrimitiveSerializer<GBookmarkedStickerType> {
+  @override
+  final Iterable<Type> types = const <Type>[GBookmarkedStickerType];
+  @override
+  final String wireName = 'GBookmarkedStickerType';
+
+  @override
+  Object serialize(Serializers serializers, GBookmarkedStickerType object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      object.name;
+
+  @override
+  GBookmarkedStickerType deserialize(Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      GBookmarkedStickerType.valueOf(serialized as String);
 }
 
 class _$GCancelImageGenerationReservedTaskInputSerializer
@@ -7264,24 +7282,6 @@ class _$GEnablePromptonRequestChatInputSerializer
   }
 }
 
-class _$GFavoritedStickerTypeSerializer
-    implements PrimitiveSerializer<GFavoritedStickerType> {
-  @override
-  final Iterable<Type> types = const <Type>[GFavoritedStickerType];
-  @override
-  final String wireName = 'GFavoritedStickerType';
-
-  @override
-  Object serialize(Serializers serializers, GFavoritedStickerType object,
-          {FullType specifiedType = FullType.unspecified}) =>
-      object.name;
-
-  @override
-  GFavoritedStickerType deserialize(Serializers serializers, Object serialized,
-          {FullType specifiedType = FullType.unspecified}) =>
-      GFavoritedStickerType.valueOf(serialized as String);
-}
-
 class _$GFeaturePromptonRequestWhereInputSerializer
     implements StructuredSerializer<GFeaturePromptonRequestWhereInput> {
   @override
@@ -11609,40 +11609,40 @@ class _$GUpdateAlbumInputSerializer
   }
 }
 
-class _$GUpdateFavoritedStickerInputSerializer
-    implements StructuredSerializer<GUpdateFavoritedStickerInput> {
+class _$GUpdateBookmarkedStickerInputSerializer
+    implements StructuredSerializer<GUpdateBookmarkedStickerInput> {
   @override
   final Iterable<Type> types = const [
-    GUpdateFavoritedStickerInput,
-    _$GUpdateFavoritedStickerInput
+    GUpdateBookmarkedStickerInput,
+    _$GUpdateBookmarkedStickerInput
   ];
   @override
-  final String wireName = 'GUpdateFavoritedStickerInput';
+  final String wireName = 'GUpdateBookmarkedStickerInput';
 
   @override
   Iterable<Object?> serialize(
-      Serializers serializers, GUpdateFavoritedStickerInput object,
+      Serializers serializers, GUpdateBookmarkedStickerInput object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
-      'isFavorited',
-      serializers.serialize(object.isFavorited,
+      'isBookmarked',
+      serializers.serialize(object.isBookmarked,
           specifiedType: const FullType(bool)),
       'stickerId',
       serializers.serialize(object.stickerId,
           specifiedType: const FullType(String)),
       'type',
       serializers.serialize(object.type,
-          specifiedType: const FullType(GFavoritedStickerType)),
+          specifiedType: const FullType(GBookmarkedStickerType)),
     ];
 
     return result;
   }
 
   @override
-  GUpdateFavoritedStickerInput deserialize(
+  GUpdateBookmarkedStickerInput deserialize(
       Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new GUpdateFavoritedStickerInputBuilder();
+    final result = new GUpdateBookmarkedStickerInputBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -11650,8 +11650,8 @@ class _$GUpdateFavoritedStickerInputSerializer
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
-        case 'isFavorited':
-          result.isFavorited = serializers.deserialize(value,
+        case 'isBookmarked':
+          result.isBookmarked = serializers.deserialize(value,
               specifiedType: const FullType(bool))! as bool;
           break;
         case 'stickerId':
@@ -11660,8 +11660,8 @@ class _$GUpdateFavoritedStickerInputSerializer
           break;
         case 'type':
           result.type = serializers.deserialize(value,
-                  specifiedType: const FullType(GFavoritedStickerType))!
-              as GFavoritedStickerType;
+                  specifiedType: const FullType(GBookmarkedStickerType))!
+              as GBookmarkedStickerType;
           break;
       }
     }
@@ -31955,43 +31955,43 @@ class GUpdateAlbumInputBuilder
   }
 }
 
-class _$GUpdateFavoritedStickerInput extends GUpdateFavoritedStickerInput {
+class _$GUpdateBookmarkedStickerInput extends GUpdateBookmarkedStickerInput {
   @override
-  final bool isFavorited;
+  final bool isBookmarked;
   @override
   final String stickerId;
   @override
-  final GFavoritedStickerType type;
+  final GBookmarkedStickerType type;
 
-  factory _$GUpdateFavoritedStickerInput(
-          [void Function(GUpdateFavoritedStickerInputBuilder)? updates]) =>
-      (new GUpdateFavoritedStickerInputBuilder()..update(updates))._build();
+  factory _$GUpdateBookmarkedStickerInput(
+          [void Function(GUpdateBookmarkedStickerInputBuilder)? updates]) =>
+      (new GUpdateBookmarkedStickerInputBuilder()..update(updates))._build();
 
-  _$GUpdateFavoritedStickerInput._(
-      {required this.isFavorited, required this.stickerId, required this.type})
+  _$GUpdateBookmarkedStickerInput._(
+      {required this.isBookmarked, required this.stickerId, required this.type})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        isFavorited, r'GUpdateFavoritedStickerInput', 'isFavorited');
+        isBookmarked, r'GUpdateBookmarkedStickerInput', 'isBookmarked');
     BuiltValueNullFieldError.checkNotNull(
-        stickerId, r'GUpdateFavoritedStickerInput', 'stickerId');
+        stickerId, r'GUpdateBookmarkedStickerInput', 'stickerId');
     BuiltValueNullFieldError.checkNotNull(
-        type, r'GUpdateFavoritedStickerInput', 'type');
+        type, r'GUpdateBookmarkedStickerInput', 'type');
   }
 
   @override
-  GUpdateFavoritedStickerInput rebuild(
-          void Function(GUpdateFavoritedStickerInputBuilder) updates) =>
+  GUpdateBookmarkedStickerInput rebuild(
+          void Function(GUpdateBookmarkedStickerInputBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GUpdateFavoritedStickerInputBuilder toBuilder() =>
-      new GUpdateFavoritedStickerInputBuilder()..replace(this);
+  GUpdateBookmarkedStickerInputBuilder toBuilder() =>
+      new GUpdateBookmarkedStickerInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GUpdateFavoritedStickerInput &&
-        isFavorited == other.isFavorited &&
+    return other is GUpdateBookmarkedStickerInput &&
+        isBookmarked == other.isBookmarked &&
         stickerId == other.stickerId &&
         type == other.type;
   }
@@ -31999,7 +31999,7 @@ class _$GUpdateFavoritedStickerInput extends GUpdateFavoritedStickerInput {
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, isFavorited.hashCode);
+    _$hash = $jc(_$hash, isBookmarked.hashCode);
     _$hash = $jc(_$hash, stickerId.hashCode);
     _$hash = $jc(_$hash, type.hashCode);
     _$hash = $jf(_$hash);
@@ -32008,38 +32008,38 @@ class _$GUpdateFavoritedStickerInput extends GUpdateFavoritedStickerInput {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'GUpdateFavoritedStickerInput')
-          ..add('isFavorited', isFavorited)
+    return (newBuiltValueToStringHelper(r'GUpdateBookmarkedStickerInput')
+          ..add('isBookmarked', isBookmarked)
           ..add('stickerId', stickerId)
           ..add('type', type))
         .toString();
   }
 }
 
-class GUpdateFavoritedStickerInputBuilder
+class GUpdateBookmarkedStickerInputBuilder
     implements
-        Builder<GUpdateFavoritedStickerInput,
-            GUpdateFavoritedStickerInputBuilder> {
-  _$GUpdateFavoritedStickerInput? _$v;
+        Builder<GUpdateBookmarkedStickerInput,
+            GUpdateBookmarkedStickerInputBuilder> {
+  _$GUpdateBookmarkedStickerInput? _$v;
 
-  bool? _isFavorited;
-  bool? get isFavorited => _$this._isFavorited;
-  set isFavorited(bool? isFavorited) => _$this._isFavorited = isFavorited;
+  bool? _isBookmarked;
+  bool? get isBookmarked => _$this._isBookmarked;
+  set isBookmarked(bool? isBookmarked) => _$this._isBookmarked = isBookmarked;
 
   String? _stickerId;
   String? get stickerId => _$this._stickerId;
   set stickerId(String? stickerId) => _$this._stickerId = stickerId;
 
-  GFavoritedStickerType? _type;
-  GFavoritedStickerType? get type => _$this._type;
-  set type(GFavoritedStickerType? type) => _$this._type = type;
+  GBookmarkedStickerType? _type;
+  GBookmarkedStickerType? get type => _$this._type;
+  set type(GBookmarkedStickerType? type) => _$this._type = type;
 
-  GUpdateFavoritedStickerInputBuilder();
+  GUpdateBookmarkedStickerInputBuilder();
 
-  GUpdateFavoritedStickerInputBuilder get _$this {
+  GUpdateBookmarkedStickerInputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _isFavorited = $v.isFavorited;
+      _isBookmarked = $v.isBookmarked;
       _stickerId = $v.stickerId;
       _type = $v.type;
       _$v = null;
@@ -32048,28 +32048,28 @@ class GUpdateFavoritedStickerInputBuilder
   }
 
   @override
-  void replace(GUpdateFavoritedStickerInput other) {
+  void replace(GUpdateBookmarkedStickerInput other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GUpdateFavoritedStickerInput;
+    _$v = other as _$GUpdateBookmarkedStickerInput;
   }
 
   @override
-  void update(void Function(GUpdateFavoritedStickerInputBuilder)? updates) {
+  void update(void Function(GUpdateBookmarkedStickerInputBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  GUpdateFavoritedStickerInput build() => _build();
+  GUpdateBookmarkedStickerInput build() => _build();
 
-  _$GUpdateFavoritedStickerInput _build() {
+  _$GUpdateBookmarkedStickerInput _build() {
     final _$result = _$v ??
-        new _$GUpdateFavoritedStickerInput._(
-            isFavorited: BuiltValueNullFieldError.checkNotNull(
-                isFavorited, r'GUpdateFavoritedStickerInput', 'isFavorited'),
+        new _$GUpdateBookmarkedStickerInput._(
+            isBookmarked: BuiltValueNullFieldError.checkNotNull(
+                isBookmarked, r'GUpdateBookmarkedStickerInput', 'isBookmarked'),
             stickerId: BuiltValueNullFieldError.checkNotNull(
-                stickerId, r'GUpdateFavoritedStickerInput', 'stickerId'),
+                stickerId, r'GUpdateBookmarkedStickerInput', 'stickerId'),
             type: BuiltValueNullFieldError.checkNotNull(
-                type, r'GUpdateFavoritedStickerInput', 'type'));
+                type, r'GUpdateBookmarkedStickerInput', 'type'));
     replace(_$result);
     return _$result;
   }

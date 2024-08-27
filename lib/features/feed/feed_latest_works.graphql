@@ -1,7 +1,0 @@
-# import './widgets/feed_work_list_tile.graphql'
-
-query FeedLatestWorks($offset: Int!, $limit: Int!, $where: WorksWhereInput) {
-  works(offset: $offset, limit: $limit, where: $where) {
-    ...FeedWorkListTile
-  }
-}

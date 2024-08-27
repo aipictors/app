@@ -1,5 +1,5 @@
 import 'package:aipictors/default.i18n.dart';
-import 'package:aipictors/features/generation/queries/__generated__/viewer_image_generation_tasks.data.gql.dart';
+import 'package:aipictors/features/generation/__generated__/viewer_image_generation_tasks.data.gql.dart';
 import 'package:aipictors/features/generation/utils/reuse_image_generation_task.dart';
 import 'package:aipictors/features/generation/utils/to_generation_image_url.dart';
 import 'package:aipictors/features/generation/utils/to_generation_size_type_text.dart';
@@ -82,10 +82,12 @@ class GenerationTaskListTile extends HookConsumerWidget {
         Row(children: [
           Container(
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16.0),
-                border: Border.all(
-                    width: 1,
-                    color: Theme.of(context).colorScheme.outlineVariant)),
+              borderRadius: BorderRadius.circular(16.0),
+              border: Border.all(
+                width: 1,
+                color: Theme.of(context).colorScheme.outlineVariant,
+              ),
+            ),
           ),
           GenerationRatingContainer(
             currentRating: task.rating ?? 0,
@@ -95,44 +97,49 @@ class GenerationTaskListTile extends HookConsumerWidget {
           ),
           const Spacer(),
           GenerationProtectButton(
-              isProtected: task.isProtected ?? false,
-              onPressed: (newProtectionState) {
-                onProtect(context, task.nanoid!, newProtectionState);
-              }),
+            isProtected: task.isProtected ?? false,
+            onPressed: (newProtectionState) {
+              onProtect(context, task.nanoid!, newProtectionState);
+            },
+          ),
         ]),
         Text(
           'プロンプト'.i18n,
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         PromptsContainer(
-            prompts: task.prompt,
-            onPressed: (String prompt) {
-              imageGenerationNotifier
-                  .updatePrompt('${imageGeneration.prompt}, $prompt');
-              showSnackBar(
-                  context,
-                  'プロンプトに _PROMPT_ を追加しました'.i18n.replaceAllMapped(
-                        RegExp(r'_PROMPT_'),
-                        (match) => prompt,
-                      ));
-            }),
+          prompts: task.prompt,
+          onPressed: (String prompt) {
+            imageGenerationNotifier
+                .updatePrompt('${imageGeneration.prompt}, $prompt');
+            showSnackBar(
+              context,
+              'プロンプトに _PROMPT_ を追加しました'.i18n.replaceAllMapped(
+                    RegExp(r'_PROMPT_'),
+                    (match) => prompt,
+                  ),
+            );
+          },
+        ),
         const SizedBox(height: 4),
         Text(
           'ネガティブプロンプト'.i18n,
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         PromptsContainer(
-            prompts: task.negativePrompt,
-            onPressed: (String negativePrompt) {
-              imageGenerationNotifier.updateNegativePrompt(
-                  '${imageGeneration.negativePrompt}, $negativePrompt');
-              showSnackBar(
-                  context,
-                  'ネガティブプロンプトに _NEGATIVE_PROMPT_ を追加しました'.i18n.replaceAllMapped(
-                        RegExp(r'_NEGATIVE_PROMPT_'),
-                        (match) => negativePrompt,
-                      ));
-            }),
+          prompts: task.negativePrompt,
+          onPressed: (String negativePrompt) {
+            imageGenerationNotifier.updateNegativePrompt(
+                '${imageGeneration.negativePrompt}, $negativePrompt');
+            showSnackBar(
+              context,
+              'ネガティブプロンプトに _NEGATIVE_PROMPT_ を追加しました'.i18n.replaceAllMapped(
+                    RegExp(r'_NEGATIVE_PROMPT_'),
+                    (match) => negativePrompt,
+                  ),
+            );
+          },
+        ),
         const SizedBox(height: 4),
         Text('その他'.i18n, style: const TextStyle(fontWeight: FontWeight.bold)),
         Wrap(

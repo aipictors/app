@@ -2,12 +2,12 @@ import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/delegates/tab_header_delegate.dart';
 import 'package:aipictors/features/home/widgets/data_not_found_error_screen.dart';
 import 'package:aipictors/features/home/widgets/loading_screen.dart';
-import 'package:aipictors/features/user/queries/__generated__/user.req.gql.dart';
-import 'package:aipictors/features/user/widgets/user_action_modal_container.dart';
-import 'package:aipictors/features/user/widgets/user_albums_container.dart';
-import 'package:aipictors/features/user/widgets/user_header_action_container.dart';
-import 'package:aipictors/features/user/widgets/user_profile_container.dart';
-import 'package:aipictors/features/user/widgets/user_works_container.dart';
+import 'package:aipictors/features/user/__generated__/user.req.gql.dart';
+import 'package:aipictors/features/user/widgets/user_action_modal.dart';
+import 'package:aipictors/features/user/widgets/user_album_list_view.dart';
+import 'package:aipictors/features/user/widgets/user_header_action.dart';
+import 'package:aipictors/features/user/widgets/user_header_profile.dart';
+import 'package:aipictors/features/user/widgets/user_work_grid_view.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/widgets/builder/operation_screen_builder.dart';
 import 'package:flutter/material.dart';
@@ -49,11 +49,11 @@ class UserScreen extends HookConsumerWidget {
                 IconButton(
                   icon: const Icon(Icons.more_horiz_rounded),
                   onPressed: () {
-                    onOpenActionModal(
-                      context,
-                      userName: user.name,
-                      userIconImageURL: user.iconUrl,
-                      isMutedUser: user.isMuted == true,
+                    showModalBottomSheet(
+                      context: context,
+                      builder: (context) {
+                        return UserActionModal(user: user);
+                      },
                     );
                   },
                 ),
@@ -63,8 +63,8 @@ class UserScreen extends HookConsumerWidget {
             body: NestedScrollView(
               body: TabBarView(
                 children: [
-                  UserWorksContainer(userId: userId),
-                  UserAlbumsContainer(userId: userId),
+                  UserWorkGridView(userId: userId),
+                  UserAlbumListView(userId: userId),
                 ],
               ),
               headerSliverBuilder: (context, innerBoxIsScrolled) {
@@ -74,23 +74,8 @@ class UserScreen extends HookConsumerWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          UserHeaderActionContainer(
-                            iconImageURL: user.iconUrl,
-                            userId: user.id,
-                            userLogin: user.login,
-                            userName: user.name,
-                            isFollowee: user.isFollowee == true,
-                          ),
-                          UserProfileContainer(
-                            userId: user.id,
-                            name: user.name,
-                            login: user.login,
-                            biography: user.biography,
-                            likesCount: user.receivedLikesCount,
-                            viewsCount: user.receivedViewsCount,
-                            followersCount: user.followersCount,
-                            awardsCount: user.awardsCount,
-                          ),
+                          UserHeaderAction(user: user),
+                          UserProfile(user: user),
                         ],
                       ),
                     ]),
@@ -107,25 +92,6 @@ class UserScreen extends HookConsumerWidget {
               },
             ),
           ),
-        );
-      },
-    );
-  }
-
-  onOpenActionModal(
-    BuildContext context, {
-    required String userName,
-    required String? userIconImageURL,
-    required bool isMutedUser,
-  }) {
-    showModalBottomSheet(
-      context: context,
-      builder: (context) {
-        return UserActionModalContainer(
-          userId: userId,
-          userName: userName,
-          userIconImageURL: userIconImageURL,
-          isMutedUser: isMutedUser,
         );
       },
     );

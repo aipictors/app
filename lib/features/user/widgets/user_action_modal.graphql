@@ -1,0 +1,10 @@
+# import 'user_profile.graphql'
+
+fragment UserActionModal on UserNode {
+  id
+  name
+  login
+  iconUrl
+  isMuted
+  ...UserProfile
+}

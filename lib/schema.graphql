@@ -472,6 +472,15 @@ input BlockPromptonUserInput {
   userId: String!
 }
 
+"""お気に入りスタンプ種別"""
+enum BookmarkedStickerType {
+  """コメント"""
+  comment
+
+  """返信"""
+  reply
+}
+
 input CancelImageGenerationReservedTaskInput {
   nanoid: String!
 }
@@ -1173,15 +1182,6 @@ enum Direction {
 
 input EnablePromptonRequestChatInput {
   requestId: String!
-}
-
-"""お気に入りスタンプ種別"""
-enum FavoritedStickerType {
-  """コメント"""
-  comment
-
-  """返信"""
-  reply
 }
 
 input FeaturePromptonRequestWhereInput {
@@ -2625,7 +2625,7 @@ type Mutation {
   updateAlbum(input: UpdateAlbumInput!): AlbumNode!
 
   """お気に入りスタンプを更新する"""
-  updateFavoritedSticker(input: UpdateFavoritedStickerInput!): StickerNode
+  updateBookmarkedSticker(input: UpdateBookmarkedStickerInput!): StickerNode
 
   """シリーズを更新する"""
   updateFolder(input: UpdateFolderInput!): FolderNode!
@@ -4064,7 +4064,7 @@ type Query {
   feed(userId: ID!): FeedNode
 
   """フォルダ"""
-  folder(where: FolderWhereInput!): FolderNode
+  folder(id: ID, where: FolderWhereInput): FolderNode
 
   """フォルダ"""
   folders(limit: Int!, offset: Int!, where: FoldersWhereInput): [FolderNode!]
@@ -4604,15 +4604,15 @@ input UpdateAlbumInput {
 }
 
 """お気に入りスタンプを更新する"""
-input UpdateFavoritedStickerInput {
+input UpdateBookmarkedStickerInput {
   """お気に入りするか、解除するかどうか"""
-  isFavorited: Boolean!
+  isBookmarked: Boolean!
 
   """スタンプID"""
   stickerId: ID!
 
   """お気に入りスタンプ種別（返信、コメント）"""
-  type: FavoritedStickerType!
+  type: BookmarkedStickerType!
 }
 
 input UpdateFolderInput {
@@ -5181,6 +5181,9 @@ type Viewer {
   """ブックマークフォルダID"""
   bookmarkFolderId: String
 
+  """お気に入りスタンプ一覧"""
+  bookmarkedStickers(limit: Int!, offset: Int!, type: BookmarkedStickerType): [StickerNode!]!
+
   """現在の有効な画像生成のメモ"""
   currentImageGenerationMemos: [ImageGenerationMemoNode!]!
 
@@ -5199,9 +5202,6 @@ type Viewer {
 
   """お気に入りのモデル一覧"""
   favoritedImageGenerationModels: [ImageModelNode!]!
-
-  """お気に入りスタンプ一覧"""
-  favoritedStickers(limit: Int!, offset: Int!, type: FavoritedStickerType): [StickerNode!]!
 
   """全年齢作品のいいねを匿名にする"""
   featureAnonymousLike: Boolean!

@@ -1,0 +1,10 @@
+# import 'widgets/my_folder_list_tile.graphql'
+
+query ViewerFolders($offset: Int!, $limit: Int!) {
+  viewer {
+    id
+    folders(offset: $offset, limit: $limit) {
+      ...MyFolderListTile
+    }
+  }
+}

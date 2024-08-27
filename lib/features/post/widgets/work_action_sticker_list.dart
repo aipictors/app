@@ -1,6 +1,5 @@
-import 'package:aipictors/features/post/widgets/selectable_comment_sticker_container.dart';
-import 'package:aipictors/features/sticker/queries/__generated__/user_stickers.data.gql.dart';
-import 'package:aipictors/features/sticker/queries/__generated__/user_stickers.req.gql.dart';
+import 'package:aipictors/features/post/widgets/selectable_comment_sticker.dart';
+import 'package:aipictors/features/sticker/__generated__/user_stickers.req.gql.dart';
 import 'package:aipictors/features/sticker/widgets/stickers_header_container.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/providers/config_provider.dart';
@@ -32,8 +31,6 @@ class WorkActionStickerList extends HookConsumerWidget {
     final crossAxisCount = ref.watch(stickersContainerCrossAxisCountProvider);
 
     final searchText = useState('');
-
-    int defaultStickersCount = 5;
 
     if (client.value == null) {
       return const LoadingProgress();
@@ -69,27 +66,26 @@ class WorkActionStickerList extends HookConsumerWidget {
                     itemCount: 5,
                     itemBuilder: (context, index) {
                       // デフォルトスタンプは画像をdownloadURLsから取得する
-                      return SelectableCommentStickerContainer(
+                      return SelectableCommentSticker(
                         downloadURL: downloadURLs[index],
                         isSelected: stickerId == index.toString(),
                         onTap: () {
-                          onChange(stickerId == index.toString()
-                              ? null
-                              : index.toString());
+                          onChange(
+                            stickerId == index.toString()
+                                ? null
+                                : index.toString(),
+                          );
                         },
                       );
                     });
               }
-              BuiltList<GUserStickersData_viewer_userStickers>
-                  filteredStickerList = stickerList
+              final filteredStickerList = searchText.value == ''
+                  ? stickerList
+                  : stickerList
                       .where((p0) => p0.title.contains(searchText.value))
                       .toBuiltList();
-              if (searchText.value == '') {
-                filteredStickerList = stickerList;
-                defaultStickersCount = downloadURLs.length;
-              } else {
-                defaultStickersCount = 0;
-              }
+              final defaultStickersCount =
+                  searchText.value == '' ? downloadURLs.length : 5;
               return SizedBox(
                 height: 256,
                 child: Container(
@@ -108,7 +104,8 @@ class WorkActionStickerList extends HookConsumerWidget {
                         },
                         onSizeChanged: (int size) {
                           final notifier = ref.read(
-                              stickersContainerCrossAxisCountProvider.notifier);
+                            stickersContainerCrossAxisCountProvider.notifier,
+                          );
                           notifier.update(size);
                         },
                       ),
@@ -132,7 +129,7 @@ class WorkActionStickerList extends HookConsumerWidget {
                             // デフォルトスタンプは画像をdownloadURLsから取得する
                             if (index < defaultStickersCount &&
                                 searchText.value == '') {
-                              return SelectableCommentStickerContainer(
+                              return SelectableCommentSticker(
                                 downloadURL: downloadURLs[index],
                                 isSelected: stickerId == index.toString(),
                                 onTap: () {
@@ -143,7 +140,7 @@ class WorkActionStickerList extends HookConsumerWidget {
                               );
                             }
                             // ユーザースタンプ
-                            return SelectableCommentStickerContainer(
+                            return SelectableCommentSticker(
                               downloadURL: filteredStickerList[
                                       index - defaultStickersCount]
                                   .imageUrl!,

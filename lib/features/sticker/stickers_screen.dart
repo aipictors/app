@@ -1,7 +1,7 @@
 import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/features/sticker/stickers_search_screen.dart';
 import 'package:aipictors/features/sticker/widgets/stickers_tab_controller.dart';
-import 'package:aipictors/features/viewer/viewer_stickers_screen.dart';
+import 'package:aipictors/features/sticker/my_stickers_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -32,7 +32,7 @@ class StickersScreen extends HookConsumerWidget {
             StickersSearchScreen(
               key: PageStorageKey('stickers_space'),
             ),
-            ViewerStickersScreen(
+            MyStickersScreen(
               key: PageStorageKey('viewer_stickers'),
             )
           ],

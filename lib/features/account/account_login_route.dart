@@ -2,7 +2,7 @@ import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/features/account/functions/update_account_login.dart';
 import 'package:aipictors/features/account/widgets/change_login_id_form.dart';
 import 'package:aipictors/features/home/widgets/loading_screen.dart';
-import 'package:aipictors/features/viewer/queries/__generated__/viewer_user.req.gql.dart';
+import 'package:aipictors/features/viewer/__generated__/viewer_user.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/utils/show_error_snack_bar.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';

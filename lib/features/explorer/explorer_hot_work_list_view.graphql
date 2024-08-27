@@ -1,0 +1,7 @@
+# import 'widgets/explorer_post_grid_item.graphql'
+
+query ExplorerHotWorkListView {
+  hotWorks {
+    ...ExplorerPostGridItem
+  }
+}

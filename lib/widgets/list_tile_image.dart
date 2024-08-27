@@ -2,8 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class ListTileImageContainer extends HookConsumerWidget {
-  const ListTileImageContainer({
+class ListTileImage extends HookConsumerWidget {
+  const ListTileImage({
     super.key,
     required this.thumbnailImageURL,
   });

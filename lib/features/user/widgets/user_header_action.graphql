@@ -1,0 +1,7 @@
+fragment UserHeaderAction on UserNode {
+  id
+  iconUrl
+  name
+  login
+  isFollowee
+}

@@ -1,5 +1,5 @@
 import 'package:aipictors/features/home/widgets/loading_screen.dart';
-import 'package:aipictors/features/information/__generated__/promotions.req.gql.dart';
+import 'package:aipictors/features/information/__generated__/promotions_screen.req.gql.dart';
 import 'package:aipictors/features/information/widgets/promotion_list_tile.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/providers/config_provider.dart';
@@ -25,7 +25,7 @@ class PromotionsScreen extends HookConsumerWidget {
       return const LoadingScreen();
     }
 
-    final request = GPromotionsReq((builder) {
+    final request = GPromotionsScreenReq((builder) {
       builder
         ..vars.limit = config.graphqlQueryLimit
         ..vars.offset = 0;

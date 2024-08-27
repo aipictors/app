@@ -1,8 +1,0 @@
-fragment PartialAlbumFields on AlbumNode {
-  id
-  title
-  isSensitive
-  likesCount
-  viewsCount
-  thumbnailImageURL
-}

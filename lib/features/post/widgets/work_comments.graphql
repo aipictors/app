@@ -1,0 +1,16 @@
+# import 'work_comment_list_tile.graphql'
+
+query WorkComments($workId: ID!) {
+  work(id: $workId) {
+    id
+    userId
+    commentsCount
+    comments(offset: 0, limit: 128) {
+      userId
+      ...WorkCommentListTile
+      responses(offset: 0, limit: 128) {
+        ...WorkCommentListTile
+      }
+    }
+  }
+}

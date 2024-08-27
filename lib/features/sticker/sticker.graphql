@@ -1,0 +1,23 @@
+# import 'widgets/sticker_status.graphql'
+# import 'widgets/sticker_user_profile.graphql'
+# import 'widgets/sticker_action_modal.graphql'
+# import 'widgets/sticker_categories.graphql'
+
+query Sticker($id: ID!) {
+  sticker(id: $id) {
+    id
+    title
+    imageUrl
+    genre
+    isDownloaded
+    isDeleted
+    ...StickerActionModal
+    ...StickerStatus
+    ...StickerCategories
+    user {
+      id
+      isFollowee
+      ...StickerUserProfile
+    }
+  }
+}

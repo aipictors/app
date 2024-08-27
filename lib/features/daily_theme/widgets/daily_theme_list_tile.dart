@@ -34,7 +34,7 @@ class DailyThemeListTile extends HookConsumerWidget {
       tileColor: isCurrent
           ? Theme.of(context).colorScheme.primaryContainer
           : Colors.transparent,
-      trailing: ListTileImageContainer(
+      trailing: ListTileImage(
         thumbnailImageURL: dailyTheme.firstWork?.largeThumbnailImageURL,
       ),
       onTap: onTap,
