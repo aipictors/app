@@ -4419,6 +4419,12 @@ type StickerNode implements Node {
   imageId: ID @deprecated(reason: "廃止")
   imageUrl: String
 
+  """コメント用にブックマークしている"""
+  isBookmarkedForComment: Boolean!
+
+  """返信用にブックマークしている"""
+  isBookmarkedForReply: Boolean!
+
   """削除済み"""
   isDeleted: Boolean!
 

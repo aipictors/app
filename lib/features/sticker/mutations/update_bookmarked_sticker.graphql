@@ -1,5 +1,7 @@
 mutation UpdateBookmarkedSticker($input: UpdateBookmarkedStickerInput!) {
   updateBookmarkedSticker(input: $input) {
     id
+    isBookmarkedForComment
+    isBookmarkedForReply
   }
 }
