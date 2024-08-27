@@ -3,6 +3,7 @@ import 'package:aipictors/features/post/functions/create_work_comment.dart';
 import 'package:aipictors/features/post/functions/delete_comment.dart';
 import 'package:aipictors/features/post/queries/__generated__/work_comments.req.gql.dart';
 import 'package:aipictors/features/post/widgets/comment_action_modal_container.dart';
+import 'package:aipictors/features/post/widgets/comment_details_modal_container.dart';
 import 'package:aipictors/features/post/widgets/work_comment_form.dart';
 import 'package:aipictors/features/post/widgets/work_comment_list_tile.dart';
 import 'package:aipictors/providers/auth_state_provider.dart';
@@ -86,7 +87,10 @@ class CommentModalContainer extends HookConsumerWidget {
                               WorkCommentListTile(
                                 comment: comment,
                                 isResponse: false,
-                                onTap: () {},
+                                onTap: () {
+                                  onOpenDetailsModal(context,
+                                      workId: workId, commentId: comment.id);
+                                },
                                 onLongPress: () {
                                   onOpenActionModal(
                                     context,
@@ -170,6 +174,19 @@ class CommentModalContainer extends HookConsumerWidget {
           ),
         ),
       ),
+    );
+  }
+
+  onOpenDetailsModal(BuildContext context,
+      {required String workId, required String commentId}) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return CommentDetailsModalContainer(
+          workId: workId,
+          commentId: commentId,
+        );
+      },
     );
   }
 
