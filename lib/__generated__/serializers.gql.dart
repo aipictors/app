@@ -981,6 +981,14 @@ import 'package:aipictors/features/sticker/mutations/__generated__/report_sticke
     show GReportStickerReq;
 import 'package:aipictors/features/sticker/mutations/__generated__/report_sticker.var.gql.dart'
     show GReportStickerVars;
+import 'package:aipictors/features/sticker/mutations/__generated__/update_bookmarked_sticker.data.gql.dart'
+    show
+        GUpdateBookmarkedStickerData,
+        GUpdateBookmarkedStickerData_updateBookmarkedSticker;
+import 'package:aipictors/features/sticker/mutations/__generated__/update_bookmarked_sticker.req.gql.dart'
+    show GUpdateBookmarkedStickerReq;
+import 'package:aipictors/features/sticker/mutations/__generated__/update_bookmarked_sticker.var.gql.dart'
+    show GUpdateBookmarkedStickerVars;
 import 'package:aipictors/features/sticker/mutations/__generated__/update_sticker.data.gql.dart'
     show GUpdateStickerData, GUpdateStickerData_updateSticker;
 import 'package:aipictors/features/sticker/mutations/__generated__/update_sticker.req.gql.dart'
@@ -1173,6 +1181,16 @@ import 'package:aipictors/features/viewer/__generated__/viewer_albums.req.gql.da
     show GViewerAlbumsReq;
 import 'package:aipictors/features/viewer/__generated__/viewer_albums.var.gql.dart'
     show GViewerAlbumsVars;
+import 'package:aipictors/features/viewer/__generated__/viewer_bookmarked_stickers.data.gql.dart'
+    show
+        GViewerBookmarkedStickersData,
+        GViewerBookmarkedStickersData_viewer,
+        GViewerBookmarkedStickersData_viewer_bookmarkedStickers,
+        GViewerBookmarkedStickersData_viewer_bookmarkedStickers_user;
+import 'package:aipictors/features/viewer/__generated__/viewer_bookmarked_stickers.req.gql.dart'
+    show GViewerBookmarkedStickersReq;
+import 'package:aipictors/features/viewer/__generated__/viewer_bookmarked_stickers.var.gql.dart'
+    show GViewerBookmarkedStickersVars;
 import 'package:aipictors/features/viewer/__generated__/viewer_folders.data.gql.dart'
     show
         GViewerFoldersData,
@@ -1860,7 +1878,11 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GUpdateAccountPasswordVars,
   GUpdateAccountWebFcmTokenInput,
   GUpdateAlbumInput,
+  GUpdateBookmarkedStickerData,
+  GUpdateBookmarkedStickerData_updateBookmarkedSticker,
   GUpdateBookmarkedStickerInput,
+  GUpdateBookmarkedStickerReq,
+  GUpdateBookmarkedStickerVars,
   GUpdateFolderData,
   GUpdateFolderData_updateFolder,
   GUpdateFolderInput,
@@ -1975,6 +1997,12 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GViewerAlbumsData_viewer_albums,
   GViewerAlbumsReq,
   GViewerAlbumsVars,
+  GViewerBookmarkedStickersData,
+  GViewerBookmarkedStickersData_viewer,
+  GViewerBookmarkedStickersData_viewer_bookmarkedStickers,
+  GViewerBookmarkedStickersData_viewer_bookmarkedStickers_user,
+  GViewerBookmarkedStickersReq,
+  GViewerBookmarkedStickersVars,
   GViewerFavoritedImageGenerationModelsData,
   GViewerFavoritedImageGenerationModelsData_viewer,
   GViewerFavoritedImageGenerationModelsData_viewer_favoritedImageGenerationModels,

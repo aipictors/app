@@ -1,3 +1,5 @@
+# import '../sticker/widgets/sticker_card.graphql'
+
 query ViewerBookmarkedStickers($limit: Int!, $offset: Int!, $type: BookmarkedStickerType,) {
   viewer {
     bookmarkedStickers(limit: $limit, offset: $offset, type: $type) {
@@ -6,6 +8,7 @@ query ViewerBookmarkedStickers($limit: Int!, $offset: Int!, $type: BookmarkedSti
       imageUrl
       downloadsCount
       usesCount
+      ...StickerCard
     }
   }
 }

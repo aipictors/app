@@ -656,7 +656,11 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GUpdateAccountPasswordVars.serializer)
       ..add(GUpdateAccountWebFcmTokenInput.serializer)
       ..add(GUpdateAlbumInput.serializer)
+      ..add(GUpdateBookmarkedStickerData.serializer)
+      ..add(GUpdateBookmarkedStickerData_updateBookmarkedSticker.serializer)
       ..add(GUpdateBookmarkedStickerInput.serializer)
+      ..add(GUpdateBookmarkedStickerReq.serializer)
+      ..add(GUpdateBookmarkedStickerVars.serializer)
       ..add(GUpdateFolderData.serializer)
       ..add(GUpdateFolderData_updateFolder.serializer)
       ..add(GUpdateFolderInput.serializer)
@@ -775,6 +779,13 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GViewerAlbumsData_viewer_albums.serializer)
       ..add(GViewerAlbumsReq.serializer)
       ..add(GViewerAlbumsVars.serializer)
+      ..add(GViewerBookmarkedStickersData.serializer)
+      ..add(GViewerBookmarkedStickersData_viewer.serializer)
+      ..add(GViewerBookmarkedStickersData_viewer_bookmarkedStickers.serializer)
+      ..add(GViewerBookmarkedStickersData_viewer_bookmarkedStickers_user
+          .serializer)
+      ..add(GViewerBookmarkedStickersReq.serializer)
+      ..add(GViewerBookmarkedStickersVars.serializer)
       ..add(GViewerFavoritedImageGenerationModelsData.serializer)
       ..add(GViewerFavoritedImageGenerationModelsData_viewer.serializer)
       ..add(
@@ -1064,6 +1075,13 @@ Serializers _$serializers = (new Serializers().toBuilder()
           const FullType(BuiltList,
               const [const FullType(GViewerAlbumsData_viewer_albums)]),
           () => new ListBuilder<GViewerAlbumsData_viewer_albums>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [
+            const FullType(
+                GViewerBookmarkedStickersData_viewer_bookmarkedStickers)
+          ]),
+          () => new ListBuilder<
+              GViewerBookmarkedStickersData_viewer_bookmarkedStickers>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [
             const FullType(

@@ -1,7 +1,7 @@
 import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/enums/layout.dart';
 import 'package:aipictors/features/sticker/widgets/stickers_grid_view.dart';
-import 'package:aipictors/features/viewer/queries/__generated__/viewer_bookmarked_stickers.req.gql.dart';
+import 'package:aipictors/features/viewer/__generated__/viewer_bookmarked_stickers.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/providers/stickers_screen_cross_axis_count_provider.dart';
