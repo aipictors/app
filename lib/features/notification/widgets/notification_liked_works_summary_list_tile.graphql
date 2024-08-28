@@ -1,0 +1,5 @@
+fragment NotificationLikedWorksSummaryListTile on LikedWorksSummaryNotificationNode {
+  id
+  createdAt
+  message
+}

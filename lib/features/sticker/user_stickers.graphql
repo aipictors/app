@@ -1,0 +1,10 @@
+# import 'widgets/sticker_card.graphql'
+
+query UserStickers($offset: Int!, $limit: Int!) {
+  viewer {
+    id
+    userStickers(offset: $offset, limit: $limit) {
+      ...StickerCard
+    }
+  }
+}

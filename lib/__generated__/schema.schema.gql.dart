@@ -321,6 +321,23 @@ abstract class GBlockPromptonUserInput
       );
 }
 
+class GBookmarkedStickerType extends EnumClass {
+  const GBookmarkedStickerType._(String name) : super(name);
+
+  static const GBookmarkedStickerType comment = _$gBookmarkedStickerTypecomment;
+
+  static const GBookmarkedStickerType reply = _$gBookmarkedStickerTypereply;
+
+  static Serializer<GBookmarkedStickerType> get serializer =>
+      _$gBookmarkedStickerTypeSerializer;
+
+  static BuiltSet<GBookmarkedStickerType> get values =>
+      _$gBookmarkedStickerTypeValues;
+
+  static GBookmarkedStickerType valueOf(String name) =>
+      _$gBookmarkedStickerTypeValueOf(name);
+}
+
 abstract class GCancelImageGenerationReservedTaskInput
     implements
         Built<GCancelImageGenerationReservedTaskInput,
@@ -2287,23 +2304,6 @@ abstract class GEnablePromptonRequestChatInput
         GEnablePromptonRequestChatInput.serializer,
         json,
       );
-}
-
-class GFavoritedStickerType extends EnumClass {
-  const GFavoritedStickerType._(String name) : super(name);
-
-  static const GFavoritedStickerType comment = _$gFavoritedStickerTypecomment;
-
-  static const GFavoritedStickerType reply = _$gFavoritedStickerTypereply;
-
-  static Serializer<GFavoritedStickerType> get serializer =>
-      _$gFavoritedStickerTypeSerializer;
-
-  static BuiltSet<GFavoritedStickerType> get values =>
-      _$gFavoritedStickerTypeValues;
-
-  static GFavoritedStickerType valueOf(String name) =>
-      _$gFavoritedStickerTypeValueOf(name);
 }
 
 abstract class GFeaturePromptonRequestWhereInput
@@ -4631,30 +4631,30 @@ abstract class GUpdateAlbumInput
       );
 }
 
-abstract class GUpdateFavoritedStickerInput
+abstract class GUpdateBookmarkedStickerInput
     implements
-        Built<GUpdateFavoritedStickerInput,
-            GUpdateFavoritedStickerInputBuilder> {
-  GUpdateFavoritedStickerInput._();
+        Built<GUpdateBookmarkedStickerInput,
+            GUpdateBookmarkedStickerInputBuilder> {
+  GUpdateBookmarkedStickerInput._();
 
-  factory GUpdateFavoritedStickerInput(
-          [void Function(GUpdateFavoritedStickerInputBuilder b) updates]) =
-      _$GUpdateFavoritedStickerInput;
+  factory GUpdateBookmarkedStickerInput(
+          [void Function(GUpdateBookmarkedStickerInputBuilder b) updates]) =
+      _$GUpdateBookmarkedStickerInput;
 
-  bool get isFavorited;
+  bool get isBookmarked;
   String get stickerId;
-  GFavoritedStickerType get type;
-  static Serializer<GUpdateFavoritedStickerInput> get serializer =>
-      _$gUpdateFavoritedStickerInputSerializer;
+  GBookmarkedStickerType get type;
+  static Serializer<GUpdateBookmarkedStickerInput> get serializer =>
+      _$gUpdateBookmarkedStickerInputSerializer;
 
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GUpdateFavoritedStickerInput.serializer,
+        GUpdateBookmarkedStickerInput.serializer,
         this,
       ) as Map<String, dynamic>);
 
-  static GUpdateFavoritedStickerInput? fromJson(Map<String, dynamic> json) =>
+  static GUpdateBookmarkedStickerInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
-        GUpdateFavoritedStickerInput.serializer,
+        GUpdateBookmarkedStickerInput.serializer,
         json,
       );
 }

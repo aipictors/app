@@ -1,0 +1,31 @@
+# import 'widgets/notification_follow_list_tile.graphql'
+# import 'widgets/notification_liked_work_list_tile.graphql'
+# import 'widgets/notification_liked_works_summary_list_tile.graphql'
+# import 'widgets/notification_work_award_list_tile.graphql'
+# import 'widgets/notification_work_comment_list_tile.graphql'
+# import 'widgets/notification_work_comment_reply_list_tile.graphql'
+
+query NotificationScreen($offset: Int!, $limit: Int!) {
+  viewer {
+    notifications(offset: $offset, limit: $limit) {
+      ... on LikedWorkNotificationNode {
+        ...NotificationLikedWorkListTile
+      }
+      ... on LikedWorksSummaryNotificationNode {
+        ...NotificationLikedWorksSummaryListTile
+      }
+      ... on WorkAwardNotificationNode {
+        ...NotificationWorkAwardListTile
+      }
+      ... on WorkCommentNotificationNode {
+        ...NotificationWorkCommentListTile
+      }
+      ... on WorkCommentReplyNotificationNode {
+        ...NotificationWorkCommentReplyListTile
+      }
+      ... on FollowNotificationNode {
+        ...NotificationFollowListTile
+      }
+    }
+  }
+}

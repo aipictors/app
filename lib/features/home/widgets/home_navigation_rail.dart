@@ -1,5 +1,5 @@
 import 'package:aipictors/default.i18n.dart';
-import 'package:aipictors/features/viewer/queries/__generated__/viewer_user.data.gql.dart';
+import 'package:aipictors/features/viewer/__generated__/viewer_user.data.gql.dart';
 import 'package:aipictors/providers/auth_state_provider.dart';
 import 'package:aipictors/providers/home_tab_index_provider.dart';
 import 'package:aipictors/providers/viewer_provider.dart';

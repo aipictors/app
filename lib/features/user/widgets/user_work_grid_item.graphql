@@ -1,0 +1,6 @@
+fragment UserWorkGridItem on WorkNode {
+  id
+  imageURL
+  thumbnailImagePosition
+  imageAspectRatio
+}

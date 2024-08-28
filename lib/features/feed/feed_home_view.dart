@@ -1,4 +1,4 @@
-import 'package:aipictors/features/feed/__generated__/viewer_feed_works.req.gql.dart';
+import 'package:aipictors/features/feed/__generated__/feed_home_view.req.gql.dart';
 import 'package:aipictors/features/feed/widgets/feed_work_list_tile.dart';
 import 'package:aipictors/features/feed/widgets/home_message_list_tile.dart';
 import 'package:aipictors/providers/audio_provider.dart';
@@ -31,7 +31,7 @@ class FeedHomeView extends HookConsumerWidget {
       return const LoadingProgress();
     }
 
-    final request = GViewerFeedWorksReq((builder) {
+    final request = GFeedHomeViewReq((builder) {
       builder
         ..vars.limit = config.graphqlQueryLimit
         ..vars.offset = 0;

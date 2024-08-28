@@ -1,0 +1,10 @@
+fragment WorkBottomAppBar on WorkNode {
+  id
+  title
+  isLiked
+  user {
+    id
+    name
+    isMuted
+  }
+}

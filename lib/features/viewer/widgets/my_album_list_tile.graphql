@@ -1,0 +1,5 @@
+fragment MyAlbumListTile on AlbumNode {
+  id
+  title
+  thumbnailImageURL
+}

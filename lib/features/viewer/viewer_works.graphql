@@ -1,0 +1,10 @@
+# import 'widgets/my_work_list_tile.graphql'
+
+query ViewerWorks($offset: Int!, $limit: Int!) {
+  viewer {
+    id
+    works(offset: $offset, limit: $limit) {
+      ...MyWorkListTile
+    }
+  }
+}

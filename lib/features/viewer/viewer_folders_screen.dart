@@ -1,15 +1,13 @@
 import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/features/home/widgets/loading_screen.dart';
-import 'package:aipictors/features/viewer/viewer_folder_list_tile.dart';
-import 'package:aipictors/features/viewer/queries/__generated__/viewer_folders.req.gql.dart';
+import 'package:aipictors/features/viewer/__generated__/viewer_folders.req.gql.dart';
+import 'package:aipictors/features/viewer/widgets/my_folder_list_tile.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
 import 'package:aipictors/widgets/error/data_empty_error_container.dart';
 import 'package:aipictors/widgets/error/unexpected_error_container.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 ///  投稿したフォルダの一覧
@@ -54,17 +52,7 @@ class ViewerFoldersScreen extends HookConsumerWidget {
             itemCount: folderList.length,
             itemBuilder: (context, index) {
               final folder = folderList[index];
-              return ViewerFolderListTile(
-                title: folder.title,
-                imageURL: folder.thumbnailImageURL,
-                onTap: () {
-                  FirebaseAnalytics.instance.logSelectContent(
-                    contentType: 'folder',
-                    itemId: folder.id,
-                  );
-                  context.push('/folders/${folder.id}');
-                },
-              );
+              return MyFolderListTile(folder: folder);
             },
           );
         },

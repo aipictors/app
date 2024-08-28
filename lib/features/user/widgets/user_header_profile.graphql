@@ -1,0 +1,12 @@
+fragment UserHeaderProfile on UserNode {
+  id
+  iconUrl
+  name
+  login
+  biography
+  followersCount
+  receivedLikesCount
+  receivedViewsCount
+  followersCount
+  awardsCount
+}

@@ -1,0 +1,10 @@
+# import 'notification_work.graphql'
+
+fragment NotificationWorkAwardListTile on WorkAwardNotificationNode {
+  id
+  createdAt
+  message
+  work {
+    ...NotificationWork
+  }
+}

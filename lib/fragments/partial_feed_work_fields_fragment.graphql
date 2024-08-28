@@ -1,9 +1,0 @@
-fragment PartialFeedWorkFields on WorkNode {
-  id
-  title
-  likesCount
-  commentsCount
-  createdAt
-  imageAspectRatio
-  imageURL
-}

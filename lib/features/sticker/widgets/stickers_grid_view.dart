@@ -1,3 +1,4 @@
+import 'package:aipictors/features/sticker/widgets/__generated__/sticker_card.data.gql.dart';
 import 'package:aipictors/features/sticker/widgets/sticker_card.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -13,7 +14,7 @@ class StickersGridView extends HookConsumerWidget {
     this.physics,
   });
 
-  final BuiltList stickerList;
+  final BuiltList<GStickerCard> stickerList;
 
   final int crossAxisCount;
 
@@ -35,10 +36,7 @@ class StickersGridView extends HookConsumerWidget {
       itemBuilder: (context, index) {
         final sticker = stickerList[index];
         return StickerCard(
-          title: sticker.title,
-          imageUrl: sticker.imageUrl,
-          downloadsCount: sticker.downloadsCount,
-          usesCount: sticker.usesCount,
+          sticker: sticker,
           onTap: () {
             FirebaseAnalytics.instance.logSelectContent(
               contentType: 'sticker',

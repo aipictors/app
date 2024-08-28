@@ -1,0 +1,7 @@
+# import 'widgets/explorer_post_grid_item.graphql'
+
+query ExplorerSearchView($offset: Int!, $limit: Int!, $where: WorksWhereInput) {
+  works(offset: $offset, limit: $limit, where: $where) {
+    ...ExplorerPostGridItem
+  }
+}

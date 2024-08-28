@@ -1,0 +1,7 @@
+# import 'widgets/announcement_list_tile.graphql'
+
+query AnnouncementsScreen {
+  announcements(offset: 0, limit: 16) {
+    ...AnnouncementListTile
+  }
+}

@@ -1,0 +1,5 @@
+fragment UserFolderListTile on FolderNode {
+  id
+  title
+  thumbnailImageURL
+}

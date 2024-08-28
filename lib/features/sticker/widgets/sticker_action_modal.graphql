@@ -1,0 +1,9 @@
+
+fragment StickerActionModal on StickerNode {
+  id
+  user {
+    id
+    name
+    isMuted
+  }
+}

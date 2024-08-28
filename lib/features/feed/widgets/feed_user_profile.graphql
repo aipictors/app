@@ -1,0 +1,5 @@
+fragment FeedUserProfile on UserNode {
+  id
+  name
+  iconUrl
+}

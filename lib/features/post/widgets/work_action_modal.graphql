@@ -1,0 +1,9 @@
+fragment WorkActionModal on WorkNode {
+  id
+  title
+  user {
+    id
+    name
+    isMuted
+  }
+}

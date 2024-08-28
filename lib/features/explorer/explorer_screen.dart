@@ -1,7 +1,7 @@
 import 'package:aipictors/config.dart';
 import 'package:aipictors/default.i18n.dart';
-import 'package:aipictors/features/explorer/explorer_best_works_view.dart';
-import 'package:aipictors/features/explorer/explorer_popular_works_view.dart';
+import 'package:aipictors/features/explorer/explorer_best_work_list_view.dart';
+import 'package:aipictors/features/explorer/explorer_popular_work_list_view.dart';
 import 'package:aipictors/features/explorer/widgets/explorer_tab_controller.dart';
 import 'package:aipictors/features/search/widgets/search_app_bar.dart';
 import 'package:aipictors/utils/show_unavailable_snack_bar.dart';
@@ -74,10 +74,10 @@ class ExplorerScreen extends HookConsumerWidget {
               ],
             )),
         body: const TabBarView(children: [
-          ExplorerPopularWorksView(
+          ExplorerPopularWorkListView(
             key: PageStorageKey('explorer_popular_works'),
           ),
-          ExplorerBestWorksView(
+          ExplorerBestWorkListView(
             key: PageStorageKey('explorer_best_works'),
           ),
         ]),

@@ -1,0 +1,6 @@
+fragment AnnouncementListTile on AnnouncementNode {
+  id
+  title
+  body
+  publishedAt
+}

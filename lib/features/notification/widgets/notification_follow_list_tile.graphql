@@ -1,0 +1,9 @@
+# import 'notification_user_profile.graphql'
+
+fragment NotificationFollowListTile on FollowNotificationNode {
+  id
+  createdAt
+  user {
+    ...NotificationUserProfile
+  }
+}

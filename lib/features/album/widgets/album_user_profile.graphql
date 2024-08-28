@@ -1,0 +1,5 @@
+fragment AlbumUserProfile on UserNode {
+  id
+  name
+  iconUrl
+}

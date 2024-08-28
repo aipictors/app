@@ -1,6 +1,6 @@
 import 'package:aipictors/default.i18n.dart';
-import 'package:aipictors/features/generation/queries/__generated__/image_lora_models.data.gql.dart';
-import 'package:aipictors/widgets/list_tile/work_info_list_tile.dart';
+import 'package:aipictors/features/generation/__generated__/image_lora_models.data.gql.dart';
+import 'package:aipictors/features/generation/widgets/work_info_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';

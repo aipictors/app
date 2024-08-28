@@ -1,3 +1,4 @@
+import 'package:aipictors/features/information/widgets/__generated__/announcement_list_tile.data.gql.dart';
 import 'package:aipictors/utils/to_readable_date.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -8,30 +9,24 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 class AnnouncementListTile extends HookConsumerWidget {
   const AnnouncementListTile({
     super.key,
-    required this.title,
-    required this.body,
-    required this.publishedAt,
+    required this.announcement,
   });
 
-  final String title;
-
-  final String body;
-
-  final int publishedAt;
+  final GAnnouncementListTile announcement;
 
   @override
   Widget build(context, ref) {
     return ListTile(
-      title: Text(toReadableDate(publishedAt)),
+      title: Text(toReadableDate(announcement.publishedAt)),
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            title,
+            announcement.title,
             style: Theme.of(context).textTheme.headlineSmall,
           ),
           Html(
-            data: body.replaceAll(r'<p><br></p>', ''),
+            data: announcement.body.replaceAll(r'<p><br></p>', ''),
             style: {
               'body': Style(
                 margin: Margins.all(0),

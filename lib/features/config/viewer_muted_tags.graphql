@@ -1,0 +1,10 @@
+# import 'widgets/muted_tag_list_tile.graphql'
+
+query ViewerMutedTags($offset: Int!, $limit: Int!) {
+  viewer {
+    id
+    mutedTags(offset: $offset, limit: $limit) {
+      ...MutedTagListTile
+    }
+  }
+}

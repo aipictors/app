@@ -1,0 +1,10 @@
+# import 'widgets/user_work_grid_item.graphql'
+
+query UserWorks($user_id: ID!, $offset: Int!, $limit: Int!) {
+  user(id: $user_id) {
+    id
+    works(offset: $offset, limit: $limit) {
+      ...UserWorkGridItem
+    }
+  }
+}

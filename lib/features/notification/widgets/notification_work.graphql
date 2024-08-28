@@ -1,0 +1,5 @@
+fragment NotificationWork on WorkNode {
+  id
+  title
+  largeThumbnailImageURL
+}

@@ -1,7 +1,7 @@
 import 'package:aipictors/default.i18n.dart';
+import 'package:aipictors/features/config/widgets/__generated__/muted_user_list_tile.data.gql.dart';
 import 'package:aipictors/features/config/widgets/muted_user_list_tile.dart';
 import 'package:aipictors/features/user/functions/mute_user.dart';
-import 'package:aipictors/fragments/__generated__/partial_user_fields_fragment.data.gql.dart';
 import 'package:aipictors/widgets/dismissible_background.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -13,7 +13,7 @@ class DismissibleMutedUserListView extends HookConsumerWidget {
     required this.userList,
   });
 
-  final List<GPartialUserFields> userList;
+  final List<GMutedUserListTile> userList;
 
   @override
   Widget build(context, ref) {
@@ -28,9 +28,7 @@ class DismissibleMutedUserListView extends HookConsumerWidget {
             text: 'ミュートを解除する'.i18n,
           ),
           child: MutedUserListTile(
-            userName: user.name,
-            userLogin: user.login,
-            userIconImageURL: user.iconUrl,
+            user: user,
             onTap: () {
               context.push('/users/${user.id}');
             },

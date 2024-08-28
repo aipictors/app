@@ -1,6 +1,6 @@
 import 'package:aipictors/__generated__/schema.schema.gql.dart';
 import 'package:aipictors/enums/layout.dart';
-import 'package:aipictors/features/generation/queries/__generated__/viewer_image_generation_tasks.req.gql.dart';
+import 'package:aipictors/features/generation/__generated__/viewer_image_generation_tasks.req.gql.dart';
 import 'package:aipictors/features/generation/utils/to_generation_image_url.dart';
 import 'package:aipictors/features/generation/widgets/generating_image_container.dart';
 import 'package:aipictors/providers/client_provider.dart';
@@ -81,22 +81,23 @@ class GeneratedImagesGridView extends HookConsumerWidget {
                 final layout =
                     Layout.fromWidth(MediaQuery.of(context).size.width);
                 return InkWell(
-                    onTap: () {
-                      onTap(task.nanoid!);
+                  onTap: () {
+                    onTap(task.nanoid!);
+                  },
+                  child: PostImage(
+                    // スマホならサムネサイズを、タブレットなら通常サイズを表示する
+                    imageURL: (layout == Layout.compact)
+                        ? toGenerationImageUrl(
+                            task.thumbnailToken!, task.thumbnailImageFileName!)
+                        : toGenerationImageUrl(
+                            task.token!, task.imageFileName!),
+                    httpHeaders: const {
+                      'Referer': 'https://beta.aipictors.com/',
                     },
-                    child: PostImage(
-                      // スマホならサムネサイズを、タブレットなら通常サイズを表示する
-                      imageURL: (layout == Layout.compact)
-                          ? toGenerationImageUrl(task.thumbnailToken!,
-                              task.thumbnailImageFileName!)
-                          : toGenerationImageUrl(
-                              task.token!, task.imageFileName!),
-                      httpHeaders: const {
-                        'Referer': 'https://beta.aipictors.com/',
-                      },
-                      imageAspectRatio: 1,
-                      thumbnailImagePosition: null,
-                    ));
+                    imageAspectRatio: 1,
+                    thumbnailImagePosition: null,
+                  ),
+                );
               },
             );
           },

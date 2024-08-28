@@ -1,0 +1,5 @@
+fragment StickerStatus on StickerNode {
+  id
+  downloadsCount
+  usesCount
+}

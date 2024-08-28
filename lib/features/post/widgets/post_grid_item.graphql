@@ -1,0 +1,6 @@
+fragment PostGridItem on WorkNode {
+  id
+  imageURL
+  thumbnailImagePosition
+  imageAspectRatio
+}

@@ -1,5 +1,5 @@
 import 'package:aipictors/features/home/widgets/loading_screen.dart';
-import 'package:aipictors/features/information/queries/__generated__/announcements.req.gql.dart';
+import 'package:aipictors/features/information/__generated__/announcements_screen.req.gql.dart';
 import 'package:aipictors/features/information/widgets/announcement_list_tile.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
@@ -22,7 +22,7 @@ class AnnouncementsScreen extends HookConsumerWidget {
       return const LoadingScreen();
     }
 
-    final request = GAnnouncementsReq((builder) {
+    final request = GAnnouncementsScreenReq((builder) {
       builder;
     });
 
@@ -53,11 +53,7 @@ class AnnouncementsScreen extends HookConsumerWidget {
             itemCount: announcementList.length,
             itemBuilder: (context, index) {
               final announcement = announcementList[index];
-              return AnnouncementListTile(
-                title: announcement.title,
-                body: announcement.body,
-                publishedAt: announcement.publishedAt,
-              );
+              return AnnouncementListTile(announcement: announcement);
             },
           );
         },

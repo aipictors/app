@@ -1,0 +1,7 @@
+# import 'widgets/sticker_card.graphql'
+
+query Stickers($offset: Int!, $limit: Int!, $where: StickersWhereInput) {
+  stickers(offset: $offset, limit: $limit, where: $where) {
+    ...StickerCard
+  }
+}

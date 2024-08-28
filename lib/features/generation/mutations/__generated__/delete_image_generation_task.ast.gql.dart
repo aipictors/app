@@ -2,8 +2,6 @@
 // ignore_for_file: type=lint
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:aipictors/fragments/__generated__/image_generation_result_fields_fragment.ast.gql.dart'
-    as _i2;
 import 'package:gql/ast.dart' as _i1;
 
 const DeleteImageGenerationTask = _i1.OperationDefinitionNode(
@@ -33,15 +31,15 @@ const DeleteImageGenerationTask = _i1.OperationDefinitionNode(
       ],
       directives: [],
       selectionSet: _i1.SelectionSetNode(selections: [
-        _i1.FragmentSpreadNode(
-          name: _i1.NameNode(value: 'ImageGenerationResultFields'),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'id'),
+          alias: null,
+          arguments: [],
           directives: [],
+          selectionSet: null,
         )
       ]),
     )
   ]),
 );
-const document = _i1.DocumentNode(definitions: [
-  DeleteImageGenerationTask,
-  _i2.ImageGenerationResultFields,
-]);
+const document = _i1.DocumentNode(definitions: [DeleteImageGenerationTask]);

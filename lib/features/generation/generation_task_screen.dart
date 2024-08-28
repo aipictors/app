@@ -1,8 +1,8 @@
 import 'package:aipictors/default.i18n.dart';
+import 'package:aipictors/features/generation/__generated__/viewer_image_generation_task.req.gql.dart';
 import 'package:aipictors/features/generation/functions/delete_image_generation_task.dart';
 import 'package:aipictors/features/generation/functions/update_protected_image_generation_task.dart';
 import 'package:aipictors/features/generation/functions/update_rating_image_generation_task.dart';
-import 'package:aipictors/features/generation/queries/__generated__/viewer_image_generation_task.req.gql.dart';
 import 'package:aipictors/features/generation/utils/reuse_image_generation_task.dart';
 import 'package:aipictors/features/generation/utils/to_generation_image_url.dart';
 import 'package:aipictors/features/generation/utils/to_generation_size_type_text.dart';
@@ -86,24 +86,29 @@ class GenerationTaskScreen extends HookConsumerWidget {
                       GenerationTaskOptionsContainer(
                         onReuseButtonPressed: () {
                           reuseImageGenerationTask(
-                              task, imageGenerationNotifier);
+                            task,
+                            imageGenerationNotifier,
+                          );
                           showSnackBar(context, '生成情報を復元しました'.i18n);
                         },
                       ),
                       GenerationRatingContainer(
                         currentRating: task.rating!,
                         onPressed: (int rating) {
-                          onRating(context, task.nanoid!,
-                              (task.rating != rating) ? rating : 0);
+                          onRating(
+                            context,
+                            task.nanoid!,
+                            (task.rating != rating) ? rating : 0,
+                          );
                         },
                       ),
                       const SizedBox(width: 16),
                       GenerationProtectButton(
-                          isProtected: task.isProtected ?? false,
-                          onPressed: (bool newProtectionState) {
-                            onProtect(
-                                context, task.nanoid!, newProtectionState);
-                          }),
+                        isProtected: task.isProtected ?? false,
+                        onPressed: (bool newProtectionState) {
+                          onProtect(context, task.nanoid!, newProtectionState);
+                        },
+                      ),
                       const Spacer(),
                       IconButton(
                         icon: const Icon(Icons.delete_rounded),
@@ -121,13 +126,15 @@ class GenerationTaskScreen extends HookConsumerWidget {
                         prompts: task.prompt,
                         onPressed: (String prompt) {
                           imageGenerationNotifier.updatePrompt(
-                              '${imageGeneration.prompt}, $prompt');
+                            '${imageGeneration.prompt}, $prompt',
+                          );
                           showSnackBar(
-                              context,
-                              'プロンプトに _PROMPT_ を追加しました'.i18n.replaceAllMapped(
-                                    RegExp(r'_PROMPT_'),
-                                    (match) => prompt,
-                                  ));
+                            context,
+                            'プロンプトに _PROMPT_ を追加しました'.i18n.replaceAllMapped(
+                                  RegExp(r'_PROMPT_'),
+                                  (match) => prompt,
+                                ),
+                          );
                         }),
                     const SizedBox(height: 8),
                     Text(
@@ -138,15 +145,17 @@ class GenerationTaskScreen extends HookConsumerWidget {
                         prompts: task.negativePrompt,
                         onPressed: (String negativePrompt) {
                           imageGenerationNotifier.updateNegativePrompt(
-                              '${imageGeneration.negativePrompt}, $negativePrompt');
+                            '${imageGeneration.negativePrompt}, $negativePrompt',
+                          );
                           showSnackBar(
-                              context,
-                              'ネガティブプロンプトに _NEGATIVE_PROMPT_ を追加しました'
-                                  .i18n
-                                  .replaceAllMapped(
-                                    RegExp(r'_NEGATIVE_PROMPT_'),
-                                    (match) => negativePrompt,
-                                  ));
+                            context,
+                            'ネガティブプロンプトに _NEGATIVE_PROMPT_ を追加しました'
+                                .i18n
+                                .replaceAllMapped(
+                                  RegExp(r'_NEGATIVE_PROMPT_'),
+                                  (match) => negativePrompt,
+                                ),
+                          );
                         }),
                     const SizedBox(height: 8),
                     GenerationSettingContainer(

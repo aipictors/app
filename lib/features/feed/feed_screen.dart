@@ -1,8 +1,8 @@
 import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/features/feed/feed_home_view.dart';
-import 'package:aipictors/features/feed/feed_hot_works_view.dart';
-import 'package:aipictors/features/feed/feed_latest_works_view.dart';
-import 'package:aipictors/features/feed/feed_popular_works_view.dart';
+import 'package:aipictors/features/feed/feed_hot_work_list_view.dart';
+import 'package:aipictors/features/feed/feed_latest_work_list_view.dart';
+import 'package:aipictors/features/feed/feed_popular_work_list_view.dart';
 import 'package:aipictors/features/feed/widgets/feed_tab_controller.dart';
 import 'package:aipictors/providers/auth_state_provider.dart';
 import 'package:flutter/material.dart';

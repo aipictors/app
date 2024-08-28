@@ -1,12 +1,12 @@
 import 'package:aipictors/default.i18n.dart';
-import 'package:aipictors/features/notification/widgets/list_tile/notification_follow_list_tile.dart';
-import 'package:aipictors/features/notification/widgets/list_tile/notification_liked_work_list_tile.dart';
-import 'package:aipictors/features/notification/widgets/list_tile/notification_liked_works_summary_list_tile.dart';
-import 'package:aipictors/features/notification/widgets/list_tile/notification_work_award_list_tile.dart';
-import 'package:aipictors/features/notification/widgets/list_tile/notification_work_comment_list_tile.dart';
-import 'package:aipictors/features/notification/widgets/list_tile/notification_work_comment_reply_list_tile.dart';
-import 'package:aipictors/features/viewer/queries/__generated__/viewer_notifications.data.gql.dart';
-import 'package:aipictors/features/viewer/queries/__generated__/viewer_notifications.req.gql.dart';
+import 'package:aipictors/features/notification/__generated__/notification_screen.data.gql.dart';
+import 'package:aipictors/features/notification/__generated__/notification_screen.req.gql.dart';
+import 'package:aipictors/features/notification/widgets/notification_follow_list_tile.dart';
+import 'package:aipictors/features/notification/widgets/notification_liked_work_list_tile.dart';
+import 'package:aipictors/features/notification/widgets/notification_liked_works_summary_list_tile.dart';
+import 'package:aipictors/features/notification/widgets/notification_work_award_list_tile.dart';
+import 'package:aipictors/features/notification/widgets/notification_work_comment_list_tile.dart';
+import 'package:aipictors/features/notification/widgets/notification_work_comment_reply_list_tile.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
@@ -32,7 +32,7 @@ class NotificationScreen extends HookConsumerWidget {
       return const LoadingProgress();
     }
 
-    final request = GViewerNotificationsReq((builder) {
+    final request = GNotificationScreenReq((builder) {
       builder
         ..vars.limit = config.graphqlQueryLimit
         ..vars.offset = 0;
@@ -73,79 +73,39 @@ class NotificationScreen extends HookConsumerWidget {
               itemBuilder: (context, index) {
                 final notification = notificationList[index];
                 if (notification
-                    is GViewerNotificationsData_viewer_notifications__asLikedWorkNotificationNode) {
-                  final user = notification.user;
-                  final work = notification.work;
+                    is GNotificationScreenData_viewer_notifications__asLikedWorkNotificationNode) {
                   return NotificationLikedWorkListTile(
-                    createdAt: notification.createdAt,
-                    userId: user?.id,
-                    userName: user?.name,
-                    userIconImageURL: user?.iconUrl,
-                    workId: notification.work?.id,
-                    workTitle: work?.title,
-                    workImageURL: work?.largeThumbnailImageURL,
+                    notification: notification,
                   );
                 }
                 if (notification
-                    is GViewerNotificationsData_viewer_notifications__asLikedWorksSummaryNotificationNode) {
+                    is GNotificationScreenData_viewer_notifications__asLikedWorksSummaryNotificationNode) {
                   return NotificationLikedWorksSummaryListTile(
-                    createdAt: notification.createdAt,
-                    message: notification.message,
+                    notification: notification,
                   );
                 }
                 if (notification
-                    is GViewerNotificationsData_viewer_notifications__asWorkAwardNotificationNode) {
-                  final work = notification.work;
+                    is GNotificationScreenData_viewer_notifications__asWorkAwardNotificationNode) {
                   return NotificationWorkAwardListTile(
-                    createdAt: notification.createdAt,
-                    message: notification.message,
-                    workId: notification.work?.id,
-                    workTitle: work?.title,
-                    workImageURL: work?.largeThumbnailImageURL,
+                    notification: notification,
                   );
                 }
                 if (notification
-                    is GViewerNotificationsData_viewer_notifications__asWorkCommentNotificationNode) {
-                  final user = notification.user;
-                  final work = notification.work;
-                  final sticker = notification.sticker;
+                    is GNotificationScreenData_viewer_notifications__asWorkCommentNotificationNode) {
                   return NotificationWorkCommentListTile(
-                    createdAt: notification.createdAt,
-                    message: notification.message,
-                    userId: user?.id,
-                    userName: user?.name,
-                    userIconImageURL: user?.iconUrl,
-                    workId: notification.work?.id,
-                    workTitle: work?.title,
-                    workImageURL: work?.largeThumbnailImageURL,
-                    stickerImageURL: sticker?.imageUrl,
+                    notification: notification,
                   );
                 }
                 if (notification
-                    is GViewerNotificationsData_viewer_notifications__asWorkCommentReplyNotificationNode) {
-                  final user = notification.user;
-                  final work = notification.work;
-                  final sticker = notification.sticker;
+                    is GNotificationScreenData_viewer_notifications__asWorkCommentReplyNotificationNode) {
                   return NotificationWorkCommentReplyListTile(
-                    createdAt: notification.createdAt,
-                    message: notification.message,
-                    userId: user?.id,
-                    userName: user?.name,
-                    userIconImageURL: user?.iconUrl,
-                    workId: notification.work?.id,
-                    workTitle: work?.title,
-                    workImageURL: work?.largeThumbnailImageURL,
-                    stickerImageURL: sticker?.imageUrl,
+                    notification: notification,
                   );
                 }
                 if (notification
-                    is GViewerNotificationsData_viewer_notifications__asFollowNotificationNode) {
-                  final user = notification.user;
+                    is GNotificationScreenData_viewer_notifications__asFollowNotificationNode) {
                   return NotificationFollowListTile(
-                    createdAt: notification.createdAt,
-                    userId: user?.id,
-                    userName: user?.name,
-                    userIconImageURL: user?.iconUrl,
+                    notification: notification,
                   );
                 }
                 return Container();

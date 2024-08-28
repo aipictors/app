@@ -1,6 +1,6 @@
 import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/features/album/widgets/__generated__/album_work_list_tile.data.gql.dart';
-import 'package:aipictors/features/feed/widgets/comment_modal_container.dart';
+import 'package:aipictors/features/feed/widgets/feed_comment_modal.dart';
 import 'package:aipictors/features/feed/widgets/feed_like_button.dart';
 import 'package:aipictors/features/feed/widgets/share_work_button.dart';
 import 'package:aipictors/features/post/functions/create_work_like.dart';
@@ -143,7 +143,7 @@ class AlbumWorkListTile extends HookConsumerWidget {
       context: context,
       isScrollControlled: true,
       builder: (context) {
-        return CommentModalContainer(workId: work.id);
+        return FeedCommentModal(workId: work.id);
       },
     );
   }

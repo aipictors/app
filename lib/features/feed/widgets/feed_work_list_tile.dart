@@ -1,12 +1,12 @@
 import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/features/config/widgets/about_follow_dialog.dart';
 import 'package:aipictors/features/feed/widgets/__generated__/feed_work_list_tile.data.gql.dart';
-import 'package:aipictors/features/feed/widgets/comment_modal_container.dart';
-import 'package:aipictors/features/feed/widgets/feed_action_modal_container.dart';
+import 'package:aipictors/features/feed/widgets/feed_action_list.dart';
+import 'package:aipictors/features/feed/widgets/feed_comment_modal.dart';
 import 'package:aipictors/features/feed/widgets/feed_like_button.dart';
+import 'package:aipictors/features/feed/widgets/feed_user_profile.dart';
 import 'package:aipictors/features/feed/widgets/follow_text_button.dart';
 import 'package:aipictors/features/feed/widgets/share_work_button.dart';
-import 'package:aipictors/features/notification/widgets/notification_user_container.dart';
 import 'package:aipictors/features/post/functions/create_work_like.dart';
 import 'package:aipictors/features/user/functions/follow_user.dart';
 import 'package:aipictors/providers/auth_user_id_provider.dart';
@@ -48,10 +48,7 @@ class FeedWorkListTile extends HookConsumerWidget {
                 onTap: () {
                   context.push('/users/${work.user.id}');
                 },
-                child: NotificationUserContainer(
-                  userName: work.user.name,
-                  userIconImageURL: work.user.iconUrl,
-                ),
+                child: FeedUserProfile(user: work.user),
               ),
             ),
             if (authUserId.value != work.user.id)
@@ -187,7 +184,7 @@ class FeedWorkListTile extends HookConsumerWidget {
       context: context,
       isScrollControlled: true,
       builder: (context) {
-        return CommentModalContainer(workId: work.id);
+        return FeedCommentModal(workId: work.id);
       },
     );
   }
@@ -197,15 +194,7 @@ class FeedWorkListTile extends HookConsumerWidget {
     showModalBottomSheet(
       context: context,
       builder: (context) {
-        return FeedActionModalContainer(
-          workId: work.id,
-          userId: work.user.id,
-          userName: work.user.name,
-          workTitle: work.title,
-          userIconImageURL: work.user.iconUrl,
-          isFollowee: work.user.isFollowee,
-          isMutedUser: work.user.isMuted,
-        );
+        return FeedActionList(work: work);
       },
     );
   }

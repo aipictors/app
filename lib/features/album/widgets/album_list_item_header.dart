@@ -1,5 +1,5 @@
 import 'package:aipictors/features/album/widgets/__generated__/album_list_item_header.data.gql.dart';
-import 'package:aipictors/features/notification/widgets/notification_user_container.dart';
+import 'package:aipictors/features/album/widgets/album_user_profile.dart';
 import 'package:aipictors/features/user/widgets/follow_button.dart';
 import 'package:aipictors/providers/auth_user_id_provider.dart';
 import 'package:flutter/material.dart';
@@ -33,10 +33,7 @@ class AlbumListItemHeader extends HookConsumerWidget {
                 onTap: () {
                   context.push('/users/${album.user.id}');
                 },
-                child: NotificationUserContainer(
-                  userName: album.user.name,
-                  userIconImageURL: album.user.iconUrl,
-                ),
+                child: AlbumUserProfile(user: album.user),
               ),
             ),
             if (authUserId.value != album.user.id)

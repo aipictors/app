@@ -1,7 +1,0 @@
-fragment PartialFolderFields on FolderNode {
-  id
-  title
-  rating
-  description
-  thumbnailImageURL
-}

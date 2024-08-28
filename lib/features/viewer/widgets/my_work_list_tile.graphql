@@ -1,0 +1,10 @@
+fragment MyWorkListTile on WorkNode {
+  id
+  title
+  imageURL
+  likesCount
+  commentsCount
+  largeThumbnailImageURL
+  thumbnailImagePosition
+  imageAspectRatio
+}

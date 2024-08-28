@@ -16,12 +16,16 @@ class PromptsContainer extends HookConsumerWidget {
     return Container(
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16.0),
-          border: Border.all(
-              width: 1, color: Theme.of(context).colorScheme.outlineVariant)),
+        borderRadius: BorderRadius.circular(16.0),
+        border: Border.all(
+          width: 1,
+          color: Theme.of(context).colorScheme.outlineVariant,
+        ),
+      ),
       child: Wrap(
-          alignment: WrapAlignment.center,
-          children: prompts.split(',').asMap().entries.map((entry) {
+        alignment: WrapAlignment.center,
+        children: prompts.split(',').asMap().entries.map(
+          (entry) {
             final index = entry.key;
             final prompt = entry.value;
             return TextButton(
@@ -32,20 +36,27 @@ class PromptsContainer extends HookConsumerWidget {
                   padding: const EdgeInsets.only(
                       left: 4, right: 4, top: 0, bottom: 0)),
               child: RichText(
-                  text: TextSpan(children: [
-                TextSpan(
+                text: TextSpan(children: [
+                  TextSpan(
                     text: prompt,
                     style: TextStyle(
-                        color: Theme.of(context).colorScheme.primary)),
-                if ((index != promptLength) ||
-                    (index == promptLength && hasLastComma))
-                  TextSpan(
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                  ),
+                  if ((index != promptLength) ||
+                      (index == promptLength && hasLastComma))
+                    TextSpan(
                       text: ',',
                       style: TextStyle(
-                          color: Theme.of(context).colorScheme.outlineVariant))
-              ])),
+                        color: Theme.of(context).colorScheme.outlineVariant,
+                      ),
+                    )
+                ]),
+              ),
             );
-          }).toList()),
+          },
+        ).toList(),
+      ),
     );
   }
 }

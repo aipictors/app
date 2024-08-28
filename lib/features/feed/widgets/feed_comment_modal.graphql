@@ -1,0 +1,14 @@
+# import '../../post/widgets/work_comment_list_tile.graphql'
+
+query FeedCommentList($workId: ID!) {
+  work(id: $workId) {
+    id
+    commentsCount
+    comments(offset: 0, limit: 128) {
+      ...WorkCommentListTile
+      responses(offset: 0, limit: 128) {
+        ...WorkCommentListTile
+      }
+    }
+  }
+}

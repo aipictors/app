@@ -1,0 +1,10 @@
+# import 'widgets/user_album_list_tile.graphql'
+
+query UserAlbums($user_id: ID!, $offset: Int!, $limit: Int!) {
+  user(id: $user_id) {
+    id
+    albums(offset: $offset, limit: $limit) {
+      ...UserAlbumListTile
+    }
+  }
+}

@@ -1,0 +1,4 @@
+fragment StickerCategories on StickerNode {
+  id
+  categories
+}

@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:aipictors/features/user/widgets/user_header_image_container.dart';
+import 'package:aipictors/features/user/widgets/user_header_image.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -56,7 +56,7 @@ class UserAppBar extends HookConsumerWidget {
               child: child,
             );
           },
-          child: UserHeaderImageContainer(
+          child: UserHeaderImage(
             downloadURL: headerImageURL,
           ),
         ),

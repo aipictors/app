@@ -1,19 +1,20 @@
+# import 'feed_action_list.graphql'
+# import 'feed_user_profile.graphql'
+
 fragment FeedWorkListTile on WorkNode {
   id
-  title
+  imageURL
+  imageAspectRatio
+  createdAt
   likesCount
   commentsCount
-  createdAt
-  imageAspectRatio
-  imageURL
   isLiked
+  ...FeedActionList
   user {
-    id
-    login
-    name
-    iconUrl
+    ...FeedUserProfile
     isFollower
     isFollowee
     isMuted
   }
+
 }

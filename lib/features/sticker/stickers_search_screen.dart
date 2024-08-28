@@ -1,6 +1,6 @@
 import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/enums/layout.dart';
-import 'package:aipictors/features/sticker/queries/__generated__/stickers.req.gql.dart';
+import 'package:aipictors/features/sticker/__generated__/stickers.req.gql.dart';
 import 'package:aipictors/features/sticker/widgets/stickers_grid_view.dart';
 import 'package:aipictors/features/sticker/widgets/stickers_header_container.dart';
 import 'package:aipictors/providers/client_provider.dart';
@@ -31,8 +31,10 @@ class StickersSearchScreen extends HookConsumerWidget {
 
     final searchText = useState('');
 
-    final layout =
-        Layout.fromWidthAndConfig(MediaQuery.of(context).size.width, config);
+    final layout = Layout.fromWidthAndConfig(
+      MediaQuery.of(context).size.width,
+      config,
+    );
 
     if (client.value == null) {
       return const LoadingProgress();
