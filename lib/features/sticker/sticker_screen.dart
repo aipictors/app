@@ -13,6 +13,7 @@ import 'package:aipictors/features/sticker/mutations/__generated__/update_bookma
 import 'package:aipictors/features/sticker/utils/to_sticker_genre_text.dart';
 import 'package:aipictors/features/sticker/widgets/create_user_sticker_button.dart';
 import 'package:aipictors/features/sticker/widgets/sticker_action_modal.dart';
+import 'package:aipictors/features/sticker/widgets/sticker_bookmark_dialog.dart';
 import 'package:aipictors/features/sticker/widgets/sticker_categories.dart';
 import 'package:aipictors/features/sticker/widgets/sticker_category.dart';
 import 'package:aipictors/features/sticker/widgets/sticker_status.dart';
@@ -25,6 +26,7 @@ import 'package:aipictors/widgets/builder/operation_screen_builder.dart';
 import 'package:aipictors/widgets/image/interactive_work_image.dart';
 import 'package:ferry/ferry.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// スタンプの詳細
@@ -185,14 +187,13 @@ class StickerScreen extends HookConsumerWidget {
                                   )
                                 : const Icon(Icons.bookmark_add_outlined),
                             onPressed: () {
-                              onUpdateBookmarkedSticker(
+                              onShowBookmarkDialog(
                                 context,
                                 stickerId: stickerId,
-                                isBookmarked: (sticker.isBookmarkedForComment ||
-                                        sticker.isBookmarkedForReply)
-                                    ? false
-                                    : true,
-                                type: GBookmarkedStickerType.reply,
+                                isBookmarkedForComment:
+                                    sticker.isBookmarkedForComment,
+                                isBookmarkedForReply:
+                                    sticker.isBookmarkedForReply,
                                 client: client.value!,
                                 request: request,
                               );
@@ -244,6 +245,48 @@ class StickerScreen extends HookConsumerWidget {
     return response;
   }
 
+  onShowBookmarkDialog(
+    BuildContext context, {
+    required String stickerId,
+    required Client client,
+    required GStickerReq request,
+    required bool isBookmarkedForComment,
+    required bool isBookmarkedForReply,
+  }) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) {
+        return StickerBookmarkDialog(
+          isBookmarkedForComment: isBookmarkedForComment,
+          isBookmarkedForReply: isBookmarkedForReply,
+          onCancel: () {
+            context.pop();
+          },
+          onSubmit: (bool comment, bool reply) {
+            context.pop();
+            onUpdateBookmarkedSticker(
+              context,
+              stickerId: stickerId,
+              client: client,
+              isBookmarked: comment,
+              type: GBookmarkedStickerType.comment,
+              request: request,
+            );
+            onUpdateBookmarkedSticker(
+              context,
+              stickerId: stickerId,
+              client: client,
+              isBookmarked: reply,
+              type: GBookmarkedStickerType.reply,
+              request: request,
+            );
+          },
+        );
+      },
+    );
+  }
+
   /// ブックマークする
   onUpdateBookmarkedSticker(
     BuildContext context, {
@@ -262,7 +305,7 @@ class StickerScreen extends HookConsumerWidget {
     });
     client.requestController.add(request);
     //todo:SnackBarを表示する
-    print('updated: $stickerId,$isBookmarked');
+    print('updated: $stickerId,$isBookmarked,$type');
     return response;
   }
 }
