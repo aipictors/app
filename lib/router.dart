@@ -55,7 +55,7 @@ import 'package:aipictors/features/user/user_followers_screen.dart';
 import 'package:aipictors/features/user/user_report_screen.dart';
 import 'package:aipictors/features/user/user_screen.dart';
 import 'package:aipictors/features/viewer/viewer_albums_screen.dart';
-import 'package:aipictors/features/viewer/viewer_bookmarked_stickers_screen.dart';
+import 'package:aipictors/features/sticker/my_bookmarked_stickers_screen.dart';
 import 'package:aipictors/features/viewer/viewer_folders_screen.dart';
 import 'package:aipictors/features/viewer/viewer_liked_works_screen.dart';
 import 'package:aipictors/features/viewer/viewer_screen.dart';
@@ -258,6 +258,12 @@ final _routes = [
     },
   ),
   GoRoute(
+    path: '/my/stickers/bookmarked',
+    builder: (context, state) {
+      return const MyBookmarkedStickersScreen();
+    },
+  ),
+  GoRoute(
     path: '/promotions/:promotion',
     builder: (context, state) {
       final promotionId = state.pathParameters['promotion'];
@@ -329,12 +335,6 @@ final _routes = [
     path: '/viewer/albums',
     builder: (context, state) {
       return const ViewerAlbumsScreen();
-    },
-  ),
-  GoRoute(
-    path: '/viewer/bookmarked_stickers',
-    builder: (context, state) {
-      return const ViewerBookmarkedStickersScreen();
     },
   ),
   GoRoute(

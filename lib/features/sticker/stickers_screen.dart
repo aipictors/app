@@ -3,6 +3,7 @@ import 'package:aipictors/features/sticker/stickers_search_screen.dart';
 import 'package:aipictors/features/sticker/widgets/stickers_tab_controller.dart';
 import 'package:aipictors/features/sticker/my_stickers_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// スタンプ
@@ -26,6 +27,15 @@ class StickersScreen extends HookConsumerWidget {
               Tab(text: 'マイスタンプ'.i18n),
             ],
           ),
+          actions: [
+            IconButton(
+              onPressed: () {
+                context.push('/my/stickers/bookmarked');
+              },
+              icon: const Icon(Icons.star_outline_rounded),
+            ),
+            const SizedBox(width: 8),
+          ],
         ),
         body: const TabBarView(
           children: [

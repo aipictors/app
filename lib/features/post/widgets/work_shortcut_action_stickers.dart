@@ -1,5 +1,5 @@
 import 'package:aipictors/features/post/widgets/comment_sticker_image.dart';
-import 'package:aipictors/features/viewer/__generated__/viewer_bookmarked_stickers.req.gql.dart';
+import 'package:aipictors/features/sticker/__generated__/my_bookmarked_stickers.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
 import 'package:aipictors/widgets/loading_progress.dart';
@@ -37,7 +37,7 @@ class WorkShortcutActionStickers extends HookConsumerWidget {
 
     return OperationBuilder(
       client: client.value!,
-      operationRequest: GViewerBookmarkedStickersReq((builder) {
+      operationRequest: GMyBookmarkedStickersReq((builder) {
         builder
           ..vars.limit = maxItems
           ..vars.offset = 0;
