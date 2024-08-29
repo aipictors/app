@@ -174,33 +174,29 @@ class StickerScreen extends HookConsumerWidget {
                           },
                         ),
                       ),
-                      Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          IconButton(
-                            icon: (sticker.isBookmarkedForComment ||
-                                    sticker.isBookmarkedForReply)
-                                ? Icon(
-                                    Icons.bookmark_rounded,
-                                    color:
-                                        Theme.of(context).colorScheme.primary,
-                                  )
-                                : const Icon(Icons.bookmark_add_outlined),
-                            onPressed: () {
-                              onShowBookmarkDialog(
-                                context,
-                                stickerId: stickerId,
-                                isBookmarkedForComment:
-                                    sticker.isBookmarkedForComment,
-                                isBookmarkedForReply:
-                                    sticker.isBookmarkedForReply,
-                                client: client.value!,
-                                request: request,
-                              );
-                            },
-                          ),
-                        ],
-                      )
+                      IconButton(
+                        icon: (sticker.isBookmarkedForComment ||
+                                sticker.isBookmarkedForReply)
+                            ? Icon(
+                                Icons.bookmark_rounded,
+                                color: Theme.of(context).colorScheme.primary,
+                              )
+                            : const Icon(Icons.bookmark_add_outlined),
+                        onPressed: (sticker.isDownloaded)
+                            ? () {
+                                onShowBookmarkDialog(
+                                  context,
+                                  stickerId: stickerId,
+                                  isBookmarkedForComment:
+                                      sticker.isBookmarkedForComment,
+                                  isBookmarkedForReply:
+                                      sticker.isBookmarkedForReply,
+                                  client: client.value!,
+                                  request: request,
+                                );
+                              }
+                            : null,
+                      ),
                     ],
                   ),
                 )
