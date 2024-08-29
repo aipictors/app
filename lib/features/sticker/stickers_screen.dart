@@ -32,9 +32,8 @@ class StickersScreen extends HookConsumerWidget {
               onPressed: () {
                 context.push('/my/stickers/bookmarked');
               },
-              icon: const Icon(Icons.star_outline_rounded),
+              icon: const Icon(Icons.bookmark_outline_rounded),
             ),
-            const SizedBox(width: 8),
           ],
         ),
         body: const TabBarView(

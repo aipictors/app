@@ -179,11 +179,11 @@ class StickerScreen extends HookConsumerWidget {
                             icon: (sticker.isBookmarkedForComment ||
                                     sticker.isBookmarkedForReply)
                                 ? Icon(
-                                    Icons.star_rounded,
+                                    Icons.bookmark_rounded,
                                     color:
                                         Theme.of(context).colorScheme.primary,
                                   )
-                                : const Icon(Icons.star_outline_rounded),
+                                : const Icon(Icons.bookmark_add_outlined),
                             onPressed: () {
                               onUpdateBookmarkedSticker(
                                 context,
