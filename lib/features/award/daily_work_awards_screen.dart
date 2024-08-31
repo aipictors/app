@@ -64,6 +64,9 @@ class DailyWorkAwardsScreen extends HookConsumerWidget {
           itemBuilder: (context, index) {
             final award = awardList[index];
             final work = award.work;
+            if (work == null) {
+              return const SizedBox();
+            }
             return InkWell(
               onTap: () {
                 FirebaseAnalytics.instance.logSelectContent(

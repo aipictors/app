@@ -213,6 +213,14 @@ type AlbumViewerNode implements Node {
   isWatched: Boolean!
 }
 
+input AlbumWhereInput {
+  """アルバムID"""
+  albumSlug: String!
+
+  """ログインユーザID"""
+  ownerLoginUserId: String!
+}
+
 """投稿（アニメーション）"""
 type AnimationPostNode implements Node {
   """閲覧権限の種類"""
@@ -898,36 +906,6 @@ input CreateStickerInput {
   title: String
 }
 
-input CreateUserProfileInput {
-  """紹介"""
-  biography: String
-  displayName: String
-
-  """紹介（英語）"""
-  enBiography: String
-
-  """GitHub"""
-  githubAccountId: String
-
-  """ヘッダー画像"""
-  headerImageUrl: String
-
-  """ホームURL"""
-  homeUrl: String
-
-  """アイコン画像"""
-  iconUrl: String
-
-  """Instagram"""
-  instagramAccountId: String
-
-  """メールアドレス"""
-  mailAddress: String
-
-  """X"""
-  twitterAccountId: String
-}
-
 input CreateUserStickerInput {
   stickerId: ID!
 }
@@ -1394,6 +1372,10 @@ type ImageGenerationEngineStatus {
   standardTasksCount: Int!
 }
 
+input ImageGenerationJobsWhereInput {
+  isProtected: Boolean
+}
+
 """画像生成メモ"""
 type ImageGenerationMemoNode implements Node {
   clipSkip: Int!
@@ -1438,6 +1420,11 @@ type ImageGenerationMemoNode implements Node {
 
 input ImageGenerationMemoOrderBy {
   createdAt: Direction
+}
+
+"""画像生成ジョブ"""
+type ImageGenerationQueueNode implements Node {
+  id: ID!
 }
 
 """予約済み画像生成"""
@@ -2294,9 +2281,6 @@ type Mutation {
   """フォルダを有償化にする"""
   changePromptonFolderToPaid(input: ChangePromptonFolderToPaidInput!): PromptonFolderNode!
 
-  """ユーザ設定有無を確認する（初ログインかどうか）"""
-  checkUserSetting: Boolean!
-
   """リクエストを完了とする"""
   closePromptonRequest(input: ClosePromptonRequestInput!): PromptonRequestNode!
 
@@ -2402,9 +2386,6 @@ type Mutation {
   """ユーザ情報が存在するかチェックして存在しない場合は作成する"""
   createUserInfo: UserNode!
 
-  """ユーザのプロフィールを作成する"""
-  createUserProfile(input: CreateUserProfileInput!): UserNode!
-
   """マイスタンプを追加する"""
   createUserSticker(input: CreateUserStickerInput!): StickerNode!
 
@@ -2509,6 +2490,9 @@ type Mutation {
 
   """ユーザのプロフィールのインデックスを更新する"""
   incrementPromptonProfileBlockIndex(input: IncrementPromptonProfileBlockIndexInput!): PromptonUserNode!
+
+  """プロフィールを初期設定したかどうか"""
+  isInitializedUserProfile: Boolean!
 
   """パスワードでログインする"""
   loginWithPassword(input: LoginWithPasswordInput!): LoginResult!
@@ -2634,7 +2618,7 @@ type Mutation {
   updateImageGenerationMemo(input: UpdateImageGenerationMemoInput!): ImageGenerationMemoNode!
 
   """ログイン時間を更新する"""
-  updateLoggedInAt(input: CreateUserProfileInput!): Boolean!
+  updateLoggedInAt: Boolean!
 
   """ノートを更新する"""
   updateNote(input: UpdateNoteInput!): NoteNode!
@@ -2717,6 +2701,29 @@ input MuteTagInput {
 
 input MuteUserInput {
   userId: ID!
+}
+
+"""新着コメント"""
+type NewCommentNode implements Node {
+  """コメント"""
+  comment: CommentNode
+
+  """作成日"""
+  createdAt: Int!
+  id: ID!
+
+  """年齢制限"""
+  rating: Rating
+
+  """スタンプ"""
+  sticker: StickerNode
+
+  """ユーザ"""
+  user: UserNode
+  userId: ID
+
+  """作品"""
+  work: WorkNode
 }
 
 input NewCommentsWhereInput {
@@ -3231,7 +3238,30 @@ input PopularWorksWhereInput {
   rating: Rating
 }
 
-"""作品"""
+"""アワード（作品）"""
+type PostAwardNode implements Node {
+  dateText: String!
+  id: ID!
+  index: Int!
+
+  """ランキング集計時のいいね数"""
+  likesCount: Int!
+
+  """作品"""
+  post: PostNode
+  postId: ID
+}
+
+input PostAwardsWhereInput {
+  date: String
+  day: Int
+  month: Int
+  type: AwardType
+  weekIndex: Int
+  year: Int
+}
+
+"""投稿"""
 union PostNode = AnimationPostNode | ImagePostNode | NotePostNode | NovelPostNode
 
 """投稿の並び順"""
@@ -4016,7 +4046,7 @@ type Query {
   aiModels(limit: Int!, offset: Int!, where: AiModelWhereInput): [AiModelNode!]
 
   """シリーズ"""
-  album(id: ID!): AlbumNode
+  album(id: ID, where: AlbumWhereInput): AlbumNode
 
   """シリーズ"""
   albums(limit: Int!, offset: Int!, where: AlbumsWhereInput): [AlbumNode!]
@@ -4032,6 +4062,9 @@ type Query {
 
   """イベント一覧"""
   appEvents(limit: Int!, offset: Int!, where: AppEventsWhereInput): [AppEventNode!]!
+
+  """LINEログインURL"""
+  authenticationLineAccountUrl: String
 
   """
   全期間の人気作品
@@ -4081,6 +4114,9 @@ type Query {
   """ホームのタグ"""
   homeTags: [TagNode!]!
 
+  """1日以内の人気の投稿"""
+  hotPosts: [PostNode!]!
+
   """トレンドのセンシティブタグ"""
   hotSensitiveTags: [TagNode!]!
 
@@ -4095,6 +4131,9 @@ type Query {
 
   """画像生成のタスク状況"""
   imageGenerationEngineStatus: ImageGenerationEngineStatus!
+
+  """画像生成ジョブ"""
+  imageGenerationJob(id: ID!): ImageGenerationQueueNode
 
   """画像生成メモ"""
   imageGenerationMemo(id: ID!): ImageGenerationMemoNode!
@@ -4132,11 +4171,14 @@ type Query {
   """画像生成ネガティブキーワード"""
   negativePromptCategories: [PromptCategoryNode!]!
 
-  """新規コメント"""
-  newComments(limit: Int!, offset: Int!, where: NewCommentsWhereInput): [CommentNode!]!
+  """新規コメント一覧"""
+  newComments(limit: Int!, offset: Int!, where: NewCommentsWhereInput): [NewCommentNode!]!
 
   """新規投稿ユーザ"""
   newPostedUsers(limit: Int!, offset: Int!): [UserNode!]!
+
+  """新しいユーザの投稿"""
+  newUserPosts(limit: Int!, offset: Int!): [PostNode!]!
 
   """
   新しいユーザの初投稿作品一覧
@@ -4149,6 +4191,9 @@ type Query {
   ※キャッシュ不可
   """
   popularWorks(where: PopularWorksWhereInput!): [WorkNode!]!
+
+  """ランキング履歴"""
+  postAwards(limit: Int!, offset: Int!, where: PostAwardsWhereInput!): [PostAwardNode!]!
 
   """投稿"""
   posts(limit: Int!, offset: Int!, where: PostsWhereInput!): [PostNode!]!
@@ -4189,6 +4234,15 @@ type Query {
 
   """支援リクエスト"""
   requests(limit: Int!, offset: Int!, where: RequestsWhereInput!): [PromptonRequestNode!]!
+
+  """1日以内の人気の投稿"""
+  sensitiveHotPosts: [PostNode!]!
+
+  """新しいユーザの投稿"""
+  sensitiveNewUserPosts(limit: Int!, offset: Int!): [PostNode!]!
+
+  """ランキング履歴"""
+  sensitivePostAwards(limit: Int!, offset: Int!, where: PostAwardsWhereInput!): [PostAwardNode!]!
 
   """スタンプ"""
   sticker(id: ID!): StickerNode
@@ -4418,6 +4472,12 @@ type StickerNode implements Node {
   image: ImageNode @deprecated(reason: "廃止")
   imageId: ID @deprecated(reason: "廃止")
   imageUrl: String
+
+  """コメント用にブックマークしている"""
+  isBookmarkedForComment: Boolean!
+
+  """返信用にブックマークしている"""
+  isBookmarkedForReply: Boolean!
 
   """削除済み"""
   isDeleted: Boolean!
@@ -5181,6 +5241,9 @@ type Viewer {
   """ブックマークフォルダID"""
   bookmarkFolderId: String
 
+  """ブックマークしたモデル"""
+  bookmarkedImageGenerationModels: [ImageModelNode!]!
+
   """お気に入りスタンプ一覧"""
   bookmarkedStickers(limit: Int!, offset: Int!, type: BookmarkedStickerType): [StickerNode!]!
 
@@ -5203,17 +5266,20 @@ type Viewer {
   """お気に入りのモデル一覧"""
   favoritedImageGenerationModels: [ImageModelNode!]!
 
-  """全年齢作品のいいねを匿名にする"""
+  """機能 - 全年齢作品の匿名いいね"""
   featureAnonymousLike: Boolean!
 
-  """センシティブ作品のいいねを匿名にする"""
+  """機能 - センシティブ作品の匿名いいね"""
   featureAnonymousSensitiveLike: Boolean!
 
-  """コメント通知するかどうか"""
+  """機能 - コメント通知"""
   featureCommentNotification: Boolean!
 
-  """プロンプトン機能が有効である"""
+  """機能 - プロンプトン機能が有効である"""
   featurePrompton: Boolean!
+
+  """機能 - センシティブな画像のぼかし"""
+  featureSensitiveBlur: Boolean!
 
   """フィードの作品"""
   feedWorks(limit: Int!, offset: Int!): [WorkNode!]!
@@ -5223,6 +5289,9 @@ type Viewer {
   hasNextPromptonRequests: Boolean!
   hasUnreadMessage: Boolean!
   id: ID!
+
+  """画像生成ジョブ"""
+  imageGenerationJobs(limit: Int!, offset: Int!, where: ImageGenerationJobsWhereInput): [ImageGenerationQueueNode!]!
 
   """有効な画像生成の結果"""
   imageGenerationResults(limit: Int!, offset: Int!, where: ImageGenerationResultsWhereInput): [ImageGenerationResultNode!]!
@@ -5244,6 +5313,9 @@ type Viewer {
 
   """センシティブ画像をぼかすかどうか"""
   isBlurSensitiveImage: Boolean!
+
+  """いいねした作品"""
+  likedPosts(limit: Int!, offset: Int!): [PostNode!]!
   likedPromptonWorks(limit: Int!, offset: Int!): [PromptonWorkNode!]!
 
   """いいねした作品"""
@@ -5274,6 +5346,9 @@ type Viewer {
   """決済履歴"""
   payments: [PaymentNode!]!
   pendingPromptonRequests(limit: Int!, offset: Int!): [PromptonRequestNode!]!
+
+  """自分の投稿"""
+  posts(limit: Int!, offset: Int!): [PostNode!]!
   promptonDeliverables(limit: Int!, offset: Int!): [PromptonWorkNode!]!
   promptonFollowees(limit: Int!, offset: Int!): [PromptonUserNode!]!
   promptonIntegrations(limit: Int!, offset: Int!): [PromptonIntegrationNode!]!
@@ -5367,7 +5442,7 @@ type WorkAwardNode implements Node {
   userId: ID!
 
   """作品"""
-  work: WorkNode!
+  work: WorkNode
   workId: ID
 }
 
@@ -5729,6 +5804,9 @@ enum WorkOrderBy {
 
   """英語名でソート"""
   EN_NAME
+
+  """広告作品かどうか"""
+  IS_PROMOTION
 
   """いいね数でソート"""
   LIKES_COUNT
