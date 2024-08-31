@@ -46,6 +46,17 @@ class ConfigScreen extends HookConsumerWidget {
       body: ListView(
         children: [
           ListTile(
+            leading: const Icon(Icons.pets_rounded),
+            trailing: const Icon(Icons.chevron_right_rounded),
+            title: Text(
+              'スタンプ広場'.i18n,
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+            onTap: () {
+              context.push('/stickers');
+            },
+          ),
+          ListTile(
             leading: const Icon(Icons.explore_rounded),
             trailing: const Icon(Icons.chevron_right_rounded),
             title: Text(
@@ -154,17 +165,6 @@ class ConfigScreen extends HookConsumerWidget {
                 context.push('/account');
               },
             ),
-          ListTile(
-            leading: const Icon(Icons.pets_rounded),
-            trailing: const Icon(Icons.chevron_right_rounded),
-            title: Text(
-              'スタンプ'.i18n,
-              style: const TextStyle(fontWeight: FontWeight.bold),
-            ),
-            onTap: () {
-              context.push('/stickers');
-            },
-          ),
           ListTile(
             leading: const Icon(Icons.translate_rounded),
             trailing: const Icon(Icons.chevron_right_rounded),
