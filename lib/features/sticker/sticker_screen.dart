@@ -277,6 +277,24 @@ class StickerScreen extends HookConsumerWidget {
               type: GBookmarkedStickerType.reply,
               request: request,
             );
+            // スタンプがコメント用または返信用にブックマークされている場合
+            if (comment || reply) {
+              // ignore: use_build_context_synchronously
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(
+                  SnackBar(content: Text('スタンプをブックマークしました。'.i18n)),
+                );
+            }
+            // スタンプのブックマークを解除した場合
+            else {
+              // ignore: use_build_context_synchronously
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(
+                  SnackBar(content: Text('スタンプのブックマークを解除しました。'.i18n)),
+                );
+            }
           },
         );
       },
@@ -300,8 +318,6 @@ class StickerScreen extends HookConsumerWidget {
         ..vars.input.type = type;
     });
     client.requestController.add(request);
-    //todo:SnackBarを表示する
-    print('updated: $stickerId,$isBookmarked,$type');
     return response;
   }
 }
