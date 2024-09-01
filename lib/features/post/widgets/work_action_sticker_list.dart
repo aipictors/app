@@ -54,6 +54,14 @@ class WorkActionStickerList extends HookConsumerWidget {
       });
     }
 
+    const defaultStickers = [
+      'https://files.aipictors.com/431f3f95-a4e2-4763-a808-dffe8943d037',
+      'https://files.aipictors.com/bfa27f23-e028-479d-aeae-6949df17c87c',
+      'https://files.aipictors.com/cbd72227-1a9a-441c-9f4b-e43dcb2a1c6d',
+      'https://files.aipictors.com/5a52ef25-f89e-400c-9bce-859162be8f38',
+      'https://files.aipictors.com/c50e322f-4450-4a40-91fa-d5ec8104cc67'
+    ];
+
     if (client.value == null) {
       return const LoadingProgress();
     }
@@ -116,20 +124,38 @@ class WorkActionStickerList extends HookConsumerWidget {
                           ),
                           scrollDirection: Axis.vertical,
                           shrinkWrap: true,
-                          // スタンプを検索している場合はデフォルトスタンプを非表示にする
-                          itemCount: filteredStickerList.length,
+                          itemCount: filteredStickerList.length +
+                              defaultStickers.length,
                           itemBuilder: (context, index) {
-                            return SelectableCommentSticker(
-                              downloadURL: filteredStickerList[index].imageUrl!,
-                              isSelected:
-                                  stickerId == filteredStickerList[index].id,
-                              onTap: () {
-                                onChange(
-                                    stickerId == filteredStickerList[index].id
-                                        ? null
-                                        : filteredStickerList[index].id);
-                              },
-                            );
+                            if (index < filteredStickerList.length) {
+                              return SelectableCommentSticker(
+                                downloadURL:
+                                    filteredStickerList[index].imageUrl!,
+                                isSelected:
+                                    stickerId == filteredStickerList[index].id,
+                                onTap: () {
+                                  onChange(
+                                      stickerId == filteredStickerList[index].id
+                                          ? null
+                                          : filteredStickerList[index].id);
+                                },
+                              );
+                            } else {
+                              final defaultStickerIndex =
+                                  index - filteredStickerList.length;
+                              return SelectableCommentSticker(
+                                downloadURL:
+                                    defaultStickers[defaultStickerIndex],
+                                isSelected:
+                                    stickerId == defaultStickerIndex.toString(),
+                                onTap: () {
+                                  onChange(stickerId ==
+                                          defaultStickerIndex.toString()
+                                      ? null
+                                      : defaultStickerIndex.toString());
+                                },
+                              );
+                            }
                           },
                         ),
                       ),
