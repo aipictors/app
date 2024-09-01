@@ -11,6 +11,8 @@ query Sticker($id: ID!) {
     genre
     isDownloaded
     isDeleted
+    isBookmarkedForReply
+    isBookmarkedForComment
     ...StickerActionModal
     ...StickerStatus
     ...StickerCategories

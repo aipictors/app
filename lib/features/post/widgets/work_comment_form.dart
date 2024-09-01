@@ -9,9 +9,12 @@ class WorkCommentForm extends HookConsumerWidget {
   const WorkCommentForm({
     super.key,
     required this.onSubmit,
+    this.isReply,
   });
 
   final Future<void> Function(String text, String? stickerId) onSubmit;
+
+  final bool? isReply;
 
   @override
   Widget build(context, ref) {
@@ -96,6 +99,7 @@ class WorkCommentForm extends HookConsumerWidget {
         if (isOpenStickers.value)
           WorkActionStickerList(
             stickerId: currentStickerId.value,
+            isReply: isReply,
             onChange: (stickerId) {
               currentStickerId.value = stickerId;
               if (stickerId != null) {

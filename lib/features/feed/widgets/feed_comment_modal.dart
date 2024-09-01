@@ -89,15 +89,15 @@ class FeedCommentModal extends HookConsumerWidget {
                                   client.value?.requestController.add(request);
                                 },
                               ),
-                              // TODO: 空の配列を返す
                               for (final response in comment.responses!)
                                 WorkCommentListTile(
                                   comment: response,
                                   isResponse: true,
                                   isMine: authUserId.value == comment.user!.id,
                                   onDelete: () async {
-                                    client.value?.requestController
-                                        .add(request);
+                                    client.value?.requestController.add(
+                                      request,
+                                    );
                                   },
                                 ),
                             ],

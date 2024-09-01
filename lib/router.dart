@@ -55,6 +55,7 @@ import 'package:aipictors/features/user/user_followers_screen.dart';
 import 'package:aipictors/features/user/user_report_screen.dart';
 import 'package:aipictors/features/user/user_screen.dart';
 import 'package:aipictors/features/viewer/viewer_albums_screen.dart';
+import 'package:aipictors/features/sticker/my_bookmarked_stickers_screen.dart';
 import 'package:aipictors/features/viewer/viewer_folders_screen.dart';
 import 'package:aipictors/features/viewer/viewer_liked_works_screen.dart';
 import 'package:aipictors/features/viewer/viewer_screen.dart';
@@ -254,6 +255,12 @@ final _routes = [
     path: '/information',
     builder: (context, state) {
       return const InformationScreen();
+    },
+  ),
+  GoRoute(
+    path: '/my/stickers/bookmarked',
+    builder: (context, state) {
+      return const MyBookmarkedStickersScreen();
     },
   ),
   GoRoute(

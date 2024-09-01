@@ -122,6 +122,7 @@ class CommentDetailsModal extends HookConsumerWidget {
                 ),
               if (authState.value?.uid != null)
                 WorkCommentForm(
+                  isReply: true,
                   onSubmit: (text, stickerId) async {
                     await createResponseComment((builder) {
                       return builder

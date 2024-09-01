@@ -1,0 +1,9 @@
+# import '../sticker/widgets/sticker_card.graphql'
+
+query MyBookmarkedStickers($limit: Int!, $offset: Int!, $type: BookmarkedStickerType,) {
+  viewer {
+    bookmarkedStickers(limit: $limit, offset: $offset, type: $type) {
+      ...StickerCard
+    }
+  }
+}

@@ -1,3 +1,4 @@
+import 'package:aipictors/__generated__/schema.schema.gql.dart';
 import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/features/home/widgets/data_not_found_error_screen.dart';
 import 'package:aipictors/features/home/widgets/loading_screen.dart';
@@ -5,11 +6,14 @@ import 'package:aipictors/features/sticker/__generated__/sticker.req.gql.dart';
 import 'package:aipictors/features/sticker/deleted_sticker_error_screen.dart';
 import 'package:aipictors/features/sticker/functions/create_user_sticker.dart';
 import 'package:aipictors/features/sticker/functions/delete_user_sticker.dart';
+import 'package:aipictors/features/sticker/functions/update_bookmarked_sticker.dart';
 import 'package:aipictors/features/sticker/mutations/__generated__/create_user_sticker.data.gql.dart';
 import 'package:aipictors/features/sticker/mutations/__generated__/delete_user_sticker.data.gql.dart';
+import 'package:aipictors/features/sticker/mutations/__generated__/update_bookmarked_sticker.data.gql.dart';
 import 'package:aipictors/features/sticker/utils/to_sticker_genre_text.dart';
 import 'package:aipictors/features/sticker/widgets/create_user_sticker_button.dart';
 import 'package:aipictors/features/sticker/widgets/sticker_action_modal.dart';
+import 'package:aipictors/features/sticker/widgets/sticker_bookmark_dialog.dart';
 import 'package:aipictors/features/sticker/widgets/sticker_categories.dart';
 import 'package:aipictors/features/sticker/widgets/sticker_category.dart';
 import 'package:aipictors/features/sticker/widgets/sticker_status.dart';
@@ -22,6 +26,7 @@ import 'package:aipictors/widgets/builder/operation_screen_builder.dart';
 import 'package:aipictors/widgets/image/interactive_work_image.dart';
 import 'package:ferry/ferry.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// スタンプの詳細
@@ -128,7 +133,8 @@ class StickerScreen extends HookConsumerWidget {
                       ),
                     ),
                     StickerCategory(
-                        category: toStickerGenreText(sticker.genre)),
+                      category: toStickerGenreText(sticker.genre),
+                    ),
                     const SizedBox(height: 8 * 1.5),
                     StickerCategories(
                       sticker: sticker,
@@ -141,28 +147,57 @@ class StickerScreen extends HookConsumerWidget {
           bottomNavigationBar: (authUserId.value != null)
               ? Padding(
                   padding: const EdgeInsets.all(8),
-                  child: CreateUserStickerButton(
-                    isActive: sticker.isDownloaded,
-                    onPressed: () {
-                      // スタンプ削除
-                      if (sticker.isDownloaded) {
-                        return onDeleteUserSticker(
-                          context,
-                          stickerId: stickerId,
-                          client: client.value!,
-                          request: request,
-                        );
-                      }
-                      //スタンプ追加
-                      else {
-                        return onCreateUserSticker(
-                          context,
-                          stickerId: stickerId,
-                          client: client.value!,
-                          request: request,
-                        );
-                      }
-                    },
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: CreateUserStickerButton(
+                          isActive: sticker.isDownloaded,
+                          onPressed: () {
+                            // スタンプ削除
+                            if (sticker.isDownloaded) {
+                              return onDeleteUserSticker(
+                                context,
+                                stickerId: stickerId,
+                                client: client.value!,
+                                request: request,
+                              );
+                            }
+                            //スタンプ追加
+                            else {
+                              return onCreateUserSticker(
+                                context,
+                                stickerId: stickerId,
+                                client: client.value!,
+                                request: request,
+                              );
+                            }
+                          },
+                        ),
+                      ),
+                      IconButton(
+                        icon: (sticker.isBookmarkedForComment ||
+                                sticker.isBookmarkedForReply)
+                            ? Icon(
+                                Icons.bookmark_rounded,
+                                color: Theme.of(context).colorScheme.primary,
+                              )
+                            : const Icon(Icons.bookmark_add_outlined),
+                        onPressed: (sticker.isDownloaded)
+                            ? () {
+                                onShowBookmarkDialog(
+                                  context,
+                                  stickerId: stickerId,
+                                  isBookmarkedForComment:
+                                      sticker.isBookmarkedForComment,
+                                  isBookmarkedForReply:
+                                      sticker.isBookmarkedForReply,
+                                  client: client.value!,
+                                  request: request,
+                                );
+                              }
+                            : null,
+                      ),
+                    ],
                   ),
                 )
               : null,
@@ -201,6 +236,86 @@ class StickerScreen extends HookConsumerWidget {
   }) async {
     GDeleteUserStickerData? response = await deleteUserSticker((builder) {
       return builder..vars.input.stickerId = stickerId;
+    });
+    client.requestController.add(request);
+    return response;
+  }
+
+  onShowBookmarkDialog(
+    BuildContext context, {
+    required String stickerId,
+    required Client client,
+    required GStickerReq request,
+    required bool isBookmarkedForComment,
+    required bool isBookmarkedForReply,
+  }) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) {
+        return StickerBookmarkDialog(
+          isBookmarkedForComment: isBookmarkedForComment,
+          isBookmarkedForReply: isBookmarkedForReply,
+          onCancel: () {
+            context.pop();
+          },
+          onSubmit: (bool comment, bool reply) {
+            context.pop();
+            onUpdateBookmarkedSticker(
+              context,
+              stickerId: stickerId,
+              client: client,
+              isBookmarked: comment,
+              type: GBookmarkedStickerType.comment,
+              request: request,
+            );
+            onUpdateBookmarkedSticker(
+              context,
+              stickerId: stickerId,
+              client: client,
+              isBookmarked: reply,
+              type: GBookmarkedStickerType.reply,
+              request: request,
+            );
+            // スタンプがコメント用または返信用にブックマークされている場合
+            if (comment || reply) {
+              // ignore: use_build_context_synchronously
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(
+                  SnackBar(content: Text('スタンプをブックマークしました。'.i18n)),
+                );
+            }
+            // スタンプのブックマークを解除した場合
+            else {
+              // ignore: use_build_context_synchronously
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(
+                  SnackBar(content: Text('スタンプのブックマークを解除しました。'.i18n)),
+                );
+            }
+          },
+        );
+      },
+    );
+  }
+
+  /// ブックマークする
+  onUpdateBookmarkedSticker(
+    BuildContext context, {
+    required String stickerId,
+    required Client client,
+    required GStickerReq request,
+    required bool isBookmarked,
+    required GBookmarkedStickerType type,
+  }) async {
+    GUpdateBookmarkedStickerData? response =
+        await updateBookmarkedSticker((builder) {
+      return builder
+        ..vars.input.stickerId = stickerId
+        ..vars.input.isBookmarked = isBookmarked
+        ..vars.input.type = type;
     });
     client.requestController.add(request);
     return response;
