@@ -3,10 +3,11 @@ import 'package:aipictors/features/sticker/__generated__/user_stickers.req.gql.d
 import 'package:aipictors/features/sticker/widgets/stickers_header_container.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/providers/config_provider.dart';
+import 'package:aipictors/providers/my_bookmarked_stickers_for_comment_provider.dart';
+import 'package:aipictors/providers/my_bookmarked_stickers_for_reply_provider.dart';
 import 'package:aipictors/providers/stickers_container_cross_axis_count_provider.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
 import 'package:aipictors/widgets/loading_progress.dart';
-import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -16,11 +17,14 @@ class WorkActionStickerList extends HookConsumerWidget {
     super.key,
     required this.onChange,
     required this.stickerId,
+    this.isReply,
   });
 
   final void Function(String? stickerId) onChange;
 
   final String? stickerId;
+
+  final bool? isReply;
 
   @override
   Widget build(context, ref) {
@@ -32,18 +36,27 @@ class WorkActionStickerList extends HookConsumerWidget {
 
     final searchText = useState('');
 
+    final myBookmarkedStickers = useState<List>([]);
+
+    if (isReply == true) {
+      ref.watch(myBookmarkedStickersForReplyProvider.future).then((value) {
+        if (value?.viewer?.bookmarkedStickers != null) {
+          myBookmarkedStickers.value =
+              value!.viewer!.bookmarkedStickers.toList();
+        }
+      });
+    } else {
+      ref.watch(myBookmarkedStickersForCommentProvider.future).then((value) {
+        if (value?.viewer?.bookmarkedStickers != null) {
+          myBookmarkedStickers.value =
+              value!.viewer!.bookmarkedStickers.toList();
+        }
+      });
+    }
+
     if (client.value == null) {
       return const LoadingProgress();
     }
-
-    const downloadURLs = [
-      'https://www.aipictors.com/wp-content/uploads/2023/08/stamp_0.webp',
-      'https://www.aipictors.com/wp-content/uploads/2023/08/stamp_1.webp',
-      'https://www.aipictors.com/wp-content/uploads/2023/08/stamp_2.webp',
-      'https://www.aipictors.com/wp-content/uploads/2023/08/stamp_3.webp',
-      'https://www.aipictors.com/wp-content/uploads/2023/08/stamp_4.webp'
-    ];
-
     return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: OperationBuilder(
@@ -56,36 +69,19 @@ class WorkActionStickerList extends HookConsumerWidget {
             builder: (context, response) {
               final stickerList = response.data?.viewer?.userStickers;
               if (stickerList == null) {
-                return GridView.builder(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: crossAxisCount,
-                      mainAxisSpacing: 8,
-                      crossAxisSpacing: 8,
-                    ),
-                    shrinkWrap: true,
-                    itemCount: 5,
-                    itemBuilder: (context, index) {
-                      // デフォルトスタンプは画像をdownloadURLsから取得する
-                      return SelectableCommentSticker(
-                        downloadURL: downloadURLs[index],
-                        isSelected: stickerId == index.toString(),
-                        onTap: () {
-                          onChange(
-                            stickerId == index.toString()
-                                ? null
-                                : index.toString(),
-                          );
-                        },
-                      );
-                    });
+                return Container();
               }
-              final filteredStickerList = searchText.value == ''
-                  ? stickerList
-                  : stickerList
+              final combinedList = [
+                ...myBookmarkedStickers.value,
+                ...stickerList.where((mySticker) => !myBookmarkedStickers.value
+                    .any((bookmarkedSticker) =>
+                        bookmarkedSticker.id == mySticker.id))
+              ];
+              final List filteredStickerList = searchText.value == ''
+                  ? combinedList
+                  : combinedList
                       .where((p0) => p0.title.contains(searchText.value))
-                      .toBuiltList();
-              final defaultStickersCount =
-                  searchText.value == '' ? downloadURLs.length : 5;
+                      .toList();
               return SizedBox(
                 height: 256,
                 child: Container(
@@ -121,42 +117,17 @@ class WorkActionStickerList extends HookConsumerWidget {
                           scrollDirection: Axis.vertical,
                           shrinkWrap: true,
                           // スタンプを検索している場合はデフォルトスタンプを非表示にする
-                          itemCount: searchText.value == ''
-                              ? filteredStickerList.length +
-                                  defaultStickersCount
-                              : filteredStickerList.length,
+                          itemCount: filteredStickerList.length,
                           itemBuilder: (context, index) {
-                            // デフォルトスタンプは画像をdownloadURLsから取得する
-                            if (index < defaultStickersCount &&
-                                searchText.value == '') {
-                              return SelectableCommentSticker(
-                                downloadURL: downloadURLs[index],
-                                isSelected: stickerId == index.toString(),
-                                onTap: () {
-                                  onChange(stickerId == index.toString()
-                                      ? null
-                                      : index.toString());
-                                },
-                              );
-                            }
-                            // ユーザースタンプ
                             return SelectableCommentSticker(
-                              downloadURL: filteredStickerList[
-                                      index - defaultStickersCount]
-                                  .imageUrl!,
-                              isSelected: stickerId ==
-                                  filteredStickerList[
-                                          index - defaultStickersCount]
-                                      .id,
+                              downloadURL: filteredStickerList[index].imageUrl!,
+                              isSelected:
+                                  stickerId == filteredStickerList[index].id,
                               onTap: () {
-                                onChange(stickerId ==
-                                        filteredStickerList[
-                                                index - defaultStickersCount]
-                                            .id
-                                    ? null
-                                    : filteredStickerList[
-                                            index - defaultStickersCount]
-                                        .id);
+                                onChange(
+                                    stickerId == filteredStickerList[index].id
+                                        ? null
+                                        : filteredStickerList[index].id);
                               },
                             );
                           },
