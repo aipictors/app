@@ -20,10 +20,6 @@ class NotificationWorkAwardListTileCompact extends HookConsumerWidget {
       return const NotificationDeletedListTile();
     }
 
-    if (notification.work == null) {
-      return const NotificationDeletedListTile();
-    }
-
     return ListTile(
       onTap: () {
         if (notification.work?.id == null) return;

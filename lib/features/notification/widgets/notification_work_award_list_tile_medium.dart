@@ -20,10 +20,6 @@ class NotificationWorkAwardListTileMedium extends HookConsumerWidget {
       return const NotificationDeletedListTile();
     }
 
-    if (notification.work == null) {
-      return const NotificationDeletedListTile();
-    }
-
     return ListTile(
       contentPadding: const EdgeInsets.only(
         right: 16,
