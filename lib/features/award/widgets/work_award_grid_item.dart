@@ -14,10 +14,16 @@ class WorkAwardGridItem extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
+    final work = workAward.work;
+
+    if (work == null) {
+      return const SizedBox();
+    }
+
     return PostImage(
-      imageURL: workAward.work.imageURL,
-      imageAspectRatio: workAward.work.imageAspectRatio,
-      thumbnailImagePosition: workAward.work.thumbnailImagePosition,
+      imageURL: work.imageURL,
+      imageAspectRatio: work.imageAspectRatio,
+      thumbnailImagePosition: work.thumbnailImagePosition,
     );
   }
 }
