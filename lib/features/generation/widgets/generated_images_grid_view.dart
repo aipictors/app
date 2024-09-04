@@ -41,17 +41,6 @@ class GeneratedImagesGridView extends HookConsumerWidget {
 
     return Column(
       children: [
-        FilledButton(
-            onPressed: () {
-              onUpdate();
-              final req = request.rebuild((builder) {
-                builder
-                  ..vars.limit = config.graphqlQueryLimit
-                  ..vars.offset = 0;
-              });
-              client.value?.requestController.add(req);
-            },
-            child: const Text('更新')),
         OperationBuilder(
           client: client.value!,
           operationRequest: request,

@@ -47,5 +47,7 @@ query ViewerImageGenerationResult($id: ID!) {
     thumbnailImageFileName
     token
     thumbnailToken
+    imageUrl
+    thumbnailUrl
   }
 }
