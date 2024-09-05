@@ -4,13 +4,11 @@ import 'package:aipictors/features/generation/functions/delete_image_generation_
 import 'package:aipictors/features/generation/functions/update_protected_image_generation_task.dart';
 import 'package:aipictors/features/generation/functions/update_rating_image_generation_task.dart';
 import 'package:aipictors/features/generation/utils/reuse_image_generation_task.dart';
-import 'package:aipictors/features/generation/utils/to_generation_image_url.dart';
 import 'package:aipictors/features/generation/utils/to_generation_size_type_text.dart';
 import 'package:aipictors/features/generation/widgets/delete_image_generation_task.dart';
 import 'package:aipictors/features/generation/widgets/generation_protect_button.dart';
 import 'package:aipictors/features/generation/widgets/generation_rating_container.dart';
 import 'package:aipictors/features/generation/widgets/generation_setting_container.dart';
-import 'package:aipictors/features/generation/widgets/generation_task_options_container.dart';
 import 'package:aipictors/features/generation/widgets/prompts_container.dart';
 import 'package:aipictors/features/home/widgets/data_not_found_error_screen.dart';
 import 'package:aipictors/features/home/widgets/loading_screen.dart';
@@ -71,23 +69,13 @@ class GenerationResultScreen extends HookConsumerWidget {
                   children: [
                     const SizedBox(height: 8 * 1.5),
                     InteractiveWorkImage(
-                      downloadURL: toGenerationImageUrl(
-                          result.token!, result.imageFileName!),
+                      downloadURL: result.imageUrl!,
                       headers: const {
                         'Referer': 'https://beta.aipictors.com/',
                       },
                     ),
                     const SizedBox(height: 8),
                     Row(children: [
-                      GenerationTaskOptionsContainer(
-                        onReuseButtonPressed: () {
-                          reuseImageGenerationTask(
-                            result,
-                            imageGenerationNotifier,
-                          );
-                          showSnackBar(context, '生成情報を復元しました'.i18n);
-                        },
-                      ),
                       GenerationRatingContainer(
                         currentRating: result.rating!,
                         onPressed: (int rating) {
