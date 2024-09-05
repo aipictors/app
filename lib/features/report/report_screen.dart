@@ -11,10 +11,14 @@ class ReportScreen extends HookConsumerWidget {
     super.key,
     required this.title,
     required this.onSubmit,
+    this.isCommentAvailable,
   });
 
   final String title;
+
   final Function(GReportReason, String) onSubmit;
+
+  final bool? isCommentAvailable;
 
   @override
   Widget build(context, ref) {
@@ -127,35 +131,38 @@ class ReportScreen extends HookConsumerWidget {
                   },
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                child: Text(
-                  '詳細（任意）'.i18n,
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: 18),
-                ),
-              ),
-              Text('無断転載、プライバシー、肖像権についての報告の場合は、転載元や侵害されている人物の情報を記載してください'.i18n),
-              const SizedBox(height: 16),
-              TextField(
-                maxLines: null,
-                onChanged: (value) {
-                  comment.value = value;
-                },
-                decoration: InputDecoration(
-                  hintText: '問題の詳細を入力してください'.i18n,
-                  hintStyle: TextStyle(
-                    fontWeight: FontWeight.normal,
-                    fontSize: 16,
-                    color: Theme.of(context).colorScheme.outline,
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(16),
-                    borderSide: BorderSide(
-                        color: Theme.of(context).colorScheme.outline),
+              if (isCommentAvailable == true) ...[
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  child: Text(
+                    '詳細（任意）'.i18n,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 18),
                   ),
                 ),
-              ),
+                Text('無断転載、プライバシー、肖像権についての報告の場合は、転載元や侵害されている人物の情報を記載してください'
+                    .i18n),
+                const SizedBox(height: 16),
+                TextField(
+                  maxLines: null,
+                  onChanged: (value) {
+                    comment.value = value;
+                  },
+                  decoration: InputDecoration(
+                    hintText: '問題の詳細を入力してください'.i18n,
+                    hintStyle: TextStyle(
+                      fontWeight: FontWeight.normal,
+                      fontSize: 16,
+                      color: Theme.of(context).colorScheme.outline,
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      borderSide: BorderSide(
+                          color: Theme.of(context).colorScheme.outline),
+                    ),
+                  ),
+                ),
+              ]
             ],
           ),
         ),

@@ -20,6 +20,7 @@ class WorkReportScreen extends HookConsumerWidget {
   Widget build(context, ref) {
     return ReportScreen(
       title: '作品の報告'.i18n,
+      isCommentAvailable: true,
       onSubmit: (GReportReason reason, String comment) {
         onReport(context, reason, comment);
       },
