@@ -1,7 +1,5 @@
 import 'package:aipictors/__generated__/schema.schema.gql.dart';
-import 'package:aipictors/enums/layout.dart';
-import 'package:aipictors/features/generation/__generated__/viewer_image_generation_tasks.req.gql.dart';
-import 'package:aipictors/features/generation/utils/to_generation_image_url.dart';
+import 'package:aipictors/features/generation/__generated__/viewer_image_generation_results.req.gql.dart';
 import 'package:aipictors/features/generation/widgets/generating_image_container.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/providers/config_provider.dart';
@@ -33,7 +31,7 @@ class GeneratedImagesGridView extends HookConsumerWidget {
       return const LoadingProgress();
     }
 
-    final request = GViewerImageGenerationTasksReq((builder) {
+    final request = GViewerImageGenerationResultsReq((builder) {
       builder
         ..vars.offset = 0
         ..vars.limit = config.graphqlQueryLimit;
@@ -45,41 +43,35 @@ class GeneratedImagesGridView extends HookConsumerWidget {
           client: client.value!,
           operationRequest: request,
           builder: (context, response) {
-            final taskList = response.data?.viewer?.imageGenerationTasks;
+            final resultList = response.data?.viewer?.imageGenerationResults;
             return GridView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
               ),
-              itemCount: taskList!.length,
+              itemCount: resultList!.length,
               itemBuilder: (context, index) {
-                final task = taskList[index];
+                final result = resultList[index];
                 // 生成中なら進捗状況を表示する
-                if (taskList[index].status ==
+                if (resultList[index].status ==
                         GImageGenerationStatus.IN_PROGRESS ||
-                    taskList[index].status == GImageGenerationStatus.PENDING ||
-                    taskList[index].status == GImageGenerationStatus.RESERVED) {
+                    resultList[index].status ==
+                        GImageGenerationStatus.PENDING ||
+                    resultList[index].status ==
+                        GImageGenerationStatus.RESERVED) {
                   return const GeneratingImageContainer();
                 }
-                if (taskList[index].nanoid == null ||
-                    taskList[index].token == null ||
-                    taskList[index].imageFileName == null) {
+                if (resultList[index].nanoid == null ||
+                    resultList[index].thumbnailUrl == null) {
                   return const DeletedImageGenerationTaskErrorContainer();
                 }
-                final layout =
-                    Layout.fromWidth(MediaQuery.of(context).size.width);
                 return InkWell(
                   onTap: () {
-                    onTap(task.nanoid!);
+                    onTap(result.nanoid!);
                   },
                   child: PostImage(
-                    // スマホならサムネサイズを、タブレットなら通常サイズを表示する
-                    imageURL: (layout == Layout.compact)
-                        ? toGenerationImageUrl(
-                            task.thumbnailToken!, task.thumbnailImageFileName!)
-                        : toGenerationImageUrl(
-                            task.token!, task.imageFileName!),
+                    imageURL: result.thumbnailUrl,
                     httpHeaders: const {
                       'Referer': 'https://beta.aipictors.com/',
                     },

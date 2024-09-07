@@ -235,8 +235,18 @@ class GenerationView extends HookConsumerWidget {
                     },
                   ),
                 ),
+                FilledButton(
+                    onPressed: () {
+                      ref
+                          .read(viewerImageGenerationStatusProvider.future)
+                          .then((value) {
+                        print(value);
+                        viewerImageGenerationStatus.value = value;
+                      });
+                    },
+                    child: const Text('更新')),
                 GeneratedImagesGridView(onTap: (String nanoId) {
-                  context.push('/generation/tasks/$nanoId');
+                  context.push('/generation/results/$nanoId');
                 }, onUpdate: () {
                   ref
                       .read(viewerImageGenerationStatusProvider.future)
