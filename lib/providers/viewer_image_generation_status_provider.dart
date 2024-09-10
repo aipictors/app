@@ -22,7 +22,7 @@ Future<GViewerImageGenerationStatusData?> viewerImageGenerationStatus(
   final client = await createClient();
 
   final request = GViewerImageGenerationStatusReq((builder) {
-    builder.fetchPolicy = FetchPolicy.NetworkOnly;
+    builder.fetchPolicy = FetchPolicy.NoCache;
   });
 
   final stream = client.request(request).map(toResponseData);
