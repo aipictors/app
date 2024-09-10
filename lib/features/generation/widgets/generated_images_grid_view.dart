@@ -44,13 +44,16 @@ class GeneratedImagesGridView extends HookConsumerWidget {
           operationRequest: request,
           builder: (context, response) {
             final resultList = response.data?.viewer?.imageGenerationResults;
+            if (resultList == null) {
+              return const LoadingProgress();
+            }
             return GridView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
               ),
-              itemCount: resultList!.length,
+              itemCount: resultList.length,
               itemBuilder: (context, index) {
                 final result = resultList[index];
                 // 生成中なら進捗状況を表示する
