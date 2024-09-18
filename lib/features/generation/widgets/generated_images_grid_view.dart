@@ -75,9 +75,6 @@ class GeneratedImagesGridView extends HookConsumerWidget {
                   },
                   child: PostImage(
                     imageURL: result.thumbnailUrl,
-                    httpHeaders: const {
-                      'Referer': 'https://beta.aipictors.com/',
-                    },
                     imageAspectRatio: 1,
                     thumbnailImagePosition: null,
                   ),

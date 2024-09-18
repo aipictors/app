@@ -10,22 +10,33 @@ part 'viewer_image_generation_status_provider.g.dart';
 /// ログイン中のユーザ画像生成ののデータ
 /// AutoDisposeFutureProvider<InvalidType>
 @riverpod
-Future<GViewerImageGenerationStatusData?> viewerImageGenerationStatus(
-    ViewerImageGenerationStatusRef ref) async {
-  // final user = ref.watch(authStateProvider);
+class ViewerImageGenerationStatus extends _$ViewerImageGenerationStatus {
+  @override
+  Future<GViewerImageGenerationStatusData?> build() async {
+    autoRefresh();
+    return await fetch();
+  }
 
-  // ログインしていない場合はnullを返す
-  // if (user.value == null) {
-  //   return null;
-  // }
+  Future<GViewerImageGenerationStatusData?> fetch() async {
+    final client = await createClient();
 
-  final client = await createClient();
+    final request = GViewerImageGenerationStatusReq((builder) {
+      builder.fetchPolicy = FetchPolicy.NoCache;
+    });
 
-  final request = GViewerImageGenerationStatusReq((builder) {
-    builder.fetchPolicy = FetchPolicy.NoCache;
-  });
+    final stream = client.request(request).map(toResponseData);
 
-  final stream = client.request(request).map(toResponseData);
+    return await stream.first;
+  }
 
-  return await stream.first;
+  void refresh() async {
+    state = AsyncValue.data(await fetch());
+  }
+
+  void autoRefresh() {
+    //todo: 更新間隔を調整する
+    Stream.periodic(const Duration(seconds: 10)).listen((_) async {
+      state = AsyncValue.data(await fetch());
+    });
+  }
 }

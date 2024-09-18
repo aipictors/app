@@ -19,6 +19,7 @@ import 'package:aipictors/features/generation/widgets/generation_size_type_picke
 import 'package:aipictors/features/generation/widgets/generation_vae_picker.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/providers/image_generation_provider.dart';
+import 'package:aipictors/providers/viewer_image_generation_status_provider.dart';
 import 'package:aipictors/states/image_generation_state.dart';
 import 'package:aipictors/widgets/loading_progress.dart';
 import 'package:built_collection/built_collection.dart';
@@ -206,7 +207,12 @@ class GenerationView extends HookConsumerWidget {
         ),
       ),
       bottomNavigationBar: (GenerationButton(
-        onPressed: () => onCreateTask(context, ref, imageGeneration),
+        onPressed: () async {
+          await onCreateTask(context, ref, imageGeneration);
+          final notifier =
+              ref.read(viewerImageGenerationStatusProvider.notifier);
+          notifier.refresh();
+        },
       )),
     );
   }

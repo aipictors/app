@@ -1,6 +1,6 @@
 import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/features/generation/widgets/__generated__/viewer_image_generation_status.data.gql.dart';
-import 'package:aipictors/providers/viewer_image_generation_status_stream_provider.dart';
+import 'package:aipictors/providers/viewer_image_generation_status_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -15,17 +15,17 @@ class GenerationButton extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
-    final viewerImageGenerationStatusProvider =
-        ref.watch(viewerImageGenerationStatusStreamProvider);
-
     final viewerImageGenerationStatus =
+        ref.watch(viewerImageGenerationStatusProvider);
+
+    final imageGenerationStatus =
         useState<GViewerImageGenerationStatusData?>(null);
 
-    viewerImageGenerationStatusProvider.whenData(
-      (final data) => viewerImageGenerationStatus.value = data,
+    viewerImageGenerationStatus.whenData(
+      (final data) => imageGenerationStatus.value = data,
     );
 
-    if (viewerImageGenerationStatus.value == null) {
+    if (imageGenerationStatus.value == null) {
       return const FilledButton(
         onPressed: null,
         child: CircularProgressIndicator(),
