@@ -1,5 +1,5 @@
 import 'package:aipictors/default.i18n.dart';
-import 'package:aipictors/features/generation/generation_tasks_view.dart';
+import 'package:aipictors/features/generation/generation_results_view.dart';
 import 'package:aipictors/features/generation/generation_view.dart';
 import 'package:aipictors/features/generation/widgets/generation_tab_controller.dart';
 import 'package:flutter/material.dart';
@@ -28,8 +28,8 @@ class GenerationScreen extends HookConsumerWidget {
           GenerationView(
             key: PageStorageKey('generation_image_generation'),
           ),
-          GenerationTasksView(
-            key: PageStorageKey('generation_tasks'),
+          GenerationResultsView(
+            key: PageStorageKey('generation_results'),
           ),
         ]),
       ),

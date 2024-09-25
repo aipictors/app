@@ -1,14 +1,14 @@
-import 'package:aipictors/__generated__/schema.schema.gql.dart';
-import 'package:aipictors/features/generation/__generated__/viewer_image_generation_tasks.req.gql.dart';
+import 'dart:developer';
+
+import 'package:aipictors/features/generation/__generated__/viewer_image_generation_results.req.gql.dart';
 import 'package:aipictors/features/generation/functions/delete_image_generation_task.dart';
 import 'package:aipictors/features/generation/functions/update_protected_image_generation_task.dart';
 import 'package:aipictors/features/generation/functions/update_rating_image_generation_task.dart';
 import 'package:aipictors/features/generation/utils/image_generation_task_creator.dart';
 import 'package:aipictors/features/generation/widgets/__generated__/viewer_image_generation_status.data.gql.dart';
 import 'package:aipictors/features/generation/widgets/delete_image_generation_task.dart';
-import 'package:aipictors/features/generation/widgets/generating_image_container.dart';
 import 'package:aipictors/features/generation/widgets/generation_model_picker_modal.dart';
-import 'package:aipictors/features/generation/widgets/generation_task_list_tile.dart';
+import 'package:aipictors/features/generation/widgets/generation_result_list_tile.dart';
 import 'package:aipictors/features/home/widgets/loading_screen.dart';
 import 'package:aipictors/providers/audio_provider.dart';
 import 'package:aipictors/providers/client_provider.dart';
@@ -26,8 +26,8 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// 画像生成の履歴一覧
-class GenerationTasksView extends HookConsumerWidget {
-  const GenerationTasksView({
+class GenerationResultsView extends HookConsumerWidget {
+  const GenerationResultsView({
     super.key,
   });
 
@@ -49,7 +49,7 @@ class GenerationTasksView extends HookConsumerWidget {
       return const LoadingProgress();
     }
 
-    final request = GViewerImageGenerationTasksReq((builder) {
+    final request = GViewerImageGenerationResultsReq((builder) {
       builder
         ..vars.offset = 0
         ..vars.limit = config.graphqlQueryLimit;
@@ -66,8 +66,8 @@ class GenerationTasksView extends HookConsumerWidget {
         client: client.value!,
         operationRequest: request,
         builder: (context, response) {
-          final taskList = response.data?.viewer?.imageGenerationTasks;
-          if (taskList == null) {
+          final resultList = response.data?.viewer?.imageGenerationResults;
+          if (resultList == null) {
             return const LoadingScreen();
           }
           return ListView.separated(
@@ -77,25 +77,16 @@ class GenerationTasksView extends HookConsumerWidget {
                 children: [Divider(height: 4), SizedBox(height: 4)],
               );
             },
-            itemCount: taskList.length,
+            itemCount: resultList.length,
             itemBuilder: (context, index) {
-              // 生成中なら進捗状況を表示する
-              if (taskList[index].status ==
-                      GImageGenerationStatus.IN_PROGRESS ||
-                  taskList[index].status == GImageGenerationStatus.PENDING ||
-                  taskList[index].status == GImageGenerationStatus.RESERVED) {
-                return const GeneratingImageContainer();
-              }
-              if (taskList[index].nanoid == null ||
-                  taskList[index].token == null ||
-                  taskList[index].imageFileName == null) {
+              if (resultList[index].nanoid == null) {
                 return const DeletedImageGenerationTaskErrorContainer();
               }
-              return GenerationTaskListTile(
-                task: taskList[index],
+              return GenerationResultListTile(
+                result: resultList[index],
                 onTap: () async {
                   await context.push(
-                    '/generation/tasks/${taskList[index].nanoid}',
+                    '/generation/results/${resultList[index].nanoid}',
                   );
                   client.value?.requestController.add(request);
                 },
@@ -148,7 +139,7 @@ class GenerationTasksView extends HookConsumerWidget {
   }
 
   void onDelete(BuildContext context, String nanoId,
-      GViewerImageGenerationTasksReq request, Client client) {
+      GViewerImageGenerationResultsReq request, Client client) {
     showDialog(
       context: context,
       barrierDismissible: false,
