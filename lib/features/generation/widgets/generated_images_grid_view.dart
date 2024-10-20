@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:aipictors/features/generation/__generated__/viewer_image_generation_results.data.gql.dart';
 import 'package:aipictors/features/generation/__generated__/viewer_image_generation_results.req.gql.dart';
 import 'package:aipictors/features/generation/widgets/generating_image_container.dart';
@@ -20,11 +22,14 @@ class GeneratedImagesGridView extends HookConsumerWidget {
     super.key,
     required this.onTap,
     required this.onUpdate,
+    this.limit,
   });
 
   final Function(String id) onTap;
 
   final VoidCallback onUpdate;
+
+  final int? limit;
 
   @override
   Widget build(context, ref) {
@@ -51,7 +56,9 @@ class GeneratedImagesGridView extends HookConsumerWidget {
     final request = GViewerImageGenerationResultsReq((builder) {
       builder
         ..vars.offset = 0
-        ..vars.limit = config.graphqlQueryLimit;
+        ..vars.limit = (limit == null)
+            ? config.graphqlQueryLimit
+            : min(limit!, config.graphqlQueryLimit);
     });
 
     // 生成している画像の枚数が変化したら表示を更新する
@@ -96,7 +103,9 @@ class GeneratedImagesGridView extends HookConsumerWidget {
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
               ),
-              itemCount: combinedList.length,
+              itemCount: (limit == null)
+                  ? combinedList.length
+                  : min(limit!, combinedList.length),
               itemBuilder: (context, index) {
                 // 生成中なら進捗状況を表示する
                 // runtimeTypeをStringに変換しないと正常に判定されない

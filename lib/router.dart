@@ -28,6 +28,7 @@ import 'package:aipictors/features/folder/folder_report_screen.dart';
 import 'package:aipictors/features/folder/folder_screen.dart';
 import 'package:aipictors/features/folder/folder_update_screen.dart';
 import 'package:aipictors/features/generation/generation_result_screen.dart';
+import 'package:aipictors/features/generation/generation_results_screen.dart';
 import 'package:aipictors/features/guideline/guideline_screen.dart';
 import 'package:aipictors/features/home/root_screen.dart';
 import 'package:aipictors/features/information/information_screen.dart';
@@ -405,6 +406,12 @@ final _routes = [
     builder: (context, state) {
       final text = state.pathParameters['text'];
       return SearchScreen(text: text!);
+    },
+  ),
+  GoRoute(
+    path: '/generation/results',
+    builder: (context, state) {
+      return const GenerationResultsScreen();
     },
   ),
   GoRoute(
