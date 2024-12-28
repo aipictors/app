@@ -49,6 +49,13 @@ $ flutter upgrade
 $ flutter pub upgrade --tighten
 ```
 
+## キャッシュ
+
+```
+$ rm -rf ~/flutter/bin/cache
+$ rm -rf build
+```
+
 ## GraphQL
 
 更新があった場合は取得する。
