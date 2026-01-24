@@ -72,7 +72,7 @@ android {
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
-        applicationIdSuffix dartDefines.appIdSuffix ?: ""
+        applicationIdSuffix dartDefines.appIdSuffix ?: "debug"
         resValue "string", "app_name", dartDefines.appName ?: "Aipictors"
         multiDexEnabled true
     }
@@ -104,19 +104,21 @@ flutter {
     source '../..'
 }
 
-task copySources(type: Copy) {
-   from "src/${dartDefines.flavor}/res"
-   into 'src/main/res'
+def flavor = dartDefines.flavor ?: 'debug'
+
+task setupFlavor(type: Exec) {
+    commandLine 'sh', '-c', """
+        if [ -f "src/${flavor}/google-services.json" ]; then
+            cp "src/${flavor}/google-services.json" ./google-services.json
+        fi
+        if [ -d "src/${flavor}/res" ]; then
+            cp -r "src/${flavor}/res/." src/main/res/
+        fi
+    """
 }
 
-tasks.whenTaskAdded { task ->
-   task.dependsOn copySources
-   if (task.name == 'processDebugGoogleServices' || task.name == 'processReleaseGoogleServices') {
-        task.dependsOn selectGoogleServicesJson
+afterEvaluate {
+    tasks.named('preBuild').configure {
+        dependsOn setupFlavor
     }
-}
-
-task selectGoogleServicesJson(type: Copy) {
-    from "src/${dartDefines.flavor}/google-services.json"
-    into './'
 }
