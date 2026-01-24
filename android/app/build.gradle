@@ -1,6 +1,15 @@
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    id "dev.flutter.flutter-gradle-plugin"
+    id "com.google.gms.google-services"
+}
+
 def keystorePropertiesFile = rootProject.file('key.properties')
 def keystoreProperties = new Properties()
-keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
 
 def localProperties = new Properties()
 def localPropertiesFile = rootProject.file('local.properties')
@@ -35,11 +44,6 @@ if (project.hasProperty('dart-defines')) {
         }
 }
 
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
-apply plugin: 'com.google.gms.google-services'
-
 android {
     namespace "com.aipictors"
     compileSdkVersion flutter.compileSdkVersion
@@ -68,8 +72,8 @@ android {
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
-        applicationIdSuffix dartDefines.appIdSuffix == null ? dartDefines.appIdSuffix : ""
-        resValue "string", "app_name", dartDefines.appName
+        applicationIdSuffix dartDefines.appIdSuffix ?: ""
+        resValue "string", "app_name", dartDefines.appName ?: "Aipictors"
         multiDexEnabled true
     }
 
@@ -78,16 +82,18 @@ android {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfigs {
-                release {
-                    keyAlias keystoreProperties['keyAlias']
-                    keyPassword keystoreProperties['keyPassword']
-                    storeFile file(keystoreProperties['storeFile'])
-                    storePassword keystoreProperties['storePassword']
+                if (keystorePropertiesFile.exists()) {
+                    release {
+                        keyAlias keystoreProperties['keyAlias']
+                        keyPassword keystoreProperties['keyPassword']
+                        storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
+                        storePassword keystoreProperties['storePassword']
+                    }
                 }
             }
             buildTypes {
                 release {
-                    signingConfig signingConfigs.release
+                    signingConfig keystorePropertiesFile.exists() ? signingConfigs.release : signingConfigs.debug
                 }
             }
         }
@@ -96,10 +102,6 @@ android {
 
 flutter {
     source '../..'
-}
-
-dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 
 task copySources(type: Copy) {
