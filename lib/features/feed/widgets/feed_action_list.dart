@@ -43,7 +43,7 @@ class FeedActionList extends HookConsumerWidget {
               shareText: toShareWorkText(
                 workId: work.id,
                 workTitle: work.title,
-                userName: work.user.name,
+                userName: work.user?.name ?? 'Unknown User',
                 hashtagText: config.xPostText,
               ),
               onTap: () {
@@ -51,18 +51,18 @@ class FeedActionList extends HookConsumerWidget {
               },
             ),
             ModalFollowUserListTile(
-              isActive: work.user.isFollowee,
+              isActive: work.user?.isFollowee ?? false,
               onTap: () {
                 return onFollowUser(context);
               },
             ),
-            if (authUserId.value != work.user.id) ...[
+            if (authUserId.value != work.user?.id) ...[
               const Divider(),
 
               /// ログイン時のみミュートボタンを表示する
               if (authUserId.value != null)
                 ModalMuteUserListTile(
-                  isActive: work.user.isMuted,
+                  isActive: work.user?.isMuted ?? false,
                   onTap: () {
                     return onMuteUser(context);
                   },
@@ -71,7 +71,7 @@ class FeedActionList extends HookConsumerWidget {
                 titleText: 'ユーザを報告する'.i18n,
                 onTap: () {
                   context.pop();
-                  context.push('/users/${work.user.id}/report');
+                  context.push('/users/${work.user?.id}/report');
                 },
               ),
               ModalReportListTile(
@@ -91,14 +91,14 @@ class FeedActionList extends HookConsumerWidget {
   /// ユーザをフォローする
   onFollowUser(BuildContext context) {
     return followUser((builder) {
-      return builder..vars.input.userId = work.user.id;
+      return builder..vars.input.userId = work.user!.id;
     });
   }
 
   /// ユーザをミュートする
   onMuteUser(BuildContext context) {
     return muteUser((builder) {
-      return builder..vars.input.userId = work.user.id;
+      return builder..vars.input.userId = work.user!.id;
     });
   }
 }

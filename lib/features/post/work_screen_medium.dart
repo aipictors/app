@@ -110,14 +110,14 @@ class WorkScreenMedium extends HookConsumerWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Expanded(child: WorkUserProfile(user: work.user)),
-                              if (authUserId.value != work.user.id)
+                              Expanded(child: WorkUserProfile(user: work.user!)),
+                              if (authUserId.value != work.user!.id)
                                 FollowButton(
-                                  isActive: work.user.isFollowee == true,
+                                  isActive: work.user!.isFollowee == true,
                                   onPressed: () {
                                     return onFollowUser(
                                       context,
-                                      userId: work.user.id,
+                                      userId: work.user!.id,
                                     );
                                   },
                                 ),

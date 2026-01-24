@@ -46,19 +46,19 @@ class FeedWorkListTile extends HookConsumerWidget {
             Expanded(
               child: GestureDetector(
                 onTap: () {
-                  context.push('/users/${work.user.id}');
+                  context.push('/users/${work.user?.id ?? ''}');
                 },
                 child: FeedUserProfile(user: work.user),
               ),
             ),
-            if (authUserId.value != work.user.id)
+            if (authUserId.value != work.user?.id)
               FollowTextButton(
-                isActive: work.user.isFollowee,
+                isActive: work.user?.isFollowee ?? false,
                 onPressed: () {
                   if (authUserId.value == null) {
                     return onShowLoginDialog(context, ref);
                   }
-                  return onFollowUser(context, userId: work.user.id);
+                  return onFollowUser(context, userId: work.user!.id);
                 },
               ),
             const SizedBox(width: 8),
@@ -103,7 +103,7 @@ class FeedWorkListTile extends HookConsumerWidget {
                 //   },
                 // ),
                 // const SizedBox(width: 8),
-                if (authUserId.value != work.user.id)
+                if (authUserId.value != work.user?.id)
                   FeedLikeButton(
                     count: work.likesCount,
                     isActive: work.isLiked,
@@ -111,13 +111,13 @@ class FeedWorkListTile extends HookConsumerWidget {
                       onCreateLike(context);
                     },
                   ),
-                if (authUserId.value == work.user.id)
+                if (authUserId.value == work.user?.id)
                   const Icon(
                     Icons.favorite_rounded,
                     size: 28,
                   ),
-                if (authUserId.value == work.user.id) const SizedBox(width: 8),
-                if (authUserId.value == work.user.id)
+                if (authUserId.value == work.user?.id) const SizedBox(width: 8),
+                if (authUserId.value == work.user?.id)
                   Text(
                     work.likesCount.toString(),
                     style: const TextStyle(fontWeight: FontWeight.bold),
@@ -126,7 +126,7 @@ class FeedWorkListTile extends HookConsumerWidget {
                 ShareWorkButton(
                   workId: work.id,
                   workTitle: work.title,
-                  userName: work.user.name,
+                  userName: work.user?.name ?? 'Unknown User',
                 ),
               ]),
               FilledButton.tonal(

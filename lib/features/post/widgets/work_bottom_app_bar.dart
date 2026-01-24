@@ -38,7 +38,7 @@ class WorkBottomAppBar extends HookConsumerWidget {
     final authUserId = ref.watch(authUserIdProvider);
 
     // TODO: 自分の作品の場合
-    if (authUserId.value == work.user.id) {
+    if (authUserId.value == work.user?.id) {
       return const SizedBox();
     }
 
