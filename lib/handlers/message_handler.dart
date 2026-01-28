@@ -2,7 +2,7 @@ import 'package:aipictors/repositories/config_repository.dart';
 import 'package:aipictors/widgets/dialog/notification_dialog.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app_badger/flutter_app_badger.dart';
+import 'package:app_badge_plus/app_badge_plus.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 // import 'package:sentry_flutter/sentry_flutter.dart';
@@ -13,11 +13,11 @@ typedef Listener = void Function(
 );
 
 Listener messageListener(BuildContext context, WidgetRef ref) {
-  return (_, state) {
+  return (_, state) async {
     try {
       final count = const ConfigRepository().badgeCount;
 
-      FlutterAppBadger.updateBadgeCount(count);
+      await AppBadgePlus.updateBadge(count);
 
       final remoteMessage = state.value;
 

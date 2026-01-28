@@ -26,9 +26,7 @@ mixin _$ConfigState {
       throw _privateConstructorUsedError;
   bool get eulaCheck => throw _privateConstructorUsedError;
 
-  /// Create a copy of ConfigState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $ConfigStateCopyWith<ConfigState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -60,8 +58,6 @@ class _$ConfigStateCopyWithImpl<$Res, $Val extends ConfigState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of ConfigState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -138,8 +134,6 @@ class __$$ConfigStateImplCopyWithImpl<$Res>
       _$ConfigStateImpl _value, $Res Function(_$ConfigStateImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of ConfigState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -260,9 +254,7 @@ class _$ConfigStateImpl extends _ConfigState {
       lastFetchStatus,
       eulaCheck);
 
-  /// Create a copy of ConfigState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$ConfigStateImplCopyWith<_$ConfigStateImpl> get copyWith =>
@@ -297,11 +289,8 @@ abstract class _ConfigState extends ConfigState {
   RemoteConfigFetchStatus get lastFetchStatus;
   @override
   bool get eulaCheck;
-
-  /// Create a copy of ConfigState
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$ConfigStateImplCopyWith<_$ConfigStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

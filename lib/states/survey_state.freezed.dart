@@ -19,9 +19,7 @@ mixin _$SurveyState {
   SurveySex? get sex => throw _privateConstructorUsedError;
   SurveyTouchPoint? get touchPoint => throw _privateConstructorUsedError;
 
-  /// Create a copy of SurveyState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $SurveyStateCopyWith<SurveyState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -45,8 +43,6 @@ class _$SurveyStateCopyWithImpl<$Res, $Val extends SurveyState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of SurveyState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -85,8 +81,6 @@ class __$$SurveyStateImplCopyWithImpl<$Res>
       _$SurveyStateImpl _value, $Res Function(_$SurveyStateImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of SurveyState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -135,9 +129,7 @@ class _$SurveyStateImpl extends _SurveyState {
   @override
   int get hashCode => Object.hash(runtimeType, sex, touchPoint);
 
-  /// Create a copy of SurveyState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$SurveyStateImplCopyWith<_$SurveyStateImpl> get copyWith =>
@@ -154,11 +146,8 @@ abstract class _SurveyState extends SurveyState {
   SurveySex? get sex;
   @override
   SurveyTouchPoint? get touchPoint;
-
-  /// Create a copy of SurveyState
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$SurveyStateImplCopyWith<_$SurveyStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

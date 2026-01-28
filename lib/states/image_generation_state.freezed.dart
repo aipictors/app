@@ -28,9 +28,7 @@ mixin _$ImageGenerationState {
   String get sampler => throw _privateConstructorUsedError;
   GImageGenerationSizeType get sizeType => throw _privateConstructorUsedError;
 
-  /// Create a copy of ImageGenerationState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $ImageGenerationStateCopyWith<ImageGenerationState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -66,8 +64,6 @@ class _$ImageGenerationStateCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of ImageGenerationState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -162,8 +158,6 @@ class __$$ImageGenerationStateImplCopyWithImpl<$Res>
       $Res Function(_$ImageGenerationStateImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of ImageGenerationState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -297,9 +291,7 @@ class _$ImageGenerationStateImpl extends _ImageGenerationState {
   int get hashCode => Object.hash(runtimeType, count, type, model, vae, prompt,
       negativePrompt, seed, steps, scale, sampler, sizeType);
 
-  /// Create a copy of ImageGenerationState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$ImageGenerationStateImplCopyWith<_$ImageGenerationStateImpl>
@@ -346,11 +338,8 @@ abstract class _ImageGenerationState extends ImageGenerationState {
   String get sampler;
   @override
   GImageGenerationSizeType get sizeType;
-
-  /// Create a copy of ImageGenerationState
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$ImageGenerationStateImplCopyWith<_$ImageGenerationStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

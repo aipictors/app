@@ -58,7 +58,7 @@ ThemeData extendThemeData(ThemeData themeData) {
         textStyle: textTheme.labelLarge!.copyWith(fontWeight: FontWeight.bold),
       ),
     ),
-    dialogTheme: DialogTheme(
+    dialogTheme: DialogThemeData(
       titleTextStyle: textTheme.headlineSmall!.copyWith(fontSize: 20),
     ),
     // ダークモードが適用されない

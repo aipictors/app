@@ -38,7 +38,7 @@ class WorkActionModal extends HookConsumerWidget {
               shareText: toShareWorkText(
                 workId: work.id,
                 workTitle: work.title,
-                userName: work.user.name,
+                userName: work.user?.name ?? 'Unknown User',
                 hashtagText: config.xPostText,
               ),
               onTap: () {
@@ -48,21 +48,21 @@ class WorkActionModal extends HookConsumerWidget {
             ModalShareListTile(
               titleText: 'ユーザをシェアする'.i18n,
               shareText: toShareUserText(
-                userId: work.user.id,
-                userName: work.user.name,
+                userId: work.user?.id ?? 'UndefinededUserId',
+                userName: work.user?.name ?? 'Unknown User',
                 hashtagText: config.xPostText,
               ),
               onTap: () {
                 context.pop();
               },
             ),
-            if (authUserId.value != work.user.id) ...[
+            if (authUserId.value != work.user?.id) ...[
               const Divider(),
 
               /// ログイン時のみミュートボタンを表示する
               if (authUserId.value != null)
                 ModalMuteUserListTile(
-                  isActive: work.user.isMuted,
+                  isActive: work.user?.isMuted ?? false,
                   onTap: () {
                     return onMuteUser(context);
                   },
@@ -78,7 +78,7 @@ class WorkActionModal extends HookConsumerWidget {
                 titleText: 'ユーザを報告する'.i18n,
                 onTap: () {
                   context.pop();
-                  context.push('/users/${work.user.id}/report');
+                  context.push('/users/${work.user?.id}/report');
                 },
               ),
             ],
@@ -91,7 +91,7 @@ class WorkActionModal extends HookConsumerWidget {
   /// ユーザをミュートする
   onMuteUser(BuildContext context) {
     return muteUser((builder) {
-      return builder..vars.input.userId = work.user.id;
+      return builder..vars.input.userId = work.user?.id;
     });
   }
 }

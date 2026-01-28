@@ -62,7 +62,7 @@ class AlbumWorkListTile extends HookConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(children: [
-                if (authUserId.value != work.user.id)
+                if (authUserId.value != work.user?.id)
                   FeedLikeButton(
                     count: work.likesCount,
                     isActive: work.isLiked,
@@ -70,13 +70,13 @@ class AlbumWorkListTile extends HookConsumerWidget {
                       onCreateLike(context);
                     },
                   ),
-                if (authUserId.value == work.user.id)
+                if (authUserId.value == work.user?.id)
                   const Icon(
                     Icons.favorite_rounded,
                     size: 28,
                   ),
-                if (authUserId.value == work.user.id) const SizedBox(width: 8),
-                if (authUserId.value == work.user.id)
+                if (authUserId.value == work.user?.id) const SizedBox(width: 8),
+                if (authUserId.value == work.user?.id)
                   Text(
                     work.likesCount.toString(),
                     style: const TextStyle(fontWeight: FontWeight.bold),
@@ -85,7 +85,7 @@ class AlbumWorkListTile extends HookConsumerWidget {
                 ShareWorkButton(
                   workId: work.id,
                   workTitle: work.title,
-                  userName: work.user.name,
+                  userName: work.user?.name ?? 'Unknown User',
                 ),
               ]),
               FilledButton.tonal(
