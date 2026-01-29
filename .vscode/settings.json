@@ -1,4 +1,5 @@
 {
+  "dart.flutterSdkPath": ".fvm/flutter_sdk",
   "eslint.enable": false,
   "prettier.enable": false,
   "editor.formatOnSave": true,
