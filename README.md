@@ -17,6 +17,9 @@ FVMを使用してFlutterのバージョンを管理しています。
 # FVMをインストール（未インストールの場合）
 $ dart pub global activate fvm
 
+# 指示に従い、fvmをパスに追加
+$ export PATH="$PATH":"$HOME/.pub-cache/bin"
+
 # プロジェクトで指定されたFlutterバージョンをインストール
 $ fvm install
 ```
