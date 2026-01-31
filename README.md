@@ -9,6 +9,21 @@ Discord の「アプリ」カテゴリでも交流できます！
 
 https://discord.gg/aipictors
 
+## セットアップ
+
+FVMを使用してFlutterのバージョンを管理しています。
+
+```bash
+# FVMをインストール（未インストールの場合）
+$ dart pub global activate fvm
+
+# 指示に従い、fvmをパスに追加
+$ export PATH="$PATH":"$HOME/.pub-cache/bin"
+
+# プロジェクトで指定されたFlutterバージョンをインストール
+$ fvm install
+```
+
 ## コード生成
 
 必要な場合はコードを生成する。
@@ -34,12 +49,17 @@ VSCodeのRunからDevelopまたはProductionを選択して実行する。
 
 ## アップデート
 
-定期的に Flutter を更新する必要がある。
+Flutterのバージョンを更新する場合はFVMを使用する。
 
 ```bash
-$ flutter channel stable
-$ flutter upgrade
+# 新しいバージョンをインストールして切り替え
+$ fvm use <version>
+
+# 例: 3.40.0に更新
+$ fvm use 3.40.0
 ```
+
+`.fvmrc`が更新されるのでコミットする。
 
 ## パッケージの更新
 
