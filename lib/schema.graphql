@@ -573,6 +573,98 @@ input ChangePromptonFolderToPaidInput {
   price: Int!
 }
 
+"""キャラクター表情差分一括生成の結果"""
+type CharacterExpressionBatchResult {
+  """生成されたキャラクターID"""
+  characterId: String!
+
+  """生成されたキャラクター名"""
+  characterName: String!
+
+  """生成に成功した表情の数"""
+  generatedExpressions: Int!
+
+  """設定された最大コスト"""
+  maxCostLimit: Int!
+
+  """生成された画像の結果リスト"""
+  results: [ImageGenerationResultNode!]!
+
+  """コスト不足でスキップされた表情リスト"""
+  skippedExpressions: [String!]!
+
+  """使用した総コスト"""
+  totalCostUsed: Int!
+
+  """要求された表情の総数"""
+  totalExpressions: Int!
+}
+
+"""キャラクター表情"""
+type CharacterExpressionNode implements Node {
+  """作成日時"""
+  createdAt: String
+
+  """表情名"""
+  expressionName: String
+  id: ID!
+
+  """画像URL"""
+  imageUrl: String
+}
+
+"""キャラクター"""
+type CharacterNode implements Node {
+  """ベース画像URL"""
+  baseImageUrl: String
+
+  """作成日時"""
+  createdAt: String
+
+  """キャラクター説明"""
+  description: String
+
+  """キャラクターの表情リスト"""
+  expressions: [CharacterExpressionNode!]!
+  id: ID!
+
+  """公開フラグ"""
+  isPublic: Boolean
+
+  """キャラクター名"""
+  name: String
+
+  """nanoid"""
+  nanoid: String
+
+  """サムネイル画像URL（1枚目の表情画像または基本画像）"""
+  thumbnailUrl: String
+}
+
+"""キャラクター自動作成付き表情差分生成結果"""
+type CharacterWithExpressionsResult {
+  """作成されたキャラクターID"""
+  characterId: String
+
+  """作成されたキャラクター名"""
+  characterName: String
+
+  """生成された表情数"""
+  generatedExpressions: Int
+
+  """最大コスト制限"""
+  maxCostLimit: Int
+
+  """スキップされた表情リスト"""
+  skippedExpressions: [String!]
+
+  """使用された総コスト"""
+  totalCostUsed: Int
+
+  """リクエストされた表情数"""
+  totalExpressions: Int
+}
+
 """通知確認時刻"""
 type CheckedNotificationTimeNode implements Node {
   """確認時間"""
@@ -678,6 +770,69 @@ input CreateAlbumWorkInput {
   workId: ID!
 }
 
+"""キャラクター表情差分一括生成のタスクを作成するInput"""
+input CreateCharacterExpressionBatchGenerationTaskInput {
+  """ベースとなるキャラクター画像のURL"""
+  baseImageUrl: String!
+
+  """生成する表情のリスト（最大10個、デフォルト: [笑顔, 涙, 悲しみ, 無表情, 怒り]）"""
+  expressions: [String!]
+
+  """IPアドレス（任意）"""
+  ipaddress: String
+
+  """生成する画像サイズ"""
+  size: GeminiImageSize!
+}
+
+"""単一キャラクター表情生成のInput"""
+input CreateCharacterExpressionInput {
+  """キャラクターID"""
+  characterId: String!
+
+  """生成する表情名"""
+  expressionName: String!
+
+  """IPアドレス（任意）"""
+  ipaddress: String
+
+  """生成する画像サイズ"""
+  size: GeminiImageSize!
+}
+
+"""キャラクター作成のInput"""
+input CreateCharacterInput {
+  """ベース画像URL"""
+  baseImageUrl: String!
+
+  """キャラクター説明"""
+  description: String
+
+  """公開フラグ"""
+  isPublic: Boolean
+
+  """キャラクター名"""
+  name: String!
+}
+
+"""キャラクター自動作成付き表情差分生成のInput"""
+input CreateCharacterWithExpressionsInput {
+  """ベースとなるキャラクター画像のURL"""
+  baseImageUrl: String!
+
+  """キャラクター名（省略時は自動生成）"""
+  characterName: String
+
+  """生成する表情のリスト（最大10個、デフォルト: [笑顔, 涙, 悲しみ, 無表情, 怒り]）"""
+  expressions: [String!]
+
+  """IPアドレス（任意）"""
+  ipaddress: String
+
+  """生成する画像サイズ"""
+  size: GeminiImageSize!
+}
+
 input CreateCommentLikeInput {
   commentId: ID!
 }
@@ -709,12 +864,39 @@ input CreateCustomerAdvertisement {
   url: String!
 }
 
+"""画像から複数表情差分生成のInput"""
+input CreateExpressionsFromImageInput {
+  """背景色（16進数、例: #00FF00）。nullの場合は背景をそのまま保持"""
+  backgroundColor: String
+
+  """ベースとなる画像のURL"""
+  baseImageUrl: String!
+
+  """既存キャラクターID（指定時はそのキャラクターに表情を追加、省略時は新規作成）"""
+  characterId: String
+
+  """キャラクター名（新規作成時のみ使用、省略時は自動生成）"""
+  characterName: String
+
+  """生成する表情のリスト（最大10個、デフォルト: [笑顔, 涙, 悲しみ, 無表情, 怒り]）"""
+  expressions: [String!]
+
+  """IPアドレス（任意）"""
+  ipaddress: String
+
+  """生成する画像サイズ"""
+  size: GeminiImageSize!
+}
+
 input CreateFluxImageGenerationTaskInput {
   """生成する枚数"""
   count: Int
 
   """画像のサイズ（画像タイプを上書き）"""
   height: Int
+
+  """IPアドレス（任意）"""
+  ipaddress: String
 
   """プロンプト生成を有効にする"""
   isPromptGenerationEnabled: Boolean
@@ -760,6 +942,12 @@ input CreateGeminiImageGenerationTaskInput {
 
   """参考画像URL（任意、imageBase64より優先）"""
   imageUrl: String
+
+  """参考画像のURL配列、imageUrlに追加して使う画像がある場合は指定（ブレンド生成）"""
+  imageUrls: [String!]
+
+  """IPアドレス（任意）"""
+  ipaddress: String
 
   """画像のMIMEタイプ（image/png, image/jpeg など、imageBase64指定時必須）"""
   mimeType: String
@@ -815,6 +1003,9 @@ input CreateImageGenerationTaskInput {
 
   """画像のサイズ（画像タイプを上書き）"""
   height: Int
+
+  """IPアドレス（任意）"""
+  ipaddress: String
 
   """プロンプト生成を有効にする"""
   isPromptGenerationEnabled: Boolean
@@ -1058,6 +1249,9 @@ input CreateReservedImageGenerationTaskInput {
 
   """画像のサイズ（画像タイプを上書き）"""
   height: Int
+
+  """IPアドレス（任意）"""
+  ipaddress: String
   isPromptGenerationEnabled: Boolean
   model: String!
   negativePrompt: String!
@@ -1415,6 +1609,11 @@ input DeleteImageGenerationMemoInput {
 
 input DeleteImageGenerationResultInput {
   nanoid: String!
+}
+
+input DeleteMaterialImageInput {
+  """削除する素材画像のID"""
+  materialId: ID!
 }
 
 input DeleteMessageInput {
@@ -2717,6 +2916,11 @@ input LoginWithWordPressTokenInput {
   token: String!
 }
 
+type MaintenanceStatusNode {
+  isMaintenanceModeWeb: Boolean!
+  maintenanceMessageWeb: String!
+}
+
 input MarkPromptonFolderAsPrivateInput {
   folderId: String!
 }
@@ -2743,6 +2947,18 @@ input MarkPromptonWorkAsPublicInput {
 
 input MarkPromptonWorkAsUserHeaderInput {
   workId: String!
+}
+
+"""素材画像"""
+type MaterialImageNode {
+  """作成日時"""
+  createdAt: String!
+
+  """ID"""
+  id: ID!
+
+  """画像URL"""
+  imageUrl: String!
 }
 
 """メッセージ"""
@@ -2904,6 +3120,18 @@ type Mutation {
   """フォルダに作品を追加する"""
   createAlbumWork(input: CreateAlbumWorkInput!): WorkNode!
 
+  """キャラクターを作成する"""
+  createCharacter(input: CreateCharacterInput!): CharacterNode!
+
+  """キャラクターの単一表情を生成する"""
+  createCharacterExpression(input: CreateCharacterExpressionInput!): CharacterExpressionNode!
+
+  """キャラクター表情差分を一括生成する"""
+  createCharacterExpressionBatchGenerationTask(input: CreateCharacterExpressionBatchGenerationTaskInput!): CharacterExpressionBatchResult!
+
+  """キャラクターを自動作成して表情差分を生成する"""
+  createCharacterWithExpressions(input: CreateCharacterWithExpressionsInput!): CharacterWithExpressionsResult!
+
   """作品のコメントをいいねする"""
   createCommentLike(input: CreateCommentLikeInput!): CommentNode!
 
@@ -2915,6 +3143,9 @@ type Mutation {
 
   """Fluxの画像生成のタスクを作成する"""
   createDemoFluxImageGenerationTask(input: CreateFluxImageGenerationTaskInput!): ImageGenerationTaskNode
+
+  """画像から複数の表情差分を生成する"""
+  createExpressionsFromImage(input: CreateExpressionsFromImageInput!): CharacterExpressionBatchResult!
 
   """Fluxの画像生成のタスクを作成する"""
   createFluxImageGenerationTask(input: CreateFluxImageGenerationTaskInput!): ImageGenerationTaskNode
@@ -3045,6 +3276,18 @@ type Mutation {
   """シリーズから作品を削除する"""
   deleteAlbumWork(input: DeleteAlbumWorkInput!): WorkNode!
 
+  """キャラクターを削除する"""
+  deleteCharacter(
+    """キャラクターID"""
+    characterId: String!
+  ): Boolean!
+
+  """キャラクター表情を削除する"""
+  deleteCharacterExpression(
+    """表情ID"""
+    expressionId: String!
+  ): Boolean!
+
   """作品のコメントを削除する"""
   deleteComment(input: DeleteCommentInput!): CommentNode!
 
@@ -3065,6 +3308,9 @@ type Mutation {
 
   """生成履歴を削除する"""
   deleteImageGenerationResult(input: DeleteImageGenerationResultInput!): ImageGenerationResultNode!
+
+  """素材画像を削除する（論理削除）"""
+  deleteMaterialImage(input: DeleteMaterialImageInput!): MaterialImageNode!
 
   """メッセージを削除する"""
   deleteMessage(input: DeleteMessageInput!): MessageNode!
@@ -3185,6 +3431,9 @@ type Mutation {
 
   """作品をピン留めする"""
   pinPromptonWork(input: PinPromptonWorkInput!): PromptonWorkNode! @deprecated(reason: "機能廃止")
+
+  """キャラクターの表情を再生成する"""
+  regenerateCharacterExpression(input: RegenerateCharacterExpressionInput!): CharacterExpressionNode!
 
   """リクエストを拒否する"""
   rejectPromptonRequest(input: RejectPromptonRequestInput!): PromptonRequestNode!
@@ -3368,6 +3617,9 @@ type Mutation {
 
   """作品のタグを更新する"""
   updateWorkTags(input: UpdateWorkTagsInput!): WorkNode!
+
+  """素材画像をアップロードする"""
+  uploadMaterialImage(input: UploadMaterialImageInput!): MaterialImageNode!
 
   """フォルダをウォッチする"""
   watchFolder(input: WatchFolderInput!): FolderNode!
@@ -4841,6 +5093,21 @@ type Query {
   """カテゴリ"""
   category(id: ID!): CategoryNode!
 
+  """キャラクターの表情一覧を取得"""
+  characterExpressions(
+    """キャラクターID"""
+    characterId: String!
+  ): [CharacterExpressionNode!]!
+
+  """ユーザーのキャラクター一覧を取得"""
+  characters(
+    """取得件数（デフォルト: 20、最大: 100）"""
+    limit: Int
+
+    """オフセット（デフォルト: 0）"""
+    offset: Int
+  ): [CharacterNode!]!
+
   """コメント"""
   comments(limit: Int!, offset: Int!, orderBy: CommentsOrderBy!, where: CommentsWhereInput!): [CommentNode!]!
 
@@ -4936,6 +5203,15 @@ type Query {
 
   """いいねしたユーザ"""
   likedUsers(limit: Int!, offset: Int!, where: LikedUsersWhereInput!): [UserNode!]!
+
+  """メンテナンス状態"""
+  maintenanceStatus: MaintenanceStatusNode!
+
+  """ログインユーザーの素材画像一覧"""
+  materialImages(limit: Int!, offset: Int!): [MaterialImageNode!]!
+
+  """ログインユーザーの素材画像の総数"""
+  materialImagesCount: Int!
 
   """マイルストーン"""
   milestones(where: MilestonesWhereInput!): [MilestoneNode!]!
@@ -5143,6 +5419,15 @@ type RecommendedTagNode {
 
 input RecommendedTagsWhereInput {
   isSensitive: Boolean
+}
+
+"""キャラクター表情再生成のInput"""
+input RegenerateCharacterExpressionInput {
+  """再生成する表情ID"""
+  expressionId: String!
+
+  """IPアドレス（任意）"""
+  ipaddress: String
 }
 
 input RejectPromptonRequestInput {
@@ -5937,6 +6222,11 @@ input UpdateWorkTagsInput {
 
   """タグ"""
   tags: [String!]
+}
+
+input UploadMaterialImageInput {
+  """アップロードする画像のURL"""
+  imageUrl: String!
 }
 
 input UserAlbumInput {

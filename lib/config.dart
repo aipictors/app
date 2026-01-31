@@ -6,6 +6,8 @@ import 'package:package_info_plus/package_info_plus.dart';
 class DefaultConfig {
   const DefaultConfig();
 
+  static const String _defaultGraphqlEndpoint = 'https://aipics.fly.dev';
+
   static PackageInfo? packageInfo;
 
   /// アナリティクスのカスタムのイベント
@@ -35,7 +37,36 @@ class DefaultConfig {
   /// Remote Config
   static String get graphqlEndpoint {
     final remoteConfig = FirebaseRemoteConfig.instance;
-    return remoteConfig.getString('graphql_endpoint');
+
+    // Optional override (e.g. for local dev / emergency hotfix builds).
+    final envValue = const String.fromEnvironment('graphqlEndpoint').trim();
+    if (envValue.isNotEmpty) {
+      return envValue;
+    }
+
+    // Primary source of truth.
+    final remoteValue = remoteConfig.getString('graphql_endpoint').trim();
+    if (remoteValue.isNotEmpty) {
+      // Accept plain hostnames (e.g. "aipics.fly.dev") and upgrade to https.
+      final normalized = remoteValue.startsWith('http://') || remoteValue.startsWith('https://')
+          ? remoteValue
+          : (remoteValue.startsWith('//') ? 'https:$remoteValue' : 'https://$remoteValue');
+
+      // Some deployments publish router endpoints that are not reachable from this app.
+      // When detected, ignore Remote Config and fall back to a stable default.
+      final uri = Uri.tryParse(normalized);
+      final host = uri?.host ?? '';
+      final isBlockedRouterEndpoint = host == 'router-sn4ve5jg4q-an.a.run.app' ||
+          (host.startsWith('router-') && host.endsWith('.a.run.app'));
+      if (isBlockedRouterEndpoint) {
+        return _defaultGraphqlEndpoint;
+      }
+
+      return normalized;
+    }
+
+    // Fallback to keep the app usable even when Remote Config isn't available.
+    return _defaultGraphqlEndpoint;
   }
 
   /// Remote Config

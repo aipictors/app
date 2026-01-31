@@ -34,6 +34,7 @@ import 'package:aipictors/features/information/information_screen.dart';
 import 'package:aipictors/features/information/promotion_screen.dart';
 import 'package:aipictors/features/license/license_screen.dart';
 import 'package:aipictors/features/login/login_screen.dart';
+import 'package:aipictors/features/login/profile_setup_screen.dart';
 import 'package:aipictors/features/post/comment_report_screen.dart';
 import 'package:aipictors/features/post/work_create_screen.dart';
 import 'package:aipictors/features/post/work_report_screen.dart';
@@ -69,6 +70,14 @@ import 'package:go_router/go_router.dart';
 final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
 
 final _routes = [
+  // Firebase Auth OAuth callbacks (e.g. iOS custom scheme):
+  // com.googleusercontent.apps.<...>://firebaseauth/link?... -> path: /link
+  GoRoute(
+    path: '/link',
+    builder: (context, state) {
+      return const LoginScreen();
+    },
+  ),
   GoRoute(
     path: '/',
     pageBuilder: (context, state) {
@@ -433,6 +442,12 @@ final _routes = [
     },
   ),
   GoRoute(
+    path: '/profile/setup',
+    builder: (context, state) {
+      return const ProfileSetupScreen();
+    },
+  ),
+  GoRoute(
     path: '/privacy',
     builder: (context, state) {
       return const PrivacyScreen();
@@ -468,6 +483,10 @@ final routerConfig = GoRouter(
   initialLocation: '/',
   routes: _routes,
   navigatorKey: _navigatorKey,
+  errorBuilder: (context, state) {
+    // Avoid crashing the app on unexpected deep links.
+    return const RootScreen();
+  },
   observers: [
     // SentryNavigatorObserver(),
     FirebaseAnalyticsObserver(

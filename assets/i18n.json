@@ -1,5 +1,25 @@
 [
   {
+    "ja": "yyyy年MM月dd日 HH時mm分",
+    "en": "yyyy-MM-dd HH:mm",
+    "vi": "yyyy-MM-dd HH:mm",
+    "zh_cn": "yyyy-MM-dd HH:mm",
+    "zh_tw": "yyyy-MM-dd HH:mm",
+    "it": "yyyy-MM-dd HH:mm",
+    "fr": "yyyy-MM-dd HH:mm",
+    "kr": "yyyy-MM-dd HH:mm"
+  },
+  {
+    "ja": "サーバーから不正な応答が返されました。",
+    "en": "Invalid response from server.",
+    "vi": "Phản hồi từ máy chủ không hợp lệ.",
+    "zh_cn": "服务器返回了无效响应。",
+    "zh_tw": "伺服器回傳了無效回應。",
+    "it": "Risposta non valida dal server.",
+    "fr": "Réponse invalide du serveur.",
+    "kr": "서버에서 올바르지 않은 응답이 반환되었습니다."
+  },
+  {
     "ja": "_COMMENTS_COUNT_件のコメント",
     "en": "_COMMENTS_COUNT_ Comments",
     "vi": "_COMMENTS_COUNT_",
@@ -2401,5 +2421,75 @@
     "it": "Terms of Use (EULA)",
     "fr": "Terms of Use (EULA)",
     "vi": "Terms of Use (EULA)"
+  },
+  {
+    "ja": "ログイン方法を選択してください。",
+    "en": "Please choose a login method.",
+    "vi": "Vui lòng chọn phương thức đăng nhập.",
+    "zh_cn": "请选择登录方式。",
+    "zh_tw": "請選擇登入方式。",
+    "it": "Seleziona un metodo di accesso.",
+    "fr": "Veuillez choisir une méthode de connexion.",
+    "kr": "로그인 방법을 선택해 주세요."
+  },
+  {
+    "ja": "Googleでログイン",
+    "en": "Sign in with Google",
+    "vi": "Đăng nhập bằng Google",
+    "zh_cn": "使用 Google 登录",
+    "zh_tw": "使用 Google 登入",
+    "it": "Accedi con Google",
+    "fr": "Se connecter avec Google",
+    "kr": "Google로 로그인"
+  },
+  {
+    "ja": "認証情報が無効です。Xログインの場合、FirebaseのTwitterプロバイダ設定（API Key/Secret）と、X Developer PortalのCallback URL（/__/auth/handler）が正しいか確認してください。",
+    "en": "Invalid credentials. For X sign-in, verify the Twitter provider settings in Firebase (API Key/Secret) and the Callback URL (/__/auth/handler) in the X Developer Portal.",
+    "vi": "Thông tin xác thực không hợp lệ. Với đăng nhập X, hãy kiểm tra cài đặt Twitter trong Firebase (API Key/Secret) và Callback URL (/__/auth/handler) trong X Developer Portal.",
+    "zh_cn": "凭据无效。对于 X 登录，请检查 Firebase 中的 Twitter 提供方设置（API Key/Secret）以及 X 开发者后台的回调地址（/__/auth/handler）。",
+    "zh_tw": "憑證無效。使用 X 登入時，請確認 Firebase 的 Twitter 提供者設定（API Key/Secret）與 X 開發者後台的 Callback URL（/__/auth/handler）。",
+    "it": "Credenziali non valide. Per l'accesso con X, verifica le impostazioni del provider Twitter in Firebase (API Key/Secret) e la Callback URL (/__/auth/handler) nel portale sviluppatori X.",
+    "fr": "Identifiants invalides. Pour la connexion X, vérifiez la configuration Twitter dans Firebase (API Key/Secret) et l'URL de rappel (/__/auth/handler) dans le portail développeur X.",
+    "kr": "자격 증명이 유효하지 않습니다. X 로그인은 Firebase의 Twitter 제공자 설정(API Key/Secret)과 X 개발자 포털의 Callback URL(/__/auth/handler)을 확인하세요."
+  },
+  {
+    "ja": "認証画面の操作に失敗しました（途中で閉じた/ブロックされた可能性）。もう一度お試しください。",
+    "en": "Authentication interaction failed (may have been closed or blocked). Please try again.",
+    "vi": "Tương tác xác thực thất bại (có thể đã bị đóng hoặc bị chặn). Vui lòng thử lại.",
+    "zh_cn": "认证交互失败（可能被关闭或被拦截）。请重试。",
+    "zh_tw": "認證互動失敗（可能已關閉或被封鎖）。請再試一次。",
+    "it": "Interazione di autenticazione non riuscita (potrebbe essere stata chiusa o bloccata). Riprova.",
+    "fr": "Échec de l'interaction d'authentification (fermée ou bloquée). Veuillez réessayer.",
+    "kr": "인증 화면 상호작용에 실패했습니다(닫혔거나 차단되었을 수 있음). 다시 시도해 주세요."
+  },
+  {
+    "ja": "認証がキャンセルされました。",
+    "en": "Authentication was cancelled.",
+    "vi": "Xác thực đã bị hủy.",
+    "zh_cn": "认证已取消。",
+    "zh_tw": "已取消認證。",
+    "it": "Autenticazione annullata.",
+    "fr": "Authentification annulée.",
+    "kr": "인증이 취소되었습니다."
+  },
+  {
+    "ja": "同じメールアドレスの別ログイン方法のアカウントが既に存在します。別の方法でログインして連携してください。",
+    "en": "An account already exists with the same email using a different sign-in method. Sign in with the other method and link accounts.",
+    "vi": "Đã tồn tại tài khoản với cùng email bằng phương thức đăng nhập khác. Hãy đăng nhập bằng phương thức đó và liên kết tài khoản.",
+    "zh_cn": "同一邮箱已使用其他登录方式注册。请使用其他方式登录并进行账号关联。",
+    "zh_tw": "同一電子郵件已使用其他登入方式註冊。請使用其他方式登入並連結帳號。",
+    "it": "Esiste già un account con la stessa email usando un metodo di accesso diverso. Accedi con l'altro metodo e collega gli account.",
+    "fr": "Un compte existe déjà avec la même adresse e-mail via une autre méthode de connexion. Connectez-vous avec l'autre méthode et liez les comptes.",
+    "kr": "같은 이메일로 다른 로그인 방법의 계정이 이미 존재합니다. 다른 방법으로 로그인한 뒤 계정을 연결해 주세요."
+  },
+  {
+    "ja": "ログインに失敗しました（_CODE_）。",
+    "en": "Login failed (_CODE_).",
+    "vi": "Đăng nhập thất bại (_CODE_).",
+    "zh_cn": "登录失败（_CODE_）。",
+    "zh_tw": "登入失敗（_CODE_）。",
+    "it": "Accesso non riuscito (_CODE_).",
+    "fr": "Échec de la connexion (_CODE_).",
+    "kr": "로그인에 실패했습니다(_CODE_)."
   }
 ]

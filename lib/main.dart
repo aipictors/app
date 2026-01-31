@@ -57,7 +57,12 @@ void main() async {
   ));
 
   // RemoteConfigを取得して初期化する
-  await remoteConfig.fetchAndActivate();
+  try {
+    await remoteConfig.fetchAndActivate();
+  } catch (exception) {
+    // ignore: avoid_print
+    print(exception);
+  }
 
   FirebaseInAppMessaging.instance.setAutomaticDataCollectionEnabled(true);
 

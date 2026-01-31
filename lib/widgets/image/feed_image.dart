@@ -1,5 +1,6 @@
 import 'package:aipictors/widgets/dialog/interactive_image_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -53,10 +54,31 @@ class FeedImage extends HookConsumerWidget {
                 );
               },
               errorWidget: (context, uri, error) {
+                if (!kReleaseMode) {
+                  // ignore: avoid_print
+                  print('Failed to load image: $uri ($error)');
+                }
                 return Container(
                   width: double.infinity,
                   height: double.infinity,
                   color: Theme.of(context).disabledColor,
+                  child: !kReleaseMode
+                      ? Center(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8),
+                            child: Text(
+                              '画像の読み込みに失敗しました\n$uri\n$error',
+                              textAlign: TextAlign.center,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelSmall
+                                  ?.copyWith(color: Colors.black54),
+                              maxLines: 6,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        )
+                      : null,
                 );
               },
             ),

@@ -33,6 +33,17 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
+				<string>com.googleusercontent.apps.527103542609-s7uile1pt6he20teltcl35rfph0uhsq8</string>
+				<string>com.googleusercontent.apps.527103542609-abafs4t0qdrnffkl5vos6lckvbu17i8l</string>
+				<string>com.googleusercontent.apps.698114764060-2334u38dpjk6jbm7dr0u2q9thmadr6oa</string>
+				<string>com.googleusercontent.apps.698114764060-09a5u1n74i91uhsgovsem16vsaais8dm</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
 				<string>app-1-527103542609-ios-27b871d78d1f5c9f16ff70</string>
 			</array>
 		</dict>

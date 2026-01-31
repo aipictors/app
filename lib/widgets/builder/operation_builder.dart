@@ -2,6 +2,7 @@ import 'package:aipictors/widgets/error/data_not_found_error_container.dart';
 import 'package:aipictors/widgets/error/operation_error_container.dart';
 import 'package:aipictors/widgets/error/unexpected_error_container.dart';
 import 'package:aipictors/widgets/loading_progress.dart';
+import 'package:aipictors/utils/to_exception_message.dart';
 import 'package:ferry/ferry.dart';
 import 'package:ferry_flutter/ferry_flutter.dart';
 import 'package:flutter/material.dart';
@@ -31,22 +32,34 @@ class OperationBuilder<T, U> extends HookConsumerWidget {
       operationRequest: operationRequest,
       builder: (context, response, error) {
         if (error != null) {
-          return const UnexpectedErrorContainer();
+      if (response?.data != null) {
+        return builder(context, response!);
+      }
+      return UnexpectedErrorContainer(message: toExceptionMessage(error));
         }
 
         if (response?.linkException?.originalException != null) {
-          return const UnexpectedErrorContainer();
+      if (response?.data != null) {
+        return builder(context, response!);
+      }
+      return UnexpectedErrorContainer(
+        message: toExceptionMessage(response!.linkException!.originalException),
+      );
         }
 
-        if (response == null || response.loading) {
+        // Ferry can emit `loading: true` even when cached/previous data is
+        // available (e.g. cache-and-network). Prefer showing existing data to
+        // avoid the UI snapping back to a spinner.
+        if (response == null || (response.loading && response.data == null)) {
           return const LoadingProgress();
         }
 
-        if (response.graphqlErrors != null) {
-          return OperationErrorContainer(errorList: response.graphqlErrors!);
-        }
-
         final data = response.data;
+
+		// GraphQL can return partial data with errors. Prefer showing data when available.
+		if (response.graphqlErrors != null && data == null) {
+			return OperationErrorContainer(errorList: response.graphqlErrors!);
+		}
 
         if (data == null) {
           return const DataNotFoundErrorContainer();

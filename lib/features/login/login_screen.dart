@@ -1,4 +1,6 @@
 import 'package:aipictors/default.i18n.dart';
+import 'package:aipictors/features/login/functions/is_initialized_user_profile.dart';
+import 'package:aipictors/features/login/functions/login_with_google.dart';
 import 'package:aipictors/features/login/functions/login_with_password.dart';
 import 'package:aipictors/features/login/functions/login_with_twitter.dart';
 import 'package:aipictors/features/login/widgets/login_id_form.dart';
@@ -124,28 +126,43 @@ class LoginScreen extends HookConsumerWidget {
                     const Divider(height: 0),
                     const SizedBox(height: 32),
                     Text(
-                      '現在、アプリでのログインはパスワード認証のみに対応しています。パスワードはサイトから設定または変更できます。'
-                          .i18n,
+                      'ログイン方法を選択してください。'.i18n,
                       style: Theme.of(context).textTheme.labelMedium,
                     ),
-                    // const SizedBox(height: 40),
-                    // SizedBox(
-                    //   width: double.infinity,
-                    //   child: FilledButton(
-                    //     style: FilledButton.styleFrom(
-                    //       fixedSize: const Size.fromHeight(48),
-                    //     ),
-                    //     onPressed: null,
-                    //     // onPressed: isLoading.value
-                    //     //     ? null
-                    //     //     : () async {
-                    //     //         isLoading.value = true;
-                    //     //         await onLoginWithTwitter(context, ref);
-                    //     //         isLoading.value = false;
-                    //     //       },
-                    //     child: Text('X(Twitter)でログイン'.i18n),
-                    //   ),
-                    // ),
+                    const SizedBox(height: 16),
+                    SizedBox(
+                      width: double.infinity,
+                      child: FilledButton(
+                        style: FilledButton.styleFrom(
+                          fixedSize: const Size.fromHeight(48),
+                        ),
+                        onPressed: isLoading.value
+                            ? null
+                            : () async {
+                                isLoading.value = true;
+                                await onLoginWithGoogle(context, ref);
+                                isLoading.value = false;
+                              },
+                        child: Text('Googleでログイン'.i18n),
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    SizedBox(
+                      width: double.infinity,
+                      child: FilledButton(
+                        style: FilledButton.styleFrom(
+                          fixedSize: const Size.fromHeight(48),
+                        ),
+                        onPressed: isLoading.value
+                            ? null
+                            : () async {
+                                isLoading.value = true;
+                                await onLoginWithTwitter(context, ref);
+                                isLoading.value = false;
+                              },
+                        child: Text('X(Twitter)でログイン'.i18n),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -203,8 +220,10 @@ class LoginScreen extends HookConsumerWidget {
         return const LoadingProgress();
       },
     );
+    var initialized = true;
     try {
       await loginWithTwitter();
+      initialized = await isInitializedUserProfile();
       FirebaseAnalytics.instance.logLogin(loginMethod: 'twitter');
       // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context)
@@ -223,6 +242,54 @@ class LoginScreen extends HookConsumerWidget {
     if (context.canPop()) {
       // ignore: use_build_context_synchronously
       context.pop();
+    }
+
+    // ignore: use_build_context_synchronously
+    if (context.mounted && initialized == false) {
+      // ignore: use_build_context_synchronously
+      context.push('/profile/setup');
+    }
+  }
+
+  onLoginWithGoogle(
+    BuildContext context,
+    WidgetRef ref,
+  ) async {
+    FocusManager.instance.primaryFocus?.unfocus();
+    showDialog<void>(
+      context: context,
+      builder: (_) {
+        return const LoadingProgress();
+      },
+    );
+    var initialized = true;
+    try {
+      await loginWithGoogle();
+      initialized = await isInitializedUserProfile();
+      FirebaseAnalytics.instance.logLogin(loginMethod: 'google');
+      // ignore: use_build_context_synchronously
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(
+          SnackBar(content: Text('ログインしました'.i18n)),
+        );
+    } catch (exception) {
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(
+          SnackBar(content: Text(toExceptionMessage(exception))),
+        );
+    }
+    // ignore: use_build_context_synchronously
+    if (context.canPop()) {
+      // ignore: use_build_context_synchronously
+      context.pop();
+    }
+
+    // ignore: use_build_context_synchronously
+    if (context.mounted && initialized == false) {
+      // ignore: use_build_context_synchronously
+      context.push('/profile/setup');
     }
   }
 }
