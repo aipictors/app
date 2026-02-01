@@ -1,6 +1,5 @@
 import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/features/viewer/__generated__/viewer_user.data.gql.dart';
-import 'package:aipictors/providers/auth_state_provider.dart';
 import 'package:aipictors/providers/home_tab_index_provider.dart';
 import 'package:aipictors/providers/viewer_provider.dart';
 import 'package:flutter/material.dart';
@@ -13,8 +12,6 @@ class HomeNavigationRail extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
-    final authState = ref.watch(authStateProvider);
-
     final pageIndex = ref.watch(homeTabIndexProvider);
 
     final ValueNotifier<GViewerUserData?> viewer = useState(null);
@@ -35,30 +32,21 @@ class HomeNavigationRail extends HookConsumerWidget {
           label: Text('お題'.i18n),
           padding: const EdgeInsets.symmetric(vertical: 4),
         ),
-        if (authState.value == null)
-          NavigationRailDestination(
-            icon: const Icon(Icons.explore_rounded),
-            label: Text('見つける'.i18n),
-            padding: const EdgeInsets.symmetric(vertical: 4),
-          ),
-        if (authState.value != null)
-          NavigationRailDestination(
-            icon: const Icon(Icons.science_rounded),
-            label: Text('生成'.i18n),
-            padding: const EdgeInsets.symmetric(vertical: 4),
-          ),
-        if (authState.value == null)
-          NavigationRailDestination(
-            icon: const Icon(Icons.login_rounded),
-            label: Text('ログイン'.i18n),
-            padding: const EdgeInsets.symmetric(vertical: 4),
-          ),
-        if (authState.value != null)
-          NavigationRailDestination(
-            icon: const Icon(Icons.notifications_rounded),
-            label: Text('通知'.i18n),
-            padding: const EdgeInsets.symmetric(vertical: 4),
-          ),
+        NavigationRailDestination(
+          icon: const Icon(Icons.explore_rounded),
+          label: Text('見つける'.i18n),
+          padding: const EdgeInsets.symmetric(vertical: 4),
+        ),
+        NavigationRailDestination(
+          icon: const Icon(Icons.science_rounded),
+          label: Text('生成'.i18n),
+          padding: const EdgeInsets.symmetric(vertical: 4),
+        ),
+        NavigationRailDestination(
+          icon: const Icon(Icons.notifications_rounded),
+          label: Text('通知'.i18n),
+          padding: const EdgeInsets.symmetric(vertical: 4),
+        ),
         NavigationRailDestination(
           icon: const Icon(Icons.more_horiz_rounded),
           label: Text('その他'.i18n),

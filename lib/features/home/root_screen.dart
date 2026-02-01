@@ -122,18 +122,16 @@ class RootScreen extends HookConsumerWidget {
     final screenList = [
       const FeedScreen(key: PageStorageKey('root_feed')),
       const DailyThemeHomeScreen(key: PageStorageKey('root_daily_theme')),
-      if (authState.value == null)
-        const ExplorerScreen(key: PageStorageKey('root_explorer')),
-      if (authState.value != null)
-        const GenerationConstructionScreen(
-          key: PageStorageKey('root_generation'),
-        ),
-      // const GenerationScreen(key: PageStorageKey('root_generation')),
-      if (authState.value == null)
-        const HelloScreen(key: PageStorageKey('root_hello')),
-      if (authState.value != null)
-        const NotificationScreen(key: PageStorageKey('root_notification')),
-      const ConfigScreen(key: PageStorageKey('root_config'))
+      const ExplorerScreen(key: PageStorageKey('root_explorer')),
+      authState.value != null
+          ? const GenerationConstructionScreen(
+              key: PageStorageKey('root_generation'),
+            )
+          : const HelloScreen(key: PageStorageKey('root_login_generation')),
+      authState.value != null
+          ? const NotificationScreen(key: PageStorageKey('root_notification'))
+          : const HelloScreen(key: PageStorageKey('root_login_notification')),
+      const ConfigScreen(key: PageStorageKey('root_config')),
     ];
 
     return LayoutBuilder(builder: (context, constraints) {
