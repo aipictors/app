@@ -24,7 +24,8 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  FLUTTER_VERSION: "3.24.1"
+  # Keep CI Flutter/Dart aligned with pubspec.yaml environment constraints.
+  FLUTTER_VERSION: "3.38.4"
   BUILD_ENV: ${{ github.event.inputs.environment || 'production' }}
 
 jobs:
