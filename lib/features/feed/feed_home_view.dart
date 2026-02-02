@@ -1,4 +1,5 @@
 import 'package:aipictors/features/feed/__generated__/feed_home_view.req.gql.dart';
+import 'package:aipictors/features/feed/feed_popular_work_list_view.dart';
 import 'package:aipictors/features/feed/widgets/feed_work_list_tile.dart';
 import 'package:aipictors/features/feed/widgets/home_message_list_tile.dart';
 import 'package:aipictors/providers/audio_provider.dart';
@@ -6,7 +7,6 @@ import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/widgets/builder/operation_builder.dart';
 import 'package:aipictors/widgets/end_of_content.dart';
-import 'package:aipictors/widgets/error/data_empty_error_container.dart';
 import 'package:aipictors/widgets/error/data_not_found_error_container.dart';
 import 'package:aipictors/widgets/loading_progress.dart';
 import 'package:audioplayers/audioplayers.dart';
@@ -60,7 +60,8 @@ class FeedHomeView extends HookConsumerWidget {
             return const DataNotFoundErrorContainer();
           }
           if (workList.isEmpty) {
-            return const DataEmptyErrorContainer();
+            // If the follow feed is empty, show the same data as guest mode.
+            return const FeedPopularWorksView();
           }
           return ListView.separated(
             shrinkWrap: true,

@@ -25,7 +25,7 @@ concurrency:
 
 env:
   # Keep CI Flutter/Dart aligned with pubspec.yaml environment constraints.
-  FLUTTER_VERSION: "3.38.4"
+  FLUTTER_VERSION: "3.38.7"
   BUILD_ENV: ${{ github.event.inputs.environment || 'production' }}
 
 jobs:
@@ -51,6 +51,9 @@ jobs:
 
       - name: Flutter pub get
         run: flutter pub get
+
+      - name: Generate code
+        run: dart run build_runner build --delete-conflicting-outputs
 
       - name: Build APK (release)
         run: flutter build apk --release --dart-define-from-file=dart_defines/${{ env.BUILD_ENV }}.json
@@ -83,6 +86,9 @@ jobs:
 
       - name: Flutter pub get
         run: flutter pub get
+
+      - name: Generate code
+        run: dart run build_runner build --delete-conflicting-outputs
 
       - name: Pod install
         run: cd ios && pod install
