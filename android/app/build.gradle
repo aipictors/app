@@ -39,8 +39,12 @@ def dartDefines = [:];
 if (project.hasProperty('dart-defines')) {
     dartDefines = dartDefines + project.property('dart-defines').split(',')
         .collectEntries { entry ->
-            def pair = new String(entry.decodeBase64(), 'UTF-8').split('=')
-            [(pair.first()): pair.last()]
+            // Flutter may encode empty values as just `KEY` (no `=`),
+            // so we split into at most 2 parts and treat missing value as empty.
+            def pair = new String(entry.decodeBase64(), 'UTF-8').split('=', 2)
+            def key = pair[0]
+            def value = pair.length > 1 ? pair[1] : ''
+            [(key): value]
         }
 }
 
@@ -72,7 +76,14 @@ android {
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
-        applicationIdSuffix dartDefines.appIdSuffix ?: "debug"
+
+        // If appIdSuffix is provided via --dart-define(-from-file) and is empty (production),
+        // we should NOT fall back to a default value.
+        def appIdSuffix = dartDefines.containsKey('appIdSuffix') ? dartDefines.appIdSuffix : 'debug'
+        if (appIdSuffix != null && appIdSuffix.toString().length() > 0) {
+            applicationIdSuffix appIdSuffix
+        }
+
         resValue "string", "app_name", dartDefines.appName ?: "Aipictors"
         multiDexEnabled true
     }
