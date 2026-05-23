@@ -41,7 +41,7 @@ Future<Client> createClient() async {
     );
   } catch (exception) {
     // If endpoint is malformed, fall back so the app can still show a real error screen.
-    endpoint = 'https://aipics.fly.dev';
+    endpoint = DefaultConfig.graphqlEndpoint;
     if (!kReleaseMode) {
       // ignore: avoid_print
       print('Falling back GraphQL endpoint to: $endpoint ($exception)');

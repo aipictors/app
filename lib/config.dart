@@ -6,7 +6,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 class DefaultConfig {
   const DefaultConfig();
 
-  static const String _defaultGraphqlEndpoint = 'https://aipics.fly.dev';
+  static const String _defaultGraphqlEndpoint = 'https://api.aipictors.com/';
 
   static PackageInfo? packageInfo;
 
@@ -47,18 +47,19 @@ class DefaultConfig {
     // Primary source of truth.
     final remoteValue = remoteConfig.getString('graphql_endpoint').trim();
     if (remoteValue.isNotEmpty) {
-      // Accept plain hostnames (e.g. "aipics.fly.dev") and upgrade to https.
+      // Accept plain hostnames and upgrade to https.
       final normalized = remoteValue.startsWith('http://') || remoteValue.startsWith('https://')
           ? remoteValue
           : (remoteValue.startsWith('//') ? 'https:$remoteValue' : 'https://$remoteValue');
 
-      // Some deployments publish router endpoints that are not reachable from this app.
-      // When detected, ignore Remote Config and fall back to a stable default.
+      // Some legacy or router endpoints are no longer reachable from this app.
+      // When detected, ignore Remote Config and fall back to the stable public GraphQL endpoint.
       final uri = Uri.tryParse(normalized);
       final host = uri?.host ?? '';
       final isBlockedRouterEndpoint = host == 'router-sn4ve5jg4q-an.a.run.app' ||
           (host.startsWith('router-') && host.endsWith('.a.run.app'));
-      if (isBlockedRouterEndpoint) {
+      final isLegacyFlyEndpoint = host == 'aipics.fly.dev';
+      if (isBlockedRouterEndpoint || isLegacyFlyEndpoint) {
         return _defaultGraphqlEndpoint;
       }
 

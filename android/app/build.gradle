@@ -79,7 +79,7 @@ android {
 
         // If appIdSuffix is provided via --dart-define(-from-file) and is empty (production),
         // we should NOT fall back to a default value.
-        def appIdSuffix = dartDefines.containsKey('appIdSuffix') ? dartDefines.appIdSuffix : 'debug'
+        def appIdSuffix = dartDefines.containsKey('appIdSuffix') ? dartDefines.appIdSuffix : 'develop'
         if (appIdSuffix != null && appIdSuffix.toString().length() > 0) {
             applicationIdSuffix appIdSuffix
         }
@@ -115,7 +115,7 @@ flutter {
     source '../..'
 }
 
-def flavor = dartDefines.flavor ?: 'debug'
+def flavor = dartDefines.flavor ?: 'develop'
 
 task setupFlavor(type: Exec) {
     commandLine 'sh', '-c', """

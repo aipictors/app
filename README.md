@@ -42,6 +42,8 @@ $ dart run build_runner watch
 
 VSCodeのRunからDevelopまたはProductionを選択して実行する。
 
+Xcodeから通常のDebug実行や `flutter run` を行う場合も、既定では Develop 環境を使用する。
+
 | モード | 値 |
 | -- | -- |
 | 開発モード | Develop |
@@ -81,10 +83,10 @@ $ rm -rf build
 更新があった場合は取得する。
 
 ```bash
-$ bunx get-graphql-schema "https://aipics.fly.dev" > lib/schema.graphql
+$ bunx get-graphql-schema "https://api.aipictors.com/" > lib/schema.graphql
 ```
 
-https://aipics.fly.dev
+https://api.aipictors.com/
 
 ## ソーシャルログイン（Google / X(Twitter)）
 

@@ -18,11 +18,11 @@ class ExplorerTabController extends HookConsumerWidget {
   Widget build(context, ref) {
     final tabIndex = ref.watch(explorerTabIndexProvider);
 
-    const tabSize = 4;
+    final safeInitialIndex = length == 0 ? 0 : tabIndex.clamp(0, length - 1);
 
     return DefaultTabController(
-      initialIndex: tabIndex,
-      length: tabSize,
+      initialIndex: safeInitialIndex,
+      length: length,
       child: Builder(builder: (context) {
         final controller = DefaultTabController.of(context);
         controller.addListener(() {

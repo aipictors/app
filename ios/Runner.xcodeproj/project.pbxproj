@@ -724,8 +724,8 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
-				appIdSuffix = .debug;
-				flavor = debug;
+				appIdSuffix = .develop;
+				flavor = develop;
 			};
 			name = Debug;
 		};
