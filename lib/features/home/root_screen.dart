@@ -74,7 +74,7 @@ class RootScreen extends HookConsumerWidget {
       return const HomeLoadingScreen();
     }
 
-    if (trackingStatus.value == TrackingStatus.notDetermined) {
+    if (trackingStatus.value == TrackingStatus.notDetermined && !DebugBoot.active) {
       AppTrackingTransparency.requestTrackingAuthorization();
     }
 

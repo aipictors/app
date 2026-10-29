@@ -3,6 +3,7 @@ import 'package:aipictors/v2/core/design.dart';
 import 'package:aipictors/v2/core/nav.dart';
 import 'package:aipictors/v2/plans/iap.dart';
 import 'package:aipictors/v2/widgets/common.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -243,7 +244,7 @@ class _PlansScreenState extends State<PlansScreen> {
             foregroundColor: Colors.white,
             backgroundColor: const Color(0xFF3A2C9E),
             flexibleSpace: FlexibleSpaceBar(
-              title: const Text('Aipictors プラン', style: TextStyle(fontWeight: FontWeight.w900)),
+              title: const Text('Aipictors プラン', style: TextStyle(fontWeight: FontWeight.w900, color: Colors.white)),
               background: Stack(fit: StackFit.expand, children: [
                 const DecoratedBox(decoration: BoxDecoration(gradient: Ds.brandGradient)),
                 Positioned(right: -30, top: 20, child: Icon(Icons.auto_awesome_rounded, size: 180, color: Colors.white.withValues(alpha: 0.12))),
@@ -283,7 +284,7 @@ class _PlansScreenState extends State<PlansScreen> {
                 final isDowngrade = current != null && (_rank[plan.type] ?? 0) < (_rank[current] ?? 0);
                 return _PlanCard(
                   plan: plan,
-                  price: product?.price,
+                  price: product?.price ?? (kDebugMode ? const {'LITE': '¥600', 'STANDARD': '¥2,500', 'PREMIUM': '¥4,900'}[plan.type] : null),
                   loadingPrice: _loading,
                   recommended: plan.type == 'STANDARD',
                   isCurrent: isCurrent,

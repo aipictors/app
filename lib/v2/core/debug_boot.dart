@@ -15,6 +15,8 @@ class DebugBoot {
 
   static bool get hasTab => kDebugMode && _tab.isNotEmpty;
 
+  static bool get active => kDebugMode && (_login.isNotEmpty || _tab.isNotEmpty || route.isNotEmpty);
+
   static Future<void> run() async {
     if (!kDebugMode) return;
     if (_login.isNotEmpty || _tab.isNotEmpty || route.isNotEmpty) {
