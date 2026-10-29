@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/design.dart';
 import 'package:aipictors/v2/core/nav.dart';
@@ -184,12 +186,12 @@ class _PlansScreenState extends State<PlansScreen> {
       context.toast(_productsError ?? 'プランの情報を取得できませんでした', error: true);
       return;
     }
-    if (_pass != null && _pass!.strOrNull('paymentProvider') != 'APP_STORE') {
+    if (_pass != null && _pass!.strOrNull('paymentProvider') != storeProvider) {
       await showDialog(
         context: context,
         builder: (context) => AlertDialog.adaptive(
           title: const Text('すでにプランに加入しています'),
-          content: const Text('現在のプランは App Store 以外の方法で加入しています。二重のお支払いにならないよう、アプリからは加入できません。プランの変更・解約は、加入したときと同じ方法で行ってください。'),
+          content: Text('現在のプランは $storeName 以外の方法で加入しています。二重のお支払いにならないよう、アプリからは加入できません。プランの変更・解約は、加入したときと同じ方法で行ってください。'),
           actions: [TextButton(onPressed: () => Navigator.pop(context), child: const Text('OK'))],
         ),
       );
@@ -262,7 +264,7 @@ class _PlansScreenState extends State<PlansScreen> {
               child: _CurrentPassCard(
                 pass: _pass!,
                 provider: provider,
-                onManage: () => _open('https://apps.apple.com/account/subscriptions'),
+                onManage: () => _open(Platform.isAndroid ? 'https://play.google.com/store/account/subscriptions?package=com.aipictors.app' : 'https://apps.apple.com/account/subscriptions'),
               ),
             ),
           if (busy)
@@ -319,15 +321,20 @@ class _PlansScreenState extends State<PlansScreen> {
                 ),
                 const SizedBox(height: 16),
                 Text(
-                  '・お支払いは購入の確定時に Apple ID に請求されます。\n'
-                  '・サブスクリプションは1か月ごとに自動で更新されます。現在の期間が終わる24時間前までに自動更新をオフにしない限り、期間終了前の24時間以内に次の期間の料金が請求されます。\n'
-                  '・自動更新の停止やプランの変更は、iPhone の［設定］→［Apple ID］→［サブスクリプション］からいつでも行えます。\n'
-                  '・App Store 以外の方法で加入したプランとは別のお支払いです。二重に加入しないようご注意ください。',
+                  Platform.isAndroid
+                      ? '・お支払いは購入の確定時に Google アカウントに請求されます。\n'
+                          '・定期購入は1か月ごとに自動で更新されます。解約しない限り、期間の終わりに次の期間の料金が請求されます。\n'
+                          '・解約やプランの変更は、Google Play ストアの［お支払いと定期購入］→［定期購入］からいつでも行えます。\n'
+                          '・Google Play 以外の方法で加入したプランとは別のお支払いです。二重に加入しないようご注意ください。'
+                      : '・お支払いは購入の確定時に Apple ID に請求されます。\n'
+                          '・サブスクリプションは1か月ごとに自動で更新されます。現在の期間が終わる24時間前までに自動更新をオフにしない限り、期間終了前の24時間以内に次の期間の料金が請求されます。\n'
+                          '・自動更新の停止やプランの変更は、iPhone の［設定］→［Apple ID］→［サブスクリプション］からいつでも行えます。\n'
+                          '・App Store 以外の方法で加入したプランとは別のお支払いです。二重に加入しないようご注意ください。',
                   style: TextStyle(color: context.muted, fontSize: 12, height: 1.6),
                 ),
                 const SizedBox(height: 12),
                 Wrap(alignment: WrapAlignment.center, spacing: 4, children: [
-                  TextButton(onPressed: () => _open('https://www.apple.com/legal/internet-services/itunes/dev/stdeula/'), child: const Text('利用規約（EULA）')),
+                  if (!Platform.isAndroid) TextButton(onPressed: () => _open('https://www.apple.com/legal/internet-services/itunes/dev/stdeula/'), child: const Text('利用規約（EULA）')),
                   TextButton(onPressed: () => _open('https://www.aipictors.com/terms'), child: const Text('Aipictors 利用規約')),
                   TextButton(onPressed: () => _open('https://www.aipictors.com/privacy'), child: const Text('プライバシーポリシー')),
                   TextButton(onPressed: () => _open('https://www.aipictors.com/specified-commercial-transaction-act'), child: const Text('特定商取引法に基づく表記')),
@@ -359,7 +366,7 @@ class _CurrentPassCard extends StatelessWidget {
             return '${d.year}年${d.month}月${d.day}日';
           }()
         : null;
-    final appStore = provider == 'APP_STORE';
+    final appStore = provider == storeProvider;
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
       child: Container(
@@ -379,7 +386,7 @@ class _CurrentPassCard extends StatelessWidget {
           Text(
             [
               if (endText != null) '次の更新日：$endText',
-              appStore ? 'App Store でお支払い中' : 'App Store 以外の方法でお支払い中',
+              appStore ? '$storeName でお支払い中' : '$storeName 以外の方法でお支払い中',
             ].join('\n'),
             style: TextStyle(color: context.muted, height: 1.5),
           ),
