@@ -78,6 +78,8 @@
 	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>生成した画像や作品の画像を写真に保存するために使用します。</string>
 	<key>NSUserTrackingUsageDescription</key>
 	<string>表示する広告を適切に選択するために使用します。</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
