@@ -23,6 +23,7 @@ class UserProfile {
     required this.isMuted,
     required this.isBlocked,
     required this.isModerator,
+    required this.isOfficial,
     required this.twitter,
     required this.instagram,
     required this.github,
@@ -49,6 +50,7 @@ class UserProfile {
   bool isMuted;
   bool isBlocked;
   final bool isModerator;
+  final bool isOfficial;
   final String? twitter;
   final String? instagram;
   final String? github;
@@ -81,6 +83,7 @@ class UserProfile {
       isMuted: u.boolean('isMuted'),
       isBlocked: u.boolean('isBlocked'),
       isModerator: u.boolean('isModerator'),
+      isOfficial: u.boolean('isOfficial'),
       twitter: clean(u.strOrNull('twitterAccountId')),
       instagram: clean(u.strOrNull('instagramAccountId')),
       github: clean(u.strOrNull('githubAccountId')),
@@ -176,6 +179,7 @@ query User(\$userId: ID!) {
     headerImageUrl
     biography
     isModerator
+    isOfficial
     isFollowee
     isFollower
     isMuted

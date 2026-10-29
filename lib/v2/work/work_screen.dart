@@ -3,6 +3,7 @@ import 'package:aipictors/v2/core/design.dart';
 import 'package:aipictors/v2/core/models.dart';
 import 'package:aipictors/v2/core/nav.dart';
 import 'package:aipictors/v2/widgets/common.dart';
+import 'package:aipictors/v2/widgets/official_badge.dart';
 import 'package:aipictors/v2/widgets/work_grid.dart';
 import 'package:aipictors/v2/work/comments.dart';
 import 'package:aipictors/v2/work/moderation.dart';
@@ -27,7 +28,7 @@ query AppWork(\$id: ID!) {
     tagNames
     promptAccessType prompt negativePrompt seed steps scale sampler vae clipSkip model
     dailyTheme { id title }
-    user { id login name iconUrl isFollowee biography followersCount }
+    user { id login name iconUrl isOfficial isFollowee biography followersCount }
     comments(offset: 0, limit: 3) {
       $commentFields
       responses(offset: 0, limit: 3) { $commentFields }
@@ -763,7 +764,10 @@ class _UserRow extends StatelessWidget {
           const SizedBox(width: 12),
           Expanded(
             child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(user.str('name'), maxLines: 1, overflow: TextOverflow.ellipsis, style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 15)),
+              Row(children: [
+                Flexible(child: Text(user.str('name'), maxLines: 1, overflow: TextOverflow.ellipsis, style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 15))),
+                if (user.boolean('isOfficial')) ...[const SizedBox(width: 4), const OfficialBadge()],
+              ]),
               Text('フォロワー ${compactCount(user.integer('followersCount'))}', style: TextStyle(color: context.muted, fontSize: 12)),
             ]),
           ),

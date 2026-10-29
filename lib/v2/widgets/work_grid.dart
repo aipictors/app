@@ -3,6 +3,7 @@ import 'package:aipictors/v2/core/models.dart';
 import 'package:aipictors/v2/core/nav.dart';
 import 'package:aipictors/v2/core/paged.dart';
 import 'package:aipictors/v2/widgets/common.dart';
+import 'package:aipictors/v2/widgets/official_badge.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
@@ -80,6 +81,7 @@ class WorkCard extends StatelessWidget {
                     style: context.tt.bodySmall?.copyWith(color: context.muted),
                   ),
                 ),
+                if (work.user.isOfficial) ...[const SizedBox(width: 2), const OfficialBadge(size: 13)],
               ]),
             ),
           ],

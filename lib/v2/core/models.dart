@@ -24,6 +24,7 @@ const workCardFields = '''
     login
     name
     iconUrl
+    isOfficial
   }
 ''';
 
@@ -36,18 +37,21 @@ class UserSummary {
     required this.login,
     required this.name,
     required this.iconUrl,
+    this.isOfficial = false,
   });
 
   final String id;
   final String login;
   final String name;
   final String? iconUrl;
+  final bool isOfficial;
 
   factory UserSummary.fromJson(Map<String, dynamic> j) => UserSummary(
         id: j.str('id'),
         login: j.str('login'),
         name: j.str('name', j.str('login')),
         iconUrl: j.strOrNull('iconUrl'),
+        isOfficial: j.boolean('isOfficial'),
       );
 
   static const empty = UserSummary(id: '', login: '', name: '', iconUrl: null);

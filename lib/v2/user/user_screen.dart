@@ -9,6 +9,7 @@ import 'package:aipictors/v2/user/user_list_screen.dart';
 import 'package:aipictors/v2/user/user_widgets.dart';
 import 'package:aipictors/v2/widgets/common.dart';
 import 'package:aipictors/v2/widgets/work_grid.dart';
+import 'package:aipictors/v2/widgets/official_badge.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -199,6 +200,7 @@ class _UserScreenState extends State<UserScreen> {
           Avatar(u.iconUrl, size: 28),
           const SizedBox(width: 8),
           Flexible(child: Text(u.name, overflow: TextOverflow.ellipsis, style: TextStyle(fontWeight: FontWeight.w800, fontSize: 17, color: context.cs.onSurface))),
+          if (u.isOfficial) ...[const SizedBox(width: 4), const OfficialBadge()],
         ]),
       ),
       actions: [
@@ -308,6 +310,7 @@ class _UserScreenState extends State<UserScreen> {
                   Flexible(
                     child: Text(u.name, style: context.tt.headlineSmall?.copyWith(fontWeight: FontWeight.w900, letterSpacing: -0.4)),
                   ),
+                  if (u.isOfficial) ...[const SizedBox(width: 6), const OfficialBadge(size: 20)],
                   if (u.passType != null) ...[
                     const SizedBox(width: 6),
                     Tooltip(message: 'Aipictors+ 会員', child: ShaderMask(shaderCallback: (r) => Ds.goldGradient.createShader(r), child: const Icon(Icons.verified_rounded, color: Colors.white, size: 20))),
