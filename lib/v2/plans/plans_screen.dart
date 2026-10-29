@@ -188,8 +188,8 @@ class _PlansScreenState extends State<PlansScreen> {
       await showDialog(
         context: context,
         builder: (context) => AlertDialog.adaptive(
-          title: const Text('Web で加入中です'),
-          content: const Text('現在のプランは Web（www.aipictors.com）で加入しています。二重に支払いにならないよう、プランの変更・解約は Web から行ってください。'),
+          title: const Text('すでにプランに加入しています'),
+          content: const Text('現在のプランは App Store 以外の方法で加入しています。二重のお支払いにならないよう、アプリからは加入できません。プランの変更・解約は、加入したときと同じ方法で行ってください。'),
           actions: [TextButton(onPressed: () => Navigator.pop(context), child: const Text('OK'))],
         ),
       );
@@ -322,7 +322,7 @@ class _PlansScreenState extends State<PlansScreen> {
                   '・お支払いは購入の確定時に Apple ID に請求されます。\n'
                   '・サブスクリプションは1か月ごとに自動で更新されます。現在の期間が終わる24時間前までに自動更新をオフにしない限り、期間終了前の24時間以内に次の期間の料金が請求されます。\n'
                   '・自動更新の停止やプランの変更は、iPhone の［設定］→［Apple ID］→［サブスクリプション］からいつでも行えます。\n'
-                  '・Web（www.aipictors.com）で加入したプランとは別のお支払いです。二重に加入しないようご注意ください。',
+                  '・App Store 以外の方法で加入したプランとは別のお支払いです。二重に加入しないようご注意ください。',
                   style: TextStyle(color: context.muted, fontSize: 12, height: 1.6),
                 ),
                 const SizedBox(height: 12),
@@ -379,7 +379,7 @@ class _CurrentPassCard extends StatelessWidget {
           Text(
             [
               if (endText != null) '次の更新日：$endText',
-              appStore ? 'App Store でお支払い中' : 'Web（クレジットカード等）でお支払い中',
+              appStore ? 'App Store でお支払い中' : 'App Store 以外の方法でお支払い中',
             ].join('\n'),
             style: TextStyle(color: context.muted, height: 1.5),
           ),
@@ -388,7 +388,7 @@ class _CurrentPassCard extends StatelessWidget {
             OutlinedButton.icon(onPressed: onManage, icon: const Icon(Icons.settings_rounded), label: const Text('サブスクリプションを管理')),
           ] else ...[
             const SizedBox(height: 6),
-            Text('プランの変更・解約は Web の「プラン」ページから行えます。', style: TextStyle(color: context.muted, fontSize: 12)),
+            Text('プランの変更・解約は、加入したときと同じ方法で行えます。', style: TextStyle(color: context.muted, fontSize: 12)),
           ],
         ]),
       ),
