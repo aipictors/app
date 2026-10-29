@@ -1,4 +1,5 @@
 import 'package:aipictors/providers/home_tab_index_provider.dart';
+import 'package:aipictors/v2/core/debug_boot.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,7 @@ Listener authStateListener(BuildContext context, WidgetRef ref) {
     final notifier = ref.read(homeTabIndexProvider.notifier);
 
     // ログイン状態が変わった際にホームに戻す
-    notifier.update(0);
+    if (!DebugBoot.hasTab) notifier.update(0);
 
     // ログイン状態を更新する
     FirebaseAnalytics.instance.setUserProperty(

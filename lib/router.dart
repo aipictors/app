@@ -1,3 +1,8 @@
+import 'package:aipictors/v2/explore/explore_screen.dart' as v2explore;
+import 'package:aipictors/v2/plans/plans_screen.dart' as v2plans;
+import 'package:aipictors/v2/user/user_screen.dart' as v2user;
+import 'package:aipictors/v2/work/work_screen.dart' as v2work;
+import 'package:aipictors/features/config/config_screen.dart' as v2config;
 import 'package:aipictors/features/account/account_create_screen.dart';
 import 'package:aipictors/features/account/account_delete_screen.dart';
 import 'package:aipictors/features/account/account_login_screen.dart';
@@ -38,23 +43,19 @@ import 'package:aipictors/features/login/profile_setup_screen.dart';
 import 'package:aipictors/features/post/comment_report_screen.dart';
 import 'package:aipictors/features/post/work_create_screen.dart';
 import 'package:aipictors/features/post/work_report_screen.dart';
-import 'package:aipictors/features/post/work_screen.dart';
 import 'package:aipictors/features/post/work_update_screen.dart';
 import 'package:aipictors/features/privacy/privacy_screen.dart';
-import 'package:aipictors/features/search/search_screen.dart';
 import 'package:aipictors/features/secret/secret_screen.dart';
 import 'package:aipictors/features/sticker/sticker_report_screen.dart';
 import 'package:aipictors/features/sticker/sticker_screen.dart';
 import 'package:aipictors/features/sticker/stickers_screen.dart';
 import 'package:aipictors/features/survey/surveys_screen.dart';
-import 'package:aipictors/features/tag/tag_screen.dart';
 import 'package:aipictors/features/terms/terms_eula_screen.dart';
 import 'package:aipictors/features/terms/terms_screen.dart';
 import 'package:aipictors/features/tutorial/tutorial_screen.dart';
 import 'package:aipictors/features/user/user_followees_screen.dart';
 import 'package:aipictors/features/user/user_followers_screen.dart';
 import 'package:aipictors/features/user/user_report_screen.dart';
-import 'package:aipictors/features/user/user_screen.dart';
 import 'package:aipictors/features/viewer/viewer_albums_screen.dart';
 import 'package:aipictors/features/sticker/my_bookmarked_stickers_screen.dart';
 import 'package:aipictors/features/viewer/viewer_folders_screen.dart';
@@ -303,14 +304,14 @@ final _routes = [
     path: '/tags/:tag_name',
     builder: (context, state) {
       final tagName = state.pathParameters['tag_name'];
-      return TagScreen(tagName: tagName!);
+      return v2explore.TagScreen(name: Uri.decodeComponent(tagName!));
     },
   ),
   GoRoute(
     path: '/users/:user',
     builder: (context, state) {
       final userId = state.pathParameters['user'];
-      return UserScreen(userId: userId!);
+      return v2user.UserScreen(userId: userId!);
     },
   ),
   GoRoute(
@@ -374,7 +375,7 @@ final _routes = [
     path: '/works/:post',
     builder: (context, state) {
       final workId = state.pathParameters['post'];
-      return WorkScreen(workId: workId!);
+      return v2work.WorkScreen(id: workId!);
     },
   ),
   GoRoute(
@@ -390,6 +391,22 @@ final _routes = [
       final workId = state.pathParameters['work'];
       return WorkUpdateScreen(workId: workId!);
     },
+  ),
+  GoRoute(
+    path: '/search',
+    builder: (context, state) => const v2explore.ExploreScreen(),
+  ),
+  GoRoute(
+    path: '/rankings',
+    builder: (context, state) => const v2explore.RankingScreen(),
+  ),
+  GoRoute(
+    path: '/plans',
+    builder: (context, state) => const v2plans.PlansScreen(),
+  ),
+  GoRoute(
+    path: '/more',
+    builder: (context, state) => const v2config.ConfigScreen(),
   ),
   GoRoute(
     path: '/debug',
@@ -413,7 +430,7 @@ final _routes = [
     path: '/search/:text',
     builder: (context, state) {
       final text = state.pathParameters['text'];
-      return SearchScreen(text: text!);
+      return v2explore.SearchResultScreen(text: Uri.decodeComponent(text!));
     },
   ),
   GoRoute(

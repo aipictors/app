@@ -1,4 +1,4 @@
-import 'package:aipictors/default.i18n.dart';
+import 'package:aipictors/features/home/widgets/home_navigation_bar.dart';
 import 'package:aipictors/features/viewer/__generated__/viewer_user.data.gql.dart';
 import 'package:aipictors/providers/home_tab_index_provider.dart';
 import 'package:aipictors/providers/viewer_provider.dart';
@@ -22,36 +22,13 @@ class HomeNavigationRail extends HookConsumerWidget {
       labelType: NavigationRailLabelType.all,
       selectedIndex: pageIndex,
       destinations: [
-        NavigationRailDestination(
-          icon: const Icon(Icons.home),
-          label: Text('ホーム'.i18n),
-          padding: const EdgeInsets.symmetric(vertical: 4),
-        ),
-        NavigationRailDestination(
-          icon: const Icon(Icons.today_rounded),
-          label: Text('お題'.i18n),
-          padding: const EdgeInsets.symmetric(vertical: 4),
-        ),
-        NavigationRailDestination(
-          icon: const Icon(Icons.explore_rounded),
-          label: Text('見つける'.i18n),
-          padding: const EdgeInsets.symmetric(vertical: 4),
-        ),
-        NavigationRailDestination(
-          icon: const Icon(Icons.science_rounded),
-          label: Text('生成'.i18n),
-          padding: const EdgeInsets.symmetric(vertical: 4),
-        ),
-        NavigationRailDestination(
-          icon: const Icon(Icons.notifications_rounded),
-          label: Text('通知'.i18n),
-          padding: const EdgeInsets.symmetric(vertical: 4),
-        ),
-        NavigationRailDestination(
-          icon: const Icon(Icons.more_horiz_rounded),
-          label: Text('その他'.i18n),
-          padding: const EdgeInsets.symmetric(vertical: 4),
-        ),
+        for (final item in HomeNavigationBar.items)
+          NavigationRailDestination(
+            icon: Icon(item.$1),
+            selectedIcon: Icon(item.$2),
+            label: Text(item.$3),
+            padding: const EdgeInsets.symmetric(vertical: 4),
+          ),
       ],
       onDestinationSelected: (index) {
         final notifier = ref.read(homeTabIndexProvider.notifier);

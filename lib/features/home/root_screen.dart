@@ -1,12 +1,13 @@
 import 'dart:io';
 
 import 'package:aipictors/enums/layout.dart';
-import 'package:aipictors/features/config/config_screen.dart';
-import 'package:aipictors/features/daily_theme/daily_theme_home_screen.dart';
-import 'package:aipictors/features/explorer/explorer_screen.dart';
-import 'package:aipictors/features/feed/feed_screen.dart';
-import 'package:aipictors/features/generation/generation_%20construction_screen.dart';
 import 'package:aipictors/features/home/hello_screen.dart';
+import 'package:aipictors/v2/explore/explore_screen.dart';
+import 'package:aipictors/v2/generation/generation_screen.dart';
+import 'package:aipictors/v2/home/home_screen.dart';
+import 'package:aipictors/v2/mypage/mypage_screen.dart';
+import 'package:aipictors/v2/plans/iap.dart';
+import 'package:aipictors/v2/core/debug_boot.dart';
 import 'package:aipictors/features/home/hello_terms_screen.dart';
 import 'package:aipictors/features/home/home_loading_screen.dart';
 import 'package:aipictors/features/home/maintenance_screen.dart';
@@ -119,19 +120,22 @@ class RootScreen extends HookConsumerWidget {
       });
     }
 
+    useEffect(() {
+      Iap.start();
+      if (DebugBoot.route.isNotEmpty) {
+        WidgetsBinding.instance.addPostFrameCallback((_) => context.push(DebugBoot.route));
+      }
+      return null;
+    }, const []);
+
     final screenList = [
-      const FeedScreen(key: PageStorageKey('root_feed')),
-      const DailyThemeHomeScreen(key: PageStorageKey('root_daily_theme')),
-      const ExplorerScreen(key: PageStorageKey('root_explorer')),
-      authState.value != null
-          ? const GenerationConstructionScreen(
-              key: PageStorageKey('root_generation'),
-            )
-          : const HelloScreen(key: PageStorageKey('root_login_generation')),
+      const HomeScreen(key: PageStorageKey('root_home')),
+      const ExploreScreen(key: PageStorageKey('root_explore')),
+      const GenerationScreen(key: PageStorageKey('root_generation')),
       authState.value != null
           ? const NotificationScreen(key: PageStorageKey('root_notification'))
           : const HelloScreen(key: PageStorageKey('root_login_notification')),
-      const ConfigScreen(key: PageStorageKey('root_config')),
+      const MyPageScreen(key: PageStorageKey('root_mypage')),
     ];
 
     return LayoutBuilder(builder: (context, constraints) {
@@ -142,14 +146,14 @@ class RootScreen extends HookConsumerWidget {
           body: Row(
             children: [
               const HomeNavigationRail(),
-              Expanded(child: screenList[pageIndex])
+              Expanded(child: IndexedStack(index: pageIndex.clamp(0, screenList.length - 1), children: screenList))
             ],
           ),
         );
       }
       // スマホ用
       return Scaffold(
-        body: screenList[pageIndex],
+        body: IndexedStack(index: pageIndex.clamp(0, screenList.length - 1), children: screenList),
         bottomNavigationBar: const HomeNavigationBar(),
       );
     });

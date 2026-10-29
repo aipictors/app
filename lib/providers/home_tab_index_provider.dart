@@ -16,6 +16,6 @@ class HomeTabIndex extends _$HomeTabIndex {
   }
 
   void toLoginTab() {
-    update(3);
+    update(4);
   }
 }
