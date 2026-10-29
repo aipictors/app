@@ -3074,6 +3074,9 @@ input ModerationReportsWhereInput {
 }
 
 type Mutation {
+  """ログイン中のアカウントを退会する（有料プランも解約される）"""
+  withdrawAccount: Boolean!
+
   """リクエストを受諾する"""
   acceptPromptonRequest(input: AcceptPromptonRequestInput!): PromptonRequestNode!
 
