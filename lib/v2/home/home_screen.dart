@@ -5,6 +5,7 @@ import 'package:aipictors/v2/core/design.dart';
 import 'package:aipictors/v2/core/models.dart';
 import 'package:aipictors/v2/core/nav.dart';
 import 'package:aipictors/v2/core/paged.dart';
+import 'package:aipictors/v2/support/support_ranking_screen.dart';
 import 'package:aipictors/v2/widgets/common.dart';
 import 'package:aipictors/v2/widgets/work_grid.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -268,6 +269,7 @@ class _RecommendedViewState extends State<_RecommendedView> {
               ]),
             ),
           ),
+          const SliverToBoxAdapter(child: SupportRankingPreview()),
           const SliverToBoxAdapter(child: SectionHeader('おすすめ作品', icon: Icons.favorite_rounded)),
           SliverPagedWorks(controller: _controller),
         ],

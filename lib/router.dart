@@ -1,6 +1,7 @@
 import 'package:aipictors/v2/explore/explore_screen.dart' as v2explore;
 import 'package:aipictors/v2/plans/plans_screen.dart' as v2plans;
 import 'package:aipictors/v2/user/user_screen.dart' as v2user;
+import 'package:aipictors/v2/support/support_ranking_screen.dart' as v2support;
 import 'package:aipictors/v2/work/work_screen.dart' as v2work;
 import 'package:aipictors/features/config/config_screen.dart' as v2config;
 import 'package:aipictors/features/account/account_create_screen.dart';
@@ -399,6 +400,10 @@ final _routes = [
   GoRoute(
     path: '/rankings',
     builder: (context, state) => const v2explore.RankingScreen(),
+  ),
+  GoRoute(
+    path: '/support-rankings',
+    builder: (context, state) => const v2support.SupportRankingScreen(),
   ),
   GoRoute(
     path: '/plans',
