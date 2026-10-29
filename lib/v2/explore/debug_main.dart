@@ -2,7 +2,7 @@
 //
 // flutter build ios --simulator --debug -t lib/v2/explore/debug_main.dart \
 //   --dart-define-from-file=dart_defines/production.json \
-//   --dart-define=debugPage=explore|search:<text>|tag:<name>|ranking|user:<id>|followers:<id> \
+//   --dart-define=debugPage=explore|search:<text>|tag:<name>|ranking|user:<id>|followers:<id>|input:<text> \
 //   [--dart-define=debugTheme=dark] [--dart-define=debugLogin=<login>:<password>]
 import 'dart:io';
 
@@ -14,6 +14,7 @@ import 'package:aipictors/utils/to_dark_color_scheme.dart';
 import 'package:aipictors/utils/to_light_color_scheme.dart';
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/explore/explore_screen.dart';
+import 'package:aipictors/v2/explore/search_input_screen.dart';
 import 'package:aipictors/v2/user/user_list_screen.dart';
 import 'package:aipictors/v2/user/user_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -93,6 +94,8 @@ String _initialLocation() {
       return '/rankings';
     case 'user':
       return '/users/$arg';
+    case 'input':
+      return '/debug/input/$arg';
     case 'followers':
       return '/debug/followers/$arg';
     default:
@@ -108,6 +111,7 @@ final _router = GoRouter(
     GoRoute(path: '/tags/:tag', builder: (_, s) => TagScreen(name: s.pathParameters['tag'] ?? '')),
     GoRoute(path: '/rankings', builder: (_, __) => const RankingScreen()),
     GoRoute(path: '/users/:user', builder: (_, s) => UserScreen(userId: s.pathParameters['user'] ?? '')),
+    GoRoute(path: '/debug/input/:text', builder: (_, s) => SearchInputScreen(initialText: s.pathParameters['text'] ?? '')),
     GoRoute(path: '/debug/followers/:user', builder: (_, s) => UserListScreen(userId: s.pathParameters['user'] ?? '', name: 'フォロー一覧')),
     GoRoute(path: '/works/:id', builder: (_, s) => _Placeholder('作品 ${s.pathParameters['id']}')),
     GoRoute(path: '/login', builder: (_, __) => const _Placeholder('ログイン')),

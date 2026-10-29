@@ -115,7 +115,7 @@ class _SearchInputScreenState extends State<SearchInputScreen> {
     final id = ++_requestId;
     setState(() => _loadingSuggest = true);
     try {
-      final tags = await ExploreApi.searchTags(t, 0, 12);
+      final tags = await ExploreApi.searchTags(t, 0, 50);
       if (!mounted || id != _requestId) return;
       // 完全一致・前方一致を先に
       tags.sort((a, b) {
