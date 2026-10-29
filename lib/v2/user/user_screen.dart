@@ -1,3 +1,4 @@
+import 'package:aipictors/v2/work/support_sheet.dart';
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/design.dart';
 import 'package:aipictors/v2/core/models.dart';
@@ -267,14 +268,30 @@ class _UserScreenState extends State<UserScreen> {
       );
     }
     if (u.isBlocked) return const SizedBox.shrink();
-    return FollowButton(
-      userId: u.id,
-      isFollowing: u.isFollowee,
-      onChanged: (v) => setState(() {
-        if (u.isFollowee != v) u.followersCount += v ? 1 : -1;
-        u.isFollowee = v;
-      }),
-    );
+    return Row(mainAxisSize: MainAxisSize.min, children: [
+      Pressable(
+        onTap: () => showSupportSheet(context, userId: u.id, userName: u.name, iconUrl: u.iconUrl),
+        child: Container(
+          height: 42,
+          padding: const EdgeInsets.symmetric(horizontal: 14),
+          decoration: BoxDecoration(gradient: Ds.goldGradient, borderRadius: Ds.br(21)),
+          child: const Row(mainAxisSize: MainAxisSize.min, children: [
+            Icon(Icons.volunteer_activism_rounded, color: Colors.white, size: 18),
+            SizedBox(width: 4),
+            Text('推す', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w900)),
+          ]),
+        ),
+      ),
+      const SizedBox(width: 8),
+      FollowButton(
+        userId: u.id,
+        isFollowing: u.isFollowee,
+        onChanged: (v) => setState(() {
+          if (u.isFollowee != v) u.followersCount += v ? 1 : -1;
+          u.isFollowee = v;
+        }),
+      ),
+    ]);
   }
 
   Widget _profile(BuildContext context, UserProfile u) {
