@@ -5,7 +5,6 @@ import 'package:aipictors/v2/core/design.dart';
 import 'package:aipictors/v2/core/nav.dart';
 import 'package:aipictors/v2/plans/iap.dart';
 import 'package:aipictors/v2/widgets/common.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -49,7 +48,7 @@ const planSpecs = [
     concurrent: 1,
     lora: 2,
     modelSlots: 3,
-    extras: ['画像から生成（i2i）', '広告の非表示', '認証マークの表示'],
+    extras: ['画像から生成（i2i）', 'Gemini Nano Banana（週5枚まで毎日のコインで）', '2048×2048 を超える出力', '広告の非表示', '認証マークの表示'],
     color: Ds.sky,
   ),
   PlanSpec(
@@ -61,7 +60,7 @@ const planSpecs = [
     concurrent: 2,
     lora: 5,
     modelSlots: 10,
-    extras: ['画像から生成（i2i）', '高速モード・予約生成', '広告の非表示', '認証マークの表示'],
+    extras: ['画像から生成（i2i）', 'Gemini Nano Banana 2 / flux.1（Gemini は週20枚まで毎日のコインで）', '高速モード・予約生成', '2048×2048 を超える出力', '広告の非表示', '認証マークの表示'],
     color: Ds.purple,
   ),
   PlanSpec(
@@ -73,7 +72,7 @@ const planSpecs = [
     concurrent: 3,
     lora: 5,
     modelSlots: 30,
-    extras: ['画像から生成（i2i）', '高速モード・予約生成', '広告の非表示', '認証マークの表示'],
+    extras: ['画像から生成（i2i）', 'Gemini Nano Banana 2 / flux.1（Gemini は週40枚まで毎日のコインで）', '高速モード・予約生成', '2048×2048 を超える出力', '広告の非表示', '認証マークの表示'],
     color: Ds.gold,
   ),
 ];
@@ -90,7 +89,7 @@ class PlansScreen extends StatefulWidget {
 
 class _PlansScreenState extends State<PlansScreen> {
   List<ProductDetails> _products = [];
-  String? _productsError;
+  bool _storeReachable = true;
   bool _loading = true;
   String? _userId;
   Map<String, dynamic>? _pass;
@@ -140,15 +139,28 @@ class _PlansScreenState extends State<PlansScreen> {
     if (mounted) setState(() => _loading = false);
   }
 
+  /// ストアに商品が無い・つながらないときは空のまま（画面は「購入できません」を出す）
   Future<void> _loadProducts() async {
+    var products = <ProductDetails>[];
+    var reachable = false;
     try {
-      final p = await Iap.products();
-      if (mounted) setState(() => _products = p);
-    } on ApiException catch (e) {
-      if (mounted) setState(() => _productsError = e.message);
-    } catch (e) {
-      if (mounted) setState(() => _productsError = 'プランの情報を取得できませんでした');
+      reachable = await Iap.storeReachable();
+      products = await Iap.products();
+    } catch (_) {
+      products = [];
     }
+    if (mounted) {
+      setState(() {
+        _products = products;
+        _storeReachable = reachable;
+      });
+    }
+  }
+
+  Future<void> _retry() async {
+    setState(() => _loading = true);
+    await _loadProducts();
+    if (mounted) setState(() => _loading = false);
   }
 
   Future<void> _loadViewer() async {
@@ -183,7 +195,7 @@ class _PlansScreenState extends State<PlansScreen> {
     if (!mounted) return;
     final product = _productFor(plan.type);
     if (product == null || _userId == null) {
-      context.toast(_productsError ?? 'プランの情報を取得できませんでした', error: true);
+      context.toast('プランの情報を取得できませんでした。もう一度お試しください', error: true);
       return;
     }
     if (_pass != null && _pass!.strOrNull('paymentProvider') != storeProvider) {
@@ -229,7 +241,15 @@ class _PlansScreenState extends State<PlansScreen> {
     );
   }
 
-  Future<void> _open(String url) => launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
+  Future<void> _open(String url) async {
+    var opened = false;
+    try {
+      opened = await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
+    } catch (_) {}
+    if (!opened && mounted) context.toast('ページを開けませんでした', error: true);
+  }
+
+  String get _manageUrl => Platform.isAndroid ? 'https://play.google.com/store/account/subscriptions?package=com.aipictors.app' : 'https://apps.apple.com/account/subscriptions';
 
   @override
   Widget build(BuildContext context) {
@@ -264,7 +284,7 @@ class _PlansScreenState extends State<PlansScreen> {
               child: _CurrentPassCard(
                 pass: _pass!,
                 provider: provider,
-                onManage: () => _open(Platform.isAndroid ? 'https://play.google.com/store/account/subscriptions?package=com.aipictors.app' : 'https://apps.apple.com/account/subscriptions'),
+                onManage: () => _open(_manageUrl),
               ),
             ),
           if (busy)
@@ -274,6 +294,8 @@ class _PlansScreenState extends State<PlansScreen> {
                 child: LinearProgressIndicator(),
               ),
             ),
+          if (!_loading && _products.isEmpty)
+            SliverToBoxAdapter(child: _UnavailableCard(onRetry: _retry)),
           SliverPadding(
             padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
             sliver: SliverList.separated(
@@ -286,7 +308,8 @@ class _PlansScreenState extends State<PlansScreen> {
                 final isDowngrade = current != null && (_rank[plan.type] ?? 0) < (_rank[current] ?? 0);
                 return _PlanCard(
                   plan: plan,
-                  price: product?.price ?? (kDebugMode ? const {'LITE': '¥600', 'STANDARD': '¥2,500', 'PREMIUM': '¥4,900'}[plan.type] : null),
+                  price: product?.price,
+                  available: product != null,
                   loadingPrice: _loading,
                   recommended: plan.type == 'STANDARD',
                   isCurrent: isCurrent,
@@ -300,7 +323,7 @@ class _PlansScreenState extends State<PlansScreen> {
                                   ? 'このプランに変更'
                                   : 'アップグレード',
                   loading: _buying == plan.type,
-                  onTap: isCurrent || (_buying != null) || (product == null && Nav.isLoggedIn) ? null : () => _buy(plan),
+                  onTap: isCurrent || _buying != null ? null : () => _buy(plan),
                 );
               },
             ),
@@ -309,24 +332,29 @@ class _PlansScreenState extends State<PlansScreen> {
             child: Padding(
               padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
               child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-                if (_productsError != null)
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 12),
-                    child: Text(_productsError!, textAlign: TextAlign.center, style: TextStyle(color: context.cs.error)),
+                if (_storeReachable) ...[
+                  OutlinedButton.icon(
+                    onPressed: busy ? null : () => Iap.restore(),
+                    icon: const Icon(Icons.restore_rounded),
+                    label: const Text('購入を復元'),
                   ),
-                OutlinedButton.icon(
-                  onPressed: busy ? null : () => Iap.restore(),
-                  icon: const Icon(Icons.restore_rounded),
-                  label: const Text('購入を復元'),
-                ),
-                const SizedBox(height: 16),
+                  const SizedBox(height: 8),
+                  TextButton.icon(
+                    onPressed: () => _open(_manageUrl),
+                    icon: const Icon(Icons.settings_rounded, size: 18),
+                    label: const Text('サブスクリプションを管理'),
+                  ),
+                  const SizedBox(height: 8),
+                ],
                 Text(
                   Platform.isAndroid
-                      ? '・お支払いは購入の確定時に Google アカウントに請求されます。\n'
+                      ? '・プランは「ライト」「スタンダード」「プレミアム」の3種類で、期間はいずれも1か月です。料金は各プランに表示しています。\n'
+                          '・お支払いは購入の確定時に Google アカウントに請求されます。\n'
                           '・定期購入は1か月ごとに自動で更新されます。解約しない限り、期間の終わりに次の期間の料金が請求されます。\n'
                           '・解約やプランの変更は、Google Play ストアの［お支払いと定期購入］→［定期購入］からいつでも行えます。\n'
                           '・Google Play 以外の方法で加入したプランとは別のお支払いです。二重に加入しないようご注意ください。'
-                      : '・お支払いは購入の確定時に Apple ID に請求されます。\n'
+                      : '・プランは「ライト」「スタンダード」「プレミアム」の3種類で、期間はいずれも1か月です。料金は各プランに表示しています。\n'
+                          '・お支払いは購入の確定時に Apple ID に請求されます。\n'
                           '・サブスクリプションは1か月ごとに自動で更新されます。現在の期間が終わる24時間前までに自動更新をオフにしない限り、期間終了前の24時間以内に次の期間の料金が請求されます。\n'
                           '・自動更新の停止やプランの変更は、iPhone の［設定］→［Apple ID］→［サブスクリプション］からいつでも行えます。\n'
                           '・App Store 以外の方法で加入したプランとは別のお支払いです。二重に加入しないようご注意ください。',
@@ -344,6 +372,38 @@ class _PlansScreenState extends State<PlansScreen> {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+/// ストアに商品が無いときの案内（ほかの購入方法には誘導しない）
+class _UnavailableCard extends StatelessWidget {
+  const _UnavailableCard({required this.onRetry});
+
+  final VoidCallback onRetry;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(color: context.skeleton.withValues(alpha: 0.7), borderRadius: Ds.br(20)),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+          Row(children: [
+            Icon(Icons.info_outline_rounded, color: context.muted),
+            const SizedBox(width: 8),
+            const Expanded(child: Text('現在このプラットフォームでは購入できません', style: TextStyle(fontWeight: FontWeight.w900, fontSize: 15))),
+          ]),
+          const SizedBox(height: 6),
+          Text('プランの内容はこのままご覧いただけます。無料のコインでの画像生成は引き続きご利用いただけます。', style: TextStyle(color: context.muted, fontSize: 13, height: 1.5)),
+          const SizedBox(height: 6),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: TextButton.icon(onPressed: onRetry, icon: const Icon(Icons.refresh_rounded, size: 18), label: const Text('もう一度確かめる')),
+          ),
+        ]),
       ),
     );
   }
@@ -407,6 +467,7 @@ class _PlanCard extends StatelessWidget {
   const _PlanCard({
     required this.plan,
     required this.price,
+    required this.available,
     required this.loadingPrice,
     required this.recommended,
     required this.isCurrent,
@@ -417,6 +478,9 @@ class _PlanCard extends StatelessWidget {
 
   final PlanSpec plan;
   final String? price;
+
+  /// ストアに商品がある（買える）
+  final bool available;
   final bool loadingPrice;
   final bool recommended;
   final bool isCurrent;
@@ -455,8 +519,10 @@ class _PlanCard extends StatelessWidget {
             Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
               loadingPrice
                   ? const Skeleton(width: 80, height: 24, radius: 6)
-                  : Text(price ?? '—', style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w900)),
-              Text('/月', style: TextStyle(color: context.muted, fontSize: 12)),
+                  : price == null
+                      ? const SizedBox.shrink()
+                      : Text(price!, style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w900)),
+              if (price != null || loadingPrice) Text('1か月・自動更新', style: TextStyle(color: context.muted, fontSize: 12)),
             ]),
           ]),
           const SizedBox(height: 10),
@@ -480,14 +546,20 @@ class _PlanCard extends StatelessWidget {
           feature(Icons.upload_file_rounded, '自分のモデルを${plan.modelSlots}個まで登録'),
           for (final e in plan.extras) feature(Icons.check_circle_rounded, e),
           const SizedBox(height: 16),
-          GradientButton(
-            label: buttonLabel,
-            loading: loading,
-            gradient: isCurrent
-                ? const LinearGradient(colors: [Color(0xFF9AA0AA), Color(0xFF9AA0AA)])
-                : LinearGradient(colors: [plan.color, Color.lerp(plan.color, Ds.pink, 0.45)!]),
-            onPressed: onTap,
-          ),
+          // 買えないプランにはボタンを出さない（押せないボタンを残さない）
+          if (available || isCurrent)
+            GradientButton(
+              label: buttonLabel,
+              loading: loading,
+              gradient: isCurrent
+                  ? const LinearGradient(colors: [Color(0xFF9AA0AA), Color(0xFF9AA0AA)])
+                  : LinearGradient(colors: [plan.color, Color.lerp(plan.color, Ds.pink, 0.45)!]),
+              onPressed: onTap,
+            )
+          else if (loadingPrice)
+            const Skeleton(height: 52, radius: 26)
+          else
+            Text('現在このプラットフォームでは購入できません', textAlign: TextAlign.center, style: TextStyle(color: context.muted, fontSize: 13, fontWeight: FontWeight.w700)),
         ]),
       ),
       if (recommended)

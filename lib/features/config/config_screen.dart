@@ -246,6 +246,16 @@ class ConfigScreen extends HookConsumerWidget {
           ListTile(
             trailing: const Icon(Icons.chevron_right_rounded),
             title: Text(
+              'エンドユーザー使用許諾契約（EULA）'.i18n,
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+            onTap: () {
+              context.push('/terms/eula');
+            },
+          ),
+          ListTile(
+            trailing: const Icon(Icons.chevron_right_rounded),
+            title: Text(
               'プライバシーポリシー'.i18n,
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),

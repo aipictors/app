@@ -2,6 +2,7 @@ import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/design.dart';
 import 'package:aipictors/v2/core/nav.dart';
 import 'package:aipictors/v2/generation/generation_api.dart';
+import 'package:aipictors/v2/work/moderation.dart';
 import 'package:aipictors/v2/widgets/common.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -138,6 +139,72 @@ Future<void> showPlanRequiredSheet(BuildContext context, String message) {
       },
     ),
   );
+}
+
+const _userModelReportReasons = [
+  ('COPYRIGHT', '著作権の侵害'),
+  ('REAL_PERSON', '実在の人物を扱っている'),
+  ('ILLEGAL', '違法・不適切な内容'),
+  ('WRONG_RATING', '年齢制限の設定が正しくない'),
+  ('BROKEN', '動かない・壊れている'),
+  ('SPAM', '宣伝・スパム'),
+  ('OTHER', 'その他'),
+];
+
+/// みんなのモデルの通報・作者のブロック。作者をブロックしたら true
+Future<bool> showUserModelActions(BuildContext context, UserModel model) async {
+  final action = await showGenSheet<String>(
+    context,
+    builder: (sheet) => SafeArea(
+      top: false,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ListTile(
+            leading: const Icon(Icons.flag_outlined),
+            title: const Text('このモデルを通報する'),
+            onTap: () => Navigator.of(sheet).pop('report'),
+          ),
+          if (model.authorId != null)
+            ListTile(
+              leading: const Icon(Icons.block_rounded),
+              title: Text('${model.authorName ?? '作者'}さんをブロックする'),
+              onTap: () => Navigator.of(sheet).pop('block'),
+            ),
+        ],
+      ),
+    ),
+  );
+  if (!context.mounted) return false;
+  if (action == 'block') return blockUser(context, model.authorId!, model.authorName ?? '作者');
+  if (action != 'report') return false;
+  final reason = await showGenSheet<String>(
+    context,
+    builder: (sheet) => SafeArea(
+      top: false,
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 0, 20, 8),
+              child: Text('通報の理由', style: context.tt.titleMedium?.copyWith(fontWeight: FontWeight.w800)),
+            ),
+            for (final r in _userModelReportReasons) ListTile(title: Text(r.$2), onTap: () => Navigator.of(sheet).pop(r.$1)),
+          ],
+        ),
+      ),
+    ),
+  );
+  if (reason == null || !context.mounted) return false;
+  try {
+    await GenApi.reportUserModel(model.id, reason: reason);
+    if (context.mounted) context.toast('通報しました。ご協力ありがとうございます', icon: Icons.flag_rounded);
+  } on ApiException catch (e) {
+    if (context.mounted) context.toast(e.message, error: true);
+  }
+  return false;
 }
 
 /// コインの履歴

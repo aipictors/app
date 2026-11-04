@@ -60,18 +60,35 @@ class Iap {
     if (!supported || _sub != null) return;
     _sub = InAppPurchase.instance.purchaseStream.listen(
       _onPurchases,
-      onError: (Object e) => state.value = IapState(IapPhase.failed, message: '購入の処理でエラーが起きました（$e）'),
+      onError: (Object e) => state.value = const IapState(IapPhase.failed, message: '購入の処理でエラーが起きました。時間をおいてもう一度お試しください'),
     );
   }
 
+  /// 開発用: ストアの商品がない環境（シミュレーター）で、商品がある時の画面を確かめる
+  static const _debugProducts = kDebugMode && bool.fromEnvironment('debugIapProducts');
+
+  /// ストアにつながるか（つながらないと復元もできない）
+  static Future<bool> storeReachable() async {
+    if (!supported) return false;
+    if (_debugProducts) return true;
+    try {
+      return await InAppPurchase.instance.isAvailable();
+    } catch (_) {
+      return false;
+    }
+  }
+
+  /// 買える商品。ストアに登録がないときは空（画面は「購入できません」を出す）
   static Future<List<ProductDetails>> products() async {
     if (!supported) return [];
-    final available = await InAppPurchase.instance.isAvailable();
-    if (!available) throw ApiException('$storeName に接続できませんでした');
-    final res = await InAppPurchase.instance.queryProductDetails(passProducts.keys.toSet());
-    if (res.error != null && res.productDetails.isEmpty) {
-      throw ApiException('プランの情報を取得できませんでした（${res.error!.message}）');
+    if (_debugProducts) {
+      return [
+        for (final e in passProducts.entries)
+          ProductDetails(id: e.key, title: e.value, description: e.value, price: const {'LITE': '¥XXX', 'STANDARD': '¥YYY', 'PREMIUM': '¥ZZZ'}[e.value]!, rawPrice: 1, currencyCode: 'JPY'),
+      ];
     }
+    if (!await storeReachable()) return [];
+    final res = await InAppPurchase.instance.queryProductDetails(passProducts.keys.toSet());
     return res.productDetails;
   }
 
@@ -92,16 +109,22 @@ class Iap {
           changeSubscriptionParam: old == null ? null : ChangeSubscriptionParam(oldPurchaseDetails: old, replacementMode: ReplacementMode.chargeProratedPrice),
         );
       }
-      await InAppPurchase.instance.buyNonConsumable(purchaseParam: param);
-    } catch (e) {
-      state.value = IapState(IapPhase.failed, message: '購入を開始できませんでした（$e）');
+      final started = await InAppPurchase.instance.buyNonConsumable(purchaseParam: param);
+      if (!started) state.value = const IapState(IapPhase.failed, message: '購入を開始できませんでした。時間をおいてもう一度お試しください');
+    } catch (_) {
+      state.value = const IapState(IapPhase.failed, message: '購入を開始できませんでした。時間をおいてもう一度お試しください');
     }
   }
 
   static Future<void> restore() async {
     start();
     state.value = const IapState(IapPhase.syncing);
-    await InAppPurchase.instance.restorePurchases();
+    try {
+      await InAppPurchase.instance.restorePurchases();
+    } catch (_) {
+      state.value = IapState(IapPhase.failed, message: '$storeName に接続できませんでした。時間をおいてもう一度お試しください');
+      return;
+    }
     // 復元するものが無いときは何も届かないので、少し待って元に戻す
     Future.delayed(const Duration(seconds: 6), () {
       if (state.value.phase == IapPhase.syncing) {
