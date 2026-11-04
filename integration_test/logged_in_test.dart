@@ -228,17 +228,23 @@ void main() {
       expect(find.byTooltip('取り除く').evaluate().length, 2);
       await qa.shot('post-picked');
 
-      // 2 枚目を長押しで先頭へ
-      final list = find.byType(ReorderableListView);
-      final images = find.descendant(of: list, matching: find.byType(Image));
-      final first = tester.getCenter(images.at(0));
-      final second = tester.getCenter(images.at(1));
-      final gesture = await tester.startGesture(second);
-      await qa.idle(const Duration(milliseconds: 800));
-      await gesture.moveTo(first - const Offset(60, 0));
-      await qa.idle(const Duration(milliseconds: 400));
+      // 2 枚目を長押しで先頭へ（選んだときに下へスクロールしているので一番上に戻す）
+      await qa.scrollToTop();
+      final images = find.descendant(of: find.byType(ReorderableListView), matching: find.byType(Image));
+      Object bytesAt(int i) => (tester.widget<Image>(images.at(i)).image as ResizeImage).imageProvider;
+      final before = bytesAt(0);
+      final from = tester.getCenter(images.at(1));
+      final to = tester.getCenter(images.at(0)) - const Offset(70, 0);
+      final gesture = await tester.startGesture(from);
+      await qa.idle(const Duration(milliseconds: 900));
+      for (var i = 1; i <= 12; i++) {
+        await gesture.moveTo(Offset.lerp(from, to, i / 12)!);
+        await tester.pump(const Duration(milliseconds: 60));
+      }
+      await qa.idle(const Duration(milliseconds: 600));
       await gesture.up();
-      await qa.idle();
+      await qa.idle(const Duration(seconds: 1));
+      expect(bytesAt(0), isNot(before), reason: '並べ替えで順番が変わらない');
       await qa.shot('post-reordered');
 
       await tester.enterText(find.byType(TextField).first, 'QA dry run');
