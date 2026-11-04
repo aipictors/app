@@ -1,5 +1,6 @@
 import 'package:aipictors/providers/home_tab_index_provider.dart';
 import 'package:aipictors/v2/core/design.dart';
+import 'package:aipictors/v2/notifications/notifications_api.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -35,8 +36,8 @@ class HomeNavigationBar extends HookConsumerWidget {
                   label: items[i].$3,
                 )
               : NavigationDestination(
-                  icon: Icon(items[i].$1),
-                  selectedIcon: Icon(items[i].$2),
+                  icon: i == 3 ? const _UnreadBadge(child: Icon(Icons.notifications_none_rounded)) : Icon(items[i].$1),
+                  selectedIcon: i == 3 ? const _UnreadBadge(child: Icon(Icons.notifications_rounded)) : Icon(items[i].$2),
                   label: items[i].$3,
                 ),
       ],
@@ -44,6 +45,25 @@ class HomeNavigationBar extends HookConsumerWidget {
         Ds.tap();
         ref.read(homeTabIndexProvider.notifier).update(index);
       },
+    );
+  }
+}
+
+/// 通知タブの未読の数
+class _UnreadBadge extends StatelessWidget {
+  const _UnreadBadge({required this.child});
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return ValueListenableBuilder<int>(
+      valueListenable: NotificationsApi.unread,
+      builder: (context, count, _) => Badge(
+        isLabelVisible: count > 0,
+        label: Text(count > 99 ? '99+' : '$count'),
+        child: child,
+      ),
     );
   }
 }

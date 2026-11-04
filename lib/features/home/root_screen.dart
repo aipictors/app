@@ -16,7 +16,7 @@ import 'package:aipictors/features/home/widgets/config_error_screen.dart';
 import 'package:aipictors/features/home/widgets/home_navigation_bar.dart';
 import 'package:aipictors/features/home/widgets/home_navigation_rail.dart';
 import 'package:aipictors/features/home/widgets/latest_version_dialog.dart';
-import 'package:aipictors/features/notification/notification_screen.dart';
+import 'package:aipictors/v2/notifications/notifications_screen.dart';
 import 'package:aipictors/features/viewer/__generated__/viewer_user.data.gql.dart';
 import 'package:aipictors/handlers/message_handler.dart';
 import 'package:aipictors/providers/auth_state_provider.dart';
@@ -133,7 +133,7 @@ class RootScreen extends HookConsumerWidget {
       const ExploreScreen(key: PageStorageKey('root_explore')),
       const GenerationScreen(key: PageStorageKey('root_generation')),
       authState.value != null
-          ? const NotificationScreen(key: PageStorageKey('root_notification'))
+          ? const NotificationsScreen(key: PageStorageKey('root_notification'))
           : const HelloScreen(key: PageStorageKey('root_login_notification')),
       const MyPageScreen(key: PageStorageKey('root_mypage')),
     ];
