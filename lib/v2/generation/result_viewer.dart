@@ -5,6 +5,7 @@ import 'package:aipictors/v2/generation/generation_sheets.dart';
 import 'package:aipictors/v2/generation/model_picker.dart';
 import 'package:aipictors/v2/widgets/common.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:share_plus/share_plus.dart';
@@ -205,6 +206,7 @@ class _ResultViewerState extends State<ResultViewer> {
                       onShare: () => _share(r),
                       onProtect: () => _protect(r),
                       onCopy: () => _copyPrompt(r),
+                      onPost: r.nanoid == null ? null : () => context.push('/works/create?generation=${r.nanoid}'),
                       onReuse: () => _reuse(r),
                       onDelete: () => _delete(r),
                     ),
@@ -347,6 +349,7 @@ class _BottomBar extends StatelessWidget {
     required this.onShare,
     required this.onProtect,
     required this.onCopy,
+    required this.onPost,
     required this.onReuse,
     required this.onDelete,
   });
@@ -357,6 +360,7 @@ class _BottomBar extends StatelessWidget {
   final VoidCallback onShare;
   final VoidCallback onProtect;
   final VoidCallback onCopy;
+  final VoidCallback? onPost;
   final VoidCallback onReuse;
   final VoidCallback onDelete;
 
@@ -410,6 +414,7 @@ class _BottomBar extends StatelessWidget {
                       onTap: onProtect,
                     ),
                     _Action(icon: Icons.copy_rounded, label: 'プロンプト', onTap: onCopy),
+                    if (onPost != null) _Action(icon: Icons.upload_rounded, label: '投稿', onTap: onPost!),
                     _Action(icon: Icons.delete_outline_rounded, label: '削除', onTap: onDelete),
                   ],
                 ),

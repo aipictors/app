@@ -394,7 +394,7 @@ class _UnavailableCard extends StatelessWidget {
           Row(children: [
             Icon(Icons.info_outline_rounded, color: context.muted),
             const SizedBox(width: 8),
-            const Expanded(child: Text('現在このプラットフォームでは購入できません', style: TextStyle(fontWeight: FontWeight.w900, fontSize: 15))),
+            const Expanded(child: Text('現在このプラットフォームでは購入できません', style: TextStyle(fontWeight: FontWeight.w900, fontSize: 14))),
           ]),
           const SizedBox(height: 6),
           Text('プランの内容はこのままご覧いただけます。無料のコインでの画像生成は引き続きご利用いただけます。', style: TextStyle(color: context.muted, fontSize: 13, height: 1.5)),

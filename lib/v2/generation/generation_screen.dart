@@ -7,6 +7,7 @@ import 'package:aipictors/v2/generation/generation_controller.dart';
 import 'package:aipictors/v2/generation/generation_debug.dart';
 import 'package:aipictors/v2/generation/generation_form.dart';
 import 'package:aipictors/v2/generation/generation_history.dart';
+import 'package:aipictors/v2/generation/generation_settings.dart';
 import 'package:aipictors/v2/generation/generation_sheets.dart';
 import 'package:aipictors/v2/generation/lora_picker.dart';
 import 'package:aipictors/v2/generation/model_picker.dart';
@@ -89,6 +90,43 @@ class _GenerationScreenState extends State<GenerationScreen> {
           showTermsSheet(context, onAgree: c.signTerms);
         case 'generate':
           _generate();
+        case 'generate-small':
+          // 一番小さいサイズで 1 枚だけ（コインを使う）
+          c.settings.update((x) {
+            x.sizeType = 'SD1_512_512';
+            x.highRes = false;
+            x.imagesPerRequest = 1;
+            x.prompt = 'cat, simple background';
+          });
+          final m = c.catalog?.model(GenRules.defaultModelId);
+          if (m != null) c.settings.selectModel(m);
+          c.settings.update((x) => x.sizeType = 'SD1_512_512');
+          await _generate();
+          setState(() => _tab = 1);
+        case 'custom':
+          c.settings.update((x) {
+            final sdxl = c.catalog?.models.firstWhere((m) => m.type == 'SDXL');
+            if (sdxl != null) x.selectModel(sdxl);
+            x.sizeType = 'CUSTOM_2496_2048';
+          });
+        case 'landscape':
+          c.settings.update((x) {
+            final sdxl = c.catalog?.models.firstWhere((m) => m.type == 'SDXL');
+            if (sdxl != null) x.selectModel(sdxl);
+            x.sizeType = 'SD3_1216_832';
+          });
+        case 'gemini':
+          final g = c.catalog?.models.firstWhere((m) => m.isGemini);
+          if (g != null) c.settings.selectModel(g);
+          _generate();
+        case 'flux':
+          final f = c.catalog?.models.firstWhere((m) => m.isFlux);
+          if (f != null) c.settings.selectModel(f);
+          _generate();
+        case 'coins':
+          showCoinHistorySheet(context);
+        case 'usermodels':
+          showModelPicker(context, c);
       }
     });
   }

@@ -8,6 +8,8 @@
 //     --dart-define=genDebug=models
 //
 // debugLogin はこのファイルでしか読まない（ログイン情報はコミットしない）。
+import 'dart:io';
+
 import 'package:aipictors/config.dart';
 import 'package:aipictors/repositories/config_repository.dart';
 import 'package:aipictors/v2/core/api.dart';
@@ -47,7 +49,10 @@ Future<void> main() async {
     }
   }
 
-  GenDebug.action = _genDebug.isEmpty ? null : _genDebug;
+  // シミュレーターではアプリの Documents/gen_debug.txt で毎回変えられる（作り直さなくてよい）
+  final file = File('${Platform.environment['HOME']}/Documents/gen_debug.txt');
+  final action = file.existsSync() ? file.readAsStringSync().trim() : _genDebug;
+  GenDebug.action = action.isEmpty ? null : action;
   runApp(const _DebugApp());
 }
 

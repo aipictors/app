@@ -47,6 +47,12 @@ class _GenerationFormState extends State<GenerationForm> {
   void initState() {
     super.initState();
     s.addListener(_syncText);
+    if (kDebugMode && (GenDebug.action == 'custom' || GenDebug.action == 'landscape')) {
+      // 開発用: サイズが見える位置まで送る
+      Future.delayed(const Duration(milliseconds: 5000), () {
+        if (mounted && _scroll.hasClients) _scroll.jumpTo(620);
+      });
+    }
     if (_advancedOpen) {
       // 開発用: 詳細設定が見える位置まで送る
       for (final ms in const [2500, 4000]) {
