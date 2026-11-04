@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:math' as math;
 
 import 'package:aipictors/v2/generation/generation_api.dart';
 import 'package:flutter/foundation.dart';
@@ -11,27 +12,36 @@ class GenRules {
 
   static const defaultModelId = '1';
   static const defaultPrompt = 'masterpiece, best quality, extremely detailed, anime, girl, skirt';
-  static const minSteps = 9;
+  static const minSteps = 4;
   static const maxSteps = 30;
-  static const minScale = 6;
+  static const minScale = 1;
   static const maxScale = 15;
   static const maxPromptLength = 20000;
 
-  static const samplers = [
-    'Euler a',
-    'Euler',
-    'Heun',
-    'DPM2',
-    'DPM2 a',
-    'DPM++ 2S a',
-    'LMS Karras',
-    'DPM2 a Karras',
-    'DPM++ 2S a Karras',
-    'DPM++ SDE Karras',
-    'DPM++ 2M Karras',
-    'DPM++ 2M SDE Karras',
-    'DDIM',
-  ];
+  static const defaultSampler = 'DPM++ 2M';
+
+  // Web の lib/generation-sampler.ts と同じ
+  static const samplers = ['DPM++ 2M', 'Euler a', 'DPM++ 2M SDE', 'ER SDE', 'Euler', 'DPM++ SDE', 'DPM++ 2S a', 'DDIM', 'Heun', 'LMS', 'DPM2', 'DPM2 a'];
+
+  /// Schedule type（null は自動）
+  static const schedulers = ['Karras', 'Exponential', 'SGM Uniform', 'Simple', 'Normal', 'Beta'];
+
+  /// 昔の「DPM++ 2M Karras」を、サンプラーと Schedule type に分ける
+  static (String, String?) splitSampler(String value) {
+    var name = value.trim();
+    String? scheduler;
+    for (final suffix in schedulers) {
+      if (name.toLowerCase().endsWith(' ${suffix.toLowerCase()}')) {
+        name = name.substring(0, name.length - suffix.length - 1).trim();
+        scheduler = suffix;
+        break;
+      }
+    }
+    for (final option in samplers) {
+      if (option.toLowerCase() == name.toLowerCase()) return (option, scheduler);
+    }
+    return (defaultSampler, scheduler);
+  }
 
   static const vaes = ['kl-f8-anime2', 'clearvae_v23', 'sdxl_vae', 'vae-ft-mse-840000-ema-pruned', 'None'];
 
@@ -43,16 +53,95 @@ class GenRules {
   static const fluxSchnellCoin = 30;
   static const fluxProCoin = 50;
 
+  // 幅・高さの指定（サーバーの lib/image-generation-size.ts と同じ）
+  static const customSizeMin = 512;
+  static const customSizeMax = 2500;
+  static const customSizeStep = 8;
+
+  /// サブスクでない人の上限（高解像度の拡大後を含む）
+  static const freeMaxPixels = 2048 * 2048;
+
+  /// 1 枚ずつになり、コインが増えていく面積の単位
+  static const pixelsPerCoinUnit = 1600000;
+
   static const sizesByType = <String, List<String>>{
     'SD1': ['SD1_384_960', 'SD1_512_768', 'SD1_512_512', 'SD1_768_512', 'SD1_960_384'],
     'SD2': ['SD2_768_1200', 'SD2_768_768', 'SD2_1200_768'],
-    'SDXL': ['SD3_640_1536', 'SD3_832_1216', 'SD3_1024_1024', 'SD3_1216_832', 'SD3_1536_640'],
+    'SDXL': [
+      'SD3_640_1536',
+      'CUSTOM_768_1344',
+      'SD3_832_1216',
+      'SD3_896_1152',
+      'SD3_1024_1024',
+      'SD3_1152_896',
+      'SD3_1216_832',
+      'CUSTOM_1344_768',
+      'SD3_1536_640',
+    ],
     'FLUX': ['SD4_896_1152', 'SD4_896_896', 'SD4_1152_896'],
     'SD5': ['SD3_832_1216', 'SD3_1024_1024', 'SD3_1216_832'],
     'GEMINI': ['SD3_832_1216', 'SD3_1024_1024', 'SD3_1216_832'],
   };
 
   static List<GenSize> sizes(String modelType) => (sizesByType[modelType] ?? sizesByType['SDXL']!).map(GenSize.parse).toList();
+
+  /// 幅・高さを指定できるモデル（FLUX と Gemini は決まったサイズのみ）
+  static bool canCustomSize(String modelType) => modelType == 'SD1' || modelType == 'SD2' || modelType == 'SDXL';
+
+  static bool isCustomSize(String sizeType) => sizeType.startsWith('CUSTOM_');
+
+  static String toCustomSize(int width, int height) => 'CUSTOM_${width}_$height';
+
+  /// 8 の倍数にそろえて範囲に収める
+  static int normalizeSide(num value) {
+    final stepped = (value / customSizeStep).round() * customSizeStep;
+    final top = (customSizeMax ~/ customSizeStep) * customSizeStep;
+    return stepped.clamp(customSizeMin, top);
+  }
+
+  /// 依頼に載せるサイズ（幅・高さの指定か、サイズの種類か）
+  static Map<String, dynamic> sizeInput(String sizeType) {
+    if (!isCustomSize(sizeType)) return {'sizeType': sizeType};
+    final size = GenSize.parse(sizeType);
+    return {'width': size.width, 'height': size.height};
+  }
+
+  /// 大きいサイズの倍率（1.6 メガピクセルごとに 1 倍）。SD1 の 1.5 倍の補助は含めない
+  static int sizeMultiplier(String sizeType) {
+    final parts = sizeType.split('_');
+    if (parts.length < 3) return 1;
+    final w = int.tryParse(parts[1]);
+    final h = int.tryParse(parts[2]);
+    if (w == null || h == null) return 1;
+    return math.max(1, (w * h / pixelsPerCoinUnit).ceil());
+  }
+
+  /// サブスクでない人の出力の上限を超えるか
+  static bool isOverFreeLimit(String sizeType, {required bool highRes}) {
+    if (!isCustomSize(sizeType) && !highRes) return false;
+    final size = GenSize.parse(sizeType);
+    final scale = highRes ? 2 : 1;
+    return size.width * scale * size.height * scale > freeMaxPixels;
+  }
+
+  /// 作った依頼のサイズを設定の値に戻す（幅・高さの指定は sizeType と合わない）
+  static String taskSizeType(String sizeType, int width, int height) {
+    if (width <= 0 || height <= 0) return sizeType;
+    final parts = sizeType.split('_');
+    if (parts.length >= 3 && int.tryParse(parts[1]) == width && int.tryParse(parts[2]) == height) return sizeType;
+    return toCustomSize(width, height);
+  }
+
+  /// 一番近い比率の選択肢
+  static String nearestSize(String modelType, GenSize size) {
+    final ratio = math.log(size.width / math.max(1, size.height));
+    final options = sizes(modelType);
+    var best = options.first;
+    for (final o in options) {
+      if ((math.log(o.width / o.height) - ratio).abs() < (math.log(best.width / best.height) - ratio).abs()) best = o;
+    }
+    return best.type;
+  }
 
   static String defaultSize(String modelType) {
     if (modelType == 'SD1') return 'SD1_512_768';
@@ -65,18 +154,8 @@ class GenRules {
   static String convertSize(String sizeType, String modelType) {
     final options = sizes(modelType);
     if (options.any((s) => s.type == sizeType)) return sizeType;
-    final current = GenSize.parse(sizeType);
-    final r = current.width / current.height;
-    GenSize best = GenSize.parse(defaultSize(modelType));
-    var diff = double.infinity;
-    for (final o in options) {
-      final d = ((o.width / o.height) - r).abs();
-      if (d < diff) {
-        diff = d;
-        best = o;
-      }
-    }
-    return best.type;
+    if (isCustomSize(sizeType) && canCustomSize(modelType)) return sizeType;
+    return nearestSize(modelType, GenSize.parse(sizeType));
   }
 
   static String defaultVae(String modelType) => switch (modelType) {
@@ -103,12 +182,49 @@ class GenRules {
 
   /// Gemini に渡すサイズ（Web の convertToGeminiImageSize と同じ）
   static String geminiSize(String sizeType) => switch (sizeType) {
-    'SD1_512_512' => 'SQUARE_512',
-    'SDXL_1024_1024' => 'SQUARE_1024',
-    'SDXL_1024_768' || 'SD1_768_512' => 'LANDSCAPE',
-    'SDXL_768_1024' || 'SD1_512_768' => 'PORTRAIT',
-    _ => 'SQUARE_768',
+    'SD3_512_512' || 'SD5_512_512' => 'SQUARE_512',
+    'SD3_768_768' || 'SD5_768_768' => 'SQUARE_768',
+    'SD3_1024_1024' || 'SD5_1024_1024' => 'SQUARE_1024',
+    'SD3_1216_832' || 'SD3_1280_720' => 'LANDSCAPE',
+    'SD3_832_1216' || 'SD3_720_1280' || 'SD5_720_1280' => 'PORTRAIT',
+    _ => 'SQUARE_1024',
   };
+
+  /// ControlNet の種類（Web の generation-config-control-net-dialog-contents と同じ）
+  static const controlNetModules = <(String, String)>[
+    ('openpose_full', 'ポーズを元に生成'),
+    ('canny', '線画を元に生成'),
+    ('depth_midas', '奥行きを元に生成'),
+    ('softedge_pidinet', 'やわらかい輪郭を元に生成'),
+    ('mlsd', '直線を元に生成'),
+    ('scribble_pidinet', 'らくがきを元に生成'),
+    ('seg_ofade20k', '領域分けを元に生成'),
+    ('reference_only', '絵柄を参考に生成'),
+  ];
+
+  static String controlNetModel(String module, String modelType) {
+    if (modelType == 'SDXL') {
+      return switch (module) {
+        'openpose_full' || 'openpose' => 'diffusion_pytorch_model_twins [590eff90]',
+        'canny' => 'diffusers_xl_canny_mid [112a778d]',
+        'depth_midas' => 'diffusers_xl_depth_mid [39c49e13]',
+        'softedge_pidinet' => 'sargezt_xl_softedge [b6f7415b]',
+        'mlsd' => 'bdsqlsz_controlllite_xl_mlsd_V2 [9fb65e46]',
+        'scribble_pidinet' => 'kohya_controllllite_xl_scribble_anime [d39b679a]',
+        'seg_ofade20k' => 'bdsqlsz_controlllite_xl_segment_animeface_V2 [bb3b9e5e]',
+        _ => '',
+      };
+    }
+    return switch (module) {
+      'dw_openpose_full' || 'openpose_full' || 'openpose' => 'control_openpose-fp16 [9ca67cc5]',
+      'canny' => 'control_v11p_sd15_canny [d14c016b]',
+      'depth_midas' => 'control_v11f1p_sd15_depth [cfd03158]',
+      'mlsd' => 'control_v11p_sd15_mlsd [aca30ff0]',
+      'scribble_pidinet' => 'control_v11p_sd15_scribble [d4ba51ff]',
+      'seg_ofade20k' => 'control_v11p_sd15_seg [e1f51eb9]',
+      _ => '',
+    };
+  }
 
   static const randomPrompts = [
     'masterpiece, best quality, extremely',
@@ -180,7 +296,10 @@ class GenSettings extends ChangeNotifier {
   String sizeType = 'SD1_512_768';
   int steps = 20;
   int scale = 7;
-  String sampler = 'DPM++ 2M Karras';
+  String sampler = GenRules.defaultSampler;
+
+  /// Schedule type（null は自動）
+  String? scheduler;
   int seed = -1;
   int clipSkip = 2;
   String vae = 'vae-ft-mse-840000-ema-pruned';
@@ -191,6 +310,22 @@ class GenSettings extends ChangeNotifier {
 
   /// 1 回で作る枚数（null はまとめて＝上限）
   int? imagesPerRequest;
+
+  /// Seed を決めているときの枚数（別に覚える。既定は 1 枚）
+  int fixedSeedImages = 1;
+
+  /// 続けて依頼する回数（スタンダード以上。上限を超えた分は予約生成になる）
+  int generationCount = 1;
+
+  // 画像から生成（端末には保存しない）
+  Uint8List? i2iImage;
+  double i2iStrength = 0.5;
+
+  // ControlNet（端末には保存しない）
+  Uint8List? controlNetImage;
+  String? controlNetModule;
+  String? controlNetModel;
+  double controlNetWeight = 1;
   List<LoraPick> loras = [];
 
   /// 前回の生成条件（Seed 固定で同じ条件の連続生成を防ぐ）
@@ -202,6 +337,13 @@ class GenSettings extends ChangeNotifier {
   String get effectiveType => userCheckpoint?.modelType ?? modelType;
 
   bool get isGemini => effectiveType == 'GEMINI' || effectiveType == 'SD5';
+
+  bool get isFlux => effectiveType == 'FLUX';
+
+  bool get hasControlNet => controlNetImage != null;
+
+  /// 生成の種類（無料プランは Gemini だけ画像から生成できる）
+  String generationType({required bool isPaid}) => i2iImage != null && (isPaid || effectiveType == 'GEMINI') ? 'IMAGE_TO_IMAGE' : 'TEXT_TO_IMAGE';
 
   void update(void Function(GenSettings s) change) {
     change(this);
@@ -238,7 +380,11 @@ class GenSettings extends ChangeNotifier {
     if (type == 'GEMINI' || type == 'SD5' || type == 'FLUX') {
       highRes = false;
       loras = [];
+      controlNetImage = null;
+      controlNetModule = null;
+      controlNetModel = null;
     }
+    if (type == 'FLUX') i2iImage = null;
   }
 
   /// 履歴の設定をそのまま使う（「この設定で再生成」）
@@ -259,10 +405,12 @@ class GenSettings extends ChangeNotifier {
         return LoraPick(name: l.name, weight: l.weight, label: known?.name, thumbnailUrl: known?.thumbnailUrl);
       }).toList();
       s.negativePrompt = r.negativePrompt;
-      s.sizeType = GenRules.convertSize(r.sizeType, s.effectiveType);
+      s.sizeType = GenRules.convertSize(GenRules.taskSizeType(r.sizeType, r.width, r.height), s.effectiveType);
       s.steps = r.steps.clamp(GenRules.minSteps, GenRules.maxSteps);
       s.scale = r.scale.clamp(GenRules.minScale, GenRules.maxScale);
-      if (GenRules.samplers.contains(r.sampler)) s.sampler = r.sampler;
+      final sampler = GenRules.splitSampler(r.sampler);
+      s.sampler = sampler.$1;
+      s.scheduler = r.scheduler ?? sampler.$2;
       s.seed = r.seed;
       s.clipSkip = r.clipSkip.clamp(1, 12);
       if (r.vae != null && GenRules.vaes.contains(r.vae)) s.vae = r.vae!;
@@ -297,24 +445,25 @@ class GenSettings extends ChangeNotifier {
   // コイン・枚数
   // ---------------------------------------------------------------------------
 
-  /// 1 回で作れる枚数の上限（サーバーと同じ決まり）
+  /// 1 回で作れる枚数の上限（サーバーと同じ決まり。実際の枚数はサーバーが上限に収める）
   int maxImagesPerRequest(ImageModel? model, {required bool isPaid}) {
     final key = (userCheckpoint?.checkpointName ?? model?.name ?? '').toLowerCase();
-    if (key.startsWith('flux') || key.contains('gemini') || isGemini || effectiveType == 'FLUX') return 1;
-    if (highRes) return 1;
-    if (seed != -1) return 1;
+    if (key.startsWith('flux') || key.contains('gemini') || isGemini || isFlux) return 1;
+    if (generationType(isPaid: isPaid) != 'TEXT_TO_IMAGE') return 1;
+    if (highRes || hasControlNet) return 1;
+    if (GenRules.sizeMultiplier(sizeType) > 1) return 1;
     return isPaid ? 4 : 2;
   }
 
   int imagesFor(ImageModel? model, {required bool isPaid}) {
     final max = maxImagesPerRequest(model, isPaid: isPaid);
-    final selected = imagesPerRequest;
+    final selected = seed != -1 ? fixedSeedImages : imagesPerRequest;
     if (selected == null) return max;
     return selected.clamp(1, max);
   }
 
-  /// 1 枚あたりのコイン
-  int coinPerImage(ImageModel? model) {
+  /// 1 枚あたりのコイン（Web の calcGenerationModelCoinCost と同じ）
+  int coinPerImage(ImageModel? model, {required bool isPaid}) {
     final key = (model?.name ?? modelId).toLowerCase();
     if (userCheckpoint == null) {
       if (key == 'flux.1 pro') return GenRules.fluxProCoin;
@@ -324,10 +473,12 @@ class GenSettings extends ChangeNotifier {
         return is31 ? GenRules.gemini2Coin : GenRules.geminiCoin;
       }
     }
-    return GenRules.standardCoin * (highRes ? 2 : 1);
+    final multiplier = GenRules.sizeMultiplier(sizeType);
+    if (generationType(isPaid: isPaid) == 'IMAGE_TO_IMAGE') return GenRules.imageEditCoin * multiplier;
+    return GenRules.standardCoin * (highRes ? 2 : 1) * multiplier;
   }
 
-  int requestCost(ImageModel? model, {required bool isPaid}) => coinPerImage(model) * imagesFor(model, isPaid: isPaid);
+  int requestCost(ImageModel? model, {required bool isPaid}) => coinPerImage(model, isPaid: isPaid) * imagesFor(model, isPaid: isPaid) * math.max(1, generationCount);
 
   // ---------------------------------------------------------------------------
   // 保存
@@ -343,12 +494,15 @@ class GenSettings extends ChangeNotifier {
     'steps': steps,
     'scale': scale,
     'sampler': sampler,
+    'scheduler': scheduler,
     'seed': seed,
     'clipSkip': clipSkip,
     'vae': vae,
     'highRes': highRes,
     'japanesePrompt': japanesePrompt,
     'imagesPerRequest': imagesPerRequest,
+    'fixedSeedImages': fixedSeedImages,
+    'i2iStrength': i2iStrength,
     'loras': loras.map((l) => l.toJson()).toList(),
   };
 
@@ -367,13 +521,18 @@ class GenSettings extends ChangeNotifier {
       sizeType = j['sizeType']?.toString() ?? sizeType;
       steps = (j['steps'] is int ? j['steps'] as int : steps).clamp(GenRules.minSteps, GenRules.maxSteps);
       scale = (j['scale'] is int ? j['scale'] as int : scale).clamp(GenRules.minScale, GenRules.maxScale);
-      sampler = j['sampler']?.toString() ?? sampler;
+      final savedSampler = GenRules.splitSampler(j['sampler']?.toString() ?? sampler);
+      sampler = savedSampler.$1;
+      final savedScheduler = j['scheduler']?.toString();
+      scheduler = GenRules.schedulers.contains(savedScheduler) ? savedScheduler : savedSampler.$2;
       seed = j['seed'] is int ? j['seed'] as int : seed;
       clipSkip = (j['clipSkip'] is int ? j['clipSkip'] as int : clipSkip).clamp(1, 12);
       vae = j['vae']?.toString() ?? vae;
       highRes = j['highRes'] == true;
       japanesePrompt = j['japanesePrompt'] == true;
       imagesPerRequest = j['imagesPerRequest'] is int ? j['imagesPerRequest'] as int : null;
+      fixedSeedImages = j['fixedSeedImages'] is int ? j['fixedSeedImages'] as int : 1;
+      if (j['i2iStrength'] is num) i2iStrength = (j['i2iStrength'] as num).toDouble().clamp(0.1, 1);
       loras = (j['loras'] is List ? j['loras'] as List : const []).map(LoraPick.fromJson).whereType<LoraPick>().toList();
       notifyListeners();
     } catch (_) {
@@ -393,7 +552,7 @@ class GenSettings extends ChangeNotifier {
       _applyModelType(model.id, model.type);
     }
     sizeType = GenRules.convertSize(sizeType, effectiveType);
-    if (!GenRules.samplers.contains(sampler)) sampler = 'DPM++ 2M Karras';
+    if (!GenRules.samplers.contains(sampler)) sampler = GenRules.defaultSampler;
     notifyListeners();
   }
 

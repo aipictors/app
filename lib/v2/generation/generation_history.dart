@@ -57,7 +57,7 @@ class _GenerationHistoryState extends State<GenerationHistory> {
               : width >= 480
               ? 3
               : 2;
-          final busy = [if (c.sendingCount > 0) null, ...c.running];
+          final busy = [for (var i = 0; i < c.sendingCount; i++) null, ...c.running];
           final isEmpty = busy.isEmpty && c.results.isEmpty;
           return RefreshIndicator.adaptive(
             onRefresh: c.refreshAll,
@@ -65,6 +65,7 @@ class _GenerationHistoryState extends State<GenerationHistory> {
               controller: _scroll,
               physics: const AlwaysScrollableScrollPhysics(),
               slivers: [
+                SliverToBoxAdapter(child: _HistoryFilterBar(controller: c)),
                 if (c.historyLoading && isEmpty)
                   SliverPadding(
                     padding: const EdgeInsets.all(12),
@@ -79,9 +80,11 @@ class _GenerationHistoryState extends State<GenerationHistory> {
                 else if (c.historyError != null && isEmpty)
                   SliverFillRemaining(hasScrollBody: false, child: StateView.error(c.historyError!, onRetry: c.refreshHistory))
                 else if (isEmpty)
-                  const SliverFillRemaining(
+                  SliverFillRemaining(
                     hasScrollBody: false,
-                    child: StateView(icon: Icons.photo_library_outlined, title: 'まだ生成した画像はありません', message: '「つくる」からプロンプトを書いて、最初の 1 枚を生成してみましょう'),
+                    child: c.hasHistoryFilter
+                        ? const StateView(icon: Icons.filter_alt_off_rounded, title: '条件に合う画像はありません', message: '絞り込みを変えてみてください')
+                        : const StateView(icon: Icons.photo_library_outlined, title: 'まだ生成した画像はありません', message: '「つくる」からプロンプトを書いて、最初の 1 枚を生成してみましょう'),
                   )
                 else ...[
                   if (busy.isNotEmpty)
@@ -139,6 +142,55 @@ class _GenerationHistoryState extends State<GenerationHistory> {
 }
 
 /// 生成済みの画像のタイル
+/// 履歴の絞り込み（お気に入り度・保護中・日付）
+class _HistoryFilterBar extends StatelessWidget {
+  const _HistoryFilterBar({required this.controller});
+
+  final GenController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    final c = controller;
+    final date = c.historyDate;
+    return SizedBox(
+      height: 44,
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.fromLTRB(12, 6, 12, 0),
+        children: [
+          FilterChip(
+            label: Text(c.historyMinRating > 0 ? '★${c.historyMinRating} 以上' : 'お気に入り'),
+            selected: c.historyMinRating > 0,
+            onSelected: (_) => c.setHistoryFilter(minRating: c.historyMinRating >= 5 ? 0 : c.historyMinRating + 1),
+          ),
+          const SizedBox(width: 8),
+          FilterChip(
+            label: const Text('保護中'),
+            selected: c.historyProtectedOnly,
+            onSelected: (v) => c.setHistoryFilter(protectedOnly: v),
+          ),
+          const SizedBox(width: 8),
+          FilterChip(
+            label: Text(date ?? '日付'),
+            selected: date != null,
+            onSelected: (_) async {
+              if (date != null) {
+                c.setHistoryFilter(clearDate: true);
+                return;
+              }
+              final now = DateTime.now();
+              final picked = await showDatePicker(context: context, firstDate: DateTime(2023), lastDate: now, initialDate: now);
+              if (picked == null) return;
+              String two(int v) => v.toString().padLeft(2, '0');
+              c.setHistoryFilter(date: '${picked.year}-${two(picked.month)}-${two(picked.day)}');
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class ResultTile extends StatelessWidget {
   const ResultTile({super.key, required this.result, required this.onTap, this.height});
 

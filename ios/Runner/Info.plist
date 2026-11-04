@@ -78,6 +78,8 @@
 	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>画像生成の元にする画像を選ぶために使用します。</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>生成した画像や作品の画像を写真に保存するために使用します。</string>
 	<key>NSUserTrackingUsageDescription</key>
