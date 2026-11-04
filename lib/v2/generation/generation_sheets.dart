@@ -1,5 +1,8 @@
+import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/design.dart';
 import 'package:aipictors/v2/core/nav.dart';
+import 'package:aipictors/v2/generation/generation_api.dart';
+import 'package:aipictors/v2/work/moderation.dart';
 import 'package:aipictors/v2/widgets/common.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -129,6 +132,186 @@ Future<void> showPlanRequiredSheet(BuildContext context, String message) {
       icon: Icons.workspace_premium_rounded,
       title: 'Aipictors+ で使えます',
       message: message,
+      primaryLabel: 'プランを見る',
+      onPrimary: () {
+        Navigator.of(sheet).pop();
+        Nav.plans(context);
+      },
+    ),
+  );
+}
+
+const _userModelReportReasons = [
+  ('COPYRIGHT', '著作権の侵害'),
+  ('REAL_PERSON', '実在の人物を扱っている'),
+  ('ILLEGAL', '違法・不適切な内容'),
+  ('WRONG_RATING', '年齢制限の設定が正しくない'),
+  ('BROKEN', '動かない・壊れている'),
+  ('SPAM', '宣伝・スパム'),
+  ('OTHER', 'その他'),
+];
+
+/// みんなのモデルの通報・作者のブロック。作者をブロックしたら true
+Future<bool> showUserModelActions(BuildContext context, UserModel model) async {
+  final action = await showGenSheet<String>(
+    context,
+    builder: (sheet) => SafeArea(
+      top: false,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ListTile(
+            leading: const Icon(Icons.flag_outlined),
+            title: const Text('このモデルを通報する'),
+            onTap: () => Navigator.of(sheet).pop('report'),
+          ),
+          if (model.authorId != null)
+            ListTile(
+              leading: const Icon(Icons.block_rounded),
+              title: Text('${model.authorName ?? '作者'}さんをブロックする'),
+              onTap: () => Navigator.of(sheet).pop('block'),
+            ),
+        ],
+      ),
+    ),
+  );
+  if (!context.mounted) return false;
+  if (action == 'block') return blockUser(context, model.authorId!, model.authorName ?? '作者');
+  if (action != 'report') return false;
+  final reason = await showGenSheet<String>(
+    context,
+    builder: (sheet) => SafeArea(
+      top: false,
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 0, 20, 8),
+              child: Text('通報の理由', style: context.tt.titleMedium?.copyWith(fontWeight: FontWeight.w800)),
+            ),
+            for (final r in _userModelReportReasons) ListTile(title: Text(r.$2), onTap: () => Navigator.of(sheet).pop(r.$1)),
+          ],
+        ),
+      ),
+    ),
+  );
+  if (reason == null || !context.mounted) return false;
+  try {
+    await GenApi.reportUserModel(model.id, reason: reason);
+    if (context.mounted) context.toast('通報しました。ご協力ありがとうございます', icon: Icons.flag_rounded);
+  } on ApiException catch (e) {
+    if (context.mounted) context.toast(e.message, error: true);
+  }
+  return false;
+}
+
+/// コインの履歴
+Future<void> showCoinHistorySheet(BuildContext context) {
+  return showGenSheet(context, expand: true, initialSize: 0.8, builder: (_) => const _CoinHistorySheet());
+}
+
+class _CoinHistorySheet extends StatefulWidget {
+  const _CoinHistorySheet();
+
+  @override
+  State<_CoinHistorySheet> createState() => _CoinHistorySheetState();
+}
+
+class _CoinHistorySheetState extends State<_CoinHistorySheet> {
+  static const _limit = 30;
+  final List<CoinLedgerItem> _items = [];
+  bool _loading = true;
+  bool _hasMore = false;
+  String? _error;
+
+  @override
+  void initState() {
+    super.initState();
+    _load();
+  }
+
+  Future<void> _load() async {
+    setState(() {
+      _loading = true;
+      _error = null;
+    });
+    try {
+      final page = await GenApi.coinLedger(offset: _items.length, limit: _limit);
+      if (!mounted) return;
+      setState(() {
+        _items.addAll(page);
+        _hasMore = page.length >= _limit;
+      });
+    } on ApiException catch (e) {
+      if (mounted) setState(() => _error = e.message);
+    } catch (_) {
+      if (mounted) setState(() => _error = 'コインの履歴を読み込めませんでした');
+    } finally {
+      if (mounted) setState(() => _loading = false);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    String two(int v) => v.toString().padLeft(2, '0');
+    return Column(
+      children: [
+        const SheetHandle(),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(20, 4, 20, 8),
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: Text('コインの履歴', style: context.tt.titleLarge?.copyWith(fontWeight: FontWeight.w800)),
+          ),
+        ),
+        Expanded(
+          child: _items.isEmpty && _loading
+              ? const SkeletonList()
+              : _items.isEmpty && _error != null
+              ? StateView.error(_error!, onRetry: _load)
+              : _items.isEmpty
+              ? const StateView(icon: Icons.receipt_long_rounded, title: 'まだ履歴はありません', message: '生成するとここに記録されます')
+              : ListView.builder(
+                  controller: PrimaryScrollController.of(context),
+                  itemCount: _items.length + (_hasMore ? 1 : 0),
+                  itemBuilder: (context, i) {
+                    if (i == _items.length) {
+                      return Padding(
+                        padding: const EdgeInsets.all(12),
+                        child: TextButton(onPressed: _loading ? null : _load, child: const Text('続きを読み込む')),
+                      );
+                    }
+                    final row = _items[i];
+                    final d = DateTime.fromMillisecondsSinceEpoch(row.createdAt * 1000);
+                    final minus = row.amount < 0;
+                    final amount = row.amount.abs();
+                    return ListTile(
+                      dense: true,
+                      title: Text(row.title, style: const TextStyle(fontWeight: FontWeight.w700)),
+                      subtitle: Text([if (row.detail.isNotEmpty) row.detail, '${d.month}/${d.day} ${two(d.hour)}:${two(d.minute)}'].join(' ・ ')),
+                      trailing: Text(
+                        '${minus ? '-' : '+'}$amount',
+                        style: TextStyle(fontWeight: FontWeight.w800, fontSize: 15, color: minus ? context.muted : Ds.gold),
+                      ),
+                    );
+                  },
+                ),
+        ),
+      ],
+    );
+  }
+}
+
+/// 今週の Gemini の枠を使い切ったとき
+Future<void> showGeminiLimitSheet(BuildContext context, {required int coinCost, required int premium, required bool isPaid}) {
+  return showGenSheet(
+    context,
+    builder: (sheet) => _InfoSheet(
+      icon: Icons.auto_awesome_rounded,
+      title: '今週の Gemini の枠を使い切りました',
+      message: '毎日のフリーコインから Gemini に使える量には週の枠があります。月曜0時に枠が戻ります。\n今すぐ作るときは、1枚につきプレミアムコイン$coinCost枚を使います（残り$premium枚）。',
       primaryLabel: 'プランを見る',
       onPrimary: () {
         Navigator.of(sheet).pop();

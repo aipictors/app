@@ -332,6 +332,13 @@ class _ModelPickerState extends State<_ModelPicker> {
           extraBadge: m.baseModel,
           selected: m.id == selected,
           onTap: () => _pickUser(m),
+          onMore: _tab != 2
+              ? null
+              : () async {
+                  if (await showUserModelActions(context, m) && mounted) {
+                    setState(() => _userModels?.removeWhere((x) => x.authorId == m.authorId));
+                  }
+                },
         );
       },
     );
@@ -350,6 +357,7 @@ class _ModelCard extends StatelessWidget {
     this.favorite,
     this.onFavorite,
     this.extraBadge,
+    this.onMore,
   });
 
   final String title;
@@ -362,6 +370,9 @@ class _ModelCard extends StatelessWidget {
   final VoidCallback? onFavorite;
   final VoidCallback onTap;
   final String? extraBadge;
+
+  /// 通報・ブロックのメニュー（みんなのモデルだけ）
+  final VoidCallback? onMore;
 
   @override
   Widget build(BuildContext context) {
@@ -409,6 +420,17 @@ class _ModelCard extends StatelessWidget {
                             color: favorite! ? Ds.pink : Colors.white,
                             shadows: const [Shadow(blurRadius: 6, color: Colors.black54)],
                           ),
+                        ),
+                      ),
+                    if (onMore != null)
+                      Positioned(
+                        right: 2,
+                        top: 2,
+                        child: IconButton(
+                          tooltip: '通報・ブロック',
+                          visualDensity: VisualDensity.compact,
+                          onPressed: onMore,
+                          icon: const Icon(Icons.more_horiz_rounded, color: Colors.white, shadows: [Shadow(blurRadius: 6, color: Colors.black54)]),
                         ),
                       ),
                     if (selected)

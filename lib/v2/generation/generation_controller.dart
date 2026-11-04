@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:math' as math;
+import 'dart:ui' as ui;
 
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/generation/generation_api.dart';
@@ -22,6 +23,9 @@ enum GenBlockKind {
 
   /// 本人確認が必要
   verification,
+
+  /// 今週の Gemini の枠を使い切った
+  geminiLimit,
 }
 
 class GenBlock {
@@ -46,6 +50,34 @@ class GenController extends ChangeNotifier {
   String? viewerError;
 
   CoinSummary? coins;
+
+  /// Gemini を選んでいるときだけ読む
+  GeminiAllowance? geminiAllowance;
+
+  /// メンテナンス中などのお知らせ
+  GenNotice? notice;
+
+  /// 履歴の絞り込み（Web と同じ。minRating: 1 以上でお気に入り、isProtected: 保護中のみ）
+  int historyMinRating = 0;
+  bool historyProtectedOnly = false;
+  String? historyDate;
+
+  bool get hasHistoryFilter => historyMinRating > 0 || historyProtectedOnly || historyDate != null;
+
+  Map<String, dynamic> get _historyWhere => {
+    if (historyMinRating > 0) 'minRating': historyMinRating,
+    if (historyProtectedOnly) 'isProtected': true,
+    if (historyDate != null) 'dateText': historyDate,
+  };
+
+  void setHistoryFilter({int? minRating, bool? protectedOnly, String? date, bool clearDate = false}) {
+    if (minRating != null) historyMinRating = minRating;
+    if (protectedOnly != null) historyProtectedOnly = protectedOnly;
+    if (date != null) historyDate = date;
+    if (clearDate) historyDate = null;
+    results.clear();
+    refreshHistory();
+  }
 
   /// 今日の付与があったとき一度だけ出す案内
   String? grantMessage;
@@ -85,7 +117,32 @@ class GenController extends ChangeNotifier {
 
   int get runningCount => running.length + sendingCount;
 
-  void _onSettings() => _notify();
+  String? _lastType;
+
+  void _onSettings() {
+    // Gemini を選んだときに枠を読む
+    if (settings.isGemini && _lastType != settings.effectiveType && _loggedIn) unawaited(loadGeminiAllowance());
+    _lastType = settings.effectiveType;
+    _notify();
+  }
+
+  Future<void> loadGeminiAllowance() async {
+    try {
+      geminiAllowance = await GenApi.geminiAllowance();
+      _notify();
+    } catch (_) {
+      // 読めなくても生成はできる（サーバーが枠を確認する）
+    }
+  }
+
+  Future<void> loadNotice() async {
+    try {
+      notice = await GenApi.notice();
+      _notify();
+    } catch (_) {
+      // 取れなければ前回のまま
+    }
+  }
 
   // ---------------------------------------------------------------------------
   // 読み込み
@@ -94,7 +151,14 @@ class GenController extends ChangeNotifier {
   Future<void> start({required bool loggedIn}) async {
     _loggedIn = loggedIn;
     await settings.restore();
-    await Future.wait([loadCatalog(), if (loggedIn) loadViewer(), if (loggedIn) loadCoins(), if (loggedIn) refreshHistory()]);
+    await Future.wait([
+      loadCatalog(),
+      loadNotice(),
+      if (loggedIn) loadViewer(),
+      if (loggedIn) loadCoins(),
+      if (loggedIn) refreshHistory(),
+      if (loggedIn && settings.isGemini) loadGeminiAllowance(),
+    ]);
   }
 
   Future<void> loadCatalog() async {
@@ -137,7 +201,7 @@ class GenController extends ChangeNotifier {
   }
 
   Future<void> refreshAll() async {
-    await Future.wait([loadViewer(), loadCoins(), refreshHistory()]);
+    await Future.wait([loadViewer(), loadCoins(), refreshHistory(), loadNotice(), if (settings.isGemini) loadGeminiAllowance()]);
   }
 
   Future<void> refreshHistory() async {
@@ -147,7 +211,7 @@ class GenController extends ChangeNotifier {
     try {
       final data = await Future.wait([
         Api.query(GenApi.tasksQuery, variables: {'offset': 0, 'limit': 20, 'where': <String, dynamic>{}}),
-        Api.query(GenApi.resultsQuery, variables: {'offset': 0, 'limit': _pageSize, 'where': <String, dynamic>{}}),
+        Api.query(GenApi.resultsQuery, variables: {'offset': 0, 'limit': _pageSize, 'where': _historyWhere}),
       ]);
       final tasks = (data[0].obj('viewer')?.list('imageGenerationTasks') ?? const [])
           .map((j) => GenResult.fromJson(j, isTask: true))
@@ -169,6 +233,7 @@ class GenController extends ChangeNotifier {
         // 終わったものがあれば残高・残り枚数も取り直す
         unawaited(loadViewer());
         unawaited(loadCoins());
+        if (settings.isGemini) unawaited(loadGeminiAllowance());
       }
       _syncPolling();
     } on ApiException catch (e) {
@@ -186,7 +251,7 @@ class GenController extends ChangeNotifier {
     historyLoadingMore = true;
     _notify();
     try {
-      final data = await Api.query(GenApi.resultsQuery, variables: {'offset': _resultsOffset, 'limit': _pageSize, 'where': <String, dynamic>{}});
+      final data = await Api.query(GenApi.resultsQuery, variables: {'offset': _resultsOffset, 'limit': _pageSize, 'where': _historyWhere});
       final page = (data.obj('viewer')?.list('imageGenerationResults') ?? const []).map(GenResult.fromJson).toList();
       final seen = results.map((r) => r.id).toSet();
       results.addAll(page.where((r) => seen.add(r.id)));
@@ -255,15 +320,29 @@ class GenController extends ChangeNotifier {
           if (done) completed = true;
         }),
       );
-      if (completed) {
-        // 保存が終わるころに取り直す
-        Future.delayed(const Duration(milliseconds: 1500), () {
-          if (!_disposed) refreshHistory();
-        });
-      }
+      if (completed) unawaited(_showCompleted());
       _notify();
     } finally {
       _polling = false;
+    }
+  }
+
+  bool _showingCompleted = false;
+
+  /// 終わったらすぐ一覧に出す（保存が終わるまで少しの間だけ細かく取り直す）
+  Future<void> _showCompleted() async {
+    if (_showingCompleted) return;
+    _showingCompleted = true;
+    try {
+      for (final delay in const [0, 500, 800, 1200, 2000, 3000]) {
+        await Future.delayed(Duration(milliseconds: delay));
+        if (_disposed) return;
+        final before = results.isEmpty ? null : results.first.id;
+        await refreshHistory();
+        if (results.isNotEmpty && results.first.id != before) return;
+      }
+    } finally {
+      _showingCompleted = false;
     }
   }
 
@@ -271,28 +350,48 @@ class GenController extends ChangeNotifier {
   // 生成
   // ---------------------------------------------------------------------------
 
-  /// 送信前のチェック（Web の onCreateTask と同じ順番）
+  /// 送信前のチェック（Web の onCreateTask と findGenerationSubmitBlock と同じ順番）
   GenBlock? check() {
     final v = viewer;
     final c = catalog;
     final m = model;
+    final s = settings;
     if (v == null || c == null) return const GenBlock(GenBlockKind.message, '読み込み中です。少し待ってからお試しください');
+    if (notice?.isMaintenance == true) return GenBlock(GenBlockKind.message, notice!.message);
     if (!v.hasSignedTerms) return const GenBlock(GenBlockKind.terms, '');
     if (m == null) return const GenBlock(GenBlockKind.message, 'モデルが見つかりません。モデルを選びなおしてください');
     if (v.passType == null && v.lineUserId == null && v.generatedCount >= 10 && !v.isExistedPreviousPass) {
       return const GenBlock(GenBlockKind.verification, '');
     }
-    final isGeminiNano = m.name.toLowerCase().contains('gemini');
-    if (settings.userCheckpoint == null && isGeminiNano && !v.isPaid) {
-      return const GenBlock(GenBlockKind.plan, 'Gemini Nano Banana / Gemini Nano Banana 2 はライト以上のプランで使えます（ライトは1日3回まで）');
+    final official = s.userCheckpoint == null;
+    if (official && m.name.toLowerCase().contains('gemini') && !v.isPaid) {
+      return const GenBlock(GenBlockKind.plan, 'Gemini Nano Banana はライト以上、Nano Banana 2 はスタンダード以上のプランで使えます');
     }
-    if (settings.userCheckpoint == null && m.isFlux && !v.isStandardOrPremium) {
-      return const GenBlock(GenBlockKind.plan, 'flux.1 はスタンダード以上のプランで生成できます');
+    if (s.i2iImage != null && !v.isPaid && s.effectiveType != 'GEMINI') {
+      return const GenBlock(GenBlockKind.plan, '画像から生成はライト以上のプランで使えます');
+    }
+    if (s.generationCount > 1 && !v.isStandardOrPremium) {
+      return const GenBlock(GenBlockKind.plan, '続けて依頼できるのはスタンダード以上のプランです');
     }
     if (v.inProgress + sendingCount > 0 && !v.isStandardOrPremium) {
       return const GenBlock(GenBlockKind.plan, '生成が終わるまでお待ちください。スタンダード以上のプランなら、生成中でも続けて依頼できます');
     }
-    final prompt = settings.prompt.trim();
+    final type = s.generationType(isPaid: v.isPaid);
+    if (type == 'IMAGE_TO_IMAGE' && v.inProgress + s.generationCount > v.consecutive) {
+      return const GenBlock(GenBlockKind.message, '同時に生成できる数の上限です');
+    }
+    if (s.generationCount > 1 && s.hasControlNet) return const GenBlock(GenBlockKind.message, 'ControlNet を使うときは 1 回ずつ生成してください');
+    if (s.isFlux && s.hasControlNet) return const GenBlock(GenBlockKind.message, 'FLUX モデルは ControlNet を使えません');
+    if (s.isFlux && s.i2iImage != null) return const GenBlock(GenBlockKind.message, 'FLUX モデルの画像から生成は一時的に停止しています');
+    if (!v.isPaid && GenRules.isCustomSize(s.sizeType) && GenRules.isOverFreeLimit(s.sizeType, highRes: s.highRes)) {
+      return const GenBlock(GenBlockKind.plan, 'サブスクに入っていない場合、出力サイズは 2048×2048（約4メガピクセル）までです');
+    }
+    if (s.highRes && s.i2iImage != null) return const GenBlock(GenBlockKind.message, '高解像度と画像から生成の組み合わせは一時的に停止しています');
+    if (s.hasControlNet && s.controlNetModule == null) return const GenBlock(GenBlockKind.message, 'ControlNet の種類を選ぶか、画像を消してください');
+    if (official && m.isFlux && !v.isStandardOrPremium) {
+      return const GenBlock(GenBlockKind.plan, 'flux.1 はスタンダード以上のプランで生成できます');
+    }
+    final prompt = s.prompt.trim();
     if (prompt.length > GenRules.maxPromptLength) {
       return const GenBlock(GenBlockKind.message, 'プロンプトが長すぎます（20000文字まで）');
     }
@@ -300,10 +399,30 @@ class GenController extends ChangeNotifier {
     if (summary != null && summary.total < requestCost) {
       return GenBlock(GenBlockKind.coins, 'コインが足りません（必要 $requestCost・残り ${summary.total}）');
     }
-    if (settings.seed != -1 && settings.lastRequestKey == _requestKey(m)) {
+    if (_geminiCoinUse() case final use? when !use.$2) return const GenBlock(GenBlockKind.geminiLimit, '');
+    if (s.seed != -1 && s.lastRequestKey == _requestKey(m)) {
       return const GenBlock(GenBlockKind.message, '前回と同じ条件での連続生成はできません。Seed を変えてください');
     }
     return null;
+  }
+
+  /// Gemini で使うプレミアムコインと、生成できるか（枠を適用していないときは null）
+  (int, bool)? _geminiCoinUse() {
+    final a = geminiAllowance;
+    final summary = coins;
+    if (!settings.isGemini || a == null || !a.isEnforced || summary == null) return null;
+    final freeUse = math.min(requestCost, math.min(summary.free, a.remaining));
+    final premiumUse = requestCost - freeUse;
+    return (premiumUse, premiumUse <= summary.premium);
+  }
+
+  /// この生成で使うプレミアムコインの見込み（フリーコインを先に使う）
+  int get premiumCoinUse {
+    final gemini = _geminiCoinUse();
+    if (gemini != null) return gemini.$1;
+    final summary = coins;
+    if (summary == null) return 0;
+    return math.min(math.max(0, requestCost - summary.free), summary.premium);
   }
 
   String _requestKey(ImageModel m) => [
@@ -315,10 +434,36 @@ class GenController extends ChangeNotifier {
     settings.steps,
     settings.scale,
     settings.sampler,
+    settings.scheduler,
     settings.clipSkip,
     settings.sizeType,
     settings.highRes,
+    settings.i2iImage?.length,
+    settings.i2iStrength,
+    settings.controlNetImage?.length,
+    settings.controlNetModule,
   ].join('|');
+
+  /// 画像を今のサイズの比率で真ん中から切り出して PNG にする（Web の CropImageField と同じ大きさ）
+  static Future<Uint8List> _cropToSize(Uint8List bytes, GenSize size) async {
+    final codec = await ui.instantiateImageCodec(bytes);
+    final image = (await codec.getNextFrame()).image;
+    final scale = math.max(size.width / image.width, size.height / image.height);
+    final srcW = size.width / scale;
+    final srcH = size.height / scale;
+    final recorder = ui.PictureRecorder();
+    ui.Canvas(recorder).drawImageRect(
+      image,
+      ui.Rect.fromLTWH((image.width - srcW) / 2, (image.height - srcH) / 2, srcW, srcH),
+      ui.Rect.fromLTWH(0, 0, size.width.toDouble(), size.height.toDouble()),
+      ui.Paint()..filterQuality = ui.FilterQuality.high,
+    );
+    final out = await recorder.endRecording().toImage(size.width, size.height);
+    final png = await out.toByteData(format: ui.ImageByteFormat.png);
+    image.dispose();
+    out.dispose();
+    return png!.buffer.asUint8List();
+  }
 
   /// 生成を依頼する。止めたときは理由を返す
   Future<GenBlock?> submit() async {
@@ -333,81 +478,112 @@ class GenController extends ChangeNotifier {
     final modelName = s.userCheckpoint?.checkpointName ?? m.name;
     final steps = (s.steps > GenRules.maxSteps || s.steps < GenRules.minSteps) ? GenRules.maxSteps : s.steps;
     final count = imagesPerRequest;
+    final taskCount = math.max(1, s.generationCount);
+    final generationType = s.generationType(isPaid: v.isPaid);
+    final isFlux = s.userCheckpoint == null && m.isFlux;
+    final isGemini = s.userCheckpoint == null && m.isGemini;
+    final size = GenSize.parse(s.sizeType);
 
     submitting = true;
-    sendingCount = 1;
+    sendingCount = taskCount;
     _syncPolling();
     _notify();
     try {
-      if (s.userCheckpoint == null && m.isFlux) {
-        await Api.mutate(
-          GenApi.createFluxTask,
-          variables: {
-            'input': {
-              'count': 1,
-              'prompt': prompt,
-              'isPromptGenerationEnabled': s.japanesePrompt,
-              'negativePrompt': s.negativePrompt,
-              'seed': s.seed,
-              'steps': steps,
-              'scale': s.scale,
-              'sizeType': s.sizeType,
-              'modelName': modelName,
+      var i2iUrl = '';
+      if (generationType == 'IMAGE_TO_IMAGE') {
+        i2iUrl = await GenApi.uploadPublicImage(await _cropToSize(s.i2iImage!, size));
+      }
+      String? controlNetUrl;
+      if (s.controlNetImage != null) {
+        controlNetUrl = await GenApi.uploadPublicImage(await _cropToSize(s.controlNetImage!, size));
+      }
+      final controlNet = {
+        'controlNetImageUrl': controlNetUrl,
+        'controlNetWeight': controlNetUrl == null ? null : s.controlNetWeight,
+        'controlNetModel': controlNetUrl == null ? null : s.controlNetModel,
+        'controlNetModule': controlNetUrl == null ? null : s.controlNetModule,
+      };
+
+      Future<void> one(int i) {
+        // Seed を決めているときは依頼ごとに枚数ぶんずらす
+        final seed = s.seed == -1 ? -1 : s.seed + i * count;
+        final overLimit = v.consecutive > 0 && i + 1 + v.inProgress > v.consecutive;
+        // 画像から生成・flux.1 は予約できないので、上限を超えた分は送らない
+        if (overLimit && (i2iUrl.isNotEmpty || isFlux)) return Future.value();
+        if (isFlux) {
+          return Api.mutate(
+            GenApi.createFluxTask,
+            variables: {
+              'input': {
+                'count': 1,
+                'prompt': prompt,
+                'isPromptGenerationEnabled': s.japanesePrompt,
+                'negativePrompt': s.negativePrompt,
+                'seed': seed,
+                'steps': steps,
+                'scale': s.scale,
+                'sizeType': s.sizeType,
+                'modelName': modelName,
+              },
             },
-          },
-        );
-      } else if (s.userCheckpoint == null && m.isGemini) {
-        final lower = modelName.toLowerCase();
-        final is31 = lower.contains('3.1') || lower.contains('nanobanana2') || lower.contains('nano banana 2');
-        await Api.mutate(
-          GenApi.createGeminiTask,
-          variables: {
-            'input': {
-              'prompt': basePrompt,
-              'size': GenRules.geminiSize(s.sizeType),
-              'imageUrl': null,
-              'model': is31 ? 'GEMINI_31_FLASH_IMAGE_PREVIEW' : 'GEMINI_25_FLASH_IMAGE',
-            },
-          },
-        );
-      } else {
-        final input = {
+          );
+        }
+        final common = {
           'model': modelName,
           'vae': s.vae,
           'prompt': prompt,
           'isPromptGenerationEnabled': s.japanesePrompt,
           'negativePrompt': s.negativePrompt,
-          'seed': s.seed,
+          'seed': seed,
           'steps': steps,
           'scale': s.scale,
           'sampler': s.sampler,
+          'scheduler': s.scheduler,
           'clipSkip': s.clipSkip,
-          'sizeType': s.sizeType,
-          'type': 'TEXT_TO_IMAGE',
-          't2tImageUrl': '',
-          't2tDenoisingStrengthSize': '0.5',
-          'controlNetImageUrl': null,
-          'controlNetWeight': null,
-          'controlNetModel': null,
-          'controlNetModule': null,
+          ...GenRules.sizeInput(s.sizeType),
+          ...controlNet,
           'upscaleSize': s.highRes ? 2 : null,
         };
-        if (v.inProgress >= v.consecutive && v.consecutive > 0) {
-          // 同時に作れる数を超えたら予約生成にする（Web と同じ）
-          final reserved = Map<String, dynamic>.of(input)
-            ..remove('t2tImageUrl')
-            ..remove('t2tDenoisingStrengthSize');
-          reserved['count'] = 1;
-          await Api.mutate(GenApi.createReservedTask, variables: {'input': reserved});
-        } else {
-          await Api.mutate(
-            GenApi.createTask,
+        if (overLimit) {
+          // 同時に作れる数を超えた分は予約生成にする（Web と同じ）
+          return Api.mutate(
+            GenApi.createReservedTask,
             variables: {
-              'input': {...input, 'count': count},
+              'input': {...common, 'count': 1, 'type': 'TEXT_TO_IMAGE'},
             },
           );
         }
+        if (isGemini) {
+          final lower = modelName.toLowerCase();
+          final is31 = lower.contains('3.1') || lower.contains('nanobanana2') || lower.contains('nano banana 2');
+          return Api.mutate(
+            GenApi.createGeminiTask,
+            variables: {
+              'input': {
+                'prompt': basePrompt,
+                'size': GenRules.geminiSize(s.sizeType),
+                'imageUrl': i2iUrl.isEmpty ? null : i2iUrl,
+                'model': is31 ? 'GEMINI_31_FLASH_IMAGE_PREVIEW' : 'GEMINI_25_FLASH_IMAGE',
+              },
+            },
+          );
+        }
+        return Api.mutate(
+          GenApi.createTask,
+          variables: {
+            'input': {
+              ...common,
+              // 1 回で作る枚数（サーバー側で上限に収める）
+              'count': count,
+              'type': generationType,
+              't2tImageUrl': i2iUrl,
+              't2tDenoisingStrengthSize': s.i2iStrength.toString(),
+            },
+          },
+        );
       }
+
+      await Future.wait([for (var i = 0; i < taskCount; i++) one(i)]);
       if (s.seed != -1) s.lastRequestKey = _requestKey(m);
       unawaited(s.save());
       // 反映が遅れることがあるので少しずつ取り直す
@@ -417,10 +593,14 @@ class GenController extends ChangeNotifier {
           if (_disposed) return;
           loadViewer();
           loadCoins();
+          if (s.isGemini) loadGeminiAllowance();
         });
       }
       return null;
     } on ApiException catch (e) {
+      // サーバーが止めたとき（コイン・Gemini の枠・内容のチェックなど）
+      if (e.message.contains('コイン残高が不足')) return GenBlock(GenBlockKind.coins, e.message);
+      if (e.message.contains('Gemini の枠')) return GenBlock(GenBlockKind.geminiLimit, e.message);
       return GenBlock(GenBlockKind.message, e.message);
     } catch (_) {
       return const GenBlock(GenBlockKind.message, '生成を依頼できませんでした。もう一度お試しください');
@@ -561,6 +741,7 @@ class GenController extends ChangeNotifier {
     _loggedIn = false;
     viewer = null;
     coins = null;
+    geminiAllowance = null;
     running.clear();
     results.clear();
     progress.clear();
@@ -571,7 +752,7 @@ class GenController extends ChangeNotifier {
   Future<void> onLoggedIn() async {
     if (_loggedIn) return;
     _loggedIn = true;
-    await Future.wait([loadViewer(), loadCoins(), refreshHistory()]);
+    await Future.wait([loadViewer(), loadCoins(), refreshHistory(), if (settings.isGemini) loadGeminiAllowance()]);
   }
 
   void _notify() {

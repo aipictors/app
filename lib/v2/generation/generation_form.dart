@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:aipictors/v2/core/design.dart';
+import 'package:aipictors/v2/core/nav.dart';
 import 'package:aipictors/v2/generation/generation_api.dart';
 import 'package:aipictors/v2/generation/generation_controller.dart';
 import 'package:aipictors/v2/generation/generation_debug.dart';
@@ -12,6 +13,7 @@ import 'package:aipictors/v2/widgets/common.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 
 /// 生成の設定フォーム（モデル・プロンプト・サイズ・詳細設定）
 class GenerationForm extends StatefulWidget {
@@ -31,6 +33,10 @@ class _GenerationFormState extends State<GenerationForm> {
   late final _seed = TextEditingController(text: s.seed == -1 ? '' : '${s.seed}');
   late bool _advancedOpen = kDebugMode && GenDebug.action == 'advanced';
   bool _negativeOpen = false;
+  bool _customOpen = false;
+
+  /// 正方形のときにどちらの向きの比率を並べるか
+  bool _landscapeList = false;
   final _scroll = ScrollController();
 
   GenController get c => widget.controller;
@@ -41,6 +47,12 @@ class _GenerationFormState extends State<GenerationForm> {
   void initState() {
     super.initState();
     s.addListener(_syncText);
+    if (kDebugMode && (GenDebug.action == 'custom' || GenDebug.action == 'landscape')) {
+      // 開発用: サイズが見える位置まで送る
+      Future.delayed(const Duration(milliseconds: 5000), () {
+        if (mounted && _scroll.hasClients) _scroll.jumpTo(620);
+      });
+    }
     if (_advancedOpen) {
       // 開発用: 詳細設定が見える位置まで送る
       for (final ms in const [2500, 4000]) {
@@ -98,6 +110,8 @@ class _GenerationFormState extends State<GenerationForm> {
             const SizedBox(height: 12),
             _countCard(),
             const SizedBox(height: 12),
+            if (!s.isFlux) ...[_i2iCard(), const SizedBox(height: 12)],
+            if (!s.isGemini && !s.isFlux) ...[_controlNetCard(), const SizedBox(height: 12)],
             if (!s.isGemini) _advancedCard(),
             const SizedBox(height: 16),
             Center(
@@ -390,7 +404,23 @@ class _GenerationFormState extends State<GenerationForm> {
   // ---------------------------------------------------------------------------
 
   Widget _sizeCard() {
-    final sizes = GenRules.sizes(s.effectiveType);
+    final type = s.effectiveType;
+    final isCustom = GenRules.isCustomSize(s.sizeType);
+    final canCustom = GenRules.canCustomSize(type);
+    final current = GenSize.parse(s.sizeType);
+    final showCustom = canCustom && (_customOpen || isCustom);
+    final isLandscape = current.width == current.height ? _landscapeList : current.width > current.height;
+    // 今の向きと正方形だけ並べる。逆の向きは「入替」で切り替える
+    final sizes = GenRules.sizes(type).where((o) => o.width == o.height || (o.width > o.height) == isLandscape).toList();
+    final overHighRes = !c.isPaid && GenRules.isOverFreeLimit(s.sizeType, highRes: true);
+    if (s.highRes && overHighRes) {
+      // 大きいサイズにしたら、選べなくなった高解像度は標準に戻す
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted && s.highRes) s.update((x) => x.highRes = false);
+      });
+    }
+    final m = s.highRes ? 2 : 1;
+    final multiplier = GenRules.sizeMultiplier(s.sizeType);
     return _Card(
       padding: const EdgeInsets.fromLTRB(14, 12, 14, 14),
       child: Column(
@@ -400,15 +430,9 @@ class _GenerationFormState extends State<GenerationForm> {
             children: [
               const _Label(icon: Icons.aspect_ratio_rounded, text: 'サイズ'),
               const Spacer(),
-              Builder(
-                builder: (context) {
-                  final cur = GenSize.parse(s.sizeType);
-                  final m = s.highRes ? 2 : 1;
-                  return Text(
-                    '${cur.width * m} × ${cur.height * m}',
-                    style: TextStyle(fontSize: 12, color: context.muted, fontWeight: FontWeight.w700),
-                  );
-                },
+              Text(
+                '${current.width * m} × ${current.height * m}',
+                style: TextStyle(fontSize: 12, color: context.muted, fontWeight: FontWeight.w700),
               ),
             ],
           ),
@@ -467,19 +491,87 @@ class _GenerationFormState extends State<GenerationForm> {
               },
             ),
           ),
+          const SizedBox(height: 10),
+          Row(
+            children: [
+              Expanded(
+                child: OutlinedButton.icon(onPressed: _swapSize, icon: const Icon(Icons.swap_horiz_rounded, size: 18), label: const Text('縦横を入替')),
+              ),
+              if (canCustom) ...[
+                const SizedBox(width: 8),
+                Expanded(
+                  child: OutlinedButton.icon(
+                    onPressed: _toggleCustom,
+                    icon: Icon(showCustom ? Icons.close_rounded : Icons.tune_rounded, size: 18),
+                    label: Text(showCustom ? '指定をやめる' : '幅・高さを指定'),
+                  ),
+                ),
+              ],
+            ],
+          ),
+          if (showCustom) ...[
+            const SizedBox(height: 10),
+            _CustomSizePanel(
+              width: current.width,
+              height: current.height,
+              isPaid: c.isPaid,
+              onChange: (w, h) => s.update((x) => x.sizeType = GenRules.toCustomSize(w, h)),
+            ),
+          ],
+          if (multiplier > 1) ...[
+            const SizedBox(height: 8),
+            Text('大きいサイズは 1 枚ずつ・コイン$multiplier倍です', style: TextStyle(fontSize: 12, color: context.muted)),
+          ],
           if (!s.isGemini && s.effectiveType != 'FLUX') ...[
             const SizedBox(height: 10),
             _SwitchRow(
               title: '高解像度で生成する',
-              subtitle: '2倍の大きさで生成します（1枚ずつ・コイン2倍）',
+              subtitle: overHighRes ? 'サブスクに入っていない場合、このサイズでは使えません（出力は 2048×2048 まで）' : '2倍の大きさで生成します（1枚ずつ・コイン2倍）',
               badge: '×2',
               value: s.highRes,
-              onChanged: (v) => s.update((x) => x.highRes = v),
+              onChanged: (v) {
+                if (v && overHighRes) {
+                  context.toast('サブスクに入っていない場合、出力サイズは 2048×2048 までです', error: true);
+                  return;
+                }
+                s.update((x) => x.highRes = v);
+              },
             ),
           ],
         ],
       ),
     );
+  }
+
+  void _swapSize() {
+    Ds.tap();
+    final current = GenSize.parse(s.sizeType);
+    if (current.width == current.height) {
+      setState(() => _landscapeList = !_landscapeList);
+      return;
+    }
+    setState(() => _landscapeList = current.width < current.height);
+    final isCustom = GenRules.isCustomSize(s.sizeType);
+    final options = GenRules.sizes(s.effectiveType);
+    final swapped = options.where((o) => o.width == current.height && o.height == current.width).firstOrNull;
+    if (swapped != null && !isCustom) {
+      s.update((x) => x.sizeType = swapped.type);
+    } else if (GenRules.canCustomSize(s.effectiveType)) {
+      s.update((x) => x.sizeType = GenRules.toCustomSize(current.height, current.width));
+    }
+  }
+
+  void _toggleCustom() {
+    Ds.tap();
+    final current = GenSize.parse(s.sizeType);
+    if (_customOpen || GenRules.isCustomSize(s.sizeType)) {
+      setState(() => _customOpen = false);
+      // 指定をやめるときは一番近い比率に戻す
+      if (GenRules.isCustomSize(s.sizeType)) s.update((x) => x.sizeType = GenRules.nearestSize(x.effectiveType, current));
+      return;
+    }
+    setState(() => _customOpen = true);
+    s.update((x) => x.sizeType = GenRules.toCustomSize(GenRules.normalizeSide(current.width), GenRules.normalizeSide(current.height)));
   }
 
   // ---------------------------------------------------------------------------
@@ -489,15 +581,23 @@ class _GenerationFormState extends State<GenerationForm> {
   Widget _countCard() {
     final max = s.maxImagesPerRequest(c.model, isPaid: c.isPaid);
     final current = c.imagesPerRequest;
-    final reason = s.highRes
+    final isPaid = c.isPaid;
+    final reason = max > 1
+        ? (s.seed != -1 && current > 1
+              ? 'Seed ${s.seed}〜${s.seed + current - 1} で $current 枚作ります（1枚目は今の Seed と同じ絵）'
+              : isPaid
+              ? null
+              : '無料は 2 枚まで。プランなら 4 枚まで')
+        : s.highRes
         ? '高解像度は 1 枚ずつ生成します'
-        : s.seed != -1
-        ? 'Seed を決めているときは 1 枚ずつ生成します'
-        : max == 1
-        ? 'このモデルは 1 枚ずつ生成します'
-        : c.isPaid
-        ? null
-        : 'Aipictors+ なら一度に 4 枚まで';
+        : s.hasControlNet
+        ? 'ControlNet を使うときは 1 枚ずつ生成します'
+        : s.generationType(isPaid: isPaid) != 'TEXT_TO_IMAGE'
+        ? '画像から生成は 1 枚ずつ生成します'
+        : GenRules.sizeMultiplier(s.sizeType) > 1
+        ? '大きいサイズは 1 枚ずつ生成します'
+        : 'このモデルは 1 枚ずつ生成します';
+    final canReserve = c.viewer?.isStandardOrPremium == true && !s.isFlux && s.i2iImage == null && !s.isGemini;
     return _Card(
       padding: const EdgeInsets.fromLTRB(14, 12, 14, 12),
       child: Column(
@@ -507,10 +607,157 @@ class _GenerationFormState extends State<GenerationForm> {
             children: [
               const _Label(icon: Icons.burst_mode_rounded, text: '一度に作る枚数'),
               const Spacer(),
-              _CountSelector(max: math.max(max, 1), value: current, onChanged: (v) => s.update((x) => x.imagesPerRequest = v == max ? null : v)),
+              _CountSelector(
+                max: math.max(max, 1),
+                value: current,
+                onChanged: (v) => s.update((x) {
+                  if (x.seed != -1) {
+                    x.fixedSeedImages = v;
+                  } else {
+                    x.imagesPerRequest = v == max ? null : v;
+                  }
+                }),
+              ),
             ],
           ),
           if (reason != null) ...[const SizedBox(height: 6), Text(reason, style: TextStyle(fontSize: 12, color: context.muted))],
+          if (canReserve) ...[
+            const SizedBox(height: 10),
+            Row(
+              children: [
+                const _Label(icon: Icons.schedule_rounded, text: '続けて依頼（予約生成）'),
+                const Spacer(),
+                IconButton(
+                  visualDensity: VisualDensity.compact,
+                  onPressed: s.generationCount > 1 ? () => s.update((x) => x.generationCount -= 1) : null,
+                  icon: const Icon(Icons.remove_circle_outline_rounded),
+                ),
+                Text('${s.generationCount} 回', style: const TextStyle(fontWeight: FontWeight.w800)),
+                IconButton(
+                  visualDensity: VisualDensity.compact,
+                  onPressed: s.generationCount < (c.viewer?.remaining ?? 1).clamp(1, 30) ? () => s.update((x) => x.generationCount += 1) : null,
+                  icon: const Icon(Icons.add_circle_outline_rounded),
+                ),
+              ],
+            ),
+            Text('同時に生成できる数を超えた分は予約され、順番に生成します', style: TextStyle(fontSize: 12, color: context.muted)),
+          ],
+        ],
+      ),
+    );
+  }
+
+  // ---------------------------------------------------------------------------
+  // 画像から生成・ControlNet
+  // ---------------------------------------------------------------------------
+
+  Future<Uint8List?> _pickImage() async {
+    try {
+      final file = await ImagePicker().pickImage(source: ImageSource.gallery);
+      return file == null ? null : await file.readAsBytes();
+    } catch (_) {
+      if (mounted) context.toast('画像を読み込めませんでした。写真へのアクセスを確認してください', error: true);
+      return null;
+    }
+  }
+
+  Widget _i2iCard() {
+    final image = s.i2iImage;
+    final isGemini = s.effectiveType == 'GEMINI' || s.isGemini;
+    return _Card(
+      padding: const EdgeInsets.fromLTRB(14, 12, 14, 12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Row(
+            children: [
+              const _Label(icon: Icons.image_rounded, text: '画像から生成'),
+              const Spacer(),
+              if (!c.isPaid && !isGemini) Badge2('ライト以上', color: Ds.purple),
+            ],
+          ),
+          const SizedBox(height: 10),
+          _ImagePickRow(
+            image: image,
+            label: '元にする画像を選ぶ',
+            onPick: () async {
+              final bytes = await _pickImage();
+              if (bytes != null) s.update((x) => x.i2iImage = bytes);
+            },
+            onClear: () => s.update((x) => x.i2iImage = null),
+          ),
+          if (image != null) ...[
+            const SizedBox(height: 6),
+            Text('今のサイズの比率で真ん中を切り抜いて使います（1枚ずつ）', style: TextStyle(fontSize: 12, color: context.muted)),
+            if (!isGemini)
+              _SliderRow(
+                title: '変更度',
+                help: '小さいほど元の画像に近く、大きいほど変わります',
+                value: s.i2iStrength,
+                min: 0.1,
+                max: 1,
+                label: s.i2iStrength.toStringAsFixed(2),
+                onChanged: (v) => s.update((x) => x.i2iStrength = (v * 100).round() / 100),
+              ),
+          ],
+        ],
+      ),
+    );
+  }
+
+  Widget _controlNetCard() {
+    final image = s.controlNetImage;
+    final module = s.controlNetModule;
+    final showWeight = module != null && module != 'seg_ofade20k';
+    return _Card(
+      padding: const EdgeInsets.fromLTRB(14, 12, 14, 12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          const _Label(icon: Icons.accessibility_new_rounded, text: 'ControlNet'),
+          const SizedBox(height: 10),
+          _ImagePickRow(
+            image: image,
+            label: 'ポーズや構図の元になる画像を選ぶ',
+            onPick: () async {
+              final bytes = await _pickImage();
+              if (bytes == null) return;
+              s.update((x) {
+                x.controlNetImage = bytes;
+                x.controlNetModule ??= 'openpose_full';
+                x.controlNetModel = GenRules.controlNetModel(x.controlNetModule!, x.effectiveType);
+              });
+            },
+            onClear: () => s.update((x) {
+              x.controlNetImage = null;
+              x.controlNetModule = null;
+              x.controlNetModel = null;
+            }),
+          ),
+          if (image != null) ...[
+            _PickerRow(
+              title: '種類',
+              help: '元の画像のどこを使うか',
+              value: GenRules.controlNetModules.where((m) => m.$1 == module).firstOrNull?.$2 ?? '選んでください',
+              onTap: () => _pickFrom('ControlNet の種類', [for (final m in GenRules.controlNetModules) m.$2], GenRules.controlNetModules.where((m) => m.$1 == module).firstOrNull?.$2 ?? '', (label) {
+                final picked = GenRules.controlNetModules.firstWhere((m) => m.$2 == label).$1;
+                s.update((x) {
+                  x.controlNetModule = picked;
+                  x.controlNetModel = GenRules.controlNetModel(picked, x.effectiveType);
+                });
+              }),
+            ),
+            if (showWeight)
+              _SliderRow(
+                title: '強さ',
+                help: '元の画像にどれだけ従うか',
+                value: s.controlNetWeight,
+                min: 0.1,
+                max: 2,
+                label: s.controlNetWeight.toStringAsFixed(1),
+                onChanged: (v) => s.update((x) => x.controlNetWeight = (v * 10).round() / 10),
+              ),
+          ],
         ],
       ),
     );
@@ -564,6 +811,30 @@ class _GenerationFormState extends State<GenerationForm> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
+                        if (!isFlux)
+                          Wrap(
+                            spacing: 8,
+                            children: [
+                              ActionChip(
+                                label: const Text('標準'),
+                                onPressed: () => s.update((x) {
+                                  x.scale = 7;
+                                  x.steps = 20;
+                                  x.sampler = GenRules.defaultSampler;
+                                  x.scheduler = null;
+                                }),
+                              ),
+                              ActionChip(
+                                label: const Text('turbo・lightning 用'),
+                                onPressed: () => s.update((x) {
+                                  x.scale = 1;
+                                  x.steps = 8;
+                                  x.sampler = 'Euler';
+                                  x.scheduler = 'SGM Uniform';
+                                }),
+                              ),
+                            ],
+                          ),
                         _SliderRow(
                           title: 'Steps',
                           help: '描き込みの回数。多いほど細かくなり、時間がかかります',
@@ -588,6 +859,12 @@ class _GenerationFormState extends State<GenerationForm> {
                             help: 'ノイズの除去の手法',
                             value: s.sampler,
                             onTap: () => _pickFrom('Sampler', GenRules.samplers, s.sampler, (v) => s.update((x) => x.sampler = v)),
+                          ),
+                          _PickerRow(
+                            title: 'Schedule type',
+                            help: 'ノイズの減らし方（たいていは自動で大丈夫）',
+                            value: s.scheduler ?? '自動',
+                            onTap: () => _pickFrom('Schedule type', ['自動', ...GenRules.schedulers], s.scheduler ?? '自動', (v) => s.update((x) => x.scheduler = v == '自動' ? null : v)),
                           ),
                           _SliderRow(
                             title: 'Clip Skip',
@@ -727,7 +1004,13 @@ class _GenerationFormState extends State<GenerationForm> {
       x.loras = [];
       x.steps = 20;
       x.scale = 7;
-      x.sampler = 'DPM++ 2M Karras';
+      x.sampler = GenRules.defaultSampler;
+      x.scheduler = null;
+      x.i2iImage = null;
+      x.controlNetImage = null;
+      x.controlNetModule = null;
+      x.controlNetModel = null;
+      x.generationCount = 1;
       x.seed = -1;
       x.clipSkip = 2;
       x.highRes = false;
@@ -753,6 +1036,152 @@ InputDecoration _fieldDecoration(BuildContext context, String hint) => InputDeco
     borderSide: BorderSide(color: context.cs.primary, width: 1.5),
   ),
 );
+
+/// 幅と高さの指定（入力中は自由に打てて、確定したときに範囲へ収める）
+class _CustomSizePanel extends StatefulWidget {
+  const _CustomSizePanel({required this.width, required this.height, required this.isPaid, required this.onChange});
+
+  final int width;
+  final int height;
+  final bool isPaid;
+  final void Function(int width, int height) onChange;
+
+  @override
+  State<_CustomSizePanel> createState() => _CustomSizePanelState();
+}
+
+class _CustomSizePanelState extends State<_CustomSizePanel> {
+  late final _w = TextEditingController(text: '${widget.width}');
+  late final _h = TextEditingController(text: '${widget.height}');
+  final _wFocus = FocusNode();
+  final _hFocus = FocusNode();
+
+  @override
+  void initState() {
+    super.initState();
+    _wFocus.addListener(() {
+      if (!_wFocus.hasFocus) _commit();
+    });
+    _hFocus.addListener(() {
+      if (!_hFocus.hasFocus) _commit();
+    });
+  }
+
+  @override
+  void didUpdateWidget(covariant _CustomSizePanel old) {
+    super.didUpdateWidget(old);
+    if (!_wFocus.hasFocus && _w.text != '${widget.width}') _w.text = '${widget.width}';
+    if (!_hFocus.hasFocus && _h.text != '${widget.height}') _h.text = '${widget.height}';
+  }
+
+  @override
+  void dispose() {
+    _w.dispose();
+    _h.dispose();
+    _wFocus.dispose();
+    _hFocus.dispose();
+    super.dispose();
+  }
+
+  void _commit() {
+    final w = GenRules.normalizeSide(int.tryParse(_w.text) ?? widget.width);
+    final h = GenRules.normalizeSide(int.tryParse(_h.text) ?? widget.height);
+    _w.text = '$w';
+    _h.text = '$h';
+    if (w != widget.width || h != widget.height) widget.onChange(w, h);
+  }
+
+  void _longSide(int side) {
+    Ds.tap();
+    final scale = side / math.max(widget.width, widget.height);
+    widget.onChange(GenRules.normalizeSide(widget.width * scale), GenRules.normalizeSide(widget.height * scale));
+  }
+
+  Widget _field(String label, TextEditingController controller, FocusNode focus) => Expanded(
+    child: TextField(
+      controller: controller,
+      focusNode: focus,
+      keyboardType: TextInputType.number,
+      textInputAction: TextInputAction.done,
+      inputFormatters: [FilteringTextInputFormatter.digitsOnly, LengthLimitingTextInputFormatter(4)],
+      onSubmitted: (_) => _commit(),
+      decoration: _fieldDecoration(context, label).copyWith(labelText: label),
+    ),
+  );
+
+  @override
+  Widget build(BuildContext context) {
+    final pixels = widget.width * widget.height;
+    final over = !widget.isPaid && pixels > GenRules.freeMaxPixels;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Row(children: [_field('幅', _w, _wFocus), const SizedBox(width: 8), _field('高さ', _h, _hFocus)]),
+        const SizedBox(height: 8),
+        Row(
+          children: [
+            Text('長辺', style: TextStyle(fontSize: 12, color: context.muted)),
+            const SizedBox(width: 8),
+            for (final side in const [1024, 1536, 2048])
+              Padding(
+                padding: const EdgeInsets.only(right: 6),
+                child: ChoiceChip(label: Text('$side'), selected: math.max(widget.width, widget.height) == side, onSelected: (_) => _longSide(side)),
+              ),
+          ],
+        ),
+        const SizedBox(height: 6),
+        Text(
+          '${GenRules.customSizeMin}〜${GenRules.customSizeMax} の範囲で指定してください（8 の倍数にそろえます）。今のサイズは約 ${(pixels / 1000000).toStringAsFixed(1)} メガピクセルです。',
+          style: TextStyle(fontSize: 12, color: context.muted, height: 1.4),
+        ),
+        if (over) ...[
+          const SizedBox(height: 6),
+          Text('サブスクに入っていない場合は 2048×2048（約4メガピクセル）までです。', style: TextStyle(fontSize: 12, color: context.cs.error, fontWeight: FontWeight.w700)),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: TextButton(onPressed: () => Nav.plans(context), child: const Text('プランを見る')),
+          ),
+        ],
+      ],
+    );
+  }
+}
+
+/// 画像を選ぶ行（選んだら縮小して表示し、消せる）
+class _ImagePickRow extends StatelessWidget {
+  const _ImagePickRow({required this.image, required this.label, required this.onPick, required this.onClear});
+
+  final Uint8List? image;
+  final String label;
+  final VoidCallback onPick;
+  final VoidCallback onClear;
+
+  @override
+  Widget build(BuildContext context) {
+    final bytes = image;
+    if (bytes == null) {
+      return OutlinedButton.icon(onPressed: onPick, icon: const Icon(Icons.add_photo_alternate_outlined), label: Text(label));
+    }
+    return Row(
+      children: [
+        ClipRRect(
+          borderRadius: Ds.br(12),
+          child: Image.memory(bytes, width: 72, height: 72, fit: BoxFit.cover, cacheWidth: 216),
+        ),
+        const SizedBox(width: 10),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              OutlinedButton(onPressed: onPick, child: const Text('画像を変える')),
+              TextButton(onPressed: onClear, child: const Text('画像を消す')),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
 
 class _Card extends StatelessWidget {
   const _Card({required this.child, this.padding = const EdgeInsets.all(14)});

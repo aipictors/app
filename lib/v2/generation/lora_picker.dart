@@ -207,6 +207,11 @@ class _LoraPickerState extends State<_LoraPicker> {
         final words = m.triggerWords.trim();
         return _LoraTile(
           title: m.name,
+          onMore: () async {
+            if (await showUserModelActions(context, m) && mounted) {
+              setState(() => _userLoras?.removeWhere((x) => x.authorId == m.authorId));
+            }
+          },
           subtitle: [m.baseModel, if (words.isNotEmpty) 'トリガー: $words'].join(' ・ '),
           imageUrl: m.thumbnailUrl,
           picked: _isPicked(m.loraName),
@@ -225,13 +230,16 @@ class _LoraPickerState extends State<_LoraPicker> {
 }
 
 class _LoraTile extends StatelessWidget {
-  const _LoraTile({required this.title, required this.subtitle, required this.imageUrl, required this.picked, required this.onTap});
+  const _LoraTile({required this.title, required this.subtitle, required this.imageUrl, required this.picked, required this.onTap, this.onMore});
 
   final String title;
   final String subtitle;
   final String? imageUrl;
   final bool picked;
   final VoidCallback onTap;
+
+  /// 通報・ブロックのメニュー（みんなの LoRA だけ）
+  final VoidCallback? onMore;
 
   @override
   Widget build(BuildContext context) {
@@ -271,6 +279,13 @@ class _LoraTile extends StatelessWidget {
                 ],
               ),
             ),
+            if (onMore != null)
+              IconButton(
+                tooltip: '通報・ブロック',
+                visualDensity: VisualDensity.compact,
+                onPressed: onMore,
+                icon: Icon(Icons.more_horiz_rounded, color: context.muted),
+              ),
             const SizedBox(width: 8),
             AnimatedSwitcher(
               duration: Ds.fast,

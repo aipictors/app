@@ -1,6 +1,8 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'dart:math' as math;
+import 'dart:typed_data';
 
 import 'package:aipictors/v2/core/api.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -12,6 +14,8 @@ class GenApi {
   GenApi._();
 
   static const webOrigin = 'https://www.aipictors.com';
+
+  static const uploaderEndpoint = 'https://uploader.aipictors.com/';
 
   static final _client = http.Client();
 
@@ -108,6 +112,7 @@ query GenerationViewer {
     scale
     steps
     sampler
+    scheduler
     seed
     clipSkip
     sizeType
@@ -238,6 +243,75 @@ mutation UpdateRatingImageGenerationModel($input: UpdateRatingImageGenerationMod
     return CoinSummary.fromJson(data);
   }
 
+  /// コインの履歴（Web の /api/coins/summary の includeLedger）
+  static Future<List<CoinLedgerItem>> coinLedger({int offset = 0, int limit = 30}) async {
+    final data = await _webGet('/api/coins/summary?includeLedger=1&includeLedgerLimit=$limit&includeLedgerOffset=$offset');
+    final list = data?['ledger'];
+    if (list is! List) return const [];
+    return list.whereType<Map<String, dynamic>>().map(CoinLedgerItem.fromJson).toList();
+  }
+
+  /// 今週の Gemini の枠（Web の /api/coins/gemini-allowance）
+  static Future<GeminiAllowance?> geminiAllowance() async {
+    final data = await _webGet('/api/coins/gemini-allowance');
+    return data == null ? null : GeminiAllowance.fromJson(data);
+  }
+
+  /// 生成画面のお知らせ（メンテナンス中など。なければ null）
+  static Future<GenNotice?> notice() async {
+    final data = await _webGet('/api/generation/notice', auth: false, timeout: const Duration(seconds: 8));
+    return data == null ? null : GenNotice.fromJson(data);
+  }
+
+  /// みんなのモデルを通報する（Web の /api/user-models/:id/report）
+  static Future<void> reportUserModel(String id, {required String reason, String detail = ''}) async {
+    final http.Response response;
+    try {
+      final headers = await _webHeaders();
+      response = await _client
+          .post(
+            Uri.parse('$webOrigin/api/user-models/${Uri.encodeComponent(id)}/report'),
+            headers: {...headers, 'content-type': 'application/json'},
+            body: jsonEncode({'reason': reason, if (detail.isNotEmpty) 'detail': detail}),
+          )
+          .timeout(const Duration(seconds: 20));
+    } catch (_) {
+      throw const ApiException('通信に失敗しました。もう一度お試しください');
+    }
+    if (response.statusCode >= 200 && response.statusCode < 300) return;
+    var message = '通報を送れませんでした';
+    try {
+      final error = (jsonDecode(utf8.decode(response.bodyBytes)) as Map)['error'];
+      if (error != null && error.toString().isNotEmpty) message = error.toString();
+    } catch (_) {}
+    throw ApiException(message);
+  }
+
+  /// 画像を公開用にアップロードして URL を返す（Web の uploadPublicImage と同じ）
+  static Future<String> uploadPublicImage(Uint8List png) async {
+    final data = await Api.query(r'query GenerationViewerToken { viewer { id token } }');
+    final token = data.obj('viewer')?.strOrNull('token');
+    if (token == null) throw const ApiException('認証エラーが発生しました。ログインし直してください');
+    final http.Response response;
+    try {
+      response = await _client
+          .put(Uri.parse(uploaderEndpoint), headers: {'authorization': 'Bearer $token', 'content-type': 'image/png'}, body: png)
+          .timeout(const Duration(seconds: 45));
+    } on TimeoutException {
+      throw const ApiException('画像のアップロードがタイムアウトしました。通信環境を確認してもう一度お試しください');
+    } catch (_) {
+      throw const ApiException('画像のアップロードに失敗しました');
+    }
+    Map<String, dynamic>? json;
+    try {
+      json = jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>;
+    } catch (_) {}
+    final url = json?.obj('data')?.strOrNull('url');
+    if (response.statusCode >= 200 && response.statusCode < 300 && url != null) return url;
+    final error = json?['error']?.toString();
+    throw ApiException(error == null || error.isEmpty ? '画像のアップロードに失敗しました' : error);
+  }
+
   /// 生成中のタスクの途中経過（Web の /api/generation/progress）
   static Future<GenProgress?> progress(String nanoid, int previewId) async {
     try {
@@ -268,7 +342,7 @@ mutation UpdateRatingImageGenerationModel($input: UpdateRatingImageGenerationMod
     final data = await _webGet('/api/user-models/mine');
     final list = data?['models'];
     if (list is! List) return const [];
-    return list.whereType<Map<String, dynamic>>().map(UserModel.fromJson).where((m) => m.status == 'READY').toList();
+    return list.whereType<Map<String, dynamic>>().map(UserModel.fromJson).where((m) => m.status == 'READY' && !m.isR18).toList();
   }
 }
 
@@ -495,12 +569,15 @@ class GenViewer {
 }
 
 class CoinSummary {
-  const CoinSummary({required this.free, required this.premium, required this.granted, required this.grantedCoins});
+  const CoinSummary({required this.free, required this.premium, required this.granted, required this.grantedCoins, this.thanksCampaigns = const []});
 
   final int free;
   final int premium;
   final bool granted;
   final int grantedCoins;
+
+  /// 受け取った感謝コインのキャンペーン
+  final List<String> thanksCampaigns;
 
   int get total => free + premium;
 
@@ -512,7 +589,98 @@ class CoinSummary {
       premium: premium,
       granted: j.boolean('granted'),
       grantedCoins: j.integer('grantedFreeCoins') + j.integer('grantedPremiumCoins'),
+      thanksCampaigns: j['thanksCampaigns'] is List ? (j['thanksCampaigns'] as List).map((e) => e.toString()).toList() : const [],
     );
+  }
+}
+
+/// コインの履歴の 1 行
+class CoinLedgerItem {
+  const CoinLedgerItem({required this.coinType, required this.kind, required this.amount, required this.reason, required this.createdAt});
+
+  /// FREE / PREMIUM
+  final String coinType;
+
+  /// INITIAL_GRANT / GRANT / CONSUME / EXPIRE など
+  final String kind;
+
+  /// 増減（使うとマイナス）
+  final int amount;
+  final String reason;
+
+  /// UNIX 秒
+  final int createdAt;
+
+  factory CoinLedgerItem.fromJson(Map<String, dynamic> j) {
+    final raw = j['createdAt'];
+    final at = raw is num ? raw.round() : int.tryParse(raw?.toString() ?? '') ?? 0;
+    final delta = j['delta'];
+    return CoinLedgerItem(
+      coinType: j.str('coinType', 'FREE'),
+      kind: j.str('kind'),
+      amount: delta is num ? delta.round() : int.tryParse(delta?.toString() ?? '') ?? 0,
+      reason: j.str('reason'),
+      createdAt: at > 100000000000 ? at ~/ 1000 : at,
+    );
+  }
+
+  String get title {
+    final label = coinType == 'PREMIUM' ? 'プレミアムコイン' : 'フリーコイン';
+    return switch (kind) {
+      'CONSUME' => '$labelを使用',
+      'EXPIRE' => '$label失効',
+      _ => '$label付与',
+    };
+  }
+
+  String get detail {
+    if (reason.startsWith('image-generation:reserved')) return '予約生成';
+    return switch (reason) {
+      'image-generation:text_to_image' => '通常生成',
+      'image-generation:image_to_image' || 'image-generation:inpainting' => '画像修正',
+      _ => reason.startsWith('image-generation') ? '画像生成' : '',
+    };
+  }
+}
+
+/// 今週の Gemini の枠（毎日のフリーコインから Gemini に使える量）
+class GeminiAllowance {
+  const GeminiAllowance({required this.weeklyLimit, required this.used, required this.remaining, required this.isEnforced});
+
+  final int weeklyLimit;
+  final int used;
+  final int remaining;
+  final bool isEnforced;
+
+  factory GeminiAllowance.fromJson(Map<String, dynamic> j) => GeminiAllowance(
+    weeklyLimit: j.integer('weeklyLimit'),
+    used: j.integer('used'),
+    remaining: j.integer('remaining'),
+    isEnforced: j.boolean('isEnforced'),
+  );
+}
+
+/// 生成画面のお知らせ
+class GenNotice {
+  const GenNotice({required this.id, required this.kind, required this.title, required this.message});
+
+  final String id;
+
+  /// maintenance / unstable / changed
+  final String kind;
+  final String title;
+  final String message;
+
+  bool get isMaintenance => kind == 'maintenance';
+
+  factory GenNotice.fromJson(Map<String, dynamic> j) {
+    final kind = j.str('kind', 'changed');
+    final (title, message) = switch (kind) {
+      'maintenance' => ('画像生成を一時停止しています', '生成機能のメンテナンス中です。終わるまで生成できません。終わりしだい再開します。'),
+      'unstable' => ('画像生成のアップデート中です', 'ただいま生成機能のアップデートを行っています。生成に時間がかかったり、失敗したり、以前と違う仕上がりになったりすることがあります。'),
+      _ => ('生成の仕組みを変更しました', '生成の仕組みを新しくしました。以前と仕上がりが違ったり、うまく動かなかったりする場合があります。'),
+    };
+    return GenNotice(id: j.str('id'), kind: kind, title: j.strOrNull('title') ?? title, message: j.strOrNull('message') ?? message);
   }
 }
 
@@ -565,6 +733,7 @@ class GenResult {
     required this.scale,
     required this.steps,
     required this.sampler,
+    required this.scheduler,
     required this.seed,
     required this.clipSkip,
     required this.sizeType,
@@ -594,6 +763,7 @@ class GenResult {
   final int scale;
   final int steps;
   final String sampler;
+  final String? scheduler;
   final int seed;
   final int clipSkip;
   final String sizeType;
@@ -639,6 +809,7 @@ class GenResult {
       scale: j.integer('scale', 7),
       steps: j.integer('steps', 20),
       sampler: j.str('sampler'),
+      scheduler: j.strOrNull('scheduler'),
       seed: j.number('seed', -1).round(),
       clipSkip: j.integer('clipSkip', 2),
       sizeType: j.str('sizeType', 'SD1_512_768'),
@@ -664,12 +835,16 @@ class GenSize {
   final int width;
   final int height;
 
+  /// SD1 は Web と同じく 1.5 倍の大きさで表示する（SD1_512_768 → 768×1152）
   static GenSize parse(String type) {
     final parts = type.split('_');
     if (parts.length >= 3) {
       final w = int.tryParse(parts[parts.length - 2]);
       final h = int.tryParse(parts[parts.length - 1]);
-      if (w != null && h != null && w > 0 && h > 0) return GenSize(type, w, h);
+      if (w != null && h != null && w > 0 && h > 0) {
+        final scale = parts.first == 'SD1' ? 1.5 : 1;
+        return GenSize(type, (w * scale).round(), (h * scale).round());
+      }
     }
     return GenSize(type, 512, 768);
   }
@@ -708,6 +883,8 @@ class UserModel {
     required this.status,
     required this.useCount,
     required this.authorName,
+    required this.authorId,
+    required this.rating,
   });
 
   final String id;
@@ -724,6 +901,13 @@ class UserModel {
   final String status;
   final int useCount;
   final String? authorName;
+  final String? authorId;
+
+  /// G / R15 / R18 / R18G
+  final String rating;
+
+  /// R18 はモバイルでは出さない
+  bool get isR18 => rating.startsWith('R18');
 
   /// 生成画面のモデル種別
   String get modelType => baseModel == 'SD1.5' ? 'SD1' : 'SDXL';
@@ -748,6 +932,8 @@ class UserModel {
       status: j.str('status', 'READY'),
       useCount: j.integer('useCount'),
       authorName: user?.strOrNull('name'),
+      authorId: j.strOrNull('userId') ?? user?.strOrNull('id'),
+      rating: j.str('rating', 'G'),
     );
   }
 }

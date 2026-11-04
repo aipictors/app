@@ -7,6 +7,7 @@ import 'package:aipictors/v2/generation/generation_controller.dart';
 import 'package:aipictors/v2/generation/generation_debug.dart';
 import 'package:aipictors/v2/generation/generation_form.dart';
 import 'package:aipictors/v2/generation/generation_history.dart';
+import 'package:aipictors/v2/generation/generation_settings.dart';
 import 'package:aipictors/v2/generation/generation_sheets.dart';
 import 'package:aipictors/v2/generation/lora_picker.dart';
 import 'package:aipictors/v2/generation/model_picker.dart';
@@ -89,6 +90,43 @@ class _GenerationScreenState extends State<GenerationScreen> {
           showTermsSheet(context, onAgree: c.signTerms);
         case 'generate':
           _generate();
+        case 'generate-small':
+          // 一番小さいサイズで 1 枚だけ（コインを使う）
+          c.settings.update((x) {
+            x.sizeType = 'SD1_512_512';
+            x.highRes = false;
+            x.imagesPerRequest = 1;
+            x.prompt = 'cat, simple background';
+          });
+          final m = c.catalog?.model(GenRules.defaultModelId);
+          if (m != null) c.settings.selectModel(m);
+          c.settings.update((x) => x.sizeType = 'SD1_512_512');
+          await _generate();
+          setState(() => _tab = 1);
+        case 'custom':
+          c.settings.update((x) {
+            final sdxl = c.catalog?.models.firstWhere((m) => m.type == 'SDXL');
+            if (sdxl != null) x.selectModel(sdxl);
+            x.sizeType = 'CUSTOM_2496_2048';
+          });
+        case 'landscape':
+          c.settings.update((x) {
+            final sdxl = c.catalog?.models.firstWhere((m) => m.type == 'SDXL');
+            if (sdxl != null) x.selectModel(sdxl);
+            x.sizeType = 'SD3_1216_832';
+          });
+        case 'gemini':
+          final g = c.catalog?.models.firstWhere((m) => m.isGemini);
+          if (g != null) c.settings.selectModel(g);
+          _generate();
+        case 'flux':
+          final f = c.catalog?.models.firstWhere((m) => m.isFlux);
+          if (f != null) c.settings.selectModel(f);
+          _generate();
+        case 'coins':
+          showCoinHistorySheet(context);
+        case 'usermodels':
+          showModelPicker(context, c);
       }
     });
   }
@@ -108,6 +146,11 @@ class _GenerationScreenState extends State<GenerationScreen> {
       final agreed = await showTermsSheet(context, onAgree: c.signTerms);
       if (!agreed || !mounted) return;
     }
+    // フリーコインが足りずプレミアムコインを使うときは確認する
+    if (c.check() == null && c.premiumCoinUse > 0) {
+      final ok = await showConfirmSheet(context, title: 'プレミアムコインを使います', message: 'この生成でプレミアムコインを ${c.premiumCoinUse} 枚使います。よろしいですか？', confirmLabel: '使って生成する');
+      if (!ok || !mounted) return;
+    }
     Ds.impact();
     final block = await c.submit();
     if (!mounted) return;
@@ -121,6 +164,8 @@ class _GenerationScreenState extends State<GenerationScreen> {
         await showCoinShortageSheet(context, need: c.requestCost, have: c.coins?.total ?? 0);
       case GenBlockKind.plan:
         await showPlanRequiredSheet(context, block.message);
+      case GenBlockKind.geminiLimit:
+        await showGeminiLimitSheet(context, coinCost: c.settings.coinPerImage(c.model, isPaid: c.isPaid), premium: c.coins?.premium ?? 0, isPaid: c.isPaid);
       case GenBlockKind.verification:
         await showVerificationSheet(context);
       case GenBlockKind.terms:
@@ -324,13 +369,24 @@ class _Header extends StatelessWidget {
                 child: Column(
                   children: [
                     _kv(context, 'プラン', v?.planLabel ?? '-'),
-                    _kv(context, '1枚あたり', '${controller.settings.coinPerImage(controller.model)} コイン${controller.settings.highRes ? '（高解像度）' : ''}'),
+                    _kv(context, '1枚あたり', '${controller.settings.coinPerImage(controller.model, isPaid: controller.isPaid)} コイン${controller.settings.highRes ? '（高解像度）' : ''}'),
                     _kv(context, '同時に生成できる数', v == null ? '-' : '${v.consecutive}'),
                     _kv(context, '使える LoRA の数', v == null ? '-' : '${v.loraLimit}'),
+                    if (v?.isPaid == true) _kv(context, '毎日のフリーコイン', '${{'LITE': 500, 'STANDARD': 1000, 'PREMIUM': 2000}[v!.passType] ?? 0} コイン'),
+                    if (v?.isPaid == true) _kv(context, '継続ボーナス', '更新のたび ${{'LITE': 100, 'STANDARD': 300, 'PREMIUM': 600}[v!.passType] ?? 0} コイン'),
                   ],
                 ),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 8),
+              TextButton.icon(
+                onPressed: () {
+                  Navigator.of(sheet).pop();
+                  showCoinHistorySheet(context);
+                },
+                icon: const Icon(Icons.receipt_long_rounded, size: 18),
+                label: const Text('コインの履歴を見る'),
+              ),
+              const SizedBox(height: 8),
               GradientButton(
                 label: v?.isPaid == true ? 'プランを確認する' : 'Aipictors+ でコインを増やす',
                 icon: Icons.workspace_premium_rounded,
@@ -452,6 +508,89 @@ class _RecentStrip extends StatelessWidget {
   }
 }
 
+/// 生成ボタンの上に出す 1 行のお知らせ（押すと詳しく）
+class _NoticeBanner extends StatelessWidget {
+  const _NoticeBanner({required this.notice});
+
+  final GenNotice notice;
+
+  @override
+  Widget build(BuildContext context) {
+    final color = notice.isMaintenance ? context.cs.error : Ds.gold;
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Pressable(
+        onTap: () => showDialog(
+          context: context,
+          builder: (dialog) => AlertDialog.adaptive(
+            title: Text(notice.title),
+            content: Text(notice.message),
+            actions: [TextButton(onPressed: () => Navigator.pop(dialog), child: const Text('OK'))],
+          ),
+        ),
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          decoration: BoxDecoration(color: color.withValues(alpha: 0.12), borderRadius: Ds.br(12), border: Border.all(color: color.withValues(alpha: 0.5))),
+          child: Row(
+            children: [
+              Icon(notice.isMaintenance ? Icons.build_rounded : Icons.info_outline_rounded, size: 16, color: color),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(notice.title, maxLines: 1, overflow: TextOverflow.ellipsis, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700)),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Gemini を選んでいるときの今週の枠（枠を超えるとプレミアムコインを使うので、押す前に残りが分かるようにする）
+class _GeminiAllowanceBar extends StatelessWidget {
+  const _GeminiAllowanceBar({required this.allowance, required this.coinCost, required this.premium});
+
+  final GeminiAllowance allowance;
+  final int coinCost;
+  final int premium;
+
+  @override
+  Widget build(BuildContext context) {
+    if (allowance.weeklyLimit <= 0) return const SizedBox.shrink();
+    final limit = allowance.weeklyLimit ~/ coinCost;
+    final left = allowance.remaining ~/ coinCost;
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        decoration: BoxDecoration(color: context.skeleton.withValues(alpha: 0.8), borderRadius: Ds.br(12)),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Row(
+              children: [
+                const Icon(Icons.auto_awesome_rounded, size: 14),
+                const SizedBox(width: 6),
+                const Expanded(child: Text('今週の Gemini の枠', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700))),
+                Text('あと$left枚 / $limit枚', style: TextStyle(fontSize: 12, fontWeight: left == 0 ? FontWeight.w800 : FontWeight.w500, color: left == 0 ? Ds.pink : null)),
+              ],
+            ),
+            const SizedBox(height: 4),
+            ClipRRect(
+              borderRadius: Ds.br(2),
+              child: LinearProgressIndicator(value: (allowance.used / allowance.weeklyLimit).clamp(0, 1), minHeight: 4),
+            ),
+            if (left == 0) ...[
+              const SizedBox(height: 4),
+              Text('月曜0時に枠が戻ります。今すぐ作るときは1枚プレミアムコイン$coinCost枚（残り$premium枚）', style: TextStyle(fontSize: 11, color: context.muted, height: 1.4)),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 /// 下に固定の生成ボタン（使うコインと残高）
 class _GenerateBar extends StatelessWidget {
   const _GenerateBar({required this.controller, required this.onGenerate});
@@ -492,6 +631,8 @@ class _GenerateBar extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
+          if (c.notice != null) _NoticeBanner(notice: c.notice!),
+          if (c.settings.isGemini && c.geminiAllowance != null) _GeminiAllowanceBar(allowance: c.geminiAllowance!, coinCost: c.settings.coinPerImage(c.model, isPaid: c.isPaid), premium: coins?.premium ?? 0),
           if (v != null)
             Padding(
               padding: const EdgeInsets.only(bottom: 8),
