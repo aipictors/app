@@ -152,7 +152,7 @@ class _MyStickersScreenState extends State<MyStickersScreen> {
         ],
       ),
     );
-    controller.dispose();
+    // 閉じるアニメーションの間も TextField が使うので dispose しない
     if (title == null || title.isEmpty || !mounted) return;
     await _run(() => StickerApi.update(s.id, access: s.isPublic ? 'PUBLIC' : 'PRIVATE', title: title, genre: s.genre, categories: s.categories), 'タイトルを変更しました');
   }

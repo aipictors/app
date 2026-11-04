@@ -468,10 +468,10 @@ void main() {
     });
 
     await qa.step('検索・タグ・ユーザー', () async {
-      await qa.open('/search/猫', wait: const Duration(seconds: 4));
+      await qa.open('/search/${Uri.encodeComponent('猫')}', wait: const Duration(seconds: 4));
       await qa.shot('search');
       await qa.back();
-      await qa.open('/tags/猫', wait: const Duration(seconds: 4));
+      await qa.open('/tags/${Uri.encodeComponent('猫')}', wait: const Duration(seconds: 4));
       await qa.shot('tag');
       await qa.back();
       await qa.open('/search', wait: const Duration(seconds: 3));
@@ -483,6 +483,7 @@ void main() {
       await qa.goHome();
       await qa.tab(4);
       await qa.idle(const Duration(seconds: 2));
+      await qa.scrollToTop();
       for (final label in const ['自分のページ', 'いいねした作品', 'シリーズ', 'ブックマーク', 'フォルダ', '閲覧履歴', '自分の作品', '作品の履歴', 'フォロー中', 'フォロワー', 'スタンプ', '実績', 'メッセージ', 'お知らせ', 'イベント', 'モデル', 'お問い合わせ', 'ヘルプ', 'ガイドライン', '利用規約', 'プライバシーポリシー', 'ロードマップ', 'プロフィールを編集', '運営からのお知らせ']) {
         final at = qa.location;
         await qa.scrollTapText(label);

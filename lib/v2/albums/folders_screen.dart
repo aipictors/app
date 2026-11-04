@@ -21,7 +21,7 @@ Future<String?> _askTitle(BuildContext context, {required String title, String i
       ],
     ),
   );
-  controller.dispose();
+  // 閉じるアニメーションの間も TextField が使うので dispose しない
   return value == null || value.isEmpty ? null : value;
 }
 

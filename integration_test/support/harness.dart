@@ -171,6 +171,15 @@ class Qa {
     await idle(const Duration(seconds: 1));
   }
 
+  /// 一番上まで戻す（タブはスクロールの位置を覚えている）
+  Future<void> scrollToTop() async {
+    final scrollables = find.byWidgetPredicate((w) => w is Scrollable && w.axisDirection == AxisDirection.down).hitTestable();
+    for (var i = 0; i < 8 && scrollables.evaluate().isNotEmpty; i++) {
+      await tester.drag(scrollables.first, const Offset(0, 900), warnIfMissed: false);
+      await idle(const Duration(milliseconds: 250));
+    }
+  }
+
   /// スクロールして探す
   Future<void> scrollTo(Finder finder, {int maxDrags = 25, double delta = 400}) async {
     for (var i = 0; i < maxDrags; i++) {

@@ -70,6 +70,14 @@
 
 画像のアップロードは `post/upload.dart` の `Uploader`、写真の選択は `pickSystemImages`（権限が要らないシステムのピッカー）を使う。
 
+## 押して確かめる（integration_test）
+
+`integration_test/run.sh <端末ID> <logged_in|logged_out|plans_products|photo_picker_android> [置き場所]` で本物のタップを送る。結果は `[QA]` の行と画面の画像が置き場所に残る。
+
+- mutation は `Api.debugMutationHandler` で記録するだけ、メッセージは `mockSend`、投稿は `postDryRun` なので本番を変えない（`logged_out` のログインだけ本物）。
+- Android のデバッグビルドは `src/debug/google-services.json` にパッケージの登録がないので、`run.sh` が実行の間だけ外す。
+- 端末は専用のものを使う（同じ端末を複数の作業で使うと互いに上書きする）。
+
 ## 決まりごと
 
 - 余白・角丸・時間は `Ds`、色は `context.cs` / `context.muted` / `context.hairline` / `context.surfaceCard`。色を直接書かない（ダークモードが崩れる）。
