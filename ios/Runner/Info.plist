@@ -78,6 +78,12 @@
 	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>作品やスタンプに使う写真を撮影するために使用します。</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>作品に使う動画を撮影するときに音声を録音するために使用します。</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>投稿する作品やスタンプの画像を選ぶために使用します。</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>生成した画像や作品の画像を写真に保存するために使用します。</string>
 	<key>NSUserTrackingUsageDescription</key>
