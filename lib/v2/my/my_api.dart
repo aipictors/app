@@ -14,7 +14,7 @@ class FolderSummary {
       .where((f) => !f.boolean('isSensitive') && f.str('rating') != 'R18' && f.str('rating') != 'R18G')
       .map((f) => FolderSummary(
             id: f.str('id'),
-            title: f.str('title'),
+            title: f.str('title', '').isEmpty ? '無題のフォルダ' : f.str('title'),
             thumbnailUrl: f.strOrNull('thumbnailImageURL'),
             worksCount: f.integer('worksCount'),
             isPrivate: f.boolean('isPrivate'),
@@ -106,10 +106,14 @@ query AppViewerViewedWorks(\$offset: Int!, \$limit: Int!, \$where: UserWorksWher
 query AppViewerFolders($offset: Int!, $limit: Int!) {
   viewer {
     id
+    bookmarkFolderId
     folders(offset: $offset, limit: $limit) { id title thumbnailImageURL worksCount isPrivate isSensitive rating }
   }
 }''', variables: {'offset': offset, 'limit': limit});
-    return FolderSummary.listFrom(data.obj('viewer')?.list('folders') ?? const []);
+    final viewer = data.obj('viewer');
+    // ブックマークの入れ物は「ブックマーク」の画面で見せる
+    final bookmarkId = viewer?.strOrNull('bookmarkFolderId');
+    return FolderSummary.listFrom((viewer?.list('folders') ?? const <Map<String, dynamic>>[]).where((f) => f.str('id') != bookmarkId).toList());
   }
 
   static Future<List<FolderSummary>> userFolders(String userId, int offset, int limit) async {
@@ -155,7 +159,7 @@ query AppWorkActionHistories($offset: Int!, $limit: Int!, $actionType: String) {
         id: h.str('id'),
         actionType: h.str('actionType'),
         createdAt: h.integer('createdAt'),
-        summary: h.str('summary'),
+        summary: isAdult ? 'アプリでは表示できない作品の履歴です' : h.str('summary'),
         title: isAdult ? null : h.strOrNull('title'),
         workId: isAdult ? null : h.strOrNull('workId'),
         thumbnailUrl: isAdult ? null : h.strOrNull('thumbnailImageURL'),

@@ -12,11 +12,25 @@ class DebugBoot {
   DebugBoot._();
 
   static const _login = String.fromEnvironment('debugLogin');
-  /// シミュレーターでは SIMCTL_CHILD_DEBUG_ROUTE=/works/1 で、作り直さずに行き先を変えられる
-  static String get route => kDebugMode ? (Platform.environment['DEBUG_ROUTE'] ?? const String.fromEnvironment('debugRoute')) : '';
+  /// シミュレーターでは Mac のファイル /tmp/aipictors-debug（1 行目: ルート、2 行目: 画面の中のタブ）で、
+  /// 作り直さずに行き先を変えられる（iOS の Platform.environment は空）
+  static final List<String> _file = () {
+    if (!kDebugMode) return const <String>[];
+    try {
+      return File('/tmp/aipictors-debug').readAsLinesSync();
+    } catch (_) {
+      return const <String>[];
+    }
+  }();
 
-  /// 画面の中のタブを開いて確かめるための値（SIMCTL_CHILD_DEBUG_TAB=stickers）
-  static String? get screenTab => kDebugMode ? Platform.environment['DEBUG_TAB'] : null;
+  static String get route {
+    if (!kDebugMode) return '';
+    if (_file.isNotEmpty && _file.first.isNotEmpty) return _file.first;
+    return const String.fromEnvironment('debugRoute');
+  }
+
+  static String? get screenTab => _file.length > 1 && _file[1].isNotEmpty ? _file[1] : null;
+
   static const _tab = String.fromEnvironment('debugTab');
 
   static bool get hasTab => kDebugMode && _tab.isNotEmpty;

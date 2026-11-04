@@ -453,7 +453,7 @@ class ColorSettingsScreen extends ConsumerWidget {
                 child: SegmentedButton<ThemeMode>(
                   showSelectedIcon: false,
                   segments: const [
-                    ButtonSegment(value: ThemeMode.system, label: Text('端末に合わせる')),
+                    ButtonSegment(value: ThemeMode.system, label: Text('自動')),
                     ButtonSegment(value: ThemeMode.light, label: Text('ライト')),
                     ButtonSegment(value: ThemeMode.dark, label: Text('ダーク')),
                   ],
@@ -575,7 +575,7 @@ class _ManagedUsersScreenState extends State<ManagedUsersScreen> with _SettingSt
         itemBuilder: (context, u) => ListTile(
           leading: UserAvatar.summary(u, size: 40),
           title: UserNameRow.summary(u, style: const TextStyle(fontWeight: FontWeight.w700)),
-          subtitle: Text('@${u.login}', maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(color: context.muted, fontSize: 12)),
+          subtitle: Text('@${u.login.replaceFirst(RegExp(r'^@+'), '')}', maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(color: context.muted, fontSize: 12)),
           trailing: OutlinedButton(onPressed: () => _remove(u), child: const Text('解除')),
           onTap: () => Nav.user(context, u.id),
         ),

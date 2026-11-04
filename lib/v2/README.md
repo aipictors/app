@@ -37,6 +37,8 @@
 | `context.toast('...')` | `core/design.dart` | `error: true` で赤 |
 | `GradientButton` `PrimaryButton` `SecondaryButton` `AppChip` | `widgets/common.dart` | 画面で一番目立たせる 1 つだけ Gradient |
 | `ContentWidth` | 同上 | iPad で広がりすぎるフォームや文章を収める |
+| `PagedList` | `widgets/paged_list.dart` | `PagedController` の縦一覧。読み込み中・空・エラー・更新・読み足しまで |
+| `SettingsGroup` `SettingsLink` `SettingsSwitch` | `settings/settings_widgets.dart` | 設定の行とまとまり |
 
 デバッグビルドで `--dart-define=debugRoute=/debug/widgets` を付けると見本が開く。
 
@@ -47,7 +49,9 @@
 - 生成コード: `git status --short --ignored lib` の `!!`（`__generated__` など。無いと `flutter build` が失敗する）
 - Android の署名: `android/key.properties`（コミットしない）
 
-シミュレーターは `~/Documents/aipictors-app-1.7/sim.sh <名前> [タブ] [ルート]`。worktree は `WT=`、端末は `UDID=`、ダークは `APPEARANCE=dark` で変える。
+シミュレーターは `~/Documents/aipictors-app-1.7/sim.sh <名前> [タブ] [ルート]`。worktree は `WT=`、端末は `UDID=`、ダークは `APPEARANCE=dark` で変える。複数の作業で同じ端末を使うとアプリが入れ替わるので、自分の端末を `simctl create` する。
+
+デバッグビルドは Mac の `/tmp/aipictors-debug`（1 行目: ルート、2 行目: 通知やユーザーの画面のタブ）を起動時に読む。`NOBUILD=1` と組み合わせると作り直さずに画面を変えられる。
 
 ## 決まりごと
 

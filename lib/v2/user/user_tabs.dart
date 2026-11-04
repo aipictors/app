@@ -33,8 +33,6 @@ class EventCell {
     required this.thumbnailUrl,
     required this.mainTag,
     required this.status,
-    required this.startAt,
-    required this.endAt,
     required this.entryCount,
   });
 
@@ -43,8 +41,6 @@ class EventCell {
   final String? thumbnailUrl;
   final String? mainTag;
   final String status;
-  final String startAt;
-  final String endAt;
   final int entryCount;
 }
 
@@ -82,7 +78,7 @@ query AppUserEvents($userId: ID!, $offset: Int!, $limit: Int!, $where: UserEvent
   user(id: $userId) {
     id
     userEvents(offset: $offset, limit: $limit, where: $where) {
-      id title thumbnailImageUrl mainTag status startAt endAt entryCount isSensitive
+      id title thumbnailImageUrl mainTag status entryCount isSensitive
     }
   }
 }''', variables: {
@@ -99,8 +95,6 @@ query AppUserEvents($userId: ID!, $offset: Int!, $limit: Int!, $where: UserEvent
               thumbnailUrl: e.strOrNull('thumbnailImageUrl'),
               mainTag: e.strOrNull('mainTag'),
               status: e.str('status'),
-              startAt: e.str('startAt'),
-              endAt: e.str('endAt'),
               entryCount: e.integer('entryCount'),
             ))
         .toList();
@@ -149,6 +143,13 @@ class _PagedTabState<T> extends State<_PagedTab<T>> {
     );
   }
 }
+
+String _eventStatus(String status) => switch (status) {
+      'ONGOING' => '開催中',
+      'UPCOMING' => '開催予定',
+      'ENDED' => '終了',
+      _ => '',
+    };
 
 void _more<T>(PagedController<T> c, int i) {
   if (i >= c.items.length - 4 && c.hasMore && !c.isLoading) {
@@ -268,7 +269,7 @@ class UserEventsTab extends StatelessWidget {
               leading: SizedBox(width: 72, height: 48, child: AppImage(e.thumbnailUrl, radius: 10, memCacheWidth: 216)),
               title: Text(e.title, maxLines: 2, overflow: TextOverflow.ellipsis, style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 14)),
               subtitle: Text(
-                [if (tag != null) '#$tag', if (e.entryCount > 0) '${e.entryCount}作品'].join('・'),
+                [_eventStatus(e.status), if (tag != null) '#$tag', if (e.entryCount > 0) '${e.entryCount}作品'].where((t) => t.isNotEmpty).join('・'),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(color: context.muted, fontSize: 12),

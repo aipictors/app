@@ -366,9 +366,11 @@ class _NotificationRowState extends State<_NotificationRow> {
   @override
   Widget build(BuildContext context) {
     final muted = TextStyle(color: context.muted, fontSize: 12);
-    final body = item.message?.trim();
+    // 🏅 で始まるお知らせは実績。絵文字はアイコンに置き換える（iOS で豆腐になり、続く文字もずれる）
+    final isAchievement = item.message?.startsWith('🏅') == true;
+    final body = (isAchievement ? item.message!.replaceFirst('🏅', '') : item.message)?.trim();
     final work = item.work;
-    final (icon, iconColor) = _icon;
+    final (icon, iconColor) = isAchievement ? (Icons.emoji_events_rounded, Ds.gold) : _icon;
     final canReply = item.canReply && item.replyTargetCommentId != null && work?.isAdult != true;
     return Material(
       color: widget.isUnread ? context.cs.primary.withValues(alpha: context.isDark ? 0.14 : 0.06) : Colors.transparent,

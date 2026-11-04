@@ -127,7 +127,7 @@ class _SummaryCard extends StatelessWidget {
           child: Column(children: [
             Icon(icon, size: 20, color: Ds.gold),
             const SizedBox(height: Ds.s4),
-            Text(value, style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 16)),
+            FittedBox(fit: BoxFit.scaleDown, child: Text(value, maxLines: 1, style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 16))),
             Text(label, style: TextStyle(color: context.muted, fontSize: 11)),
           ]),
         );
@@ -205,7 +205,7 @@ class _AchievementRow extends StatelessWidget {
                 Text(tierName, style: TextStyle(color: color, fontSize: 11.5, fontWeight: FontWeight.w800)),
                 Text('${a.points}pt', style: TextStyle(color: context.muted, fontSize: 11.5)),
                 if (a.rewardCoins > 0) Text('${a.rewardCoins}コイン', style: TextStyle(color: context.muted, fontSize: 11.5)),
-                if (a.rarity != null) Text('取得率 ${a.rarity!.toStringAsFixed(1)}%', style: TextStyle(color: context.muted, fontSize: 11.5)),
+                if (a.rarity != null) Text('取得率 ${(a.rarity! * 100).toStringAsFixed(1)}%', style: TextStyle(color: context.muted, fontSize: 11.5)),
               ]),
             ]),
           ),
