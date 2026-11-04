@@ -177,7 +177,8 @@ query AppWorkForEdit($id: ID!) {
       ..imageStyle = w.str('style', 'ILLUSTRATION')
       ..rating = w.str('rating', 'G')
       ..albumId = w.obj('album')?.strOrNull('id')
-      ..modelId = w.strOrNull('workModelId')
+      // モデルなしは 0 で返る。そのまま送ると「モデルが存在しません」になるので null にする
+      ..modelId = w.str('workModelId', '0') == '0' ? null : w.str('workModelId')
       ..themeId = w.obj('dailyTheme')?.strOrNull('id')
       ..relatedUrl = w.strOrNull('relatedUrl')
       ..reservedAt = reserved.isAfter(DateTime.now()) ? reserved : null

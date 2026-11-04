@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/models.dart';
 import 'package:aipictors/v2/post/upload.dart';
+import 'package:flutter/foundation.dart';
 
 const albumSummaryFields = 'id title description rating thumbnailImageURL worksCount likesCount';
 
@@ -62,6 +63,10 @@ query AppMyWorksForAlbum(\$offset: Int!, \$limit: Int!, \$where: WorksWhereInput
   }
 
   static Future<String> create({required String title, required String description, required List<String> workIds, EncodedImage? thumbnail}) async {
+    if (postDryRun) {
+      debugPrint('[post dry run] createAlbum title=$title works=${workIds.length} thumbnail=${thumbnail != null}');
+      return 'dry-run';
+    }
     final thumbnailUrl = thumbnail == null ? null : await Uploader.image(thumbnail.bytes, thumbnail.mime, await Uploader.token());
     final data = await Api.mutate(r'mutation AppCreateAlbum($input: CreateAlbumInput!) { createAlbum(input: $input) { id } }', variables: {
       'input': {
@@ -77,6 +82,10 @@ query AppMyWorksForAlbum(\$offset: Int!, \$limit: Int!, \$where: WorksWhereInput
   }
 
   static Future<void> update(String id, {required String title, required String description, required List<String> workIds, EncodedImage? header}) async {
+    if (postDryRun) {
+      debugPrint('[post dry run] updateAlbum id=$id title=$title works=${workIds.length} header=${header != null}');
+      return;
+    }
     final headerUrl = header == null ? null : await Uploader.image(header.bytes, header.mime, await Uploader.token());
     await Api.mutate(r'mutation AppUpdateAlbum($input: UpdateAlbumInput!) { updateAlbum(input: $input) { id } }', variables: {
       'input': {

@@ -7,7 +7,8 @@ import 'package:aipictors/v2/core/design.dart';
 import 'package:aipictors/v2/post/post_api.dart';
 import 'package:aipictors/v2/post/post_form_screen.dart';
 import 'package:aipictors/v2/post/upload.dart';
-import 'package:aipictors/v2/stickers/sticker_api.dart';
+import 'package:aipictors/v2/stickers/sticker_create_screen.dart';
+import 'package:aipictors/v2/work/comments.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -15,6 +16,13 @@ import 'package:go_router/go_router.dart';
 final List<RouteBase> postDebugRoutes = [
   GoRoute(path: '/debug/post-dry', builder: (context, state) => const _DebugPost()),
   GoRoute(path: '/debug/post-live', builder: (context, state) => const _DebugLive()),
+  GoRoute(
+    path: '/debug/sticker-create',
+    builder: (context, state) => FutureBuilder<List<Uint8List>>(
+      future: _images(),
+      builder: (context, snap) => snap.hasData ? StickerCreateScreen(debugImage: snap.data!.first) : const Scaffold(),
+    ),
+  ),
 ];
 
 Future<Uint8List> _synthetic(int width, int height, Color a, Color b) async {
@@ -71,8 +79,8 @@ class _DebugLiveState extends State<_DebugLive> {
 
   Future<void> _run() async {
     String? workId;
-    String? stickerId;
     try {
+      final options = await PostApi.options();
       final reservedAt = DateTime.now().add(const Duration(days: 2));
       final images = [for (final b in await _images()) PostImage.local(await ImageTools.normalize(b))];
       final draft = PostDraft()
@@ -80,20 +88,36 @@ class _DebugLiveState extends State<_DebugLive> {
         ..caption = 'アプリの動作確認です'
         ..accessType = 'PRIVATE'
         ..isBotGradingEnabled = false
-        ..isCommentEditable = false
-        ..isTagEditable = false
+        ..modelId = options.models.first.id
         ..tags = ['動作確認']
         ..reservedAt = reservedAt;
       workId = await PostApi.create(draft, images, onProgress: (_) {});
-      _say('createWork OK id=$workId');
+      _say('createWork OK id=$workId model=${options.models.first.id}');
       final editing = await PostApi.loadForEdit(workId);
       final actual = DateTime.fromMillisecondsSinceEpoch(editing!.json.integer('createdAt') * 1000);
-      _say('reservation delta minutes=${actual.difference(reservedAt).inMinutes}');
-      _say('loadForEdit OK images=${editing.imageUrls.length} access=${editing.json.str('accessType')}');
+      _say('reservation delta minutes=${actual.difference(reservedAt).inMinutes} workModelId=${editing.json['workModelId']} access=${editing.json.str('accessType')}');
       final updated = PostApi.draftFrom(editing)..title = 'テスト（更新・すぐ削除します）';
       await PostApi.update(editing, updated, editing.imageUrls.reversed.map(PostImage.remote).toList(), onProgress: (_) {});
       final after = await PostApi.loadForEdit(workId);
-      _say('updateWork OK title=${after!.json.str('title')} first=${after.imageUrls.first == editing.imageUrls.last} reorderImages=${after.imageUrls.length}');
+      _say('updateWork OK swapped=${after!.imageUrls.first == editing.imageUrls.last} access=${after.json.str('accessType')} reservedKept=${after.json.integer('createdAt') == editing.json.integer('createdAt')}');
+      // 自分の非公開作品へのコメントで、隠し付きと返信がサーバーに届くか確かめる
+      final comment = await Api.mutate('mutation AppDebugComment(\$input: CreateWorkCommentInput!) { createWorkComment(input: \$input) { $commentFields } }', variables: {
+        'input': {'workId': workId, 'text': '動作確認のコメント', 'isSensitive': false},
+      });
+      final parent = comment.obj('createWorkComment')!;
+      final reply = await Api.mutate('mutation AppDebugReply(\$input: CreateResponseCommentInput!) { createResponseComment(input: \$input) { $commentFields } }', variables: {
+        'input': {'commentId': parent.str('id'), 'text': '隠し付きの返信', 'isSensitive': true},
+      });
+      final replied = reply.obj('createResponseComment')!;
+      _say('comment OK parentSensitive=${parent['isSensitive']} replySensitive=${replied['isSensitive']} replyText=${replied['text']} user=${replied.obj('user') != null}');
+      await Api.mutate('mutation AppDebugPlain(\$input: CreateResponseCommentInput!) { createResponseComment(input: \$input) { id } }', variables: {
+        'input': {'commentId': parent.str('id'), 'text': '普通の返信', 'isSensitive': false},
+      });
+      if (const bool.fromEnvironment('liveShowComments') && mounted) {
+        showCommentsSheet(context, workId: workId, ownerId: '', ownerName: 'テスト', viewerId: null).ignore();
+        await Future<void>.delayed(const Duration(seconds: 25));
+        if (mounted) Navigator.of(context).pop();
+      }
     } on ApiException catch (e) {
       _say('work FAILED: ${e.message}');
     } catch (e) {
@@ -102,36 +126,10 @@ class _DebugLiveState extends State<_DebugLive> {
       if (workId != null) {
         try {
           await PostApi.delete(workId);
-          _say('deleteWork OK');
+          final left = await Api.query(r'query AppDebugLeft($id: ID!) { work(id: $id) { id } }', variables: {'id': workId});
+          _say('deleteWork OK stillThere=${left['work'] != null}');
         } catch (e) {
-          _say('deleteWork FAILED id=$workId: $e');
-        }
-      }
-    }
-    try {
-      final token = await Uploader.token();
-      final png = await ImageTools.cropToSquarePng((await _images()).first, const Rect.fromLTWH(0, 0, 900, 900), 512);
-      final url = await Uploader.image(png.bytes, png.mime, token);
-      final data = await Api.mutate(r'mutation AppDebugSticker($input: CreateStickerInput!) { createSticker(input: $input) { id accessType } }', variables: {
-        'input': {'title': null, 'genre': null, 'categories': null, 'imageUrl': url, 'accessType': 'PRIVATE'},
-      });
-      stickerId = data.obj('createSticker')!.str('id');
-      _say('createSticker OK id=$stickerId access=${data.obj('createSticker')!.str('accessType')}');
-      await StickerApi.addToMine(stickerId);
-      _say('createUserSticker OK');
-      await StickerApi.update(stickerId, access: 'PRIVATE', title: 'テスト');
-      _say('updateSticker OK');
-    } on ApiException catch (e) {
-      _say('sticker FAILED: ${e.message}');
-    } finally {
-      if (stickerId != null) {
-        try {
-          await StickerApi.deleteOwn(stickerId);
-          final mine = await StickerApi.mine('PRIVATE_CREATED', 0, 64);
-          final left = await Api.query(r'query AppDebugSticker($id: ID!) { sticker(id: $id) { id isDeleted } }', variables: {'id': stickerId});
-          _say('deleteSticker OK inMine=${mine.any((s) => s.id == stickerId)} sticker=${left['sticker']}');
-        } catch (e) {
-          _say('deleteSticker FAILED id=$stickerId: $e');
+          _say('deleteWork result id=$workId: $e');
         }
       }
     }
