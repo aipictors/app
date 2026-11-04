@@ -49,6 +49,16 @@
 
 シミュレーターは `~/Documents/aipictors-app-1.7/sim.sh <名前> [タブ] [ルート]`。worktree は `WT=`、端末は `UDID=`、ダークは `APPEARANCE=dark` で変える。
 
+## 投稿まわりのデバッグ
+
+`--dart-define=postDryRun=true` を付けると、アップロードと作品・スタンプ・シリーズの作成を送らず、送る内容だけを確かめる（`kDebugMode` のときだけ有効）。
+
+- `debugRoute=/debug/post-dry`: 作った画像で投稿フォームを送信し、input を表示する
+- `debugRoute=/debug/post-live`: 審査用アカウントで非公開の作品・コメント・小説を実際に作り、確かめて消す（postDryRun なしで使う）
+- `debugRoute=/debug/tour`: 画面を順に開き、ピンチやタップも送る（スクリーンショット用）
+
+画像のアップロードは `post/upload.dart` の `Uploader`、写真の選択は `pickSystemImages`（権限が要らないシステムのピッカー）を使う。
+
 ## 決まりごと
 
 - 余白・角丸・時間は `Ds`、色は `context.cs` / `context.muted` / `context.hairline` / `context.surfaceCard`。色を直接書かない（ダークモードが崩れる）。

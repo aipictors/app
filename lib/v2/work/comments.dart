@@ -601,12 +601,12 @@ class _CommentComposerState extends State<CommentComposer> {
       return;
     }
     if (!mounted) return;
-    final picked = await showModalBottomSheet<_SupportPick>(
+    final picked = await showModalBottomSheet<SupportPick>(
       context: context,
       isScrollControlled: true,
       showDragHandle: true,
       backgroundColor: context.surfaceCard,
-      builder: (_) => _SupportPicker(balance: _balance!, free: _supportFree, premium: _supportPremium, anonymous: _supportAnonymous),
+      builder: (_) => SupportPicker(balance: _balance!, free: _supportFree, premium: _supportPremium, anonymous: _supportAnonymous),
     );
     if (picked == null) return;
     setState(() {
@@ -759,8 +759,8 @@ mutation AppComment(\$input: CreateWorkCommentInput!) { createWorkComment(input:
   }
 }
 
-class _SupportPick {
-  const _SupportPick(this.free, this.premium, this.anonymous);
+class SupportPick {
+  const SupportPick(this.free, this.premium, this.anonymous);
 
   final int free;
   final int premium;
@@ -768,8 +768,8 @@ class _SupportPick {
 }
 
 /// 推しコインの内訳を選ぶ（Web の work-comment-support-panel。購入への導線は置かない）
-class _SupportPicker extends StatefulWidget {
-  const _SupportPicker({required this.balance, required this.free, required this.premium, required this.anonymous});
+class SupportPicker extends StatefulWidget {
+  const SupportPicker({required this.balance, required this.free, required this.premium, required this.anonymous});
 
   final CoinSummary balance;
   final int free;
@@ -777,10 +777,10 @@ class _SupportPicker extends StatefulWidget {
   final bool anonymous;
 
   @override
-  State<_SupportPicker> createState() => _SupportPickerState();
+  State<SupportPicker> createState() => SupportPickerState();
 }
 
-class _SupportPickerState extends State<_SupportPicker> {
+class SupportPickerState extends State<SupportPicker> {
   static const _freeSteps = [10, 30, 50, 100];
   static const _premiumSteps = [1, 3, 5, 10];
 
@@ -813,7 +813,7 @@ class _SupportPickerState extends State<_SupportPicker> {
 
   Future<void> _done() async {
     if (_pt >= _confirmPt && !await showConfirmSheet(context, title: '${_pt}pt 送りますか？', message: 'プレミアム$_premium枚・フリー$_free枚を使います')) return;
-    if (mounted) Navigator.pop(context, _SupportPick(_free, _premium, _anonymous));
+    if (mounted) Navigator.pop(context, SupportPick(_free, _premium, _anonymous));
   }
 
   @override

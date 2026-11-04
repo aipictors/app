@@ -35,7 +35,7 @@ class MyPostsScreen extends StatefulWidget {
 }
 
 class _MyPostsScreenState extends State<MyPostsScreen> {
-  static const _tabs = {'すべて': null, '公開': 'PUBLIC', '予約・下書き': 'DRAFT', '非公開': 'PRIVATE'};
+  static const _tabs = {'すべて': null, '公開': 'PUBLIC', '下書き': 'DRAFT', '非公開': 'PRIVATE'};
 
   int _tab = 0;
   String _search = '';

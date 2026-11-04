@@ -45,7 +45,7 @@ Future<void> showAddToFolderSheet(BuildContext context, String workId) async {
         for (final f in folders)
           ListTile(
             leading: const Icon(Icons.folder_outlined),
-            title: Text(f.str('title'), maxLines: 1, overflow: TextOverflow.ellipsis),
+            title: Text(f.str('title').isEmpty ? 'ブックマーク' : f.str('title'), maxLines: 1, overflow: TextOverflow.ellipsis),
             subtitle: Text('${f.integer('worksCount')}作品'),
             onTap: () => Navigator.pop(context, f.str('id')),
           ),
@@ -142,21 +142,25 @@ class _MyFoldersScreenState extends State<MyFoldersScreen> {
                   return const Padding(padding: EdgeInsets.all(Ds.s16), child: Center(child: CircularProgressIndicator.adaptive()));
                 }
                 final f = c.items[i];
+                // 名前のないフォルダはいいね・ブックマーク用の既定のもの。変更も削除もさせない
+                final isDefault = f.str('title').isEmpty;
                 return ListTile(
                   leading: AppImage(f.strOrNull('thumbnailImageURL'), width: 52, height: 52, radius: 8, memCacheWidth: 156),
-                  title: Text(f.str('title'), maxLines: 1, overflow: TextOverflow.ellipsis),
+                  title: Text(isDefault ? 'ブックマーク' : f.str('title'), maxLines: 1, overflow: TextOverflow.ellipsis),
                   subtitle: Text('${f.integer('worksCount')}作品'),
                   onTap: () async {
                     await context.push('/folders/${f.str('id')}');
                     c.refresh();
                   },
-                  trailing: PopupMenuButton<String>(
-                    onSelected: (v) => v == 'rename' ? _rename(f) : _delete(f),
-                    itemBuilder: (_) => const [
-                      PopupMenuItem(value: 'rename', child: Text('名前を変更')),
-                      PopupMenuItem(value: 'delete', child: Text('削除')),
-                    ],
-                  ),
+                  trailing: isDefault
+                      ? null
+                      : PopupMenuButton<String>(
+                          onSelected: (v) => v == 'rename' ? _rename(f) : _delete(f),
+                          itemBuilder: (_) => const [
+                            PopupMenuItem(value: 'rename', child: Text('名前を変更')),
+                            PopupMenuItem(value: 'delete', child: Text('削除')),
+                          ],
+                        ),
                 );
               },
             ),
@@ -206,7 +210,7 @@ class _FolderScreenState extends State<FolderScreen> {
     final f = _folder;
     return Scaffold(
       appBar: AppBar(
-        title: Text(f?.str('title') ?? 'フォルダ'),
+        title: Text(f == null ? 'フォルダ' : (f.str('title').isEmpty ? 'ブックマーク' : f.str('title'))),
         actions: [
           if (f != null)
             IconButton(
