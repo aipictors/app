@@ -192,19 +192,23 @@ class _HistoryFilterBar extends StatelessWidget {
 }
 
 class ResultTile extends StatelessWidget {
-  const ResultTile({super.key, required this.result, required this.onTap, this.height});
+  const ResultTile({super.key, required this.result, required this.onTap, this.height, this.hero = true});
 
   final GenResult result;
   final VoidCallback onTap;
   final double? height;
 
+  /// 同じ結果が 1 画面に 2 つ出る場所（生成タブの最近の結果）では false にする
+  final bool hero;
+
   @override
   Widget build(BuildContext context) {
     final r = result;
+    final thumbnail = AppImage(r.thumbnailUrl ?? r.imageUrl, memCacheWidth: 500);
     final image = Stack(
       fit: StackFit.expand,
       children: [
-        Hero(tag: 'gen-${r.id}', child: AppImage(r.thumbnailUrl ?? r.imageUrl, memCacheWidth: 500)),
+        if (hero) Hero(tag: 'gen-${r.id}', child: thumbnail) else thumbnail,
         Positioned(
           left: 6,
           top: 6,

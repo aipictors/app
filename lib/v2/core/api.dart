@@ -75,10 +75,14 @@ class Api {
   }
 
   /// 書き込み。キャッシュはすべて捨てる
+  /// integration_test だけが差し替える（本番のデータを変えずに押した結果を確かめる）
+  static Future<Map<String, dynamic>> Function(String document, Map<String, dynamic>? variables)? debugMutationHandler;
+
   static Future<Map<String, dynamic>> mutate(
     String document, {
     Map<String, dynamic>? variables,
   }) async {
+    if (kDebugMode && debugMutationHandler != null) return debugMutationHandler!(document, variables);
     final data = await _send(document, variables);
     _cache.clear();
     return data;

@@ -22,6 +22,27 @@ const accessTypeLabels = {
 const imageStyleLabels = {'ILLUSTRATION': 'イラスト', 'SEMI_REAL': 'セミリアル', 'REAL': 'リアル'};
 
 /// 投稿フォームの 1 枚。新しく選んだ画像か、投稿済みの画像の URL
+/// 投稿フォームへ引き継ぐ生成結果
+class GenerationPrefill {
+  const GenerationPrefill({
+    required this.imageUrl,
+    required this.prompt,
+    required this.negativePrompt,
+    required this.seed,
+    required this.steps,
+    required this.sampler,
+    required this.modelName,
+  });
+
+  final String imageUrl;
+  final String prompt;
+  final String negativePrompt;
+  final String seed;
+  final String steps;
+  final String sampler;
+  final String modelName;
+}
+
 class PostImage {
   PostImage.local(EncodedImage this.encoded) : url = null;
 
@@ -195,6 +216,39 @@ query AppWorkForEdit($id: ID!) {
       ..modelHash = w.str('modelHash')
       ..pngInfo = w.strOrNull('pngInfo')
       ..workType = w.str('type', 'WORK');
+  }
+
+  /// 自分の生成結果を nanoid で取る（Web の /new/image?generation= と同じ）
+  static Future<GenerationPrefill?> generationResult(String nanoid) async {
+    final data = await Api.query(r'''
+query AppPostGenerationResult($where: ImageGenerationResultsWhereInput) {
+  viewer {
+    id
+    imageGenerationResults(offset: 0, limit: 1, where: $where) {
+      id nanoid status imageUrl prompt negativePrompt seed steps sampler
+      model { id name }
+    }
+  }
+}''', variables: {
+      'where': {
+        'nanoids': [nanoid],
+      },
+    });
+    final results = data.obj('viewer')?.list('imageGenerationResults') ?? const [];
+    if (results.isEmpty) return null;
+    final r = results.first;
+    final url = r.strOrNull('imageUrl');
+    if (url == null || url.isEmpty) return null;
+    final seed = r.number('seed', -1).round();
+    return GenerationPrefill(
+      imageUrl: url,
+      prompt: r.str('prompt'),
+      negativePrompt: r.str('negativePrompt'),
+      seed: seed < 0 ? '' : '$seed',
+      steps: r.integer('steps') > 0 ? '${r.integer('steps')}' : '',
+      sampler: r.str('sampler'),
+      modelName: r.obj('model')?.str('name') ?? '',
+    );
   }
 
   static String? _orNull(String s) => s.trim().isEmpty ? null : s.trim();

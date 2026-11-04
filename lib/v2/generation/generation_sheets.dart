@@ -321,19 +321,16 @@ Future<void> showGeminiLimitSheet(BuildContext context, {required int coinCost, 
   );
 }
 
-/// 本人確認が必要なとき（アプリでは確認できないので Web へ）
+/// 本人確認が必要なとき。Web の生成画面にはプランの案内があるのでリンクは置かず、文章で案内する
 Future<void> showVerificationSheet(BuildContext context) {
   return showGenSheet(
     context,
     builder: (sheet) => _InfoSheet(
       icon: Icons.verified_user_rounded,
       title: '本人確認をお願いします',
-      message: '無料プランで続けて生成するには、本人確認（LINE 連携）が必要です。Web の生成画面で確認を済ませると、アプリでもそのまま生成できます。\nAipictors+ に加入している場合は確認は不要です。',
-      primaryLabel: 'Web で本人確認する',
-      onPrimary: () {
-        Navigator.of(sheet).pop();
-        launchUrl(Uri.parse('https://www.aipictors.com/generation'), mode: LaunchMode.externalApplication);
-      },
+      message: '無料プランで続けて生成するには、本人確認（LINE 連携）が必要です。本人確認はアプリの中ではできません。パソコンなどのブラウザで Aipictors にログインして済ませると、アプリでも続けて生成できます。',
+      primaryLabel: '閉じる',
+      onPrimary: () => Navigator.of(sheet).pop(),
       extra: OutlinedButton(
         onPressed: () {
           Navigator.of(sheet).pop();

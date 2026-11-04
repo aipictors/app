@@ -494,6 +494,7 @@ class _RecentStrip extends StatelessWidget {
                 return SizedBox(
                   width: h * r.aspect.clamp(0.5, 1.5),
                   child: ResultTile(
+                    hero: false,
                     result: r,
                     height: h,
                     onTap: () => openResultViewer(context, controller: c, initialIndex: index, onReuse: onReuse),

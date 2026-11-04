@@ -1,5 +1,6 @@
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/models.dart';
+import 'package:aipictors/v2/core/sensitive_tags.dart';
 
 /// 探す・検索・タグ・ランキングで使う GraphQL（Web と同じもの）
 
@@ -145,8 +146,10 @@ query SearchPopularTags(\$limit: Int!, \$where: RecommendedTagsWhereInput!) {
     );
     return data
         .list('recommendedTags')
-        .map((t) => TagSummary(name: t.str('tagName'), thumbnailUrl: t.strOrNull('thumbnailUrl')))
-        .where((t) => t.name.isNotEmpty)
+        .map((t) => t.str('tagName'))
+        .where((name) => name.isNotEmpty && !SensitiveTags.isBlocked(name))
+        // この API の thumbnailUrl は年齢区分が分からないので使わない
+        .map((name) => TagSummary(name: name))
         .toList();
   }
 
@@ -320,11 +323,11 @@ query SearchTags(\$offset: Int!, \$limit: Int!, \$where: TagsWhereInput) {
     );
     return data.list('tags').map((t) {
       final first = t.obj('firstWork');
-      final safe = first != null && appRatings.contains(first.str('rating'));
+      final safe = first != null && first.str('rating') == 'G';
       return TagSummary(name: t.str('name'), thumbnailUrl: safe ? first.strOrNull('smallThumbnailImageURL') : null);
     })
         // 昔の作品には「ねこ 猫 ぬこ」のように空白でつないだ 1 つのタグがあるので候補から外す
-        .where((t) => t.name.trim().isNotEmpty && t.name.trim().split(RegExp(r'\s+')).length < 3)
+        .where((t) => t.name.trim().isNotEmpty && t.name.trim().split(RegExp(r'\s+')).length < 3 && !SensitiveTags.isBlocked(t.name))
         .toList();
   }
 

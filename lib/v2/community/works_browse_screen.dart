@@ -5,6 +5,7 @@ import 'package:aipictors/v2/core/paged.dart';
 import 'package:aipictors/v2/explore/explore_api.dart';
 import 'package:aipictors/v2/explore/explore_widgets.dart';
 import 'package:aipictors/v2/core/nav.dart';
+import 'package:aipictors/v2/core/sensitive_tags.dart';
 import 'package:aipictors/v2/widgets/common.dart';
 import 'package:aipictors/v2/widgets/work_grid.dart';
 import 'package:flutter/material.dart';
@@ -112,7 +113,7 @@ class _TagsScreenState extends State<TagsScreen> {
       Api.query(_tagsQuery, cacheFor: const Duration(minutes: 10)).then((d) => d
           .list('hotTags')
           .map((t) => TagSummary(name: t.str('name'), thumbnailUrl: t.obj('firstWork')?.str('rating') == 'G' ? t.obj('firstWork')?.strOrNull('smallThumbnailImageURL') : null))
-          .where((t) => t.name.isNotEmpty)
+          .where((t) => t.name.isNotEmpty && !SensitiveTags.isBlocked(t.name))
           .toList()),
       ExploreApi.popularTags(limit: 48),
     ]);

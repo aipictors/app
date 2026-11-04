@@ -26,10 +26,13 @@ Future<List<XFile>> pickSystemImages({bool multiple = true}) async {
 
 /// 作品の投稿と編集。[workId] があれば編集
 class PostFormScreen extends StatefulWidget {
-  const PostFormScreen({super.key, this.workId, this.workType = 'WORK', this.debugImages, this.debugAutoSubmit = false});
+  const PostFormScreen({super.key, this.workId, this.workType = 'WORK', this.generationNanoid, this.debugImages, this.debugAutoSubmit = false});
 
   final String? workId;
   final String workType;
+
+  /// 生成結果から投稿するときの nanoid。画像と生成情報を最初から入れる
+  final String? generationNanoid;
 
   /// デバッグでピッカーを通さずに試すための画像
   final List<Uint8List>? debugImages;
@@ -103,6 +106,7 @@ class _PostFormScreenState extends State<PostFormScreen> {
           if (res.statusCode == 200) _body.text = utf8.decode(res.bodyBytes, allowMalformed: true);
         }
       }
+      if (widget.generationNanoid != null && _images.isEmpty) await _loadGeneration(widget.generationNanoid!, options);
       for (final bytes in widget.debugImages ?? const <Uint8List>[]) {
         _images.add(PostImage.local(await ImageTools.normalize(bytes)));
       }
@@ -120,6 +124,32 @@ class _PostFormScreenState extends State<PostFormScreen> {
           _loading = false;
         });
       }
+    } catch (_) {
+      if (mounted) {
+        setState(() {
+          _error = '読み込めませんでした。通信状況を確かめてもう一度お試しください';
+          _loading = false;
+        });
+      }
+    }
+  }
+
+  Future<void> _loadGeneration(String nanoid, PostOptions options) async {
+    final result = await PostApi.generationResult(nanoid);
+    if (result == null) throw const ApiException('生成した画像が見つかりませんでした');
+    final response = await http.get(Uri.parse(result.imageUrl)).timeout(const Duration(seconds: 60));
+    if (response.statusCode != 200) throw const ApiException('生成した画像を読み込めませんでした');
+    _images.add(PostImage.local(await ImageTools.normalize(response.bodyBytes)));
+    _draft.pngInfo = ImageTools.readGenerationParams(response.bodyBytes)?.source;
+    _prompt.text = result.prompt;
+    _negative.text = result.negativePrompt;
+    _seed.text = result.seed;
+    _sampler.text = result.sampler;
+    _steps.text = result.steps;
+    _modelName.text = result.modelName;
+    // 同じ名前の AI モデルがあれば選んでおく
+    for (final model in options.models) {
+      if (model.name == result.modelName) _draft.modelId = model.id;
     }
   }
 

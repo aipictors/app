@@ -7,6 +7,7 @@ final List<RouteBase> albumRoutes = [
   GoRoute(path: '/albums/create', builder: (context, state) => const AlbumEditScreen()),
   GoRoute(path: '/albums/:album', builder: (context, state) => AlbumScreen(id: state.pathParameters['album']!)),
   GoRoute(path: '/albums/:album/update', builder: (context, state) => AlbumEditScreen(id: state.pathParameters['album'])),
+  GoRoute(path: '/my/folders', builder: (context, state) => const MyFoldersScreen()),
   GoRoute(path: '/viewer/folders', builder: (context, state) => const MyFoldersScreen()),
   GoRoute(path: '/folders/:folder', builder: (context, state) => FolderScreen(id: state.pathParameters['folder']!)),
 ];

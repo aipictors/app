@@ -90,7 +90,7 @@ void main() async {
 
   FirebaseAnalytics.instance.setUserProperty(
     name: 'environment',
-    value: DefaultConfig.sentryEnvironment,
+    value: kReleaseMode ? DefaultConfig.sentryEnvironment : 'debug',
   );
 
   FirebaseAnalytics.instance.setUserProperty(
@@ -116,12 +116,13 @@ void main() async {
   await SentryFlutter.init(
     (options) {
       options.sampleRate = DefaultConfig.sentrySampleRate;
-      options.dsn = DefaultConfig.sentryDsn;
-      options.environment = DefaultConfig.sentryEnvironment;
+      // デバッグでは送らない。プロファイルは本番と混ざらないように分ける
+      options.dsn = kDebugMode ? '' : DefaultConfig.sentryDsn;
+      options.environment = kReleaseMode ? DefaultConfig.sentryEnvironment : 'debug';
       options.release = DefaultConfig.version;
       // options.debug = DefaultConfig.isNotProduction;
       options.useFlutterBreadcrumbTracking();
-      if (DefaultConfig.isProduction) {
+      if (kReleaseMode && DefaultConfig.isProduction) {
         options.tracesSampleRate = 1.0;
       }
     },
