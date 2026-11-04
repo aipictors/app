@@ -98,7 +98,7 @@ class _ReleasesScreenState extends State<ReleasesScreen> {
   late final _releases = PagedController<Release>(
     pageSize: 1,
     idOf: (r) => r.id,
-    fetch: (offset, _) => Release.page(offset),
+    fetch: (offset, _) => Release.page(offset + 1), // Web のページは 1 から
   );
   late final _announcements = PagedController<Map<String, dynamic>>(
     pageSize: 20,

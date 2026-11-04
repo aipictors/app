@@ -6,6 +6,8 @@ import 'package:aipictors/v2/core/design.dart';
 import 'package:aipictors/v2/core/models.dart';
 import 'package:aipictors/v2/core/nav.dart';
 import 'package:aipictors/v2/core/paged.dart';
+import 'package:aipictors/v2/user/user_actions.dart';
+import 'package:aipictors/v2/user/user_api.dart';
 import 'package:aipictors/v2/widgets/common.dart';
 import 'package:aipictors/v2/widgets/user_avatar.dart';
 import 'package:flutter/foundation.dart';
@@ -208,23 +210,31 @@ class _MessageThreadScreenState extends State<MessageThreadScreen> {
     }
   }
 
+  Future<void> _openUserActions() async {
+    final user = await UserApi.profile(widget.recipientId).catchError((_) => null);
+    if (!mounted) return;
+    if (user == null) {
+      context.toast('ユーザーを読み込めませんでした', error: true);
+      return;
+    }
+    await showUserActionsSheet(context, user: user, isSelf: false);
+  }
+
   @override
   Widget build(BuildContext context) {
     final name = _recipient?.str('name') ?? '';
     return Scaffold(
       appBar: AppBar(
         titleSpacing: 0,
-        title: Text(name, style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 16)),
+        title: InkWell(
+          onTap: () => Nav.user(context, widget.recipientId),
+          child: Text(name, style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 16)),
+        ),
         actions: [
-          PopupMenuButton<String>(
-            onSelected: (v) {
-              if (v == 'user') Nav.user(context, widget.recipientId);
-              if (v == 'report') context.push('/users/${widget.recipientId}/report');
-            },
-            itemBuilder: (_) => const [
-              PopupMenuItem(value: 'user', child: Text('プロフィール（ブロック・ミュート）')),
-              PopupMenuItem(value: 'report', child: Text('通報する')),
-            ],
+          IconButton(
+            tooltip: 'ブロック・ミュート・通報',
+            icon: const Icon(Icons.more_horiz_rounded),
+            onPressed: _openUserActions,
           ),
         ],
       ),

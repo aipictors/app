@@ -61,7 +61,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  static const _tabs = ['おすすめ', '新着', 'フォロー新着', 'お気に入りタグ新着'];
+  static const _tabs = ['おすすめ', '新着', 'フォロー新着', 'タグ新着'];
 
   int _tab = 0;
   final _pageController = PageController();
