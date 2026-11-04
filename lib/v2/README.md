@@ -40,6 +40,15 @@
 
 デバッグビルドで `--dart-define=debugRoute=/debug/widgets` を付けると見本が開く。
 
+## 作業ツリーの準備
+
+新しい worktree には git に入っていないものをメインのチェックアウトからコピーする。
+
+- 生成コード: `git status --short --ignored lib` の `!!`（`__generated__` など。無いと `flutter build` が失敗する）
+- Android の署名: `android/key.properties`（コミットしない）
+
+シミュレーターは `~/Documents/aipictors-app-1.7/sim.sh <名前> [タブ] [ルート]`。worktree は `WT=`、端末は `UDID=`、ダークは `APPEARANCE=dark` で変える。
+
 ## 決まりごと
 
 - 余白・角丸・時間は `Ds`、色は `context.cs` / `context.muted` / `context.hairline` / `context.surfaceCard`。色を直接書かない（ダークモードが崩れる）。

@@ -244,15 +244,12 @@ class _UserScreenState extends State<UserScreen> {
               ),
             ),
             Positioned(right: side, bottom: 4, child: _mainButton(context, u)),
-            // アイコンの横の吹き出し。ヘッダーとその下の境目を中心に置く（Web と同じ）
+            // アイコンの横の吹き出し。アプリは右に推す・フォローのボタンがあるので、その上に置く
             if (u.statusText != null)
               Positioned(
                 left: side + avatar + 8 + 4,
-                bottom: strip,
-                child: FractionalTranslation(
-                  translation: const Offset(0, 0.5),
-                  child: StatusBalloon(u.statusText!, maxWidth: MediaQuery.sizeOf(context).width - side * 2 - avatar - 12),
-                ),
+                bottom: strip - 4,
+                child: StatusBalloon(u.statusText!, maxWidth: width - side * 2 - avatar - 12),
               ),
           ]),
         ),
