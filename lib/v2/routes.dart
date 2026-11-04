@@ -2,6 +2,7 @@
 // このファイルは .gitattributes で merge=union にしてあり、複数の作業で行を足しても衝突しない。
 import 'package:aipictors/v2/achievements/achievements_routes.dart';
 import 'package:aipictors/v2/albums/album_routes.dart';
+import 'package:aipictors/v2/community/community_routes.dart';
 import 'package:aipictors/v2/debug/debug_routes.dart';
 import 'package:aipictors/v2/explore/explore_routes.dart';
 import 'package:aipictors/v2/my/my_routes.dart';
@@ -15,6 +16,7 @@ import 'package:go_router/go_router.dart';
 
 final List<RouteBase> v2Routes = [
   ...achievementsRoutes,
+  ...communityRoutes,
   ...debugRoutes,
   ...exploreRoutes,
   ...myRoutes,

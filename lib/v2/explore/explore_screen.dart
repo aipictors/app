@@ -10,6 +10,7 @@ import 'package:aipictors/v2/explore/theme_works_screen.dart';
 import 'package:aipictors/v2/widgets/common.dart';
 import 'package:aipictors/v2/widgets/work_grid.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 export 'package:aipictors/v2/explore/ranking_screen.dart' show RankingScreen;
 export 'package:aipictors/v2/explore/search_result_screen.dart' show SearchResultScreen;
@@ -91,6 +92,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
               ),
             ),
             SliverPersistentHeader(pinned: true, delegate: _SearchHeader(onTap: _openSearch)),
+            const SliverToBoxAdapter(child: _ExploreHub()),
             SliverToBoxAdapter(child: _themeCard()),
             SliverToBoxAdapter(child: _tagsSection(wide)),
             SliverToBoxAdapter(child: _rankingSection()),
@@ -271,4 +273,37 @@ class _SearchHeader extends SliverPersistentHeaderDelegate {
 
   @override
   bool shouldRebuild(covariant _SearchHeader old) => false;
+}
+
+/// 探すの入口（Web のメニューにあるもの）
+class _ExploreHub extends StatelessWidget {
+  const _ExploreHub();
+
+  static const _items = <(IconData, String, String)>[
+    (Icons.fiber_new_rounded, '新着', '/new-works'),
+    (Icons.tag_rounded, 'タグ', '/tags'),
+    (Icons.brush_rounded, '2D', '/posts/2d'),
+    (Icons.auto_fix_high_rounded, '2.5D', '/posts/2.5d'),
+    (Icons.view_in_ar_rounded, '3D', '/posts/3d'),
+    (Icons.emoji_events_rounded, 'ランキング', '/rankings'),
+    (Icons.psychology_rounded, 'AI ランキング', '/ai-rankings'),
+    (Icons.volunteer_activism_rounded, '推しランキング', '/coin-rankings'),
+    (Icons.calendar_month_rounded, 'お題', '/themes'),
+    (Icons.celebration_rounded, 'イベント', '/events'),
+    (Icons.menu_book_rounded, '小説', '/novels'),
+    (Icons.article_rounded, 'ノート', '/notes'),
+    (Icons.play_circle_outline_rounded, '動画', '/videos'),
+    (Icons.collections_bookmark_rounded, 'シリーズ', '/albums'),
+    (Icons.hub_rounded, 'モデル', '/models'),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 4, 16, 0),
+      child: Wrap(spacing: 6, runSpacing: 6, children: [
+        for (final i in _items) AppChip(i.$2, icon: i.$1, onTap: () => context.push(i.$3)),
+      ]),
+    );
+  }
 }

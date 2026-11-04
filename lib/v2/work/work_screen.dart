@@ -734,7 +734,10 @@ class _VideoBox extends StatefulWidget {
 }
 
 class _VideoBoxState extends State<_VideoBox> {
-  late final VideoPlayerController _c = VideoPlayerController.networkUrl(Uri.parse(widget.url));
+  late final VideoPlayerController _c = VideoPlayerController.networkUrl(Uri.parse(_playableUrl(widget.url)));
+
+  /// 動画の url は Cloudflare Stream の埋め込み用なので、HLS の URL にして再生する
+  static String _playableUrl(String url) => url.contains('videodelivery.net') && !url.endsWith('.m3u8') ? '$url/manifest/video.m3u8' : url;
   bool _ready = false;
 
   @override

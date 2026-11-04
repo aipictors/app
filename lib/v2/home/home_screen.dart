@@ -37,6 +37,12 @@ query AppHomeTop(\$year: Int, \$month: Int, \$day: Int) {
   hotWorks(where: { isSensitive: false }) {
     $workCardFields
   }
+  newUserWorks(offset: 0, limit: 16, where: { ratings: [G], isNowCreatedAt: true }) {
+    $workCardFields
+  }
+  recommendedUsers(offset: 0, limit: 12) {
+    $userSummaryFields
+  }
   dailyTheme(year: \$year, month: \$month, day: \$day) {
     id
     title
@@ -46,7 +52,7 @@ query AppHomeTop(\$year: Int, \$month: Int, \$day: Int) {
   }
 }''';
 
-/// ホームタブ（おすすめ・フォロー中・新着）
+/// ホームタブ（Web と同じ: おすすめ・新着・フォロー新着・お気に入りタグ新着）
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -55,7 +61,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  static const _tabs = ['おすすめ', 'フォロー中', '新着'];
+  static const _tabs = ['おすすめ', '新着', 'フォロー新着', 'タグ新着'];
 
   int _tab = 0;
   final _pageController = PageController();
@@ -98,8 +104,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 onPageChanged: (i) => setState(() => _tab = i),
                 children: [
                   const _KeepAlive(child: _RecommendedView()),
-                  _KeepAlive(key: ValueKey('follow-$_uid'), child: const _FollowingView()),
                   const _KeepAlive(child: _LatestView()),
+                  _KeepAlive(key: ValueKey('follow-$_uid'), child: const _FollowingView(kind: 0)),
+                  _KeepAlive(key: ValueKey('follow-tag-$_uid'), child: const _FollowingView(kind: 1)),
                 ],
               ),
             ),
@@ -169,6 +176,8 @@ class _RecommendedView extends StatefulWidget {
 
 class _RecommendedViewState extends State<_RecommendedView> {
   List<WorkSummary> _hot = [];
+  List<WorkSummary> _firstPosts = [];
+  List<UserSummary> _users = [];
   Map<String, dynamic>? _theme;
   bool _topLoading = true;
 
@@ -215,6 +224,8 @@ class _RecommendedViewState extends State<_RecommendedView> {
       if (!mounted) return;
       setState(() {
         _hot = WorkSummary.listFrom(data.list('hotWorks')).take(10).toList();
+        _firstPosts = WorkSummary.listFrom(data.list('newUserWorks'));
+        _users = data.list('recommendedUsers').map(UserSummary.fromJson).toList();
         _theme = data.obj('dailyTheme');
         _topLoading = false;
       });
@@ -271,11 +282,77 @@ class _RecommendedViewState extends State<_RecommendedView> {
             ),
           ),
           const SliverToBoxAdapter(child: SupportRankingPreview()),
+          if (_firstPosts.isNotEmpty)
+            SliverToBoxAdapter(child: _WorkStrip(title: '新規クリエイターの初投稿作品', icon: Icons.fiber_new_rounded, works: _firstPosts)),
+          if (_users.isNotEmpty) SliverToBoxAdapter(child: _UserStrip(users: _users)),
           const SliverToBoxAdapter(child: SectionHeader('おすすめ作品', icon: Icons.favorite_rounded)),
           SliverPagedWorks(controller: _controller),
         ],
       ),
     );
+  }
+}
+
+/// 横に流れる作品の列
+class _WorkStrip extends StatelessWidget {
+  const _WorkStrip({required this.title, required this.icon, required this.works});
+
+  final String title;
+  final IconData icon;
+  final List<WorkSummary> works;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      SectionHeader(title, icon: icon),
+      SizedBox(
+        height: 150,
+        child: ListView.separated(
+          scrollDirection: Axis.horizontal,
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          itemCount: works.length,
+          separatorBuilder: (_, __) => const SizedBox(width: Ds.s8),
+          itemBuilder: (context, i) => Pressable(
+            onTap: () => Nav.work(context, works[i].id),
+            child: AppImage(works[i].imageUrl, width: 120, height: 150, radius: 12, memCacheWidth: 360),
+          ),
+        ),
+      ),
+    ]);
+  }
+}
+
+/// おすすめのユーザー
+class _UserStrip extends StatelessWidget {
+  const _UserStrip({required this.users});
+
+  final List<UserSummary> users;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      const SectionHeader('おすすめのユーザー', icon: Icons.group_rounded),
+      SizedBox(
+        height: 92,
+        child: ListView.separated(
+          scrollDirection: Axis.horizontal,
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          itemCount: users.length,
+          separatorBuilder: (_, __) => const SizedBox(width: Ds.s12),
+          itemBuilder: (context, i) => SizedBox(
+            width: 68,
+            child: Pressable(
+              onTap: () => Nav.user(context, users[i].id),
+              child: Column(children: [
+                UserAvatar.summary(users[i], size: 56),
+                const SizedBox(height: Ds.s6),
+                Text(users[i].name, maxLines: 1, overflow: TextOverflow.ellipsis, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
+              ]),
+            ),
+          ),
+        ),
+      ),
+    ]);
   }
 }
 
@@ -492,16 +569,19 @@ class _ThemeCard extends StatelessWidget {
 
 /// フォロー中のユーザー・タグの新着
 class _FollowingView extends StatefulWidget {
-  const _FollowingView();
+  const _FollowingView({required this.kind});
+
+  /// 0: ユーザー 1: タグ
+  final int kind;
 
   @override
   State<_FollowingView> createState() => _FollowingViewState();
 }
 
 class _FollowingViewState extends State<_FollowingView> {
-  int _kind = 0; // 0: ユーザー 1: タグ
+  int get _kind => widget.kind;
 
-  late PagedController<WorkSummary> _controller = _create();
+  late final PagedController<WorkSummary> _controller = _create();
 
   PagedController<WorkSummary> _create() {
     final type = _kind == 0 ? 'FOLLOW_USER' : 'FOLLOW_TAG';
@@ -541,15 +621,6 @@ class _FollowingViewState extends State<_FollowingView> {
     super.dispose();
   }
 
-  void _switch(int k) {
-    if (k == _kind) return;
-    setState(() {
-      _controller.dispose();
-      _kind = k;
-      _controller = _create();
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     if (!Nav.isLoggedIn) {
@@ -568,22 +639,7 @@ class _FollowingViewState extends State<_FollowingView> {
       child: CustomScrollView(
         physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
         slivers: [
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(16, 10, 16, 4),
-              child: SegmentedButton<int>(
-                showSelectedIcon: false,
-                segments: const [
-                  ButtonSegment(value: 0, icon: Icon(Icons.person_rounded, size: 18), label: Text('ユーザー')),
-                  ButtonSegment(value: 1, icon: Icon(Icons.tag_rounded, size: 18), label: Text('タグ')),
-                ],
-                selected: {_kind},
-                onSelectionChanged: (s) => _switch(s.first),
-              ),
-            ),
-          ),
           SliverPagedWorks(
-            key: ValueKey(_kind),
             controller: _controller,
             emptyIcon: _kind == 0 ? Icons.person_add_alt_1_rounded : Icons.tag_rounded,
             emptyTitle: _kind == 0 ? 'まだ新着がありません' : 'フォロー中のタグの新着がありません',

@@ -35,9 +35,9 @@ class SupportRanking {
   final List<SupportRankItem> items;
 
   /// kind: received（推された）/ sent（推した＝貢献）
-  static Future<SupportRanking> fetch(String kind, {int limit = 50, String? recipientUserId}) async {
+  static Future<SupportRanking> fetch(String kind, {int limit = 50, String? recipientUserId, String? weekStartDate}) async {
     final res = await http
-        .get(Uri.parse('https://www.aipictors.com/api/coins/support/rankings/public?kind=$kind&limit=$limit${recipientUserId == null ? '' : '&recipientUserId=$recipientUserId'}'))
+        .get(Uri.parse('https://www.aipictors.com/api/coins/support/rankings/public?kind=$kind&limit=$limit${weekStartDate == null ? '' : '&weekStartDate=$weekStartDate'}${recipientUserId == null ? '' : '&recipientUserId=$recipientUserId'}'))
         .timeout(const Duration(seconds: 20));
     final json = jsonDecode(utf8.decode(res.bodyBytes));
     final data = json is Map ? json['data'] : null;
@@ -77,6 +77,7 @@ class SupportRankingScreen extends StatefulWidget {
 class _SupportRankingScreenState extends State<SupportRankingScreen> {
   late String _kind = widget.initialKind;
   final Map<String, SupportRanking> _data = {};
+  DateTime? _week; // null は今週
   String? _error;
 
   @override
@@ -85,10 +86,27 @@ class _SupportRankingScreenState extends State<SupportRankingScreen> {
     _load();
   }
 
+  String? get _weekParam {
+    final w = _week;
+    if (w == null) return null;
+    return '${w.year}-${w.month.toString().padLeft(2, '0')}-${w.day.toString().padLeft(2, '0')}';
+  }
+
+  void _moveWeek(int delta) {
+    final current = _week ?? DateTime.tryParse(_data[_kind]?.weekStartDate ?? '');
+    if (current == null) return;
+    final next = DateTime(current.year, current.month, current.day + 7 * delta);
+    setState(() {
+      _week = next.isAfter(DateTime.now()) ? null : next;
+      _data.clear();
+    });
+    _load();
+  }
+
   Future<void> _load() async {
     setState(() => _error = null);
     try {
-      final r = await SupportRanking.fetch(_kind);
+      final r = await SupportRanking.fetch(_kind, weekStartDate: _weekParam);
       if (mounted) setState(() => _data[_kind] = r);
     } on ApiException catch (e) {
       if (mounted) setState(() => _error = e.message);
@@ -125,10 +143,17 @@ class _SupportRankingScreenState extends State<SupportRankingScreen> {
               ),
             ),
             SliverToBoxAdapter(
+              child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                IconButton(tooltip: '前の週', onPressed: r == null ? null : () => _moveWeek(-1), icon: const Icon(Icons.chevron_left_rounded)),
+                Text(r?.weekLabel ?? '今週', style: const TextStyle(fontWeight: FontWeight.w800)),
+                IconButton(tooltip: '次の週', onPressed: r == null || _week == null ? null : () => _moveWeek(1), icon: const Icon(Icons.chevron_right_rounded)),
+              ]),
+            ),
+            SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
+                padding: const EdgeInsets.fromLTRB(20, 0, 20, 8),
                 child: Text(
-                  '${r?.weekLabel ?? '今週'}・コインで推された（推した）pt の合計です。フリーコインは1枚1pt、プレミアムコインは1枚10pt。',
+                  'コインで推された（推した）pt の合計です。フリーコインは1枚1pt、プレミアムコインは1枚10pt。',
                   style: TextStyle(color: context.muted, fontSize: 12, height: 1.5),
                 ),
               ),

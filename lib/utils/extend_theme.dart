@@ -1,11 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-/// iOS で絵文字やハングルを含む文字列が豆腐（？の箱）になるので、探すフォントを明示する。
-/// 絵文字が先頭にあると、続く日本語まで豆腐になっていた
+/// iOS で探すフォントを明示する。ハングルは Apple SD Gothic Neo を絵文字より前に置く。
+/// iOS 26.3 シミュレーターは Core/AppleColorEmoji.ttc が無く、絵文字は Safari でも豆腐になる。
+/// このとき Apple Color Emoji はどの文字にも豆腐を返すので、後ろのフォントまで届かない
 List<String>? get _appleFontFallback {
   if (defaultTargetPlatform != TargetPlatform.iOS && defaultTargetPlatform != TargetPlatform.macOS) return null;
-  return const ['Hiragino Sans', 'Apple Color Emoji', 'Apple SD Gothic Neo', 'PingFang SC'];
+  return const ['Hiragino Sans', 'Apple SD Gothic Neo', 'Apple Color Emoji', 'PingFang SC'];
 }
 
 ThemeData extendThemeData(ThemeData themeData) {

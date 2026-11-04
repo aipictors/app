@@ -75,6 +75,8 @@ dependencies:
   image_picker_platform_interface: ^2.11.1
   crypto: ^3.0.8
   image: ^4.12.0
+  flutter_markdown_plus: ^1.0.12
+  markdown: ^7.3.1
 
 dev_dependencies:
   build_runner: ^2.4.9
@@ -93,6 +95,7 @@ flutter:
   assets:
     - assets/
     - assets/images/
+    - assets/docs/
     - assets/snd_sine/
     - assets/snd_industrial/
     - assets/snd_piano/

@@ -143,6 +143,24 @@ class _MyPageScreenState extends State<MyPageScreen> {
                 ]),
               ),
               SliverToBoxAdapter(
+                child: _MenuGroup(title: 'コミュニティ', items: [
+                  _MenuItem(Icons.mail_outline_rounded, 'メッセージ', () => context.push('/messages')),
+                  _MenuItem(Icons.campaign_outlined, 'お知らせ', () => context.push('/releases')),
+                  _MenuItem(Icons.celebration_outlined, 'イベント', () => context.push('/events')),
+                  _MenuItem(Icons.hub_outlined, 'モデル', () => context.push('/models')),
+                ]),
+              ),
+              SliverToBoxAdapter(
+                child: _MenuGroup(title: 'サポート', items: [
+                  _MenuItem(Icons.support_agent_rounded, 'お問い合わせ', () => context.push('/support/chat')),
+                  _MenuItem(Icons.help_outline_rounded, 'ヘルプ', () => context.push('/help')),
+                  _MenuItem(Icons.gavel_rounded, 'ガイドライン', () => context.push('/guideline')),
+                  _MenuItem(Icons.description_outlined, '利用規約', () => context.push('/terms')),
+                  _MenuItem(Icons.privacy_tip_outlined, 'プライバシーポリシー', () => context.push('/privacy')),
+                  _MenuItem(Icons.map_outlined, 'ロードマップ', () => context.push('/roadmap')),
+                ]),
+              ),
+              SliverToBoxAdapter(
                 child: _MenuGroup(title: 'アカウント', items: [
                   _MenuItem(Icons.workspace_premium_outlined, 'プラン', () => Nav.plans(context)),
                   _MenuItem(Icons.badge_outlined, 'プロフィールを編集', () => context.push('/settings/profile')),
