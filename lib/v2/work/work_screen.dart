@@ -14,6 +14,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:aipictors/v2/albums/albums_screen.dart';
+import 'package:aipictors/v2/albums/folders_screen.dart';
+import 'package:aipictors/v2/post/post_api.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:video_player/video_player.dart';
 
@@ -167,7 +171,12 @@ class _WorkScreenState extends State<WorkScreen> {
 
   void _share() {
     final url = 'https://www.aipictors.com/posts/${w.str('id')}';
-    Share.share('${w.str('title')} / ${user.str('name')}\n$url');
+    // iPad は共有シートの位置を渡さないと開けない
+    final box = context.findRenderObject() as RenderBox?;
+    Share.share(
+      '${w.str('title')} / ${user.str('name')}\n$url',
+      sharePositionOrigin: box == null ? null : box.localToGlobal(Offset.zero) & box.size,
+    );
   }
 
   void _openComments({bool compose = false}) {
@@ -191,6 +200,17 @@ class _WorkScreenState extends State<WorkScreen> {
         child: Column(mainAxisSize: MainAxisSize.min, children: [
           ListTile(leading: const Icon(Icons.ios_share_rounded), title: const Text('共有'), onTap: () => Navigator.pop(context, 'share')),
           ListTile(leading: const Icon(Icons.link_rounded), title: const Text('リンクをコピー'), onTap: () => Navigator.pop(context, 'copy')),
+          if (Nav.isLoggedIn)
+            ListTile(leading: const Icon(Icons.folder_outlined), title: const Text('フォルダに保存'), onTap: () => Navigator.pop(context, 'folder')),
+          if (_isMine) ...[
+            ListTile(leading: const Icon(Icons.edit_outlined), title: const Text('作品を編集'), onTap: () => Navigator.pop(context, 'edit')),
+            ListTile(leading: const Icon(Icons.collections_bookmark_outlined), title: const Text('シリーズに追加'), onTap: () => Navigator.pop(context, 'album')),
+            ListTile(
+              leading: Icon(Icons.delete_outline_rounded, color: context.cs.error),
+              title: Text('作品を削除', style: TextStyle(color: context.cs.error)),
+              onTap: () => Navigator.pop(context, 'delete'),
+            ),
+          ],
           if (!_isMine) ...[
             ListTile(leading: const Icon(Icons.flag_outlined), title: const Text('作品を通報'), onTap: () => Navigator.pop(context, 'report')),
             ListTile(leading: const Icon(Icons.volume_off_outlined), title: Text('${user.str('name')}さんをミュート'), onTap: () => Navigator.pop(context, 'mute')),
@@ -208,6 +228,28 @@ class _WorkScreenState extends State<WorkScreen> {
     switch (action) {
       case 'share':
         _share();
+      case 'folder':
+        await showAddToFolderSheet(context, w.str('id'));
+      case 'album':
+        await showAddToAlbumSheet(context, w.str('id'));
+      case 'edit':
+        final result = await context.push('/works/${w.str('id')}/update');
+        if (!mounted) return;
+        if (result == 'deleted') {
+          context.pop();
+        } else if (result != null) {
+          _load();
+        }
+      case 'delete':
+        if (!await showConfirmSheet(context, title: 'この作品を削除しますか？', message: '元に戻せません', destructive: true)) return;
+        try {
+          await PostApi.delete(w.str('id'));
+          if (!mounted) return;
+          context.toast('削除しました');
+          context.pop();
+        } on ApiException catch (e) {
+          if (mounted) context.toast(e.message, error: true);
+        }
       case 'copy':
         await Clipboard.setData(ClipboardData(text: 'https://www.aipictors.com/posts/${w.str('id')}'));
         if (mounted) context.toast('リンクをコピーしました');
@@ -328,7 +370,13 @@ class _WorkScreenState extends State<WorkScreen> {
                         ),
                         if (w.str('description').trim().isNotEmpty) ...[
                           const SizedBox(height: 14),
-                          _ExpandableText(w.str('description').trim()),
+                          // Web と同じく、キャプションは薄い下地の上に置く
+                          Container(
+                            width: double.infinity,
+                            padding: const EdgeInsets.all(Ds.s12),
+                            decoration: BoxDecoration(color: context.skeleton.withValues(alpha: 0.7), borderRadius: Ds.br(12)),
+                            child: _ExpandableText(w.str('description').trim()),
+                          ),
                         ],
                         if (isNovel && _novelText != null) ...[
                           const SizedBox(height: 16),
@@ -428,11 +476,32 @@ class _ImagePager extends StatefulWidget {
 
 class _ImagePagerState extends State<_ImagePager> with SingleTickerProviderStateMixin {
   late final _heart = AnimationController(vsync: this, duration: const Duration(milliseconds: 700));
+  final _page = PageController();
 
   @override
   void dispose() {
     _heart.dispose();
+    _page.dispose();
     super.dispose();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // 次の画像を先に読み、めくったときに空白やちらつきを出さない
+    for (final url in widget.images.skip(1).take(2)) {
+      precacheImage(CachedNetworkImageProvider(url), context).ignore();
+    }
+  }
+
+  void _showPage(int i) {
+    if (_page.hasClients) _page.animateToPage(i, duration: Ds.normal, curve: Ds.curve);
+  }
+
+  void _precacheNext(int i) {
+    for (final url in widget.images.skip(i + 1).take(1)) {
+      precacheImage(CachedNetworkImageProvider(url), context).ignore();
+    }
   }
 
   void _open(int index) {
@@ -452,8 +521,12 @@ class _ImagePagerState extends State<_ImagePager> with SingleTickerProviderState
         aspectRatio: widget.aspect,
         child: Stack(fit: StackFit.expand, children: [
           PageView.builder(
+            controller: _page,
             itemCount: images.length,
-            onPageChanged: widget.onIndex,
+            onPageChanged: (i) {
+              widget.onIndex(i);
+              _precacheNext(i);
+            },
             itemBuilder: (context, i) => GestureDetector(
               onTap: () => _open(i),
               onDoubleTap: () {
@@ -503,7 +576,7 @@ class _ImagePagerState extends State<_ImagePager> with SingleTickerProviderState
             itemCount: images.length,
             separatorBuilder: (_, __) => const SizedBox(width: 6),
             itemBuilder: (context, i) => GestureDetector(
-              onTap: () => _open(i),
+              onTap: () => _showPage(i),
               child: AnimatedContainer(
                 duration: Ds.fast,
                 width: 54,
@@ -536,6 +609,9 @@ class _FullscreenImagesState extends State<FullscreenImages> {
   late int _index = widget.initial;
   double _drag = 0;
 
+  /// 拡大中はページ送りと下スワイプを止め、画像の移動を優先する
+  bool _zoomed = false;
+
   @override
   void dispose() {
     _pc.dispose();
@@ -549,23 +625,31 @@ class _FullscreenImagesState extends State<FullscreenImages> {
       backgroundColor: Colors.black.withValues(alpha: opacity),
       body: Stack(children: [
         GestureDetector(
-          onVerticalDragUpdate: (d) => setState(() => _drag += d.delta.dy),
-          onVerticalDragEnd: (d) {
-            if (_drag.abs() > 120 || d.velocity.pixelsPerSecond.dy.abs() > 900) {
-              Navigator.pop(context);
-            } else {
-              setState(() => _drag = 0);
-            }
-          },
+          onVerticalDragUpdate: _zoomed ? null : (d) => setState(() => _drag += d.delta.dy),
+          onVerticalDragEnd: _zoomed
+              ? null
+              : (d) {
+                  if (_drag.abs() > 120 || d.velocity.pixelsPerSecond.dy.abs() > 900) {
+                    Navigator.pop(context);
+                  } else {
+                    setState(() => _drag = 0);
+                  }
+                },
           child: Transform.translate(
             offset: Offset(0, _drag),
             child: PageView.builder(
               controller: _pc,
+              physics: _zoomed ? const NeverScrollableScrollPhysics() : null,
               itemCount: widget.images.length,
-              onPageChanged: (i) => setState(() => _index = i),
-              itemBuilder: (context, i) => InteractiveViewer(
-                maxScale: 5,
-                child: Center(child: AppImage(widget.images[i], fit: BoxFit.contain)),
+              onPageChanged: (i) => setState(() {
+                _index = i;
+                _zoomed = false;
+              }),
+              itemBuilder: (context, i) => _ZoomableImage(
+                url: widget.images[i],
+                onZoomChanged: (z) {
+                  if (z != _zoomed) setState(() => _zoomed = z);
+                },
               ),
             ),
           ),
@@ -585,6 +669,56 @@ class _FullscreenImagesState extends State<FullscreenImages> {
           ]),
         ),
       ]),
+    );
+  }
+}
+
+/// ピンチとダブルタップで拡大できる画像
+class _ZoomableImage extends StatefulWidget {
+  const _ZoomableImage({required this.url, required this.onZoomChanged});
+
+  final String url;
+  final ValueChanged<bool> onZoomChanged;
+
+  @override
+  State<_ZoomableImage> createState() => _ZoomableImageState();
+}
+
+class _ZoomableImageState extends State<_ZoomableImage> {
+  final _transform = TransformationController();
+  TapDownDetails? _tap;
+
+  @override
+  void dispose() {
+    _transform.dispose();
+    super.dispose();
+  }
+
+  void _report() => widget.onZoomChanged(_transform.value.getMaxScaleOnAxis() > 1.01);
+
+  void _doubleTap() {
+    if (_transform.value.getMaxScaleOnAxis() > 1.01) {
+      _transform.value = Matrix4.identity();
+    } else {
+      final p = _tap?.localPosition ?? Offset.zero;
+      _transform.value = Matrix4.identity()
+        ..translateByDouble(-p.dx * 1.5, -p.dy * 1.5, 0, 1)
+        ..scaleByDouble(2.5, 2.5, 1, 1);
+    }
+    _report();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onDoubleTapDown: (d) => _tap = d,
+      onDoubleTap: _doubleTap,
+      child: InteractiveViewer(
+        transformationController: _transform,
+        maxScale: 5,
+        onInteractionEnd: (_) => _report(),
+        child: Center(child: AppImage(widget.url, fit: BoxFit.contain)),
+      ),
     );
   }
 }

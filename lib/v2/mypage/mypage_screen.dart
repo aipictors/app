@@ -6,6 +6,7 @@ import 'package:aipictors/v2/core/design.dart';
 import 'package:aipictors/v2/core/models.dart';
 import 'package:aipictors/v2/core/nav.dart';
 import 'package:aipictors/v2/plans/plans_screen.dart';
+import 'package:aipictors/v2/post/my_posts_screen.dart';
 import 'package:aipictors/v2/settings/status_sheet.dart';
 import 'package:aipictors/v2/widgets/common.dart';
 import 'package:aipictors/v2/widgets/user_avatar.dart';
@@ -122,6 +123,7 @@ class _MyPageScreenState extends State<MyPageScreen> {
               SliverToBoxAdapter(child: _PlanAndCoins(pass: _pass, coins: _coins)),
               SliverToBoxAdapter(
                 child: _MenuGroup(title: '作品', items: [
+                  _MenuItem(Icons.add_circle_outline_rounded, '作品を投稿', () => openNewPost(context)),
                   _MenuItem(Icons.person_outline_rounded, '自分のページ', () => Nav.user(context, u.str('id'))),
                   _MenuItem(Icons.favorite_border_rounded, 'いいねした作品', () => context.push('/my/likes')),
                   _MenuItem(Icons.collections_bookmark_outlined, 'シリーズ', () => context.push('/viewer/albums')),

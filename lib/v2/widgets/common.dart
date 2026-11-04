@@ -26,7 +26,7 @@ class AppImage extends StatelessWidget {
     final u = url;
     Widget child;
     if (u == null || u.isEmpty) {
-      child = Container(color: context.skeleton);
+      child = Container(width: width, height: height, color: context.skeleton);
     } else {
       child = CachedNetworkImage(
         imageUrl: u,
