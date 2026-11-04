@@ -1,8 +1,10 @@
 import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/features/login/functions/is_initialized_user_profile.dart';
+import 'package:aipictors/features/login/functions/login_with_apple.dart';
 import 'package:aipictors/features/login/functions/login_with_google.dart';
 import 'package:aipictors/features/login/functions/login_with_password.dart';
 import 'package:aipictors/features/login/functions/login_with_twitter.dart';
+import 'package:aipictors/features/login/widgets/apple_login_button.dart';
 import 'package:aipictors/features/login/widgets/login_id_form.dart';
 import 'package:aipictors/utils/to_exception_message.dart';
 import 'package:aipictors/widgets/loading_progress.dart';
@@ -127,6 +129,14 @@ class HelloScreen extends HookConsumerWidget {
                       style: Theme.of(context).textTheme.labelMedium,
                     ),
                     const SizedBox(height: 16),
+                    AppleLoginButton(
+                      isLoading: isLoading.value,
+                      onPressed: () async {
+                        isLoading.value = true;
+                        await onLoginWithApple(context, ref);
+                        isLoading.value = false;
+                      },
+                    ),
                     SizedBox(
                       width: double.infinity,
                       child: FilledButton(
@@ -264,6 +274,48 @@ class HelloScreen extends HookConsumerWidget {
       await loginWithGoogle();
       initialized = await isInitializedUserProfile();
       FirebaseAnalytics.instance.logLogin(loginMethod: 'google');
+      // ignore: use_build_context_synchronously
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(
+          SnackBar(content: Text('ログインしました'.i18n)),
+        );
+    } catch (exception) {
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(
+          SnackBar(content: Text(toExceptionMessage(exception))),
+        );
+    }
+    // ignore: use_build_context_synchronously
+    if (context.canPop()) {
+      // ignore: use_build_context_synchronously
+      context.pop();
+    }
+
+    // ignore: use_build_context_synchronously
+    if (context.mounted && initialized == false) {
+      // ignore: use_build_context_synchronously
+      context.push('/profile/setup');
+    }
+  }
+
+  onLoginWithApple(
+    BuildContext context,
+    WidgetRef ref,
+  ) async {
+    FocusManager.instance.primaryFocus?.unfocus();
+    showDialog<void>(
+      context: context,
+      builder: (_) {
+        return const LoadingProgress();
+      },
+    );
+    var initialized = true;
+    try {
+      await loginWithApple();
+      initialized = await isInitializedUserProfile();
+      FirebaseAnalytics.instance.logLogin(loginMethod: 'apple');
       // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context)
         ..hideCurrentSnackBar()

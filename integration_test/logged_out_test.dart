@@ -1,5 +1,6 @@
 import 'package:aipictors/v2/core/api.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
@@ -49,6 +50,9 @@ void main() {
       await qa.shot('out-login');
       expect(find.byType(TextField).evaluate().length + find.byType(TextFormField).evaluate().length, greaterThanOrEqualTo(2));
       expect(find.textContaining('Google'), findsWidgets);
+      if (defaultTargetPlatform == TargetPlatform.iOS) {
+        expect(find.text('Appleでサインイン'), findsOneWidget);
+      }
     });
 
     await qa.step('ログイン画面: 間違いはエラーのまま留まる', () async {

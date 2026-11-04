@@ -2,6 +2,7 @@ import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/features/account/functions/withdraw_account.dart';
 import 'package:aipictors/features/config/functions/logout.dart';
 import 'package:aipictors/features/home/widgets/loading_screen.dart';
+import 'package:aipictors/features/login/functions/login_with_apple.dart';
 import 'package:aipictors/features/viewer/__generated__/viewer_user.req.gql.dart';
 import 'package:aipictors/providers/client_provider.dart';
 import 'package:aipictors/utils/show_error_snack_bar.dart';
@@ -157,6 +158,10 @@ class AccountDeleteScreen extends HookConsumerWidget {
 
     try {
       isLoading.value = true;
+      if (isAppleUser() && !await revokeAppleToken()) {
+        isLoading.value = false;
+        return;
+      }
       await withdrawAccount();
       try {
         await logout();

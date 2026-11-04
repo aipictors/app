@@ -2,6 +2,7 @@ import 'package:aipictors/default.i18n.dart';
 import 'package:aipictors/features/user/functions/update_user_profile.dart';
 import 'package:aipictors/utils/to_exception_message.dart';
 import 'package:aipictors/widgets/loading_progress.dart';
+import 'package:aipictors/features/login/functions/login_with_apple.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
@@ -12,7 +13,9 @@ class ProfileSetupScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final displayName = useState('');
+    final displayName = useState(appleSignInDisplayName ?? '');
+    final nameController =
+        useTextEditingController(text: appleSignInDisplayName ?? '');
     final isSubmitting = useState(false);
 
     return Scaffold(
@@ -34,6 +37,7 @@ class ProfileSetupScreen extends HookConsumerWidget {
               ),
               const SizedBox(height: 12),
               TextField(
+                controller: nameController,
                 enabled: !isSubmitting.value,
                 decoration: InputDecoration(
                   labelText: '表示名'.i18n,
