@@ -93,10 +93,10 @@ class _WorksBrowseScreenState extends State<WorksBrowseScreen> {
 
 const _tagsQuery = '''
 query AppTagsIndex {
-  hotTags { id name firstWork { smallThumbnailImageURL } }
+  hotTags { id name firstWork { smallThumbnailImageURL rating } }
 }''';
 
-/// タグの一覧（いま人気・よく使われる）
+/// タグの一覧（いま人気・よく使われる）。写真は全年齢の作品だけ
 class TagsScreen extends StatefulWidget {
   const TagsScreen({super.key});
 
@@ -111,7 +111,7 @@ class _TagsScreenState extends State<TagsScreen> {
     final results = await Future.wait([
       Api.query(_tagsQuery, cacheFor: const Duration(minutes: 10)).then((d) => d
           .list('hotTags')
-          .map((t) => TagSummary(name: t.str('name'), thumbnailUrl: t.obj('firstWork')?.strOrNull('smallThumbnailImageURL')))
+          .map((t) => TagSummary(name: t.str('name'), thumbnailUrl: t.obj('firstWork')?.str('rating') == 'G' ? t.obj('firstWork')?.strOrNull('smallThumbnailImageURL') : null))
           .where((t) => t.name.isNotEmpty)
           .toList()),
       ExploreApi.popularTags(limit: 48),

@@ -1,5 +1,7 @@
+import 'package:aipictors/providers/home_tab_index_provider.dart';
 import 'package:aipictors/v2/core/nav.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -85,6 +87,12 @@ class WebLinks {
       return;
     }
     if (u.host.isEmpty || _isAipictors(u)) {
+      if (_path(u).startsWith('/generation')) {
+        // 生成はアプリのタブで開く（Web の生成画面にはプランの案内がある）
+        ProviderScope.containerOf(context, listen: false).read(homeTabIndexProvider.notifier).update(2);
+        context.go('/');
+        return;
+      }
       final inApp = _inAppPath(_path(u));
       if (inApp != null) {
         context.push(inApp);

@@ -40,6 +40,13 @@
 
 デバッグビルドで `--dart-define=debugRoute=/debug/widgets` を付けると見本が開く。
 
+## コミュニティの部品（`community/`）
+
+- 本文のリンクは `WebLinks.open`。購入の URL はプラン画面へ、同じ画面があるものはアプリの中へ。
+- Markdown は `AppMarkdown`、昔のお知らせの HTML は `AppHtmlBody`。
+- `mockSend` はリリースビルド以外で true。メッセージ・お問い合わせ・お題の提案とそのいいねは送らない。
+- 一覧は `PagedList`（1 列）か `SliverPagedWorks`（作品）。
+
 ## 作業ツリーの準備
 
 新しい worktree には git に入っていないものをメインのチェックアウトからコピーする。

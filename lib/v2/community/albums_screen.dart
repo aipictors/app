@@ -28,7 +28,7 @@ class _AlbumsBrowseScreenState extends State<AlbumsBrowseScreen> {
       final data = await Api.query(_query, variables: {
         'offset': offset,
         'limit': limit,
-        'where': {'isSensitive': false, 'ratings': ['G', 'R15'], 'needsThumbnailImage': true, 'orderBy': 'DATE_UPDATED', 'sort': 'DESC'},
+        'where': {'isSensitive': false, 'ratings': ['G', 'R15'], 'needsThumbnailImage': true, 'needInspected': false, 'orderBy': 'DATE_UPDATED', 'sort': 'DESC'},
       }, cacheFor: const Duration(minutes: 5));
       return data.list('albums').where((a) => !a.boolean('isSensitive') && a.str('rating') != 'R18').toList();
     },
@@ -49,7 +49,7 @@ class _AlbumsBrowseScreenState extends State<AlbumsBrowseScreen> {
         emptyTitle: 'シリーズはまだありません',
         itemBuilder: (context, a) => ListTile(
           leading: AppImage(a.strOrNull('thumbnailImageURL'), width: 56, height: 56, radius: 10, memCacheWidth: 168),
-          title: Text(a.str('title'), maxLines: 2, overflow: TextOverflow.ellipsis, style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 14)),
+          title: Text(a.str('title').replaceAll(r"\'", "'"), maxLines: 2, overflow: TextOverflow.ellipsis, style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 14)),
           subtitle: Text(
             '${a.obj('user')?.str('name') ?? ''}・${(a['workIds'] as List? ?? const []).length} 作品',
             maxLines: 1,
