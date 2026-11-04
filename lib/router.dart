@@ -306,7 +306,7 @@ final _routes = [
     path: '/tags/:tag_name',
     builder: (context, state) {
       final tagName = state.pathParameters['tag_name'];
-      return TagScreen(name: Uri.decodeComponent(tagName!));
+      return TagScreen(name: tagName!);
     },
   ),
   GoRoute(

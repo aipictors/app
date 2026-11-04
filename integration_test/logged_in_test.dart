@@ -467,6 +467,34 @@ void main() {
       }
     });
 
+    await qa.step('探す: 人気のタグを押すとタグの画面が開く', () async {
+      await qa.goHome();
+      await qa.tab(1);
+      await qa.idle(const Duration(seconds: 2));
+      await qa.scrollToTop();
+      final cards = find.byWidgetPredicate((w) => w.runtimeType.toString() == 'TagCard');
+      await qa.scrollTo(cards);
+      await qa.tap(cards);
+      await qa.idle(const Duration(seconds: 3));
+      expect(qa.location, contains('/tags/'));
+      expect(find.byType(ErrorWidget), findsNothing);
+      await qa.shot('tag-from-card');
+      await qa.back();
+    });
+
+    await qa.step('検索: 入力して結果を開く', () async {
+      await qa.open('/search', wait: const Duration(seconds: 2));
+      await qa.tap(find.textContaining('作品・タグ・ユーザーを検索'));
+      await qa.idle();
+      await tester.enterText(find.byType(TextField).last, '猫');
+      await tester.testTextInput.receiveAction(TextInputAction.search);
+      await qa.idle(const Duration(seconds: 4));
+      expect(find.byType(ErrorWidget), findsNothing);
+      await qa.shot('search-submitted');
+      await hideKeyboard(tester);
+      await qa.goHome();
+    });
+
     await qa.step('検索・タグ・ユーザー', () async {
       await qa.open('/search/${Uri.encodeComponent('猫')}', wait: const Duration(seconds: 4));
       await qa.shot('search');

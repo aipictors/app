@@ -60,6 +60,8 @@ class Qa {
       _errors.add(text.split('\n').take(3).join(' / '));
       // ignore: avoid_print
       print('[QA] FLUTTER-ERROR ${text.split('\n').first}');
+      // ignore: avoid_print
+      print('[QA] DETAIL ${details.informationCollector?.call().take(6).map((e) => e.toString().split('\n').first).join(' | ')} @ ${details.stack.toString().split('\n').where((l) => l.contains('package:aipictors')).take(3).join(' | ')}');
     };
     runZonedGuarded(() {
       app.main();
