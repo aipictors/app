@@ -78,6 +78,10 @@
 	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>プロフィールのアイコンとヘッダーに使う画像を選ぶために使用します。</string>
+	<key>NSCameraUsageDescription</key>
+	<string>プロフィールのアイコンとヘッダーに使う画像を撮影するために使用します。</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>生成した画像や作品の画像を写真に保存するために使用します。</string>
 	<key>NSUserTrackingUsageDescription</key>

@@ -4,6 +4,7 @@ import 'package:aipictors/v2/debug/debug_routes.dart';
 import 'package:aipictors/v2/explore/explore_routes.dart';
 import 'package:aipictors/v2/notifications/notifications_routes.dart';
 import 'package:aipictors/v2/plans/plans_routes.dart';
+import 'package:aipictors/v2/settings/settings_routes.dart';
 import 'package:aipictors/v2/support/support_routes.dart';
 import 'package:go_router/go_router.dart';
 
@@ -12,5 +13,6 @@ final List<RouteBase> v2Routes = [
   ...exploreRoutes,
   ...notificationsRoutes,
   ...plansRoutes,
+  ...settingsRoutes,
   ...supportRoutes,
 ];

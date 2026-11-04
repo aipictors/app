@@ -88,6 +88,11 @@ class Config extends _$Config {
     state = build();
   }
 
+  void updateThemeMode(ThemeMode mode) async {
+    const ConfigRepository().setThemeMode(mode.name);
+    state = build();
+  }
+
   void updateColorScheme(String? value) async {
     const ConfigRepository().setThemeColor(value);
     state = build();

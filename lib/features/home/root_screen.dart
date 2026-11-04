@@ -17,6 +17,7 @@ import 'package:aipictors/features/home/widgets/home_navigation_bar.dart';
 import 'package:aipictors/features/home/widgets/home_navigation_rail.dart';
 import 'package:aipictors/features/home/widgets/latest_version_dialog.dart';
 import 'package:aipictors/v2/notifications/notifications_screen.dart';
+import 'package:aipictors/v2/settings/settings_api.dart';
 import 'package:aipictors/features/viewer/__generated__/viewer_user.data.gql.dart';
 import 'package:aipictors/handlers/message_handler.dart';
 import 'package:aipictors/providers/auth_state_provider.dart';
@@ -127,6 +128,12 @@ class RootScreen extends HookConsumerWidget {
       }
       return null;
     }, const []);
+
+    // 表示の設定（R15）はログインのたびに読み直す
+    useEffect(() {
+      if (authState.value != null) SettingsApi.loadContentFilter();
+      return null;
+    }, [authState.value?.uid]);
 
     final screenList = [
       const HomeScreen(key: PageStorageKey('root_home')),

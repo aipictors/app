@@ -31,6 +31,13 @@ const workCardFields = '''
 /// アプリで見せる年齢区分（R18 はアプリでは出さない）
 const appRatings = ['G', 'R15'];
 
+/// 表示の設定（Web の「R15 を表示する」）。一覧を作るときに効かせる
+class AppContentFilter {
+  AppContentFilter._();
+
+  static bool showR15 = true;
+}
+
 /// ユーザーのアイコン枠（Web の UserAvatarFramePresentation）
 class AvatarFrame {
   const AvatarFrame({
@@ -179,6 +186,6 @@ class WorkSummary {
 
   static List<WorkSummary> listFrom(List<Map<String, dynamic>> items) => items
       .map(WorkSummary.fromJson)
-      .where((w) => w.id.isNotEmpty && w.imageUrl.isNotEmpty && w.rating != 'R18' && w.rating != 'R18G')
+      .where((w) => w.id.isNotEmpty && w.imageUrl.isNotEmpty && w.rating != 'R18' && w.rating != 'R18G' && (AppContentFilter.showR15 || w.rating != 'R15'))
       .toList();
 }
