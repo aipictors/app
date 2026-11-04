@@ -1,7 +1,6 @@
-import 'package:aipictors/v2/explore/explore_screen.dart' as v2explore;
-import 'package:aipictors/v2/plans/plans_screen.dart' as v2plans;
+import 'package:aipictors/v2/explore/explore_screen.dart' show TagScreen;
+import 'package:aipictors/v2/routes.dart';
 import 'package:aipictors/v2/user/user_screen.dart' as v2user;
-import 'package:aipictors/v2/support/support_ranking_screen.dart' as v2support;
 import 'package:aipictors/v2/work/work_screen.dart' as v2work;
 import 'package:aipictors/features/config/config_screen.dart' as v2config;
 import 'package:aipictors/features/account/account_create_screen.dart';
@@ -72,6 +71,8 @@ import 'package:go_router/go_router.dart';
 final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
 
 final _routes = [
+  // 新しい画面はここではなく lib/v2/routes.dart へ（先に書いた方が優先される）
+  ...v2Routes,
   // Firebase Auth OAuth callbacks (e.g. iOS custom scheme):
   // com.googleusercontent.apps.<...>://firebaseauth/link?... -> path: /link
   GoRoute(
@@ -305,7 +306,7 @@ final _routes = [
     path: '/tags/:tag_name',
     builder: (context, state) {
       final tagName = state.pathParameters['tag_name'];
-      return v2explore.TagScreen(name: Uri.decodeComponent(tagName!));
+      return TagScreen(name: Uri.decodeComponent(tagName!));
     },
   ),
   GoRoute(
@@ -394,22 +395,6 @@ final _routes = [
     },
   ),
   GoRoute(
-    path: '/search',
-    builder: (context, state) => const v2explore.ExploreScreen(),
-  ),
-  GoRoute(
-    path: '/rankings',
-    builder: (context, state) => const v2explore.RankingScreen(),
-  ),
-  GoRoute(
-    path: '/support-rankings',
-    builder: (context, state) => const v2support.SupportRankingScreen(),
-  ),
-  GoRoute(
-    path: '/plans',
-    builder: (context, state) => const v2plans.PlansScreen(),
-  ),
-  GoRoute(
     path: '/more',
     builder: (context, state) => const v2config.ConfigScreen(),
   ),
@@ -429,13 +414,6 @@ final _routes = [
     path: '/secret',
     builder: (context, state) {
       return const SecretScreen();
-    },
-  ),
-  GoRoute(
-    path: '/search/:text',
-    builder: (context, state) {
-      final text = state.pathParameters['text'];
-      return v2explore.SearchResultScreen(text: Uri.decodeComponent(text!));
     },
   ),
   GoRoute(

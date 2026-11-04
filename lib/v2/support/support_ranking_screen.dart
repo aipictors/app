@@ -4,6 +4,7 @@ import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/design.dart';
 import 'package:aipictors/v2/core/nav.dart';
 import 'package:aipictors/v2/widgets/common.dart';
+import 'package:aipictors/v2/widgets/user_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -186,7 +187,7 @@ class SupportRankTile extends StatelessWidget {
                 : Text('${item.rank}', textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.w900, color: context.muted)),
           ),
           const SizedBox(width: 8),
-          Avatar(item.iconUrl, size: compact ? 34 : 42),
+          UserAvatar(url: item.iconUrl, size: compact ? 34 : 42),
           const SizedBox(width: 10),
           Expanded(
             child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [

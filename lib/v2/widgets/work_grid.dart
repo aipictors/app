@@ -3,6 +3,7 @@ import 'package:aipictors/v2/core/models.dart';
 import 'package:aipictors/v2/core/nav.dart';
 import 'package:aipictors/v2/core/paged.dart';
 import 'package:aipictors/v2/widgets/common.dart';
+import 'package:aipictors/v2/widgets/user_avatar.dart';
 import 'package:aipictors/v2/widgets/official_badge.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -71,7 +72,7 @@ class WorkCard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 2),
               child: Row(children: [
-                Avatar(work.user.iconUrl, size: 18),
+                UserAvatar.summary(work.user, size: 18),
                 const SizedBox(width: 6),
                 Expanded(
                   child: Text(
@@ -81,7 +82,7 @@ class WorkCard extends StatelessWidget {
                     style: context.tt.bodySmall?.copyWith(color: context.muted),
                   ),
                 ),
-                if (work.user.isOfficial) ...[const SizedBox(width: 2), const OfficialBadge(size: 13)],
+                if (work.user.isOfficial || work.user.isModerator) ...[const SizedBox(width: 2), OfficialBadge(size: 13, isOfficial: work.user.isOfficial, isModerator: work.user.isModerator)],
               ]),
             ),
           ],

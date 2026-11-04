@@ -35,6 +35,9 @@ class Ds {
   static const s24 = 24.0;
   static const s32 = 32.0;
 
+  /// 読み物やフォームの最大幅（iPad で広がりすぎないように）
+  static const contentWidth = 720.0;
+
   // 角丸
   static const r8 = Radius.circular(8);
   static const r12 = Radius.circular(12);

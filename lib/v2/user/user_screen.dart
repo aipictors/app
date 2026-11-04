@@ -8,6 +8,8 @@ import 'package:aipictors/v2/user/user_api.dart';
 import 'package:aipictors/v2/user/user_list_screen.dart';
 import 'package:aipictors/v2/user/user_widgets.dart';
 import 'package:aipictors/v2/widgets/common.dart';
+import 'package:aipictors/v2/widgets/status_balloon.dart';
+import 'package:aipictors/v2/widgets/user_avatar.dart';
 import 'package:aipictors/v2/widgets/work_grid.dart';
 import 'package:aipictors/v2/widgets/official_badge.dart';
 import 'package:flutter/gestures.dart';
@@ -197,10 +199,10 @@ class _UserScreenState extends State<UserScreen> {
         duration: Ds.fast,
         opacity: _collapsed ? 1 : 0,
         child: Row(mainAxisSize: MainAxisSize.min, children: [
-          Avatar(u.iconUrl, size: 28),
+          UserAvatar(url: u.iconUrl, frame: u.avatarFrame, size: 28),
           const SizedBox(width: 8),
           Flexible(child: Text(u.name, overflow: TextOverflow.ellipsis, style: TextStyle(fontWeight: FontWeight.w800, fontSize: 17, color: context.cs.onSurface))),
-          if (u.isOfficial) ...[const SizedBox(width: 4), const OfficialBadge()],
+          if (u.isOfficial || u.isModerator) ...[const SizedBox(width: 4), OfficialBadge(isOfficial: u.isOfficial, isModerator: u.isModerator)],
         ]),
       ),
       actions: [
@@ -238,10 +240,20 @@ class _UserScreenState extends State<UserScreen> {
                   border: Border.all(color: Theme.of(context).scaffoldBackgroundColor, width: 4),
                   boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.12), blurRadius: 12)],
                 ),
-                child: Avatar(u.iconUrl, size: avatar),
+                child: UserAvatar(url: u.iconUrl, frame: u.avatarFrame, size: avatar, animateDecoration: true),
               ),
             ),
             Positioned(right: side, bottom: 4, child: _mainButton(context, u)),
+            // アイコンの横の吹き出し。ヘッダーとその下の境目を中心に置く（Web と同じ）
+            if (u.statusText != null)
+              Positioned(
+                left: side + avatar + 8 + 4,
+                bottom: strip,
+                child: FractionalTranslation(
+                  translation: const Offset(0, 0.5),
+                  child: StatusBalloon(u.statusText!, maxWidth: MediaQuery.sizeOf(context).width - side * 2 - avatar - 12),
+                ),
+              ),
           ]),
         ),
       ),
@@ -272,7 +284,7 @@ class _UserScreenState extends State<UserScreen> {
     if (u.isBlocked) return const SizedBox.shrink();
     return Row(mainAxisSize: MainAxisSize.min, children: [
       Pressable(
-        onTap: () => showSupportSheet(context, userId: u.id, userName: u.name, iconUrl: u.iconUrl),
+        onTap: () => showSupportSheet(context, userId: u.id, userName: u.name, iconUrl: u.iconUrl, frame: u.avatarFrame),
         child: Container(
           height: 42,
           padding: const EdgeInsets.symmetric(horizontal: 14),
@@ -310,7 +322,7 @@ class _UserScreenState extends State<UserScreen> {
                   Flexible(
                     child: Text(u.name, style: context.tt.headlineSmall?.copyWith(fontWeight: FontWeight.w900, letterSpacing: -0.4)),
                   ),
-                  if (u.isOfficial) ...[const SizedBox(width: 6), const OfficialBadge(size: 20)],
+                  if (u.isOfficial || u.isModerator) ...[const SizedBox(width: 6), OfficialBadge(size: 20, isOfficial: u.isOfficial, isModerator: u.isModerator)],
                   if (u.passType != null) ...[
                     const SizedBox(width: 6),
                     Tooltip(message: 'Aipictors+ 会員', child: ShaderMask(shaderCallback: (r) => Ds.goldGradient.createShader(r), child: const Icon(Icons.verified_rounded, color: Colors.white, size: 20))),

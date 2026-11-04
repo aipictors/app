@@ -1,9 +1,11 @@
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/coins.dart';
 import 'package:aipictors/v2/core/design.dart';
+import 'package:aipictors/v2/core/models.dart';
 import 'package:aipictors/v2/core/nav.dart';
 import 'package:aipictors/v2/core/paged.dart';
 import 'package:aipictors/v2/widgets/common.dart';
+import 'package:aipictors/v2/widgets/user_avatar.dart';
 import 'package:aipictors/v2/widgets/official_badge.dart';
 import 'package:aipictors/v2/work/moderation.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +20,7 @@ const commentFields = '''
   isMuted
   sticker { id imageUrl }
   support { freeCoinAmount premiumCoinAmount totalPt }
-  user { id name login iconUrl isOfficial }
+  user { $userSummaryFields }
 ''';
 
 class CommentItem {
@@ -47,6 +49,8 @@ class CommentItem {
   String? get iconUrl => user?.strOrNull('iconUrl');
 
   bool get isOfficial => user?.boolean('isOfficial') ?? false;
+
+  bool get isModerator => user?.boolean('isModerator') ?? false;
 
   int get supportPt => json.obj('support')?.integer('totalPt') ?? 0;
 
@@ -168,10 +172,7 @@ class _CommentTileState extends State<CommentTile> {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              GestureDetector(
-                onTap: c.userId.isEmpty ? null : () => Nav.user(context, c.userId),
-                child: Avatar(c.iconUrl, size: widget.isReply ? 28 : 36),
-              ),
+              UserAvatar.json(c.user, size: widget.isReply ? 28 : 36, tappable: true),
               const SizedBox(width: 10),
               Expanded(
                 child: Container(
@@ -186,7 +187,7 @@ class _CommentTileState extends State<CommentTile> {
                       Flexible(
                         child: Text(c.userName, maxLines: 1, overflow: TextOverflow.ellipsis, style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 13)),
                       ),
-                      if (c.isOfficial) ...[const SizedBox(width: 3), const OfficialBadge(size: 14)],
+                      if (c.isOfficial || c.isModerator) ...[const SizedBox(width: 3), OfficialBadge(size: 14, isOfficial: c.isOfficial, isModerator: c.isModerator)],
                       const SizedBox(width: 6),
                       Text(relativeTime(c.createdAt), style: TextStyle(color: context.muted, fontSize: 11)),
                     ]),

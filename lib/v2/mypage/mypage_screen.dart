@@ -3,9 +3,11 @@ import 'dart:async';
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/coins.dart';
 import 'package:aipictors/v2/core/design.dart';
+import 'package:aipictors/v2/core/models.dart';
 import 'package:aipictors/v2/core/nav.dart';
 import 'package:aipictors/v2/plans/plans_screen.dart';
 import 'package:aipictors/v2/widgets/common.dart';
+import 'package:aipictors/v2/widgets/user_avatar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -14,7 +16,8 @@ const _viewerQuery = '''
 query AppMyPage {
   viewer {
     user {
-      id login name iconUrl headerImageUrl biography
+      id login name iconUrl isOfficial isModerator headerImageUrl biography
+      $avatarFrameFields
       followersCount followeesCount worksCount receivedLikesCount
     }
     currentPass { id type periodEnd }
@@ -182,7 +185,7 @@ class _ProfileCard extends StatelessWidget {
             Transform.translate(
               offset: const Offset(0, -30),
               child: Column(children: [
-                Avatar(user.strOrNull('iconUrl'), size: 72, ring: true),
+                UserAvatar.json(user, size: 72, ring: true),
                 const SizedBox(height: 6),
                 Text(user.str('name'), style: context.tt.titleLarge?.copyWith(fontWeight: FontWeight.w900)),
                 Text('@${user.str('login')}', style: TextStyle(color: context.muted, fontSize: 12)),

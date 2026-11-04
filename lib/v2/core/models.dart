@@ -1,5 +1,11 @@
 import 'package:aipictors/v2/core/api.dart';
 
+/// ユーザーの枠の項目。ユーザーを取る GraphQL には必ず入れる
+const avatarFrameFields = 'avatarFrame { frameType backgroundStyle borderPadding overlayImageUrl }';
+
+/// アイコンと名前を出すのに要るユーザーの項目（[UserSummary] がこれを読む）
+const userSummaryFields = 'id login name iconUrl isOfficial isModerator $avatarFrameFields';
+
 /// 一覧で使う作品の項目（Web の PhotoAlbumWork とほぼ同じ）
 const workCardFields = '''
   id
@@ -19,17 +25,60 @@ const workCardFields = '''
   smallThumbnailImageURL
   smallThumbnailImageWidth
   smallThumbnailImageHeight
-  user {
-    id
-    login
-    name
-    iconUrl
-    isOfficial
-  }
+  user { $userSummaryFields }
 ''';
 
 /// アプリで見せる年齢区分（R18 はアプリでは出さない）
 const appRatings = ['G', 'R15'];
+
+/// ユーザーのアイコン枠（Web の UserAvatarFramePresentation）
+class AvatarFrame {
+  const AvatarFrame({
+    required this.frameType,
+    this.backgroundStyle,
+    this.borderPadding = 3,
+    this.overlayImageUrl,
+  });
+
+  static const typeDecoration = 'DECORATION';
+  static const typeRainbow = 'ANIMATED_RAINBOW';
+  static const typeAurora = 'AURORA';
+  static const typePearl = 'PEARL_SHINE';
+  static const typeStarlight = 'STARLIGHT';
+
+  /// 枠の画像は Web の public に置かれていて、/avatar-frames/... の形で来る
+  static const _webOrigin = 'https://www.aipictors.com';
+
+  final String frameType;
+  final String? backgroundStyle;
+  final int borderPadding;
+  final String? overlayImageUrl;
+
+  bool get isDecoration => frameType == typeDecoration;
+
+  /// 光が横切る種類
+  bool get hasGloss => const {typeRainbow, typeAurora, typePearl, typeStarlight, 'DECORATED', 'GRADIENT'}.contains(frameType);
+
+  /// 重ねる画像の絶対 URL
+  String? get overlayUrl {
+    final u = overlayImageUrl;
+    if (u == null || u.isEmpty) return null;
+    return u.startsWith('/') ? '$_webOrigin$u' : u;
+  }
+
+  /// 止まった絵（deco/x.webp）の URL から動く絵（deco/x.anim.webp）の URL を作る
+  static String animatedDecorationUrl(String url) => url.replaceFirst(RegExp(r'\.webp(?=$|\?)'), '.anim.webp');
+
+  static AvatarFrame? fromJson(Map<String, dynamic>? j) {
+    if (j == null) return null;
+    return AvatarFrame(
+      frameType: j.str('frameType', 'GRADIENT'),
+      backgroundStyle: j.strOrNull('backgroundStyle'),
+      borderPadding: j.integer('borderPadding', 3),
+      overlayImageUrl: j.strOrNull('overlayImageUrl'),
+    );
+  }
+}
 
 class UserSummary {
   const UserSummary({
@@ -38,6 +87,8 @@ class UserSummary {
     required this.name,
     required this.iconUrl,
     this.isOfficial = false,
+    this.isModerator = false,
+    this.avatarFrame,
   });
 
   final String id;
@@ -45,6 +96,8 @@ class UserSummary {
   final String name;
   final String? iconUrl;
   final bool isOfficial;
+  final bool isModerator;
+  final AvatarFrame? avatarFrame;
 
   factory UserSummary.fromJson(Map<String, dynamic> j) => UserSummary(
         id: j.str('id'),
@@ -52,6 +105,8 @@ class UserSummary {
         name: j.str('name', j.str('login')),
         iconUrl: j.strOrNull('iconUrl'),
         isOfficial: j.boolean('isOfficial'),
+        isModerator: j.boolean('isModerator'),
+        avatarFrame: AvatarFrame.fromJson(j.obj('avatarFrame')),
       );
 
   static const empty = UserSummary(id: '', login: '', name: '', iconUrl: null);

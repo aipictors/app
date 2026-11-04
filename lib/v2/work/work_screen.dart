@@ -3,6 +3,7 @@ import 'package:aipictors/v2/core/design.dart';
 import 'package:aipictors/v2/core/models.dart';
 import 'package:aipictors/v2/core/nav.dart';
 import 'package:aipictors/v2/widgets/common.dart';
+import 'package:aipictors/v2/widgets/user_avatar.dart';
 import 'package:aipictors/v2/widgets/official_badge.dart';
 import 'package:aipictors/v2/widgets/work_grid.dart';
 import 'package:aipictors/v2/work/comments.dart';
@@ -28,7 +29,7 @@ query AppWork(\$id: ID!) {
     tagNames
     promptAccessType prompt negativePrompt seed steps scale sampler vae clipSkip model
     dailyTheme { id title }
-    user { id login name iconUrl isOfficial isFollowee biography followersCount }
+    user { $userSummaryFields isFollowee biography followersCount }
     comments(offset: 0, limit: 3) {
       $commentFields
       responses(offset: 0, limit: 3) { $commentFields }
@@ -299,7 +300,7 @@ class _WorkScreenState extends State<WorkScreen> {
                           onComment: () => _openComments(),
                           onSupport: _isMine
                               ? null
-                              : () => showSupportSheet(context, userId: user.str('id'), userName: user.str('name'), iconUrl: user.strOrNull('iconUrl')),
+                              : () => showSupportSheet(context, userId: user.str('id'), userName: user.str('name'), iconUrl: user.strOrNull('iconUrl'), frame: AvatarFrame.fromJson(user.obj('avatarFrame'))),
                           onShare: _share,
                         ),
                         const SizedBox(height: 14),
@@ -760,13 +761,13 @@ class _UserRow extends StatelessWidget {
           border: Border.all(color: context.hairline),
         ),
         child: Row(children: [
-          Avatar(user.strOrNull('iconUrl'), size: 44),
+          UserAvatar.json(user, size: 44),
           const SizedBox(width: 12),
           Expanded(
             child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Row(children: [
                 Flexible(child: Text(user.str('name'), maxLines: 1, overflow: TextOverflow.ellipsis, style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 15))),
-                if (user.boolean('isOfficial')) ...[const SizedBox(width: 4), const OfficialBadge()],
+                if (user.boolean('isOfficial') || user.boolean('isModerator')) ...[const SizedBox(width: 4), OfficialBadge(isOfficial: user.boolean('isOfficial'), isModerator: user.boolean('isModerator'))],
               ]),
               Text('フォロワー ${compactCount(user.integer('followersCount'))}', style: TextStyle(color: context.muted, fontSize: 12)),
             ]),

@@ -7,6 +7,7 @@ import 'package:aipictors/v2/core/nav.dart';
 import 'package:aipictors/v2/core/paged.dart';
 import 'package:aipictors/v2/support/support_ranking_screen.dart';
 import 'package:aipictors/v2/widgets/common.dart';
+import 'package:aipictors/v2/widgets/user_avatar.dart';
 import 'package:aipictors/v2/widgets/work_grid.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -396,7 +397,7 @@ class _HotCarouselState extends State<_HotCarousel> {
                             ),
                             const SizedBox(height: 6),
                             Row(children: [
-                              Avatar(w.user.iconUrl, size: 22),
+                              UserAvatar.summary(w.user, size: 22),
                               const SizedBox(width: 6),
                               Expanded(
                                 child: Text(w.user.name, maxLines: 1, overflow: TextOverflow.ellipsis, style: const TextStyle(color: Colors.white70, fontSize: 13)),

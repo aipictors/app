@@ -3,8 +3,10 @@ import 'dart:math' as math;
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/coins.dart';
 import 'package:aipictors/v2/core/design.dart';
+import 'package:aipictors/v2/core/models.dart';
 import 'package:aipictors/v2/core/nav.dart';
 import 'package:aipictors/v2/widgets/common.dart';
+import 'package:aipictors/v2/widgets/user_avatar.dart';
 import 'package:flutter/material.dart';
 
 /// 推し（コインでクリエイターを応援する）シート
@@ -13,6 +15,7 @@ Future<bool> showSupportSheet(
   required String userId,
   required String userName,
   String? iconUrl,
+  AvatarFrame? frame,
 }) async {
   if (!Nav.requireLogin(context)) return false;
   final sent = await showModalBottomSheet<bool>(
@@ -21,17 +24,18 @@ Future<bool> showSupportSheet(
     useSafeArea: true,
     showDragHandle: true,
     backgroundColor: context.surfaceCard,
-    builder: (_) => _SupportSheet(userId: userId, userName: userName, iconUrl: iconUrl),
+    builder: (_) => _SupportSheet(userId: userId, userName: userName, iconUrl: iconUrl, frame: frame),
   );
   return sent == true;
 }
 
 class _SupportSheet extends StatefulWidget {
-  const _SupportSheet({required this.userId, required this.userName, this.iconUrl});
+  const _SupportSheet({required this.userId, required this.userName, this.iconUrl, this.frame});
 
   final String userId;
   final String userName;
   final String? iconUrl;
+  final AvatarFrame? frame;
 
   @override
   State<_SupportSheet> createState() => _SupportSheetState();
@@ -126,7 +130,7 @@ class _SupportSheetState extends State<_SupportSheet> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Row(children: [
-                    Avatar(widget.iconUrl, size: 44, ring: true),
+                    UserAvatar(url: widget.iconUrl, frame: widget.frame, size: 44, ring: true),
                     const SizedBox(width: 12),
                     Expanded(
                       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [

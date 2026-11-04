@@ -10,6 +10,8 @@ class UserProfile {
     required this.login,
     required this.name,
     required this.iconUrl,
+    this.avatarFrame,
+    this.statusText,
     required this.headerImageUrl,
     required this.biography,
     required this.followCount,
@@ -37,6 +39,10 @@ class UserProfile {
   final String login;
   final String name;
   final String? iconUrl;
+  final AvatarFrame? avatarFrame;
+
+  /// 他の人に見えているステータス
+  final String? statusText;
   final String? headerImageUrl;
   final String biography;
   final int followCount;
@@ -70,6 +76,8 @@ class UserProfile {
       login: u.str('login'),
       name: u.str('name').isEmpty ? u.str('login') : u.str('name'),
       iconUrl: clean(u.strOrNull('iconUrl')),
+      avatarFrame: AvatarFrame.fromJson(u.obj('avatarFrame')),
+      statusText: clean(u.strOrNull('statusText')),
       headerImageUrl: clean(u.strOrNull('headerImageUrl')),
       biography: u.str('biography').trim(),
       followCount: u.integer('followCount').clamp(0, 1 << 31),
@@ -121,6 +129,9 @@ class UserRowData {
     required this.biography,
     required this.isFollowee,
     required this.works,
+    this.isOfficial = false,
+    this.isModerator = false,
+    this.avatarFrame,
   });
 
   final String id;
@@ -130,6 +141,9 @@ class UserRowData {
   final String biography;
   bool isFollowee;
   final List<WorkSummary> works;
+  final bool isOfficial;
+  final bool isModerator;
+  final AvatarFrame? avatarFrame;
 
   factory UserRowData.fromJson(Map<String, dynamic> u) => UserRowData(
         id: u.str('id'),
@@ -139,6 +153,9 @@ class UserRowData {
         biography: u.str('biography').replaceAll(RegExp(r'\s+'), ' ').trim(),
         isFollowee: u.boolean('isFollowee'),
         works: WorkSummary.listFrom(u.list('works')),
+        isOfficial: u.boolean('isOfficial'),
+        isModerator: u.boolean('isModerator'),
+        avatarFrame: AvatarFrame.fromJson(u.obj('avatarFrame')),
       );
 }
 
@@ -161,10 +178,7 @@ class UserApi {
   UserApi._();
 
   static const _userRowFields = '''
-    id
-    login
-    name
-    iconUrl
+    $userSummaryFields
     biography
     isFollowee
 ''';
@@ -176,6 +190,8 @@ query User(\$userId: ID!) {
     login
     name
     iconUrl
+    $avatarFrameFields
+    statusText
     headerImageUrl
     biography
     isModerator

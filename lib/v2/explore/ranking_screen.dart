@@ -4,6 +4,7 @@ import 'package:aipictors/v2/core/nav.dart';
 import 'package:aipictors/v2/explore/explore_api.dart';
 import 'package:aipictors/v2/explore/explore_widgets.dart';
 import 'package:aipictors/v2/widgets/common.dart';
+import 'package:aipictors/v2/widgets/user_avatar.dart';
 import 'package:flutter/material.dart';
 
 /// ランキングを読み込む（集計前で空なら 1 つ前の期間にさかのぼる。Web と同じ）
@@ -265,7 +266,7 @@ class _RankingTabState extends State<_RankingTab> with AutomaticKeepAliveClientM
           Text(r.work.title, maxLines: 1, overflow: TextOverflow.ellipsis, style: context.tt.bodySmall?.copyWith(fontWeight: FontWeight.w800)),
           const SizedBox(height: 2),
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            Avatar(r.work.user.iconUrl, size: 16),
+            UserAvatar.summary(r.work.user, size: 16),
             const SizedBox(width: 4),
             Flexible(
               child: Text(r.work.user.name, maxLines: 1, overflow: TextOverflow.ellipsis, style: context.tt.labelSmall?.copyWith(color: context.muted)),
@@ -341,7 +342,7 @@ class _RankRow extends StatelessWidget {
               Pressable(
                 onTap: () => Nav.user(context, w.user.id),
                 child: Row(children: [
-                  Avatar(w.user.iconUrl, size: 20),
+                  UserAvatar.summary(w.user, size: 20),
                   const SizedBox(width: 6),
                   Expanded(child: Text(w.user.name, maxLines: 1, overflow: TextOverflow.ellipsis, style: context.tt.bodySmall?.copyWith(color: context.muted))),
                 ]),

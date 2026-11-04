@@ -49,40 +49,6 @@ class AppImage extends StatelessWidget {
   }
 }
 
-class Avatar extends StatelessWidget {
-  const Avatar(this.url, {super.key, this.size = 32, this.ring = false});
-
-  final String? url;
-  final double size;
-  final bool ring;
-
-  @override
-  Widget build(BuildContext context) {
-    final image = ClipOval(
-      child: SizedBox(
-        width: size,
-        height: size,
-        child: url == null || url!.isEmpty
-            ? Container(
-                color: context.skeleton,
-                child: Icon(Icons.person_rounded, size: size * 0.6, color: context.muted),
-              )
-            : AppImage(url, memCacheWidth: (size * 3).round()),
-      ),
-    );
-    if (!ring) return image;
-    return Container(
-      padding: const EdgeInsets.all(2),
-      decoration: const BoxDecoration(shape: BoxShape.circle, gradient: Ds.brandGradient),
-      child: Container(
-        padding: const EdgeInsets.all(2),
-        decoration: BoxDecoration(shape: BoxShape.circle, color: Theme.of(context).scaffoldBackgroundColor),
-        child: image,
-      ),
-    );
-  }
-}
-
 /// 押すと少し縮むラッパー
 class Pressable extends StatefulWidget {
   const Pressable({
@@ -199,6 +165,15 @@ class StateView extends StatelessWidget {
   final String? actionLabel;
   final VoidCallback? onAction;
   final bool compact;
+
+  factory StateView.empty(String title, {String? message, IconData icon = Icons.inbox_rounded, String? actionLabel, VoidCallback? onAction, bool compact = false}) => StateView(
+        icon: icon,
+        title: title,
+        message: message,
+        actionLabel: actionLabel,
+        onAction: onAction,
+        compact: compact,
+      );
 
   factory StateView.error(String message, {VoidCallback? onRetry}) => StateView(
         icon: Icons.cloud_off_rounded,
@@ -438,6 +413,267 @@ class LoginRequiredView extends StatelessWidget {
             GradientButton(label: 'ログイン・新規登録', icon: Icons.login_rounded, onPressed: onLogin),
           ],
         ),
+      ),
+    );
+  }
+}
+
+/// 読み込み中のリスト（アイコン + 2 行）。本物の行と同じくらいの高さにして、読み込み後にずれないようにする
+class SkeletonList extends StatelessWidget {
+  const SkeletonList({super.key, this.count = 8, this.avatarSize = 48, this.padding = const EdgeInsets.all(Ds.s16), this.sliver = false});
+
+  final int count;
+  final double avatarSize;
+  final EdgeInsets padding;
+  final bool sliver;
+
+  Widget _row(BuildContext context) => Padding(
+        padding: const EdgeInsets.only(bottom: Ds.s16),
+        child: Row(children: [
+          Skeleton(width: avatarSize, height: avatarSize, radius: avatarSize / 2),
+          const SizedBox(width: Ds.s12),
+          const Expanded(
+            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Skeleton(width: 140, height: 14, radius: 7),
+              SizedBox(height: Ds.s8),
+              Skeleton(height: 12, radius: 6),
+            ]),
+          ),
+        ]),
+      );
+
+  @override
+  Widget build(BuildContext context) {
+    if (sliver) {
+      return SliverPadding(
+        padding: padding,
+        sliver: SliverList.builder(itemCount: count, itemBuilder: (context, _) => _row(context)),
+      );
+    }
+    return ListView.builder(
+      padding: padding,
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: count,
+      itemBuilder: (context, _) => _row(context),
+    );
+  }
+}
+
+/// 読み込み中の格子
+class SkeletonGrid extends StatelessWidget {
+  const SkeletonGrid({super.key, this.count = 12, this.maxExtent = 180, this.aspect = 0.8, this.padding = const EdgeInsets.all(Ds.s12), this.sliver = false});
+
+  final int count;
+  final double maxExtent;
+  final double aspect;
+  final EdgeInsets padding;
+  final bool sliver;
+
+  @override
+  Widget build(BuildContext context) {
+    final delegate = SliverGridDelegateWithMaxCrossAxisExtent(
+      maxCrossAxisExtent: maxExtent,
+      mainAxisSpacing: Ds.s8,
+      crossAxisSpacing: Ds.s8,
+      childAspectRatio: aspect,
+    );
+    if (sliver) {
+      return SliverPadding(
+        padding: padding,
+        sliver: SliverGrid.builder(gridDelegate: delegate, itemCount: count, itemBuilder: (_, __) => const Skeleton()),
+      );
+    }
+    return GridView.builder(
+      padding: padding,
+      physics: const NeverScrollableScrollPhysics(),
+      gridDelegate: delegate,
+      itemCount: count,
+      itemBuilder: (_, __) => const Skeleton(),
+    );
+  }
+}
+
+/// 引っ張って更新の決まった形。中身はスクロールできるもの
+class AppRefresh extends StatelessWidget {
+  const AppRefresh({super.key, required this.onRefresh, required this.child, this.edgeOffset = 0});
+
+  final Future<void> Function() onRefresh;
+  final Widget child;
+  final double edgeOffset;
+
+  @override
+  Widget build(BuildContext context) {
+    return RefreshIndicator(
+      color: context.cs.primary,
+      backgroundColor: context.surfaceCard,
+      edgeOffset: edgeOffset,
+      displacement: 32,
+      strokeWidth: 2.4,
+      onRefresh: () async {
+        Ds.impact();
+        await onRefresh();
+      },
+      child: child,
+    );
+  }
+}
+
+/// iPad など広い画面で、中身を読みやすい幅に収めて真ん中に置く
+class ContentWidth extends StatelessWidget {
+  const ContentWidth({super.key, required this.child, this.maxWidth = Ds.contentWidth});
+
+  final Widget child;
+  final double maxWidth;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      heightFactor: 1,
+      child: ConstrainedBox(constraints: BoxConstraints(maxWidth: maxWidth), child: child),
+    );
+  }
+}
+
+/// 確認のシート。はいなら true
+Future<bool> showConfirmSheet(
+  BuildContext context, {
+  required String title,
+  String? message,
+  String confirmLabel = 'OK',
+  String cancelLabel = 'キャンセル',
+  bool destructive = false,
+}) async {
+  final result = await showModalBottomSheet<bool>(
+    context: context,
+    useSafeArea: true,
+    showDragHandle: true,
+    backgroundColor: context.surfaceCard,
+    builder: (sheet) => ContentWidth(
+      maxWidth: 480,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(Ds.s20, 0, Ds.s20, Ds.s16),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(title, textAlign: TextAlign.center, style: sheet.tt.titleMedium?.copyWith(fontWeight: FontWeight.w800)),
+            if (message != null) ...[
+              const SizedBox(height: Ds.s8),
+              Text(message, textAlign: TextAlign.center, style: sheet.tt.bodyMedium?.copyWith(color: sheet.muted, height: 1.5)),
+            ],
+            const SizedBox(height: Ds.s20),
+            PrimaryButton(label: confirmLabel, destructive: destructive, onPressed: () => Navigator.of(sheet).pop(true)),
+            const SizedBox(height: Ds.s8),
+            SecondaryButton(label: cancelLabel, onPressed: () => Navigator.of(sheet).pop(false)),
+          ],
+        ),
+      ),
+    ),
+  );
+  return result ?? false;
+}
+
+/// 主なボタン（単色）。一番目立たせたい 1 つには [GradientButton] を使う
+class PrimaryButton extends StatelessWidget {
+  const PrimaryButton({super.key, required this.label, required this.onPressed, this.icon, this.loading = false, this.destructive = false, this.expand = true, this.height = 48});
+
+  final String label;
+  final VoidCallback? onPressed;
+  final IconData? icon;
+  final bool loading;
+  final bool destructive;
+  final bool expand;
+  final double height;
+
+  @override
+  Widget build(BuildContext context) {
+    final color = destructive ? context.cs.error : context.cs.primary;
+    final fg = destructive ? context.cs.onError : context.cs.onPrimary;
+    final button = FilledButton(
+      onPressed: loading ? null : onPressed,
+      style: FilledButton.styleFrom(
+        backgroundColor: color,
+        foregroundColor: fg,
+        disabledBackgroundColor: color.withValues(alpha: 0.4),
+        disabledForegroundColor: fg.withValues(alpha: 0.8),
+        minimumSize: Size(expand ? double.infinity : 0, height),
+        shape: const StadiumBorder(),
+        textStyle: const TextStyle(fontWeight: FontWeight.w700, fontSize: 15),
+      ),
+      child: _ButtonLabel(label: label, icon: icon, loading: loading, color: fg),
+    );
+    return button;
+  }
+}
+
+/// 控えめなボタン（枠線）
+class SecondaryButton extends StatelessWidget {
+  const SecondaryButton({super.key, required this.label, required this.onPressed, this.icon, this.loading = false, this.expand = true, this.height = 48});
+
+  final String label;
+  final VoidCallback? onPressed;
+  final IconData? icon;
+  final bool loading;
+  final bool expand;
+  final double height;
+
+  @override
+  Widget build(BuildContext context) {
+    return OutlinedButton(
+      onPressed: loading ? null : onPressed,
+      style: OutlinedButton.styleFrom(
+        foregroundColor: context.cs.onSurface,
+        side: BorderSide(color: context.hairline),
+        minimumSize: Size(expand ? double.infinity : 0, height),
+        shape: const StadiumBorder(),
+        textStyle: const TextStyle(fontWeight: FontWeight.w700, fontSize: 15),
+      ),
+      child: _ButtonLabel(label: label, icon: icon, loading: loading, color: context.cs.onSurface),
+    );
+  }
+}
+
+class _ButtonLabel extends StatelessWidget {
+  const _ButtonLabel({required this.label, this.icon, required this.loading, required this.color});
+
+  final String label;
+  final IconData? icon;
+  final bool loading;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    if (loading) return SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2.4, color: color));
+    return Row(mainAxisSize: MainAxisSize.min, children: [
+      if (icon != null) ...[Icon(icon, size: 18), const SizedBox(width: Ds.s6)],
+      Flexible(child: Text(label, overflow: TextOverflow.ellipsis)),
+    ]);
+  }
+}
+
+/// 選べる小さなチップ
+class AppChip extends StatelessWidget {
+  const AppChip(this.label, {super.key, this.selected = false, this.icon, this.onTap});
+
+  final String label;
+  final bool selected;
+  final IconData? icon;
+  final VoidCallback? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final fg = selected ? context.cs.onPrimary : context.cs.onSurface.withValues(alpha: 0.78);
+    return Pressable(
+      onTap: onTap,
+      child: AnimatedContainer(
+        duration: Ds.fast,
+        curve: Ds.curve,
+        padding: const EdgeInsets.symmetric(horizontal: Ds.s12, vertical: 7),
+        decoration: BoxDecoration(color: selected ? context.cs.primary : context.skeleton, borderRadius: Ds.br(18)),
+        child: Row(mainAxisSize: MainAxisSize.min, children: [
+          if (icon != null) ...[Icon(icon, size: 15, color: fg), const SizedBox(width: Ds.s4)],
+          Flexible(child: Text(label, overflow: TextOverflow.ellipsis, style: TextStyle(color: fg, fontSize: 13, fontWeight: FontWeight.w700))),
+        ]),
       ),
     );
   }

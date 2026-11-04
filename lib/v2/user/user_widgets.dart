@@ -4,6 +4,8 @@ import 'package:aipictors/v2/core/nav.dart';
 import 'package:aipictors/v2/core/paged.dart';
 import 'package:aipictors/v2/user/user_api.dart';
 import 'package:aipictors/v2/widgets/common.dart';
+import 'package:aipictors/v2/widgets/user_avatar.dart';
+import 'package:aipictors/v2/widgets/user_name_row.dart';
 import 'package:flutter/material.dart';
 
 /// フォローボタン（押した瞬間に見た目を変え、失敗したら戻す）
@@ -153,11 +155,11 @@ class UserRowTile extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(children: [
-              Avatar(user.iconUrl, size: 48),
+              UserAvatar(url: user.iconUrl, frame: user.avatarFrame, size: 48),
               const SizedBox(width: 12),
               Expanded(
                 child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                  Text(user.name, maxLines: 1, overflow: TextOverflow.ellipsis, style: context.tt.titleSmall?.copyWith(fontWeight: FontWeight.w800)),
+                  UserNameRow(name: user.name, isOfficial: user.isOfficial, isModerator: user.isModerator, style: context.tt.titleSmall?.copyWith(fontWeight: FontWeight.w800)),
                   const SizedBox(height: 2),
                   Text('@${user.login}', maxLines: 1, overflow: TextOverflow.ellipsis, style: context.tt.bodySmall?.copyWith(color: context.muted)),
                 ]),
