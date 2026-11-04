@@ -6,6 +6,7 @@ import 'package:aipictors/v2/explore/explore_widgets.dart';
 import 'package:aipictors/v2/widgets/common.dart';
 import 'package:aipictors/v2/widgets/user_avatar.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 /// ランキングを読み込む（集計前で空なら 1 つ前の期間にさかのぼる。Web と同じ）
 class RankingLoader {
@@ -37,6 +38,17 @@ class RankingScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('ランキング', style: TextStyle(fontWeight: FontWeight.w800)),
+          actions: [
+            PopupMenuButton<String>(
+              tooltip: 'ほかのランキング',
+              onSelected: (path) => context.push(path),
+              itemBuilder: (_) => const [
+                PopupMenuItem(value: '/ai-rankings', child: Text('AI ランキング')),
+                PopupMenuItem(value: '/coin-rankings', child: Text('推しランキング')),
+                PopupMenuItem(value: '/themes', child: Text('お題')),
+              ],
+            ),
+          ],
           bottom: TabBar(
             indicatorSize: TabBarIndicatorSize.label,
             labelStyle: const TextStyle(fontWeight: FontWeight.w800, fontSize: 15),
