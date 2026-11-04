@@ -1,9 +1,17 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+/// iOS で絵文字やハングルを含む文字列が豆腐（？の箱）になるので、探すフォントを明示する。
+/// 絵文字が先頭にあると、続く日本語まで豆腐になっていた
+List<String>? get _appleFontFallback {
+  if (defaultTargetPlatform != TargetPlatform.iOS && defaultTargetPlatform != TargetPlatform.macOS) return null;
+  return const ['Hiragino Sans', 'Apple Color Emoji', 'Apple SD Gothic Neo', 'PingFang SC'];
+}
 
 ThemeData extendThemeData(ThemeData themeData) {
   // https://github.com/flutter/flutter/issues/18150
   // 日本語と中国語の場合はFontWeightは2種類しかないのでBoldに変更する。
-  final textTheme = themeData.textTheme.copyWith(
+  final textTheme = themeData.textTheme.apply(fontFamilyFallback: _appleFontFallback).copyWith(
     displayLarge: themeData.textTheme.displayLarge!.copyWith(
       fontWeight: FontWeight.bold,
     ),
@@ -53,6 +61,14 @@ ThemeData extendThemeData(ThemeData themeData) {
 
   return themeData.copyWith(
     textTheme: textTheme,
+    // iOS は Cupertino のまま、Android も横に滑らせて前の画面を残す動きにそろえる
+    pageTransitionsTheme: const PageTransitionsTheme(
+      builders: {
+        TargetPlatform.android: FadeForwardsPageTransitionsBuilder(),
+        TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+        TargetPlatform.macOS: CupertinoPageTransitionsBuilder(),
+      },
+    ),
     filledButtonTheme: FilledButtonThemeData(
       style: TextButton.styleFrom(
         textStyle: textTheme.labelLarge!.copyWith(fontWeight: FontWeight.bold),

@@ -37,6 +37,17 @@ class _WidgetGalleryScreenState extends State<WidgetGalleryScreen> {
       body: ListView(
         padding: const EdgeInsets.only(bottom: Ds.s32),
         children: [
+          const SectionHeader('絵文字まじりの文字'),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: Ds.s16),
+            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Text('🏅 実績「はじめての保存」を達成しました！ フリーコイン10枚'),
+              SizedBox(height: Ds.s8),
+              Text('絵文字なしの文字 123'),
+              SizedBox(height: Ds.s8),
+              Text('ありがとう😊 English 中文 한국어'),
+            ]),
+          ),
           const SectionHeader('アイコン枠（本番の一覧）'),
           FutureBuilder<List<AvatarFrame>>(
             future: _frames,

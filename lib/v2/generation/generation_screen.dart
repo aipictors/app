@@ -484,10 +484,11 @@ class _GenerateBar extends StatelessWidget {
             Theme.of(context).scaffoldBackgroundColor.withValues(alpha: 0.95),
             Theme.of(context).scaffoldBackgroundColor.withValues(alpha: 0),
           ],
-          stops: const [0, 0.7, 1],
+          // 上の「使うコイン」の行まで下地を敷き、フォームの文字と重ならないようにする
+          stops: const [0, 0.86, 1],
         ),
       ),
-      padding: const EdgeInsets.fromLTRB(16, 24, 16, 12),
+      padding: const EdgeInsets.fromLTRB(16, 20, 16, 12),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
