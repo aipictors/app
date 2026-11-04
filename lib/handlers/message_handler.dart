@@ -1,3 +1,4 @@
+import 'package:aipictors/providers/home_tab_index_provider.dart';
 import 'package:aipictors/repositories/config_repository.dart';
 import 'package:aipictors/widgets/dialog/notification_dialog.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -36,7 +37,11 @@ Listener messageListener(BuildContext context, WidgetRef ref) {
             );
           },
         );
+        return;
       }
+
+      // 中身のある Push を開いたら通知タブへ
+      ref.read(homeTabIndexProvider.notifier).update(3);
     } catch (error, stackTrace) {
       // Sentry.captureException(error, stackTrace: stackTrace);
       rethrow;

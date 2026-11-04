@@ -35,9 +35,9 @@ class SupportRanking {
   final List<SupportRankItem> items;
 
   /// kind: received（推された）/ sent（推した＝貢献）
-  static Future<SupportRanking> fetch(String kind, {int limit = 50}) async {
+  static Future<SupportRanking> fetch(String kind, {int limit = 50, String? recipientUserId}) async {
     final res = await http
-        .get(Uri.parse('https://www.aipictors.com/api/coins/support/rankings/public?kind=$kind&limit=$limit'))
+        .get(Uri.parse('https://www.aipictors.com/api/coins/support/rankings/public?kind=$kind&limit=$limit${recipientUserId == null ? '' : '&recipientUserId=$recipientUserId'}'))
         .timeout(const Duration(seconds: 20));
     final json = jsonDecode(utf8.decode(res.bodyBytes));
     final data = json is Map ? json['data'] : null;

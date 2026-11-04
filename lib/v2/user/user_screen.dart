@@ -1,10 +1,15 @@
 import 'package:aipictors/v2/work/support_sheet.dart';
+import 'package:aipictors/v2/achievements/achievements_api.dart';
+import 'package:aipictors/v2/achievements/achievements_screen.dart';
 import 'package:aipictors/v2/core/api.dart';
+import 'package:aipictors/v2/core/debug_boot.dart';
 import 'package:aipictors/v2/core/design.dart';
 import 'package:aipictors/v2/core/models.dart';
 import 'package:aipictors/v2/core/paged.dart';
 import 'package:aipictors/v2/user/user_actions.dart';
+import 'package:aipictors/v2/settings/status_sheet.dart';
 import 'package:aipictors/v2/user/user_api.dart';
+import 'package:aipictors/v2/user/user_tabs.dart';
 import 'package:aipictors/v2/user/user_list_screen.dart';
 import 'package:aipictors/v2/user/user_widgets.dart';
 import 'package:aipictors/v2/widgets/common.dart';
@@ -29,16 +34,19 @@ class UserScreen extends StatefulWidget {
   State<UserScreen> createState() => _UserScreenState();
 }
 
-enum _Tab { works, albums }
+enum _Tab { works, albums, collections, stickers, badges, events, supporters }
 
 class _UserScreenState extends State<UserScreen> {
   UserProfile? _user;
   String? _error;
   bool _notFound = false;
   String? _viewerId;
-  _Tab _tab = _Tab.works;
+  _Tab _tab = _Tab.values.where((t) => t.name == DebugBoot.screenTab).firstOrNull ?? _Tab.works;
   final _scroll = ScrollController();
   bool _collapsed = false;
+
+  /// 引っ張って更新したら、作品以外のタブも読み直す
+  int _tabEpoch = 0;
   double _collapseAt = 120;
 
   // 作品タブ
@@ -122,7 +130,12 @@ class _UserScreenState extends State<UserScreen> {
     if (u == null) return _load();
     try {
       final fresh = await UserApi.profile(u.id);
-      if (mounted && fresh != null) setState(() => _user = fresh);
+      if (mounted && fresh != null) {
+        setState(() {
+          _user = fresh;
+          _tabEpoch++;
+        });
+      }
     } catch (_) {}
     await Future.wait([
       if (_works != null) _works!.refresh(),
@@ -245,11 +258,15 @@ class _UserScreenState extends State<UserScreen> {
             ),
             Positioned(right: side, bottom: 4, child: _mainButton(context, u)),
             // アイコンの横の吹き出し。アプリは右に推す・フォローのボタンがあるので、その上に置く
-            if (u.statusText != null)
+            if (u.statusText != null || _isSelf)
               Positioned(
                 left: side + avatar + 8 + 4,
                 bottom: strip - 4,
-                child: StatusBalloon(u.statusText!, maxWidth: width - side * 2 - avatar - 12),
+                child: StatusBalloon(
+                  u.statusText ?? 'ステータスを設定',
+                  maxWidth: width - side * 2 - avatar - 12,
+                  onTap: _isSelf ? _editStatus : null,
+                ),
               ),
           ]),
         ),
@@ -265,6 +282,10 @@ class _UserScreenState extends State<UserScreen> {
     }
   }
 
+  Future<void> _editStatus() async {
+    if (await showStatusSheet(context)) _refresh();
+  }
+
   Widget _mainButton(BuildContext context, UserProfile u) {
     if (_isSelf) {
       return OutlinedButton.icon(
@@ -273,7 +294,10 @@ class _UserScreenState extends State<UserScreen> {
           shape: RoundedRectangleBorder(borderRadius: Ds.br(21)),
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         ),
-        onPressed: () => context.push('/config/profile'),
+        onPressed: () async {
+          await context.push('/settings/profile');
+          _refresh();
+        },
         icon: const Icon(Icons.edit_rounded, size: 18),
         label: const Text('プロフィールを編集', style: TextStyle(fontWeight: FontWeight.w800)),
       );
@@ -345,6 +369,7 @@ class _UserScreenState extends State<UserScreen> {
                   const SizedBox(height: 12),
                   _Bio(text: u.biography),
                 ],
+                _AchievementShowcase(key: ValueKey('showcase/${u.id}/$_tabEpoch'), userId: u.id, isSelf: _isSelf),
                 if (u.twitter != null || u.instagram != null || u.github != null || u.siteUrl != null) ...[
                   const SizedBox(height: 12),
                   Wrap(spacing: 8, runSpacing: 8, children: [
@@ -416,15 +441,21 @@ class _UserScreenState extends State<UserScreen> {
     final tabs = <(_Tab, String)>[
       (_Tab.works, '作品 ${compactCount(u.safeWorksCount)}'),
       if (u.albumCount > 0) (_Tab.albums, 'シリーズ ${u.albumCount}'),
+      if (u.hasFolders) (_Tab.collections, 'コレクション'),
+      if (u.hasEvents) (_Tab.events, 'イベント'),
+      if (u.hasStickers) (_Tab.stickers, 'スタンプ'),
+      if (u.hasBadges) (_Tab.badges, 'バッジ'),
+      (_Tab.supporters, '応援'),
     ];
     return Container(
       color: Theme.of(context).scaffoldBackgroundColor,
       child: Column(children: [
         SizedBox(
           height: 46,
-          child: Row(children: [
+          child: ListView(scrollDirection: Axis.horizontal, children: [
             for (final t in tabs)
-              Expanded(
+              ConstrainedBox(
+                constraints: BoxConstraints(minWidth: MediaQuery.sizeOf(context).width / tabs.length.clamp(1, 4)),
                 child: InkWell(
                   onTap: () {
                     if (_tab == t.$1) return;
@@ -432,7 +463,7 @@ class _UserScreenState extends State<UserScreen> {
                     setState(() => _tab = t.$1);
                   },
                   child: Column(mainAxisAlignment: MainAxisAlignment.end, children: [
-                    Text(t.$2, style: TextStyle(fontWeight: FontWeight.w800, fontSize: 15, color: _tab == t.$1 ? context.cs.onSurface : context.muted)),
+                    Padding(padding: const EdgeInsets.symmetric(horizontal: Ds.s12), child: Text(t.$2, style: TextStyle(fontWeight: FontWeight.w800, fontSize: 15, color: _tab == t.$1 ? context.cs.onSurface : context.muted))),
                     const SizedBox(height: 10),
                     AnimatedContainer(
                       duration: Ds.normal,
@@ -453,6 +484,22 @@ class _UserScreenState extends State<UserScreen> {
   List<Widget> _tabContent(BuildContext context, UserProfile u) {
     if (_tab == _Tab.albums && _albums != null) {
       return [_albumsGrid(context, u, _albums!)];
+    }
+    final key = ValueKey('$_tabEpoch/${u.id}');
+    switch (_tab) {
+      case _Tab.collections:
+        return [UserFoldersTab(key: key, userId: u.id)];
+      case _Tab.stickers:
+        return [UserStickersTab(key: key, userId: u.id)];
+      case _Tab.badges:
+        return [UserBadgesTab(key: key, userId: u.id)];
+      case _Tab.events:
+        return [UserEventsTab(key: key, userId: u.id)];
+      case _Tab.supporters:
+        return [UserSupportersTab(key: key, userId: u.id)];
+      case _Tab.works:
+      case _Tab.albums:
+        break;
     }
     final kinds = <(String?, String)>[
       (null, 'すべて'),
@@ -703,5 +750,45 @@ class _ProfileSkeleton extends StatelessWidget {
         Expanded(child: Skeleton(height: 180, radius: 14)),
       ]),
     ]);
+  }
+}
+
+/// プロフィールの実績（レベルと、見せたい実績）。非公開の人には出ない
+class _AchievementShowcase extends StatefulWidget {
+  const _AchievementShowcase({super.key, required this.userId, required this.isSelf});
+
+  final String userId;
+  final bool isSelf;
+
+  @override
+  State<_AchievementShowcase> createState() => _AchievementShowcaseState();
+}
+
+class _AchievementShowcaseState extends State<_AchievementShowcase> {
+  AchievementSummary? _summary;
+
+  @override
+  void initState() {
+    super.initState();
+    AchievementsApi.showcase(widget.userId).then((s) {
+      if (mounted) setState(() => _summary = s);
+    }).catchError((_) {});
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final s = _summary;
+    if (s == null) return const SizedBox.shrink();
+    return Padding(
+      padding: const EdgeInsets.only(top: 12),
+      child: Pressable(
+        onTap: () => context.push(widget.isSelf ? '/achievements' : '/achievements?user=${widget.userId}'),
+        child: Wrap(spacing: 6, runSpacing: 6, crossAxisAlignment: WrapCrossAlignment.center, children: [
+          Badge2('Lv.${s.level}', icon: Icons.emoji_events_rounded, color: Ds.gold),
+          Badge2('実績 ${s.unlockedCount}'),
+          for (final a in s.featured.where((a) => !a.isMasked).take(3)) Badge2(a.name, color: achievementTier(a.tier).$2),
+        ]),
+      ),
+    );
   }
 }

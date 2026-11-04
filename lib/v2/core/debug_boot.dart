@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:aipictors/repositories/config_repository.dart';
 import 'package:aipictors/v2/core/api.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -10,7 +12,11 @@ class DebugBoot {
   DebugBoot._();
 
   static const _login = String.fromEnvironment('debugLogin');
-  static const route = kDebugMode ? String.fromEnvironment('debugRoute') : '';
+  /// シミュレーターでは SIMCTL_CHILD_DEBUG_ROUTE=/works/1 で、作り直さずに行き先を変えられる
+  static String get route => kDebugMode ? (Platform.environment['DEBUG_ROUTE'] ?? const String.fromEnvironment('debugRoute')) : '';
+
+  /// 画面の中のタブを開いて確かめるための値（SIMCTL_CHILD_DEBUG_TAB=stickers）
+  static String? get screenTab => kDebugMode ? Platform.environment['DEBUG_TAB'] : null;
   static const _tab = String.fromEnvironment('debugTab');
 
   static bool get hasTab => kDebugMode && _tab.isNotEmpty;

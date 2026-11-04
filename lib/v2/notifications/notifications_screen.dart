@@ -1,5 +1,6 @@
 import 'package:aipictors/providers/home_tab_index_provider.dart';
 import 'package:aipictors/v2/core/api.dart';
+import 'package:aipictors/v2/core/debug_boot.dart';
 import 'package:aipictors/v2/core/design.dart';
 import 'package:aipictors/v2/core/paged.dart';
 import 'package:aipictors/v2/notifications/notifications_api.dart';
@@ -53,7 +54,7 @@ class NotificationsScreen extends ConsumerStatefulWidget {
 }
 
 class _NotificationsScreenState extends ConsumerState<NotificationsScreen> with WidgetsBindingObserver {
-  _Tab _tab = _Tab.all;
+  _Tab _tab = _Tab.values.where((t) => t.name == DebugBoot.screenTab).firstOrNull ?? _Tab.all;
   _ReplyFilter _replyFilter = _ReplyFilter.all;
   final Map<String, PagedController<NotificationItem>> _controllers = {};
   PagedController<SupportMessage>? _messages;

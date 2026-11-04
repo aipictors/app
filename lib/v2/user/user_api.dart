@@ -33,6 +33,10 @@ class UserProfile {
     required this.passType,
     required this.counts,
     required this.featured,
+    this.hasFolders = false,
+    this.hasEvents = false,
+    this.hasStickers = false,
+    this.hasBadges = false,
   });
 
   final String id;
@@ -69,6 +73,11 @@ class UserProfile {
   /// ピックアップ作品
   final List<WorkSummary> featured;
 
+  final bool hasFolders;
+  final bool hasEvents;
+  final bool hasStickers;
+  final bool hasBadges;
+
   factory UserProfile.fromJson(Map<String, dynamic> u, Map<String, dynamic> data) {
     String? clean(String? s) => s == null || s.trim().isEmpty ? null : s.trim();
     return UserProfile(
@@ -104,6 +113,10 @@ class UserProfile {
         'COLUMN': data.integer('columnWorksCount'),
       },
       featured: WorkSummary.listFrom(u.list('featuredWorks')),
+      hasFolders: u.boolean('hasFolders'),
+      hasEvents: u.boolean('hasUserEvents'),
+      hasStickers: u.boolean('hasPublicStickers'),
+      hasBadges: u.boolean('hasBadges'),
     );
   }
 
@@ -214,6 +227,10 @@ query User(\$userId: ID!) {
       id
       type
     }
+    hasFolders
+    hasUserEvents
+    hasPublicStickers
+    hasBadges
     featuredWorks {
       $workCardFields
     }

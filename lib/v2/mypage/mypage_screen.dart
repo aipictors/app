@@ -6,6 +6,7 @@ import 'package:aipictors/v2/core/design.dart';
 import 'package:aipictors/v2/core/models.dart';
 import 'package:aipictors/v2/core/nav.dart';
 import 'package:aipictors/v2/plans/plans_screen.dart';
+import 'package:aipictors/v2/settings/status_sheet.dart';
 import 'package:aipictors/v2/widgets/common.dart';
 import 'package:aipictors/v2/widgets/user_avatar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -105,7 +106,7 @@ class _MyPageScreenState extends State<MyPageScreen> {
             SliverAppBar(
               pinned: true,
               title: const Text('マイページ', style: TextStyle(fontWeight: FontWeight.w900)),
-              actions: [IconButton(tooltip: '設定', onPressed: () => context.push('/more'), icon: const Icon(Icons.settings_outlined))],
+              actions: [IconButton(tooltip: '設定', onPressed: () => context.push('/settings'), icon: const Icon(Icons.settings_outlined))],
             ),
             if (_loading)
               const SliverToBoxAdapter(
@@ -122,10 +123,13 @@ class _MyPageScreenState extends State<MyPageScreen> {
               SliverToBoxAdapter(
                 child: _MenuGroup(title: '作品', items: [
                   _MenuItem(Icons.person_outline_rounded, '自分のページ', () => Nav.user(context, u.str('id'))),
-                  _MenuItem(Icons.favorite_border_rounded, 'いいねした作品', () => context.push('/viewer/likes')),
+                  _MenuItem(Icons.favorite_border_rounded, 'いいねした作品', () => context.push('/my/likes')),
                   _MenuItem(Icons.collections_bookmark_outlined, 'シリーズ', () => context.push('/viewer/albums')),
-                  _MenuItem(Icons.folder_outlined, 'ブックマーク・フォルダ', () => context.push('/viewer/folders')),
+                  _MenuItem(Icons.bookmark_border_rounded, 'ブックマーク', () => context.push('/my/bookmarks')),
+                  _MenuItem(Icons.folder_outlined, 'フォルダ', () => context.push('/my/folders')),
+                  _MenuItem(Icons.history_rounded, '閲覧履歴', () => context.push('/my/views')),
                   _MenuItem(Icons.image_outlined, '自分の作品', () => context.push('/viewer/works')),
+                  _MenuItem(Icons.edit_note_rounded, '作品の履歴', () => context.push('/my/histories')),
                 ]),
               ),
               SliverToBoxAdapter(
@@ -133,13 +137,16 @@ class _MyPageScreenState extends State<MyPageScreen> {
                   _MenuItem(Icons.people_outline_rounded, 'フォロー中', () => context.push('/users/${u.str('id')}/followees')),
                   _MenuItem(Icons.group_add_outlined, 'フォロワー', () => context.push('/users/${u.str('id')}/followers')),
                   _MenuItem(Icons.emoji_emotions_outlined, 'スタンプ', () => context.push('/stickers')),
+                  _MenuItem(Icons.emoji_events_outlined, '実績', () => context.push('/achievements')),
                 ]),
               ),
               SliverToBoxAdapter(
                 child: _MenuGroup(title: 'アカウント', items: [
                   _MenuItem(Icons.workspace_premium_outlined, 'プラン', () => Nav.plans(context)),
-                  _MenuItem(Icons.badge_outlined, 'プロフィールを編集', () => context.push('/config/profile')),
-                  _MenuItem(Icons.tune_rounded, 'その他の設定・ヘルプ', () => context.push('/more')),
+                  _MenuItem(Icons.badge_outlined, 'プロフィールを編集', () => context.push('/settings/profile')),
+                  _MenuItem(Icons.chat_bubble_outline_rounded, 'ステータス', () => showStatusSheet(context)),
+                  _MenuItem(Icons.shield_outlined, '運営からのお知らせ', () => context.push('/my/reports')),
+                  _MenuItem(Icons.tune_rounded, '設定', () => context.push('/settings')),
                 ]),
               ),
               const SliverToBoxAdapter(child: SizedBox(height: 120)),
