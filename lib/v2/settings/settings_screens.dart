@@ -1,6 +1,7 @@
 import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/design.dart';
+import 'package:aipictors/v2/core/list_like_count.dart';
 import 'package:aipictors/v2/core/models.dart';
 import 'package:aipictors/v2/core/nav.dart';
 import 'package:aipictors/v2/core/paged.dart';
@@ -485,6 +486,17 @@ class ColorSettingsScreen extends ConsumerWidget {
                     ]),
                   ),
               ]),
+            ),
+          ]),
+          SettingsGroup(title: '作品一覧', children: [
+            ValueListenableBuilder<bool>(
+              valueListenable: ListLikeCount.hidden,
+              builder: (context, hidden, _) => SettingsSwitch(
+                label: '作品一覧にいいね数を表示する',
+                subtitle: 'オフにすると、新着や検索などの一覧で ♡ と数を表示しません。作品を開いた画面では表示されます。この端末だけの設定です。',
+                value: !hidden,
+                onChanged: (v) => ListLikeCount.setHidden(!v),
+              ),
             ),
           ]),
         ]),

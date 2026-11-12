@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/design.dart';
+import 'package:aipictors/v2/core/list_like_count.dart';
 import 'package:aipictors/v2/core/models.dart';
 import 'package:aipictors/v2/core/nav.dart';
 import 'package:aipictors/v2/core/paged.dart';
@@ -479,9 +480,16 @@ class _HotCarouselState extends State<_HotCarousel> {
                               Expanded(
                                 child: Text(w.user.name, maxLines: 1, overflow: TextOverflow.ellipsis, style: const TextStyle(color: Colors.white70, fontSize: 13)),
                               ),
-                              const Icon(Icons.favorite_rounded, color: Ds.pink, size: 16),
-                              const SizedBox(width: 4),
-                              Text(compactCount(w.likesCount), style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                              ValueListenableBuilder<bool>(
+                                valueListenable: ListLikeCount.hidden,
+                                builder: (context, hidden, _) => hidden
+                                    ? const SizedBox.shrink()
+                                    : Row(mainAxisSize: MainAxisSize.min, children: [
+                                        const Icon(Icons.favorite_rounded, color: Ds.pink, size: 16),
+                                        const SizedBox(width: 4),
+                                        Text(compactCount(w.likesCount), style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                                      ]),
+                              ),
                             ]),
                           ]),
                         ),

@@ -1,4 +1,5 @@
 import 'package:aipictors/v2/core/design.dart';
+import 'package:aipictors/v2/core/list_like_count.dart';
 import 'package:aipictors/v2/core/models.dart';
 import 'package:aipictors/v2/core/nav.dart';
 import 'package:aipictors/v2/core/paged.dart';
@@ -50,7 +51,10 @@ class WorkCard extends StatelessWidget {
                   Positioned(
                     right: 6,
                     bottom: 6,
-                    child: _LikePill(work: work),
+                    child: ValueListenableBuilder<bool>(
+                      valueListenable: ListLikeCount.hidden,
+                      builder: (context, hidden, _) => hidden ? const SizedBox.shrink() : _LikePill(work: work),
+                    ),
                   ),
                 ],
               ),
