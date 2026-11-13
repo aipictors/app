@@ -8,6 +8,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 /// 本のように読む画面。Web と同じ読み方（縦書き・見開き・上下 2 段・書体・配色・しおり）を
 /// そのまま使えるように、Web の読書画面を全画面で開く。
 /// 見開きにするかどうかは画面の大きさと形から決まるので、折りたたみ端末やタブレットでも同じように読める。
+/// 作品ページではなく読書画面だけのページ（/posts/:id/reader）を開くので、作品ページの読み込みを待たない。
 class BookReaderScreen extends StatefulWidget {
   const BookReaderScreen({super.key, required this.workId, this.title});
 
@@ -15,7 +16,7 @@ class BookReaderScreen extends StatefulWidget {
   final String? title;
 
   static Uri uriOf(String workId) =>
-      Uri.parse('https://www.aipictors.com/posts/$workId?reader=1&app=1');
+      Uri.parse('https://www.aipictors.com/posts/$workId/reader?app=1');
 
   @override
   State<BookReaderScreen> createState() => _BookReaderScreenState();
@@ -66,8 +67,9 @@ class _BookReaderScreenState extends State<BookReaderScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: context.cs.surface,
+      // ステータスバー・ホームバーの下に読書画面のメニューが潜って押せなくならないように、安全な範囲に置く
       body: Stack(children: [
-        Positioned.fill(child: WebViewWidget(controller: _controller)),
+        Positioned.fill(child: SafeArea(child: WebViewWidget(controller: _controller))),
         if (_error != null)
           Positioned.fill(
             child: ColoredBox(
@@ -93,12 +95,13 @@ class _BookReaderScreenState extends State<BookReaderScreen> {
               ]),
             ),
           ),
-        // 読書画面の中の「閉じる」が効かないときのための戻り口
-        Positioned(
-          left: 6,
-          top: MediaQuery.paddingOf(context).top + 6,
-          child: _BackChip(onTap: () => Navigator.of(context).maybePop()),
-        ),
+        // 読み込み中・失敗したときの戻り口（開いたあとは読書画面の「閉じる」に重なるので出さない）
+        if (!_isReady || _error != null)
+          Positioned(
+            left: 6,
+            top: MediaQuery.paddingOf(context).top + 6,
+            child: _BackChip(onTap: () => Navigator.of(context).maybePop()),
+          ),
       ]),
     );
   }
