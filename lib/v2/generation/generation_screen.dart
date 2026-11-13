@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:aipictors/v2/core/design.dart';
+import 'package:aipictors/v2/plans/coin_shop.dart';
 import 'package:aipictors/v2/core/nav.dart';
 import 'package:aipictors/v2/generation/generation_api.dart';
 import 'package:aipictors/v2/generation/generation_controller.dart';
@@ -376,6 +377,15 @@ class _Header extends StatelessWidget {
                     if (v?.isPaid == true) _kv(context, '継続ボーナス', '更新のたび ${{'LITE': 100, 'STANDARD': 300, 'PREMIUM': 600}[v!.passType] ?? 0} コイン'),
                   ],
                 ),
+              ),
+              const SizedBox(height: 8),
+              GradientButton(
+                label: 'コインを買う',
+                icon: Icons.add_shopping_cart_rounded,
+                onPressed: () {
+                  Navigator.of(sheet).pop();
+                  showCoinShopSheet(context);
+                },
               ),
               const SizedBox(height: 8),
               TextButton.icon(

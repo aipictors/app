@@ -21,6 +21,21 @@ final passProducts = Platform.isAndroid
         'com.aipictors.pass.premium': 'PREMIUM',
       };
 
+/// コインの商品（商品 ID → 配る枚数。枚数はサーバーが決めるので、ここの数は画面に出すためだけ）
+final coinProducts = Platform.isAndroid
+    ? const {
+        'coins_100': 100,
+        'coins_1000': 1100,
+        'coins_3000': 3300,
+        'coins_10000': 11000,
+      }
+    : const {
+        'com.aipictors.coins.100': 100,
+        'com.aipictors.coins.1000': 1100,
+        'com.aipictors.coins.3000': 3300,
+        'com.aipictors.coins.10000': 11000,
+      };
+
 /// このプラットフォームでのお支払い方法の名前（paymentProvider）
 String get storeProvider => Platform.isAndroid ? 'GOOGLE_PLAY' : 'APP_STORE';
 
@@ -36,11 +51,14 @@ String? productIdOf(String passType) {
 enum IapPhase { idle, purchasing, syncing, done, failed, canceled }
 
 class IapState {
-  const IapState(this.phase, {this.message, this.passType});
+  const IapState(this.phase, {this.message, this.passType, this.grantedCoins});
 
   final IapPhase phase;
   final String? message;
   final String? passType;
+
+  /// コインを買ったときに、残高に足された枚数
+  final int? grantedCoins;
 }
 
 /// App 内課金。購入の知らせはアプリが動いている間ずっと受け取り、サーバーに反映してから完了にする
@@ -92,6 +110,46 @@ class Iap {
     return res.productDetails;
   }
 
+  /// 開発用（debugIapProducts）のコインの値段。ストアに合わせておく
+  static const _debugCoinPrices = {100: '¥100', 1100: '¥1,000', 3300: '¥3,000', 11000: '¥10,000'};
+
+  /// 買えるコインの商品（値段はストアの設定をそのまま出す）
+  static Future<List<ProductDetails>> coinItems() async {
+    if (!supported) return [];
+    if (_debugProducts) {
+      return [
+        for (final e in coinProducts.entries)
+          ProductDetails(
+            id: e.key,
+            title: '${e.value} コイン',
+            description: '${e.value} コイン',
+            price: _debugCoinPrices[e.value] ?? '',
+            rawPrice: 1,
+            currencyCode: 'JPY',
+          ),
+      ]..sort((a, b) => (coinProducts[a.id] ?? 0).compareTo(coinProducts[b.id] ?? 0));
+    }
+    if (!await storeReachable()) return [];
+    final res = await InAppPurchase.instance.queryProductDetails(coinProducts.keys.toSet());
+    final items = res.productDetails.toList()
+      ..sort((a, b) => (coinProducts[a.id] ?? 0).compareTo(coinProducts[b.id] ?? 0));
+    return items;
+  }
+
+  /// コインを買う（1 回きりの買い物なので buyConsumable）
+  static Future<void> buyCoins(ProductDetails product, {required String userId}) async {
+    start();
+    state.value = const IapState(IapPhase.purchasing);
+    try {
+      final started = await InAppPurchase.instance.buyConsumable(
+        purchaseParam: PurchaseParam(productDetails: product, applicationUserName: accountToken(userId)),
+      );
+      if (!started) state.value = const IapState(IapPhase.failed, message: '購入を開始できませんでした。時間をおいてもう一度お試しください');
+    } catch (_) {
+      state.value = const IapState(IapPhase.failed, message: '購入を開始できませんでした。時間をおいてもう一度お試しください');
+    }
+  }
+
   static Future<void> buy(ProductDetails product, {required String userId}) async {
     start();
     state.value = const IapState(IapPhase.purchasing);
@@ -133,6 +191,30 @@ class Iap {
     });
   }
 
+  /// コインの購入をサーバーに反映する（配った枚数を返す）
+  static Future<int> syncCoins(List<PurchaseDetails> purchases) async {
+    if (Platform.isAndroid) {
+      final data = await Api.mutate(r'''
+mutation AppSyncGooglePlayCoins($input: SyncGooglePlayCoinPurchasesInput!) {
+  syncGooglePlayCoinPurchases(input: $input) { grantedCoins premiumCoinBalance }
+}''', variables: {
+        'input': {
+          'purchases': [
+            for (final p in purchases) {'productId': p.productID, 'purchaseToken': p.verificationData.serverVerificationData},
+          ],
+        },
+      });
+      return data.obj('syncGooglePlayCoinPurchases')?.integer('grantedCoins') ?? 0;
+    }
+    final data = await Api.mutate(r'''
+mutation AppSyncAppStoreCoins($input: SyncAppStoreCoinPurchasesInput!) {
+  syncAppStoreCoinPurchases(input: $input) { grantedCoins premiumCoinBalance }
+}''', variables: {
+      'input': {'signedTransactions': purchases.map((p) => p.verificationData.serverVerificationData).toList()},
+    });
+    return data.obj('syncAppStoreCoinPurchases')?.integer('grantedCoins') ?? 0;
+  }
+
   static Future<Map<String, dynamic>?> sync(List<PurchaseDetails> purchases) async {
     if (Platform.isAndroid) {
       final data = await Api.mutate(r'''
@@ -159,6 +241,7 @@ mutation AppSyncAppStore($input: SyncAppStoreTransactionsInput!) {
 
   static Future<void> _onPurchases(List<PurchaseDetails> purchases) async {
     final toSync = <PurchaseDetails>[];
+    final coinsToSync = <PurchaseDetails>[];
     for (final p in purchases) {
       switch (p.status) {
         case PurchaseStatus.pending:
@@ -171,22 +254,39 @@ mutation AppSyncAppStore($input: SyncAppStoreTransactionsInput!) {
           if (p.pendingCompletePurchase) await InAppPurchase.instance.completePurchase(p);
         case PurchaseStatus.purchased:
         case PurchaseStatus.restored:
-          if (p.verificationData.serverVerificationData.isNotEmpty) toSync.add(p);
+          if (p.verificationData.serverVerificationData.isEmpty) break;
+          if (coinProducts.containsKey(p.productID)) {
+            // コインは 1 回きり。復元で同じものが来てもサーバーが 2 重に配らない
+            coinsToSync.add(p);
+          } else {
+            toSync.add(p);
+          }
       }
     }
-    if (toSync.isEmpty) return;
+    if (toSync.isEmpty && coinsToSync.isEmpty) return;
     if (FirebaseAuth.instance.currentUser == null) {
       state.value = const IapState(IapPhase.failed, message: 'ログインすると購入がアカウントに反映されます');
       return;
     }
     state.value = const IapState(IapPhase.syncing);
     try {
-      final result = await sync(toSync);
+      var grantedCoins = 0;
+      if (coinsToSync.isNotEmpty) {
+        grantedCoins = await syncCoins(coinsToSync);
+        for (final p in coinsToSync) {
+          if (p.pendingCompletePurchase) await InAppPurchase.instance.completePurchase(p);
+        }
+      }
+      final result = toSync.isEmpty ? null : await sync(toSync);
       for (final p in toSync) {
         if (p.pendingCompletePurchase) await InAppPurchase.instance.completePurchase(p);
       }
       Api.clearCache();
-      state.value = IapState(IapPhase.done, passType: result?.strOrNull('passType'));
+      state.value = IapState(
+        IapPhase.done,
+        passType: result?.strOrNull('passType'),
+        grantedCoins: coinsToSync.isEmpty ? null : grantedCoins,
+      );
     } on ApiException catch (e) {
       // 完了にしないで次回起動時にもう一度送る
       state.value = IapState(IapPhase.failed, message: e.message);

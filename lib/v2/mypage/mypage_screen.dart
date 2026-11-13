@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/coins.dart';
 import 'package:aipictors/v2/core/design.dart';
+import 'package:aipictors/v2/plans/coin_shop.dart';
 import 'package:aipictors/v2/core/models.dart';
 import 'package:aipictors/v2/core/nav.dart';
 import 'package:aipictors/v2/plans/plans_screen.dart';
@@ -264,17 +265,25 @@ class _PlanAndCoins extends StatelessWidget {
         ),
         const SizedBox(width: 10),
         Expanded(
-          child: Container(
+          child: Pressable(
+            scale: 0.99,
+            onTap: () => showCoinShopSheet(context),
+            child: Container(
             height: 96,
             padding: const EdgeInsets.all(14),
             decoration: BoxDecoration(color: Ds.gold.withValues(alpha: context.isDark ? 0.18 : 0.12), borderRadius: Ds.br(20)),
             child: Column(crossAxisAlignment: CrossAxisAlignment.start, mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-              const Icon(Icons.monetization_on_rounded, color: Ds.gold),
+              const Row(children: [
+                Icon(Icons.monetization_on_rounded, color: Ds.gold),
+                Spacer(),
+                Icon(Icons.add_circle_outline_rounded, color: Ds.gold, size: 18),
+              ]),
               coins == null
                   ? const Skeleton(width: 70, height: 18, radius: 6)
                   : Text('${coins!.total}コイン', style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 16)),
               Text(coins == null ? '' : 'フリー${coins!.free}・プレミアム${coins!.premium}', style: TextStyle(color: context.muted, fontSize: 11)),
             ]),
+            ),
           ),
         ),
       ]),
