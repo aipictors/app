@@ -85,6 +85,9 @@ class Iap {
   /// 開発用: ストアの商品がない環境（シミュレーター）で、商品がある時の画面を確かめる
   static const _debugProducts = kDebugMode && bool.fromEnvironment('debugIapProducts');
 
+  /// 商品を取れなかった理由（画面に短く出して、原因をつかめるようにする）
+  static final lastProductIssue = ValueNotifier<String?>(null);
+
   /// ストアにつながるか（つながらないと復元もできない）
   static Future<bool> storeReachable() async {
     if (!supported) return false;
@@ -105,9 +108,45 @@ class Iap {
           ProductDetails(id: e.key, title: e.value, description: e.value, price: const {'LITE': '¥XXX', 'STANDARD': '¥YYY', 'PREMIUM': '¥ZZZ'}[e.value]!, rawPrice: 1, currencyCode: 'JPY'),
       ];
     }
-    if (!await storeReachable()) return [];
-    final res = await InAppPurchase.instance.queryProductDetails(passProducts.keys.toSet());
-    return res.productDetails;
+    return _query(passProducts.keys.toSet());
+  }
+
+  /// ストアに商品を聞く。起動直後は空で返ることがあるので、空なら少し待ってやり直す
+  static Future<List<ProductDetails>> _query(Set<String> ids) async {
+    if (!await storeReachable()) {
+      lastProductIssue.value = '$storeName につながりませんでした';
+      return [];
+    }
+    for (var attempt = 0; attempt < 3; attempt++) {
+      if (attempt > 0) {
+        await Future<void>.delayed(Duration(milliseconds: 800 * attempt));
+      }
+      ProductDetailsResponse res;
+      try {
+        res = await InAppPurchase.instance.queryProductDetails(ids);
+      } catch (e) {
+        lastProductIssue.value = '商品を読み込めませんでした';
+        if (kDebugMode) {
+          // ignore: avoid_print
+          print('[Iap] query failed: $e');
+        }
+        continue;
+      }
+      if (res.productDetails.isNotEmpty) {
+        lastProductIssue.value = null;
+        return res.productDetails;
+      }
+      if (res.error != null) {
+        lastProductIssue.value = '$storeName のエラー: ${res.error!.code}';
+      } else if (res.notFoundIDs.isNotEmpty) {
+        lastProductIssue.value = '商品が見つかりませんでした（${res.notFoundIDs.length} 件）';
+      }
+      if (kDebugMode) {
+        // ignore: avoid_print
+        print('[Iap] empty: error=${res.error?.code} notFound=${res.notFoundIDs}');
+      }
+    }
+    return [];
   }
 
   /// 開発用（debugIapProducts）のコインの値段。ストアに合わせておく
@@ -129,9 +168,7 @@ class Iap {
           ),
       ]..sort((a, b) => (coinProducts[a.id] ?? 0).compareTo(coinProducts[b.id] ?? 0));
     }
-    if (!await storeReachable()) return [];
-    final res = await InAppPurchase.instance.queryProductDetails(coinProducts.keys.toSet());
-    final items = res.productDetails.toList()
+    final items = (await _query(coinProducts.keys.toSet())).toList()
       ..sort((a, b) => (coinProducts[a.id] ?? 0).compareTo(coinProducts[b.id] ?? 0));
     return items;
   }

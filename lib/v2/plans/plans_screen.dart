@@ -398,6 +398,10 @@ class _UnavailableCard extends StatelessWidget {
           ]),
           const SizedBox(height: 6),
           Text('プランの内容はこのままご覧いただけます。無料のコインでの画像生成は引き続きご利用いただけます。', style: TextStyle(color: context.muted, fontSize: 13, height: 1.5)),
+          if (Iap.lastProductIssue.value != null) ...[
+            const SizedBox(height: 4),
+            Text(Iap.lastProductIssue.value!, style: TextStyle(color: context.muted, fontSize: 11)),
+          ],
           const SizedBox(height: 6),
           Align(
             alignment: Alignment.centerLeft,

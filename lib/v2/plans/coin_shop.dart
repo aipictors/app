@@ -152,6 +152,10 @@ class _CoinShopState extends State<_CoinShop> {
                   textAlign: TextAlign.center,
                   style: TextStyle(color: context.muted, fontSize: 12),
                 ),
+                if (Iap.lastProductIssue.value != null) ...[
+                  const SizedBox(height: 4),
+                  Text(Iap.lastProductIssue.value!, textAlign: TextAlign.center, style: TextStyle(color: context.muted, fontSize: 11)),
+                ],
               ]),
             )
           else
