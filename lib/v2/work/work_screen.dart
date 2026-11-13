@@ -424,6 +424,12 @@ class _WorkScreenState extends State<WorkScreen> {
                         ],
                         if (isNovel && _novelText != null) ...[
                           const SizedBox(height: 16),
+                          _BookReaderButton(
+                            workId: w.str('id'),
+                            title: w.str('title'),
+                            isNovel: w.str('type') == 'NOVEL',
+                          ),
+                          const SizedBox(height: 16),
                           Container(
                             padding: const EdgeInsets.all(16),
                             decoration: BoxDecoration(color: context.skeleton.withValues(alpha: 0.6), borderRadius: Ds.br(16)),
@@ -1143,5 +1149,68 @@ class _CommentsPreview extends StatelessWidget {
         ),
       ],
     ]);
+  }
+}
+
+/// 本のように読む（Web と同じ読み方を選べる画面を開く）
+class _BookReaderButton extends StatelessWidget {
+  const _BookReaderButton({required this.workId, required this.title, required this.isNovel});
+
+  final String workId;
+  final String title;
+  final bool isNovel;
+
+  @override
+  Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    return Pressable(
+      scale: 0.99,
+      onTap: () => context.push('/works/$workId/reader?title=${Uri.encodeQueryComponent(title)}'),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+        decoration: BoxDecoration(
+          borderRadius: Ds.br(16),
+          border: Border.all(color: isDark ? const Color(0x1AFFE7B0) : const Color(0x26A1662F)),
+          gradient: LinearGradient(
+            colors: isDark
+                ? const [Color(0xFF2A2620), Color(0xFF211D18)]
+                : const [Color(0xFFFBF6EA), Color(0xFFF3E8D0)],
+          ),
+        ),
+        child: Row(children: [
+          Container(
+            width: 42,
+            height: 42,
+            decoration: const BoxDecoration(color: Color(0xFFB4383A), shape: BoxShape.circle),
+            child: const Icon(Icons.menu_book_rounded, color: Colors.white, size: 21),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Text(
+                '本のように読む',
+                style: TextStyle(
+                  fontWeight: FontWeight.w900,
+                  fontSize: 15,
+                  color: isDark ? const Color(0xFFEADFCB) : const Color(0xFF3B2F22),
+                ),
+              ),
+              const SizedBox(height: 2),
+              Text(
+                isNovel
+                    ? '縦書き・見開き・しおり・文字の大きさ。折りたたみやタブレットは見開きで'
+                    : '見開き・しおり・文字の大きさ。タブレットや折りたたみにも',
+                style: TextStyle(
+                  fontSize: 11.5,
+                  height: 1.35,
+                  color: (isDark ? const Color(0xFFEADFCB) : const Color(0xFF3B2F22)).withValues(alpha: 0.75),
+                ),
+              ),
+            ]),
+          ),
+          Icon(Icons.chevron_right_rounded, color: (isDark ? const Color(0xFFEADFCB) : const Color(0xFF3B2F22)).withValues(alpha: 0.6)),
+        ]),
+      ),
+    );
   }
 }
