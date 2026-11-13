@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/design.dart';
 import 'package:aipictors/v2/core/models.dart';
@@ -21,6 +23,8 @@ import 'package:aipictors/v2/post/post_api.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:video_player/video_player.dart';
 
+// 作品そのものの項目だけ。コメントと関連作品は別に読む（重いものを混ぜると、
+// どれか 1 つが失敗しただけで作品が開けなくなるため）
 const _workQuery = '''
 query AppWork(\$id: ID!) {
   viewer { id user { id } }
@@ -34,6 +38,14 @@ query AppWork(\$id: ID!) {
     promptAccessType prompt negativePrompt seed steps scale sampler vae clipSkip model
     dailyTheme { id title }
     user { $userSummaryFields isFollowee biography followersCount }
+  }
+}''';
+
+/// 作品の下に出すもの。失敗しても作品は開けるようにする
+const _workExtrasQuery = '''
+query AppWorkExtras(\$id: ID!) {
+  work(id: \$id) {
+    id
     comments(offset: 0, limit: 3) {
       $commentFields
       responses(offset: 0, limit: 3) { $commentFields }
@@ -71,13 +83,23 @@ class _WorkScreenState extends State<WorkScreen> {
     _load();
   }
 
-  Future<void> _load() async {
+  Future<void> _load({bool isRetry = false}) async {
     setState(() => _error = null);
     try {
       final data = await Api.query(_workQuery, variables: {'id': widget.id});
       final w = data.obj('work');
       if (!mounted) return;
-      if (w == null || w.str('rating') == 'R18' || w.str('rating') == 'R18G') {
+      if (w == null) {
+        // サーバーが一時的に失敗することがあるので、1 回だけ自動でやり直す
+        if (!isRetry) {
+          await Future<void>.delayed(const Duration(milliseconds: 700));
+          if (mounted) await _load(isRetry: true);
+          return;
+        }
+        setState(() => _error = '作品を読み込めませんでした');
+        return;
+      }
+      if (w.str('rating') == 'R18' || w.str('rating') == 'R18G') {
         setState(() => _error = 'この作品は表示できません');
         return;
       }
@@ -87,17 +109,39 @@ class _WorkScreenState extends State<WorkScreen> {
         _liked = w.boolean('isLiked');
         _likes = w.integer('likesCount');
         _following = w.obj('user')?.boolean('isFollowee') ?? false;
-        _comments = w.list('comments').where((c) => !c.boolean('isMuted') && !c.boolean('isDeleted')).map(CommentItem.fromJson).toList();
-        _related = WorkSummary.listFrom(w.list('relatedWorks'));
       });
+      _loadExtras();
       final md = w.strOrNull('mdUrl');
       if ((w.str('type') == 'NOVEL' || w.str('type') == 'COLUMN') && md != null) {
         http.get(Uri.parse(md)).then((r) {
-          if (mounted && r.statusCode == 200) setState(() => _novelText = r.body);
+          // 本文の置き場は content-type を返さないので、UTF-8 として読む（そのままだと文字化けする）
+          if (mounted && r.statusCode == 200) {
+            setState(() => _novelText = utf8.decode(r.bodyBytes, allowMalformed: true));
+          }
         }).catchError((_) {});
       }
     } on ApiException catch (e) {
+      if (!isRetry) {
+        await Future<void>.delayed(const Duration(milliseconds: 700));
+        if (mounted) await _load(isRetry: true);
+        return;
+      }
       if (mounted) setState(() => _error = e.message);
+    }
+  }
+
+  /// コメントと関連作品。失敗しても作品の表示は止めない
+  Future<void> _loadExtras() async {
+    try {
+      final data = await Api.query(_workExtrasQuery, variables: {'id': widget.id});
+      final w = data.obj('work');
+      if (!mounted || w == null) return;
+      setState(() {
+        _comments = w.list('comments').where((c) => !c.boolean('isMuted') && !c.boolean('isDeleted')).map(CommentItem.fromJson).toList();
+        _related = WorkSummary.listFrom(w.list('relatedWorks'));
+      });
+    } on ApiException catch (_) {
+      // 作品は見られるので、ここは黙って諦める
     }
   }
 

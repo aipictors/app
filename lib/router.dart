@@ -1,3 +1,4 @@
+import 'package:aipictors/v2/core/not_found_screen.dart';
 import 'package:aipictors/v2/explore/explore_screen.dart' show TagScreen;
 import 'package:aipictors/v2/routes.dart';
 import 'package:aipictors/v2/user/user_screen.dart' as v2user;
@@ -483,10 +484,9 @@ final routerConfig = GoRouter(
   initialLocation: '/',
   routes: _routes,
   navigatorKey: _navigatorKey,
-  errorBuilder: (context, state) {
-    // Avoid crashing the app on unexpected deep links.
-    return const RootScreen();
-  },
+  // 知らない行き先（古いリンクや通知など）でも壊れないようにする。
+  // RootScreen を返すと、すでに開いている RootScreen と key がぶつかって赤い画面になる
+  errorBuilder: (context, state) => NotFoundScreen(location: state.uri.toString()),
   observers: [
     // SentryNavigatorObserver(),
     FirebaseAnalyticsObserver(

@@ -26,7 +26,7 @@ class AlbumWorkListTile extends HookConsumerWidget {
 
     return ListTile(
       onTap: () {
-        context.push('/works/$work.id');
+        context.push('/works/${work.id}');
       },
       minVerticalPadding: 0,
       contentPadding: const EdgeInsets.only(
