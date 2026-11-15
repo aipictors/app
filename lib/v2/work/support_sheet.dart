@@ -5,7 +5,9 @@ import 'package:aipictors/v2/core/coins.dart';
 import 'package:aipictors/v2/core/design.dart';
 import 'package:aipictors/v2/core/models.dart';
 import 'package:aipictors/v2/core/nav.dart';
+import 'package:aipictors/v2/core/support_tier.dart';
 import 'package:aipictors/v2/widgets/common.dart';
+import 'package:aipictors/v2/widgets/support_tier.dart';
 import 'package:aipictors/v2/widgets/user_avatar.dart';
 import 'package:flutter/material.dart';
 
@@ -16,6 +18,7 @@ Future<bool> showSupportSheet(
   required String userName,
   String? iconUrl,
   AvatarFrame? frame,
+  bool showRewardNote = true,
 }) async {
   if (!Nav.requireLogin(context)) return false;
   final sent = await showModalBottomSheet<bool>(
@@ -24,18 +27,21 @@ Future<bool> showSupportSheet(
     useSafeArea: true,
     showDragHandle: true,
     backgroundColor: context.surfaceCard,
-    builder: (_) => _SupportSheet(userId: userId, userName: userName, iconUrl: iconUrl, frame: frame),
+    builder: (_) => _SupportSheet(userId: userId, userName: userName, iconUrl: iconUrl, frame: frame, showRewardNote: showRewardNote),
   );
   return sent == true;
 }
 
 class _SupportSheet extends StatefulWidget {
-  const _SupportSheet({required this.userId, required this.userName, this.iconUrl, this.frame});
+  const _SupportSheet({required this.userId, required this.userName, this.iconUrl, this.frame, this.showRewardNote = true});
 
   final String userId;
   final String userName;
   final String? iconUrl;
   final AvatarFrame? frame;
+
+  /// 「クリエイターの報酬につながります」の一言（R18 の作品の画面では false）
+  final bool showRewardNote;
 
   @override
   State<_SupportSheet> createState() => _SupportSheetState();
@@ -124,7 +130,7 @@ class _SupportSheetState extends State<_SupportSheet> {
       child: Padding(
         padding: EdgeInsets.fromLTRB(20, 0, 20, 20 + MediaQuery.viewInsetsOf(context).bottom),
         child: _done
-            ? _SentView(name: widget.userName)
+            ? _SentView(name: widget.userName, breakdown: b == null ? null : SupportBreakdown.of(_amount, b))
             : Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -135,14 +141,14 @@ class _SupportSheetState extends State<_SupportSheet> {
                     Expanded(
                       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                         Text('${widget.userName}さんを推す', style: context.tt.titleMedium?.copyWith(fontWeight: FontWeight.w800)),
-                        Text('コインを送って応援できます', style: context.tt.bodySmall?.copyWith(color: context.muted)),
+                        Text('コインで応援できます', style: context.tt.bodySmall?.copyWith(color: context.muted)),
                       ]),
                     ),
                   ]),
                   const SizedBox(height: 18),
                   _BalanceRow(balance: b, error: _error),
                   const SizedBox(height: 16),
-                  Text('送るコイン', style: context.tt.labelLarge?.copyWith(color: context.muted)),
+                  Text('応援するコイン', style: context.tt.labelLarge?.copyWith(color: context.muted)),
                   const SizedBox(height: 8),
                   Wrap(
                     spacing: 8,
@@ -153,6 +159,7 @@ class _SupportSheetState extends State<_SupportSheet> {
                           label: '$p',
                           selected: _amount == p,
                           enabled: b == null || p <= b.total,
+                          tier: SupportTier.of(b == null ? p : (SupportBreakdown.of(p, b)?.pt ?? p)),
                           onTap: () => setState(() => _amount = p),
                         ),
                       _AmountChip(
@@ -174,13 +181,21 @@ class _SupportSheetState extends State<_SupportSheet> {
                               key: const ValueKey('ng'),
                               style: TextStyle(color: context.cs.error, fontSize: 13),
                             )
-                          : Text(
-                              '${[
-                                if (breakdown.free > 0) 'フリー${breakdown.free}枚',
-                                if (breakdown.premium > 0) 'プレミアム${breakdown.premium}枚',
-                              ].join('＋')}を使います（推し ${breakdown.pt}pt）',
+                          : Row(
                               key: ValueKey(breakdown.pt),
-                              style: context.tt.bodySmall?.copyWith(color: context.muted),
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    '${[
+                                      if (breakdown.free > 0) 'フリー${breakdown.free}枚',
+                                      if (breakdown.premium > 0) 'プレミアム${breakdown.premium}枚',
+                                    ].join('＋')}を使います',
+                                    style: context.tt.bodySmall?.copyWith(color: context.muted),
+                                  ),
+                                ),
+                                // 選んだ枚数の段階の色（コメントやランキングでこの色で目立つ）
+                                SupportTierChip(free: breakdown.free, premium: breakdown.premium, pt: breakdown.pt),
+                              ],
                             ),
                     ),
                   SwitchListTile.adaptive(
@@ -190,9 +205,9 @@ class _SupportSheetState extends State<_SupportSheet> {
                     title: const Text('匿名で送る'),
                     subtitle: const Text('相手やランキングに名前を出しません'),
                   ),
-                  const SizedBox(height: 8),
+                  if (widget.showRewardNote) ...[const SupportRewardNote(), const SizedBox(height: 10)],
                   GradientButton(
-                    label: breakdown == null ? '推す' : '$_amount枚で推す',
+                    label: breakdown == null ? '推す' : '$_amount枚で応援する',
                     icon: Icons.volunteer_activism_rounded,
                     gradient: Ds.goldGradient,
                     loading: _sending,
@@ -245,13 +260,16 @@ class _BalanceRow extends StatelessWidget {
 }
 
 class _AmountChip extends StatelessWidget {
-  const _AmountChip({required this.label, required this.selected, required this.enabled, required this.onTap, this.icon});
+  const _AmountChip({required this.label, required this.selected, required this.enabled, required this.onTap, this.icon, this.tier});
 
   final String label;
   final bool selected;
   final bool enabled;
   final VoidCallback onTap;
   final IconData? icon;
+
+  /// 金額の段階（選ぶとその色で塗る）
+  final SupportTier? tier;
 
   @override
   Widget build(BuildContext context) {
@@ -261,17 +279,18 @@ class _AmountChip extends StatelessWidget {
         duration: Ds.fast,
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
         decoration: BoxDecoration(
-          gradient: selected ? Ds.goldGradient : null,
-          color: selected ? null : context.skeleton,
+          gradient: selected ? (tier?.gradient ?? Ds.goldGradient) : null,
+          color: selected ? null : (tier == null ? context.skeleton : tier!.color.withValues(alpha: context.isDark ? 0.16 : 0.1)),
+          border: tier == null || selected ? null : Border.all(color: tier!.color.withValues(alpha: 0.5), width: 1.5),
           borderRadius: Ds.br(14),
         ),
         child: Row(mainAxisSize: MainAxisSize.min, children: [
-          if (icon != null) ...[Icon(icon, size: 14, color: selected ? Colors.white : context.muted), const SizedBox(width: 4)],
+          if (icon != null) ...[Icon(icon, size: 14, color: selected ? (tier?.onColor ?? Colors.white) : context.muted), const SizedBox(width: 4)],
           Text(
             label,
             style: TextStyle(
               fontWeight: FontWeight.w800,
-              color: selected ? Colors.white : (enabled ? context.cs.onSurface : context.muted.withValues(alpha: 0.4)),
+              color: selected ? (tier?.onColor ?? Colors.white) : (enabled ? context.cs.onSurface : context.muted.withValues(alpha: 0.4)),
             ),
           ),
         ]),
@@ -281,16 +300,28 @@ class _AmountChip extends StatelessWidget {
 }
 
 class _SentView extends StatefulWidget {
-  const _SentView({required this.name});
+  const _SentView({required this.name, this.breakdown});
 
   final String name;
+  final SupportBreakdown? breakdown;
 
   @override
   State<_SentView> createState() => _SentViewState();
 }
 
 class _SentViewState extends State<_SentView> with SingleTickerProviderStateMixin {
-  late final _c = AnimationController(vsync: this, duration: const Duration(milliseconds: 1200))..forward();
+  late final _c = AnimationController(vsync: this, duration: const Duration(milliseconds: 1200));
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // 端末の「動きを減らす」では最後の形だけ出す
+    if (MediaQuery.disableAnimationsOf(context)) {
+      _c.value = 1;
+    } else if (_c.value == 0 && !_c.isAnimating) {
+      _c.forward();
+    }
+  }
 
   @override
   void dispose() {
@@ -323,9 +354,13 @@ class _SentViewState extends State<_SentView> with SingleTickerProviderStateMixi
                   child: const Icon(Icons.volunteer_activism_rounded, size: 72, color: Colors.white),
                 ),
                 const SizedBox(height: 12),
-                Text('推しを送りました！', style: context.tt.titleLarge?.copyWith(fontWeight: FontWeight.w900)),
+                Text('推しました！', style: context.tt.titleLarge?.copyWith(fontWeight: FontWeight.w900)),
                 const SizedBox(height: 4),
-                Text('${widget.name}さんに届きました', style: TextStyle(color: context.muted)),
+                Text('${widget.name}さんに応援が届きました', style: TextStyle(color: context.muted)),
+                if (widget.breakdown != null) ...[
+                  const SizedBox(height: 10),
+                  SupportTierChip(free: widget.breakdown!.free, premium: widget.breakdown!.premium, pt: widget.breakdown!.pt),
+                ],
               ]),
             ),
           ]);

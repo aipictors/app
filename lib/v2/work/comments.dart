@@ -1,12 +1,15 @@
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/coins.dart';
+import 'package:aipictors/v2/core/debug_boot.dart';
 import 'package:aipictors/v2/core/design.dart';
 import 'package:aipictors/v2/core/models.dart';
 import 'package:aipictors/v2/core/nav.dart';
 import 'package:aipictors/v2/core/paged.dart';
+import 'package:aipictors/v2/core/support_tier.dart';
 import 'package:aipictors/v2/widgets/common.dart';
 import 'package:aipictors/v2/widgets/user_avatar.dart';
 import 'package:aipictors/v2/widgets/official_badge.dart';
+import 'package:aipictors/v2/widgets/support_tier.dart';
 import 'package:aipictors/v2/work/moderation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -187,6 +190,7 @@ class _CommentTileState extends State<CommentTile> {
   @override
   Widget build(BuildContext context) {
     final support = c.supportCoins > 0;
+    final tier = support ? SupportTier.of(c.supportPt) : null;
     return Padding(
       padding: EdgeInsets.only(left: widget.isReply ? 44 : 0, top: 10, bottom: 4),
       child: Column(
@@ -199,13 +203,18 @@ class _CommentTileState extends State<CommentTile> {
               const SizedBox(width: 10),
               Expanded(
                 child: Container(
-                  padding: const EdgeInsets.fromLTRB(12, 9, 12, 10),
+                  clipBehavior: Clip.antiAlias,
                   decoration: BoxDecoration(
-                    color: support ? Ds.gold.withValues(alpha: context.isDark ? 0.16 : 0.1) : context.skeleton.withValues(alpha: context.isDark ? 0.8 : 0.7),
-                    border: support ? Border.all(color: Ds.gold.withValues(alpha: 0.5)) : null,
+                    color: tier != null ? tier.color.withValues(alpha: context.isDark ? 0.18 : 0.1) : context.skeleton.withValues(alpha: context.isDark ? 0.8 : 0.7),
+                    border: tier != null ? Border.all(color: tier.color.withValues(alpha: 0.55)) : null,
                     borderRadius: const BorderRadius.only(topRight: Ds.r16, bottomLeft: Ds.r16, bottomRight: Ds.r16, topLeft: Radius.circular(4)),
                   ),
-                  child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+                    // 推し付きは段階の色の帯（コイン数を大きく）でスーパーチャットのように目立たせる
+                    if (tier != null) SupportBand(free: c.supportFree, premium: c.supportPremium, pt: c.supportPt),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(12, 9, 12, 10),
+                      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                     Row(children: [
                       Flexible(
                         child: Text(c.userName, maxLines: 1, overflow: TextOverflow.ellipsis, style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 13)),
@@ -217,10 +226,6 @@ class _CommentTileState extends State<CommentTile> {
                     if (widget.replyToUserName != null) ...[
                       const SizedBox(height: 2),
                       Text('${widget.replyToUserName} さんのコメントへの返信', maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(color: context.muted, fontSize: 11)),
-                    ],
-                    if (support) ...[
-                      const SizedBox(height: 6),
-                      _SupportBadge(comment: c),
                     ],
                     if (c.isSensitive && !_revealed) ...[
                       const SizedBox(height: 6),
@@ -247,6 +252,8 @@ class _CommentTileState extends State<CommentTile> {
                       const SizedBox(height: 6),
                       Text('作者より：${c.thankYouMessage}', style: TextStyle(color: context.muted, fontSize: 12)),
                     ],
+                      ]),
+                    ),
                   ]),
                 ),
               ),
@@ -288,29 +295,6 @@ class _CommentTileState extends State<CommentTile> {
   }
 }
 
-/// 推しの合計 pt と内訳（フリーとプレミアムは価値が違うので分けて出す）
-class _SupportBadge extends StatelessWidget {
-  const _SupportBadge({required this.comment});
-
-  final CommentItem comment;
-
-  @override
-  Widget build(BuildContext context) {
-    final parts = [
-      if (comment.supportPremium > 0) 'プレミアム ${comment.supportPremium}枚',
-      if (comment.supportFree > 0) 'フリー ${comment.supportFree}枚',
-    ];
-    return Wrap(spacing: 6, crossAxisAlignment: WrapCrossAlignment.center, children: [
-      Container(
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-        decoration: BoxDecoration(gradient: Ds.goldGradient, borderRadius: Ds.br(10)),
-        child: Text('${comment.supportPt}pt', style: const TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.w800)),
-      ),
-      Text(parts.join('・'), style: TextStyle(color: context.muted, fontSize: 11)),
-    ]);
-  }
-}
-
 class _MiniAction extends StatelessWidget {
   const _MiniAction({required this.icon, required this.label, required this.onTap, this.color});
 
@@ -345,6 +329,7 @@ Future<void> showCommentsSheet(
   required String ownerId,
   required String ownerName,
   required String? viewerId,
+  String? rating,
   bool openComposer = false,
   VoidCallback? onChanged,
 }) {
@@ -364,6 +349,7 @@ Future<void> showCommentsSheet(
         ownerId: ownerId,
         ownerName: ownerName,
         viewerId: viewerId,
+        rating: rating,
         scrollController: scroll,
         openComposer: openComposer,
         onChanged: onChanged,
@@ -380,6 +366,7 @@ class _CommentsSheet extends StatefulWidget {
     required this.viewerId,
     required this.scrollController,
     required this.openComposer,
+    this.rating,
     this.onChanged,
   });
 
@@ -387,6 +374,7 @@ class _CommentsSheet extends StatefulWidget {
   final String ownerId;
   final String ownerName;
   final String? viewerId;
+  final String? rating;
   final ScrollController scrollController;
   final bool openComposer;
   final VoidCallback? onChanged;
@@ -422,6 +410,14 @@ query AppWorkComments(\$id: ID!, \$offset: Int!, \$limit: Int!) {
   void initState() {
     super.initState();
     _controller.loadMore();
+    // 開発用: /tmp/aipictors-debug の 2 行目が sheet:scroll:<px> なら一覧をその位置まで送る（表示の確認用）
+    final debugTab = DebugBoot.screenTab;
+    if (debugTab != null && debugTab.startsWith('sheet:scroll:')) {
+      Future.delayed(const Duration(seconds: 5), () {
+        final px = double.tryParse(debugTab.substring(13)) ?? 600;
+        if (mounted && widget.scrollController.hasClients) widget.scrollController.jumpTo(px);
+      });
+    }
     if (widget.openComposer) {
       WidgetsBinding.instance.addPostFrameCallback((_) => _focus.requestFocus());
     }
@@ -472,11 +468,21 @@ query AppWorkComments(\$id: ID!, \$offset: Int!, \$limit: Int!) {
                   message: '最初のコメントで作者さんを応援しよう',
                 );
               }
+              // コメント欄の上の「応援の帯」（読み込んだコメントだけで決める。段階の時間だけ出す）
+              final pinned = pickPinnedSupports<CommentItem>(
+                c.items.where((x) => !x.isSensitive).toList(),
+                createdAt: (x) => x.createdAt,
+                totalPt: (x) => x.supportPt,
+                nowSeconds: DateTime.now().millisecondsSinceEpoch ~/ 1000,
+              );
+              final offset = pinned.isEmpty ? 0 : 1;
               return ListView.builder(
                 controller: widget.scrollController,
                 padding: const EdgeInsets.fromLTRB(14, 4, 14, 24),
-                itemCount: c.items.length + 1,
-                itemBuilder: (context, i) {
+                itemCount: c.items.length + 1 + offset,
+                itemBuilder: (context, index) {
+                  if (offset == 1 && index == 0) return _PinnedSupports(items: pinned);
+                  final i = index - offset;
                   if (i == c.items.length) {
                     if (c.hasMore && !c.isLoading) WidgetsBinding.instance.addPostFrameCallback((_) => c.loadMore());
                     return Padding(
@@ -507,6 +513,7 @@ query AppWorkComments(\$id: ID!, \$offset: Int!, \$limit: Int!) {
           workId: widget.workId,
           ownerId: widget.ownerId,
           ownerName: widget.ownerName,
+          rating: widget.rating,
           focusNode: _focus,
           replyTo: _replyTo,
           onCancelReply: () => setState(() => _replyTo = null),
@@ -539,11 +546,15 @@ class CommentComposer extends StatefulWidget {
     this.focusNode,
     this.replyTo,
     this.onCancelReply,
+    this.rating,
   });
 
   final String workId;
   final String ownerId;
   final String ownerName;
+
+  /// 作品の年齢区分。全年齢（G / R15）のときだけ推しの欄に報酬の一言を出す
+  final String? rating;
   final FocusNode? focusNode;
   final CommentItem? replyTo;
   final VoidCallback? onCancelReply;
@@ -571,6 +582,15 @@ class _CommentComposerState extends State<CommentComposer> {
   void initState() {
     super.initState();
     _text.addListener(() => setState(() {}));
+    // 開発用: /tmp/aipictors-debug の 2 行目が sheet:support なら推しの欄を開く（表示の確認用。送信はしない）
+    if (DebugBoot.screenTab == 'sheet:support') {
+      Future.delayed(const Duration(seconds: 3), () {
+        if (!mounted) return;
+        _text.text = 'いつも素敵な作品をありがとうございます！';
+        _supportFree = 30;
+        _pickSupport();
+      });
+    }
   }
 
   @override
@@ -606,7 +626,14 @@ class _CommentComposerState extends State<CommentComposer> {
       isScrollControlled: true,
       showDragHandle: true,
       backgroundColor: context.surfaceCard,
-      builder: (_) => SupportPicker(balance: _balance!, free: _supportFree, premium: _supportPremium, anonymous: _supportAnonymous),
+      builder: (_) => SupportPicker(
+        balance: _balance!,
+        free: _supportFree,
+        premium: _supportPremium,
+        anonymous: _supportAnonymous,
+        previewText: _text.text.trim(),
+        showRewardNote: isCreatorRewardRating(widget.rating),
+      ),
     );
     if (picked == null) return;
     setState(() {
@@ -653,6 +680,7 @@ mutation AppComment(\$input: CreateWorkCommentInput!) { createWorkComment(input:
       Ds.success();
       _text.clear();
       final hadSupport = _hasSupport;
+      final sent = (free: _supportFree, premium: _supportPremium, pt: _supportPt);
       setState(() {
         _sticker = null;
         _supportFree = 0;
@@ -665,7 +693,11 @@ mutation AppComment(\$input: CreateWorkCommentInput!) { createWorkComment(input:
       if (!mounted) return;
       FocusScope.of(context).unfocus();
       widget.onPosted(CommentItem(created), parent);
-      context.toast(hadSupport ? '推しコイン付きでコメントしました' : 'コメントしました');
+      if (hadSupport) {
+        showSupportSent(context, free: sent.free, premium: sent.premium, pt: sent.pt);
+      } else {
+        context.toast('コメントしました');
+      }
     } on ApiException catch (e) {
       if (!mounted) return;
       setState(() => _sending = false);
@@ -701,8 +733,9 @@ mutation AppComment(\$input: CreateWorkCommentInput!) { createWorkComment(input:
                 ),
               if (_hasSupport)
                 InputChip(
-                  avatar: const Icon(Icons.monetization_on_rounded, size: 16, color: Ds.gold),
-                  label: Text('推し ${_supportPt}pt（${[if (_supportPremium > 0) 'プレミアム$_supportPremium枚', if (_supportFree > 0) 'フリー$_supportFree枚'].join('・')}）'),
+                  label: SupportTierChip(free: _supportFree, premium: _supportPremium, pt: _supportPt),
+                  tooltip: '推しコイン（${supportAmountLabel(_supportFree, _supportPremium, _supportPt)}）',
+                  onPressed: _pickSupport,
                   onDeleted: () => setState(() {
                     _supportFree = 0;
                     _supportPremium = 0;
@@ -721,7 +754,7 @@ mutation AppComment(\$input: CreateWorkCommentInput!) { createWorkComment(input:
             IconButton(
               tooltip: '推しコインを添える',
               onPressed: _pickSupport,
-              icon: Icon(Icons.monetization_on_outlined, color: _hasSupport ? Ds.gold : null),
+              icon: Icon(Icons.monetization_on_outlined, color: _hasSupport ? (SupportTier.of(_supportPt)?.color ?? Ds.gold) : null),
             ),
           Expanded(
             child: TextField(
@@ -769,12 +802,18 @@ class SupportPick {
 
 /// 推しコインの内訳を選ぶ（Web の work-comment-support-panel。購入への導線は置かない）
 class SupportPicker extends StatefulWidget {
-  const SupportPicker({required this.balance, required this.free, required this.premium, required this.anonymous});
+  const SupportPicker({required this.balance, required this.free, required this.premium, required this.anonymous, this.previewText = '', this.showRewardNote = false});
 
   final CoinSummary balance;
   final int free;
   final int premium;
   final bool anonymous;
+
+  /// 入力中のコメント（送るとどう目立つかの見本に出す）
+  final String previewText;
+
+  /// 全年齢の作品のとき true（報酬の一言を出す）
+  final bool showRewardNote;
 
   @override
   State<SupportPicker> createState() => SupportPickerState();
@@ -793,7 +832,7 @@ class SupportPickerState extends State<SupportPicker> {
 
   int get _pt => _free + _premium * 10;
 
-  Widget _row(String label, int balance, int value, List<int> steps, ValueChanged<int> onChanged) {
+  Widget _row(String label, int balance, int value, List<int> steps, int ptPerCoin, ValueChanged<int> onChanged) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Row(children: [
         Text(label, style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 13)),
@@ -804,9 +843,10 @@ class SupportPickerState extends State<SupportPicker> {
         if (value > 0) TextButton(onPressed: () => onChanged(0), child: const Text('クリア')),
       ]),
       const SizedBox(height: Ds.s4),
-      Wrap(spacing: Ds.s6, children: [
+      // 金額のボタンは段階の色（大きいほど濃い色）
+      Wrap(spacing: Ds.s6, runSpacing: Ds.s6, children: [
         for (final n in steps)
-          AppChip('+$n', onTap: value + n <= balance ? () => onChanged(value + n) : null),
+          SupportAmountButton(label: '+$n', pt: n * ptPerCoin, selected: false, onTap: value + n <= balance ? () => onChanged(value + n) : null),
       ]),
     ]);
   }
@@ -825,9 +865,15 @@ class SupportPickerState extends State<SupportPicker> {
         child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
           Text('推しコインを添える', style: context.tt.titleMedium?.copyWith(fontWeight: FontWeight.w800)),
           const SizedBox(height: Ds.s12),
-          _row('フリー', b.free, _free, _freeSteps, (v) => setState(() => _free = v)),
+          _row('フリー', b.free, _free, _freeSteps, 1, (v) => setState(() => _free = v)),
           const SizedBox(height: Ds.s12),
-          _row('プレミアム（×10pt）', b.premium, _premium, _premiumSteps, (v) => setState(() => _premium = v)),
+          _row('プレミアム（×10pt）', b.premium, _premium, _premiumSteps, 10, (v) => setState(() => _premium = v)),
+          if (_pt > 0) ...[
+            const SizedBox(height: Ds.s12),
+            Text('コメントはこう表示されます', style: TextStyle(color: context.muted, fontSize: 11)),
+            const SizedBox(height: Ds.s4),
+            _SupportPreview(free: _free, premium: _premium, pt: _pt, text: widget.previewText, anonymous: _anonymous),
+          ],
           SwitchListTile.adaptive(
             contentPadding: EdgeInsets.zero,
             dense: true,
@@ -835,9 +881,90 @@ class SupportPickerState extends State<SupportPicker> {
             value: _anonymous,
             onChanged: (v) => setState(() => _anonymous = v),
           ),
+          if (widget.showRewardNote) ...[const SupportRewardNote(isWork: true), const SizedBox(height: Ds.s8)],
           const SizedBox(height: Ds.s4),
           PrimaryButton(label: _pt > 0 ? '合計 ${_pt}pt を添える' : '添えない', onPressed: _done),
         ]),
+      ),
+    );
+  }
+}
+
+/// 推しの欄の見本（送るとコメントがこの色の帯で目立つ）
+class _SupportPreview extends StatelessWidget {
+  const _SupportPreview({required this.free, required this.premium, required this.pt, required this.text, required this.anonymous});
+
+  final int free;
+  final int premium;
+  final int pt;
+  final String text;
+  final bool anonymous;
+
+  @override
+  Widget build(BuildContext context) {
+    final tier = SupportTier.of(pt)!;
+    return Container(
+      clipBehavior: Clip.antiAlias,
+      decoration: BoxDecoration(
+        color: tier.color.withValues(alpha: context.isDark ? 0.18 : 0.1),
+        border: Border.all(color: tier.color.withValues(alpha: 0.55)),
+        borderRadius: Ds.br(16),
+      ),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+        SupportBand(free: free, premium: premium, pt: pt, title: Text(anonymous ? '匿名' : 'あなた')),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(12, 8, 12, 10),
+          child: Text(
+            text.isEmpty ? '（コメントなしでも送れます）' : text,
+            maxLines: 3,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(fontSize: 14, color: text.isEmpty ? context.muted : null),
+          ),
+        ),
+      ]),
+    );
+  }
+}
+
+/// コメント欄の上の「応援の帯」（最近の推しを段階の時間だけ上に出す。スーパーチャットのピン留め）
+class _PinnedSupports extends StatelessWidget {
+  const _PinnedSupports({required this.items});
+
+  final List<CommentItem> items;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 6, bottom: 4),
+      child: SizedBox(
+        height: 40,
+        child: ListView.separated(
+          scrollDirection: Axis.horizontal,
+          itemCount: items.length,
+          separatorBuilder: (_, _) => const SizedBox(width: 8),
+          itemBuilder: (context, i) {
+            final c = items[i];
+            final tier = SupportTier.of(c.supportPt);
+            return Container(
+              padding: const EdgeInsets.fromLTRB(4, 4, 4, 4),
+              decoration: BoxDecoration(
+                color: (tier?.color ?? Ds.gold).withValues(alpha: context.isDark ? 0.18 : 0.1),
+                border: Border.all(color: (tier?.color ?? Ds.gold).withValues(alpha: 0.5)),
+                borderRadius: Ds.br(20),
+              ),
+              child: Row(mainAxisSize: MainAxisSize.min, children: [
+                UserAvatar.json(c.user, size: 28),
+                const SizedBox(width: 6),
+                ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 110),
+                  child: Text(c.userName, maxLines: 1, overflow: TextOverflow.ellipsis, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700)),
+                ),
+                const SizedBox(width: 6),
+                SupportTierChip(free: c.supportFree, premium: c.supportPremium, pt: c.supportPt),
+              ]),
+            );
+          },
+        ),
       ),
     );
   }

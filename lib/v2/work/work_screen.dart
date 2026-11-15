@@ -5,6 +5,7 @@ import 'package:aipictors/v2/core/debug_boot.dart';
 import 'package:aipictors/v2/core/design.dart';
 import 'package:aipictors/v2/core/models.dart';
 import 'package:aipictors/v2/core/nav.dart';
+import 'package:aipictors/v2/core/support_tier.dart';
 import 'package:aipictors/v2/widgets/common.dart';
 import 'package:aipictors/v2/user/user_widgets.dart';
 import 'package:aipictors/v2/widgets/user_avatar.dart';
@@ -113,6 +114,12 @@ class _WorkScreenState extends State<WorkScreen> {
         _following = w.obj('user')?.boolean('isFollowee') ?? false;
       });
       _loadExtras();
+      // 開発用: 2 行目が sheet で始まればコメントのシートを開く（sheet:support は推しの欄も開く。表示の確認用）
+      if (DebugBoot.screenTab?.startsWith('sheet') == true) {
+        Future.delayed(const Duration(seconds: 3), () {
+          if (mounted) _openComments();
+        });
+      }
       // 開発用: /tmp/aipictors-debug の 2 行目が comments ならコメント欄まで送る（表示の確認用）
       if (DebugBoot.screenTab?.startsWith('comments') == true) {
         Future.delayed(const Duration(seconds: 4), () {
@@ -213,6 +220,7 @@ class _WorkScreenState extends State<WorkScreen> {
       ownerId: user.str('id'),
       ownerName: user.str('name'),
       viewerId: _viewerId,
+      rating: w.strOrNull('rating'),
       openComposer: compose,
       onChanged: _load,
     );
@@ -370,7 +378,15 @@ class _WorkScreenState extends State<WorkScreen> {
                           onComment: () => _openComments(),
                           onSupport: _isMine
                               ? null
-                              : () => showSupportSheet(context, userId: user.str('id'), userName: user.str('name'), iconUrl: user.strOrNull('iconUrl'), frame: AvatarFrame.fromJson(user.obj('avatarFrame'))),
+                              : () => showSupportSheet(
+                                    context,
+                                    userId: user.str('id'),
+                                    userName: user.str('name'),
+                                    iconUrl: user.strOrNull('iconUrl'),
+                                    frame: AvatarFrame.fromJson(user.obj('avatarFrame')),
+                                    // R18 の作品の画面では報酬の一言を出さない
+                                    showRewardNote: isCreatorRewardRating(w.strOrNull('rating')),
+                                  ),
                           onShare: _share,
                         ),
                         const SizedBox(height: 14),
