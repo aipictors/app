@@ -843,6 +843,12 @@ class SupportPickerState extends State<SupportPicker> {
   }
 }
 
+/// デフォルトのスタンプを先頭に、残りから同じスタンプを除いて並べる
+List<Map<String, dynamic>> withDefaultStickersFirst(List<Map<String, dynamic>> defaults, Iterable<Map<String, dynamic>> rest) {
+  final ids = defaults.map((s) => s['id']).toSet();
+  return [...defaults, ...rest.where((s) => !ids.contains(s['id']))];
+}
+
 /// スタンプを選ぶ（最近使ったものとマイスタンプ）
 class _StickerPicker extends StatefulWidget {
   const _StickerPicker();
@@ -868,13 +874,18 @@ class _StickerPickerState extends State<_StickerPicker> {
     final tab = _tab;
     setState(() => _error = null);
     try {
-      final data = await Api.query(r'''
+      // 「最近の使用」でも先頭にデフォルトのスタンプ（設定に従う）を出す。「マイスタンプ」はサーバーが先頭に入れて返す
+      final data = await Api.query(tab == 0 ? r'''
+query AppViewerRecentStickers($offset: Int!, $limit: Int!, $orderBy: StickerOrderBy) {
+  viewer { id defaultStickers { id title imageUrl } userStickers(offset: $offset, limit: $limit, orderBy: $orderBy) { id title imageUrl usedAt } }
+}''' : r'''
 query AppViewerStickers($offset: Int!, $limit: Int!, $orderBy: StickerOrderBy) {
   viewer { id userStickers(offset: $offset, limit: $limit, orderBy: $orderBy) { id title imageUrl usedAt } }
 }''', variables: {'offset': 0, 'limit': 120, 'orderBy': _orders[tab]});
       final list = data.obj('viewer')?.list('userStickers') ?? <Map<String, dynamic>>[];
+      final defaults = data.obj('viewer')?.list('defaultStickers') ?? <Map<String, dynamic>>[];
       if (mounted) {
-        setState(() => _items[tab] = tab == 0 ? list.where((s) => s.integer('usedAt') > 0).toList() : list);
+        setState(() => _items[tab] = tab == 0 ? withDefaultStickersFirst(defaults, list.where((s) => s.integer('usedAt') > 0)) : list);
       }
     } on ApiException catch (e) {
       if (mounted) setState(() => _error = e.message);

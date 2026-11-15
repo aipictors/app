@@ -13,6 +13,7 @@ final List<RouteBase> settingsRoutes = [
   _route('/settings/notification', (_, __) => const NotificationSettingsScreen()),
   _route('/settings/restriction', (_, __) => const RestrictionSettingsScreen()),
   _route('/settings/color', (_, __) => const ColorSettingsScreen()),
+  _route('/settings/sticker', (_, __) => const StickerSettingsScreen()),
   _route('/settings/muted/users', (_, __) => const ManagedUsersScreen(blocked: false)),
   _route('/settings/blocked/users', (_, __) => const ManagedUsersScreen(blocked: true)),
   _route('/settings/muted/tags', (_, __) => const ManagedTagsScreen(followed: false)),

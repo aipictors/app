@@ -7,6 +7,7 @@ import 'package:aipictors/v2/core/nav.dart';
 import 'package:aipictors/v2/core/paged.dart';
 import 'package:aipictors/v2/settings/settings_api.dart';
 import 'package:aipictors/v2/settings/settings_widgets.dart';
+import 'package:aipictors/v2/settings/sticker_settings_list.dart';
 import 'package:aipictors/v2/user/user_api.dart';
 import 'package:aipictors/v2/widgets/common.dart';
 import 'package:aipictors/v2/widgets/paged_list.dart';
@@ -37,6 +38,7 @@ class SettingsScreen extends StatelessWidget {
             link(Icons.notifications_none_rounded, '通知・いいね', '/settings/notification'),
             link(Icons.visibility_outlined, '表示コンテンツ', '/settings/restriction'),
             link(Icons.palette_outlined, 'カラーテーマ', '/settings/color'),
+            link(Icons.emoji_emotions_outlined, 'スタンプ', '/settings/sticker'),
           ]),
           SettingsGroup(title: 'タグとユーザー', children: [
             link(Icons.sell_outlined, 'お気に入りタグ', '/settings/followed/tags'),
@@ -431,6 +433,39 @@ class _RestrictionSettingsScreenState extends State<RestrictionSettingsScreen> w
                 ],
               ),
             ]),
+          ),
+    );
+  }
+}
+
+/// スタンプの設定（デフォルトのスタンプを表示しない・以前のデフォルトも使う）。Web の /settings/sticker と同じ設定
+class StickerSettingsScreen extends StatefulWidget {
+  const StickerSettingsScreen({super.key});
+
+  @override
+  State<StickerSettingsScreen> createState() => _StickerSettingsScreenState();
+}
+
+class _StickerSettingsScreenState extends State<StickerSettingsScreen> with _SettingState {
+  @override
+  void initState() {
+    super.initState();
+    loadSetting();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final s = setting;
+    return Scaffold(
+      appBar: AppBar(title: const Text('スタンプ', style: TextStyle(fontWeight: FontWeight.w800))),
+      body: settingPlaceholder() ??
+          ContentWidth(
+            child: StickerSettingsList(
+              isHideDefault: s!.boolean('isHideDefaultStickers'),
+              isShowLegacy: s.boolean('isShowLegacyDefaultStickers'),
+              onHideDefaultChanged: saving ? null : (v) => saveSetting('isHideDefaultStickers', v),
+              onShowLegacyChanged: saving ? null : (v) => saveSetting('isShowLegacyDefaultStickers', v),
+            ),
           ),
     );
   }
