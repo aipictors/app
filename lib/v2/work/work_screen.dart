@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:aipictors/v2/core/api.dart';
+import 'package:aipictors/v2/core/debug_boot.dart';
 import 'package:aipictors/v2/core/design.dart';
 import 'package:aipictors/v2/core/models.dart';
 import 'package:aipictors/v2/core/nav.dart';
@@ -72,6 +73,7 @@ class _WorkScreenState extends State<WorkScreen> {
   bool _liked = false;
   int _likes = 0;
   bool _following = false;
+  final ScrollController? _debugScroll = DebugBoot.screenTab?.startsWith('comments') == true ? ScrollController() : null;
   int _imageIndex = 0;
   List<CommentItem> _comments = [];
   List<WorkSummary> _related = [];
@@ -111,6 +113,13 @@ class _WorkScreenState extends State<WorkScreen> {
         _following = w.obj('user')?.boolean('isFollowee') ?? false;
       });
       _loadExtras();
+      // 開発用: /tmp/aipictors-debug の 2 行目が comments ならコメント欄まで送る（表示の確認用）
+      if (DebugBoot.screenTab?.startsWith('comments') == true) {
+        Future.delayed(const Duration(seconds: 4), () {
+          final c = _debugScroll;
+          if (mounted && c != null && c.hasClients) c.jumpTo(c.position.maxScrollExtent * (double.tryParse(DebugBoot.screenTab!.substring(8).replaceFirst(':', '')) ?? 0.3));
+        });
+      }
       final md = w.strOrNull('mdUrl');
       if ((w.str('type') == 'NOVEL' || w.str('type') == 'COLUMN') && md != null) {
         http.get(Uri.parse(md)).then((r) {
@@ -313,6 +322,7 @@ class _WorkScreenState extends State<WorkScreen> {
           onRefresh: _load,
           edgeOffset: 80,
           child: CustomScrollView(
+            controller: _debugScroll,
             physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
             slivers: [
               SliverAppBar(

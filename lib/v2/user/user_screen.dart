@@ -253,7 +253,7 @@ class _UserScreenState extends State<UserScreen> {
                   border: Border.all(color: Theme.of(context).scaffoldBackgroundColor, width: 4),
                   boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.12), blurRadius: 12)],
                 ),
-                child: UserAvatar(url: u.iconUrl, frame: u.avatarFrame, size: avatar, animateDecoration: true),
+                child: UserAvatar(url: u.iconUrl, frame: u.avatarFrame, size: avatar, animateDecoration: true, decorationOverflow: true),
               ),
             ),
             Positioned(right: side, bottom: 4, child: _mainButton(context, u)),

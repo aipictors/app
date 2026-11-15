@@ -26,7 +26,7 @@
 
 | 部品 | import | 使い方 |
 | --- | --- | --- |
-| `UserAvatar` | `widgets/user_avatar.dart` | `UserAvatar.summary(user, size: 40, tappable: true)` / `UserAvatar.json(map)`。プロフィールだけ `animateDecoration: true` |
+| `UserAvatar` | `widgets/user_avatar.dart` | `UserAvatar.summary(user, size: 40, tappable: true)` / `UserAvatar.json(map)`。装飾の枠は既定で `size` の中に収まる（はみ出さない）。プロフィールの見出しだけ `animateDecoration: true, decorationOverflow: true` |
 | `UserNameRow` | `widgets/user_name_row.dart` | `UserNameRow.summary(user, style: ...)`。幅が決まった場所に置く |
 | `StatusBalloon` | `widgets/status_balloon.dart` | `StatusBalloon(user.statusText!)` |
 | `Skeleton` `SkeletonList` `SkeletonGrid` | `widgets/common.dart` | 読み込み中。本物と同じ高さにしてずれを防ぐ。sliver 用は `sliver: true` |

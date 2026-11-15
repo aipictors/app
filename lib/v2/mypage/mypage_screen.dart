@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/coins.dart';
+import 'package:aipictors/v2/core/debug_boot.dart';
 import 'package:aipictors/v2/core/design.dart';
 import 'package:aipictors/v2/plans/coin_shop.dart';
 import 'package:aipictors/v2/core/models.dart';
@@ -24,6 +25,15 @@ query AppMyPage {
       followersCount followeesCount worksCount receivedLikesCount
     }
     currentPass { id type periodEnd }
+  }
+}''';
+
+const _debugAsQuery = '''
+query DebugMyPageAs(\$id: ID!) {
+  user(id: \$id) {
+    id login name iconUrl isOfficial isModerator headerImageUrl biography
+    $avatarFrameFields
+    followersCount followeesCount: followCount worksCount
   }
 }''';
 
@@ -62,9 +72,14 @@ class _MyPageScreenState extends State<MyPageScreen> {
     }
     try {
       final data = await Api.query(_viewerQuery);
+      // 開発用: /tmp/aipictors-debug の 2 行目が as:<ユーザーID> なら、その人の見た目で表示する（枠の確認用）
+      final asUser = DebugBoot.screenTab?.startsWith('as:') == true ? DebugBoot.screenTab!.substring(3) : null;
+      final other = asUser == null
+          ? null
+          : (await Api.query(_debugAsQuery, variables: {'id': asUser})).obj('user');
       if (!mounted) return;
       setState(() {
-        _user = data.obj('viewer')?.obj('user');
+        _user = other ?? data.obj('viewer')?.obj('user');
         _pass = data.obj('viewer')?.obj('currentPass');
         _loading = false;
         _error = null;
@@ -194,6 +209,8 @@ class _ProfileCard extends StatelessWidget {
           ]),
         );
     final header = user.strOrNull('headerImageUrl');
+    // 装飾の枠は箱の中に収めて描くので、そのぶん大きく取って顔の大きさをそろえる
+    final avatarSize = user.obj('avatarFrame')?.str('frameType') == AvatarFrame.typeDecoration ? 96.0 : 72.0;
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 4, 16, 0),
       child: Pressable(
@@ -211,9 +228,9 @@ class _ProfileCard extends StatelessWidget {
                   : const DecoratedBox(decoration: BoxDecoration(gradient: Ds.brandGradient)),
             ),
             Transform.translate(
-              offset: const Offset(0, -30),
+              offset: Offset(0, -(avatarSize / 2 - 6)),
               child: Column(children: [
-                UserAvatar.json(user, size: 72, ring: true),
+                UserAvatar.json(user, size: avatarSize, ring: true),
                 const SizedBox(height: 6),
                 Text(user.str('name'), style: context.tt.titleLarge?.copyWith(fontWeight: FontWeight.w900)),
                 Text('@${user.str('login').replaceFirst(RegExp(r'^@+'), '')}', style: TextStyle(color: context.muted, fontSize: 12)),

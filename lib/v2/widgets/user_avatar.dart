@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:aipictors/v2/core/css_background.dart';
+import 'package:aipictors/v2/core/debug_boot.dart';
 import 'package:aipictors/v2/core/design.dart';
 import 'package:aipictors/v2/core/models.dart';
 import 'package:aipictors/v2/core/nav.dart';
@@ -20,6 +21,7 @@ class UserAvatar extends StatelessWidget {
     this.ring = false,
     this.animated = true,
     this.animateDecoration = false,
+    this.decorationOverflow = false,
   });
 
   /// [UserSummary] から。[tappable] なら押すとプロフィールへ
@@ -55,6 +57,10 @@ class UserAvatar extends StatelessWidget {
   /// 装飾を動く画像にする。重いのでプロフィールのように 1 つだけ大きく出すところで使う
   final bool animateDecoration;
 
+  /// 装飾を Web と同じくアイコンの外（148.4%）まで広げる。周りに余白があるプロフィールの見出しだけで使う。
+  /// 既定では装飾ごと [size] の中に収める（一覧やカードの端・隣の文字で切れたり重なったりしないように）
+  final bool decorationOverflow;
+
   @override
   Widget build(BuildContext context) {
     final avatar = _build(context);
@@ -64,14 +70,15 @@ class UserAvatar extends StatelessWidget {
   }
 
   Widget _build(BuildContext context) {
-    final f = frame;
+    final deco = DebugBoot.decorationOverride;
+    final f = deco == null ? frame : AvatarFrame(frameType: AvatarFrame.typeDecoration, overlayImageUrl: '/avatar-frames/deco/$deco.webp');
     if (f == null) {
       if (!ring) return _PlainAvatar(url: url, size: size);
       return _BrandRing(child: _PlainAvatar(url: url, size: size));
     }
     final overlay = f.overlayUrl;
     if (f.isDecoration && overlay != null) {
-      return _DecoratedAvatar(url: url, overlayUrl: overlay, size: size, animate: animateDecoration);
+      return _DecoratedAvatar(url: url, overlayUrl: overlay, size: size, animate: animateDecoration, overflow: decorationOverflow);
     }
     return _FramedAvatar(url: url, frame: f, size: size, animated: animated);
   }
@@ -132,21 +139,28 @@ class _BrandRing extends StatelessWidget {
   }
 }
 
-/// アイコンの外にはみ出す装飾。画像はアイコンの 148.4% で中央に重ねる（Web と同じ倍率）
+/// 装飾つきのアイコン。装飾の画像はアイコンの 148.4% で中央に重ねる（Web と同じ倍率）。
+/// [overflow] でなければアイコンを小さくして、装飾まで含めて [size] の箱に収める
 class _DecoratedAvatar extends StatelessWidget {
-  const _DecoratedAvatar({required this.url, required this.overlayUrl, required this.size, required this.animate});
+  const _DecoratedAvatar({required this.url, required this.overlayUrl, required this.size, required this.animate, required this.overflow});
 
   final String? url;
   final String overlayUrl;
   final double size;
   final bool animate;
+  final bool overflow;
 
   static const _scale = 1.484;
 
+  /// 収めるときのアイコンの大きさ（装飾は size の 1.07 倍＝はみ出しは片側 3% ほど）
+  static const _containedFace = 0.72;
+
   @override
   Widget build(BuildContext context) {
-    final overlaySize = size * _scale;
+    final face = overflow ? size : (size * _containedFace).roundToDouble();
+    final overlaySize = face * _scale;
     final offset = (size - overlaySize) / 2;
+    final faceOffset = (size - face) / 2;
     final reduce = MediaQuery.maybeDisableAnimationsOf(context) ?? false;
     return SizedBox(
       width: size,
@@ -154,7 +168,7 @@ class _DecoratedAvatar extends StatelessWidget {
       child: Stack(
         clipBehavior: Clip.none,
         children: [
-          _PlainAvatar(url: url, size: size),
+          Positioned(left: faceOffset, top: faceOffset, child: _PlainAvatar(url: url, size: face)),
           Positioned(
             left: offset,
             top: offset,

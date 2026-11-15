@@ -31,6 +31,9 @@ class DebugBoot {
 
   static String? get screenTab => _file.length > 1 && _file[1].isNotEmpty ? _file[1] : null;
 
+  /// 3 行目に装飾の名前（例: special-seraph）を書くと、すべてのアイコンにその装飾を付けて表示する（枠の見切れの確認用）
+  static String? get decorationOverride => _file.length > 2 && _file[2].isNotEmpty ? _file[2] : null;
+
   static const _tab = String.fromEnvironment('debugTab');
 
   static bool get hasTab => kDebugMode && _tab.isNotEmpty;
