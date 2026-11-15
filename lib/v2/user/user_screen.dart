@@ -1,3 +1,4 @@
+import 'package:aipictors/v2/requests/requests_widgets.dart';
 import 'package:aipictors/v2/work/support_sheet.dart';
 import 'package:aipictors/v2/achievements/achievements_api.dart';
 import 'package:aipictors/v2/achievements/achievements_screen.dart';
@@ -178,6 +179,7 @@ class _UserScreenState extends State<UserScreen> {
                   ]),
                 ),
               ),
+            if (!u.isBlocked) SliverToBoxAdapter(child: UserRequestPlansStrip(key: ValueKey('plans-${u.id}'), userId: u.id, isOwner: _isSelf)),
             if (u.isBlocked)
               SliverToBoxAdapter(child: _blockedNotice(context, u))
             else ...[

@@ -147,6 +147,8 @@ class _MyPageScreenState extends State<MyPageScreen> {
                   _MenuItem(Icons.folder_outlined, 'フォルダ', () => context.push('/my/folders')),
                   _MenuItem(Icons.history_rounded, '閲覧履歴', () => context.push('/my/views')),
                   _MenuItem(Icons.image_outlined, '自分の作品', () => context.push('/viewer/works')),
+                  _MenuItem(Icons.volunteer_activism_outlined, 'リクエスト', () => context.push('/requests')),
+                  _MenuItem(Icons.storefront_outlined, 'プラン一覧', () => context.push('/requests/plans')),
                   _MenuItem(Icons.edit_note_rounded, '作品の履歴', () => context.push('/my/histories')),
                 ]),
               ),
