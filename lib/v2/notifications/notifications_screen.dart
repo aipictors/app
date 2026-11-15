@@ -18,7 +18,7 @@ const _notificationsTabIndex = 3;
 const _maxOffset = 1024;
 
 enum _Tab {
-  all('すべて', {'excludeCoin': true}),
+  all('すべて', {'excludeCoin': true, 'includeRequests': true}),
   comment('コメント', {'type': 'WORK_COMMENT'}),
   reply('返信', {'type': 'COMMENT_REPLY'}),
   liked('いいね', {'type': 'LIKED_WORK'}),
@@ -305,6 +305,10 @@ class _NotificationRowState extends State<_NotificationRow> {
       final id = item.user?.id;
       return id == null ? null : () => context.push('/users/$id');
     }
+    if (item.kind == NotificationKind.request) {
+      final id = item.requestId;
+      return () => context.push(id == null ? '/requests' : '/requests/$id');
+    }
     if (item.kind == NotificationKind.coin) {
       return item.message?.startsWith('🏅') == true ? () => context.push('/achievements') : null;
     }
@@ -320,6 +324,7 @@ class _NotificationRowState extends State<_NotificationRow> {
         NotificationKind.follow => 'さんにフォローされました',
         NotificationKind.award => '',
         NotificationKind.coin => '',
+        NotificationKind.request => '',
       };
 
   (IconData, Color) get _icon => switch (item.kind) {
@@ -329,6 +334,7 @@ class _NotificationRowState extends State<_NotificationRow> {
         NotificationKind.follow => (Icons.person_add_alt_1_rounded, Ds.blue),
         NotificationKind.award => (Icons.emoji_events_rounded, Ds.gold),
         NotificationKind.coin => (Icons.monetization_on_rounded, Ds.gold),
+        NotificationKind.request => (Icons.volunteer_activism_rounded, Ds.sky),
       };
 
   Future<void> _send() async {

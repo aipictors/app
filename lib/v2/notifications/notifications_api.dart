@@ -3,11 +3,11 @@ import 'package:aipictors/v2/core/models.dart';
 import 'package:flutter/foundation.dart';
 
 /// 通知の種類（Web の NotificationPanelKind）
-enum NotificationKind { liked, comment, reply, follow, award, coin }
+enum NotificationKind { liked, comment, reply, follow, award, coin, request }
 
 /// 未読の数（種類ごと）
 class UnreadCounts {
-  const UnreadCounts({this.liked = 0, this.comment = 0, this.reply = 0, this.follow = 0, this.award = 0, this.message = 0, this.moderation = 0});
+  const UnreadCounts({this.liked = 0, this.comment = 0, this.reply = 0, this.follow = 0, this.award = 0, this.message = 0, this.moderation = 0, this.request = 0});
 
   final int liked;
   final int comment;
@@ -17,8 +17,11 @@ class UnreadCounts {
   final int message;
   final int moderation;
 
+  /// 有料リクエストの通知（リクエストの画面を開くと確認済み）
+  final int request;
+
   /// 「すべて」のタブに入る種類の合計
-  int get activity => liked + comment + reply + follow + award;
+  int get activity => liked + comment + reply + follow + award + request;
 
   int get total => activity + message + moderation;
 
@@ -32,6 +35,7 @@ class UnreadCounts {
           award: j.integer('award'),
           message: j.integer('message'),
           moderation: j.integer('moderation'),
+          request: j.integer('request'),
         );
 }
 
@@ -64,6 +68,7 @@ class NotificationItem {
     required this.message,
     required this.stickerUrl,
     required this.replyTargetCommentId,
+    this.requestId,
     required this.myReplies,
     required this.parentText,
     required this.parentStickerUrl,
@@ -81,6 +86,9 @@ class NotificationItem {
   final String? message;
   final String? stickerUrl;
   final String? replyTargetCommentId;
+
+  /// 有料リクエストの通知の依頼 ID（/requests/:id）
+  final String? requestId;
   final List<NotificationReply> myReplies;
   final String? parentText;
   final String? parentStickerUrl;
@@ -104,6 +112,7 @@ class NotificationItem {
     'FollowNotificationNode': NotificationKind.follow,
     'WorkAwardNotificationNode': NotificationKind.award,
     'LikedWorksSummaryNotificationNode': NotificationKind.coin,
+    'RequestNotificationNode': NotificationKind.request,
   };
 
   static NotificationItem? fromJson(Map<String, dynamic> j) {
@@ -133,6 +142,7 @@ class NotificationItem {
       message: j.strOrNull('message'),
       stickerUrl: j.obj('sticker')?.strOrNull('imageUrl'),
       replyTargetCommentId: j.strOrNull('replyTargetCommentId'),
+      requestId: j.strOrNull('requestId'),
       myReplies: j
           .list('myReplies')
           .map((r) => NotificationReply(text: r.str('text'), stickerUrl: r.obj('sticker')?.strOrNull('imageUrl')))
@@ -188,6 +198,7 @@ query AppNotifications(\$offset: Int!, \$limit: Int!, \$where: NotificationsWher
       ... on FollowNotificationNode { id createdAt user { $userSummaryFields isFollowee } }
       ... on WorkAwardNotificationNode { id createdAt message $_work }
       ... on LikedWorksSummaryNotificationNode { id createdAt message }
+      ... on RequestNotificationNode { id createdAt message requestId user { $userSummaryFields } }
     }
   }
 }''';
@@ -207,7 +218,7 @@ query AppNotifications(\$offset: Int!, \$limit: Int!, \$where: NotificationsWher
 query AppUnreadNotificationCounts {
   viewer {
     id
-    unreadNotificationCounts { liked comment reply follow award message moderation }
+    unreadNotificationCounts { liked comment reply follow award message moderation request }
   }
 }''');
     final counts = UnreadCounts.fromJson(data.obj('viewer')?.obj('unreadNotificationCounts'));
