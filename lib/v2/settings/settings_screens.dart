@@ -32,6 +32,7 @@ class SettingsScreen extends StatelessWidget {
             link(Icons.badge_outlined, 'プロフィール', '/settings/profile'),
             link(Icons.manage_accounts_outlined, 'アカウント設定', '/settings/account'),
             link(Icons.volunteer_activism_outlined, '応援コイン受け取り', '/settings/support-received'),
+            link(Icons.payments_outlined, 'クリエイター報酬', '/settings/creator-rewards'),
           ]),
           SettingsGroup(title: '表示と通知', children: [
             link(Icons.notifications_none_rounded, '通知・いいね', '/settings/notification'),
