@@ -70,6 +70,7 @@ class NotificationItem {
     required this.parentUserName,
     required this.supportCoins,
     required this.isAnonymous,
+    this.isFollowingBack = false,
   });
 
   final String id;
@@ -88,6 +89,9 @@ class NotificationItem {
   /// コメントに付いた応援コイン。付いていなければ 0
   final int supportCoins;
   final bool isAnonymous;
+
+  /// フォローの通知で、こちらもその人をフォローしている（Web と同じくフォローを返すボタンの出し分けに使う）
+  bool isFollowingBack;
 
   bool get canReply => kind == NotificationKind.comment || kind == NotificationKind.reply;
 
@@ -138,6 +142,7 @@ class NotificationItem {
       parentUserName: parent?.obj('user')?.strOrNull('name'),
       supportCoins: support == null ? 0 : support.integer('freeCoinAmount') + support.integer('premiumCoinAmount'),
       isAnonymous: j.boolean('isAnonymous'),
+      isFollowingBack: j.obj('user')?.boolean('isFollowee') ?? false,
     );
   }
 }
@@ -180,7 +185,7 @@ query AppNotifications(\$offset: Int!, \$limit: Int!, \$where: NotificationsWher
         support { freeCoinAmount premiumCoinAmount totalPt }
         comment { id text sticker { id imageUrl } user { id name } }
       }
-      ... on FollowNotificationNode { id createdAt $_user }
+      ... on FollowNotificationNode { id createdAt user { $userSummaryFields isFollowee } }
       ... on WorkAwardNotificationNode { id createdAt message $_work }
       ... on LikedWorksSummaryNotificationNode { id createdAt message }
     }

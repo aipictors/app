@@ -228,6 +228,63 @@ class _ThemeDayScreenState extends State<ThemeDayScreen> {
   }
 }
 
+/// 旧 URL /daily_themes/:id。日付を調べて [ThemeDayScreen] を出す（旧画面は作品の画像だけを並べていた）
+class ThemeByIdScreen extends StatefulWidget {
+  const ThemeByIdScreen({super.key, required this.id});
+
+  final String id;
+
+  @override
+  State<ThemeByIdScreen> createState() => _ThemeByIdScreenState();
+}
+
+class _ThemeByIdScreenState extends State<ThemeByIdScreen> {
+  ({int year, int month, int day})? _date;
+  String? _error;
+
+  @override
+  void initState() {
+    super.initState();
+    _load();
+  }
+
+  Future<void> _load() async {
+    setState(() => _error = null);
+    try {
+      final data = await Api.query(r'''
+query DailyThemeDate($id: ID) {
+  dailyTheme(id: $id) {
+    id
+    year
+    month
+    day
+  }
+}''', variables: {'id': widget.id}, cacheFor: const Duration(hours: 1));
+      final t = data.obj('dailyTheme');
+      if (!mounted) return;
+      setState(() {
+        if (t == null) {
+          _error = 'お題が見つかりませんでした';
+        } else {
+          _date = (year: t.integer('year'), month: t.integer('month'), day: t.integer('day'));
+        }
+      });
+    } on ApiException catch (e) {
+      if (mounted) setState(() => _error = e.message);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final d = _date;
+    if (d != null) return ThemeDayScreen(year: d.year, month: d.month, day: d.day);
+    return Scaffold(
+      appBar: AppBar(title: const Text('お題', style: TextStyle(fontWeight: FontWeight.w800))),
+      body: _error != null ? StateView.error(_error!, onRetry: _load) : const SkeletonGrid(),
+    );
+  }
+}
+
 const _proposalFields = 'id title inputTheme status targetDate likesCount isLiked proposerName note decisionComment canCancel';
 
 /// お題の提案

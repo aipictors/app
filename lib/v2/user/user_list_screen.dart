@@ -6,12 +6,12 @@ import 'package:aipictors/v2/user/user_widgets.dart';
 import 'package:aipictors/v2/widgets/work_grid.dart';
 import 'package:flutter/material.dart';
 
-/// フォロー中・フォロワーの一覧
-class UserListScreen extends StatelessWidget {
-  const UserListScreen({super.key, required this.userId, required this.name, this.initialIndex = 0, this.followCount, this.followersCount});
+/// フォロー中・フォロワーの一覧。[name] と人数が無ければ（マイページなど URL から開いたとき）取りに行く
+class UserListScreen extends StatefulWidget {
+  const UserListScreen({super.key, required this.userId, this.name, this.initialIndex = 0, this.followCount, this.followersCount});
 
   final String userId;
-  final String name;
+  final String? name;
 
   /// 0: フォロー中 / 1: フォロワー
   final int initialIndex;
@@ -19,25 +19,57 @@ class UserListScreen extends StatelessWidget {
   final int? followersCount;
 
   @override
+  State<UserListScreen> createState() => _UserListScreenState();
+}
+
+class _UserListScreenState extends State<UserListScreen> {
+  late String? _name = widget.name;
+  late int? _followCount = widget.followCount;
+  late int? _followersCount = widget.followersCount;
+
+  @override
+  void initState() {
+    super.initState();
+    if (_name == null || _followCount == null || _followersCount == null) {
+      UserApi.followHeader(widget.userId).then((h) {
+        if (!mounted) return;
+        setState(() {
+          _name ??= h.name;
+          _followCount ??= h.followCount;
+          _followersCount ??= h.followersCount;
+        });
+      }).catchError((_) {});
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     String label(String t, int? n) => n == null ? t : '$t ${compactCount(n)}';
     return DefaultTabController(
       length: 2,
-      initialIndex: initialIndex,
+      initialIndex: widget.initialIndex,
       child: Scaffold(
         appBar: AppBar(
-          title: Text(name, style: const TextStyle(fontWeight: FontWeight.w800)),
+          title: Text(_name ?? '', style: const TextStyle(fontWeight: FontWeight.w800)),
           bottom: TabBar(
             indicatorSize: TabBarIndicatorSize.label,
             labelStyle: const TextStyle(fontWeight: FontWeight.w800, fontSize: 15),
             unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
             dividerColor: context.hairline,
-            tabs: [Tab(text: label('フォロー中', followCount)), Tab(text: label('フォロワー', followersCount))],
+            tabs: [Tab(text: label('フォロー中', _followCount)), Tab(text: label('フォロワー', _followersCount))],
           ),
         ),
         body: TabBarView(children: [
-          _UserListTab(fetch: (o, l) => UserApi.followees(userId, o, l), emptyTitle: 'まだ誰もフォローしていません'),
-          _UserListTab(fetch: (o, l) => UserApi.followers(userId, o, l), emptyTitle: 'まだフォロワーはいません'),
+          _UserListTab(
+            fetch: (o, l) => UserApi.followees(widget.userId, o, l),
+            emptyTitle: 'まだ誰もフォローしていません',
+            emptyMessage: 'フォローした人がここに並びます',
+          ),
+          _UserListTab(
+            fetch: (o, l) => UserApi.followers(widget.userId, o, l),
+            emptyTitle: 'まだフォロワーはいません',
+            emptyMessage: 'フォローしてくれた人がここに並びます',
+          ),
         ]),
       ),
     );
@@ -45,10 +77,11 @@ class UserListScreen extends StatelessWidget {
 }
 
 class _UserListTab extends StatefulWidget {
-  const _UserListTab({required this.fetch, required this.emptyTitle});
+  const _UserListTab({required this.fetch, required this.emptyTitle, this.emptyMessage});
 
   final Future<List<UserRowData>> Function(int offset, int limit) fetch;
   final String emptyTitle;
+  final String? emptyMessage;
 
   @override
   State<_UserListTab> createState() => _UserListTabState();
@@ -82,7 +115,7 @@ class _UserListTabState extends State<_UserListTab> with AutomaticKeepAliveClien
       onRefresh: _c.refresh,
       child: CustomScrollView(
         physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
-        slivers: [SliverPagedUsers(controller: _c, viewerId: _viewerId, emptyTitle: widget.emptyTitle)],
+        slivers: [SliverPagedUsers(controller: _c, viewerId: _viewerId, emptyTitle: widget.emptyTitle, emptyMessage: widget.emptyMessage)],
       ),
     );
   }

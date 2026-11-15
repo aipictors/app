@@ -36,6 +36,14 @@ final List<RouteBase> communityRoutes = [
       day: int.parse(state.pathParameters['day']!),
     ),
   ),
+  GoRoute(path: '/daily_themes', builder: (context, state) => const ThemesScreen()),
+  GoRoute(
+    path: '/daily_themes/:theme',
+    builder: (context, state) {
+      final id = state.pathParameters['theme'] ?? '';
+      return id == 'months' ? const ThemesScreen() : ThemeByIdScreen(id: id);
+    },
+  ),
   GoRoute(path: '/messages', builder: (context, state) => const MessagesScreen()),
   GoRoute(path: '/messages/:recipient', builder: (context, state) => MessageThreadScreen(recipientId: state.pathParameters['recipient']!)),
   GoRoute(path: '/support/chat', builder: (context, state) => const SupportChatScreen()),

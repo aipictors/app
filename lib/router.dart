@@ -54,8 +54,6 @@ import 'package:aipictors/features/survey/surveys_screen.dart';
 import 'package:aipictors/features/terms/terms_eula_screen.dart';
 import 'package:aipictors/features/terms/terms_screen.dart';
 import 'package:aipictors/features/tutorial/tutorial_screen.dart';
-import 'package:aipictors/features/user/user_followees_screen.dart';
-import 'package:aipictors/features/user/user_followers_screen.dart';
 import 'package:aipictors/features/user/user_report_screen.dart';
 import 'package:aipictors/features/viewer/viewer_albums_screen.dart';
 import 'package:aipictors/features/sticker/my_bookmarked_stickers_screen.dart';
@@ -315,20 +313,6 @@ final _routes = [
     builder: (context, state) {
       final userId = state.pathParameters['user'];
       return v2user.UserScreen(userId: userId!);
-    },
-  ),
-  GoRoute(
-    path: '/users/:user/followees',
-    builder: (context, state) {
-      final userId = state.pathParameters['user'];
-      return UserFolloweesScreen(userId: userId!);
-    },
-  ),
-  GoRoute(
-    path: '/users/:user/followers',
-    builder: (context, state) {
-      final userId = state.pathParameters['user'];
-      return UserFollowersScreen(userId: userId!);
     },
   ),
   GoRoute(

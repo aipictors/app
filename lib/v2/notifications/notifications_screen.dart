@@ -4,6 +4,7 @@ import 'package:aipictors/v2/core/debug_boot.dart';
 import 'package:aipictors/v2/core/design.dart';
 import 'package:aipictors/v2/core/paged.dart';
 import 'package:aipictors/v2/notifications/notifications_api.dart';
+import 'package:aipictors/v2/user/user_widgets.dart';
 import 'package:aipictors/v2/widgets/common.dart';
 import 'package:aipictors/v2/widgets/user_avatar.dart';
 import 'package:app_badge_plus/app_badge_plus.dart';
@@ -459,6 +460,11 @@ class _NotificationRowState extends State<_NotificationRow> {
             if (work != null && !work.isAdult && work.thumbnailUrl != null) ...[
               const SizedBox(width: Ds.s8),
               SizedBox(width: 52, height: 52, child: AppImage(work.thumbnailUrl, radius: 10, memCacheWidth: 156)),
+            ],
+            // フォローされた通知は、その場でフォローを返せる（Web と同じ）
+            if (item.kind == NotificationKind.follow && item.user != null) ...[
+              const SizedBox(width: Ds.s8),
+              FollowButton(userId: item.user!.id, isFollowing: item.isFollowingBack, compact: true, onChanged: (v) => item.isFollowingBack = v),
             ],
           ]),
         ),

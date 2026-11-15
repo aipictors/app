@@ -5,6 +5,7 @@ import 'package:aipictors/v2/core/design.dart';
 import 'package:aipictors/v2/core/models.dart';
 import 'package:aipictors/v2/core/nav.dart';
 import 'package:aipictors/v2/widgets/common.dart';
+import 'package:aipictors/v2/user/user_widgets.dart';
 import 'package:aipictors/v2/widgets/user_avatar.dart';
 import 'package:aipictors/v2/widgets/official_badge.dart';
 import 'package:aipictors/v2/widgets/work_grid.dart';
@@ -36,7 +37,7 @@ query AppWork(\$id: ID!) {
     subWorks { id imageUrl }
     tagNames
     promptAccessType prompt negativePrompt seed steps scale sampler vae clipSkip model
-    dailyTheme { id title }
+    dailyTheme { id title year month day }
     user { $userSummaryFields isFollowee biography followersCount }
   }
 }''';
@@ -71,7 +72,6 @@ class _WorkScreenState extends State<WorkScreen> {
   bool _liked = false;
   int _likes = 0;
   bool _following = false;
-  bool _followBusy = false;
   int _imageIndex = 0;
   List<CommentItem> _comments = [];
   List<WorkSummary> _related = [];
@@ -186,32 +186,6 @@ class _WorkScreenState extends State<WorkScreen> {
     }
   }
 
-  Future<void> _toggleFollow() async {
-    if (!Nav.requireLogin(context) || _followBusy) return;
-    final follow = !_following;
-    setState(() {
-      _following = follow;
-      _followBusy = true;
-    });
-    Ds.impact();
-    try {
-      await Api.mutate(
-        follow
-            ? r'mutation AppFollow($input: FollowUserInput!) { followUser(input: $input) { id } }'
-            : r'mutation AppUnfollow($input: UnfollowUserInput!) { unfollowUser(input: $input) { id } }',
-        variables: {
-          'input': {'userId': user.str('id')},
-        },
-      );
-      if (mounted && follow) context.toast('${user.str('name')}さんをフォローしました', icon: Icons.person_add_alt_1_rounded);
-    } on ApiException catch (e) {
-      if (!mounted) return;
-      setState(() => _following = !follow);
-      context.toast(e.message, error: true);
-    } finally {
-      if (mounted) setState(() => _followBusy = false);
-    }
-  }
 
   void _share() {
     final url = 'https://www.aipictors.com/posts/${w.str('id')}';
@@ -401,7 +375,10 @@ class _WorkScreenState extends State<WorkScreen> {
                               avatar: const Icon(Icons.today_rounded, size: 16),
                               label: Text('お題「${w.obj('dailyTheme')!.str('title')}」'),
                               visualDensity: VisualDensity.compact,
-                              onPressed: () => context.push('/daily_themes/${w.obj('dailyTheme')!.str('id')}'),
+                              onPressed: () {
+                                final t = w.obj('dailyTheme')!;
+                                context.push('/themes/${t.integer('year')}/${t.integer('month')}/${t.integer('day')}');
+                              },
                             ),
                         ]),
                         const SizedBox(height: 14),
@@ -409,8 +386,7 @@ class _WorkScreenState extends State<WorkScreen> {
                           user: user,
                           following: _following,
                           isMine: _isMine,
-                          busy: _followBusy,
-                          onFollow: _toggleFollow,
+                          onFollowChanged: (v) => _following = v,
                         ),
                         if (w.str('description').trim().isNotEmpty) ...[
                           const SizedBox(height: 14),
@@ -927,13 +903,12 @@ class _RoundAction extends StatelessWidget {
 }
 
 class _UserRow extends StatelessWidget {
-  const _UserRow({required this.user, required this.following, required this.isMine, required this.busy, required this.onFollow});
+  const _UserRow({required this.user, required this.following, required this.isMine, required this.onFollowChanged});
 
   final Map<String, dynamic> user;
   final bool following;
   final bool isMine;
-  final bool busy;
-  final VoidCallback onFollow;
+  final ValueChanged<bool> onFollowChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -959,23 +934,11 @@ class _UserRow extends StatelessWidget {
               Text('フォロワー ${compactCount(user.integer('followersCount'))}', style: TextStyle(color: context.muted, fontSize: 12)),
             ]),
           ),
-          if (!isMine)
-            AnimatedSwitcher(
-              duration: Ds.fast,
-              child: following
-                  ? OutlinedButton(
-                      key: const ValueKey('following'),
-                      onPressed: busy ? null : onFollow,
-                      style: OutlinedButton.styleFrom(shape: const StadiumBorder()),
-                      child: const Text('フォロー中'),
-                    )
-                  : FilledButton(
-                      key: const ValueKey('follow'),
-                      onPressed: busy ? null : onFollow,
-                      style: FilledButton.styleFrom(shape: const StadiumBorder()),
-                      child: const Text('フォロー'),
-                    ),
-            ),
+          // フォロー一覧・ユーザー画面と同じボタン（押した瞬間に切り替え、解除は確認してから）
+          if (!isMine) ...[
+            const SizedBox(width: 8),
+            FollowButton(userId: user.str('id'), isFollowing: following, compact: true, onChanged: onFollowChanged),
+          ],
         ]),
       ),
     );

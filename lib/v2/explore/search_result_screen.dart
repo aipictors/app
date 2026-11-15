@@ -1,3 +1,4 @@
+import 'package:aipictors/v2/core/debug_boot.dart';
 import 'package:aipictors/v2/core/design.dart';
 import 'package:aipictors/v2/core/models.dart';
 import 'package:aipictors/v2/core/nav.dart';
@@ -42,6 +43,7 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 3,
+      initialIndex: const {'users': 1, 'tags': 2}[DebugBoot.screenTab] ?? 0,
       child: Scaffold(
         appBar: AppBar(
           titleSpacing: Navigator.of(context).canPop() ? 0 : 16,

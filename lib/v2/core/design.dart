@@ -107,6 +107,15 @@ String compactCount(int n) {
   return n.toString();
 }
 
+final _autoLogin = RegExp(r'^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$', caseSensitive: false);
+
+/// 一覧に出す「@ID」。先頭の @ の重なりを除き、自動で付いた UUID の ID は出さない（null）
+String? loginHandle(String login) {
+  final s = login.trim().replaceFirst(RegExp(r'^@+'), '');
+  if (s.isEmpty || _autoLogin.hasMatch(s)) return null;
+  return '@$s';
+}
+
 /// 「3分前」など
 String relativeTime(int unixSeconds) {
   if (unixSeconds <= 0) return '';

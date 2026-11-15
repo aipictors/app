@@ -11,6 +11,7 @@ import 'package:aipictors/v2/plans/plans_routes.dart';
 import 'package:aipictors/v2/settings/settings_routes.dart';
 import 'package:aipictors/v2/post/post_routes.dart';
 import 'package:aipictors/v2/stickers/sticker_routes.dart';
+import 'package:aipictors/v2/user/user_routes.dart';
 import 'package:aipictors/v2/support/support_routes.dart';
 import 'package:go_router/go_router.dart';
 
@@ -27,4 +28,5 @@ final List<RouteBase> v2Routes = [
   ...postRoutes,
   ...albumRoutes,
   ...stickerRoutes,
+  ...userRoutes,
 ];

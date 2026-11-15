@@ -19,6 +19,7 @@ final List<RouteBase> settingsRoutes = [
   _route('/settings/followed/tags', (_, __) => const ManagedTagsScreen(followed: true)),
   _route('/settings/support-received', (_, __) => const SupportReceivedScreen()),
   // 旧画面の置き換え
+  _route('/account', (_, __) => const AccountSettingsScreen()),
   _route('/config/profile', (_, __) => const ProfileEditScreen()),
   _route('/config/notifications', (_, __) => const NotificationSettingsScreen()),
   _route('/config/muted_users', (_, __) => const ManagedUsersScreen(blocked: false)),

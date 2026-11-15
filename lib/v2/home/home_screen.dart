@@ -49,6 +49,9 @@ query AppHomeTop(\$year: Int, \$month: Int, \$day: Int) {
     title
     worksCount
     dateText
+    year
+    month
+    day
     firstWork { largeThumbnailImageURL }
   }
 }''';
@@ -535,7 +538,7 @@ class _ThemeCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
       child: Pressable(
-        onTap: () => context.push('/daily_themes/${theme.str('id')}'),
+        onTap: () => context.push('/themes/${theme.integer('year')}/${theme.integer('month')}/${theme.integer('day')}'),
         child: Container(
           height: 92,
           decoration: BoxDecoration(

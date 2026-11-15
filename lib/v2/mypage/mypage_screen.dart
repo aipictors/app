@@ -216,7 +216,7 @@ class _ProfileCard extends StatelessWidget {
                 UserAvatar.json(user, size: 72, ring: true),
                 const SizedBox(height: 6),
                 Text(user.str('name'), style: context.tt.titleLarge?.copyWith(fontWeight: FontWeight.w900)),
-                Text('@${user.str('login')}', style: TextStyle(color: context.muted, fontSize: 12)),
+                Text('@${user.str('login').replaceFirst(RegExp(r'^@+'), '')}', style: TextStyle(color: context.muted, fontSize: 12)),
                 const SizedBox(height: 12),
                 Row(children: [
                   stat('作品', user.integer('worksCount')),

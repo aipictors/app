@@ -131,8 +131,8 @@ class _SupportRankingScreenState extends State<SupportRankingScreen> {
                 child: SegmentedButton<String>(
                   showSelectedIcon: false,
                   segments: const [
-                    ButtonSegment(value: 'received', icon: Icon(Icons.favorite_rounded, size: 18), label: Text('推されたクリエイター')),
-                    ButtonSegment(value: 'sent', icon: Icon(Icons.volunteer_activism_rounded, size: 18), label: Text('貢献した人')),
+                    ButtonSegment(value: 'received', icon: Icon(Icons.favorite_rounded, size: 18), label: Text('推された人', maxLines: 1, softWrap: false)),
+                    ButtonSegment(value: 'sent', icon: Icon(Icons.volunteer_activism_rounded, size: 18), label: Text('貢献した人', maxLines: 1, softWrap: false)),
                   ],
                   selected: {_kind},
                   onSelectionChanged: (s) {

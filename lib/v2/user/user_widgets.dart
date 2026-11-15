@@ -137,9 +137,21 @@ class UserRowTile extends StatelessWidget {
   final UserRowData user;
   final String? viewerId;
 
+  /// 最終投稿: 1 週間以内は「3日前」、今年は「11月2日」、それより前は「2024年」
+  static String _postedLabel(int t) {
+    final d = DateTime.fromMillisecondsSinceEpoch(t * 1000);
+    final now = DateTime.now();
+    if (now.difference(d).inDays < 7) return '${relativeTime(t)}に投稿';
+    if (d.year == now.year) return '${d.month}月${d.day}日に投稿';
+    return '${d.year}年に投稿';
+  }
+
   @override
   Widget build(BuildContext context) {
     final isSelf = viewerId != null && viewerId == user.id;
+    final handle = loginHandle(user.login);
+    final posted = user.finalPostedAt == null ? null : _postedLabel(user.finalPostedAt!);
+    final metaStyle = context.tt.bodySmall?.copyWith(color: context.muted);
     return Pressable(
       scale: 0.98,
       onTap: () => Nav.user(context, user.id),
@@ -160,8 +172,14 @@ class UserRowTile extends StatelessWidget {
               Expanded(
                 child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                   UserNameRow(name: user.name, isOfficial: user.isOfficial, isModerator: user.isModerator, style: context.tt.titleSmall?.copyWith(fontWeight: FontWeight.w800)),
-                  const SizedBox(height: 2),
-                  Text('@${user.login}', maxLines: 1, overflow: TextOverflow.ellipsis, style: context.tt.bodySmall?.copyWith(color: context.muted)),
+                  if (handle != null || posted != null) ...[
+                    const SizedBox(height: 2),
+                    // ID が長くても最終投稿は切らない
+                    Row(children: [
+                      if (handle != null) Flexible(child: Text(handle, maxLines: 1, overflow: TextOverflow.ellipsis, style: metaStyle)),
+                      if (posted != null) Text(handle == null ? posted : ' · $posted', maxLines: 1, style: metaStyle),
+                    ]),
+                  ],
                 ]),
               ),
               if (!isSelf) ...[
@@ -171,7 +189,7 @@ class UserRowTile extends StatelessWidget {
             ]),
             if (user.biography.isNotEmpty) ...[
               const SizedBox(height: 8),
-              Text(user.biography, maxLines: 2, overflow: TextOverflow.ellipsis, style: context.tt.bodySmall?.copyWith(color: context.muted, height: 1.45)),
+              Text(user.biography, maxLines: 1, overflow: TextOverflow.ellipsis, style: context.tt.bodySmall?.copyWith(color: context.cs.onSurface.withValues(alpha: 0.78), height: 1.4)),
             ],
             if (user.works.isNotEmpty) ...[
               const SizedBox(height: 10),

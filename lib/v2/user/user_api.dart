@@ -145,6 +145,7 @@ class UserRowData {
     this.isOfficial = false,
     this.isModerator = false,
     this.avatarFrame,
+    this.finalPostedAt,
   });
 
   final String id;
@@ -158,6 +159,9 @@ class UserRowData {
   final bool isModerator;
   final AvatarFrame? avatarFrame;
 
+  /// 最後に投稿した日時（unix 秒）。予約投稿で未来のときは null
+  final int? finalPostedAt;
+
   factory UserRowData.fromJson(Map<String, dynamic> u) => UserRowData(
         id: u.str('id'),
         login: u.str('login'),
@@ -169,7 +173,15 @@ class UserRowData {
         isOfficial: u.boolean('isOfficial'),
         isModerator: u.boolean('isModerator'),
         avatarFrame: AvatarFrame.fromJson(u.obj('avatarFrame')),
+        finalPostedAt: _postedAt(u.integer('finalPostedAt')),
       );
+
+  /// finalPostedAt は日本時間を UTC として数えた値（作品の createdAt より 9 時間進む）なので戻す
+  static int? _postedAt(int t) {
+    if (t <= 0) return null;
+    final s = t - 9 * 3600;
+    return s * 1000 <= DateTime.now().millisecondsSinceEpoch ? s : null;
+  }
 }
 
 enum ReportReasonItem {
@@ -194,6 +206,7 @@ class UserApi {
     $userSummaryFields
     biography
     isFollowee
+    finalPostedAt
 ''';
 
   static const _user = '''
@@ -343,6 +356,21 @@ query UserFollowers(\$userId: ID!, \$offset: Int!, \$limit: Int!) {
     }
   }
 }''';
+
+  /// フォロー一覧の見出し（名前と人数）
+  static Future<({String name, int followCount, int followersCount})> followHeader(String userId) async {
+    final data = await Api.query(r'''
+query UserFollowHeader($userId: ID!) {
+  user(id: $userId) {
+    id
+    name
+    followCount
+    followersCount
+  }
+}''', variables: {'userId': userId}, cacheFor: const Duration(minutes: 1));
+    final u = data.obj('user');
+    return (name: u?.str('name') ?? '', followCount: u?.integer('followCount') ?? 0, followersCount: u?.integer('followersCount') ?? 0);
+  }
 
   static Future<List<UserRowData>> followees(String userId, int offset, int limit) async {
     final data = await Api.query(_followees, variables: {'userId': userId, 'offset': offset, 'limit': limit});

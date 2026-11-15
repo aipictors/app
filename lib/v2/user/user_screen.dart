@@ -351,7 +351,7 @@ class _UserScreenState extends State<UserScreen> {
                 ]),
                 const SizedBox(height: 2),
                 Row(children: [
-                  Text('@${u.login}', style: context.tt.bodyMedium?.copyWith(color: context.muted)),
+                  Text('@${u.login.replaceFirst(RegExp(r'^@+'), '')}', style: context.tt.bodyMedium?.copyWith(color: context.muted)),
                   if (u.isFollower && !_isSelf) ...[
                     const SizedBox(width: 8),
                     Container(
