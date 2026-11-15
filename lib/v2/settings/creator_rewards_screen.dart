@@ -44,11 +44,7 @@ class CreatorRewardsApi {
 
   static Future<Map<String, dynamic>> post(String intent) async {
     final res = await http
-        .post(
-          Uri.parse('$_base/api/creator-rewards'),
-          headers: await _headers(),
-          body: jsonEncode({'intent': intent, 'termsVersion': creatorRewardTermsVersion, 'client': 'app'}),
-        )
+        .post(Uri.parse('$_base/api/creator-rewards'), headers: await _headers(), body: jsonEncode({'intent': intent, 'termsVersion': creatorRewardTermsVersion, 'client': 'app'}))
         .timeout(const Duration(seconds: 30));
     return _data(res);
   }
@@ -66,6 +62,13 @@ String _date(Object? sec) {
 }
 
 int _n(Object? v) => v is num ? v.toInt() : 0;
+
+/// 締めの日（「10 日・25 日」）。古い API は closeDay だけ
+String _closeDays(Map c) {
+  final days = c['closeDays'];
+  if (days is List && days.isNotEmpty) return days.map((d) => _n(d)).join(' 日・');
+  return '${_n(c['closeDay'])}';
+}
 
 /// 報酬の明細と参加・口座登録（口座の登録は Stripe の画面をブラウザで開く）
 class CreatorRewardsScreen extends StatefulWidget {
@@ -172,8 +175,9 @@ class _CreatorRewardsScreenState extends State<CreatorRewardsScreen> with Widget
               Text(
                 '全年齢（一般・R15）の作品が、有料で購入されたプレミアムコインで推されると、1,000 コインにつき ${_n(c['rateMilliyen'])} 円の報酬が記録され、銀行口座へ振り込まれます。\n'
                 '・R18・R18G の作品への推し、無料コイン・おまけのコインは対象外（今までどおりコインで受け取ります）\n'
-                '・推されてから ${_n(c['holdDays'])} 日で換金でき、毎月 ${_n(c['closeDay'])} 日に締めて振込\n'
+                '・推されてから ${_n(c['holdDays'])} 日で換金でき、毎月 ${_closeDays(c)} 日に締めて振込\n'
                 '・${_yen(_n(c['minYen']))}から、1 か月 ${_yen(_n(c['maxYen']))}まで。振込手数料 ${_yen(_n(c['feeYen']))}\n'
+                '${_n(c['newAccountMaxYen']) > 0 ? '・口座の登録（本人確認）から ${_n(c['newAccountDays'])} 日は 1 回 ${_yen(_n(c['newAccountMaxYen']))}まで\n' : ''}'
                 '・個人の方は源泉徴収（${(_n(c['withholdingPpm']) / 10000).toStringAsFixed(2)}%）を差し引きます',
                 style: muted,
               ),
@@ -277,7 +281,8 @@ class _CreatorRewardsScreenState extends State<CreatorRewardsScreen> with Widget
                   title: Text(e['kind'] == 'CLAWBACK' ? '返金による差し引き' : (e['workId'] != null ? '作品への推し' : 'プロフィールへの推し'), style: const TextStyle(fontSize: 14)),
                   subtitle: Text(
                     '${_date(e['createdAt'])} ・ ${_n(e['coins'])}コイン ・ ${_earningLabel('${e['status']}')}'
-                    '${e['status'] == 'HOLDING' ? '（${_date(e['availableAt'])} から）' : ''}',
+                    '${e['status'] == 'HOLDING' ? '（${_date(e['availableAt'])} から）' : ''}'
+                    '${e['expectedCloseAt'] is num ? ' ・ 振込予定 ${_date(e['expectedCloseAt'])}（最短）' : ''}',
                     style: muted,
                   ),
                   trailing: Text(_yen(_n(e['amountYen'])), style: const TextStyle(fontWeight: FontWeight.w700)),
