@@ -115,6 +115,21 @@ class _WorkScreenState extends State<WorkScreen> {
       });
       _loadExtras();
       // 開発用: 2 行目が sheet で始まればコメントのシートを開く（sheet:support は推しの欄も開く。表示の確認用）
+      // 開発用: 2 行目が support なら推すシートを開く（表示の確認用。送信はしない）
+      if (DebugBoot.screenTab == 'support') {
+        Future.delayed(const Duration(seconds: 3), () {
+          final user = _work?.obj('user');
+          if (!mounted || user == null) return;
+          showSupportSheet(
+            context,
+            userId: user.str('id'),
+            userName: user.str('name'),
+            iconUrl: user.strOrNull('iconUrl'),
+            frame: AvatarFrame.fromJson(user.obj('avatarFrame')),
+            showRewardNote: isCreatorRewardRating(_work?.strOrNull('rating')),
+          );
+        });
+      }
       if (DebugBoot.screenTab?.startsWith('sheet') == true) {
         Future.delayed(const Duration(seconds: 3), () {
           if (mounted) _openComments();

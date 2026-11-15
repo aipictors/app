@@ -583,6 +583,12 @@ class _CommentComposerState extends State<CommentComposer> {
     super.initState();
     _text.addListener(() => setState(() {}));
     // 開発用: /tmp/aipictors-debug の 2 行目が sheet:support なら推しの欄を開く（表示の確認用。送信はしない）
+    // 開発用: sheet:sticker ならスタンプ選びを開く（表示の確認用）
+    if (DebugBoot.screenTab == 'sheet:sticker') {
+      Future.delayed(const Duration(seconds: 3), () {
+        if (mounted) _pickSticker();
+      });
+    }
     if (DebugBoot.screenTab == 'sheet:support') {
       Future.delayed(const Duration(seconds: 3), () {
         if (!mounted) return;
