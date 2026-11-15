@@ -210,7 +210,7 @@ class _ProfileCard extends StatelessWidget {
         );
     final header = user.strOrNull('headerImageUrl');
     // 装飾の枠は箱の中に収めて描くので、そのぶん大きく取って顔の大きさをそろえる
-    final avatarSize = user.obj('avatarFrame')?.str('frameType') == AvatarFrame.typeDecoration ? 96.0 : 72.0;
+    final avatarSize = UserAvatar.hasDecoration(UserSummary.fromJson(user).avatarFrame) ? 96.0 : 72.0;
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 4, 16, 0),
       child: Pressable(

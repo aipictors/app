@@ -58,7 +58,7 @@
 
 シミュレーターは `~/Documents/aipictors-app-1.7/sim.sh <名前> [タブ] [ルート]`。worktree は `WT=`、端末は `UDID=`、ダークは `APPEARANCE=dark` で変える。複数の作業で同じ端末を使うとアプリが入れ替わるので、自分の端末を `simctl create` する。
 
-デバッグビルドは Mac の `/tmp/aipictors-debug`（1 行目: ルート、2 行目: 通知やユーザーの画面のタブ）を起動時に読む。`NOBUILD=1` と組み合わせると作り直さずに画面を変えられる。
+デバッグビルドは Mac の `/tmp/aipictors-debug`（1 行目: ルート、2 行目: 通知やユーザーの画面のタブ）を起動時に読む。`NOBUILD=1` と組み合わせると作り直さずに画面を変えられる。ホームは 2 行目 `scroll:<px>` でその位置まで送る。
 
 ## 投稿まわりのデバッグ
 

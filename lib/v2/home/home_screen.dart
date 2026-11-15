@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:aipictors/v2/core/api.dart';
+import 'package:aipictors/v2/core/debug_boot.dart';
 import 'package:aipictors/v2/core/design.dart';
 import 'package:aipictors/v2/core/list_like_count.dart';
 import 'package:aipictors/v2/core/models.dart';
@@ -184,6 +185,8 @@ class _RecommendedViewState extends State<_RecommendedView> {
   List<UserSummary> _users = [];
   Map<String, dynamic>? _theme;
   bool _topLoading = true;
+  // 開発用: /tmp/aipictors-debug の 2 行目が scroll:<px> なら、読み込みのあとその位置まで送る（表示の確認用）
+  final ScrollController? _debugScroll = DebugBoot.screenTab?.startsWith('scroll:') == true ? ScrollController() : null;
 
   late final _controller = PagedController<WorkSummary>(
     idOf: (w) => w.id,
@@ -233,6 +236,12 @@ class _RecommendedViewState extends State<_RecommendedView> {
         _theme = data.obj('dailyTheme');
         _topLoading = false;
       });
+      final c = _debugScroll;
+      if (c != null) {
+        Future.delayed(const Duration(seconds: 3), () {
+          if (mounted && c.hasClients) c.jumpTo(double.tryParse(DebugBoot.screenTab!.substring(7)) ?? 0);
+        });
+      }
     } catch (_) {
       if (mounted) setState(() => _topLoading = false);
     }
@@ -248,6 +257,7 @@ class _RecommendedViewState extends State<_RecommendedView> {
     return RefreshIndicator.adaptive(
       onRefresh: _refresh,
       child: CustomScrollView(
+        controller: _debugScroll,
         physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
         slivers: [
           SliverToBoxAdapter(
