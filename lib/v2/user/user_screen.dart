@@ -197,6 +197,9 @@ class _UserScreenState extends State<UserScreen> {
     final avatar = wide ? 104.0 : 84.0;
     const strip = 56.0;
     final side = width > 852 ? (width - 820) / 2 + 16 : 16.0;
+    // 装飾（王冠・翼など）はアイコンの外まで出るので、下で切れないように持ち上げ、画面の端に付かないよう少し内側に置く
+    final deco = UserAvatar.hasDecoration(u.avatarFrame) ? avatar * UserAvatar.decorationOverflowRatio - 4 : 0.0;
+    final avatarLeft = side + (deco > 0 ? 6 : 0);
     _collapseAt = h + strip - kToolbarHeight - MediaQuery.paddingOf(context).top - 8;
     return SliverAppBar(
       pinned: true,
@@ -245,8 +248,8 @@ class _UserScreenState extends State<UserScreen> {
               ]),
             ),
             Positioned(
-              left: side,
-              bottom: 2,
+              left: avatarLeft,
+              bottom: 2 + deco,
               child: Container(
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
@@ -260,11 +263,11 @@ class _UserScreenState extends State<UserScreen> {
             // アイコンの横の吹き出し。アプリは右に推す・フォローのボタンがあるので、その上に置く
             if (u.statusText != null || _isSelf)
               Positioned(
-                left: side + avatar + 8 + 4,
+                left: avatarLeft + avatar + 8 + 4,
                 bottom: strip - 4,
                 child: StatusBalloon(
                   u.statusText ?? 'ステータスを設定',
-                  maxWidth: width - side * 2 - avatar - 12,
+                  maxWidth: width - side - avatarLeft - avatar - 12,
                   onTap: _isSelf ? _editStatus : null,
                 ),
               ),

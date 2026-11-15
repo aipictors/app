@@ -69,9 +69,22 @@ class UserAvatar extends StatelessWidget {
     return Pressable(onTap: () => Nav.user(context, id), child: avatar);
   }
 
-  Widget _build(BuildContext context) {
+  /// 装飾がアイコンの外（[decorationOverflowRatio]）まで出るかどうか。置く側で余白を取るのに使う
+  static bool hasDecoration(AvatarFrame? frame) {
+    final f = _effectiveFrame(frame);
+    return f != null && f.isDecoration && f.overlayUrl != null;
+  }
+
+  /// [decorationOverflow] のとき、装飾がアイコンの外へ出る片側の幅（アイコンの大きさに対する割合）
+  static const decorationOverflowRatio = (_DecoratedAvatar._scale - 1) / 2;
+
+  static AvatarFrame? _effectiveFrame(AvatarFrame? frame) {
     final deco = DebugBoot.decorationOverride;
-    final f = deco == null ? frame : AvatarFrame(frameType: AvatarFrame.typeDecoration, overlayImageUrl: '/avatar-frames/deco/$deco.webp');
+    return deco == null ? frame : AvatarFrame(frameType: AvatarFrame.typeDecoration, overlayImageUrl: '/avatar-frames/deco/$deco.webp');
+  }
+
+  Widget _build(BuildContext context) {
+    final f = _effectiveFrame(frame);
     if (f == null) {
       if (!ring) return _PlainAvatar(url: url, size: size);
       return _BrandRing(child: _PlainAvatar(url: url, size: size));
