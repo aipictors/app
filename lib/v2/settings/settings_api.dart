@@ -164,6 +164,8 @@ query AppUserSetting {
     isNotifyLike
     isNotifyAnonymousLike
     isAnonymousLikeAllAges
+    isHideDefaultStickers
+    isShowLegacyDefaultStickers
     isShowingMutedUsersWorks
     isShowingMutedUsersComments
   }
