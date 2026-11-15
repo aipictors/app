@@ -161,6 +161,8 @@ query AppUserSetting {
     id
     preferenceRating
     isNotifyComment
+    isNotifyLike
+    isNotifyAnonymousLike
     isAnonymousLikeAllAges
     isShowingMutedUsersWorks
     isShowingMutedUsersComments

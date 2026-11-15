@@ -357,6 +357,16 @@ class _NotificationSettingsScreenState extends State<NotificationSettingsScreen>
                   onChanged: saving ? null : (v) => saveSetting('isNotifyComment', v),
                 ),
                 SettingsSwitch(
+                  label: 'いいねの通知を受け取る',
+                  value: s.boolean('isNotifyLike', true),
+                  onChanged: saving ? null : (v) => saveSetting('isNotifyLike', v),
+                ),
+                SettingsSwitch(
+                  label: '匿名いいねの通知を受け取る',
+                  value: s.boolean('isNotifyAnonymousLike', true),
+                  onChanged: saving ? null : (v) => saveSetting('isNotifyAnonymousLike', v),
+                ),
+                SettingsSwitch(
                   label: 'Push通知を受け取る',
                   subtitle: 'この端末に通知を送ります',
                   value: _pushOn,
