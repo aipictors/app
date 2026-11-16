@@ -65,11 +65,11 @@ class _SupportSheetState extends State<_SupportSheet> {
 
   Future<void> _load() async {
     try {
-      final b = await Coins.summary();
+      final b = await Coins.summary(supportTo: widget.userId);
       if (!mounted) return;
       setState(() {
         _balance = b;
-        if (b.total > 0 && _amount > b.total) _amount = b.total;
+        if (b.forSupport.total > 0 && _amount > b.forSupport.total) _amount = b.forSupport.total;
       });
     } on ApiException catch (e) {
       if (mounted) setState(() => _error = e.message);
@@ -79,7 +79,7 @@ class _SupportSheetState extends State<_SupportSheet> {
   Future<void> _send() async {
     final b = _balance;
     if (b == null) return;
-    final breakdown = SupportBreakdown.of(_amount, b);
+    final breakdown = SupportBreakdown.of(_amount, b.forSupport);
     if (breakdown == null) return;
     setState(() => _sending = true);
     try {
@@ -123,14 +123,14 @@ class _SupportSheetState extends State<_SupportSheet> {
   @override
   Widget build(BuildContext context) {
     final b = _balance;
-    final breakdown = b == null ? null : SupportBreakdown.of(_amount, b);
+    final breakdown = b == null ? null : SupportBreakdown.of(_amount, b.forSupport);
     return AnimatedSize(
       duration: Ds.normal,
       curve: Ds.curve,
       child: Padding(
         padding: EdgeInsets.fromLTRB(20, 0, 20, 20 + MediaQuery.viewInsetsOf(context).bottom),
         child: _done
-            ? _SentView(name: widget.userName, breakdown: b == null ? null : SupportBreakdown.of(_amount, b))
+            ? _SentView(name: widget.userName, breakdown: b == null ? null : SupportBreakdown.of(_amount, b.forSupport))
             : Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -158,8 +158,8 @@ class _SupportSheetState extends State<_SupportSheet> {
                         _AmountChip(
                           label: '$p',
                           selected: _amount == p,
-                          enabled: b == null || p <= b.total,
-                          tier: SupportTier.of(b == null ? p : (SupportBreakdown.of(p, b)?.pt ?? p)),
+                          enabled: b == null || p <= b.forSupport.total,
+                          tier: SupportTier.of(b == null ? p : (SupportBreakdown.of(p, b.forSupport)?.pt ?? p)),
                           onTap: () => setState(() => _amount = p),
                         ),
                       _AmountChip(
@@ -177,7 +177,7 @@ class _SupportSheetState extends State<_SupportSheet> {
                       duration: Ds.fast,
                       child: breakdown == null
                           ? Text(
-                              b.total == 0 ? 'コインがありません。毎日のログインやプラン加入でもらえます' : 'コインが足りません（残り${b.total}枚）',
+                              b.forSupport.total == 0 ? 'コインがありません。毎日のログインやプラン加入でもらえます' : 'コインが足りません（残り${b.forSupport.total}枚）',
                               key: const ValueKey('ng'),
                               style: TextStyle(color: context.cs.error, fontSize: 13),
                             )
@@ -205,7 +205,12 @@ class _SupportSheetState extends State<_SupportSheet> {
                     title: const Text('匿名で送る'),
                     subtitle: const Text('相手やランキングに名前を出しません'),
                   ),
-                  if (widget.showRewardNote) ...[const SupportRewardNote(), const SizedBox(height: 10)],
+                  if (b != null && !b.premiumAccepted) ...[
+                    Text('この作者はプレミアムコインでの応援を受け付けていません。フリーコインで推せます', style: TextStyle(color: context.muted, fontSize: 12)),
+                    const SizedBox(height: 10),
+                  ],
+                  // 報酬の一言は、作者が報酬に参加していてプレミアムコインを受け取るときだけ
+                  if (widget.showRewardNote && b != null && b.rewardJoined && b.premiumAccepted) ...[const SupportRewardNote(), const SizedBox(height: 10)],
                   GradientButton(
                     label: breakdown == null ? '推す' : '$_amount枚で応援する',
                     icon: Icons.volunteer_activism_rounded,

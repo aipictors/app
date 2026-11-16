@@ -34,6 +34,7 @@ class SettingsScreen extends StatelessWidget {
             link(Icons.manage_accounts_outlined, 'アカウント設定', '/settings/account'),
             link(Icons.volunteer_activism_outlined, '応援コイン受け取り', '/settings/support-received'),
             link(Icons.payments_outlined, 'クリエイター報酬', '/settings/creator-rewards'),
+            link(Icons.do_not_disturb_on_outlined, 'プレミアムコインでの推し', '/settings/premium-coin-support'),
           ]),
           SettingsGroup(title: '表示と通知', children: [
             link(Icons.notifications_none_rounded, '通知・いいね', '/settings/notification'),
@@ -467,6 +468,43 @@ class _StickerSettingsScreenState extends State<StickerSettingsScreen> with _Set
               onHideDefaultChanged: saving ? null : (v) => saveSetting('isHideDefaultStickers', v),
               onShowLegacyChanged: saving ? null : (v) => saveSetting('isShowLegacyDefaultStickers', v),
             ),
+          ),
+    );
+  }
+}
+
+/// プレミアムコインでの推しを受け取らない（パロディ作品などでお金に相当するものを受け取りたくない人向け）。Web の設定と同じ
+class PremiumCoinSupportSettingsScreen extends StatefulWidget {
+  const PremiumCoinSupportSettingsScreen({super.key});
+
+  @override
+  State<PremiumCoinSupportSettingsScreen> createState() => _PremiumCoinSupportSettingsScreenState();
+}
+
+class _PremiumCoinSupportSettingsScreenState extends State<PremiumCoinSupportSettingsScreen> with _SettingState {
+  @override
+  void initState() {
+    super.initState();
+    loadSetting();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final s = setting;
+    return Scaffold(
+      appBar: AppBar(title: const Text('プレミアムコインでの推し', style: TextStyle(fontWeight: FontWeight.w800))),
+      body: settingPlaceholder() ??
+          ContentWidth(
+            child: ListView(children: [
+              SettingsGroup(children: [
+                SettingsSwitch(
+                  label: 'プレミアムコインでの推しを受け取らない',
+                  subtitle: 'オンにすると、あなたへの推しはフリーコインだけになります。これまでに受け取った分はそのままです',
+                  value: s!.boolean('isRejectPremiumCoinSupport'),
+                  onChanged: saving ? null : (v) => saveSetting('isRejectPremiumCoinSupport', v),
+                ),
+              ]),
+            ]),
           ),
     );
   }

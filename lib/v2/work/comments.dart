@@ -621,7 +621,7 @@ class _CommentComposerState extends State<CommentComposer> {
   Future<void> _pickSupport() async {
     if (!Nav.requireLogin(context)) return;
     try {
-      _balance ??= await Coins.summary();
+      _balance ??= await Coins.summary(supportTo: widget.ownerId);
     } on ApiException catch (e) {
       if (mounted) context.toast(e.message, error: true);
       return;
@@ -638,7 +638,8 @@ class _CommentComposerState extends State<CommentComposer> {
         premium: _supportPremium,
         anonymous: _supportAnonymous,
         previewText: _text.text.trim(),
-        showRewardNote: isCreatorRewardRating(widget.rating),
+        // 報酬の一言は、全年齢の作品で、作者が報酬に参加していてプレミアムコインを受け取るときだけ
+        showRewardNote: isCreatorRewardRating(widget.rating) && _balance!.rewardJoined && _balance!.premiumAccepted,
       ),
     );
     if (picked == null) return;
@@ -833,7 +834,7 @@ class SupportPickerState extends State<SupportPicker> {
   static const _confirmPt = 1000;
 
   late int _free = widget.free;
-  late int _premium = widget.premium;
+  late int _premium = widget.balance.premiumAccepted ? widget.premium : 0;
   late bool _anonymous = widget.anonymous;
 
   int get _pt => _free + _premium * 10;
@@ -873,7 +874,10 @@ class SupportPickerState extends State<SupportPicker> {
           const SizedBox(height: Ds.s12),
           _row('フリー', b.free, _free, _freeSteps, 1, (v) => setState(() => _free = v)),
           const SizedBox(height: Ds.s12),
-          _row('プレミアム（×10pt）', b.premium, _premium, _premiumSteps, 10, (v) => setState(() => _premium = v)),
+          if (b.premiumAccepted)
+            _row('プレミアム（×10pt）', b.premium, _premium, _premiumSteps, 10, (v) => setState(() => _premium = v))
+          else
+            Text('この作者はプレミアムコインでの応援を受け付けていません。フリーコインで推せます', style: TextStyle(color: context.muted, fontSize: 12)),
           if (_pt > 0) ...[
             const SizedBox(height: Ds.s12),
             Text('コメントはこう表示されます', style: TextStyle(color: context.muted, fontSize: 11)),

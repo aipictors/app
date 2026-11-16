@@ -166,6 +166,7 @@ query AppUserSetting {
     isAnonymousLikeAllAges
     isHideDefaultStickers
     isShowLegacyDefaultStickers
+    isRejectPremiumCoinSupport
     isShowingMutedUsersWorks
     isShowingMutedUsersComments
   }
