@@ -1,3 +1,4 @@
+import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/core/design.dart';
 import 'package:aipictors/v2/settings/settings_widgets.dart';
 import 'package:aipictors/v2/widgets/common.dart';
@@ -53,24 +54,24 @@ class StickerSettingsList extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(padding: const EdgeInsets.only(bottom: 60), children: [
       SettingsGroup(
-        title: 'デフォルトのスタンプ',
-        footer: 'コメントのスタンプの「マイスタンプ」の最初に出る、ぴくたーちゃんのスタンプです。',
+        title: tr('デフォルトのスタンプ', 'Default stickers'),
+        footer: tr('コメントのスタンプの「マイスタンプ」の最初に出る、ぴくたーちゃんのスタンプです。', 'Pictor-chan stickers shown first in "My stickers" when you comment.'),
         children: [
           _preview('default-preview', defaultStickerUrls, dimmed: isHideDefault),
           SettingsSwitch(
-            label: 'デフォルトのスタンプを表示しない',
+            label: tr('デフォルトのスタンプを表示しない', 'Hide default stickers'),
             value: isHideDefault,
             onChanged: onHideDefaultChanged,
           ),
         ],
       ),
       SettingsGroup(
-        title: '以前のデフォルトのスタンプ',
-        footer: 'オンにすると、以前からある 5 つのスタンプを「マイスタンプ」に足します。',
+        title: tr('以前のデフォルトのスタンプ', 'Previous default stickers'),
+        footer: tr('オンにすると、以前からある 5 つのスタンプを「マイスタンプ」に足します。', 'Turn on to add the 5 older stickers to "My stickers".'),
         children: [
           _preview('legacy-preview', legacyDefaultStickerUrls, dimmed: !isShowLegacy),
           SettingsSwitch(
-            label: '以前のデフォルトのスタンプも使う',
+            label: tr('以前のデフォルトのスタンプも使う', 'Also use previous default stickers'),
             value: isShowLegacy,
             onChanged: onShowLegacyChanged,
           ),

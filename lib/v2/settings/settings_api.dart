@@ -101,7 +101,7 @@ query AppProfileForm {
   static Future<ProfileForm> profile() async {
     final data = await Api.query(_profile);
     final u = data.obj('viewer')?.obj('user');
-    if (u == null) throw ApiException('ユーザー情報を取得できませんでした');
+    if (u == null) throw const ApiException('ユーザー情報を取得できませんでした');
     return ProfileForm(
       id: u.str('id'),
       name: u.str('name'),
@@ -136,21 +136,21 @@ query AppViewerToken {
   viewer { id token }
 }''');
     final token = data.obj('viewer')?.strOrNull('token');
-    if (token == null) throw ApiException('ログイン情報を取得できませんでした。ログインし直してください');
+    if (token == null) throw const ApiException('ログイン情報を取得できませんでした。ログインし直してください');
     final http.Response res;
     try {
       res = await http
           .put(Uri.parse(_uploaderUrl), headers: {'Authorization': 'Bearer $token', 'Content-Type': contentType}, body: bytes)
           .timeout(const Duration(seconds: 45));
     } catch (_) {
-      throw ApiException('画像をアップロードできませんでした。通信を確認してください');
+      throw const ApiException('画像をアップロードできませんでした。通信を確認してください');
     }
     if (res.statusCode < 200 || res.statusCode >= 300) {
       throw ApiException('画像をアップロードできませんでした（${res.statusCode}）');
     }
     final match = RegExp(r'"url"\s*:\s*"([^"]+)"').firstMatch(res.body);
     final url = match?.group(1)?.replaceAll(r'\/', '/');
-    if (url == null) throw ApiException('画像をアップロードできませんでした');
+    if (url == null) throw const ApiException('画像をアップロードできませんでした');
     return url;
   }
 

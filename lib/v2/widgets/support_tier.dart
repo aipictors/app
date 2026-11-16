@@ -1,3 +1,4 @@
+import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/core/design.dart';
 import 'package:aipictors/v2/core/support_tier.dart';
 import 'package:flutter/material.dart';
@@ -56,7 +57,7 @@ class SupportCoinCounts extends StatelessWidget {
   }
 }
 
-String supportAmountLabel(int free, int premium, int pt) => [if (premium > 0) 'プレミアムコイン$premium枚', if (free > 0) 'フリーコイン$free枚', '${pt}pt'].join('・');
+String supportAmountLabel(int free, int premium, int pt) => [if (premium > 0) tr('プレミアムコイン$premium枚', '$premium premium coins'), if (free > 0) tr('フリーコイン$free枚', '$free free coins'), '${pt}pt'].join('・');
 
 /// 推し付きコメントの帯（段階の色・コイン数を大きく）
 class SupportBand extends StatefulWidget {
@@ -133,7 +134,7 @@ class _SupportBandState extends State<SupportBand> with SingleTickerProviderStat
                     Expanded(
                       child: DefaultTextStyle.merge(
                         style: TextStyle(color: on, fontWeight: FontWeight.w800, fontSize: 12),
-                        child: widget.title ?? const Text('推しコインで応援'),
+                        child: widget.title ?? Text(tr('推しコインで応援', 'Support with coins')),
                       ),
                     ),
                     Column(
@@ -253,7 +254,7 @@ class SupportRewardNote extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final text = isWork ? '購入したプレミアムコインでの応援は、クリエイターの報酬につながります（クリエイター報酬に参加している人・全年齢の作品が対象）。' : '購入したプレミアムコインでの応援は、条件を満たすとクリエイターの報酬につながります。';
+    final text = isWork ? tr('購入したプレミアムコインでの応援は、クリエイターの報酬につながります（クリエイター報酬に参加している人・全年齢の作品が対象）。', 'Support with purchased premium coins becomes a reward for the creator (for creators in Rewards payout, on all-ages works).') : tr('購入したプレミアムコインでの応援は、条件を満たすとクリエイターの報酬につながります。', 'Support with purchased premium coins can become a reward for the creator when conditions are met.');
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -274,7 +275,7 @@ class SupportRewardNote extends StatelessWidget {
                   child: GestureDetector(
                     onTap: () => launchUrl(Uri.parse('https://www.aipictors.com/creator-rewards/terms'), mode: LaunchMode.inAppBrowserView),
                     child: Text(
-                      'クリエイター報酬とは',
+                      tr('クリエイター報酬とは', 'About creator rewards'),
                       style: TextStyle(fontSize: 12, color: context.cs.onSurface, decoration: TextDecoration.underline),
                     ),
                   ),
@@ -376,7 +377,7 @@ void showSupportSent(BuildContext context, {required int free, required int prem
                   boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.18), blurRadius: 16, offset: const Offset(0, 6))],
                 ),
                 child: Row(mainAxisSize: MainAxisSize.min, children: [
-                  const Text('推しコイン付きでコメントしました', style: TextStyle(fontWeight: FontWeight.w800, fontSize: 13)),
+                  Text(tr('推しコイン付きでコメントしました', 'Commented with support coins'), style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 13)),
                   const SizedBox(width: 8),
                   SupportTierChip(free: free, premium: premium, pt: pt),
                 ]),

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:aipictors/v2/core/api.dart';
+import 'package:aipictors/v2/core/l10n.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
 
@@ -16,7 +17,7 @@ class RequestUser {
   final String? iconUrl;
 
   static RequestUser fromJson(Map<String, dynamic> j) =>
-      RequestUser(id: j.str('id'), login: j.str('login'), name: j.str('name', 'ユーザー'), iconUrl: j.strOrNull('iconUrl'));
+      RequestUser(id: j.str('id'), login: j.str('login'), name: j.str('name', tr('ユーザー', 'User')), iconUrl: j.strOrNull('iconUrl'));
 }
 
 Map<String, RequestUser> _users(Map<String, dynamic> data) {
@@ -110,6 +111,8 @@ class CoinRequest {
   String? get deliveryMessage => j.strOrNull('deliveryMessage');
   List<String> get deliveryImageUrls => _strings(j['deliveryImageUrls']);
   String? get closedReason => j.strOrNull('closedReason');
+  /// 作品のリンクで納品されたとき（Web から作品 URL で納品できる）
+  String? get deliveredWorkId => j.strOrNull('deliveredWorkId');
   Map<String, dynamic>? get settlement => j.obj('settlement');
   List<RequestMessage> get messages => j.list('messages').map(RequestMessage.new).toList();
   bool get isOpen => status == 'PENDING' || status == 'ACCEPTED' || status == 'DELIVERED';
@@ -123,45 +126,100 @@ class RequestList {
   final Map<String, RequestUser> users;
 }
 
-const planCategoryLabels = {'ILLUSTRATION': 'イラスト', 'ICON': 'アイコン', 'CHARACTER': 'キャラクター', 'BACKGROUND': '背景', 'WALLPAPER': '壁紙', 'OTHER': 'その他'};
+Map<String, String> get planCategoryLabels => L10n.isJa
+    ? const {'ILLUSTRATION': 'イラスト', 'ICON': 'アイコン', 'CHARACTER': 'キャラクター', 'BACKGROUND': '背景', 'WALLPAPER': '壁紙', 'OTHER': 'その他'}
+    : const {'ILLUSTRATION': 'Illustration', 'ICON': 'Icon', 'CHARACTER': 'Character', 'BACKGROUND': 'Background', 'WALLPAPER': 'Wallpaper', 'OTHER': 'Other'};
 
-const requestStatusLabels = {
-  'PENDING': '承諾待ち',
-  'ACCEPTED': '制作中',
-  'DELIVERED': '納品済み',
-  'COMPLETED': '完了',
-  'DECLINED': 'お断り',
-  'CANCELED': 'キャンセル',
-  'EXPIRED': '期限切れ',
-  'ADMIN_CANCELED': '運営がキャンセル',
-  'ADMIN_COMPLETED': '運営が完了',
-};
+Map<String, String> get requestStatusLabels => L10n.isJa
+    ? const {
+        'PENDING': '承諾待ち',
+        'ACCEPTED': '制作中',
+        'DELIVERED': '納品済み',
+        'COMPLETED': '完了',
+        'DECLINED': 'お断り',
+        'CANCELED': 'キャンセル',
+        'EXPIRED': '期限切れ',
+        'ADMIN_CANCELED': '運営がキャンセル',
+        'ADMIN_COMPLETED': '運営が完了',
+      }
+    : const {
+        'PENDING': 'Waiting',
+        'ACCEPTED': 'In progress',
+        'DELIVERED': 'Delivered',
+        'COMPLETED': 'Completed',
+        'DECLINED': 'Declined',
+        'CANCELED': 'Canceled',
+        'EXPIRED': 'Expired',
+        'ADMIN_CANCELED': 'Canceled by staff',
+        'ADMIN_COMPLETED': 'Completed by staff',
+      };
 
+/// API のエラーコード → (日本語, 英語)
 const _errorMessages = {
-  'INSUFFICIENT_COINS': 'コインが足りません',
-  'SELF_REQUEST': '自分にはリクエストできません',
-  'PLAN_NOT_FOUND': 'このプランは見つかりませんでした',
-  'NOT_ACCEPTING': 'いまはリクエストを受け付けていません',
-  'PRICE_CHANGED': 'プランの価格が変わりました。画面を開き直してください',
-  'FULL': '受付の上限に達しています。しばらくしてからお試しください',
-  'TOO_MANY_PENDING': 'このクリエイターへの承諾待ちのリクエストが多すぎます',
-  'BELOW_MINIMUM': '最低コインより少ない金額です',
-  'R18_NOT_ALLOWED': 'このクリエイターは R18 のリクエストを受け付けていません',
-  'BLOCKED': 'このユーザーにはリクエストできません',
-  'BODY_REQUIRED': 'リクエストの内容を書いてください',
-  'INVALID_PRICE': '金額は 100〜100,000 コインで指定してください',
-  'INVALID_STATE': '状態が変わりました。画面を更新してください',
-  'NOT_OVERDUE': '納期を過ぎるまでキャンセルできません',
-  'NO_REVISIONS_LEFT': '修正の回数が残っていません',
-  'DELIVERY_REQUIRED': '納品する画像を選んでください',
-  'MESSAGE_REQUIRED': 'メッセージを書いてください',
-  'TITLE_REQUIRED': 'タイトルを入れてください',
-  'DESCRIPTION_REQUIRED': '説明を入れてください',
-  'TOO_MANY_PLANS': 'プランは 20 個までです',
-  'DISABLED': 'リクエストはいま停止中です',
-  'Unauthorized': 'ログインしてください',
-  'REASON_REQUIRED': '理由を書いてください',
+  'INSUFFICIENT_COINS': ('コインが足りません', 'Not enough coins'),
+  'SELF_REQUEST': ('自分にはリクエストできません', 'You cannot request yourself'),
+  'PLAN_NOT_FOUND': ('このプランは見つかりませんでした', 'This plan was not found'),
+  'NOT_ACCEPTING': ('いまはリクエストを受け付けていません', 'Not accepting requests now'),
+  'PRICE_CHANGED': ('プランの価格が変わりました。画面を開き直してください', 'The plan price changed. Please reopen the screen'),
+  'FULL': ('受付の上限に達しています。しばらくしてからお試しください', 'This creator is full right now. Please try again later'),
+  'TOO_MANY_PENDING': ('このクリエイターへの承諾待ちのリクエストが多すぎます', 'Too many requests are waiting for this creator'),
+  'BELOW_MINIMUM': ('最低コインより少ない金額です', 'Below the minimum coins'),
+  'R18_NOT_ALLOWED': ('このクリエイターは R18 のリクエストを受け付けていません', 'This creator does not accept R18 requests'),
+  'BLOCKED': ('このユーザーにはリクエストできません', 'You cannot request this user'),
+  'BODY_REQUIRED': ('リクエストの内容を書いてください', 'Please describe your request'),
+  'INVALID_PRICE': ('金額は 100〜100,000 コインで指定してください', 'Please set 100–100,000 coins'),
+  'INVALID_STATE': ('状態が変わりました。画面を更新してください', 'The status changed. Please refresh'),
+  'NOT_OVERDUE': ('納期を過ぎるまでキャンセルできません', 'You can cancel only after the due date'),
+  'NO_REVISIONS_LEFT': ('修正の回数が残っていません', 'No revisions left'),
+  'DELIVERY_REQUIRED': ('納品する画像を選んでください', 'Please choose images to deliver'),
+  'MESSAGE_REQUIRED': ('メッセージを書いてください', 'Please write a message'),
+  'TITLE_REQUIRED': ('タイトルを入れてください', 'Please enter a title'),
+  'DESCRIPTION_REQUIRED': ('説明を入れてください', 'Please enter a description'),
+  'TOO_MANY_PLANS': ('プランは 20 個までです', 'Up to 20 plans'),
+  'DISABLED': ('リクエストはいま停止中です', 'Requests are paused now'),
+  'Unauthorized': ('ログインしてください', 'Please log in'),
+  'REASON_REQUIRED': ('理由を書いてください', 'Please write a reason'),
+  'CLOSED': ('終わってから 30 日を過ぎたのでメッセージは送れません', 'Messages are closed 30 days after the request ended'),
+  'NOT_FOUND': ('この依頼は見つかりませんでした', 'This request was not found'),
+  'FORBIDDEN': ('この操作はできません', 'You cannot do this'),
+  'CREATOR_NOT_FOUND': ('クリエイターが見つかりませんでした', 'Creator not found'),
 };
+
+/// エラーコードを利用者向けの文に
+String requestErrorMessage(String code) {
+  final m = _errorMessages[code];
+  if (m != null) return tr(m.$1, m.$2);
+  return tr('うまくいきませんでした。時間をおいてお試しください', 'Something went wrong. Please try again later');
+}
+
+/// 終わった理由。API の決まった値（overdue など）は文に、それ以外（お断りの理由など）はそのまま
+String requestClosedReason(String reason) => switch (reason) {
+  'overdue' => tr('納期を過ぎたためキャンセルされました', 'Canceled because it was overdue'),
+  'requester' => tr('依頼者が取り下げました', 'Withdrawn by the requester'),
+  'no_response' => tr('期限までに承諾されませんでした', 'Not accepted before the deadline'),
+  'auto' => tr('期限が来たので自動で完了しました', 'Completed automatically'),
+  _ => reason,
+};
+
+/// 運営（API）が依頼に書き込むお知らせのメッセージ。英語表示では訳して出す
+String requestSystemMessage(String body) {
+  if (L10n.isJa) return body;
+  const exact = {
+    '依頼を承諾しました': 'The request was accepted',
+    '依頼者が依頼を取り下げました。コインは全額返却されました': 'The requester withdrew the request. Coins were fully returned',
+    '納期を過ぎたため依頼者がキャンセルしました。コインは全額返却されました': 'The requester canceled because it was overdue. Coins were fully returned',
+    '納品しました': 'Delivered',
+  };
+  final hit = exact[body];
+  if (hit != null) return hit;
+  const declined = '依頼をお断りしました。コインは全額返却されました';
+  if (body.startsWith(declined)) {
+    final rest = body.substring(declined.length).replaceFirst('\n理由: ', '\nReason: ');
+    return 'The request was declined. Coins were fully returned$rest';
+  }
+  if (body.startsWith('修正をお願いしました\n')) return 'Revision requested\n${body.substring('修正をお願いしました\n'.length)}';
+  return body;
+}
 
 class RequestsApi {
   RequestsApi._();
@@ -169,21 +227,23 @@ class RequestsApi {
   static Future<Map<String, String>> _headers({bool required = true}) async {
     final token = await FirebaseAuth.instance.currentUser?.getIdToken();
     if (token == null) {
-      if (required) throw const ApiException('ログインしてください');
+      if (required) throw ApiException(requestErrorMessage('Unauthorized'), code: 'Unauthorized');
       return {'content-type': 'application/json'};
     }
     return {'authorization': 'Bearer $token', 'content-type': 'application/json'};
   }
 
-  static dynamic _data(http.Response res) {
+  /// 応答 { error, data } を読む。失敗は ApiException（code に API のエラーコード）
+  static dynamic parse(http.Response res) {
     Map<String, dynamic>? json;
     try {
-      json = jsonDecode(res.body) as Map<String, dynamic>;
+      // 応答は charset なしの application/json なので、bodyBytes を UTF-8 で読む（res.body は latin1 になり日本語が化ける）
+      json = jsonDecode(utf8.decode(res.bodyBytes)) as Map<String, dynamic>;
     } catch (_) {}
     final error = json?['error'];
     if (res.statusCode >= 400 || error != null) {
       final code = error?.toString() ?? 'HTTP_${res.statusCode}';
-      throw ApiException(_errorMessages[code] ?? 'うまくいきませんでした。時間をおいてお試しください', code: code);
+      throw ApiException(requestErrorMessage(code), code: code);
     }
     return json?['data'];
   }
@@ -196,9 +256,9 @@ class RequestsApi {
     } on ApiException {
       rethrow;
     } catch (_) {
-      throw const ApiException('通信できませんでした。電波の良いところでお試しください');
+      throw ApiException(tr('通信できませんでした。電波の良いところでお試しください', 'Could not connect. Please check your connection'), code: 'NETWORK');
     }
-    return _data(res);
+    return parse(res);
   }
 
   static Future<dynamic> _post(Map<String, dynamic> body) async {
@@ -208,9 +268,9 @@ class RequestsApi {
     } on ApiException {
       rethrow;
     } catch (_) {
-      throw const ApiException('通信できませんでした。電波の良いところでお試しください');
+      throw ApiException(tr('通信できませんでした。電波の良いところでお試しください', 'Could not connect. Please check your connection'), code: 'NETWORK');
     }
-    return _data(res);
+    return parse(res);
   }
 
   static Map<String, dynamic> _map(dynamic v) => v is Map ? Map<String, dynamic>.from(v) : <String, dynamic>{};
@@ -229,7 +289,7 @@ class RequestsApi {
   static Future<(RequestPlan, Map<String, RequestUser>)> plan(String id) async {
     final data = _map(await _get({'op': 'plan', 'id': id}, auth: false));
     final plan = data.obj('plan');
-    if (plan == null) throw const ApiException('このプランは見つかりませんでした');
+    if (plan == null) throw ApiException(requestErrorMessage('PLAN_NOT_FOUND'), code: 'PLAN_NOT_FOUND');
     return (RequestPlan(plan), _users(data));
   }
 

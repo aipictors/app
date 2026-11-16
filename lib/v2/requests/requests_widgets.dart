@@ -2,10 +2,12 @@ import 'dart:typed_data';
 
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/design.dart';
+import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/requests/requests_api.dart';
 import 'package:aipictors/v2/settings/settings_api.dart';
 import 'package:aipictors/v2/widgets/common.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -16,15 +18,16 @@ String formatCoins(int n) => n.toString().replaceAllMapped(RegExp(r'\B(?=(\d{3})
 String formatRemaining(int? unix) {
   if (unix == null || unix == 0) return '';
   final diff = unix - DateTime.now().millisecondsSinceEpoch ~/ 1000;
-  if (diff <= 0) return '期限を過ぎています';
+  if (diff <= 0) return tr('期限を過ぎています', 'Past the deadline');
   final days = diff ~/ 86400;
-  if (days >= 1) return 'あと $days 日';
-  return 'あと ${(diff ~/ 3600).clamp(1, 24)} 時間';
+  if (days >= 1) return tr('あと $days 日', '$days days left');
+  return tr('あと ${(diff ~/ 3600).clamp(1, 24)} 時間', '${(diff ~/ 3600).clamp(1, 24)} hours left');
 }
 
 String formatDateTime(int? unix) {
   if (unix == null || unix == 0) return '';
   final d = DateTime.fromMillisecondsSinceEpoch(unix * 1000);
+  if (!L10n.isJa) return DateFormat('MMM d, HH:mm', 'en_US').format(d);
   return '${d.month}/${d.day} ${d.hour.toString().padLeft(2, '0')}:${d.minute.toString().padLeft(2, '0')}';
 }
 
@@ -73,7 +76,7 @@ class RequestUserChip extends StatelessWidget {
         const SizedBox(width: 6),
         Flexible(
           child: Text(
-            u?.name ?? 'ユーザー',
+            u?.name ?? tr('ユーザー', 'User'),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 13),
@@ -150,7 +153,7 @@ class RequestPlanCard extends StatelessWidget {
                         )
                       : AppImage(plan.sampleImageUrls.first),
                   Positioned(left: 8, top: 8, child: _Tag(planCategoryLabels[plan.category] ?? plan.category)),
-                  if (closed) Positioned(right: 8, top: 8, child: _Tag(plan.isHidden ? '非公開' : (plan.isFull ? '受付上限' : '受付停止'))),
+                  if (closed) Positioned(right: 8, top: 8, child: _Tag(plan.isHidden ? tr('非公開', 'Hidden') : (plan.isFull ? tr('受付上限', 'Full') : tr('受付停止', 'Closed')))),
                 ],
               ),
             ),
@@ -171,7 +174,7 @@ class RequestPlanCard extends StatelessWidget {
                     children: [
                       CoinPrice(plan.priceCoins, size: 14),
                       const Spacer(),
-                      Text('${plan.deliveryDays}日', style: TextStyle(color: context.muted, fontSize: 12)),
+                      Text(tr('${plan.deliveryDays}日', '${plan.deliveryDays}d'), style: TextStyle(color: context.muted, fontSize: 12)),
                     ],
                   ),
                 ],
@@ -210,7 +213,7 @@ class RequestSteps extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const labels = ['申し込み', '制作中', '納品', '完了'];
+    final labels = [tr('申し込み', 'Requested'), tr('制作中', 'In progress'), tr('納品', 'Delivery'), tr('完了', 'Completed')];
     final s = request.status;
     final step = switch (s) {
       'PENDING' => 0,
@@ -220,7 +223,7 @@ class RequestSteps extends StatelessWidget {
       _ => -1,
     };
     if (step < 0) {
-      return Text('この依頼は「${requestStatusLabels[s] ?? s}」で終わりました。預かったコインは全額返却済みです。', style: TextStyle(color: context.muted, fontSize: 12.5));
+      return Text(tr('この依頼は「${requestStatusLabels[s] ?? s}」で終わりました。預かったコインは全額返却済みです。', 'This request ended as "${requestStatusLabels[s] ?? s}". The held coins have been fully returned.'), style: TextStyle(color: context.muted, fontSize: 12.5));
     }
     return Row(
       children: [
@@ -322,7 +325,7 @@ class _RequestImagePickerState extends State<RequestImagePicker> {
     } on ApiException catch (e) {
       if (mounted) context.toast(e.message, error: true);
     } catch (_) {
-      if (mounted) context.toast('画像を読み込めませんでした。写真へのアクセスを確認してください', error: true);
+      if (mounted) context.toast(tr('画像を読み込めませんでした。写真へのアクセスを確認してください', 'Could not load the image. Please check photo access'), error: true);
     } finally {
       if (mounted) setState(() => _uploading = 0);
     }
@@ -333,7 +336,7 @@ class _RequestImagePickerState extends State<RequestImagePicker> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('${widget.label}（${widget.value.length}/${widget.max}）', style: TextStyle(color: context.muted, fontSize: 12)),
+        Text(tr('${widget.label}（${widget.value.length}/${widget.max}）', '${widget.label} (${widget.value.length}/${widget.max})'), style: TextStyle(color: context.muted, fontSize: 12)),
         const SizedBox(height: 6),
         Wrap(
           spacing: 8,
@@ -417,9 +420,9 @@ class _UserRequestPlansStripState extends State<UserRequestPlansStrip> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SectionHeader(
-            'リクエスト',
+            tr('リクエスト', 'Requests'),
             icon: Icons.volunteer_activism_rounded,
-            trailing: p.completedCount > 0 ? '完了 ${p.completedCount} 件' : null,
+            trailing: p.completedCount > 0 ? tr('完了 ${p.completedCount} 件', '${p.completedCount} completed') : null,
             onMore: () => context.push(widget.isOwner ? '/settings/requests' : '/requests/plans'),
           ),
           if (plans.isNotEmpty)
@@ -445,9 +448,9 @@ class _UserRequestPlansStripState extends State<UserRequestPlansStrip> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text('内容を自由に決めてリクエスト', style: TextStyle(fontWeight: FontWeight.w800, fontSize: 13.5)),
+                          Text(tr('内容を自由に決めてリクエスト', 'Send a custom request'), style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 13.5)),
                           Text(
-                            p.settings.note.isNotEmpty ? p.settings.note : '${formatCoins(p.settings.minCoins)} コインから受け付けています',
+                            p.settings.note.isNotEmpty ? p.settings.note : tr('${formatCoins(p.settings.minCoins)} コインから受け付けています', 'From ${formatCoins(p.settings.minCoins)} coins'),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(color: context.muted, fontSize: 12),
@@ -457,7 +460,7 @@ class _UserRequestPlansStripState extends State<UserRequestPlansStrip> {
                     ),
                     const SizedBox(width: 8),
                     PrimaryButton(
-                      label: 'リクエストする',
+                      label: tr('リクエストする', 'Request'),
                       expand: false,
                       height: 38,
                       onPressed: () => context.push('/requests/new?creator=${widget.userId}'),

@@ -1,4 +1,6 @@
+import 'package:aipictors/v2/core/l10n.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter/services.dart';
 
 /// 新しい画面のデザインの決まりごと
@@ -121,10 +123,11 @@ String relativeTime(int unixSeconds) {
   if (unixSeconds <= 0) return '';
   final t = DateTime.fromMillisecondsSinceEpoch(unixSeconds * 1000);
   final d = DateTime.now().difference(t);
-  if (d.inSeconds < 60) return 'たった今';
-  if (d.inMinutes < 60) return '${d.inMinutes}分前';
-  if (d.inHours < 24) return '${d.inHours}時間前';
-  if (d.inDays < 7) return '${d.inDays}日前';
+  if (d.inSeconds < 60) return tr('たった今', 'just now');
+  if (d.inMinutes < 60) return tr('${d.inMinutes}分前', '${d.inMinutes}m ago');
+  if (d.inHours < 24) return tr('${d.inHours}時間前', '${d.inHours}h ago');
+  if (d.inDays < 7) return tr('${d.inDays}日前', '${d.inDays}d ago');
+  if (!L10n.isJa) return DateFormat(t.year == DateTime.now().year ? 'MMM d' : 'MMM d, y', 'en_US').format(t);
   if (t.year == DateTime.now().year) return '${t.month}月${t.day}日';
   return '${t.year}年${t.month}月${t.day}日';
 }

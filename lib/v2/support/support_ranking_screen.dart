@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/design.dart';
 import 'package:aipictors/v2/core/nav.dart';
@@ -41,13 +42,13 @@ class SupportRanking {
         .timeout(const Duration(seconds: 20));
     final json = jsonDecode(utf8.decode(res.bodyBytes));
     final data = json is Map ? json['data'] : null;
-    if (res.statusCode != 200 || data is! Map) throw const ApiException('ランキングを取得できませんでした');
+    if (res.statusCode != 200 || data is! Map) throw ApiException(tr('ランキングを取得できませんでした', 'Could not load the ranking'));
     final items = (data['items'] as List? ?? const []).whereType<Map>().map((m) {
       final j = Map<String, dynamic>.from(m);
       return SupportRankItem(
         rank: j.integer('rank'),
         userId: j.str('userId'),
-        name: j.str('userName', '匿名'),
+        name: j.str('userName', tr('匿名', 'Anonymous')),
         iconUrl: j.strOrNull('iconUrl'),
         pt: j.integer('ptAmount'),
         coins: j.integer('coinAmount'),
@@ -59,8 +60,8 @@ class SupportRanking {
 
   String get weekLabel {
     final d = DateTime.tryParse(weekStartDate ?? '');
-    if (d == null) return '今週';
-    return '${d.month}/${d.day}〜の週';
+    if (d == null) return tr('今週', 'This week');
+    return tr('${d.month}/${d.day}〜の週', 'Week of ${d.month}/${d.day}');
   }
 }
 
@@ -111,7 +112,7 @@ class _SupportRankingScreenState extends State<SupportRankingScreen> {
     } on ApiException catch (e) {
       if (mounted) setState(() => _error = e.message);
     } catch (_) {
-      if (mounted) setState(() => _error = 'ランキングを取得できませんでした');
+      if (mounted) setState(() => _error = tr('ランキングを取得できませんでした', 'Could not load the ranking'));
     }
   }
 
@@ -119,7 +120,7 @@ class _SupportRankingScreenState extends State<SupportRankingScreen> {
   Widget build(BuildContext context) {
     final r = _data[_kind];
     return Scaffold(
-      appBar: AppBar(title: const Text('推しランキング', style: TextStyle(fontWeight: FontWeight.w900))),
+      appBar: AppBar(title: Text(tr('推しランキング', 'Support ranking'), style: const TextStyle(fontWeight: FontWeight.w900))),
       body: RefreshIndicator.adaptive(
         onRefresh: _load,
         child: CustomScrollView(
@@ -130,9 +131,9 @@ class _SupportRankingScreenState extends State<SupportRankingScreen> {
                 padding: const EdgeInsets.fromLTRB(16, 8, 16, 4),
                 child: SegmentedButton<String>(
                   showSelectedIcon: false,
-                  segments: const [
-                    ButtonSegment(value: 'received', icon: Icon(Icons.favorite_rounded, size: 18), label: Text('推された人', maxLines: 1, softWrap: false)),
-                    ButtonSegment(value: 'sent', icon: Icon(Icons.volunteer_activism_rounded, size: 18), label: Text('貢献した人', maxLines: 1, softWrap: false)),
+                  segments: [
+                    ButtonSegment(value: 'received', icon: const Icon(Icons.favorite_rounded, size: 18), label: Text(tr('推された人', 'Supported'), maxLines: 1, softWrap: false)),
+                    ButtonSegment(value: 'sent', icon: const Icon(Icons.volunteer_activism_rounded, size: 18), label: Text(tr('貢献した人', 'Supporters'), maxLines: 1, softWrap: false)),
                   ],
                   selected: {_kind},
                   onSelectionChanged: (s) {
@@ -144,16 +145,16 @@ class _SupportRankingScreenState extends State<SupportRankingScreen> {
             ),
             SliverToBoxAdapter(
               child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                IconButton(tooltip: '前の週', onPressed: r == null ? null : () => _moveWeek(-1), icon: const Icon(Icons.chevron_left_rounded)),
-                Text(r?.weekLabel ?? '今週', style: const TextStyle(fontWeight: FontWeight.w800)),
-                IconButton(tooltip: '次の週', onPressed: r == null || _week == null ? null : () => _moveWeek(1), icon: const Icon(Icons.chevron_right_rounded)),
+                IconButton(tooltip: tr('前の週', 'Previous week'), onPressed: r == null ? null : () => _moveWeek(-1), icon: const Icon(Icons.chevron_left_rounded)),
+                Text(r?.weekLabel ?? tr('今週', 'This week'), style: const TextStyle(fontWeight: FontWeight.w800)),
+                IconButton(tooltip: tr('次の週', 'Next week'), onPressed: r == null || _week == null ? null : () => _moveWeek(1), icon: const Icon(Icons.chevron_right_rounded)),
               ]),
             ),
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(20, 0, 20, 8),
                 child: Text(
-                  'コインで推された（推した）pt の合計です。フリーコインは1枚1pt、プレミアムコインは1枚10pt。',
+                  tr('コインで推された（推した）pt の合計です。フリーコインは1枚1pt、プレミアムコインは1枚10pt。', 'Total pt of supports received (or sent). Free coins are 1pt each, premium coins 10pt each.'),
                   style: TextStyle(color: context.muted, fontSize: 12, height: 1.5),
                 ),
               ),
@@ -163,7 +164,7 @@ class _SupportRankingScreenState extends State<SupportRankingScreen> {
             else if (r == null)
               SliverList.list(children: List.generate(8, (_) => const Padding(padding: EdgeInsets.fromLTRB(16, 6, 16, 6), child: Skeleton(height: 64, radius: 16))))
             else if (r.items.isEmpty)
-              const SliverToBoxAdapter(child: StateView(icon: Icons.volunteer_activism_outlined, title: 'まだ今週の推しはありません', message: '作品ページの「推す」から、コインでクリエイターを応援できます。'))
+              SliverToBoxAdapter(child: StateView(icon: Icons.volunteer_activism_outlined, title: tr('まだ今週の推しはありません', 'No supports this week yet'), message: tr('作品ページの「推す」から、コインでクリエイターを応援できます。', 'Use "Support" on a work page to cheer creators with coins.')))
             else
               SliverPadding(
                 padding: const EdgeInsets.fromLTRB(16, 4, 16, 40),
@@ -217,7 +218,7 @@ class SupportRankTile extends StatelessWidget {
           Expanded(
             child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text(item.name, maxLines: 1, overflow: TextOverflow.ellipsis, style: const TextStyle(fontWeight: FontWeight.w800)),
-              if (!compact) Text('${item.count}回・${item.coins}コイン', style: TextStyle(color: context.muted, fontSize: 12)),
+              if (!compact) Text(tr('${item.count}回・${item.coins}コイン', '${item.count} times · ${item.coins} coins'), style: TextStyle(color: context.muted, fontSize: 12)),
             ]),
           ),
           Text('${compactCount(item.pt)}pt', style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 16)),
@@ -252,7 +253,7 @@ class _SupportRankingPreviewState extends State<SupportRankingPreview> {
     if (r == null || r.items.isEmpty) return const SizedBox.shrink();
     return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
       SectionHeader(
-        '今週の推しランキング',
+        tr('今週の推しランキング', 'This week\'s support ranking'),
         icon: Icons.volunteer_activism_rounded,
         onMore: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const SupportRankingScreen())),
       ),

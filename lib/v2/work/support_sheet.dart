@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 
+import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/coins.dart';
 import 'package:aipictors/v2/core/design.dart';
@@ -104,16 +105,16 @@ class _SupportSheetState extends State<_SupportSheet> {
     final v = await showDialog<int>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('枚数を入力'),
+        title: Text(tr('枚数を入力', 'Enter amount')),
         content: TextField(
           controller: controller,
           autofocus: true,
           keyboardType: TextInputType.number,
-          decoration: const InputDecoration(suffixText: '枚'),
+          decoration: InputDecoration(suffixText: tr('枚', 'coins')),
         ),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(context), child: const Text('キャンセル')),
-          FilledButton(onPressed: () => Navigator.pop(context, int.tryParse(controller.text.trim())), child: const Text('決定')),
+          TextButton(onPressed: () => Navigator.pop(context), child: Text(tr('キャンセル', 'Cancel'))),
+          FilledButton(onPressed: () => Navigator.pop(context, int.tryParse(controller.text.trim())), child: Text(tr('決定', 'OK'))),
         ],
       ),
     );
@@ -140,15 +141,15 @@ class _SupportSheetState extends State<_SupportSheet> {
                     const SizedBox(width: 12),
                     Expanded(
                       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                        Text('${widget.userName}さんを推す', style: context.tt.titleMedium?.copyWith(fontWeight: FontWeight.w800)),
-                        Text('コインで応援できます', style: context.tt.bodySmall?.copyWith(color: context.muted)),
+                        Text(tr('${widget.userName}さんを推す', 'Support ${widget.userName}'), style: context.tt.titleMedium?.copyWith(fontWeight: FontWeight.w800)),
+                        Text(tr('コインで応援できます', 'Cheer with coins'), style: context.tt.bodySmall?.copyWith(color: context.muted)),
                       ]),
                     ),
                   ]),
                   const SizedBox(height: 18),
                   _BalanceRow(balance: b, error: _error),
                   const SizedBox(height: 16),
-                  Text('応援するコイン', style: context.tt.labelLarge?.copyWith(color: context.muted)),
+                  Text(tr('応援するコイン', 'Coins to send'), style: context.tt.labelLarge?.copyWith(color: context.muted)),
                   const SizedBox(height: 8),
                   Wrap(
                     spacing: 8,
@@ -163,7 +164,7 @@ class _SupportSheetState extends State<_SupportSheet> {
                           onTap: () => setState(() => _amount = p),
                         ),
                       _AmountChip(
-                        label: _presets.contains(_amount) ? 'その他' : '$_amount',
+                        label: _presets.contains(_amount) ? tr('その他', 'Other') : '$_amount',
                         icon: Icons.edit_rounded,
                         selected: !_presets.contains(_amount),
                         enabled: true,
@@ -177,7 +178,7 @@ class _SupportSheetState extends State<_SupportSheet> {
                       duration: Ds.fast,
                       child: breakdown == null
                           ? Text(
-                              b.total == 0 ? 'コインがありません。毎日のログインやプラン加入でもらえます' : 'コインが足りません（残り${b.total}枚）',
+                              b.total == 0 ? tr('コインがありません。毎日のログインやプラン加入でもらえます', 'No coins. You get coins by logging in daily or with a plan') : tr('コインが足りません（残り${b.total}枚）', 'Not enough coins (${b.total} left)'),
                               key: const ValueKey('ng'),
                               style: TextStyle(color: context.cs.error, fontSize: 13),
                             )
@@ -186,10 +187,12 @@ class _SupportSheetState extends State<_SupportSheet> {
                               children: [
                                 Expanded(
                                   child: Text(
-                                    '${[
-                                      if (breakdown.free > 0) 'フリー${breakdown.free}枚',
-                                      if (breakdown.premium > 0) 'プレミアム${breakdown.premium}枚',
-                                    ].join('＋')}を使います',
+                                    tr('', 'Uses ') +
+                                        [
+                                          if (breakdown.free > 0) tr('フリー${breakdown.free}枚', 'Free ${breakdown.free}'),
+                                          if (breakdown.premium > 0) tr('プレミアム${breakdown.premium}枚', 'Premium ${breakdown.premium}'),
+                                        ].join(tr('＋', ' + ')) +
+                                        tr('を使います', ''),
                                     style: context.tt.bodySmall?.copyWith(color: context.muted),
                                   ),
                                 ),
@@ -202,12 +205,12 @@ class _SupportSheetState extends State<_SupportSheet> {
                     contentPadding: EdgeInsets.zero,
                     value: _anonymous,
                     onChanged: (v) => setState(() => _anonymous = v),
-                    title: const Text('匿名で送る'),
-                    subtitle: const Text('相手やランキングに名前を出しません'),
+                    title: Text(tr('匿名で送る', 'Send anonymously')),
+                    subtitle: Text(tr('相手やランキングに名前を出しません', 'Your name is not shown to them or in rankings')),
                   ),
                   if (widget.showRewardNote) ...[const SupportRewardNote(), const SizedBox(height: 10)],
                   GradientButton(
-                    label: breakdown == null ? '推す' : '$_amount枚で応援する',
+                    label: breakdown == null ? tr('推す', 'Support') : tr('$_amount枚で応援する', 'Send $_amount coins'),
                     icon: Icons.volunteer_activism_rounded,
                     gradient: Ds.goldGradient,
                     loading: _sending,
@@ -215,7 +218,7 @@ class _SupportSheetState extends State<_SupportSheet> {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'フリーコインは1枚1pt、プレミアムコインは1枚10ptとして推しランキングに加算されます。送ったコインは戻せません。',
+                    tr('フリーコインは1枚1pt、プレミアムコインは1枚10ptとして推しランキングに加算されます。送ったコインは戻せません。', 'Free coins count 1pt and premium coins 10pt each in the support ranking. Sent coins cannot be returned.'),
                     textAlign: TextAlign.center,
                     style: context.tt.bodySmall?.copyWith(color: context.muted, height: 1.5),
                   ),
@@ -252,9 +255,9 @@ class _BalanceRow extends StatelessWidget {
       return Text(error!, style: TextStyle(color: context.cs.error));
     }
     return Row(children: [
-      cell('フリー', balance?.free, Ds.sky),
+      cell(tr('フリー', 'Free'), balance?.free, Ds.sky),
       const SizedBox(width: 8),
-      cell('プレミアム', balance?.premium, Ds.gold),
+      cell(tr('プレミアム', 'Premium'), balance?.premium, Ds.gold),
     ]);
   }
 }
@@ -354,9 +357,9 @@ class _SentViewState extends State<_SentView> with SingleTickerProviderStateMixi
                   child: const Icon(Icons.volunteer_activism_rounded, size: 72, color: Colors.white),
                 ),
                 const SizedBox(height: 12),
-                Text('推しました！', style: context.tt.titleLarge?.copyWith(fontWeight: FontWeight.w900)),
+                Text(tr('推しました！', 'Supported!'), style: context.tt.titleLarge?.copyWith(fontWeight: FontWeight.w900)),
                 const SizedBox(height: 4),
-                Text('${widget.name}さんに応援が届きました', style: TextStyle(color: context.muted)),
+                Text(tr('${widget.name}さんに応援が届きました', 'Your support reached ${widget.name}'), style: TextStyle(color: context.muted)),
                 if (widget.breakdown != null) ...[
                   const SizedBox(height: 10),
                   SupportTierChip(free: widget.breakdown!.free, premium: widget.breakdown!.premium, pt: widget.breakdown!.pt),

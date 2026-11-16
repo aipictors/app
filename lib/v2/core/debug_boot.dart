@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:aipictors/repositories/config_repository.dart';
 import 'package:aipictors/v2/core/api.dart';
+import 'package:aipictors/v2/core/l10n.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 
@@ -25,6 +26,7 @@ class DebugBoot {
 
   static String get route {
     if (!kDebugMode) return '';
+    if (_file.isNotEmpty && _file.first.startsWith('tab:')) return '';
     if (_file.isNotEmpty && _file.first.isNotEmpty) return _file.first;
     return const String.fromEnvironment('debugRoute');
   }
@@ -34,14 +36,27 @@ class DebugBoot {
   /// 3 行目に装飾の名前（例: special-seraph）を書くと、すべてのアイコンにその装飾を付けて表示する（枠の見切れの確認用）
   static String? get decorationOverride => _file.length > 2 && _file[2].isNotEmpty ? _file[2] : null;
 
+  /// どこかの行に lang:en / lang:ja と書くと表示の言語を決め打ちする（英語表示の確認用）
+  static String? get lang {
+    for (final l in _file) {
+      if (l.startsWith('lang:')) return l.substring(5).trim();
+    }
+    return null;
+  }
+
   static const _tab = String.fromEnvironment('debugTab');
 
-  static bool get hasTab => kDebugMode && _tab.isNotEmpty;
+  /// 1 行目が tab:<n> なら、そのホームのタブで起動する（マイページなど）
+  static String get _fileTab => _file.isNotEmpty && _file.first.startsWith('tab:') ? _file.first.substring(4) : '';
+
+  static bool get hasTab => kDebugMode && (_tab.isNotEmpty || _fileTab.isNotEmpty);
 
   static bool get active => kDebugMode && (_login.isNotEmpty || _tab.isNotEmpty || route.isNotEmpty);
 
   static Future<void> run() async {
     if (!kDebugMode) return;
+    if (lang != null) L10n.override = lang;
+    if (_fileTab.isNotEmpty) await const ConfigRepository().setHomeTabIndex(int.tryParse(_fileTab) ?? 0);
     if (_login.isNotEmpty || _tab.isNotEmpty || route.isNotEmpty) {
       await const ConfigRepository().setEulaCheck(true);
     }

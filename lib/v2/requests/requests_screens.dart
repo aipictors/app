@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/coins.dart';
 import 'package:aipictors/v2/core/design.dart';
+import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/core/nav.dart';
 import 'package:aipictors/v2/plans/coin_shop.dart';
 import 'package:aipictors/v2/requests/requests_api.dart';
@@ -39,7 +40,7 @@ class RequestPlansScreen extends StatefulWidget {
 }
 
 class _RequestPlansScreenState extends State<RequestPlansScreen> {
-  static const _sorts = [('popular', '人気'), ('new', '新着'), ('cheap', '安い順')];
+  static final _sorts = [('popular', tr('人気', 'Popular')), ('new', tr('新着', 'New')), ('cheap', tr('安い順', 'Lowest price'))];
   int _category = 0;
   int _sort = 0;
   List<RequestPlan>? _plans;
@@ -76,8 +77,8 @@ class _RequestPlansScreenState extends State<RequestPlansScreen> {
     final plans = _plans;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('プラン一覧'),
-        actions: [IconButton(tooltip: '依頼の管理', icon: const Icon(Icons.inbox_rounded), onPressed: () => context.push('/requests'))],
+        title: Text(tr('プラン一覧', 'Request plans')),
+        actions: [IconButton(tooltip: tr('依頼の管理', 'My requests'), icon: const Icon(Icons.inbox_rounded), onPressed: () => context.push('/requests'))],
       ),
       body: AppRefresh(
         onRefresh: _load,
@@ -91,19 +92,19 @@ class _RequestPlansScreenState extends State<RequestPlansScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      '好きなクリエイターに\nコインで描いてもらおう',
-                      style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w900, height: 1.3),
+                    Text(
+                      tr('好きなクリエイターに\nコインで描いてもらおう', 'Ask your favorite creators\nto draw for coins'),
+                      style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w900, height: 1.3),
                     ),
                     const SizedBox(height: 6),
-                    Text('プランを選んで内容を書くだけ。お断り・期限切れのときはコインが全額戻ります。', style: TextStyle(color: Colors.white.withValues(alpha: 0.9), fontSize: 12.5)),
+                    Text(tr('プランを選んで内容を書くだけ。お断り・期限切れのときはコインが全額戻ります。', 'Pick a plan and describe what you want. If declined or expired, your coins are fully returned.'), style: TextStyle(color: Colors.white.withValues(alpha: 0.9), fontSize: 12.5)),
                     const SizedBox(height: 10),
                     Wrap(
                       spacing: 8,
                       children: [
                         ActionChip(
                           avatar: const Icon(Icons.add_rounded, size: 18),
-                          label: const Text('プランを出品する'),
+                          label: Text(tr('プランを出品する', 'Offer a plan')),
                           onPressed: () => context.push('/settings/requests'),
                         ),
                       ],
@@ -114,7 +115,7 @@ class _RequestPlansScreenState extends State<RequestPlansScreen> {
             ),
             SliverToBoxAdapter(
               child: PillTabs(
-                labels: ['すべて', ...planCategoryLabels.values],
+                labels: [tr('すべて', 'All'), ...planCategoryLabels.values],
                 index: _category,
                 onChanged: (i) {
                   setState(() => _category = i);
@@ -144,7 +145,7 @@ class _RequestPlansScreenState extends State<RequestPlansScreen> {
             if (_error != null)
               SliverFillRemaining(
                 hasScrollBody: false,
-                child: StateView(icon: Icons.wifi_off_rounded, title: _error!, actionLabel: '再読み込み', onAction: _load),
+                child: StateView(icon: Icons.wifi_off_rounded, title: _error!, actionLabel: tr('再読み込み', 'Reload'), onAction: _load),
               )
             else if (plans == null)
               const SkeletonGrid(sliver: true, maxExtent: 220, aspect: 0.72)
@@ -153,9 +154,9 @@ class _RequestPlansScreenState extends State<RequestPlansScreen> {
                 hasScrollBody: false,
                 child: StateView(
                   icon: Icons.storefront_rounded,
-                  title: 'まだプランがありません',
-                  message: '最初のプランを出品してみませんか？',
-                  actionLabel: 'プランを作る',
+                  title: tr('まだプランがありません', 'No plans yet'),
+                  message: tr('最初のプランを出品してみませんか？', 'Why not offer the first plan?'),
+                  actionLabel: tr('プランを作る', 'Create a plan'),
                   onAction: () => context.push('/settings/requests'),
                 ),
               )
@@ -221,11 +222,11 @@ class _RequestPlanScreenState extends State<RequestPlanScreen> {
   }
 
   Future<void> _report() async {
-    final reason = await _askText(context, title: 'プランを通報', hint: '理由（規約違反の内容など）', action: '通報する');
+    final reason = await _askText(context, title: tr('プランを通報', 'Report plan'), hint: tr('理由（規約違反の内容など）', 'Reason (what rule is broken, etc.)'), action: tr('通報する', 'Report'));
     if (reason == null || reason.isEmpty) return;
     try {
       await RequestsApi.reportPlan(widget.id, reason);
-      if (mounted) context.toast('通報しました。運営が確認します');
+      if (mounted) context.toast(tr('通報しました。運営が確認します', 'Reported. Our team will check it'));
     } on ApiException catch (e) {
       if (mounted) context.toast(e.message, error: true);
     }
@@ -250,8 +251,8 @@ class _RequestPlanScreenState extends State<RequestPlanScreen> {
     final muted = TextStyle(color: context.muted, fontSize: 12);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('プラン'),
-        actions: [if (!isOwn) IconButton(tooltip: '通報', icon: const Icon(Icons.flag_outlined), onPressed: _report)],
+        title: Text(tr('プラン', 'Plan')),
+        actions: [if (!isOwn) IconButton(tooltip: tr('通報', 'Report'), icon: const Icon(Icons.flag_outlined), onPressed: _report)],
       ),
       body: ListView(
         padding: const EdgeInsets.fromLTRB(16, 4, 16, 120),
@@ -281,14 +282,14 @@ class _RequestPlanScreenState extends State<RequestPlanScreen> {
             ),
             child: Column(
               children: [
-                Row(children: [const Text('価格'), const Spacer(), CoinPrice(plan.priceCoins, size: 18)]),
+                Row(children: [Text(tr('価格', 'Price')), const Spacer(), CoinPrice(plan.priceCoins, size: 18)]),
                 const Divider(height: 18),
-                _Spec('納期', '承諾から ${plan.deliveryDays} 日'),
-                _Spec('納品', '${plan.imageCount} 枚'),
-                _Spec('修正', '${plan.revisionCount} 回まで'),
-                _Spec('受付', plan.canApply ? '受付中（${plan.activeCount ?? 0}/${plan.maxActive}）' : (plan.isFull ? '受付上限' : '受付停止')),
-                if (plan.allowsR18) const _Spec('R18', '受け付けます'),
-                if (plan.completedCount > 0) _Spec('実績', '完了 ${plan.completedCount} 件'),
+                _Spec(tr('納期', 'Delivery'), tr('承諾から ${plan.deliveryDays} 日', '${plan.deliveryDays} days after accepting')),
+                _Spec(tr('納品', 'Delivery'), tr('${plan.imageCount} 枚', '${plan.imageCount} images')),
+                _Spec(tr('修正', 'Revisions'), tr('${plan.revisionCount} 回まで', 'Up to ${plan.revisionCount}')),
+                _Spec(tr('受付', 'Status'), plan.canApply ? tr('受付中（${plan.activeCount ?? 0}/${plan.maxActive}）', 'Open (${plan.activeCount ?? 0}/${plan.maxActive})') : (plan.isFull ? tr('受付上限', 'Full') : tr('受付停止', 'Closed'))),
+                if (plan.allowsR18) _Spec('R18', tr('受け付けます', 'Open')),
+                if (plan.completedCount > 0) _Spec(tr('実績', 'Track record'), tr('完了 ${plan.completedCount} 件', '${plan.completedCount} completed')),
               ],
             ),
           ),
@@ -298,7 +299,7 @@ class _RequestPlanScreenState extends State<RequestPlanScreen> {
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(color: Ds.sky.withValues(alpha: 0.08), borderRadius: Ds.br(14)),
-            child: const Text('コインは申し込みのときに運営が預かり、完了したときにクリエイターへ渡ります。お断り・期限切れ・キャンセルのときは全額戻ります。', style: TextStyle(fontSize: 12.5, height: 1.5)),
+            child: Text(tr('コインは申し込みのときに運営が預かり、完了したときにクリエイターへ渡ります。お断り・期限切れ・キャンセルのときは全額戻ります。', 'Aipictors holds your coins when you request and passes them to the creator on completion. If declined, expired or canceled, they are fully returned.'), style: const TextStyle(fontSize: 12.5, height: 1.5)),
           ),
         ],
       ),
@@ -306,9 +307,9 @@ class _RequestPlanScreenState extends State<RequestPlanScreen> {
         child: Padding(
           padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
           child: isOwn
-              ? SecondaryButton(label: 'プランを編集', icon: Icons.edit_rounded, onPressed: () => context.push('/settings/requests'))
+              ? SecondaryButton(label: tr('プランを編集', 'Edit plan'), icon: Icons.edit_rounded, onPressed: () => context.push('/settings/requests'))
               : PrimaryButton(
-                  label: plan.canApply ? 'このプランで依頼する' : 'いまは受け付けていません',
+                  label: plan.canApply ? tr('このプランで依頼する', 'Request with this plan') : tr('いまは受け付けていません', 'Not accepting requests now'),
                   icon: Icons.send_rounded,
                   onPressed: plan.canApply
                       ? () {
@@ -423,16 +424,16 @@ class _RequestNewScreenState extends State<RequestNewScreen> {
 
   Future<void> _submit() async {
     final price = _priceCoins;
-    if (_body.text.trim().isEmpty) return context.toast('リクエストの内容を書いてください', error: true);
-    if (price < 100 || price > 100000) return context.toast('金額は 100〜100,000 コインで指定してください', error: true);
-    if (!_agree) return context.toast('リクエスト規約に同意してください', error: true);
+    if (_body.text.trim().isEmpty) return context.toast(tr('リクエストの内容を書いてください', 'Please describe your request'), error: true);
+    if (price < 100 || price > 100000) return context.toast(tr('金額は 100〜100,000 コインで指定してください', 'Please set 100–100,000 coins'), error: true);
+    if (!_agree) return context.toast(tr('リクエスト規約に同意してください', 'Please agree to the request terms'), error: true);
     setState(() => _submitting = true);
     try {
       final id = await RequestsApi.apply({
         'planId': _plan?.id,
         'creatorUserId': _creatorId,
         'clientKey': _clientKey,
-        'title': _title.text.trim().isEmpty ? (_plan?.title ?? 'リクエスト') : _title.text.trim(),
+        'title': _title.text.trim().isEmpty ? (_plan?.title ?? tr('リクエスト', 'Requests')) : _title.text.trim(),
         'body': _body.text.trim(),
         'referenceImageUrls': _images,
         'isR18': _allowsR18 && _isR18,
@@ -471,7 +472,7 @@ class _RequestNewScreenState extends State<RequestNewScreen> {
     if (_creator != null && !_creator!.canFreeRequest) {
       return Scaffold(
         appBar: AppBar(),
-        body: const StateView(icon: Icons.do_not_disturb_on_outlined, title: 'いまは自由リクエストを受け付けていません'),
+        body: StateView(icon: Icons.do_not_disturb_on_outlined, title: tr('いまは自由リクエストを受け付けていません', 'Custom requests are not accepted now')),
       );
     }
     final price = _priceCoins;
@@ -479,7 +480,7 @@ class _RequestNewScreenState extends State<RequestNewScreen> {
     final short = balance != null && price > balance ? price - balance : 0;
     final muted = TextStyle(color: context.muted, fontSize: 12);
     return Scaffold(
-      appBar: AppBar(title: const Text('リクエストを送る')),
+      appBar: AppBar(title: Text(tr('リクエストを送る', 'Send a request'))),
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
         child: ListView(
@@ -498,8 +499,8 @@ class _RequestNewScreenState extends State<RequestNewScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(_plan != null ? 'プラン' : '自由リクエスト', style: muted),
-                        Text(_plan?.title ?? '内容と金額を自分で決めて依頼', style: const TextStyle(fontWeight: FontWeight.w800)),
+                        Text(_plan != null ? tr('プラン', 'Plan') : tr('自由リクエスト', 'Custom request'), style: muted),
+                        Text(_plan?.title ?? tr('内容と金額を自分で決めて依頼', 'You decide the content and price'), style: const TextStyle(fontWeight: FontWeight.w800)),
                         const SizedBox(height: 6),
                         RequestUserChip(_user, size: 20, tappable: false),
                       ],
@@ -515,7 +516,7 @@ class _RequestNewScreenState extends State<RequestNewScreen> {
               controller: _title,
               maxLength: 60,
               style: const TextStyle(fontSize: 16),
-              decoration: const InputDecoration(labelText: 'タイトル（任意）', hintText: '例: 推しのアイコンをお願いしたいです'),
+              decoration: InputDecoration(labelText: tr('タイトル（任意）', 'Title (optional)'), hintText: tr('例: 推しのアイコンをお願いしたいです', 'e.g. An icon of my favorite character')),
             ),
             TextField(
               controller: _body,
@@ -523,10 +524,10 @@ class _RequestNewScreenState extends State<RequestNewScreen> {
               maxLines: 12,
               maxLength: 4000,
               style: const TextStyle(fontSize: 16),
-              decoration: const InputDecoration(labelText: 'リクエストの内容', alignLabelWithHint: true, hintText: '描いてほしいもの・雰囲気・色・使い道（アイコン等）など'),
+              decoration: InputDecoration(labelText: tr('リクエストの内容', 'Request details'), alignLabelWithHint: true, hintText: tr('描いてほしいもの・雰囲気・色・使い道（アイコン等）など', 'What to draw, mood, colors, how you will use it (icon, etc.)')),
             ),
             const SizedBox(height: 8),
-            RequestImagePicker(value: _images, onChanged: (v) => setState(() => _images = v), max: 4, label: '参考画像（任意）'),
+            RequestImagePicker(value: _images, onChanged: (v) => setState(() => _images = v), max: 4, label: tr('参考画像（任意）', 'Reference images (optional)')),
             if (_plan == null) ...[
               const SizedBox(height: 16),
               TextField(
@@ -535,16 +536,16 @@ class _RequestNewScreenState extends State<RequestNewScreen> {
                 style: const TextStyle(fontSize: 16),
                 onChanged: (_) => setState(() {}),
                 decoration: InputDecoration(
-                  labelText: '金額（コイン）',
-                  helperText: '${formatCoins(_creator?.settings.minCoins ?? 100)} コインから。納期の目安は承諾から 14 日',
+                  labelText: tr('金額（コイン）', 'Price (coins)'),
+                  helperText: tr('${formatCoins(_creator?.settings.minCoins ?? 100)} コインから。納期の目安は承諾から 14 日', 'From ${formatCoins(_creator?.settings.minCoins ?? 100)} coins. Delivery is about 14 days after accepting'),
                 ),
               ),
             ],
             if (_allowsR18)
               SwitchListTile.adaptive(
                 contentPadding: EdgeInsets.zero,
-                title: const Text('R18 の内容を含む'),
-                subtitle: Text('R18 の規約に従います', style: muted),
+                title: Text(tr('R18 の内容を含む', 'Includes R18 content')),
+                subtitle: Text(tr('R18 の規約に従います', 'I follow the R18 rules'), style: muted),
                 value: _isR18,
                 onChanged: (v) => setState(() => _isR18 = v),
               ),
@@ -558,26 +559,26 @@ class _RequestNewScreenState extends State<RequestNewScreen> {
               ),
               child: Column(
                 children: [
-                  Row(children: [const Text('お支払い'), const Spacer(), CoinPrice(price, size: 17)]),
+                  Row(children: [Text(tr('お支払い', 'Payment')), const Spacer(), CoinPrice(price, size: 17)]),
                   const SizedBox(height: 6),
                   Row(
                     children: [
-                      Text('いまの残高', style: muted),
+                      Text(tr('いまの残高', 'Your balance'), style: muted),
                       const Spacer(),
-                      Text(balance == null ? '…' : '${formatCoins(balance)} コイン', style: muted),
+                      Text(balance == null ? '…' : tr('${formatCoins(balance)} コイン', '${formatCoins(balance)} coins'), style: muted),
                     ],
                   ),
                   if (short > 0) ...[
                     const SizedBox(height: 10),
                     Text(
-                      'あと ${formatCoins(short)} コイン足りません。買っても入力はそのまま残ります。',
+                      tr('あと ${formatCoins(short)} コイン足りません。買っても入力はそのまま残ります。', 'You need ${formatCoins(short)} more coins. Your input stays after buying.'),
                       style: const TextStyle(fontSize: 12.5, fontWeight: FontWeight.w700, color: Ds.pink),
                     ),
                     const SizedBox(height: 8),
-                    SecondaryButton(label: 'コインを買う', icon: Icons.add_card_rounded, onPressed: _buyCoins, height: 42),
+                    SecondaryButton(label: tr('コインを買う', 'Buy coins'), icon: Icons.add_card_rounded, onPressed: _buyCoins, height: 42),
                   ],
                   const SizedBox(height: 8),
-                  Text('コインは運営が預かり、完了したときにクリエイターへ渡ります。お断り・期限切れのときは全額戻ります。', style: muted),
+                  Text(tr('コインは運営が預かり、完了したときにクリエイターへ渡ります。お断り・期限切れのときは全額戻ります。', 'Aipictors holds your coins and passes them to the creator on completion. If declined or expired, they are fully returned.'), style: muted),
                 ],
               ),
             ),
@@ -592,10 +593,10 @@ class _RequestNewScreenState extends State<RequestNewScreen> {
                     WidgetSpan(
                       child: GestureDetector(
                         onTap: _openTerms,
-                        child: const Text('有料リクエスト規約', style: TextStyle(decoration: TextDecoration.underline, fontSize: 13)),
+                        child: Text(tr('有料リクエスト規約', 'Paid Request Terms'), style: const TextStyle(decoration: TextDecoration.underline, fontSize: 13)),
                       ),
                     ),
-                    const TextSpan(text: 'に同意します', style: TextStyle(fontSize: 13)),
+                    TextSpan(text: tr('に同意します', ' — I agree'), style: const TextStyle(fontSize: 13)),
                   ],
                 ),
               ),
@@ -607,9 +608,9 @@ class _RequestNewScreenState extends State<RequestNewScreen> {
         child: Padding(
           padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
           child: short > 0
-              ? PrimaryButton(label: 'コインを買って続ける', icon: Icons.add_card_rounded, onPressed: _buyCoins)
+              ? PrimaryButton(label: tr('コインを買って続ける', 'Buy coins and continue'), icon: Icons.add_card_rounded, onPressed: _buyCoins)
               : PrimaryButton(
-                  label: '${formatCoins(price)} コインで依頼する',
+                  label: tr('${formatCoins(price)} コインで依頼する', 'Request for ${formatCoins(price)} coins'),
                   icon: Icons.send_rounded,
                   loading: _submitting,
                   onPressed: _submitting ? null : _submit,
@@ -630,7 +631,7 @@ class RequestsScreen extends StatefulWidget {
 }
 
 class _RequestsScreenState extends State<RequestsScreen> {
-  static const _statuses = [('open', '進行中'), ('pending', '承諾待ち'), ('active', '制作中'), ('delivered', '納品済み'), ('done', '完了'), ('closed', '終了')];
+  static final _statuses = [('open', tr('進行中', 'Active')), ('pending', tr('承諾待ち', 'Waiting')), ('active', tr('制作中', 'In progress')), ('delivered', tr('納品済み', 'Delivered')), ('done', tr('完了', 'Completed')), ('closed', tr('終了', 'Ended'))];
   bool _sent = false;
   int _status = 0;
   RequestList? _list;
@@ -669,17 +670,17 @@ class _RequestsScreenState extends State<RequestsScreen> {
   Widget build(BuildContext context) {
     if (!Nav.isLoggedIn) {
       return Scaffold(
-        appBar: AppBar(title: const Text('リクエスト')),
-        body: LoginRequiredView(title: 'ログインが必要です', message: '依頼の管理はログインすると使えます', onLogin: () => Nav.login(context)),
+        appBar: AppBar(title: Text(tr('リクエスト', 'Requests'))),
+        body: LoginRequiredView(title: tr('ログインが必要です', 'Please log in'), message: tr('依頼の管理はログインすると使えます', 'Log in to manage your requests'), onLogin: () => Nav.login(context)),
       );
     }
     final list = _list;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('リクエスト'),
+        title: Text(tr('リクエスト', 'Requests')),
         actions: [
-          IconButton(tooltip: 'プラン一覧', icon: const Icon(Icons.storefront_rounded), onPressed: () => context.push('/requests/plans')),
-          IconButton(tooltip: '受付の設定', icon: const Icon(Icons.tune_rounded), onPressed: () => context.push('/settings/requests')),
+          IconButton(tooltip: tr('プラン一覧', 'Request plans'), icon: const Icon(Icons.storefront_rounded), onPressed: () => context.push('/requests/plans')),
+          IconButton(tooltip: tr('受付の設定', 'Settings'), icon: const Icon(Icons.tune_rounded), onPressed: () => context.push('/settings/requests')),
         ],
       ),
       body: AppRefresh(
@@ -689,7 +690,7 @@ class _RequestsScreenState extends State<RequestsScreen> {
             SliverToBoxAdapter(
               child: Row(
                 children: [
-                  for (final (sent, label, count) in [(false, '受けた依頼', _badge?.$1 ?? 0), (true, '出した依頼', _badge?.$2 ?? 0)])
+                  for (final (sent, label, count) in [(false, tr('受けた依頼', 'Received'), _badge?.$1 ?? 0), (true, tr('出した依頼', 'Sent'), _badge?.$2 ?? 0)])
                     Expanded(
                       child: InkWell(
                         onTap: () {
@@ -738,7 +739,7 @@ class _RequestsScreenState extends State<RequestsScreen> {
             if (_error != null)
               SliverFillRemaining(
                 hasScrollBody: false,
-                child: StateView(icon: Icons.wifi_off_rounded, title: _error!, actionLabel: '再読み込み', onAction: _load),
+                child: StateView(icon: Icons.wifi_off_rounded, title: _error!, actionLabel: tr('再読み込み', 'Reload'), onAction: _load),
               )
             else if (list == null)
               const SkeletonList(sliver: true, count: 5)
@@ -748,16 +749,16 @@ class _RequestsScreenState extends State<RequestsScreen> {
                 child: _sent
                     ? StateView(
                         icon: Icons.inbox_rounded,
-                        title: 'まだ依頼していません',
-                        message: '好きなクリエイターのプランからコインで依頼できます',
-                        actionLabel: 'プランを探す',
+                        title: tr('まだ依頼していません', 'You have not sent any requests'),
+                        message: tr('好きなクリエイターのプランからコインで依頼できます', 'Request from your favorite creators\' plans with coins'),
+                        actionLabel: tr('プランを探す', 'Find plans'),
                         onAction: () => context.push('/requests/plans'),
                       )
                     : StateView(
                         icon: Icons.inbox_rounded,
-                        title: 'まだ依頼はありません',
-                        message: 'プランを作るとマイページとプラン一覧に並びます',
-                        actionLabel: 'プランを作る',
+                        title: tr('まだ依頼はありません', 'No requests yet'),
+                        message: tr('プランを作るとマイページとプラン一覧に並びます', 'Your plans appear on your page and in the plan list'),
+                        actionLabel: tr('プランを作る', 'Create a plan'),
                         onAction: () => context.push('/settings/requests'),
                       ),
               )
@@ -790,9 +791,9 @@ class _RequestRow extends StatelessWidget {
     final r = request;
     final other = users[sent ? r.creatorUserId : r.requesterUserId];
     final (label, at) = switch (r.status) {
-      'PENDING' => ('返事の期限', r.respondBy),
-      'ACCEPTED' => ('納期', r.dueAt),
-      'DELIVERED' => ('自動で完了', r.autoCompleteAt),
+      'PENDING' => (tr('返事の期限', 'Reply by'), r.respondBy),
+      'ACCEPTED' => (tr('納期', 'Delivery'), r.dueAt),
+      'DELIVERED' => (tr('自動で完了', 'Auto-completes'), r.autoCompleteAt),
       _ => ('', null),
     };
     final needsMe = (!sent && (r.status == 'PENDING' || r.status == 'ACCEPTED')) || (sent && r.status == 'DELIVERED');
@@ -817,7 +818,7 @@ class _RequestRow extends StatelessWidget {
                 const SizedBox(width: 6),
                 Expanded(
                   child: Text(
-                    r.planTitle != null ? 'プラン「${r.planTitle}」' : '自由リクエスト',
+                    r.planTitle != null ? tr('プラン「${r.planTitle}」', 'Plan "${r.planTitle}"') : tr('自由リクエスト', 'Custom request'),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(color: context.muted, fontSize: 12),
@@ -925,7 +926,7 @@ class _RequestDetailScreenState extends State<RequestDetailScreen> {
       builder: (_) => const _DeliverSheet(),
     );
     if (result == null) return;
-    await _act('deliver', {'imageUrls': result.$1, 'message': result.$2}, '納品しました');
+    await _act('deliver', {'imageUrls': result.$1, 'message': result.$2}, tr('納品しました', 'Delivered'));
   }
 
   @override
@@ -949,14 +950,14 @@ class _RequestDetailScreenState extends State<RequestDetailScreen> {
     final overdue = r.status == 'ACCEPTED' && r.dueAt != null && now > r.dueAt!;
     return Scaffold(
       appBar: AppBar(
-        title: Text(r.isCreator ? '受けた依頼' : '出した依頼'),
+        title: Text(r.isCreator ? tr('受けた依頼', 'Received') : tr('出した依頼', 'Sent')),
         actions: [
           PopupMenuButton<String>(
             onSelected: (_) async {
-              final reason = await _askText(context, title: '通報', hint: '理由', action: '通報する');
-              if (reason != null && reason.isNotEmpty) await _act('report', {'reason': reason}, '通報しました。運営が確認します');
+              final reason = await _askText(context, title: tr('通報', 'Report'), hint: tr('理由', 'Reason'), action: tr('通報する', 'Report'));
+              if (reason != null && reason.isNotEmpty) await _act('report', {'reason': reason}, tr('通報しました。運営が確認します', 'Reported. Our team will check it'));
             },
-            itemBuilder: (_) => const [PopupMenuItem(value: 'report', child: Text('運営に通報'))],
+            itemBuilder: (_) => [PopupMenuItem(value: 'report', child: Text(tr('運営に通報', 'Report to staff')))],
           ),
         ],
       ),
@@ -971,7 +972,7 @@ class _RequestDetailScreenState extends State<RequestDetailScreen> {
                 padding: const EdgeInsets.all(14),
                 decoration: BoxDecoration(gradient: Ds.brandGradient, borderRadius: Ds.br(18)),
                 child: Text(
-                  'リクエストを送りました！\nクリエイターの承諾を待っています（${formatDateTime(r.respondBy)} まで）。返事がなければコインは全額戻ります。',
+                  tr('リクエストを送りました！\nクリエイターの承諾を待っています（${formatDateTime(r.respondBy)} まで）。返事がなければコインは全額戻ります。', 'Request sent!\nWaiting for the creator to accept (until ${formatDateTime(r.respondBy)}). If there is no reply, your coins are fully returned.'),
                   style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700, height: 1.5),
                 ),
               ),
@@ -987,7 +988,7 @@ class _RequestDetailScreenState extends State<RequestDetailScreen> {
                 children: [
                   Row(
                     children: [
-                      Expanded(child: Text(r.planTitle != null ? 'プラン「${r.planTitle}」' : '自由リクエスト', style: muted)),
+                      Expanded(child: Text(r.planTitle != null ? tr('プラン「${r.planTitle}」', 'Plan "${r.planTitle}"') : tr('自由リクエスト', 'Custom request'), style: muted)),
                       RequestStatusBadge(r.status),
                     ],
                   ),
@@ -996,7 +997,7 @@ class _RequestDetailScreenState extends State<RequestDetailScreen> {
                   const SizedBox(height: 10),
                   Row(
                     children: [
-                      Text(r.isCreator ? '依頼者 ' : 'クリエイター ', style: muted),
+                      Text(r.isCreator ? tr('依頼者 ', 'Requester ') : tr('クリエイター ', 'Creator '), style: muted),
                       Expanded(child: RequestUserChip(other)),
                       CoinPrice(r.priceCoins, size: 17),
                     ],
@@ -1004,31 +1005,41 @@ class _RequestDetailScreenState extends State<RequestDetailScreen> {
                   const SizedBox(height: 14),
                   RequestSteps(r),
                   const SizedBox(height: 8),
-                  if (r.status == 'PENDING') Text('返事の期限: ${formatDateTime(r.respondBy)}（${formatRemaining(r.respondBy)}）', style: muted),
+                  if (r.status == 'PENDING') Text(tr('返事の期限: ${formatDateTime(r.respondBy)}（${formatRemaining(r.respondBy)}）', 'Reply by: ${formatDateTime(r.respondBy)} (${formatRemaining(r.respondBy)})'), style: muted),
                   if (r.status == 'ACCEPTED' && r.dueAt != null)
-                    Text('納期: ${formatDateTime(r.dueAt)}（${formatRemaining(r.dueAt)}）・修正あと ${r.revisionLeft} 回', style: muted),
-                  if (r.status == 'DELIVERED' && r.autoCompleteAt != null) Text('${formatDateTime(r.autoCompleteAt)} に自動で完了します', style: muted),
-                  if (r.closedReason != null && r.closedReason!.isNotEmpty) Text('理由: ${r.closedReason}', style: muted),
+                    Text(tr('納期: ${formatDateTime(r.dueAt)}（${formatRemaining(r.dueAt)}）・修正あと ${r.revisionLeft} 回', 'Due: ${formatDateTime(r.dueAt)} (${formatRemaining(r.dueAt)}) · ${r.revisionLeft} revisions left'), style: muted),
+                  if (r.status == 'DELIVERED' && r.autoCompleteAt != null) Text(tr('${formatDateTime(r.autoCompleteAt)} に自動で完了します', 'Auto-completes on ${formatDateTime(r.autoCompleteAt)}'), style: muted),
+                  if (r.closedReason != null && r.closedReason!.isNotEmpty) Text(tr('理由: ${requestClosedReason(r.closedReason!)}', 'Reason: ${requestClosedReason(r.closedReason!)}'), style: muted),
                 ],
               ),
             ),
             const SizedBox(height: 12),
             ..._actions(context, r, overdue),
             if (r.settlement != null && r.isCreator) ...[const SizedBox(height: 8), _SettlementCard(r.settlement!)],
-            if (r.deliveryImageUrls.isNotEmpty) ...[
+            if (r.deliveryImageUrls.isNotEmpty || r.deliveredWorkId != null) ...[
               const SizedBox(height: 16),
-              const Text('納品', style: TextStyle(fontWeight: FontWeight.w900)),
+              Text(tr('納品', 'Delivery'), style: const TextStyle(fontWeight: FontWeight.w900)),
               if (r.deliveryMessage != null && r.deliveryMessage!.isNotEmpty) ...[const SizedBox(height: 6), Text(r.deliveryMessage!)],
               const SizedBox(height: 8),
-              RequestImageGrid(r.deliveryImageUrls),
+              if (r.deliveryImageUrls.isNotEmpty) RequestImageGrid(r.deliveryImageUrls),
+              if (r.deliveredWorkId != null)
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: TextButton.icon(
+                    style: TextButton.styleFrom(padding: EdgeInsets.zero),
+                    onPressed: () => Nav.work(context, r.deliveredWorkId!),
+                    icon: const Icon(Icons.image_outlined, size: 18),
+                    label: Text(tr('納品された作品を見る', 'View the delivered work')),
+                  ),
+                ),
             ],
             const SizedBox(height: 16),
-            const Text('リクエストの内容', style: TextStyle(fontWeight: FontWeight.w900)),
+            Text(tr('リクエストの内容', 'Request details'), style: const TextStyle(fontWeight: FontWeight.w900)),
             const SizedBox(height: 6),
             Text(r.body, style: const TextStyle(height: 1.6)),
             if (r.referenceImageUrls.isNotEmpty) ...[const SizedBox(height: 8), RequestImageGrid(r.referenceImageUrls)],
             const SizedBox(height: 20),
-            const Text('メッセージ', style: TextStyle(fontWeight: FontWeight.w900)),
+            Text(tr('メッセージ', 'Messages'), style: const TextStyle(fontWeight: FontWeight.w900)),
             const SizedBox(height: 8),
             for (final m in r.messages) _MessageBubble(m, users: _users),
             if (r.isOpen) ...[
@@ -1039,7 +1050,7 @@ class _RequestDetailScreenState extends State<RequestDetailScreen> {
                 maxLines: 5,
                 style: const TextStyle(fontSize: 16),
                 decoration: InputDecoration(
-                  hintText: 'メッセージを書く（サイトの外での連絡先の交換はできません）',
+                  hintText: tr('メッセージを書く（サイトの外での連絡先の交換はできません）', 'Write a message (no sharing contact info outside the site)'),
                   suffixIcon: IconButton(
                     icon: _busy == 'message'
                         ? const SizedBox(width: 18, height: 18, child: CircularProgressIndicator(strokeWidth: 2))
@@ -1058,7 +1069,7 @@ class _RequestDetailScreenState extends State<RequestDetailScreen> {
                 ),
               ),
               const SizedBox(height: 6),
-              RequestImagePicker(value: _messageImages, onChanged: (v) => setState(() => _messageImages = v), max: 4, label: '画像'),
+              RequestImagePicker(value: _messageImages, onChanged: (v) => setState(() => _messageImages = v), max: 4, label: tr('画像', 'Images')),
             ],
           ],
         ),
@@ -1071,48 +1082,48 @@ class _RequestDetailScreenState extends State<RequestDetailScreen> {
     if (r.isCreator && r.status == 'PENDING') {
       return [
         PrimaryButton(
-          label: '承諾して制作を始める',
+          label: tr('承諾して制作を始める', 'Accept and start'),
           icon: Icons.check_rounded,
           loading: _busy == 'accept',
-          onPressed: _busy != null ? null : () => _act('accept', {}, '承諾しました。納期までに納品してください'),
+          onPressed: _busy != null ? null : () => _act('accept', {}, tr('承諾しました。納期までに納品してください', 'Accepted. Please deliver by the due date')),
         ),
         gap,
         SecondaryButton(
-          label: 'お断りする（コインは全額返却）',
+          label: tr('お断りする（コインは全額返却）', 'Decline (coins fully returned)'),
           onPressed: _busy != null
               ? null
               : () async {
-                  final reason = await _askText(context, title: 'お断りする', hint: '理由（依頼者に表示されます）', action: 'お断りする');
-                  if (reason != null) await _act('decline', {'reason': reason}, 'お断りしました');
+                  final reason = await _askText(context, title: tr('お断りする', 'Decline'), hint: tr('理由（依頼者に表示されます）', 'Reason (shown to the requester)'), action: tr('お断りする', 'Decline'));
+                  if (reason != null) await _act('decline', {'reason': reason}, tr('お断りしました', 'Declined'));
                 },
         ),
       ];
     }
     if (r.isCreator && r.status == 'ACCEPTED') {
-      return [PrimaryButton(label: '納品する', icon: Icons.upload_rounded, loading: _busy == 'deliver', onPressed: _busy != null ? null : _deliver)];
+      return [PrimaryButton(label: tr('納品する', 'Deliver'), icon: Icons.upload_rounded, loading: _busy == 'deliver', onPressed: _busy != null ? null : _deliver)];
     }
     if (!r.isCreator && r.status == 'DELIVERED') {
       return [
         PrimaryButton(
-          label: '受け取りを確認して完了する',
+          label: tr('受け取りを確認して完了する', 'Confirm receipt and complete'),
           icon: Icons.celebration_rounded,
           loading: _busy == 'complete',
           onPressed: _busy != null
               ? null
               : () async {
-                  final ok = await _confirm(context, '受け取りを確認しますか？', '完了するとコインがクリエイターに渡り、取り消せません。');
-                  if (ok) await _act('complete', {}, '完了しました。ありがとうございました！');
+                  final ok = await _confirm(context, tr('受け取りを確認しますか？', 'Confirm receipt?'), tr('完了するとコインがクリエイターに渡り、取り消せません。', 'On completion the coins go to the creator. This cannot be undone.'));
+                  if (ok) await _act('complete', {}, tr('完了しました。ありがとうございました！', 'Completed. Thank you!'));
                 },
         ),
         if (r.revisionLeft > 0) ...[
           gap,
           SecondaryButton(
-            label: '修正をお願いする（あと ${r.revisionLeft} 回）',
+            label: tr('修正をお願いする（あと ${r.revisionLeft} 回）', 'Ask for a revision (${r.revisionLeft} left)'),
             onPressed: _busy != null
                 ? null
                 : () async {
-                    final text = await _askText(context, title: '修正をお願いする', hint: '直してほしいところ', action: '送る');
-                    if (text != null && text.isNotEmpty) await _act('revise', {'message': text}, '修正をお願いしました');
+                    final text = await _askText(context, title: tr('修正をお願いする', 'Ask for a revision'), hint: tr('直してほしいところ', 'What to change'), action: tr('送る', 'Send'));
+                    if (text != null && text.isNotEmpty) await _act('revise', {'message': text}, tr('修正をお願いしました', 'Revision requested'));
                   },
           ),
         ],
@@ -1121,12 +1132,12 @@ class _RequestDetailScreenState extends State<RequestDetailScreen> {
     if (!r.isCreator && r.status == 'PENDING') {
       return [
         SecondaryButton(
-          label: '取り下げる（コインは全額返却）',
+          label: tr('取り下げる（コインは全額返却）', 'Withdraw (coins fully returned)'),
           onPressed: _busy != null
               ? null
               : () async {
-                  if (await _confirm(context, '取り下げますか？', '預けたコインは全額戻ります。')) {
-                    await _act('cancel', {}, '取り下げました。コインを返却しました');
+                  if (await _confirm(context, tr('取り下げますか？', 'Withdraw this request?'), tr('預けたコインは全額戻ります。', 'Your coins will be fully returned.'))) {
+                    await _act('cancel', {}, tr('取り下げました。コインを返却しました', 'Withdrawn. Your coins were returned'));
                   }
                 },
         ),
@@ -1135,12 +1146,12 @@ class _RequestDetailScreenState extends State<RequestDetailScreen> {
     if (!r.isCreator && overdue) {
       return [
         SecondaryButton(
-          label: '納期を過ぎたのでキャンセルする（全額返却）',
+          label: tr('納期を過ぎたのでキャンセルする（全額返却）', 'Cancel because it is overdue (full refund)'),
           onPressed: _busy != null
               ? null
               : () async {
-                  if (await _confirm(context, 'キャンセルしますか？', '預けたコインは全額戻ります。')) {
-                    await _act('cancel', {}, 'キャンセルしました。コインを返却しました');
+                  if (await _confirm(context, tr('キャンセルしますか？', 'Cancel this request?'), tr('預けたコインは全額戻ります。', 'Your coins will be fully returned.'))) {
+                    await _act('cancel', {}, tr('キャンセルしました。コインを返却しました', 'Canceled. Your coins were returned'));
                   }
                 },
         ),
@@ -1163,7 +1174,10 @@ class _SettlementCard extends StatelessWidget {
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(color: const Color(0xFF10B981).withValues(alpha: 0.1), borderRadius: Ds.br(14)),
       child: Text(
-        '受け取り: ${yen > 0 ? '報酬 $yen 円（保留のあと換金できます）' : ''}${yen > 0 && coins > 0 ? '＋' : ''}${coins > 0 ? 'コイン ${formatCoins(coins)}' : ''}（手数料 ${formatCoins(s.integer('feeCoins'))} コイン）',
+        tr(
+          '受け取り: ${yen > 0 ? '報酬 ${formatYenL10n(yen)}（確認期間のあと振込）' : ''}${yen > 0 && coins > 0 ? '＋' : ''}${coins > 0 ? 'コイン ${formatCoins(coins)}' : ''}（手数料 ${formatCoins(s.integer('feeCoins'))} コイン）',
+          'You receive: ${yen > 0 ? '${formatYenL10n(yen)} in rewards (paid after the check period)' : ''}${yen > 0 && coins > 0 ? ' + ' : ''}${coins > 0 ? '${formatCoins(coins)} coins' : ''} (fee ${formatCoins(s.integer('feeCoins'))} coins)',
+        ),
         style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 13),
       ),
     );
@@ -1185,7 +1199,7 @@ class _MessageBubble extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 6),
         child: Center(
           child: Text(
-            '${formatDateTime(m.createdAt)}  ${m.body}',
+            '${formatDateTime(m.createdAt)}  ${requestSystemMessage(m.body)}',
             textAlign: TextAlign.center,
             style: TextStyle(color: context.muted, fontSize: 11.5),
           ),
@@ -1203,7 +1217,7 @@ class _MessageBubble extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text('${users[m.senderUserId]?.name ?? ''}  ${formatDateTime(m.createdAt)}', style: TextStyle(color: context.muted, fontSize: 11)),
-            if (m.body.isNotEmpty) Text(m.body),
+            if (m.body.isNotEmpty) Text(requestSystemMessage(m.body)),
             if (m.imageUrls.isNotEmpty) ...[const SizedBox(height: 6), RequestImageGrid(m.imageUrls)],
           ],
         ),
@@ -1237,20 +1251,20 @@ class _DeliverSheetState extends State<_DeliverSheet> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('納品する', style: TextStyle(fontWeight: FontWeight.w900, fontSize: 17)),
+          Text(tr('納品する', 'Deliver'), style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 17)),
           const SizedBox(height: 12),
-          RequestImagePicker(value: _images, onChanged: (v) => setState(() => _images = v), max: 10, label: '納品する画像'),
+          RequestImagePicker(value: _images, onChanged: (v) => setState(() => _images = v), max: 10, label: tr('納品する画像', 'Images to deliver')),
           const SizedBox(height: 8),
           TextField(
             controller: _text,
             minLines: 2,
             maxLines: 5,
             style: const TextStyle(fontSize: 16),
-            decoration: const InputDecoration(hintText: 'ひとこと（任意）'),
+            decoration: InputDecoration(hintText: tr('ひとこと（任意）', 'Message (optional)')),
           ),
           const SizedBox(height: 12),
           PrimaryButton(
-            label: '納品する',
+            label: tr('納品する', 'Deliver'),
             icon: Icons.upload_rounded,
             onPressed: _images.isEmpty ? null : () => Navigator.of(context).pop((_images, _text.text.trim())),
           ),
@@ -1282,7 +1296,7 @@ class _RequestSettingsScreenState extends State<RequestSettingsScreen> {
   Future<void> _load() async {
     final me = await _viewerId();
     if (me == null) {
-      if (mounted) setState(() => _error = 'ログインしてください');
+      if (mounted) setState(() => _error = tr('ログインしてください', 'Please log in'));
       return;
     }
     try {
@@ -1303,12 +1317,12 @@ class _RequestSettingsScreenState extends State<RequestSettingsScreen> {
     final p = _profile;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('リクエストとプラン'),
-        actions: [IconButton(tooltip: '依頼の管理', icon: const Icon(Icons.inbox_rounded), onPressed: () => context.push('/requests'))],
+        title: Text(tr('リクエストとプラン', 'Requests & plans')),
+        actions: [IconButton(tooltip: tr('依頼の管理', 'My requests'), icon: const Icon(Icons.inbox_rounded), onPressed: () => context.push('/requests'))],
       ),
       floatingActionButton: p == null
           ? null
-          : FloatingActionButton.extended(onPressed: () => _edit(), icon: const Icon(Icons.add), label: const Text('プランを作る')),
+          : FloatingActionButton.extended(onPressed: () => _edit(), icon: const Icon(Icons.add), label: Text(tr('プランを作る', 'Create a plan'))),
       body: _error != null
           ? StateView(icon: Icons.lock_person_rounded, title: _error!)
           : p == null
@@ -1321,20 +1335,20 @@ class _RequestSettingsScreenState extends State<RequestSettingsScreen> {
                   Container(
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(gradient: Ds.brandGradient, borderRadius: Ds.br(20)),
-                    child: const Text(
-                      'プランを出品して、コインで依頼を受けよう。作ったプランはマイページとプラン一覧に並びます。完了すると代金から手数料 10% を引いた分を受け取れます（全年齢の依頼でクリエイター報酬に参加していれば、有料コインの分は報酬・円に）。',
-                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700, height: 1.5, fontSize: 13),
+                    child: Text(
+                      tr('プランを出品して、コインで依頼を受けよう。作ったプランはマイページとプラン一覧に並びます。完了すると代金から手数料 10% を引いた分を受け取れます（全年齢の依頼でクリエイター報酬に参加していれば、有料コインの分は報酬・円に）。', 'Offer plans and take requests for coins. Your plans appear on your page and in the plan list. On completion you receive the price minus a 10% fee (for all-ages requests, if you joined Rewards payout, the purchased-coin part becomes money in yen).'),
+                      style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700, height: 1.5, fontSize: 13),
                     ),
                   ),
                   const SizedBox(height: 16),
-                  Text('自分のプラン ${p.plans.length}/20', style: const TextStyle(fontWeight: FontWeight.w900)),
+                  Text(tr('自分のプラン ${p.plans.length}/20', 'My plans ${p.plans.length}/20'), style: const TextStyle(fontWeight: FontWeight.w900)),
                   const SizedBox(height: 8),
                   if (p.plans.isEmpty)
                     StateView(
                       icon: Icons.storefront_rounded,
-                      title: 'まだプランがありません',
-                      message: '例:「アイコン 1 枚 1,000 コイン・納期 7 日・修正 1 回」',
-                      actionLabel: '最初のプランを作る',
+                      title: tr('まだプランがありません', 'No plans yet'),
+                      message: tr('例:「アイコン 1 枚 1,000 コイン・納期 7 日・修正 1 回」', 'e.g. "1 icon, 1,000 coins, 7 days, 1 revision"'),
+                      actionLabel: tr('最初のプランを作る', 'Create your first plan'),
                       onAction: () => _edit(),
                       compact: true,
                     ),
@@ -1347,11 +1361,11 @@ class _RequestSettingsScreenState extends State<RequestSettingsScreen> {
                             : AppImage(plan.sampleImageUrls.first, width: 52, height: 52, radius: 10),
                         title: Text(plan.title, maxLines: 1, overflow: TextOverflow.ellipsis),
                         subtitle: Text(
-                          '${formatCoins(plan.priceCoins)} コイン・${plan.deliveryDays} 日・${plan.isHidden
-                              ? '非公開'
+                          '${formatCoins(plan.priceCoins)} ${tr('コイン', 'coins')}・${plan.deliveryDays} ${tr('日', 'days')}・${plan.isHidden
+                              ? tr('非公開', 'Hidden')
                               : plan.isAccepting
-                              ? '受付中'
-                              : '受付停止'}',
+                              ? tr('受付中', 'Open')
+                              : tr('受付停止', 'Closed')}',
                         ),
                         trailing: const Icon(Icons.edit_rounded),
                         onTap: () => _edit(plan),
@@ -1360,7 +1374,7 @@ class _RequestSettingsScreenState extends State<RequestSettingsScreen> {
                   const SizedBox(height: 16),
                   _FreeRequestCard(settings: p.settings, onSaved: _load),
                   const SizedBox(height: 12),
-                  const TextButton(onPressed: _openTerms, child: Text('有料リクエスト規約')),
+                  TextButton(onPressed: _openTerms, child: Text(tr('有料リクエスト規約', 'Paid Request Terms'))),
                 ],
               ),
             ),
@@ -1396,7 +1410,7 @@ class _FreeRequestCardState extends State<_FreeRequestCard> {
         'maxActive': int.tryParse(_max.text) ?? 3,
         'note': _note.text.trim(),
       });
-      if (mounted) context.toast('保存しました');
+      if (mounted) context.toast(tr('保存しました', 'Saved'));
       widget.onSaved();
     } on ApiException catch (e) {
       if (mounted) context.toast(e.message, error: true);
@@ -1419,8 +1433,8 @@ class _FreeRequestCardState extends State<_FreeRequestCard> {
         children: [
           SwitchListTile.adaptive(
             contentPadding: EdgeInsets.zero,
-            title: const Text('自由リクエストを受け付ける', style: TextStyle(fontWeight: FontWeight.w800)),
-            subtitle: const Text('プランにない内容を、依頼する人が金額を決めて送れます', style: TextStyle(fontSize: 12)),
+            title: Text(tr('自由リクエストを受け付ける', 'Accept custom requests'), style: const TextStyle(fontWeight: FontWeight.w800)),
+            subtitle: Text(tr('プランにない内容を、依頼する人が金額を決めて送れます', 'People can send requests outside your plans at a price they choose'), style: const TextStyle(fontSize: 12)),
             value: _on,
             onChanged: (v) => setState(() => _on = v),
           ),
@@ -1431,7 +1445,7 @@ class _FreeRequestCardState extends State<_FreeRequestCard> {
                   child: TextField(
                     controller: _min,
                     keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(labelText: '最低コイン'),
+                    decoration: InputDecoration(labelText: tr('最低コイン', 'Minimum coins')),
                   ),
                 ),
                 const SizedBox(width: 12),
@@ -1439,7 +1453,7 @@ class _FreeRequestCardState extends State<_FreeRequestCard> {
                   child: TextField(
                     controller: _max,
                     keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(labelText: '同時に受ける数'),
+                    decoration: InputDecoration(labelText: tr('同時に受ける数', 'Max active requests')),
                   ),
                 ),
               ],
@@ -1447,16 +1461,16 @@ class _FreeRequestCardState extends State<_FreeRequestCard> {
             TextField(
               controller: _note,
               maxLength: 500,
-              decoration: const InputDecoration(labelText: '依頼する人へのひとこと'),
+              decoration: InputDecoration(labelText: tr('依頼する人へのひとこと', 'Note to requesters')),
             ),
             SwitchListTile.adaptive(
               contentPadding: EdgeInsets.zero,
-              title: const Text('R18 の依頼も受ける'),
+              title: Text(tr('R18 の依頼も受ける', 'Accept R18 requests')),
               value: _r18,
               onChanged: (v) => setState(() => _r18 = v),
             ),
           ],
-          SecondaryButton(label: '保存する', loading: _saving, onPressed: _saving ? null : _save, height: 42),
+          SecondaryButton(label: tr('保存する', 'Save'), loading: _saving, onPressed: _saving ? null : _save, height: 42),
         ],
       ),
     );
@@ -1510,7 +1524,7 @@ class _PlanEditorState extends State<_PlanEditor> {
       });
       if (!mounted) return;
       Ds.success();
-      context.toast(p == null ? 'プランを公開しました' : '保存しました');
+      context.toast(p == null ? tr('プランを公開しました', 'Plan published') : tr('保存しました', 'Saved'));
       Navigator.of(context).pop(true);
     } on ApiException catch (e) {
       if (mounted) context.toast(e.message, error: true);
@@ -1520,7 +1534,7 @@ class _PlanEditorState extends State<_PlanEditor> {
   }
 
   Future<void> _delete() async {
-    if (!await _confirm(context, 'プランを削除しますか？', '進行中の依頼はそのまま続きます。')) return;
+    if (!await _confirm(context, tr('プランを削除しますか？', 'Delete this plan?'), tr('進行中の依頼はそのまま続きます。', 'Active requests continue as they are.'))) return;
     try {
       await RequestsApi.deletePlan(p!.id);
       if (mounted) Navigator.of(context).pop(true);
@@ -1545,8 +1559,8 @@ class _PlanEditorState extends State<_PlanEditor> {
     final receive = price - (price * 0.1).ceil();
     return Scaffold(
       appBar: AppBar(
-        title: Text(p == null ? 'プランを作る' : 'プランを編集'),
-        actions: [if (p != null) IconButton(tooltip: '削除', icon: const Icon(Icons.delete_outline_rounded), onPressed: _delete)],
+        title: Text(p == null ? tr('プランを作る', 'Create a plan') : tr('プランを編集', 'Edit plan')),
+        actions: [if (p != null) IconButton(tooltip: tr('削除', 'Delete'), icon: const Icon(Icons.delete_outline_rounded), onPressed: _delete)],
       ),
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
@@ -1557,7 +1571,7 @@ class _PlanEditorState extends State<_PlanEditor> {
               controller: _title,
               maxLength: 60,
               style: const TextStyle(fontSize: 16),
-              decoration: const InputDecoration(labelText: 'タイトル', hintText: '例: ゆるかわアイコン 1 枚'),
+              decoration: InputDecoration(labelText: tr('タイトル', 'Title'), hintText: tr('例: ゆるかわアイコン 1 枚', 'e.g. 1 cute icon')),
             ),
             Wrap(
               spacing: 6,
@@ -1574,46 +1588,46 @@ class _PlanEditorState extends State<_PlanEditor> {
               maxLines: 12,
               maxLength: 4000,
               style: const TextStyle(fontSize: 16),
-              decoration: const InputDecoration(
-                labelText: '説明（できること・できないこと・使い方の範囲）',
+              decoration: InputDecoration(
+                labelText: tr('説明（できること・できないこと・使い方の範囲）', 'Description (what you can and cannot do, allowed use)'),
                 alignLabelWithHint: true,
-                hintText: '・バストアップのアイコンを 1 枚\n・SNS のアイコンに使えます（商用はご相談）\n・実在の人物、他の作品のキャラクターは受けられません',
+                hintText: tr('・バストアップのアイコンを 1 枚\n・SNS のアイコンに使えます（商用はご相談）\n・実在の人物、他の作品のキャラクターは受けられません', '- 1 bust-up icon\n- OK for social media icons (ask about commercial use)\n- No real people or characters from other works'),
               ),
             ),
-            RequestImagePicker(value: _images, onChanged: (v) => setState(() => _images = v), max: 4, label: '見本の画像（1 枚目がカードに出ます）'),
+            RequestImagePicker(value: _images, onChanged: (v) => setState(() => _images = v), max: 4, label: tr('見本の画像（1 枚目がカードに出ます）', 'Sample images (the first one is shown on the card)')),
             const SizedBox(height: 8),
-            Row(children: [_num('価格', _price, 'コイン'), const SizedBox(width: 12), _num('納期（承諾から）', _days, '日')]),
-            Row(children: [_num('納品する枚数', _count, '枚'), const SizedBox(width: 12), _num('修正の回数', _rev, '回')]),
-            Row(children: [_num('同時に受ける数', _max, '件'), const Spacer()]),
+            Row(children: [_num(tr('価格', 'Price'), _price, tr('コイン', 'coins')), const SizedBox(width: 12), _num(tr('納期（承諾から）', 'Delivery (after accepting)'), _days, tr('日', 'days'))]),
+            Row(children: [_num(tr('納品する枚数', 'Images to deliver'), _count, tr('枚', 'images')), const SizedBox(width: 12), _num(tr('修正の回数', 'Revisions'), _rev, tr('回', 'times'))]),
+            Row(children: [_num(tr('同時に受ける数', 'Max active requests'), _max, tr('件', '')), const Spacer()]),
             const SizedBox(height: 8),
-            Text('完了で受け取る分: ${receive > 0 ? formatCoins(receive) : '-'} コイン相当（手数料 10% を引いた分）', style: const TextStyle(fontWeight: FontWeight.w700)),
+            Text(tr('完了で受け取る分: ${receive > 0 ? formatCoins(receive) : '-'} コイン相当（手数料 10% を引いた分）', 'You receive on completion: ${receive > 0 ? formatCoins(receive) : '-'} coins worth (after the 10% fee)'), style: const TextStyle(fontWeight: FontWeight.w700)),
             SwitchListTile.adaptive(
               contentPadding: EdgeInsets.zero,
-              title: const Text('受付中にする'),
+              title: Text(tr('受付中にする', 'Open for requests')),
               value: _accepting,
               onChanged: (v) => setState(() => _accepting = v),
             ),
             SwitchListTile.adaptive(
               contentPadding: EdgeInsets.zero,
-              title: const Text('R18 の依頼も受ける'),
-              subtitle: const Text('R18 の依頼はコインで受け取ります（報酬の対象外）', style: TextStyle(fontSize: 12)),
+              title: Text(tr('R18 の依頼も受ける', 'Accept R18 requests')),
+              subtitle: Text(tr('R18 の依頼はコインで受け取ります（報酬の対象外）', 'R18 requests are paid in coins (not Rewards payout)'), style: const TextStyle(fontSize: 12)),
               value: _r18,
               onChanged: (v) => setState(() => _r18 = v),
             ),
             SwitchListTile.adaptive(
               contentPadding: EdgeInsets.zero,
-              title: const Text('非公開にする（下書き）'),
+              title: Text(tr('非公開にする（下書き）', 'Hide (draft)')),
               value: _hidden,
               onChanged: (v) => setState(() => _hidden = v),
             ),
-            const TextButton(onPressed: _openTerms, child: Text('出品すると有料リクエスト規約に同意したことになります')),
+            TextButton(onPressed: _openTerms, child: Text(tr('出品すると有料リクエスト規約に同意したことになります', 'By publishing you agree to the Paid Request Terms'))),
           ],
         ),
       ),
       bottomNavigationBar: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
-          child: PrimaryButton(label: p == null ? (_hidden ? '下書きで保存' : '公開する') : '保存する', loading: _saving, onPressed: _saving ? null : _save),
+          child: PrimaryButton(label: p == null ? (_hidden ? tr('下書きで保存', 'Save as draft') : tr('公開する', 'Publish')) : tr('保存する', 'Save'), loading: _saving, onPressed: _saving ? null : _save),
         ),
       ),
     );
@@ -1636,7 +1650,7 @@ Future<String?> _askText(BuildContext context, {required String title, required 
         decoration: InputDecoration(hintText: hint),
       ),
       actions: [
-        TextButton(onPressed: () => Navigator.of(ctx).pop(), child: const Text('やめる')),
+        TextButton(onPressed: () => Navigator.of(ctx).pop(), child: Text(tr('やめる', 'Cancel'))),
         FilledButton(onPressed: () => Navigator.of(ctx).pop(c.text.trim()), child: Text(action)),
       ],
     ),
@@ -1650,8 +1664,8 @@ Future<bool> _confirm(BuildContext context, String title, String message) async 
       title: Text(title),
       content: Text(message),
       actions: [
-        TextButton(onPressed: () => Navigator.of(ctx).pop(false), child: const Text('やめる')),
-        FilledButton(onPressed: () => Navigator.of(ctx).pop(true), child: const Text('はい')),
+        TextButton(onPressed: () => Navigator.of(ctx).pop(false), child: Text(tr('やめる', 'Cancel'))),
+        FilledButton(onPressed: () => Navigator.of(ctx).pop(true), child: Text(tr('はい', 'Yes'))),
       ],
     ),
   );

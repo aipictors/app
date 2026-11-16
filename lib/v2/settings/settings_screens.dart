@@ -1,6 +1,7 @@
 import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/design.dart';
+import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/core/list_like_count.dart';
 import 'package:aipictors/v2/core/models.dart';
 import 'package:aipictors/v2/core/nav.dart';
@@ -26,29 +27,29 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Widget link(IconData icon, String label, String path) => SettingsLink(icon: icon, label: label, onTap: () => context.push(path));
     return Scaffold(
-      appBar: AppBar(title: const Text('設定', style: TextStyle(fontWeight: FontWeight.w800))),
+      appBar: AppBar(title: Text(tr('設定', 'Settings'), style: const TextStyle(fontWeight: FontWeight.w800))),
       body: ContentWidth(
         child: ListView(padding: const EdgeInsets.only(bottom: 60), children: [
-          SettingsGroup(title: 'アカウント', children: [
-            link(Icons.badge_outlined, 'プロフィール', '/settings/profile'),
-            link(Icons.manage_accounts_outlined, 'アカウント設定', '/settings/account'),
-            link(Icons.volunteer_activism_outlined, '応援コイン受け取り', '/settings/support-received'),
-            link(Icons.payments_outlined, 'クリエイター報酬', '/settings/creator-rewards'),
+          SettingsGroup(title: tr('アカウント', 'Account'), children: [
+            link(Icons.badge_outlined, tr('プロフィール', 'Profile'), '/settings/profile'),
+            link(Icons.manage_accounts_outlined, tr('アカウント設定', 'Account settings'), '/settings/account'),
+            link(Icons.volunteer_activism_outlined, tr('応援コイン受け取り', 'Supports received'), '/settings/support-received'),
+            link(Icons.payments_outlined, tr('収益の受け取り', 'Rewards payout'), '/settings/creator-rewards'),
           ]),
-          SettingsGroup(title: '表示と通知', children: [
-            link(Icons.notifications_none_rounded, '通知・いいね', '/settings/notification'),
-            link(Icons.visibility_outlined, '表示コンテンツ', '/settings/restriction'),
-            link(Icons.palette_outlined, 'カラーテーマ', '/settings/color'),
-            link(Icons.emoji_emotions_outlined, 'スタンプ', '/settings/sticker'),
+          SettingsGroup(title: tr('表示と通知', 'Display & notifications'), children: [
+            link(Icons.notifications_none_rounded, tr('通知・いいね', 'Notifications & likes'), '/settings/notification'),
+            link(Icons.visibility_outlined, tr('表示コンテンツ', 'Content'), '/settings/restriction'),
+            link(Icons.palette_outlined, tr('カラーテーマ', 'Color theme'), '/settings/color'),
+            link(Icons.emoji_emotions_outlined, tr('スタンプ', 'Stickers'), '/settings/sticker'),
           ]),
-          SettingsGroup(title: 'タグとユーザー', children: [
-            link(Icons.sell_outlined, 'お気に入りタグ', '/settings/followed/tags'),
-            link(Icons.volume_off_outlined, 'ユーザーミュート', '/settings/muted/users'),
-            link(Icons.block_rounded, 'ユーザーブロック', '/settings/blocked/users'),
-            link(Icons.label_off_outlined, 'タグミュート', '/settings/muted/tags'),
+          SettingsGroup(title: tr('タグとユーザー', 'Tags & users'), children: [
+            link(Icons.sell_outlined, tr('お気に入りタグ', 'Favorite tags'), '/settings/followed/tags'),
+            link(Icons.volume_off_outlined, tr('ユーザーミュート', 'Muted users'), '/settings/muted/users'),
+            link(Icons.block_rounded, tr('ユーザーブロック', 'Blocked users'), '/settings/blocked/users'),
+            link(Icons.label_off_outlined, tr('タグミュート', 'Muted tags'), '/settings/muted/tags'),
           ]),
           SettingsGroup(children: [
-            link(Icons.tune_rounded, 'その他の設定・ヘルプ', '/more'),
+            link(Icons.tune_rounded, tr('その他の設定・ヘルプ', 'More settings & help'), '/more'),
           ]),
         ]),
       ),
@@ -331,7 +332,7 @@ class _NotificationSettingsScreenState extends State<NotificationSettingsScreen>
           return;
         }
         final token = await messaging.getToken();
-        if (token == null) throw ApiException('Push通知の登録に失敗しました');
+        if (token == null) throw const ApiException('Push通知の登録に失敗しました');
         await SettingsApi.updateFcmToken(token);
         viewer?.obj('user')?['fcmToken'] = token;
         if (mounted) context.toast('Push通知をオンにしました');
@@ -458,7 +459,7 @@ class _StickerSettingsScreenState extends State<StickerSettingsScreen> with _Set
   Widget build(BuildContext context) {
     final s = setting;
     return Scaffold(
-      appBar: AppBar(title: const Text('スタンプ', style: TextStyle(fontWeight: FontWeight.w800))),
+      appBar: AppBar(title: Text(tr('スタンプ', 'Stickers'), style: const TextStyle(fontWeight: FontWeight.w800))),
       body: settingPlaceholder() ??
           ContentWidth(
             child: StickerSettingsList(

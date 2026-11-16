@@ -1,3 +1,4 @@
+import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/coins.dart';
 import 'package:aipictors/v2/core/debug_boot.dart';
@@ -51,7 +52,7 @@ class CommentItem {
 
   String get userId => user?.str('id') ?? '';
 
-  String get userName => user?.str('name', '退会したユーザー') ?? '退会したユーザー';
+  String get userName => user?.str('name', tr('退会したユーザー', 'Deleted user')) ?? tr('退会したユーザー', 'Deleted user');
 
   String? get iconUrl => user?.strOrNull('iconUrl');
 
@@ -152,14 +153,14 @@ class _CommentTileState extends State<CommentTile> {
           if (mine)
             ListTile(
               leading: Icon(Icons.delete_outline_rounded, color: context.cs.error),
-              title: Text('コメントを削除', style: TextStyle(color: context.cs.error)),
+              title: Text(tr('コメントを削除', 'Delete comment'), style: TextStyle(color: context.cs.error)),
               onTap: () => Navigator.pop(context, 'delete'),
             )
           else ...[
-            ListTile(leading: const Icon(Icons.flag_outlined), title: const Text('コメントを通報'), onTap: () => Navigator.pop(context, 'report')),
+            ListTile(leading: const Icon(Icons.flag_outlined), title: Text(tr('コメントを通報', 'Report comment')), onTap: () => Navigator.pop(context, 'report')),
             if (c.userId.isNotEmpty) ...[
-              ListTile(leading: const Icon(Icons.volume_off_outlined), title: Text('${c.userName}さんをミュート'), onTap: () => Navigator.pop(context, 'mute')),
-              ListTile(leading: const Icon(Icons.block_rounded), title: Text('${c.userName}さんをブロック'), onTap: () => Navigator.pop(context, 'block')),
+              ListTile(leading: const Icon(Icons.volume_off_outlined), title: Text(tr('${c.userName}さんをミュート', 'Mute ${c.userName}')), onTap: () => Navigator.pop(context, 'mute')),
+              ListTile(leading: const Icon(Icons.block_rounded), title: Text(tr('${c.userName}さんをブロック', 'Block ${c.userName}')), onTap: () => Navigator.pop(context, 'block')),
             ],
           ],
           const SizedBox(height: 8),
@@ -173,7 +174,7 @@ class _CommentTileState extends State<CommentTile> {
           await Api.mutate(r'mutation AppDeleteComment($input: DeleteCommentInput!) { deleteComment(input: $input) { id } }', variables: {
             'input': {'commentId': c.id},
           });
-          if (mounted) context.toast('削除しました');
+          if (mounted) context.toast(tr('削除しました', 'Deleted'));
           widget.onDeleted?.call();
         } on ApiException catch (e) {
           if (mounted) context.toast(e.message, error: true);
@@ -225,15 +226,15 @@ class _CommentTileState extends State<CommentTile> {
                     ]),
                     if (widget.replyToUserName != null) ...[
                       const SizedBox(height: 2),
-                      Text('${widget.replyToUserName} さんのコメントへの返信', maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(color: context.muted, fontSize: 11)),
+                      Text(tr('${widget.replyToUserName} さんのコメントへの返信', 'Reply to ${widget.replyToUserName}'), maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(color: context.muted, fontSize: 11)),
                     ],
                     if (c.isSensitive && !_revealed) ...[
                       const SizedBox(height: 6),
-                      Text(widget.isReply ? '隠し付き（もしくはセンシティブ）な返信です' : '隠し付き（もしくはセンシティブ）なコメントです', style: TextStyle(color: context.muted, fontSize: 13)),
+                      Text(widget.isReply ? tr('隠し付き（もしくはセンシティブ）な返信です', 'This reply is hidden (or sensitive)') : tr('隠し付き（もしくはセンシティブ）なコメントです', 'This comment is hidden (or sensitive)'), style: TextStyle(color: context.muted, fontSize: 13)),
                       TextButton(
                         style: TextButton.styleFrom(padding: EdgeInsets.zero, minimumSize: const Size(0, 32), tapTargetSize: MaterialTapTargetSize.shrinkWrap),
                         onPressed: () => setState(() => _revealed = true),
-                        child: const Text('表示する'),
+                        child: Text(tr('表示する', 'Show')),
                       ),
                     ] else ...[
                       if (c.text.isNotEmpty) ...[
@@ -250,7 +251,7 @@ class _CommentTileState extends State<CommentTile> {
                     ],
                     if (support && c.thankYouMessage != null) ...[
                       const SizedBox(height: 6),
-                      Text('作者より：${c.thankYouMessage}', style: TextStyle(color: context.muted, fontSize: 12)),
+                      Text(tr('作者より：${c.thankYouMessage}', 'From the creator: ${c.thankYouMessage}'), style: TextStyle(color: context.muted, fontSize: 12)),
                     ],
                       ]),
                     ),
@@ -265,15 +266,15 @@ class _CommentTileState extends State<CommentTile> {
               _MiniAction(
                 icon: c.isLiked ? Icons.favorite_rounded : Icons.favorite_border_rounded,
                 color: c.isLiked ? Ds.pink : null,
-                label: c.likesCount > 0 ? '${c.likesCount}' : 'いいね',
+                label: c.likesCount > 0 ? '${c.likesCount}' : tr('いいね', 'Like'),
                 onTap: _like,
               ),
               if (widget.onReply != null)
-                _MiniAction(icon: Icons.reply_rounded, label: '返信', onTap: () => widget.onReply!(c)),
+                _MiniAction(icon: Icons.reply_rounded, label: tr('返信', 'Reply'), onTap: () => widget.onReply!(c)),
               if (c.isWorkOwnerLiked)
                 Padding(
                   padding: const EdgeInsets.only(left: 4),
-                  child: Text('作者がいいね', style: TextStyle(fontSize: 11, color: Ds.pink.withValues(alpha: 0.9), fontWeight: FontWeight.w700)),
+                  child: Text(tr('作者がいいね', 'Liked by creator'), style: TextStyle(fontSize: 11, color: Ds.pink.withValues(alpha: 0.9), fontWeight: FontWeight.w700)),
                 ),
               _MiniAction(icon: Icons.more_horiz_rounded, label: '', onTap: _menu),
             ]),
@@ -437,7 +438,7 @@ query AppWorkComments(\$id: ID!, \$offset: Int!, \$limit: Int!) {
         Padding(
           padding: const EdgeInsets.fromLTRB(20, 0, 12, 6),
           child: Row(children: [
-            Text('コメント', style: context.tt.titleLarge?.copyWith(fontWeight: FontWeight.w900)),
+            Text(tr('コメント', 'Comments'), style: context.tt.titleLarge?.copyWith(fontWeight: FontWeight.w900)),
             const Spacer(),
             IconButton(onPressed: () => Navigator.pop(context), icon: const Icon(Icons.close_rounded)),
           ]),
@@ -462,10 +463,10 @@ query AppWorkComments(\$id: ID!, \$offset: Int!, \$limit: Int!) {
               }
               if (c.items.isEmpty && c.error != null) return StateView.error(c.error!, onRetry: c.refresh);
               if (c.items.isEmpty) {
-                return const StateView(
+                return StateView(
                   icon: Icons.chat_bubble_outline_rounded,
-                  title: 'まだコメントがありません',
-                  message: '最初のコメントで作者さんを応援しよう',
+                  title: tr('まだコメントがありません', 'No comments yet'),
+                  message: tr('最初のコメントで作者さんを応援しよう', 'Cheer the creator with the first comment'),
                 );
               }
               // コメント欄の上の「応援の帯」（読み込んだコメントだけで決める。段階の時間だけ出す）
@@ -592,7 +593,7 @@ class _CommentComposerState extends State<CommentComposer> {
     if (DebugBoot.screenTab == 'sheet:support') {
       Future.delayed(const Duration(seconds: 3), () {
         if (!mounted) return;
-        _text.text = 'いつも素敵な作品をありがとうございます！';
+        _text.text = tr('いつも素敵な作品をありがとうございます！', 'Thank you for your wonderful work!');
         _supportFree = 30;
         _pickSupport();
       });
@@ -702,7 +703,7 @@ mutation AppComment(\$input: CreateWorkCommentInput!) { createWorkComment(input:
       if (hadSupport) {
         showSupportSent(context, free: sent.free, premium: sent.premium, pt: sent.pt);
       } else {
-        context.toast('コメントしました');
+        context.toast(tr('コメントしました', 'Comment posted'));
       }
     } on ApiException catch (e) {
       if (!mounted) return;
@@ -728,19 +729,19 @@ mutation AppComment(\$input: CreateWorkCommentInput!) { createWorkComment(input:
               if (widget.replyTo != null)
                 InputChip(
                   avatar: const Icon(Icons.reply_rounded, size: 16),
-                  label: Text('${widget.replyTo!.userName}さんへ返信'),
+                  label: Text(tr('${widget.replyTo!.userName}さんへ返信', 'Reply to ${widget.replyTo!.userName}')),
                   onDeleted: widget.onCancelReply,
                 ),
               if (_sticker != null)
                 InputChip(
                   avatar: AppImage(_sticker!['imageUrl']?.toString(), width: 20, height: 20, fit: BoxFit.contain),
-                  label: const Text('スタンプ'),
+                  label: Text(tr('スタンプ', 'Stickers')),
                   onDeleted: () => setState(() => _sticker = null),
                 ),
               if (_hasSupport)
                 InputChip(
                   label: SupportTierChip(free: _supportFree, premium: _supportPremium, pt: _supportPt),
-                  tooltip: '推しコイン（${supportAmountLabel(_supportFree, _supportPremium, _supportPt)}）',
+                  tooltip: tr('推しコイン（${supportAmountLabel(_supportFree, _supportPremium, _supportPt)}）', 'Support coins (${supportAmountLabel(_supportFree, _supportPremium, _supportPt)})'),
                   onPressed: _pickSupport,
                   onDeleted: () => setState(() {
                     _supportFree = 0;
@@ -750,15 +751,15 @@ mutation AppComment(\$input: CreateWorkCommentInput!) { createWorkComment(input:
             ]),
           ),
         Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
-          IconButton(tooltip: 'スタンプ', onPressed: _pickSticker, icon: const Icon(Icons.emoji_emotions_outlined)),
+          IconButton(tooltip: tr('スタンプ', 'Stickers'), onPressed: _pickSticker, icon: const Icon(Icons.emoji_emotions_outlined)),
           IconButton(
-            tooltip: '隠し付き',
+            tooltip: tr('隠し付き', 'Hidden'),
             onPressed: () => setState(() => _sensitive = !_sensitive),
             icon: Icon(_sensitive ? Icons.visibility_off_rounded : Icons.visibility_outlined, color: _sensitive ? context.cs.primary : null),
           ),
           if (widget.replyTo == null)
             IconButton(
-              tooltip: '推しコインを添える',
+              tooltip: tr('推しコインを添える', 'Add support coins'),
               onPressed: _pickSupport,
               icon: Icon(Icons.monetization_on_outlined, color: _hasSupport ? (SupportTier.of(_supportPt)?.color ?? Ds.gold) : null),
             ),
@@ -772,7 +773,7 @@ mutation AppComment(\$input: CreateWorkCommentInput!) { createWorkComment(input:
               textInputAction: TextInputAction.newline,
               decoration: InputDecoration(
                 counterText: '',
-                hintText: _sensitive ? '隠し付きで送ります' : (widget.replyTo != null ? '返信を書く' : '${widget.ownerName}さんにコメント'),
+                hintText: _sensitive ? tr('隠し付きで送ります', 'Sending as hidden') : (widget.replyTo != null ? tr('返信を書く', 'Write a reply') : tr('${widget.ownerName}さんにコメント', 'Comment to ${widget.ownerName}')),
                 filled: true,
                 fillColor: context.skeleton,
                 isDense: true,
@@ -843,10 +844,10 @@ class SupportPickerState extends State<SupportPicker> {
       Row(children: [
         Text(label, style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 13)),
         const SizedBox(width: Ds.s6),
-        Text('手持ち $balance枚', style: TextStyle(color: context.muted, fontSize: 12)),
+        Text(tr('手持ち $balance枚', 'You have $balance'), style: TextStyle(color: context.muted, fontSize: 12)),
         const Spacer(),
-        Text('$value枚', style: const TextStyle(fontWeight: FontWeight.w800)),
-        if (value > 0) TextButton(onPressed: () => onChanged(0), child: const Text('クリア')),
+        Text(tr('$value枚', '$value'), style: const TextStyle(fontWeight: FontWeight.w800)),
+        if (value > 0) TextButton(onPressed: () => onChanged(0), child: Text(tr('クリア', 'Clear'))),
       ]),
       const SizedBox(height: Ds.s4),
       // 金額のボタンは段階の色（大きいほど濃い色）
@@ -858,7 +859,7 @@ class SupportPickerState extends State<SupportPicker> {
   }
 
   Future<void> _done() async {
-    if (_pt >= _confirmPt && !await showConfirmSheet(context, title: '${_pt}pt 送りますか？', message: 'プレミアム$_premium枚・フリー$_free枚を使います')) return;
+    if (_pt >= _confirmPt && !await showConfirmSheet(context, title: tr('${_pt}pt 送りますか？', 'Send ${_pt}pt?'), message: tr('プレミアム$_premium枚・フリー$_free枚を使います', 'Uses $_premium premium and $_free free coins'))) return;
     if (mounted) Navigator.pop(context, SupportPick(_free, _premium, _anonymous));
   }
 
@@ -869,27 +870,27 @@ class SupportPickerState extends State<SupportPicker> {
       child: Padding(
         padding: const EdgeInsets.fromLTRB(Ds.s20, 0, Ds.s20, Ds.s16),
         child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-          Text('推しコインを添える', style: context.tt.titleMedium?.copyWith(fontWeight: FontWeight.w800)),
+          Text(tr('推しコインを添える', 'Add support coins'), style: context.tt.titleMedium?.copyWith(fontWeight: FontWeight.w800)),
           const SizedBox(height: Ds.s12),
-          _row('フリー', b.free, _free, _freeSteps, 1, (v) => setState(() => _free = v)),
+          _row(tr('フリー', 'Free'), b.free, _free, _freeSteps, 1, (v) => setState(() => _free = v)),
           const SizedBox(height: Ds.s12),
-          _row('プレミアム（×10pt）', b.premium, _premium, _premiumSteps, 10, (v) => setState(() => _premium = v)),
+          _row(tr('プレミアム（×10pt）', 'Premium (×10pt)'), b.premium, _premium, _premiumSteps, 10, (v) => setState(() => _premium = v)),
           if (_pt > 0) ...[
             const SizedBox(height: Ds.s12),
-            Text('コメントはこう表示されます', style: TextStyle(color: context.muted, fontSize: 11)),
+            Text(tr('コメントはこう表示されます', 'Your comment will look like this'), style: TextStyle(color: context.muted, fontSize: 11)),
             const SizedBox(height: Ds.s4),
             _SupportPreview(free: _free, premium: _premium, pt: _pt, text: widget.previewText, anonymous: _anonymous),
           ],
           SwitchListTile.adaptive(
             contentPadding: EdgeInsets.zero,
             dense: true,
-            title: const Text('匿名で推す', style: TextStyle(fontSize: 14)),
+            title: Text(tr('匿名で推す', 'Support anonymously'), style: const TextStyle(fontSize: 14)),
             value: _anonymous,
             onChanged: (v) => setState(() => _anonymous = v),
           ),
           if (widget.showRewardNote) ...[const SupportRewardNote(isWork: true), const SizedBox(height: Ds.s8)],
           const SizedBox(height: Ds.s4),
-          PrimaryButton(label: _pt > 0 ? '合計 ${_pt}pt を添える' : '添えない', onPressed: _done),
+          PrimaryButton(label: _pt > 0 ? tr('合計 ${_pt}pt を添える', 'Add ${_pt}pt in total') : tr('添えない', 'None'), onPressed: _done),
         ]),
       ),
     );
@@ -923,11 +924,11 @@ class _SupportPreview extends StatelessWidget {
         borderRadius: Ds.br(16),
       ),
       child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-        SupportBand(free: free, premium: premium, pt: pt, title: Text(anonymous ? '匿名' : 'あなた')),
+        SupportBand(free: free, premium: premium, pt: pt, title: Text(anonymous ? tr('匿名', 'Anonymous') : tr('あなた', 'You'))),
         Padding(
           padding: const EdgeInsets.fromLTRB(12, 8, 12, 10),
           child: Text(
-            text.isEmpty ? '（コメントなしでも送れます）' : text,
+            text.isEmpty ? tr('（コメントなしでも送れます）', '(You can send without a comment)') : text,
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(fontSize: 14, color: text.isEmpty ? context.muted : null),
@@ -1034,7 +1035,7 @@ query AppViewerStickers($offset: Int!, $limit: Int!, $orderBy: StickerOrderBy) {
         Row(children: [
           Expanded(
             child: PillTabs(
-              labels: const ['最近の使用', 'マイスタンプ'],
+              labels: [tr('最近の使用', 'Recent'), tr('マイスタンプ', 'My stickers')],
               index: _tab,
               onChanged: (i) {
                 setState(() => _tab = i);
@@ -1047,7 +1048,7 @@ query AppViewerStickers($offset: Int!, $limit: Int!, $orderBy: StickerOrderBy) {
               Navigator.pop(context);
               context.push('/stickers');
             },
-            child: const Text('広場'),
+            child: Text(tr('広場', 'Browse')),
           ),
         ]),
         Expanded(
@@ -1058,8 +1059,8 @@ query AppViewerStickers($offset: Int!, $limit: Int!, $orderBy: StickerOrderBy) {
                   : items.isEmpty
                       ? StateView(
                           icon: Icons.emoji_emotions_outlined,
-                          title: _tab == 0 ? '最近使ったスタンプはありません' : 'スタンプがありません',
-                          message: 'スタンプ広場で気に入ったスタンプを追加すると、ここから使えます。',
+                          title: _tab == 0 ? tr('最近使ったスタンプはありません', 'No recent stickers') : tr('スタンプがありません', 'No stickers'),
+                          message: tr('スタンプ広場で気に入ったスタンプを追加すると、ここから使えます。', 'Add stickers you like from the sticker square to use them here.'),
                           compact: true,
                         )
                       : GridView.builder(

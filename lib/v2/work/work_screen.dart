@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/debug_boot.dart';
 import 'package:aipictors/v2/core/design.dart';
@@ -1143,7 +1144,7 @@ class _CommentsPreview extends StatelessWidget {
             child: Row(children: [
               Icon(Icons.edit_outlined, size: 18, color: context.muted),
               const SizedBox(width: 8),
-              Text('コメントを書く', style: TextStyle(color: context.muted)),
+              Text(tr('コメントを書く', 'Write a comment'), style: TextStyle(color: context.muted)),
               const Spacer(),
               Icon(Icons.emoji_emotions_outlined, size: 20, color: context.muted),
               const SizedBox(width: 8),

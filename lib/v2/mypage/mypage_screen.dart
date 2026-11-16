@@ -4,6 +4,7 @@ import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/coins.dart';
 import 'package:aipictors/v2/core/debug_boot.dart';
 import 'package:aipictors/v2/core/design.dart';
+import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/plans/coin_shop.dart';
 import 'package:aipictors/v2/core/models.dart';
 import 'package:aipictors/v2/core/nav.dart';
@@ -102,7 +103,7 @@ class _MyPageScreenState extends State<MyPageScreen> {
     if (!Nav.isLoggedIn) {
       return Scaffold(
         appBar: AppBar(
-          title: const Text('マイページ', style: TextStyle(fontWeight: FontWeight.w900)),
+          title: Text(tr('マイページ', 'My page'), style: const TextStyle(fontWeight: FontWeight.w900)),
           actions: [IconButton(onPressed: () => context.push('/more'), icon: const Icon(Icons.settings_outlined))],
         ),
         body: LoginRequiredView(
@@ -122,7 +123,7 @@ class _MyPageScreenState extends State<MyPageScreen> {
           slivers: [
             SliverAppBar(
               pinned: true,
-              title: const Text('マイページ', style: TextStyle(fontWeight: FontWeight.w900)),
+              title: Text(tr('マイページ', 'My page'), style: const TextStyle(fontWeight: FontWeight.w900)),
               actions: [IconButton(tooltip: '設定', onPressed: () => context.push('/settings'), icon: const Icon(Icons.settings_outlined))],
             ),
             if (_loading)
@@ -138,53 +139,54 @@ class _MyPageScreenState extends State<MyPageScreen> {
               SliverToBoxAdapter(child: _ProfileCard(user: u)),
               SliverToBoxAdapter(child: _PlanAndCoins(pass: _pass, coins: _coins)),
               SliverToBoxAdapter(
-                child: _MenuGroup(title: '作品', items: [
-                  _MenuItem(Icons.add_circle_outline_rounded, '作品を投稿', () => openNewPost(context)),
-                  _MenuItem(Icons.person_outline_rounded, '自分のページ', () => Nav.user(context, u.str('id'))),
-                  _MenuItem(Icons.favorite_border_rounded, 'いいねした作品', () => context.push('/my/likes')),
-                  _MenuItem(Icons.collections_bookmark_outlined, 'シリーズ', () => context.push('/viewer/albums')),
-                  _MenuItem(Icons.bookmark_border_rounded, 'ブックマーク', () => context.push('/my/bookmarks')),
-                  _MenuItem(Icons.folder_outlined, 'フォルダ', () => context.push('/my/folders')),
-                  _MenuItem(Icons.history_rounded, '閲覧履歴', () => context.push('/my/views')),
-                  _MenuItem(Icons.image_outlined, '自分の作品', () => context.push('/viewer/works')),
-                  _MenuItem(Icons.volunteer_activism_outlined, 'リクエスト', () => context.push('/requests')),
-                  _MenuItem(Icons.storefront_outlined, 'プラン一覧', () => context.push('/requests/plans')),
-                  _MenuItem(Icons.edit_note_rounded, '作品の履歴', () => context.push('/my/histories')),
+                child: _MenuGroup(title: tr('作品', 'Works'), items: [
+                  _MenuItem(Icons.add_circle_outline_rounded, tr('作品を投稿', 'Post a work'), () => openNewPost(context)),
+                  _MenuItem(Icons.person_outline_rounded, tr('自分のページ', 'My page'), () => Nav.user(context, u.str('id'))),
+                  _MenuItem(Icons.favorite_border_rounded, tr('いいねした作品', 'Liked works'), () => context.push('/my/likes')),
+                  _MenuItem(Icons.collections_bookmark_outlined, tr('シリーズ', 'Series'), () => context.push('/viewer/albums')),
+                  _MenuItem(Icons.bookmark_border_rounded, tr('ブックマーク', 'Bookmarks'), () => context.push('/my/bookmarks')),
+                  _MenuItem(Icons.folder_outlined, tr('フォルダ', 'Folders'), () => context.push('/my/folders')),
+                  _MenuItem(Icons.history_rounded, tr('閲覧履歴', 'History'), () => context.push('/my/views')),
+                  _MenuItem(Icons.image_outlined, tr('自分の作品', 'My works'), () => context.push('/viewer/works')),
+                  _MenuItem(Icons.volunteer_activism_outlined, tr('リクエスト', 'Requests'), () => context.push('/requests')),
+                  _MenuItem(Icons.storefront_outlined, tr('プラン一覧', 'Request plans'), () => context.push('/requests/plans')),
+                  _MenuItem(Icons.payments_outlined, tr('収益の受け取り', 'Rewards payout'), () => context.push('/settings/creator-rewards')),
+                  _MenuItem(Icons.edit_note_rounded, tr('作品の履歴', 'Edit history'), () => context.push('/my/histories')),
                 ]),
               ),
               SliverToBoxAdapter(
-                child: _MenuGroup(title: 'つながり', items: [
-                  _MenuItem(Icons.people_outline_rounded, 'フォロー中', () => context.push('/users/${u.str('id')}/followees')),
-                  _MenuItem(Icons.group_add_outlined, 'フォロワー', () => context.push('/users/${u.str('id')}/followers')),
-                  _MenuItem(Icons.emoji_emotions_outlined, 'スタンプ', () => context.push('/stickers')),
-                  _MenuItem(Icons.emoji_events_outlined, '実績', () => context.push('/achievements')),
+                child: _MenuGroup(title: tr('つながり', 'Connections'), items: [
+                  _MenuItem(Icons.people_outline_rounded, tr('フォロー中', 'Following'), () => context.push('/users/${u.str('id')}/followees')),
+                  _MenuItem(Icons.group_add_outlined, tr('フォロワー', 'Followers'), () => context.push('/users/${u.str('id')}/followers')),
+                  _MenuItem(Icons.emoji_emotions_outlined, tr('スタンプ', 'Stickers'), () => context.push('/stickers')),
+                  _MenuItem(Icons.emoji_events_outlined, tr('実績', 'Achievements'), () => context.push('/achievements')),
                 ]),
               ),
               SliverToBoxAdapter(
-                child: _MenuGroup(title: 'コミュニティ', items: [
-                  _MenuItem(Icons.mail_outline_rounded, 'メッセージ', () => context.push('/messages')),
-                  _MenuItem(Icons.campaign_outlined, 'お知らせ', () => context.push('/releases')),
-                  _MenuItem(Icons.celebration_outlined, 'イベント', () => context.push('/events')),
-                  _MenuItem(Icons.hub_outlined, 'モデル', () => context.push('/models')),
+                child: _MenuGroup(title: tr('コミュニティ', 'Community'), items: [
+                  _MenuItem(Icons.mail_outline_rounded, tr('メッセージ', 'Messages'), () => context.push('/messages')),
+                  _MenuItem(Icons.campaign_outlined, tr('お知らせ', 'News'), () => context.push('/releases')),
+                  _MenuItem(Icons.celebration_outlined, tr('イベント', 'Events'), () => context.push('/events')),
+                  _MenuItem(Icons.hub_outlined, tr('モデル', 'Models'), () => context.push('/models')),
                 ]),
               ),
               SliverToBoxAdapter(
-                child: _MenuGroup(title: 'サポート', items: [
-                  _MenuItem(Icons.support_agent_rounded, 'お問い合わせ', () => context.push('/support/chat')),
-                  _MenuItem(Icons.help_outline_rounded, 'ヘルプ', () => context.push('/help')),
-                  _MenuItem(Icons.gavel_rounded, 'ガイドライン', () => context.push('/guideline')),
-                  _MenuItem(Icons.description_outlined, '利用規約', () => context.push('/terms')),
-                  _MenuItem(Icons.privacy_tip_outlined, 'プライバシーポリシー', () => context.push('/privacy')),
-                  _MenuItem(Icons.map_outlined, 'ロードマップ', () => context.push('/roadmap')),
+                child: _MenuGroup(title: tr('サポート', 'Support'), items: [
+                  _MenuItem(Icons.support_agent_rounded, tr('お問い合わせ', 'Contact us'), () => context.push('/support/chat')),
+                  _MenuItem(Icons.help_outline_rounded, tr('ヘルプ', 'Help'), () => context.push('/help')),
+                  _MenuItem(Icons.gavel_rounded, tr('ガイドライン', 'Guidelines'), () => context.push('/guideline')),
+                  _MenuItem(Icons.description_outlined, tr('利用規約', 'Terms of use'), () => context.push('/terms')),
+                  _MenuItem(Icons.privacy_tip_outlined, tr('プライバシーポリシー', 'Privacy policy'), () => context.push('/privacy')),
+                  _MenuItem(Icons.map_outlined, tr('ロードマップ', 'Roadmap'), () => context.push('/roadmap')),
                 ]),
               ),
               SliverToBoxAdapter(
-                child: _MenuGroup(title: 'アカウント', items: [
-                  _MenuItem(Icons.workspace_premium_outlined, 'プラン', () => Nav.plans(context)),
-                  _MenuItem(Icons.badge_outlined, 'プロフィールを編集', () => context.push('/settings/profile')),
-                  _MenuItem(Icons.chat_bubble_outline_rounded, 'ステータス', () => showStatusSheet(context)),
-                  _MenuItem(Icons.shield_outlined, '運営からのお知らせ', () => context.push('/my/reports')),
-                  _MenuItem(Icons.tune_rounded, '設定', () => context.push('/settings')),
+                child: _MenuGroup(title: tr('アカウント', 'Account'), items: [
+                  _MenuItem(Icons.workspace_premium_outlined, tr('プラン', 'Plan'), () => Nav.plans(context)),
+                  _MenuItem(Icons.badge_outlined, tr('プロフィールを編集', 'Edit profile'), () => context.push('/settings/profile')),
+                  _MenuItem(Icons.chat_bubble_outline_rounded, tr('ステータス', 'Status'), () => showStatusSheet(context)),
+                  _MenuItem(Icons.shield_outlined, tr('運営からのお知らせ', 'Notices from staff'), () => context.push('/my/reports')),
+                  _MenuItem(Icons.tune_rounded, tr('設定', 'Settings'), () => context.push('/settings')),
                 ]),
               ),
               const SliverToBoxAdapter(child: SizedBox(height: 120)),
