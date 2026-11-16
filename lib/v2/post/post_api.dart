@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:aipictors/v2/core/api.dart';
+import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/post/upload.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
@@ -11,15 +12,15 @@ const maxPostTags = 10;
 const maxTitleLength = 120;
 const maxCaptionLength = 3000;
 
-const accessTypeLabels = {
-  'PUBLIC': '公開',
-  'SILENT': '新着に出さない',
-  'LIMITED': 'リンクを知っている人だけ',
-  'PRIVATE': '非公開',
-  'DRAFT': '下書き',
+Map<String, String> get accessTypeLabels => {
+  'PUBLIC': tr('公開', 'Public'),
+  'SILENT': tr('新着に出さない', 'Hide from new'),
+  'LIMITED': tr('リンクを知っている人だけ', 'Anyone with the link'),
+  'PRIVATE': tr('非公開', 'Private'),
+  'DRAFT': tr('下書き', 'Draft'),
 };
 
-const imageStyleLabels = {'ILLUSTRATION': 'イラスト', 'SEMI_REAL': 'セミリアル', 'REAL': 'リアル'};
+Map<String, String> get imageStyleLabels => {'ILLUSTRATION': tr('イラスト', 'Illustration'), 'SEMI_REAL': tr('セミリアル', 'Semi-real'), 'REAL': tr('リアル', 'Real')};
 
 /// 投稿フォームの 1 枚。新しく選んだ画像か、投稿済みの画像の URL
 /// 投稿フォームへ引き継ぐ生成結果
@@ -181,7 +182,7 @@ query AppWorkForEdit($id: ID!) {
     if (work == null) return null;
     final viewerId = data.obj('viewer')?.obj('user')?.str('id');
     if (viewerId == null || work.obj('user')?.str('id') != viewerId) {
-      throw const ApiException('自分の作品だけ編集できます');
+      throw ApiException(tr('自分の作品だけ編集できます', 'You can only edit your own works'));
     }
     return EditingWork(work);
   }
@@ -286,12 +287,12 @@ query AppPostGenerationResult($where: ImageGenerationResultsWhereInput) {
       };
 
   static List<String>? _validate(PostDraft d, List<PostImage> images) {
-    if (d.title.trim().isEmpty) return ['タイトルを入力してください'];
-    if (d.title.length > maxTitleLength) return ['タイトルは$maxTitleLength文字以内で入力してください'];
-    if (d.caption.length > maxCaptionLength) return ['キャプションは$maxCaptionLength文字以内で入力してください'];
-    if (images.isEmpty) return [d.workType == 'WORK' ? '画像を選択してください' : '表紙の画像を選択してください'];
-    if (d.workType != 'WORK' && d.body.trim().isEmpty) return ['本文を入力してください'];
-    if (d.rating == 'R18' || d.rating == 'R18G') return ['この年齢種別の作品はアプリから編集できません'];
+    if (d.title.trim().isEmpty) return [tr('タイトルを入力してください', 'Enter a title')];
+    if (d.title.length > maxTitleLength) return [tr('タイトルは$maxTitleLength文字以内で入力してください', 'Title must be up to $maxTitleLength characters')];
+    if (d.caption.length > maxCaptionLength) return [tr('キャプションは$maxCaptionLength文字以内で入力してください', 'Caption must be up to $maxCaptionLength characters')];
+    if (images.isEmpty) return [d.workType == 'WORK' ? tr('画像を選択してください', 'Select an image') : tr('表紙の画像を選択してください', 'Select a cover image')];
+    if (d.workType != 'WORK' && d.body.trim().isEmpty) return [tr('本文を入力してください', 'Enter the text')];
+    if (d.rating == 'R18' || d.rating == 'R18G') return [tr('この年齢種別の作品はアプリから編集できません', 'Works with this age rating can\'t be edited in the app')];
     return null;
   }
 
@@ -300,7 +301,7 @@ query AppPostGenerationResult($where: ImageGenerationResultsWhereInput) {
   static Future<Uint8List> _bytesOf(PostImage image) async {
     if (image.encoded != null) return image.encoded!.bytes;
     final res = await http.get(Uri.parse(image.url!)).timeout(const Duration(seconds: 60));
-    if (res.statusCode != 200) throw const ApiException('画像を取得できませんでした');
+    if (res.statusCode != 200) throw ApiException(tr('画像を取得できませんでした', 'Couldn\'t load the image'));
     return res.bodyBytes;
   }
 

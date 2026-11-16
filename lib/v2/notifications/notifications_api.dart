@@ -1,4 +1,5 @@
 import 'package:aipictors/v2/core/api.dart';
+import 'package:aipictors/v2/core/content_translate.dart';
 import 'package:aipictors/v2/core/models.dart';
 import 'package:flutter/foundation.dart';
 
@@ -134,7 +135,7 @@ class NotificationItem {
           ? null
           : NotificationWork(
               id: workJson.str('id'),
-              title: workJson.str('title'),
+              title: localizedContent(workJson.str('title'), workJson.strOrNull('enTitle')),
               thumbnailUrl: workJson.strOrNull('smallThumbnailImageURL'),
               isAdult: rating == 'R18' || rating == 'R18G',
             ),
@@ -173,7 +174,7 @@ class NotificationsApi {
   /// タブのバッジ。アプリのどこからでも読む
   static final unread = ValueNotifier<int>(0);
 
-  static const _work = 'work { id title rating smallThumbnailImageURL }';
+  static const _work = 'work { id title enTitle rating smallThumbnailImageURL }';
   static const _user = 'user { $userSummaryFields }';
 
   static const _list = '''

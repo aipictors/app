@@ -5,6 +5,7 @@ import 'dart:math' as math;
 import 'dart:typed_data';
 
 import 'package:aipictors/v2/core/api.dart';
+import 'package:aipictors/v2/core/l10n.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
 
@@ -218,15 +219,15 @@ mutation UpdateRatingImageGenerationModel($input: UpdateRatingImageGenerationMod
     try {
       response = await _client.get(Uri.parse('$webOrigin$path'), headers: await _webHeaders(auth: auth)).timeout(timeout);
     } on SocketException {
-      throw const ApiException('通信できませんでした。電波の良いところでもう一度お試しください');
+      throw ApiException(tr('通信できませんでした。電波の良いところでもう一度お試しください', 'Could not connect. Please try again with a better connection.'));
     } catch (_) {
-      throw const ApiException('通信に失敗しました。もう一度お試しください');
+      throw ApiException(tr('通信に失敗しました。もう一度お試しください', 'Connection failed. Please try again.'));
     }
     Map<String, dynamic> json;
     try {
       json = jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>;
     } catch (_) {
-      throw ApiException('サーバーからの応答を読めませんでした（${response.statusCode}）');
+      throw ApiException(tr('サーバーからの応答を読めませんでした（${response.statusCode}）', 'Could not read the server response (${response.statusCode})'));
     }
     final error = json['error'];
     if (error != null && error.toString().isNotEmpty) {
@@ -276,10 +277,10 @@ mutation UpdateRatingImageGenerationModel($input: UpdateRatingImageGenerationMod
           )
           .timeout(const Duration(seconds: 20));
     } catch (_) {
-      throw const ApiException('通信に失敗しました。もう一度お試しください');
+      throw ApiException(tr('通信に失敗しました。もう一度お試しください', 'Connection failed. Please try again.'));
     }
     if (response.statusCode >= 200 && response.statusCode < 300) return;
-    var message = '通報を送れませんでした';
+    var message = tr('通報を送れませんでした', 'Could not send the report');
     try {
       final error = (jsonDecode(utf8.decode(response.bodyBytes)) as Map)['error'];
       if (error != null && error.toString().isNotEmpty) message = error.toString();
@@ -291,16 +292,16 @@ mutation UpdateRatingImageGenerationModel($input: UpdateRatingImageGenerationMod
   static Future<String> uploadPublicImage(Uint8List png) async {
     final data = await Api.query(r'query GenerationViewerToken { viewer { id token } }');
     final token = data.obj('viewer')?.strOrNull('token');
-    if (token == null) throw const ApiException('認証エラーが発生しました。ログインし直してください');
+    if (token == null) throw ApiException(tr('認証エラーが発生しました。ログインし直してください', 'Authentication error. Please log in again.'));
     final http.Response response;
     try {
       response = await _client
           .put(Uri.parse(uploaderEndpoint), headers: {'authorization': 'Bearer $token', 'content-type': 'image/png'}, body: png)
           .timeout(const Duration(seconds: 45));
     } on TimeoutException {
-      throw const ApiException('画像のアップロードがタイムアウトしました。通信環境を確認してもう一度お試しください');
+      throw ApiException(tr('画像のアップロードがタイムアウトしました。通信環境を確認してもう一度お試しください', 'Image upload timed out. Check your connection and try again.'));
     } catch (_) {
-      throw const ApiException('画像のアップロードに失敗しました');
+      throw ApiException(tr('画像のアップロードに失敗しました', 'Image upload failed'));
     }
     Map<String, dynamic>? json;
     try {
@@ -309,7 +310,7 @@ mutation UpdateRatingImageGenerationModel($input: UpdateRatingImageGenerationMod
     final url = json?.obj('data')?.strOrNull('url');
     if (response.statusCode >= 200 && response.statusCode < 300 && url != null) return url;
     final error = json?['error']?.toString();
-    throw ApiException(error == null || error.isEmpty ? '画像のアップロードに失敗しました' : error);
+    throw ApiException(error == null || error.isEmpty ? tr('画像のアップロードに失敗しました', 'Image upload failed') : error);
   }
 
   /// 生成中のタスクの途中経過（Web の /api/generation/progress）
@@ -529,10 +530,10 @@ class GenViewer {
   bool get isStandardOrPremium => passType == 'STANDARD' || passType == 'PREMIUM';
 
   String get planLabel => switch (passType) {
-    'LITE' => 'ライト',
-    'STANDARD' => 'スタンダード',
-    'PREMIUM' => 'プレミアム',
-    _ => '無料プラン',
+    'LITE' => tr('ライト', 'Lite'),
+    'STANDARD' => tr('スタンダード', 'Standard'),
+    'PREMIUM' => tr('プレミアム', 'Premium'),
+    _ => tr('無料プラン', 'Free plan'),
   };
 
   factory GenViewer.fromJson(Map<String, dynamic> data) {
@@ -625,20 +626,20 @@ class CoinLedgerItem {
   }
 
   String get title {
-    final label = coinType == 'PREMIUM' ? 'プレミアムコイン' : 'フリーコイン';
+    final label = coinType == 'PREMIUM' ? tr('プレミアムコイン', 'Premium coins') : tr('フリーコイン', 'Free coins');
     return switch (kind) {
-      'CONSUME' => '$labelを使用',
-      'EXPIRE' => '$label失効',
-      _ => '$label付与',
+      'CONSUME' => tr('$labelを使用', '$label used'),
+      'EXPIRE' => tr('$label失効', '$label expired'),
+      _ => tr('$label付与', '$label granted'),
     };
   }
 
   String get detail {
-    if (reason.startsWith('image-generation:reserved')) return '予約生成';
+    if (reason.startsWith('image-generation:reserved')) return tr('予約生成', 'Queued generation');
     return switch (reason) {
-      'image-generation:text_to_image' => '通常生成',
-      'image-generation:image_to_image' || 'image-generation:inpainting' => '画像修正',
-      _ => reason.startsWith('image-generation') ? '画像生成' : '',
+      'image-generation:text_to_image' => tr('通常生成', 'Generation'),
+      'image-generation:image_to_image' || 'image-generation:inpainting' => tr('画像修正', 'Image edit'),
+      _ => reason.startsWith('image-generation') ? tr('画像生成', 'Image generation') : '',
     };
   }
 }
@@ -676,9 +677,18 @@ class GenNotice {
   factory GenNotice.fromJson(Map<String, dynamic> j) {
     final kind = j.str('kind', 'changed');
     final (title, message) = switch (kind) {
-      'maintenance' => ('画像生成を一時停止しています', '生成機能のメンテナンス中です。終わるまで生成できません。終わりしだい再開します。'),
-      'unstable' => ('画像生成のアップデート中です', 'ただいま生成機能のアップデートを行っています。生成に時間がかかったり、失敗したり、以前と違う仕上がりになったりすることがあります。'),
-      _ => ('生成の仕組みを変更しました', '生成の仕組みを新しくしました。以前と仕上がりが違ったり、うまく動かなかったりする場合があります。'),
+      'maintenance' => (
+        tr('画像生成を一時停止しています', 'Image generation is paused'),
+        tr('生成機能のメンテナンス中です。終わるまで生成できません。終わりしだい再開します。', 'Generation is under maintenance and unavailable until it ends. It will resume as soon as possible.'),
+      ),
+      'unstable' => (
+        tr('画像生成のアップデート中です', 'Image generation is being updated'),
+        tr('ただいま生成機能のアップデートを行っています。生成に時間がかかったり、失敗したり、以前と違う仕上がりになったりすることがあります。', 'We are updating the generator. Generations may be slower, fail, or look different from before.'),
+      ),
+      _ => (
+        tr('生成の仕組みを変更しました', 'Generation has changed'),
+        tr('生成の仕組みを新しくしました。以前と仕上がりが違ったり、うまく動かなかったりする場合があります。', 'We updated how generation works. Results may differ from before, or things may not work as expected.'),
+      ),
     };
     return GenNotice(id: j.str('id'), kind: kind, title: j.strOrNull('title') ?? title, message: j.strOrNull('message') ?? message);
   }

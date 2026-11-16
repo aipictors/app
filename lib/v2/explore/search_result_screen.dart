@@ -1,3 +1,4 @@
+import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/core/debug_boot.dart';
 import 'package:aipictors/v2/core/design.dart';
 import 'package:aipictors/v2/core/models.dart';
@@ -56,7 +57,7 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
             labelStyle: const TextStyle(fontWeight: FontWeight.w800, fontSize: 15),
             unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
             dividerColor: context.hairline,
-            tabs: const [Tab(text: '作品'), Tab(text: 'ユーザー'), Tab(text: 'タグ')],
+            tabs: [Tab(text: tr('作品', 'Works')), Tab(text: tr('ユーザー', 'Users')), Tab(text: tr('タグ', 'Tags'))],
           ),
         ),
         body: KeyedSubtree(
@@ -178,8 +179,8 @@ class _WorksTabState extends State<_WorksTab> with AutomaticKeepAliveClientMixin
             SliverPagedWorks(
               key: ObjectKey(c),
               controller: c,
-              emptyTitle: '「${widget.text}」の作品は見つかりませんでした',
-              emptyMessage: _mode == SearchMode.tag ? '「キーワード」に切り替えるとタイトルや説明からも探せます' : '別の言葉や、絞り込みを変えて試してみてください',
+              emptyTitle: tr('「${widget.text}」の作品は見つかりませんでした', 'No works found for "${widget.text}"'),
+              emptyMessage: _mode == SearchMode.tag ? tr('「キーワード」に切り替えるとタイトルや説明からも探せます', 'Switch to "Keyword" to also search titles and captions') : tr('別の言葉や、絞り込みを変えて試してみてください', 'Try other words or change the filters'),
             ),
         ],
       ),
@@ -212,7 +213,7 @@ class _WorksTabState extends State<_WorksTab> with AutomaticKeepAliveClientMixin
             child: Column(children: [
               Text(label, maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontWeight: FontWeight.w800, fontSize: 13, color: sel ? context.cs.onSurface : context.muted)),
               const SizedBox(height: 2),
-              Text(caption ?? (count == null ? '…' : '${compactCount(count)}件'), style: TextStyle(fontSize: 11, color: context.muted, fontWeight: FontWeight.w600)),
+              Text(caption ?? (count == null ? '…' : tr('${compactCount(count)}件', compactCount(count))), style: TextStyle(fontSize: 11, color: context.muted, fontWeight: FontWeight.w600)),
             ]),
           ),
         ),
@@ -225,8 +226,8 @@ class _WorksTabState extends State<_WorksTab> with AutomaticKeepAliveClientMixin
         padding: const EdgeInsets.all(4),
         decoration: BoxDecoration(color: context.skeleton, borderRadius: Ds.br(15)),
         child: Row(children: [
-          seg(SearchMode.tag, 'タグ「${widget.text}」', count: _tagCount),
-          seg(SearchMode.keyword, 'キーワード', caption: 'タイトル・説明・タグから'),
+          seg(SearchMode.tag, tr('タグ「${widget.text}」', 'Tag "${widget.text}"'), count: _tagCount),
+          seg(SearchMode.keyword, tr('キーワード', 'Keyword'), caption: tr('タイトル・説明・タグから', 'Titles, captions, tags')),
         ]),
       ),
     );
@@ -278,8 +279,8 @@ class _UsersTabState extends State<_UsersTab> with AutomaticKeepAliveClientMixin
           SliverPagedUsers(
             controller: _c,
             viewerId: _viewerId,
-            emptyTitle: '「${widget.text}」のユーザーは見つかりませんでした',
-            emptyMessage: '名前やユーザーIDの一部でも探せます',
+            emptyTitle: tr('「${widget.text}」のユーザーは見つかりませんでした', 'No users found for "${widget.text}"'),
+            emptyMessage: tr('名前やユーザーIDの一部でも探せます', 'You can also search by part of a name or user ID'),
           ),
         ],
       ),
@@ -342,7 +343,7 @@ class _TagsTabState extends State<_TagsTab> with AutomaticKeepAliveClientMixin {
               }
               if (c.items.isEmpty) {
                 return SliverToBoxAdapter(
-                  child: StateView(icon: Icons.tag_rounded, title: '「${widget.text}」を含むタグは見つかりませんでした'),
+                  child: StateView(icon: Icons.tag_rounded, title: tr('「${widget.text}」を含むタグは見つかりませんでした', 'No tags containing "${widget.text}"')),
                 );
               }
               return SliverPadding(

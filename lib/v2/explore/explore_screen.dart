@@ -1,3 +1,4 @@
+import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/core/design.dart';
 import 'package:aipictors/v2/core/models.dart';
 import 'package:aipictors/v2/core/nav.dart';
@@ -82,9 +83,9 @@ class _ExploreScreenState extends State<ExploreScreen> {
                     child: const Icon(Icons.explore_rounded, size: 30, color: Colors.white),
                   ),
                   const SizedBox(width: 8),
-                  Expanded(child: Text('探す', style: context.tt.headlineSmall?.copyWith(fontWeight: FontWeight.w900, letterSpacing: -0.5))),
+                  Expanded(child: Text(tr('探す', 'Explore'), style: context.tt.headlineSmall?.copyWith(fontWeight: FontWeight.w900, letterSpacing: -0.5))),
                   IconButton(
-                    tooltip: 'ランキング',
+                    tooltip: tr('ランキング', 'Ranking'),
                     onPressed: () => Nav.rankings(context),
                     icon: const Icon(Icons.emoji_events_rounded),
                   ),
@@ -96,8 +97,8 @@ class _ExploreScreenState extends State<ExploreScreen> {
             SliverToBoxAdapter(child: _themeCard()),
             SliverToBoxAdapter(child: _tagsSection(wide)),
             SliverToBoxAdapter(child: _rankingSection()),
-            const SliverToBoxAdapter(child: SectionHeader('いま話題の作品', icon: Icons.local_fire_department_rounded)),
-            SliverPagedWorks(controller: _hot, emptyTitle: '話題の作品がまだありません'),
+            SliverToBoxAdapter(child: SectionHeader(tr('いま話題の作品', 'Trending works'), icon: Icons.local_fire_department_rounded)),
+            SliverPagedWorks(controller: _hot, emptyTitle: tr('話題の作品がまだありません', 'No trending works yet')),
           ],
         ),
       ),
@@ -147,11 +148,11 @@ class _ExploreScreenState extends State<ExploreScreen> {
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                         decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.25), borderRadius: Ds.br(8)),
-                        child: const Text('今日のお題', style: TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.w800)),
+                        child: Text(tr('今日のお題', "Today's theme"), style: const TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.w800)),
                       ),
                       const SizedBox(height: 4),
                       Text(t.title, maxLines: 1, overflow: TextOverflow.ellipsis, style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w900)),
-                      Text('${compactCount(t.worksCount)}作品が参加中', style: TextStyle(color: Colors.white.withValues(alpha: 0.9), fontSize: 12, fontWeight: FontWeight.w600)),
+                      Text(tr('${compactCount(t.worksCount)}作品が参加中', '${compactCount(t.worksCount)} works'), style: TextStyle(color: Colors.white.withValues(alpha: 0.9), fontSize: 12, fontWeight: FontWeight.w600)),
                     ],
                   ),
                 ),
@@ -174,7 +175,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
         final h = wide ? 104.0 : 88.0;
         final w = wide ? 160.0 : 132.0;
         return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          const SectionHeader('人気のタグ', icon: Icons.tag_rounded),
+          SectionHeader(tr('人気のタグ', 'Popular tags'), icon: Icons.tag_rounded),
           SizedBox(
             height: h * 2 + 10,
             child: GridView.builder(
@@ -208,7 +209,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
         if (!loading && items.isEmpty) return const SizedBox.shrink();
         const h = 220.0;
         return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          SectionHeader('デイリーランキング', icon: Icons.emoji_events_rounded, onMore: () => Nav.rankings(context)),
+          SectionHeader(tr('デイリーランキング', 'Daily ranking'), icon: Icons.emoji_events_rounded, onMore: () => Nav.rankings(context)),
           SizedBox(
             height: h,
             child: ListView.separated(
@@ -279,22 +280,22 @@ class _SearchHeader extends SliverPersistentHeaderDelegate {
 class _ExploreHub extends StatelessWidget {
   const _ExploreHub();
 
-  static const _items = <(IconData, String, String)>[
-    (Icons.fiber_new_rounded, '新着', '/new-works'),
-    (Icons.tag_rounded, 'タグ', '/tags'),
+  static List<(IconData, String, String)> get _items => [
+    (Icons.fiber_new_rounded, tr('新着', 'Latest'), '/new-works'),
+    (Icons.tag_rounded, tr('タグ', 'Tags'), '/tags'),
     (Icons.brush_rounded, '2D', '/posts/2d'),
     (Icons.auto_fix_high_rounded, '2.5D', '/posts/2.5d'),
     (Icons.view_in_ar_rounded, '3D', '/posts/3d'),
-    (Icons.emoji_events_rounded, 'ランキング', '/rankings'),
-    (Icons.psychology_rounded, 'AI ランキング', '/ai-rankings'),
-    (Icons.volunteer_activism_rounded, '推しランキング', '/coin-rankings'),
-    (Icons.calendar_month_rounded, 'お題', '/themes'),
-    (Icons.celebration_rounded, 'イベント', '/events'),
-    (Icons.menu_book_rounded, '小説', '/novels'),
-    (Icons.article_rounded, 'ノート', '/notes'),
-    (Icons.play_circle_outline_rounded, '動画', '/videos'),
-    (Icons.collections_bookmark_rounded, 'シリーズ', '/albums'),
-    (Icons.hub_rounded, 'モデル', '/models'),
+    (Icons.emoji_events_rounded, tr('ランキング', 'Ranking'), '/rankings'),
+    (Icons.psychology_rounded, tr('AI ランキング', 'AI ranking'), '/ai-rankings'),
+    (Icons.volunteer_activism_rounded, tr('推しランキング', 'Supporter ranking'), '/coin-rankings'),
+    (Icons.calendar_month_rounded, tr('お題', 'Themes'), '/themes'),
+    (Icons.celebration_rounded, tr('イベント', 'Events'), '/events'),
+    (Icons.menu_book_rounded, tr('小説', 'Novels'), '/novels'),
+    (Icons.article_rounded, tr('ノート', 'Notes'), '/notes'),
+    (Icons.play_circle_outline_rounded, tr('動画', 'Videos'), '/videos'),
+    (Icons.collections_bookmark_rounded, tr('シリーズ', 'Series'), '/albums'),
+    (Icons.hub_rounded, tr('モデル', 'Models'), '/models'),
   ];
 
   @override

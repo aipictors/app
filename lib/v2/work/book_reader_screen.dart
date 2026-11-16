@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/core/design.dart';
 import 'package:aipictors/v2/widgets/common.dart';
 import 'package:flutter/material.dart';
@@ -47,7 +48,7 @@ class _BookReaderScreenState extends State<BookReaderScreen> {
         onWebResourceError: (error) {
           // 本文の画像などの失敗では閉じない。最初のページが開けなかったときだけ知らせる
           if (!mounted || !error.isForMainFrame!) return;
-          setState(() => _error = 'うまく読み込めませんでした');
+          setState(() => _error = tr('うまく読み込めませんでした', "Couldn't load"));
         },
       ))
       ..loadRequest(BookReaderScreen.uriOf(widget.workId));
@@ -88,7 +89,7 @@ class _BookReaderScreenState extends State<BookReaderScreen> {
                 const SizedBox(width: 28, height: 28, child: CircularProgressIndicator(strokeWidth: 2.5)),
                 const SizedBox(height: 14),
                 Text(
-                  widget.title == null ? '本を開いています' : '「${widget.title}」を開いています',
+                  widget.title == null ? tr('本を開いています', 'Opening the book') : tr('「${widget.title}」を開いています', 'Opening "${widget.title}"'),
                   style: TextStyle(color: context.muted, fontSize: 13),
                   textAlign: TextAlign.center,
                 ),

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/core/design.dart';
 import 'package:aipictors/v2/explore/explore_api.dart';
 import 'package:aipictors/v2/explore/explore_widgets.dart';
@@ -169,8 +170,8 @@ class _SearchInputScreenState extends State<SearchInputScreen> {
                         textInputAction: TextInputAction.search,
                         onSubmitted: _submit,
                         style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-                        decoration: const InputDecoration(
-                          hintText: 'タグ・キーワードを入力',
+                        decoration: InputDecoration(
+                          hintText: tr('タグ・キーワードを入力', 'Enter a tag or keyword'),
                           border: InputBorder.none,
                           isCollapsed: true,
                         ),
@@ -188,7 +189,7 @@ class _SearchInputScreenState extends State<SearchInputScreen> {
                   ]),
                 ),
               ),
-              TextButton(onPressed: () => Navigator.of(context).pop(), child: const Text('キャンセル')),
+              TextButton(onPressed: () => Navigator.of(context).pop(), child: Text(tr('キャンセル', 'Cancel'))),
             ]),
           ),
           if (_loadingSuggest) const LinearProgressIndicator(minHeight: 2) else const SizedBox(height: 2),
@@ -209,8 +210,9 @@ class _SearchInputScreenState extends State<SearchInputScreen> {
             child: Icon(Icons.search_rounded, color: context.cs.primary),
           ),
           title: Text.rich(TextSpan(children: [
-            TextSpan(text: '「$text」', style: const TextStyle(fontWeight: FontWeight.w800)),
-            const TextSpan(text: ' で検索'),
+            if (!L10n.isJa) const TextSpan(text: 'Search for '),
+            TextSpan(text: tr('「$text」', '"$text"'), style: const TextStyle(fontWeight: FontWeight.w800)),
+            if (L10n.isJa) const TextSpan(text: ' で検索'),
           ])),
           onTap: () => _submit(text),
         ),
@@ -231,7 +233,7 @@ class _SearchInputScreenState extends State<SearchInputScreen> {
             ),
             title: _highlight(context, s.name, text),
             trailing: IconButton(
-              tooltip: '入力欄に入れる',
+              tooltip: tr('入力欄に入れる', 'Insert into search box'),
               icon: Icon(Icons.north_west_rounded, size: 18, color: context.muted),
               onPressed: () {
                 _controller.text = s.name;
@@ -267,13 +269,13 @@ class _SearchInputScreenState extends State<SearchInputScreen> {
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 16, 8, 4),
             child: Row(children: [
-              Expanded(child: Text('最近の検索', style: context.tt.titleSmall?.copyWith(fontWeight: FontWeight.w800))),
+              Expanded(child: Text(tr('最近の検索', 'Recent searches'), style: context.tt.titleSmall?.copyWith(fontWeight: FontWeight.w800))),
               TextButton(
                 onPressed: () async {
                   await RecentSearches.clear();
                   if (mounted) setState(() => _recent = const []);
                 },
-                child: const Text('すべて消す'),
+                child: Text(tr('すべて消す', 'Clear all')),
               ),
             ]),
           ),
@@ -296,7 +298,7 @@ class _SearchInputScreenState extends State<SearchInputScreen> {
         if (_popular.isNotEmpty) ...[
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 20, 16, 10),
-            child: Text('人気のタグ', style: context.tt.titleSmall?.copyWith(fontWeight: FontWeight.w800)),
+            child: Text(tr('人気のタグ', 'Popular tags'), style: context.tt.titleSmall?.copyWith(fontWeight: FontWeight.w800)),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -306,9 +308,9 @@ class _SearchInputScreenState extends State<SearchInputScreen> {
           ),
         ],
         if (_recent.isEmpty && _popular.isEmpty)
-          const Padding(
-            padding: EdgeInsets.only(top: 40),
-            child: StateView(icon: Icons.search_rounded, title: '気になる言葉で探してみよう', message: 'タグやキーワードで作品・ユーザーを探せます', compact: true),
+          Padding(
+            padding: const EdgeInsets.only(top: 40),
+            child: StateView(icon: Icons.search_rounded, title: tr('気になる言葉で探してみよう', 'Search for something you like'), message: tr('タグやキーワードで作品・ユーザーを探せます', 'Find works and users by tag or keyword'), compact: true),
           ),
       ],
     );

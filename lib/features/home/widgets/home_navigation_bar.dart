@@ -1,4 +1,5 @@
 import 'package:aipictors/providers/home_tab_index_provider.dart';
+import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/core/design.dart';
 import 'package:aipictors/v2/notifications/notifications_api.dart';
 import 'package:flutter/material.dart';
@@ -8,12 +9,12 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 class HomeNavigationBar extends HookConsumerWidget {
   const HomeNavigationBar({super.key});
 
-  static const items = [
-    (Icons.home_outlined, Icons.home_rounded, 'ホーム'),
-    (Icons.search_rounded, Icons.manage_search_rounded, '探す'),
-    (Icons.auto_awesome_outlined, Icons.auto_awesome_rounded, '生成'),
-    (Icons.notifications_none_rounded, Icons.notifications_rounded, '通知'),
-    (Icons.person_outline_rounded, Icons.person_rounded, 'マイページ'),
+  static List<(IconData, IconData, String)> get items => [
+    (Icons.home_outlined, Icons.home_rounded, tr('ホーム', 'Home')),
+    (Icons.search_rounded, Icons.manage_search_rounded, tr('探す', 'Explore')),
+    (Icons.auto_awesome_outlined, Icons.auto_awesome_rounded, tr('生成', 'Create')),
+    (Icons.notifications_none_rounded, Icons.notifications_rounded, tr('通知', 'Alerts')),
+    (Icons.person_outline_rounded, Icons.person_rounded, tr('マイページ', 'My page')),
   ];
 
   @override

@@ -1,5 +1,6 @@
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/design.dart';
+import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/core/models.dart';
 import 'package:aipictors/v2/core/nav.dart';
 import 'package:aipictors/v2/core/paged.dart';
@@ -17,8 +18,8 @@ Future<void> openNewPost(BuildContext context) async {
     backgroundColor: context.surfaceCard,
     builder: (context) => SafeArea(
       child: Column(mainAxisSize: MainAxisSize.min, children: [
-        ListTile(leading: const Icon(Icons.image_outlined), title: const Text('画像を投稿'), onTap: () => Navigator.pop(context, '/works/create')),
-        ListTile(leading: const Icon(Icons.article_outlined), title: const Text('小説・コラムを投稿'), onTap: () => Navigator.pop(context, '/works/create/text')),
+        ListTile(leading: const Icon(Icons.image_outlined), title: Text(tr('画像を投稿', 'Post an image')), onTap: () => Navigator.pop(context, '/works/create')),
+        ListTile(leading: const Icon(Icons.article_outlined), title: Text(tr('小説・コラムを投稿', 'Post a novel or column')), onTap: () => Navigator.pop(context, '/works/create/text')),
         const SizedBox(height: Ds.s8),
       ]),
     ),
@@ -35,7 +36,8 @@ class MyPostsScreen extends StatefulWidget {
 }
 
 class _MyPostsScreenState extends State<MyPostsScreen> {
-  static const _tabs = {'すべて': null, '公開': 'PUBLIC', '下書き': 'DRAFT', '非公開': 'PRIVATE'};
+  static const _tabValues = [null, 'PUBLIC', 'DRAFT', 'PRIVATE'];
+  static List<String> get _tabLabels => [tr('すべて', 'All'), tr('公開', 'Public'), tr('下書き', 'Drafts'), tr('非公開', 'Private')];
 
   int _tab = 0;
   String _search = '';
@@ -46,7 +48,7 @@ class _MyPostsScreenState extends State<MyPostsScreen> {
     idOf: (w) => w.str('id'),
     fetch: (offset, limit) async {
       _userId ??= (await Api.query('query AppViewerId { viewer { id user { id } } }', cacheFor: const Duration(minutes: 10))).obj('viewer')?.obj('user')?.str('id');
-      final access = _tabs.values.elementAt(_tab);
+      final access = _tabValues[_tab];
       final data = await Api.query(r'''
 query AppMyWorks($offset: Int!, $limit: Int!, $where: WorksWhereInput) {
   works(offset: $offset, limit: $limit, where: $where) {
@@ -89,11 +91,11 @@ query AppMyWorks($offset: Int!, $limit: Int!, $where: WorksWhereInput) {
   }
 
   Future<void> _delete(Map<String, dynamic> w) async {
-    if (!await showConfirmSheet(context, title: '「${w.str('title')}」を削除しますか？', message: '元に戻せません', destructive: true)) return;
+    if (!await showConfirmSheet(context, title: tr('「${w.str('title')}」を削除しますか？', 'Delete "${w.str('title')}"?'), message: tr('元に戻せません', 'This can\'t be undone'), destructive: true)) return;
     try {
       await PostApi.delete(w.str('id'));
       _controller.removeWhere((x) => x.str('id') == w.str('id'));
-      if (mounted) context.toast('削除しました');
+      if (mounted) context.toast(tr('削除しました', 'Deleted'));
     } on ApiException catch (e) {
       if (mounted) context.toast(e.message, error: true);
     }
@@ -102,11 +104,11 @@ query AppMyWorks($offset: Int!, $limit: Int!, $where: WorksWhereInput) {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('自分の作品')),
+      appBar: AppBar(title: Text(tr('自分の作品', 'My works'))),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => openNewPost(context),
         icon: const Icon(Icons.add_rounded),
-        label: const Text('投稿'),
+        label: Text(tr('投稿', 'Post')),
       ),
       body: Column(children: [
         Padding(
@@ -118,7 +120,7 @@ query AppMyWorks($offset: Int!, $limit: Int!, $where: WorksWhereInput) {
               _controller.refresh();
             },
             decoration: InputDecoration(
-              hintText: 'タイトル・タグで検索',
+              hintText: tr('タイトル・タグで検索', 'Search by title or tag'),
               prefixIcon: const Icon(Icons.search_rounded, size: 20),
               filled: true,
               fillColor: context.skeleton,
@@ -128,7 +130,7 @@ query AppMyWorks($offset: Int!, $limit: Int!, $where: WorksWhereInput) {
           ),
         ),
         PillTabs(
-          labels: _tabs.keys.toList(),
+          labels: _tabLabels,
           index: _tab,
           onChanged: (i) {
             setState(() => _tab = i);
@@ -143,7 +145,7 @@ query AppMyWorks($offset: Int!, $limit: Int!, $where: WorksWhereInput) {
               if (c.isInitialLoading) return const SkeletonList();
               if (c.items.isEmpty && c.error != null) return StateView.error(c.error!, onRetry: c.refresh);
               if (c.items.isEmpty) {
-                return StateView.empty('作品がありません', message: '画像や小説を投稿すると、ここで管理できます', icon: Icons.image_outlined);
+                return StateView.empty(tr('作品がありません', 'No works yet'), message: tr('画像や小説を投稿すると、ここで管理できます', 'Works you post will appear here'), icon: Icons.image_outlined);
               }
               return AppRefresh(
                 onRefresh: c.refresh,
@@ -189,12 +191,13 @@ class _MyWorkTile extends StatelessWidget {
             Text(work.str('title'), maxLines: 1, overflow: TextOverflow.ellipsis, style: const TextStyle(fontWeight: FontWeight.w700)),
             const SizedBox(height: Ds.s4),
             Wrap(spacing: Ds.s4, children: [
-              Badge2(reserved ? '予約' : (accessTypeLabels[work.str('accessType')] ?? work.str('accessType'))),
+              Badge2(reserved ? tr('予約', 'Scheduled') : (accessTypeLabels[work.str('accessType')] ?? work.str('accessType'))),
               if (work.str('rating') != 'G') Badge2(work.str('rating')),
             ]),
             const SizedBox(height: Ds.s4),
             Text(
-              '${relativeTime(work.integer('createdAt'))}・♡${work.integer('likesCount')}・コメント${work.integer('commentsCount')}・閲覧${work.integer('viewsCount')}',
+              tr('${relativeTime(work.integer('createdAt'))}・♡${work.integer('likesCount')}・コメント${work.integer('commentsCount')}・閲覧${work.integer('viewsCount')}',
+                  '${relativeTime(work.integer('createdAt'))} · ♡${work.integer('likesCount')} · ${work.integer('commentsCount')} comments · ${work.integer('viewsCount')} views'),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(color: context.muted, fontSize: 12),
@@ -203,9 +206,9 @@ class _MyWorkTile extends StatelessWidget {
         ),
         PopupMenuButton<String>(
           onSelected: (v) => v == 'edit' ? onEdit() : onDelete(),
-          itemBuilder: (_) => const [
-            PopupMenuItem(value: 'edit', child: Text('編集')),
-            PopupMenuItem(value: 'delete', child: Text('削除')),
+          itemBuilder: (_) => [
+            PopupMenuItem(value: 'edit', child: Text(tr('編集', 'Edit'))),
+            PopupMenuItem(value: 'delete', child: Text(tr('削除', 'Delete'))),
           ],
         ),
       ]),

@@ -1,3 +1,4 @@
+import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/core/design.dart';
 import 'package:aipictors/v2/explore/explore_api.dart';
 import 'package:aipictors/v2/widgets/common.dart';
@@ -98,11 +99,11 @@ class TagChip extends StatelessWidget {
 
 /// 押すと検索画面が開く大きな丸い検索欄
 class SearchPill extends StatelessWidget {
-  const SearchPill({super.key, required this.onTap, this.text, this.hint = '作品・タグ・ユーザーを検索', this.height = 50});
+  const SearchPill({super.key, required this.onTap, this.text, this.hint, this.height = 50});
 
   final VoidCallback onTap;
   final String? text;
-  final String hint;
+  final String? hint;
   final double height;
 
   @override
@@ -124,7 +125,7 @@ class SearchPill extends StatelessWidget {
           const SizedBox(width: 10),
           Expanded(
             child: Text(
-              hasText ? text! : hint,
+              hasText ? text! : (hint ?? tr('作品・タグ・ユーザーを検索', 'Search works, tags, users')),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(

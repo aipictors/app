@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'dart:ui' as ui;
 
 import 'package:aipictors/v2/core/api.dart';
+import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/generation/generation_api.dart';
 import 'package:aipictors/v2/generation/generation_settings.dart';
 import 'package:flutter/foundation.dart';
@@ -170,7 +171,7 @@ class GenController extends ChangeNotifier {
     } on ApiException catch (e) {
       catalogError = e.message;
     } catch (_) {
-      catalogError = 'モデルの一覧を読み込めませんでした';
+      catalogError = tr('モデルの一覧を読み込めませんでした', 'Could not load the model list');
     }
     _notify();
   }
@@ -182,7 +183,7 @@ class GenController extends ChangeNotifier {
     } on ApiException catch (e) {
       viewerError = e.message;
     } catch (_) {
-      viewerError = '生成の状態を読み込めませんでした';
+      viewerError = tr('生成の状態を読み込めませんでした', 'Could not load generation status');
     }
     _notify();
   }
@@ -192,7 +193,7 @@ class GenController extends ChangeNotifier {
       final summary = await GenApi.coinSummary();
       coins = summary;
       if (summary != null && summary.granted && summary.grantedCoins > 0) {
-        grantMessage = '本日の付与コインとして${summary.grantedCoins}コインが付与されました。本日24:00まで有効です。';
+        grantMessage = tr('本日の付与コインとして${summary.grantedCoins}コインが付与されました。本日24:00まで有効です。', 'You received ${summary.grantedCoins} free coins today. They are valid until 24:00 JST.');
       }
     } catch (_) {
       // 残高が取れなくても生成はできる（ボタンの表示だけ変わる）
@@ -239,7 +240,7 @@ class GenController extends ChangeNotifier {
     } on ApiException catch (e) {
       historyError = e.message;
     } catch (_) {
-      historyError = '履歴を読み込めませんでした';
+      historyError = tr('履歴を読み込めませんでした', 'Could not load history');
     } finally {
       historyLoading = false;
       _notify();
@@ -260,7 +261,7 @@ class GenController extends ChangeNotifier {
     } on ApiException catch (e) {
       historyError = e.message;
     } catch (_) {
-      historyError = '履歴を読み込めませんでした';
+      historyError = tr('履歴を読み込めませんでした', 'Could not load history');
     } finally {
       historyLoadingMore = false;
       _notify();
@@ -356,52 +357,52 @@ class GenController extends ChangeNotifier {
     final c = catalog;
     final m = model;
     final s = settings;
-    if (v == null || c == null) return const GenBlock(GenBlockKind.message, '読み込み中です。少し待ってからお試しください');
+    if (v == null || c == null) return GenBlock(GenBlockKind.message, tr('読み込み中です。少し待ってからお試しください', 'Loading. Please wait a moment and try again.'));
     if (notice?.isMaintenance == true) return GenBlock(GenBlockKind.message, notice!.message);
     if (!v.hasSignedTerms) return const GenBlock(GenBlockKind.terms, '');
-    if (m == null) return const GenBlock(GenBlockKind.message, 'モデルが見つかりません。モデルを選びなおしてください');
+    if (m == null) return GenBlock(GenBlockKind.message, tr('モデルが見つかりません。モデルを選びなおしてください', 'Model not found. Please choose a model again.'));
     if (v.passType == null && v.lineUserId == null && v.generatedCount >= 10 && !v.isExistedPreviousPass) {
       return const GenBlock(GenBlockKind.verification, '');
     }
     final official = s.userCheckpoint == null;
     if (official && m.name.toLowerCase().contains('gemini') && !v.isPaid) {
-      return const GenBlock(GenBlockKind.plan, 'Gemini Nano Banana はライト以上、Nano Banana 2 はスタンダード以上のプランで使えます');
+      return GenBlock(GenBlockKind.plan, tr('Gemini Nano Banana はライト以上、Nano Banana 2 はスタンダード以上のプランで使えます', 'Gemini Nano Banana requires Lite or higher, and Nano Banana 2 requires Standard or higher.'));
     }
     if (s.i2iImage != null && !v.isPaid && s.effectiveType != 'GEMINI') {
-      return const GenBlock(GenBlockKind.plan, '画像から生成はライト以上のプランで使えます');
+      return GenBlock(GenBlockKind.plan, tr('画像から生成はライト以上のプランで使えます', 'Image-to-image requires the Lite plan or higher.'));
     }
     if (s.generationCount > 1 && !v.isStandardOrPremium) {
-      return const GenBlock(GenBlockKind.plan, '続けて依頼できるのはスタンダード以上のプランです');
+      return GenBlock(GenBlockKind.plan, tr('続けて依頼できるのはスタンダード以上のプランです', 'Queueing more requests requires the Standard plan or higher.'));
     }
     if (v.inProgress + sendingCount > 0 && !v.isStandardOrPremium) {
-      return const GenBlock(GenBlockKind.plan, '生成が終わるまでお待ちください。スタンダード以上のプランなら、生成中でも続けて依頼できます');
+      return GenBlock(GenBlockKind.plan, tr('生成が終わるまでお待ちください。スタンダード以上のプランなら、生成中でも続けて依頼できます', 'Please wait until generation finishes. With Standard or higher, you can queue more while generating.'));
     }
     final type = s.generationType(isPaid: v.isPaid);
     if (type == 'IMAGE_TO_IMAGE' && v.inProgress + s.generationCount > v.consecutive) {
-      return const GenBlock(GenBlockKind.message, '同時に生成できる数の上限です');
+      return GenBlock(GenBlockKind.message, tr('同時に生成できる数の上限です', 'You have reached the limit of simultaneous generations.'));
     }
-    if (s.generationCount > 1 && s.hasControlNet) return const GenBlock(GenBlockKind.message, 'ControlNet を使うときは 1 回ずつ生成してください');
-    if (s.isFlux && s.hasControlNet) return const GenBlock(GenBlockKind.message, 'FLUX モデルは ControlNet を使えません');
-    if (s.isFlux && s.i2iImage != null) return const GenBlock(GenBlockKind.message, 'FLUX モデルの画像から生成は一時的に停止しています');
+    if (s.generationCount > 1 && s.hasControlNet) return GenBlock(GenBlockKind.message, tr('ControlNet を使うときは 1 回ずつ生成してください', 'When using ControlNet, generate one at a time.'));
+    if (s.isFlux && s.hasControlNet) return GenBlock(GenBlockKind.message, tr('FLUX モデルは ControlNet を使えません', 'FLUX models cannot use ControlNet.'));
+    if (s.isFlux && s.i2iImage != null) return GenBlock(GenBlockKind.message, tr('FLUX モデルの画像から生成は一時的に停止しています', 'Image-to-image with FLUX models is temporarily unavailable.'));
     if (!v.isPaid && GenRules.isCustomSize(s.sizeType) && GenRules.isOverFreeLimit(s.sizeType, highRes: s.highRes)) {
-      return const GenBlock(GenBlockKind.plan, 'サブスクに入っていない場合、出力サイズは 2048×2048（約4メガピクセル）までです');
+      return GenBlock(GenBlockKind.plan, tr('サブスクに入っていない場合、出力サイズは 2048×2048（約4メガピクセル）までです', 'Without a subscription, output size is limited to 2048×2048 (about 4 megapixels).'));
     }
-    if (s.highRes && s.i2iImage != null) return const GenBlock(GenBlockKind.message, '高解像度と画像から生成の組み合わせは一時的に停止しています');
-    if (s.hasControlNet && s.controlNetModule == null) return const GenBlock(GenBlockKind.message, 'ControlNet の種類を選ぶか、画像を消してください');
+    if (s.highRes && s.i2iImage != null) return GenBlock(GenBlockKind.message, tr('高解像度と画像から生成の組み合わせは一時的に停止しています', 'High resolution with image-to-image is temporarily unavailable.'));
+    if (s.hasControlNet && s.controlNetModule == null) return GenBlock(GenBlockKind.message, tr('ControlNet の種類を選ぶか、画像を消してください', 'Choose a ControlNet type or remove the image.'));
     if (official && m.isFlux && !v.isStandardOrPremium) {
-      return const GenBlock(GenBlockKind.plan, 'flux.1 はスタンダード以上のプランで生成できます');
+      return GenBlock(GenBlockKind.plan, tr('flux.1 はスタンダード以上のプランで生成できます', 'flux.1 requires the Standard plan or higher.'));
     }
     final prompt = s.prompt.trim();
     if (prompt.length > GenRules.maxPromptLength) {
-      return const GenBlock(GenBlockKind.message, 'プロンプトが長すぎます（20000文字まで）');
+      return GenBlock(GenBlockKind.message, tr('プロンプトが長すぎます（20000文字まで）', 'The prompt is too long (max 20,000 characters).'));
     }
     final summary = coins;
     if (summary != null && summary.total < requestCost) {
-      return GenBlock(GenBlockKind.coins, 'コインが足りません（必要 $requestCost・残り ${summary.total}）');
+      return GenBlock(GenBlockKind.coins, tr('コインが足りません（必要 $requestCost・残り ${summary.total}）', 'Not enough coins (need $requestCost, have ${summary.total})'));
     }
     if (_geminiCoinUse() case final use? when !use.$2) return const GenBlock(GenBlockKind.geminiLimit, '');
     if (s.seed != -1 && s.lastRequestKey == _requestKey(m)) {
-      return const GenBlock(GenBlockKind.message, '前回と同じ条件での連続生成はできません。Seed を変えてください');
+      return GenBlock(GenBlockKind.message, tr('前回と同じ条件での連続生成はできません。Seed を変えてください', 'You cannot generate again with the exact same settings. Please change the Seed.'));
     }
     return null;
   }
@@ -603,7 +604,7 @@ class GenController extends ChangeNotifier {
       if (e.message.contains('Gemini の枠')) return GenBlock(GenBlockKind.geminiLimit, e.message);
       return GenBlock(GenBlockKind.message, e.message);
     } catch (_) {
-      return const GenBlock(GenBlockKind.message, '生成を依頼できませんでした。もう一度お試しください');
+      return GenBlock(GenBlockKind.message, tr('生成を依頼できませんでした。もう一度お試しください', 'Could not start generation. Please try again.'));
     } finally {
       submitting = false;
       sendingCount = 0;
@@ -625,7 +626,7 @@ class GenController extends ChangeNotifier {
     } on ApiException catch (e) {
       return e.message;
     } catch (_) {
-      return '同意を送れませんでした。もう一度お試しください';
+      return tr('同意を送れませんでした。もう一度お試しください', 'Could not send your agreement. Please try again.');
     }
   }
 
@@ -635,7 +636,7 @@ class GenController extends ChangeNotifier {
 
   Future<String?> setRating(GenResult r, int rating) async {
     final nanoid = r.nanoid;
-    if (nanoid == null) return 'この画像は操作できません';
+    if (nanoid == null) return tr('この画像は操作できません', 'This image cannot be changed');
     final before = r.rating;
     r.rating = rating;
     _notify();
@@ -654,13 +655,13 @@ class GenController extends ChangeNotifier {
     } catch (_) {
       r.rating = before;
       _notify();
-      return '評価を保存できませんでした';
+      return tr('評価を保存できませんでした', 'Could not save the rating');
     }
   }
 
   Future<String?> setProtected(GenResult r, bool value) async {
     final nanoid = r.nanoid;
-    if (nanoid == null) return 'この画像は操作できません';
+    if (nanoid == null) return tr('この画像は操作できません', 'This image cannot be changed');
     final before = r.isProtected;
     r.isProtected = value;
     _notify();
@@ -679,14 +680,14 @@ class GenController extends ChangeNotifier {
     } catch (_) {
       r.isProtected = before;
       _notify();
-      return '保護の設定を保存できませんでした';
+      return tr('保護の設定を保存できませんでした', 'Could not save protection');
     }
   }
 
   Future<String?> delete(GenResult r) async {
     final nanoid = r.nanoid;
-    if (nanoid == null) return 'この画像は削除できません';
-    if (r.isProtected) return '保護中の画像は削除できません。保護を外してからお試しください';
+    if (nanoid == null) return tr('この画像は削除できません', 'This image cannot be deleted');
+    if (r.isProtected) return tr('保護中の画像は削除できません。保護を外してからお試しください', 'Protected images cannot be deleted. Remove protection first.');
     try {
       await Api.mutate(
         GenApi.deleteResult,
@@ -701,7 +702,7 @@ class GenController extends ChangeNotifier {
     } on ApiException catch (e) {
       return e.message;
     } catch (_) {
-      return '削除できませんでした';
+      return tr('削除できませんでした', 'Could not delete');
     }
   }
 
@@ -733,7 +734,7 @@ class GenController extends ChangeNotifier {
       _notify();
       return e.message;
     } catch (_) {
-      return 'お気に入りを保存できませんでした';
+      return tr('お気に入りを保存できませんでした', 'Could not save favorite');
     }
   }
 

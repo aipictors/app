@@ -1,3 +1,4 @@
+import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/core/design.dart';
 import 'package:aipictors/v2/core/models.dart';
 import 'package:aipictors/v2/core/paged.dart';
@@ -47,9 +48,9 @@ class _ThemeWorksScreenState extends State<ThemeWorksScreen> {
             child: Padding(
               padding: const EdgeInsets.fromLTRB(20, 0, 20, 12),
               child: Row(children: [
-                const Badge2('今日のお題', icon: Icons.lightbulb_rounded, color: Ds.pink),
+                Badge2(tr('今日のお題', "Today's theme"), icon: Icons.lightbulb_rounded, color: Ds.pink),
                 const SizedBox(width: 8),
-                Text('${t.dateText.replaceAll('-', '/')}・${compactCount(t.worksCount)}作品', style: context.tt.bodySmall?.copyWith(color: context.muted)),
+                Text('${t.dateText.replaceAll('-', '/')}・${compactCount(t.worksCount)}${tr('作品', ' works')}', style: context.tt.bodySmall?.copyWith(color: context.muted)),
               ]),
             ),
           ),
@@ -68,7 +69,7 @@ class _ThemeWorksScreenState extends State<ThemeWorksScreen> {
               },
             ),
           ),
-          SliverPagedWorks(key: ValueKey(_sort), controller: _c, emptyTitle: 'まだ作品がありません', emptyMessage: 'お題に参加した作品がここに並びます'),
+          SliverPagedWorks(key: ValueKey(_sort), controller: _c, emptyTitle: tr('まだ作品がありません', 'No works yet'), emptyMessage: tr('お題に参加した作品がここに並びます', 'Works for this theme will appear here')),
         ]),
       ),
     );

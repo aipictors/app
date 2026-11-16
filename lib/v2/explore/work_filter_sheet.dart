@@ -1,3 +1,4 @@
+import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/core/design.dart';
 import 'package:aipictors/v2/explore/explore_api.dart';
 import 'package:aipictors/v2/explore/explore_widgets.dart';
@@ -33,7 +34,7 @@ class WorkFilterBar extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(right: 12),
           child: _Pill(
-            label: active > 0 ? '絞り込み $active' : '絞り込み',
+            label: active > 0 ? tr('絞り込み $active', 'Filter $active') : tr('絞り込み', 'Filter'),
             icon: Icons.tune_rounded,
             selected: active > 0,
             accent: true,
@@ -96,17 +97,17 @@ Future<WorkFilter?> showWorkFilterSheet(BuildContext context, WorkFilter initial
             padding: const EdgeInsets.fromLTRB(20, 0, 20, 16),
             child: Column(crossAxisAlignment: CrossAxisAlignment.start, mainAxisSize: MainAxisSize.min, children: [
               Row(children: [
-                Expanded(child: Text('絞り込み', style: context.tt.titleLarge?.copyWith(fontWeight: FontWeight.w900))),
-                TextButton(onPressed: () => set(() => f = WorkFilter(sort: f.sort)), child: const Text('リセット')),
+                Expanded(child: Text(tr('絞り込み', 'Filter'), style: context.tt.titleLarge?.copyWith(fontWeight: FontWeight.w900))),
+                TextButton(onPressed: () => set(() => f = WorkFilter(sort: f.sort)), child: Text(tr('リセット', 'Reset'))),
               ]),
               const SizedBox(height: 12),
-              ChoiceRow<WorkSort>(title: '並び順', values: WorkSort.values, labelOf: (v) => v.label, selected: f.sort, onChanged: (v) => set(() => f = f.copyWith(sort: v))),
-              ChoiceRow<WorkKind>(title: '作品の種類', values: WorkKind.values, labelOf: (v) => v.label, selected: f.kind, onChanged: (v) => set(() => f = f.copyWith(kind: v))),
-              ChoiceRow<RatingFilter>(title: '年齢区分', values: RatingFilter.values, labelOf: (v) => v.label, selected: f.rating, onChanged: (v) => set(() => f = f.copyWith(rating: v))),
-              ChoiceRow<StyleFilter>(title: '画風', values: StyleFilter.values, labelOf: (v) => v.label, selected: f.style, onChanged: (v) => set(() => f = f.copyWith(style: v))),
+              ChoiceRow<WorkSort>(title: tr('並び順', 'Sort'), values: WorkSort.values, labelOf: (v) => v.label, selected: f.sort, onChanged: (v) => set(() => f = f.copyWith(sort: v))),
+              ChoiceRow<WorkKind>(title: tr('作品の種類', 'Type'), values: WorkKind.values, labelOf: (v) => v.label, selected: f.kind, onChanged: (v) => set(() => f = f.copyWith(kind: v))),
+              ChoiceRow<RatingFilter>(title: tr('年齢区分', 'Age rating'), values: RatingFilter.values, labelOf: (v) => v.label, selected: f.rating, onChanged: (v) => set(() => f = f.copyWith(rating: v))),
+              ChoiceRow<StyleFilter>(title: tr('画風', 'Style'), values: StyleFilter.values, labelOf: (v) => v.label, selected: f.style, onChanged: (v) => set(() => f = f.copyWith(style: v))),
               SwitchListTile.adaptive(
                 contentPadding: EdgeInsets.zero,
-                title: const Text('プロンプトが見られる作品だけ', style: TextStyle(fontWeight: FontWeight.w700)),
+                title: Text(tr('プロンプトが見られる作品だけ', 'Only works with visible prompts'), style: const TextStyle(fontWeight: FontWeight.w700)),
                 value: f.withPrompt,
                 onChanged: (v) => set(() => f = f.copyWith(withPrompt: v)),
               ),
@@ -116,7 +117,7 @@ Future<WorkFilter?> showWorkFilterSheet(BuildContext context, WorkFilter initial
                 child: FilledButton(
                   style: FilledButton.styleFrom(minimumSize: const Size.fromHeight(50), shape: RoundedRectangleBorder(borderRadius: Ds.br(25))),
                   onPressed: () => Navigator.pop(context, f),
-                  child: const Text('この条件で表示', style: TextStyle(fontWeight: FontWeight.w800, fontSize: 16)),
+                  child: Text(tr('この条件で表示', 'Apply'), style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 16)),
                 ),
               ),
             ]),

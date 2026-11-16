@@ -1,59 +1,74 @@
+import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/core/api.dart';
+import 'package:aipictors/v2/core/content_translate.dart';
 import 'package:aipictors/v2/core/models.dart';
 import 'package:aipictors/v2/core/sensitive_tags.dart';
+import 'package:intl/intl.dart';
 
 /// 探す・検索・タグ・ランキングで使う GraphQL（Web と同じもの）
 
 /// 作品の並び順
 enum WorkSort {
-  likes('人気', 'LIKES_COUNT'),
-  latest('新着', 'DATE_CREATED'),
-  views('閲覧数', 'VIEWS_COUNT'),
-  bookmarks('ブックマーク', 'BOOKMARKS_COUNT'),
-  comments('コメント', 'COMMENTS_COUNT');
+  likes('人気', 'Popular', 'LIKES_COUNT'),
+  latest('新着', 'Latest', 'DATE_CREATED'),
+  views('閲覧数', 'Views', 'VIEWS_COUNT'),
+  bookmarks('ブックマーク', 'Bookmarks', 'BOOKMARKS_COUNT'),
+  comments('コメント', 'Comments', 'COMMENTS_COUNT');
 
-  const WorkSort(this.label, this.value);
+  const WorkSort(this._ja, this._en, this.value);
 
-  final String label;
+  final String _ja;
+  final String _en;
   final String value;
+
+  String get label => tr(_ja, _en);
 }
 
 /// 作品の種類
 enum WorkKind {
-  all('すべて', null),
-  image('イラスト', 'WORK'),
-  novel('小説', 'NOVEL'),
-  video('動画', 'VIDEO'),
-  column('コラム', 'COLUMN');
+  all('すべて', 'All', null),
+  image('イラスト', 'Illustrations', 'WORK'),
+  novel('小説', 'Novels', 'NOVEL'),
+  video('動画', 'Videos', 'VIDEO'),
+  column('コラム', 'Columns', 'COLUMN');
 
-  const WorkKind(this.label, this.value);
+  const WorkKind(this._ja, this._en, this.value);
 
-  final String label;
+  final String _ja;
+  final String _en;
   final String? value;
+
+  String get label => tr(_ja, _en);
 }
 
 /// 年齢区分（アプリでは R18 は出さない）
 enum RatingFilter {
-  all('すべて', ['G', 'R15']),
-  g('全年齢', ['G']),
-  r15('R15', ['R15']);
+  all('すべて', 'All', ['G', 'R15']),
+  g('全年齢', 'All ages', ['G']),
+  r15('R15', 'R15', ['R15']);
 
-  const RatingFilter(this.label, this.ratings);
+  const RatingFilter(this._ja, this._en, this.ratings);
 
-  final String label;
+  final String _ja;
+  final String _en;
   final List<String> ratings;
+
+  String get label => tr(_ja, _en);
 }
 
 /// 画風
 enum StyleFilter {
-  all('すべて', null),
-  illustration('イラスト系', 'ILLUSTRATION'),
-  real('リアル系', 'REAL');
+  all('すべて', 'All', null),
+  illustration('イラスト系', 'Illustration', 'ILLUSTRATION'),
+  real('リアル系', 'Realistic', 'REAL');
 
-  const StyleFilter(this.label, this.value);
+  const StyleFilter(this._ja, this._en, this.value);
 
-  final String label;
+  final String _ja;
+  final String _en;
   final String? value;
+
+  String get label => tr(_ja, _en);
 }
 
 /// 検索のしかた（タグの一致 / キーワード）
@@ -177,6 +192,7 @@ query DailyTheme(\$year: Int, \$month: Int, \$day: Int) {
   dailyTheme(year: \$year, month: \$month, day: \$day) {
     id
     title
+    enTitle
     dateText
     worksCount
     firstWork {
@@ -200,7 +216,7 @@ query DailyTheme(\$year: Int, \$month: Int, \$day: Int) {
     final safe = first != null && appRatings.contains(first.str('rating'));
     return DailyTheme(
       id: t.str('id'),
-      title: t.str('title'),
+      title: localizedContent(t.str('title'), t.strOrNull('enTitle')),
       dateText: t.str('dateText'),
       worksCount: t.integer('worksCount'),
       thumbnailUrl: safe ? first.strOrNull('smallThumbnailImageURL') : null,
@@ -461,6 +477,17 @@ class RankingDate {
   }
 
   static String label(RankingPeriod p, DateTime d) {
+    if (!L10n.isJa) {
+      switch (p) {
+        case RankingPeriod.daily:
+          return DateFormat('EEE, MMM d, y', 'en_US').format(d);
+        case RankingPeriod.weekly:
+          final end = d.add(const Duration(days: 6));
+          return '${DateFormat('MMM d', 'en_US').format(d)} – ${DateFormat('MMM d', 'en_US').format(end)}';
+        case RankingPeriod.monthly:
+          return DateFormat('MMMM y', 'en_US').format(d);
+      }
+    }
     const wd = ['月', '火', '水', '木', '金', '土', '日'];
     switch (p) {
       case RankingPeriod.daily:

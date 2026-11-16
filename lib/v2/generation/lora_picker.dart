@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/design.dart';
+import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/generation/generation_api.dart';
 import 'package:aipictors/v2/generation/generation_controller.dart';
 import 'package:aipictors/v2/generation/generation_settings.dart';
@@ -49,7 +50,7 @@ class _LoraPickerState extends State<_LoraPicker> {
     } on ApiException catch (e) {
       if (mounted) setState(() => _userError = e.message);
     } catch (_) {
-      if (mounted) setState(() => _userError = 'LoRA を読み込めませんでした');
+      if (mounted) setState(() => _userError = tr('LoRA を読み込めませんでした', 'Could not load LoRAs'));
     }
   }
 
@@ -62,7 +63,7 @@ class _LoraPickerState extends State<_LoraPicker> {
       return;
     }
     if (c.settings.loras.length >= _limit) {
-      context.toast('今のプランでは LoRA は $_limit 個まで使えます', icon: Icons.info_outline_rounded);
+      context.toast(tr('今のプランでは LoRA は $_limit 個まで使えます', 'Your plan allows up to $_limit LoRAs'), icon: Icons.info_outline_rounded);
       return;
     }
     Ds.impact();
@@ -87,20 +88,20 @@ class _LoraPickerState extends State<_LoraPicker> {
               child: Row(
                 children: [
                   Expanded(
-                    child: Text('LoRA を選ぶ', style: context.tt.titleLarge?.copyWith(fontWeight: FontWeight.w800)),
+                    child: Text(tr('LoRA を選ぶ', 'Choose LoRA'), style: context.tt.titleLarge?.copyWith(fontWeight: FontWeight.w800)),
                   ),
                   Text(
                     '${c.settings.loras.length} / $_limit',
                     style: TextStyle(color: context.muted, fontWeight: FontWeight.w700),
                   ),
                   const SizedBox(width: 4),
-                  TextButton(onPressed: () => Navigator.of(context).pop(), child: const Text('完了')),
+                  TextButton(onPressed: () => Navigator.of(context).pop(), child: Text(tr('完了', 'Done'))),
                 ],
               ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Text('絵柄や効果を足すための追加の学習データです。強さは選んだあとに調整できます。', style: context.tt.bodySmall?.copyWith(color: context.muted)),
+              child: Text(tr('絵柄や効果を足すための追加の学習データです。強さは選んだあとに調整できます。', 'Extra trained data that adds styles and effects. You can adjust the strength after choosing.'), style: context.tt.bodySmall?.copyWith(color: context.muted)),
             ),
             const SizedBox(height: 10),
             Padding(
@@ -114,7 +115,7 @@ class _LoraPickerState extends State<_LoraPicker> {
                   });
                 },
                 decoration: InputDecoration(
-                  hintText: 'LoRA を探す',
+                  hintText: tr('LoRA を探す', 'Search LoRA'),
                   prefixIcon: const Icon(Icons.search_rounded),
                   filled: true,
                   fillColor: context.skeleton,
@@ -125,7 +126,7 @@ class _LoraPickerState extends State<_LoraPicker> {
             ),
             const SizedBox(height: 10),
             PillTabs(
-              labels: const ['公式 LoRA', 'みんなのモデル'],
+              labels: [tr('公式 LoRA', 'Official LoRA'), tr('みんなのモデル', 'Community')],
               index: _tab,
               onChanged: (i) {
                 setState(() => _tab = i);
@@ -142,7 +143,7 @@ class _LoraPickerState extends State<_LoraPicker> {
                   itemCount: genres.length,
                   separatorBuilder: (_, __) => const SizedBox(width: 6),
                   itemBuilder: (context, i) => ChoiceChip(
-                    label: Text(genres[i].isEmpty ? 'すべて' : genres[i]),
+                    label: Text(genres[i].isEmpty ? tr('すべて', 'All') : genres[i]),
                     selected: genres[i] == _genre,
                     showCheckmark: false,
                     visualDensity: VisualDensity.compact,
@@ -166,7 +167,7 @@ class _LoraPickerState extends State<_LoraPicker> {
         .where((l) => _genre.isEmpty || l.genre == _genre)
         .where((l) => q.isEmpty || l.name.toLowerCase().contains(q) || l.description.toLowerCase().contains(q))
         .toList();
-    if (list.isEmpty) return const StateView(icon: Icons.search_off_rounded, title: '見つかりません', compact: true);
+    if (list.isEmpty) return StateView(icon: Icons.search_off_rounded, title: tr('見つかりません', 'Nothing found'), compact: true);
     return ListView.separated(
       controller: PrimaryScrollController.of(context),
       padding: const EdgeInsets.fromLTRB(16, 4, 16, 32),
@@ -196,7 +197,7 @@ class _LoraPickerState extends State<_LoraPicker> {
         itemBuilder: (_, __) => const Skeleton(height: 72, radius: 16),
       );
     }
-    if (list.isEmpty) return const StateView(icon: Icons.search_off_rounded, title: '見つかりません', compact: true);
+    if (list.isEmpty) return StateView(icon: Icons.search_off_rounded, title: tr('見つかりません', 'Nothing found'), compact: true);
     return ListView.separated(
       controller: PrimaryScrollController.of(context),
       padding: const EdgeInsets.fromLTRB(16, 4, 16, 32),
@@ -212,7 +213,7 @@ class _LoraPickerState extends State<_LoraPicker> {
               setState(() => _userLoras?.removeWhere((x) => x.authorId == m.authorId));
             }
           },
-          subtitle: [m.baseModel, if (words.isNotEmpty) 'トリガー: $words'].join(' ・ '),
+          subtitle: [m.baseModel, if (words.isNotEmpty) tr('トリガー: $words', 'Trigger: $words')].join(' ・ '),
           imageUrl: m.thumbnailUrl,
           picked: _isPicked(m.loraName),
           onTap: () {
@@ -281,7 +282,7 @@ class _LoraTile extends StatelessWidget {
             ),
             if (onMore != null)
               IconButton(
-                tooltip: '通報・ブロック',
+                tooltip: tr('通報・ブロック', 'Report / block'),
                 visualDensity: VisualDensity.compact,
                 onPressed: onMore,
                 icon: Icon(Icons.more_horiz_rounded, color: context.muted),
@@ -303,12 +304,12 @@ class _LoraTile extends StatelessWidget {
 }
 
 /// プロンプトの言葉を選ぶシート（Web の「キーワード」）
-Future<void> showPromptWords(BuildContext context, {required List<PromptCategory> categories, required ValueChanged<String> onAdd, String title = 'キーワードを足す'}) {
+Future<void> showPromptWords(BuildContext context, {required List<PromptCategory> categories, required ValueChanged<String> onAdd, String? title}) {
   return showGenSheet(
     context,
     expand: true,
     initialSize: 0.75,
-    builder: (_) => _PromptWords(categories: categories, onAdd: onAdd, title: title),
+    builder: (_) => _PromptWords(categories: categories, onAdd: onAdd, title: title ?? tr('キーワードを足す', 'Add keywords')),
   );
 }
 
@@ -330,7 +331,7 @@ class _PromptWordsState extends State<_PromptWords> {
   @override
   Widget build(BuildContext context) {
     final cats = widget.categories.where((c) => c.prompts.isNotEmpty).toList();
-    if (cats.isEmpty) return const StateView(icon: Icons.label_off_outlined, title: 'キーワードがありません', compact: true);
+    if (cats.isEmpty) return StateView(icon: Icons.label_off_outlined, title: tr('キーワードがありません', 'No keywords'), compact: true);
     final cat = cats[_index.clamp(0, cats.length - 1)];
     return Column(
       children: [
@@ -342,7 +343,7 @@ class _PromptWordsState extends State<_PromptWords> {
               Expanded(
                 child: Text(widget.title, style: context.tt.titleLarge?.copyWith(fontWeight: FontWeight.w800)),
               ),
-              TextButton(onPressed: () => Navigator.of(context).pop(), child: const Text('完了')),
+              TextButton(onPressed: () => Navigator.of(context).pop(), child: Text(tr('完了', 'Done'))),
             ],
           ),
         ),

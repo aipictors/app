@@ -1,4 +1,5 @@
 import 'package:aipictors/v2/core/design.dart';
+import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/generation/generation_api.dart';
 import 'package:aipictors/v2/generation/generation_controller.dart';
 import 'package:aipictors/v2/generation/generation_sheets.dart';
@@ -64,7 +65,7 @@ class _ResultViewerState extends State<ResultViewer> {
         XFile(file.path, mimeType: 'image/png', name: '${r.nanoid ?? r.id}.png'),
       ], sharePositionOrigin: box == null ? null : box.localToGlobal(Offset.zero) & box.size);
     } catch (_) {
-      if (mounted) context.toast('画像を読み込めませんでした。もう一度お試しください', error: true);
+      if (mounted) context.toast(tr('画像を読み込めませんでした。もう一度お試しください', 'Could not load the image. Please try again.'), error: true);
     } finally {
       if (mounted) setState(() => _saving = false);
     }
@@ -74,14 +75,14 @@ class _ResultViewerState extends State<ResultViewer> {
     final ok = await showDialog<bool>(
       context: context,
       builder: (dialog) => AlertDialog(
-        title: const Text('この画像を削除しますか？'),
-        content: const Text('削除した画像は元に戻せません'),
+        title: Text(tr('この画像を削除しますか？', 'Delete this image?')),
+        content: Text(tr('削除した画像は元に戻せません', 'Deleted images cannot be restored')),
         actions: [
-          TextButton(onPressed: () => Navigator.of(dialog).pop(false), child: const Text('やめる')),
+          TextButton(onPressed: () => Navigator.of(dialog).pop(false), child: Text(tr('やめる', 'Cancel'))),
           FilledButton(
             style: FilledButton.styleFrom(backgroundColor: Theme.of(dialog).colorScheme.error),
             onPressed: () => Navigator.of(dialog).pop(true),
-            child: const Text('削除'),
+            child: Text(tr('削除', 'Delete')),
           ),
         ],
       ),
@@ -99,7 +100,7 @@ class _ResultViewerState extends State<ResultViewer> {
       return;
     }
     setState(() => _index = _index.clamp(0, c.results.length - 1));
-    context.toast('削除しました');
+    context.toast(tr('削除しました', 'Deleted'));
   }
 
   Future<void> _rate(GenResult r, int value) async {
@@ -116,14 +117,14 @@ class _ResultViewerState extends State<ResultViewer> {
     if (error != null) {
       context.toast(error, error: true);
     } else {
-      context.toast(next ? '保護しました' : '保護を外しました', icon: Icons.shield_rounded);
+      context.toast(next ? tr('保護しました', 'Protected') : tr('保護を外しました', 'Protection removed'), icon: Icons.shield_rounded);
     }
   }
 
   void _copyPrompt(GenResult r) {
     Clipboard.setData(ClipboardData(text: r.prompt));
     Ds.success();
-    context.toast('プロンプトをコピーしました', icon: Icons.copy_rounded);
+    context.toast(tr('プロンプトをコピーしました', 'Prompt copied'), icon: Icons.copy_rounded);
   }
 
   void _reuse(GenResult r) {
@@ -406,20 +407,20 @@ class _BottomBar extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    _Action(icon: Icons.ios_share_rounded, label: '保存・共有', loading: saving, onTap: onShare),
+                    _Action(icon: Icons.ios_share_rounded, label: tr('保存・共有', 'Save / share'), loading: saving, onTap: onShare),
                     _Action(
                       icon: r.isProtected ? Icons.shield_rounded : Icons.shield_outlined,
-                      label: r.isProtected ? '保護中' : '保護',
+                      label: r.isProtected ? tr('保護中', 'Protected') : tr('保護', 'Protect'),
                       active: r.isProtected,
                       onTap: onProtect,
                     ),
-                    _Action(icon: Icons.copy_rounded, label: 'プロンプト', onTap: onCopy),
-                    if (onPost != null) _Action(icon: Icons.upload_rounded, label: '投稿', onTap: onPost!),
-                    _Action(icon: Icons.delete_outline_rounded, label: '削除', onTap: onDelete),
+                    _Action(icon: Icons.copy_rounded, label: tr('プロンプト', 'Prompt'), onTap: onCopy),
+                    if (onPost != null) _Action(icon: Icons.upload_rounded, label: tr('投稿', 'Post'), onTap: onPost!),
+                    _Action(icon: Icons.delete_outline_rounded, label: tr('削除', 'Delete'), onTap: onDelete),
                   ],
                 ),
                 const SizedBox(height: 12),
-                GradientButton(label: 'この設定で再生成', icon: Icons.replay_rounded, height: 48, onPressed: onReuse),
+                GradientButton(label: tr('この設定で再生成', 'Regenerate with these settings'), icon: Icons.replay_rounded, height: 48, onPressed: onReuse),
               ],
             ),
           ),
@@ -482,9 +483,9 @@ class _InfoSheet extends StatelessWidget {
     final r = result;
     final size = GenSize.parse(r.sizeType);
     final rows = <(String, String)>[
-      ('モデル', r.modelName.replaceAll(RegExp(r'\s*\[[0-9a-f]+\]$'), '')),
-      ('種類', typeLabel(r.modelType)),
-      ('サイズ', '${r.width > 0 ? r.width : size.width} × ${r.height > 0 ? r.height : size.height}${r.isHighRes ? '（高解像度）' : ''}'),
+      (tr('モデル', 'Model'), r.modelName.replaceAll(RegExp(r'\s*\[[0-9a-f]+\]$'), '')),
+      (tr('種類', 'Type'), typeLabel(r.modelType)),
+      (tr('サイズ', 'Size'), '${r.width > 0 ? r.width : size.width} × ${r.height > 0 ? r.height : size.height}${r.isHighRes ? tr('（高解像度）', ' (high-res)') : ''}'),
       ('Steps', '${r.steps}'),
       ('Scale', '${r.scale}'),
       ('Sampler', r.sampler),
@@ -500,10 +501,10 @@ class _InfoSheet extends StatelessWidget {
             controller: PrimaryScrollController.of(context),
             padding: const EdgeInsets.fromLTRB(20, 8, 20, 32),
             children: [
-              Text('生成の情報', style: context.tt.titleLarge?.copyWith(fontWeight: FontWeight.w800)),
+              Text(tr('生成の情報', 'Generation info'), style: context.tt.titleLarge?.copyWith(fontWeight: FontWeight.w800)),
               const SizedBox(height: 16),
-              _block(context, 'プロンプト', r.prompt),
-              if (r.negativePrompt.isNotEmpty) _block(context, 'ネガティブプロンプト', r.negativePrompt),
+              _block(context, tr('プロンプト', 'Prompt'), r.prompt),
+              if (r.negativePrompt.isNotEmpty) _block(context, tr('ネガティブプロンプト', 'Negative prompt'), r.negativePrompt),
               const SizedBox(height: 8),
               Container(
                 decoration: BoxDecoration(color: context.skeleton.withValues(alpha: 0.6), borderRadius: Ds.br(16)),
@@ -532,12 +533,12 @@ class _InfoSheet extends StatelessWidget {
               Row(
                 children: [
                   Expanded(
-                    child: OutlinedButton.icon(onPressed: onCopy, icon: const Icon(Icons.copy_rounded), label: const Text('プロンプトをコピー')),
+                    child: OutlinedButton.icon(onPressed: onCopy, icon: const Icon(Icons.copy_rounded), label: Text(tr('プロンプトをコピー', 'Copy prompt'))),
                   ),
                 ],
               ),
               const SizedBox(height: 10),
-              GradientButton(label: 'この設定で再生成', icon: Icons.replay_rounded, onPressed: onReuse),
+              GradientButton(label: tr('この設定で再生成', 'Regenerate with these settings'), icon: Icons.replay_rounded, onPressed: onReuse),
             ],
           ),
         ),

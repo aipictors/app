@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'dart:ui' as ui;
 
 import 'package:aipictors/v2/core/api.dart';
+import 'package:aipictors/v2/core/l10n.dart';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/painting.dart' show Rect, Size;
@@ -49,7 +50,7 @@ class ImageTools {
   /// アップロードできる形式にそろえる（HEIC などは PNG にする）
   static Future<EncodedImage> normalize(Uint8List bytes) async {
     if (bytes.length > maxImageFileBytes) {
-      throw const ApiException('32MB 以内の画像を選んでください');
+      throw ApiException(tr('32MB 以内の画像を選んでください', 'Choose an image up to 32MB'));
     }
     try {
       final mime = _mimeOf(bytes);
@@ -67,7 +68,7 @@ class ImageTools {
     } on ApiException {
       rethrow;
     } catch (_) {
-      throw const ApiException('この画像は読み込めませんでした');
+      throw ApiException(tr('この画像は読み込めませんでした', 'Couldn\'t read this image'));
     }
   }
 
@@ -229,7 +230,7 @@ class Uploader {
   static Future<String> token() async {
     final data = await Api.query('query AppViewerToken { viewer { id token } }');
     final token = data.obj('viewer')?.strOrNull('token');
-    if (token == null) throw const ApiException('ログイン情報を取得できませんでした。ログインし直してください');
+    if (token == null) throw ApiException(tr('ログイン情報を取得できませんでした。ログインし直してください', 'Couldn\'t get your login info. Please log in again'));
     return token;
   }
 
@@ -237,7 +238,7 @@ class Uploader {
 
   static Future<String> image(Uint8List bytes, String mime, String token) async {
     if (postDryRun) return 'https://dry-run.invalid/${_dryRunCount++}-${bytes.length}.${mime.split('/').last}';
-    return _put(Uri.parse(_imageEndpoint), bytes, mime, token, '画像');
+    return _put(Uri.parse(_imageEndpoint), bytes, mime, token, tr('画像', 'Image'));
   }
 
   /// 本文（Markdown）のアップロード。[existingUrl] を渡すと同じファイルを上書きする
@@ -250,7 +251,7 @@ class Uploader {
       Uint8List.fromList(utf8.encode(text)),
       mime,
       token,
-      '本文',
+      tr('本文', 'Text'),
     );
   }
 
@@ -270,17 +271,17 @@ class Uploader {
         if (res.statusCode >= 200 && res.statusCode < 300) {
           final url = json is Map && json['data'] is Map ? json['data']['url'] : null;
           if (url is String && url.isNotEmpty) return url;
-          throw ApiException('$labelのアップロードに失敗しました');
+          throw ApiException(tr('$labelのアップロードに失敗しました', '$label upload failed'));
         }
         final error = json is Map ? json['error'] : null;
-        throw ApiException(error is String && error.isNotEmpty ? error : '$labelのアップロードに失敗しました');
+        throw ApiException(error is String && error.isNotEmpty ? error : tr('$labelのアップロードに失敗しました', '$label upload failed'));
       } on ApiException {
         rethrow;
       } on FormatException {
-        throw ApiException('$labelのアップロードに失敗しました');
+        throw ApiException(tr('$labelのアップロードに失敗しました', '$label upload failed'));
       } catch (e) {
         if (attempt == 0 && (e is SocketException || e is http.ClientException)) continue;
-        throw ApiException('$labelのアップロードがタイムアウトしました。通信環境を確認してもう一度お試しください');
+        throw ApiException(tr('$labelのアップロードがタイムアウトしました。通信環境を確認してもう一度お試しください', '$label upload timed out. Check your connection and try again'));
       }
     }
   }

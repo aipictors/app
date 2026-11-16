@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:aipictors/v2/core/design.dart';
+import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/core/nav.dart';
 import 'package:aipictors/v2/generation/generation_api.dart';
 import 'package:aipictors/v2/generation/generation_controller.dart';
@@ -118,7 +119,7 @@ class _GenerationFormState extends State<GenerationForm> {
               child: TextButton.icon(
                 onPressed: _confirmReset,
                 icon: const Icon(Icons.restart_alt_rounded, size: 18),
-                label: const Text('設定を初期値に戻す'),
+                label: Text(tr('設定を初期値に戻す', 'Reset settings')),
                 style: TextButton.styleFrom(foregroundColor: context.muted),
               ),
             ),
@@ -141,7 +142,7 @@ class _GenerationFormState extends State<GenerationForm> {
     }
     final user = s.userCheckpoint;
     final model = c.model;
-    final title = user?.name ?? model?.displayName ?? 'モデルを選ぶ';
+    final title = user?.name ?? model?.displayName ?? tr('モデルを選ぶ', 'Choose a model');
     final thumb = user?.thumbnailUrl ?? model?.thumbnailUrl;
     final type = s.effectiveType;
     return Pressable(
@@ -162,7 +163,7 @@ class _GenerationFormState extends State<GenerationForm> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    user != null ? 'みんなのモデル' : 'モデル',
+                    user != null ? tr('みんなのモデル', 'Community model') : tr('モデル', 'Model'),
                     style: TextStyle(fontSize: 12, color: context.muted, fontWeight: FontWeight.w600),
                   ),
                   const SizedBox(height: 2),
@@ -186,7 +187,7 @@ class _GenerationFormState extends State<GenerationForm> {
             ),
             if (user != null)
               IconButton(
-                tooltip: '公式モデルに戻す',
+                tooltip: tr('公式モデルに戻す', 'Back to official models'),
                 onPressed: () {
                   Ds.tap();
                   final m = c.model;
@@ -198,7 +199,7 @@ class _GenerationFormState extends State<GenerationForm> {
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
               decoration: BoxDecoration(color: context.cs.primary.withValues(alpha: 0.1), borderRadius: Ds.br(20)),
               child: Text(
-                '変更',
+                tr('変更', 'Change'),
                 style: TextStyle(color: context.cs.primary, fontWeight: FontWeight.w800, fontSize: 13),
               ),
             ),
@@ -220,12 +221,12 @@ class _GenerationFormState extends State<GenerationForm> {
         children: [
           Row(
             children: [
-              const _Label(icon: Icons.edit_rounded, text: 'プロンプト'),
+              _Label(icon: Icons.edit_rounded, text: tr('プロンプト', 'Prompt')),
               const Spacer(),
               if (_prompt.text.isNotEmpty)
                 _MiniButton(
                   icon: Icons.backspace_outlined,
-                  label: 'クリア',
+                  label: tr('クリア', 'Clear'),
                   onTap: () {
                     final before = s.prompt;
                     s.update((x) => x.prompt = '');
@@ -234,8 +235,8 @@ class _GenerationFormState extends State<GenerationForm> {
                       ..showSnackBar(
                         SnackBar(
                           behavior: SnackBarBehavior.floating,
-                          content: const Text('プロンプトを消しました'),
-                          action: SnackBarAction(label: '元に戻す', onPressed: () => s.update((x) => x.prompt = before)),
+                          content: Text(tr('プロンプトを消しました', 'Prompt cleared')),
+                          action: SnackBarAction(label: tr('元に戻す', 'Undo'), onPressed: () => s.update((x) => x.prompt = before)),
                         ),
                       );
                   },
@@ -250,7 +251,7 @@ class _GenerationFormState extends State<GenerationForm> {
             maxLength: GenRules.maxPromptLength,
             onChanged: (v) => s.update((x) => x.prompt = v),
             style: const TextStyle(fontSize: 15, height: 1.45),
-            decoration: _fieldDecoration(context, s.japanesePrompt ? '例: 青い髪の女の子、星空の下で微笑む' : '例: masterpiece, best quality, 1girl, blue hair, starry sky'),
+            decoration: _fieldDecoration(context, s.japanesePrompt ? tr('例: 青い髪の女の子、星空の下で微笑む', 'e.g. 青い髪の女の子、星空の下で微笑む') : tr('例: masterpiece, best quality, 1girl, blue hair, starry sky', 'e.g. masterpiece, best quality, 1girl, blue hair, starry sky')),
             buildCounter: (context, {required currentLength, required isFocused, maxLength}) => null,
           ),
           const SizedBox(height: 8),
@@ -258,12 +259,12 @@ class _GenerationFormState extends State<GenerationForm> {
             children: [
               _MiniButton(
                 icon: Icons.add_circle_outline_rounded,
-                label: 'キーワード',
+                label: tr('キーワード', 'Keywords'),
                 onTap: catalog == null ? null : () => showPromptWords(context, categories: catalog.promptCategories, onAdd: (w) => _appendPrompt(_prompt, w)),
               ),
               const SizedBox(width: 6),
               if (c.model != null && c.model!.prompts.isNotEmpty && s.userCheckpoint == null)
-                _MiniButton(icon: Icons.tips_and_updates_outlined, label: 'おすすめ', onTap: () => _appendPrompt(_prompt, c.model!.prompts.join(', '))),
+                _MiniButton(icon: Icons.tips_and_updates_outlined, label: tr('おすすめ', 'Suggested'), onTap: () => _appendPrompt(_prompt, c.model!.prompts.join(', '))),
               const Spacer(),
               Text(
                 '${_prompt.text.length}',
@@ -272,7 +273,7 @@ class _GenerationFormState extends State<GenerationForm> {
             ],
           ),
           const SizedBox(height: 4),
-          _SwitchRow(title: '日本語で入力する', subtitle: '日本語のプロンプトを英語にしてから生成します', value: s.japanesePrompt, onChanged: (v) => s.update((x) => x.japanesePrompt = v)),
+          _SwitchRow(title: tr('日本語で入力する', 'Write in Japanese'), subtitle: tr('日本語のプロンプトを英語にしてから生成します', 'Translates a Japanese prompt into English before generating'), value: s.japanesePrompt, onChanged: (v) => s.update((x) => x.japanesePrompt = v)),
           if (!s.isGemini) ...[
             Divider(color: context.hairline, height: 16),
             Pressable(
@@ -283,7 +284,7 @@ class _GenerationFormState extends State<GenerationForm> {
                 padding: const EdgeInsets.symmetric(vertical: 6),
                 child: Row(
                   children: [
-                    const _Label(icon: Icons.do_not_disturb_on_outlined, text: 'ネガティブプロンプト'),
+                    _Label(icon: Icons.do_not_disturb_on_outlined, text: tr('ネガティブプロンプト', 'Negative prompt')),
                     const SizedBox(width: 8),
                     if (!_negativeOpen)
                       Expanded(
@@ -315,7 +316,7 @@ class _GenerationFormState extends State<GenerationForm> {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         const SizedBox(height: 6),
-                        Text('入れたくないものを書きます', style: TextStyle(fontSize: 12, color: context.muted)),
+                        Text(tr('入れたくないものを書きます', 'Describe what you do not want'), style: TextStyle(fontSize: 12, color: context.muted)),
                         const SizedBox(height: 6),
                         TextField(
                           controller: _negative,
@@ -324,7 +325,7 @@ class _GenerationFormState extends State<GenerationForm> {
                           maxLength: GenRules.maxPromptLength,
                           onChanged: (v) => s.update((x) => x.negativePrompt = v),
                           style: const TextStyle(fontSize: 14, height: 1.4),
-                          decoration: _fieldDecoration(context, '例: EasyNegative, lowres, bad hands'),
+                          decoration: _fieldDecoration(context, tr('例: EasyNegative, lowres, bad hands', 'e.g. EasyNegative, lowres, bad hands')),
                           buildCounter: (context, {required currentLength, required isFocused, maxLength}) => null,
                         ),
                         const SizedBox(height: 8),
@@ -332,12 +333,12 @@ class _GenerationFormState extends State<GenerationForm> {
                           children: [
                             _MiniButton(
                               icon: Icons.add_circle_outline_rounded,
-                              label: 'キーワード',
+                              label: tr('キーワード', 'Keywords'),
                               onTap: catalog == null
                                   ? null
                                   : () => showPromptWords(
                                       context,
-                                      title: 'ネガティブに足す',
+                                      title: tr('ネガティブに足す', 'Add to negative'),
                                       categories: catalog.negativePromptCategories,
                                       onAdd: (w) => _appendPrompt(_negative, w, negative: true),
                                     ),
@@ -375,13 +376,13 @@ class _GenerationFormState extends State<GenerationForm> {
                 style: TextStyle(fontSize: 12, color: context.muted, fontWeight: FontWeight.w700),
               ),
               const Spacer(),
-              _MiniButton(icon: Icons.add_rounded, label: '追加', onTap: () => showLoraPicker(context, c)),
+              _MiniButton(icon: Icons.add_rounded, label: tr('追加', 'Add'), onTap: () => showLoraPicker(context, c)),
             ],
           ),
           if (s.loras.isEmpty)
             Padding(
               padding: const EdgeInsets.only(top: 8),
-              child: Text('絵柄・効果を足せます（フラットな絵、背景をシンプルに など）', style: TextStyle(fontSize: 12, color: context.muted)),
+              child: Text(tr('絵柄・効果を足せます（フラットな絵、背景をシンプルに など）', 'Add styles and effects (flat art, simple background, etc.)'), style: TextStyle(fontSize: 12, color: context.muted)),
             ),
           for (final l in s.loras) ...[
             const SizedBox(height: 10),
@@ -428,7 +429,7 @@ class _GenerationFormState extends State<GenerationForm> {
         children: [
           Row(
             children: [
-              const _Label(icon: Icons.aspect_ratio_rounded, text: 'サイズ'),
+              _Label(icon: Icons.aspect_ratio_rounded, text: tr('サイズ', 'Size')),
               const Spacer(),
               Text(
                 '${current.width * m} × ${current.height * m}',
@@ -495,7 +496,7 @@ class _GenerationFormState extends State<GenerationForm> {
           Row(
             children: [
               Expanded(
-                child: OutlinedButton.icon(onPressed: _swapSize, icon: const Icon(Icons.swap_horiz_rounded, size: 18), label: const Text('縦横を入替')),
+                child: OutlinedButton.icon(onPressed: _swapSize, icon: const Icon(Icons.swap_horiz_rounded, size: 18), label: Text(tr('縦横を入替', 'Swap'))),
               ),
               if (canCustom) ...[
                 const SizedBox(width: 8),
@@ -503,7 +504,7 @@ class _GenerationFormState extends State<GenerationForm> {
                   child: OutlinedButton.icon(
                     onPressed: _toggleCustom,
                     icon: Icon(showCustom ? Icons.close_rounded : Icons.tune_rounded, size: 18),
-                    label: Text(showCustom ? '指定をやめる' : '幅・高さを指定'),
+                    label: Text(showCustom ? tr('指定をやめる', 'Use presets') : tr('幅・高さを指定', 'Custom size')),
                   ),
                 ),
               ],
@@ -520,18 +521,18 @@ class _GenerationFormState extends State<GenerationForm> {
           ],
           if (multiplier > 1) ...[
             const SizedBox(height: 8),
-            Text('大きいサイズは 1 枚ずつ・コイン$multiplier倍です', style: TextStyle(fontSize: 12, color: context.muted)),
+            Text(tr('大きいサイズは 1 枚ずつ・コイン$multiplier倍です', 'Large sizes generate 1 at a time and cost ${multiplier}x coins'), style: TextStyle(fontSize: 12, color: context.muted)),
           ],
           if (!s.isGemini && s.effectiveType != 'FLUX') ...[
             const SizedBox(height: 10),
             _SwitchRow(
-              title: '高解像度で生成する',
-              subtitle: overHighRes ? 'サブスクに入っていない場合、このサイズでは使えません（出力は 2048×2048 まで）' : '2倍の大きさで生成します（1枚ずつ・コイン2倍）',
+              title: tr('高解像度で生成する', 'High resolution'),
+              subtitle: overHighRes ? tr('サブスクに入っていない場合、このサイズでは使えません（出力は 2048×2048 まで）', 'Not available at this size without a subscription (output up to 2048×2048)') : tr('2倍の大きさで生成します（1枚ずつ・コイン2倍）', 'Generates at 2x size (1 at a time, 2x coins)'),
               badge: '×2',
               value: s.highRes,
               onChanged: (v) {
                 if (v && overHighRes) {
-                  context.toast('サブスクに入っていない場合、出力サイズは 2048×2048 までです', error: true);
+                  context.toast(tr('サブスクに入っていない場合、出力サイズは 2048×2048 までです', 'Without a subscription, output size is limited to 2048×2048'), error: true);
                   return;
                 }
                 s.update((x) => x.highRes = v);
@@ -584,19 +585,19 @@ class _GenerationFormState extends State<GenerationForm> {
     final isPaid = c.isPaid;
     final reason = max > 1
         ? (s.seed != -1 && current > 1
-              ? 'Seed ${s.seed}〜${s.seed + current - 1} で $current 枚作ります（1枚目は今の Seed と同じ絵）'
+              ? tr('Seed ${s.seed}〜${s.seed + current - 1} で $current 枚作ります（1枚目は今の Seed と同じ絵）', 'Makes $current images with Seed ${s.seed}–${s.seed + current - 1} (the first matches the current Seed)')
               : isPaid
               ? null
-              : '無料は 2 枚まで。プランなら 4 枚まで')
+              : tr('無料は 2 枚まで。プランなら 4 枚まで', 'Up to 2 on the free plan, up to 4 with a plan'))
         : s.highRes
-        ? '高解像度は 1 枚ずつ生成します'
+        ? tr('高解像度は 1 枚ずつ生成します', 'High resolution generates 1 at a time')
         : s.hasControlNet
-        ? 'ControlNet を使うときは 1 枚ずつ生成します'
+        ? tr('ControlNet を使うときは 1 枚ずつ生成します', 'ControlNet generates 1 at a time')
         : s.generationType(isPaid: isPaid) != 'TEXT_TO_IMAGE'
-        ? '画像から生成は 1 枚ずつ生成します'
+        ? tr('画像から生成は 1 枚ずつ生成します', 'Image-to-image generates 1 at a time')
         : GenRules.sizeMultiplier(s.sizeType) > 1
-        ? '大きいサイズは 1 枚ずつ生成します'
-        : 'このモデルは 1 枚ずつ生成します';
+        ? tr('大きいサイズは 1 枚ずつ生成します', 'Large sizes generate 1 at a time')
+        : tr('このモデルは 1 枚ずつ生成します', 'This model generates 1 at a time');
     final canReserve = c.viewer?.isStandardOrPremium == true && !s.isFlux && s.i2iImage == null && !s.isGemini;
     return _Card(
       padding: const EdgeInsets.fromLTRB(14, 12, 14, 12),
@@ -605,7 +606,7 @@ class _GenerationFormState extends State<GenerationForm> {
         children: [
           Row(
             children: [
-              const _Label(icon: Icons.burst_mode_rounded, text: '一度に作る枚数'),
+              _Label(icon: Icons.burst_mode_rounded, text: tr('一度に作る枚数', 'Images per run')),
               const Spacer(),
               _CountSelector(
                 max: math.max(max, 1),
@@ -625,14 +626,14 @@ class _GenerationFormState extends State<GenerationForm> {
             const SizedBox(height: 10),
             Row(
               children: [
-                const _Label(icon: Icons.schedule_rounded, text: '続けて依頼（予約生成）'),
+                _Label(icon: Icons.schedule_rounded, text: tr('続けて依頼（予約生成）', 'Queue runs')),
                 const Spacer(),
                 IconButton(
                   visualDensity: VisualDensity.compact,
                   onPressed: s.generationCount > 1 ? () => s.update((x) => x.generationCount -= 1) : null,
                   icon: const Icon(Icons.remove_circle_outline_rounded),
                 ),
-                Text('${s.generationCount} 回', style: const TextStyle(fontWeight: FontWeight.w800)),
+                Text(tr('${s.generationCount} 回', '${s.generationCount}x'), style: const TextStyle(fontWeight: FontWeight.w800)),
                 IconButton(
                   visualDensity: VisualDensity.compact,
                   onPressed: s.generationCount < (c.viewer?.remaining ?? 1).clamp(1, 30) ? () => s.update((x) => x.generationCount += 1) : null,
@@ -640,7 +641,7 @@ class _GenerationFormState extends State<GenerationForm> {
                 ),
               ],
             ),
-            Text('同時に生成できる数を超えた分は予約され、順番に生成します', style: TextStyle(fontSize: 12, color: context.muted)),
+            Text(tr('同時に生成できる数を超えた分は予約され、順番に生成します', 'Runs beyond your simultaneous limit are queued and generated in order'), style: TextStyle(fontSize: 12, color: context.muted)),
           ],
         ],
       ),
@@ -656,7 +657,7 @@ class _GenerationFormState extends State<GenerationForm> {
       final file = await ImagePicker().pickImage(source: ImageSource.gallery);
       return file == null ? null : await file.readAsBytes();
     } catch (_) {
-      if (mounted) context.toast('画像を読み込めませんでした。写真へのアクセスを確認してください', error: true);
+      if (mounted) context.toast(tr('画像を読み込めませんでした。写真へのアクセスを確認してください', 'Could not load the image. Please check photo access.'), error: true);
       return null;
     }
   }
@@ -671,15 +672,15 @@ class _GenerationFormState extends State<GenerationForm> {
         children: [
           Row(
             children: [
-              const _Label(icon: Icons.image_rounded, text: '画像から生成'),
+              _Label(icon: Icons.image_rounded, text: tr('画像から生成', 'Image to image')),
               const Spacer(),
-              if (!c.isPaid && !isGemini) Badge2('ライト以上', color: Ds.purple),
+              if (!c.isPaid && !isGemini) Badge2(tr('ライト以上', 'Lite+'), color: Ds.purple),
             ],
           ),
           const SizedBox(height: 10),
           _ImagePickRow(
             image: image,
-            label: '元にする画像を選ぶ',
+            label: tr('元にする画像を選ぶ', 'Choose a source image'),
             onPick: () async {
               final bytes = await _pickImage();
               if (bytes != null) s.update((x) => x.i2iImage = bytes);
@@ -688,11 +689,11 @@ class _GenerationFormState extends State<GenerationForm> {
           ),
           if (image != null) ...[
             const SizedBox(height: 6),
-            Text('今のサイズの比率で真ん中を切り抜いて使います（1枚ずつ）', style: TextStyle(fontSize: 12, color: context.muted)),
+            Text(tr('今のサイズの比率で真ん中を切り抜いて使います（1枚ずつ）', 'The center is cropped to the current aspect ratio (1 at a time)'), style: TextStyle(fontSize: 12, color: context.muted)),
             if (!isGemini)
               _SliderRow(
-                title: '変更度',
-                help: '小さいほど元の画像に近く、大きいほど変わります',
+                title: tr('変更度', 'Denoising strength'),
+                help: tr('小さいほど元の画像に近く、大きいほど変わります', 'Lower stays closer to the original; higher changes more'),
                 value: s.i2iStrength,
                 min: 0.1,
                 max: 1,
@@ -718,7 +719,7 @@ class _GenerationFormState extends State<GenerationForm> {
           const SizedBox(height: 10),
           _ImagePickRow(
             image: image,
-            label: 'ポーズや構図の元になる画像を選ぶ',
+            label: tr('ポーズや構図の元になる画像を選ぶ', 'Choose an image for pose or composition'),
             onPick: () async {
               final bytes = await _pickImage();
               if (bytes == null) return;
@@ -736,10 +737,10 @@ class _GenerationFormState extends State<GenerationForm> {
           ),
           if (image != null) ...[
             _PickerRow(
-              title: '種類',
-              help: '元の画像のどこを使うか',
-              value: GenRules.controlNetModules.where((m) => m.$1 == module).firstOrNull?.$2 ?? '選んでください',
-              onTap: () => _pickFrom('ControlNet の種類', [for (final m in GenRules.controlNetModules) m.$2], GenRules.controlNetModules.where((m) => m.$1 == module).firstOrNull?.$2 ?? '', (label) {
+              title: tr('種類', 'Type'),
+              help: tr('元の画像のどこを使うか', 'What to take from the source image'),
+              value: GenRules.controlNetModules.where((m) => m.$1 == module).firstOrNull?.$2 ?? tr('選んでください', 'Select'),
+              onTap: () => _pickFrom(tr('ControlNet の種類', 'ControlNet type'), [for (final m in GenRules.controlNetModules) m.$2], GenRules.controlNetModules.where((m) => m.$1 == module).firstOrNull?.$2 ?? '', (label) {
                 final picked = GenRules.controlNetModules.firstWhere((m) => m.$2 == label).$1;
                 s.update((x) {
                   x.controlNetModule = picked;
@@ -749,8 +750,8 @@ class _GenerationFormState extends State<GenerationForm> {
             ),
             if (showWeight)
               _SliderRow(
-                title: '強さ',
-                help: '元の画像にどれだけ従うか',
+                title: tr('強さ', 'Strength'),
+                help: tr('元の画像にどれだけ従うか', 'How closely to follow the source image'),
                 value: s.controlNetWeight,
                 min: 0.1,
                 max: 2,
@@ -781,11 +782,11 @@ class _GenerationFormState extends State<GenerationForm> {
               padding: const EdgeInsets.fromLTRB(14, 14, 10, 14),
               child: Row(
                 children: [
-                  const _Label(icon: Icons.tune_rounded, text: '詳細設定'),
+                  _Label(icon: Icons.tune_rounded, text: tr('詳細設定', 'Advanced')),
                   const SizedBox(width: 8),
                   Expanded(
                     child: Text(
-                      'Steps ${s.steps} ・ Scale ${s.scale} ・ ${s.seed == -1 ? 'Seed ランダム' : 'Seed ${s.seed}'}',
+                      'Steps ${s.steps} ・ Scale ${s.scale} ・ ${s.seed == -1 ? tr('Seed ランダム', 'Seed random') : 'Seed ${s.seed}'}',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(fontSize: 12, color: context.muted),
@@ -816,7 +817,7 @@ class _GenerationFormState extends State<GenerationForm> {
                             spacing: 8,
                             children: [
                               ActionChip(
-                                label: const Text('標準'),
+                                label: Text(tr('標準', 'Standard')),
                                 onPressed: () => s.update((x) {
                                   x.scale = 7;
                                   x.steps = 20;
@@ -825,7 +826,7 @@ class _GenerationFormState extends State<GenerationForm> {
                                 }),
                               ),
                               ActionChip(
-                                label: const Text('turbo・lightning 用'),
+                                label: Text(tr('turbo・lightning 用', 'For turbo/lightning')),
                                 onPressed: () => s.update((x) {
                                   x.scale = 1;
                                   x.steps = 8;
@@ -837,7 +838,7 @@ class _GenerationFormState extends State<GenerationForm> {
                           ),
                         _SliderRow(
                           title: 'Steps',
-                          help: '描き込みの回数。多いほど細かくなり、時間がかかります',
+                          help: tr('描き込みの回数。多いほど細かくなり、時間がかかります', 'Number of steps. More adds detail but takes longer'),
                           value: s.steps.toDouble(),
                           min: GenRules.minSteps.toDouble(),
                           max: GenRules.maxSteps.toDouble(),
@@ -846,7 +847,7 @@ class _GenerationFormState extends State<GenerationForm> {
                         ),
                         _SliderRow(
                           title: 'Scale',
-                          help: 'プロンプトにどれだけ従うか',
+                          help: tr('プロンプトにどれだけ従うか', 'How closely to follow the prompt'),
                           value: s.scale.toDouble(),
                           min: GenRules.minScale.toDouble(),
                           max: GenRules.maxScale.toDouble(),
@@ -856,19 +857,19 @@ class _GenerationFormState extends State<GenerationForm> {
                         if (!isFlux) ...[
                           _PickerRow(
                             title: 'Sampler',
-                            help: 'ノイズの除去の手法',
+                            help: tr('ノイズの除去の手法', 'Denoising method'),
                             value: s.sampler,
                             onTap: () => _pickFrom('Sampler', GenRules.samplers, s.sampler, (v) => s.update((x) => x.sampler = v)),
                           ),
                           _PickerRow(
                             title: 'Schedule type',
-                            help: 'ノイズの減らし方（たいていは自動で大丈夫）',
-                            value: s.scheduler ?? '自動',
-                            onTap: () => _pickFrom('Schedule type', ['自動', ...GenRules.schedulers], s.scheduler ?? '自動', (v) => s.update((x) => x.scheduler = v == '自動' ? null : v)),
+                            help: tr('ノイズの減らし方（たいていは自動で大丈夫）', 'Noise schedule (Auto is usually fine)'),
+                            value: s.scheduler ?? tr('自動', 'Auto'),
+                            onTap: () => _pickFrom('Schedule type', [tr('自動', 'Auto'), ...GenRules.schedulers], s.scheduler ?? tr('自動', 'Auto'), (v) => s.update((x) => x.scheduler = v == tr('自動', 'Auto') ? null : v)),
                           ),
                           _SliderRow(
                             title: 'Clip Skip',
-                            help: 'プロンプトの解釈の深さ（多くのモデルは 2）',
+                            help: tr('プロンプトの解釈の深さ（多くのモデルは 2）', 'Prompt interpretation depth (2 for most models)'),
                             value: s.clipSkip.toDouble(),
                             min: 1,
                             max: 12,
@@ -877,8 +878,8 @@ class _GenerationFormState extends State<GenerationForm> {
                           ),
                           _PickerRow(
                             title: 'VAE',
-                            help: '色合い・仕上げの調整',
-                            value: s.vae.isEmpty ? '自動' : s.vae,
+                            help: tr('色合い・仕上げの調整', 'Adjusts color and finish'),
+                            value: s.vae.isEmpty ? tr('自動', 'Auto') : s.vae,
                             onTap: () => _pickFrom('VAE', GenRules.vaes, s.vae, (v) => s.update((x) => x.vae = v)),
                           ),
                         ],
@@ -903,7 +904,7 @@ class _GenerationFormState extends State<GenerationForm> {
             const Text('Seed', style: TextStyle(fontWeight: FontWeight.w700)),
             const SizedBox(width: 6),
             Expanded(
-              child: Text('同じ Seed・同じ設定なら、同じ絵になります', style: TextStyle(fontSize: 11.5, color: context.muted)),
+              child: Text(tr('同じ Seed・同じ設定なら、同じ絵になります', 'The same Seed and settings produce the same image'), style: TextStyle(fontSize: 11.5, color: context.muted)),
             ),
           ],
         ),
@@ -916,12 +917,12 @@ class _GenerationFormState extends State<GenerationForm> {
                 keyboardType: TextInputType.number,
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly, LengthLimitingTextInputFormatter(10)],
                 onChanged: (v) => s.update((x) => x.seed = int.tryParse(v) ?? -1),
-                decoration: _fieldDecoration(context, 'ランダム').copyWith(prefixIcon: Icon(locked ? Icons.lock_rounded : Icons.shuffle_rounded, size: 18)),
+                decoration: _fieldDecoration(context, tr('ランダム', 'Random')).copyWith(prefixIcon: Icon(locked ? Icons.lock_rounded : Icons.shuffle_rounded, size: 18)),
               ),
             ),
             const SizedBox(width: 8),
             IconButton.filledTonal(
-              tooltip: 'ランダムな Seed を入れる',
+              tooltip: tr('ランダムな Seed を入れる', 'Use a random Seed'),
               onPressed: () {
                 Ds.impact();
                 s.update((x) => x.seed = math.Random().nextInt(2147483647));
@@ -930,7 +931,7 @@ class _GenerationFormState extends State<GenerationForm> {
             ),
             const SizedBox(width: 4),
             IconButton.filledTonal(
-              tooltip: '毎回ランダムにする',
+              tooltip: tr('毎回ランダムにする', 'Random every time'),
               onPressed: locked
                   ? () {
                       Ds.tap();
@@ -987,11 +988,11 @@ class _GenerationFormState extends State<GenerationForm> {
     final ok = await showDialog<bool>(
       context: context,
       builder: (dialog) => AlertDialog(
-        title: const Text('設定を初期値に戻しますか？'),
-        content: const Text('モデル・プロンプト・詳細設定が最初の状態になります'),
+        title: Text(tr('設定を初期値に戻しますか？', 'Reset settings?')),
+        content: Text(tr('モデル・プロンプト・詳細設定が最初の状態になります', 'Model, prompt, and advanced settings will return to their defaults')),
         actions: [
-          TextButton(onPressed: () => Navigator.of(dialog).pop(false), child: const Text('やめる')),
-          FilledButton(onPressed: () => Navigator.of(dialog).pop(true), child: const Text('戻す')),
+          TextButton(onPressed: () => Navigator.of(dialog).pop(false), child: Text(tr('やめる', 'Cancel'))),
+          FilledButton(onPressed: () => Navigator.of(dialog).pop(true), child: Text(tr('戻す', 'Reset'))),
         ],
       ),
     );
@@ -1116,11 +1117,11 @@ class _CustomSizePanelState extends State<_CustomSizePanel> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Row(children: [_field('幅', _w, _wFocus), const SizedBox(width: 8), _field('高さ', _h, _hFocus)]),
+        Row(children: [_field(tr('幅', 'Width'), _w, _wFocus), const SizedBox(width: 8), _field(tr('高さ', 'Height'), _h, _hFocus)]),
         const SizedBox(height: 8),
         Row(
           children: [
-            Text('長辺', style: TextStyle(fontSize: 12, color: context.muted)),
+            Text(tr('長辺', 'Long side'), style: TextStyle(fontSize: 12, color: context.muted)),
             const SizedBox(width: 8),
             for (final side in const [1024, 1536, 2048])
               Padding(
@@ -1131,15 +1132,15 @@ class _CustomSizePanelState extends State<_CustomSizePanel> {
         ),
         const SizedBox(height: 6),
         Text(
-          '${GenRules.customSizeMin}〜${GenRules.customSizeMax} の範囲で指定してください（8 の倍数にそろえます）。今のサイズは約 ${(pixels / 1000000).toStringAsFixed(1)} メガピクセルです。',
+          tr('${GenRules.customSizeMin}〜${GenRules.customSizeMax} の範囲で指定してください（8 の倍数にそろえます）。今のサイズは約 ${(pixels / 1000000).toStringAsFixed(1)} メガピクセルです。', 'Enter ${GenRules.customSizeMin}–${GenRules.customSizeMax} (rounded to a multiple of 8). The current size is about ${(pixels / 1000000).toStringAsFixed(1)} megapixels.'),
           style: TextStyle(fontSize: 12, color: context.muted, height: 1.4),
         ),
         if (over) ...[
           const SizedBox(height: 6),
-          Text('サブスクに入っていない場合は 2048×2048（約4メガピクセル）までです。', style: TextStyle(fontSize: 12, color: context.cs.error, fontWeight: FontWeight.w700)),
+          Text(tr('サブスクに入っていない場合は 2048×2048（約4メガピクセル）までです。', 'Without a subscription, the limit is 2048×2048 (about 4 megapixels).'), style: TextStyle(fontSize: 12, color: context.cs.error, fontWeight: FontWeight.w700)),
           Align(
             alignment: Alignment.centerLeft,
-            child: TextButton(onPressed: () => Nav.plans(context), child: const Text('プランを見る')),
+            child: TextButton(onPressed: () => Nav.plans(context), child: Text(tr('プランを見る', 'See plans'))),
           ),
         ],
       ],
@@ -1173,8 +1174,8 @@ class _ImagePickRow extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              OutlinedButton(onPressed: onPick, child: const Text('画像を変える')),
-              TextButton(onPressed: onClear, child: const Text('画像を消す')),
+              OutlinedButton(onPressed: onPick, child: Text(tr('画像を変える', 'Change image'))),
+              TextButton(onPressed: onClear, child: Text(tr('画像を消す', 'Remove image'))),
             ],
           ),
         ),

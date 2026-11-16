@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/design.dart';
+import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/core/nav.dart';
 import 'package:aipictors/v2/post/post_api.dart';
 import 'package:aipictors/v2/post/upload.dart';
@@ -91,11 +92,11 @@ class _PostFormScreenState extends State<PostFormScreen> {
       final options = await PostApi.options();
       if (_isEdit) {
         final editing = await PostApi.loadForEdit(widget.workId!);
-        if (editing == null) throw const ApiException('作品が見つかりませんでした');
+        if (editing == null) throw ApiException(tr('作品が見つかりませんでした', 'Work not found'));
         _editing = editing;
         _draft = PostApi.draftFrom(editing);
         if (_draft.rating == 'R18' || _draft.rating == 'R18G') {
-          throw const ApiException('この作品はアプリから編集できません');
+          throw ApiException(tr('この作品はアプリから編集できません', 'This work can\'t be edited in the app'));
         }
         _images
           ..clear()
@@ -127,7 +128,7 @@ class _PostFormScreenState extends State<PostFormScreen> {
     } catch (_) {
       if (mounted) {
         setState(() {
-          _error = '読み込めませんでした。通信状況を確かめてもう一度お試しください';
+          _error = tr('読み込めませんでした。通信状況を確かめてもう一度お試しください', 'Couldn\'t load. Check your connection and try again');
           _loading = false;
         });
       }
@@ -136,9 +137,9 @@ class _PostFormScreenState extends State<PostFormScreen> {
 
   Future<void> _loadGeneration(String nanoid, PostOptions options) async {
     final result = await PostApi.generationResult(nanoid);
-    if (result == null) throw const ApiException('生成した画像が見つかりませんでした');
+    if (result == null) throw ApiException(tr('生成した画像が見つかりませんでした', 'Generated image not found'));
     final response = await http.get(Uri.parse(result.imageUrl)).timeout(const Duration(seconds: 60));
-    if (response.statusCode != 200) throw const ApiException('生成した画像を読み込めませんでした');
+    if (response.statusCode != 200) throw ApiException(tr('生成した画像を読み込めませんでした', 'Couldn\'t load the generated image'));
     _images.add(PostImage.local(await ImageTools.normalize(response.bodyBytes)));
     _draft.pngInfo = ImageTools.readGenerationParams(response.bodyBytes)?.source;
     _prompt.text = result.prompt;
@@ -190,14 +191,14 @@ class _PostFormScreenState extends State<PostFormScreen> {
   Future<void> _pick() async {
     final room = (_isText ? 1 : maxPostImages) - _images.length;
     if (room <= 0) {
-      context.toast(_isText ? '表紙は 1 枚です' : '最大$maxPostImages枚までです', error: true);
+      context.toast(_isText ? tr('表紙は 1 枚です', 'Only one cover image') : tr('最大$maxPostImages枚までです', 'Up to $maxPostImages images'), error: true);
       return;
     }
     final List<XFile> files;
     try {
       files = await pickSystemImages(multiple: !_isText);
     } catch (_) {
-      if (mounted) context.toast('写真を開けませんでした', error: true);
+      if (mounted) context.toast(tr('写真を開けませんでした', 'Couldn\'t open photos'), error: true);
       return;
     }
     if (files.isEmpty) return;
@@ -216,8 +217,8 @@ class _PostFormScreenState extends State<PostFormScreen> {
     }
     if (!mounted) return;
     setState(() {});
-    if (failed > 0) context.toast('$failed枚は読み込めませんでした（32MB まで）', error: true);
-    if (files.length > room) context.toast('最大$maxPostImages枚までです');
+    if (failed > 0) context.toast(tr('$failed枚は読み込めませんでした（32MB まで）', 'Couldn\'t read $failed image(s) (max 32MB)'), error: true);
+    if (files.length > room) context.toast(tr('最大$maxPostImages枚までです', 'Up to $maxPostImages images'));
   }
 
   void _applyParams(GenerationParams p) {
@@ -239,7 +240,7 @@ class _PostFormScreenState extends State<PostFormScreen> {
       return;
     }
     if (_draft.tags.length >= maxPostTags) {
-      context.toast('タグは$maxPostTags個までです', error: true);
+      context.toast(tr('タグは$maxPostTags個までです', 'Up to $maxPostTags tags'), error: true);
       return;
     }
     setState(() {
@@ -261,7 +262,7 @@ class _PostFormScreenState extends State<PostFormScreen> {
     if (time == null || !mounted) return;
     final picked = DateTime(date.year, date.month, date.day, time.hour, time.minute);
     if (picked.isBefore(now)) {
-      context.toast('これからの日時を選んでください', error: true);
+      context.toast(tr('これからの日時を選んでください', 'Choose a future date and time'), error: true);
       return;
     }
     setState(() => _draft.reservedAt = picked);
@@ -293,7 +294,7 @@ class _PostFormScreenState extends State<PostFormScreen> {
         await _showDryRun();
         return;
       }
-      context.toast(_isEdit ? '作品を更新しました' : '作品を投稿しました');
+      context.toast(_isEdit ? tr('作品を更新しました', 'Work updated') : tr('作品を投稿しました', 'Work posted'));
       if (_isEdit) {
         context.pop(true);
       } else {
@@ -306,7 +307,7 @@ class _PostFormScreenState extends State<PostFormScreen> {
     } catch (_) {
       if (!mounted) return;
       setState(() => _progress = null);
-      context.toast('投稿に失敗しました。もう一度お試しください', error: true);
+      context.toast(tr('投稿に失敗しました。もう一度お試しください', 'Couldn\'t post. Please try again'), error: true);
     }
   }
 
@@ -316,19 +317,19 @@ class _PostFormScreenState extends State<PostFormScreen> {
     return showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('dry run（作品は作っていません）'),
+        title: Text(tr('dry run（作品は作っていません）', 'Dry run (no work was created)')),
         content: SingleChildScrollView(child: Text(lines, style: const TextStyle(fontSize: 10.5))),
-        actions: [TextButton(onPressed: () => Navigator.pop(context), child: const Text('閉じる'))],
+        actions: [TextButton(onPressed: () => Navigator.pop(context), child: Text(tr('閉じる', 'Close')))],
       ),
     );
   }
 
   Future<void> _deleteWork() async {
-    if (!await showConfirmSheet(context, title: 'この作品を削除しますか？', message: '元に戻せません', destructive: true)) return;
+    if (!await showConfirmSheet(context, title: tr('この作品を削除しますか？', 'Delete this work?'), message: tr('元に戻せません', 'This can\'t be undone'), destructive: true)) return;
     try {
       await PostApi.delete(widget.workId!);
       if (!mounted) return;
-      context.toast('削除しました');
+      context.toast(tr('削除しました', 'Deleted'));
       context.pop('deleted');
     } on ApiException catch (e) {
       if (mounted) context.toast(e.message, error: true);
@@ -342,10 +343,10 @@ class _PostFormScreenState extends State<PostFormScreen> {
       canPop: !busy,
       child: Scaffold(
         appBar: AppBar(
-          title: Text(_isEdit ? '作品を編集' : (_isText ? '文章を投稿' : '作品を投稿')),
+          title: Text(_isEdit ? tr('作品を編集', 'Edit work') : (_isText ? tr('文章を投稿', 'Post text') : tr('作品を投稿', 'Post work'))),
           actions: [
             if (_isEdit && !_loading && _error == null)
-              IconButton(tooltip: '削除', onPressed: busy ? null : _deleteWork, icon: const Icon(Icons.delete_outline_rounded)),
+              IconButton(tooltip: tr('削除', 'Delete'), onPressed: busy ? null : _deleteWork, icon: const Icon(Icons.delete_outline_rounded)),
           ],
         ),
         body: _loading
@@ -370,7 +371,9 @@ class _PostFormScreenState extends State<PostFormScreen> {
           const SizedBox(height: Ds.s8),
         ],
         PrimaryButton(
-          label: busy ? '送信中… ${((_progress ?? 0) * 100).round()}%' : (_isEdit ? '保存する' : (_draft.reservedAt != null ? '予約投稿する' : '投稿する')),
+          label: busy
+              ? tr('送信中… ${((_progress ?? 0) * 100).round()}%', 'Sending… ${((_progress ?? 0) * 100).round()}%')
+              : (_isEdit ? tr('保存する', 'Save') : (_draft.reservedAt != null ? tr('予約投稿する', 'Schedule') : tr('投稿する', 'Post'))),
           onPressed: busy ? null : _submit,
           loading: busy,
         ),
@@ -386,79 +389,80 @@ class _PostFormScreenState extends State<PostFormScreen> {
       children: [
         ContentWidth(
           child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-            _Label(_isText ? '表紙の画像' : '画像（${_images.length}/$maxPostImages）', hint: _isText ? null : '長押しで並べ替え。先頭がサムネイルになります'),
+            _Label(_isText ? tr('表紙の画像', 'Cover image') : tr('画像（${_images.length}/$maxPostImages）', 'Images (${_images.length}/$maxPostImages)'),
+                hint: _isText ? null : tr('長押しで並べ替え。先頭がサムネイルになります', 'Long-press to reorder. The first image is the thumbnail')),
             _imageGrid(context),
             const SizedBox(height: Ds.s20),
-            const _Label('タイトル'),
-            _Field(_title, hint: 'タイトルを入力', maxLength: maxTitleLength),
+            _Label(tr('タイトル', 'Title')),
+            _Field(_title, hint: tr('タイトルを入力', 'Enter a title'), maxLength: maxTitleLength),
             const SizedBox(height: Ds.s16),
-            const _Label('キャプション'),
-            _Field(_caption, hint: '作品の説明', maxLength: maxCaptionLength, lines: 4),
+            _Label(tr('キャプション', 'Caption')),
+            _Field(_caption, hint: tr('作品の説明', 'Describe your work'), maxLength: maxCaptionLength, lines: 4),
             if (_isText) ...[
               const SizedBox(height: Ds.s16),
-              const _Label('本文', hint: 'Markdown が使えます'),
-              _Field(_body, hint: '本文を入力', lines: 12),
+              _Label(tr('本文', 'Text'), hint: tr('Markdown が使えます', 'Markdown supported')),
+              _Field(_body, hint: tr('本文を入力', 'Enter the text'), lines: 12),
               const SizedBox(height: Ds.s16),
-              const _Label('種類'),
+              _Label(tr('種類', 'Type')),
               Wrap(spacing: Ds.s8, children: [
-                for (final t in const {'NOVEL': '小説', 'COLUMN': 'コラム'}.entries)
+                for (final t in {'NOVEL': tr('小説', 'Novel'), 'COLUMN': tr('コラム', 'Column')}.entries)
                   AppChip(t.value, selected: _draft.workType == t.key, onTap: () => setState(() => _draft.workType = t.key)),
               ]),
             ],
             const SizedBox(height: Ds.s20),
-            _Label('タグ（${_draft.tags.length}/$maxPostTags）'),
+            _Label(tr('タグ（${_draft.tags.length}/$maxPostTags）', 'Tags (${_draft.tags.length}/$maxPostTags)')),
             _tags(context, options),
             const SizedBox(height: Ds.s20),
-            const _Label('年齢種別'),
+            _Label(tr('年齢種別', 'Age rating')),
             _ratingNotice(context),
             const SizedBox(height: Ds.s20),
-            const _Label('テイスト'),
+            _Label(tr('テイスト', 'Style')),
             Wrap(spacing: Ds.s8, children: [
               for (final s in imageStyleLabels.entries)
                 AppChip(s.value, selected: _draft.imageStyle == s.key, onTap: () => setState(() => _draft.imageStyle = s.key)),
             ]),
             const SizedBox(height: Ds.s20),
-            const _Label('公開範囲'),
+            _Label(tr('公開範囲', 'Visibility')),
             Wrap(spacing: Ds.s8, runSpacing: Ds.s8, children: [
               for (final a in accessTypeLabels.entries)
                 AppChip(a.value, selected: _draft.accessType == a.key, onTap: () => setState(() => _draft.accessType = a.key)),
             ]),
             const SizedBox(height: Ds.s20),
-            const _Label('予約投稿'),
+            _Label(tr('予約投稿', 'Schedule')),
             _Row(
               icon: Icons.schedule_rounded,
-              label: _draft.reservedAt == null ? '今すぐ投稿' : _formatDate(_draft.reservedAt!),
+              label: _draft.reservedAt == null ? tr('今すぐ投稿', 'Post now') : _formatDate(_draft.reservedAt!),
               onTap: _pickReservation,
               onClear: _draft.reservedAt == null ? null : () => setState(() => _draft.reservedAt = null),
             ),
             if (options.themes.isNotEmpty) ...[
               const SizedBox(height: Ds.s20),
-              const _Label('お題'),
+              _Label(tr('お題', 'Theme')),
               _Select(
                 value: _draft.themeId,
-                none: '参加しない',
+                none: tr('参加しない', 'None'),
                 items: [for (final t in options.themes) NamedOption(t.id, '${t.dateText}  ${t.title}')],
-                title: 'お題',
+                title: tr('お題', 'Theme'),
                 onChanged: (v) => setState(() => _draft.themeId = v),
               ),
             ],
             const SizedBox(height: Ds.s20),
-            const _Label('シリーズ'),
+            _Label(tr('シリーズ', 'Series')),
             _Select(
               value: _draft.albumId,
-              none: '追加しない',
+              none: tr('追加しない', 'None'),
               items: options.albums,
-              title: 'シリーズ',
+              title: tr('シリーズ', 'Series'),
               onChanged: (v) => setState(() => _draft.albumId = v),
             ),
             if (!_isText) ...[
               const SizedBox(height: Ds.s20),
-              const _Label('AI モデル'),
+              _Label(tr('AI モデル', 'AI model')),
               _Select(
                 value: _draft.modelId,
-                none: '選択しない',
+                none: tr('選択しない', 'None'),
                 items: options.models,
-                title: 'AI モデル',
+                title: tr('AI モデル', 'AI model'),
                 searchable: true,
                 onChanged: (v) => setState(() => _draft.modelId = v),
               ),
@@ -466,12 +470,12 @@ class _PostFormScreenState extends State<PostFormScreen> {
               ExpansionTile(
                 tilePadding: EdgeInsets.zero,
                 shape: const Border(),
-                title: const Text('生成情報（プロンプトなど）', style: TextStyle(fontWeight: FontWeight.w800, fontSize: 14)),
+                title: Text(tr('生成情報（プロンプトなど）', 'Generation info (prompts, etc.)'), style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 14)),
                 initiallyExpanded: _prompt.text.isNotEmpty,
                 children: [
-                  _Field(_prompt, hint: 'プロンプト', lines: 3),
+                  _Field(_prompt, hint: tr('プロンプト', 'Prompt'), lines: 3),
                   const SizedBox(height: Ds.s8),
-                  _Field(_negative, hint: 'ネガティブプロンプト', lines: 2),
+                  _Field(_negative, hint: tr('ネガティブプロンプト', 'Negative prompt'), lines: 2),
                   const SizedBox(height: Ds.s8),
                   Row(children: [
                     Expanded(child: _Field(_seed, hint: 'Seed')),
@@ -481,18 +485,18 @@ class _PostFormScreenState extends State<PostFormScreen> {
                   const SizedBox(height: Ds.s8),
                   _Field(_sampler, hint: 'Sampler'),
                   const SizedBox(height: Ds.s8),
-                  _Field(_modelName, hint: 'モデル名'),
-                  _Switch('生成情報を公開する', _draft.publishParams, (v) => setState(() => _draft.publishParams = v)),
+                  _Field(_modelName, hint: tr('モデル名', 'Model name')),
+                  _Switch(tr('生成情報を公開する', 'Show generation info'), _draft.publishParams, (v) => setState(() => _draft.publishParams = v)),
                 ],
               ),
             ],
             const SizedBox(height: Ds.s12),
-            const _Label('その他'),
-            _Switch('コメントを受け付ける', _draft.isCommentEditable, (v) => setState(() => _draft.isCommentEditable = v)),
-            _Switch('他の人のタグ編集を許可する', _draft.isTagEditable, (v) => setState(() => _draft.isTagEditable = v)),
-            if (!_isEdit && !_isText) _Switch('AI に評価してもらう', _draft.isBotGradingEnabled, (v) => setState(() => _draft.isBotGradingEnabled = v)),
+            _Label(tr('その他', 'Other')),
+            _Switch(tr('コメントを受け付ける', 'Allow comments'), _draft.isCommentEditable, (v) => setState(() => _draft.isCommentEditable = v)),
+            _Switch(tr('他の人のタグ編集を許可する', 'Let others edit tags'), _draft.isTagEditable, (v) => setState(() => _draft.isTagEditable = v)),
+            if (!_isEdit && !_isText) _Switch(tr('AI に評価してもらう', 'Get AI feedback'), _draft.isBotGradingEnabled, (v) => setState(() => _draft.isBotGradingEnabled = v)),
             const SizedBox(height: Ds.s12),
-            _Field(_link, hint: '関連リンク（任意）'),
+            _Field(_link, hint: tr('関連リンク（任意）', 'Related link (optional)')),
           ]),
         ),
       ],
@@ -504,7 +508,9 @@ class _PostFormScreenState extends State<PostFormScreen> {
       padding: const EdgeInsets.all(Ds.s12),
       decoration: BoxDecoration(color: context.skeleton, borderRadius: Ds.br(12)),
       child: Text(
-        _draft.rating == 'G' ? '全年齢（アプリからは全年齢の作品だけ投稿できます）' : '${_draft.rating}（元の設定のまま保存します）',
+        _draft.rating == 'G'
+            ? tr('全年齢（アプリからは全年齢の作品だけ投稿できます）', 'All ages (only all-ages works can be posted from the app)')
+            : tr('${_draft.rating}（元の設定のまま保存します）', '${_draft.rating} (saved as is)'),
         style: TextStyle(fontSize: 13, color: context.muted),
       ),
     );
@@ -528,13 +534,13 @@ class _PostFormScreenState extends State<PostFormScreen> {
         controller: _tag,
         textInputAction: TextInputAction.done,
         onSubmitted: _addTag,
-        decoration: _decoration(context, 'タグを入力して改行').copyWith(
+        decoration: _decoration(context, tr('タグを入力して改行', 'Type a tag and press Enter')).copyWith(
           suffixIcon: IconButton(icon: const Icon(Icons.add_rounded), onPressed: () => _addTag(_tag.text)),
         ),
       ),
       if (suggestions.isNotEmpty) ...[
         const SizedBox(height: Ds.s8),
-        Text('最近使ったタグ', style: TextStyle(fontSize: 12, color: context.muted)),
+        Text(tr('最近使ったタグ', 'Recent tags'), style: TextStyle(fontSize: 12, color: context.muted)),
         const SizedBox(height: Ds.s4),
         Wrap(spacing: Ds.s6, runSpacing: Ds.s6, children: [
           for (final t in suggestions) AppChip(t, onTap: () => _addTag(t)),
@@ -565,7 +571,7 @@ class _PostFormScreenState extends State<PostFormScreen> {
               child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
                 Icon(Icons.add_photo_alternate_outlined, color: context.muted),
                 const SizedBox(height: Ds.s4),
-                Text('画像を選ぶ', style: TextStyle(color: context.muted, fontSize: 12, fontWeight: FontWeight.w700)),
+                Text(tr('画像を選ぶ', 'Choose images'), style: TextStyle(color: context.muted, fontSize: 12, fontWeight: FontWeight.w700)),
               ]),
             ),
           ),
@@ -584,14 +590,14 @@ class _PostFormScreenState extends State<PostFormScreen> {
                       ? Image.memory(image.encoded!.bytes, fit: BoxFit.cover, cacheWidth: 300)
                       : AppImage(image.url, memCacheWidth: 300),
                 ),
-                if (i == 0) const Positioned(left: 4, top: 4, child: Badge2('サムネイル')),
+                if (i == 0) Positioned(left: 4, top: 4, child: Badge2(tr('サムネイル', 'Thumbnail'))),
                 Positioned(
                   right: 2,
                   top: 2,
                   child: IconButton.filledTonal(
                     visualDensity: VisualDensity.compact,
                     iconSize: 16,
-                    tooltip: '取り除く',
+                    tooltip: tr('取り除く', 'Remove'),
                     onPressed: () => setState(() => _images.removeAt(i)),
                     icon: const Icon(Icons.close_rounded),
                   ),
@@ -777,7 +783,7 @@ class _SelectSheetState extends State<_SelectSheet> {
         if (widget.searchable)
           Padding(
             padding: const EdgeInsets.fromLTRB(Ds.s16, 0, Ds.s16, Ds.s8),
-            child: TextField(onChanged: (v) => setState(() => _q = v), decoration: _decoration(context, '検索')),
+            child: TextField(onChanged: (v) => setState(() => _q = v), decoration: _decoration(context, tr('検索', 'Search'))),
           ),
         Expanded(
           child: ListView(children: [

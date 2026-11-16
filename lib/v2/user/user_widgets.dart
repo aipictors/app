@@ -1,3 +1,4 @@
+import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/design.dart';
 import 'package:aipictors/v2/core/nav.dart';
@@ -7,6 +8,7 @@ import 'package:aipictors/v2/widgets/common.dart';
 import 'package:aipictors/v2/widgets/user_avatar.dart';
 import 'package:aipictors/v2/widgets/user_name_row.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 /// フォローボタン（押した瞬間に見た目を変え、失敗したら戻す）
 class FollowButton extends StatefulWidget {
@@ -51,20 +53,20 @@ class _FollowButtonState extends State<FollowButton> {
           child: Padding(
             padding: const EdgeInsets.fromLTRB(20, 0, 20, 16),
             child: Column(mainAxisSize: MainAxisSize.min, children: [
-              Text('フォローを解除しますか？', style: context.tt.titleMedium?.copyWith(fontWeight: FontWeight.w800)),
+              Text(tr('フォローを解除しますか？', 'Unfollow?'), style: context.tt.titleMedium?.copyWith(fontWeight: FontWeight.w800)),
               const SizedBox(height: 16),
               SizedBox(
                 width: double.infinity,
                 child: FilledButton(
                   style: FilledButton.styleFrom(backgroundColor: context.cs.error, foregroundColor: context.cs.onError, minimumSize: const Size.fromHeight(48)),
                   onPressed: () => Navigator.pop(context, true),
-                  child: const Text('フォローを解除'),
+                  child: Text(tr('フォローを解除', 'Unfollow')),
                 ),
               ),
               const SizedBox(height: 8),
               SizedBox(
                 width: double.infinity,
-                child: TextButton(onPressed: () => Navigator.pop(context, false), child: const Text('キャンセル')),
+                child: TextButton(onPressed: () => Navigator.pop(context, false), child: Text(tr('キャンセル', 'Cancel'))),
               ),
             ]),
           ),
@@ -103,7 +105,7 @@ class _FollowButtonState extends State<FollowButton> {
           Icon(_following ? Icons.check_rounded : Icons.person_add_alt_1_rounded, size: widget.compact ? 16 : 18, color: _following ? context.cs.onSurface : Colors.white),
           const SizedBox(width: 6),
           Text(
-            _following ? 'フォロー中' : 'フォローする',
+            _following ? tr('フォロー中', 'Following') : tr('フォローする', 'Follow'),
             style: TextStyle(fontWeight: FontWeight.w800, fontSize: widget.compact ? 13 : 15, color: _following ? context.cs.onSurface : Colors.white),
           ),
         ],
@@ -141,9 +143,9 @@ class UserRowTile extends StatelessWidget {
   static String _postedLabel(int t) {
     final d = DateTime.fromMillisecondsSinceEpoch(t * 1000);
     final now = DateTime.now();
-    if (now.difference(d).inDays < 7) return '${relativeTime(t)}に投稿';
-    if (d.year == now.year) return '${d.month}月${d.day}日に投稿';
-    return '${d.year}年に投稿';
+    if (now.difference(d).inDays < 7) return tr('${relativeTime(t)}に投稿', 'Posted ${relativeTime(t)}');
+    if (d.year == now.year) return tr('${d.month}月${d.day}日に投稿', 'Posted ${DateFormat('MMM d', 'en_US').format(d)}');
+    return tr('${d.year}年に投稿', 'Posted in ${d.year}');
   }
 
   @override
@@ -258,13 +260,13 @@ class SliverPagedUsers extends StatelessWidget {
     super.key,
     required this.controller,
     this.viewerId,
-    this.emptyTitle = 'ユーザーがいません',
+    this.emptyTitle,
     this.emptyMessage,
   });
 
   final PagedController<UserRowData> controller;
   final String? viewerId;
-  final String emptyTitle;
+  final String? emptyTitle;
   final String? emptyMessage;
 
   @override
@@ -282,7 +284,7 @@ class SliverPagedUsers extends StatelessWidget {
         }
         if (c.items.isEmpty) {
           return SliverToBoxAdapter(
-            child: StateView(icon: Icons.people_outline_rounded, title: emptyTitle, message: emptyMessage),
+            child: StateView(icon: Icons.people_outline_rounded, title: emptyTitle ?? tr('ユーザーがいません', 'No users'), message: emptyMessage),
           );
         }
         final width = MediaQuery.sizeOf(context).width;
@@ -307,7 +309,7 @@ class SliverPagedUsers extends StatelessWidget {
                 child: c.isLoading
                     ? const SizedBox(width: 24, height: 24, child: CircularProgressIndicator(strokeWidth: 2.5))
                     : c.error != null
-                        ? TextButton.icon(onPressed: c.loadMore, icon: const Icon(Icons.refresh_rounded), label: const Text('続きを読み込む'))
+                        ? TextButton.icon(onPressed: c.loadMore, icon: const Icon(Icons.refresh_rounded), label: Text(tr('続きを読み込む', 'Load more')))
                         : const SizedBox(height: 24),
               ),
             ),

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/core/api.dart';
+import 'package:aipictors/v2/core/content_translate.dart';
 import 'package:aipictors/v2/core/debug_boot.dart';
 import 'package:aipictors/v2/core/design.dart';
 import 'package:aipictors/v2/core/models.dart';
@@ -33,14 +34,14 @@ const _workQuery = '''
 query AppWork(\$id: ID!) {
   viewer { id user { id } }
   work(id: \$id) {
-    id title description type rating createdAt likesCount commentsCount viewsCount
+    id title enTitle description enDescription type rating createdAt likesCount commentsCount viewsCount
     isLiked isCommentsEditable isGeneration
     imageURL imageWidth imageHeight url mdUrl
     largeThumbnailImageURL
     subWorks { id imageUrl }
     tagNames
     promptAccessType prompt negativePrompt seed steps scale sampler vae clipSkip model
-    dailyTheme { id title year month day }
+    dailyTheme { id title enTitle year month day }
     user { $userSummaryFields isFollowee biography followersCount }
   }
 }''';
@@ -100,11 +101,11 @@ class _WorkScreenState extends State<WorkScreen> {
           if (mounted) await _load(isRetry: true);
           return;
         }
-        setState(() => _error = '作品を読み込めませんでした');
+        setState(() => _error = tr('作品を読み込めませんでした', "Couldn't load this work"));
         return;
       }
       if (w.str('rating') == 'R18' || w.str('rating') == 'R18G') {
-        setState(() => _error = 'この作品は表示できません');
+        setState(() => _error = tr('この作品は表示できません', "This work can't be shown"));
         return;
       }
       setState(() {
@@ -181,6 +182,11 @@ class _WorkScreenState extends State<WorkScreen> {
 
   Map<String, dynamic> get user => w.obj('user') ?? const {};
 
+  /// 出すタイトル・キャプション（英語表示で英語欄があれば英語。日本語表示は元のまま）
+  static String _title(Map<String, dynamic> w) => localizedContent(w.str('title'), w.strOrNull('enTitle'));
+
+  static String _description(Map<String, dynamic> w) => localizedContent(w.str('description').trim(), w.strOrNull('enDescription')).trim();
+
   bool get _isMine => _viewerId != null && _viewerId == user.str('id');
 
   List<String> get _images {
@@ -224,7 +230,7 @@ class _WorkScreenState extends State<WorkScreen> {
     // iPad は共有シートの位置を渡さないと開けない
     final box = context.findRenderObject() as RenderBox?;
     Share.share(
-      '${w.str('title')} / ${user.str('name')}\n$url',
+      '${_title(w)} / ${user.str('name')}\n$url',
       sharePositionOrigin: box == null ? null : box.localToGlobal(Offset.zero) & box.size,
     );
   }
@@ -249,21 +255,21 @@ class _WorkScreenState extends State<WorkScreen> {
       backgroundColor: context.surfaceCard,
       builder: (context) => SafeArea(
         child: Column(mainAxisSize: MainAxisSize.min, children: [
-          ListTile(leading: const Icon(Icons.ios_share_rounded), title: const Text('共有'), onTap: () => Navigator.pop(context, 'share')),
-          ListTile(leading: const Icon(Icons.link_rounded), title: const Text('リンクをコピー'), onTap: () => Navigator.pop(context, 'copy')),
+          ListTile(leading: const Icon(Icons.ios_share_rounded), title: Text(tr('共有', 'Share')), onTap: () => Navigator.pop(context, 'share')),
+          ListTile(leading: const Icon(Icons.link_rounded), title: Text(tr('リンクをコピー', 'Copy link')), onTap: () => Navigator.pop(context, 'copy')),
           if (Nav.isLoggedIn)
-            ListTile(leading: const Icon(Icons.folder_outlined), title: const Text('フォルダに保存'), onTap: () => Navigator.pop(context, 'folder')),
+            ListTile(leading: const Icon(Icons.folder_outlined), title: Text(tr('フォルダに保存', 'Save to folder')), onTap: () => Navigator.pop(context, 'folder')),
           if (_isMine) ...[
-            ListTile(leading: const Icon(Icons.edit_outlined), title: const Text('作品を編集'), onTap: () => Navigator.pop(context, 'edit')),
-            ListTile(leading: const Icon(Icons.collections_bookmark_outlined), title: const Text('シリーズに追加'), onTap: () => Navigator.pop(context, 'album')),
+            ListTile(leading: const Icon(Icons.edit_outlined), title: Text(tr('作品を編集', 'Edit work')), onTap: () => Navigator.pop(context, 'edit')),
+            ListTile(leading: const Icon(Icons.collections_bookmark_outlined), title: Text(tr('シリーズに追加', 'Add to series')), onTap: () => Navigator.pop(context, 'album')),
             ListTile(
               leading: Icon(Icons.delete_outline_rounded, color: context.cs.error),
-              title: Text('作品を削除', style: TextStyle(color: context.cs.error)),
+              title: Text(tr('作品を削除', 'Delete work'), style: TextStyle(color: context.cs.error)),
               onTap: () => Navigator.pop(context, 'delete'),
             ),
           ],
           if (!_isMine) ...[
-            ListTile(leading: const Icon(Icons.flag_outlined), title: const Text('作品を通報'), onTap: () => Navigator.pop(context, 'report')),
+            ListTile(leading: const Icon(Icons.flag_outlined), title: Text(tr('作品を通報', 'Report work')), onTap: () => Navigator.pop(context, 'report')),
             ListTile(leading: const Icon(Icons.volume_off_outlined), title: Text('${user.str('name')}さんをミュート'), onTap: () => Navigator.pop(context, 'mute')),
             ListTile(
               leading: Icon(Icons.block_rounded, color: context.cs.error),
@@ -292,18 +298,18 @@ class _WorkScreenState extends State<WorkScreen> {
           _load();
         }
       case 'delete':
-        if (!await showConfirmSheet(context, title: 'この作品を削除しますか？', message: '元に戻せません', destructive: true)) return;
+        if (!await showConfirmSheet(context, title: tr('この作品を削除しますか？', 'Delete this work?'), message: tr('元に戻せません', "This can't be undone"), destructive: true)) return;
         try {
           await PostApi.delete(w.str('id'));
           if (!mounted) return;
-          context.toast('削除しました');
+          context.toast(tr('削除しました', 'Deleted'));
           context.pop();
         } on ApiException catch (e) {
           if (mounted) context.toast(e.message, error: true);
         }
       case 'copy':
         await Clipboard.setData(ClipboardData(text: 'https://www.aipictors.com/posts/${w.str('id')}'));
-        if (mounted) context.toast('リンクをコピーしました');
+        if (mounted) context.toast(tr('リンクをコピーしました', 'Link copied'));
       case 'report':
         await showReportSheet(context, target: ReportTarget.work, id: w.str('id'));
       case 'mute':
@@ -351,7 +357,11 @@ class _WorkScreenState extends State<WorkScreen> {
             slivers: [
               SliverAppBar(
                 pinned: true,
-                title: Text(w.str('title'), maxLines: 1, overflow: TextOverflow.ellipsis, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
+                title: AutoTranslatedText(
+                  _title(w),
+                  showLabel: false,
+                  builder: (context, text) => Text(text, maxLines: 1, overflow: TextOverflow.ellipsis, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
+                ),
                 actions: [
                   IconButton(onPressed: _share, icon: const Icon(Icons.ios_share_rounded)),
                   IconButton(onPressed: _menu, icon: const Icon(Icons.more_horiz_rounded)),
@@ -406,7 +416,11 @@ class _WorkScreenState extends State<WorkScreen> {
                           onShare: _share,
                         ),
                         const SizedBox(height: 14),
-                        Text(w.str('title'), style: context.tt.headlineSmall?.copyWith(fontWeight: FontWeight.w900, letterSpacing: -0.3)),
+                        // 英語表示: 英語のタイトルがあればそれ、無ければその場で訳す（訳せなければ元のまま）
+                        AutoTranslatedText(
+                          _title(w),
+                          builder: (context, text) => Text(text, style: context.tt.headlineSmall?.copyWith(fontWeight: FontWeight.w900, letterSpacing: -0.3)),
+                        ),
                         const SizedBox(height: 6),
                         Wrap(spacing: 12, crossAxisAlignment: WrapCrossAlignment.center, children: [
                           _Meta(icon: Icons.schedule_rounded, text: relativeTime(w.integer('createdAt'))),
@@ -415,7 +429,7 @@ class _WorkScreenState extends State<WorkScreen> {
                           if (w.obj('dailyTheme') != null)
                             ActionChip(
                               avatar: const Icon(Icons.today_rounded, size: 16),
-                              label: Text('お題「${w.obj('dailyTheme')!.str('title')}」'),
+                              label: Text(tr('お題「${w.obj('dailyTheme')!.str('title')}」', 'Theme: ${localizedContent(w.obj('dailyTheme')!.str('title'), w.obj('dailyTheme')!.strOrNull('enTitle'))}')),
                               visualDensity: VisualDensity.compact,
                               onPressed: () {
                                 final t = w.obj('dailyTheme')!;
@@ -430,21 +444,24 @@ class _WorkScreenState extends State<WorkScreen> {
                           isMine: _isMine,
                           onFollowChanged: (v) => _following = v,
                         ),
-                        if (w.str('description').trim().isNotEmpty) ...[
+                        if (_description(w).isNotEmpty) ...[
                           const SizedBox(height: 14),
                           // Web と同じく、キャプションは薄い下地の上に置く
                           Container(
                             width: double.infinity,
                             padding: const EdgeInsets.all(Ds.s12),
                             decoration: BoxDecoration(color: context.skeleton.withValues(alpha: 0.7), borderRadius: Ds.br(12)),
-                            child: _ExpandableText(w.str('description').trim()),
+                            child: AutoTranslatedText(
+                              _description(w),
+                              builder: (context, text) => _ExpandableText(text),
+                            ),
                           ),
                         ],
                         if (isNovel && _novelText != null) ...[
                           const SizedBox(height: 16),
                           _BookReaderButton(
                             workId: w.str('id'),
-                            title: w.str('title'),
+                            title: _title(w),
                             isNovel: w.str('type') == 'NOVEL',
                           ),
                           const SizedBox(height: 16),
@@ -492,7 +509,7 @@ class _WorkScreenState extends State<WorkScreen> {
                 ),
               ),
               if (_related.isNotEmpty) ...[
-                const SliverToBoxAdapter(child: SectionHeader('関連作品', icon: Icons.auto_awesome_mosaic_rounded)),
+                SliverToBoxAdapter(child: SectionHeader(tr('関連作品', 'Related works'), icon: Icons.auto_awesome_mosaic_rounded)),
                 SliverPadding(
                   padding: const EdgeInsets.fromLTRB(12, 0, 12, 0),
                   sliver: SliverMasonryGrid.count(
@@ -913,10 +930,10 @@ class _ActionBar extends StatelessWidget {
               borderRadius: Ds.br(22),
               boxShadow: [BoxShadow(color: Ds.gold.withValues(alpha: 0.35), blurRadius: 14, offset: const Offset(0, 6))],
             ),
-            child: const Row(mainAxisSize: MainAxisSize.min, children: [
-              Icon(Icons.volunteer_activism_rounded, color: Colors.white, size: 20),
-              SizedBox(width: 6),
-              Text('推す', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 15)),
+            child: Row(mainAxisSize: MainAxisSize.min, children: [
+              const Icon(Icons.volunteer_activism_rounded, color: Colors.white, size: 20),
+              const SizedBox(width: 6),
+              Text(tr('推す', 'Support'), style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 15)),
             ]),
           ),
         ),
@@ -973,7 +990,7 @@ class _UserRow extends StatelessWidget {
                 Flexible(child: Text(user.str('name'), maxLines: 1, overflow: TextOverflow.ellipsis, style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 15))),
                 if (user.boolean('isOfficial') || user.boolean('isModerator')) ...[const SizedBox(width: 4), OfficialBadge(isOfficial: user.boolean('isOfficial'), isModerator: user.boolean('isModerator'))],
               ]),
-              Text('フォロワー ${compactCount(user.integer('followersCount'))}', style: TextStyle(color: context.muted, fontSize: 12)),
+              Text(tr('フォロワー ${compactCount(user.integer('followersCount'))}', '${compactCount(user.integer('followersCount'))} followers'), style: TextStyle(color: context.muted, fontSize: 12)),
             ]),
           ),
           // フォロー一覧・ユーザー画面と同じボタン（押した瞬間に切り替え、解除は確認してから）
@@ -1016,7 +1033,7 @@ class _ExpandableTextState extends State<_ExpandableText> {
           if (long)
             Padding(
               padding: const EdgeInsets.only(top: 4),
-              child: Text(_open ? '閉じる' : '続きを読む', style: TextStyle(color: context.cs.primary, fontWeight: FontWeight.w700)),
+              child: Text(_open ? tr('閉じる', 'Show less') : tr('続きを読む', 'Read more'), style: TextStyle(color: context.cs.primary, fontWeight: FontWeight.w700)),
             ),
         ]),
       ),
@@ -1043,14 +1060,14 @@ class _GenerationInfo extends StatelessWidget {
               borderRadius: Ds.br(10),
               onTap: () async {
                 await Clipboard.setData(ClipboardData(text: text));
-                if (context.mounted) context.toast('$labelをコピーしました', icon: Icons.copy_rounded);
+                if (context.mounted) context.toast(tr('$labelをコピーしました', 'Copied $label'), icon: Icons.copy_rounded);
               },
               child: Padding(
                 padding: const EdgeInsets.all(4),
                 child: Row(mainAxisSize: MainAxisSize.min, children: [
                   Icon(Icons.copy_rounded, size: 14, color: context.cs.primary),
                   const SizedBox(width: 4),
-                  Text('コピー', style: TextStyle(color: context.cs.primary, fontSize: 12, fontWeight: FontWeight.w700)),
+                  Text(tr('コピー', 'Copy'), style: TextStyle(color: context.cs.primary, fontSize: 12, fontWeight: FontWeight.w700)),
                 ]),
               ),
             ),
@@ -1062,7 +1079,7 @@ class _GenerationInfo extends StatelessWidget {
     }
 
     final params = <(String, String?)>[
-      ('モデル', work.strOrNull('model')),
+      (tr('モデル', 'Model'), work.strOrNull('model')),
       ('Steps', work['steps']?.toString()),
       ('Scale', work['scale']?.toString()),
       ('Sampler', work.strOrNull('sampler')),
@@ -1081,10 +1098,10 @@ class _GenerationInfo extends StatelessWidget {
         Row(children: [
           ShaderMask(shaderCallback: (r) => Ds.brandGradient.createShader(r), child: const Icon(Icons.auto_awesome_rounded, color: Colors.white, size: 20)),
           const SizedBox(width: 6),
-          Text('生成情報', style: context.tt.titleSmall?.copyWith(fontWeight: FontWeight.w800)),
+          Text(tr('生成情報', 'Generation info'), style: context.tt.titleSmall?.copyWith(fontWeight: FontWeight.w800)),
         ]),
-        block('プロンプト', work.strOrNull('prompt')),
-        block('ネガティブプロンプト', work.strOrNull('negativePrompt')),
+        block(tr('プロンプト', 'Prompt'), work.strOrNull('prompt')),
+        block(tr('ネガティブプロンプト', 'Negative prompt'), work.strOrNull('negativePrompt')),
         if (params.isNotEmpty) ...[
           const SizedBox(height: 10),
           Wrap(spacing: 6, runSpacing: 6, children: [
@@ -1124,11 +1141,11 @@ class _CommentsPreview extends StatelessWidget {
       Padding(
         padding: const EdgeInsets.only(top: 16, bottom: 4),
         child: Row(children: [
-          Text('コメント', style: context.tt.titleMedium?.copyWith(fontWeight: FontWeight.w900)),
+          Text(tr('コメント', 'Comments'), style: context.tt.titleMedium?.copyWith(fontWeight: FontWeight.w900)),
           const SizedBox(width: 6),
           Text('$total', style: TextStyle(color: context.muted, fontWeight: FontWeight.w700)),
           const Spacer(),
-          if (total > 0) TextButton(onPressed: onOpen, child: const Text('すべて見る')),
+          if (total > 0) TextButton(onPressed: onOpen, child: Text(tr('すべて見る', 'See all'))),
         ]),
       ),
       for (final c in comments) CommentTile(key: ValueKey(c.id), comment: c, viewerId: viewerId),
@@ -1193,7 +1210,7 @@ class _BookReaderButton extends StatelessWidget {
           Expanded(
             child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text(
-                '本のように読む',
+                tr('本のように読む', 'Read like a book'),
                 style: TextStyle(
                   fontWeight: FontWeight.w900,
                   fontSize: 15,
@@ -1203,8 +1220,8 @@ class _BookReaderButton extends StatelessWidget {
               const SizedBox(height: 2),
               Text(
                 isNovel
-                    ? '縦書き・見開き・しおり・文字の大きさ。折りたたみやタブレットは見開きで'
-                    : '見開き・しおり・文字の大きさ。タブレットや折りたたみにも',
+                    ? tr('縦書き・見開き・しおり・文字の大きさ。折りたたみやタブレットは見開きで', 'Vertical text, spreads, bookmarks, font size. Spreads on foldables and tablets')
+                    : tr('見開き・しおり・文字の大きさ。タブレットや折りたたみにも', 'Spreads, bookmarks, font size. Great on tablets and foldables'),
                 style: TextStyle(
                   fontSize: 11.5,
                   height: 1.35,

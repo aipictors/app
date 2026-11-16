@@ -1,3 +1,4 @@
+import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/core/design.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -177,9 +178,9 @@ class StateView extends StatelessWidget {
 
   factory StateView.error(String message, {VoidCallback? onRetry}) => StateView(
         icon: Icons.cloud_off_rounded,
-        title: 'うまく読み込めませんでした',
+        title: tr('うまく読み込めませんでした', "Couldn't load"),
         message: message,
-        actionLabel: onRetry == null ? null : 'もう一度読み込む',
+        actionLabel: onRetry == null ? null : tr('もう一度読み込む', 'Try again'),
         onAction: onRetry,
       );
 
@@ -300,7 +301,7 @@ class SectionHeader extends StatelessWidget {
             TextButton(
               onPressed: onMore,
               child: Row(mainAxisSize: MainAxisSize.min, children: [
-                Text(trailing ?? 'すべて見る'),
+                Text(trailing ?? tr('すべて見る', 'See all')),
                 const Icon(Icons.chevron_right_rounded, size: 18),
               ]),
             ),
@@ -410,7 +411,7 @@ class LoginRequiredView extends StatelessWidget {
             const SizedBox(height: 8),
             Text(message, textAlign: TextAlign.center, style: context.tt.bodyMedium?.copyWith(color: context.muted, height: 1.6)),
             const SizedBox(height: 24),
-            GradientButton(label: 'ログイン・新規登録', icon: Icons.login_rounded, onPressed: onLogin),
+            GradientButton(label: tr('ログイン・新規登録', 'Log in / Sign up'), icon: Icons.login_rounded, onPressed: onLogin),
           ],
         ),
       ),
@@ -540,7 +541,7 @@ Future<bool> showConfirmSheet(
   required String title,
   String? message,
   String confirmLabel = 'OK',
-  String cancelLabel = 'キャンセル',
+  String? cancelLabel,
   bool destructive = false,
 }) async {
   final result = await showModalBottomSheet<bool>(
@@ -564,7 +565,7 @@ Future<bool> showConfirmSheet(
             const SizedBox(height: Ds.s20),
             PrimaryButton(label: confirmLabel, destructive: destructive, onPressed: () => Navigator.of(sheet).pop(true)),
             const SizedBox(height: Ds.s8),
-            SecondaryButton(label: cancelLabel, onPressed: () => Navigator.of(sheet).pop(false)),
+            SecondaryButton(label: cancelLabel ?? tr('キャンセル', 'Cancel'), onPressed: () => Navigator.of(sheet).pop(false)),
           ],
         ),
       ),

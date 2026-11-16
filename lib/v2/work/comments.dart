@@ -1,6 +1,7 @@
 import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/coins.dart';
+import 'package:aipictors/v2/core/content_translate.dart';
 import 'package:aipictors/v2/core/debug_boot.dart';
 import 'package:aipictors/v2/core/design.dart';
 import 'package:aipictors/v2/core/models.dart';
@@ -239,7 +240,8 @@ class _CommentTileState extends State<CommentTile> {
                     ] else ...[
                       if (c.text.isNotEmpty) ...[
                         const SizedBox(height: 4),
-                        SelectableText(c.text, style: const TextStyle(height: 1.45, fontSize: 14)),
+                        // 英語表示では日本語のコメントをその場で英語に（訳せなければ元のまま）
+                        AutoTranslatedText(c.text, builder: (context, text) => SelectableText(text, style: const TextStyle(height: 1.45, fontSize: 14))),
                       ],
                       if (c.stickerUrl != null) ...[
                         const SizedBox(height: 6),

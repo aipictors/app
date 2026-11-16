@@ -1,4 +1,5 @@
 import 'package:aipictors/v2/core/api.dart';
+import 'package:aipictors/v2/core/content_translate.dart';
 
 /// ユーザーの枠の項目。ユーザーを取る GraphQL には必ず入れる
 const avatarFrameFields = 'avatarFrame { frameType backgroundStyle borderPadding overlayImageUrl }';
@@ -10,6 +11,7 @@ const userSummaryFields = 'id login name iconUrl isOfficial isModerator $avatarF
 const workCardFields = '''
   id
   title
+  enTitle
   type
   rating
   isLiked
@@ -139,6 +141,8 @@ class WorkSummary {
   });
 
   final String id;
+
+  /// 出すタイトル（英語表示で英語欄があれば英語）
   final String title;
   final String type;
   final String rating;
@@ -167,7 +171,7 @@ class WorkSummary {
     final large = j.strOrNull('largeThumbnailImageURL');
     return WorkSummary(
       id: j.str('id'),
-      title: j.str('title'),
+      title: localizedContent(j.str('title'), j.strOrNull('enTitle')),
       type: j.str('type', 'WORK'),
       rating: j.str('rating', 'G'),
       isLiked: j.boolean('isLiked'),

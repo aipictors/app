@@ -1,4 +1,5 @@
 import 'package:aipictors/providers/home_tab_index_provider.dart';
+import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/debug_boot.dart';
 import 'package:aipictors/v2/core/design.dart';
@@ -168,7 +169,7 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen> with 
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
-        title: const Text('通知', style: TextStyle(fontWeight: FontWeight.w900)),
+        title: Text(tr('通知', 'Notifications'), style: const TextStyle(fontWeight: FontWeight.w900)),
         actions: [
           IconButton(tooltip: '通知の設定', onPressed: () => context.push('/settings/notification'), icon: const Icon(Icons.tune_rounded)),
         ],

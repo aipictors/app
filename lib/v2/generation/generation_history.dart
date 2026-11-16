@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'dart:typed_data';
 
 import 'package:aipictors/v2/core/design.dart';
+import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/generation/generation_api.dart';
 import 'package:aipictors/v2/generation/generation_controller.dart';
 import 'package:aipictors/v2/generation/result_viewer.dart';
@@ -83,8 +84,8 @@ class _GenerationHistoryState extends State<GenerationHistory> {
                   SliverFillRemaining(
                     hasScrollBody: false,
                     child: c.hasHistoryFilter
-                        ? const StateView(icon: Icons.filter_alt_off_rounded, title: '条件に合う画像はありません', message: '絞り込みを変えてみてください')
-                        : const StateView(icon: Icons.photo_library_outlined, title: 'まだ生成した画像はありません', message: '「つくる」からプロンプトを書いて、最初の 1 枚を生成してみましょう'),
+                        ? StateView(icon: Icons.filter_alt_off_rounded, title: tr('条件に合う画像はありません', 'No matching images'), message: tr('絞り込みを変えてみてください', 'Try changing the filters'))
+                        : StateView(icon: Icons.photo_library_outlined, title: tr('まだ生成した画像はありません', 'No generated images yet'), message: tr('「つくる」からプロンプトを書いて、最初の 1 枚を生成してみましょう', 'Write a prompt in “Create” and generate your first image')),
                   )
                 else ...[
                   if (busy.isNotEmpty)
@@ -126,7 +127,7 @@ class _GenerationHistoryState extends State<GenerationHistory> {
                         child: c.historyLoadingMore
                             ? const CircularProgressIndicator.adaptive()
                             : c.historyError != null
-                            ? TextButton.icon(onPressed: c.loadMoreHistory, icon: const Icon(Icons.refresh_rounded), label: const Text('続きを読み込む'))
+                            ? TextButton.icon(onPressed: c.loadMoreHistory, icon: const Icon(Icons.refresh_rounded), label: Text(tr('続きを読み込む', 'Load more')))
                             : const SizedBox.shrink(),
                       ),
                     ),
@@ -159,19 +160,19 @@ class _HistoryFilterBar extends StatelessWidget {
         padding: const EdgeInsets.fromLTRB(12, 6, 12, 0),
         children: [
           FilterChip(
-            label: Text(c.historyMinRating > 0 ? '★${c.historyMinRating} 以上' : 'お気に入り'),
+            label: Text(c.historyMinRating > 0 ? tr('★${c.historyMinRating} 以上', '★${c.historyMinRating}+') : tr('お気に入り', 'Favorites')),
             selected: c.historyMinRating > 0,
             onSelected: (_) => c.setHistoryFilter(minRating: c.historyMinRating >= 5 ? 0 : c.historyMinRating + 1),
           ),
           const SizedBox(width: 8),
           FilterChip(
-            label: const Text('保護中'),
+            label: Text(tr('保護中', 'Protected')),
             selected: c.historyProtectedOnly,
             onSelected: (v) => c.setHistoryFilter(protectedOnly: v),
           ),
           const SizedBox(width: 8),
           FilterChip(
-            label: Text(date ?? '日付'),
+            label: Text(date ?? tr('日付', 'Date')),
             selected: date != null,
             onSelected: (_) async {
               if (date != null) {
@@ -215,8 +216,8 @@ class ResultTile extends StatelessWidget {
           child: Wrap(
             spacing: 4,
             children: [
-              if (r.isHighRes) const Badge2('高解像度', color: Color(0xCCE2A21B)),
-              if (r.isProtected) const Badge2('保護', icon: Icons.shield_rounded),
+              if (r.isHighRes) Badge2(tr('高解像度', 'High-res'), color: const Color(0xCCE2A21B)),
+              if (r.isProtected) Badge2(tr('保護', 'Protected'), icon: Icons.shield_rounded),
             ],
           ),
         ),
@@ -283,28 +284,28 @@ class _GeneratingCardState extends State<GeneratingCard> with SingleTickerProvid
     String label;
     if (t == null) {
       value = 0.04;
-      label = '送信中…';
+      label = tr('送信中…', 'Sending…');
     } else if (t.status == 'RESERVED') {
       value = 0.02;
-      label = '予約済み・順番を待っています';
+      label = tr('予約済み・順番を待っています', 'Queued, waiting for its turn');
     } else if (p != null && p.state == 'active') {
       value = math.max(0.05, p.progress);
-      label = '生成中 ${(value * 100).round()}%';
+      label = tr('生成中 ${(value * 100).round()}%', 'Generating ${(value * 100).round()}%');
     } else if (p != null && p.state == 'completed') {
       value = 1;
-      label = '仕上げ中…';
+      label = tr('仕上げ中…', 'Finishing…');
     } else if (p != null && p.state == 'queued') {
       value = 0.03;
-      label = p.queuePosition != null ? '順番待ち（${p.queuePosition}番目）' : '順番待ち';
+      label = p.queuePosition != null ? tr('順番待ち（${p.queuePosition}番目）', 'In queue (#${p.queuePosition})') : tr('順番待ち', 'In queue');
     } else if (t.status == 'PENDING') {
       // まだ GPU に届いていない（混み具合の待ち）
       value = null;
-      label = '順番を待っています';
+      label = tr('順番を待っています', 'Waiting for its turn');
     } else {
       final est = (t.estimatedSeconds ?? 0) > 0 ? t.estimatedSeconds! : 25;
       final elapsed = DateTime.now().difference(_started).inSeconds;
       value = (elapsed / est).clamp(0.03, 0.9);
-      label = '生成を準備しています';
+      label = tr('生成を準備しています', 'Preparing');
     }
     final count = t?.count ?? 1;
 
@@ -419,12 +420,12 @@ class _ErrorCard extends StatelessWidget {
             Icon(Icons.error_outline_rounded, color: context.cs.error),
             const SizedBox(height: 6),
             Text(
-              task.status == 'CANCELED' ? 'キャンセルされました' : '生成に失敗しました',
+              task.status == 'CANCELED' ? tr('キャンセルされました', 'Canceled') : tr('生成に失敗しました', 'Generation failed'),
               textAlign: TextAlign.center,
               style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 13),
             ),
             const SizedBox(height: 8),
-            TextButton(onPressed: onReuse, child: const Text('設定を使う')),
+            TextButton(onPressed: onReuse, child: Text(tr('設定を使う', 'Use settings'))),
           ],
         ),
       ),

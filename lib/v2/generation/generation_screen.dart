@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:aipictors/v2/core/design.dart';
+import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/plans/coin_shop.dart';
 import 'package:aipictors/v2/core/nav.dart';
 import 'package:aipictors/v2/generation/generation_api.dart';
@@ -137,7 +138,7 @@ class _GenerationScreenState extends State<GenerationScreen> {
     if (catalog == null) return;
     _controller.settings.applyResult(r, catalog);
     setState(() => _tab = 0);
-    context.toast('この設定を読み込みました', icon: Icons.replay_rounded);
+    context.toast(tr('この設定を読み込みました', 'Settings loaded'), icon: Icons.replay_rounded);
   }
 
   Future<void> _generate() async {
@@ -149,7 +150,7 @@ class _GenerationScreenState extends State<GenerationScreen> {
     }
     // フリーコインが足りずプレミアムコインを使うときは確認する
     if (c.check() == null && c.premiumCoinUse > 0) {
-      final ok = await showConfirmSheet(context, title: 'プレミアムコインを使います', message: 'この生成でプレミアムコインを ${c.premiumCoinUse} 枚使います。よろしいですか？', confirmLabel: '使って生成する');
+      final ok = await showConfirmSheet(context, title: tr('プレミアムコインを使います', 'Use premium coins'), message: tr('この生成でプレミアムコインを ${c.premiumCoinUse} 枚使います。よろしいですか？', 'This generation uses ${c.premiumCoinUse} premium coins. Continue?'), confirmLabel: tr('使って生成する', 'Use and generate'));
       if (!ok || !mounted) return;
     }
     Ds.impact();
@@ -157,7 +158,7 @@ class _GenerationScreenState extends State<GenerationScreen> {
     if (!mounted) return;
     if (block == null) {
       Ds.success();
-      context.toast('生成をはじめました', icon: Icons.auto_awesome_rounded);
+      context.toast(tr('生成をはじめました', 'Generation started'), icon: Icons.auto_awesome_rounded);
       return;
     }
     switch (block.kind) {
@@ -184,8 +185,8 @@ class _GenerationScreenState extends State<GenerationScreen> {
         body: SafeArea(
           child: LoginRequiredView(
             icon: Icons.auto_awesome_rounded,
-            title: 'AI でイラストを生成しよう',
-            message: '言葉を書くだけで、AI がイラストを描きます。\n無料のコインが毎日もらえるので、ログインしてすぐに試せます。',
+            title: tr('AI でイラストを生成しよう', 'Create illustrations with AI'),
+            message: tr('言葉を書くだけで、AI がイラストを描きます。\n無料のコインが毎日もらえるので、ログインしてすぐに試せます。', 'Just describe it and AI draws the illustration.\nYou get free coins every day, so log in and try it right away.'),
             onLogin: () => Nav.login(context),
           ),
         ),
@@ -203,7 +204,7 @@ class _GenerationScreenState extends State<GenerationScreen> {
                 _Header(controller: _controller),
                 if (!wide) ...[
                   PillTabs(
-                    labels: ['つくる', _controller.runningCount > 0 ? '履歴・生成中 ${_controller.runningCount}' : '履歴'],
+                    labels: [tr('つくる', 'Create'), _controller.runningCount > 0 ? tr('履歴・生成中 ${_controller.runningCount}', 'History · ${_controller.runningCount} running') : tr('履歴', 'History')],
                     index: _tab,
                     onChanged: (i) => setState(() => _tab = i),
                   ),
@@ -293,10 +294,10 @@ class _Header extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('画像生成', style: context.tt.titleLarge?.copyWith(fontWeight: FontWeight.w900, letterSpacing: -0.4)),
+                Text(tr('画像生成', 'Image generation'), style: context.tt.titleLarge?.copyWith(fontWeight: FontWeight.w900, letterSpacing: -0.4)),
                 if (v != null)
                   Text(
-                    v.engineWait > 0 ? '${v.planLabel} ・ 混み具合: 待ち ${v.engineWait} 件' : v.planLabel,
+                    v.engineWait > 0 ? tr('${v.planLabel} ・ 混み具合: 待ち ${v.engineWait} 件', '${v.planLabel} · Queue: ${v.engineWait} waiting') : v.planLabel,
                     style: TextStyle(fontSize: 11.5, color: context.muted, fontWeight: FontWeight.w600),
                   ),
               ],
@@ -348,18 +349,18 @@ class _Header extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text('コイン', style: context.tt.titleLarge?.copyWith(fontWeight: FontWeight.w800)),
+              Text(tr('コイン', 'Coins'), style: context.tt.titleLarge?.copyWith(fontWeight: FontWeight.w800)),
               const SizedBox(height: 4),
-              Text('生成するとコインを使います。フリーコインから先に使われます。', style: TextStyle(color: context.muted, fontSize: 13)),
+              Text(tr('生成するとコインを使います。フリーコインから先に使われます。', 'Generating uses coins. Free coins are used first.'), style: TextStyle(color: context.muted, fontSize: 13)),
               const SizedBox(height: 16),
               Row(
                 children: [
                   Expanded(
-                    child: _CoinBox(label: 'フリーコイン', value: coins?.free, note: '毎日付与・当日24:00まで'),
+                    child: _CoinBox(label: tr('フリーコイン', 'Free coins'), value: coins?.free, note: tr('毎日付与・当日24:00まで', 'Daily, valid until 24:00')),
                   ),
                   const SizedBox(width: 10),
                   Expanded(
-                    child: _CoinBox(label: 'プレミアムコイン', value: coins?.premium, note: 'プラン・購入分', premium: true),
+                    child: _CoinBox(label: tr('プレミアムコイン', 'Premium coins'), value: coins?.premium, note: tr('プラン・購入分', 'From plans and purchases'), premium: true),
                   ),
                 ],
               ),
@@ -369,18 +370,21 @@ class _Header extends StatelessWidget {
                 decoration: BoxDecoration(color: context.skeleton.withValues(alpha: 0.6), borderRadius: Ds.br(16)),
                 child: Column(
                   children: [
-                    _kv(context, 'プラン', v?.planLabel ?? '-'),
-                    _kv(context, '1枚あたり', '${controller.settings.coinPerImage(controller.model, isPaid: controller.isPaid)} コイン${controller.settings.highRes ? '（高解像度）' : ''}'),
-                    _kv(context, '同時に生成できる数', v == null ? '-' : '${v.consecutive}'),
-                    _kv(context, '使える LoRA の数', v == null ? '-' : '${v.loraLimit}'),
-                    if (v?.isPaid == true) _kv(context, '毎日のフリーコイン', '${{'LITE': 500, 'STANDARD': 1000, 'PREMIUM': 2000}[v!.passType] ?? 0} コイン'),
-                    if (v?.isPaid == true) _kv(context, '継続ボーナス', '更新のたび ${{'LITE': 100, 'STANDARD': 300, 'PREMIUM': 600}[v!.passType] ?? 0} コイン'),
+                    _kv(context, tr('プラン', 'Plan'), v?.planLabel ?? '-'),
+                    _kv(context, tr('1枚あたり', 'Per image'), tr(
+                        '${controller.settings.coinPerImage(controller.model, isPaid: controller.isPaid)} コイン${controller.settings.highRes ? '（高解像度）' : ''}',
+                        '${controller.settings.coinPerImage(controller.model, isPaid: controller.isPaid)} coins${controller.settings.highRes ? ' (high-res)' : ''}',
+                      )),
+                    _kv(context, tr('同時に生成できる数', 'Simultaneous generations'), v == null ? '-' : '${v.consecutive}'),
+                    _kv(context, tr('使える LoRA の数', 'LoRA limit'), v == null ? '-' : '${v.loraLimit}'),
+                    if (v?.isPaid == true) _kv(context, tr('毎日のフリーコイン', 'Daily free coins'), tr('${{'LITE': 500, 'STANDARD': 1000, 'PREMIUM': 2000}[v!.passType] ?? 0} コイン', '${{'LITE': 500, 'STANDARD': 1000, 'PREMIUM': 2000}[v.passType] ?? 0} coins')),
+                    if (v?.isPaid == true) _kv(context, tr('継続ボーナス', 'Renewal bonus'), tr('更新のたび ${{'LITE': 100, 'STANDARD': 300, 'PREMIUM': 600}[v!.passType] ?? 0} コイン', '${{'LITE': 100, 'STANDARD': 300, 'PREMIUM': 600}[v.passType] ?? 0} coins each renewal')),
                   ],
                 ),
               ),
               const SizedBox(height: 8),
               GradientButton(
-                label: 'コインを買う',
+                label: tr('コインを買う', 'Buy coins'),
                 icon: Icons.add_shopping_cart_rounded,
                 onPressed: () {
                   Navigator.of(sheet).pop();
@@ -394,11 +398,11 @@ class _Header extends StatelessWidget {
                   showCoinHistorySheet(context);
                 },
                 icon: const Icon(Icons.receipt_long_rounded, size: 18),
-                label: const Text('コインの履歴を見る'),
+                label: Text(tr('コインの履歴を見る', 'Coin history')),
               ),
               const SizedBox(height: 8),
               GradientButton(
-                label: v?.isPaid == true ? 'プランを確認する' : 'Aipictors+ でコインを増やす',
+                label: v?.isPaid == true ? tr('プランを確認する', 'View plan') : tr('Aipictors+ でコインを増やす', 'Get more coins with Aipictors+'),
                 icon: Icons.workspace_premium_rounded,
                 onPressed: () {
                   Navigator.of(sheet).pop();
@@ -478,9 +482,9 @@ class _RecentStrip extends StatelessWidget {
         children: [
           Row(
             children: [
-              Text(running.isNotEmpty ? '生成中' : '最近の生成', style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 15)),
+              Text(running.isNotEmpty ? tr('生成中', 'Generating') : tr('最近の生成', 'Recent'), style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 15)),
               const Spacer(),
-              TextButton(onPressed: onSeeAll, child: const Text('すべて見る')),
+              TextButton(onPressed: onSeeAll, child: Text(tr('すべて見る', 'See all'))),
             ],
           ),
           SizedBox(
@@ -582,8 +586,8 @@ class _GeminiAllowanceBar extends StatelessWidget {
               children: [
                 const Icon(Icons.auto_awesome_rounded, size: 14),
                 const SizedBox(width: 6),
-                const Expanded(child: Text('今週の Gemini の枠', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700))),
-                Text('あと$left枚 / $limit枚', style: TextStyle(fontSize: 12, fontWeight: left == 0 ? FontWeight.w800 : FontWeight.w500, color: left == 0 ? Ds.pink : null)),
+                Expanded(child: Text(tr('今週の Gemini の枠', 'Gemini this week'), style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700))),
+                Text(tr('あと$left枚 / $limit枚', '$left / $limit left'), style: TextStyle(fontSize: 12, fontWeight: left == 0 ? FontWeight.w800 : FontWeight.w500, color: left == 0 ? Ds.pink : null)),
               ],
             ),
             const SizedBox(height: 4),
@@ -593,7 +597,7 @@ class _GeminiAllowanceBar extends StatelessWidget {
             ),
             if (left == 0) ...[
               const SizedBox(height: 4),
-              Text('月曜0時に枠が戻ります。今すぐ作るときは1枚プレミアムコイン$coinCost枚（残り$premium枚）', style: TextStyle(fontSize: 11, color: context.muted, height: 1.4)),
+              Text(tr('月曜0時に枠が戻ります。今すぐ作るときは1枚プレミアムコイン$coinCost枚（残り$premium枚）', 'Resets Monday 0:00 JST. To generate now, each image costs $coinCost premium coins ($premium left)'), style: TextStyle(fontSize: 11, color: context.muted, height: 1.4)),
             ],
           ],
         ),
@@ -618,12 +622,12 @@ class _GenerateBar extends StatelessWidget {
     final short = coins != null && coins.total < cost;
     final v = c.viewer;
     final label = c.submitting
-        ? '送信中…'
+        ? tr('送信中…', 'Sending…')
         : v != null && !v.hasSignedTerms
-        ? '規約を確認して生成'
+        ? tr('規約を確認して生成', 'Review terms and generate')
         : count > 1
-        ? '生成する ×$count枚'
-        : '生成する';
+        ? tr('生成する ×$count枚', 'Generate ×$count')
+        : tr('生成する', 'Generate');
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -653,13 +657,13 @@ class _GenerateBar extends StatelessWidget {
                   Icon(short ? Icons.warning_amber_rounded : Icons.toll_rounded, size: 14, color: short ? Ds.pink : Ds.gold),
                   const SizedBox(width: 4),
                   Text(
-                    coins == null ? '使うコイン $cost' : '使うコイン $cost ・ 残り ${coins.total}',
+                    coins == null ? tr('使うコイン $cost', 'Cost $cost') : tr('使うコイン $cost ・ 残り ${coins.total}', 'Cost $cost · ${coins.total} left'),
                     style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: short ? Ds.pink : context.muted),
                   ),
                   if (v.inProgress > 0) ...[
                     const SizedBox(width: 8),
                     Text(
-                      '・ 生成中 ${v.inProgress}',
+                      tr('・ 生成中 ${v.inProgress}', '· ${v.inProgress} running'),
                       style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: context.muted),
                     ),
                   ],

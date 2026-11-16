@@ -1,6 +1,8 @@
 import 'dart:async';
 
+import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/core/api.dart';
+import 'package:aipictors/v2/core/content_translate.dart';
 import 'package:aipictors/v2/core/debug_boot.dart';
 import 'package:aipictors/v2/core/design.dart';
 import 'package:aipictors/v2/core/list_like_count.dart';
@@ -48,6 +50,7 @@ query AppHomeTop(\$year: Int, \$month: Int, \$day: Int) {
   dailyTheme(year: \$year, month: \$month, day: \$day) {
     id
     title
+    enTitle
     worksCount
     dateText
     year
@@ -66,7 +69,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  static const _tabs = ['おすすめ', '新着', 'フォロー新着', 'タグ新着'];
+  static List<String> get _tabs => [tr('おすすめ', 'For you'), tr('新着', 'Latest'), tr('フォロー新着', 'Following'), tr('タグ新着', 'Tags')];
 
   int _tab = 0;
   final _pageController = PageController();
@@ -141,7 +144,7 @@ class _HomeHeader extends StatelessWidget {
           ),
           const Spacer(),
           IconButton(
-            tooltip: '検索',
+            tooltip: tr('検索', 'Search'),
             onPressed: onSearch,
             icon: const Icon(Icons.search_rounded, size: 26),
           ),
@@ -278,7 +281,7 @@ class _RecommendedViewState extends State<_RecommendedView> {
                 Expanded(
                   child: _QuickLink(
                     icon: Icons.emoji_events_rounded,
-                    label: 'ランキング',
+                    label: tr('ランキング', 'Ranking'),
                     color: Ds.gold,
                     onTap: () => Nav.rankings(context),
                   ),
@@ -287,7 +290,7 @@ class _RecommendedViewState extends State<_RecommendedView> {
                 Expanded(
                   child: _QuickLink(
                     icon: Icons.auto_awesome_rounded,
-                    label: 'プラン',
+                    label: tr('プラン', 'Plans'),
                     color: Ds.purple,
                     onTap: () => Nav.plans(context),
                   ),
@@ -297,9 +300,9 @@ class _RecommendedViewState extends State<_RecommendedView> {
           ),
           const SliverToBoxAdapter(child: SupportRankingPreview()),
           if (_firstPosts.isNotEmpty)
-            SliverToBoxAdapter(child: _WorkStrip(title: '新規クリエイターの初投稿作品', icon: Icons.fiber_new_rounded, works: _firstPosts)),
+            SliverToBoxAdapter(child: _WorkStrip(title: tr('新規クリエイターの初投稿作品', 'First posts from new creators'), icon: Icons.fiber_new_rounded, works: _firstPosts)),
           if (_users.isNotEmpty) SliverToBoxAdapter(child: _UserStrip(users: _users)),
-          const SliverToBoxAdapter(child: SectionHeader('おすすめ作品', icon: Icons.favorite_rounded)),
+          SliverToBoxAdapter(child: SectionHeader(tr('おすすめ作品', 'Recommended works'), icon: Icons.favorite_rounded)),
           SliverPagedWorks(controller: _controller),
         ],
       ),
@@ -345,7 +348,7 @@ class _UserStrip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      const SectionHeader('おすすめのユーザー', icon: Icons.group_rounded),
+      SectionHeader(tr('おすすめのユーザー', 'Recommended creators'), icon: Icons.group_rounded),
       SizedBox(
         height: 92,
         child: ListView.separated(
@@ -443,7 +446,7 @@ class _HotCarouselState extends State<_HotCarousel> {
           child: Row(children: [
             const Icon(Icons.local_fire_department_rounded, color: Color(0xFFFF6A3D), size: 20),
             const SizedBox(width: 6),
-            Text('いま人気', style: context.tt.titleMedium?.copyWith(fontWeight: FontWeight.w800)),
+            Text(tr('いま人気', 'Trending now'), style: context.tt.titleMedium?.copyWith(fontWeight: FontWeight.w800)),
           ]),
         ),
         SizedBox(
@@ -563,14 +566,14 @@ class _ThemeCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('今日のお題', style: TextStyle(color: Color(0xFF8A4B00), fontWeight: FontWeight.w800, fontSize: 12)),
+                  Text(tr('今日のお題', "Today's theme"), style: const TextStyle(color: Color(0xFF8A4B00), fontWeight: FontWeight.w800, fontSize: 12)),
                   const SizedBox(height: 4),
-                  Text(theme.str('title'),
+                  Text(localizedContent(theme.str('title'), theme.strOrNull('enTitle')),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(color: Color(0xFF2B1A00), fontWeight: FontWeight.w900, fontSize: 20)),
                   const SizedBox(height: 2),
-                  Text('${theme.integer('worksCount')}作品が参加中・参加してみよう',
+                  Text(tr('${theme.integer('worksCount')}作品が参加中・参加してみよう', '${theme.integer('worksCount')} works so far · Join in'),
                       style: const TextStyle(color: Color(0xFF6B4A1F), fontSize: 12)),
                 ],
               ),
@@ -647,8 +650,8 @@ class _FollowingViewState extends State<_FollowingView> {
     if (!Nav.isLoggedIn) {
       return LoginRequiredView(
         icon: Icons.people_alt_rounded,
-        title: 'フォローした人の新着が届きます',
-        message: 'ログインすると、フォローしたクリエイターやタグの新しい作品がここに並びます。',
+        title: tr('フォローした人の新着が届きます', 'New works from people you follow'),
+        message: tr('ログインすると、フォローしたクリエイターやタグの新しい作品がここに並びます。', 'Log in to see new works from creators and tags you follow.'),
         onLogin: () => Nav.login(context),
       );
     }
@@ -663,10 +666,10 @@ class _FollowingViewState extends State<_FollowingView> {
           SliverPagedWorks(
             controller: _controller,
             emptyIcon: _kind == 0 ? Icons.person_add_alt_1_rounded : Icons.tag_rounded,
-            emptyTitle: _kind == 0 ? 'まだ新着がありません' : 'フォロー中のタグの新着がありません',
+            emptyTitle: _kind == 0 ? tr('まだ新着がありません', 'Nothing new yet') : tr('フォロー中のタグの新着がありません', 'No new works in followed tags'),
             emptyMessage: _kind == 0
-                ? '気になるクリエイターをフォローすると、新しい作品がここに届きます。'
-                : '作品ページのタグからタグをフォローできます。',
+                ? tr('気になるクリエイターをフォローすると、新しい作品がここに届きます。', 'Follow creators you like and their new works will show up here.')
+                : tr('作品ページのタグからタグをフォローできます。', 'You can follow tags from the tags on a work page.'),
           ),
         ],
       ),
@@ -689,6 +692,14 @@ class _LatestViewState extends State<_LatestView> {
     ('小説', 'NOVEL'),
     ('動画', 'VIDEO'),
   ];
+
+  static String _typeLabel(String ja) => switch (ja) {
+        'すべて' => tr(ja, 'All'),
+        'イラスト' => tr(ja, 'Illustrations'),
+        '小説' => tr(ja, 'Novels'),
+        '動画' => tr(ja, 'Videos'),
+        _ => ja,
+      };
 
   int _type = 0;
   late PagedController<WorkSummary> _controller = _create();
@@ -735,7 +746,7 @@ class _LatestViewState extends State<_LatestView> {
                         Padding(
                           padding: const EdgeInsets.only(right: 8),
                           child: ChoiceChip(
-                            label: Text(_types[i].$1),
+                            label: Text(_typeLabel(_types[i].$1)),
                             selected: _type == i,
                             onSelected: (_) => setState(() {
                               _controller.dispose();

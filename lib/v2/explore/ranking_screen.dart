@@ -1,3 +1,4 @@
+import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/design.dart';
 import 'package:aipictors/v2/core/nav.dart';
@@ -37,15 +38,15 @@ class RankingScreen extends StatelessWidget {
       length: 3,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('ランキング', style: TextStyle(fontWeight: FontWeight.w800)),
+          title: Text(tr('ランキング', 'Ranking'), style: const TextStyle(fontWeight: FontWeight.w800)),
           actions: [
             PopupMenuButton<String>(
-              tooltip: 'ほかのランキング',
+              tooltip: tr('ほかのランキング', 'Other rankings'),
               onSelected: (path) => context.push(path),
-              itemBuilder: (_) => const [
-                PopupMenuItem(value: '/ai-rankings', child: Text('AI ランキング')),
-                PopupMenuItem(value: '/coin-rankings', child: Text('推しランキング')),
-                PopupMenuItem(value: '/themes', child: Text('お題')),
+              itemBuilder: (_) => [
+                PopupMenuItem(value: '/ai-rankings', child: Text(tr('AI ランキング', 'AI ranking'))),
+                PopupMenuItem(value: '/coin-rankings', child: Text(tr('推しランキング', 'Supporter ranking'))),
+                PopupMenuItem(value: '/themes', child: Text(tr('お題', 'Themes'))),
               ],
             ),
           ],
@@ -54,7 +55,7 @@ class RankingScreen extends StatelessWidget {
             labelStyle: const TextStyle(fontWeight: FontWeight.w800, fontSize: 15),
             unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
             dividerColor: context.hairline,
-            tabs: const [Tab(text: 'デイリー'), Tab(text: 'ウィークリー'), Tab(text: 'マンスリー')],
+            tabs: [Tab(text: tr('デイリー', 'Daily')), Tab(text: tr('ウィークリー', 'Weekly')), Tab(text: tr('マンスリー', 'Monthly'))],
           ),
         ),
         body: const TabBarView(children: [
@@ -115,7 +116,7 @@ class _RankingTabState extends State<_RankingTab> with AutomaticKeepAliveClientM
     } catch (_) {
       if (mounted) {
         setState(() {
-          _error = '読み込みに失敗しました';
+          _error = tr('読み込みに失敗しました', 'Failed to load');
           _loading = false;
         });
       }
@@ -136,7 +137,7 @@ class _RankingTabState extends State<_RankingTab> with AutomaticKeepAliveClientM
       initialDate: _date!,
       firstDate: DateTime(2023, 1, 1),
       lastDate: _latest,
-      helpText: widget.period == RankingPeriod.weekly ? 'その日を含む週を表示' : '日付を選ぶ',
+      helpText: widget.period == RankingPeriod.weekly ? tr('その日を含む週を表示', 'Show the week of this day') : tr('日付を選ぶ', 'Pick a date'),
     );
     if (picked == null) return;
     _go(widget.period == RankingPeriod.weekly ? RankingDate.mondayOf(picked) : picked);
@@ -157,8 +158,8 @@ class _RankingTabState extends State<_RankingTab> with AutomaticKeepAliveClientM
           else if (items == null || (_loading && items.isEmpty))
             SliverToBoxAdapter(child: _skeleton(context))
           else if (items.isEmpty)
-            const SliverToBoxAdapter(
-              child: StateView(icon: Icons.emoji_events_outlined, title: 'この期間のランキングはまだありません', message: '集計が終わると表示されます'),
+            SliverToBoxAdapter(
+              child: StateView(icon: Icons.emoji_events_outlined, title: tr('この期間のランキングはまだありません', 'No ranking for this period yet'), message: tr('集計が終わると表示されます', 'It will appear once tallied')),
             )
           else ...[
             SliverToBoxAdapter(
@@ -197,7 +198,7 @@ class _RankingTabState extends State<_RankingTab> with AutomaticKeepAliveClientM
       padding: const EdgeInsets.fromLTRB(8, 10, 8, 4),
       child: Row(children: [
         IconButton.filledTonal(
-          tooltip: '前へ',
+          tooltip: tr('前へ', 'Previous'),
           onPressed: d == null || _loading ? null : () => _go(RankingDate.step(widget.period, d, -1)),
           icon: const Icon(Icons.chevron_left_rounded),
         ),
@@ -206,19 +207,19 @@ class _RankingTabState extends State<_RankingTab> with AutomaticKeepAliveClientM
             onTap: d == null || widget.period == RankingPeriod.monthly ? null : _pickDate,
             child: Column(children: [
               Text(
-                d == null ? '読み込み中…' : RankingDate.label(widget.period, d),
+                d == null ? tr('読み込み中…', 'Loading…') : RankingDate.label(widget.period, d),
                 textAlign: TextAlign.center,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: context.tt.titleSmall?.copyWith(fontWeight: FontWeight.w800),
               ),
               if (widget.period != RankingPeriod.monthly)
-                Text('タップで日付を選ぶ', style: context.tt.labelSmall?.copyWith(color: context.muted)),
+                Text(tr('タップで日付を選ぶ', 'Tap to pick a date'), style: context.tt.labelSmall?.copyWith(color: context.muted)),
             ]),
           ),
         ),
         IconButton.filledTonal(
-          tooltip: '次へ',
+          tooltip: tr('次へ', 'Next'),
           onPressed: !_canNext || _loading ? null : () => _go(RankingDate.step(widget.period, d!, 1)),
           icon: const Icon(Icons.chevron_right_rounded),
         ),
@@ -349,7 +350,7 @@ class _RankRow extends StatelessWidget {
           const SizedBox(width: 12),
           Expanded(
             child: Column(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(w.title.isEmpty ? '無題' : w.title, maxLines: 1, overflow: TextOverflow.ellipsis, style: context.tt.bodyMedium?.copyWith(fontWeight: FontWeight.w800)),
+              Text(w.title.isEmpty ? tr('無題', 'Untitled') : w.title, maxLines: 1, overflow: TextOverflow.ellipsis, style: context.tt.bodyMedium?.copyWith(fontWeight: FontWeight.w800)),
               const SizedBox(height: 6),
               Pressable(
                 onTap: () => Nav.user(context, w.user.id),
@@ -365,7 +366,7 @@ class _RankRow extends StatelessWidget {
                 const SizedBox(width: 3),
                 Text(compactCount(item.likes), style: context.tt.labelSmall?.copyWith(fontWeight: FontWeight.w800)),
                 if (w.rating == 'R15') ...[const SizedBox(width: 8), const Badge2('R15', color: Color(0xCCE2A21B))],
-                if (w.isVideo) ...[const SizedBox(width: 6), Badge2('動画', icon: Icons.play_arrow_rounded, color: context.cs.primary)],
+                if (w.isVideo) ...[const SizedBox(width: 6), Badge2(tr('動画', 'Video'), icon: Icons.play_arrow_rounded, color: context.cs.primary)],
               ]),
             ]),
           ),

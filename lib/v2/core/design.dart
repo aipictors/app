@@ -104,6 +104,11 @@ extension DsContext on BuildContext {
 
 /// 数を短く（1.2万 など）
 String compactCount(int n) {
+  if (!L10n.isJa) {
+    if (n >= 1000000) return '${(n / 1000000).toStringAsFixed(n >= 10000000 ? 0 : 1)}M';
+    if (n >= 10000) return '${(n / 1000).toStringAsFixed(n >= 100000 ? 0 : 1)}K';
+    return n.toString();
+  }
   if (n >= 100000000) return '${(n / 100000000).toStringAsFixed(n % 100000000 == 0 ? 0 : 1)}億';
   if (n >= 10000) return '${(n / 10000).toStringAsFixed(n >= 100000 ? 0 : 1)}万';
   return n.toString();

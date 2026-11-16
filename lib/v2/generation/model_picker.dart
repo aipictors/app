@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/design.dart';
+import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/generation/generation_api.dart';
 import 'package:aipictors/v2/generation/generation_controller.dart';
 import 'package:aipictors/v2/generation/generation_sheets.dart';
@@ -9,15 +10,15 @@ import 'package:aipictors/v2/widgets/common.dart';
 import 'package:flutter/material.dart';
 
 String categoryLabel(String category) => switch (category) {
-  'UNIVERSAL' => '汎用',
-  'ILLUSTRATION_GIRL' => '美少女イラスト',
-  'ANIME_GIRL' => '美少女アニメ',
-  'ANIMAL' => '獣系',
-  'BIKINI_MODEL' => 'グラビア',
-  'ILLUSTRATION_BOY' => '美男子イラスト',
-  'FIGURE' => '美少女フィギュア',
-  'BACKGROUND' => '背景',
-  _ => 'その他',
+  'UNIVERSAL' => tr('汎用', 'General'),
+  'ILLUSTRATION_GIRL' => tr('美少女イラスト', 'Girls (illustration)'),
+  'ANIME_GIRL' => tr('美少女アニメ', 'Girls (anime)'),
+  'ANIMAL' => tr('獣系', 'Animals'),
+  'BIKINI_MODEL' => tr('グラビア', 'Gravure'),
+  'ILLUSTRATION_BOY' => tr('美男子イラスト', 'Boys (illustration)'),
+  'FIGURE' => tr('美少女フィギュア', 'Figures'),
+  'BACKGROUND' => tr('背景', 'Backgrounds'),
+  _ => tr('その他', 'Other'),
 };
 
 String typeLabel(String type) => switch (type) {
@@ -50,7 +51,7 @@ class _ModelPicker extends StatefulWidget {
 }
 
 class _ModelPickerState extends State<_ModelPicker> {
-  static const _tabs = ['公式モデル', 'お気に入り', 'みんなのモデル', '自分のモデル'];
+  static List<String> get _tabs => [tr('公式モデル', 'Official'), tr('お気に入り', 'Favorites'), tr('みんなのモデル', 'Community'), tr('自分のモデル', 'Mine')];
 
   int _tab = 0;
   String _category = '';
@@ -95,7 +96,7 @@ class _ModelPickerState extends State<_ModelPicker> {
     } on ApiException catch (e) {
       if (mounted) setState(() => _userError = e.message);
     } catch (_) {
-      if (mounted) setState(() => _userError = 'みんなのモデルを読み込めませんでした');
+      if (mounted) setState(() => _userError = tr('みんなのモデルを読み込めませんでした', 'Could not load community models'));
     } finally {
       if (mounted) setState(() => _userLoading = false);
     }
@@ -110,7 +111,7 @@ class _ModelPickerState extends State<_ModelPicker> {
     } on ApiException catch (e) {
       if (mounted) setState(() => _mineError = e.message);
     } catch (_) {
-      if (mounted) setState(() => _mineError = '自分のモデルを読み込めませんでした');
+      if (mounted) setState(() => _mineError = tr('自分のモデルを読み込めませんでした', 'Could not load your models'));
     }
   }
 
@@ -160,7 +161,7 @@ class _ModelPickerState extends State<_ModelPicker> {
               child: Row(
                 children: [
                   Expanded(
-                    child: Text('モデルを選ぶ', style: context.tt.titleLarge?.copyWith(fontWeight: FontWeight.w800)),
+                    child: Text(tr('モデルを選ぶ', 'Choose a model'), style: context.tt.titleLarge?.copyWith(fontWeight: FontWeight.w800)),
                   ),
                   IconButton(onPressed: () => Navigator.of(context).pop(), icon: const Icon(Icons.close_rounded)),
                 ],
@@ -173,7 +174,7 @@ class _ModelPickerState extends State<_ModelPicker> {
                 onChanged: _onQuery,
                 textInputAction: TextInputAction.search,
                 decoration: InputDecoration(
-                  hintText: 'モデル名で探す',
+                  hintText: tr('モデル名で探す', 'Search by model name'),
                   prefixIcon: const Icon(Icons.search_rounded),
                   filled: true,
                   fillColor: context.skeleton,
@@ -186,7 +187,7 @@ class _ModelPickerState extends State<_ModelPicker> {
             PillTabs(labels: _tabs, index: _tab, onChanged: _setTab),
             if (_tab == 0) ...[
               const SizedBox(height: 8),
-              _chips(['', 'SD1', 'SDXL', 'FLUX', 'GEMINI'], _type, (v) => v.isEmpty ? 'すべての種類' : typeLabel(v), (v) => setState(() => _type = v)),
+              _chips(['', 'SD1', 'SDXL', 'FLUX', 'GEMINI'], _type, (v) => v.isEmpty ? tr('すべての種類', 'All types') : typeLabel(v), (v) => setState(() => _type = v)),
               const SizedBox(height: 6),
               _chips(
                 [
@@ -194,7 +195,7 @@ class _ModelPickerState extends State<_ModelPicker> {
                   ...{...?catalog?.models.map((m) => m.category)},
                 ],
                 _category,
-                (v) => v.isEmpty ? 'すべてのジャンル' : categoryLabel(v),
+                (v) => v.isEmpty ? tr('すべてのジャンル', 'All genres') : categoryLabel(v),
                 (v) => setState(() => _category = v),
               ),
             ],
@@ -243,11 +244,11 @@ class _ModelPickerState extends State<_ModelPicker> {
         final favs = c.viewer?.favoriteModelIds ?? const <String>{};
         final list = _filtered(catalog.models.where((m) => favs.contains(m.id)).toList());
         if (list.isEmpty) {
-          return const StateView(icon: Icons.favorite_border_rounded, title: 'お気に入りはまだありません', message: 'モデルの ♡ を押すと、ここにまとまります', compact: true);
+          return StateView(icon: Icons.favorite_border_rounded, title: tr('お気に入りはまだありません', 'No favorites yet'), message: tr('モデルの ♡ を押すと、ここにまとまります', 'Tap ♡ on a model to save it here'), compact: true);
         }
         return _officialGrid(list);
       case 2:
-        return _userGrid(_userModels, _userError, _userLoading, _loadUserModels, emptyTitle: 'モデルが見つかりません', emptyMessage: 'ほかの言葉で探してみてください');
+        return _userGrid(_userModels, _userError, _userLoading, _loadUserModels, emptyTitle: tr('モデルが見つかりません', 'No models found'), emptyMessage: tr('ほかの言葉で探してみてください', 'Try a different search'));
       case 3:
         final mine = _mine?.where((m) => _query.isEmpty || m.name.toLowerCase().contains(_query.toLowerCase())).toList();
         return _userGrid(
@@ -255,13 +256,13 @@ class _ModelPickerState extends State<_ModelPicker> {
           _mineError,
           _mine == null && _mineError == null,
           _loadMine,
-          emptyTitle: '自分のモデルはまだありません',
-          emptyMessage: 'Web の「みんなのモデル」からチェックポイントをアップロードすると、ここから生成に使えます',
+          emptyTitle: tr('自分のモデルはまだありません', 'You have no models yet'),
+          emptyMessage: tr('Web の「みんなのモデル」からチェックポイントをアップロードすると、ここから生成に使えます', 'Upload a checkpoint from “Community models” on the web to use it here'),
         );
       default:
         final list = _filtered(catalog.models);
         if (list.isEmpty) {
-          return const StateView(icon: Icons.search_off_rounded, title: 'モデルが見つかりません', compact: true);
+          return StateView(icon: Icons.search_off_rounded, title: tr('モデルが見つかりません', 'No models found'), compact: true);
         }
         return _officialGrid(list);
     }
@@ -427,7 +428,7 @@ class _ModelCard extends StatelessWidget {
                         right: 2,
                         top: 2,
                         child: IconButton(
-                          tooltip: '通報・ブロック',
+                          tooltip: tr('通報・ブロック', 'Report / block'),
                           visualDensity: VisualDensity.compact,
                           onPressed: onMore,
                           icon: const Icon(Icons.more_horiz_rounded, color: Colors.white, shadows: [Shadow(blurRadius: 6, color: Colors.black54)]),

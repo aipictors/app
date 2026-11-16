@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:math' as math;
 
+import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/generation/generation_api.dart';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -191,15 +192,15 @@ class GenRules {
   };
 
   /// ControlNet の種類（Web の generation-config-control-net-dialog-contents と同じ）
-  static const controlNetModules = <(String, String)>[
-    ('openpose_full', 'ポーズを元に生成'),
-    ('canny', '線画を元に生成'),
-    ('depth_midas', '奥行きを元に生成'),
-    ('softedge_pidinet', 'やわらかい輪郭を元に生成'),
-    ('mlsd', '直線を元に生成'),
-    ('scribble_pidinet', 'らくがきを元に生成'),
-    ('seg_ofade20k', '領域分けを元に生成'),
-    ('reference_only', '絵柄を参考に生成'),
+  static List<(String, String)> get controlNetModules => [
+    ('openpose_full', tr('ポーズを元に生成', 'Pose')),
+    ('canny', tr('線画を元に生成', 'Line art')),
+    ('depth_midas', tr('奥行きを元に生成', 'Depth')),
+    ('softedge_pidinet', tr('やわらかい輪郭を元に生成', 'Soft edges')),
+    ('mlsd', tr('直線を元に生成', 'Straight lines')),
+    ('scribble_pidinet', tr('らくがきを元に生成', 'Scribble')),
+    ('seg_ofade20k', tr('領域分けを元に生成', 'Segmentation')),
+    ('reference_only', tr('絵柄を参考に生成', 'Style reference')),
   ];
 
   static String controlNetModel(String module, String modelType) {
@@ -277,7 +278,7 @@ class UserCheckpointPick {
     if (id.isEmpty) return null;
     return UserCheckpointPick(
       id: id,
-      name: j['name']?.toString() ?? 'みんなのモデル',
+      name: j['name']?.toString() ?? tr('みんなのモデル', 'Community model'),
       modelType: j['type']?.toString() ?? 'SDXL',
       thumbnailUrl: j['thumb']?.toString(),
     );
@@ -396,7 +397,7 @@ class GenSettings extends ChangeNotifier {
         s.userCheckpoint = null;
         s._applyModelType(official.id, official.type);
       } else if (userMatch != null) {
-        s.userCheckpoint = UserCheckpointPick(id: userMatch.group(1)!, name: 'みんなのモデル', modelType: r.modelType == 'SD1' ? 'SD1' : 'SDXL');
+        s.userCheckpoint = UserCheckpointPick(id: userMatch.group(1)!, name: tr('みんなのモデル', 'Community model'), modelType: r.modelType == 'SD1' ? 'SD1' : 'SDXL');
       }
       final parsed = extractLoras(r.prompt);
       s.prompt = parsed.$1;

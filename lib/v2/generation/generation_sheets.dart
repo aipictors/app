@@ -1,5 +1,6 @@
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/design.dart';
+import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/core/nav.dart';
 import 'package:aipictors/v2/generation/generation_api.dart';
 import 'package:aipictors/v2/work/moderation.dart';
@@ -98,7 +99,7 @@ class _InfoSheet extends StatelessWidget {
             const SizedBox(height: 24),
             GradientButton(label: primaryLabel, gradient: gradient, onPressed: onPrimary),
             const SizedBox(height: 8),
-            TextButton(onPressed: () => Navigator.of(context).pop(), child: const Text('閉じる')),
+            TextButton(onPressed: () => Navigator.of(context).pop(), child: Text(tr('閉じる', 'Close'))),
           ],
         ),
       ),
@@ -113,9 +114,9 @@ Future<void> showCoinShortageSheet(BuildContext context, {required int need, req
     builder: (sheet) => _InfoSheet(
       icon: Icons.toll_rounded,
       gradient: Ds.goldGradient,
-      title: 'コインが足りません',
-      message: 'この生成には $need コインが必要です（残り $have コイン）。\n無料のコインは毎日付与されます。Aipictors+ に加入すると、毎月たくさんのコインと同時生成などの特典が使えます。',
-      primaryLabel: 'プランを見る',
+      title: tr('コインが足りません', 'Not enough coins'),
+      message: tr('この生成には $need コインが必要です（残り $have コイン）。\n無料のコインは毎日付与されます。Aipictors+ に加入すると、毎月たくさんのコインと同時生成などの特典が使えます。', 'This generation needs $need coins (you have $have).\nFree coins are granted every day. Aipictors+ gives you plenty of coins every month, simultaneous generation, and more.'),
+      primaryLabel: tr('プランを見る', 'See plans'),
       onPrimary: () {
         Navigator.of(sheet).pop();
         Nav.plans(context);
@@ -130,9 +131,9 @@ Future<void> showPlanRequiredSheet(BuildContext context, String message) {
     context,
     builder: (sheet) => _InfoSheet(
       icon: Icons.workspace_premium_rounded,
-      title: 'Aipictors+ で使えます',
+      title: tr('Aipictors+ で使えます', 'Available with Aipictors+'),
       message: message,
-      primaryLabel: 'プランを見る',
+      primaryLabel: tr('プランを見る', 'See plans'),
       onPrimary: () {
         Navigator.of(sheet).pop();
         Nav.plans(context);
@@ -141,14 +142,14 @@ Future<void> showPlanRequiredSheet(BuildContext context, String message) {
   );
 }
 
-const _userModelReportReasons = [
-  ('COPYRIGHT', '著作権の侵害'),
-  ('REAL_PERSON', '実在の人物を扱っている'),
-  ('ILLEGAL', '違法・不適切な内容'),
-  ('WRONG_RATING', '年齢制限の設定が正しくない'),
-  ('BROKEN', '動かない・壊れている'),
-  ('SPAM', '宣伝・スパム'),
-  ('OTHER', 'その他'),
+List<(String, String)> get _userModelReportReasons => [
+  ('COPYRIGHT', tr('著作権の侵害', 'Copyright infringement')),
+  ('REAL_PERSON', tr('実在の人物を扱っている', 'Depicts a real person')),
+  ('ILLEGAL', tr('違法・不適切な内容', 'Illegal or inappropriate content')),
+  ('WRONG_RATING', tr('年齢制限の設定が正しくない', 'Wrong age rating')),
+  ('BROKEN', tr('動かない・壊れている', 'Does not work / broken')),
+  ('SPAM', tr('宣伝・スパム', 'Advertising / spam')),
+  ('OTHER', tr('その他', 'Other')),
 ];
 
 /// みんなのモデルの通報・作者のブロック。作者をブロックしたら true
@@ -162,13 +163,13 @@ Future<bool> showUserModelActions(BuildContext context, UserModel model) async {
         children: [
           ListTile(
             leading: const Icon(Icons.flag_outlined),
-            title: const Text('このモデルを通報する'),
+            title: Text(tr('このモデルを通報する', 'Report this model')),
             onTap: () => Navigator.of(sheet).pop('report'),
           ),
           if (model.authorId != null)
             ListTile(
               leading: const Icon(Icons.block_rounded),
-              title: Text('${model.authorName ?? '作者'}さんをブロックする'),
+              title: Text(tr('${model.authorName ?? '作者'}さんをブロックする', 'Block ${model.authorName ?? 'creator'}')),
               onTap: () => Navigator.of(sheet).pop('block'),
             ),
         ],
@@ -176,7 +177,7 @@ Future<bool> showUserModelActions(BuildContext context, UserModel model) async {
     ),
   );
   if (!context.mounted) return false;
-  if (action == 'block') return blockUser(context, model.authorId!, model.authorName ?? '作者');
+  if (action == 'block') return blockUser(context, model.authorId!, model.authorName ?? tr('作者', 'Creator'));
   if (action != 'report') return false;
   final reason = await showGenSheet<String>(
     context,
@@ -189,7 +190,7 @@ Future<bool> showUserModelActions(BuildContext context, UserModel model) async {
           children: [
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 0, 20, 8),
-              child: Text('通報の理由', style: context.tt.titleMedium?.copyWith(fontWeight: FontWeight.w800)),
+              child: Text(tr('通報の理由', 'Reason for report'), style: context.tt.titleMedium?.copyWith(fontWeight: FontWeight.w800)),
             ),
             for (final r in _userModelReportReasons) ListTile(title: Text(r.$2), onTap: () => Navigator.of(sheet).pop(r.$1)),
           ],
@@ -200,7 +201,7 @@ Future<bool> showUserModelActions(BuildContext context, UserModel model) async {
   if (reason == null || !context.mounted) return false;
   try {
     await GenApi.reportUserModel(model.id, reason: reason);
-    if (context.mounted) context.toast('通報しました。ご協力ありがとうございます', icon: Icons.flag_rounded);
+    if (context.mounted) context.toast(tr('通報しました。ご協力ありがとうございます', 'Reported. Thank you for your help.'), icon: Icons.flag_rounded);
   } on ApiException catch (e) {
     if (context.mounted) context.toast(e.message, error: true);
   }
@@ -247,7 +248,7 @@ class _CoinHistorySheetState extends State<_CoinHistorySheet> {
     } on ApiException catch (e) {
       if (mounted) setState(() => _error = e.message);
     } catch (_) {
-      if (mounted) setState(() => _error = 'コインの履歴を読み込めませんでした');
+      if (mounted) setState(() => _error = tr('コインの履歴を読み込めませんでした', 'Could not load coin history'));
     } finally {
       if (mounted) setState(() => _loading = false);
     }
@@ -263,7 +264,7 @@ class _CoinHistorySheetState extends State<_CoinHistorySheet> {
           padding: const EdgeInsets.fromLTRB(20, 4, 20, 8),
           child: Align(
             alignment: Alignment.centerLeft,
-            child: Text('コインの履歴', style: context.tt.titleLarge?.copyWith(fontWeight: FontWeight.w800)),
+            child: Text(tr('コインの履歴', 'Coin history'), style: context.tt.titleLarge?.copyWith(fontWeight: FontWeight.w800)),
           ),
         ),
         Expanded(
@@ -272,7 +273,7 @@ class _CoinHistorySheetState extends State<_CoinHistorySheet> {
               : _items.isEmpty && _error != null
               ? StateView.error(_error!, onRetry: _load)
               : _items.isEmpty
-              ? const StateView(icon: Icons.receipt_long_rounded, title: 'まだ履歴はありません', message: '生成するとここに記録されます')
+              ? StateView(icon: Icons.receipt_long_rounded, title: tr('まだ履歴はありません', 'No history yet'), message: tr('生成するとここに記録されます', 'Your generations will be recorded here'))
               : ListView.builder(
                   controller: PrimaryScrollController.of(context),
                   itemCount: _items.length + (_hasMore ? 1 : 0),
@@ -280,7 +281,7 @@ class _CoinHistorySheetState extends State<_CoinHistorySheet> {
                     if (i == _items.length) {
                       return Padding(
                         padding: const EdgeInsets.all(12),
-                        child: TextButton(onPressed: _loading ? null : _load, child: const Text('続きを読み込む')),
+                        child: TextButton(onPressed: _loading ? null : _load, child: Text(tr('続きを読み込む', 'Load more'))),
                       );
                     }
                     final row = _items[i];
@@ -310,9 +311,9 @@ Future<void> showGeminiLimitSheet(BuildContext context, {required int coinCost, 
     context,
     builder: (sheet) => _InfoSheet(
       icon: Icons.auto_awesome_rounded,
-      title: '今週の Gemini の枠を使い切りました',
-      message: '毎日のフリーコインから Gemini に使える量には週の枠があります。月曜0時に枠が戻ります。\n今すぐ作るときは、1枚につきプレミアムコイン$coinCost枚を使います（残り$premium枚）。',
-      primaryLabel: 'プランを見る',
+      title: tr('今週の Gemini の枠を使い切りました', 'You have used this week’s Gemini allowance'),
+      message: tr('毎日のフリーコインから Gemini に使える量には週の枠があります。月曜0時に枠が戻ります。\n今すぐ作るときは、1枚につきプレミアムコイン$coinCost枚を使います（残り$premium枚）。', 'There is a weekly limit on how much of your daily free coins can be used for Gemini. It resets Monday 0:00 JST.\nTo generate now, each image costs $coinCost premium coins ($premium left).'),
+      primaryLabel: tr('プランを見る', 'See plans'),
       onPrimary: () {
         Navigator.of(sheet).pop();
         Nav.plans(context);
@@ -327,16 +328,16 @@ Future<void> showVerificationSheet(BuildContext context) {
     context,
     builder: (sheet) => _InfoSheet(
       icon: Icons.verified_user_rounded,
-      title: '本人確認をお願いします',
-      message: '無料プランで続けて生成するには、本人確認（LINE 連携）が必要です。本人確認はアプリの中ではできません。パソコンなどのブラウザで Aipictors にログインして済ませると、アプリでも続けて生成できます。',
-      primaryLabel: '閉じる',
+      title: tr('本人確認をお願いします', 'Verification required'),
+      message: tr('無料プランで続けて生成するには、本人確認（LINE 連携）が必要です。本人確認はアプリの中ではできません。パソコンなどのブラウザで Aipictors にログインして済ませると、アプリでも続けて生成できます。', 'To keep generating on the free plan, you need to verify your identity (LINE link). This cannot be done in the app. Log in to Aipictors in a web browser on a computer or similar to complete it, then you can keep generating in the app.'),
+      primaryLabel: tr('閉じる', 'Close'),
       onPrimary: () => Navigator.of(sheet).pop(),
       extra: OutlinedButton(
         onPressed: () {
           Navigator.of(sheet).pop();
           Nav.plans(context);
         },
-        child: const Text('プランを見る'),
+        child: Text(tr('プランを見る', 'See plans')),
       ),
     ),
   );
@@ -362,14 +363,14 @@ class _TermsSheetState extends State<_TermsSheet> {
   bool _sending = false;
 
   /// Web の利用規約（app/assets/terms.md）の「生成機能では、以下の利用は禁止されております。」の節
-  static const _points = [
-    (Icons.gavel_rounded, '法的な観点より性器または性器を連想する部位（スジの表現を含む）、性器結合部位及び挿入部位、アヌス結合部位及び挿入部位の無修正画像（AIにより当該部位に修正がされたものを含む）の生成を行わないで下さい。イラスト・リアルに関わらず無修正画像は禁止です。'),
-    (Icons.person_off_rounded, '複数アカウントでの生成利用は禁止です。'),
-    (Icons.block_rounded, '児童ポルノと誤認される恐れのある画像の生成は禁止です。リアルな作風で、18歳未満に見える性的表現を含んだ生成は禁止です。'),
-    (Icons.school_rounded, '性的描写を含むリアルな作風で、学生服や、背景が学校であるなど、児童ポルノと疑われる可能性がある表現を含んだ生成は禁止です。'),
-    (Icons.info_outline_rounded, '性的表現には、水着、肌の露出の多い衣装、えっちなポーズ、精液等の描写も含まれます。'),
-    (Icons.edit_note_rounded, 'AIにより上記の禁止事項が生成されないようにプロンプトを指定いただくようお願いいたします。性的な描写を含む可能性が高く心配な場合は、イラスト系のモデルをご利用下さい。'),
-    (Icons.fact_check_rounded, '生成結果は手動削除されたもの含めすべてチェックされ、不適切な利用が確認された場合は利用を停止させていただきます。'),
+  static List<(IconData, String)> get _points => [
+    (Icons.gavel_rounded, tr('法的な観点より性器または性器を連想する部位（スジの表現を含む）、性器結合部位及び挿入部位、アヌス結合部位及び挿入部位の無修正画像（AIにより当該部位に修正がされたものを含む）の生成を行わないで下さい。イラスト・リアルに関わらず無修正画像は禁止です。', 'For legal reasons, do not generate uncensored images of genitals or parts suggestive of genitals (including slit depictions), genital penetration, or anal penetration (including images where AI has altered these areas). Uncensored images are prohibited for both illustrations and realistic styles.')),
+    (Icons.person_off_rounded, tr('複数アカウントでの生成利用は禁止です。', 'Using generation from multiple accounts is prohibited.')),
+    (Icons.block_rounded, tr('児童ポルノと誤認される恐れのある画像の生成は禁止です。リアルな作風で、18歳未満に見える性的表現を含んだ生成は禁止です。', 'Generating images that could be mistaken for child pornography is prohibited. Realistic images with sexual content depicting people who appear under 18 are prohibited.')),
+    (Icons.school_rounded, tr('性的描写を含むリアルな作風で、学生服や、背景が学校であるなど、児童ポルノと疑われる可能性がある表現を含んだ生成は禁止です。', 'Realistic images with sexual content that could be suspected as child pornography, such as school uniforms or school backgrounds, are prohibited.')),
+    (Icons.info_outline_rounded, tr('性的表現には、水着、肌の露出の多い衣装、えっちなポーズ、精液等の描写も含まれます。', 'Sexual content includes swimsuits, revealing outfits, suggestive poses, depictions of semen, and similar.')),
+    (Icons.edit_note_rounded, tr('AIにより上記の禁止事項が生成されないようにプロンプトを指定いただくようお願いいたします。性的な描写を含む可能性が高く心配な場合は、イラスト系のモデルをご利用下さい。', 'Please write your prompts so the AI does not generate any of the prohibited content above. If you are worried your images may include sexual content, please use an illustration model.')),
+    (Icons.fact_check_rounded, tr('生成結果は手動削除されたもの含めすべてチェックされ、不適切な利用が確認された場合は利用を停止させていただきます。', 'All generated images, including manually deleted ones, are reviewed. If inappropriate use is found, your access will be suspended.')),
   ];
 
   Future<void> _agree() async {
@@ -401,13 +402,13 @@ class _TermsSheetState extends State<_TermsSheet> {
               ),
               const SizedBox(height: 12),
               Text(
-                '画像生成の利用規約',
+                tr('画像生成の利用規約', 'Image generation terms'),
                 textAlign: TextAlign.center,
                 style: context.tt.titleLarge?.copyWith(fontWeight: FontWeight.w800),
               ),
               const SizedBox(height: 6),
               Text(
-                '生成機能では、以下の利用は禁止されております',
+                tr('生成機能では、以下の利用は禁止されております', 'The following uses of the generator are prohibited'),
                 textAlign: TextAlign.center,
                 style: context.tt.bodyMedium?.copyWith(color: context.muted),
               ),
@@ -432,7 +433,7 @@ class _TermsSheetState extends State<_TermsSheet> {
                 child: TextButton.icon(
                   onPressed: () => launchUrl(Uri.parse('https://www.aipictors.com/generation/terms'), mode: LaunchMode.inAppBrowserView),
                   icon: const Icon(Icons.open_in_new_rounded, size: 18),
-                  label: const Text('利用規約の全文を読む'),
+                  label: Text(tr('利用規約の全文を読む', 'Read the full terms')),
                 ),
               ),
             ],
@@ -450,12 +451,12 @@ class _TermsSheetState extends State<_TermsSheet> {
                   child: Row(
                     children: [
                       Checkbox(value: _checked, onChanged: (v) => setState(() => _checked = v ?? false)),
-                      const Expanded(child: Text('利用規約を読み、同意します')),
+                      Expanded(child: Text(tr('利用規約を読み、同意します', 'I have read and agree to the terms'))),
                     ],
                   ),
                 ),
                 const SizedBox(height: 8),
-                GradientButton(label: '同意して生成をはじめる', icon: Icons.check_rounded, loading: _sending, onPressed: _checked ? _agree : null),
+                GradientButton(label: tr('同意して生成をはじめる', 'Agree and start generating'), icon: Icons.check_rounded, loading: _sending, onPressed: _checked ? _agree : null),
               ],
             ),
           ),

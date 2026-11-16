@@ -1,4 +1,5 @@
 import 'package:aipictors/v2/core/api.dart';
+import 'package:aipictors/v2/core/content_translate.dart';
 import 'package:aipictors/v2/core/design.dart';
 import 'package:aipictors/v2/core/models.dart';
 import 'package:aipictors/v2/core/nav.dart';
@@ -12,7 +13,7 @@ query AppAiRankings(\$limit: Int!, \$offset: Int!, \$where: AiEvaluationWorkRank
   aiEvaluationWorkRankings(limit: \$limit, offset: \$offset, where: \$where) {
     id index overallScore awardTier pictorComment dateText isSensitive
     user { $userSummaryFields }
-    work { id title rating largeThumbnailImageURL }
+    work { id title enTitle rating largeThumbnailImageURL }
   }
 }''';
 
@@ -151,7 +152,7 @@ class _Row extends StatelessWidget {
           const SizedBox(width: Ds.s12),
           Expanded(
             child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(work.str('title'), maxLines: 1, overflow: TextOverflow.ellipsis, style: const TextStyle(fontWeight: FontWeight.w700)),
+              Text(localizedContent(work.str('title'), work.strOrNull('enTitle')), maxLines: 1, overflow: TextOverflow.ellipsis, style: const TextStyle(fontWeight: FontWeight.w700)),
               Text(item.obj('user')?.str('name') ?? '', maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 12, color: context.muted)),
               const SizedBox(height: Ds.s2),
               Text('${item.integer('overallScore')} 点', style: const TextStyle(fontWeight: FontWeight.w800, color: Ds.gold)),

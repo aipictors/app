@@ -1,3 +1,4 @@
+import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/core/design.dart';
 import 'package:aipictors/v2/core/list_like_count.dart';
 import 'package:aipictors/v2/core/models.dart';
@@ -38,8 +39,8 @@ class WorkCard extends StatelessWidget {
                     top: 6,
                     child: Wrap(spacing: 4, children: [
                       if (work.rating == 'R15') const Badge2('R15', color: Color(0xCCE2A21B)),
-                      if (work.isVideo) const Badge2('動画', icon: Icons.play_arrow_rounded),
-                      if (work.isNovel) const Badge2('小説', icon: Icons.menu_book_rounded),
+                      if (work.isVideo) Badge2(tr('動画', 'Video'), icon: Icons.play_arrow_rounded),
+                      if (work.isNovel) Badge2(tr('小説', 'Novel'), icon: Icons.menu_book_rounded),
                     ]),
                   ),
                   if (work.subWorksCount > 0)
@@ -129,14 +130,14 @@ class SliverPagedWorks extends StatelessWidget {
   const SliverPagedWorks({
     super.key,
     required this.controller,
-    this.emptyTitle = '作品がありません',
+    this.emptyTitle,
     this.emptyMessage,
     this.emptyIcon = Icons.image_search_rounded,
     this.showUser = true,
   });
 
   final PagedController<WorkSummary> controller;
-  final String emptyTitle;
+  final String? emptyTitle;
   final String? emptyMessage;
   final IconData emptyIcon;
   final bool showUser;
@@ -175,7 +176,7 @@ class SliverPagedWorks extends StatelessWidget {
         }
         if (c.items.isEmpty) {
           return SliverToBoxAdapter(
-            child: StateView(icon: emptyIcon, title: emptyTitle, message: emptyMessage),
+            child: StateView(icon: emptyIcon, title: emptyTitle ?? tr('作品がありません', 'No works'), message: emptyMessage),
           );
         }
         return SliverMainAxisGroup(slivers: [
@@ -201,9 +202,9 @@ class SliverPagedWorks extends StatelessWidget {
                 child: c.isLoading
                     ? const SizedBox(width: 24, height: 24, child: CircularProgressIndicator(strokeWidth: 2.5))
                     : c.error != null
-                        ? TextButton.icon(onPressed: c.loadMore, icon: const Icon(Icons.refresh_rounded), label: const Text('続きを読み込む'))
+                        ? TextButton.icon(onPressed: c.loadMore, icon: const Icon(Icons.refresh_rounded), label: Text(tr('続きを読み込む', 'Load more')))
                         : !c.hasMore
-                            ? Text('ここまでです', style: TextStyle(color: context.muted, fontSize: 12))
+                            ? Text(tr('ここまでです', "That's all"), style: TextStyle(color: context.muted, fontSize: 12))
                             : const SizedBox(height: 24),
               ),
             ),

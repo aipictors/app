@@ -1,3 +1,4 @@
+import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/design.dart';
 import 'package:aipictors/v2/core/models.dart';
@@ -98,7 +99,7 @@ class _TagScreenState extends State<TagScreen> {
     });
     try {
       await ExploreApi.followTag(_name, next);
-      if (mounted) context.toast(next ? '#$_name をフォローしました' : 'フォローを解除しました', icon: next ? Icons.bookmark_added_rounded : Icons.bookmark_remove_rounded);
+      if (mounted) context.toast(next ? tr('#$_name をフォローしました', 'Following #$_name') : tr('フォローを解除しました', 'Unfollowed'), icon: next ? Icons.bookmark_added_rounded : Icons.bookmark_remove_rounded);
     } on ApiException catch (e) {
       if (mounted) {
         setState(() => _following = !next);
@@ -137,7 +138,7 @@ class _TagScreenState extends State<TagScreen> {
               ),
               actions: [
                 IconButton(
-                  tooltip: '共有',
+                  tooltip: tr('共有', 'Share'),
                   icon: const Icon(Icons.ios_share_rounded),
                   onPressed: () => Share.share('#$_name のAIイラスト https://www.aipictors.com/tags/${Uri.encodeComponent(_name)}'),
                 ),
@@ -173,7 +174,7 @@ class _TagScreenState extends State<TagScreen> {
                           AnimatedSwitcher(
                             duration: Ds.fast,
                             child: Text(
-                              _count == null ? '　' : '${_formatCount(_count!)}作品',
+                              _count == null ? '　' : tr('${_formatCount(_count!)}作品', '${_formatCount(_count!)} works'),
                               key: ValueKey(_count),
                               style: TextStyle(color: Colors.white.withValues(alpha: 0.9), fontWeight: FontWeight.w700),
                             ),
@@ -198,8 +199,8 @@ class _TagScreenState extends State<TagScreen> {
             SliverPagedWorks(
               key: ObjectKey(_c),
               controller: _c,
-              emptyTitle: 'このタグの作品はまだありません',
-              emptyMessage: _filter.activeCount > 0 ? '絞り込みを変えると見つかるかもしれません' : null,
+              emptyTitle: tr('このタグの作品はまだありません', 'No works with this tag yet'),
+              emptyMessage: _filter.activeCount > 0 ? tr('絞り込みを変えると見つかるかもしれません', 'Try changing the filters') : null,
             ),
           ],
         ),
@@ -224,7 +225,7 @@ class _TagScreenState extends State<TagScreen> {
         child: Row(mainAxisSize: MainAxisSize.min, children: [
           Icon(f ? Icons.check_rounded : Icons.add_rounded, size: 18, color: f ? Colors.white : Colors.black87),
           const SizedBox(width: 4),
-          Text(f ? 'フォロー中' : 'フォロー', style: TextStyle(fontWeight: FontWeight.w800, color: f ? Colors.white : Colors.black87)),
+          Text(f ? tr('フォロー中', 'Following') : tr('フォロー', 'Follow'), style: TextStyle(fontWeight: FontWeight.w800, color: f ? Colors.white : Colors.black87)),
         ]),
       ),
     );
