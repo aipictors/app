@@ -648,12 +648,47 @@ class _Field extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    final field = TextField(
       controller: controller,
       minLines: lines,
       maxLines: lines == 1 ? 1 : lines + 8,
       maxLength: maxLength,
       decoration: _decoration(context, hint),
+    );
+    final max = maxLength;
+    if (max == null) return field;
+    return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+      field,
+      const SizedBox(height: 4),
+      ValueListenableBuilder<TextEditingValue>(
+        valueListenable: controller,
+        builder: (context, value, _) => PostCharCount(value.text.length, max),
+      ),
+    ]);
+  }
+}
+
+/// 入力欄の下に出す「今の文字数/上限」（上限の 9 割でオレンジ、上限で赤）
+class PostCharCount extends StatelessWidget {
+  const PostCharCount(this.count, this.max, {super.key});
+
+  final int count;
+  final int max;
+
+  static String _comma(int n) => n.toString().replaceAllMapped(RegExp(r'(\d)(?=(\d{3})+$)'), (m) => '${m[1]},');
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    final color = count >= max
+        ? scheme.error
+        : count >= max * 0.9
+            ? Colors.orange
+            : scheme.onSurfaceVariant;
+    return Text(
+      '${_comma(count)}/${_comma(max)}',
+      textAlign: TextAlign.right,
+      style: TextStyle(fontSize: 12, color: color, fontFeatures: const [FontFeature.tabularFigures()]),
     );
   }
 }
