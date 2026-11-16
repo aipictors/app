@@ -870,7 +870,10 @@ class SupportPickerState extends State<SupportPicker> {
       child: Padding(
         padding: const EdgeInsets.fromLTRB(Ds.s20, 0, Ds.s20, Ds.s16),
         child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-          Text('推しコインを添える', style: context.tt.titleMedium?.copyWith(fontWeight: FontWeight.w800)),
+          Row(children: [
+            Flexible(child: Text('推しコインを添える', style: context.tt.titleMedium?.copyWith(fontWeight: FontWeight.w800))),
+            if (widget.showRewardNote) ...[const SizedBox(width: Ds.s8), const SupportRewardJoinedBadge()],
+          ]),
           const SizedBox(height: Ds.s12),
           _row('フリー', b.free, _free, _freeSteps, 1, (v) => setState(() => _free = v)),
           const SizedBox(height: Ds.s12),
@@ -891,7 +894,7 @@ class SupportPickerState extends State<SupportPicker> {
             value: _anonymous,
             onChanged: (v) => setState(() => _anonymous = v),
           ),
-          if (widget.showRewardNote) ...[const SupportRewardNote(isWork: true), const SizedBox(height: Ds.s8)],
+          if (widget.showRewardNote) ...[const SupportRewardNote(), const SizedBox(height: Ds.s8)],
           const SizedBox(height: Ds.s4),
           PrimaryButton(label: _pt > 0 ? '合計 ${_pt}pt を添える' : '添えない', onPressed: _done),
         ]),

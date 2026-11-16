@@ -244,16 +244,14 @@ class SupportAmountButton extends StatelessWidget {
   }
 }
 
-/// 「応援はクリエイターの報酬につながります」の一言。R18 の作品では出さない（報酬の対象外）
+/// 「応援はクリエイターの報酬につながります」の一言。作者が報酬に参加していて全年齢の作品のときだけ出すので、
+/// 条件の括弧書きは付けない（コメントからもプロフィールからも同じ言い方）
 class SupportRewardNote extends StatelessWidget {
-  const SupportRewardNote({super.key, this.isWork = false});
-
-  /// 作品経由（全年齢の作品で出す）のとき true。プロフィールからの推しは false
-  final bool isWork;
+  const SupportRewardNote({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final text = isWork ? '購入したプレミアムコインでの応援は、クリエイターの報酬につながります（クリエイター報酬に参加している人・全年齢の作品が対象）。' : '購入したプレミアムコインでの応援は、条件を満たすとクリエイターの報酬につながります。';
+    const text = '購入したプレミアムコインでの応援は、条件を満たすとクリエイターの報酬につながります。';
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -285,6 +283,36 @@ class SupportRewardNote extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+/// 「クリエイター報酬に参加しています」の印。推す画面で、報酬に参加している作者だけに出す
+/// （R18 の作品・プレミアムコインを受け取らない作者では出さない）。押すと説明のページへ
+class SupportRewardJoinedBadge extends StatelessWidget {
+  const SupportRewardJoinedBadge({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Semantics(
+      button: true,
+      label: 'このクリエイターはクリエイター報酬に参加しています',
+      child: GestureDetector(
+        onTap: () => launchUrl(Uri.parse('https://www.aipictors.com/creator-rewards/terms'), mode: LaunchMode.inAppBrowserView),
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+          decoration: BoxDecoration(
+            color: Ds.gold.withValues(alpha: 0.12),
+            borderRadius: BorderRadius.circular(999),
+            border: Border.all(color: Ds.gold.withValues(alpha: 0.4)),
+          ),
+          child: const Row(mainAxisSize: MainAxisSize.min, children: [
+            Icon(Icons.verified_rounded, size: 13, color: Ds.gold),
+            SizedBox(width: 3),
+            Text('報酬に参加中', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w800, color: Ds.gold)),
+          ]),
+        ),
+      ),
     );
   }
 }

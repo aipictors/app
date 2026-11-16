@@ -142,6 +142,7 @@ class _SupportSheetState extends State<_SupportSheet> {
                       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                         Text('${widget.userName}さんを推す', style: context.tt.titleMedium?.copyWith(fontWeight: FontWeight.w800)),
                         Text('コインで応援できます', style: context.tt.bodySmall?.copyWith(color: context.muted)),
+                        if (widget.showRewardNote && b != null && b.rewardJoined && b.premiumAccepted) ...[const SizedBox(height: 4), const SupportRewardJoinedBadge()],
                       ]),
                     ),
                   ]),
