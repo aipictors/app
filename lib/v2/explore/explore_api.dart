@@ -125,15 +125,75 @@ class TagSummary {
   final String? thumbnailUrl;
 }
 
+/// お題の代表サムネイル: 作品が全年齢（G）のときだけ URL を返す（年齢区分が分からない作品は出さない）
+String? themeThumbnailIfAllAges(Map<String, dynamic>? work, {bool large = false}) {
+  if (work == null || work['rating'] != 'G') return null;
+  final url = (work[large ? 'largeThumbnailImageURL' : 'smallThumbnailImageURL'] as String?)?.trim() ?? '';
+  return url.isEmpty ? null : url;
+}
+
+/// お題の作品一覧で選べる並び（サーバーの WorkOrderBy のうち、お題で意味のあるもの）
+const themeSorts = [WorkSort.likes, WorkSort.latest, WorkSort.views, WorkSort.comments];
+
+/// お題の作品一覧の条件（Web の /themes/\$date と同じ subjectId・isNowCreatedAt に、並びと全年齢の区分）
+Map<String, dynamic> themeWorksWhere(String themeId, WorkSort sort) => {
+      'subjectId': int.tryParse(themeId) ?? 0,
+      'ratings': appRatings,
+      'orderBy': sort.value,
+      'sort': 'DESC',
+      'isNowCreatedAt': true,
+    };
+
 class DailyTheme {
-  const DailyTheme({required this.id, required this.title, required this.dateText, required this.worksCount, this.thumbnailUrl});
+  const DailyTheme({
+    required this.id,
+    required this.title,
+    required this.dateText,
+    required this.worksCount,
+    this.thumbnailUrl,
+    this.year = 0,
+    this.month = 0,
+    this.day = 0,
+    this.note,
+    this.proposerName,
+  });
+
+  /// GraphQL の dailyTheme。お題名は英語表示で enTitle があればそれ、サムネイルは全年齢の作品だけ
+  factory DailyTheme.fromJson(Map<String, dynamic> t, {bool largeThumbnail = false}) {
+    final note = t.strOrNull('note')?.trim();
+    return DailyTheme(
+      id: t.str('id'),
+      title: localizedContent(t.str('title'), t.strOrNull('enTitle')),
+      dateText: t.str('dateText'),
+      worksCount: t.integer('worksCount'),
+      thumbnailUrl: themeThumbnailIfAllAges(t.obj('firstWork'), large: largeThumbnail),
+      year: t.integer('year'),
+      month: t.integer('month'),
+      day: t.integer('day'),
+      note: note == null || note.isEmpty ? null : note,
+      proposerName: t.obj('proposer')?.strOrNull('name'),
+    );
+  }
 
   final String id;
   final String title;
   final String dateText;
   final int worksCount;
   final String? thumbnailUrl;
+  final int year;
+  final int month;
+  final int day;
+  final String? note;
+  final String? proposerName;
+
+  DateTime get date => DateTime(year, month, day);
+
+  /// /themes/年/月/日
+  String get path => '/themes/$year/$month/$day';
 }
+
+/// サーバーの並び（sort）が効かないことがあるので日付で並べ直す
+List<DailyTheme> sortThemesNewestFirst(List<DailyTheme> themes) => [...themes]..sort((a, b) => b.date.compareTo(a.date));
 
 /// ランキングの 1 件
 class RankedWork {
@@ -209,40 +269,64 @@ query HotWorks(\$where: HotWorksWhereInput) {
     return WorkSummary.listFrom(data.list('hotWorks'));
   }
 
+  static const _themeFields = 'id title enTitle dateText year month day worksCount note proposer { id name } firstWork { id rating smallThumbnailImageURL largeThumbnailImageURL }';
+
   static const _dailyTheme = '''
 query DailyTheme(\$year: Int, \$month: Int, \$day: Int) {
   dailyTheme(year: \$year, month: \$month, day: \$day) {
-    id
-    title
-    enTitle
-    dateText
-    worksCount
-    firstWork {
-      id
-      rating
-      smallThumbnailImageURL
-    }
+    $_themeFields
   }
 }''';
 
-  static Future<DailyTheme?> todayTheme() async {
+  static Future<DailyTheme?> todayTheme() {
     final now = DateTime.now();
+    return themeOn(now.year, now.month, now.day);
+  }
+
+  /// その日のお題（無ければ null）
+  static Future<DailyTheme?> themeOn(int year, int month, int day) async {
     final data = await Api.query(
       _dailyTheme,
-      variables: {'year': now.year, 'month': now.month, 'day': now.day},
+      variables: {'year': year, 'month': month, 'day': day},
       cacheFor: const Duration(minutes: 10),
     );
     final t = data.obj('dailyTheme');
-    if (t == null) return null;
-    final first = t.obj('firstWork');
-    final safe = first != null && appRatings.contains(first.str('rating'));
-    return DailyTheme(
-      id: t.str('id'),
-      title: localizedContent(t.str('title'), t.strOrNull('enTitle')),
-      dateText: t.str('dateText'),
-      worksCount: t.integer('worksCount'),
-      thumbnailUrl: safe ? first.strOrNull('smallThumbnailImageURL') : null,
-    );
+    return t == null ? null : DailyTheme.fromJson(t);
+  }
+
+  static const _dailyThemes = '''
+query AppDailyThemes(\$offset: Int!, \$limit: Int!, \$where: DailyThemesWhereInput) {
+  dailyThemes(offset: \$offset, limit: \$limit, where: \$where) {
+    $_themeFields
+  }
+}''';
+
+  static String _ymd(DateTime d) => '${d.year}-${d.month.toString().padLeft(2, '0')}-${d.day.toString().padLeft(2, '0')}';
+
+  /// 過去のお題（昨日から [days] 日分、新しい順）
+  static Future<List<DailyTheme>> pastThemes({int days = 14}) async {
+    final now = DateTime.now();
+    final end = DateTime(now.year, now.month, now.day - 1);
+    final start = DateTime(end.year, end.month, end.day - days + 1);
+    final data = await Api.query(_dailyThemes, variables: {
+      'offset': 0,
+      'limit': days,
+      'where': {'startDate': _ymd(start), 'endDate': _ymd(end), 'orderBy': 'DATE_STARTED', 'sort': 'DESC'},
+    }, cacheFor: const Duration(minutes: 10));
+    return sortThemesNewestFirst([
+      for (final t in data.list('dailyThemes'))
+        if (!DateTime(t.integer('year'), t.integer('month'), t.integer('day')).isAfter(end)) DailyTheme.fromJson(t),
+    ]);
+  }
+
+  /// その月のお題（日付の古い順）
+  static Future<List<DailyTheme>> monthThemes(int year, int month) async {
+    final data = await Api.query(_dailyThemes, variables: {
+      'offset': 0,
+      'limit': 40,
+      'where': {'year': year, 'month': month},
+    }, cacheFor: const Duration(minutes: 5));
+    return sortThemesNewestFirst(data.list('dailyThemes').map(DailyTheme.fromJson).toList()).reversed.toList();
   }
 
   static const _themeWorks = '''
@@ -256,12 +340,7 @@ query ThemeWorks(\$offset: Int!, \$limit: Int!, \$where: WorksWhereInput) {
     final data = await Api.query(_themeWorks, variables: {
       'offset': offset,
       'limit': limit,
-      'where': {
-        'subjectId': int.tryParse(themeId) ?? 0,
-        'ratings': appRatings,
-        'orderBy': sort.value,
-        'sort': 'DESC',
-      },
+      'where': themeWorksWhere(themeId, sort),
     });
     return WorkSummary.listFrom(data.list('works'));
   }

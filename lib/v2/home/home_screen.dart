@@ -9,6 +9,7 @@ import 'package:aipictors/v2/core/list_like_count.dart';
 import 'package:aipictors/v2/core/models.dart';
 import 'package:aipictors/v2/core/nav.dart';
 import 'package:aipictors/v2/core/paged.dart';
+import 'package:aipictors/v2/explore/explore_api.dart' show themeThumbnailIfAllAges;
 import 'package:aipictors/v2/support/support_ranking_screen.dart';
 import 'package:aipictors/v2/widgets/common.dart';
 import 'package:aipictors/v2/widgets/user_avatar.dart';
@@ -56,7 +57,7 @@ query AppHomeTop(\$year: Int, \$month: Int, \$day: Int) {
     year
     month
     day
-    firstWork { largeThumbnailImageURL }
+    firstWork { rating largeThumbnailImageURL }
   }
 }''';
 
@@ -547,7 +548,8 @@ class _ThemeCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final image = theme.obj('firstWork')?.strOrNull('largeThumbnailImageURL');
+    // 代表の作品は全年齢（G）のときだけ出す
+    final image = themeThumbnailIfAllAges(theme.obj('firstWork'), large: true);
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
       child: Pressable(
@@ -584,6 +586,11 @@ class _ThemeCard extends StatelessWidget {
                 height: 92,
                 child: AppImage(image, memCacheWidth: 300),
               ),
+            // 押すとお題の作品一覧へ
+            Padding(
+              padding: EdgeInsets.only(left: image != null ? 4 : 0, right: 10),
+              child: const Icon(Icons.chevron_right_rounded, color: Color(0xFF8A4B00)),
+            ),
           ]),
         ),
       ),

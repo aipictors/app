@@ -8,6 +8,7 @@ import 'package:aipictors/v2/community/releases_screen.dart';
 import 'package:aipictors/v2/community/support_chat_screen.dart';
 import 'package:aipictors/v2/community/themes_screen.dart';
 import 'package:aipictors/v2/community/works_browse_screen.dart';
+import 'package:aipictors/v2/explore/theme_works_screen.dart';
 import 'package:aipictors/v2/support/support_ranking_screen.dart';
 import 'package:go_router/go_router.dart';
 
@@ -30,7 +31,7 @@ final List<RouteBase> communityRoutes = [
   GoRoute(path: '/themes/proposals/new', builder: (context, state) => const ThemeProposalNewScreen()),
   GoRoute(
     path: '/themes/:year/:month/:day',
-    builder: (context, state) => ThemeDayScreen(
+    builder: (context, state) => ThemeWorksScreen(
       year: int.parse(state.pathParameters['year']!),
       month: int.parse(state.pathParameters['month']!),
       day: int.parse(state.pathParameters['day']!),

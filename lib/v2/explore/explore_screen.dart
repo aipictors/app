@@ -7,7 +7,7 @@ import 'package:aipictors/v2/explore/explore_api.dart';
 import 'package:aipictors/v2/explore/explore_widgets.dart';
 import 'package:aipictors/v2/explore/ranking_screen.dart';
 import 'package:aipictors/v2/explore/search_input_screen.dart';
-import 'package:aipictors/v2/explore/theme_works_screen.dart';
+import 'package:aipictors/v2/explore/theme_widgets.dart';
 import 'package:aipictors/v2/widgets/common.dart';
 import 'package:aipictors/v2/widgets/work_grid.dart';
 import 'package:flutter/material.dart';
@@ -29,6 +29,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
   late Future<List<TagSummary>> _tags;
   late Future<List<RankedWork>> _ranking;
   late Future<DailyTheme?> _theme;
+  late Future<List<DailyTheme>> _pastThemes;
   late final PagedController<WorkSummary> _hot = PagedController(
     pageSize: 200,
     idOf: (w) => w.id,
@@ -45,6 +46,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
     _tags = ExploreApi.popularTagsWithThumbnail(limit: 20);
     _ranking = RankingLoader.latest(RankingPeriod.daily, limit: 12, tries: 4).then((r) => r.items);
     _theme = ExploreApi.todayTheme();
+    _pastThemes = ExploreApi.pastThemes();
   }
 
   @override
@@ -94,7 +96,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
             ),
             SliverPersistentHeader(pinned: true, delegate: _SearchHeader(onTap: _openSearch)),
             const SliverToBoxAdapter(child: _ExploreHub()),
-            SliverToBoxAdapter(child: _themeCard()),
+            SliverToBoxAdapter(child: _themesSection()),
             SliverToBoxAdapter(child: _tagsSection(wide)),
             SliverToBoxAdapter(child: _rankingSection()),
             SliverToBoxAdapter(child: SectionHeader(tr('いま話題の作品', 'Trending works'), icon: Icons.local_fire_department_rounded)),
@@ -106,62 +108,73 @@ class _ExploreScreenState extends State<ExploreScreen> {
     );
   }
 
-  Widget _themeCard() {
-    return FutureBuilder<DailyTheme?>(
-      future: _theme,
-      builder: (context, snap) {
-        final t = snap.data;
-        if (snap.connectionState != ConnectionState.done) {
-          return const Padding(padding: EdgeInsets.fromLTRB(16, 12, 16, 0), child: Skeleton(height: 96, radius: 20));
-        }
-        if (t == null) return const SizedBox.shrink();
-        return Padding(
-          padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
-          child: Pressable(
-            scale: 0.98,
-            onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => ThemeWorksScreen(theme: t))),
-            child: Container(
-              height: 96,
-              decoration: BoxDecoration(
-                borderRadius: Ds.br(20),
-                gradient: const LinearGradient(colors: [Color(0xFFFF8A5B), Color(0xFFFF5C8A), Color(0xFF8B5CF6)]),
-                boxShadow: [BoxShadow(color: const Color(0xFFFF5C8A).withValues(alpha: 0.25), blurRadius: 18, offset: const Offset(0, 8))],
+  /// お題: 今日のお題のカードと、過去のお題の横スクロール（すべて見る → 月ごとのカレンダー・一覧）
+  Widget _themesSection() {
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      SectionHeader(tr('お題', 'Daily themes'), icon: Icons.lightbulb_rounded, onMore: () => context.push('/themes')),
+      FutureBuilder<DailyTheme?>(
+        future: _theme,
+        builder: (context, snap) {
+          if (snap.connectionState != ConnectionState.done) {
+            return const Padding(padding: EdgeInsets.symmetric(horizontal: 16), child: Skeleton(height: 96, radius: 20));
+          }
+          final t = snap.data;
+          if (t == null) return const SizedBox.shrink();
+          return Padding(padding: const EdgeInsets.symmetric(horizontal: 16), child: ThemeTodayCard(theme: t));
+        },
+      ),
+      FutureBuilder<List<DailyTheme>>(
+        future: _pastThemes,
+        builder: (context, snap) {
+          final loading = snap.connectionState != ConnectionState.done;
+          final items = snap.data ?? const [];
+          if (!loading && items.isEmpty) return const SizedBox.shrink();
+          const w = 124.0;
+          return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 16, 16, 8),
+              child: Text(tr('過去のお題', 'Past themes'), style: context.tt.labelLarge?.copyWith(color: context.muted, fontWeight: FontWeight.w800)),
+            ),
+            SizedBox(
+              height: w + 44,
+              child: ListView.separated(
+                scrollDirection: Axis.horizontal,
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                itemCount: loading ? 5 : items.length + 1,
+                separatorBuilder: (_, __) => const SizedBox(width: 10),
+                itemBuilder: (context, i) {
+                  if (loading) return const SizedBox(width: w, child: Skeleton(radius: 14));
+                  if (i == items.length) return _allThemesTile(w);
+                  return ThemeStripCard(theme: items[i], width: w);
+                },
               ),
-              child: Row(children: [
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: AspectRatio(
-                    aspectRatio: 1,
-                    child: t.thumbnailUrl != null
-                        ? AppImage(t.thumbnailUrl, radius: 14, memCacheWidth: 240)
-                        : Container(
-                            decoration: BoxDecoration(color: Colors.white24, borderRadius: Ds.br(14)),
-                            child: const Icon(Icons.lightbulb_rounded, color: Colors.white, size: 34),
-                          ),
-                  ),
-                ),
-                Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                        decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.25), borderRadius: Ds.br(8)),
-                        child: Text(tr('今日のお題', "Today's theme"), style: const TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.w800)),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(t.title, maxLines: 1, overflow: TextOverflow.ellipsis, style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w900)),
-                      Text(tr('${compactCount(t.worksCount)}作品が参加中', '${compactCount(t.worksCount)} works'), style: TextStyle(color: Colors.white.withValues(alpha: 0.9), fontSize: 12, fontWeight: FontWeight.w600)),
-                    ],
-                  ),
-                ),
-                const Padding(padding: EdgeInsets.only(right: 12), child: Icon(Icons.chevron_right_rounded, color: Colors.white)),
+            ),
+          ]);
+        },
+      ),
+    ]);
+  }
+
+  /// 帯の最後: すべてのお題へ
+  Widget _allThemesTile(double w) {
+    return SizedBox(
+      width: w,
+      child: Pressable(
+        onTap: () => context.push('/themes'),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          AspectRatio(
+            aspectRatio: 1,
+            child: Container(
+              decoration: BoxDecoration(color: context.skeleton, borderRadius: Ds.br(14)),
+              child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+                Icon(Icons.calendar_month_rounded, size: 30, color: context.cs.primary),
+                const SizedBox(height: 6),
+                Text(tr('すべて見る', 'See all'), style: TextStyle(fontWeight: FontWeight.w800, color: context.cs.primary)),
               ]),
             ),
           ),
-        );
-      },
+        ]),
+      ),
     );
   }
 

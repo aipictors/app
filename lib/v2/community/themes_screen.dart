@@ -1,31 +1,19 @@
 import 'package:aipictors/v2/community/messages_screen.dart' show mockSend;
 import 'package:aipictors/v2/community/paged_list.dart';
 import 'package:aipictors/v2/core/api.dart';
+import 'package:aipictors/v2/core/debug_boot.dart';
 import 'package:aipictors/v2/core/design.dart';
-import 'package:aipictors/v2/core/models.dart';
 import 'package:aipictors/v2/core/nav.dart';
 import 'package:aipictors/v2/core/paged.dart';
+import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/explore/explore_api.dart';
+import 'package:aipictors/v2/explore/theme_widgets.dart';
+import 'package:aipictors/v2/explore/theme_works_screen.dart';
 import 'package:aipictors/v2/widgets/common.dart';
-import 'package:aipictors/v2/widgets/work_grid.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-const _monthQuery = r'''
-query AppThemesMonth($offset: Int!, $limit: Int!, $where: DailyThemesWhereInput) {
-  dailyThemes(offset: $offset, limit: $limit, where: $where) {
-    id title day month year worksCount firstWork { smallThumbnailImageURL }
-  }
-}''';
-
-const _dayQuery = '''
-query AppThemeDay(\$year: Int, \$month: Int, \$day: Int) {
-  dailyTheme(year: \$year, month: \$month, day: \$day) {
-    id title dateText worksCount note proposer { $userSummaryFields }
-  }
-}''';
-
-/// お題（カレンダー。過ぎた日を押すと結果）
+/// お題（月ごと。カレンダーと一覧を切り替え、日を押すとその日の作品）
 class ThemesScreen extends StatefulWidget {
   const ThemesScreen({super.key});
 
@@ -35,81 +23,99 @@ class ThemesScreen extends StatefulWidget {
 
 class _ThemesScreenState extends State<ThemesScreen> {
   late DateTime _month = DateTime(DateTime.now().year, DateTime.now().month);
-  late Future<Map<int, Map<String, dynamic>>> _f = _load();
-
-  Future<Map<int, Map<String, dynamic>>> _load() async {
-    final data = await Api.query(_monthQuery, variables: {
-      'offset': 0,
-      'limit': 40,
-      'where': {'year': _month.year, 'month': _month.month},
-    }, cacheFor: const Duration(minutes: 5));
-    return {for (final t in data.list('dailyThemes')) t.integer('day'): t};
-  }
+  late Future<List<DailyTheme>> _f = ExploreApi.monthThemes(_month.year, _month.month);
+  // 0: カレンダー 1: 一覧。開発用: /tmp/aipictors-debug の 2 行目が list なら一覧で開く（表示の確認用）
+  int _view = DebugBoot.screenTab == 'list' ? 1 : 0;
 
   void _move(int delta) => setState(() {
         _month = DateTime(_month.year, _month.month + delta);
-        _f = _load();
+        _f = ExploreApi.monthThemes(_month.year, _month.month);
       });
+
+  void _retry() => setState(() => _f = ExploreApi.monthThemes(_month.year, _month.month));
 
   @override
   Widget build(BuildContext context) {
     final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    final canNext = DateTime(_month.year, _month.month + 1).isBefore(DateTime(now.year, now.month + 2));
     return Scaffold(
       appBar: AppBar(
-        title: const Text('お題', style: TextStyle(fontWeight: FontWeight.w800)),
-        actions: [TextButton(onPressed: () => context.push('/themes/proposals'), child: const Text('お題の提案'))],
+        title: Text(tr('お題', 'Daily themes'), style: const TextStyle(fontWeight: FontWeight.w800)),
+        actions: [TextButton(onPressed: () => context.push('/themes/proposals'), child: Text(tr('お題の提案', 'Suggest')))],
       ),
-      body: ListView(padding: const EdgeInsets.fromLTRB(Ds.s12, 0, Ds.s12, Ds.s32), children: [
-        Row(children: [
-          IconButton(tooltip: '前の月', onPressed: () => _move(-1), icon: const Icon(Icons.chevron_left_rounded)),
-          Expanded(child: Center(child: Text('${_month.year}年${_month.month}月', style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w800)))),
-          IconButton(tooltip: '次の月', onPressed: () => _move(1), icon: const Icon(Icons.chevron_right_rounded)),
-        ]),
-        Row(children: [
-          for (final w in const ['日', '月', '火', '水', '木', '金', '土'])
-            Expanded(child: Center(child: Text(w, style: TextStyle(fontSize: 12, color: context.muted, fontWeight: FontWeight.w700)))),
-        ]),
-        const SizedBox(height: Ds.s4),
-        FutureBuilder<Map<int, Map<String, dynamic>>>(
+      body: ListView(padding: const EdgeInsets.fromLTRB(0, 0, 0, Ds.s32), children: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(Ds.s16, 0, Ds.s16, Ds.s4),
+          child: Text(
+            tr('毎日0時に新しいお題が出ます。お題に沿った作品を投稿して参加しよう！', 'A new theme every day at 0:00 (JST). Join by posting a work for the theme!'),
+            style: TextStyle(color: context.muted, fontSize: 12.5, height: 1.4),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: Ds.s8),
+          child: PillTabs(labels: [tr('カレンダー', 'Calendar'), tr('一覧', 'List')], index: _view, onChanged: (i) => setState(() => _view = i)),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: Ds.s12),
+          child: Row(children: [
+            IconButton(tooltip: tr('前の月', 'Previous month'), onPressed: () => _move(-1), icon: const Icon(Icons.chevron_left_rounded)),
+            Expanded(child: Center(child: Text(themeMonthLabel(_month), style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w800)))),
+            IconButton(tooltip: tr('次の月', 'Next month'), onPressed: canNext ? () => _move(1) : null, icon: const Icon(Icons.chevron_right_rounded)),
+          ]),
+        ),
+        FutureBuilder<List<DailyTheme>>(
           future: _f,
           builder: (context, snap) {
-            if (snap.hasError) return StateView.error('お題を読み込めませんでした', onRetry: () => setState(() => _f = _load()));
-            if (!snap.hasData) return const Skeleton(height: 420, radius: 12);
+            if (snap.hasError) return StateView.error(tr('お題を読み込めませんでした', "Couldn't load themes"), onRetry: _retry);
+            if (!snap.hasData) return const Padding(padding: EdgeInsets.symmetric(horizontal: Ds.s12), child: Skeleton(height: 420, radius: 12));
             final themes = snap.data!;
-            final leading = DateTime(_month.year, _month.month, 1).weekday % 7;
-            final days = DateTime(_month.year, _month.month + 1, 0).day;
-            return GridView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 7, mainAxisSpacing: 3, crossAxisSpacing: 3, childAspectRatio: 0.62),
-              itemCount: leading + days,
-              itemBuilder: (context, i) {
-                if (i < leading) return const SizedBox.shrink();
-                final day = i - leading + 1;
-                final isToday = _month.year == now.year && _month.month == now.month && day == now.day;
-                return _DayCell(day: day, theme: themes[day], isToday: isToday, month: _month);
-              },
-            );
+            if (_view == 1) return _ThemeList(themes: themes.reversed.where((t) => !t.date.isAfter(today)).toList());
+            return Padding(padding: const EdgeInsets.symmetric(horizontal: Ds.s12), child: _calendar({for (final t in themes) t.day: t}, today));
           },
         ),
       ]),
     );
   }
+
+  Widget _calendar(Map<int, DailyTheme> themes, DateTime today) {
+    final leading = DateTime(_month.year, _month.month, 1).weekday % 7;
+    final days = DateTime(_month.year, _month.month + 1, 0).day;
+    return Column(children: [
+      Row(children: [
+        // 日曜始まり
+        for (final w in const [7, 1, 2, 3, 4, 5, 6])
+          Expanded(child: Center(child: Text(weekdayLabel(w), style: TextStyle(fontSize: 12, color: context.muted, fontWeight: FontWeight.w700)))),
+      ]),
+      const SizedBox(height: Ds.s4),
+      GridView.builder(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 7, mainAxisSpacing: 3, crossAxisSpacing: 3, childAspectRatio: 0.62),
+        itemCount: leading + days,
+        itemBuilder: (context, i) {
+          if (i < leading) return const SizedBox.shrink();
+          final day = i - leading + 1;
+          final date = DateTime(_month.year, _month.month, day);
+          return _DayCell(day: day, theme: themes[day], isToday: date == today);
+        },
+      ),
+    ]);
+  }
 }
 
 class _DayCell extends StatelessWidget {
-  const _DayCell({required this.day, required this.theme, required this.isToday, required this.month});
+  const _DayCell({required this.day, required this.theme, required this.isToday});
 
   final int day;
-  final Map<String, dynamic>? theme;
+  final DailyTheme? theme;
   final bool isToday;
-  final DateTime month;
 
   @override
   Widget build(BuildContext context) {
     final t = theme;
     return Pressable(
-      onTap: t == null ? null : () => context.push('/themes/${month.year}/${month.month}/$day'),
+      onTap: t == null ? null : () => context.push(t.path),
       child: Container(
         clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(
@@ -125,110 +131,61 @@ class _DayCell extends StatelessWidget {
           if (t != null)
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 3),
-              child: Text(t.str('title'), maxLines: 2, overflow: TextOverflow.ellipsis, style: const TextStyle(fontSize: 9.5, height: 1.2, fontWeight: FontWeight.w600)),
+              child: Text(t.title, maxLines: 2, overflow: TextOverflow.ellipsis, style: const TextStyle(fontSize: 9.5, height: 1.2, fontWeight: FontWeight.w600)),
             ),
           const SizedBox(height: 2),
-          if (t?.obj('firstWork')?.strOrNull('smallThumbnailImageURL') != null)
-            Expanded(child: AppImage(t!.obj('firstWork')!.str('smallThumbnailImageURL'), memCacheWidth: 150)),
+          if (t?.thumbnailUrl != null) Expanded(child: AppImage(t!.thumbnailUrl, memCacheWidth: 150)),
         ]),
       ),
     );
   }
 }
 
-/// その日のお題の作品（結果）
-class ThemeDayScreen extends StatefulWidget {
-  const ThemeDayScreen({super.key, required this.year, required this.month, required this.day});
+/// その月のお題の一覧（新しい順。サムネイル・日付・お題名・作品数）
+class _ThemeList extends StatelessWidget {
+  const _ThemeList({required this.themes});
 
-  final int year;
-  final int month;
-  final int day;
-
-  @override
-  State<ThemeDayScreen> createState() => _ThemeDayScreenState();
-}
-
-class _ThemeDayScreenState extends State<ThemeDayScreen> {
-  Map<String, dynamic>? _theme;
-  String? _error;
-  PagedController<WorkSummary>? _c;
-  int _sort = 0;
-
-  @override
-  void initState() {
-    super.initState();
-    _load();
-  }
-
-  Future<void> _load() async {
-    try {
-      final data = await Api.query(_dayQuery, variables: {'year': widget.year, 'month': widget.month, 'day': widget.day}, cacheFor: const Duration(minutes: 5));
-      if (!mounted) return;
-      setState(() {
-        _theme = data.obj('dailyTheme');
-        _error = _theme == null ? 'この日のお題はありません' : null;
-        _c = _theme == null ? null : _make();
-      });
-    } on ApiException catch (e) {
-      if (mounted) setState(() => _error = e.message);
-    }
-  }
-
-  PagedController<WorkSummary> _make() {
-    final id = _theme!.str('id');
-    final sort = _sort == 0 ? WorkSort.likes : WorkSort.latest;
-    return PagedController(idOf: (w) => w.id, fetch: (o, l) => ExploreApi.themeWorks(id, sort, o, l));
-  }
-
-  @override
-  void dispose() {
-    _c?.dispose();
-    super.dispose();
-  }
+  final List<DailyTheme> themes;
 
   @override
   Widget build(BuildContext context) {
-    final t = _theme;
-    return Scaffold(
-      appBar: AppBar(title: Text(t?.str('title') ?? 'お題', style: const TextStyle(fontWeight: FontWeight.w800))),
-      body: _error != null
-          ? StateView.error(_error!, onRetry: _load)
-          : _c == null
-              ? const SkeletonGrid()
-              : CustomScrollView(slivers: [
-                  SliverToBoxAdapter(
-                    child: Padding(
-                      padding: const EdgeInsets.all(Ds.s16),
-                      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                        Text('${t!.str('dateText')}・${t.integer('worksCount')} 作品', style: TextStyle(color: context.muted, fontSize: 13)),
-                        if (t.strOrNull('note') != null) ...[const SizedBox(height: Ds.s6), Text(t.str('note'), style: const TextStyle(height: 1.5))],
-                        if (t.obj('proposer') != null) ...[
-                          const SizedBox(height: Ds.s4),
-                          Text('提案: ${t.obj('proposer')!.str('name')}さん', style: TextStyle(color: context.muted, fontSize: 12)),
-                        ],
-                      ]),
-                    ),
-                  ),
-                  SliverToBoxAdapter(
-                    child: PillTabs(
-                      labels: const ['人気順（結果）', '新着'],
-                      index: _sort,
-                      onChanged: (i) => setState(() {
-                        _c?.dispose();
-                        _sort = i;
-                        _c = _make();
-                      }),
-                    ),
-                  ),
-                  const SliverToBoxAdapter(child: SizedBox(height: Ds.s8)),
-                  SliverPagedWorks(key: ValueKey(_sort), controller: _c!),
-                  const SliverToBoxAdapter(child: SizedBox(height: Ds.s32)),
+    if (themes.isEmpty) return StateView.empty(tr('この月のお題はまだありません', 'No themes this month yet'), icon: Icons.event_busy_rounded, compact: true);
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    return Column(children: [
+      for (final t in themes)
+        Pressable(
+          onTap: () => context.push(t.path),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: Ds.s16, vertical: Ds.s6),
+            child: Row(children: [
+              SizedBox(
+                width: 64,
+                height: 64,
+                child: t.thumbnailUrl != null ? AppImage(t.thumbnailUrl, radius: 12, memCacheWidth: 200) : const ThemeThumbPlaceholder(radius: 12, iconSize: 24),
+              ),
+              const SizedBox(width: Ds.s12),
+              Expanded(
+                child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  Row(children: [
+                    Text(themeDateLabel(t.date), style: TextStyle(color: context.muted, fontSize: 12, fontWeight: FontWeight.w700)),
+                    if (t.date == today) ...[const SizedBox(width: 6), Badge2(tr('今日', 'Today'), color: Ds.pink)],
+                  ]),
+                  const SizedBox(height: 2),
+                  Text(t.title, maxLines: 1, overflow: TextOverflow.ellipsis, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w800)),
+                  const SizedBox(height: 2),
+                  Text(themeWorksCountLabel(t.worksCount), style: TextStyle(color: context.muted, fontSize: 12)),
                 ]),
-    );
+              ),
+              Icon(Icons.chevron_right_rounded, color: context.muted),
+            ]),
+          ),
+        ),
+    ]);
   }
 }
 
-/// 旧 URL /daily_themes/:id。日付を調べて [ThemeDayScreen] を出す（旧画面は作品の画像だけを並べていた）
+/// 旧 URL /daily_themes/:id。日付を調べて [ThemeWorksScreen] を出す（旧画面は作品の画像だけを並べていた）
 class ThemeByIdScreen extends StatefulWidget {
   const ThemeByIdScreen({super.key, required this.id});
 
@@ -277,7 +234,7 @@ query DailyThemeDate($id: ID) {
   @override
   Widget build(BuildContext context) {
     final d = _date;
-    if (d != null) return ThemeDayScreen(year: d.year, month: d.month, day: d.day);
+    if (d != null) return ThemeWorksScreen(year: d.year, month: d.month, day: d.day);
     return Scaffold(
       appBar: AppBar(title: const Text('お題', style: TextStyle(fontWeight: FontWeight.w800))),
       body: _error != null ? StateView.error(_error!, onRetry: _load) : const SkeletonGrid(),
