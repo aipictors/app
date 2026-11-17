@@ -42,7 +42,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
   }
 
   void _load() {
-    _tags = ExploreApi.popularTags(limit: 20);
+    _tags = ExploreApi.popularTagsWithThumbnail(limit: 20);
     _ranking = RankingLoader.latest(RankingPeriod.daily, limit: 12, tries: 4).then((r) => r.items);
     _theme = ExploreApi.todayTheme();
   }

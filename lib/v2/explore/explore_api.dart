@@ -111,6 +111,13 @@ class WorkFilter {
       };
 }
 
+/// タグのサムネイル: 先頭の作品が全年齢（G）のときだけ URL を返す
+String? tagThumbnailIfAllAges(Map<String, dynamic>? work) {
+  if (work == null || work['rating'] != 'G') return null;
+  final url = (work['smallThumbnailImageURL'] as String?)?.trim() ?? '';
+  return url.isEmpty ? null : url;
+}
+
 class TagSummary {
   const TagSummary({required this.name, this.thumbnailUrl});
 
@@ -146,10 +153,10 @@ class ExploreApi {
 query SearchPopularTags(\$limit: Int!, \$where: RecommendedTagsWhereInput!) {
   recommendedTags(limit: \$limit, where: \$where) {
     tagName
-    thumbnailUrl
   }
 }''';
 
+  /// 名前だけの人気のタグ（検索の候補用）
   static Future<List<TagSummary>> popularTags({int limit = 24}) async {
     final data = await Api.query(
       _recommendedTags,
@@ -163,9 +170,24 @@ query SearchPopularTags(\$limit: Int!, \$where: RecommendedTagsWhereInput!) {
         .list('recommendedTags')
         .map((t) => t.str('tagName'))
         .where((name) => name.isNotEmpty && !SensitiveTags.isBlocked(name))
-        // この API の thumbnailUrl は年齢区分が分からないので使わない
         .map((name) => TagSummary(name: name))
         .toList();
+  }
+
+  static const _hotTags = '''
+query HotTagsWithThumbnail {
+  hotTags { name firstWork { smallThumbnailImageURL rating } }
+}''';
+
+  /// サムネイル付きの人気のタグ（Web のトップのタグ一覧と同じ hotTags）。
+  /// サムネイルは先頭の作品が全年齢（G）のときだけ使い、それ以外はサムネイルなしにする
+  static Future<List<TagSummary>> popularTagsWithThumbnail({int limit = 24}) async {
+    final data = await Api.query(_hotTags, cacheFor: const Duration(minutes: 10));
+    return [
+      for (final t in data.list('hotTags'))
+        if (t.str('name').isNotEmpty && !SensitiveTags.isBlocked(t.str('name')))
+          TagSummary(name: t.str('name'), thumbnailUrl: tagThumbnailIfAllAges(t.obj('firstWork'))),
+    ].take(limit).toList();
   }
 
   static const _hotWorks = '''
