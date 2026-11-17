@@ -624,7 +624,7 @@ class _CommentComposerState extends State<CommentComposer> {
   Future<void> _pickSupport() async {
     if (!Nav.requireLogin(context)) return;
     try {
-      _balance ??= await Coins.summary();
+      _balance ??= await Coins.summary(supportTo: widget.ownerId);
     } on ApiException catch (e) {
       if (mounted) context.toast(e.message, error: true);
       return;
@@ -641,7 +641,8 @@ class _CommentComposerState extends State<CommentComposer> {
         premium: _supportPremium,
         anonymous: _supportAnonymous,
         previewText: _text.text.trim(),
-        showRewardNote: isCreatorRewardRating(widget.rating),
+        // 報酬の一言は、全年齢の作品で、作者が報酬に参加していてプレミアムコインを受け取るときだけ
+        showRewardNote: isCreatorRewardRating(widget.rating) && _balance!.rewardJoined && _balance!.premiumAccepted,
       ),
     );
     if (picked == null) return;
@@ -836,7 +837,7 @@ class SupportPickerState extends State<SupportPicker> {
   static const _confirmPt = 1000;
 
   late int _free = widget.free;
-  late int _premium = widget.premium;
+  late int _premium = widget.balance.premiumAccepted ? widget.premium : 0;
   late bool _anonymous = widget.anonymous;
 
   int get _pt => _free + _premium * 10;
@@ -872,11 +873,17 @@ class SupportPickerState extends State<SupportPicker> {
       child: Padding(
         padding: const EdgeInsets.fromLTRB(Ds.s20, 0, Ds.s20, Ds.s16),
         child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-          Text(tr('推しコインを添える', 'Add support coins'), style: context.tt.titleMedium?.copyWith(fontWeight: FontWeight.w800)),
+          Row(children: [
+            Flexible(child: Text(tr('推しコインを添える', 'Add support coins'), style: context.tt.titleMedium?.copyWith(fontWeight: FontWeight.w800))),
+            if (widget.showRewardNote) ...[const SizedBox(width: Ds.s8), const SupportRewardJoinedBadge()],
+          ]),
           const SizedBox(height: Ds.s12),
           _row(tr('フリー', 'Free'), b.free, _free, _freeSteps, 1, (v) => setState(() => _free = v)),
           const SizedBox(height: Ds.s12),
-          _row(tr('プレミアム（×10pt）', 'Premium (×10pt)'), b.premium, _premium, _premiumSteps, 10, (v) => setState(() => _premium = v)),
+          if (b.premiumAccepted)
+            _row(tr('プレミアム（×10pt）', 'Premium (×10pt)'), b.premium, _premium, _premiumSteps, 10, (v) => setState(() => _premium = v))
+          else
+            Text(tr('この作者はプレミアムコインでの応援を受け付けていません。フリーコインで推せます', 'This creator does not accept support with premium coins. You can support with free coins.'), style: TextStyle(color: context.muted, fontSize: 12)),
           if (_pt > 0) ...[
             const SizedBox(height: Ds.s12),
             Text(tr('コメントはこう表示されます', 'Your comment will look like this'), style: TextStyle(color: context.muted, fontSize: 11)),
@@ -890,7 +897,7 @@ class SupportPickerState extends State<SupportPicker> {
             value: _anonymous,
             onChanged: (v) => setState(() => _anonymous = v),
           ),
-          if (widget.showRewardNote) ...[const SupportRewardNote(isWork: true), const SizedBox(height: Ds.s8)],
+          if (widget.showRewardNote) ...[const SupportRewardNote(), const SizedBox(height: Ds.s8)],
           const SizedBox(height: Ds.s4),
           PrimaryButton(label: _pt > 0 ? tr('合計 ${_pt}pt を添える', 'Add ${_pt}pt in total') : tr('添えない', 'None'), onPressed: _done),
         ]),

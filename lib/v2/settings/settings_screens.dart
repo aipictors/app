@@ -35,6 +35,7 @@ class SettingsScreen extends StatelessWidget {
             link(Icons.manage_accounts_outlined, tr('アカウント設定', 'Account settings'), '/settings/account'),
             link(Icons.volunteer_activism_outlined, tr('応援コイン受け取り', 'Supports received'), '/settings/support-received'),
             link(Icons.payments_outlined, tr('収益の受け取り', 'Rewards payout'), '/settings/creator-rewards'),
+            link(Icons.do_not_disturb_on_outlined, tr('プレミアムコインでの推し', 'Premium coin support'), '/settings/premium-coin-support'),
           ]),
           SettingsGroup(title: tr('表示と通知', 'Display & notifications'), children: [
             link(Icons.notifications_none_rounded, tr('通知・いいね', 'Notifications & likes'), '/settings/notification'),
@@ -468,6 +469,43 @@ class _StickerSettingsScreenState extends State<StickerSettingsScreen> with _Set
               onHideDefaultChanged: saving ? null : (v) => saveSetting('isHideDefaultStickers', v),
               onShowLegacyChanged: saving ? null : (v) => saveSetting('isShowLegacyDefaultStickers', v),
             ),
+          ),
+    );
+  }
+}
+
+/// プレミアムコインでの推しを受け取らない（パロディ作品などでお金に相当するものを受け取りたくない人向け）。Web の設定と同じ
+class PremiumCoinSupportSettingsScreen extends StatefulWidget {
+  const PremiumCoinSupportSettingsScreen({super.key});
+
+  @override
+  State<PremiumCoinSupportSettingsScreen> createState() => _PremiumCoinSupportSettingsScreenState();
+}
+
+class _PremiumCoinSupportSettingsScreenState extends State<PremiumCoinSupportSettingsScreen> with _SettingState {
+  @override
+  void initState() {
+    super.initState();
+    loadSetting();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final s = setting;
+    return Scaffold(
+      appBar: AppBar(title: Text(tr('プレミアムコインでの推し', 'Premium coin support'), style: const TextStyle(fontWeight: FontWeight.w800))),
+      body: settingPlaceholder() ??
+          ContentWidth(
+            child: ListView(children: [
+              SettingsGroup(children: [
+                SettingsSwitch(
+                  label: tr('プレミアムコインでの推しを受け取らない', 'Do not accept support with premium coins'),
+                  subtitle: tr('オンにすると、あなたへの推しはフリーコインだけになります。これまでに受け取った分はそのままです', 'When on, support you receive is free coins only. What you already received stays as is.'),
+                  value: s!.boolean('isRejectPremiumCoinSupport'),
+                  onChanged: saving ? null : (v) => saveSetting('isRejectPremiumCoinSupport', v),
+                ),
+              ]),
+            ]),
           ),
     );
   }
