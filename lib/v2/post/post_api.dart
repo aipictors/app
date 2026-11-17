@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 
 /// Web の config.post.maxImageCount と同じ
 const maxPostImages = 200;
-const maxPostTags = 10;
+const maxPostTags = 20;
 const maxTitleLength = 120;
 const maxCaptionLength = 3000;
 
