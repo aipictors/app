@@ -1,6 +1,8 @@
 import 'package:aipictors/v2/core/api.dart';
+import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/core/models.dart';
 import 'package:aipictors/v2/post/upload.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 
 const stickerFields = '''
@@ -140,5 +142,60 @@ query AppMyStickers(\$offset: Int!, \$limit: Int!, \$where: UserStickersWhereInp
     }
     final data = await Api.mutate(r'mutation AppCreateSticker($input: CreateStickerInput!) { createSticker(input: $input) { id } }', variables: {'input': input});
     await addToMine(data.obj('createSticker')!.str('id'));
+  }
+}
+
+/// コメント欄に固定したスタンプ（アカウントに保存され、Web と同じ。最大 [maxPinned] 個、並び順のまま）
+class PinnedStickers {
+  PinnedStickers._();
+
+  static const maxPinned = 12;
+
+  /// null はまだ読んでいない
+  static final items = ValueNotifier<List<Map<String, dynamic>>?>(null);
+
+  static Future<void>? _loading;
+
+  /// 読んだときのアカウント（別のアカウントに切り替えたら読み直す）
+  static String? _loadedFor;
+
+  /// 読んでいなければ読む（ログイン中だけ呼ぶ）
+  static Future<void> ensureLoaded() {
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    if (items.value != null && _loadedFor == uid) return Future.value();
+    if (_loadedFor != uid) items.value = null;
+    _loadedFor = uid;
+    return _loading ??= _load().whenComplete(() => _loading = null);
+  }
+
+  static Future<void> _load() async {
+    try {
+      final data = await Api.query(r'query AppPinnedStickers { viewer { id pinnedStickers { id title imageUrl } } }');
+      items.value = data.obj('viewer')?.list('pinnedStickers') ?? <Map<String, dynamic>>[];
+    } on ApiException {
+      items.value ??= <Map<String, dynamic>>[];
+    }
+  }
+
+  static bool isPinned(String id) => (items.value ?? const []).any((s) => s.str('id') == id);
+
+  /// 固定する・外す。失敗したら元に戻して例外を投げる
+  static Future<void> toggle(Map<String, dynamic> sticker) async {
+    final before = List<Map<String, dynamic>>.of(items.value ?? const []);
+    final id = sticker.str('id');
+    final next = isPinned(id) ? before.where((s) => s.str('id') != id).toList() : [...before, sticker];
+    if (next.length > maxPinned) {
+      throw ApiException(tr('固定できるスタンプは $maxPinned 個までです', 'You can pin up to $maxPinned stickers'));
+    }
+    items.value = next;
+    try {
+      final data = await Api.mutate(r'mutation AppUpdatePinnedStickers($stickerIds: [ID!]!) { updatePinnedStickers(stickerIds: $stickerIds) { id title imageUrl } }', variables: {
+        'stickerIds': next.map((s) => s.str('id')).toList(),
+      });
+      items.value = data.list('updatePinnedStickers');
+    } on ApiException {
+      items.value = before;
+      rethrow;
+    }
   }
 }

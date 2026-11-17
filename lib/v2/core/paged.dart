@@ -37,12 +37,15 @@ class PagedController<T> extends ChangeNotifier {
       if (generation != _generation) return;
       _offset += pageSize;
       final seen = idOf == null ? null : items.map(idOf!).toSet();
+      var added = 0;
       for (final item in page) {
         if (seen != null && !seen.add(idOf!(item))) continue;
         items.add(item);
+        added++;
       }
-      // 1 件も返らなければ終わり（並べ替えの都合で limit 未満でも続きがあることがある）
-      hasMore = page.isNotEmpty;
+      // 1 件も返らなければ終わり（並べ替えの都合で limit 未満でも続きがあることがある）。
+      // 返ってきても全部読んだものと同じなら終わり（offset を無視して先頭から返す API で、同じページを取り続けないように）
+      hasMore = page.isNotEmpty && added > 0;
     } on ApiException catch (e) {
       if (generation != _generation) return;
       error = e.message;

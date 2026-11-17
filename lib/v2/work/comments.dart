@@ -8,6 +8,7 @@ import 'package:aipictors/v2/core/models.dart';
 import 'package:aipictors/v2/core/nav.dart';
 import 'package:aipictors/v2/core/paged.dart';
 import 'package:aipictors/v2/core/support_tier.dart';
+import 'package:aipictors/v2/stickers/sticker_api.dart';
 import 'package:aipictors/v2/widgets/common.dart';
 import 'package:aipictors/v2/widgets/user_avatar.dart';
 import 'package:aipictors/v2/widgets/official_badge.dart';
@@ -408,11 +409,19 @@ query AppWorkComments(\$id: ID!, \$offset: Int!, \$limit: Int!) {
 
   CommentItem? _replyTo;
   final _focus = FocusNode();
+  final _composerKey = GlobalKey<CommentComposerState>();
 
   @override
   void initState() {
     super.initState();
     _controller.loadMore();
+    if (widget.viewerId != null) PinnedStickers.ensureLoaded();
+    // 開発用: /tmp/aipictors-debug の 2 行目が sheet:pins なら、デフォルトのスタンプを固定したことにして上の列を出す（表示の確認用。保存はしない）
+    if (DebugBoot.screenTab == 'sheet:pins') {
+      PinnedStickers.ensureLoaded().then((_) => Api.query(r'query AppDebugDefaultStickers { viewer { id defaultStickers { id title imageUrl } } }')).then((data) {
+        PinnedStickers.items.value = data.obj('viewer')?.list('defaultStickers');
+      });
+    }
     // 開発用: /tmp/aipictors-debug の 2 行目が sheet:scroll:<px> なら一覧をその位置まで送る（表示の確認用）
     final debugTab = DebugBoot.screenTab;
     if (debugTab != null && debugTab.startsWith('sheet:scroll:')) {
@@ -446,6 +455,8 @@ query AppWorkComments(\$id: ID!, \$offset: Int!, \$limit: Int!) {
           ]),
         ),
         Divider(height: 1, color: context.hairline),
+        // 固定したスタンプ（押すとそのスタンプですぐコメントする。入力中の文字があれば一緒に送る）
+        if (widget.viewerId != null) _PinnedStickerBar(onTap: (sticker) => _composerKey.currentState?.sendSticker(sticker)),
         Expanded(
           child: ListenableBuilder(
             listenable: _controller,
@@ -513,6 +524,7 @@ query AppWorkComments(\$id: ID!, \$offset: Int!, \$limit: Int!) {
           ),
         ),
         CommentComposer(
+          key: _composerKey,
           workId: widget.workId,
           ownerId: widget.ownerId,
           ownerName: widget.ownerName,
@@ -564,10 +576,10 @@ class CommentComposer extends StatefulWidget {
   final void Function(CommentItem comment, CommentItem? parent) onPosted;
 
   @override
-  State<CommentComposer> createState() => _CommentComposerState();
+  State<CommentComposer> createState() => CommentComposerState();
 }
 
-class _CommentComposerState extends State<CommentComposer> {
+class CommentComposerState extends State<CommentComposer> {
   final _text = TextEditingController();
   bool _sending = false;
   Map<String, dynamic>? _sticker;
@@ -610,48 +622,71 @@ class _CommentComposerState extends State<CommentComposer> {
 
   bool get _canSend => !_sending && (_text.text.trim().isNotEmpty || _sticker != null);
 
+  /// スタンプを選ぶ下のシートをすぐ出す。シートの入力欄は下の入力欄と同じ文字で、スタンプを押すと一緒にすぐ送る
   Future<void> _pickSticker() async {
     if (!Nav.requireLogin(context)) return;
+    FocusScope.of(context).unfocus();
     final picked = await showModalBottomSheet<Map<String, dynamic>>(
       context: context,
+      isScrollControlled: true,
       showDragHandle: true,
       backgroundColor: context.surfaceCard,
-      builder: (_) => const _StickerPicker(),
+      builder: (_) => _StickerPicker(text: _text),
     );
-    if (picked != null) setState(() => _sticker = picked);
+    if (picked != null && mounted) await sendSticker(picked);
   }
 
+  /// このスタンプですぐコメントする（入力中の文字・推しコインがあれば一緒に送る）
+  Future<void> sendSticker(Map<String, dynamic> sticker) async {
+    if (!Nav.requireLogin(context) || _sending) return;
+    setState(() => _sticker = sticker);
+    await _send();
+  }
+
+  /// 推しコインの量を選ぶ下のシートをすぐ出す（手持ちのコインはシートの中で読む）
   Future<void> _pickSupport() async {
     if (!Nav.requireLogin(context)) return;
-    try {
-      _balance ??= await Coins.summary(supportTo: widget.ownerId);
-    } on ApiException catch (e) {
-      if (mounted) context.toast(e.message, error: true);
-      return;
-    }
-    if (!mounted) return;
+    FocusScope.of(context).unfocus();
+    final balance = _balance != null ? Future.value(_balance!) : Coins.summary(supportTo: widget.ownerId);
     final picked = await showModalBottomSheet<SupportPick>(
       context: context,
       isScrollControlled: true,
       showDragHandle: true,
       backgroundColor: context.surfaceCard,
-      builder: (_) => SupportPicker(
-        balance: _balance!,
-        free: _supportFree,
-        premium: _supportPremium,
-        anonymous: _supportAnonymous,
-        previewText: _text.text.trim(),
-        // 報酬の一言は、全年齢の作品で、作者が報酬に参加していてプレミアムコインを受け取るときだけ
-        showRewardNote: isCreatorRewardRating(widget.rating) && _balance!.rewardJoined && _balance!.premiumAccepted,
+      builder: (_) => FutureBuilder<CoinSummary>(
+        future: balance,
+        builder: (context, snap) {
+          if (snap.hasError) {
+            final error = snap.error;
+            return SizedBox(
+              height: 240,
+              child: StateView.error(error is ApiException ? error.message : tr('読み込みに失敗しました', 'Failed to load'), onRetry: () => Navigator.pop(context)),
+            );
+          }
+          final b = snap.data;
+          if (b == null) return const SizedBox(height: 320, child: Center(child: CircularProgressIndicator.adaptive()));
+          _balance = b;
+          return SupportPicker(
+            balance: b,
+            free: _supportFree,
+            premium: _supportPremium,
+            anonymous: _supportAnonymous,
+            previewText: _text.text.trim(),
+            // 報酬の一言は、全年齢の作品で、作者が報酬に参加していてプレミアムコインを受け取るときだけ
+            showRewardNote: isCreatorRewardRating(widget.rating) && b.rewardJoined && b.premiumAccepted,
+          );
+        },
       ),
     );
-    if (picked == null) return;
+    if (picked == null || !mounted) return;
     setState(() {
       _supportFree = picked.free;
       _supportPremium = picked.premium;
       _supportAnonymous = picked.anonymous;
     });
   }
+
+  String get _hintText => _sensitive ? tr('隠し付きで送ります', 'Sending as hidden') : (widget.replyTo != null ? tr('返信を書く', 'Write a reply') : tr('${widget.ownerName}さんにコメント', 'Comment to ${widget.ownerName}'));
 
   Future<void> _send() async {
     if (!Nav.requireLogin(context) || !_canSend) return;
@@ -776,7 +811,7 @@ mutation AppComment(\$input: CreateWorkCommentInput!) { createWorkComment(input:
               textInputAction: TextInputAction.newline,
               decoration: InputDecoration(
                 counterText: '',
-                hintText: _sensitive ? tr('隠し付きで送ります', 'Sending as hidden') : (widget.replyTo != null ? tr('返信を書く', 'Write a reply') : tr('${widget.ownerName}さんにコメント', 'Comment to ${widget.ownerName}')),
+                hintText: _hintText,
                 filled: true,
                 fillColor: context.skeleton,
                 isDense: true,
@@ -992,9 +1027,12 @@ class _PinnedSupports extends StatelessWidget {
   }
 }
 
-/// スタンプを選ぶ（最近使ったものとマイスタンプ）
+/// スタンプを選ぶ（最近使ったもの・マイスタンプ・固定したもの）。押したスタンプを返す（呼び出し側がすぐ送る）
+/// 上の入力欄は下のコメント欄と同じ文字（[text]）で、書いてからスタンプを押すと一緒に送れる。長押しでコメント欄に固定する
 class _StickerPicker extends StatefulWidget {
-  const _StickerPicker();
+  const _StickerPicker({required this.text});
+
+  final TextEditingController text;
 
   @override
   State<_StickerPicker> createState() => _StickerPickerState();
@@ -1003,18 +1041,23 @@ class _StickerPicker extends StatefulWidget {
 class _StickerPickerState extends State<_StickerPicker> {
   static const _orders = ['DATE_USED', 'DATE_CREATED'];
 
-  int _tab = 0;
-  final _items = <int, List<Map<String, dynamic>>>{};
+  /// 開いてすぐ出せるよう、前に読んだ一覧を覚えておく（開くたびに裏で読み直す）
+  static final _cache = <int, List<Map<String, dynamic>>>{};
+
+  late int _tab = (PinnedStickers.items.value?.isNotEmpty ?? false) ? 2 : 0;
+  final _items = <int, List<Map<String, dynamic>>>{..._cache};
   String? _error;
 
   @override
   void initState() {
     super.initState();
+    PinnedStickers.ensureLoaded();
     _load();
   }
 
   Future<void> _load() async {
     final tab = _tab;
+    if (tab == 2) return;
     setState(() => _error = null);
     try {
       // 「最近の使用」でも先頭にデフォルトのスタンプ（設定に従う）を出す。「マイスタンプ」はサーバーが先頭に入れて返す
@@ -1027,66 +1070,177 @@ query AppViewerStickers($offset: Int!, $limit: Int!, $orderBy: StickerOrderBy) {
 }''', variables: {'offset': 0, 'limit': 120, 'orderBy': _orders[tab]});
       final list = data.obj('viewer')?.list('userStickers') ?? <Map<String, dynamic>>[];
       final defaults = data.obj('viewer')?.list('defaultStickers') ?? <Map<String, dynamic>>[];
-      if (mounted) {
-        setState(() => _items[tab] = tab == 0 ? withDefaultStickersFirst(defaults, list.where((s) => s.integer('usedAt') > 0)) : list);
-      }
+      final items = tab == 0 ? withDefaultStickersFirst(defaults, list.where((s) => s.integer('usedAt') > 0)) : list;
+      _cache[tab] = items;
+      if (mounted) setState(() => _items[tab] = items);
     } on ApiException catch (e) {
-      if (mounted) setState(() => _error = e.message);
+      // 前に読んだ一覧があればそれを出したままにする
+      if (mounted && _items[tab] == null) setState(() => _error = e.message);
     }
+  }
+
+  Future<void> _togglePin(Map<String, dynamic> sticker) async {
+    final pinned = PinnedStickers.isPinned(sticker.str('id'));
+    try {
+      await PinnedStickers.toggle(sticker);
+      Ds.success();
+      if (mounted) context.toast(pinned ? tr('固定を外しました', 'Unpinned') : tr('コメント欄に固定しました', 'Pinned to comments'));
+    } on ApiException catch (e) {
+      if (mounted) context.toast(e.message, error: true);
+    }
+  }
+
+  Widget _grid(List<Map<String, dynamic>> items) {
+    return ValueListenableBuilder(
+      valueListenable: PinnedStickers.items,
+      builder: (context, _, _) => GridView.builder(
+        padding: const EdgeInsets.fromLTRB(12, 8, 12, 24),
+        gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 84, mainAxisSpacing: 8, crossAxisSpacing: 8),
+        itemCount: items.length,
+        itemBuilder: (context, i) {
+          final sticker = items[i];
+          final pinned = PinnedStickers.isPinned(sticker.str('id'));
+          return Pressable(
+            onTap: () => Navigator.pop(context, sticker),
+            onLongPress: () => _togglePin(sticker),
+            child: Stack(children: [
+              Positioned.fill(
+                child: Container(
+                  decoration: BoxDecoration(color: context.skeleton, borderRadius: Ds.br(12)),
+                  padding: const EdgeInsets.all(6),
+                  child: AppImage(sticker['imageUrl']?.toString(), fit: BoxFit.contain),
+                ),
+              ),
+              if (pinned) Positioned(top: 3, right: 3, child: Icon(Icons.push_pin_rounded, size: 14, color: context.cs.primary)),
+            ]),
+          );
+        },
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
+    final bottom = MediaQuery.viewInsetsOf(context).bottom;
     final items = _items[_tab];
-    return SizedBox(
-      height: 400,
-      child: Column(children: [
-        Row(children: [
-          Expanded(
-            child: PillTabs(
-              labels: [tr('最近の使用', 'Recent'), tr('マイスタンプ', 'My stickers')],
-              index: _tab,
-              onChanged: (i) {
-                setState(() => _tab = i);
-                if (_items[i] == null) _load();
-              },
+    return Padding(
+      padding: EdgeInsets.only(bottom: bottom),
+      child: SizedBox(
+        height: bottom > 0 ? 300 : 460,
+        child: Column(children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(12, 0, 12, 6),
+            child: TextField(
+              controller: widget.text,
+              minLines: 1,
+              maxLines: 3,
+              maxLength: 1000,
+              decoration: InputDecoration(
+                counterText: '',
+                hintText: tr('ひとこと（スタンプと一緒に送れます）', 'Add a message (sent with the sticker)'),
+                filled: true,
+                fillColor: context.skeleton,
+                isDense: true,
+                contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                border: OutlineInputBorder(borderRadius: Ds.br(20), borderSide: BorderSide.none),
+              ),
             ),
           ),
-          TextButton(
-            onPressed: () {
-              Navigator.pop(context);
-              context.push('/stickers');
-            },
-            child: Text(tr('広場', 'Browse')),
+          Row(children: [
+            Expanded(
+              child: PillTabs(
+                labels: [tr('最近の使用', 'Recent'), tr('マイスタンプ', 'My stickers'), tr('固定', 'Pinned')],
+                index: _tab,
+                onChanged: (i) {
+                  setState(() => _tab = i);
+                  _load();
+                },
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+                context.push('/stickers');
+              },
+              child: Text(tr('広場', 'Browse')),
+            ),
+          ]),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 2, 16, 0),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(tr('押すとすぐ送ります。長押しでコメント欄に固定', 'Tap to send. Long-press to pin it above comments'), style: TextStyle(color: context.muted, fontSize: 11)),
+            ),
+          ),
+          Expanded(
+            child: _tab == 2
+                ? ValueListenableBuilder(
+                    valueListenable: PinnedStickers.items,
+                    builder: (context, pinned, _) => pinned == null
+                        ? const Center(child: CircularProgressIndicator.adaptive())
+                        : pinned.isEmpty
+                            ? StateView(
+                                icon: Icons.push_pin_outlined,
+                                title: tr('固定したスタンプはありません', 'No pinned stickers'),
+                                message: tr('スタンプを長押しすると、コメント欄の上に並べてすぐ送れます。', 'Long-press a sticker to pin it above comments for one-tap sending.'),
+                                compact: true,
+                              )
+                            : _grid(pinned),
+                  )
+                : _error != null
+                    ? StateView.error(_error!, onRetry: _load)
+                    : items == null
+                        ? const Center(child: CircularProgressIndicator.adaptive())
+                        : items.isEmpty
+                            ? StateView(
+                                icon: Icons.emoji_emotions_outlined,
+                                title: _tab == 0 ? tr('最近使ったスタンプはありません', 'No recent stickers') : tr('スタンプがありません', 'No stickers'),
+                                message: tr('スタンプ広場で気に入ったスタンプを追加すると、ここから使えます。', 'Add stickers you like from the sticker square to use them here.'),
+                                compact: true,
+                              )
+                            : _grid(items),
           ),
         ]),
-        Expanded(
-          child: _error != null
-              ? StateView.error(_error!, onRetry: _load)
-              : items == null
-                  ? const Center(child: CircularProgressIndicator.adaptive())
-                  : items.isEmpty
-                      ? StateView(
-                          icon: Icons.emoji_emotions_outlined,
-                          title: _tab == 0 ? tr('最近使ったスタンプはありません', 'No recent stickers') : tr('スタンプがありません', 'No stickers'),
-                          message: tr('スタンプ広場で気に入ったスタンプを追加すると、ここから使えます。', 'Add stickers you like from the sticker square to use them here.'),
-                          compact: true,
-                        )
-                      : GridView.builder(
-                          padding: const EdgeInsets.fromLTRB(12, 8, 12, 24),
-                          gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 84, mainAxisSpacing: 8, crossAxisSpacing: 8),
-                          itemCount: items.length,
-                          itemBuilder: (context, i) => Pressable(
-                            onTap: () => Navigator.pop(context, items[i]),
-                            child: Container(
-                              decoration: BoxDecoration(color: context.skeleton, borderRadius: Ds.br(12)),
-                              padding: const EdgeInsets.all(6),
-                              child: AppImage(items[i]['imageUrl']?.toString(), fit: BoxFit.contain),
-                            ),
-                          ),
-                        ),
-        ),
-      ]),
+      ),
+    );
+  }
+}
+
+/// コメント欄の上に並べる、固定したスタンプ。押すとそのスタンプですぐコメントする
+class _PinnedStickerBar extends StatelessWidget {
+  const _PinnedStickerBar({required this.onTap});
+
+  final ValueChanged<Map<String, dynamic>> onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return ValueListenableBuilder(
+      valueListenable: PinnedStickers.items,
+      builder: (context, pinned, _) {
+        if (pinned == null || pinned.isEmpty) return const SizedBox.shrink();
+        return Container(
+          height: 60,
+          decoration: BoxDecoration(border: Border(bottom: BorderSide(color: context.hairline))),
+          child: ListView.separated(
+            scrollDirection: Axis.horizontal,
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+            itemCount: pinned.length,
+            separatorBuilder: (_, _) => const SizedBox(width: 8),
+            itemBuilder: (context, i) => Tooltip(
+              message: tr('このスタンプでコメント', 'Comment with this sticker'),
+              child: Pressable(
+                onTap: () => onTap(pinned[i]),
+                child: Container(
+                  width: 48,
+                  decoration: BoxDecoration(color: context.skeleton, borderRadius: Ds.br(12)),
+                  padding: const EdgeInsets.all(4),
+                  child: AppImage(pinned[i]['imageUrl']?.toString(), fit: BoxFit.contain),
+                ),
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }
