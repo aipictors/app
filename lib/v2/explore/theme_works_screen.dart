@@ -1,4 +1,5 @@
 import 'package:aipictors/v2/core/api.dart';
+import 'package:aipictors/v2/core/content_translate.dart';
 import 'package:aipictors/v2/core/debug_boot.dart';
 import 'package:aipictors/v2/core/design.dart';
 import 'package:aipictors/v2/core/l10n.dart';
@@ -201,19 +202,21 @@ class _ThemeWorksScreenState extends State<ThemeWorksScreen> {
               textAlign: TextAlign.center,
               style: TextStyle(color: white.withValues(alpha: 0.92), fontSize: 13, fontWeight: FontWeight.w700),
             ),
-            if (t.note != null || t.proposerName != null) ...[
+            if (t.note != null) ...[
               const SizedBox(height: 10),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 14),
-                child: Text(
-                  [
-                    if (t.note != null) t.note!,
-                    if (t.proposerName != null) tr('提案: ${t.proposerName}さん', 'Suggested by ${t.proposerName}'),
-                  ].join('\n'),
-                  textAlign: TextAlign.center,
-                  style: TextStyle(color: white.withValues(alpha: 0.92), fontSize: 12.5, height: 1.45),
+                // 長いひとことは 3 行まで。英語表示では自動で英語にする（作品の説明と同じ）
+                child: AutoTranslatedText(
+                  t.note!,
+                  showLabel: false,
+                  builder: (context, text) => Text(text, maxLines: 3, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center, style: TextStyle(color: white.withValues(alpha: 0.92), fontSize: 12.5, height: 1.45)),
                 ),
               ),
+            ],
+            if (t.proposerName != null) ...[
+              const SizedBox(height: 4),
+              Text(tr('提案: ${t.proposerName}さん', 'Suggested by ${t.proposerName}'), textAlign: TextAlign.center, style: TextStyle(color: white.withValues(alpha: 0.8), fontSize: 11.5, fontWeight: FontWeight.w600)),
             ],
           ],
         ]),
