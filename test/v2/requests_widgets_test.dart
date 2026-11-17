@@ -37,4 +37,24 @@ void main() {
     await tester.pumpWidget(MaterialApp(home: Scaffold(body: RequestSteps(_request('ACCEPTED')))));
     expect(find.text('制作中'), findsOneWidget);
   });
+
+  test('実績: 許可・透かし入りの画像を読む', () {
+    final r = CoinRequest({'id': '1', 'status': 'COMPLETED', 'showcaseAllowed': true, 'showcaseHidden': false, 'showcaseImageUrls': ['https://files.aipictors.com/showcase/a.webp']});
+    expect(r.isCompleted, isTrue);
+    expect(r.showcaseAllowed, isTrue);
+    expect(r.showcaseImageUrls, ['https://files.aipictors.com/showcase/a.webp']);
+    expect(CoinRequest({'id': '2', 'status': 'COMPLETED', 'showcaseImageUrls': null}).showcaseImageUrls, isNull);
+  });
+
+  testWidgets('実績の横スクロール: 「プランで制作」の印と件数', (tester) async {
+    final items = [
+      RequestShowcaseItem({'requestId': '1', 'planId': '3', 'planTitle': 'アイコン', 'creatorUserId': '2', 'imageUrls': <String>[], 'isR18': false}),
+    ];
+    // 画像がない実績は出さない（読み込みのときに外す）ので、空の一覧なら何も出ない
+    await tester.pumpWidget(MaterialApp(home: Scaffold(body: RequestShowcaseStrip(items: const [], count: 0, users: const {}, planId: '3'))));
+    expect(find.textContaining('実績'), findsNothing);
+    expect(items.first.isR18, isFalse);
+    await tester.pumpWidget(const MaterialApp(home: Scaffold(body: RequestShowcaseBadge())));
+    expect(find.text('プランで制作'), findsOneWidget);
+  });
 }

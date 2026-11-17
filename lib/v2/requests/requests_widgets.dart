@@ -383,7 +383,7 @@ class _RequestImagePickerState extends State<RequestImagePicker> {
   }
 }
 
-/// マイページ（ユーザーのページ）のプラン欄: 横スクロールのカードと「リクエストする」
+/// マイページ（ユーザーのページ）のプラン欄: 横スクロールのカード、リクエストの実績（透かし入り・「プランで制作」の印）、「リクエストする」
 class UserRequestPlansStrip extends StatefulWidget {
   const UserRequestPlansStrip({super.key, required this.userId, this.isOwner = false});
 
@@ -412,7 +412,7 @@ class _UserRequestPlansStripState extends State<UserRequestPlansStrip> {
     final p = _profile;
     if (p == null) return const SizedBox.shrink();
     final plans = p.plans.where((x) => !x.isHidden || widget.isOwner).toList();
-    if (plans.isEmpty && !p.canFreeRequest) return const SizedBox.shrink();
+    if (plans.isEmpty && !p.canFreeRequest && p.showcase.isEmpty) return const SizedBox.shrink();
     final user = p.users[widget.userId];
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
@@ -435,6 +435,11 @@ class _UserRequestPlansStripState extends State<UserRequestPlansStrip> {
                 separatorBuilder: (_, __) => const SizedBox(width: 10),
                 itemBuilder: (_, i) => RequestPlanCard(plan: plans[i], user: user, width: 200),
               ),
+            ),
+          if (p.showcase.isNotEmpty)
+            Padding(
+              padding: const EdgeInsets.only(top: 12),
+              child: RequestShowcaseStrip(items: p.showcase, count: p.showcaseCount, users: p.users, userId: widget.userId),
             ),
           if (p.canFreeRequest && !widget.isOwner)
             Padding(
@@ -471,6 +476,188 @@ class _UserRequestPlansStripState extends State<UserRequestPlansStrip> {
             ),
         ],
       ),
+    );
+  }
+}
+
+/// 実績の「プランで制作」の印
+class RequestShowcaseBadge extends StatelessWidget {
+  const RequestShowcaseBadge({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 3),
+      decoration: BoxDecoration(color: Ds.sky, borderRadius: Ds.br(99)),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Icon(Icons.verified_rounded, size: 12, color: Colors.white),
+          const SizedBox(width: 3),
+          Text(
+            tr('プランで制作', 'Made via plan'),
+            style: const TextStyle(color: Colors.white, fontSize: 10.5, fontWeight: FontWeight.w800),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// 実績の正方形のカード（押すと大きく見せる）
+class RequestShowcaseCard extends StatelessWidget {
+  const RequestShowcaseCard({super.key, required this.item, this.user, this.size});
+
+  final RequestShowcaseItem item;
+  final RequestUser? user;
+  final double? size;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: size,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          AspectRatio(
+            aspectRatio: 1,
+            child: Pressable(
+              onTap: () => showRequestShowcase(context, item, user),
+              child: Stack(
+                fit: StackFit.expand,
+                children: [
+                  AppImage(item.imageUrls.first, radius: 16, memCacheWidth: 500),
+                  const Positioned(top: 6, left: 6, child: RequestShowcaseBadge()),
+                  if (item.imageUrls.length > 1)
+                    Positioned(
+                      right: 6,
+                      bottom: 6,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 2),
+                        decoration: BoxDecoration(color: Colors.black54, borderRadius: Ds.br(99)),
+                        child: Text('${item.imageUrls.length}', style: const TextStyle(color: Colors.white, fontSize: 11)),
+                      ),
+                    ),
+                ],
+              ),
+            ),
+          ),
+          if (item.planTitle != null) ...[
+            const SizedBox(height: 4),
+            Text(
+              tr('プラン「${item.planTitle}」', 'Plan "${item.planTitle}"'),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(color: context.muted, fontSize: 11.5),
+            ),
+          ],
+          if (user != null) ...[const SizedBox(height: 4), RequestUserChip(user, size: 20)],
+        ],
+      ),
+    );
+  }
+}
+
+/// 透かし入りの画像を大きく見せる
+Future<void> showRequestShowcase(BuildContext context, RequestShowcaseItem item, RequestUser? user) {
+  return showModalBottomSheet<void>(
+    context: context,
+    isScrollControlled: true,
+    useSafeArea: true,
+    showDragHandle: true,
+    builder: (sheetContext) => DraggableScrollableSheet(
+      expand: false,
+      initialChildSize: 0.9,
+      minChildSize: 0.5,
+      builder: (_, controller) => ListView(
+        controller: controller,
+        padding: const EdgeInsets.fromLTRB(16, 0, 16, 24),
+        children: [
+          Row(
+            children: [
+              const RequestShowcaseBadge(),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  item.planTitle ?? tr('リクエストの実績', 'Request work'),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 16),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          for (final url in item.imageUrls)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 10),
+              child: AppImage(url, fit: BoxFit.contain, radius: 16),
+            ),
+          Text(tr('依頼者の許可を得て、透かしを入れて公開しています。', "Shown with a watermark, with the requester's permission."), style: TextStyle(color: context.muted, fontSize: 12)),
+          const SizedBox(height: 12),
+          Row(
+            children: [
+              if (user != null) RequestUserChip(user, size: 30),
+              const Spacer(),
+              if (item.planId != null)
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(sheetContext);
+                    context.push('/requests/plans/${item.planId}');
+                  },
+                  child: Text(tr('このプランを見る', 'View this plan')),
+                ),
+            ],
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+/// 実績の横スクロール（プラン詳細・マイページ）。見出しの「すべて見る」で一覧へ
+class RequestShowcaseStrip extends StatelessWidget {
+  const RequestShowcaseStrip({super.key, required this.items, required this.count, required this.users, this.planId, this.userId, this.padding = 16});
+
+  final List<RequestShowcaseItem> items;
+  final int count;
+  final Map<String, RequestUser> users;
+  final String? planId;
+  final String? userId;
+  final double padding;
+
+  @override
+  Widget build(BuildContext context) {
+    if (items.isEmpty) return const SizedBox.shrink();
+    final query = planId != null ? 'planId=$planId' : 'userId=$userId';
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: padding),
+          child: Row(
+            children: [
+              Text(
+                planId != null ? tr('このプランの実績（$count）', 'Works from this plan ($count)') : tr('リクエストの実績（$count）', 'Request works ($count)'),
+                style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 14),
+              ),
+              const Spacer(),
+              if (count > items.length) TextButton(onPressed: () => context.push('/requests/showcase?$query'), child: Text(tr('すべて見る', 'See all'))),
+            ],
+          ),
+        ),
+        const SizedBox(height: 6),
+        SizedBox(
+          height: 190,
+          child: ListView.separated(
+            scrollDirection: Axis.horizontal,
+            padding: EdgeInsets.symmetric(horizontal: padding),
+            itemCount: items.length,
+            separatorBuilder: (_, __) => const SizedBox(width: 10),
+            itemBuilder: (_, i) => RequestShowcaseCard(item: items[i], size: 150),
+          ),
+        ),
+      ],
     );
   }
 }

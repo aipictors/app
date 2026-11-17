@@ -197,6 +197,7 @@ class RequestPlanScreen extends StatefulWidget {
 class _RequestPlanScreenState extends State<RequestPlanScreen> {
   RequestPlan? _plan;
   RequestUser? _user;
+  RequestPlanDetail? _detail;
   String? _error;
   String? _me;
 
@@ -208,12 +209,13 @@ class _RequestPlanScreenState extends State<RequestPlanScreen> {
 
   Future<void> _load() async {
     try {
-      final (plan, users) = await RequestsApi.plan(widget.id);
+      final detail = await RequestsApi.planDetail(widget.id);
       final me = await _viewerId();
       if (!mounted) return;
       setState(() {
-        _plan = plan;
-        _user = users[plan.userId];
+        _detail = detail;
+        _plan = detail.plan;
+        _user = detail.users[detail.plan.userId];
         _me = me;
       });
     } on ApiException catch (e) {
@@ -295,6 +297,10 @@ class _RequestPlanScreenState extends State<RequestPlanScreen> {
           ),
           const SizedBox(height: 16),
           Text(plan.description, style: const TextStyle(height: 1.6)),
+          if (_detail != null && _detail!.showcase.isNotEmpty) ...[
+            const SizedBox(height: 20),
+            RequestShowcaseStrip(items: _detail!.showcase, count: _detail!.showcaseCount, users: _detail!.users, planId: plan.id, padding: 0),
+          ],
           const SizedBox(height: 16),
           Container(
             padding: const EdgeInsets.all(12),
@@ -368,6 +374,9 @@ class _RequestNewScreenState extends State<RequestNewScreen> {
   CoinSummary? _coins;
   List<String> _images = [];
   bool _isR18 = false;
+
+  /// 完成した作品をクリエイターの実績として公開してよい（透かし入り。既定はオフ）
+  bool _showcaseAllowed = false;
   bool _agree = false;
   bool _submitting = false;
   String? _error;
@@ -437,6 +446,7 @@ class _RequestNewScreenState extends State<RequestNewScreen> {
         'body': _body.text.trim(),
         'referenceImageUrls': _images,
         'isR18': _allowsR18 && _isR18,
+        'showcaseAllowed': _showcaseAllowed,
         'priceCoins': price,
         if (_plan == null) 'deliveryDays': 14,
       });
@@ -549,6 +559,16 @@ class _RequestNewScreenState extends State<RequestNewScreen> {
                 value: _isR18,
                 onChanged: (v) => setState(() => _isR18 = v),
               ),
+            SwitchListTile.adaptive(
+              contentPadding: EdgeInsets.zero,
+              title: Text(tr('クリエイターの実績として公開してOK', "OK to show as the creator's work")),
+              subtitle: Text(
+                tr('完成した作品を、透かしを入れてクリエイターのプランやマイページの実績に載せられます。あとから取り消せます', "The finished work can be shown with a watermark on the creator's plan and profile. You can change this later"),
+                style: muted,
+              ),
+              value: _showcaseAllowed,
+              onChanged: (v) => setState(() => _showcaseAllowed = v),
+            ),
             const SizedBox(height: 12),
             Container(
               padding: const EdgeInsets.all(14),
@@ -1016,6 +1036,7 @@ class _RequestDetailScreenState extends State<RequestDetailScreen> {
             const SizedBox(height: 12),
             ..._actions(context, r, overdue),
             if (r.settlement != null && r.isCreator) ...[const SizedBox(height: 8), _SettlementCard(r.settlement!)],
+            _ShowcaseCard(request: r, busy: _busy != null, act: _act),
             if (r.deliveryImageUrls.isNotEmpty || r.deliveredWorkId != null) ...[
               const SizedBox(height: 16),
               Text(tr('納品', 'Delivery'), style: const TextStyle(fontWeight: FontWeight.w900)),
@@ -1158,6 +1179,151 @@ class _RequestDetailScreenState extends State<RequestDetailScreen> {
       ];
     }
     return const [];
+  }
+}
+
+/// 実績としての公開（依頼者は許可・取り消し、クリエイターは自分の実績から外せる）。完了せずに終わった依頼には出さない。
+/// R18 の依頼もサーバーでは実績になる（Web で年齢の確認のあとに表示）が、アプリの一覧には出さない
+class _ShowcaseCard extends StatelessWidget {
+  const _ShowcaseCard({required this.request, required this.busy, required this.act});
+
+  final CoinRequest request;
+  final bool busy;
+  final Future<bool> Function(String action, [Map<String, dynamic> extra, String? success]) act;
+
+  @override
+  Widget build(BuildContext context) {
+    final r = request;
+    const closed = ['DECLINED', 'CANCELED', 'EXPIRED', 'ADMIN_CANCELED'];
+    if (closed.contains(r.status)) return const SizedBox.shrink();
+    if (r.isCreator && !r.showcaseAllowed) return const SizedBox.shrink();
+    final muted = TextStyle(color: context.muted, fontSize: 12);
+    final images = r.showcaseImageUrls;
+    String? status;
+    if (r.showcaseAllowed) {
+      if (!r.isCompleted) {
+        status = tr('取引が完了すると、透かし入りで実績に載ります', 'It will be shown with a watermark once the request is completed');
+      } else if (images == null) {
+        status = tr('透かし入りの画像を準備しています（数分かかります）', 'Preparing the watermarked image (takes a few minutes)');
+      } else if (images.isEmpty) {
+        status = tr('載せられる画像がありませんでした', 'There were no images that could be shown');
+      } else if (r.showcaseHidden) {
+        status = tr('クリエイターが実績に載せていません', 'The creator has chosen not to show it');
+      } else {
+        status = tr('プランとクリエイターのページの実績に載っています', "Shown on the plan and the creator's profile");
+      }
+    }
+    return Container(
+      margin: const EdgeInsets.only(top: 12),
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: context.surfaceCard,
+        borderRadius: Ds.br(18),
+        border: Border.all(color: context.hairline),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Expanded(
+                child: Wrap(
+                  spacing: 8,
+                  runSpacing: 4,
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  children: [
+                    Text(tr('実績としての公開', 'Showing as a work'), style: const TextStyle(fontWeight: FontWeight.w800)),
+                    const RequestShowcaseBadge(),
+                  ],
+                ),
+              ),
+              Switch.adaptive(
+                value: r.isCreator ? !r.showcaseHidden : r.showcaseAllowed,
+                onChanged: busy
+                    ? null
+                    : (value) => r.isCreator
+                          ? act('showcase-hide', {'hidden': !value}, value ? tr('実績に載せました', 'Now shown in your works') : tr('実績から外しました', 'Removed from your works'))
+                          : act('showcase', {'allowed': value}, value ? tr('公開を許可しました', 'Permission granted') : tr('許可を取り消しました', 'Permission withdrawn')),
+              ),
+            ],
+          ),
+          Text(
+            r.isCreator
+                ? tr('依頼者が、完成した作品を実績として公開することを許可しています（透かし入り）', 'The requester allows the finished work to be shown (watermarked)')
+                : tr(
+                    '完成した作品を、透かしを入れてクリエイターのプランやマイページの実績に載せてよいか選べます。いつでも変えられます',
+                    "Choose whether the finished work may be shown with a watermark on the creator's plan and profile. You can change this anytime",
+                  ),
+            style: muted,
+          ),
+          if (status != null) ...[const SizedBox(height: 6), Text(status, style: muted)],
+          if (r.showcaseAllowed && images != null && images.isNotEmpty) ...[
+            const SizedBox(height: 8),
+            Row(
+              children: [for (final url in images) Padding(padding: const EdgeInsets.only(right: 8), child: AppImage(url, width: 72, height: 72, radius: 12))],
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+}
+
+// ---------------------------------------------------------------- 実績の一覧
+
+class RequestShowcaseScreen extends StatefulWidget {
+  const RequestShowcaseScreen({super.key, this.planId, this.userId});
+
+  final String? planId;
+  final String? userId;
+
+  @override
+  State<RequestShowcaseScreen> createState() => _RequestShowcaseScreenState();
+}
+
+class _RequestShowcaseScreenState extends State<RequestShowcaseScreen> {
+  List<RequestShowcaseItem>? _items;
+  Map<String, RequestUser> _users = {};
+  String? _error;
+
+  @override
+  void initState() {
+    super.initState();
+    _load();
+  }
+
+  Future<void> _load() async {
+    try {
+      final (items, users) = await RequestsApi.showcase(planId: widget.planId, userId: widget.userId);
+      if (!mounted) return;
+      setState(() {
+        _items = items;
+        _users = users;
+      });
+    } on ApiException catch (e) {
+      if (mounted) setState(() => _error = e.message);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final items = _items;
+    final planTitle = items != null && items.isNotEmpty ? items.first.planTitle : null;
+    return Scaffold(
+      appBar: AppBar(title: Text(widget.planId != null && planTitle != null ? tr('「$planTitle」の実績', 'Works from "$planTitle"') : tr('リクエストの実績', 'Request works'))),
+      body: _error != null
+          ? StateView(icon: Icons.error_outline_rounded, title: _error!)
+          : items == null
+          ? const Center(child: CircularProgressIndicator())
+          : items.isEmpty
+          ? StateView(icon: Icons.photo_library_outlined, title: tr('まだ公開されている実績はありません', 'No works shown yet'))
+          : GridView.builder(
+              padding: const EdgeInsets.fromLTRB(16, 8, 16, 32),
+              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 200, mainAxisSpacing: 12, crossAxisSpacing: 12, childAspectRatio: 0.78),
+              itemCount: items.length,
+              itemBuilder: (_, i) => RequestShowcaseCard(item: items[i], user: widget.planId != null ? null : _users[items[i].creatorUserId]),
+            ),
+    );
   }
 }
 

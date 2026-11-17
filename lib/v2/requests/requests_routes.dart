@@ -9,6 +9,10 @@ final List<RouteBase> requestsRoutes = [
     builder: (_, state) => RequestPlanScreen(id: state.pathParameters['id']!),
   ),
   GoRoute(
+    path: '/requests/showcase',
+    builder: (_, state) => RequestShowcaseScreen(planId: state.uri.queryParameters['planId'], userId: state.uri.queryParameters['userId']),
+  ),
+  GoRoute(
     path: '/requests/new',
     builder: (_, state) => RequestNewScreen(planId: state.uri.queryParameters['plan'], creatorId: state.uri.queryParameters['creator']),
   ),

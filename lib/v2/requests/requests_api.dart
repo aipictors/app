@@ -67,14 +67,44 @@ class RequestSettings {
   String get note => j.str('note');
 }
 
+/// 実績（有料リクエストで作られ、依頼者が公開を許可した作品）。画像はサーバーで透かしを入れたものだけ。
+/// アプリは全年齢の実績だけ出す（R18 は Web で年齢の確認のあとに見られる）
+class RequestShowcaseItem {
+  RequestShowcaseItem(this.j);
+
+  final Map<String, dynamic> j;
+  String get requestId => j.str('requestId');
+  String? get planId => j.strOrNull('planId');
+  String? get planTitle => j.strOrNull('planTitle');
+  String get creatorUserId => j.str('creatorUserId');
+  List<String> get imageUrls => _strings(j['imageUrls']);
+  bool get isR18 => j.boolean('isR18');
+}
+
+List<RequestShowcaseItem> _showcase(Map<String, dynamic> data) => data.list('showcase').map(RequestShowcaseItem.new).where((item) => !item.isR18 && item.imageUrls.isNotEmpty).toList();
+
 class CreatorProfile {
-  CreatorProfile(this.plans, this.settings, this.users, this.completedCount, this.canFreeRequest);
+  CreatorProfile(this.plans, this.settings, this.users, this.completedCount, this.canFreeRequest, {this.showcase = const [], this.showcaseCount = 0});
 
   final List<RequestPlan> plans;
   final RequestSettings settings;
   final Map<String, RequestUser> users;
   final int completedCount;
   final bool canFreeRequest;
+
+  /// 新しい実績（全年齢、12 件まで）と全部の数
+  final List<RequestShowcaseItem> showcase;
+  final int showcaseCount;
+}
+
+/// プランの詳細（実績つき）
+class RequestPlanDetail {
+  RequestPlanDetail(this.plan, this.users, this.showcase, this.showcaseCount);
+
+  final RequestPlan plan;
+  final Map<String, RequestUser> users;
+  final List<RequestShowcaseItem> showcase;
+  final int showcaseCount;
 }
 
 class RequestMessage {
@@ -116,6 +146,16 @@ class CoinRequest {
   Map<String, dynamic>? get settlement => j.obj('settlement');
   List<RequestMessage> get messages => j.list('messages').map(RequestMessage.new).toList();
   bool get isOpen => status == 'PENDING' || status == 'ACCEPTED' || status == 'DELIVERED';
+  bool get isCompleted => status == 'COMPLETED' || status == 'ADMIN_COMPLETED';
+
+  /// 依頼者が実績として公開を許可した（透かし入り）
+  bool get showcaseAllowed => j.boolean('showcaseAllowed');
+
+  /// クリエイターが自分の実績に出さないことにした
+  bool get showcaseHidden => j.boolean('showcaseHidden');
+
+  /// 透かし入りの画像（null = まだ作っていない）
+  List<String>? get showcaseImageUrls => j['showcaseImageUrls'] == null ? null : _strings(j['showcaseImageUrls']);
 }
 
 class RequestList {
@@ -287,10 +327,24 @@ class RequestsApi {
   }
 
   static Future<(RequestPlan, Map<String, RequestUser>)> plan(String id) async {
+    final detail = await planDetail(id);
+    return (detail.plan, detail.users);
+  }
+
+  static Future<RequestPlanDetail> planDetail(String id) async {
     final data = _map(await _get({'op': 'plan', 'id': id}, auth: false));
     final plan = data.obj('plan');
     if (plan == null) throw ApiException(requestErrorMessage('PLAN_NOT_FOUND'), code: 'PLAN_NOT_FOUND');
-    return (RequestPlan(plan), _users(data));
+    return RequestPlanDetail(RequestPlan(plan), _users(data), _showcase(data), data.integer('showcaseCount'));
+  }
+
+  /// 実績の一覧（planId かクリエイターの userId で。全年齢だけ）
+  static Future<(List<RequestShowcaseItem>, Map<String, RequestUser>)> showcase({String? planId, String? userId, int offset = 0, int limit = 48}) async {
+    final data = _map(
+      await _get({'op': 'showcase', if (planId != null) 'planId': planId, if (planId == null && userId != null) 'userId': userId, 'offset': '$offset', 'limit': '$limit'}, auth: false),
+    );
+    final items = data.list('items').map(RequestShowcaseItem.new).where((item) => !item.isR18 && item.imageUrls.isNotEmpty).toList();
+    return (items, _users(data));
   }
 
   static Future<CreatorProfile> creator(String userId) async {
@@ -301,6 +355,8 @@ class RequestsApi {
       _users(data),
       data.integer('completedCount'),
       data.boolean('canFreeRequest'),
+      showcase: _showcase(data),
+      showcaseCount: data.integer('showcaseCount'),
     );
   }
 
