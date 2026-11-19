@@ -37,37 +37,23 @@ void main() {
     expect(SupportTier.ptOf(3, 2), 23);
   });
 
-  test('プレミアムの枚数は 100 単位（最小 100・最大は残高の切り捨て・100 未満は選べない）', () {
-    expect(premiumSupportPresets, [100, 300, 500, 1000, 3000]);
-    expect(maxPremiumSupport(99), 0);
-    expect(maxPremiumSupport(100), 100);
-    expect(maxPremiumSupport(1234), 1200);
-    // −/＋ は 100 ずつ
-    expect(stepPremiumSupport(0, 1, 1234), 100);
-    expect(stepPremiumSupport(300, 1, 1234), 400);
-    expect(stepPremiumSupport(300, -1, 1234), 200);
-    expect(stepPremiumSupport(100, -1, 1234), 100);
-    expect(stepPremiumSupport(1200, 1, 1234), 1200);
-    expect(stepPremiumSupport(0, 1, 99), 0);
+  test('プレミアムは 1 枚から（プリセットは 10 と色の区切り、−/＋ は 1 枚ずつ・最大は残高）', () {
+    expect(premiumSupportPresets, [10, 100, 500, 1000, 3000]);
+    expect(stepPremiumSupport(0, 1, 1234), 1);
+    expect(stepPremiumSupport(300, 1, 1234), 301);
+    expect(stepPremiumSupport(300, -1, 1234), 299);
+    expect(stepPremiumSupport(1, -1, 1234), 1);
+    expect(stepPremiumSupport(1234, 1, 1234), 1234);
+    expect(stepPremiumSupport(0, 1, 0), 0);
   });
 
-  test('推すシートの内訳: フリーを先に使い、足りない分のプレミアムは 100 枚単位', () {
+  test('推すシートの内訳: フリーを先に使い、足りない分をプレミアムで', () {
     const both = CoinSummary(free: 30, premium: 250);
-    expect(SupportBreakdown.of(10, both)?.free, 10);
-    expect(SupportBreakdown.of(10, both)?.premium, 0);
-    // 130 枚 = フリー 30 ＋ プレミアム 100
-    expect((SupportBreakdown.of(130, both)?.free, SupportBreakdown.of(130, both)?.premium), (30, 100));
-    // 150 枚はフリー 50 が要るが 30 しか無い（プレミアム 200 だと多すぎる）ので送れない
-    expect(SupportBreakdown.of(150, both), isNull);
-    expect(SupportBreakdown.blockedByPremiumUnit(150, both), isTrue);
-    // 230 枚 = フリー 30 ＋ プレミアム 200
-    expect((SupportBreakdown.of(230, both)?.free, SupportBreakdown.of(230, both)?.premium), (30, 200));
-    // プレミアムだけで 50 枚は送れない（100 枚から）
+    expect((SupportBreakdown.of(10, both)?.free, SupportBreakdown.of(10, both)?.premium), (10, 0));
+    expect((SupportBreakdown.of(150, both)?.free, SupportBreakdown.of(150, both)?.premium), (30, 120));
+    expect(SupportBreakdown.of(281, both), isNull);
     const premiumOnly = CoinSummary(free: 0, premium: 250);
-    expect(SupportBreakdown.of(50, premiumOnly), isNull);
-    expect(SupportBreakdown.blockedByPremiumUnit(50, premiumOnly), isTrue);
-    expect(SupportBreakdown.of(300, premiumOnly), isNull);
-    expect(SupportBreakdown.blockedByPremiumUnit(300, premiumOnly), isFalse);
+    expect((SupportBreakdown.of(5, premiumOnly)?.free, SupportBreakdown.of(5, premiumOnly)?.premium), (0, 5));
   });
 
   test('応援の帯は段階の時間内だけ・段階の高い順・新しい順', () {
@@ -104,35 +90,38 @@ void main() {
     expect(find.textContaining('円'), findsNothing);
   });
 
-  testWidgets('コメントの推し: プレミアムは 100 枚単位のプリセット、残高 100 未満は選べない', (tester) async {
+  testWidgets('コメントの推し: プレミアムは 1 枚から、プリセットと −/＋ で選ぶ', (tester) async {
     Future<void> open(CoinSummary balance) async {
       await tester.pumpWidget(MaterialApp(home: Scaffold(body: SingleChildScrollView(key: ValueKey(balance.premium), child: SupportPicker(balance: balance, free: 0, premium: 0, anonymous: false)))));
       await tester.pump();
     }
 
     await open(const CoinSummary(free: 50, premium: 1234));
-    for (final n in [100, 300, 500, 1000]) {
+    for (final n in [10, 100, 500, 1000]) {
       expect(find.text('$n'), findsOneWidget);
     }
-    expect(find.text('プレミアムコインは100枚から推せます'), findsNothing);
-    await tester.tap(find.text('300'));
+    expect(find.text('プレミアムコインがありません'), findsNothing);
+    await tester.tap(find.text('10'));
     await tester.pump();
-    expect(find.text('300枚'), findsOneWidget);
-    await tester.tap(find.byTooltip('100枚増やす'));
+    expect(find.text('10枚'), findsOneWidget);
+    await tester.tap(find.byTooltip('1枚増やす'));
     await tester.pump();
-    expect(find.text('400枚'), findsOneWidget);
-    await tester.tap(find.byTooltip('100枚減らす'));
-    await tester.tap(find.byTooltip('100枚減らす'));
-    await tester.tap(find.byTooltip('100枚減らす'));
-    await tester.pump();
-    expect(find.text('100枚'), findsOneWidget);
+    expect(find.text('11枚'), findsOneWidget);
+    for (var i = 0; i < 12; i++) {
+      await tester.tap(find.byTooltip('1枚減らす'), warnIfMissed: false);
+      await tester.pump();
+    }
+    expect(find.text('1枚'), findsOneWidget);
     // 3000 は残高を超えるので押せない
     await tester.tap(find.text('3000'), warnIfMissed: false);
     await tester.pump();
-    expect(find.text('100枚'), findsOneWidget);
+    expect(find.text('1枚'), findsOneWidget);
 
-    await open(const CoinSummary(free: 50, premium: 99));
-    expect(find.text('プレミアムコインは100枚から推せます'), findsOneWidget);
-    expect(find.text('100'), findsNothing);
+    await open(const CoinSummary(free: 50, premium: 3));
+    expect(find.text('プレミアムコインがありません'), findsNothing);
+    expect(find.text('10'), findsOneWidget);
+
+    await open(const CoinSummary(free: 50, premium: 0));
+    expect(find.text('プレミアムコインがありません'), findsOneWidget);
   });
 }

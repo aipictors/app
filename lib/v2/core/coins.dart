@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:aipictors/v2/core/api.dart';
-import 'package:aipictors/v2/core/support_tier.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
 
@@ -26,7 +25,7 @@ class CoinSummary {
   static const zero = CoinSummary(free: 0, premium: 0);
 }
 
-/// 推しで使う内訳（フリーから先に使う。足りない分のプレミアムは 100 枚単位で、端数はフリーで埋める）
+/// 推しで使う内訳（フリーから先に使う。Web と同じ）
 class SupportBreakdown {
   const SupportBreakdown(this.free, this.premium);
 
@@ -40,14 +39,11 @@ class SupportBreakdown {
 
   static SupportBreakdown? of(int amount, CoinSummary balance) {
     if (amount <= 0 || amount > balance.total) return null;
-    if (amount <= balance.free) return SupportBreakdown(amount, 0);
-    final premium = (amount - balance.free + premiumSupportUnit - 1) ~/ premiumSupportUnit * premiumSupportUnit;
-    if (premium > amount || premium > balance.premium) return null;
-    return SupportBreakdown(amount - premium, premium);
+    final free = amount < balance.free ? amount : balance.free;
+    final premium = amount - free;
+    if (premium > balance.premium) return null;
+    return SupportBreakdown(free, premium);
   }
-
-  /// 残高は足りるのに、プレミアムの 100 枚単位に合わないので送れない
-  static bool blockedByPremiumUnit(int amount, CoinSummary balance) => amount > 0 && amount <= balance.total && of(amount, balance) == null;
 }
 
 /// Web（www.aipictors.com）の /api/coins/* を呼ぶ

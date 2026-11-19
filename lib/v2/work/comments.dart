@@ -837,8 +837,7 @@ class SupportPickerState extends State<SupportPicker> {
   static const _confirmPt = 1000;
 
   late int _free = widget.free;
-  // プレミアムは 100 枚単位（前に選んだ枚数も 100 単位・残高の範囲に丸める）
-  late int _premium = widget.balance.premiumAccepted ? (widget.premium ~/ premiumSupportUnit * premiumSupportUnit).clamp(0, maxPremiumSupport(widget.balance.premium)) : 0;
+  late int _premium = widget.balance.premiumAccepted ? widget.premium.clamp(0, widget.balance.premium) : 0;
   late bool _anonymous = widget.anonymous;
 
   int get _pt => _free + _premium * 10;
@@ -862,9 +861,9 @@ class SupportPickerState extends State<SupportPicker> {
     ]);
   }
 
-  /// プレミアムは 100 枚単位（プリセットで選ぶ・−/＋ は 100 ずつ。残高 100 未満は選べない）
+  /// プレミアムはプリセットで選び、−/＋ で 1 枚ずつ合わせる
   Widget _premiumRow(int balance) {
-    final max = maxPremiumSupport(balance);
+    final max = balance;
     void set(int v) => setState(() => _premium = v);
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Row(children: [
@@ -877,19 +876,19 @@ class SupportPickerState extends State<SupportPicker> {
       ]),
       const SizedBox(height: Ds.s4),
       if (max == 0)
-        Text(tr('プレミアムコインは100枚から推せます', 'Premium Coins can be sent in units of 100'), style: TextStyle(color: context.muted, fontSize: 12))
+        Text(tr('プレミアムコインがありません', 'You have no premium coins'), style: TextStyle(color: context.muted, fontSize: 12))
       else
         Wrap(spacing: Ds.s6, runSpacing: Ds.s6, crossAxisAlignment: WrapCrossAlignment.center, children: [
           for (final n in premiumSupportPresets)
             SupportAmountButton(label: '$n', premium: n, selected: _premium == n, onTap: n <= max ? () => set(n) : null),
           Row(mainAxisSize: MainAxisSize.min, children: [
             IconButton.outlined(
-              tooltip: tr('100枚減らす', '100 fewer'),
-              onPressed: _premium > premiumSupportUnit ? () => set(stepPremiumSupport(_premium, -1, balance)) : null,
+              tooltip: tr('1枚減らす', '1 fewer'),
+              onPressed: _premium > 1 ? () => set(stepPremiumSupport(_premium, -1, balance)) : null,
               icon: const Icon(Icons.remove_rounded, size: 18),
             ),
             IconButton.outlined(
-              tooltip: tr('100枚増やす', '100 more'),
+              tooltip: tr('1枚増やす', '1 more'),
               onPressed: _premium < max ? () => set(stepPremiumSupport(_premium, 1, balance)) : null,
               icon: const Icon(Icons.add_rounded, size: 18),
             ),

@@ -70,15 +70,7 @@ class _SupportSheetState extends State<_SupportSheet> {
       if (!mounted) return;
       setState(() {
         _balance = b;
-        // 最初の 10 枚が送れないときは、フリーの残り全部か、プレミアムの 100 枚にする
-        final f = b.forSupport;
-        if (SupportBreakdown.of(_amount, f) == null) {
-          if (f.free > 0 && f.free < _amount) {
-            _amount = f.free;
-          } else if (maxPremiumSupport(f.premium) > 0) {
-            _amount = premiumSupportUnit;
-          }
-        }
+        if (b.forSupport.total > 0 && _amount > b.forSupport.total) _amount = b.forSupport.total;
       });
     } on ApiException catch (e) {
       if (mounted) setState(() => _error = e.message);
@@ -193,9 +185,7 @@ class _SupportSheetState extends State<_SupportSheet> {
                           ? Text(
                               b.forSupport.total == 0
                                   ? tr('コインがありません。毎日のログインやプラン加入でもらえます', 'No coins. You get coins by logging in daily or with a plan')
-                                  : SupportBreakdown.blockedByPremiumUnit(_amount, b.forSupport)
-                                      ? tr('プレミアムコインは100枚から推せます', 'Premium Coins can be sent in units of 100')
-                                      : tr('コインが足りません（残り${b.forSupport.total}枚）', 'Not enough coins (${b.forSupport.total} left)'),
+                                  : tr('コインが足りません（残り${b.forSupport.total}枚）', 'Not enough coins (${b.forSupport.total} left)'),
                               key: const ValueKey('ng'),
                               style: TextStyle(color: context.cs.error, fontSize: 13),
                             )

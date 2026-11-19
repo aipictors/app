@@ -29,7 +29,7 @@ class SupportTier {
   /// フリーコインだけの推し
   static const silver = SupportTier(level: 0, minPremium: 0, pinSeconds: _hour, color: Color(0xFF94A3B8), color2: Color(0xFFCBD5E1), onColor: Color(0xFF0F172A));
 
-  /// プレミアムコインを含む推し（100 枚未満の古い推しは青）
+  /// プレミアムコインを含む推し（1〜499 枚は青）
   static const premiumTiers = <SupportTier>[
     SupportTier(level: 1, minPremium: 1, pinSeconds: 3 * _hour, color: Color(0xFF0284C7), onColor: Colors.white),
     SupportTier(level: 2, minPremium: 500, pinSeconds: 12 * _hour, color: Color(0xFF059669), onColor: Colors.white),
@@ -52,21 +52,13 @@ class SupportTier {
   static int ptOf(int free, int premium) => (free < 0 ? 0 : free) + (premium < 0 ? 0 : premium) * 10;
 }
 
-/// プレミアムコインで推す枚数の単位（100 枚ずつ）
-const premiumSupportUnit = 100;
+/// プレミアムコインの枚数のプリセット（少額の 10 枚と、色の区切り 100・500・1,000・3,000 枚。−/＋ で 1 枚ずつ選べる）
+const premiumSupportPresets = [10, 100, 500, 1000, 3000];
 
-/// プレミアムコインの枚数のプリセット
-const premiumSupportPresets = [100, 300, 500, 1000, 3000];
-
-/// 残高から選べるプレミアムコインの最大（100 枚単位に切り捨て。100 未満は 0 = 選べない）
-int maxPremiumSupport(int balance) => balance < premiumSupportUnit ? 0 : balance ~/ premiumSupportUnit * premiumSupportUnit;
-
-/// プレミアムの −/＋（100 ずつ。最小 100・最大は残高の 100 単位。使わないときはクリアで 0）
+/// プレミアムの −/＋（1 枚ずつ。最小 1・最大は残高。使わないときはクリアで 0）
 int stepPremiumSupport(int current, int delta, int balance) {
-  final max = maxPremiumSupport(balance);
-  if (max == 0) return 0;
-  final next = (current ~/ premiumSupportUnit + delta) * premiumSupportUnit;
-  return next.clamp(premiumSupportUnit, max);
+  if (balance <= 0) return 0;
+  return (current + delta).clamp(1, balance);
 }
 
 /// コメント欄の上に出しておく推しを選ぶ（読み込んだコメントだけで決める。問い合わせは増やさない）
