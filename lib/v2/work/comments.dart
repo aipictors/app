@@ -872,31 +872,28 @@ class SupportPickerState extends State<SupportPicker> {
         const SizedBox(width: Ds.s6),
         Text(tr('手持ち $balance枚', 'You have $balance'), style: TextStyle(color: context.muted, fontSize: 12)),
         const Spacer(),
-        if (max > 0) ...[
-          IconButton(
-            tooltip: tr('100枚減らす', '100 fewer'),
-            visualDensity: VisualDensity.compact,
-            onPressed: _premium > premiumSupportUnit ? () => set(stepPremiumSupport(_premium, -1, balance)) : null,
-            icon: const Icon(Icons.remove_rounded, size: 18),
-          ),
-          Text(tr('$_premium枚', '$_premium'), style: const TextStyle(fontWeight: FontWeight.w800)),
-          IconButton(
-            tooltip: tr('100枚増やす', '100 more'),
-            visualDensity: VisualDensity.compact,
-            onPressed: _premium < max ? () => set(stepPremiumSupport(_premium, 1, balance)) : null,
-            icon: const Icon(Icons.add_rounded, size: 18),
-          ),
-        ] else
-          Text(tr('0枚', '0'), style: const TextStyle(fontWeight: FontWeight.w800)),
+        Text(tr('$_premium枚', '$_premium'), style: const TextStyle(fontWeight: FontWeight.w800)),
         if (_premium > 0) TextButton(onPressed: () => set(0), child: Text(tr('クリア', 'Clear'))),
       ]),
       const SizedBox(height: Ds.s4),
       if (max == 0)
         Text(tr('プレミアムコインは100枚から推せます', 'Premium Coins can be sent in units of 100'), style: TextStyle(color: context.muted, fontSize: 12))
       else
-        Wrap(spacing: Ds.s6, runSpacing: Ds.s6, children: [
+        Wrap(spacing: Ds.s6, runSpacing: Ds.s6, crossAxisAlignment: WrapCrossAlignment.center, children: [
           for (final n in premiumSupportPresets)
             SupportAmountButton(label: '$n', premium: n, selected: _premium == n, onTap: n <= max ? () => set(n) : null),
+          Row(mainAxisSize: MainAxisSize.min, children: [
+            IconButton.outlined(
+              tooltip: tr('100枚減らす', '100 fewer'),
+              onPressed: _premium > premiumSupportUnit ? () => set(stepPremiumSupport(_premium, -1, balance)) : null,
+              icon: const Icon(Icons.remove_rounded, size: 18),
+            ),
+            IconButton.outlined(
+              tooltip: tr('100枚増やす', '100 more'),
+              onPressed: _premium < max ? () => set(stepPremiumSupport(_premium, 1, balance)) : null,
+              icon: const Icon(Icons.add_rounded, size: 18),
+            ),
+          ]),
         ]),
     ]);
   }
