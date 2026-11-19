@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 
 /// 推し（コイン付きのコメント・推し）の段階。YouTube のスーパーチャットのように、
@@ -61,22 +63,18 @@ int stepPremiumSupport(int current, int delta, int balance) {
   return (current + delta).clamp(1, balance);
 }
 
-/// コメント欄の上に出しておく推しを選ぶ（読み込んだコメントだけで決める。問い合わせは増やさない）
-/// 段階ごとの時間内のものを、段階の高い順・新しい順に最大 limit 件
-List<T> pickPinnedSupports<T>(List<T> items, {required int Function(T) createdAt, required int Function(T) free, required int Function(T) premium, required int nowSeconds, int limit = 10}) {
-  final picked = <(T, SupportTier)>[];
-  for (final item in items) {
-    final tier = SupportTier.of(free: free(item), premium: premium(item));
-    if (tier == null) continue;
-    final at = createdAt(item);
-    if (nowSeconds - at >= tier.pinSeconds || at > nowSeconds + 60) continue;
-    picked.add((item, tier));
-  }
+/// コメント欄の上の「応援の帯」に並べる推しを選ぶ（読み込んだコメントだけで決める。問い合わせは増やさない）
+/// 時間では消さずにいつも出す。課金額（プレミアムコイン）の多い順・合計 pt の多い順・新しい順に最大 limit 件（Web と同じ）
+List<T> pickPinnedSupports<T>(List<T> items, {required int Function(T) createdAt, required int Function(T) free, required int Function(T) premium, int limit = 50}) {
+  final picked = items.where((x) => SupportTier.of(free: free(x), premium: premium(x)) != null).toList();
+  int pt(T x) => math.max(0, free(x)) + math.max(0, premium(x)) * 10;
   picked.sort((a, b) {
-    final byLevel = b.$2.level.compareTo(a.$2.level);
-    return byLevel != 0 ? byLevel : createdAt(b.$1).compareTo(createdAt(a.$1));
+    final byPremium = math.max(0, premium(b)).compareTo(math.max(0, premium(a)));
+    if (byPremium != 0) return byPremium;
+    final byPt = pt(b).compareTo(pt(a));
+    return byPt != 0 ? byPt : createdAt(b).compareTo(createdAt(a));
   });
-  return picked.take(limit).map((e) => e.$1).toList();
+  return picked.take(limit).toList();
 }
 
 /// 推した作品がクリエイター報酬の対象になりうるか（全年齢＝G / R15 だけ）

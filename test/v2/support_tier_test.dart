@@ -56,21 +56,23 @@ void main() {
     expect((SupportBreakdown.of(5, premiumOnly)?.free, SupportBreakdown.of(5, premiumOnly)?.premium), (0, 5));
   });
 
-  test('応援の帯は段階の時間内だけ・段階の高い順・新しい順', () {
+  test('応援の帯は時間で消さず・課金額の多い順・同じなら pt の多い順・新しい順', () {
     const now = 1800000000;
     final items = [
       (id: 'plain', at: now - 10, free: 0, premium: 0),
-      (id: 'silver-old', at: now - 2 * 3600, free: 500, premium: 0),
+      (id: 'silver-old', at: now - 30 * 24 * 3600, free: 500, premium: 0),
       (id: 'silver-new', at: now - 60, free: 10, premium: 0),
       (id: 'blue-old', at: now - 4 * 3600, free: 0, premium: 100),
       (id: 'blue', at: now - 2 * 3600, free: 0, premium: 100),
       (id: 'green', at: now - 3600, free: 0, premium: 500),
-      (id: 'red', at: now - 6 * 24 * 3600, free: 0, premium: 3000),
-      (id: 'red-expired', at: now - 8 * 24 * 3600, free: 0, premium: 3000),
-      (id: 'green-newer', at: now - 30, free: 0, premium: 600),
+      (id: 'red-old', at: now - 90 * 24 * 3600, free: 0, premium: 3000),
+      (id: 'green-more-free', at: now - 7200, free: 50, premium: 500),
+      (id: 'green-600', at: now - 30, free: 0, premium: 600),
     ];
-    final picked = pickPinnedSupports(items, createdAt: (x) => x.at, free: (x) => x.free, premium: (x) => x.premium, nowSeconds: now);
-    expect(picked.map((x) => x.id).toList(), ['red', 'green-newer', 'green', 'blue', 'silver-new']);
+    final picked = pickPinnedSupports(items, createdAt: (x) => x.at, free: (x) => x.free, premium: (x) => x.premium);
+    expect(picked.map((x) => x.id).toList(), ['red-old', 'green-600', 'green-more-free', 'green', 'blue', 'blue-old', 'silver-old', 'silver-new']);
+    final many = List.generate(80, (i) => (id: 'x$i', at: now - i, free: 0, premium: 100));
+    expect(pickPinnedSupports(many, createdAt: (x) => x.at, free: (x) => x.free, premium: (x) => x.premium), hasLength(50));
   });
 
   test('報酬の対象は全年齢だけ', () {
@@ -92,7 +94,16 @@ void main() {
 
   testWidgets('コメントの推し: プレミアムは 1 枚から、プリセットと −/＋ で選ぶ', (tester) async {
     Future<void> open(CoinSummary balance) async {
-      await tester.pumpWidget(MaterialApp(home: Scaffold(body: SingleChildScrollView(key: ValueKey(balance.premium), child: SupportPicker(balance: balance, free: 0, premium: 0, anonymous: false)))));
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: SingleChildScrollView(
+              key: ValueKey(balance.premium),
+              child: SupportPicker(balance: balance, free: 0, premium: 0, anonymous: false),
+            ),
+          ),
+        ),
+      );
       await tester.pump();
     }
 

@@ -471,13 +471,12 @@ query AppWorkComments(\$id: ID!, \$offset: Int!, \$limit: Int!) {
                   message: tr('最初のコメントで作者さんを応援しよう', 'Cheer the creator with the first comment'),
                 );
               }
-              // コメント欄の上の「応援の帯」（読み込んだコメントだけで決める。段階の時間だけ出す）
+              // コメント欄の上の「応援の帯」（読み込んだコメントだけで決める。時間で消さず、課金額の多い順）
               final pinned = pickPinnedSupports<CommentItem>(
                 c.items.where((x) => !x.isSensitive).toList(),
                 createdAt: (x) => x.createdAt,
                 free: (x) => x.supportFree,
                 premium: (x) => x.supportPremium,
-                nowSeconds: DateTime.now().millisecondsSinceEpoch ~/ 1000,
               );
               final offset = pinned.isEmpty ? 0 : 1;
               return ListView.builder(
@@ -984,7 +983,7 @@ class _SupportPreview extends StatelessWidget {
   }
 }
 
-/// コメント欄の上の「応援の帯」（最近の推しを段階の時間だけ上に出す。スーパーチャットのピン留め）
+/// コメント欄の上の「応援の帯」（推しを時間で消さずにいつも出し、課金額の多い順に左から並べる）
 class _PinnedSupports extends StatelessWidget {
   const _PinnedSupports({required this.items});
 
