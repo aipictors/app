@@ -54,8 +54,8 @@ class SupportTier {
   static int ptOf(int free, int premium) => (free < 0 ? 0 : free) + (premium < 0 ? 0 : premium) * 10;
 }
 
-/// プレミアムコインの枚数のプリセット（少額の 10 枚と、色の区切り 100・500・1,000・3,000 枚。−/＋ で 1 枚ずつ選べる）
-const premiumSupportPresets = [10, 100, 500, 1000, 3000];
+/// プレミアムコインの枚数のプリセット（よく使われる少額の 1〜10 枚。Web のコメント欄と同じ。色の区切り 500・1,000・3,000 枚は −/＋ で選べる）
+const premiumSupportPresets = [1, 2, 3, 5, 10];
 
 /// プレミアムの −/＋（1 枚ずつ。最小 1・最大は残高。使わないときはクリアで 0）
 int stepPremiumSupport(int current, int delta, int balance) {
