@@ -81,9 +81,9 @@ class _SupportBandState extends State<SupportBand> with SingleTickerProviderStat
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    final tier = SupportTier.of(widget.pt);
-    // 高い段階だけ、光が 1 回だけ横切る（端末の「視差効果を減らす」では出さない）
-    if (tier != null && tier.level >= 4 && !MediaQuery.disableAnimationsOf(context) && !_shine.isAnimating && _shine.value == 0) {
+    final tier = SupportTier.of(free: widget.free, premium: widget.premium);
+    // 高い段階（黄・赤）だけ、光が 1 回だけ横切る（端末の「視差効果を減らす」では出さない）
+    if (tier != null && tier.level >= 3 && !MediaQuery.disableAnimationsOf(context) && !_shine.isAnimating && _shine.value == 0) {
       Future.delayed(const Duration(milliseconds: 300), () {
         if (mounted) _shine.forward();
       });
@@ -98,7 +98,7 @@ class _SupportBandState extends State<SupportBand> with SingleTickerProviderStat
 
   @override
   Widget build(BuildContext context) {
-    final tier = SupportTier.of(widget.pt);
+    final tier = SupportTier.of(free: widget.free, premium: widget.premium);
     if (tier == null) return const SizedBox.shrink();
     final on = tier.onColor;
     return Semantics(
@@ -170,7 +170,7 @@ class SupportTierChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tier = SupportTier.of(pt);
+    final tier = SupportTier.of(free: free, premium: premium);
     if (tier == null) return const SizedBox.shrink();
     return Semantics(
       label: supportAmountLabel(free, premium, pt),
@@ -197,18 +197,19 @@ class SupportTierChip extends StatelessWidget {
 
 /// 金額のボタン（選ぶと段階の色で塗る）
 class SupportAmountButton extends StatelessWidget {
-  const SupportAmountButton({super.key, required this.label, required this.pt, required this.selected, required this.onTap});
+  const SupportAmountButton({super.key, required this.label, this.free = 0, this.premium = 0, required this.selected, required this.onTap});
 
   final String label;
 
-  /// このボタンの金額の pt（色を決める）
-  final int pt;
+  /// このボタンの枚数（色を決める。フリーだけはシルバー、プレミアムは枚数の段階）
+  final int free;
+  final int premium;
   final bool selected;
   final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
-    final tier = SupportTier.of(pt);
+    final tier = SupportTier.of(free: free, premium: premium);
     final color = tier?.color ?? context.cs.primary;
     final enabled = onTap != null;
     return Opacity(
@@ -320,9 +321,10 @@ class SupportRewardJoinedBadge extends StatelessWidget {
 
 /// 送ったときの演出（コインがふわっと上がって消える。1 回だけ・端末の「動きを減らす」では出さない）
 class SupportSentBurst extends StatefulWidget {
-  const SupportSentBurst({super.key, required this.pt, this.height = 120});
+  const SupportSentBurst({super.key, required this.free, required this.premium, this.height = 120});
 
-  final int pt;
+  final int free;
+  final int premium;
   final double height;
 
   @override
@@ -346,9 +348,9 @@ class _SupportSentBurstState extends State<SupportSentBurst> with SingleTickerPr
 
   @override
   Widget build(BuildContext context) {
-    final tier = SupportTier.of(widget.pt);
+    final tier = SupportTier.of(free: widget.free, premium: widget.premium);
     if (tier == null || MediaQuery.disableAnimationsOf(context)) return const SizedBox.shrink();
-    final count = (3 + tier.level).clamp(4, 9);
+    final count = 4 + tier.level;
     return IgnorePointer(
       child: SizedBox(
         height: widget.height,
@@ -365,7 +367,7 @@ class _SupportSentBurstState extends State<SupportSentBurst> with SingleTickerPr
                     return Positioned(
                       left: x,
                       bottom: t * (widget.height - 20),
-                      child: Opacity(opacity: t == 0 ? 0 : (t < 0.2 ? t / 0.2 : (1 - t) / 0.8).clamp(0.0, 1.0), child: const SupportCoinDot(premium: true, size: 18)),
+                      child: Opacity(opacity: t == 0 ? 0 : (t < 0.2 ? t / 0.2 : (1 - t) / 0.8).clamp(0.0, 1.0), child: SupportCoinDot(premium: widget.premium > 0, size: 18)),
                     );
                   }(),
               ],
@@ -389,7 +391,7 @@ void showSupportSent(BuildContext context, {required int free, required int prem
       top: MediaQuery.paddingOf(context).top + 56,
       child: IgnorePointer(
         child: Column(mainAxisSize: MainAxisSize.min, children: [
-          SupportSentBurst(pt: pt, height: 90),
+          SupportSentBurst(free: free, premium: premium, height: 90),
           TweenAnimationBuilder<double>(
             tween: Tween(begin: MediaQuery.disableAnimationsOf(context) ? 1 : 0.6, end: 1),
             duration: const Duration(milliseconds: 420),

@@ -192,7 +192,7 @@ class _CommentTileState extends State<CommentTile> {
   @override
   Widget build(BuildContext context) {
     final support = c.supportCoins > 0;
-    final tier = support ? SupportTier.of(c.supportPt) : null;
+    final tier = support ? SupportTier.of(free: c.supportFree, premium: c.supportPremium) : null;
     return Padding(
       padding: EdgeInsets.only(left: widget.isReply ? 44 : 0, top: 10, bottom: 4),
       child: Column(
@@ -475,7 +475,8 @@ query AppWorkComments(\$id: ID!, \$offset: Int!, \$limit: Int!) {
               final pinned = pickPinnedSupports<CommentItem>(
                 c.items.where((x) => !x.isSensitive).toList(),
                 createdAt: (x) => x.createdAt,
-                totalPt: (x) => x.supportPt,
+                free: (x) => x.supportFree,
+                premium: (x) => x.supportPremium,
                 nowSeconds: DateTime.now().millisecondsSinceEpoch ~/ 1000,
               );
               final offset = pinned.isEmpty ? 0 : 1;
@@ -764,7 +765,7 @@ mutation AppComment(\$input: CreateWorkCommentInput!) { createWorkComment(input:
             IconButton(
               tooltip: tr('推しコインを添える', 'Add support coins'),
               onPressed: _pickSupport,
-              icon: Icon(Icons.monetization_on_outlined, color: _hasSupport ? (SupportTier.of(_supportPt)?.color ?? Ds.gold) : null),
+              icon: Icon(Icons.monetization_on_outlined, color: _hasSupport ? (SupportTier.of(free: _supportFree, premium: _supportPremium)?.color ?? Ds.gold) : null),
             ),
           Expanded(
             child: TextField(
@@ -831,18 +832,18 @@ class SupportPicker extends StatefulWidget {
 
 class SupportPickerState extends State<SupportPicker> {
   static const _freeSteps = [10, 30, 50, 100];
-  static const _premiumSteps = [1, 3, 5, 10];
 
   /// これ以上の pt を送るときは確認する（桁の間違いを防ぐ）
   static const _confirmPt = 1000;
 
   late int _free = widget.free;
-  late int _premium = widget.balance.premiumAccepted ? widget.premium : 0;
+  // プレミアムは 100 枚単位（前に選んだ枚数も 100 単位・残高の範囲に丸める）
+  late int _premium = widget.balance.premiumAccepted ? (widget.premium ~/ premiumSupportUnit * premiumSupportUnit).clamp(0, maxPremiumSupport(widget.balance.premium)) : 0;
   late bool _anonymous = widget.anonymous;
 
   int get _pt => _free + _premium * 10;
 
-  Widget _row(String label, int balance, int value, List<int> steps, int ptPerCoin, ValueChanged<int> onChanged) {
+  Widget _row(String label, int balance, int value, List<int> steps, ValueChanged<int> onChanged) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Row(children: [
         Text(label, style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 13)),
@@ -856,8 +857,47 @@ class SupportPickerState extends State<SupportPicker> {
       // 金額のボタンは段階の色（大きいほど濃い色）
       Wrap(spacing: Ds.s6, runSpacing: Ds.s6, children: [
         for (final n in steps)
-          SupportAmountButton(label: '+$n', pt: n * ptPerCoin, selected: false, onTap: value + n <= balance ? () => onChanged(value + n) : null),
+          SupportAmountButton(label: '+$n', free: n, selected: false, onTap: value + n <= balance ? () => onChanged(value + n) : null),
       ]),
+    ]);
+  }
+
+  /// プレミアムは 100 枚単位（プリセットで選ぶ・−/＋ は 100 ずつ。残高 100 未満は選べない）
+  Widget _premiumRow(int balance) {
+    final max = maxPremiumSupport(balance);
+    void set(int v) => setState(() => _premium = v);
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      Row(children: [
+        Text(tr('プレミアム（×10pt）', 'Premium (×10pt)'), style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 13)),
+        const SizedBox(width: Ds.s6),
+        Text(tr('手持ち $balance枚', 'You have $balance'), style: TextStyle(color: context.muted, fontSize: 12)),
+        const Spacer(),
+        if (max > 0) ...[
+          IconButton(
+            tooltip: tr('100枚減らす', '100 fewer'),
+            visualDensity: VisualDensity.compact,
+            onPressed: _premium > premiumSupportUnit ? () => set(stepPremiumSupport(_premium, -1, balance)) : null,
+            icon: const Icon(Icons.remove_rounded, size: 18),
+          ),
+          Text(tr('$_premium枚', '$_premium'), style: const TextStyle(fontWeight: FontWeight.w800)),
+          IconButton(
+            tooltip: tr('100枚増やす', '100 more'),
+            visualDensity: VisualDensity.compact,
+            onPressed: _premium < max ? () => set(stepPremiumSupport(_premium, 1, balance)) : null,
+            icon: const Icon(Icons.add_rounded, size: 18),
+          ),
+        ] else
+          Text(tr('0枚', '0'), style: const TextStyle(fontWeight: FontWeight.w800)),
+        if (_premium > 0) TextButton(onPressed: () => set(0), child: Text(tr('クリア', 'Clear'))),
+      ]),
+      const SizedBox(height: Ds.s4),
+      if (max == 0)
+        Text(tr('プレミアムコインは100枚から推せます', 'Premium Coins can be sent in units of 100'), style: TextStyle(color: context.muted, fontSize: 12))
+      else
+        Wrap(spacing: Ds.s6, runSpacing: Ds.s6, children: [
+          for (final n in premiumSupportPresets)
+            SupportAmountButton(label: '$n', premium: n, selected: _premium == n, onTap: n <= max ? () => set(n) : null),
+        ]),
     ]);
   }
 
@@ -878,10 +918,10 @@ class SupportPickerState extends State<SupportPicker> {
             if (widget.showRewardNote) ...[const SizedBox(width: Ds.s8), const SupportRewardJoinedBadge()],
           ]),
           const SizedBox(height: Ds.s12),
-          _row(tr('フリー', 'Free'), b.free, _free, _freeSteps, 1, (v) => setState(() => _free = v)),
+          _row(tr('フリー', 'Free'), b.free, _free, _freeSteps, (v) => setState(() => _free = v)),
           const SizedBox(height: Ds.s12),
           if (b.premiumAccepted)
-            _row(tr('プレミアム（×10pt）', 'Premium (×10pt)'), b.premium, _premium, _premiumSteps, 10, (v) => setState(() => _premium = v))
+            _premiumRow(b.premium)
           else
             Text(tr('この作者はプレミアムコインでの応援を受け付けていません。フリーコインで推せます', 'This creator does not accept support with premium coins. You can support with free coins.'), style: TextStyle(color: context.muted, fontSize: 12)),
           if (_pt > 0) ...[
@@ -924,7 +964,7 @@ class _SupportPreview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tier = SupportTier.of(pt)!;
+    final tier = SupportTier.of(free: free, premium: premium)!;
     return Container(
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
@@ -966,7 +1006,7 @@ class _PinnedSupports extends StatelessWidget {
           separatorBuilder: (_, _) => const SizedBox(width: 8),
           itemBuilder: (context, i) {
             final c = items[i];
-            final tier = SupportTier.of(c.supportPt);
+            final tier = SupportTier.of(free: c.supportFree, premium: c.supportPremium);
             return Container(
               padding: const EdgeInsets.fromLTRB(4, 4, 4, 4),
               decoration: BoxDecoration(

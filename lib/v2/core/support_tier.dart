@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 
 /// 推し（コイン付きのコメント・推し）の段階。YouTube のスーパーチャットのように、
-/// pt（フリー 1 枚 = 1pt・プレミアム 1 枚 = 10pt）が大きいほど色が濃く・長く上に出る。
+/// プレミアムコインの枚数が多いほど色が濃く・長く上に出る。フリーコインだけの推しは枚数に関係なくシルバー。
 /// Web（app/utils/support-tier.ts）と同じ区切り・同じ色
 class SupportTier {
-  const SupportTier({required this.level, required this.minPt, required this.pinSeconds, required this.color, required this.onColor, this.color2});
+  const SupportTier({required this.level, required this.minPremium, required this.pinSeconds, required this.color, required this.onColor, this.color2});
 
+  /// 0 = シルバー（フリーだけ）、1〜4 = プレミアムの枚数で青・緑・黄・赤
   final int level;
 
-  /// この段階になる最小の pt
-  final int minPt;
+  /// この段階になる最小のプレミアムコインの枚数（シルバーは 0）
+  final int minPremium;
 
   /// コメント欄の上の「応援の帯」に出しておく時間（投稿からの秒数）
   final int pinSeconds;
@@ -25,21 +26,25 @@ class SupportTier {
 
   static const _hour = 3600;
 
-  static const all = <SupportTier>[
-    SupportTier(level: 1, minPt: 1, pinSeconds: _hour, color: Color(0xFF0284C7), onColor: Colors.white),
-    SupportTier(level: 2, minPt: 20, pinSeconds: 3 * _hour, color: Color(0xFF0D9488), onColor: Colors.white),
-    SupportTier(level: 3, minPt: 50, pinSeconds: 12 * _hour, color: Color(0xFF059669), onColor: Colors.white),
-    SupportTier(level: 4, minPt: 100, pinSeconds: 24 * _hour, color: Color(0xFFFBBF24), onColor: Color(0xFF451A03)),
-    SupportTier(level: 5, minPt: 300, pinSeconds: 3 * 24 * _hour, color: Color(0xFFEA580C), onColor: Colors.white),
-    SupportTier(level: 6, minPt: 1000, pinSeconds: 7 * 24 * _hour, color: Color(0xFFE11D48), color2: Color(0xFFDC2626), onColor: Colors.white),
+  /// フリーコインだけの推し
+  static const silver = SupportTier(level: 0, minPremium: 0, pinSeconds: _hour, color: Color(0xFF94A3B8), color2: Color(0xFFCBD5E1), onColor: Color(0xFF0F172A));
+
+  /// プレミアムコインを含む推し（100 枚未満の古い推しは青）
+  static const premiumTiers = <SupportTier>[
+    SupportTier(level: 1, minPremium: 1, pinSeconds: 3 * _hour, color: Color(0xFF0284C7), onColor: Colors.white),
+    SupportTier(level: 2, minPremium: 500, pinSeconds: 12 * _hour, color: Color(0xFF059669), onColor: Colors.white),
+    SupportTier(level: 3, minPremium: 1000, pinSeconds: 24 * _hour, color: Color(0xFFFBBF24), onColor: Color(0xFF451A03)),
+    SupportTier(level: 4, minPremium: 3000, pinSeconds: 7 * 24 * _hour, color: Color(0xFFE11D48), color2: Color(0xFFDC2626), onColor: Colors.white),
   ];
 
-  /// pt から段階を決める。0 以下は null（推しなし）
-  static SupportTier? of(int totalPt) {
-    if (totalPt <= 0) return null;
-    var found = all.first;
-    for (final t in all) {
-      if (totalPt >= t.minPt) found = t;
+  static const all = <SupportTier>[silver, ...premiumTiers];
+
+  /// フリー・プレミアムの枚数から段階を決める。両方 0 は null（推しなし）
+  static SupportTier? of({required int free, required int premium}) {
+    if (premium <= 0) return free > 0 ? silver : null;
+    var found = premiumTiers.first;
+    for (final t in premiumTiers) {
+      if (premium >= t.minPremium) found = t;
     }
     return found;
   }
@@ -47,12 +52,29 @@ class SupportTier {
   static int ptOf(int free, int premium) => (free < 0 ? 0 : free) + (premium < 0 ? 0 : premium) * 10;
 }
 
+/// プレミアムコインで推す枚数の単位（100 枚ずつ）
+const premiumSupportUnit = 100;
+
+/// プレミアムコインの枚数のプリセット
+const premiumSupportPresets = [100, 300, 500, 1000, 3000];
+
+/// 残高から選べるプレミアムコインの最大（100 枚単位に切り捨て。100 未満は 0 = 選べない）
+int maxPremiumSupport(int balance) => balance < premiumSupportUnit ? 0 : balance ~/ premiumSupportUnit * premiumSupportUnit;
+
+/// プレミアムの −/＋（100 ずつ。最小 100・最大は残高の 100 単位。使わないときはクリアで 0）
+int stepPremiumSupport(int current, int delta, int balance) {
+  final max = maxPremiumSupport(balance);
+  if (max == 0) return 0;
+  final next = (current ~/ premiumSupportUnit + delta) * premiumSupportUnit;
+  return next.clamp(premiumSupportUnit, max);
+}
+
 /// コメント欄の上に出しておく推しを選ぶ（読み込んだコメントだけで決める。問い合わせは増やさない）
 /// 段階ごとの時間内のものを、段階の高い順・新しい順に最大 limit 件
-List<T> pickPinnedSupports<T>(List<T> items, {required int Function(T) createdAt, required int Function(T) totalPt, required int nowSeconds, int limit = 10}) {
+List<T> pickPinnedSupports<T>(List<T> items, {required int Function(T) createdAt, required int Function(T) free, required int Function(T) premium, required int nowSeconds, int limit = 10}) {
   final picked = <(T, SupportTier)>[];
   for (final item in items) {
-    final tier = SupportTier.of(totalPt(item));
+    final tier = SupportTier.of(free: free(item), premium: premium(item));
     if (tier == null) continue;
     final at = createdAt(item);
     if (nowSeconds - at >= tier.pinSeconds || at > nowSeconds + 60) continue;

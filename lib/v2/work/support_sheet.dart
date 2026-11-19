@@ -70,7 +70,15 @@ class _SupportSheetState extends State<_SupportSheet> {
       if (!mounted) return;
       setState(() {
         _balance = b;
-        if (b.forSupport.total > 0 && _amount > b.forSupport.total) _amount = b.forSupport.total;
+        // 最初の 10 枚が送れないときは、フリーの残り全部か、プレミアムの 100 枚にする
+        final f = b.forSupport;
+        if (SupportBreakdown.of(_amount, f) == null) {
+          if (f.free > 0 && f.free < _amount) {
+            _amount = f.free;
+          } else if (maxPremiumSupport(f.premium) > 0) {
+            _amount = premiumSupportUnit;
+          }
+        }
       });
     } on ApiException catch (e) {
       if (mounted) setState(() => _error = e.message);
@@ -121,6 +129,10 @@ class _SupportSheetState extends State<_SupportSheet> {
     if (v != null && v > 0) setState(() => _amount = v);
   }
 
+  /// 枚数のボタンの色（使う内訳の段階。内訳が決まらないときはフリーだけとみなしてシルバー）
+  static SupportTier? _tierOf(SupportBreakdown? breakdown, int amount) =>
+      breakdown == null ? SupportTier.of(free: amount, premium: 0) : SupportTier.of(free: breakdown.free, premium: breakdown.premium);
+
   @override
   Widget build(BuildContext context) {
     final b = _balance;
@@ -160,8 +172,8 @@ class _SupportSheetState extends State<_SupportSheet> {
                         _AmountChip(
                           label: '$p',
                           selected: _amount == p,
-                          enabled: b == null || p <= b.forSupport.total,
-                          tier: SupportTier.of(b == null ? p : (SupportBreakdown.of(p, b.forSupport)?.pt ?? p)),
+                          enabled: b == null || SupportBreakdown.of(p, b.forSupport) != null,
+                          tier: _tierOf(b == null ? null : SupportBreakdown.of(p, b.forSupport), p),
                           onTap: () => setState(() => _amount = p),
                         ),
                       _AmountChip(
@@ -179,7 +191,11 @@ class _SupportSheetState extends State<_SupportSheet> {
                       duration: Ds.fast,
                       child: breakdown == null
                           ? Text(
-                              b.forSupport.total == 0 ? tr('コインがありません。毎日のログインやプラン加入でもらえます', 'No coins. You get coins by logging in daily or with a plan') : tr('コインが足りません（残り${b.forSupport.total}枚）', 'Not enough coins (${b.forSupport.total} left)'),
+                              b.forSupport.total == 0
+                                  ? tr('コインがありません。毎日のログインやプラン加入でもらえます', 'No coins. You get coins by logging in daily or with a plan')
+                                  : SupportBreakdown.blockedByPremiumUnit(_amount, b.forSupport)
+                                      ? tr('プレミアムコインは100枚から推せます', 'Premium Coins can be sent in units of 100')
+                                      : tr('コインが足りません（残り${b.forSupport.total}枚）', 'Not enough coins (${b.forSupport.total} left)'),
                               key: const ValueKey('ng'),
                               style: TextStyle(color: context.cs.error, fontSize: 13),
                             )
