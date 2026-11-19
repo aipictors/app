@@ -38,7 +38,7 @@ void main() {
   });
 
   test('プレミアムは 1 枚から（プリセットは少額の 1・2・3・5・10、−/＋ は 1 枚ずつ・最大は残高）', () {
-    expect(premiumSupportPresets, [1, 2, 3, 5, 10]);
+    expect(premiumSupportPresets, [1, 2, 100, 500, 1000]);
     expect(stepPremiumSupport(0, 1, 1234), 1);
     expect(stepPremiumSupport(300, 1, 1234), 301);
     expect(stepPremiumSupport(300, -1, 1234), 299);
@@ -108,31 +108,31 @@ void main() {
     }
 
     await open(const CoinSummary(free: 50, premium: 1234));
-    for (final n in [1, 2, 3, 5, 10]) {
+    for (final n in [1, 2, 100, 500, 1000]) {
       expect(find.text('$n'), findsOneWidget);
     }
     expect(find.text('プレミアムコインがありません'), findsNothing);
-    await tester.tap(find.text('10'));
+    await tester.tap(find.text('100'));
     await tester.pump();
-    expect(find.text('10枚'), findsOneWidget);
+    expect(find.text('100枚'), findsOneWidget);
     await tester.tap(find.byTooltip('1枚増やす'));
     await tester.pump();
-    expect(find.text('11枚'), findsOneWidget);
-    for (var i = 0; i < 12; i++) {
+    expect(find.text('101枚'), findsOneWidget);
+    await tester.tap(find.text('2'));
+    await tester.pump();
+    expect(find.text('2枚'), findsOneWidget);
+    for (var i = 0; i < 3; i++) {
       await tester.tap(find.byTooltip('1枚減らす'), warnIfMissed: false);
       await tester.pump();
     }
     expect(find.text('1枚'), findsOneWidget);
-    await tester.tap(find.text('2'));
-    await tester.pump();
-    expect(find.text('2枚'), findsOneWidget);
 
-    // 残高 3 枚なら 5・10 は残高を超えるので押せない
+    // 残高 3 枚なら 100 枚以上は残高を超えるので押せない
     await open(const CoinSummary(free: 50, premium: 3));
     expect(find.text('プレミアムコインがありません'), findsNothing);
-    await tester.tap(find.text('10'), warnIfMissed: false);
+    await tester.tap(find.text('100'), warnIfMissed: false);
     await tester.pump();
-    expect(find.text('10枚'), findsNothing);
+    expect(find.text('100枚'), findsNothing);
 
     await open(const CoinSummary(free: 50, premium: 0));
     expect(find.text('プレミアムコインがありません'), findsOneWidget);
