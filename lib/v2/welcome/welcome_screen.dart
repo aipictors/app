@@ -210,29 +210,28 @@ class _Headline extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final style = TextStyle(fontSize: 26, height: 1.45, fontWeight: FontWeight.w800, color: ink, letterSpacing: 0.5);
-    final accent = ShaderMask(
-      blendMode: BlendMode.srcIn,
-      shaderCallback: (r) => const LinearGradient(colors: [Color(0xFF7C3AED), Color(0xFFC026D3)]).createShader(r),
-      child: Text(tr('イラスト', 'illustrations'), style: style),
-    );
-    if (!L10n.isJa) {
-      return Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text('Create the', style: style),
-          Row(mainAxisSize: MainAxisSize.min, children: [accent, Text(' you imagine', style: style)]),
-          Text('in seconds', style: style),
-        ],
-      );
-    }
+    final style = TextStyle(fontSize: 25, height: 1.45, fontWeight: FontWeight.w800, color: ink, letterSpacing: 0.5);
+    Widget accent(String text, List<Color> colors) => ShaderMask(
+          blendMode: BlendMode.srcIn,
+          shaderCallback: (r) => LinearGradient(colors: colors).createShader(r),
+          child: Text(text, style: style),
+        );
+    const enjoy = [Color(0xFF0170C8), Color(0xFF3BA7F5)];
+    const create = [Color(0xFF7C3AED), Color(0xFFC026D3)];
+    // 作品を楽しむ（見る）と、つくる の両方を伝える
+    final lines = L10n.isJa
+        ? [
+            [Text('みんなの', style: style), accent('作品', enjoy), Text('を楽しんで', style: style)],
+            [Text('思い通りの', style: style), accent('イラスト', create), Text('もつくれる', style: style)],
+          ]
+        : [
+            [Text('Enjoy amazing ', style: style), accent('artworks', enjoy)],
+            [Text('and ', style: style), accent('create', create), Text(' your own', style: style)],
+          ];
     return FittedBox(
       fit: BoxFit.scaleDown,
       child: Column(
-        children: [
-          Row(mainAxisSize: MainAxisSize.min, children: [Text('思い通りの', style: style), accent, Text('を', style: style)]),
-          Text('かんたんにつくれる', style: style),
-        ],
+        children: [for (final l in lines) Row(mainAxisSize: MainAxisSize.min, children: l)],
       ),
     );
   }
