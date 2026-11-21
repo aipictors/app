@@ -196,8 +196,10 @@ class LoginScreen extends HookConsumerWidget {
         return const LoadingProgress();
       },
     );
+    var ok = false;
     try {
       await loginWithPassword(login: id, password: password);
+      ok = true;
       FirebaseAnalytics.instance.logLogin();
       // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context)
@@ -214,6 +216,12 @@ class LoginScreen extends HookConsumerWidget {
     }
     // ignore: use_build_context_synchronously
     if (context.canPop()) {
+      // ignore: use_build_context_synchronously
+      context.pop();
+    }
+    // ログインできたらこの画面も閉じて元の画面に戻る
+    // ignore: use_build_context_synchronously
+    if (ok && context.mounted && context.canPop()) {
       // ignore: use_build_context_synchronously
       context.pop();
     }

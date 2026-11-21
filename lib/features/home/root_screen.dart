@@ -20,6 +20,7 @@ import 'package:aipictors/v2/achievements/achievements_api.dart';
 import 'package:aipictors/v2/core/design.dart';
 import 'package:aipictors/v2/notifications/notifications_screen.dart';
 import 'package:aipictors/v2/settings/settings_api.dart';
+import 'package:aipictors/v2/welcome/welcome_screen.dart';
 import 'package:aipictors/features/viewer/__generated__/viewer_user.data.gql.dart';
 import 'package:aipictors/handlers/message_handler.dart';
 import 'package:aipictors/providers/auth_state_provider.dart';
@@ -55,6 +56,9 @@ class RootScreen extends HookConsumerWidget {
 
     final ValueNotifier<GViewerUserData?> viewer = useState(null);
 
+    // ログインせずに見る を押したら、次にアプリを起動するまで最初の画面は出さない
+    final welcomeSkipped = useState(false);
+
     ref.watch(viewerProvider.future).then((value) => viewer.value = value);
 
     // 初期化エラー
@@ -83,6 +87,11 @@ class RootScreen extends HookConsumerWidget {
 
     if (Platform.isIOS && !config.eulaCheck) {
       return const HelloTermsScreen();
+    }
+
+    // ログインしていなければ、最初にログインの入口を出す
+    if (authState.value == null && !welcomeSkipped.value) {
+      return WelcomeScreen(onSkip: () => welcomeSkipped.value = true);
     }
 
     ref.listen(
