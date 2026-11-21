@@ -20,7 +20,7 @@ class ProfileForm {
     required this.twitter,
     required this.instagram,
     required this.github,
-    required this.featuredIds,
+    required this.featured,
     required this.featuredSensitiveIds,
     required this.thankYou,
     required this.frame,
@@ -38,11 +38,25 @@ class ProfileForm {
   final String instagram;
   final String github;
 
-  /// ピックアップはこの画面で変えないが、Web と同じくそのまま送り返す
-  final List<String> featuredIds;
+  /// ピックアップ（全年齢）。Web の /settings/profile と同じく 3 つまで
+  final List<PickupWork> featured;
+
+  /// センシティブのピックアップはアプリで選ばないので、そのまま送り返す
   final List<String> featuredSensitiveIds;
   final String thankYou;
   final AvatarFrame? frame;
+}
+
+/// ピックアップに選ぶ作品（Web の DialogWork）
+class PickupWork {
+  const PickupWork({required this.id, required this.title, required this.thumbnailUrl});
+
+  factory PickupWork.fromJson(Map<String, dynamic> j) =>
+      PickupWork(id: j.str('id'), title: j.str('title'), thumbnailUrl: j.strOrNull('smallThumbnailImageURL'));
+
+  final String id;
+  final String title;
+  final String? thumbnailUrl;
 }
 
 class SupportedComment {
@@ -91,7 +105,7 @@ query AppProfileForm {
       instagramAccountId
       githubAccountId
       $avatarFrameFields
-      featuredWorks { id }
+      featuredWorks { id title smallThumbnailImageURL }
       featuredSensitiveWorks { id }
     }
   }
@@ -114,11 +128,31 @@ query AppProfileForm {
       twitter: u.str('twitterAccountId'),
       instagram: u.str('instagramAccountId'),
       github: u.str('githubAccountId'),
-      featuredIds: u.list('featuredWorks').map((w) => w.str('id')).toList(),
+      featured: u.list('featuredWorks').map(PickupWork.fromJson).where((w) => w.id.isNotEmpty).toList(),
       featuredSensitiveIds: u.list('featuredSensitiveWorks').map((w) => w.str('id')).toList(),
       thankYou: data.obj('userSetting')?.str('supportThankYouMessage') ?? '',
       frame: AvatarFrame.fromJson(u.obj('avatarFrame')),
     );
+  }
+
+  /// ピックアップに選べる自分の作品（Web の SelectCreatedWorksDialog と同じ条件、新しい順）
+  static Future<List<PickupWork>> pickupCandidates(String userId, int offset, int limit) async {
+    final data = await Api.query(r'''
+query AppPickupCandidates($offset: Int!, $limit: Int!, $where: WorksWhereInput) {
+  works(offset: $offset, limit: $limit, where: $where) { id title smallThumbnailImageURL }
+}''', variables: {
+      'offset': offset,
+      'limit': limit,
+      'where': {
+        'userId': userId,
+        'orderBy': 'DATE_CREATED',
+        'sort': 'DESC',
+        'ratings': AppContentFilter.showR15 ? appRatings : const ['G'],
+        // 投稿から 24 時間以内の作品も選べるように（省略すると API は 24 時間より前だけ返す）
+        'isNowCreatedAt': true,
+      },
+    });
+    return data.list('works').map(PickupWork.fromJson).where((w) => w.id.isNotEmpty).toList();
   }
 
   static Future<void> updateProfile(Map<String, dynamic> input) async {

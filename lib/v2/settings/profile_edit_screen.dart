@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/design.dart';
+import 'package:aipictors/v2/settings/pickup_picker_sheet.dart';
 import 'package:aipictors/v2/settings/settings_api.dart';
 import 'package:aipictors/v2/settings/settings_widgets.dart';
 import 'package:aipictors/v2/settings/status_sheet.dart';
@@ -24,6 +25,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
   bool _saving = false;
   Uint8List? _icon;
   Uint8List? _header;
+  List<PickupWork> _pickups = const [];
 
   final _name = TextEditingController();
   final _bio = TextEditingController();
@@ -56,6 +58,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
       if (!mounted) return;
       setState(() {
         _form = f;
+        _pickups = f.featured;
         _name.text = f.name;
         _bio.text = f.biography;
         _enBio.text = f.enBiography;
@@ -95,6 +98,13 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
     }
   }
 
+  Future<void> _choosePickups() async {
+    final f = _form;
+    if (f == null) return;
+    final picked = await showPickupPickerSheet(context, userId: f.id, selected: _pickups);
+    if (picked != null && mounted) setState(() => _pickups = picked);
+  }
+
   /// 画像の中身から種類を決める（端末によって JPEG 以外のまま返る）
   String _contentType(Uint8List b) {
     if (b.length > 3 && b[0] == 0x89 && b[1] == 0x50) return 'image/png';
@@ -125,7 +135,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
         'githubAccountId': _github.text.trim(),
         if (iconUrl != null) 'iconUrl': iconUrl,
         if (headerUrl != null) 'headerImageUrl': headerUrl,
-        'featuredWorkIds': f.featuredIds,
+        'featuredWorkIds': _pickups.map((w) => w.id).toList(),
         'featuredSensitiveWorkIds': f.featuredSensitiveIds,
       });
       if (_thankYou.text != f.thankYou) {
@@ -185,6 +195,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                   _field(_twitter, 'X（旧Twitter）', maxLength: 255),
                   _field(_instagram, 'Instagram', maxLength: 255),
                   _field(_github, 'GitHub', maxLength: 255),
+                  _pickupSection(context),
                 ],
               ),
             ),
@@ -203,6 +214,44 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
         decoration: settingsField(context, label),
       ),
     );
+  }
+
+  /// ピックアップ作品（Web の /settings/profile と同じ。全年齢のみ、3 つまで）
+  Widget _pickupSection(BuildContext context) {
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      Padding(
+        padding: const EdgeInsets.only(left: Ds.s4, top: Ds.s16, bottom: Ds.s4),
+        child: Text('ピックアップ作品', style: TextStyle(color: context.muted, fontWeight: FontWeight.w700, fontSize: 13)),
+      ),
+      Padding(
+        padding: const EdgeInsets.only(left: Ds.s4, bottom: Ds.s12),
+        child: Text('プロフィールの上の方に出す作品です。$pickupLimitつまで選べます', style: TextStyle(color: context.muted, fontSize: 12.5)),
+      ),
+      Row(children: [
+        for (var i = 0; i < pickupLimit; i++) ...[
+          if (i > 0) const SizedBox(width: Ds.s8),
+          Expanded(
+            child: AspectRatio(
+              aspectRatio: 1,
+              child: i < _pickups.length
+                  ? PickupTile(
+                      work: _pickups[i],
+                      onTap: _choosePickups,
+                      onRemove: () => setState(() => _pickups = List.of(_pickups)..removeAt(i)),
+                    )
+                  : Pressable(
+                      scale: 0.97,
+                      onTap: _choosePickups,
+                      child: Container(
+                        decoration: BoxDecoration(color: context.skeleton, borderRadius: Ds.br(12)),
+                        child: Icon(Icons.add_rounded, color: context.muted, size: 28),
+                      ),
+                    ),
+            ),
+          ),
+        ],
+      ]),
+    ]);
   }
 
   Widget _images(BuildContext context, ProfileForm f) {
