@@ -98,6 +98,7 @@ flutter:
     - assets/
     - assets/images/
     - assets/docs/
+    - assets/book_reader/
     - assets/snd_sine/
     - assets/snd_industrial/
     - assets/snd_piano/

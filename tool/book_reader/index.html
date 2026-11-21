@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Aipictors</title>
+    <script>
+      // 読書画面が動かないときに、アプリへ理由を知らせる（アプリはログに出す）
+      window.addEventListener("error", function (e) {
+        try { window.AipictorsApp && window.AipictorsApp.postMessage("error:" + e.message + " @" + e.lineno + ":" + e.colno) } catch (_) {}
+      })
+      window.addEventListener("unhandledrejection", function (e) {
+        try { window.AipictorsApp && window.AipictorsApp.postMessage("error:" + (e.reason && e.reason.message || e.reason)) } catch (_) {}
+      })
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

@@ -1,0 +1,14 @@
+@import "tailwindcss";
+@source "./app/components/book-reader";
+html,
+body,
+#root {
+  margin: 0;
+  height: 100%;
+  background: var(--app-bg, #fbf6ea);
+  /* 扉の前書き・メニューなど書体を決めていない所も日本語の書体で出す（system-ui だけだと豆腐になる端末がある） */
+  font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Noto Sans CJK JP", "Yu Gothic", "Meiryo", sans-serif;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior: none;
+}

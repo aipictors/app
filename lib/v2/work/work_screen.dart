@@ -16,6 +16,7 @@ import 'package:aipictors/v2/widgets/work_grid.dart';
 import 'package:aipictors/v2/work/comments.dart';
 import 'package:aipictors/v2/work/moderation.dart';
 import 'package:aipictors/v2/work/support_sheet.dart';
+import 'package:aipictors/v2/work/book_reader_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -36,7 +37,7 @@ query AppWork(\$id: ID!) {
   work(id: \$id) {
     id title enTitle description enDescription type rating createdAt likesCount commentsCount viewsCount
     isLiked isCommentsEditable isGeneration
-    imageURL imageWidth imageHeight url mdUrl
+    imageURL imageWidth imageHeight url mdUrl isCaptionBeforeBody
     largeThumbnailImageURL
     subWorks { id imageUrl }
     tagNames
@@ -463,6 +464,7 @@ class _WorkScreenState extends State<WorkScreen> {
                             workId: w.str('id'),
                             title: _title(w),
                             isNovel: w.str('type') == 'NOVEL',
+                            args: BookReaderArgs(work: w, markdown: _novelText),
                           ),
                           const SizedBox(height: 16),
                           Container(
@@ -1176,18 +1178,19 @@ class _CommentsPreview extends StatelessWidget {
 
 /// 本のように読む（Web と同じ読み方を選べる画面を開く）
 class _BookReaderButton extends StatelessWidget {
-  const _BookReaderButton({required this.workId, required this.title, required this.isNovel});
+  const _BookReaderButton({required this.workId, required this.title, required this.isNovel, this.args});
 
   final String workId;
   final String title;
   final bool isNovel;
+  final BookReaderArgs? args;
 
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     return Pressable(
       scale: 0.99,
-      onTap: () => context.push('/works/$workId/reader?title=${Uri.encodeQueryComponent(title)}'),
+      onTap: () => context.push('/works/$workId/reader?title=${Uri.encodeQueryComponent(title)}', extra: args),
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
         decoration: BoxDecoration(

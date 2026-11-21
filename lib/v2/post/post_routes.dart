@@ -14,6 +14,7 @@ final List<RouteBase> postRoutes = [
     builder: (context, state) => BookReaderScreen(
       workId: state.pathParameters['work']!,
       title: state.uri.queryParameters['title'],
+      args: state.extra is BookReaderArgs ? state.extra as BookReaderArgs : null,
     ),
   ),
   GoRoute(path: '/viewer/works', builder: (context, state) => const MyPostsScreen()),
