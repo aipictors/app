@@ -251,6 +251,9 @@ query AppViewerAccount {
     return data.obj('viewer')?.obj('user');
   }
 
+  /// ピックアップ（全年齢）だけ変える。プロフィールの画面からその場で選んだとき（ほかの欄は送らないので変わらない）
+  static Future<void> updatePickups(List<String> workIds) => updateProfile({'featuredWorkIds': workIds});
+
   static Future<void> updateLogin(String login) async {
     await Api.mutate(r'''
 mutation AppUpdateAccountLogin($input: UpdateAccountLoginInput!) {

@@ -8,6 +8,8 @@ import 'package:aipictors/v2/core/design.dart';
 import 'package:aipictors/v2/core/models.dart';
 import 'package:aipictors/v2/core/paged.dart';
 import 'package:aipictors/v2/user/user_actions.dart';
+import 'package:aipictors/v2/settings/pickup_picker_sheet.dart';
+import 'package:aipictors/v2/settings/settings_api.dart';
 import 'package:aipictors/v2/settings/status_sheet.dart';
 import 'package:aipictors/v2/user/user_api.dart';
 import 'package:aipictors/v2/user/user_tabs.dart';
@@ -126,6 +128,29 @@ class _UserScreenState extends State<UserScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) => old?.dispose());
   }
 
+  /// ピックアップをその場で選び直して保存する
+  Future<void> _editPickups(UserProfile u) async {
+    final current = u.featured.map((w) => PickupWork(id: w.id, title: w.title, thumbnailUrl: w.imageUrl)).toList();
+    final picked = await showPickupPickerSheet(context, userId: u.id, selected: current);
+    if (picked == null || !mounted) return;
+    try {
+      await SettingsApi.updatePickups(picked.map((w) => w.id).toList());
+      if (!mounted) return;
+      context.toast('ピックアップを保存しました');
+      await _refresh();
+    } on ApiException catch (e) {
+      if (mounted) context.toast(e.message, error: true);
+    } catch (_) {
+      if (mounted) context.toast('保存できませんでした', error: true);
+    }
+  }
+
+  /// ユーザー ID を変える画面を開き、戻ったら読み直す
+  Future<void> _editLogin() async {
+    await context.push('/settings/account/login');
+    if (mounted) await _refresh();
+  }
+
   Future<void> _refresh() async {
     final u = _user;
     if (u == null) return _load();
@@ -174,11 +199,17 @@ class _UserScreenState extends State<UserScreen> {
                 child: Padding(
                   padding: const EdgeInsets.only(bottom: 8),
                   child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                    const SectionHeader('ピックアップ', icon: Icons.push_pin_rounded),
+                    Stack(children: [
+                      const SectionHeader('ピックアップ', icon: Icons.push_pin_rounded),
+                      // 自分なら見出しの右からその場で選び直せる
+                      if (_isSelf) Positioned(right: 12, top: 14, child: _EditPill(label: '編集', onTap: () => _editPickups(u))),
+                    ]),
                     WorkStrip(works: u.featured, height: 190),
                   ]),
                 ),
-              ),
+              )
+            else if (_isSelf)
+              SliverToBoxAdapter(child: _PickupEmptyCard(onTap: () => _editPickups(u))),
             if (!u.isBlocked) SliverToBoxAdapter(child: UserRequestPlansStrip(key: ValueKey('plans-${u.id}'), userId: u.id, isOwner: _isSelf)),
             if (u.isBlocked)
               SliverToBoxAdapter(child: _blockedNotice(context, u))
@@ -356,7 +387,21 @@ class _UserScreenState extends State<UserScreen> {
                 ]),
                 const SizedBox(height: 2),
                 Row(children: [
-                  Text('@${u.login.replaceFirst(RegExp(r'^@+'), '')}', style: context.tt.bodyMedium?.copyWith(color: context.muted)),
+                  if (_isSelf)
+                    // 自分なら @ID の横の鉛筆から ID を変えられる（以前は設定の奥にしかなく、変えられるか聞かれていた）
+                    Pressable(
+                      onTap: _editLogin,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 4),
+                        child: Row(mainAxisSize: MainAxisSize.min, children: [
+                          Text('@${u.login.replaceFirst(RegExp(r'^@+'), '')}', style: context.tt.bodyMedium?.copyWith(color: context.muted)),
+                          const SizedBox(width: 4),
+                          Icon(Icons.edit_rounded, size: 15, color: context.muted),
+                        ]),
+                      ),
+                    )
+                  else
+                    Text('@${u.login.replaceFirst(RegExp(r'^@+'), '')}', style: context.tt.bodyMedium?.copyWith(color: context.muted)),
                   if (u.isFollower && !_isSelf) ...[
                     const SizedBox(width: 8),
                     Container(
@@ -793,6 +838,71 @@ class _AchievementShowcaseState extends State<_AchievementShowcase> {
           Badge2('実績 ${s.unlockedCount}'),
           for (final a in s.featured.where((a) => !a.isMasked).take(3)) Badge2(a.name, color: achievementTier(a.tier).$2),
         ]),
+      ),
+    );
+  }
+}
+
+/// 見出しの右の小さな「編集」ボタン
+class _EditPill extends StatelessWidget {
+  const _EditPill({required this.label, required this.onTap});
+
+  final String label;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Pressable(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+        decoration: BoxDecoration(color: context.skeleton, borderRadius: Ds.br(999)),
+        child: Row(mainAxisSize: MainAxisSize.min, children: [
+          Icon(Icons.edit_rounded, size: 14, color: context.cs.onSurface),
+          const SizedBox(width: 4),
+          Text(label, style: context.tt.labelMedium?.copyWith(fontWeight: FontWeight.w800)),
+        ]),
+      ),
+    );
+  }
+}
+
+/// 自分のプロフィールでピックアップが空のとき。ここから選べることを伝える
+class _PickupEmptyCard extends StatelessWidget {
+  const _PickupEmptyCard({required this.onTap});
+
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+      child: Pressable(
+        onTap: onTap,
+        child: Container(
+          padding: const EdgeInsets.all(14),
+          decoration: BoxDecoration(
+            borderRadius: Ds.br(18),
+            border: Border.all(color: context.muted.withValues(alpha: 0.35), width: 1.5),
+          ),
+          child: Row(children: [
+            Container(
+              width: 42,
+              height: 42,
+              decoration: BoxDecoration(color: context.cs.primary.withValues(alpha: 0.12), shape: BoxShape.circle),
+              child: Icon(Icons.push_pin_rounded, color: context.cs.primary, size: 20),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                Text('ピックアップを選ぶ', style: context.tt.titleSmall?.copyWith(fontWeight: FontWeight.w800)),
+                const SizedBox(height: 2),
+                Text('見てほしい作品を $pickupLimit つまで、プロフィールの上に大きく出せます', style: TextStyle(color: context.muted, fontSize: 12, height: 1.4)),
+              ]),
+            ),
+            Icon(Icons.add_rounded, color: context.muted),
+          ]),
+        ),
       ),
     );
   }
