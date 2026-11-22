@@ -230,7 +230,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
       label: item.label,
       subtitle: subtitle,
       trailing: _valueOf(item),
-      chevron: item.kind == SettingsKind.link,
+      chevron: item.kind == SettingsKind.link || item.id == 'language',
       onTap: () => _open(item),
     );
   }

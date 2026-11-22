@@ -239,6 +239,15 @@ const settingsCatalog = <SettingsSection>[
       keywords: ['収益', 'reward', 'payout', '振込', '口座', 'bank', '報酬'],
     ),
     SettingsItem(
+      id: 'requestPlans',
+      icon: Icons.storefront_outlined,
+      ja: 'リクエストとプラン',
+      en: 'Requests & plans',
+      path: '/settings/requests',
+      loginOnly: true,
+      keywords: ['リクエスト', 'request', '依頼', 'プラン', 'plan', '受付', 'commission'],
+    ),
+    SettingsItem(
       id: 'premiumCoinSupport',
       icon: Icons.do_not_disturb_on_outlined,
       ja: 'プレミアムコインでの推し',
