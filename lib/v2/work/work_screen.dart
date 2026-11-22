@@ -78,6 +78,8 @@ class _WorkScreenState extends State<WorkScreen> {
   int _likes = 0;
   bool _following = false;
   final ScrollController? _debugScroll = DebugBoot.screenTab?.startsWith('comments') == true ? ScrollController() : null;
+  final _mediaKey = GlobalKey(debugLabel: 'workMedia');
+  final _infoKey = GlobalKey(debugLabel: 'workInfo');
   int _imageIndex = 0;
   List<CommentItem> _comments = [];
   List<WorkSummary> _related = [];
@@ -346,33 +348,13 @@ class _WorkScreenState extends State<WorkScreen> {
     final tags = (w['tagNames'] as List?)?.map((e) => e.toString()).where((e) => e.isNotEmpty).toList() ?? const [];
     final width = MediaQuery.sizeOf(context).width;
     final mediaMax = width > 700 ? 700.0 : width;
-
-    return Scaffold(
-      body: Stack(children: [
-        RefreshIndicator.adaptive(
-          onRefresh: _load,
-          edgeOffset: 80,
-          child: CustomScrollView(
-            controller: _debugScroll,
-            physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
-            slivers: [
-              SliverAppBar(
-                pinned: true,
-                title: AutoTranslatedText(
-                  _title(w),
-                  showLabel: false,
-                  builder: (context, text) => Text(text, maxLines: 1, overflow: TextOverflow.ellipsis, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
-                ),
-                actions: [
-                  IconButton(onPressed: _share, icon: const Icon(Icons.ios_share_rounded)),
-                  IconButton(onPressed: _menu, icon: const Icon(Icons.more_horiz_rounded)),
-                ],
-              ),
-              SliverToBoxAdapter(
-                child: Center(
-                  child: ConstrainedBox(
-                    constraints: BoxConstraints(maxWidth: mediaMax),
-                    child: isVideo
+    // 広い画面（折りたたみを開いた状態・iPad など）は左に画像、右に情報・コメント。小説など画像の無い作品は 1 列のまま
+    final wide = isWideLayout(context) && (isVideo || images.isNotEmpty);
+    final mediaAspect = w.integer('imageWidth') > 0 && w.integer('imageHeight') > 0 ? (w.integer('imageWidth') / w.integer('imageHeight')).clamp(0.6, 1.8) : 1.0;
+    // 1 列⇔2 列が入れ替わっても、めくった位置・再生中の動画・開いた説明文を残す
+    final Widget media = KeyedSubtree(
+      key: _mediaKey,
+      child: isVideo
                         ? _VideoBox(url: w.str('url'), poster: images.isNotEmpty ? images.first : null)
                         : images.isEmpty
                             ? const SizedBox(height: 12)
@@ -387,16 +369,8 @@ class _WorkScreenState extends State<WorkScreen> {
                                   if (!_liked) _toggleLike();
                                 },
                               ),
-                  ),
-                ),
-              ),
-              SliverToBoxAdapter(
-                child: Center(
-                  child: ConstrainedBox(
-                    constraints: const BoxConstraints(maxWidth: 760),
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(16, 14, 16, 0),
-                      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+    );
+    final Widget info = Column(key: _infoKey, crossAxisAlignment: CrossAxisAlignment.start, children: [
                         _ActionBar(
                           liked: _liked,
                           likes: _likes,
@@ -505,11 +479,69 @@ class _WorkScreenState extends State<WorkScreen> {
                             if (Nav.requireLogin(context)) _openComments(compose: true);
                           },
                         ),
-                      ]),
+    ]);
+
+
+    return Scaffold(
+      body: Stack(children: [
+        RefreshIndicator.adaptive(
+          onRefresh: _load,
+          edgeOffset: 80,
+          child: CustomScrollView(
+            controller: _debugScroll,
+            physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
+            slivers: [
+              SliverAppBar(
+                pinned: true,
+                title: AutoTranslatedText(
+                  _title(w),
+                  showLabel: false,
+                  builder: (context, text) => Text(text, maxLines: 1, overflow: TextOverflow.ellipsis, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
+                ),
+                actions: [
+                  IconButton(onPressed: _share, icon: const Icon(Icons.ios_share_rounded)),
+                  IconButton(onPressed: _menu, icon: const Icon(Icons.more_horiz_rounded)),
+                ],
+              ),
+              if (wide)
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
+                    child: LayoutBuilder(builder: (context, box) {
+                      // 画像は画面の高さに収まる大きさにする（縦長の作品でも情報と並んで見える）
+                      final paneW = (box.maxWidth - 20) * 0.55;
+                      final size = MediaQuery.sizeOf(context);
+                      final maxH = size.height - MediaQuery.paddingOf(context).vertical - kToolbarHeight - 96;
+                      final mediaW = (maxH * mediaAspect).clamp(240.0, paneW);
+                      return Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                        SizedBox(
+                          width: paneW,
+                          child: Align(
+                            alignment: Alignment.topCenter,
+                            child: SizedBox(width: mediaW, child: ClipRRect(borderRadius: Ds.br(16), child: media)),
+                          ),
+                        ),
+                        const SizedBox(width: 20),
+                        Expanded(child: Padding(padding: const EdgeInsets.only(top: 6), child: info)),
+                      ]);
+                    }),
+                  ),
+                )
+              else ...[
+                SliverToBoxAdapter(
+                  child: Center(
+                    child: ConstrainedBox(constraints: BoxConstraints(maxWidth: mediaMax), child: media),
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: Center(
+                    child: ConstrainedBox(
+                      constraints: const BoxConstraints(maxWidth: 760),
+                      child: Padding(padding: const EdgeInsets.fromLTRB(16, 14, 16, 0), child: info),
                     ),
                   ),
                 ),
-              ),
+              ],
               if (_related.isNotEmpty) ...[
                 SliverToBoxAdapter(child: SectionHeader(tr('関連作品', 'Related works'), icon: Icons.auto_awesome_mosaic_rounded)),
                 SliverPadding(

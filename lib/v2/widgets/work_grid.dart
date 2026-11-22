@@ -117,12 +117,12 @@ class _LikePill extends StatelessWidget {
   }
 }
 
-int gridColumns(BuildContext context) {
-  final w = MediaQuery.sizeOf(context).width;
-  if (w >= 1100) return 5;
-  if (w >= 800) return 4;
-  if (w >= 560) return 3;
-  return 2;
+int gridColumns(BuildContext context) => gridColumnsFor(MediaQuery.sizeOf(context).width);
+
+/// 幅から列数を決める。普通のスマホは 2 列のまま、広い画面は 1 列およそ 200pt で増やす（最大 6 列）
+int gridColumnsFor(double width) {
+  if (width < 560) return 2;
+  return (width / 200).floor().clamp(3, 6);
 }
 
 /// PagedController を受け取って、石垣状に並べる Sliver 群（読み込み・空・エラー・続き読み込みも込み）
@@ -144,11 +144,13 @@ class SliverPagedWorks extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListenableBuilder(
+    // 実際に使える幅で列数を決める（折りたたみの開閉や余白のある画面でも合うように）
+    return SliverLayoutBuilder(
+      builder: (context, constraints) => ListenableBuilder(
       listenable: controller,
       builder: (context, _) {
         final c = controller;
-        final cols = gridColumns(context);
+        final cols = gridColumnsFor(constraints.crossAxisExtent);
         if (c.isInitialLoading || (c.items.isEmpty && c.hasMore && c.error == null)) {
           if (!c.isLoading) {
             WidgetsBinding.instance.addPostFrameCallback((_) => c.loadMore());
@@ -212,6 +214,7 @@ class SliverPagedWorks extends StatelessWidget {
           const SliverToBoxAdapter(child: SizedBox(height: 80)),
         ]);
       },
+      ),
     );
   }
 }

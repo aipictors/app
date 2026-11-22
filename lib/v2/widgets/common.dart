@@ -519,6 +519,14 @@ class AppRefresh extends StatelessWidget {
   }
 }
 
+/// 2 ペインで並べる広さか（iPad・iPhone Duo の内側・折りたたみを開いた状態など）
+/// 正方形寄りなら幅 600 から、横長なら幅 720 から。普通の iPhone の縦向きは false
+bool isWideLayout(BuildContext context) {
+  final s = MediaQuery.sizeOf(context);
+  if (s.width >= 720) return true;
+  return s.width >= 600 && s.height > 0 && s.width / s.height >= 0.6;
+}
+
 /// iPad など広い画面で、中身を読みやすい幅に収めて真ん中に置く
 class ContentWidth extends StatelessWidget {
   const ContentWidth({super.key, required this.child, this.maxWidth = Ds.contentWidth});

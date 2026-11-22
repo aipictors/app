@@ -29,6 +29,10 @@ class GenerationScreen extends StatefulWidget {
 
 class _GenerationScreenState extends State<GenerationScreen> {
   final _controller = GenController();
+
+  /// 折りたたみの開閉で 1 ペイン⇔2 ペインが入れ替わっても、入力欄・開閉・スクロール位置を残す
+  final _formKey = GlobalKey(debugLabel: 'genForm');
+  final _historyKey = GlobalKey(debugLabel: 'genHistory');
   StreamSubscription<User?>? _auth;
   bool _loggedIn = Nav.isLoggedIn;
   int _tab = 0;
@@ -196,7 +200,7 @@ class _GenerationScreenState extends State<GenerationScreen> {
       body: ListenableBuilder(
         listenable: _controller,
         builder: (context, _) {
-          final wide = MediaQuery.sizeOf(context).width >= 740;
+          final wide = isWideLayout(context);
           return SafeArea(
             bottom: false,
             child: Column(
@@ -226,11 +230,12 @@ class _GenerationScreenState extends State<GenerationScreen> {
           index: _tab,
           children: [
             GenerationForm(
+              key: _formKey,
               controller: _controller,
               header: _RecentStrip(controller: _controller, onReuse: _reuse, onSeeAll: () => setState(() => _tab = 1)),
               bottomPadding: 150,
             ),
-            GenerationHistory(controller: _controller, onReuse: _reuse, bottomPadding: 24),
+            GenerationHistory(key: _historyKey, controller: _controller, onReuse: _reuse, bottomPadding: 24),
           ],
         ),
         if (_tab == 0)
@@ -245,14 +250,15 @@ class _GenerationScreenState extends State<GenerationScreen> {
   }
 
   Widget _wideBody() {
-    return Row(
+    // 左のナビゲーションを除いた幅で分ける（iPhone Duo の内側などでも結果が 2 列で見えるように）
+    return LayoutBuilder(builder: (context, box) => Row(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         SizedBox(
-          width: (MediaQuery.sizeOf(context).width * 0.5).clamp(380, 480).toDouble(),
+          width: (box.maxWidth * 0.55).clamp(340, 480).toDouble(),
           child: Stack(
             children: [
-              GenerationForm(controller: _controller, bottomPadding: 150),
+              GenerationForm(key: _formKey, controller: _controller, bottomPadding: 150),
               Positioned(
                 left: 0,
                 right: 0,
@@ -264,10 +270,10 @@ class _GenerationScreenState extends State<GenerationScreen> {
         ),
         VerticalDivider(width: 1, color: context.hairline),
         Expanded(
-          child: GenerationHistory(controller: _controller, onReuse: _reuse),
+          child: GenerationHistory(key: _historyKey, controller: _controller, onReuse: _reuse),
         ),
       ],
-    );
+    ));
   }
 }
 
