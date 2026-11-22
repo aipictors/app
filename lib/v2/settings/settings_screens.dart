@@ -19,45 +19,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-/// 設定の入口（Web の /settings）
-class SettingsScreen extends StatelessWidget {
-  const SettingsScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    Widget link(IconData icon, String label, String path) => SettingsLink(icon: icon, label: label, onTap: () => context.push(path));
-    return Scaffold(
-      appBar: AppBar(title: Text(tr('設定', 'Settings'), style: const TextStyle(fontWeight: FontWeight.w800))),
-      body: ContentWidth(
-        child: ListView(padding: const EdgeInsets.only(bottom: 60), children: [
-          SettingsGroup(title: tr('アカウント', 'Account'), children: [
-            link(Icons.badge_outlined, tr('プロフィール', 'Profile'), '/settings/profile'),
-            link(Icons.manage_accounts_outlined, tr('アカウント設定', 'Account settings'), '/settings/account'),
-            link(Icons.volunteer_activism_outlined, tr('応援コイン受け取り', 'Supports received'), '/settings/support-received'),
-            link(Icons.payments_outlined, tr('収益の受け取り', 'Rewards payout'), '/settings/creator-rewards'),
-            link(Icons.do_not_disturb_on_outlined, tr('プレミアムコインでの推し', 'Premium coin support'), '/settings/premium-coin-support'),
-          ]),
-          SettingsGroup(title: tr('表示と通知', 'Display & notifications'), children: [
-            link(Icons.notifications_none_rounded, tr('通知・いいね', 'Notifications & likes'), '/settings/notification'),
-            link(Icons.visibility_outlined, tr('表示コンテンツ', 'Content'), '/settings/restriction'),
-            link(Icons.palette_outlined, tr('カラーテーマ', 'Color theme'), '/settings/color'),
-            link(Icons.emoji_emotions_outlined, tr('スタンプ', 'Stickers'), '/settings/sticker'),
-          ]),
-          SettingsGroup(title: tr('タグとユーザー', 'Tags & users'), children: [
-            link(Icons.sell_outlined, tr('お気に入りタグ', 'Favorite tags'), '/settings/followed/tags'),
-            link(Icons.volume_off_outlined, tr('ユーザーミュート', 'Muted users'), '/settings/muted/users'),
-            link(Icons.block_rounded, tr('ユーザーブロック', 'Blocked users'), '/settings/blocked/users'),
-            link(Icons.label_off_outlined, tr('タグミュート', 'Muted tags'), '/settings/muted/tags'),
-          ]),
-          SettingsGroup(children: [
-            link(Icons.tune_rounded, tr('その他の設定・ヘルプ', 'More settings & help'), '/more'),
-          ]),
-        ]),
-      ),
-    );
-  }
-}
-
 /// アカウント設定
 class AccountSettingsScreen extends StatefulWidget {
   const AccountSettingsScreen({super.key});

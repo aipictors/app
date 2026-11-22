@@ -41,23 +41,32 @@ class SettingsGroup extends StatelessWidget {
 
 /// 押すと次の画面へ行く行
 class SettingsLink extends StatelessWidget {
-  const SettingsLink({super.key, required this.icon, required this.label, required this.onTap, this.trailing, this.destructive = false});
+  const SettingsLink({super.key, required this.icon, required this.label, required this.onTap, this.trailing, this.subtitle, this.destructive = false, this.chevron = true});
 
   final IconData icon;
   final String label;
   final VoidCallback onTap;
   final String? trailing;
+  final String? subtitle;
   final bool destructive;
+
+  /// その場で終わる操作（キャッシュ削除・ログアウトなど）は false
+  final bool chevron;
 
   @override
   Widget build(BuildContext context) {
     final color = destructive ? context.cs.error : null;
     return ListTile(
-      leading: Icon(icon, color: color),
-      title: Text(label, style: TextStyle(fontWeight: FontWeight.w600, color: color)),
+      leading: Icon(icon, color: color ?? context.muted),
+      title: Text(label, style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15, color: color)),
+      subtitle: subtitle == null ? null : Text(subtitle!, maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(color: context.muted, fontSize: 12.5)),
       trailing: Row(mainAxisSize: MainAxisSize.min, children: [
-        if (trailing != null) Text(trailing!, style: TextStyle(color: context.muted, fontSize: 13)),
-        Icon(Icons.chevron_right_rounded, color: context.muted),
+        if (trailing != null)
+          ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 160),
+            child: Text(trailing!, maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(color: context.muted, fontSize: 13)),
+          ),
+        if (chevron) Icon(Icons.chevron_right_rounded, color: context.muted),
       ]),
       onTap: () {
         Ds.tap();
@@ -69,16 +78,20 @@ class SettingsLink extends StatelessWidget {
 
 /// スイッチの行。保存中は押せない
 class SettingsSwitch extends StatelessWidget {
-  const SettingsSwitch({super.key, required this.label, required this.value, required this.onChanged, this.subtitle});
+  const SettingsSwitch({super.key, required this.label, required this.value, required this.onChanged, this.subtitle, this.icon});
 
   final String label;
   final String? subtitle;
   final bool value;
   final ValueChanged<bool>? onChanged;
 
+  /// 設定トップでリンクの行と並べるときのアイコン
+  final IconData? icon;
+
   @override
   Widget build(BuildContext context) {
     return SwitchListTile.adaptive(
+      secondary: icon == null ? null : Icon(icon, color: context.muted),
       title: Text(label, style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 15)),
       subtitle: subtitle == null ? null : Text(subtitle!, style: TextStyle(color: context.muted, fontSize: 12.5, height: 1.4)),
       value: value,

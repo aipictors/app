@@ -104,7 +104,7 @@ class _MyPageScreenState extends State<MyPageScreen> {
       return Scaffold(
         appBar: AppBar(
           title: Text(tr('マイページ', 'My page'), style: const TextStyle(fontWeight: FontWeight.w900)),
-          actions: [IconButton(onPressed: () => context.push('/more'), icon: const Icon(Icons.settings_outlined))],
+          actions: [IconButton(tooltip: tr('設定', 'Settings'), onPressed: () => context.push('/settings'), icon: const Icon(Icons.settings_outlined))],
         ),
         body: LoginRequiredView(
           icon: Icons.person_rounded,
@@ -124,7 +124,7 @@ class _MyPageScreenState extends State<MyPageScreen> {
             SliverAppBar(
               pinned: true,
               title: Text(tr('マイページ', 'My page'), style: const TextStyle(fontWeight: FontWeight.w900)),
-              actions: [IconButton(tooltip: '設定', onPressed: () => context.push('/settings'), icon: const Icon(Icons.settings_outlined))],
+              actions: [IconButton(tooltip: tr('設定', 'Settings'), onPressed: () => context.push('/settings'), icon: const Icon(Icons.settings_outlined))],
             ),
             if (_loading)
               const SliverToBoxAdapter(
