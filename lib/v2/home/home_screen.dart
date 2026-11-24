@@ -10,6 +10,8 @@ import 'package:aipictors/v2/core/list_like_count.dart';
 import 'package:aipictors/v2/core/models.dart';
 import 'package:aipictors/v2/core/nav.dart';
 import 'package:aipictors/v2/core/paged.dart';
+import 'package:aipictors/v2/explore/explore_widgets.dart';
+import 'package:aipictors/v2/home/latest_filter.dart';
 import 'package:aipictors/v2/support/support_ranking_screen.dart';
 import 'package:aipictors/v2/widgets/common.dart';
 import 'package:aipictors/v2/widgets/user_avatar.dart';
@@ -705,7 +707,7 @@ class _FollowingViewState extends State<_FollowingView> {
   }
 }
 
-/// 新着（全体）
+/// 新着（Web の新着タブ: 新着 / 人気 / 新規ユーザと、新着の絞り込み）
 class _LatestView extends StatefulWidget {
   const _LatestView();
 
@@ -714,35 +716,46 @@ class _LatestView extends StatefulWidget {
 }
 
 class _LatestViewState extends State<_LatestView> {
-  static const _types = [
-    ('すべて', null),
-    ('イラスト', 'WORK'),
-    ('小説', 'NOVEL'),
-    ('動画', 'VIDEO'),
-  ];
-
-  static String _typeLabel(String ja) => switch (ja) {
-        'すべて' => tr(ja, 'All'),
-        'イラスト' => tr(ja, 'Illustrations'),
-        '小説' => tr(ja, 'Novels'),
-        '動画' => tr(ja, 'Videos'),
-        _ => ja,
-      };
-
-  int _type = 0;
+  LatestView _view = LatestView.latest;
+  LatestFilter _filter = const LatestFilter();
   late PagedController<WorkSummary> _controller = _create();
 
   PagedController<WorkSummary> _create() {
-    final t = _types[_type];
+    final view = _view;
+    final f = _filter;
     return PagedController<WorkSummary>(
       idOf: (w) => w.id,
+      pageSize: view == LatestView.latest ? 24 : 100,
       fetch: (offset, limit) async {
-        final where = <String, dynamic>{'ratings': appRatings, 'sort': 'DESC'};
-        if (t.$2 != null) where['workType'] = t.$2;
-        final data = await Api.query(_worksQuery, variables: {'offset': offset, 'limit': limit, 'where': where});
-        return WorkSummary.listFrom(data.list('works'));
+        switch (view) {
+          case LatestView.latest:
+            final data = await Api.query(_worksQuery, variables: {'offset': offset, 'limit': limit, 'where': f.where(appRatings, DateTime.now())});
+            return WorkSummary.listFrom(data.list('works'));
+          case LatestView.popular:
+            // 最近の人気作品（Web の「人気」と同じ hotWorks）
+            if (offset > 0) return const [];
+            final data = await Api.query(_latestHotQuery, cacheFor: const Duration(minutes: 3));
+            return WorkSummary.listFrom(data.list('hotWorks'));
+          case LatestView.newUsers:
+            // 新規登録されたユーザの作品（Web の「新規ユーザ」と同じ newUserWorks）
+            if (offset > 0) return const [];
+            final data = await Api.query(_latestNewUsersQuery, variables: {
+              'where': {'ratings': appRatings, 'isNowCreatedAt': true},
+            }, cacheFor: const Duration(minutes: 3));
+            return WorkSummary.listFrom(data.list('newUserWorks'));
+        }
       },
     );
+  }
+
+  void _reset({LatestView? view, LatestFilter? filter}) {
+    final old = _controller;
+    setState(() {
+      if (view != null) _view = view;
+      if (filter != null) _filter = filter;
+      _controller = _create();
+    });
+    WidgetsBinding.instance.addPostFrameCallback((_) => old.dispose());
   }
 
   @override
@@ -751,8 +764,14 @@ class _LatestViewState extends State<_LatestView> {
     super.dispose();
   }
 
+  Future<void> _openFilter() async {
+    final f = await _showLatestFilterSheet(context, _filter);
+    if (f != null) _reset(filter: f);
+  }
+
   @override
   Widget build(BuildContext context) {
+    final active = _filter.activeCount;
     return RefreshIndicator.adaptive(
       onRefresh: () {
         Api.clearCache();
@@ -763,34 +782,120 @@ class _LatestViewState extends State<_LatestView> {
         slivers: [
           SliverToBoxAdapter(
             child: Padding(
-              padding: const EdgeInsets.only(top: 10, bottom: 2),
-              child: SizedBox(
-                height: 34,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  children: [
-                    for (var i = 0; i < _types.length; i++)
-                        Padding(
-                          padding: const EdgeInsets.only(right: 8),
-                          child: ChoiceChip(
-                            label: Text(_typeLabel(_types[i].$1)),
-                            selected: _type == i,
-                            onSelected: (_) => setState(() {
-                              _controller.dispose();
-                              _type = i;
-                              _controller = _create();
-                            }),
-                          ),
-                        ),
-                  ],
+              padding: const EdgeInsets.fromLTRB(16, 10, 12, 2),
+              child: Row(children: [
+                Expanded(
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: SegmentedButton<LatestView>(
+                      showSelectedIcon: false,
+                      style: const ButtonStyle(visualDensity: VisualDensity.compact),
+                      segments: [
+                        ButtonSegment(value: LatestView.latest, label: Text(tr('新着', 'New'))),
+                        ButtonSegment(value: LatestView.popular, label: Text(tr('人気', 'Popular')), tooltip: tr('最近投稿された人気作品', 'Recently popular works')),
+                        ButtonSegment(value: LatestView.newUsers, label: Text(tr('新規ユーザ', 'New users')), tooltip: tr('新規登録されたユーザの作品', 'Works by newly registered users')),
+                      ],
+                      selected: {_view},
+                      onSelectionChanged: (v) {
+                        Ds.tap();
+                        _reset(view: v.first);
+                      },
+                    ),
+                  ),
                 ),
-              ),
+                if (_view == LatestView.latest) ...[
+                  const SizedBox(width: 8),
+                  ActionChip(
+                    avatar: Icon(Icons.tune_rounded, size: 16, color: active > 0 ? context.cs.onPrimary : null),
+                    label: Text(active > 0 ? tr('絞り込み $active', 'Filters $active') : tr('絞り込み', 'Filters')),
+                    labelStyle: TextStyle(fontWeight: FontWeight.w700, color: active > 0 ? context.cs.onPrimary : null),
+                    backgroundColor: active > 0 ? context.cs.primary : null,
+                    shape: RoundedRectangleBorder(borderRadius: Ds.br(18)),
+                    onPressed: _openFilter,
+                  ),
+                ],
+              ]),
             ),
           ),
-          SliverPagedWorks(key: ValueKey(_type), controller: _controller),
+          SliverPagedWorks(
+            key: ObjectKey(_controller),
+            controller: _controller,
+            emptyMessage: _view == LatestView.latest && active > 0 ? tr('絞り込みを変えると見つかるかもしれません', 'Try changing the filters') : null,
+          ),
         ],
       ),
     );
   }
+}
+
+const _latestHotQuery = '''
+query AppLatestHotWorks {
+  hotWorks(where: { isSensitive: false }) {
+    $workCardFields
+  }
+}''';
+
+const _latestNewUsersQuery = '''
+query AppLatestNewUserWorks(\$where: NewUsersWorksWhereInput) {
+  newUserWorks(offset: 0, limit: 20, where: \$where) {
+    $workCardFields
+  }
+}''';
+
+/// 新着の絞り込み（種類・プロンプト・並び順・期間・ユーザー毎に1作品）
+Future<LatestFilter?> _showLatestFilterSheet(BuildContext context, LatestFilter initial) {
+  return showModalBottomSheet<LatestFilter>(
+    context: context,
+    showDragHandle: true,
+    isScrollControlled: true,
+    useSafeArea: true,
+    builder: (context) {
+      var f = initial;
+      return StatefulBuilder(builder: (context, set) {
+        return SafeArea(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.fromLTRB(20, 0, 20, 16),
+            child: Column(crossAxisAlignment: CrossAxisAlignment.start, mainAxisSize: MainAxisSize.min, children: [
+              Row(children: [
+                Expanded(child: Text(tr('絞り込み', 'Filters'), style: context.tt.titleLarge?.copyWith(fontWeight: FontWeight.w900))),
+                TextButton(onPressed: () => set(() => f = const LatestFilter()), child: Text(tr('リセット', 'Reset'))),
+              ]),
+              const SizedBox(height: 12),
+              ChoiceRow<(String?, String, String)>(
+                title: tr('種類', 'Type'),
+                values: latestWorkTypes,
+                labelOf: (v) => tr(v.$2, v.$3),
+                selected: latestWorkTypes.firstWhere((v) => v.$1 == f.workType),
+                onChanged: (v) => set(() => f = f.copyWith(workType: () => v.$1)),
+              ),
+              ChoiceRow<bool?>(
+                title: tr('プロンプト', 'Prompt'),
+                values: const [null, true, false],
+                labelOf: (v) => v == null ? tr('すべて', 'All') : (v ? tr('あり', 'Yes') : tr('なし', 'No')),
+                selected: f.hasPrompt,
+                onChanged: (v) => set(() => f = f.copyWith(hasPrompt: () => v)),
+              ),
+              ChoiceRow<LatestSort>(title: tr('並び順', 'Sort'), values: LatestSort.values, labelOf: (v) => v.label, selected: f.sort, onChanged: (v) => set(() => f = f.copyWith(sort: v))),
+              ChoiceRow<LatestRange>(title: tr('期間', 'Period'), values: LatestRange.values, labelOf: (v) => v.label, selected: f.range, onChanged: (v) => set(() => f = f.copyWith(range: v))),
+              SwitchListTile.adaptive(
+                contentPadding: EdgeInsets.zero,
+                title: Text(tr('ユーザー毎に1作品', 'One work per user'), style: const TextStyle(fontWeight: FontWeight.w700)),
+                value: f.oneWorkPerUser,
+                onChanged: (v) => set(() => f = f.copyWith(oneWorkPerUser: v)),
+              ),
+              const SizedBox(height: 12),
+              SizedBox(
+                width: double.infinity,
+                child: FilledButton(
+                  style: FilledButton.styleFrom(minimumSize: const Size.fromHeight(50), shape: RoundedRectangleBorder(borderRadius: Ds.br(25))),
+                  onPressed: () => Navigator.pop(context, f),
+                  child: Text(tr('この条件で表示', 'Apply'), style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 16)),
+                ),
+              ),
+            ]),
+          ),
+        );
+      });
+    },
+  );
 }
