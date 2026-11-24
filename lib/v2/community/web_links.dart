@@ -1,5 +1,6 @@
 import 'package:aipictors/providers/home_tab_index_provider.dart';
 import 'package:aipictors/v2/core/nav.dart';
+import 'package:aipictors/v2/generation/generation_reference.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -89,6 +90,8 @@ class WebLinks {
     if (u.host.isEmpty || _isAipictors(u)) {
       if (_path(u).startsWith('/generation')) {
         // 生成はアプリのタブで開く（Web の生成画面にはプランの案内がある）
+        // ?work=<id> は参照生成（作品の生成情報を読み込む）
+        GenReference.request(u.queryParameters['work'] ?? '');
         ProviderScope.containerOf(context, listen: false).read(homeTabIndexProvider.notifier).update(2);
         context.go('/');
         return;

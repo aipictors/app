@@ -4,6 +4,7 @@ import 'dart:math' as math;
 
 import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/generation/generation_api.dart';
+import 'package:aipictors/v2/generation/generation_reference.dart';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -419,6 +420,30 @@ class GenSettings extends ChangeNotifier {
     });
   }
 
+  /// 作品をもとに生成（Web の GenerationConfigRestoration の ?work=）。選んだ項目だけ入れる
+  void applyReference(ReferencePatch p) {
+    update((s) {
+      final model = p.model;
+      if (model != null) {
+        s.userCheckpoint = null;
+        s._applyModelType(model.id, model.type);
+      }
+      if (p.prompt != null) s.prompt = p.prompt!;
+      if (p.loras != null) s.loras = p.loras!;
+      if (p.negativePrompt != null) s.negativePrompt = p.negativePrompt!;
+      if (p.size != null) s.sizeType = GenRules.nearestSize(s.effectiveType, p.size!);
+      if (p.steps != null) s.steps = p.steps!;
+      if (p.scale != null) s.scale = p.scale!;
+      if (p.sampler != null) {
+        s.sampler = p.sampler!;
+        s.scheduler = p.scheduler;
+      }
+      if (p.clipSkip != null) s.clipSkip = p.clipSkip!;
+      if (p.vae != null) s.vae = p.vae!;
+      if (p.seed != null) s.seed = p.seed!;
+    });
+  }
+
   /// プロンプトから <lora:name:w> を取り出す
   static (String, List<LoraPick>) extractLoras(String text) {
     final picks = <LoraPick>[];
@@ -514,31 +539,42 @@ class GenSettings extends ChangeNotifier {
       if (raw == null) return;
       final j = jsonDecode(raw);
       if (j is! Map<String, dynamic>) return;
-      modelId = j['modelId']?.toString() ?? modelId;
-      modelType = j['modelType']?.toString() ?? modelType;
-      userCheckpoint = UserCheckpointPick.fromJson(j['userCheckpoint']);
-      prompt = j['prompt']?.toString() ?? prompt;
-      negativePrompt = j['negativePrompt']?.toString() ?? negativePrompt;
-      sizeType = j['sizeType']?.toString() ?? sizeType;
-      steps = (j['steps'] is int ? j['steps'] as int : steps).clamp(GenRules.minSteps, GenRules.maxSteps);
-      scale = (j['scale'] is int ? j['scale'] as int : scale).clamp(GenRules.minScale, GenRules.maxScale);
-      final savedSampler = GenRules.splitSampler(j['sampler']?.toString() ?? sampler);
-      sampler = savedSampler.$1;
-      final savedScheduler = j['scheduler']?.toString();
-      scheduler = GenRules.schedulers.contains(savedScheduler) ? savedScheduler : savedSampler.$2;
-      seed = j['seed'] is int ? j['seed'] as int : seed;
-      clipSkip = (j['clipSkip'] is int ? j['clipSkip'] as int : clipSkip).clamp(1, 12);
-      vae = j['vae']?.toString() ?? vae;
-      highRes = j['highRes'] == true;
-      japanesePrompt = j['japanesePrompt'] == true;
-      imagesPerRequest = j['imagesPerRequest'] is int ? j['imagesPerRequest'] as int : null;
-      fixedSeedImages = j['fixedSeedImages'] is int ? j['fixedSeedImages'] as int : 1;
-      if (j['i2iStrength'] is num) i2iStrength = (j['i2iStrength'] as num).toDouble().clamp(0.1, 1);
-      loras = (j['loras'] is List ? j['loras'] as List : const []).map(LoraPick.fromJson).whereType<LoraPick>().toList();
+      _load(j);
       notifyListeners();
     } catch (_) {
       // 壊れた保存データは無視して既定値で始める
     }
+  }
+
+  /// toJson() で取っておいた設定に戻す（参照生成の「元に戻す」）
+  void loadJson(Map<String, dynamic> j) {
+    try {
+      update((s) => s._load(j));
+    } catch (_) {}
+  }
+
+  void _load(Map<String, dynamic> j) {
+    modelId = j['modelId']?.toString() ?? modelId;
+    modelType = j['modelType']?.toString() ?? modelType;
+    userCheckpoint = UserCheckpointPick.fromJson(j['userCheckpoint']);
+    prompt = j['prompt']?.toString() ?? prompt;
+    negativePrompt = j['negativePrompt']?.toString() ?? negativePrompt;
+    sizeType = j['sizeType']?.toString() ?? sizeType;
+    steps = (j['steps'] is int ? j['steps'] as int : steps).clamp(GenRules.minSteps, GenRules.maxSteps);
+    scale = (j['scale'] is int ? j['scale'] as int : scale).clamp(GenRules.minScale, GenRules.maxScale);
+    final savedSampler = GenRules.splitSampler(j['sampler']?.toString() ?? sampler);
+    sampler = savedSampler.$1;
+    final savedScheduler = j['scheduler']?.toString();
+    scheduler = GenRules.schedulers.contains(savedScheduler) ? savedScheduler : savedSampler.$2;
+    seed = j['seed'] is int ? j['seed'] as int : seed;
+    clipSkip = (j['clipSkip'] is int ? j['clipSkip'] as int : clipSkip).clamp(1, 12);
+    vae = j['vae']?.toString() ?? vae;
+    highRes = j['highRes'] == true;
+    japanesePrompt = j['japanesePrompt'] == true;
+    imagesPerRequest = j['imagesPerRequest'] is int ? j['imagesPerRequest'] as int : null;
+    fixedSeedImages = j['fixedSeedImages'] is int ? j['fixedSeedImages'] as int : 1;
+    if (j['i2iStrength'] is num) i2iStrength = (j['i2iStrength'] as num).toDouble().clamp(0.1, 1);
+    loras = (j['loras'] is List ? j['loras'] as List : const []).map(LoraPick.fromJson).whereType<LoraPick>().toList();
   }
 
   /// 存在しないモデルを指していたら既定に戻す

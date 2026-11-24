@@ -1,3 +1,4 @@
+import 'package:aipictors/v2/generation/generation_reference.dart';
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/core/design.dart';
@@ -181,6 +182,17 @@ Future<void> showWorkCardMenu(BuildContext context, WorkSummary work, {VoidCallb
             _toggleLike(context, work, onChanged);
           },
         ),
+        // Aipictors で生成した作品（Web の作品一覧の「参照生成」ボタン）
+        if (work.isGeneration)
+          ListTile(
+            leading: const Icon(Icons.auto_awesome_rounded),
+            title: Text(tr('この作品をもとに生成', 'Generate from this work')),
+            subtitle: Text(tr('プロンプトやモデルを生成画面に読み込みます', 'Load the prompt and model into the generator')),
+            onTap: () {
+              Navigator.pop(sheet);
+              GenReference.open(context, work.id, title: work.title, thumbnailUrl: work.imageUrl);
+            },
+          ),
         ListTile(
           leading: const Icon(Icons.ios_share_rounded),
           title: Text(tr('共有', 'Share')),
