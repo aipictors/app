@@ -1,4 +1,5 @@
 import 'package:aipictors/v2/core/design.dart';
+import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/core/models.dart';
 import 'package:aipictors/v2/core/paged.dart';
 import 'package:aipictors/v2/user/user_api.dart';
@@ -8,7 +9,7 @@ import 'package:flutter/material.dart';
 
 /// フォロー中・フォロワーの一覧。[name] と人数が無ければ（マイページなど URL から開いたとき）取りに行く
 class UserListScreen extends StatefulWidget {
-  const UserListScreen({super.key, required this.userId, this.name, this.initialIndex = 0, this.followCount, this.followersCount});
+  const UserListScreen({super.key, required this.userId, this.name, this.initialIndex = 0, this.followCount, this.followersCount, this.followeeOrder = FolloweeOrder.followed});
 
   final String userId;
   final String? name;
@@ -17,6 +18,9 @@ class UserListScreen extends StatefulWidget {
   final int initialIndex;
   final int? followCount;
   final int? followersCount;
+
+  /// フォロー中の最初の並び順
+  final FolloweeOrder followeeOrder;
 
   @override
   State<UserListScreen> createState() => _UserListScreenState();
@@ -60,8 +64,9 @@ class _UserListScreenState extends State<UserListScreen> {
           ),
         ),
         body: TabBarView(children: [
-          _UserListTab(
-            fetch: (o, l) => UserApi.followees(widget.userId, o, l),
+          _FolloweesTab(
+            userId: widget.userId,
+            initialOrder: widget.followeeOrder,
             emptyTitle: 'まだ誰もフォローしていません',
             emptyMessage: 'フォローした人がここに並びます',
           ),
@@ -76,12 +81,65 @@ class _UserListScreenState extends State<UserListScreen> {
   }
 }
 
+/// フォロー中のタブ（並び順を選べる）
+class _FolloweesTab extends StatefulWidget {
+  const _FolloweesTab({required this.userId, required this.initialOrder, required this.emptyTitle, this.emptyMessage});
+
+  final String userId;
+  final FolloweeOrder initialOrder;
+  final String emptyTitle;
+  final String? emptyMessage;
+
+  @override
+  State<_FolloweesTab> createState() => _FolloweesTabState();
+}
+
+class _FolloweesTabState extends State<_FolloweesTab> {
+  late FolloweeOrder _order = widget.initialOrder;
+
+  static String _label(FolloweeOrder order) => switch (order) {
+        FolloweeOrder.followed => tr('最近フォローした順', 'Recently followed'),
+        FolloweeOrder.posted => tr('最近投稿した順', 'Recently posted'),
+      };
+
+  @override
+  Widget build(BuildContext context) {
+    return _UserListTab(
+      key: ValueKey(_order),
+      fetch: (o, l) => UserApi.followees(widget.userId, o, l, order: _order),
+      emptyTitle: widget.emptyTitle,
+      emptyMessage: widget.emptyMessage,
+      header: SizedBox(
+        height: 34,
+        child: ListView(
+          scrollDirection: Axis.horizontal,
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          children: [
+            for (final order in FolloweeOrder.values)
+              Padding(
+                padding: const EdgeInsets.only(right: 8),
+                child: ChoiceChip(
+                  label: Text(_label(order)),
+                  selected: _order == order,
+                  onSelected: (_) => setState(() => _order = order),
+                ),
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 class _UserListTab extends StatefulWidget {
-  const _UserListTab({required this.fetch, required this.emptyTitle, this.emptyMessage});
+  const _UserListTab({super.key, required this.fetch, required this.emptyTitle, this.emptyMessage, this.header});
 
   final Future<List<UserRowData>> Function(int offset, int limit) fetch;
   final String emptyTitle;
   final String? emptyMessage;
+
+  /// 一覧の上に出すもの（並び順の切り替えなど）
+  final Widget? header;
 
   @override
   State<_UserListTab> createState() => _UserListTabState();
@@ -115,7 +173,10 @@ class _UserListTabState extends State<_UserListTab> with AutomaticKeepAliveClien
       onRefresh: _c.refresh,
       child: CustomScrollView(
         physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
-        slivers: [SliverPagedUsers(controller: _c, viewerId: _viewerId, emptyTitle: widget.emptyTitle, emptyMessage: widget.emptyMessage)],
+        slivers: [
+          if (widget.header != null) SliverToBoxAdapter(child: Padding(padding: const EdgeInsets.only(top: 10, bottom: 2), child: widget.header)),
+          SliverPagedUsers(controller: _c, viewerId: _viewerId, emptyTitle: widget.emptyTitle, emptyMessage: widget.emptyMessage),
+        ],
       ),
     );
   }

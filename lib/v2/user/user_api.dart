@@ -332,10 +332,10 @@ query AlbumWorks(\$albumId: ID!, \$offset: Int!, \$limit: Int!) {
   }
 
   static const _followees = '''
-query UserFollowees(\$userId: ID!, \$offset: Int!, \$limit: Int!) {
+query UserFollowees(\$userId: ID!, \$offset: Int!, \$limit: Int!, \$where: FolloweesWhereInput) {
   user(id: \$userId) {
     id
-    followees(offset: \$offset, limit: \$limit) {
+    followees(offset: \$offset, limit: \$limit, where: \$where) {
       $_userRowFields
       works(offset: 0, limit: 4, where: { ratings: [G, R15] }) {
         $workCardFields
@@ -372,8 +372,13 @@ query UserFollowHeader($userId: ID!) {
     return (name: u?.str('name') ?? '', followCount: u?.integer('followCount') ?? 0, followersCount: u?.integer('followersCount') ?? 0);
   }
 
-  static Future<List<UserRowData>> followees(String userId, int offset, int limit) async {
-    final data = await Api.query(_followees, variables: {'userId': userId, 'offset': offset, 'limit': limit});
+  static Future<List<UserRowData>> followees(String userId, int offset, int limit, {FolloweeOrder order = FolloweeOrder.followed}) async {
+    final data = await Api.query(_followees, variables: {
+      'userId': userId,
+      'offset': offset,
+      'limit': limit,
+      'where': {'orderBy': order.orderBy, 'sort': 'DESC'},
+    });
     return (data.obj('user')?.list('followees') ?? const []).map(UserRowData.fromJson).toList();
   }
 
@@ -505,4 +510,20 @@ query ViewerUserId {
     }
     return _viewerId;
   }
+}
+
+/// フォロー中の一覧の並び順（Web の /following と同じ値）
+enum FolloweeOrder {
+  /// 最近フォローした順
+  followed('DATE_FOLLOWED'),
+
+  /// 最近投稿した順（予約投稿は公開されてから上がる）
+  posted('DATE_POSTED');
+
+  const FolloweeOrder(this.orderBy);
+
+  final String orderBy;
+
+  /// URL の ?order= から読む（知らない値は最近フォローした順）
+  static FolloweeOrder fromQuery(String? value) => value == 'posted' ? FolloweeOrder.posted : FolloweeOrder.followed;
 }

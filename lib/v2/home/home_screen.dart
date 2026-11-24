@@ -672,6 +672,25 @@ class _FollowingViewState extends State<_FollowingView> {
       child: CustomScrollView(
         physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
         slivers: [
+          // フォロー中の人を投稿者ごとに、最近投稿した順で見る（Web のフォロー新着の 👤 と同じ）
+          if (_kind == 0)
+            SliverToBoxAdapter(
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 8),
+                  child: TextButton.icon(
+                    onPressed: () async {
+                      final id = await _viewerId();
+                      if (id == null || !context.mounted) return;
+                      context.push('/users/$id/followees?order=posted');
+                    },
+                    icon: const Icon(Icons.people_outline_rounded, size: 18),
+                    label: Text(tr('投稿者ごとに見る', 'By creator')),
+                  ),
+                ),
+              ),
+            ),
           SliverPagedWorks(
             controller: _controller,
             emptyIcon: _kind == 0 ? Icons.person_add_alt_1_rounded : Icons.tag_rounded,
