@@ -5,6 +5,7 @@ import 'package:aipictors/v2/achievements/achievements_screen.dart';
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/debug_boot.dart';
 import 'package:aipictors/v2/core/design.dart';
+import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/core/models.dart';
 import 'package:aipictors/v2/core/paged.dart';
 import 'package:aipictors/v2/frames/frame_widgets.dart';
@@ -21,6 +22,8 @@ import 'package:aipictors/v2/widgets/status_balloon.dart';
 import 'package:aipictors/v2/widgets/user_avatar.dart';
 import 'package:aipictors/v2/widgets/work_grid.dart';
 import 'package:aipictors/v2/widgets/official_badge.dart';
+import 'dart:ui' show ImageFilter;
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -38,7 +41,7 @@ class UserScreen extends StatefulWidget {
   State<UserScreen> createState() => _UserScreenState();
 }
 
-enum _Tab { works, albums, collections, stickers, badges, events, supporters }
+enum _Tab { works, models, albums, collections, stickers, badges, events, supporters }
 
 class _UserScreenState extends State<UserScreen> {
   UserProfile? _user;
@@ -48,6 +51,12 @@ class _UserScreenState extends State<UserScreen> {
   _Tab _tab = _Tab.values.where((t) => t.name == DebugBoot.screenTab).firstOrNull ?? _Tab.works;
   final _scroll = ScrollController();
   bool _collapsed = false;
+
+  /// 公開しているモデルがあるか（あとから分かる）
+  bool _hasModels = false;
+
+  /// フォローした直後に「こちらもおすすめ」を出す
+  bool _showSuggestions = false;
 
   /// 引っ張って更新したら、作品以外のタブも読み直す
   int _tabEpoch = 0;
@@ -93,6 +102,7 @@ class _UserScreenState extends State<UserScreen> {
         _user = u;
         _notFound = u == null;
         if (u != null) {
+          _loadHasModels(u.id);
           _works?.dispose();
           _works = _makeWorks(u.id);
           _albums?.dispose();
@@ -104,6 +114,11 @@ class _UserScreenState extends State<UserScreen> {
     } catch (_) {
       if (mounted) setState(() => _error = '読み込みに失敗しました');
     }
+  }
+
+  Future<void> _loadHasModels(String id) async {
+    final has = await UserTabsApi.hasModels(id);
+    if (mounted && _user?.id == id) setState(() => _hasModels = has);
   }
 
   PagedController<WorkSummary> _makeWorks(String id) {
@@ -272,6 +287,14 @@ class _UserScreenState extends State<UserScreen> {
               child: Stack(fit: StackFit.expand, children: [
                 if (u.headerImageUrl != null)
                   AppImage(u.headerImageUrl, memCacheWidth: 1200)
+                else if (u.iconUrl != null)
+                  // ヘッダー画像がない人は、アイコンの色をぼかして広げる（Web と同じ）
+                  ClipRect(
+                    child: ImageFiltered(
+                      imageFilter: ImageFilter.blur(sigmaX: 40, sigmaY: 40, tileMode: TileMode.mirror),
+                      child: Transform.scale(scale: 1.25, child: Opacity(opacity: 0.85, child: AppImage(u.iconUrl, memCacheWidth: 96))),
+                    ),
+                  )
                 else
                   const DecoratedBox(decoration: BoxDecoration(gradient: Ds.brandGradient)),
                 if (u.headerFrameSlug != null) HeaderFrameOverlay(slug: u.headerFrameSlug!),
@@ -359,9 +382,11 @@ class _UserScreenState extends State<UserScreen> {
       FollowButton(
         userId: u.id,
         isFollowing: u.isFollowee,
+        isFollower: u.isFollower,
         onChanged: (v) => setState(() {
           if (u.isFollowee != v) u.followersCount += v ? 1 : -1;
           u.isFollowee = v;
+          _showSuggestions = v;
         }),
       ),
     ]);
@@ -417,22 +442,31 @@ class _UserScreenState extends State<UserScreen> {
                     Icon(Icons.volume_off_rounded, size: 16, color: context.muted),
                   ],
                 ]),
-                if (u.biography.isNotEmpty) ...[
+                if (u.biographyFor(english: !L10n.isJa).isNotEmpty) ...[
                   const SizedBox(height: 12),
-                  _Bio(text: u.biography),
+                  _Bio(text: u.biographyFor(english: !L10n.isJa)),
                 ],
                 _AchievementShowcase(key: ValueKey('showcase/${u.id}/$_tabEpoch'), userId: u.id, isSelf: _isSelf),
-                if (u.twitter != null || u.instagram != null || u.github != null || u.siteUrl != null) ...[
+                if (u.twitter != null || u.instagram != null || u.github != null || u.siteUrl != null || u.mailAddress != null || u.createdAt > 0) ...[
                   const SizedBox(height: 12),
-                  Wrap(spacing: 8, runSpacing: 8, children: [
+                  Wrap(spacing: 8, runSpacing: 8, crossAxisAlignment: WrapCrossAlignment.center, children: [
                     if (u.twitter != null) _LinkChip(icon: Icons.alternate_email_rounded, label: 'X', url: 'https://x.com/${u.twitter}'),
                     if (u.instagram != null) _LinkChip(icon: Icons.camera_alt_rounded, label: 'Instagram', url: 'https://instagram.com/${u.instagram}'),
                     if (u.github != null) _LinkChip(icon: Icons.code_rounded, label: 'GitHub', url: 'https://github.com/${u.github}'),
                     if (u.siteUrl != null) _LinkChip(icon: Icons.link_rounded, label: Uri.tryParse(u.siteUrl!)?.host ?? 'サイト', url: u.siteUrl!),
+                    if (u.mailAddress != null) _LinkChip(icon: Icons.mail_outline_rounded, label: tr('メール', 'Mail'), url: 'mailto:${u.mailAddress}'),
+                    // いつから使っているか（Web の「2023/04 開始」）
+                    if (u.createdAt > 0)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 4),
+                        child: Text(tr('${startedMonthLabel(u.createdAt)} 開始', 'Started ${startedMonthLabel(u.createdAt)}'), style: context.tt.labelSmall?.copyWith(color: context.muted)),
+                      ),
                   ]),
                 ],
                 const SizedBox(height: 16),
                 _stats(context, u),
+                if (_showSuggestions && !_isSelf)
+                  FollowSuggestions(key: ValueKey('suggest/${u.id}'), userId: u.id, userName: u.name, onClose: () => setState(() => _showSuggestions = false)),
               ]),
             ),
           ]),
@@ -459,17 +493,26 @@ class _UserScreenState extends State<UserScreen> {
           builder: (_) => UserListScreen(userId: u.id, name: u.name, initialIndex: index, followCount: u.followCount, followersCount: u.followersCount),
         ));
 
+    // 閲覧・入賞も Web のプロフィールと同じく出す（2 段に分けて詰まらないようにする）
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 14),
+      padding: const EdgeInsets.symmetric(vertical: 12),
       decoration: BoxDecoration(color: context.surfaceCard, borderRadius: Ds.br(18), border: Border.all(color: context.hairline)),
-      child: Row(children: [
-        cell('フォロー', u.followCount, onTap: () => openList(0)),
-        _divider(context),
-        cell('フォロワー', u.followersCount, onTap: () => openList(1)),
-        _divider(context),
-        cell('作品', u.safeWorksCount),
-        _divider(context),
-        cell('いいねされた', u.receivedLikesCount),
+      child: Column(children: [
+        Row(children: [
+          cell(tr('フォロー', 'Following'), u.followCount, onTap: () => openList(0)),
+          _divider(context),
+          cell(tr('フォロワー', 'Followers'), u.followersCount, onTap: () => openList(1)),
+          _divider(context),
+          cell(tr('作品', 'Works'), u.safeWorksCount),
+        ]),
+        Padding(padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10), child: Container(height: 1, color: context.hairline)),
+        Row(children: [
+          cell(tr('いいねされた', 'Likes'), u.receivedLikesCount),
+          _divider(context),
+          cell(tr('閲覧', 'Views'), u.receivedViewsCount),
+          _divider(context),
+          cell(tr('入賞', 'Awards'), u.awardsCount),
+        ]),
       ]),
     );
   }
@@ -492,6 +535,7 @@ class _UserScreenState extends State<UserScreen> {
   Widget _tabs(BuildContext context, UserProfile u) {
     final tabs = <(_Tab, String)>[
       (_Tab.works, '作品 ${compactCount(u.safeWorksCount)}'),
+      if (_hasModels) (_Tab.models, 'モデル'),
       if (u.albumCount > 0) (_Tab.albums, 'シリーズ ${u.albumCount}'),
       if (u.hasFolders) (_Tab.collections, 'コレクション'),
       if (u.hasEvents) (_Tab.events, 'イベント'),
@@ -539,6 +583,8 @@ class _UserScreenState extends State<UserScreen> {
     }
     final key = ValueKey('$_tabEpoch/${u.id}');
     switch (_tab) {
+      case _Tab.models:
+        return [UserModelsTab(key: key, userId: u.id)];
       case _Tab.collections:
         return [UserFoldersTab(key: key, userId: u.id)];
       case _Tab.stickers:
