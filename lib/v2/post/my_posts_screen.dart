@@ -6,6 +6,7 @@ import 'package:aipictors/v2/core/paged.dart';
 import 'package:aipictors/v2/my/my_filters.dart';
 import 'package:aipictors/v2/post/post_api.dart';
 import 'package:aipictors/v2/widgets/common.dart';
+import 'package:aipictors/v2/work/work_promotion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
@@ -121,6 +122,30 @@ query AppMyWorks($offset: Int!, $limit: Int!, $where: WorksWhereInput) {
       }
     } on ApiException catch (e) {
       if (mounted) context.toast(e.message, error: true);
+    }
+  }
+
+  /// 宣伝枠に出す（Web の作品ページの「宣伝する」と同じシート）
+  Future<void> _promote(Map<String, dynamic> w) async {
+    Map<String, dynamic>? me;
+    try {
+      me = (await Api.query('query AppViewerSummary { viewer { id user { id name iconUrl } } }', cacheFor: const Duration(minutes: 10))).obj('viewer')?.obj('user');
+    } on ApiException {
+      // 名前が読めなくても見本は出せる
+    }
+    if (!mounted) return;
+    final endsAt = await showWorkPromotionSheet(
+      context,
+      workId: w.str('id'),
+      title: w.str('title'),
+      imageUrl: w.strOrNull('smallThumbnailImageURL'),
+      userName: me?.str('name') ?? tr('あなた', 'You'),
+      userIconUrl: me?.strOrNull('iconUrl'),
+    );
+    if (endsAt != null && mounted) {
+      // 一覧の「宣伝」のラベルをその場で付ける
+      w['isPromotion'] = true;
+      _controller.touch();
     }
   }
 
@@ -347,6 +372,7 @@ query AppMyWorks($offset: Int!, $limit: Int!, $where: WorksWhereInput) {
                         onEdit: () => _edit(w),
                         onDelete: () => _delete(w),
                         onCopyUrl: url == null ? null : () => _copyUrl(url),
+                        onPromote: canPromoteInApp(rating: w.strOrNull('rating'), accessType: w.strOrNull('accessType'), createdAt: w.integer('createdAt')) ? () => _promote(w) : null,
                       );
                     },
                   ),
@@ -370,6 +396,7 @@ class _MyWorkTile extends StatelessWidget {
     required this.onEdit,
     required this.onDelete,
     required this.onCopyUrl,
+    this.onPromote,
   });
 
   final Map<String, dynamic> work;
@@ -380,6 +407,9 @@ class _MyWorkTile extends StatelessWidget {
   final VoidCallback onEdit;
   final VoidCallback onDelete;
   final VoidCallback? onCopyUrl;
+
+  /// 公開中・全年齢の作品だけ「宣伝する」を出す
+  final VoidCallback? onPromote;
 
   static Map<String, String> get _typeLabels => {'VIDEO': tr('動画', 'Video'), 'NOVEL': tr('小説', 'Novel'), 'COLUMN': tr('コラム', 'Column')};
 
@@ -421,12 +451,14 @@ class _MyWorkTile extends StatelessWidget {
               'open' => Nav.work(context, work.str('id')),
               'edit' => onEdit(),
               'copy' => onCopyUrl?.call(),
+              'promote' => onPromote?.call(),
               _ => onDelete(),
             },
             itemBuilder: (_) => [
               PopupMenuItem(value: 'open', child: Text(tr('作品を開く', 'Open'))),
               PopupMenuItem(value: 'edit', child: Text(tr('編集する', 'Edit'))),
               if (onCopyUrl != null) PopupMenuItem(value: 'copy', child: Text(tr('URLをコピー', 'Copy URL'))),
+              if (onPromote != null) PopupMenuItem(value: 'promote', child: Text(tr('宣伝する', 'Promote'))),
               const PopupMenuDivider(),
               PopupMenuItem(value: 'delete', child: Text(tr('削除する', 'Delete'), style: TextStyle(color: context.cs.error))),
             ],

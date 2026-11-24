@@ -19,6 +19,7 @@ import 'package:aipictors/v2/work/moderation.dart';
 import 'package:aipictors/v2/work/support_sheet.dart';
 import 'package:aipictors/v2/work/book_reader_screen.dart';
 import 'package:aipictors/v2/work/work_extras.dart';
+import 'package:aipictors/v2/work/work_promotion.dart';
 import 'package:aipictors/v2/community/web_links.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter/material.dart';
@@ -114,6 +115,9 @@ class _WorkScreenState extends State<WorkScreen> {
   String? _passType;
   bool _recommended = false;
 
+  /// 宣伝枠の状態（作者本人・公開中・全年齢の作品だけ読む）
+  WorkPromotionStatus? _promotion;
+
   @override
   void initState() {
     super.initState();
@@ -151,6 +155,13 @@ class _WorkScreenState extends State<WorkScreen> {
         _tags = (w['tagNames'] as List?)?.map((e) => e.toString()).where((e) => e.isNotEmpty).toList() ?? [];
       });
       _loadExtras();
+      _loadPromotion();
+      // 開発用: 2 行目が promote なら宣伝のシートを開く（表示の確認用。リリース以外では買わない）
+      if (DebugBoot.screenTab == 'promote') {
+        Future.delayed(const Duration(seconds: 3), () {
+          if (mounted && _canPromote) _openPromotion();
+        });
+      }
       // 開発用: 2 行目が sheet で始まればコメントのシートを開く（sheet:support は推しの欄も開く。表示の確認用）
       // 開発用: 2 行目が support なら推すシートを開く（表示の確認用。送信はしない）
       if (DebugBoot.screenTab == 'support') {
@@ -249,6 +260,43 @@ query AppWorkTagWorks(\$where: WorksWhereInput) {
   static String _description(Map<String, dynamic> w) => localizedContent(w.str('description').trim(), w.strOrNull('enDescription')).trim();
 
   bool get _isMine => _viewerId != null && _viewerId == user.str('id');
+
+  /// 「宣伝する」を出すか（Web の WorkPromotionButton と同じく作者本人の公開中の作品。アプリは全年齢の枠だけ）
+  bool get _canPromote => _isMine && canPromoteInApp(rating: w.strOrNull('rating'), accessType: w.strOrNull('accessType'), createdAt: w.integer('createdAt'));
+
+  Future<void> _loadPromotion() async {
+    if (!_canPromote) return;
+    try {
+      final s = await WorkPromotionApi.status();
+      if (mounted) setState(() => _promotion = s);
+    } catch (_) {
+      // 宣伝の状態が読めなくても作品は見られる
+    }
+  }
+
+  Future<void> _openPromotion() async {
+    final endsAt = await showWorkPromotionSheet(
+      context,
+      workId: w.str('id'),
+      title: _title(w),
+      imageUrl: w.strOrNull('largeThumbnailImageURL') ?? (_images.isEmpty ? null : _images.first),
+      userName: user.str('name'),
+      userIconUrl: user.strOrNull('iconUrl'),
+    );
+    if (!mounted) return;
+    if (endsAt == null) {
+      _loadPromotion();
+      return;
+    }
+    // 買えた: その場で「宣伝中・〇日まで」にする（読み直すと反映前のことがあるので、返ってきた終わりの時刻を使う）
+    setState(() => _promotion = WorkPromotionStatus(
+          plan: _promotion?.plan ?? const WorkPromotionPlan(),
+          active: [
+            ActiveWorkPromotion(slot: WorkPromotionSlot.general, workId: w.str('id'), endsAt: endsAt),
+            ...?_promotion?.active.where((p) => p.slot != WorkPromotionSlot.general),
+          ],
+        ));
+  }
 
   List<String> get _images {
     final main = w.strOrNull('imageURL') ?? w.strOrNull('largeThumbnailImageURL');
@@ -415,6 +463,12 @@ query AppWorkTagWorks(\$where: WorksWhereInput) {
             ),
           if (_isMine) ...[
             ListTile(leading: const Icon(Icons.edit_outlined), title: Text(tr('作品を編集', 'Edit work')), onTap: () => Navigator.pop(context, 'edit')),
+            if (_canPromote)
+              ListTile(
+                leading: const Icon(Icons.campaign_outlined),
+                title: Text(_promotion?.activeFor(w.str('id')) != null ? tr('宣伝の状態を見る', 'Promotion status') : tr('宣伝する', 'Promote')),
+                onTap: () => Navigator.pop(context, 'promote'),
+              ),
             ListTile(leading: const Icon(Icons.collections_bookmark_outlined), title: Text(tr('シリーズに追加', 'Add to series')), onTap: () => Navigator.pop(context, 'album')),
             ListTile(
               leading: Icon(Icons.delete_outline_rounded, color: context.cs.error),
@@ -445,6 +499,8 @@ query AppWorkTagWorks(\$where: WorksWhereInput) {
         await _saveImages(all: true);
       case 'recommend':
         await _toggleRecommend();
+      case 'promote':
+        await _openPromotion();
       case 'folder':
         await showAddToFolderSheet(context, w.str('id'));
       case 'album':
@@ -580,6 +636,13 @@ query AppWorkTagWorks(\$where: WorksWhereInput) {
                         if (_isMine) LikedUsersPanel(workId: w.str('id'), likesCount: _likes),
                         const SizedBox(height: 8),
                         WorkBadges(work: w),
+                        if (_canPromote && _promotion != null) ...[
+                          const SizedBox(height: 10),
+                          if (_promotion!.activeFor(w.str('id')) case final active?)
+                            Align(alignment: Alignment.centerLeft, child: WorkPromotionActiveBadge(endsAt: active.endsAt, onTap: _openPromotion))
+                          else
+                            WorkPromotionEntryTile(plan: _promotion!.plan, onTap: _openPromotion),
+                        ],
                         const SizedBox(height: 14),
                         _UserRow(
                           user: user,

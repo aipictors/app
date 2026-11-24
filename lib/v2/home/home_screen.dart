@@ -11,11 +11,13 @@ import 'package:aipictors/v2/core/models.dart';
 import 'package:aipictors/v2/core/nav.dart';
 import 'package:aipictors/v2/core/paged.dart';
 import 'package:aipictors/v2/explore/explore_widgets.dart';
+import 'package:aipictors/v2/home/home_promotion.dart';
 import 'package:aipictors/v2/home/latest_filter.dart';
 import 'package:aipictors/v2/support/support_ranking_screen.dart';
 import 'package:aipictors/v2/widgets/common.dart';
 import 'package:aipictors/v2/widgets/user_avatar.dart';
 import 'package:aipictors/v2/widgets/work_grid.dart';
+import 'package:aipictors/v2/work/work_promotion.dart' show WorkPromotionMark;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -198,6 +200,7 @@ class _RecommendedViewState extends State<_RecommendedView> {
   List<WorkSummary> _firstPosts = [];
   List<UserSummary> _users = [];
   Map<String, dynamic>? _theme;
+  List<PromotionWork> _promotions = [];
   bool _topLoading = true;
   // 開発用: /tmp/aipictors-debug の 2 行目が scroll:<px> なら、読み込みのあとその位置まで送る（表示の確認用）
   final ScrollController? _debugScroll = DebugBoot.screenTab?.startsWith('scroll:') == true ? ScrollController() : null;
@@ -226,6 +229,7 @@ class _RecommendedViewState extends State<_RecommendedView> {
   void initState() {
     super.initState();
     _loadTop();
+    _loadPromotions();
   }
 
   @override
@@ -261,9 +265,17 @@ class _RecommendedViewState extends State<_RecommendedView> {
     }
   }
 
+  /// クリエイターの宣伝（失敗しても欄を出さないだけで、ほかの欄は止めない）
+  Future<void> _loadPromotions() async {
+    try {
+      final works = await fetchHomePromotionWorks();
+      if (mounted) setState(() => _promotions = works);
+    } catch (_) {}
+  }
+
   Future<void> _refresh() async {
     Api.clearCache();
-    await Future.wait([_loadTop(), _controller.refresh()]);
+    await Future.wait([_loadTop(), _loadPromotions(), _controller.refresh()]);
   }
 
   @override
@@ -274,6 +286,8 @@ class _RecommendedViewState extends State<_RecommendedView> {
         controller: _debugScroll,
         physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
         slivers: [
+          // クリエイターの宣伝は Web のホームと同じく一番上（Web はお知らせのすぐ下・いま人気の上）。宣伝中の作品が無ければ出さない
+          if (_promotions.isNotEmpty) SliverToBoxAdapter(child: Padding(padding: const EdgeInsets.only(bottom: 12), child: HomePromotionSection(works: _promotions))),
           SliverToBoxAdapter(
             child: _topLoading
                 ? const Padding(
@@ -342,7 +356,10 @@ class _WorkStrip extends StatelessWidget {
           separatorBuilder: (_, __) => const SizedBox(width: Ds.s8),
           itemBuilder: (context, i) => Pressable(
             onTap: () => Nav.work(context, works[i].id),
-            child: AppImage(works[i].imageUrl, width: 120, height: 150, radius: 12, memCacheWidth: 360),
+            child: Stack(children: [
+              AppImage(works[i].imageUrl, width: 120, height: 150, radius: 12, memCacheWidth: 360),
+              if (works[i].isPromotion) const Positioned(left: 6, top: 6, child: WorkPromotionMark()),
+            ]),
           ),
         ),
       ),
