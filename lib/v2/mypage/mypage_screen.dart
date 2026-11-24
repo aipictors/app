@@ -10,6 +10,7 @@ import 'package:aipictors/v2/core/models.dart';
 import 'package:aipictors/v2/core/nav.dart';
 import 'package:aipictors/v2/plans/plans_screen.dart';
 import 'package:aipictors/v2/post/my_posts_screen.dart';
+import 'package:aipictors/v2/post/post_api.dart';
 import 'package:aipictors/v2/settings/status_sheet.dart';
 import 'package:aipictors/v2/widgets/common.dart';
 import 'package:aipictors/v2/widgets/user_avatar.dart';
@@ -24,6 +25,7 @@ query AppMyPage {
       id login name iconUrl isOfficial isModerator headerImageUrl biography
       $avatarFrameFields
       followersCount followeesCount worksCount receivedLikesCount
+      receivedViewsCount createdLikesCount createdCommentsCount createdBookmarksCount
     }
     currentPass { id type periodEnd }
   }
@@ -49,6 +51,7 @@ class MyPageScreen extends StatefulWidget {
 class _MyPageScreenState extends State<MyPageScreen> {
   Map<String, dynamic>? _user;
   Map<String, dynamic>? _pass;
+  List<Map<String, dynamic>>? _recentWorks;
   CoinSummary? _coins;
   bool _loading = true;
   String? _error;
@@ -85,6 +88,7 @@ class _MyPageScreenState extends State<MyPageScreen> {
         _loading = false;
         _error = null;
       });
+      _loadRecentWorks(_user?.str('id'));
       Coins.summary().then((c) {
         if (mounted) setState(() => _coins = c);
       }).catchError((_) {});
@@ -95,6 +99,30 @@ class _MyPageScreenState extends State<MyPageScreen> {
           _error = e.message;
         });
       }
+    }
+  }
+
+  /// 最近の作品（Web の /my の「最近の作品」。アプリで出せる年齢だけ）
+  Future<void> _loadRecentWorks(String? userId) async {
+    if (userId == null) return;
+    try {
+      final data = await Api.query(r'''
+query AppMyRecentWorks($where: WorksWhereInput) {
+  works(offset: 0, limit: 8, where: $where) { id title rating accessType createdAt smallThumbnailImageURL likesCount }
+}''', variables: {
+        'where': {
+          'userId': userId,
+          'orderBy': 'DATE_CREATED',
+          'sort': 'DESC',
+          'isIncludePrivate': true,
+          'ratings': appRatings,
+          'createdAtAfter': DateTime.utc(1999).toIso8601String(),
+          'beforeCreatedAt': DateTime.utc(2099).toIso8601String(),
+        },
+      });
+      if (mounted) setState(() => _recentWorks = data.list('works'));
+    } on ApiException {
+      if (mounted) setState(() => _recentWorks = const []);
     }
   }
 
@@ -138,6 +166,8 @@ class _MyPageScreenState extends State<MyPageScreen> {
             else ...[
               SliverToBoxAdapter(child: _ProfileCard(user: u)),
               SliverToBoxAdapter(child: _PlanAndCoins(pass: _pass, coins: _coins)),
+              SliverToBoxAdapter(child: _Stats(user: u)),
+              SliverToBoxAdapter(child: _RecentWorks(works: _recentWorks)),
               SliverToBoxAdapter(
                 child: _MenuGroup(title: tr('作品', 'Works'), items: [
                   _MenuItem(Icons.add_circle_outline_rounded, tr('作品を投稿', 'Post a work'), () => openNewPost(context)),
@@ -145,6 +175,7 @@ class _MyPageScreenState extends State<MyPageScreen> {
                   _MenuItem(Icons.favorite_border_rounded, tr('いいねした作品', 'Liked works'), () => context.push('/my/likes')),
                   _MenuItem(Icons.collections_bookmark_outlined, tr('シリーズ', 'Series'), () => context.push('/viewer/albums')),
                   _MenuItem(Icons.bookmark_border_rounded, tr('ブックマーク', 'Bookmarks'), () => context.push('/my/bookmarks')),
+                  _MenuItem(Icons.thumb_up_alt_outlined, tr('推薦した作品', 'Recommended works'), () => context.push('/my/recommended')),
                   _MenuItem(Icons.folder_outlined, tr('フォルダ', 'Folders'), () => context.push('/my/folders')),
                   _MenuItem(Icons.history_rounded, tr('閲覧履歴', 'History'), () => context.push('/my/views')),
                   _MenuItem(Icons.image_outlined, tr('自分の作品', 'My works'), () => context.push('/viewer/works')),
@@ -352,6 +383,108 @@ class _MenuGroup extends StatelessWidget {
               if (i != items.length - 1) Divider(height: 1, indent: 56, color: context.hairline),
             ],
           ]),
+        ),
+      ]),
+    );
+  }
+}
+
+/// 実績（Web の /my の「実績」のうち、プロフィールのカードに無いもの）
+class _Stats extends StatelessWidget {
+  const _Stats({required this.user});
+
+  final Map<String, dynamic> user;
+
+  @override
+  Widget build(BuildContext context) {
+    Widget tile(IconData icon, String label, int v) => Expanded(
+          child: Column(children: [
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              Icon(icon, size: 13, color: context.muted),
+              const SizedBox(width: 3),
+              Flexible(child: Text(label, maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(color: context.muted, fontSize: 11))),
+            ]),
+            const SizedBox(height: 2),
+            Text(compactCount(v), style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 15)),
+          ]),
+        );
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 4),
+        decoration: BoxDecoration(color: context.surfaceCard, borderRadius: Ds.br(18), border: Border.all(color: context.hairline)),
+        child: Row(children: [
+          tile(Icons.visibility_outlined, tr('見られた数', 'Views'), user.integer('receivedViewsCount')),
+          tile(Icons.favorite_border_rounded, tr('いいねした', 'Liked'), user.integer('createdLikesCount')),
+          tile(Icons.bookmark_border_rounded, tr('ブックマーク', 'Bookmarks'), user.integer('createdBookmarksCount')),
+          tile(Icons.chat_bubble_outline_rounded, tr('コメント', 'Comments'), user.integer('createdCommentsCount')),
+        ]),
+      ),
+    );
+  }
+}
+
+/// 最近の作品の横並び（「すべて管理」で自分の作品の管理へ）
+class _RecentWorks extends StatelessWidget {
+  const _RecentWorks({required this.works});
+
+  final List<Map<String, dynamic>>? works;
+
+  @override
+  Widget build(BuildContext context) {
+    final list = works;
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 20, 16, 0),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+        Row(children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 4),
+            child: Text(tr('最近の作品', 'Recent works'), style: TextStyle(color: context.muted, fontWeight: FontWeight.w700, fontSize: 13)),
+          ),
+          const Spacer(),
+          TextButton(
+            style: TextButton.styleFrom(visualDensity: VisualDensity.compact),
+            onPressed: () => context.push('/viewer/works'),
+            child: Text(tr('すべて管理', 'Manage all'), style: const TextStyle(fontSize: 12.5)),
+          ),
+        ]),
+        SizedBox(
+          height: 96,
+          child: list == null
+              ? ListView.separated(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: 4,
+                  separatorBuilder: (_, __) => const SizedBox(width: 8),
+                  itemBuilder: (_, __) => const Skeleton(width: 96, height: 96, radius: 14),
+                )
+              : list.isEmpty
+                  ? Pressable(
+                      onTap: () => openNewPost(context),
+                      child: Container(
+                        decoration: BoxDecoration(borderRadius: Ds.br(14), border: Border.all(color: context.hairline)),
+                        alignment: Alignment.center,
+                        child: Text(tr('まだ作品がありません。最初の作品を投稿 ›', 'No works yet. Post your first work ›'), style: TextStyle(color: context.muted, fontSize: 13)),
+                      ),
+                    )
+                  : ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: list.length,
+                      separatorBuilder: (_, __) => const SizedBox(width: 8),
+                      itemBuilder: (context, i) {
+                        final w = list[i];
+                        return Pressable(
+                          onTap: () => Nav.work(context, w.str('id')),
+                          child: SizedBox(
+                            width: 96,
+                            child: Stack(fit: StackFit.expand, children: [
+                              AppImage(w.strOrNull('smallThumbnailImageURL'), radius: 14, memCacheWidth: 288),
+                              if (w.str('accessType') != 'PUBLIC')
+                                Positioned(left: 4, top: 4, child: Badge2(accessTypeLabels[w.str('accessType')] ?? w.str('accessType'))),
+                            ]),
+                          ),
+                        );
+                      },
+                    ),
         ),
       ]),
     );
