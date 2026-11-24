@@ -29,6 +29,7 @@ import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:aipictors/v2/albums/albums_screen.dart';
+import 'package:aipictors/v2/generation/generation_reference.dart';
 import 'package:aipictors/v2/albums/folders_screen.dart';
 import 'package:aipictors/v2/albums/album_api.dart';
 import 'package:aipictors/v2/post/post_api.dart';
@@ -612,6 +613,11 @@ query AppWorkTagWorks(\$where: WorksWhereInput) {
                           onShare: _share,
                         ),
                         const SizedBox(height: 14),
+                        // Aipictors で生成した作品は、生成情報を生成画面に読み込める（Web の work-article.tsx の「参照生成する」）
+                        if (w.boolean('isGeneration')) ...[
+                          ReferenceGenerateButton(workId: w.str('id'), title: _title(w), thumbnailUrl: w.strOrNull('largeThumbnailImageURL') ?? w.strOrNull('imageURL')),
+                          const SizedBox(height: 14),
+                        ],
                         // 英語表示: 英語のタイトルがあればそれ、無ければその場で訳す（訳せなければ元のまま）
                         AutoTranslatedText(
                           _title(w),

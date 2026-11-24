@@ -5,6 +5,7 @@ import 'package:aipictors/v2/albums/album_routes.dart';
 import 'package:aipictors/v2/community/community_routes.dart';
 import 'package:aipictors/v2/debug/debug_routes.dart';
 import 'package:aipictors/v2/explore/explore_routes.dart';
+import 'package:aipictors/v2/generation/generation_routes.dart';
 import 'package:aipictors/v2/my/my_routes.dart';
 import 'package:aipictors/v2/notifications/notifications_routes.dart';
 import 'package:aipictors/v2/plans/plans_routes.dart';
@@ -23,6 +24,7 @@ final List<RouteBase> v2Routes = [
   ...communityRoutes,
   ...debugRoutes,
   ...exploreRoutes,
+  ...generationRoutes,
   ...myRoutes,
   ...notificationsRoutes,
   ...plansRoutes,

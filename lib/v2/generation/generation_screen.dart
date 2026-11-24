@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:aipictors/v2/core/design.dart';
+import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/plans/coin_shop.dart';
 import 'package:aipictors/v2/core/nav.dart';
@@ -9,6 +10,7 @@ import 'package:aipictors/v2/generation/generation_controller.dart';
 import 'package:aipictors/v2/generation/generation_debug.dart';
 import 'package:aipictors/v2/generation/generation_form.dart';
 import 'package:aipictors/v2/generation/generation_history.dart';
+import 'package:aipictors/v2/generation/generation_reference.dart';
 import 'package:aipictors/v2/generation/generation_settings.dart';
 import 'package:aipictors/v2/generation/generation_sheets.dart';
 import 'package:aipictors/v2/generation/lora_picker.dart';
@@ -39,11 +41,16 @@ class _GenerationScreenState extends State<GenerationScreen> {
   bool _grantShown = false;
   bool _debugDone = false;
 
+  /// 参照生成（Web の /generation?work=）
+  RefRequest? _refLoading;
+  ReferenceState? _reference;
+
   @override
   void initState() {
     super.initState();
     _controller.start(loggedIn: _loggedIn);
     _controller.addListener(_onController);
+    GenReference.pending.addListener(_takeReference);
     _auth = FirebaseAuth.instance.authStateChanges().listen((user) {
       final loggedIn = user != null;
       if (loggedIn == _loggedIn) return;
@@ -59,12 +66,14 @@ class _GenerationScreenState extends State<GenerationScreen> {
   @override
   void dispose() {
     _auth?.cancel();
+    GenReference.pending.removeListener(_takeReference);
     _controller.removeListener(_onController);
     _controller.dispose();
     super.dispose();
   }
 
   void _onController() {
+    _takeReference();
     if (kDebugMode && !_debugDone && GenDebug.action != null) _runDebugAction();
     final grant = _controller.grantMessage;
     if (grant != null && !_grantShown && mounted) {
@@ -135,6 +144,105 @@ class _GenerationScreenState extends State<GenerationScreen> {
           showModelPicker(context, c);
       }
     });
+  }
+
+  /// 作品画面・カードから渡された作品を読み、項目を選んで流し込む
+  Future<void> _takeReference() async {
+    final req = GenReference.pending.value;
+    final catalog = _controller.catalog;
+    if (req == null || !_loggedIn || !mounted) return;
+    // モデル一覧を読み終えるまで待つ（_onController から呼び直される）
+    if (catalog == null) {
+      if (_refLoading?.workId != req.workId) setState(() => _refLoading = req);
+      return;
+    }
+    GenReference.pending.value = null;
+    FocusScope.of(context).unfocus();
+    setState(() {
+      _tab = 0;
+      _refLoading = req;
+    });
+    try {
+      final work = await RefWork.load(req.workId);
+      if (!mounted) return;
+      final plan = ReferencePlan.build(work, catalog);
+      if (!plan.hasAnything) {
+        setState(() => _refLoading = null);
+        context.toast(tr('この作品には引き継げる生成情報がありません', 'This work has no generation info to load'), error: true);
+        return;
+      }
+      // タブが切り替わってからシートを出す
+      await Future.delayed(const Duration(milliseconds: 250));
+      if (!mounted) return;
+      await _chooseReference(plan);
+    } on ApiException catch (e) {
+      if (!mounted) return;
+      setState(() => _refLoading = null);
+      context.toast(e.message, error: true);
+    }
+  }
+
+  Future<void> _chooseReference(ReferencePlan plan, {Set<RefField>? initial, Map<String, dynamic>? before}) async {
+    final s = _controller.settings;
+    final currentModel = s.userCheckpoint?.name ?? _controller.model?.displayName ?? '';
+    // 選び直すときは、読み込む前の設定（モデルの種類）を基準にする
+    final base = before ?? s.toJson();
+    final checkpoint = base['userCheckpoint'];
+    final type = (checkpoint is Map ? checkpoint['type']?.toString() : null) ?? base['modelType']?.toString() ?? s.effectiveType;
+    final picked = await showReferenceSheet(context, plan: plan, currentType: type, currentModelName: currentModel, initial: initial);
+    if (!mounted) return;
+    if (picked == null) {
+      setState(() => _refLoading = null);
+      return;
+    }
+    if (before != null) s.loadJson(before);
+    final snapshot = before ?? Map<String, dynamic>.of(s.toJson());
+    s.applyReference(plan.patch(picked, currentType: type));
+    final warnings = plan.warnings(picked, currentType: type);
+    setState(() {
+      _refLoading = null;
+      _reference = ReferenceState(plan: plan, selected: picked, applied: plan.applied(picked, currentType: type), warnings: warnings, before: snapshot);
+      _tab = 0;
+    });
+    Ds.success();
+    context.toast(
+      warnings.isEmpty ? tr('作品の設定を読み込みました', 'Loaded settings from the work') : tr('作品の設定を読み込みました（一部は入りませんでした）', 'Loaded settings (some items were skipped)'),
+      icon: Icons.auto_awesome_rounded,
+    );
+  }
+
+  void _undoReference() {
+    final r = _reference;
+    if (r == null) return;
+    Ds.impact();
+    _controller.settings.loadJson(r.before);
+    setState(() => _reference = null);
+    context.toast(tr('読み込む前の設定に戻しました', 'Restored previous settings'), icon: Icons.undo_rounded);
+  }
+
+  void _closeReference() {
+    Ds.tap();
+    setState(() {
+      _reference = null;
+      _refLoading = null;
+    });
+  }
+
+  Widget? _referenceBanner() {
+    if (_reference == null && _refLoading == null) return null;
+    final r = _reference;
+    return AnimatedSize(
+      duration: Ds.slow,
+      curve: Curves.easeOutCubic,
+      child: ReferenceBanner(
+        key: ValueKey(r?.plan.work.id ?? _refLoading?.workId),
+        state: _refLoading != null && r?.plan.work.id != _refLoading?.workId ? null : r,
+        loading: _refLoading,
+        onClose: _closeReference,
+        onUndo: r == null ? null : _undoReference,
+        onEdit: r == null ? null : () => _chooseReference(r.plan, initial: r.selected, before: r.before),
+      ),
+    );
   }
 
   void _reuse(GenResult r) {
@@ -232,7 +340,10 @@ class _GenerationScreenState extends State<GenerationScreen> {
             GenerationForm(
               key: _formKey,
               controller: _controller,
-              header: _RecentStrip(controller: _controller, onReuse: _reuse, onSeeAll: () => setState(() => _tab = 1)),
+              header: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+                ?_referenceBanner(),
+                _RecentStrip(controller: _controller, onReuse: _reuse, onSeeAll: () => setState(() => _tab = 1)),
+              ]),
               bottomPadding: 150,
             ),
             GenerationHistory(key: _historyKey, controller: _controller, onReuse: _reuse, bottomPadding: 24),
@@ -258,7 +369,7 @@ class _GenerationScreenState extends State<GenerationScreen> {
           width: (box.maxWidth * 0.55).clamp(340, 480).toDouble(),
           child: Stack(
             children: [
-              GenerationForm(key: _formKey, controller: _controller, bottomPadding: 150),
+              GenerationForm(key: _formKey, controller: _controller, header: _referenceBanner(), bottomPadding: 150),
               Positioned(
                 left: 0,
                 right: 0,
