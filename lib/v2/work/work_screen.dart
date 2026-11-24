@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/core/api.dart';
@@ -17,6 +18,9 @@ import 'package:aipictors/v2/work/comments.dart';
 import 'package:aipictors/v2/work/moderation.dart';
 import 'package:aipictors/v2/work/support_sheet.dart';
 import 'package:aipictors/v2/work/book_reader_screen.dart';
+import 'package:aipictors/v2/work/work_extras.dart';
+import 'package:aipictors/v2/community/web_links.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -25,6 +29,7 @@ import 'package:http/http.dart' as http;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:aipictors/v2/albums/albums_screen.dart';
 import 'package:aipictors/v2/albums/folders_screen.dart';
+import 'package:aipictors/v2/albums/album_api.dart';
 import 'package:aipictors/v2/post/post_api.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:video_player/video_player.dart';
@@ -36,22 +41,35 @@ query AppWork(\$id: ID!) {
   viewer { id user { id } }
   work(id: \$id) {
     id title enTitle description enDescription type rating createdAt likesCount commentsCount viewsCount
-    isLiked isCommentsEditable isGeneration
+    isLiked isCommentsEditable isGeneration accessType isBookmarked isMyRecommended isTagEditable
+    style isPromotion relatedUrl strength otherGenerationParams
+    dailyRanking weeklyRanking monthlyRanking
+    aiDailyRanking { rank } aiWeeklyRanking { rank } aiMonthlyRanking { rank }
+    isBotGradingEnabled isBotGradingPublic botEvaluationStatus botEvaluationPersonality
     imageURL imageWidth imageHeight url mdUrl isCaptionBeforeBody
     largeThumbnailImageURL
     subWorks { id imageUrl }
     tagNames
     promptAccessType prompt negativePrompt seed steps scale sampler vae clipSkip model
     dailyTheme { id title enTitle year month day }
-    user { $userSummaryFields isFollowee biography followersCount }
+    user { $userSummaryFields isFollowee biography enBiography followersCount worksCount }
   }
 }''';
 
 /// 作品の下に出すもの。失敗しても作品は開けるようにする
 const _workExtrasQuery = '''
 query AppWorkExtras(\$id: ID!) {
+  viewer { id bookmarkFolderId currentPass { id type } }
   work(id: \$id) {
     id
+    album { id title description }
+    nextWork { id title smallThumbnailImageURL }
+    previousWork { id title smallThumbnailImageURL }
+    botEvaluation {
+      cutenessScore coolnessScore beautyScore originalityScore compositionScore
+      colorScore detailScore consistencyScore overallScore comment personality
+    }
+    user { id works(offset: 0, limit: 16, where: { ratings: [G, R15] }) { $workCardFields } }
     comments(offset: 0, limit: 3) {
       $commentFields
       responses(offset: 0, limit: 3) { $commentFields }
@@ -85,6 +103,17 @@ class _WorkScreenState extends State<WorkScreen> {
   List<WorkSummary> _related = [];
   String? _novelText;
 
+  /// 作品の下回り（シリーズ・前後の作品・AI 評価・作者の他の作品）。失敗したら空
+  Map<String, dynamic> _extras = const {};
+  List<WorkSummary> _authorWorks = [];
+  String? _randomTag;
+  List<WorkSummary> _tagWorks = [];
+  List<String> _tags = [];
+  bool _bookmarked = false;
+  String? _bookmarkFolderId;
+  String? _passType;
+  bool _recommended = false;
+
   @override
   void initState() {
     super.initState();
@@ -117,6 +146,9 @@ class _WorkScreenState extends State<WorkScreen> {
         _liked = w.boolean('isLiked');
         _likes = w.integer('likesCount');
         _following = w.obj('user')?.boolean('isFollowee') ?? false;
+        _bookmarked = w.boolean('isBookmarked');
+        _recommended = w.boolean('isMyRecommended');
+        _tags = (w['tagNames'] as List?)?.map((e) => e.toString()).where((e) => e.isNotEmpty).toList() ?? [];
       });
       _loadExtras();
       // 開発用: 2 行目が sheet で始まればコメントのシートを開く（sheet:support は推しの欄も開く。表示の確認用）
@@ -174,11 +206,37 @@ class _WorkScreenState extends State<WorkScreen> {
       if (!mounted || w == null) return;
       setState(() {
         _comments = w.list('comments').where((c) => !c.boolean('isMuted') && !c.boolean('isDeleted')).map(CommentItem.fromJson).toList();
-        _related = WorkSummary.listFrom(w.list('relatedWorks'));
+        // 関連作品に開いている作品そのものが入ることがあるので除く
+        _related = WorkSummary.listFrom(w.list('relatedWorks')).where((x) => x.id != widget.id).toList();
+        _extras = w;
+        _authorWorks = WorkSummary.listFrom(w.obj('user')?.list('works') ?? const []).where((x) => x.id != widget.id).toList();
+        _bookmarkFolderId = data.obj('viewer')?.strOrNull('bookmarkFolderId');
+        _passType = data.obj('viewer')?.obj('currentPass')?.strOrNull('type');
       });
     } on ApiException catch (_) {
       // 作品は見られるので、ここは黙って諦める
     }
+    _loadTagWorks();
+  }
+
+  /// 「#タグ のおすすめ」（Web と同じく、作品のタグから 1 つ選ぶ。無ければ「女の子」）
+  Future<void> _loadTagWorks() async {
+    final tag = _randomTag ??= _tags.isEmpty ? '女の子' : _tags[Random().nextInt(_tags.length)];
+    final rating = _work?.str('rating') == 'R15' ? 'R15' : 'G';
+    try {
+      final data = await Api.query('''
+query AppWorkTagWorks(\$where: WorksWhereInput) {
+  tagWorks(offset: 0, limit: 16, where: \$where) { $workCardFields }
+}''', variables: {
+        'where': {
+          'tagNames': [tag],
+          'ratings': [rating],
+          'isNowCreatedAt': true,
+        },
+      }, cacheFor: const Duration(minutes: 5));
+      if (!mounted) return;
+      setState(() => _tagWorks = WorkSummary.listFrom(data.list('tagWorks')).where((x) => x.id != widget.id).toList());
+    } on ApiException catch (_) {}
   }
 
   Map<String, dynamic> get w => _work!;
@@ -227,6 +285,88 @@ class _WorkScreenState extends State<WorkScreen> {
     }
   }
 
+  /// ブックマーク（Web の WorkActionBookmark と同じく、既定のブックマークフォルダに入れる・外す）
+  Future<void> _toggleBookmark() async {
+    if (!Nav.requireLogin(context)) return;
+    final folderId = _bookmarkFolderId;
+    if (folderId == null) {
+      // ブックマークフォルダがまだ読めていないときはフォルダを選んでもらう
+      await showAddToFolderSheet(context, w.str('id'));
+      return;
+    }
+    final next = !_bookmarked;
+    setState(() => _bookmarked = next);
+    Ds.impact();
+    try {
+      if (next) {
+        await AlbumApi.addToFolder(folderId, w.str('id'));
+      } else {
+        await AlbumApi.removeFromFolder(folderId, w.str('id'));
+      }
+      if (mounted) context.toast(next ? tr('ブックマークに追加しました', 'Added to bookmarks') : tr('ブックマークから削除しました', 'Removed from bookmarks'));
+    } on ApiException catch (e) {
+      if (!mounted) return;
+      setState(() => _bookmarked = !next);
+      context.toast(e.message, error: true);
+    }
+  }
+
+  /// 推薦（Web の RecommendButton。Aipictors＋の人だけ。ライトプランは自分の作品だけ）
+  Future<void> _toggleRecommend() async {
+    if (!Nav.requireLogin(context)) return;
+    if (!_recommended) {
+      final pass = _passType;
+      if (pass != 'LITE' && pass != 'STANDARD' && pass != 'PREMIUM') {
+        context.toast(tr('作品を推薦して、注目度をアップできます！Aipictors＋ユーザのみ対応しています', 'Recommend works to boost their visibility. Available to Aipictors+ users only.'));
+        return;
+      }
+      if (pass == 'LITE' && !_isMine) {
+        context.toast(tr('ライトプランユーザは自身の作品のみ推薦できます', 'Lite plan users can only recommend their own works'));
+        return;
+      }
+    }
+    final next = !_recommended;
+    try {
+      await Api.mutate(
+        next
+            ? r'mutation AppCreateRecommendedWork($input: CreateRecommendedWorkInput!) { createRecommendedWork(input: $input) { id } }'
+            : r'mutation AppDeleteRecommendedWork($input: DeleteRecommendedWorkInput!) { deleteRecommendedWork(input: $input) }',
+        variables: {
+          'input': {'workId': w.str('id')},
+        },
+      );
+      if (!mounted) return;
+      setState(() => _recommended = next);
+      context.toast(next ? tr('推薦しました', 'Recommended') : tr('推薦を取り消しました', 'Recommendation removed'));
+    } on ApiException catch (e) {
+      if (mounted) context.toast(e.message, error: true);
+    }
+  }
+
+  /// 画像の保存（Web の「ダウンロード」「一括ダウンロード」。共有シートの「画像を保存」から写真に入れる）
+  Future<void> _saveImages({required bool all}) async {
+    final urls = all ? _images : [_images[_imageIndex.clamp(0, _images.length - 1)]];
+    if (urls.isEmpty) return;
+    context.toast(tr('画像を読み込んでいます…', 'Loading image…'));
+    try {
+      final files = <XFile>[];
+      for (var i = 0; i < urls.length; i++) {
+        final f = await DefaultCacheManager().getSingleFile(urls[i]);
+        files.add(XFile(f.path, name: urls.length > 1 ? '${w.str('id')}_${i + 1}.png' : '${w.str('id')}.png'));
+      }
+      if (!mounted) return;
+      final box = context.findRenderObject() as RenderBox?;
+      await Share.shareXFiles(files, sharePositionOrigin: box == null ? null : box.localToGlobal(Offset.zero) & box.size);
+    } catch (_) {
+      if (mounted) context.toast(tr('画像を読み込めませんでした。もう一度お試しください', 'Could not load the image. Please try again.'), error: true);
+    }
+  }
+
+  Future<void> _addTags() async {
+    if (!Nav.requireLogin(context)) return;
+    final tags = await showAddTagsSheet(context, workId: w.str('id'), tags: _tags);
+    if (tags != null && mounted) setState(() => _tags = tags);
+  }
 
   void _share() {
     final url = 'https://www.aipictors.com/posts/${w.str('id')}';
@@ -260,8 +400,19 @@ class _WorkScreenState extends State<WorkScreen> {
         child: Column(mainAxisSize: MainAxisSize.min, children: [
           ListTile(leading: const Icon(Icons.ios_share_rounded), title: Text(tr('共有', 'Share')), onTap: () => Navigator.pop(context, 'share')),
           ListTile(leading: const Icon(Icons.link_rounded), title: Text(tr('リンクをコピー', 'Copy link')), onTap: () => Navigator.pop(context, 'copy')),
+          if (_images.isNotEmpty && w.str('type') == 'WORK') ...[
+            ListTile(leading: const Icon(Icons.download_rounded), title: Text(tr('画像を保存', 'Save image')), onTap: () => Navigator.pop(context, 'save')),
+            if (_images.length > 1)
+              ListTile(leading: const Icon(Icons.collections_outlined), title: Text(tr('すべての画像を保存（${_images.length}枚）', 'Save all images (${_images.length})')), onTap: () => Navigator.pop(context, 'saveAll')),
+          ],
           if (Nav.isLoggedIn)
             ListTile(leading: const Icon(Icons.folder_outlined), title: Text(tr('フォルダに保存', 'Save to folder')), onTap: () => Navigator.pop(context, 'folder')),
+          if (Nav.isLoggedIn)
+            ListTile(
+              leading: Icon(_recommended ? Icons.thumb_up_alt_rounded : Icons.thumb_up_alt_outlined),
+              title: Text(_recommended ? tr('推薦済み（取り消す）', 'Recommended (undo)') : tr('推薦する', 'Recommend')),
+              onTap: () => Navigator.pop(context, 'recommend'),
+            ),
           if (_isMine) ...[
             ListTile(leading: const Icon(Icons.edit_outlined), title: Text(tr('作品を編集', 'Edit work')), onTap: () => Navigator.pop(context, 'edit')),
             ListTile(leading: const Icon(Icons.collections_bookmark_outlined), title: Text(tr('シリーズに追加', 'Add to series')), onTap: () => Navigator.pop(context, 'album')),
@@ -288,6 +439,12 @@ class _WorkScreenState extends State<WorkScreen> {
     switch (action) {
       case 'share':
         _share();
+      case 'save':
+        await _saveImages(all: false);
+      case 'saveAll':
+        await _saveImages(all: true);
+      case 'recommend':
+        await _toggleRecommend();
       case 'folder':
         await showAddToFolderSheet(context, w.str('id'));
       case 'album':
@@ -344,8 +501,13 @@ class _WorkScreenState extends State<WorkScreen> {
     final images = _images;
     final isVideo = w.str('type') == 'VIDEO' && (w.strOrNull('url') ?? '').isNotEmpty;
     final isNovel = w.str('type') == 'NOVEL' || w.str('type') == 'COLUMN';
-    final promptPublic = w.str('promptAccessType') == 'PUBLIC' && (w.strOrNull('prompt') ?? '').isNotEmpty;
-    final tags = (w['tagNames'] as List?)?.map((e) => e.toString()).where((e) => e.isNotEmpty).toList() ?? const [];
+    // Web と同じく、返ってきた生成情報があれば出す（非公開は API が返さない。作者本人には返る）
+    final hasGenerationInfo = _GenerationInfo.hasAny(w);
+    final tags = _tags;
+    final newer = _extras.obj('nextWork');
+    final older = _extras.obj('previousWork');
+    final album = _extras.obj('album');
+    final relatedUrl = (w.strOrNull('relatedUrl') ?? '').trim();
     final width = MediaQuery.sizeOf(context).width;
     final mediaMax = width > 700 ? 700.0 : width;
     // 広い画面（折りたたみを開いた状態・iPad など）は左に画像、右に情報・コメント。小説など画像の無い作品は 1 列のまま
@@ -371,7 +533,10 @@ class _WorkScreenState extends State<WorkScreen> {
                               ),
     );
     final Widget info = Column(key: _infoKey, crossAxisAlignment: CrossAxisAlignment.start, children: [
+                        AccessTypeBanner(accessType: w.strOrNull('accessType'), createdAt: w.integer('createdAt')),
                         _ActionBar(
+                          bookmarked: _bookmarked,
+                          onBookmark: _isMine ? null : _toggleBookmark,
                           liked: _liked,
                           likes: _likes,
                           comments: w.integer('commentsCount'),
@@ -412,6 +577,9 @@ class _WorkScreenState extends State<WorkScreen> {
                               },
                             ),
                         ]),
+                        if (_isMine) LikedUsersPanel(workId: w.str('id'), likesCount: _likes),
+                        const SizedBox(height: 8),
+                        WorkBadges(work: w),
                         const SizedBox(height: 14),
                         _UserRow(
                           user: user,
@@ -432,6 +600,23 @@ class _WorkScreenState extends State<WorkScreen> {
                             ),
                           ),
                         ],
+                        if (relatedUrl.isNotEmpty && relatedUrl != 'undefined') ...[
+                          const SizedBox(height: 12),
+                          InkWell(
+                            borderRadius: Ds.br(12),
+                            onTap: () => WebLinks.open(context, relatedUrl),
+                            child: Container(
+                              width: double.infinity,
+                              padding: const EdgeInsets.all(Ds.s12),
+                              decoration: BoxDecoration(borderRadius: Ds.br(12), border: Border.all(color: context.hairline)),
+                              child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                                Text(tr('関連リンク', 'Related link'), style: TextStyle(color: context.muted, fontSize: 12, fontWeight: FontWeight.w700)),
+                                const SizedBox(height: 2),
+                                Text(relatedUrl, maxLines: 2, overflow: TextOverflow.ellipsis, style: TextStyle(color: context.cs.primary, fontSize: 13)),
+                              ]),
+                            ),
+                          ),
+                        ],
                         if (isNovel && _novelText != null) ...[
                           const SizedBox(height: 16),
                           _BookReaderButton(
@@ -447,7 +632,7 @@ class _WorkScreenState extends State<WorkScreen> {
                             child: SelectableText(_novelText!, style: const TextStyle(height: 1.9, fontSize: 15.5)),
                           ),
                         ],
-                        if (tags.isNotEmpty) ...[
+                        if (tags.isNotEmpty || w.boolean('isTagEditable')) ...[
                           const SizedBox(height: 14),
                           Wrap(spacing: 8, runSpacing: 8, children: [
                             for (final t in tags)
@@ -462,11 +647,51 @@ class _WorkScreenState extends State<WorkScreen> {
                                   child: Text('#$t', style: TextStyle(color: context.cs.primary, fontWeight: FontWeight.w700, fontSize: 13)),
                                 ),
                               ),
+                            // 作者がタグの追加を許可している作品は、見る人もタグを足せる（Web の WorkArticleTags の ＋）
+                            if (w.boolean('isTagEditable'))
+                              Pressable(
+                                onTap: _addTags,
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
+                                  decoration: BoxDecoration(border: Border.all(color: context.cs.primary.withValues(alpha: 0.4)), borderRadius: Ds.br(16)),
+                                  child: Row(mainAxisSize: MainAxisSize.min, children: [
+                                    Icon(Icons.add_rounded, size: 15, color: context.cs.primary),
+                                    const SizedBox(width: 2),
+                                    Text(tr('タグを追加', 'Add tag'), style: TextStyle(color: context.cs.primary, fontWeight: FontWeight.w700, fontSize: 13)),
+                                  ]),
+                                ),
+                              ),
                           ]),
                         ],
-                        if (promptPublic) ...[
+                        if (_isMine && w.str('promptAccessType') == 'PRIVATE') ...[
+                          const SizedBox(height: 14),
+                          Row(children: [
+                            Icon(Icons.shield_outlined, size: 18, color: context.muted),
+                            const SizedBox(width: 6),
+                            Expanded(child: Text(tr('生成情報は非公開状態です、ご自身のみ閲覧可能です', 'Generation information is private and only viewable by you.'), style: TextStyle(color: context.muted, fontSize: 13, fontWeight: FontWeight.w700))),
+                          ]),
+                        ],
+                        if (hasGenerationInfo) ...[
                           const SizedBox(height: 16),
                           _GenerationInfo(work: w),
+                        ],
+                        if (_extras.isNotEmpty) ...[
+                          const SizedBox(height: 16),
+                          AiEvaluationCard(work: {...w, 'botEvaluation': _extras['botEvaluation']}, isOwner: _isMine),
+                        ],
+                        if (newer != null || older != null) ...[
+                          const SizedBox(height: 16),
+                          WorkPrevNextBar(newer: newer, older: older),
+                        ],
+                        TitledWorkRow(
+                          title: tr('${user.str('name')}さんの作品', 'More by ${user.str('name')}'),
+                          works: _authorWorks,
+                          inset: 0,
+                          onMore: () => Nav.user(context, user.str('id')),
+                        ),
+                        if (album != null) ...[
+                          const SizedBox(height: 12),
+                          WorkAlbumCard(album: album),
                         ],
                         const SizedBox(height: 8),
                         _CommentsPreview(
@@ -542,6 +767,14 @@ class _WorkScreenState extends State<WorkScreen> {
                   ),
                 ),
               ],
+              if (_tagWorks.isNotEmpty && _randomTag != null)
+                SliverToBoxAdapter(
+                  child: TitledWorkRow(
+                    title: tr('#$_randomTag のおすすめ', 'More #$_randomTag'),
+                    works: _tagWorks,
+                    onMore: () => Nav.tag(context, _randomTag!),
+                  ),
+                ),
               if (_related.isNotEmpty) ...[
                 SliverToBoxAdapter(child: SectionHeader(tr('関連作品', 'Related works'), icon: Icons.auto_awesome_mosaic_rounded)),
                 SliverPadding(
@@ -907,6 +1140,8 @@ class _VideoBoxState extends State<_VideoBox> {
 
 class _ActionBar extends StatelessWidget {
   const _ActionBar({
+    required this.bookmarked,
+    required this.onBookmark,
     required this.liked,
     required this.likes,
     required this.comments,
@@ -916,6 +1151,8 @@ class _ActionBar extends StatelessWidget {
     required this.onShare,
   });
 
+  final bool bookmarked;
+  final VoidCallback? onBookmark;
   final bool liked;
   final int likes;
   final int comments;
@@ -952,6 +1189,18 @@ class _ActionBar extends StatelessWidget {
           Text(compactCount(comments), style: const TextStyle(fontWeight: FontWeight.w800)),
         ]),
       ),
+      // ブックマーク（自分の作品には出さない。Web の WorkActionBookmark）
+      if (onBookmark != null) ...[
+        const SizedBox(width: 8),
+        Semantics(
+          button: true,
+          label: bookmarked ? tr('ブックマークから削除', 'Remove from bookmarks') : tr('ブックマークに追加', 'Add to bookmarks'),
+          child: _RoundAction(
+            onTap: onBookmark!,
+            child: Icon(bookmarked ? Icons.bookmark_rounded : Icons.bookmark_border_rounded, color: bookmarked ? context.cs.primary : null),
+          ),
+        ),
+      ],
       const Spacer(),
       if (onSupport != null)
         Pressable(
@@ -1003,6 +1252,8 @@ class _UserRow extends StatelessWidget {
   final bool isMine;
   final ValueChanged<bool> onFollowChanged;
 
+  String get _bio => localizedContent(user.str('biography').trim(), user.strOrNull('enBiography')?.replaceAll("\\'", "'")).trim();
+
   @override
   Widget build(BuildContext context) {
     return Pressable(
@@ -1024,7 +1275,15 @@ class _UserRow extends StatelessWidget {
                 Flexible(child: Text(user.str('name'), maxLines: 1, overflow: TextOverflow.ellipsis, style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 15))),
                 if (user.boolean('isOfficial') || user.boolean('isModerator')) ...[const SizedBox(width: 4), OfficialBadge(isOfficial: user.boolean('isOfficial'), isModerator: user.boolean('isModerator'))],
               ]),
-              Text(tr('フォロワー ${compactCount(user.integer('followersCount'))}', '${compactCount(user.integer('followersCount'))} followers'), style: TextStyle(color: context.muted, fontSize: 12)),
+              // Web の WorkUser と同じく、フォロワー数と投稿数
+              Text(
+                tr('フォロワー ${compactCount(user.integer('followersCount'))} · 投稿 ${compactCount(user.integer('worksCount'))}', '${compactCount(user.integer('followersCount'))} followers · ${compactCount(user.integer('worksCount'))} posts'),
+                style: TextStyle(color: context.muted, fontSize: 12),
+              ),
+              if (_bio.isNotEmpty) ...[
+                const SizedBox(height: 4),
+                AutoTranslatedText(_bio, showLabel: false, builder: (context, text) => Text(text, maxLines: 3, overflow: TextOverflow.ellipsis, style: TextStyle(color: context.muted, fontSize: 12, height: 1.4))),
+              ],
             ]),
           ),
           // フォロー一覧・ユーザー画面と同じボタン（押した瞬間に切り替え、解除は確認してから）
@@ -1059,7 +1318,8 @@ class _ExpandableTextState extends State<_ExpandableText> {
         duration: Ds.normal,
         alignment: Alignment.topCenter,
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          SelectableText(
+          // URL は押すと開く（Web の parseTextWithLinks と同じ）
+          LinkifiedText(
             widget.text,
             maxLines: _open || !long ? null : 4,
             style: const TextStyle(height: 1.6, fontSize: 14.5),
@@ -1079,6 +1339,12 @@ class _GenerationInfo extends StatelessWidget {
   const _GenerationInfo({required this.work});
 
   final Map<String, dynamic> work;
+
+  static bool _has(Object? v) => v != null && v.toString().trim().isNotEmpty && v.toString() != 'null' && v.toString() != '0';
+
+  /// Web の WorkArticleGenerationParameters と同じ項目のどれかがあれば出す
+  static bool hasAny(Map<String, dynamic> w) =>
+      ['prompt', 'negativePrompt', 'steps', 'scale', 'seed', 'sampler', 'strength', 'otherGenerationParams'].any((k) => _has(w[k]));
 
   @override
   Widget build(BuildContext context) {
@@ -1118,6 +1384,7 @@ class _GenerationInfo extends StatelessWidget {
       ('Scale', work['scale']?.toString()),
       ('Sampler', work.strOrNull('sampler')),
       ('Seed', work['seed']?.toString()),
+      ('Strength', work['strength']?.toString()),
       ('VAE', work.strOrNull('vae')),
     ].where((p) => p.$2 != null && p.$2!.isNotEmpty && p.$2 != 'null').toList();
 
@@ -1136,6 +1403,7 @@ class _GenerationInfo extends StatelessWidget {
         ]),
         block(tr('プロンプト', 'Prompt'), work.strOrNull('prompt')),
         block(tr('ネガティブプロンプト', 'Negative prompt'), work.strOrNull('negativePrompt')),
+        block(tr('その他', 'Other'), work.strOrNull('otherGenerationParams')),
         if (params.isNotEmpty) ...[
           const SizedBox(height: 10),
           Wrap(spacing: 6, runSpacing: 6, children: [

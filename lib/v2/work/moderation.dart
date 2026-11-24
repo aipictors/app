@@ -1,3 +1,5 @@
+import 'package:aipictors/v2/core/l10n.dart';
+import 'package:aipictors/v2/widgets/common.dart';
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/design.dart';
 import 'package:aipictors/v2/core/nav.dart';
@@ -186,4 +188,78 @@ Future<bool> _confirm(BuildContext context, String title, String message, String
     ),
   );
   return r == true;
+}
+
+/// 審査で非表示になった自分のコメントへの異議申し立て（Web の CommentAppealDialog）。送れたら true
+Future<bool> showCommentAppealSheet(BuildContext context, String commentId) async {
+  final sent = await showModalBottomSheet<bool>(
+    context: context,
+    isScrollControlled: true,
+    showDragHandle: true,
+    backgroundColor: context.surfaceCard,
+    builder: (_) => _AppealSheet(commentId: commentId),
+  );
+  return sent ?? false;
+}
+
+class _AppealSheet extends StatefulWidget {
+  const _AppealSheet({required this.commentId});
+
+  final String commentId;
+
+  @override
+  State<_AppealSheet> createState() => _AppealSheetState();
+}
+
+class _AppealSheetState extends State<_AppealSheet> {
+  final _text = TextEditingController();
+  bool _sending = false;
+
+  @override
+  void dispose() {
+    _text.dispose();
+    super.dispose();
+  }
+
+  Future<void> _send() async {
+    final text = _text.text.trim();
+    if (text.length < 5) {
+      context.toast(tr('内容を入力してください', 'Please enter the details'), error: true);
+      return;
+    }
+    setState(() => _sending = true);
+    try {
+      await Api.mutate(r'mutation AppAppealCommentModeration($input: AppealCommentModerationInput!) { appealCommentModeration(input: $input) }', variables: {
+        'input': {'commentId': widget.commentId, 'text': text},
+      });
+      if (!mounted) return;
+      context.toast(tr('異議申し立てを送信しました。確認までお待ちください。', 'Your appeal has been submitted.'));
+      Navigator.pop(context, true);
+    } on ApiException catch (e) {
+      if (!mounted) return;
+      setState(() => _sending = false);
+      context.toast(e.message, error: true);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.fromLTRB(16, 0, 16, 16 + MediaQuery.viewInsetsOf(context).bottom),
+      child: SafeArea(
+        child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+          Text(tr('コメント審査に異議申し立て', 'Appeal moderation'), style: context.tt.titleMedium?.copyWith(fontWeight: FontWeight.w800)),
+          const SizedBox(height: 12),
+          TextField(
+            controller: _text,
+            minLines: 4,
+            maxLines: 8,
+            decoration: InputDecoration(hintText: tr('誤判定だと思う理由を入力してください', 'Explain why you think this decision is incorrect')),
+          ),
+          const SizedBox(height: 12),
+          PrimaryButton(label: tr('送信', 'Submit'), loading: _sending, onPressed: _sending ? null : _send),
+        ]),
+      ),
+    );
+  }
 }

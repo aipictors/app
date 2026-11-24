@@ -63,6 +63,16 @@ class CommentItem {
 
   bool get isSensitive => json.boolean('isSensitive');
 
+  /// ミュートしている人のコメント（Web と同じく、畳んで「表示」で開ける）
+  bool get isMuted => json.boolean('isMuted');
+
+  /// 自分のコメントの審査の結果（commentModerationSummaries。無ければ null）
+  Map<String, dynamic>? moderation;
+
+  bool get isRejected => moderation?.str('moderationStatus') == 'REJECTED';
+
+  bool get canAppeal => moderation?.boolean('canAppeal') ?? false;
+
   bool get isWorkOwnerLiked => json.boolean('isWorkOwnerLiked');
 
   String? get thankYouMessage => json.strOrNull('supportThankYouMessage');
@@ -116,6 +126,9 @@ class _CommentTileState extends State<CommentTile> {
   /// 隠し付きのコメントを開いた
   bool _revealed = false;
 
+  /// ミュートした人のコメントを開いた
+  bool _showMuted = false;
+
   Future<void> _like() async {
     if (!Nav.requireLogin(context)) return;
     final liked = !c.isLiked;
@@ -151,13 +164,15 @@ class _CommentTileState extends State<CommentTile> {
       backgroundColor: context.surfaceCard,
       builder: (context) => SafeArea(
         child: Column(mainAxisSize: MainAxisSize.min, children: [
-          if (mine)
+          if (mine) ...[
+            if (c.canAppeal)
+              ListTile(leading: const Icon(Icons.feedback_outlined), title: Text(tr('異議申し立て', 'Appeal')), onTap: () => Navigator.pop(context, 'appeal')),
             ListTile(
               leading: Icon(Icons.delete_outline_rounded, color: context.cs.error),
               title: Text(tr('コメントを削除', 'Delete comment'), style: TextStyle(color: context.cs.error)),
               onTap: () => Navigator.pop(context, 'delete'),
-            )
-          else ...[
+            ),
+          ] else ...[
             ListTile(leading: const Icon(Icons.flag_outlined), title: Text(tr('コメントを通報', 'Report comment')), onTap: () => Navigator.pop(context, 'report')),
             if (c.userId.isNotEmpty) ...[
               ListTile(leading: const Icon(Icons.volume_off_outlined), title: Text(tr('${c.userName}さんをミュート', 'Mute ${c.userName}')), onTap: () => Navigator.pop(context, 'mute')),
@@ -180,6 +195,10 @@ class _CommentTileState extends State<CommentTile> {
         } on ApiException catch (e) {
           if (mounted) context.toast(e.message, error: true);
         }
+      case 'appeal':
+        if (await showCommentAppealSheet(context, c.id) && mounted) {
+          setState(() => c.moderation = {...?c.moderation, 'canAppeal': false, 'appealedAt': DateTime.now().millisecondsSinceEpoch ~/ 1000});
+        }
       case 'report':
         await showReportSheet(context, target: ReportTarget.comment, id: c.id);
       case 'mute':
@@ -191,6 +210,22 @@ class _CommentTileState extends State<CommentTile> {
 
   @override
   Widget build(BuildContext context) {
+    if (c.isMuted && !_showMuted) {
+      return Padding(
+        padding: EdgeInsets.only(left: widget.isReply ? 44 : 0, top: 10, bottom: 4),
+        child: Container(
+          padding: const EdgeInsets.fromLTRB(12, 4, 4, 4),
+          decoration: BoxDecoration(borderRadius: Ds.br(12), border: Border.all(color: context.hairline)),
+          child: Row(children: [
+            Icon(Icons.visibility_off_outlined, size: 18, color: context.muted),
+            const SizedBox(width: 8),
+            Expanded(child: Text(tr('ミュートしているユーザのコメントです', 'This is a comment from a muted user'), style: TextStyle(color: context.muted, fontSize: 13))),
+            TextButton(onPressed: () => context.push('/config/muted_users'), child: Text(tr('設定', 'Settings'))),
+            TextButton(onPressed: () => setState(() => _showMuted = true), child: Text(tr('表示', 'Show'))),
+          ]),
+        ),
+      );
+    }
     final support = c.supportCoins > 0;
     final tier = support ? SupportTier.of(c.supportPt) : null;
     return Padding(
@@ -250,6 +285,22 @@ class _CommentTileState extends State<CommentTile> {
                           child: AppImage(c.stickerUrl, width: 96, height: 96, fit: BoxFit.contain, radius: 8),
                         ),
                       ],
+                    ],
+                    // 審査で他の人に見えなくなった自分のコメント（Web と同じ文言）
+                    if (c.isRejected) ...[
+                      const SizedBox(height: 6),
+                      Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(color: Ds.gold.withValues(alpha: 0.12), borderRadius: Ds.br(8)),
+                        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                          Text(
+                            c.moderation?.strOrNull('userNotice') ?? tr('このコメントは審査により他のユーザーには表示されていません。', 'This comment is hidden from other users after moderation.'),
+                            style: const TextStyle(fontSize: 12),
+                          ),
+                          if (c.moderation?['appealedAt'] != null)
+                            Text(tr('異議申し立てを受け付けています。確認をお待ちください。', 'Your appeal has been received.'), style: TextStyle(fontSize: 12, color: context.muted)),
+                        ]),
+                      ),
                     ],
                     if (support && c.thankYouMessage != null) ...[
                       const SizedBox(height: 6),
@@ -402,12 +453,32 @@ query AppWorkComments(\$id: ID!, \$offset: Int!, \$limit: Int!) {
   }
 }''', variables: {'id': widget.workId, 'offset': offset, 'limit': limit});
       final list = data.obj('work')?.list('comments') ?? const [];
-      return list.where((c) => !c.boolean('isMuted') && !c.boolean('isDeleted')).map(CommentItem.fromJson).toList();
+      final items = list.where((c) => !c.boolean('isDeleted')).map(CommentItem.fromJson).toList();
+      await _attachModeration(items);
+      return items;
     },
   );
 
   CommentItem? _replyTo;
   final _focus = FocusNode();
+
+  /// 自分のコメントの審査の結果を付ける（Web の commentModerationSummaries）。取れなくても一覧は出す
+  Future<void> _attachModeration(List<CommentItem> items) async {
+    final viewerId = widget.viewerId;
+    if (viewerId == null) return;
+    final mine = [for (final c in items) ...[c, ...c.replies]].where((c) => c.userId == viewerId).toList();
+    if (mine.isEmpty) return;
+    try {
+      final data = await Api.query(
+        r'query AppCommentModerationSummaries($commentIds: [ID!]!) { commentModerationSummaries(commentIds: $commentIds) { commentId moderationStatus userNotice canAppeal appealedAt } }',
+        variables: {'commentIds': mine.map((c) => c.id).toList()},
+      );
+      final byId = {for (final s in data.list('commentModerationSummaries')) s.str('commentId'): s};
+      for (final c in mine) {
+        c.moderation = byId[c.id];
+      }
+    } on ApiException catch (_) {}
+  }
 
   @override
   void initState() {
