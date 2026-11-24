@@ -164,22 +164,26 @@ class RootScreen extends HookConsumerWidget {
       const MyPageScreen(key: PageStorageKey('root_mypage')),
     ];
 
+    // 折りたたみの開閉でタブレット⇔スマホの並びが入れ替わっても、各タブの状態（入力中の文字・スクロール位置）を残す
+    final stackKey = useMemoized(() => GlobalKey(debugLabel: 'rootTabs'));
+
     return LayoutBuilder(builder: (context, constraints) {
       final layout = Layout.fromWidth(constraints.maxWidth);
+      final tabs = IndexedStack(key: stackKey, index: pageIndex.clamp(0, screenList.length - 1), children: screenList);
       // タブレット
       if (layout.notCompact && !config.themeCompactLayout) {
         return Scaffold(
           body: Row(
             children: [
               const HomeNavigationRail(),
-              Expanded(child: IndexedStack(index: pageIndex.clamp(0, screenList.length - 1), children: screenList))
+              Expanded(child: tabs)
             ],
           ),
         );
       }
       // スマホ用
       return Scaffold(
-        body: IndexedStack(index: pageIndex.clamp(0, screenList.length - 1), children: screenList),
+        body: tabs,
         bottomNavigationBar: const HomeNavigationBar(),
       );
     });
