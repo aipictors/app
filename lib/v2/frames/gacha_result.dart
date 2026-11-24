@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:aipictors/v2/core/design.dart';
@@ -32,9 +33,19 @@ class GachaResultView extends StatefulWidget {
 }
 
 class _GachaResultViewState extends State<GachaResultView> with TickerProviderStateMixin {
-  late final AnimationController _intro = AnimationController(vsync: this, duration: const Duration(milliseconds: 1100));
+  // UUR は光を長くためる（Web の演出と同じく、UR より派手に）
+  late final AnimationController _intro = AnimationController(vsync: this, duration: Duration(milliseconds: _hasUnique ? 2400 : 1100));
   late final AnimationController _cards;
+
+  /// UUR の白金の光芒（回り続ける）
+  late final AnimationController _shine = AnimationController(vsync: this, duration: const Duration(milliseconds: 6000));
   bool _skipped = false;
+
+  /// UUR の全体告知風の帯（7 秒で引っ込む。押しても閉じる）
+  bool _announce = false;
+  Timer? _announceTimer;
+
+  bool get _hasUnique => _pulls.any((p) => p.prize.rarity.isUnique);
 
   List<GachaPull> get _pulls => widget.result.pulls;
 
@@ -49,16 +60,32 @@ class _GachaResultViewState extends State<GachaResultView> with TickerProviderSt
       _intro.value = 1;
       _cards.value = 1;
     } else {
+      if (_hasUnique) _shine.repeat();
       _intro.forward().whenComplete(() {
         if (mounted) _cards.forward();
       });
     }
+    _cards.addStatusListener((status) {
+      if (status == AnimationStatus.completed) _showAnnounce();
+    });
+    if (reduce) _showAnnounce();
+  }
+
+  void _showAnnounce() {
+    if (!_hasUnique || _announceTimer != null) return;
+    if (!_skipped) Ds.impact();
+    setState(() => _announce = true);
+    _announceTimer = Timer(const Duration(seconds: 7), () {
+      if (mounted) setState(() => _announce = false);
+    });
   }
 
   @override
   void dispose() {
+    _announceTimer?.cancel();
     _intro.dispose();
     _cards.dispose();
+    _shine.dispose();
     super.dispose();
   }
 
@@ -90,7 +117,7 @@ class _GachaResultViewState extends State<GachaResultView> with TickerProviderSt
         onTap: _skip,
         child: SafeArea(
           child: AnimatedBuilder(
-            animation: Listenable.merge([_intro, _cards]),
+            animation: Listenable.merge([_intro, _cards, _shine]),
             builder: (context, _) {
               final glow = Curves.easeOut.transform(_intro.value);
               final introOn = _intro.value < 1;
@@ -108,6 +135,26 @@ class _GachaResultViewState extends State<GachaResultView> with TickerProviderSt
                     ),
                   ),
                 ),
+                // UUR: 白金の光芒が回る（めくり終わっても薄く残す）
+                if (top.isUnique)
+                  Positioned.fill(
+                    child: IgnorePointer(
+                      child: Opacity(
+                        opacity: introOn ? (0.35 + 0.65 * glow).clamp(0.0, 1.0) : 0.35,
+                        child: Transform.rotate(
+                          angle: _shine.value * 2 * pi,
+                          child: const DecoratedBox(
+                            decoration: BoxDecoration(
+                              gradient: SweepGradient(colors: [
+                                Color(0x00FFFFFF), Color(0x66FFF4D0), Color(0x00FFFFFF), Color(0x55A5F3FC), Color(0x00FFFFFF), Color(0x66F8E7A8), //
+                                Color(0x00FFFFFF), Color(0x55FFFFFF), Color(0x00FFFFFF), Color(0x66FDE68A), Color(0x00FFFFFF), Color(0x55F0ABFC), Color(0x00FFFFFF),
+                              ]),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                 Column(children: [
                   const SizedBox(height: Ds.s16),
                   Text(
@@ -167,6 +214,13 @@ class _GachaResultViewState extends State<GachaResultView> with TickerProviderSt
                       child: Text(tr('タップでスキップ', 'Tap to skip'), style: const TextStyle(color: Colors.white54, fontSize: 12)),
                     ),
                 ]),
+                if (_announce)
+                  Positioned(
+                    top: 8,
+                    left: 12,
+                    right: 12,
+                    child: GestureDetector(onTap: () => setState(() => _announce = false), child: _UniqueAnnouncement(names: [for (final p in pulls) if (p.prize.rarity.isUnique) p.prize.name])),
+                  ),
               ]);
             },
           ),
@@ -212,8 +266,13 @@ class _ResultCard extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
         color: Colors.white.withValues(alpha: 0.08),
-        border: Border.all(color: r.glow.withValues(alpha: r.index >= GachaRarity.sr.index ? 0.9 : 0.4), width: r.index >= GachaRarity.ssr.index ? 2 : 1),
-        boxShadow: r.index >= GachaRarity.sr.index ? [BoxShadow(color: r.glow.withValues(alpha: 0.55), blurRadius: r == GachaRarity.ur ? 26 : 14)] : null,
+        border: Border.all(color: r.glow.withValues(alpha: r.index >= GachaRarity.sr.index ? 0.9 : 0.4), width: r.isUnique ? 3 : (r.index >= GachaRarity.ssr.index ? 2 : 1)),
+        boxShadow: r.index >= GachaRarity.sr.index
+            ? [
+                BoxShadow(color: r.glow.withValues(alpha: 0.55), blurRadius: r.isUnique ? 40 : (r == GachaRarity.ur ? 26 : 14), spreadRadius: r.isUnique ? 4 : 0),
+                if (r.isUnique) const BoxShadow(color: Color(0x88FDE68A), blurRadius: 70, spreadRadius: 8),
+              ]
+            : null,
       ),
       child: Column(mainAxisSize: MainAxisSize.min, children: [
         Stack(clipBehavior: Clip.none, children: [
@@ -236,6 +295,41 @@ class _ResultCard extends StatelessWidget {
         if (big) Text(p.kindLabel, style: const TextStyle(color: Colors.white60, fontSize: 11)),
         if (notes.isNotEmpty) Text(notes.join('・'), textAlign: TextAlign.center, style: TextStyle(color: const Color(0xFFBAE6FD), fontSize: big ? 12 : 9)),
       ]),
+    );
+  }
+}
+
+/// UUR を当てたときの全体告知風の帯（Web の GachaUniqueAnnouncement）
+class _UniqueAnnouncement extends StatelessWidget {
+  const _UniqueAnnouncement({required this.names});
+
+  final List<String> names;
+
+  @override
+  Widget build(BuildContext context) {
+    final label = names.map((n) => '「$n」').join();
+    return Container(
+      padding: const EdgeInsets.all(2),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(18),
+        gradient: const LinearGradient(colors: [Color(0xFFF8E7A8), Colors.white, Color(0xFFA5F3FC), Color(0xFFF0ABFC), Color(0xFFF8E7A8)]),
+        boxShadow: const [BoxShadow(color: Color(0x88FDE68A), blurRadius: 30)],
+      ),
+      child: Container(
+        padding: const EdgeInsets.fromLTRB(14, 10, 14, 12),
+        decoration: BoxDecoration(color: const Color(0xF207060D), borderRadius: BorderRadius.circular(16)),
+        child: Column(mainAxisSize: MainAxisSize.min, children: [
+          Text(tr('📣 全体のお知らせ', '📣 Announcement'), style: const TextStyle(color: Color(0xFFFDE68A), fontWeight: FontWeight.w900, fontSize: 11, letterSpacing: 2)),
+          const SizedBox(height: 4),
+          Text(
+            tr('世界でひとりだけの UUR\n$label があなたのものになりました', 'The one-of-a-kind UUR\n$label is now yours'),
+            textAlign: TextAlign.center,
+            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 16, height: 1.4),
+          ),
+          const SizedBox(height: 4),
+          Text(tr('ガチャの画面に獲得者として名前が載ります', 'Your name will appear on the gacha screen as the owner'), style: const TextStyle(color: Colors.white70, fontSize: 11)),
+        ]),
+      ),
     );
   }
 }

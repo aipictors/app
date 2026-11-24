@@ -28,7 +28,8 @@ class GachaState {
 
   bool owns(GachaPrize prize) => (owned[prize.id] ?? 0) > 0;
 
-  int get ownedInPool => GachaRules.pool.where(owns).length;
+  /// コンプリートの数（UUR は世界で 1 人だけなので数えない）
+  int get ownedInPool => GachaRules.pool.where((p) => !p.rarity.isUnique && owns(p)).length;
 
   static GachaState fromJson(Map<String, dynamic> j) => GachaState(
         exchangePoints: j.integer('exchangePoints'),
@@ -68,6 +69,84 @@ class GachaDrawResult {
   final GachaState state;
 
   int get shards => pulls.fold(0, (sum, p) => sum + p.shards);
+}
+
+/// UUR（世界で 1 人だけが持てる枠）と持ち主（Web の gachaUniquePrizes）
+class GachaUniquePrize {
+  const GachaUniquePrize({
+    required this.prize,
+    required this.isClaimed,
+    required this.claimedAt,
+    required this.isOwnerWithdrawn,
+    required this.ownerId,
+    required this.ownerLogin,
+    required this.ownerName,
+    required this.ownerIconUrl,
+  });
+
+  final GachaPrize prize;
+  final bool isClaimed;
+  final DateTime? claimedAt;
+  final bool isOwnerWithdrawn;
+  final String? ownerId;
+  final String? ownerLogin;
+  final String? ownerName;
+  final String? ownerIconUrl;
+
+  static GachaUniquePrize? fromJson(Map<String, dynamic> j) {
+    final prize = GachaPrize.byId(j.str('prizeId'));
+    if (prize == null) return null;
+    final owner = j.obj('owner');
+    final at = j.strOrNull('claimedAt');
+    return GachaUniquePrize(
+      prize: prize,
+      isClaimed: j.boolean('isClaimed'),
+      claimedAt: at == null ? null : DateTime.tryParse(at)?.toLocal(),
+      isOwnerWithdrawn: j.boolean('isOwnerWithdrawn'),
+      ownerId: owner?.strOrNull('id'),
+      ownerLogin: owner?.strOrNull('login'),
+      ownerName: owner?.strOrNull('name'),
+      ownerIconUrl: owner?.strOrNull('iconUrl'),
+    );
+  }
+
+  /// まだ誰も持っていない（読めないときの表示用）
+  static List<GachaUniquePrize> get unclaimed => [
+        for (final p in GachaRules.uniquePrizes)
+          GachaUniquePrize(prize: p, isClaimed: false, claimedAt: null, isOwnerWithdrawn: false, ownerId: null, ownerLogin: null, ownerName: null, ownerIconUrl: null),
+      ];
+}
+
+/// いまの提供割合（サーバーの gachaRates。取られた UUR を外した実際の値）
+class GachaRatesSnapshot {
+  const GachaRatesSnapshot({required this.remainingUniquePrizes, required this.totalUniquePrizes, required this.uniquePrizeRate, required this.normal, required this.guaranteed, required this.takenPrizeIds});
+
+  final int remainingUniquePrizes;
+  final int totalUniquePrizes;
+  final double uniquePrizeRate;
+  final Map<GachaRarity, double> normal;
+  final Map<GachaRarity, double> guaranteed;
+  final Set<String> takenPrizeIds;
+
+  static GachaRatesSnapshot fromJson(Map<String, dynamic> data) {
+    final j = data.obj('gachaRates') ?? const <String, dynamic>{};
+    final normal = <GachaRarity, double>{};
+    final guaranteed = <GachaRarity, double>{};
+    for (final r in j.list('rarityRates')) {
+      final rarity = GachaRarity.parse(r.str('rarity'));
+      if (rarity == null) continue;
+      normal[rarity] = (r['normal'] as num?)?.toDouble() ?? 0;
+      guaranteed[rarity] = (r['guaranteed'] as num?)?.toDouble() ?? 0;
+    }
+    return GachaRatesSnapshot(
+      remainingUniquePrizes: j.integer('remainingUniquePrizes'),
+      totalUniquePrizes: j.integer('totalUniquePrizes'),
+      uniquePrizeRate: (j['uniquePrizeRate'] as num?)?.toDouble() ?? 0,
+      normal: normal,
+      guaranteed: guaranteed,
+      takenPrizeIds: {for (final u in data.list('gachaUniquePrizes')) if (u.boolean('isClaimed')) u.str('prizeId')},
+    );
+  }
 }
 
 /// 枠選びに出す枠（Web の AvatarFrameItem）
@@ -196,6 +275,18 @@ class FramesApi {
     final data = await Api.query('query AppViewerGacha { viewerGacha { $_stateFields } }');
     final j = data.obj('viewerGacha');
     return j == null ? GachaState.empty : GachaState.fromJson(j);
+  }
+
+  /// UUR と持ち主（ログインなしで読める）
+  static Future<List<GachaUniquePrize>> uniquePrizes() async {
+    final data = await Api.query('query AppGachaUniquePrizes { gachaUniquePrizes { prizeId slug name imageUrl isClaimed claimedAt isOwnerWithdrawn owner { id login name iconUrl } } }');
+    return [for (final j in data.list('gachaUniquePrizes')) ?GachaUniquePrize.fromJson(j)];
+  }
+
+  /// いまの提供割合（UUR の残り数で変わる）
+  static Future<GachaRatesSnapshot> rates() async {
+    final data = await Api.query('query AppGachaRates { gachaRates { remainingUniquePrizes totalUniquePrizes uniquePrizeRate rarityRates { rarity normal guaranteed } } gachaUniquePrizes { prizeId isClaimed } }');
+    return GachaRatesSnapshot.fromJson(data);
   }
 
   static String _requestId() {

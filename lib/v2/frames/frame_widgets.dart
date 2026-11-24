@@ -18,7 +18,7 @@ class RarityBadge extends StatelessWidget {
       child: Text(
         rarity.label,
         textAlign: TextAlign.center,
-        style: TextStyle(fontWeight: FontWeight.w800, fontSize: small ? 10 : 12, color: const Color(0xFF0F172A)),
+        style: TextStyle(fontWeight: FontWeight.w800, fontSize: small ? 10 : 12, color: rarity.badgeText),
       ),
     );
   }
@@ -26,7 +26,7 @@ class RarityBadge extends StatelessWidget {
 
 /// 景品の絵。アイコン枠は丸い台に重ね、ヘッダー枠は横長の台に重ねる（Web の PrizeThumbnail）
 class PrizeThumb extends StatelessWidget {
-  const PrizeThumb(this.prize, {super.key, this.size = 80, this.animated = false, this.locked = false});
+  const PrizeThumb(this.prize, {super.key, this.size = 80, this.animated = false, this.locked = false, this.avatarUrl});
 
   final GachaPrize prize;
 
@@ -34,6 +34,9 @@ class PrizeThumb extends StatelessWidget {
   final double size;
   final bool animated;
   final bool locked;
+
+  /// アイコン枠の中に入れるアイコン（UUR の持ち主など）。省略時は灰色の丸
+  final String? avatarUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -58,9 +61,11 @@ class PrizeThumb extends StatelessWidget {
           Positioned.fill(
             child: Padding(
               padding: EdgeInsets.all(size * 0.17),
-              child: const DecoratedBox(
-                decoration: BoxDecoration(shape: BoxShape.circle, gradient: LinearGradient(colors: [Color(0xFF94A3B8), Color(0xFF475569)])),
-              ),
+              child: avatarUrl != null && avatarUrl!.isNotEmpty
+                  ? ClipOval(child: AppImage(avatarUrl, memCacheWidth: (size * 2).round(), fallback: const DecoratedBox(decoration: BoxDecoration(color: Color(0xFF475569)))))
+                  : const DecoratedBox(
+                      decoration: BoxDecoration(shape: BoxShape.circle, gradient: LinearGradient(colors: [Color(0xFF94A3B8), Color(0xFF475569)])),
+                    ),
             ),
           ),
           Positioned.fill(

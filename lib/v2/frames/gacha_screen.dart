@@ -34,6 +34,9 @@ class _GachaScreenState extends State<GachaScreen> {
   bool _drawing = false;
   (GachaCoinType, int)? _last;
 
+  /// UUR を当てたら獲得者の一覧を読み直す
+  int _uniqueKey = 0;
+
   @override
   void initState() {
     super.initState();
@@ -105,6 +108,7 @@ class _GachaScreenState extends State<GachaScreen> {
       setState(() {
         _state = result.state;
         _last = (type, count);
+        if (result.pulls.any((p) => p.prize.rarity.isUnique)) _uniqueKey++;
         if (c != null) {
           _coins = type == GachaCoinType.free
               ? CoinSummary(free: (c.free - result.costCoins).clamp(0, 1 << 31), premium: c.premium)
@@ -199,6 +203,8 @@ class _GachaScreenState extends State<GachaScreen> {
                   StateView.error(_error.toString(), onRetry: _load)
                 else
                   _drawPanel(context),
+                const SizedBox(height: Ds.s16),
+                _UniquePrizes(key: ValueKey(_uniqueKey)),
                 const SizedBox(height: Ds.s16),
                 if (loggedIn && _state != null) ...[
                   _Collection(state: _state!, onState: (s) => setState(() => _state = s)),
@@ -570,13 +576,15 @@ class _CollectionState extends State<_Collection> {
   @override
   Widget build(BuildContext context) {
     final s = widget.state;
-    final prizes = GachaRules.pool.where((p) => p.kind == _kind).toList()..sort((a, b) => b.rarity.index - a.rarity.index);
+    // UUR（世界で 1 人だけ）はコンプリートの数に入れず、持っているときだけ並べる
+    final prizes = GachaRules.pool.where((p) => p.kind == _kind && (!p.rarity.isUnique || s.owns(p))).toList()..sort((a, b) => b.rarity.index - a.rarity.index);
+    final collectable = GachaRules.pool.where((p) => !p.rarity.isUnique).length;
     return _Card(
       child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
         Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
           Text(tr('コレクション', 'Collection'), style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 18)),
           const SizedBox(width: 6),
-          Text('${s.ownedInPool} / ${GachaRules.pool.length}', style: TextStyle(color: context.muted, fontWeight: FontWeight.w700, fontSize: 13)),
+          Text('${s.ownedInPool} / $collectable', style: TextStyle(color: context.muted, fontWeight: FontWeight.w700, fontSize: 13)),
         ]),
         const SizedBox(height: 2),
         Text(tr('交換 pt ${_n(s.exchangePoints)}・かけら ${_n(s.shards)}', 'Exchange pt ${_n(s.exchangePoints)} · Shards ${_n(s.shards)}'), style: TextStyle(color: context.muted, fontSize: 12)),
@@ -712,6 +720,12 @@ class _PrizeSheetState extends State<_PrizeSheet> {
               widget.wearing
                   ? SecondaryButton(label: tr('外す', 'Remove'), loading: _busy, onPressed: _busy ? null : () => _wear(false))
                   : PrimaryButton(label: tr('着ける', 'Equip'), loading: _busy, onPressed: _busy ? null : () => _wear(true))
+            else if (p.rarity.isUnique)
+              Text(
+                tr('UUR は世界でひとりだけの枠です。ガチャで最初に当てた人だけが持てて、交換 pt・かけらでは交換できません', 'UUR frames are one of a kind: only the first person to pull one owns it. They cannot be exchanged for pt or shards.'),
+                textAlign: TextAlign.center,
+                style: TextStyle(color: context.muted, fontSize: 12, height: 1.6),
+              )
             else ...[
               PrimaryButton(
                 label: tr('交換 pt ${GachaRules.exchangePoints} で交換（いま ${_state.exchangePoints}）', 'Exchange for ${GachaRules.exchangePoints} pt (have ${_state.exchangePoints})'),
@@ -769,11 +783,90 @@ class _Lineup extends StatelessWidget {
               child: Row(mainAxisSize: MainAxisSize.min, children: [
                 RarityBadge(r, small: true),
                 const SizedBox(width: 4),
-                Text(tr('${pool.where((p) => p.rarity == r).length} 種・${GachaRules.formatRate(GachaRules.rates[r]!)}', '${pool.where((p) => p.rarity == r).length} · ${GachaRules.formatRate(GachaRules.rates[r]!)}'), style: const TextStyle(fontSize: 12)),
+                Text(tr('${pool.where((p) => p.rarity == r).length} 種・${r.isUnique ? '合計 ' : ''}${GachaRules.formatRate(GachaRules.rates[r]!)}', '${pool.where((p) => p.rarity == r).length} · ${r.isUnique ? 'total ' : ''}${GachaRules.formatRate(GachaRules.rates[r]!)}'), style: const TextStyle(fontSize: 12)),
               ]),
             ),
         ]),
       ]),
+    );
+  }
+}
+
+/// UUR（世界で 1 人だけが持てる枠）の 5 枠と獲得した人（Web の SpecialGachaUniquePrizes）。
+/// 獲得した人はアイコンを枠に入れて見せ、押すとプロフィールへ。退会した人は名前を出さない
+class _UniquePrizes extends StatefulWidget {
+  const _UniquePrizes({super.key});
+
+  @override
+  State<_UniquePrizes> createState() => _UniquePrizesState();
+}
+
+class _UniquePrizesState extends State<_UniquePrizes> {
+  List<GachaUniquePrize>? _items;
+
+  @override
+  void initState() {
+    super.initState();
+    FramesApi.uniquePrizes().then((v) {
+      if (mounted) setState(() => _items = v);
+    }).catchError((_) {});
+  }
+
+  String _date(DateTime d) => '${d.year}/${d.month}/${d.day}';
+
+  @override
+  Widget build(BuildContext context) {
+    final items = _items ?? GachaUniquePrize.unclaimed;
+    final remaining = items.where((u) => !u.isClaimed).length;
+    const gold = Color(0xFFF8E7A8);
+    return Container(
+      padding: const EdgeInsets.all(2),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(24),
+        gradient: const LinearGradient(colors: [gold, Colors.white, Color(0xFFA5F3FC), Color(0xFFF0ABFC), gold]),
+      ),
+      child: Container(
+        padding: const EdgeInsets.all(Ds.s16),
+        decoration: BoxDecoration(color: const Color(0xFF07060D), borderRadius: BorderRadius.circular(22)),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+          Row(children: [
+            const RarityBadge(GachaRarity.uur),
+            const SizedBox(width: 8),
+            Expanded(child: Text(tr('世界でひとりだけの枠', 'One of a kind'), style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 18))),
+          ]),
+          const SizedBox(height: 4),
+          Text(
+            tr('残り $remaining / ${items.length}・1 回あたり合計 ${GachaRules.formatRate(remaining > 0 ? GachaRules.rates[GachaRarity.uur]! : 0)}。最初に当てた 1 人だけが持てる枠です。当たった枠はガチャから抜け、残りの枠で同じ割合を分けます。交換 pt・かけらでは交換できません。',
+                '$remaining of ${items.length} left · ${GachaRules.formatRate(remaining > 0 ? GachaRules.rates[GachaRarity.uur]! : 0)} total per pull. Only the first person to pull one owns it; claimed frames leave the gacha. Not exchangeable for pt or shards.'),
+            style: const TextStyle(color: Colors.white70, fontSize: 12, height: 1.6),
+          ),
+          const SizedBox(height: Ds.s12),
+          Wrap(alignment: WrapAlignment.center, spacing: 8, runSpacing: 12, children: [
+            for (final u in items)
+              SizedBox(
+                width: 104,
+                child: GestureDetector(
+                  onTap: u.ownerId != null ? () => context.push('/users/${u.ownerId}') : null,
+                  child: Column(children: [
+                    PrizeThumb(u.prize, size: 96, animated: true, avatarUrl: u.ownerIconUrl),
+                    const SizedBox(height: 4),
+                    Text(u.prize.name, textAlign: TextAlign.center, maxLines: 1, overflow: TextOverflow.ellipsis, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 12)),
+                    Text(
+                      !u.isClaimed
+                          ? tr('まだ誰も持っていない', 'Not claimed yet')
+                          : u.ownerName ?? (u.isOwnerWithdrawn ? tr('退会したユーザー', 'Deleted user') : tr('獲得済み', 'Claimed')),
+                      textAlign: TextAlign.center,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(color: u.ownerName != null ? const Color(0xFFFDE68A) : Colors.white60, fontWeight: u.ownerName != null ? FontWeight.w700 : FontWeight.w400, fontSize: 11),
+                    ),
+                    if (u.claimedAt != null) Text(tr('${_date(u.claimedAt!)} 獲得', 'Claimed ${_date(u.claimedAt!)}'), style: const TextStyle(color: Colors.white38, fontSize: 10)),
+                  ]),
+                ),
+              ),
+          ]),
+        ]),
+      ),
     );
   }
 }

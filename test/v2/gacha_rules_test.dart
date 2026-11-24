@@ -49,6 +49,7 @@ void main() {
   });
 
   test('ガチャの状態を読む', () {
+    final normal = GachaRules.pool.firstWhere((p) => !p.rarity.isUnique);
     final s = GachaState.fromJson({
       'exchangePoints': 12,
       'shards': 40,
@@ -57,10 +58,13 @@ void main() {
       'isPremiumDealAvailable': false,
       'selectedHeaderFrameSlug': 'gacha-ur-kyubi',
       'ownedPrizes': [
-        {'prizeId': GachaRules.pool.first.id, 'count': 2},
+        {'prizeId': normal.id, 'count': 2},
+        {'prizeId': GachaRules.uniquePrizes.first.id, 'count': 1},
       ],
     });
-    expect(s.owns(GachaRules.pool.first), true);
+    expect(s.owns(normal), true);
+    // UUR はコンプリートの数に入れない
+    expect(s.owns(GachaRules.uniquePrizes.first), true);
     expect(s.ownedInPool, 1);
     expect(s.isPremiumDealAvailable, false);
     expect(s.selectedHeaderFrameSlug, 'gacha-ur-kyubi');
@@ -95,5 +99,70 @@ void main() {
     expect(find.byType(RarityBadge), findsWidgets);
     await tester.scrollUntilVisible(find.text('ご注意'), 400);
     expect(find.text('ご注意'), findsOneWidget);
+  });
+
+  test('UUR: 5 種・合計 0.05%（N 55% → 54.95% から引く）、確定枠も 0.05% で残りを SR 以上で割り直す（Web・サーバーと同じ）', () {
+    expect(GachaRules.uniquePrizes.length, 5);
+    expect(GachaRules.uniquePrizes.every((p) => p.slug.startsWith('gacha-uur-')), isTrue);
+    final normal = GachaRules.rarityRates();
+    expect(normal[GachaRarity.uur], closeTo(0.05, 1e-9));
+    expect(normal[GachaRarity.n], closeTo(54.95, 1e-9));
+    expect(normal[GachaRarity.r], closeTo(30, 1e-9));
+    final guaranteed = GachaRules.rarityRates(GachaRules.tenPullGuarantee);
+    expect(guaranteed[GachaRarity.uur], closeTo(0.05, 1e-9));
+    expect(guaranteed[GachaRarity.sr], closeTo(80 * 0.9995, 1e-9));
+    expect(guaranteed[GachaRarity.ur], closeTo(2 * 0.9995, 1e-9));
+    expect(guaranteed.values.fold<double>(0, (a, b) => a + b), closeTo(100, 1e-9));
+    for (final u in GachaRules.uniquePrizes) {
+      expect(GachaRules.prizeRate(u), closeTo(0.01, 1e-9));
+    }
+    expect(GachaRules.exchangeShards[GachaRarity.uur], 0);
+  });
+
+  test('UUR: 取られた枠は抜け、残りで 0.05% を等分。全部取られたら 0% で N 55% に戻る', () {
+    final ids = GachaRules.uniquePrizes.map((p) => p.id).toList();
+    final two = GachaRules.poolWithout(ids.take(2));
+    expect(GachaRules.prizeRate(GachaRules.uniquePrizes[0], inPool: two), 0);
+    expect(GachaRules.prizeRate(GachaRules.uniquePrizes[4], inPool: two), closeTo(0.05 / 3, 1e-9));
+    expect(two.fold<double>(0, (sum, p) => sum + GachaRules.prizeRate(p, inPool: two)), closeTo(100, 1e-9));
+    final none = GachaRules.poolWithout(ids);
+    final normal = GachaRules.rarityRates(GachaRarity.n, none);
+    expect(normal[GachaRarity.uur], 0);
+    expect(normal[GachaRarity.n], closeTo(55, 1e-9));
+    final guaranteed = GachaRules.rarityRates(GachaRules.tenPullGuarantee, none);
+    expect(guaranteed[GachaRarity.sr], closeTo(80, 1e-9));
+  });
+
+  test('UUR の持ち主と提供割合を読む（退会・未獲得）', () {
+    final id = GachaRules.uniquePrizes.first.id;
+    final claimed = GachaUniquePrize.fromJson({
+      'prizeId': id,
+      'isClaimed': true,
+      'claimedAt': '2026-11-24T01:00:00.000Z',
+      'isOwnerWithdrawn': false,
+      'owner': {'id': '9', 'login': 'a', 'name': 'A', 'iconUrl': null},
+    })!;
+    expect(claimed.ownerName, 'A');
+    expect(claimed.claimedAt, isNotNull);
+    final gone = GachaUniquePrize.fromJson({'prizeId': id, 'isClaimed': true, 'claimedAt': null, 'isOwnerWithdrawn': true, 'owner': null})!;
+    expect(gone.ownerId, isNull);
+    expect(gone.isOwnerWithdrawn, isTrue);
+    expect(GachaUniquePrize.fromJson({'prizeId': 'icon:nope', 'isClaimed': false}), isNull);
+    final snap = GachaRatesSnapshot.fromJson({
+      'gachaRates': {
+        'remainingUniquePrizes': 4,
+        'totalUniquePrizes': 5,
+        'uniquePrizeRate': 0.0125,
+        'rarityRates': [
+          {'rarity': 'UUR', 'normal': 0.05, 'guaranteed': 0.05},
+        ],
+      },
+      'gachaUniquePrizes': [
+        {'prizeId': id, 'isClaimed': true},
+      ],
+    });
+    expect(snap.remainingUniquePrizes, 4);
+    expect(snap.normal[GachaRarity.uur], 0.05);
+    expect(snap.takenPrizeIds, {id});
   });
 }

@@ -3,6 +3,11 @@
 import 'package:aipictors/v2/frames/gacha_rules.dart';
 
 const List<GachaPrize> gachaPrizes = [
+  GachaPrize(id: 'icon:gacha-uur-aurora', kind: GachaPrizeKind.icon, slug: 'gacha-uur-aurora', rarity: GachaRarity.uur, name: '極光の帳', description: 'ゆらめく極光のカーテンと星をめぐらせた七彩の輪、光の結晶', imagePath: '/avatar-frames/deco/gacha-uur-aurora.webp', inPool: true),
+  GachaPrize(id: 'icon:gacha-uur-crimson-rose', kind: GachaPrizeKind.icon, slug: 'gacha-uur-crimson-rose', rarity: GachaRarity.uur, name: '紅薔薇の金冠', description: '深紅の輪に咲く薔薇と金の月桂樹、舞い散る花びらと百合の紋章', imagePath: '/avatar-frames/deco/gacha-uur-crimson-rose.webp', inPool: true),
+  GachaPrize(id: 'icon:gacha-uur-glacier', kind: GachaPrizeKind.icon, slug: 'gacha-uur-glacier', rarity: GachaRarity.uur, name: '蒼氷の結晶陣', description: '輪から突きだす氷の結晶と、回る雪の結晶、蒼玉を敷いた氷の輪', imagePath: '/avatar-frames/deco/gacha-uur-glacier.webp', inPool: true),
+  GachaPrize(id: 'icon:gacha-uur-obsidian', kind: GachaPrizeKind.icon, slug: 'gacha-uur-obsidian', rarity: GachaRarity.uur, name: '黒曜の金環', description: '金の唐草を刻んだ黒曜の輪と、燃えあがる金の炎、黒いダイヤの日輪', imagePath: '/avatar-frames/deco/gacha-uur-obsidian.webp', inPool: true),
+  GachaPrize(id: 'icon:gacha-uur-stellar', kind: GachaPrizeKind.icon, slug: 'gacha-uur-stellar', rarity: GachaRarity.uur, name: '天穹の白金星', description: 'ダイヤを敷きつめた白金の二重の輪と、てっぺんで回る白金の八芒星', imagePath: '/avatar-frames/deco/gacha-uur-stellar.webp', inPool: true),
   GachaPrize(id: 'header:gacha-ur-kyubi', kind: GachaPrizeKind.header, slug: 'gacha-ur-kyubi', rarity: GachaRarity.ur, name: '九尾の白狐', description: '角にのぞく九本の尾と狐の面、ふちを流れる狐火', imagePath: '/header-frames/gacha-ur-kyubi.pc.webp', inPool: true),
   GachaPrize(id: 'header:gacha-ur-pictor-rainbow', kind: GachaPrizeKind.header, slug: 'gacha-ur-pictor-rainbow', rarity: GachaRarity.ur, name: 'きらめくぴくたーちゃん', description: '虹色のふちと紙吹雪、右下にふたりのぴくたーちゃん', imagePath: '/header-frames/gacha-ur-pictor-rainbow.pc.webp', inPool: true),
   GachaPrize(id: 'header:gacha-ur-star-crown', kind: GachaPrizeKind.header, slug: 'gacha-ur-star-crown', rarity: GachaRarity.ur, name: '星海の王冠', description: '星雲の流れるふちに、角の惑星と小さな白金の王冠', imagePath: '/header-frames/gacha-ur-star-crown.pc.webp', inPool: true),
