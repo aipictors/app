@@ -5,6 +5,7 @@ import 'package:aipictors/v2/achievements/achievements_screen.dart';
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/debug_boot.dart';
 import 'package:aipictors/v2/core/design.dart';
+import 'package:aipictors/v2/core/grid_layout.dart';
 import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/core/models.dart';
 import 'package:aipictors/v2/core/paged.dart';
@@ -613,8 +614,18 @@ class _UserScreenState extends State<UserScreen> {
                       onChanged: (i) => i == 0 ? _setWorksFilter(clearKind: true) : _setWorksFilter(kind: kinds[i].$1),
                     ),
             ),
+            // 正方形／元の比率の切り替え（ホームのヘッダーと同じ設定。Web のマイページの切り替えと同じ）
+            ValueListenableBuilder<bool>(
+              valueListenable: GridLayout.square,
+              builder: (context, square, _) => IconButton(
+                tooltip: square ? tr('元の比率で並べる', 'Show original ratio') : tr('正方形にそろえる', 'Align as squares'),
+                visualDensity: VisualDensity.compact,
+                onPressed: () => GridLayout.toggle(),
+                icon: Icon(square ? Icons.dashboard_rounded : Icons.grid_view_rounded, size: 22),
+              ),
+            ),
             Padding(
-              padding: const EdgeInsets.only(right: 12, left: 4),
+              padding: const EdgeInsets.only(right: 12),
               child: SegmentedButton<bool>(
                 showSelectedIcon: false,
                 style: SegmentedButton.styleFrom(visualDensity: VisualDensity.compact, textStyle: const TextStyle(fontWeight: FontWeight.w700, fontSize: 13)),
