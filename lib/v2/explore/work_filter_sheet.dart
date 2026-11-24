@@ -6,11 +6,14 @@ import 'package:flutter/material.dart';
 
 /// 並び順のピルと「絞り込み」ボタンの行
 class WorkFilterBar extends StatelessWidget {
-  const WorkFilterBar({super.key, required this.filter, required this.onChanged, this.sorts = WorkSort.values});
+  const WorkFilterBar({super.key, required this.filter, required this.onChanged, this.sorts = WorkSort.values, this.viewerId});
 
   final WorkFilter filter;
   final ValueChanged<WorkFilter> onChanged;
   final List<WorkSort> sorts;
+
+  /// 渡すと「自分の作品だけ」を出す（検索）
+  final String? viewerId;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +42,7 @@ class WorkFilterBar extends StatelessWidget {
             selected: active > 0,
             accent: true,
             onTap: () async {
-              final f = await showWorkFilterSheet(context, filter);
+              final f = await showWorkFilterSheet(context, filter, sorts: sorts, viewerId: viewerId);
               if (f != null) onChanged(f);
             },
           ),
@@ -82,8 +85,8 @@ class _Pill extends StatelessWidget {
   }
 }
 
-/// 種類・年齢区分・画風・プロンプトの絞り込み
-Future<WorkFilter?> showWorkFilterSheet(BuildContext context, WorkFilter initial) {
+/// 種類・年齢区分・画風・プロンプトの絞り込み（viewerId があれば「自分の作品だけ」も）
+Future<WorkFilter?> showWorkFilterSheet(BuildContext context, WorkFilter initial, {List<WorkSort> sorts = WorkSort.values, String? viewerId}) {
   return showModalBottomSheet<WorkFilter>(
     context: context,
     showDragHandle: true,
@@ -101,16 +104,18 @@ Future<WorkFilter?> showWorkFilterSheet(BuildContext context, WorkFilter initial
                 TextButton(onPressed: () => set(() => f = WorkFilter(sort: f.sort)), child: Text(tr('リセット', 'Reset'))),
               ]),
               const SizedBox(height: 12),
-              ChoiceRow<WorkSort>(title: tr('並び順', 'Sort'), values: WorkSort.values, labelOf: (v) => v.label, selected: f.sort, onChanged: (v) => set(() => f = f.copyWith(sort: v))),
+              ChoiceRow<WorkSort>(title: tr('並び順', 'Sort'), values: sorts, labelOf: (v) => v.label, selected: f.sort, onChanged: (v) => set(() => f = f.copyWith(sort: v))),
               ChoiceRow<WorkKind>(title: tr('作品の種類', 'Type'), values: WorkKind.values, labelOf: (v) => v.label, selected: f.kind, onChanged: (v) => set(() => f = f.copyWith(kind: v))),
               ChoiceRow<RatingFilter>(title: tr('年齢区分', 'Age rating'), values: RatingFilter.values, labelOf: (v) => v.label, selected: f.rating, onChanged: (v) => set(() => f = f.copyWith(rating: v))),
               ChoiceRow<StyleFilter>(title: tr('画風', 'Style'), values: StyleFilter.values, labelOf: (v) => v.label, selected: f.style, onChanged: (v) => set(() => f = f.copyWith(style: v))),
-              SwitchListTile.adaptive(
-                contentPadding: EdgeInsets.zero,
-                title: Text(tr('プロンプトが見られる作品だけ', 'Only works with visible prompts'), style: const TextStyle(fontWeight: FontWeight.w700)),
-                value: f.withPrompt,
-                onChanged: (v) => set(() => f = f.copyWith(withPrompt: v)),
-              ),
+              ChoiceRow<PromptFilter>(title: tr('プロンプト', 'Prompt'), values: PromptFilter.values, labelOf: (v) => v.label, selected: f.prompt, onChanged: (v) => set(() => f = f.copyWith(prompt: v))),
+              if (viewerId != null)
+                SwitchListTile.adaptive(
+                  contentPadding: EdgeInsets.zero,
+                  title: Text(tr('自分の作品だけ', 'Only my works'), style: const TextStyle(fontWeight: FontWeight.w700)),
+                  value: f.userId != null,
+                  onChanged: (v) => set(() => f = v ? f.copyWith(userId: viewerId) : f.copyWith(clearUser: true)),
+                ),
               const SizedBox(height: 12),
               SizedBox(
                 width: double.infinity,

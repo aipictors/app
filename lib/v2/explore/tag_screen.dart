@@ -31,6 +31,7 @@ class _TagScreenState extends State<TagScreen> {
   String? _cover;
   final _scroll = ScrollController();
   bool _collapsed = false;
+  List<String> _related = const [];
 
   String get _name => widget.name.trim().replaceFirst(RegExp(r'^#+'), '');
 
@@ -57,6 +58,9 @@ class _TagScreenState extends State<TagScreen> {
   }
 
   void _loadMeta() {
+    ExploreMoreApi.relatedTags(_name, tagMode: true).then((v) {
+      if (mounted) setState(() => _related = v);
+    }).catchError((_) {});
     ExploreApi.tagWorksCount(_name, _filter).then((v) {
       if (mounted) setState(() => _count = v);
     }).catchError((_) {});
@@ -196,6 +200,7 @@ class _TagScreenState extends State<TagScreen> {
                 onChanged: _setFilter,
               ),
             ),
+            if (_related.isNotEmpty) SliverToBoxAdapter(child: RelatedTagsRow(tags: _related)),
             SliverPagedWorks(
               key: ObjectKey(_c),
               controller: _c,
