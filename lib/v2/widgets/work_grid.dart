@@ -13,17 +13,19 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 /// 作品カード（画像・タイトル・作者・いいね数）
 class WorkCard extends StatelessWidget {
-  const WorkCard({super.key, required this.work, this.showUser = true, this.onTap});
+  const WorkCard({super.key, required this.work, this.showUser = true, this.onTap, this.onLongPress});
 
   final WorkSummary work;
   final bool showUser;
   final VoidCallback? onTap;
+  final VoidCallback? onLongPress;
 
   @override
   Widget build(BuildContext context) {
     return Pressable(
       scale: 0.97,
       onTap: onTap ?? () => Nav.work(context, work.id),
+      onLongPress: onLongPress,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -140,6 +142,7 @@ class SliverPagedWorks extends StatelessWidget {
     this.emptyMessage,
     this.emptyIcon = Icons.image_search_rounded,
     this.showUser = true,
+    this.onItemLongPress,
   });
 
   final PagedController<WorkSummary> controller;
@@ -147,6 +150,9 @@ class SliverPagedWorks extends StatelessWidget {
   final String? emptyMessage;
   final IconData emptyIcon;
   final bool showUser;
+
+  /// 長押しで出すメニューなど（マイページの一覧で使う）
+  final void Function(WorkSummary work)? onItemLongPress;
 
   @override
   Widget build(BuildContext context) {
@@ -199,7 +205,8 @@ class SliverPagedWorks extends StatelessWidget {
                 if (i >= c.items.length - 8 && c.hasMore && !c.isLoading && c.error == null) {
                   WidgetsBinding.instance.addPostFrameCallback((_) => c.loadMore());
                 }
-                return WorkCard(work: c.items[i], showUser: showUser);
+                final w = c.items[i];
+                return WorkCard(work: w, showUser: showUser, onLongPress: onItemLongPress == null ? null : () => onItemLongPress!(w));
               },
             ),
           ),

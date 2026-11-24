@@ -1,14 +1,17 @@
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/design.dart';
+import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/core/models.dart';
 import 'package:aipictors/v2/core/nav.dart';
 import 'package:aipictors/v2/core/paged.dart';
 import 'package:aipictors/v2/my/my_api.dart';
+import 'package:aipictors/v2/my/my_filters.dart';
 import 'package:aipictors/v2/user/user_api.dart';
 import 'package:aipictors/v2/widgets/common.dart';
 import 'package:aipictors/v2/widgets/paged_list.dart';
 import 'package:aipictors/v2/widgets/work_grid.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 
 /// 作品の一覧だけの画面（いいね・ブックマーク・閲覧履歴・フォルダの中身）
@@ -303,6 +306,204 @@ class _MyReportsScreenState extends State<MyReportsScreen> {
                 child: TextButton(onPressed: () => _respond(r), child: const Text('対応しました')),
               ),
           ]),
+        ),
+      ),
+    );
+  }
+}
+
+/// いいね・ブックマーク・閲覧履歴・推薦した作品（Web の my-collected-works）。
+/// タイトルの検索・年齢の絞り込み・件数、長押しで URL のコピー・作者のページ・一覧から外す
+class MyCollectionScreen extends StatefulWidget {
+  const MyCollectionScreen({super.key, required this.kind});
+
+  final MyCollectionKind kind;
+
+  @override
+  State<MyCollectionScreen> createState() => _MyCollectionScreenState();
+}
+
+class _MyCollectionScreenState extends State<MyCollectionScreen> {
+  String _search = '';
+  String? _rating;
+  int? _count;
+  int _countSeq = 0;
+  String? _bookmarkFolderId;
+
+  late final _works = PagedController<WorkSummary>(
+    pageSize: 40,
+    idOf: (w) => w.id,
+    fetch: (offset, limit) async {
+      final where = MyApi.collectionWhere(_search, _rating);
+      if (offset == 0) _loadCount(where, ++_countSeq);
+      final page = await MyApi.collection(widget.kind, where, offset, limit);
+      _bookmarkFolderId = page.bookmarkFolderId ?? _bookmarkFolderId;
+      return page.works;
+    },
+  );
+
+  bool get _isFiltered => _search.isNotEmpty || _rating != null;
+
+  String get _title => switch (widget.kind) {
+        MyCollectionKind.likes => tr('いいねした作品', 'Liked works'),
+        MyCollectionKind.bookmarks => tr('ブックマーク', 'Bookmarks'),
+        MyCollectionKind.views => tr('閲覧履歴', 'History'),
+        MyCollectionKind.recommended => tr('推薦した作品', 'Recommended works'),
+      };
+
+  String get _emptyTitle => switch (widget.kind) {
+        MyCollectionKind.likes => tr('いいねした作品はまだありません', 'No liked posts yet'),
+        MyCollectionKind.bookmarks => tr('ブックマークした作品はまだありません', 'No bookmarked posts yet'),
+        MyCollectionKind.views => tr('閲覧した作品はまだありません', 'No viewed posts yet'),
+        MyCollectionKind.recommended => tr('推薦中の作品はありません', 'No posts being recommended'),
+      };
+
+  IconData get _emptyIcon => switch (widget.kind) {
+        MyCollectionKind.likes => Icons.favorite_border_rounded,
+        MyCollectionKind.bookmarks => Icons.bookmark_border_rounded,
+        MyCollectionKind.views => Icons.history_rounded,
+        MyCollectionKind.recommended => Icons.thumb_up_alt_outlined,
+      };
+
+  (String, String) get _removeTexts => switch (widget.kind) {
+        MyCollectionKind.likes => (tr('いいねを外す', 'Remove like'), tr('いいねを外しました', 'Like removed')),
+        MyCollectionKind.bookmarks => (tr('ブックマークから外す', 'Remove bookmark'), tr('ブックマークから外しました', 'Bookmark removed')),
+        MyCollectionKind.recommended => (tr('推薦を取り消す', 'Remove recommendation'), tr('推薦を取り消しました', 'Recommendation removed')),
+        MyCollectionKind.views => ('', ''),
+      };
+
+  @override
+  void dispose() {
+    _works.dispose();
+    super.dispose();
+  }
+
+  Future<void> _loadCount(Map<String, dynamic> where, int seq) async {
+    try {
+      final n = await MyApi.collectionCount(widget.kind, where);
+      if (mounted && seq == _countSeq) setState(() => _count = n);
+    } on ApiException {
+      // 件数が取れなくても一覧は出す
+    }
+  }
+
+  void _reload() {
+    setState(() => _count = null);
+    _works.refresh();
+  }
+
+  Future<void> _pickRating() async {
+    final picked = await showChoiceSheet<String?>(context, title: tr('年齢制限', 'Rating'), options: myRatingFilters, selected: _rating);
+    if (picked == null) return;
+    _rating = picked.$1;
+    _reload();
+  }
+
+  Future<void> _remove(WorkSummary w) async {
+    final (_, done) = _removeTexts;
+    // 先に一覧から消し、失敗したら戻す（Web の useRemovedWorks と同じ）
+    final index = _works.items.indexWhere((x) => x.id == w.id);
+    _works.removeWhere((x) => x.id == w.id);
+    setState(() => _count = _count == null ? null : _count! - 1);
+    try {
+      await MyApi.removeFromCollection(widget.kind, w.id, bookmarkFolderId: _bookmarkFolderId);
+      if (mounted) context.toast(done);
+    } on ApiException catch (e) {
+      if (index >= 0) {
+        _works.items.insert(index.clamp(0, _works.items.length), w);
+        _works.touch();
+      }
+      if (mounted) {
+        setState(() => _count = _count == null ? null : _count! + 1);
+        context.toast(e.message, error: true);
+      }
+    }
+  }
+
+  Future<void> _menu(WorkSummary w) async {
+    final (removeLabel, _) = _removeTexts;
+    final action = await showModalBottomSheet<String>(
+      context: context,
+      showDragHandle: true,
+      backgroundColor: context.surfaceCard,
+      builder: (context) => SafeArea(
+        child: Column(mainAxisSize: MainAxisSize.min, children: [
+          ListTile(leading: const Icon(Icons.open_in_new_rounded), title: Text(tr('作品を開く', 'Open')), onTap: () => Navigator.pop(context, 'open')),
+          ListTile(leading: const Icon(Icons.link_rounded), title: Text(tr('URLをコピー', 'Copy URL')), onTap: () => Navigator.pop(context, 'copy')),
+          ListTile(leading: const Icon(Icons.person_outline_rounded), title: Text(tr('作者のページ', 'Author page')), onTap: () => Navigator.pop(context, 'user')),
+          if (widget.kind.removable)
+            ListTile(
+              leading: Icon(Icons.remove_circle_outline_rounded, color: context.cs.error),
+              title: Text(removeLabel, style: TextStyle(color: context.cs.error)),
+              onTap: () => Navigator.pop(context, 'remove'),
+            ),
+          const SizedBox(height: Ds.s8),
+        ]),
+      ),
+    );
+    if (!mounted || action == null) return;
+    switch (action) {
+      case 'open':
+        Nav.work(context, w.id);
+      case 'copy':
+        await Clipboard.setData(ClipboardData(text: 'https://www.aipictors.com/posts/${w.id}'));
+        if (mounted) context.toast(tr('URLをコピーしました', 'URL copied'));
+      case 'user':
+        Nav.user(context, w.user.id);
+      case 'remove':
+        await _remove(w);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: AppRefresh(
+        edgeOffset: MediaQuery.paddingOf(context).top + kToolbarHeight,
+        onRefresh: () async => _reload(),
+        child: CustomScrollView(
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+          physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
+          slivers: [
+            SliverAppBar(pinned: true, title: Text(_title, style: const TextStyle(fontWeight: FontWeight.w800))),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(Ds.s16, Ds.s4, Ds.s16, 0),
+                child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+                  Row(children: [
+                    Expanded(
+                      child: DebouncedSearchField(
+                        hint: tr('タイトルで検索', 'Search by title'),
+                        value: _search,
+                        onSearch: (v) {
+                          _search = v;
+                          _reload();
+                        },
+                      ),
+                    ),
+                    const SizedBox(width: Ds.s8),
+                    FilterButton(label: myRatingFilters.firstWhere((o) => o.$1 == _rating).$2, active: _rating != null, onTap: _pickRating),
+                  ]),
+                  const SizedBox(height: Ds.s8),
+                  Row(children: [
+                    Expanded(
+                      child: Text(
+                        _count == null ? '' : tr('${commaCount(_count!)}件', '${commaCount(_count!)} posts'),
+                        style: TextStyle(color: context.muted, fontSize: 12.5, fontWeight: FontWeight.w600),
+                      ),
+                    ),
+                    Text(tr('長押しでメニュー', 'Long-press for options'), style: TextStyle(color: context.muted, fontSize: 11.5)),
+                  ]),
+                ]),
+              ),
+            ),
+            SliverPagedWorks(
+              controller: _works,
+              emptyTitle: _isFiltered ? tr('条件に合う作品はありません', 'No posts match these filters') : _emptyTitle,
+              emptyIcon: _isFiltered ? Icons.search_off_rounded : _emptyIcon,
+              onItemLongPress: _menu,
+            ),
+          ],
         ),
       ),
     );
