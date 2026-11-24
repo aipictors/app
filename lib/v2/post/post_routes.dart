@@ -8,6 +8,7 @@ import 'package:go_router/go_router.dart';
 final List<RouteBase> postRoutes = [
   GoRoute(path: '/works/create', builder: (context, state) => PostFormScreen(generationNanoid: state.uri.queryParameters['generation'])),
   GoRoute(path: '/works/create/text', builder: (context, state) => const PostFormScreen(workType: 'NOVEL')),
+  GoRoute(path: '/works/create/video', builder: (context, state) => const PostFormScreen(workType: 'VIDEO')),
   GoRoute(path: '/works/:work/update', builder: (context, state) => PostFormScreen(workId: state.pathParameters['work'])),
   GoRoute(
     path: '/works/:work/reader',

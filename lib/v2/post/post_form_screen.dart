@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:aipictors/v2/core/api.dart';
@@ -7,6 +8,8 @@ import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/core/nav.dart';
 import 'package:aipictors/v2/post/post_api.dart';
 import 'package:aipictors/v2/post/upload.dart';
+import 'package:aipictors/v2/post/video_post.dart';
+import 'package:aipictors/v2/post/video_section.dart';
 import 'package:aipictors/v2/widgets/common.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -14,6 +17,7 @@ import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:image_picker_android/image_picker_android.dart';
 import 'package:image_picker_platform_interface/image_picker_platform_interface.dart';
+import 'package:video_player/video_player.dart';
 
 /// システムの写真ピッカーで画像を選ぶ（権限が要らない）
 Future<List<XFile>> pickSystemImages({bool multiple = true}) async {
@@ -27,7 +31,7 @@ Future<List<XFile>> pickSystemImages({bool multiple = true}) async {
 
 /// 作品の投稿と編集。[workId] があれば編集
 class PostFormScreen extends StatefulWidget {
-  const PostFormScreen({super.key, this.workId, this.workType = 'WORK', this.generationNanoid, this.debugImages, this.debugAutoSubmit = false});
+  const PostFormScreen({super.key, this.workId, this.workType = 'WORK', this.generationNanoid, this.debugImages, this.debugAutoSubmit = false, this.debugVideoPath});
 
   final String? workId;
   final String workType;
@@ -38,6 +42,9 @@ class PostFormScreen extends StatefulWidget {
   /// デバッグでピッカーを通さずに試すための画像
   final List<Uint8List>? debugImages;
   final bool debugAutoSubmit;
+
+  /// デバッグでピッカーを通さずに試す動画のパス
+  final String? debugVideoPath;
 
   @override
   State<PostFormScreen> createState() => _PostFormScreenState();
@@ -71,7 +78,20 @@ class _PostFormScreenState extends State<PostFormScreen> {
 
   bool get _isEdit => widget.workId != null;
 
-  bool get _isText => _draft.workType != 'WORK';
+  bool get _isText => _draft.workType == 'NOVEL' || _draft.workType == 'COLUMN';
+
+  bool get _isVideo => _draft.workType == 'VIDEO';
+
+  /// 動画（workType が VIDEO のとき）
+  VideoUploadLimits _videoLimits = VideoUploadLimits.of(null);
+  PickedVideo? _video;
+  VideoPlayerController? _player;
+  EncodedImage? _videoThumb;
+  Duration _thumbAt = Duration.zero;
+  bool _videoLoading = false;
+  bool _thumbLoading = false;
+  int _thumbSeq = 0;
+  VideoPostPhase? _phase;
 
   @override
   void initState() {
@@ -102,6 +122,7 @@ class _PostFormScreenState extends State<PostFormScreen> {
     for (final c in [_title, _caption, _tag, _link, _body, _prompt, _negative, _seed, _sampler, _steps, _modelName]) {
       c.dispose();
     }
+    _player?.dispose();
     super.dispose();
   }
 
@@ -111,7 +132,9 @@ class _PostFormScreenState extends State<PostFormScreen> {
       _error = null;
     });
     try {
+      final passType = widget.workType == 'VIDEO' ? VideoPostApi.passType() : Future<String?>.value();
       final options = await PostApi.options();
+      _videoLimits = VideoUploadLimits.of(await passType);
       if (_isEdit) {
         final editing = await PostApi.loadForEdit(widget.workId!);
         if (editing == null) throw ApiException(tr('作品が見つかりませんでした', 'Work not found'));
@@ -124,6 +147,7 @@ class _PostFormScreenState extends State<PostFormScreen> {
           ..clear()
           ..addAll(editing.imageUrls.map(PostImage.remote));
         _fillControllers();
+        if (_isVideo) _openRemoteVideo(editing.json.str('url'));
         if (editing.mdUrl != null) {
           final res = await http.get(Uri.parse(editing.mdUrl!));
           if (res.statusCode == 200) _body.text = utf8.decode(res.bodyBytes, allowMalformed: true);
@@ -139,6 +163,10 @@ class _PostFormScreenState extends State<PostFormScreen> {
         _options = options;
         _loading = false;
       });
+      if (widget.debugVideoPath != null) {
+        await _useVideo(widget.debugVideoPath!);
+        if (!mounted) return;
+      }
       if (widget.debugAutoSubmit) WidgetsBinding.instance.addPostFrameCallback((_) => _submit());
     } on ApiException catch (e) {
       if (mounted) {
@@ -243,6 +271,156 @@ class _PostFormScreenState extends State<PostFormScreen> {
     if (files.length > room) context.toast(tr('最大$maxPostImages枚までです', 'Up to $maxPostImages images'));
   }
 
+  /// 投稿済みの動画を再生する（編集）
+  void _openRemoteVideo(String url) {
+    if (url.isEmpty) return;
+    final player = VideoPlayerController.networkUrl(Uri.parse(playableVideoUrl(url)));
+    _player = player;
+    player.setLooping(true);
+    player
+        .initialize()
+        .then((_) {
+          if (mounted) setState(() {});
+        })
+        .catchError((_) {});
+  }
+
+  Future<void> _pickVideo() async {
+    if (_progress != null || _videoLoading) return;
+    final XFile? file;
+    try {
+      file = await pickSystemVideo();
+    } catch (_) {
+      if (mounted) context.toast(tr('動画を開けませんでした', 'Couldn\'t open videos'), error: true);
+      return;
+    }
+    if (file == null || !mounted) return;
+    await _useVideo(file.path);
+  }
+
+  /// 選んだ動画を調べ、投稿できればプレビューとサムネイルを用意する
+  Future<void> _useVideo(String path) async {
+    setState(() => _videoLoading = true);
+    final bytes = await fileLength(path);
+    final player = VideoPlayerController.file(File(path));
+    var duration = Duration.zero;
+    var size = Size.zero;
+    try {
+      await player.initialize();
+      duration = player.value.duration;
+      size = player.value.size;
+    } catch (_) {
+      // 長さが読めなければ下の判定で弾く
+    }
+    if (!mounted) {
+      await player.dispose();
+      return;
+    }
+    final error = videoPickError(path: path, bytes: bytes, duration: duration, limits: _videoLimits);
+    if (error != null) {
+      await player.dispose();
+      setState(() => _videoLoading = false);
+      if (!mounted) return;
+      final again = await showConfirmSheet(
+        context,
+        title: tr('この動画は投稿できません', 'This video can\'t be posted'),
+        message: '$error\n\n${_videoLimitText()}',
+        confirmLabel: tr('別の動画を選ぶ', 'Choose another video'),
+        cancelLabel: tr('閉じる', 'Close'),
+      );
+      if (again && mounted) await _pickVideo();
+      return;
+    }
+    final old = _player;
+    await player.setLooping(true);
+    await player.setVolume(0);
+    setState(() {
+      _player = player;
+      _video = PickedVideo(path: path, mime: videoMimeOf(path)!, bytes: bytes, duration: duration, width: size.width.round(), height: size.height.round());
+      _videoThumb = null;
+      _videoLoading = false;
+      _thumbLoading = true;
+    });
+    await old?.dispose();
+    final seq = ++_thumbSeq;
+    final first = await captureInitialThumbnail(path, duration, size.width.round(), size.height.round());
+    if (!mounted || seq != _thumbSeq) return;
+    setState(() {
+      _thumbLoading = false;
+      if (first != null) {
+        _thumbAt = first.$1;
+        _videoThumb = first.$2;
+      }
+    });
+    if (first != null) await player.seekTo(first.$1);
+    if (first == null && mounted) context.toast(tr('サムネイルを作れませんでした。画像を選んでください', 'Couldn\'t make a thumbnail. Choose an image'), error: true);
+  }
+
+  String _videoLimitText() => tr(
+    'MP4・MOV／${formatVideoBytes(maxVideoFileBytes)}まで／1本${_videoLimits.maxDurationSeconds}秒まで（1日合計${_videoLimits.dailyTotalDurationSeconds}秒まで）',
+    'MP4 or MOV / up to ${formatVideoBytes(maxVideoFileBytes)} / up to ${_videoLimits.maxDurationSeconds}s each (${_videoLimits.dailyTotalDurationSeconds}s total per day)',
+  );
+
+  void _onScrub(Duration at) {
+    final player = _player;
+    if (player == null) return;
+    if (player.value.isPlaying) player.pause();
+    player.seekTo(at);
+  }
+
+  Future<void> _onScrubEnd(Duration at) async {
+    final video = _video;
+    if (video == null) return;
+    final seq = ++_thumbSeq;
+    setState(() {
+      _thumbAt = at;
+      _thumbLoading = true;
+    });
+    final image = await captureThumbnail(video.path, at, video.width, video.height);
+    if (!mounted || seq != _thumbSeq) return;
+    setState(() {
+      _thumbLoading = false;
+      if (image != null) _videoThumb = image;
+    });
+    if (image == null) context.toast(tr('このコマは使えませんでした', 'Couldn\'t use this frame'), error: true);
+  }
+
+  /// サムネイルを別の画像にする
+  Future<void> _pickThumbnailImage() async {
+    final List<XFile> files;
+    try {
+      files = await pickSystemImages(multiple: false);
+    } catch (_) {
+      if (mounted) context.toast(tr('写真を開けませんでした', 'Couldn\'t open photos'), error: true);
+      return;
+    }
+    if (files.isEmpty) return;
+    try {
+      final image = await ImageTools.normalize(await files.first.readAsBytes());
+      _thumbSeq++;
+      if (mounted) {
+        setState(() {
+          _videoThumb = image;
+          _thumbLoading = false;
+        });
+      }
+    } on ApiException catch (e) {
+      if (mounted) context.toast(e.message, error: true);
+    }
+  }
+
+  Future<void> _removeVideo() async {
+    final old = _player;
+    _thumbSeq++;
+    setState(() {
+      _player = null;
+      _video = null;
+      _videoThumb = null;
+      _thumbLoading = false;
+    });
+    await old?.dispose();
+  }
+
   void _applyParams(GenerationParams p) {
     _prompt.text = p.prompt ?? '';
     _negative.text = p.negativePrompt ?? '';
@@ -309,6 +487,10 @@ class _PostFormScreenState extends State<PostFormScreen> {
     if (!Nav.requireLogin(context)) return;
     _readControllers();
     if (_tag.text.trim().isNotEmpty) _addTag(_tag.text);
+    if (_isVideo) {
+      await _submitVideo();
+      return;
+    }
     final invalid = PostApi.validate(_draft, _images);
     if (invalid != null) {
       context.toast(invalid, error: true);
@@ -347,6 +529,65 @@ class _PostFormScreenState extends State<PostFormScreen> {
     }
   }
 
+  Future<void> _submitVideo() async {
+    final invalid = validateVideoPost(_draft, hasVideo: _isEdit || _video != null, hasThumbnail: _isEdit || _videoThumb != null);
+    if (invalid != null) {
+      context.toast(invalid, error: true);
+      return;
+    }
+    if (_thumbLoading) {
+      context.toast(tr('サムネイルを準備しています。少し待ってからもう一度押してください', 'Preparing the thumbnail. Try again in a moment'));
+      return;
+    }
+    await _player?.pause();
+    setState(() {
+      _progress = 0;
+      _phase = VideoPostPhase.thumbnail;
+    });
+    void onProgress(VideoPostPhase phase, double v) {
+      if (mounted) {
+        setState(() {
+          _phase = phase;
+          _progress = v;
+        });
+      }
+    }
+
+    try {
+      final id = _isEdit ? await VideoPostApi.update(_editing!, _draft, _videoThumb, onProgress: onProgress) : await VideoPostApi.create(_draft, _video!, _videoThumb!, onProgress: onProgress);
+      if (!mounted) return;
+      setState(() {
+        _progress = null;
+        _phase = null;
+      });
+      Ds.success();
+      if (postDryRun) {
+        await _showDryRun();
+        return;
+      }
+      context.toast(_isEdit ? tr('作品を更新しました', 'Work updated') : tr('作品を投稿しました', 'Work posted'));
+      if (_isEdit) {
+        context.pop(true);
+      } else {
+        context.pushReplacement('/works/$id');
+      }
+    } on ApiException catch (e) {
+      if (!mounted) return;
+      setState(() {
+        _progress = null;
+        _phase = null;
+      });
+      context.toast(e.message, error: true);
+    } catch (_) {
+      if (!mounted) return;
+      setState(() {
+        _progress = null;
+        _phase = null;
+      });
+      context.toast(tr('投稿に失敗しました。もう一度お試しください', 'Couldn\'t post. Please try again'), error: true);
+    }
+  }
+
   Future<void> _showDryRun() {
     final input = PostApi.lastDryRunInput ?? const {};
     final lines = input.entries.where((e) => e.value != null).map((e) => '${e.key}: ${e.value}').join('\n');
@@ -375,11 +616,16 @@ class _PostFormScreenState extends State<PostFormScreen> {
   @override
   Widget build(BuildContext context) {
     final busy = _progress != null;
+    // 送信中は閉じない。動画を選んだあとに閉じるときは確かめる
+    final guardVideo = _isVideo && !_isEdit && _video != null;
     return PopScope(
-      canPop: !busy,
+      canPop: !busy && !guardVideo,
+      onPopInvokedWithResult: (didPop, _) => _onBlockedPop(didPop, busy),
       child: Scaffold(
         appBar: AppBar(
-          title: Text(_isEdit ? tr('作品を編集', 'Edit work') : (_isText ? tr('文章を投稿', 'Post text') : tr('作品を投稿', 'Post work'))),
+          title: Text(_isEdit
+              ? (_isVideo ? tr('動画を編集', 'Edit video') : tr('作品を編集', 'Edit work'))
+              : (_isText ? tr('文章を投稿', 'Post text') : (_isVideo ? tr('動画を投稿', 'Post video') : tr('作品を投稿', 'Post work')))),
           actions: [
             if (_isEdit && !_loading && _error == null)
               IconButton(tooltip: tr('削除', 'Delete'), onPressed: busy ? null : _deleteWork, icon: const Icon(Icons.delete_outline_rounded)),
@@ -397,6 +643,24 @@ class _PostFormScreenState extends State<PostFormScreen> {
     );
   }
 
+  Future<void> _onBlockedPop(bool didPop, bool busy) async {
+    if (didPop) return;
+    if (busy) {
+      context.toast(tr('送信が終わるまでお待ちください', 'Please wait until sending finishes'));
+      return;
+    }
+    final leave = await showConfirmSheet(
+      context,
+      title: tr('投稿せずに閉じますか？', 'Close without posting?'),
+      message: tr('選んだ動画と入力した内容は消えます', 'The selected video and your input will be discarded'),
+      confirmLabel: tr('閉じる', 'Close'),
+      destructive: true,
+    );
+    if (!leave || !mounted) return;
+    await _removeVideo();
+    if (mounted) context.pop();
+  }
+
   Widget _submitBar(BuildContext context, bool busy) {
     return Container(
       decoration: BoxDecoration(color: context.surfaceCard, border: Border(top: BorderSide(color: context.hairline))),
@@ -408,7 +672,9 @@ class _PostFormScreenState extends State<PostFormScreen> {
         ],
         PrimaryButton(
           label: busy
-              ? tr('送信中… ${((_progress ?? 0) * 100).round()}%', 'Sending… ${((_progress ?? 0) * 100).round()}%')
+              ? (_phase != null
+                  ? '${videoPostPhaseLabel(_phase!)}… ${((_progress ?? 0) * 100).round()}%'
+                  : tr('送信中… ${((_progress ?? 0) * 100).round()}%', 'Sending… ${((_progress ?? 0) * 100).round()}%'))
               : (_isEdit ? tr('保存する', 'Save') : (_draft.reservedAt != null ? tr('予約投稿する', 'Schedule') : tr('投稿する', 'Post'))),
           onPressed: busy ? null : _submit,
           loading: busy,
@@ -425,9 +691,13 @@ class _PostFormScreenState extends State<PostFormScreen> {
       children: [
         ContentWidth(
           child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-            _Label(_isText ? tr('表紙の画像', 'Cover image') : tr('画像（${_images.length}/$maxPostImages）', 'Images (${_images.length}/$maxPostImages)'),
-                hint: _isText ? null : tr('長押しで並べ替え。先頭がサムネイルになります', 'Long-press to reorder. The first image is the thumbnail')),
-            _imageGrid(context),
+            if (_isVideo)
+              ..._videoSection(context)
+            else ...[
+              _Label(_isText ? tr('表紙の画像', 'Cover image') : tr('画像（${_images.length}/$maxPostImages）', 'Images (${_images.length}/$maxPostImages)'),
+                  hint: _isText ? null : tr('長押しで並べ替え。先頭がサムネイルになります', 'Long-press to reorder. The first image is the thumbnail')),
+              _imageGrid(context),
+            ],
             const SizedBox(height: Ds.s20),
             _Label(tr('タイトル', 'Title')),
             _Field(_title, hint: tr('タイトルを入力', 'Enter a title'), maxLength: maxTitleLength),
@@ -464,12 +734,15 @@ class _PostFormScreenState extends State<PostFormScreen> {
             _Label(tr('年齢種別', 'Age rating')),
             _ratingNotice(context),
             const SizedBox(height: Ds.s20),
-            _Label(tr('テイスト', 'Style')),
-            Wrap(spacing: Ds.s8, children: [
-              for (final s in imageStyleLabels.entries)
-                AppChip(s.value, selected: _draft.imageStyle == s.key, onTap: () => setState(() => _draft.imageStyle = s.key)),
-            ]),
-            const SizedBox(height: Ds.s20),
+            // 動画の編集ではテイストを変えない（Web の animation.edit は元の style を送る）
+            if (!(_isVideo && _isEdit)) ...[
+              _Label(tr('テイスト', 'Style')),
+              Wrap(spacing: Ds.s8, children: [
+                for (final s in imageStyleLabels.entries)
+                  AppChip(s.value, selected: _draft.imageStyle == s.key, onTap: () => setState(() => _draft.imageStyle = s.key)),
+              ]),
+              const SizedBox(height: Ds.s20),
+            ],
             _Label(tr('公開範囲', 'Visibility')),
             Wrap(spacing: Ds.s8, runSpacing: Ds.s8, children: [
               for (final a in accessTypeLabels.entries)
@@ -504,41 +777,90 @@ class _PostFormScreenState extends State<PostFormScreen> {
                 onAdd: _addModel,
                 onChanged: (v) => setState(() => _draft.modelId = v),
               ),
-              const SizedBox(height: Ds.s8),
-              ExpansionTile(
-                tilePadding: EdgeInsets.zero,
-                shape: const Border(),
-                title: Text(tr('生成情報（プロンプトなど）', 'Generation info (prompts, etc.)'), style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 14)),
-                initiallyExpanded: _prompt.text.isNotEmpty,
-                children: [
-                  _Field(_prompt, hint: tr('プロンプト', 'Prompt'), lines: 3),
-                  const SizedBox(height: Ds.s8),
-                  _Field(_negative, hint: tr('ネガティブプロンプト', 'Negative prompt'), lines: 2),
-                  const SizedBox(height: Ds.s8),
-                  Row(children: [
-                    Expanded(child: _Field(_seed, hint: 'Seed')),
-                    const SizedBox(width: Ds.s8),
-                    Expanded(child: _Field(_steps, hint: 'Steps')),
-                  ]),
-                  const SizedBox(height: Ds.s8),
-                  _Field(_sampler, hint: 'Sampler'),
-                  const SizedBox(height: Ds.s8),
-                  _Field(_modelName, hint: tr('モデル名', 'Model name')),
-                  _Switch(tr('生成情報を公開する', 'Show generation info'), _draft.publishParams, (v) => setState(() => _draft.publishParams = v)),
-                ],
-              ),
+              // 動画は生成情報を送らない（Web の toVideoWorkInput）
+              if (!_isVideo) ...[
+                const SizedBox(height: Ds.s8),
+                ExpansionTile(
+                  tilePadding: EdgeInsets.zero,
+                  shape: const Border(),
+                  title: Text(tr('生成情報（プロンプトなど）', 'Generation info (prompts, etc.)'), style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 14)),
+                  initiallyExpanded: _prompt.text.isNotEmpty,
+                  children: [
+                    _Field(_prompt, hint: tr('プロンプト', 'Prompt'), lines: 3),
+                    const SizedBox(height: Ds.s8),
+                    _Field(_negative, hint: tr('ネガティブプロンプト', 'Negative prompt'), lines: 2),
+                    const SizedBox(height: Ds.s8),
+                    Row(children: [
+                      Expanded(child: _Field(_seed, hint: 'Seed')),
+                      const SizedBox(width: Ds.s8),
+                      Expanded(child: _Field(_steps, hint: 'Steps')),
+                    ]),
+                    const SizedBox(height: Ds.s8),
+                    _Field(_sampler, hint: 'Sampler'),
+                    const SizedBox(height: Ds.s8),
+                    _Field(_modelName, hint: tr('モデル名', 'Model name')),
+                    _Switch(tr('生成情報を公開する', 'Show generation info'), _draft.publishParams, (v) => setState(() => _draft.publishParams = v)),
+                  ],
+                ),
+              ],
             ],
             const SizedBox(height: Ds.s12),
             _Label(tr('その他', 'Other')),
             _Switch(tr('コメントを受け付ける', 'Allow comments'), _draft.isCommentEditable, (v) => setState(() => _draft.isCommentEditable = v)),
             _Switch(tr('他の人のタグ編集を許可する', 'Let others edit tags'), _draft.isTagEditable, (v) => setState(() => _draft.isTagEditable = v)),
-            if (!_isEdit && !_isText) _Switch(tr('AI に評価してもらう', 'Get AI feedback'), _draft.isBotGradingEnabled, (v) => setState(() => _draft.isBotGradingEnabled = v)),
+            if (!_isEdit && !_isText && !_isVideo) _Switch(tr('AI に評価してもらう', 'Get AI feedback'), _draft.isBotGradingEnabled, (v) => setState(() => _draft.isBotGradingEnabled = v)),
             const SizedBox(height: Ds.s12),
             _Field(_link, hint: tr('関連リンク（任意）', 'Related link (optional)')),
           ]),
         ),
       ],
     );
+  }
+
+  List<Widget> _videoSection(BuildContext context) {
+    final player = _player;
+    final video = _video;
+    final busy = _progress != null;
+    final editingThumb = _editing?.json.strOrNull('largeThumbnailImageURL');
+    return [
+      _Label(tr('動画', 'Video'), hint: _isEdit ? tr('投稿した動画は差し替えられません（Web と同じ）', 'The posted video can\'t be replaced (same as the web)') : (player == null ? null : _videoLimitText())),
+      if (player == null && !_isEdit)
+        VideoPickPanel(limits: _videoLimits, onPick: _pickVideo, loading: _videoLoading)
+      else if (player != null)
+        VideoPreviewCard(
+          controller: player,
+          info: video == null ? null : '${formatVideoDuration(video.duration)} · ${formatVideoBytes(video.bytes)}',
+          onReplace: _isEdit || busy ? null : _pickVideo,
+          onRemove: _isEdit || busy ? null : _removeVideo,
+        ),
+      const SizedBox(height: Ds.s16),
+      if (video != null || _isEdit) ...[
+        _Label(tr('サムネイル', 'Thumbnail'), hint: video != null ? tr('一覧や共有で表示されます', 'Shown in lists and when shared') : null),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            VideoThumbnailTile(image: _videoThumb, url: _videoThumb == null ? editingThumb : null, loading: _thumbLoading),
+            const SizedBox(width: Ds.s12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  if (video != null)
+                    VideoFrameStrip(path: video.path, duration: video.duration, value: _thumbAt, onScrub: _onScrub, onScrubEnd: _onScrubEnd)
+                  else
+                    Text(tr('今のサムネイルのまま保存します', 'The current thumbnail is kept'), style: TextStyle(fontSize: 12.5, color: context.muted)),
+                  const SizedBox(height: Ds.s8),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: TextButton.icon(onPressed: busy ? null : _pickThumbnailImage, icon: const Icon(Icons.image_outlined, size: 18), label: Text(tr('別の画像にする', 'Use another image'))),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ],
+    ];
   }
 
   Widget _ratingNotice(BuildContext context) {
@@ -586,7 +908,7 @@ class _PostFormScreenState extends State<PostFormScreen> {
         ]),
       ],
       // プロンプトからのおすすめタグ（Web と同じく最近使ったタグとは分けて出す。付けたタグ・最近使ったタグと重なるものは出さない）
-      if (!_isText) ...[
+      if (!_isText && !_isVideo) ...[
         const SizedBox(height: Ds.s8),
         Text(tr('おすすめタグ', 'Recommended tags'), style: TextStyle(fontSize: 12, color: context.muted)),
         const SizedBox(height: Ds.s4),

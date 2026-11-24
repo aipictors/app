@@ -187,7 +187,7 @@ query AppWorkForEdit($id: ID!) {
   viewer { id user { id } }
   work(id: $id) {
     id title description type rating accessType promptAccessType style
-    imageURL imageWidth imageHeight mdUrl
+    imageURL imageWidth imageHeight mdUrl url streamUid
     largeThumbnailImageURL largeThumbnailImageWidth largeThumbnailImageHeight
     smallThumbnailImageURL smallThumbnailImageWidth smallThumbnailImageHeight
     thumbnailImagePosition ogpThumbnailImageUrl
@@ -275,6 +275,9 @@ query AppPostGenerationResult($where: ImageGenerationResultsWhereInput) {
   }
 
   static String? _orNull(String s) => s.trim().isEmpty ? null : s.trim();
+
+  /// 画像・動画で共通の input（動画は video_post.dart で上書きする）
+  static Map<String, dynamic> commonInput(PostDraft d) => _commonInput(d);
 
   static Map<String, dynamic> _commonInput(PostDraft d) => {
         'title': d.title.trim(),
@@ -389,6 +392,9 @@ query AppPostGenerationResult($where: ImageGenerationResultsWhereInput) {
     final wait = delay ?? Future<void>.delayed;
     return _createWithRetry(input, hash, wait, onProgress);
   }
+
+  static Future<String> createWithRetry(Map<String, dynamic> input, String hash, Future<void> Function(Duration) wait, void Function(double) onProgress) =>
+      _createWithRetry(input, hash, wait, onProgress);
 
   /// 作品の作成だけやり直す。前回の要求が届いていたときは二重に作らない（Web と同じ）
   static Future<String> _createWithRetry(
