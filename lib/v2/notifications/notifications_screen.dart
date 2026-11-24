@@ -181,6 +181,33 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen> with 
           onChanged: (i) => setState(() => _tab = tabs[i]),
         ),
         const SizedBox(height: Ds.s8),
+        // 運営からのお知らせ（修正依頼など）があるときの案内（Web の /notifications と同じ）
+        if (_opened.moderation > 0)
+          Padding(
+            padding: const EdgeInsets.fromLTRB(Ds.s16, 0, Ds.s16, Ds.s8),
+            child: Material(
+              color: context.cs.errorContainer.withValues(alpha: 0.6),
+              borderRadius: Ds.br(12),
+              child: InkWell(
+                borderRadius: Ds.br(12),
+                onTap: () => context.push('/my/reports'),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: Ds.s12, vertical: 10),
+                  child: Row(children: [
+                    Icon(Icons.shield_outlined, size: 18, color: context.cs.onErrorContainer),
+                    const SizedBox(width: Ds.s8),
+                    Expanded(
+                      child: Text(
+                        tr('運営からのお知らせが ${_opened.moderation} 件あります', '${_opened.moderation} notices from the Aipictors team'),
+                        style: TextStyle(fontSize: 13, fontWeight: FontWeight.w700, color: context.cs.onErrorContainer),
+                      ),
+                    ),
+                    Icon(Icons.chevron_right_rounded, size: 18, color: context.cs.onErrorContainer),
+                  ]),
+                ),
+              ),
+            ),
+          ),
         if (_tab == _Tab.comment)
           Padding(
             padding: const EdgeInsets.only(bottom: Ds.s8),
