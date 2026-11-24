@@ -44,6 +44,8 @@ class RankingScreen extends StatelessWidget {
               tooltip: tr('ほかのランキング', 'Other rankings'),
               onSelected: (path) => context.push(path),
               itemBuilder: (_) => [
+                PopupMenuItem(value: '/popular', child: Text(tr('今日の人気', "Today's popular"))),
+                PopupMenuItem(value: '/rankings/rookie', child: Text(tr('ルーキー', 'Rookie'))),
                 PopupMenuItem(value: '/ai-rankings', child: Text(tr('AI ランキング', 'AI ranking'))),
                 PopupMenuItem(value: '/coin-rankings', child: Text(tr('推しランキング', 'Supporter ranking'))),
                 PopupMenuItem(value: '/themes', child: Text(tr('お題', 'Themes'))),
@@ -182,7 +184,7 @@ class _RankingTabState extends State<_RankingTab> with AutomaticKeepAliveClientM
                 itemBuilder: (context, i) => AnimatedOpacity(
                   duration: Ds.fast,
                   opacity: _loading ? 0.4 : 1,
-                  child: _RankRow(item: items[i + 3]),
+                  child: RankRow(item: items[i + 3]),
                 ),
               ),
             ),
@@ -317,8 +319,8 @@ class _RankingTabState extends State<_RankingTab> with AutomaticKeepAliveClientM
 }
 
 /// 4 位以下の行
-class _RankRow extends StatelessWidget {
-  const _RankRow({required this.item});
+class RankRow extends StatelessWidget {
+  const RankRow({super.key, required this.item});
 
   final RankedWork item;
 

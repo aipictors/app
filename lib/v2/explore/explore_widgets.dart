@@ -1,5 +1,6 @@
 import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/core/design.dart';
+import 'package:aipictors/v2/core/nav.dart';
 import 'package:aipictors/v2/explore/explore_api.dart';
 import 'package:aipictors/v2/widgets/common.dart';
 import 'package:flutter/material.dart';
@@ -214,6 +215,43 @@ class ChoiceRow<T> extends StatelessWidget {
             ),
         ]),
       ]),
+    );
+  }
+}
+
+/// 関連タグの横並び（Web のタグページ・検索の「関連タグ」）
+class RelatedTagsRow extends StatelessWidget {
+  const RelatedTagsRow({super.key, required this.tags});
+
+  final List<String> tags;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 10),
+      child: SizedBox(
+        height: 32,
+        child: ListView.separated(
+          scrollDirection: Axis.horizontal,
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          itemCount: tags.length + 1,
+          separatorBuilder: (_, __) => const SizedBox(width: 6),
+          itemBuilder: (context, i) {
+            if (i == 0) {
+              return Center(child: Text(tr('関連タグ', 'Related'), style: context.tt.labelMedium?.copyWith(color: context.muted, fontWeight: FontWeight.w700)));
+            }
+            final t = tags[i - 1];
+            return ActionChip(
+              label: Text('#$t'),
+              visualDensity: VisualDensity.compact,
+              shape: RoundedRectangleBorder(borderRadius: Ds.br(16)),
+              side: BorderSide(color: context.hairline),
+              labelStyle: const TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
+              onPressed: () => Nav.tag(context, t),
+            );
+          },
+        ),
+      ),
     );
   }
 }

@@ -13,13 +13,16 @@ enum WorkSort {
   latest('新着', 'Latest', 'DATE_CREATED'),
   views('閲覧数', 'Views', 'VIEWS_COUNT'),
   bookmarks('ブックマーク', 'Bookmarks', 'BOOKMARKS_COUNT'),
-  comments('コメント', 'Comments', 'COMMENTS_COUNT');
+  comments('コメント', 'Comments', 'COMMENTS_COUNT'),
+  // Web の検索の「古い順」
+  oldest('古い順', 'Oldest', 'DATE_CREATED', ascending: true);
 
-  const WorkSort(this._ja, this._en, this.value);
+  const WorkSort(this._ja, this._en, this.value, {this.ascending = false});
 
   final String _ja;
   final String _en;
   final String value;
+  final bool ascending;
 
   String get label => tr(_ja, _en);
 }
@@ -71,6 +74,21 @@ enum StyleFilter {
   String get label => tr(_ja, _en);
 }
 
+/// プロンプトの有無（Web の検索の「プロンプトあり / なし」）
+enum PromptFilter {
+  all('すべて', 'All', null),
+  with_('プロンプトあり', 'With prompt', true),
+  without('プロンプトなし', 'Without prompt', false);
+
+  const PromptFilter(this._ja, this._en, this.hasPrompt);
+
+  final String _ja;
+  final String _en;
+  final bool? hasPrompt;
+
+  String get label => tr(_ja, _en);
+}
+
 /// 検索のしかた（タグの一致 / キーワード）
 enum SearchMode { tag, keyword }
 
@@ -80,35 +98,52 @@ class WorkFilter {
     this.kind = WorkKind.all,
     this.rating = RatingFilter.all,
     this.style = StyleFilter.all,
-    this.withPrompt = false,
+    this.prompt = PromptFilter.all,
+    this.userId,
   });
 
   final WorkSort sort;
   final WorkKind kind;
   final RatingFilter rating;
   final StyleFilter style;
-  final bool withPrompt;
+  final PromptFilter prompt;
+
+  /// 自分の作品だけ（Web の検索の「自分の作品だけ」。ログイン中の人の ID）
+  final String? userId;
 
   /// 並び順以外の絞り込みの数
   int get activeCount =>
-      (kind != WorkKind.all ? 1 : 0) + (rating != RatingFilter.all ? 1 : 0) + (style != StyleFilter.all ? 1 : 0) + (withPrompt ? 1 : 0);
+      (kind != WorkKind.all ? 1 : 0) +
+      (rating != RatingFilter.all ? 1 : 0) +
+      (style != StyleFilter.all ? 1 : 0) +
+      (prompt != PromptFilter.all ? 1 : 0) +
+      (userId != null ? 1 : 0);
 
-  WorkFilter copyWith({WorkSort? sort, WorkKind? kind, RatingFilter? rating, StyleFilter? style, bool? withPrompt}) => WorkFilter(
+  WorkFilter copyWith({WorkSort? sort, WorkKind? kind, RatingFilter? rating, StyleFilter? style, PromptFilter? prompt, String? userId, bool clearUser = false}) => WorkFilter(
         sort: sort ?? this.sort,
         kind: kind ?? this.kind,
         rating: rating ?? this.rating,
         style: style ?? this.style,
-        withPrompt: withPrompt ?? this.withPrompt,
+        prompt: prompt ?? this.prompt,
+        userId: clearUser ? null : (userId ?? this.userId),
       );
 
   Map<String, dynamic> where() => {
         'ratings': rating.ratings,
         'orderBy': sort.value,
-        'sort': 'DESC',
+        'sort': sort.ascending ? 'ASC' : 'DESC',
         if (kind.value != null) 'workType': kind.value,
         if (style.value != null) 'style': style.value,
-        if (withPrompt) 'hasPrompt': true,
+        if (prompt.hasPrompt != null) 'hasPrompt': prompt.hasPrompt,
+        if (userId != null) 'userId': userId,
       };
+
+  @override
+  bool operator ==(Object other) =>
+      other is WorkFilter && other.sort == sort && other.kind == kind && other.rating == rating && other.style == style && other.prompt == prompt && other.userId == userId;
+
+  @override
+  int get hashCode => Object.hash(sort, kind, rating, style, prompt, userId);
 }
 
 /// タグのサムネイル: 先頭の作品が全年齢（G）のときだけ URL を返す
@@ -433,6 +468,115 @@ query WorkAwards(\$offset: Int!, \$limit: Int!, \$where: WorkAwardsWhereInput!) 
     }
     out.sort((a, b) => a.rank.compareTo(b.rank));
     return out;
+  }
+}
+
+/// 作品のタグから関連タグを数の多い順に 16 個（Web の collectRelatedTags と同じ。探している言葉は除く）
+List<String> collectRelatedTags(Iterable<List<String>> tagNamesOfWorks, String? query) {
+  final q = query?.trim().toLowerCase();
+  final counts = <String, int>{};
+  for (final names in tagNamesOfWorks) {
+    for (final name in names.map((n) => n.trim()).toSet()) {
+      if (name.isEmpty || name.toLowerCase() == q) continue;
+      counts[name] = (counts[name] ?? 0) + 1;
+    }
+  }
+  final entries = counts.entries.toList()..sort((a, b) => b.value.compareTo(a.value));
+  return entries.take(16).map((e) => e.key).toList();
+}
+
+/// 日本時間の日付（YYYY-MM-DD）。今日の人気・ルーキーの日付に使う
+String jstDateString(DateTime t) {
+  final j = t.toUtc().add(const Duration(hours: 9));
+  return '${j.year.toString().padLeft(4, '0')}-${j.month.toString().padLeft(2, '0')}-${j.day.toString().padLeft(2, '0')}';
+}
+
+/// YYYY-MM-DD を days 日ずらす
+String shiftDateString(String date, int days) {
+  final d = DateTime.parse('${date}T00:00:00Z').add(Duration(days: days));
+  return '${d.year.toString().padLeft(4, '0')}-${d.month.toString().padLeft(2, '0')}-${d.day.toString().padLeft(2, '0')}';
+}
+
+class ExploreMoreApi {
+  ExploreMoreApi._();
+
+  static const _relatedTagWorks = '''
+query AppRelatedTagWorks(\$offset: Int!, \$limit: Int!, \$where: WorksWhereInput) {
+  tagWorks(offset: \$offset, limit: \$limit, where: \$where) {
+    id
+    tagNames
+  }
+}''';
+
+  static const _relatedTextWorks = '''
+query AppRelatedTextWorks(\$offset: Int!, \$limit: Int!, \$where: WorksWhereInput) {
+  works(offset: \$offset, limit: \$limit, where: \$where) {
+    id
+    tagNames
+  }
+}''';
+
+  /// 関連タグ（Web のタグページ・検索の「関連タグ」。1 ページ目の作品のタグから数える）
+  static Future<List<String>> relatedTags(String text, {required bool tagMode}) async {
+    final where = <String, dynamic>{
+      'ratings': appRatings,
+      'orderBy': 'LIKES_COUNT',
+      'sort': 'DESC',
+      if (tagMode) 'tagNames': [text] else ...{'search': text, 'searchInTags': true, 'searchInDescription': true},
+    };
+    final data = await Api.query(
+      tagMode ? _relatedTagWorks : _relatedTextWorks,
+      variables: {'offset': 0, 'limit': 32, 'where': where},
+      cacheFor: const Duration(minutes: 10),
+    );
+    final works = data.list(tagMode ? 'tagWorks' : 'works');
+    return collectRelatedTags(
+      works.map((w) => (w['tagNames'] as List?)?.whereType<String>().toList() ?? const <String>[]),
+      text,
+    ).where((t) => !SensitiveTags.isBlocked(t)).toList();
+  }
+
+  static const _rookie = '''
+query RookieWorkAwards(\$offset: Int!, \$limit: Int!, \$date: String) {
+  rookieWorkAwards(offset: \$offset, limit: \$limit, date: \$date) {
+    id
+    index
+    dateText
+    snapshotLikedCount
+    work {
+      $workCardFields
+    }
+  }
+}''';
+
+  /// ルーキーランキング（Web の /rankings/rookie。date を省くと最新の日）
+  static Future<({String? date, List<RankedWork> items})> rookieAwards(String? date) async {
+    final data = await Api.query(_rookie, variables: {'offset': 0, 'limit': 50, 'date': date}, cacheFor: const Duration(minutes: 30));
+    final awards = data.list('rookieWorkAwards');
+    final out = <RankedWork>[];
+    for (final a in awards) {
+      final works = WorkSummary.listFrom([if (a.obj('work') != null) a.obj('work')!]);
+      if (works.isEmpty) continue;
+      out.add(RankedWork(rank: a.integer('index'), likes: a.integer('snapshotLikedCount'), work: works.first));
+    }
+    out.sort((a, b) => a.rank.compareTo(b.rank));
+    final first = awards.isEmpty ? null : awards.first.strOrNull('dateText');
+    return (date: first ?? date, items: out);
+  }
+
+  static const _popular = '''
+query PopularWorks(\$where: PopularWorksWhereInput!) {
+  popularWorks(where: \$where) {
+    $workCardFields
+  }
+}''';
+
+  /// 今日の人気作品（Web の /popular。毎日お昼に選ばれる全年齢の 100 件、いいねの多い順）
+  static Future<List<WorkSummary>> popularWorks(String date) async {
+    final data = await Api.query(_popular, variables: {
+      'where': {'date': date, 'isSensitive': false},
+    }, cacheFor: const Duration(minutes: 30));
+    return WorkSummary.listFrom(data.list('popularWorks'))..sort((a, b) => b.likesCount.compareTo(a.likesCount));
   }
 }
 

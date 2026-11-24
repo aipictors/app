@@ -87,6 +87,8 @@ class _WorksTabState extends State<_WorksTab> with AutomaticKeepAliveClientMixin
   SearchMode? _mode;
   int? _tagCount;
   PagedController<WorkSummary>? _c;
+  String? _viewerId;
+  List<String> _related = const [];
 
   @override
   bool get wantKeepAlive => true;
@@ -95,6 +97,19 @@ class _WorksTabState extends State<_WorksTab> with AutomaticKeepAliveClientMixin
   void initState() {
     super.initState();
     _decideMode();
+    if (Nav.isLoggedIn) {
+      UserApi.viewerId().then((v) {
+        if (mounted) setState(() => _viewerId = v);
+      }).catchError((_) {});
+    }
+  }
+
+  void _loadRelated() {
+    final mode = _mode;
+    if (mode == null) return;
+    ExploreMoreApi.relatedTags(widget.text, tagMode: mode == SearchMode.tag).then((v) {
+      if (mounted && mode == _mode) setState(() => _related = v);
+    }).catchError((_) {});
   }
 
   /// タグの完全一致があればタグ、無ければキーワード（Web と同じ考え方）
@@ -110,6 +125,7 @@ class _WorksTabState extends State<_WorksTab> with AutomaticKeepAliveClientMixin
       _c = _make();
     });
     _loadCounts();
+    _loadRelated();
   }
 
   void _loadCounts() {
@@ -141,6 +157,7 @@ class _WorksTabState extends State<_WorksTab> with AutomaticKeepAliveClientMixin
     });
     WidgetsBinding.instance.addPostFrameCallback((_) => old?.dispose());
     if (filter != null) _loadCounts();
+    if (mode != null) _loadRelated();
   }
 
   @override
@@ -168,11 +185,13 @@ class _WorksTabState extends State<_WorksTab> with AutomaticKeepAliveClientMixin
               padding: const EdgeInsets.only(top: 4, bottom: 4),
               child: WorkFilterBar(
                 filter: _filter,
-                sorts: const [WorkSort.likes, WorkSort.latest, WorkSort.views, WorkSort.bookmarks],
+                sorts: const [WorkSort.likes, WorkSort.latest, WorkSort.oldest, WorkSort.views, WorkSort.bookmarks],
+                viewerId: _viewerId,
                 onChanged: (f) => _reset(filter: f),
               ),
             ),
           ),
+          if (_related.isNotEmpty) SliverToBoxAdapter(child: Padding(padding: const EdgeInsets.only(bottom: 4), child: RelatedTagsRow(tags: _related))),
           if (c == null)
             SliverPagedWorks(controller: _placeholder)
           else
