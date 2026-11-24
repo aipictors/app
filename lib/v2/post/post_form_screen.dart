@@ -64,6 +64,11 @@ class _PostFormScreenState extends State<PostFormScreen> {
   final _steps = TextEditingController();
   final _modelName = TextEditingController();
 
+  /// プロンプトからのおすすめタグ（プロンプトが変わったら少し待って読み直す）
+  List<String> _recommendedTags = const [];
+  String _recommendedFor = '';
+  int _recommendSeq = 0;
+
   bool get _isEdit => widget.workId != null;
 
   bool get _isText => _draft.workType != 'WORK';
@@ -72,7 +77,24 @@ class _PostFormScreenState extends State<PostFormScreen> {
   void initState() {
     super.initState();
     _draft.workType = widget.workType;
+    _prompt.addListener(_onPromptChanged);
     _load();
+  }
+
+  void _onPromptChanged() {
+    final prompt = _prompt.text.trim();
+    if (prompt == _recommendedFor) return;
+    _recommendedFor = prompt;
+    final seq = ++_recommendSeq;
+    Future<void>.delayed(const Duration(milliseconds: 800), () async {
+      if (!mounted || seq != _recommendSeq) return;
+      try {
+        final tags = await PostApi.recommendedTags(prompt);
+        if (mounted && seq == _recommendSeq) setState(() => _recommendedTags = tags);
+      } on ApiException {
+        // おすすめが取れなくても入力はできる
+      }
+    });
   }
 
   @override
@@ -249,6 +271,20 @@ class _PostFormScreenState extends State<PostFormScreen> {
     });
   }
 
+  /// 一覧にないモデルをその場で足して選ぶ（Web の「『◯◯』を追加」）
+  Future<NamedOption?> _addModel(String name) async {
+    try {
+      final added = await PostApi.createAiModel(name);
+      final models = _options!.models;
+      if (!models.any((m) => m.id == added.id)) models.add(added);
+      if (mounted) context.toast(tr('「${added.name}」を選びました', 'Selected "${added.name}"'));
+      return added;
+    } on ApiException catch (e) {
+      if (mounted) context.toast(e.message, error: true);
+      return null;
+    }
+  }
+
   Future<void> _pickReservation() async {
     final now = DateTime.now();
     final date = await showDatePicker(
@@ -412,6 +448,18 @@ class _PostFormScreenState extends State<PostFormScreen> {
             const SizedBox(height: Ds.s20),
             _Label(tr('タグ（${_draft.tags.length}/$maxPostTags）', 'Tags (${_draft.tags.length}/$maxPostTags)')),
             _tags(context, options),
+            // お題はタグのすぐ下（Web b015fb12c と同じ。タグ欄から離れていて使いにくかった）
+            if (options.themes.isNotEmpty) ...[
+              const SizedBox(height: Ds.s12),
+              _Label(tr('お題に参加', 'Join a theme')),
+              _Select(
+                value: _draft.themeId,
+                none: tr('参加しない', 'None'),
+                items: [for (final t in options.themes) NamedOption(t.id, '${t.dateText}  ${t.title}')],
+                title: tr('お題', 'Theme'),
+                onChanged: (v) => setState(() => _draft.themeId = v),
+              ),
+            ],
             const SizedBox(height: Ds.s20),
             _Label(tr('年齢種別', 'Age rating')),
             _ratingNotice(context),
@@ -435,17 +483,6 @@ class _PostFormScreenState extends State<PostFormScreen> {
               onTap: _pickReservation,
               onClear: _draft.reservedAt == null ? null : () => setState(() => _draft.reservedAt = null),
             ),
-            if (options.themes.isNotEmpty) ...[
-              const SizedBox(height: Ds.s20),
-              _Label(tr('お題', 'Theme')),
-              _Select(
-                value: _draft.themeId,
-                none: tr('参加しない', 'None'),
-                items: [for (final t in options.themes) NamedOption(t.id, '${t.dateText}  ${t.title}')],
-                title: tr('お題', 'Theme'),
-                onChanged: (v) => setState(() => _draft.themeId = v),
-              ),
-            ],
             const SizedBox(height: Ds.s20),
             _Label(tr('シリーズ', 'Series')),
             _Select(
@@ -464,6 +501,7 @@ class _PostFormScreenState extends State<PostFormScreen> {
                 items: options.models,
                 title: tr('AI モデル', 'AI model'),
                 searchable: true,
+                onAdd: _addModel,
                 onChanged: (v) => setState(() => _draft.modelId = v),
               ),
               const SizedBox(height: Ds.s8),
@@ -518,6 +556,7 @@ class _PostFormScreenState extends State<PostFormScreen> {
 
   Widget _tags(BuildContext context, PostOptions options) {
     final suggestions = options.recentTags.where((t) => !_draft.tags.contains(t)).take(12).toList();
+    final recommended = _recommendedTags.where((t) => !_draft.tags.contains(t) && !suggestions.contains(t)).take(16).toList();
     return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
       if (_draft.tags.isNotEmpty) ...[
         Wrap(spacing: Ds.s6, runSpacing: Ds.s6, children: [
@@ -545,6 +584,18 @@ class _PostFormScreenState extends State<PostFormScreen> {
         Wrap(spacing: Ds.s6, runSpacing: Ds.s6, children: [
           for (final t in suggestions) AppChip(t, onTap: () => _addTag(t)),
         ]),
+      ],
+      // プロンプトからのおすすめタグ（Web と同じく最近使ったタグとは分けて出す。付けたタグ・最近使ったタグと重なるものは出さない）
+      if (!_isText) ...[
+        const SizedBox(height: Ds.s8),
+        Text(tr('おすすめタグ', 'Recommended tags'), style: TextStyle(fontSize: 12, color: context.muted)),
+        const SizedBox(height: Ds.s4),
+        if (recommended.isEmpty)
+          Text(tr('プロンプトのある画像を読み込むと、おすすめのタグが出ます', 'Recommended tags appear when an image with a prompt is loaded'), style: TextStyle(fontSize: 11.5, color: context.muted))
+        else
+          Wrap(spacing: Ds.s6, runSpacing: Ds.s6, children: [
+            for (final t in recommended) AppChip(t, onTap: () => _addTag(t)),
+          ]),
       ],
     ]);
   }
@@ -753,7 +804,7 @@ class _Row extends StatelessWidget {
 
 /// 1 つ選ぶ（下から出るシート）
 class _Select extends StatelessWidget {
-  const _Select({required this.value, required this.none, required this.items, required this.title, required this.onChanged, this.searchable = false});
+  const _Select({required this.value, required this.none, required this.items, required this.title, required this.onChanged, this.searchable = false, this.onAdd});
 
   final String? value;
   final String none;
@@ -762,9 +813,13 @@ class _Select extends StatelessWidget {
   final bool searchable;
   final ValueChanged<String?> onChanged;
 
+  /// 検索語が一覧にないとき「追加」を出す
+  final Future<NamedOption?> Function(String name)? onAdd;
+
   @override
   Widget build(BuildContext context) {
     final current = items.where((i) => i.id == value).map((i) => i.name).firstOrNull;
+    final onAdd = this.onAdd;
     return _Row(
       icon: Icons.tune_rounded,
       label: current ?? none,
@@ -775,7 +830,7 @@ class _Select extends StatelessWidget {
           useSafeArea: true,
           showDragHandle: true,
           backgroundColor: context.surfaceCard,
-          builder: (_) => _SelectSheet(title: title, none: none, items: items, selected: value, searchable: searchable),
+          builder: (_) => _SelectSheet(title: title, none: none, items: items, selected: value, searchable: searchable, onAdd: onAdd),
         );
         if (picked != null) onChanged(picked.id);
       },
@@ -790,13 +845,14 @@ class _Picked {
 }
 
 class _SelectSheet extends StatefulWidget {
-  const _SelectSheet({required this.title, required this.none, required this.items, required this.selected, required this.searchable});
+  const _SelectSheet({required this.title, required this.none, required this.items, required this.selected, required this.searchable, this.onAdd});
 
   final String title;
   final String none;
   final List<NamedOption> items;
   final String? selected;
   final bool searchable;
+  final Future<NamedOption?> Function(String name)? onAdd;
 
   @override
   State<_SelectSheet> createState() => _SelectSheetState();
@@ -804,10 +860,22 @@ class _SelectSheet extends StatefulWidget {
 
 class _SelectSheetState extends State<_SelectSheet> {
   String _q = '';
+  bool _adding = false;
+
+  Future<void> _add(String name) async {
+    setState(() => _adding = true);
+    final added = await widget.onAdd!(name);
+    if (!mounted) return;
+    setState(() => _adding = false);
+    if (added != null) Navigator.pop(context, _Picked(added.id));
+  }
 
   @override
   Widget build(BuildContext context) {
-    final items = _q.isEmpty ? widget.items : widget.items.where((i) => i.name.toLowerCase().contains(_q.toLowerCase())).toList();
+    // 検索は表記ゆれ（大文字小文字・全角半角・空白・記号）を無視する（Web の filterAiModels と同じ）
+    final items = _q.isEmpty ? widget.items : filterAiModels(widget.items, _q);
+    final newName = _q.trim().replaceAll(RegExp(r'\s+'), ' ');
+    final addable = widget.onAdd != null && canAddAiModel(widget.items, newName);
     return SizedBox(
       height: MediaQuery.sizeOf(context).height * 0.6,
       child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
@@ -822,6 +890,16 @@ class _SelectSheetState extends State<_SelectSheet> {
           ),
         Expanded(
           child: ListView(children: [
+            if (addable)
+              ListTile(
+                leading: _adding ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2)) : const Icon(Icons.add_rounded),
+                title: Text(tr('「$newName」を追加', 'Add "$newName"'), maxLines: 2, overflow: TextOverflow.ellipsis),
+                subtitle: Text(
+                  tr('一覧にないモデルは名前を入れて追加できます。追加したモデルはみんなの一覧にも出ます。', 'If your model is not listed, type its name to add it. Added models appear in everyone\'s list.'),
+                  style: TextStyle(fontSize: 11.5, color: context.muted),
+                ),
+                onTap: _adding ? null : () => _add(newName),
+              ),
             ListTile(title: Text(widget.none), selected: widget.selected == null, onTap: () => Navigator.pop(context, const _Picked(null))),
             for (final i in items)
               ListTile(
