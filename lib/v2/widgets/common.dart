@@ -13,9 +13,13 @@ class AppImage extends StatelessWidget {
     this.width,
     this.height,
     this.memCacheWidth,
+    this.fallback,
   });
 
   final String? url;
+
+  /// 読めなかったとき（消えたファイル・画像でない中身）に出すもの。省略時はいつもの「画像なし」の印
+  final Widget? fallback;
   final BoxFit fit;
   final double radius;
   final double? width;
@@ -38,7 +42,7 @@ class AppImage extends StatelessWidget {
         fadeInDuration: Ds.normal,
         fadeOutDuration: Duration.zero,
         placeholder: (_, __) => Container(color: context.skeleton),
-        errorWidget: (_, __, ___) => Container(
+        errorWidget: (_, __, ___) => fallback ?? Container(
           color: context.skeleton,
           alignment: Alignment.center,
           child: Icon(Icons.image_not_supported_outlined, color: context.muted, size: 22),

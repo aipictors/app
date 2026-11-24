@@ -261,7 +261,7 @@ class _ProfileCard extends StatelessWidget {
               height: 86,
               width: double.infinity,
               child: header != null
-                  ? AppImage(header, memCacheWidth: 900)
+                  ? AppImage(header, memCacheWidth: 900, fallback: const DecoratedBox(decoration: BoxDecoration(gradient: Ds.brandGradient)))
                   : const DecoratedBox(decoration: BoxDecoration(gradient: Ds.brandGradient)),
             ),
             Transform.translate(

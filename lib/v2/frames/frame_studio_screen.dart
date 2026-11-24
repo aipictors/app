@@ -563,7 +563,7 @@ class _HeaderFramesState extends State<_HeaderFrames> {
                 fit: StackFit.expand,
                 children: [
                   if (widget.settings.headerImageUrl != null)
-                    AppImage(widget.settings.headerImageUrl, memCacheWidth: 1000)
+                    AppImage(widget.settings.headerImageUrl, memCacheWidth: 1000, fallback: const DecoratedBox(decoration: BoxDecoration(gradient: Ds.brandGradient)))
                   else
                     const DecoratedBox(decoration: BoxDecoration(gradient: Ds.brandGradient)),
                   if (_preview != null) HeaderFrameOverlay(key: ValueKey(_preview), slug: _preview!),

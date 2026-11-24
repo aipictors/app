@@ -285,18 +285,11 @@ class _UserScreenState extends State<UserScreen> {
             Positioned.fill(
               bottom: strip,
               child: Stack(fit: StackFit.expand, children: [
+                // ヘッダー画像がない・読めない人は、アイコンの色をぼかして広げる（Web と同じ）
                 if (u.headerImageUrl != null)
-                  AppImage(u.headerImageUrl, memCacheWidth: 1200)
-                else if (u.iconUrl != null)
-                  // ヘッダー画像がない人は、アイコンの色をぼかして広げる（Web と同じ）
-                  ClipRect(
-                    child: ImageFiltered(
-                      imageFilter: ImageFilter.blur(sigmaX: 40, sigmaY: 40, tileMode: TileMode.mirror),
-                      child: Transform.scale(scale: 1.25, child: Opacity(opacity: 0.85, child: AppImage(u.iconUrl, memCacheWidth: 96))),
-                    ),
-                  )
+                  AppImage(u.headerImageUrl, memCacheWidth: 1200, fallback: _headerFallback(u))
                 else
-                  const DecoratedBox(decoration: BoxDecoration(gradient: Ds.brandGradient)),
+                  _headerFallback(u),
                 if (u.headerFrameSlug != null) HeaderFrameOverlay(slug: u.headerFrameSlug!),
                 const DecoratedBox(
                   decoration: BoxDecoration(
@@ -954,4 +947,19 @@ class _PickupEmptyCard extends StatelessWidget {
       ),
     );
   }
+}
+
+
+/// ヘッダー画像の代わり: アイコンをぼかして広げる。アイコンもなければブランドの色
+Widget _headerFallback(UserProfile u) {
+  if (u.iconUrl == null) return const DecoratedBox(decoration: BoxDecoration(gradient: Ds.brandGradient));
+  return ClipRect(
+    child: ImageFiltered(
+      imageFilter: ImageFilter.blur(sigmaX: 40, sigmaY: 40, tileMode: TileMode.mirror),
+      child: Transform.scale(
+        scale: 1.25,
+        child: Opacity(opacity: 0.85, child: AppImage(u.iconUrl, memCacheWidth: 96, fallback: const DecoratedBox(decoration: BoxDecoration(gradient: Ds.brandGradient)))),
+      ),
+    ),
+  );
 }

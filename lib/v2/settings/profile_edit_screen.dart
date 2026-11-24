@@ -288,7 +288,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                 if (_header != null)
                   Image.memory(_header!, fit: BoxFit.cover)
                 else if (f.headerUrl != null)
-                  AppImage(f.headerUrl, memCacheWidth: 900)
+                  AppImage(f.headerUrl, memCacheWidth: 900, fallback: const DecoratedBox(decoration: BoxDecoration(gradient: Ds.brandGradient)))
                 else
                   const DecoratedBox(decoration: BoxDecoration(gradient: Ds.brandGradient)),
                 const Positioned(right: Ds.s8, top: Ds.s8, child: _CameraBadge()),
