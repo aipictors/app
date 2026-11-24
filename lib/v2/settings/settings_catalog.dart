@@ -87,6 +87,9 @@ const settingsCatalog = <SettingsSection>[
         SettingsInner('ステータス（吹き出し）', 'Status balloon', ['status']),
         SettingsInner('リンク・連絡先', 'Links & contact', ['SNS', 'X', 'Twitter', 'Instagram', 'メール', 'mail']),
         SettingsInner('ピックアップ作品', 'Pickup works', ['pickup', 'featured']),
+        SettingsInner('アイコン枠', 'Avatar frame', ['枠', 'frame', 'フレーム', 'デコ', 'decoration']),
+        SettingsInner('英語プロフィール', 'English profile', ['英語', 'English']),
+        SettingsInner('推されたときの感謝コメント', 'Support thank-you message', ['お礼', 'thanks', '推し', 'support']),
       ],
     ),
     SettingsItem(
@@ -107,6 +110,19 @@ const settingsCatalog = <SettingsSection>[
       loginOnly: true,
       keywords: ['パスワード変更', 'password', 'pass', 'ぱすわーど', 'アカウント', 'account', 'セキュリティ', 'security'],
     ),
+    SettingsItem(
+      id: 'accountLink',
+      icon: Icons.link_rounded,
+      ja: 'SNS連携・ログイン用メール',
+      en: 'Linked accounts & login email',
+      path: '/settings/account',
+      loginOnly: true,
+      keywords: ['SNS', '紐付け', '連携', 'link', 'Google', 'X', 'Twitter', 'Apple', 'メール', 'mail', 'email', 'ログイン', 'login', 'アカウント', 'account'],
+      inner: [
+        SettingsInner('ログイン用のメールアドレス', 'Login email', ['メールアドレス', 'email', '確認メール']),
+        SettingsInner('SNSアカウント紐付け', 'Link SNS accounts', ['Google', 'X', 'Twitter', 'Apple']),
+      ],
+    ),
   ]),
   SettingsSection(id: 'display', ja: '表示と通知', en: 'Display & notifications', items: [
     SettingsItem(
@@ -122,7 +138,8 @@ const settingsCatalog = <SettingsSection>[
         SettingsInner('いいねの通知を受け取る', 'Like notifications', ['いいね', 'like']),
         SettingsInner('匿名いいねの通知を受け取る', 'Anonymous like notifications', ['匿名', 'anonymous']),
         SettingsInner('Push通知を受け取る', 'Push notifications', ['プッシュ', 'push']),
-        SettingsInner('作品のいいねを匿名にする', 'Like works anonymously', ['匿名', 'anonymous', 'いいね', 'like']),
+        SettingsInner('全年齢作品のいいねを匿名にする', 'Like all-ages works anonymously', ['匿名', 'anonymous', 'いいね', 'like']),
+        SettingsInner('R-15 作品のいいねを匿名にする', 'Like R-15 works anonymously', ['匿名', 'anonymous', 'R15']),
       ],
     ),
     SettingsItem(
@@ -174,6 +191,7 @@ const settingsCatalog = <SettingsSection>[
       inner: [
         SettingsInner('デフォルトのスタンプを表示しない', 'Hide default stickers', ['デフォルト', 'default']),
         SettingsInner('以前のデフォルトのスタンプも使う', 'Also use previous default stickers', ['デフォルト', 'default', 'legacy']),
+        SettingsInner('マイスタンプ', 'My stickers', ['自分のスタンプ', 'my stickers', '作ったスタンプ']),
       ],
     ),
   ]),
@@ -189,6 +207,7 @@ const settingsCatalog = <SettingsSection>[
       inner: [
         SettingsInner('ミュートした人の作品を表示する', "Show muted users' works", ['ミュート', 'mute']),
         SettingsInner('ミュートした人のコメントを表示する', "Show muted users' comments", ['ミュート', 'mute']),
+        SettingsInner('ミュートとブロックの違い', 'Mute vs. block', ['ブロック', 'block']),
       ],
     ),
     SettingsItem(
@@ -221,13 +240,33 @@ const settingsCatalog = <SettingsSection>[
   ]),
   SettingsSection(id: 'rewards', ja: '応援と収益', en: 'Support & rewards', items: [
     SettingsItem(
+      id: 'coins',
+      icon: Icons.monetization_on_outlined,
+      ja: 'コイン',
+      en: 'Coins',
+      path: '/settings/points',
+      loginOnly: true,
+      keywords: ['coin', 'コイン', '残高', 'balance', 'ポイント', 'point', '履歴', 'history'],
+      inner: [
+        SettingsInner('フリーコイン', 'Free coins', ['free']),
+        SettingsInner('プレミアムコイン', 'Premium coins', ['premium']),
+        SettingsInner('コインの履歴', 'Coin history', ['履歴', 'history']),
+        SettingsInner('失効予定のコイン', 'Expiring coins', ['失効', '期限', 'expiry', 'expire']),
+        SettingsInner('推しポイント・貢献度', 'Support & contribution points', ['推し', 'support', '貢献', 'pt']),
+      ],
+    ),
+    SettingsItem(
       id: 'supportReceived',
       icon: Icons.volunteer_activism_outlined,
       ja: '応援コイン受け取り',
       en: 'Supports received',
       path: '/settings/support-received',
       loginOnly: true,
-      keywords: ['応援', 'support', 'コイン', 'coin'],
+      keywords: ['応援', 'support', 'コイン', 'coin', '推し'],
+      inner: [
+        SettingsInner('受け取り履歴', 'Received history', ['履歴', 'history', 'pt']),
+        SettingsInner('受け取ったコメント', 'Received comments', ['コメント', 'comment']),
+      ],
     ),
     SettingsItem(
       id: 'creatorRewards',

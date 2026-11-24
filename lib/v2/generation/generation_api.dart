@@ -237,6 +237,9 @@ mutation UpdateRatingImageGenerationModel($input: UpdateRatingImageGenerationMod
     return data is Map<String, dynamic> ? data : null;
   }
 
+  /// www.aipictors.com の API を GET し、{ error, data } の data を返す（コイン画面で使う）
+  static Future<Map<String, dynamic>?> webGet(String path) => _webGet(path);
+
   /// コイン残高（Web の /api/coins/summary。その日の付与もここで行われる）
   static Future<CoinSummary?> coinSummary() async {
     final data = await _webGet('/api/coins/summary');

@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/models.dart';
+import 'package:aipictors/v2/generation/generation_api.dart';
 import 'package:http/http.dart' as http;
 
 /// 公開画像のアップロード先（Web の VITE_WORKERS_UPLOADER）
@@ -85,8 +86,75 @@ class SupportedComment {
   final int coins;
 }
 
+/// 受け取った推しの 1 件（Web の ReceivedTransferHistoryItem）
+class SupportTransfer {
+  const SupportTransfer({required this.isPremium, required this.coins, required this.pt, required this.createdAt});
+
+  factory SupportTransfer.fromJson(Map<String, dynamic> j) => SupportTransfer(
+        isPremium: j['coinType'] == 'PREMIUM',
+        coins: _num(j['coinAmount']),
+        pt: _num(j['ptAmount']),
+        createdAt: _num(j['createdAt']),
+      );
+
+  final bool isPremium;
+  final int coins;
+  final int pt;
+  final int createdAt;
+}
+
+/// API は数を文字列で返すことがある
+int _num(Object? v) => v is num ? v.toInt() : int.tryParse('${v ?? ''}') ?? double.tryParse('${v ?? ''}')?.toInt() ?? 0;
+
+/// 受け取った推しの累計（Web の /api/coins/support/summary/:userId）
+class SupportReceivedSummary {
+  const SupportReceivedSummary({
+    required this.totalPt,
+    required this.totalCoins,
+    required this.freePt,
+    required this.freeCoins,
+    required this.premiumPt,
+    required this.premiumCoins,
+    required this.recent,
+  });
+
+  factory SupportReceivedSummary.fromJson(Map<String, dynamic> j) => SupportReceivedSummary(
+        totalPt: _num(j['cumulativeReceivedPt']),
+        totalCoins: _num(j['cumulativeReceivedCoins']),
+        freePt: _num(j['cumulativeReceivedFreePt']),
+        freeCoins: _num(j['cumulativeReceivedFreeCoins']),
+        premiumPt: _num(j['cumulativeReceivedPremiumPt']),
+        premiumCoins: _num(j['cumulativeReceivedPremiumCoins']),
+        recent: (j['recentReceivedTransfers'] is List ? j['recentReceivedTransfers'] as List : const []).whereType<Map<String, dynamic>>().map(SupportTransfer.fromJson).toList(),
+      );
+
+  final int totalPt;
+  final int totalCoins;
+  final int freePt;
+  final int freeCoins;
+  final int premiumPt;
+  final int premiumCoins;
+  final List<SupportTransfer> recent;
+}
+
+/// 日本時間の日時（Web と同じ 2026/11/24 12:34）
+String formatJstDateTime(int unixSeconds) {
+  final d = DateTime.fromMillisecondsSinceEpoch(unixSeconds * 1000, isUtc: true).add(const Duration(hours: 9));
+  String two(int v) => v.toString().padLeft(2, '0');
+  return '${d.year}/${two(d.month)}/${two(d.day)} ${two(d.hour)}:${two(d.minute)}';
+}
+
 class SettingsApi {
   SettingsApi._();
+
+  static Future<SupportReceivedSummary> supportReceivedSummary() async {
+    final user = await viewerAccount();
+    final id = user?.str('id') ?? '';
+    if (id.isEmpty) throw const ApiException('ログインしてください');
+    final data = await GenApi.webGet('/api/coins/support/summary/${Uri.encodeComponent(id)}');
+    if (data == null) throw const ApiException('受け取り集計の読み込みに失敗しました');
+    return SupportReceivedSummary.fromJson(data);
+  }
 
   static const _profile = '''
 query AppProfileForm {
@@ -198,6 +266,7 @@ query AppUserSetting {
     isNotifyLike
     isNotifyAnonymousLike
     isAnonymousLikeAllAges
+    isAnonymousLikeR15
     isHideDefaultStickers
     isShowLegacyDefaultStickers
     isRejectPremiumCoinSupport

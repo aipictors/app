@@ -2,6 +2,9 @@ import 'dart:typed_data';
 
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/design.dart';
+import 'package:aipictors/v2/core/l10n.dart';
+import 'package:aipictors/v2/core/models.dart';
+import 'package:aipictors/v2/settings/avatar_frame_sheet.dart';
 import 'package:aipictors/v2/settings/pickup_picker_sheet.dart';
 import 'package:aipictors/v2/settings/settings_api.dart';
 import 'package:aipictors/v2/settings/settings_widgets.dart';
@@ -26,6 +29,9 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
   Uint8List? _icon;
   Uint8List? _header;
   List<PickupWork> _pickups = const [];
+
+  /// 枠を選び直したとき（その場で保存されるので、見出しの見本だけ変える）
+  ({AvatarFrame? frame})? _frameChanged;
 
   final _name = TextEditingController();
   final _bio = TextEditingController();
@@ -181,6 +187,15 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                     icon: const Icon(Icons.chat_bubble_outline_rounded, size: 18),
                     label: const Text('ステータス（吹き出し）を設定'),
                   ),
+                  // Web の /settings/profile の「アイコン枠」。選ぶとすぐ反映される
+                  OutlinedButton.icon(
+                    onPressed: () async {
+                      final r = await showAvatarFrameSheet(context, iconUrl: f.iconUrl);
+                      if (r != null && mounted) setState(() => _frameChanged = r);
+                    },
+                    icon: const Icon(Icons.auto_awesome_outlined, size: 18),
+                    label: Text(tr('アイコン枠を選ぶ', 'Choose an avatar frame')),
+                  ),
                   const SizedBox(height: Ds.s16),
                   _field(_name, '名前', maxLength: 32),
                   _field(_bio, '自己紹介', maxLength: 320, lines: 5),
@@ -286,7 +301,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
             child: Stack(clipBehavior: Clip.none, children: [
               _icon != null
                   ? ClipOval(child: Image.memory(_icon!, width: iconSize, height: iconSize, fit: BoxFit.cover))
-                  : UserAvatar(url: f.iconUrl, frame: f.frame, size: iconSize),
+                  : UserAvatar(url: f.iconUrl, frame: _frameChanged != null ? _frameChanged!.frame : f.frame, size: iconSize),
               const Positioned(right: -2, bottom: -2, child: _CameraBadge()),
             ]),
           ),

@@ -30,7 +30,11 @@ class StickerSettingsList extends StatelessWidget {
     required this.isShowLegacy,
     required this.onHideDefaultChanged,
     required this.onShowLegacyChanged,
+    this.leading = const [],
   });
+
+  /// 上に足す行（設定の画面からマイスタンプへのリンクなど）
+  final List<Widget> leading;
 
   final bool isHideDefault;
   final bool isShowLegacy;
@@ -53,6 +57,7 @@ class StickerSettingsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(padding: const EdgeInsets.only(bottom: 60), children: [
+      ...leading,
       SettingsGroup(
         title: tr('デフォルトのスタンプ', 'Default stickers'),
         footer: tr('コメントのスタンプの「マイスタンプ」の最初に出る、ぴくたーちゃんのスタンプです。', 'Pictor-chan stickers shown first in "My stickers" when you comment.'),
