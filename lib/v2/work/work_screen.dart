@@ -206,7 +206,8 @@ class _WorkScreenState extends State<WorkScreen> {
       if (!mounted || w == null) return;
       setState(() {
         _comments = w.list('comments').where((c) => !c.boolean('isMuted') && !c.boolean('isDeleted')).map(CommentItem.fromJson).toList();
-        _related = WorkSummary.listFrom(w.list('relatedWorks'));
+        // 関連作品に開いている作品そのものが入ることがあるので除く
+        _related = WorkSummary.listFrom(w.list('relatedWorks')).where((x) => x.id != widget.id).toList();
         _extras = w;
         _authorWorks = WorkSummary.listFrom(w.obj('user')?.list('works') ?? const []).where((x) => x.id != widget.id).toList();
         _bookmarkFolderId = data.obj('viewer')?.strOrNull('bookmarkFolderId');
