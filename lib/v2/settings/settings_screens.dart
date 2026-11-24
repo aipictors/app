@@ -453,7 +453,10 @@ class _StickerSettingsScreenState extends State<StickerSettingsScreen> with _Set
   }
 }
 
-/// プレミアムコインでの推しを受け取らない（パロディ作品などでお金に相当するものを受け取りたくない人向け）。Web の設定と同じ
+/// 推しの受け取り（パロディ作品などでお金に相当するものを受け取りたくない人向け）。Web の設定と同じ user_settings に保存する
+/// - 推しを受け付けない: プレミアム・フリーとも推せない（推す画面に出さず、aipictors-api の推しでも断る）
+/// - プレミアムコインでの推しを受け取らない: 推す画面でプレミアムコインを選べず、aipictors-api の推しでも断る
+/// - 推しでフリーコインを受け取らない: フリーコインで推されても pt だけ付き、コインは届かない
 class PremiumCoinSupportSettingsScreen extends StatefulWidget {
   const PremiumCoinSupportSettingsScreen({super.key});
 
@@ -471,17 +474,40 @@ class _PremiumCoinSupportSettingsScreenState extends State<PremiumCoinSupportSet
   @override
   Widget build(BuildContext context) {
     final s = setting;
+    final isRejectAll = s?.boolean('isRejectCoinSupport') ?? false;
     return Scaffold(
-      appBar: AppBar(title: Text(tr('プレミアムコインでの推し', 'Premium coin support'), style: const TextStyle(fontWeight: FontWeight.w800))),
+      appBar: AppBar(title: Text(tr('推しの受け取り', 'Receiving support'), style: const TextStyle(fontWeight: FontWeight.w800))),
       body: settingPlaceholder() ??
           ContentWidth(
             child: ListView(children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(Ds.s16, Ds.s12, Ds.s16, 0),
+                child: Text(
+                  tr('パロディ作品などで、お金に相当するものを受け取りたくないときに使います。', 'Use this if you do not want to receive anything equivalent to money, for example for parody works.'),
+                  style: TextStyle(color: context.muted, fontSize: 12.5, height: 1.5),
+                ),
+              ),
+              SettingsGroup(children: [
+                SettingsSwitch(
+                  label: tr('推しを受け付けない', 'Do not accept support'),
+                  subtitle: tr('オンにすると、プレミアムコイン・フリーコインとも、だれもあなたを推せなくなります。これまでに受け取った分はそのままです', 'When on, nobody can support you with premium or free coins. Support you already received stays as is.'),
+                  value: isRejectAll,
+                  onChanged: saving ? null : (v) => saveSetting('isRejectCoinSupport', v),
+                ),
+              ]),
+              // 「推しを受け付けない」の間は、個別のスイッチは触れない（Web と同じ）
               SettingsGroup(children: [
                 SettingsSwitch(
                   label: tr('プレミアムコインでの推しを受け取らない', 'Do not accept support with premium coins'),
                   subtitle: tr('オンにすると、あなたへの推しはフリーコインだけになります。これまでに受け取った分はそのままです', 'When on, support you receive is free coins only. What you already received stays as is.'),
                   value: s!.boolean('isRejectPremiumCoinSupport'),
-                  onChanged: saving ? null : (v) => saveSetting('isRejectPremiumCoinSupport', v),
+                  onChanged: saving || isRejectAll ? null : (v) => saveSetting('isRejectPremiumCoinSupport', v),
+                ),
+                SettingsSwitch(
+                  label: tr('推しでフリーコインを受け取らない', 'Do not receive free coins from support'),
+                  subtitle: tr('オンにすると、フリーコインで推されても推しの pt だけが付き、フリーコインは届きません。これまでに受け取った分はそのままです', 'When on, support with free coins only adds support points and no free coins are given to you. Coins you already received stay as is.'),
+                  value: s.boolean('isRejectFreeCoinSupportReceive'),
+                  onChanged: saving || isRejectAll ? null : (v) => saveSetting('isRejectFreeCoinSupportReceive', v),
                 ),
               ]),
             ]),

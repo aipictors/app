@@ -6,10 +6,13 @@ import 'package:http/http.dart' as http;
 
 /// コイン残高
 class CoinSummary {
-  const CoinSummary({required this.free, required this.premium, this.premiumAccepted = true, this.rewardJoined = false});
+  const CoinSummary({required this.free, required this.premium, this.supportAccepted = true, this.premiumAccepted = true, this.rewardJoined = false});
 
   final int free;
   final int premium;
+
+  /// 推す相手が推しを受け付けている（「推しを受け付けない」にしていない。summary(supportTo:) のときだけ分かる。分からなければ true）
+  final bool supportAccepted;
 
   /// 推す相手がプレミアムコインでの推しを受け取る（summary(supportTo:) のときだけ分かる。分からなければ true）
   final bool premiumAccepted;
@@ -20,7 +23,7 @@ class CoinSummary {
   int get total => free + premium;
 
   /// 推しで使える残高（相手がプレミアムコインを受け取らないときはフリーだけ）
-  CoinSummary get forSupport => premiumAccepted ? this : CoinSummary(free: free, premium: 0, premiumAccepted: false, rewardJoined: rewardJoined);
+  CoinSummary get forSupport => premiumAccepted ? this : CoinSummary(free: free, premium: 0, supportAccepted: supportAccepted, premiumAccepted: false, rewardJoined: rewardJoined);
 
   static const zero = CoinSummary(free: 0, premium: 0);
 }
@@ -58,7 +61,7 @@ class Coins {
     return {'authorization': 'Bearer $token', 'content-type': 'application/json'};
   }
 
-  /// supportTo を渡すと、推す相手の受け取りの状態（premiumAccepted・rewardJoined）も同じ応答で受け取る
+  /// supportTo を渡すと、推す相手の受け取りの状態（supportAccepted・premiumAccepted・rewardJoined）も同じ応答で受け取る
   static Future<CoinSummary> summary({String? supportTo}) async {
     final query = supportTo != null && RegExp(r'^\d+$').hasMatch(supportTo) ? '?supportTo=$supportTo' : '';
     final res = await http.get(Uri.parse('$_base/api/coins/summary$query'), headers: await _headers()).timeout(const Duration(seconds: 20));
@@ -72,6 +75,7 @@ class Coins {
     return CoinSummary(
       free: n(data['freeBalance']),
       premium: n(data['premiumBalance']),
+      supportAccepted: target is Map ? target['supportAccepted'] != false : true,
       premiumAccepted: target is Map ? target['premiumAccepted'] != false : true,
       rewardJoined: target is Map && target['rewardJoined'] == true,
     );

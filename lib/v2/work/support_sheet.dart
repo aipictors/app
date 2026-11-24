@@ -130,7 +130,9 @@ class _SupportSheetState extends State<_SupportSheet> {
       curve: Ds.curve,
       child: Padding(
         padding: EdgeInsets.fromLTRB(20, 0, 20, 20 + MediaQuery.viewInsetsOf(context).bottom),
-        child: _done
+        child: b != null && !b.supportAccepted
+            ? _NotAcceptedView(name: widget.userName)
+            : _done
             ? _SentView(name: widget.userName, breakdown: b == null ? null : SupportBreakdown.of(_amount, b.forSupport))
             : Column(
                 mainAxisSize: MainAxisSize.min,
@@ -231,6 +233,30 @@ class _SupportSheetState extends State<_SupportSheet> {
                 ],
               ),
       ),
+    );
+  }
+}
+
+/// 作者が「推しを受け付けない」にしているとき（枚数を選ぶ欄の代わりに出す。Web の推す画面と同じ）
+class _NotAcceptedView extends StatelessWidget {
+  const _NotAcceptedView({required this.name});
+
+  final String name;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Icon(Icons.do_not_disturb_on_outlined, size: 40, color: context.muted),
+        const SizedBox(height: 12),
+        Text(tr('$nameさんは推しを受け付けていません', '$name does not accept support'), textAlign: TextAlign.center, style: context.tt.titleMedium?.copyWith(fontWeight: FontWeight.w800)),
+        const SizedBox(height: 6),
+        Text(tr('コメントやいいねで応援できます', 'You can still cheer with comments and likes'), textAlign: TextAlign.center, style: context.tt.bodySmall?.copyWith(color: context.muted)),
+        const SizedBox(height: 18),
+        OutlinedButton(onPressed: () => Navigator.of(context).pop(), child: Text(tr('閉じる', 'Close'))),
+      ],
     );
   }
 }

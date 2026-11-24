@@ -269,7 +269,9 @@ query AppUserSetting {
     isAnonymousLikeR15
     isHideDefaultStickers
     isShowLegacyDefaultStickers
+    isRejectCoinSupport
     isRejectPremiumCoinSupport
+    isRejectFreeCoinSupportReceive
     isShowingMutedUsersWorks
     isShowingMutedUsersComments
   }

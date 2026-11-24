@@ -298,11 +298,11 @@ const settingsCatalog = <SettingsSection>[
     SettingsItem(
       id: 'premiumCoinSupport',
       icon: Icons.do_not_disturb_on_outlined,
-      ja: 'プレミアムコインでの推し',
-      en: 'Premium coin support',
+      ja: '推しの受け取り',
+      en: 'Receiving support',
       path: '/settings/premium-coin-support',
       loginOnly: true,
-      keywords: ['推し', 'プレミアムコイン', 'premium', 'coin', '受け取らない'],
+      keywords: ['推し', 'プレミアムコイン', 'フリーコイン', 'premium', 'free', 'coin', 'support', '受け取らない', '受け付けない'],
     ),
   ]),
   SettingsSection(id: 'help', ja: 'ヘルプと規約', en: 'Help & legal', items: [

@@ -747,6 +747,15 @@ query AppComposerRecentStickers($limit: Int!) {
       return;
     }
     if (!mounted) return;
+    // 作者が「推しを受け付けない」なら推しの欄は開かず、選んでいた枚数を外す（コメントは送れる。Web と同じ）
+    if (!_balance!.supportAccepted) {
+      setState(() {
+        _supportFree = 0;
+        _supportPremium = 0;
+      });
+      context.toast(tr('この作者は推しを受け付けていません', 'This creator does not accept support'));
+      return;
+    }
     final picked = await showModalBottomSheet<SupportPick>(
       context: context,
       isScrollControlled: true,

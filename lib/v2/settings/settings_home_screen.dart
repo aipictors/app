@@ -218,7 +218,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
       case 'premiumCoinSupport':
         final s = _setting;
         if (s == null) return null;
-        return s.boolean('isRejectPremiumCoinSupport') ? tr('受け取らない', 'Off') : tr('受け取る', 'On');
+        if (s.boolean('isRejectCoinSupport')) return tr('受け付けない', 'Off');
+        return s.boolean('isRejectPremiumCoinSupport') ? tr('フリーのみ', 'Free only') : tr('受け取る', 'On');
     }
     return null;
   }
