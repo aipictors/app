@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/design.dart';
+import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/settings/pickup_picker_sheet.dart';
 import 'package:aipictors/v2/settings/settings_api.dart';
 import 'package:aipictors/v2/settings/settings_widgets.dart';
@@ -9,6 +10,7 @@ import 'package:aipictors/v2/settings/status_sheet.dart';
 import 'package:aipictors/v2/widgets/common.dart';
 import 'package:aipictors/v2/widgets/user_avatar.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 
 /// プロフィールの編集（Web の /settings/profile）
@@ -98,6 +100,15 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
     }
   }
 
+  /// 枠を選ぶ画面（Web の avatar-frame-studio とガチャのヘッダー枠）。戻ったら枠の見た目だけ取り直す（入力中の欄は消さない）
+  Future<void> _openFrames() async {
+    await context.push('/settings/frames');
+    try {
+      final f = await SettingsApi.profile();
+      if (mounted) setState(() => _form = f);
+    } catch (_) {}
+  }
+
   Future<void> _choosePickups() async {
     final f = _form;
     if (f == null) return;
@@ -180,6 +191,11 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                     onPressed: () => showStatusSheet(context),
                     icon: const Icon(Icons.chat_bubble_outline_rounded, size: 18),
                     label: const Text('ステータス（吹き出し）を設定'),
+                  ),
+                  OutlinedButton.icon(
+                    onPressed: _openFrames,
+                    icon: const Icon(Icons.auto_awesome_rounded, size: 18),
+                    label: Text(tr('アイコン枠・ヘッダー枠を選ぶ', 'Choose avatar and header frames')),
                   ),
                   const SizedBox(height: Ds.s16),
                   _field(_name, '名前', maxLength: 32),

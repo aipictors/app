@@ -13,6 +13,7 @@ class UserProfile {
     this.avatarFrame,
     this.statusText,
     required this.headerImageUrl,
+    this.headerFrameSlug,
     required this.biography,
     required this.followCount,
     required this.followersCount,
@@ -48,6 +49,9 @@ class UserProfile {
   /// 他の人に見えているステータス
   final String? statusText;
   final String? headerImageUrl;
+
+  /// ガチャのヘッダー枠（ヘッダー画像に重ねる）
+  final String? headerFrameSlug;
   final String biography;
   final int followCount;
   int followersCount;
@@ -88,6 +92,7 @@ class UserProfile {
       avatarFrame: AvatarFrame.fromJson(u.obj('avatarFrame')),
       statusText: clean(u.strOrNull('statusText')),
       headerImageUrl: clean(u.strOrNull('headerImageUrl')),
+      headerFrameSlug: clean(u.obj('headerFrame')?.strOrNull('slug')),
       biography: u.str('biography').trim(),
       followCount: u.integer('followCount').clamp(0, 1 << 31),
       followersCount: u.integer('followersCount').clamp(0, 1 << 31),
@@ -219,6 +224,7 @@ query User(\$userId: ID!) {
     $avatarFrameFields
     statusText
     headerImageUrl
+    headerFrame { slug }
     biography
     isModerator
     isOfficial

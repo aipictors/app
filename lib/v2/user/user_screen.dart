@@ -7,6 +7,7 @@ import 'package:aipictors/v2/core/debug_boot.dart';
 import 'package:aipictors/v2/core/design.dart';
 import 'package:aipictors/v2/core/models.dart';
 import 'package:aipictors/v2/core/paged.dart';
+import 'package:aipictors/v2/frames/frame_widgets.dart';
 import 'package:aipictors/v2/user/user_actions.dart';
 import 'package:aipictors/v2/settings/pickup_picker_sheet.dart';
 import 'package:aipictors/v2/settings/settings_api.dart';
@@ -273,6 +274,7 @@ class _UserScreenState extends State<UserScreen> {
                   AppImage(u.headerImageUrl, memCacheWidth: 1200)
                 else
                   const DecoratedBox(decoration: BoxDecoration(gradient: Ds.brandGradient)),
+                if (u.headerFrameSlug != null) HeaderFrameOverlay(slug: u.headerFrameSlug!),
                 const DecoratedBox(
                   decoration: BoxDecoration(
                     gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [Color(0x55000000), Color(0x00000000)], stops: [0, 0.5]),

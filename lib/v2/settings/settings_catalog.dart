@@ -176,6 +176,15 @@ const settingsCatalog = <SettingsSection>[
         SettingsInner('以前のデフォルトのスタンプも使う', 'Also use previous default stickers', ['デフォルト', 'default', 'legacy']),
       ],
     ),
+    SettingsItem(
+      id: 'frames',
+      icon: Icons.auto_awesome_outlined,
+      ja: 'アイコン枠・ヘッダー枠',
+      en: 'Avatar & header frames',
+      path: '/settings/frames',
+      loginOnly: true,
+      keywords: ['枠', 'フレーム', 'frame', 'アイコン枠', 'ヘッダー枠', '装飾', 'decoration', 'ガチャ', 'gacha'],
+    ),
   ]),
   SettingsSection(id: 'privacy', ja: 'ミュート・ブロック', en: 'Mute & block', items: [
     SettingsItem(

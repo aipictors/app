@@ -159,6 +159,8 @@ class _MyPageScreenState extends State<MyPageScreen> {
                   _MenuItem(Icons.people_outline_rounded, tr('フォロー中', 'Following'), () => context.push('/users/${u.str('id')}/followees')),
                   _MenuItem(Icons.group_add_outlined, tr('フォロワー', 'Followers'), () => context.push('/users/${u.str('id')}/followers')),
                   _MenuItem(Icons.emoji_emotions_outlined, tr('スタンプ', 'Stickers'), () => context.push('/stickers')),
+                  _MenuItem(Icons.auto_awesome_outlined, tr('アイコン枠・ヘッダー枠', 'Frames'), () => context.push('/settings/frames')),
+                  _MenuItem(Icons.casino_outlined, tr('スペシャル枠ガチャ', 'Frame gacha'), () => context.push('/gacha')),
                   _MenuItem(Icons.emoji_events_outlined, tr('実績', 'Achievements'), () => context.push('/achievements')),
                 ]),
               ),
