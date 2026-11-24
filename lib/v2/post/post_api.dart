@@ -71,6 +71,28 @@ class NamedOption {
   final String name;
 }
 
+/// 比べるためにモデル名を整える（Web の toComparableModelName と同じ規則。
+/// 「Krea2」で「Krea 2」が見つかるように、大文字小文字・全角半角・空白・記号の違いを無視する）
+String comparableModelName(String text) {
+  final half = text.replaceAllMapped(RegExp('[\uFF01-\uFF5E]'), (m) => String.fromCharCode(m[0]!.codeUnitAt(0) - 0xFEE0)).replaceAll('\u3000', ' ');
+  return half.toLowerCase().replaceAll(RegExp(r'[\s\-_.・()（）]'), '');
+}
+
+/// モデルを名前順に並べ、検索語で絞り込む（Web の filterAiModels）
+List<NamedOption> filterAiModels(List<NamedOption> models, String term) {
+  final t = comparableModelName(term);
+  return [...models]
+    ..sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()))
+    ..retainWhere((m) => comparableModelName(m.name).contains(t));
+}
+
+/// 入れた名前を新しいモデルとして足せるか（空でなく、表記ゆれを除いて同じ名前のモデルが一覧にない。Web の canAddAiModel）
+bool canAddAiModel(List<NamedOption> models, String name) {
+  final t = comparableModelName(name.trim());
+  if (t.isEmpty) return false;
+  return !models.any((m) => comparableModelName(m.name) == t);
+}
+
 class PostOptions {
   const PostOptions({required this.albums, required this.models, required this.themes, required this.recentTags});
 
@@ -142,7 +164,7 @@ class PostApi {
     final data = await Api.query(r'''
 query AppPostOptions($startDate: String, $endDate: String) {
   viewer { id albums(offset: 0, limit: 128) { id title } recentlyUsedTags { id name } }
-  aiModels(offset: 0, limit: 124, where: {}) { id name workModelId }
+  aiModels(offset: 0, limit: 300, where: {}) { id name workModelId }
   dailyThemes(limit: 8, offset: 0, where: { startDate: $startDate, endDate: $endDate }) { id title dateText }
 }''', variables: {'startDate': day(now), 'endDate': day(now.add(const Duration(days: 7)))});
     final viewer = data.obj('viewer');
@@ -483,6 +505,32 @@ query AppWorkByImageHash($imageHash: String!) {
     );
     onProgress(1);
     return data.obj('updateWork')!.str('id');
+  }
+
+  /// プロンプトからのおすすめタグ（Web の投稿フォームの recommendedTagsFromPrompts）
+  static Future<List<String>> recommendedTags(String prompts) async {
+    if (prompts.trim().isEmpty) return const [];
+    final data = await Api.query(
+      r'query AppRecommendedTagsFromPrompts($prompts: String!) { recommendedTagsFromPrompts(prompts: $prompts) { id name } }',
+      variables: {'prompts': prompts},
+      cacheFor: const Duration(minutes: 10),
+    );
+    return data.list('recommendedTagsFromPrompts').map((t) => t.str('name')).where((n) => n.isNotEmpty).toList();
+  }
+
+  /// 一覧にないモデルを足す（Web の post-form-item-model の createAiModel。同じ名前のモデルがあればそれが返る）
+  static Future<NamedOption> createAiModel(String name) async {
+    if (postDryRun) return NamedOption('dry-run-$name', name);
+    final data = await Api.mutate(
+      r'mutation AppCreateAiModel($input: CreateAiModelInput!) { createAiModel(input: $input) { id name workModelId } }',
+      variables: {
+        'input': {'name': name},
+      },
+    );
+    final m = data.obj('createAiModel');
+    final id = m?.strOrNull('workModelId');
+    if (m == null || id == null) throw ApiException(tr('モデルを追加できませんでした', 'Could not add the model'));
+    return NamedOption(id, m.str('name'));
   }
 
   static Future<void> delete(String id) async {

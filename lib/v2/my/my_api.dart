@@ -70,36 +70,73 @@ class ModerationReport {
   bool get needsAction => status == 'UNHANDLED' && (responseMessage == null || responseMessage!.isEmpty);
 }
 
+/// マイページの作品の一覧の種類（Web の my-collected-works の Kind と同じ）
+enum MyCollectionKind {
+  likes('likedWorks', 'likedWorksCount'),
+  bookmarks('bookmarkedWorks', 'bookmarkedWorksCount'),
+  views('viewedWorks', 'viewedWorksCount'),
+  recommended('recommendedWorks', 'recommendedWorksCount');
+
+  const MyCollectionKind(this.field, this.countField);
+
+  final String field;
+  final String countField;
+
+  /// 一覧から外せるか（閲覧履歴は外せない）
+  bool get removable => this != views;
+}
+
+/// 一覧の 1 ページと、ブックマークを外すときに使う入れ物の ID
+class MyCollectionPage {
+  const MyCollectionPage(this.works, this.bookmarkFolderId);
+
+  final List<WorkSummary> works;
+  final String? bookmarkFolderId;
+}
+
 class MyApi {
   MyApi._();
 
-  static Map<String, dynamic> get _where => {'ratings': appRatings};
+  /// 検索・年齢の where（Web の toWhere と同じ。年齢を選ばなければアプリで出せるものだけ）
+  static Map<String, dynamic> collectionWhere(String search, String? rating) => {
+        if (search.isNotEmpty) 'search': search,
+        'ratings': rating == null ? appRatings : [rating],
+      };
 
-  static const _likes = '''
-query AppViewerLikedWorks(\$offset: Int!, \$limit: Int!, \$where: UserWorksWhereInput) {
-  viewer { id likedWorks(offset: \$offset, limit: \$limit, where: \$where) { $workCardFields } }
+  static Future<MyCollectionPage> collection(MyCollectionKind kind, Map<String, dynamic> where, int offset, int limit) async {
+    final doc = '''
+query AppViewerCollection(\$offset: Int!, \$limit: Int!, \$where: UserWorksWhereInput) {
+  viewer { id bookmarkFolderId ${kind.field}(offset: \$offset, limit: \$limit, where: \$where) { $workCardFields } }
 }''';
-
-  static const _bookmarks = '''
-query AppViewerBookmarkedWorks(\$offset: Int!, \$limit: Int!, \$where: UserWorksWhereInput) {
-  viewer { id bookmarkedWorks(offset: \$offset, limit: \$limit, where: \$where) { $workCardFields } }
-}''';
-
-  static const _views = '''
-query AppViewerViewedWorks(\$offset: Int!, \$limit: Int!, \$where: UserWorksWhereInput) {
-  viewer { id viewedWorks(offset: \$offset, limit: \$limit, where: \$where) { $workCardFields } }
-}''';
-
-  static Future<List<WorkSummary>> _works(String doc, String key, int offset, int limit) async {
-    final data = await Api.query(doc, variables: {'offset': offset, 'limit': limit, 'where': _where});
-    return WorkSummary.listFrom(data.obj('viewer')?.list(key) ?? const []);
+    final data = await Api.query(doc, variables: {'offset': offset, 'limit': limit, 'where': where});
+    final viewer = data.obj('viewer');
+    return MyCollectionPage(WorkSummary.listFrom(viewer?.list(kind.field) ?? const []), viewer?.strOrNull('bookmarkFolderId'));
   }
 
-  static Future<List<WorkSummary>> likes(int o, int l) => _works(_likes, 'likedWorks', o, l);
+  static Future<int> collectionCount(MyCollectionKind kind, Map<String, dynamic> where) async {
+    final data = await Api.query('query AppViewerCollectionCount(\$where: UserWorksWhereInput) { viewer { id ${kind.countField}(where: \$where) } }', variables: {'where': where});
+    return data.obj('viewer')?.integer(kind.countField) ?? 0;
+  }
 
-  static Future<List<WorkSummary>> bookmarks(int o, int l) => _works(_bookmarks, 'bookmarkedWorks', o, l);
-
-  static Future<List<WorkSummary>> views(int o, int l) => _works(_views, 'viewedWorks', o, l);
+  /// 一覧から外す（いいね・ブックマーク・推薦を取り消す。Web と同じ mutation）
+  static Future<void> removeFromCollection(MyCollectionKind kind, String workId, {String? bookmarkFolderId}) async {
+    switch (kind) {
+      case MyCollectionKind.likes:
+        await Api.mutate(r'mutation AppDeleteMyWorkLike($input: DeleteWorkLikeInput!) { deleteWorkLike(input: $input) { id } }', variables: {
+          'input': {'workId': workId},
+        });
+      case MyCollectionKind.bookmarks:
+        await Api.mutate(r'mutation AppDeleteMyBookmark($input: DeleteFolderWorkInput!) { deleteFolderWork(input: $input) { id } }', variables: {
+          'input': {'folderId': bookmarkFolderId ?? '', 'workId': workId},
+        });
+      case MyCollectionKind.recommended:
+        await Api.mutate(r'mutation AppDeleteMyRecommendedWork($input: DeleteRecommendedWorkInput!) { deleteRecommendedWork(input: $input) }', variables: {
+          'input': {'workId': workId},
+        });
+      case MyCollectionKind.views:
+        break;
+    }
+  }
 
   static Future<List<FolderSummary>> folders(int offset, int limit) async {
     final data = await Api.query(r'''
