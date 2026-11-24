@@ -1,10 +1,12 @@
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/design.dart';
+import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/core/nav.dart';
 import 'package:aipictors/v2/user/user_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 /// ミュート・ブロック・通報
 class UserActions {
@@ -78,6 +80,13 @@ class UserActions {
   }
 }
 
+/// X に投稿する画面の URL（Web のプロフィールの「マイページを共有」と同じ文とハッシュタグ）
+Uri userShareXUrl({required String login, required String name, required bool english}) {
+  final url = 'https://www.aipictors.com/users/$login';
+  final text = english ? "AI Illustration Posting Site Aipictors $name's My Page\n" : 'AIイラスト投稿サイトAipictors $nameのマイページ\n';
+  return Uri.https('x.com', '/intent/post', {'text': text, 'url': '$url\n', 'hashtags': 'Aipictors,AIIllust'});
+}
+
 /// ··· を押したときの選択肢。状態が変わったら true
 Future<bool?> showUserActionsSheet(BuildContext context, {required UserProfile user, required bool isSelf}) {
   final url = 'https://www.aipictors.com/users/${user.login}';
@@ -86,9 +95,11 @@ Future<bool?> showUserActionsSheet(BuildContext context, {required UserProfile u
     showDragHandle: true,
     useSafeArea: true,
     builder: (sheet) {
-      Widget item(IconData icon, String label, Future<bool> Function() run, {bool danger = false}) => ListTile(
+      Widget item(IconData icon, String label, Future<bool> Function() run, {bool danger = false, String? note}) => ListTile(
             leading: Icon(icon, color: danger ? Theme.of(sheet).colorScheme.error : null),
             title: Text(label, style: TextStyle(fontWeight: FontWeight.w700, color: danger ? Theme.of(sheet).colorScheme.error : null)),
+            // ミュートとブロックの違いを Web と同じ説明で添える
+            subtitle: note == null ? null : Text(note, style: TextStyle(fontSize: 12, height: 1.4, color: sheet.muted)),
             onTap: () async {
               Navigator.pop(sheet);
               await run();
@@ -100,6 +111,10 @@ Future<bool?> showUserActionsSheet(BuildContext context, {required UserProfile u
             await Share.share('${user.name}（@${user.login}）さんの作品 $url');
             return false;
           }),
+          item(Icons.alternate_email_rounded, tr('X で共有', 'Share on X'), () async {
+            await launchUrl(userShareXUrl(login: user.login, name: user.name, english: !L10n.isJa), mode: LaunchMode.externalApplication);
+            return false;
+          }),
           item(Icons.link_rounded, 'リンクをコピー', () async {
             await Clipboard.setData(ClipboardData(text: url));
             if (context.mounted) context.toast('リンクをコピーしました', icon: Icons.link_rounded);
@@ -107,8 +122,11 @@ Future<bool?> showUserActionsSheet(BuildContext context, {required UserProfile u
           }),
           if (!isSelf) ...[
             const Divider(height: 8),
-            item(user.isMuted ? Icons.volume_up_rounded : Icons.volume_off_rounded, user.isMuted ? 'ミュートを解除' : 'ミュートする', () => UserActions.setMuted(context, user, !user.isMuted)),
-            item(Icons.block_rounded, user.isBlocked ? 'ブロックを解除' : 'ブロックする', () => UserActions.setBlocked(context, user, !user.isBlocked), danger: !user.isBlocked),
+            item(user.isMuted ? Icons.volume_up_rounded : Icons.volume_off_rounded, user.isMuted ? 'ミュートを解除' : 'ミュートする', () => UserActions.setMuted(context, user, !user.isMuted),
+                note: tr('自分の画面だけで相手を見えにくくします。相手には通知されず、交流は制限しません', 'Hide the user only on your side. They are not notified and interactions are not restricted.')),
+            item(Icons.block_rounded, user.isBlocked ? 'ブロックを解除' : 'ブロックする', () => UserActions.setBlocked(context, user, !user.isBlocked),
+                danger: !user.isBlocked,
+                note: tr('お互いの表示や反応を強く制限します。いいね・コメントなどの交流もできなくなります', 'Stronger mutual restrictions. Likes, comments and other interactions are restricted.')),
             item(Icons.flag_rounded, '通報する', () => UserActions.report(context, user), danger: true),
           ],
           const SizedBox(height: 8),

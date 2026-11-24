@@ -14,10 +14,12 @@ class UserProfile {
     this.statusText,
     required this.headerImageUrl,
     required this.biography,
+    this.enBiography = '',
     required this.followCount,
     required this.followersCount,
     required this.worksCount,
     required this.receivedLikesCount,
+    this.receivedViewsCount = 0,
     required this.awardsCount,
     required this.albumCount,
     required this.isFollowee,
@@ -30,6 +32,8 @@ class UserProfile {
     required this.instagram,
     required this.github,
     required this.siteUrl,
+    this.mailAddress,
+    this.createdAt = 0,
     required this.passType,
     required this.counts,
     required this.featured,
@@ -49,10 +53,14 @@ class UserProfile {
   final String? statusText;
   final String? headerImageUrl;
   final String biography;
+
+  /// 英語の自己紹介（英語の表示で使う。空ならいつもの自己紹介）
+  final String enBiography;
   final int followCount;
   int followersCount;
   final int worksCount;
   final int receivedLikesCount;
+  final int receivedViewsCount;
   final int awardsCount;
   final int albumCount;
   bool isFollowee;
@@ -65,6 +73,12 @@ class UserProfile {
   final String? instagram;
   final String? github;
   final String? siteUrl;
+
+  /// 公開している連絡先のメールアドレス
+  final String? mailAddress;
+
+  /// 登録した日時（unix 秒）
+  final int createdAt;
   final String? passType;
 
   /// 種類ごとの作品数（全年齢・R15 のみ）
@@ -89,10 +103,12 @@ class UserProfile {
       statusText: clean(u.strOrNull('statusText')),
       headerImageUrl: clean(u.strOrNull('headerImageUrl')),
       biography: u.str('biography').trim(),
+      enBiography: u.str('enBiography').trim(),
       followCount: u.integer('followCount').clamp(0, 1 << 31),
       followersCount: u.integer('followersCount').clamp(0, 1 << 31),
       worksCount: u.integer('worksCount'),
       receivedLikesCount: u.integer('receivedLikesCount'),
+      receivedViewsCount: u.integer('receivedViewsCount'),
       awardsCount: u.integer('awardsCount'),
       albumCount: u.integer('albumCount'),
       isFollowee: u.boolean('isFollowee'),
@@ -105,6 +121,8 @@ class UserProfile {
       instagram: clean(u.strOrNull('instagramAccountId')),
       github: clean(u.strOrNull('githubAccountId')),
       siteUrl: clean(u.strOrNull('siteURL')),
+      mailAddress: clean(u.strOrNull('mailAddress')),
+      createdAt: u.integer('createdAt'),
       passType: u.obj('pass')?.strOrNull('type'),
       counts: {
         'WORK': data.integer('imageWorksCount'),
@@ -121,6 +139,16 @@ class UserProfile {
   }
 
   int get safeWorksCount => counts.values.fold(0, (a, b) => a + b);
+
+  /// 表示の言語に合わせた自己紹介（Web と同じく、英語の表示で英語の紹介があればそちら）
+  String biographyFor({required bool english}) => english && enBiography.isNotEmpty ? enBiography : biography;
+}
+
+/// 登録した年月（日本時間）。Web のプロフィールの「2023/04 開始」と同じ
+String startedMonthLabel(int createdAt) {
+  if (createdAt <= 0) return '';
+  final d = DateTime.fromMillisecondsSinceEpoch(createdAt * 1000, isUtc: true).add(const Duration(hours: 9));
+  return '${d.year}/${d.month.toString().padLeft(2, '0')}';
 }
 
 class AlbumSummary {
@@ -142,6 +170,7 @@ class UserRowData {
     required this.biography,
     required this.isFollowee,
     required this.works,
+    this.isFollower = false,
     this.isOfficial = false,
     this.isModerator = false,
     this.avatarFrame,
@@ -155,6 +184,9 @@ class UserRowData {
   final String biography;
   bool isFollowee;
   final List<WorkSummary> works;
+
+  /// 相手が自分をフォローしているか（相互・フォローバックの表示）
+  final bool isFollower;
   final bool isOfficial;
   final bool isModerator;
   final AvatarFrame? avatarFrame;
@@ -170,6 +202,7 @@ class UserRowData {
         biography: u.str('biography').replaceAll(RegExp(r'\s+'), ' ').trim(),
         isFollowee: u.boolean('isFollowee'),
         works: WorkSummary.listFrom(u.list('works')),
+        isFollower: u.boolean('isFollower'),
         isOfficial: u.boolean('isOfficial'),
         isModerator: u.boolean('isModerator'),
         avatarFrame: AvatarFrame.fromJson(u.obj('avatarFrame')),
@@ -206,6 +239,7 @@ class UserApi {
     $userSummaryFields
     biography
     isFollowee
+    isFollower
     finalPostedAt
 ''';
 
@@ -220,6 +254,10 @@ query User(\$userId: ID!) {
     statusText
     headerImageUrl
     biography
+    enBiography
+    createdAt
+    receivedViewsCount
+    mailAddress
     isModerator
     isOfficial
     isFollowee
@@ -485,6 +523,26 @@ mutation ReportUser($input: ReportUserInput!) {
     });
   }
 
+  /// フォローした直後に出すおすすめ（Web の FollowSuggestions と同じ。この人をフォローしている人がよくフォローしている人）
+  static Future<List<SuggestedUser>> suggestedFollowUsers(String userId, {int limit = 6}) async {
+    final data = await Api.query(r'''
+query SuggestedFollowUsers($userId: ID, $limit: Int) {
+  suggestedFollowUsers(userId: $userId, limit: $limit) {
+    id
+    login
+    name
+    iconUrl
+    isFollowee
+    isFollower
+    works(offset: 0, limit: 3, where: { ratings: [G] }) {
+      id
+      smallThumbnailImageURL
+    }
+  }
+}''', variables: {'userId': userId, 'limit': limit});
+    return data.list('suggestedFollowUsers').map(SuggestedUser.fromJson).where((u) => u.id != userId).toList();
+  }
+
   static String? _viewerId;
   static String? _viewerUid;
 
@@ -526,4 +584,25 @@ enum FolloweeOrder {
 
   /// URL の ?order= から読む（知らない値は最近フォローした順）
   static FolloweeOrder fromQuery(String? value) => value == 'posted' ? FolloweeOrder.posted : FolloweeOrder.followed;
+}
+
+/// フォローのおすすめの 1 人
+class SuggestedUser {
+  SuggestedUser({required this.id, required this.name, required this.iconUrl, required this.isFollowee, required this.isFollower, required this.thumbnails});
+
+  final String id;
+  final String name;
+  final String? iconUrl;
+  bool isFollowee;
+  final bool isFollower;
+  final List<String> thumbnails;
+
+  factory SuggestedUser.fromJson(Map<String, dynamic> u) => SuggestedUser(
+        id: u.str('id'),
+        name: u.str('name').isEmpty ? u.str('login') : u.str('name'),
+        iconUrl: u.strOrNull('iconUrl'),
+        isFollowee: u.boolean('isFollowee'),
+        isFollower: u.boolean('isFollower'),
+        thumbnails: u.list('works').map((w) => w.strOrNull('smallThumbnailImageURL')).whereType<String>().toList(),
+      );
 }

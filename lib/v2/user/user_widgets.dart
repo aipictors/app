@@ -16,6 +16,7 @@ class FollowButton extends StatefulWidget {
     super.key,
     required this.userId,
     required this.isFollowing,
+    this.isFollower = false,
     this.onChanged,
     this.compact = false,
     this.expand = false,
@@ -23,6 +24,9 @@ class FollowButton extends StatefulWidget {
 
   final String userId;
   final bool isFollowing;
+
+  /// 相手にフォローされているときは「フォローバック」と出す（Web と同じ）
+  final bool isFollower;
   final ValueChanged<bool>? onChanged;
   final bool compact;
   final bool expand;
@@ -105,7 +109,11 @@ class _FollowButtonState extends State<FollowButton> {
           Icon(_following ? Icons.check_rounded : Icons.person_add_alt_1_rounded, size: widget.compact ? 16 : 18, color: _following ? context.cs.onSurface : Colors.white),
           const SizedBox(width: 6),
           Text(
-            _following ? tr('フォロー中', 'Following') : tr('フォローする', 'Follow'),
+            _following
+                ? tr('フォロー中', 'Following')
+                : widget.isFollower
+                    ? tr('フォローバック', 'Follow back')
+                    : tr('フォローする', 'Follow'),
             style: TextStyle(fontWeight: FontWeight.w800, fontSize: widget.compact ? 13 : 15, color: _following ? context.cs.onSurface : Colors.white),
           ),
         ],
@@ -173,7 +181,14 @@ class UserRowTile extends StatelessWidget {
               const SizedBox(width: 12),
               Expanded(
                 child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                  UserNameRow(name: user.name, isOfficial: user.isOfficial, isModerator: user.isModerator, style: context.tt.titleSmall?.copyWith(fontWeight: FontWeight.w800)),
+                  Row(children: [
+                    Flexible(child: UserNameRow(name: user.name, isOfficial: user.isOfficial, isModerator: user.isModerator, style: context.tt.titleSmall?.copyWith(fontWeight: FontWeight.w800))),
+                    // お互いにフォローしているとき（Web の一覧の「相互」）
+                    if (!isSelf && user.isFollowee && user.isFollower) ...[
+                      const SizedBox(width: 6),
+                      _MutualLabel(),
+                    ],
+                  ]),
                   if (handle != null || posted != null) ...[
                     const SizedBox(height: 2),
                     // ID が長くても最終投稿は切らない
@@ -186,12 +201,12 @@ class UserRowTile extends StatelessWidget {
               ),
               if (!isSelf) ...[
                 const SizedBox(width: 8),
-                FollowButton(userId: user.id, isFollowing: user.isFollowee, compact: true, onChanged: (v) => user.isFollowee = v),
+                _RowFollowButton(user: user),
               ],
             ]),
             if (user.biography.isNotEmpty) ...[
               const SizedBox(height: 8),
-              Text(user.biography, maxLines: 1, overflow: TextOverflow.ellipsis, style: context.tt.bodySmall?.copyWith(color: context.cs.onSurface.withValues(alpha: 0.78), height: 1.4)),
+              Text(user.biography, maxLines: 2, overflow: TextOverflow.ellipsis, style: context.tt.bodySmall?.copyWith(color: context.cs.onSurface.withValues(alpha: 0.78), height: 1.4)),
             ],
             if (user.works.isNotEmpty) ...[
               const SizedBox(height: 10),
@@ -215,6 +230,35 @@ class UserRowTile extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+/// 行のフォローボタン（フォローされていれば「フォローバック」）
+class _RowFollowButton extends StatelessWidget {
+  const _RowFollowButton({required this.user});
+
+  final UserRowData user;
+
+  @override
+  Widget build(BuildContext context) {
+    return FollowButton(
+      userId: user.id,
+      isFollowing: user.isFollowee,
+      isFollower: user.isFollower,
+      compact: true,
+      onChanged: (v) => user.isFollowee = v,
+    );
+  }
+}
+
+class _MutualLabel extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 1),
+      decoration: BoxDecoration(color: context.skeleton, borderRadius: Ds.br(6)),
+      child: Text(tr('相互', 'Mutual'), style: context.tt.labelSmall?.copyWith(color: context.muted, fontWeight: FontWeight.w700, fontSize: 10)),
     );
   }
 }
@@ -317,6 +361,121 @@ class SliverPagedUsers extends StatelessWidget {
           const SliverToBoxAdapter(child: SizedBox(height: 60)),
         ]);
       },
+    );
+  }
+}
+
+/// フォローした直後に出す「こちらもおすすめ」（Web の FollowSuggestions と同じ。作品 3 枚とその場でフォロー）
+class FollowSuggestions extends StatefulWidget {
+  const FollowSuggestions({super.key, required this.userId, required this.userName, this.onClose});
+
+  final String userId;
+  final String userName;
+  final VoidCallback? onClose;
+
+  @override
+  State<FollowSuggestions> createState() => _FollowSuggestionsState();
+}
+
+class _FollowSuggestionsState extends State<FollowSuggestions> {
+  List<SuggestedUser>? _users;
+
+  @override
+  void initState() {
+    super.initState();
+    UserApi.suggestedFollowUsers(widget.userId).then((u) {
+      if (mounted) setState(() => _users = u);
+    }).catchError((_) {
+      if (mounted) setState(() => _users = const []);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final users = _users;
+    return AnimatedSize(
+      duration: Ds.normal,
+      curve: Ds.curve,
+      alignment: Alignment.topCenter,
+      child: users == null || users.isEmpty
+          ? const SizedBox(width: double.infinity)
+          : Container(
+              margin: const EdgeInsets.only(top: 12),
+              padding: const EdgeInsets.fromLTRB(12, 10, 4, 12),
+              decoration: BoxDecoration(color: context.surfaceCard, borderRadius: Ds.br(18), border: Border.all(color: context.hairline)),
+              child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                Row(children: [
+                  Expanded(
+                    child: Text(
+                      tr('${widget.userName}さんが好きな人はこちらもフォローしています', 'People who follow ${widget.userName} also follow'),
+                      style: context.tt.labelLarge?.copyWith(fontWeight: FontWeight.w800),
+                    ),
+                  ),
+                  if (widget.onClose != null)
+                    IconButton(
+                      visualDensity: VisualDensity.compact,
+                      tooltip: tr('閉じる', 'Close'),
+                      onPressed: widget.onClose,
+                      icon: Icon(Icons.close_rounded, size: 18, color: context.muted),
+                    ),
+                ]),
+                const SizedBox(height: 6),
+                SizedBox(
+                  height: 170,
+                  child: ListView.separated(
+                    scrollDirection: Axis.horizontal,
+                    padding: const EdgeInsets.only(right: 8),
+                    itemCount: users.length,
+                    separatorBuilder: (_, __) => const SizedBox(width: 8),
+                    itemBuilder: (context, i) => _SuggestedCard(user: users[i]),
+                  ),
+                ),
+              ]),
+            ),
+    );
+  }
+}
+
+class _SuggestedCard extends StatelessWidget {
+  const _SuggestedCard({required this.user});
+
+  final SuggestedUser user;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 144,
+      padding: const EdgeInsets.all(8),
+      decoration: BoxDecoration(color: Theme.of(context).scaffoldBackgroundColor, borderRadius: Ds.br(14), border: Border.all(color: context.hairline)),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Pressable(
+          onTap: () => Nav.user(context, user.id),
+          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Row(children: [
+              UserAvatar(url: user.iconUrl, size: 28),
+              const SizedBox(width: 6),
+              Expanded(child: Text(user.name, maxLines: 1, overflow: TextOverflow.ellipsis, style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 12))),
+            ]),
+            const SizedBox(height: 8),
+            ClipRRect(
+              borderRadius: Ds.br(8),
+              child: Row(children: [
+                for (var i = 0; i < 3; i++) ...[
+                  if (i > 0) const SizedBox(width: 2),
+                  Expanded(
+                    child: AspectRatio(
+                      aspectRatio: 1,
+                      child: i < user.thumbnails.length ? AppImage(user.thumbnails[i], memCacheWidth: 160) : ColoredBox(color: context.skeleton),
+                    ),
+                  ),
+                ],
+              ]),
+            ),
+          ]),
+        ),
+        const Spacer(),
+        FollowButton(userId: user.id, isFollowing: user.isFollowee, isFollower: user.isFollower, compact: true, expand: true, onChanged: (v) => user.isFollowee = v),
+      ]),
     );
   }
 }

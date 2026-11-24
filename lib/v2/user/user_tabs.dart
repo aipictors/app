@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/design.dart';
 import 'package:aipictors/v2/core/nav.dart';
@@ -8,6 +10,7 @@ import 'package:aipictors/v2/support/support_ranking_screen.dart';
 import 'package:aipictors/v2/widgets/common.dart';
 import 'package:aipictors/v2/widgets/user_avatar.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:go_router/go_router.dart';
 
 class StickerCell {
@@ -44,9 +47,62 @@ class EventCell {
   final int entryCount;
 }
 
+/// 公開しているモデル・LoRA の 1 件
+class ModelCell {
+  const ModelCell({required this.id, required this.name, required this.kind, required this.baseModel, required this.thumbnailUrl, required this.useCount});
+
+  final String id;
+  final String name;
+  final String kind;
+  final String baseModel;
+  final String? thumbnailUrl;
+  final int useCount;
+
+  /// Web の /api/user-models の 1 件から作る。R18 のものは null
+  static ModelCell? fromJson(Map<String, dynamic> m) {
+    final rating = m.str('rating');
+    if (rating == 'R18' || rating == 'R18G') return null;
+    return ModelCell(
+      id: m.str('id'),
+      name: m.str('name'),
+      kind: m.str('kind'),
+      baseModel: m.str('baseModel'),
+      thumbnailUrl: m.strOrNull('thumbnailUrl'),
+      useCount: m.integer('useCount'),
+    );
+  }
+}
+
 /// ユーザーのページの追加のタブで読むもの
 class UserTabsApi {
   UserTabsApi._();
+
+  /// 公開しているモデル・LoRA（Web の /users/:user/models と同じ公開 API。新しい順）
+  static Future<List<ModelCell>> models(String userId, int offset, int limit) async {
+    final uri = Uri.parse('https://www.aipictors.com/api/user-models').replace(queryParameters: {
+      'userId': userId,
+      'sort': 'new',
+      'ratings': 'G,R15',
+      'offset': '$offset',
+      'limit': '${limit.clamp(1, 60)}',
+    });
+    final res = await http.get(uri).timeout(const Duration(seconds: 20));
+    final json = res.statusCode == 200 ? jsonDecode(utf8.decode(res.bodyBytes)) : null;
+    final data = json is Map ? json['data'] : null;
+    if (data is! Map) throw const ApiException('モデルを読み込めませんでした');
+    final models = data['models'];
+    if (models is! List) return const [];
+    return models.whereType<Map<String, dynamic>>().map(ModelCell.fromJson).whereType<ModelCell>().toList();
+  }
+
+  /// 公開しているモデルがあるか（タブを出すかどうか）。失敗したら false
+  static Future<bool> hasModels(String userId) async {
+    try {
+      return (await models(userId, 0, 1)).isNotEmpty;
+    } catch (_) {
+      return false;
+    }
+  }
 
   static Future<List<StickerCell>> stickers(String userId, int offset, int limit) async {
     final data = await Api.query(r'''
@@ -176,6 +232,53 @@ class UserFoldersTab extends StatelessWidget {
           itemBuilder: (context, i) {
             _more(c, i);
             return FolderTile(folder: c.items[i]);
+          },
+        ),
+      ),
+    );
+  }
+}
+
+/// 公開しているモデル・LoRA（Web の /users/:user/models）
+class UserModelsTab extends StatelessWidget {
+  const UserModelsTab({super.key, required this.userId});
+
+  final String userId;
+
+  @override
+  Widget build(BuildContext context) {
+    return _PagedTab<ModelCell>(
+      fetch: (o, l) => UserTabsApi.models(userId, o, l),
+      idOf: (m) => m.id,
+      emptyTitle: 'モデルはありません',
+      emptyIcon: Icons.view_in_ar_outlined,
+      builder: (context, c) => SliverPadding(
+        padding: const EdgeInsets.fromLTRB(Ds.s16, Ds.s16, Ds.s16, 80),
+        sliver: SliverGrid.builder(
+          gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 220, mainAxisSpacing: 14, crossAxisSpacing: 12, childAspectRatio: 0.72),
+          itemCount: c.items.length,
+          itemBuilder: (context, i) {
+            _more(c, i);
+            final m = c.items[i];
+            return Pressable(
+              onTap: () => context.push('/models/u/${m.id}'),
+              child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                Expanded(
+                  child: Stack(fit: StackFit.expand, children: [
+                    AppImage(m.thumbnailUrl, radius: 14, memCacheWidth: 500),
+                    if (m.kind.isNotEmpty) Positioned(left: 6, top: 6, child: Badge2(m.kind == 'LORA' ? 'LoRA' : m.kind)),
+                  ]),
+                ),
+                const SizedBox(height: 6),
+                Text(m.name, maxLines: 1, overflow: TextOverflow.ellipsis, style: context.tt.bodyMedium?.copyWith(fontWeight: FontWeight.w800)),
+                Text(
+                  [if (m.baseModel.isNotEmpty) m.baseModel, if (m.useCount > 0) '${compactCount(m.useCount)}回使用'].join('・'),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(color: context.muted, fontSize: 12),
+                ),
+              ]),
+            );
           },
         ),
       ),
