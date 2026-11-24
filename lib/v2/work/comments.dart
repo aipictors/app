@@ -835,7 +835,7 @@ mutation AppComment(\$input: CreateWorkCommentInput!) { createWorkComment(input:
               textInputAction: TextInputAction.newline,
               decoration: InputDecoration(
                 counterText: '',
-                hintText: _sensitive ? tr('隠し付きで送ります', 'Sending as hidden') : (widget.replyTo != null ? tr('返信を書く', 'Write a reply') : tr('${widget.ownerName}さんにコメント', 'Comment to ${widget.ownerName}')),
+                hintText: _sensitive ? tr('隠し付きで送ります', 'Sending as hidden') : (widget.replyTo != null ? tr('返信を書く', 'Write a reply') : tr('コメントを書く', 'Write a comment')),
                 filled: true,
                 fillColor: context.skeleton,
                 isDense: true,
