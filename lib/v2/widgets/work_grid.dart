@@ -9,6 +9,7 @@ import 'package:aipictors/v2/core/paged.dart';
 import 'package:aipictors/v2/widgets/common.dart';
 import 'package:aipictors/v2/widgets/user_avatar.dart';
 import 'package:aipictors/v2/widgets/official_badge.dart';
+import 'package:aipictors/v2/work/work_promotion.dart' show WorkPromotionMark;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -60,7 +61,9 @@ class _WorkCardState extends State<WorkCard> {
                 Positioned(
                   left: 6,
                   top: 6,
-                  child: Wrap(spacing: 4, children: [
+                  child: Wrap(spacing: 4, crossAxisAlignment: WrapCrossAlignment.center, children: [
+                    // 宣伝作品の「PR」（Web の作品一覧のサムネイルの WorkPromotionMark。左上）
+                    if (work.isPromotion) const WorkPromotionMark(fontSize: 11),
                     if (work.rating == 'R15') const Badge2('R15', color: Color(0xCCE2A21B)),
                     if (work.isVideo) Badge2(tr('動画', 'Video'), icon: Icons.play_arrow_rounded),
                     if (work.isNovel) Badge2(tr('小説', 'Novel'), icon: Icons.menu_book_rounded),
@@ -391,7 +394,10 @@ class WorkStrip extends StatelessWidget {
               onTap: () => Nav.work(context, w.id),
               child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 Expanded(
-                  child: AppImage(w.imageUrl, radius: 14, memCacheWidth: 450, width: double.infinity),
+                  child: Stack(fit: StackFit.expand, children: [
+                    AppImage(w.imageUrl, radius: 14, memCacheWidth: 450, width: double.infinity),
+                    if (w.isPromotion) const Positioned(left: 6, top: 6, child: WorkPromotionMark()),
+                  ]),
                 ),
                 const SizedBox(height: 6),
                 Text(w.title, maxLines: 1, overflow: TextOverflow.ellipsis, style: context.tt.bodySmall?.copyWith(fontWeight: FontWeight.w700)),

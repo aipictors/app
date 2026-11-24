@@ -22,6 +22,7 @@ const workCardFields = '''
   subWorksCount
   isGeneration
   promptAccessType
+  isPromotion
   largeThumbnailImageURL
   largeThumbnailImageWidth
   largeThumbnailImageHeight
@@ -140,6 +141,7 @@ class WorkSummary {
     required this.height,
     required this.user,
     this.isPromptPublic = false,
+    this.isPromotion = false,
   });
 
   final String id;
@@ -162,6 +164,9 @@ class WorkSummary {
 
   /// プロンプト公開（Web の作品カードの「P」）
   final bool isPromptPublic;
+
+  /// 宣伝作品（Web の一覧のサムネイルの「PR」。WorkNode.isPromotion）
+  final bool isPromotion;
 
   double get aspect {
     if (width <= 0 || height <= 0) return 1;
@@ -191,6 +196,7 @@ class WorkSummary {
       height: large != null ? j.integer('largeThumbnailImageHeight') : j.integer('smallThumbnailImageHeight'),
       user: j.obj('user') != null ? UserSummary.fromJson(j.obj('user')!) : UserSummary.empty,
       isPromptPublic: j.str('promptAccessType') == 'PUBLIC',
+      isPromotion: j.boolean('isPromotion'),
     );
   }
 
