@@ -1,5 +1,6 @@
 import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/core/design.dart';
+import 'package:aipictors/v2/core/grid_layout.dart';
 import 'package:aipictors/v2/core/list_like_count.dart';
 import 'package:aipictors/v2/core/models.dart';
 import 'package:aipictors/v2/core/nav.dart';
@@ -26,39 +27,44 @@ class WorkCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ClipRRect(
-            borderRadius: Ds.br(14),
-            child: AspectRatio(
-              aspectRatio: work.aspect,
-              child: Stack(
-                fit: StackFit.expand,
-                children: [
-                  AppImage(work.imageUrl, memCacheWidth: 600),
-                  Positioned(
-                    left: 6,
-                    top: 6,
-                    child: Wrap(spacing: 4, children: [
-                      if (work.rating == 'R15') const Badge2('R15', color: Color(0xCCE2A21B)),
-                      if (work.isVideo) Badge2(tr('動画', 'Video'), icon: Icons.play_arrow_rounded),
-                      if (work.isNovel) Badge2(tr('小説', 'Novel'), icon: Icons.menu_book_rounded),
-                    ]),
-                  ),
-                  if (work.subWorksCount > 0)
-                    Positioned(
-                      right: 6,
-                      top: 6,
-                      child: Badge2('${work.subWorksCount + 1}', icon: Icons.collections_rounded),
-                    ),
+          ValueListenableBuilder<bool>(
+            valueListenable: GridLayout.square,
+            builder: (context, square, child) => ClipRRect(
+              borderRadius: Ds.br(14),
+              child: AspectRatio(
+                // 正方形にそろえる設定のときは 1:1 で切り取る（ヘッダーの表示切り替え）
+                aspectRatio: square ? 1 : work.aspect,
+                child: child,
+              ),
+            ),
+            child: Stack(
+              fit: StackFit.expand,
+              children: [
+                AppImage(work.imageUrl, memCacheWidth: 600),
+                Positioned(
+                  left: 6,
+                  top: 6,
+                  child: Wrap(spacing: 4, children: [
+                    if (work.rating == 'R15') const Badge2('R15', color: Color(0xCCE2A21B)),
+                    if (work.isVideo) Badge2(tr('動画', 'Video'), icon: Icons.play_arrow_rounded),
+                    if (work.isNovel) Badge2(tr('小説', 'Novel'), icon: Icons.menu_book_rounded),
+                  ]),
+                ),
+                if (work.subWorksCount > 0)
                   Positioned(
                     right: 6,
-                    bottom: 6,
-                    child: ValueListenableBuilder<bool>(
-                      valueListenable: ListLikeCount.hidden,
-                      builder: (context, hidden, _) => hidden ? const SizedBox.shrink() : _LikePill(work: work),
-                    ),
+                    top: 6,
+                    child: Badge2('${work.subWorksCount + 1}', icon: Icons.collections_rounded),
                   ),
-                ],
-              ),
+                Positioned(
+                  right: 6,
+                  bottom: 6,
+                  child: ValueListenableBuilder<bool>(
+                    valueListenable: ListLikeCount.hidden,
+                    builder: (context, hidden, _) => hidden ? const SizedBox.shrink() : _LikePill(work: work),
+                  ),
+                ),
+              ],
             ),
           ),
           const SizedBox(height: 6),

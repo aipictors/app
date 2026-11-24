@@ -571,6 +571,9 @@ class _CommentComposerState extends State<CommentComposer> {
   final _text = TextEditingController();
   bool _sending = false;
   Map<String, dynamic>? _sticker;
+  bool _stickerBarOpen = false;
+  bool _recentLoading = false;
+  List<Map<String, dynamic>>? _recentStickers;
   int _supportFree = 0;
   int _supportPremium = 0;
   bool _supportAnonymous = false;
@@ -619,6 +622,49 @@ class _CommentComposerState extends State<CommentComposer> {
       builder: (_) => const _StickerPicker(),
     );
     if (picked != null) setState(() => _sticker = picked);
+  }
+
+  /// スタンプのボタン: 直前に使ったスタンプの列をその場で開く（選んでから送るまで 1 回で済む）
+  Future<void> _toggleStickerBar() async {
+    if (!Nav.requireLogin(context)) return;
+    setState(() => _stickerBarOpen = !_stickerBarOpen);
+    if (_stickerBarOpen && _recentStickers == null) await _loadRecentStickers();
+  }
+
+  Future<void> _loadRecentStickers() async {
+    setState(() => _recentLoading = true);
+    try {
+      final data = await Api.query(r'''
+query AppComposerRecentStickers($limit: Int!) {
+  viewer { id defaultStickers { id title imageUrl } userStickers(offset: 0, limit: $limit, orderBy: DATE_USED) { id title imageUrl usedAt } }
+}''', variables: {'limit': 24});
+      final list = data.obj('viewer')?.list('userStickers') ?? <Map<String, dynamic>>[];
+      final defaults = data.obj('viewer')?.list('defaultStickers') ?? <Map<String, dynamic>>[];
+      if (!mounted) return;
+      setState(() {
+        _recentStickers = withDefaultStickersFirst(defaults, list.where((s) => s.integer('usedAt') > 0)).take(12).toList();
+        _recentLoading = false;
+      });
+    } on ApiException {
+      if (!mounted) return;
+      // 読めなくても、スタンプ一覧から選べるようにする
+      setState(() {
+        _recentStickers = const [];
+        _recentLoading = false;
+      });
+    }
+  }
+
+  /// 列から選んだスタンプはそのまま送る（書いている文章があれば一緒に）
+  Future<void> _sendSticker(Map<String, dynamic> sticker) async {
+    if (_sending) return;
+    setState(() {
+      _sticker = sticker;
+      _stickerBarOpen = false;
+      final rest = (_recentStickers ?? const <Map<String, dynamic>>[]).where((s) => s['id'] != sticker['id']);
+      _recentStickers = [sticker, ...rest];
+    });
+    await _send();
   }
 
   Future<void> _pickSupport() async {
@@ -753,8 +799,21 @@ mutation AppComment(\$input: CreateWorkCommentInput!) { createWorkComment(input:
                 ),
             ]),
           ),
+        if (_stickerBarOpen) _StickerBar(
+          stickers: _recentStickers,
+          isLoading: _recentLoading,
+          onPick: _sendSticker,
+          onOpenAll: () {
+            setState(() => _stickerBarOpen = false);
+            _pickSticker();
+          },
+        ),
         Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
-          IconButton(tooltip: tr('スタンプ', 'Stickers'), onPressed: _pickSticker, icon: const Icon(Icons.emoji_emotions_outlined)),
+          IconButton(
+            tooltip: tr('スタンプ', 'Stickers'),
+            onPressed: _toggleStickerBar,
+            icon: Icon(_stickerBarOpen ? Icons.emoji_emotions_rounded : Icons.emoji_emotions_outlined, color: _stickerBarOpen ? context.cs.primary : null),
+          ),
           IconButton(
             tooltip: tr('隠し付き', 'Hidden'),
             onPressed: () => setState(() => _sensitive = !_sensitive),
@@ -798,6 +857,58 @@ mutation AppComment(\$input: CreateWorkCommentInput!) { createWorkComment(input:
           ),
         ]),
       ]),
+    );
+  }
+}
+
+/// 入力欄のすぐ上に出す、直前に使ったスタンプの列（押すとそのまま送る）
+class _StickerBar extends StatelessWidget {
+  const _StickerBar({required this.stickers, required this.isLoading, required this.onPick, required this.onOpenAll});
+
+  final List<Map<String, dynamic>>? stickers;
+  final bool isLoading;
+  final void Function(Map<String, dynamic> sticker) onPick;
+  final VoidCallback onOpenAll;
+
+  @override
+  Widget build(BuildContext context) {
+    final items = stickers ?? const <Map<String, dynamic>>[];
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 6),
+      child: SizedBox(
+        height: 60,
+        child: Row(children: [
+          Expanded(
+            child: isLoading && items.isEmpty
+                ? const Center(child: SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2)))
+                : items.isEmpty
+                    ? Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(tr('最近使ったスタンプはありません', 'No recent stickers'), style: TextStyle(color: context.muted, fontSize: 12)),
+                      )
+                    : ListView.separated(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: items.length,
+                        separatorBuilder: (_, __) => const SizedBox(width: 6),
+                        itemBuilder: (context, i) => Pressable(
+                          onTap: () => onPick(items[i]),
+                          child: Container(
+                            width: 56,
+                            decoration: BoxDecoration(color: context.skeleton, borderRadius: Ds.br(12)),
+                            padding: const EdgeInsets.all(5),
+                            child: AppImage(items[i]['imageUrl']?.toString(), fit: BoxFit.contain),
+                          ),
+                        ),
+                      ),
+          ),
+          const SizedBox(width: 4),
+          IconButton(
+            tooltip: tr('すべてのスタンプ', 'All stickers'),
+            onPressed: onOpenAll,
+            icon: const Icon(Icons.more_horiz_rounded),
+          ),
+        ]),
+      ),
     );
   }
 }

@@ -5,6 +5,7 @@ import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/content_translate.dart';
 import 'package:aipictors/v2/core/debug_boot.dart';
 import 'package:aipictors/v2/core/design.dart';
+import 'package:aipictors/v2/core/grid_layout.dart';
 import 'package:aipictors/v2/core/list_like_count.dart';
 import 'package:aipictors/v2/core/models.dart';
 import 'package:aipictors/v2/core/nav.dart';
@@ -143,6 +144,14 @@ class _HomeHeader extends StatelessWidget {
             child: const Text('Aipictors', style: TextStyle(fontSize: 22, fontWeight: FontWeight.w900, color: Colors.white, letterSpacing: -0.5)),
           ),
           const Spacer(),
+          ValueListenableBuilder<bool>(
+            valueListenable: GridLayout.square,
+            builder: (context, square, _) => IconButton(
+              tooltip: square ? tr('元の比率で並べる', 'Show original ratio') : tr('正方形にそろえる', 'Align as squares'),
+              onPressed: () => GridLayout.toggle(),
+              icon: Icon(square ? Icons.dashboard_rounded : Icons.grid_view_rounded, size: 24),
+            ),
+          ),
           IconButton(
             tooltip: tr('検索', 'Search'),
             onPressed: onSearch,

@@ -2,6 +2,7 @@ import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/design.dart';
 import 'package:aipictors/v2/core/l10n.dart';
+import 'package:aipictors/v2/core/grid_layout.dart';
 import 'package:aipictors/v2/core/list_like_count.dart';
 import 'package:aipictors/v2/core/models.dart';
 import 'package:aipictors/v2/core/nav.dart';
@@ -581,6 +582,15 @@ class ColorSettingsScreen extends ConsumerWidget {
                 subtitle: 'オフにすると、新着や検索などの一覧で ♡ と数を表示しません。作品を開いた画面では表示されます。この端末だけの設定です。',
                 value: !hidden,
                 onChanged: (v) => ListLikeCount.setHidden(!v),
+              ),
+            ),
+            ValueListenableBuilder<bool>(
+              valueListenable: GridLayout.square,
+              builder: (context, square, _) => SettingsSwitch(
+                label: '作品一覧の画像を正方形にそろえる',
+                subtitle: 'オンにすると、フォロー新着などの一覧で画像を 1:1 に切り取ってそろえます。ホームの右上のボタンでも切り替えられます。この端末だけの設定です。',
+                value: square,
+                onChanged: (v) => GridLayout.setSquare(v),
               ),
             ),
           ]),

@@ -1150,9 +1150,9 @@ class _CommentsPreview extends StatelessWidget {
           if (total > 0) TextButton(onPressed: onOpen, child: Text(tr('すべて見る', 'See all'))),
         ]),
       ),
-      for (final c in comments) CommentTile(key: ValueKey(c.id), comment: c, viewerId: viewerId),
+      // 入力欄はコメントの上（下にあると、まずほかの人のコメントを通り過ぎることになる）
       if (editable) ...[
-        const SizedBox(height: 10),
+        const SizedBox(height: 6),
         Pressable(
           scale: 0.99,
           onTap: onCompose,
@@ -1171,7 +1171,9 @@ class _CommentsPreview extends StatelessWidget {
             ]),
           ),
         ),
+        const SizedBox(height: 10),
       ],
+      for (final c in comments) CommentTile(key: ValueKey(c.id), comment: c, viewerId: viewerId),
     ]);
   }
 }

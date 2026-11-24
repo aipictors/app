@@ -8,6 +8,7 @@ import 'package:aipictors/repositories/survey_repository.dart';
 import 'package:aipictors/repositories/translation_repository.dart';
 import 'package:aipictors/utils/to_locale.dart';
 import 'package:aipictors/v2/core/debug_boot.dart';
+import 'package:aipictors/v2/core/grid_layout.dart';
 import 'package:aipictors/v2/core/list_like_count.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -68,6 +69,9 @@ void main() async {
 
   // 一覧のいいね数の設定を読む
   await ListLikeCount.load();
+
+  // 一覧の並べ方（正方形にそろえるか）の設定を読む
+  await GridLayout.load();
 
   // 開発用のログインなど（デバッグビルドだけ）
   await DebugBoot.run();
