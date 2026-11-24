@@ -29,6 +29,8 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
   Uint8List? _header;
   List<PickupWork> _pickups = const [];
 
+  /// 枠を選び直したとき（その場で保存されるので、見出しの見本だけ変える）
+
   final _name = TextEditingController();
   final _bio = TextEditingController();
   final _enBio = TextEditingController();

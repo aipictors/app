@@ -1,4 +1,7 @@
+import 'package:aipictors/v2/settings/account_delete_screen.dart';
+import 'package:aipictors/v2/settings/coins_screen.dart';
 import 'package:aipictors/v2/settings/creator_rewards_screen.dart';
+import 'package:aipictors/v2/settings/followed_tags_screen.dart';
 import 'package:aipictors/v2/settings/profile_edit_screen.dart';
 import 'package:aipictors/v2/settings/settings_home_screen.dart';
 import 'package:aipictors/v2/settings/settings_screens.dart';
@@ -12,6 +15,7 @@ final List<RouteBase> settingsRoutes = [
   _route('/settings/account', (_, __) => const AccountSettingsScreen()),
   _route('/settings/account/login', (_, __) => const AccountLoginScreen()),
   _route('/settings/account/password', (_, __) => const AccountPasswordScreen2()),
+  _route('/settings/account/withdrawal', (_, __) => const AccountDeleteScreen2()),
   _route('/settings/notification', (_, __) => const NotificationSettingsScreen()),
   _route('/settings/restriction', (_, __) => const RestrictionSettingsScreen()),
   _route('/settings/color', (_, __) => const ColorSettingsScreen()),
@@ -20,12 +24,14 @@ final List<RouteBase> settingsRoutes = [
   _route('/settings/muted/users', (_, __) => const ManagedUsersScreen(blocked: false)),
   _route('/settings/blocked/users', (_, __) => const ManagedUsersScreen(blocked: true)),
   _route('/settings/muted/tags', (_, __) => const ManagedTagsScreen(followed: false)),
-  _route('/settings/followed/tags', (_, __) => const ManagedTagsScreen(followed: true)),
+  _route('/settings/followed/tags', (_, __) => const FollowedTagsScreen()),
   _route('/settings/support-received', (_, __) => const SupportReceivedScreen()),
+  _route('/settings/points', (_, state) => CoinsScreen(initialTab: state.uri.queryParameters['tab'])),
   _route('/settings/creator-rewards', (_, __) => const CreatorRewardsScreen()),
   // 旧画面の置き換え。/more（旧「その他」）は設定トップにまとめた
   GoRoute(path: '/more', redirect: (_, __) => '/settings'),
   _route('/account', (_, __) => const AccountSettingsScreen()),
+  _route('/account/delete', (_, __) => const AccountDeleteScreen2()),
   _route('/config/profile', (_, __) => const ProfileEditScreen()),
   _route('/config/notifications', (_, __) => const NotificationSettingsScreen()),
   _route('/config/muted_users', (_, __) => const ManagedUsersScreen(blocked: false)),

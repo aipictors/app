@@ -9,6 +9,7 @@ import 'package:aipictors/v2/core/nav.dart';
 import 'package:aipictors/v2/core/paged.dart';
 import 'package:aipictors/v2/settings/settings_api.dart';
 import 'package:aipictors/v2/settings/settings_widgets.dart';
+import 'package:aipictors/v2/settings/sns_link_section.dart';
 import 'package:aipictors/v2/settings/sticker_settings_list.dart';
 import 'package:aipictors/v2/user/user_api.dart';
 import 'package:aipictors/v2/widgets/common.dart';
@@ -49,23 +50,25 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('アカウント設定', style: TextStyle(fontWeight: FontWeight.w800))),
+      appBar: AppBar(title: Text(tr('アカウント設定', 'Account settings'), style: const TextStyle(fontWeight: FontWeight.w800))),
       body: ContentWidth(
-        child: ListView(children: [
+        child: ListView(padding: const EdgeInsets.only(bottom: 60), children: [
           SettingsGroup(children: [
             SettingsLink(
               icon: Icons.alternate_email_rounded,
-              label: 'ユーザーID',
+              label: tr('ユーザーID', 'User ID'),
               trailing: _login,
               onTap: () async {
                 await context.push('/settings/account/login');
                 _load();
               },
             ),
-            SettingsLink(icon: Icons.lock_outline_rounded, label: 'パスワード', onTap: () => context.push('/settings/account/password')),
+            SettingsLink(icon: Icons.lock_outline_rounded, label: tr('パスワード', 'Password'), onTap: () => context.push('/settings/account/password')),
           ]),
+          // Web の /settings/account の「SNSアカウント紐付け」とログイン用のメールアドレス
+          const SnsLinkSection(),
           SettingsGroup(children: [
-            SettingsLink(icon: Icons.person_off_outlined, label: '退会', destructive: true, onTap: () => context.push('/account/delete')),
+            SettingsLink(icon: Icons.person_off_outlined, label: tr('退会', 'Delete account'), destructive: true, onTap: () => context.push('/settings/account/withdrawal')),
           ]),
         ]),
       ),
@@ -342,13 +345,20 @@ class _NotificationSettingsScreenState extends State<NotificationSettingsScreen>
               ]),
               SettingsGroup(
                 title: 'いいねの表示',
-                footer: 'サムネイルからいいねしたときに使います。',
+                footer: tr('いいねしたときに、作者への通知やいいね一覧で名前を出さないようにします。', 'Hides your name in author notifications and like lists when you like a work.'),
                 children: [
                   SettingsSwitch(
-                    label: '作品のいいねを匿名にする',
+                    label: tr('全年齢作品のいいねを匿名にする', 'Like all-ages works anonymously'),
                     value: s.boolean('isAnonymousLikeAllAges'),
                     onChanged: saving ? null : (v) => saveSetting('isAnonymousLikeAllAges', v),
                   ),
+                  // Web の「R-15 作品のいいねを匿名にする」。R15 を表示している人だけ出す
+                  if (s.str('preferenceRating', 'G') != 'G')
+                    SettingsSwitch(
+                      label: tr('R-15 作品のいいねを匿名にする', 'Like R-15 works anonymously'),
+                      value: s.boolean('isAnonymousLikeR15'),
+                      onChanged: saving ? null : (v) => saveSetting('isAnonymousLikeR15', v),
+                    ),
                 ],
               ),
             ]),
@@ -430,6 +440,13 @@ class _StickerSettingsScreenState extends State<StickerSettingsScreen> with _Set
               isShowLegacy: s.boolean('isShowLegacyDefaultStickers'),
               onHideDefaultChanged: saving ? null : (v) => saveSetting('isHideDefaultStickers', v),
               onShowLegacyChanged: saving ? null : (v) => saveSetting('isShowLegacyDefaultStickers', v),
+              // Web の /settings/sticker は自分のスタンプの一覧も同じ画面に出す。アプリはマイスタンプの画面へ
+              leading: [
+                SettingsGroup(children: [
+                  SettingsLink(icon: Icons.collections_bookmark_outlined, label: tr('マイスタンプ', 'My stickers'), subtitle: tr('作った・追加したスタンプの管理', 'Manage stickers you made or added'), onTap: () => context.push('/my/stickers')),
+                  SettingsLink(icon: Icons.storefront_outlined, label: tr('スタンプ広場を見る', 'Browse the sticker square'), onTap: () => context.push('/stickers')),
+                ]),
+              ],
             ),
           ),
     );
@@ -620,25 +637,32 @@ class _ManagedUsersScreenState extends State<ManagedUsersScreen> with _SettingSt
         controller: _users,
         emptyTitle: blocked ? 'ブロックしているユーザーはいません' : 'ミュートしているユーザーはいません',
         emptyIcon: blocked ? Icons.block_rounded : Icons.volume_off_outlined,
-        header: blocked || s == null
+        header: blocked
+            ? const Padding(padding: EdgeInsets.only(bottom: Ds.s4), child: _MuteBlockNote())
+            : s == null
             ? null
             : Padding(
                 padding: const EdgeInsets.only(bottom: Ds.s12),
-                child: SettingsGroup(
-                  footer: 'オフにすると、ミュートした人の作品やコメントを隠します。',
-                  children: [
-                    SettingsSwitch(
-                      label: '作品を表示する',
-                      value: s.boolean('isShowingMutedUsersWorks'),
-                      onChanged: saving ? null : (v) => saveSetting('isShowingMutedUsersWorks', v),
-                    ),
-                    SettingsSwitch(
-                      label: 'コメントを表示する',
-                      value: s.boolean('isShowingMutedUsersComments'),
-                      onChanged: saving ? null : (v) => saveSetting('isShowingMutedUsersComments', v),
-                    ),
-                  ],
-                ),
+                child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  // Web の /settings/muted/users の「ミュートとブロックの違い」
+                  const _MuteBlockNote(),
+                  SettingsGroup(
+                    children: [
+                      SettingsSwitch(
+                        label: tr('ミュートしたユーザーの作品を表示する', "Show muted users' works"),
+                        subtitle: tr('検索結果、タグ経由の作品一覧、スタンプ広場などでミュートしたユーザーの投稿を表示するか切り替えます。', 'Choose whether posts by muted users appear in search, tag lists, the sticker square and more.'),
+                        value: s.boolean('isShowingMutedUsersWorks'),
+                        onChanged: saving ? null : (v) => saveSetting('isShowingMutedUsersWorks', v),
+                      ),
+                      SettingsSwitch(
+                        label: tr('ミュートしたユーザーのコメントを表示する', "Show muted users' comments"),
+                        subtitle: tr('表示する場合は、最初は隠した状態で出ます。非表示にすると、ミュートしたユーザーのコメントやスタンプは一覧に出ません。', "When shown, they start out hidden. When off, muted users' comments and stickers don't appear."),
+                        value: s.boolean('isShowingMutedUsersComments'),
+                        onChanged: saving ? null : (v) => saveSetting('isShowingMutedUsersComments', v),
+                      ),
+                    ],
+                  ),
+                ]),
               ),
         itemBuilder: (context, u) => ListTile(
           leading: UserAvatar.summary(u, size: 40),
@@ -648,6 +672,32 @@ class _ManagedUsersScreenState extends State<ManagedUsersScreen> with _SettingSt
           onTap: () => Nav.user(context, u.id),
         ),
       ),
+    );
+  }
+}
+
+/// ミュートとブロックの違い（Web の /settings/muted/users の説明と同じ）
+class _MuteBlockNote extends StatelessWidget {
+  const _MuteBlockNote();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.fromLTRB(Ds.s16, Ds.s12, Ds.s16, 0),
+      padding: const EdgeInsets.all(Ds.s12),
+      decoration: BoxDecoration(color: context.surfaceCard, borderRadius: Ds.br(14), border: Border.all(color: context.hairline)),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Text(tr('ミュートとブロックの違い', 'Mute vs. block'), style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 13.5)),
+        const SizedBox(height: Ds.s4),
+        Text(
+          tr(
+            'ミュートは自分の画面だけで表示を減らす機能です。検索結果・タグ経由の作品一覧・コメント欄のスタンプやコメント・スタンプ広場などで相手を見えにくくできます。ブロックはそれに加えて、相互の交流自体を強く制限します。',
+            'Mute only reduces what you see on your own screen: search results, tag lists, comments and stickers, the sticker square and more. Block also strongly restricts interaction between you and the other user.',
+          ),
+          style: TextStyle(color: context.muted, fontSize: 12.5, height: 1.5),
+        ),
+      ]),
     );
   }
 }
@@ -725,6 +775,7 @@ class _ManagedTagsScreenState extends State<ManagedTagsScreen> {
             Expanded(
               child: TextField(
                 controller: _input,
+                maxLength: 40,
                 textInputAction: TextInputAction.done,
                 onSubmitted: (_) => _add(),
                 decoration: settingsField(context, followed ? 'タグを追加' : 'ミュートするタグ', prefix: '#'),
@@ -763,6 +814,15 @@ class SupportReceivedScreen extends StatefulWidget {
 
 class _SupportReceivedScreenState extends State<SupportReceivedScreen> {
   final _items = PagedController<SupportedComment>(pageSize: 30, idOf: (c) => c.id, fetch: SettingsApi.receivedSupport);
+  SupportReceivedSummary? _summary;
+  bool _summaryFailed = false;
+  int _tab = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadSummary();
+  }
 
   @override
   void dispose() {
@@ -770,11 +830,108 @@ class _SupportReceivedScreenState extends State<SupportReceivedScreen> {
     super.dispose();
   }
 
+  Future<void> _loadSummary() async {
+    try {
+      final s = await SettingsApi.supportReceivedSummary();
+      if (mounted) {
+        setState(() {
+          _summary = s;
+          _summaryFailed = false;
+        });
+      }
+    } catch (_) {
+      if (mounted) setState(() => _summaryFailed = true);
+    }
+  }
+
+  /// 累計と内訳（Web の /settings/support-received の上のカード）
+  Widget _top(BuildContext context) {
+    final s = _summary;
+    Widget card(String title, String value, String detail, Color color) => Expanded(
+          child: Container(
+            padding: const EdgeInsets.all(Ds.s12),
+            decoration: BoxDecoration(color: context.surfaceCard, borderRadius: Ds.br(14), border: Border.all(color: context.hairline)),
+            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Text(title, maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(color: context.muted, fontSize: 11.5, fontWeight: FontWeight.w600)),
+              const SizedBox(height: Ds.s4),
+              s == null && !_summaryFailed
+                  ? const Skeleton(height: 20, width: 60)
+                  : Text(value, maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontWeight: FontWeight.w800, fontSize: 16, color: color)),
+              const SizedBox(height: 2),
+              Text(detail, maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(color: context.muted, fontSize: 11)),
+            ]),
+          ),
+        );
+    String n(int? v) => formatCount(v ?? 0);
+    return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+      Padding(
+        padding: const EdgeInsets.fromLTRB(Ds.s16, Ds.s12, Ds.s16, Ds.s8),
+        child: Text(
+          tr('受け取った応援コインの累計 pt と、フリー / プレミアムの内訳です。全年齢の作品で受け取った有料のプレミアムコインは、クリエイター報酬（銀行振込）の対象になります。',
+              'Cumulative received support points with free/premium breakdowns. Purchased Premium Coins received on all-ages works are eligible for Creator Rewards (bank payout).'),
+          style: TextStyle(color: context.muted, fontSize: 12.5, height: 1.5),
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: Ds.s16),
+        child: Row(children: [
+          card(tr('累計受取', 'Received'), '${n(s?.totalPt)} pt', tr('${n(s?.totalCoins)} コイン', '${n(s?.totalCoins)} coins'), context.cs.primary),
+          const SizedBox(width: Ds.s8),
+          card(tr('フリー', 'Free'), '${n(s?.freePt)} pt', tr('${n(s?.freeCoins)} コイン', '${n(s?.freeCoins)} coins'), Ds.sky),
+          const SizedBox(width: Ds.s8),
+          card(tr('プレミアム', 'Premium'), '${n(s?.premiumPt)} pt', tr('${n(s?.premiumCoins)} コイン', '${n(s?.premiumCoins)} coins'), Ds.gold),
+        ]),
+      ),
+      Padding(
+        padding: const EdgeInsets.fromLTRB(Ds.s4, Ds.s4, Ds.s4, 0),
+        child: Align(
+          alignment: Alignment.centerLeft,
+          child: TextButton.icon(
+            onPressed: () => context.push('/settings/creator-rewards'),
+            icon: const Icon(Icons.payments_outlined, size: 18),
+            label: Text(tr('収益の受け取り（クリエイター報酬）', 'Rewards payout (Creator Rewards)')),
+          ),
+        ),
+      ),
+      PillTabs(labels: [tr('受け取り履歴', 'Received history'), tr('受け取ったコメント', 'Received comments')], index: _tab, onChanged: (i) => setState(() => _tab = i)),
+      const SizedBox(height: Ds.s8),
+    ]);
+  }
+
+  Widget _transfers(BuildContext context) {
+    final s = _summary;
+    final items = s?.recent ?? const <SupportTransfer>[];
+    return AppRefresh(
+      onRefresh: _loadSummary,
+      child: ListView(padding: const EdgeInsets.only(bottom: 80), children: [
+        _top(context),
+        if (_summaryFailed && s == null)
+          StateView.error(tr('受け取り集計の読み込みに失敗しました', 'Failed to load received support summary'), onRetry: _loadSummary)
+        else if (s == null)
+          const SkeletonList()
+        else if (items.isEmpty)
+          StateView.empty(tr('まだ応援コインの受け取り履歴はありません', 'No received support history yet'), icon: Icons.volunteer_activism_outlined)
+        else
+          for (final t in items)
+            ListTile(
+              leading: Icon(Icons.monetization_on_rounded, color: t.isPremium ? Ds.gold : Ds.sky),
+              title: Text(t.isPremium ? tr('プレミアム応援を受け取り', 'Received premium support') : tr('フリー応援を受け取り', 'Received free support'), style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14)),
+              subtitle: Text(formatJstDateTime(t.createdAt), style: TextStyle(color: context.muted, fontSize: 12)),
+              trailing: Column(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.end, children: [
+                Text(tr('${formatCount(t.coins)} コイン', '${formatCount(t.coins)} coins'), style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 13)),
+                Text('${formatCount(t.pt)} pt', style: TextStyle(color: context.muted, fontSize: 12)),
+              ]),
+            ),
+      ]),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('応援コイン受け取り', style: TextStyle(fontWeight: FontWeight.w800))),
-      body: PagedList<SupportedComment>(
+      appBar: AppBar(title: Text(tr('応援コイン受け取り', 'Supports received'), style: const TextStyle(fontWeight: FontWeight.w800))),
+      body: _tab == 0 ? _transfers(context) : PagedList<SupportedComment>(
+        header: _top(context),
         controller: _items,
         emptyTitle: 'まだ応援はありません',
         emptyMessage: '作品に応援コインが届くと、ここに並びます',
