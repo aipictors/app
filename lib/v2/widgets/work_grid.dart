@@ -1,3 +1,4 @@
+import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/core/design.dart';
 import 'package:aipictors/v2/core/grid_layout.dart';
@@ -9,10 +10,12 @@ import 'package:aipictors/v2/widgets/common.dart';
 import 'package:aipictors/v2/widgets/user_avatar.dart';
 import 'package:aipictors/v2/widgets/official_badge.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:share_plus/share_plus.dart';
 
-/// 作品カード（画像・タイトル・作者・いいね数）
-class WorkCard extends StatelessWidget {
+/// 作品カード（画像・タイトル・作者・いいね数）。長押しでいいね・共有などのメニュー
+class WorkCard extends StatefulWidget {
   const WorkCard({super.key, required this.work, this.showUser = true, this.onTap});
 
   final WorkSummary work;
@@ -20,10 +23,21 @@ class WorkCard extends StatelessWidget {
   final VoidCallback? onTap;
 
   @override
+  State<WorkCard> createState() => _WorkCardState();
+}
+
+class _WorkCardState extends State<WorkCard> {
+  WorkSummary get work => widget.work;
+  bool get showUser => widget.showUser;
+
+  @override
   Widget build(BuildContext context) {
     return Pressable(
       scale: 0.97,
-      onTap: onTap ?? () => Nav.work(context, work.id),
+      onTap: widget.onTap ?? () => Nav.work(context, work.id),
+      onLongPress: () => showWorkCardMenu(context, work, onChanged: () {
+        if (mounted) setState(() {});
+      }),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -48,8 +62,13 @@ class WorkCard extends StatelessWidget {
                     if (work.rating == 'R15') const Badge2('R15', color: Color(0xCCE2A21B)),
                     if (work.isVideo) Badge2(tr('動画', 'Video'), icon: Icons.play_arrow_rounded),
                     if (work.isNovel) Badge2(tr('小説', 'Novel'), icon: Icons.menu_book_rounded),
+                    // コメント数（Web の作品カードと同じ）
+                    if (work.commentsCount > 0) Badge2(compactCount(work.commentsCount), icon: Icons.chat_bubble_rounded),
                   ]),
                 ),
+                // Aipictors で生成・プロンプト公開の印（Web の WorkMediaBadge）
+                if (work.isGeneration || work.isPromptPublic)
+                  Positioned(left: 6, bottom: 6, child: _MediaMark(generation: work.isGeneration)),
                 if (work.subWorksCount > 0)
                   Positioned(
                     right: 6,
@@ -100,6 +119,122 @@ class WorkCard extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+/// 生成作品（✦）・プロンプト公開（P）の小さな丸
+class _MediaMark extends StatelessWidget {
+  const _MediaMark({required this.generation});
+
+  final bool generation;
+
+  @override
+  Widget build(BuildContext context) {
+    return Tooltip(
+      message: generation ? tr('Aipictors生成作品', 'Generated on Aipictors') : tr('プロンプト公開作品', 'Prompt available'),
+      child: Container(
+        width: 20,
+        height: 20,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          gradient: generation ? const LinearGradient(colors: [Ds.purple, Ds.pink]) : null,
+          color: generation ? null : const Color(0xCC2563EB),
+        ),
+        child: generation
+            ? const Icon(Icons.auto_awesome_rounded, size: 12, color: Colors.white)
+            : const Text('P', style: TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.w800)),
+      ),
+    );
+  }
+}
+
+/// 作品カードの長押しメニュー（いいね・共有・リンクのコピー・作者のページ）
+Future<void> showWorkCardMenu(BuildContext context, WorkSummary work, {VoidCallback? onChanged}) {
+  final url = 'https://www.aipictors.com/posts/${work.id}';
+  return showModalBottomSheet<void>(
+    context: context,
+    showDragHandle: true,
+    useSafeArea: true,
+    builder: (sheet) => SafeArea(
+      child: Column(mainAxisSize: MainAxisSize.min, children: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(20, 0, 20, 8),
+          child: Row(children: [
+            AppImage(work.imageUrl, width: 48, height: 48, radius: 10, memCacheWidth: 150),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                Text(work.title.isEmpty ? tr('無題', 'Untitled') : work.title, maxLines: 1, overflow: TextOverflow.ellipsis, style: sheet.tt.titleSmall?.copyWith(fontWeight: FontWeight.w800)),
+                Text(work.user.name, maxLines: 1, overflow: TextOverflow.ellipsis, style: sheet.tt.bodySmall?.copyWith(color: sheet.muted)),
+              ]),
+            ),
+          ]),
+        ),
+        ListTile(
+          leading: Icon(work.isLiked ? Icons.favorite_rounded : Icons.favorite_border_rounded, color: work.isLiked ? Ds.pink : null),
+          title: Text(work.isLiked ? tr('いいねを取り消す', 'Remove like') : tr('いいね', 'Like')),
+          onTap: () {
+            Navigator.pop(sheet);
+            _toggleLike(context, work, onChanged);
+          },
+        ),
+        ListTile(
+          leading: const Icon(Icons.ios_share_rounded),
+          title: Text(tr('共有', 'Share')),
+          onTap: () {
+            Navigator.pop(sheet);
+            // iPad は共有シートの位置を渡さないと開けない
+            final box = context.findRenderObject() as RenderBox?;
+            Share.share('${work.title} / ${work.user.name}\n$url', sharePositionOrigin: box == null ? null : box.localToGlobal(Offset.zero) & box.size);
+          },
+        ),
+        ListTile(
+          leading: const Icon(Icons.link_rounded),
+          title: Text(tr('リンクをコピー', 'Copy link')),
+          onTap: () {
+            Navigator.pop(sheet);
+            Clipboard.setData(ClipboardData(text: url));
+            context.toast(tr('リンクをコピーしました', 'Link copied'), icon: Icons.check_rounded);
+          },
+        ),
+        if (work.user.id.isNotEmpty)
+          ListTile(
+            leading: const Icon(Icons.person_outline_rounded),
+            title: Text(tr('作者のページを見る', "View creator's page")),
+            onTap: () {
+              Navigator.pop(sheet);
+              Nav.user(context, work.user.id);
+            },
+          ),
+        const SizedBox(height: 8),
+      ]),
+    ),
+  );
+}
+
+/// カードからのいいね（Web の作品カードのいいねボタンと同じ mutation）
+Future<void> _toggleLike(BuildContext context, WorkSummary work, VoidCallback? onChanged) async {
+  if (!Nav.requireLogin(context)) return;
+  final liked = !work.isLiked;
+  work.isLiked = liked;
+  work.likesCount += liked ? 1 : -1;
+  onChanged?.call();
+  Ds.impact();
+  try {
+    await Api.mutate(
+      liked
+          ? r'mutation AppLikeWork($input: CreateWorkLikeInput!) { createWorkLike(input: $input) { id } }'
+          : r'mutation AppUnlikeWork($input: DeleteWorkLikeInput!) { deleteWorkLike(input: $input) { id } }',
+      variables: {
+        'input': {'workId': work.id},
+      },
+    );
+  } on ApiException catch (e) {
+    work.isLiked = !liked;
+    work.likesCount += liked ? -1 : 1;
+    onChanged?.call();
+    if (context.mounted) context.toast(e.message, error: true);
   }
 }
 
