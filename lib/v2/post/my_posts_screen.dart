@@ -21,6 +21,7 @@ Future<void> openNewPost(BuildContext context) async {
     builder: (context) => SafeArea(
       child: Column(mainAxisSize: MainAxisSize.min, children: [
         ListTile(leading: const Icon(Icons.image_outlined), title: Text(tr('画像を投稿', 'Post an image')), onTap: () => Navigator.pop(context, '/works/create')),
+        ListTile(leading: const Icon(Icons.movie_outlined), title: Text(tr('動画を投稿', 'Post a video')), onTap: () => Navigator.pop(context, '/works/create/video')),
         ListTile(leading: const Icon(Icons.article_outlined), title: Text(tr('小説・コラムを投稿', 'Post a novel or column')), onTap: () => Navigator.pop(context, '/works/create/text')),
         const SizedBox(height: Ds.s8),
       ]),
@@ -102,11 +103,7 @@ query AppMyWorks($offset: Int!, $limit: Int!, $where: WorksWhereInput) {
   }
 
   Future<void> _edit(Map<String, dynamic> w) async {
-    // 動画の編集フォームはアプリに無い（Web の /posts/:id/animation/edit）
-    if (w.str('type') == 'VIDEO') {
-      context.toast(tr('動画の編集は Web 版から行えます', 'Videos can be edited on the web'));
-      return;
-    }
+    // 動画も同じフォームで開く（type が VIDEO なら動画の編集になる。Web の /posts/:id/animation/edit）
     final result = await context.push('/works/${w.str('id')}/update');
     if (result != null) _reload();
   }

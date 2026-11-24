@@ -22,6 +22,16 @@ final List<RouteBase> postDebugRoutes = [
   GoRoute(path: '/debug/post-dry', builder: (context, state) => const _DebugPost()),
   GoRoute(path: '/debug/post-live', builder: (context, state) => const _DebugLive()),
   GoRoute(path: '/debug/tour', builder: (context, state) => const _DebugTour()),
+  // 動画の投稿フォーム。Mac の /tmp/aipictors-video-sample.mp4 を選んだ状態で開く（?path= で変えられる）。
+  // -dry は postDryRun のときだけ送信まで進め、送るはずの input を出す
+  GoRoute(
+    path: '/debug/post-video',
+    builder: (context, state) => PostFormScreen(workType: 'VIDEO', debugVideoPath: state.uri.queryParameters['path'] ?? '/tmp/aipictors-video-sample.mp4'),
+  ),
+  GoRoute(
+    path: '/debug/post-video-dry',
+    builder: (context, state) => const PostFormScreen(workType: 'VIDEO', debugVideoPath: '/tmp/aipictors-video-sample.mp4', debugAutoSubmit: postDryRun),
+  ),
   GoRoute(
     path: '/debug/sticker-create',
     builder: (context, state) => FutureBuilder<List<Uint8List>>(
