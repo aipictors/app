@@ -13,6 +13,9 @@ class L10n {
 
   static bool? _cached;
 
+  /// 言語設定を変えたあとに決め直す
+  static void reset() => _cached = null;
+
   static bool get isJa {
     final o = override;
     if (o != null) return o == 'ja';

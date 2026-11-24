@@ -1,12 +1,13 @@
 import 'package:aipictors/v2/settings/creator_rewards_screen.dart';
 import 'package:aipictors/v2/settings/profile_edit_screen.dart';
+import 'package:aipictors/v2/settings/settings_home_screen.dart';
 import 'package:aipictors/v2/settings/settings_screens.dart';
 import 'package:go_router/go_router.dart';
 
 GoRoute _route(String path, GoRouterWidgetBuilder builder) => GoRoute(path: path, builder: builder);
 
 final List<RouteBase> settingsRoutes = [
-  _route('/settings', (_, __) => const SettingsScreen()),
+  _route('/settings', (_, state) => SettingsScreen(initialQuery: state.uri.queryParameters['q'])),
   _route('/settings/profile', (_, __) => const ProfileEditScreen()),
   _route('/settings/account', (_, __) => const AccountSettingsScreen()),
   _route('/settings/account/login', (_, __) => const AccountLoginScreen()),
@@ -22,7 +23,8 @@ final List<RouteBase> settingsRoutes = [
   _route('/settings/followed/tags', (_, __) => const ManagedTagsScreen(followed: true)),
   _route('/settings/support-received', (_, __) => const SupportReceivedScreen()),
   _route('/settings/creator-rewards', (_, __) => const CreatorRewardsScreen()),
-  // 旧画面の置き換え
+  // 旧画面の置き換え。/more（旧「その他」）は設定トップにまとめた
+  GoRoute(path: '/more', redirect: (_, __) => '/settings'),
   _route('/account', (_, __) => const AccountSettingsScreen()),
   _route('/config/profile', (_, __) => const ProfileEditScreen()),
   _route('/config/notifications', (_, __) => const NotificationSettingsScreen()),
