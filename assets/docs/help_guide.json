@@ -696,8 +696,8 @@
     {
      "image": "coins-2",
      "caption": {
-      "ja": "プレミアムコインは 100 枚 80 円から",
-      "en": "Premium coins from 100 for about $0.5 (¥80)"
+      "ja": "プレミアムコインはコインの画面で買えるよ",
+      "en": "Buy premium coins on the Coins screen"
      },
      "bubbles": [
       {
@@ -1121,7 +1121,7 @@
      "image": "promo-3",
      "caption": {
       "ja": "プレミアムコイン 500 枚で 7 日間",
-      "en": "Or 500 premium coins (about $2.5 (¥400)) for 7 days"
+      "en": "Or 500 premium coins for 7 days"
      },
      "bubbles": [
       {
@@ -1255,8 +1255,8 @@
     {
      "image": "plus-4",
      "caption": {
-      "ja": "ライトは月 480 円から・いつでも解約",
-      "en": "Lite from about $3 (¥480)/mo · cancel anytime"
+      "ja": "ライトから選べて・いつでも解約",
+      "en": "Start with Lite · cancel anytime"
      },
      "bubbles": [
       {
