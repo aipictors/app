@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:aipictors/v2/albums/album_api.dart' show allowedThumbnail;
 import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/content_translate.dart';
@@ -61,7 +62,7 @@ query AppHomeTop(\$year: Int, \$month: Int, \$day: Int) {
     year
     month
     day
-    firstWork { largeThumbnailImageURL }
+    firstWork { largeThumbnailImageURL rating isSensitive }
   }
 }''';
 
@@ -575,7 +576,8 @@ class _ThemeCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final image = theme.obj('firstWork')?.strOrNull('largeThumbnailImageURL');
+    // 先頭の作品が出せない年齢区分なら絵は出さない
+    final image = allowedThumbnail(theme.obj('firstWork'), 'largeThumbnailImageURL');
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
       child: Pressable(

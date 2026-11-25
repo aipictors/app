@@ -6,6 +6,7 @@ import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/core/models.dart';
 import 'package:aipictors/v2/core/nav.dart';
 import 'package:aipictors/v2/core/paged.dart';
+import 'package:aipictors/v2/core/store_policy.dart';
 import 'package:aipictors/v2/post/post_event.dart';
 import 'package:aipictors/v2/widgets/common.dart';
 import 'package:aipictors/v2/widgets/work_grid.dart';
@@ -31,6 +32,12 @@ const _userEventQuery = r'''
 query AppUserEventDetail($slug: String!) {
   userEvent(slug: $slug) { slug title status startAt endAt headerImageUrl description participationGuide mainTag worksCount isSensitive ratings userName }
 }''';
+
+/// アプリに出さないイベント（センシティブ・R18 を含むもの。Android 版は R15 を含むものも）
+bool _isHiddenEvent(Map<String, dynamic> e) {
+  final ratings = (e['ratings'] as List? ?? const []).map((r) => r.toString());
+  return e.boolean('isSensitive') || ratings.any((r) => r == 'R18' || r == 'R18G' || (StorePolicy.strict && r != 'G'));
+}
 
 String _statusLabel(String s) => switch (s) { 'ONGOING' => '開催中', 'UPCOMING' => '開催予定', 'ENDED' => '終了', _ => '' };
 
@@ -61,7 +68,7 @@ class _EventsScreenState extends State<EventsScreen> {
         'where': {'isSensitive': false},
       }, cacheFor: const Duration(minutes: 5));
       // R18 を含むイベントはアプリに出さない
-      return data.list('userEvents').where((e) => !e.boolean('isSensitive') && !(e['ratings'] as List? ?? const []).contains('R18')).toList();
+      return data.list('userEvents').where((e) => !_isHiddenEvent(e)).toList();
     },
   );
 
@@ -165,7 +172,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
         isUser = true;
       }
       if (!mounted) return;
-      if (event == null || event.boolean('isSensitive') || (event['ratings'] as List? ?? const []).contains('R18')) {
+      if (event == null || _isHiddenEvent(event)) {
         setState(() => _error = 'イベントが見つかりませんでした');
         return;
       }
@@ -185,7 +192,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
     final root = _isUserEvent ? 'userEvent' : 'appEvent';
     final slugType = _isUserEvent ? 'String!' : 'String';
     final args = kind == 'works'
-        ? 'offset: \$offset, limit: \$limit, where: { ratings: [G, R15] }'
+        ? 'offset: \$offset, limit: \$limit, where: { ratings: [${AppContentFilter.ratings.join(', ')}] }'
         : 'offset: \$offset, limit: \$limit, isSensitive: false';
     final doc = 'query AppEventWorks(\$slug: $slugType, \$offset: Int!, \$limit: Int!) { $root(slug: \$slug) { id $kind($args) { $workCardFields } } }';
     return PagedController(

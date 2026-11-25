@@ -1,4 +1,5 @@
 import 'package:aipictors/v2/achievements/achievements_api.dart';
+import 'package:aipictors/v2/albums/album_api.dart' show allowedThumbnail, isAllowedInApp;
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/models.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -295,13 +296,17 @@ query User(\$userId: ID!) {
   }
 }''';
 
-  static const _counts = r'''
-query UserWorksCounts($userId: ID!) {
-  imageWorksCount: worksCount(where: { userId: $userId, workType: WORK, ratings: [G, R15] })
-  novelWorksCount: worksCount(where: { userId: $userId, workType: NOVEL, ratings: [G, R15] })
-  videoWorksCount: worksCount(where: { userId: $userId, workType: VIDEO, ratings: [G, R15] })
-  columnWorksCount: worksCount(where: { userId: $userId, workType: COLUMN, ratings: [G, R15] })
+  // 数もアプリで出せる年齢区分だけ（Android 版は全年齢だけ）
+  static String get _counts => '''
+query UserWorksCounts(\$userId: ID!) {
+  imageWorksCount: worksCount(where: { userId: \$userId, workType: WORK, ratings: $_ratingsArg })
+  novelWorksCount: worksCount(where: { userId: \$userId, workType: NOVEL, ratings: $_ratingsArg })
+  videoWorksCount: worksCount(where: { userId: \$userId, workType: VIDEO, ratings: $_ratingsArg })
+  columnWorksCount: worksCount(where: { userId: \$userId, workType: COLUMN, ratings: $_ratingsArg })
 }''';
+
+  /// GraphQL にそのまま書く年齢区分（[G, R15] の形）
+  static String get _ratingsArg => '[${appRatings.join(', ')}]';
 
   /// [idOrLogin] は数字の ID でもログイン名でもよい
   static Future<UserProfile?> profile(String idOrLogin) async {
@@ -342,6 +347,7 @@ query UserAlbums($userId: ID!, $offset: Int!, $limit: Int!) {
       id
       title
       rating
+      isSensitive
       thumbnailImageURL
       worksCount
     }
@@ -351,7 +357,7 @@ query UserAlbums($userId: ID!, $offset: Int!, $limit: Int!) {
   static Future<List<AlbumSummary>> albums(String userId, int offset, int limit) async {
     final data = await Api.query(_albums, variables: {'userId': userId, 'offset': offset, 'limit': limit});
     return (data.obj('user')?.list('albums') ?? const [])
-        .where((a) => a.str('rating') != 'R18' && a.str('rating') != 'R18G')
+        .where(isAllowedInApp)
         .map((a) => AlbumSummary(
               id: a.str('id'),
               title: a.str('title'),
@@ -376,26 +382,26 @@ query AlbumWorks(\$albumId: ID!, \$offset: Int!, \$limit: Int!) {
     return WorkSummary.listFrom(data.obj('album')?.list('works') ?? const []);
   }
 
-  static const _followees = '''
+  static String get _followees => '''
 query UserFollowees(\$userId: ID!, \$offset: Int!, \$limit: Int!, \$where: FolloweesWhereInput) {
   user(id: \$userId) {
     id
     followees(offset: \$offset, limit: \$limit, where: \$where) {
       $_userRowFields
-      works(offset: 0, limit: 4, where: { ratings: [G, R15] }) {
+      works(offset: 0, limit: 4, where: { ratings: $_ratingsArg }) {
         $workCardFields
       }
     }
   }
 }''';
 
-  static const _followers = '''
+  static String get _followers => '''
 query UserFollowers(\$userId: ID!, \$offset: Int!, \$limit: Int!) {
   user(id: \$userId) {
     id
     followers(offset: \$offset, limit: \$limit) {
       $_userRowFields
-      works(offset: 0, limit: 4, where: { ratings: [G, R15] }) {
+      works(offset: 0, limit: 4, where: { ratings: $_ratingsArg }) {
         $workCardFields
       }
     }
@@ -432,11 +438,11 @@ query UserFollowHeader($userId: ID!) {
     return (data.obj('user')?.list('followers') ?? const []).map(UserRowData.fromJson).toList();
   }
 
-  static const _searchUsers = '''
+  static String get _searchUsers => '''
 query SearchUsers(\$offset: Int!, \$limit: Int!, \$where: UsersWhereInput) {
   users(offset: \$offset, limit: \$limit, where: \$where) {
     $_userRowFields
-    works(offset: 0, limit: 4, where: { ratings: [G, R15] }) {
+    works(offset: 0, limit: 4, where: { ratings: $_ratingsArg }) {
       $workCardFields
     }
   }
@@ -544,6 +550,8 @@ query SuggestedFollowUsers($userId: ID, $limit: Int) {
     isFollower
     works(offset: 0, limit: 3, where: { ratings: [G] }) {
       id
+      rating
+      isSensitive
       smallThumbnailImageURL
     }
   }
@@ -611,6 +619,6 @@ class SuggestedUser {
         iconUrl: u.strOrNull('iconUrl'),
         isFollowee: u.boolean('isFollowee'),
         isFollower: u.boolean('isFollower'),
-        thumbnails: u.list('works').map((w) => w.strOrNull('smallThumbnailImageURL')).whereType<String>().toList(),
+        thumbnails: u.list('works').map((w) => allowedThumbnail(w, 'smallThumbnailImageURL')).whereType<String>().toList(),
       );
 }

@@ -1,3 +1,4 @@
+import 'package:aipictors/v2/albums/album_api.dart' show allowedThumbnail;
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/design.dart';
 import 'package:aipictors/v2/core/l10n.dart';
@@ -59,7 +60,7 @@ class _MyPostsScreenState extends State<MyPostsScreen> {
       final data = await Api.query(r'''
 query AppMyWorks($offset: Int!, $limit: Int!, $where: WorksWhereInput) {
   works(offset: $offset, limit: $limit, where: $where) {
-    id uuid title type rating accessType createdAt isPromotion likesCount bookmarksCount commentsCount viewsCount smallThumbnailImageURL
+    id uuid title type rating isSensitive accessType createdAt isPromotion likesCount bookmarksCount commentsCount viewsCount smallThumbnailImageURL
   }
 }''', variables: {'offset': offset, 'limit': limit, 'where': where});
       return data.list('works');
@@ -135,7 +136,7 @@ query AppMyWorks($offset: Int!, $limit: Int!, $where: WorksWhereInput) {
       context,
       workId: w.str('id'),
       title: w.str('title'),
-      imageUrl: w.strOrNull('smallThumbnailImageURL'),
+      imageUrl: allowedThumbnail(w, 'smallThumbnailImageURL'),
       userName: me?.str('name') ?? tr('あなた', 'You'),
       userIconUrl: me?.strOrNull('iconUrl'),
     );
@@ -419,7 +420,8 @@ class _MyWorkTile extends StatelessWidget {
       onLongPress: onLongPress,
       child: Row(children: [
         if (selecting) Checkbox.adaptive(value: selected, onChanged: (_) => onToggle()),
-        AppImage(work.strOrNull('smallThumbnailImageURL'), width: 72, height: 72, radius: 10, memCacheWidth: 216),
+        // 出せない年齢区分（Android 版はセンシティブも）は絵だけ隠す
+        AppImage(allowedThumbnail(work, 'smallThumbnailImageURL'), width: 72, height: 72, radius: 10, memCacheWidth: 216),
         const SizedBox(width: Ds.s12),
         Expanded(
           child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [

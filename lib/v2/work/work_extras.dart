@@ -1,3 +1,4 @@
+import 'package:aipictors/v2/albums/album_api.dart' show allowedThumbnail;
 import 'package:aipictors/v2/community/web_links.dart';
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/design.dart';
@@ -217,7 +218,7 @@ class _Neighbor extends StatelessWidget {
     final children = [
       Icon(older ? Icons.chevron_right_rounded : Icons.chevron_left_rounded, size: 20, color: context.muted),
       const SizedBox(width: 4),
-      AppImage(work.strOrNull('smallThumbnailImageURL'), width: 44, height: 44, radius: 8, memCacheWidth: 132),
+      AppImage(allowedThumbnail(work, 'smallThumbnailImageURL'), width: 44, height: 44, radius: 8, memCacheWidth: 132),
       const SizedBox(width: 8),
       Expanded(
         child: Column(crossAxisAlignment: older ? CrossAxisAlignment.end : CrossAxisAlignment.start, children: [

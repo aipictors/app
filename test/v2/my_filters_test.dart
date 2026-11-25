@@ -1,8 +1,13 @@
+import 'package:aipictors/v2/core/store_policy.dart';
 import 'package:aipictors/v2/my/my_filters.dart';
 import 'package:aipictors/v2/post/post_api.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
+  // flutter test は Android として動くので、iOS と同じ表示（R15 を出す）で確かめる
+  setUp(() => StorePolicy.debugStrict = false);
+  tearDown(() => StorePolicy.debugStrict = null);
+
   group('自分の作品の条件（Web の my.posts と同じ where）', () {
     test('既定は新しい順・アプリで出せる年齢だけ', () {
       final q = MyPostsQuery();

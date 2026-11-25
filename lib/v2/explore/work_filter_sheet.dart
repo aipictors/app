@@ -106,7 +106,7 @@ Future<WorkFilter?> showWorkFilterSheet(BuildContext context, WorkFilter initial
               const SizedBox(height: 12),
               ChoiceRow<WorkSort>(title: tr('並び順', 'Sort'), values: sorts, labelOf: (v) => v.label, selected: f.sort, onChanged: (v) => set(() => f = f.copyWith(sort: v))),
               ChoiceRow<WorkKind>(title: tr('作品の種類', 'Type'), values: WorkKind.values, labelOf: (v) => v.label, selected: f.kind, onChanged: (v) => set(() => f = f.copyWith(kind: v))),
-              ChoiceRow<RatingFilter>(title: tr('年齢区分', 'Age rating'), values: RatingFilter.values, labelOf: (v) => v.label, selected: f.rating, onChanged: (v) => set(() => f = f.copyWith(rating: v))),
+              if (RatingFilter.choices.length > 1) ChoiceRow<RatingFilter>(title: tr('年齢区分', 'Age rating'), values: RatingFilter.choices, labelOf: (v) => v.label, selected: f.rating, onChanged: (v) => set(() => f = f.copyWith(rating: v))),
               ChoiceRow<StyleFilter>(title: tr('画風', 'Style'), values: StyleFilter.values, labelOf: (v) => v.label, selected: f.style, onChanged: (v) => set(() => f = f.copyWith(style: v))),
               ChoiceRow<PromptFilter>(title: tr('プロンプト', 'Prompt'), values: PromptFilter.values, labelOf: (v) => v.label, selected: f.prompt, onChanged: (v) => set(() => f = f.copyWith(prompt: v))),
               if (viewerId != null)

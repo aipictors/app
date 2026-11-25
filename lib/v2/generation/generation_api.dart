@@ -4,6 +4,7 @@ import 'dart:io';
 import 'dart:math' as math;
 import 'dart:typed_data';
 
+import 'package:aipictors/v2/core/models.dart';
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/l10n.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -291,6 +292,30 @@ mutation UpdateRatingImageGenerationModel($input: UpdateRatingImageGenerationMod
     throw ApiException(message);
   }
 
+  /// 生成画像を運営に報告する（Web の /api/support/report-generation。運営の確認待ちに入る）
+  static Future<void> reportResult({required String? nanoid, required String imageUrl, required String reason, String detail = ''}) async {
+    final http.Response response;
+    try {
+      final headers = await _webHeaders();
+      response = await _client
+          .post(
+            Uri.parse('$webOrigin/api/support/report-generation'),
+            headers: {...headers, 'content-type': 'application/json'},
+            body: jsonEncode({'reason': reason, if (nanoid != null) 'nanoid': nanoid, 'imageUrl': imageUrl, if (detail.isNotEmpty) 'detail': detail}),
+          )
+          .timeout(const Duration(seconds: 20));
+    } catch (_) {
+      throw ApiException(tr('通信に失敗しました。もう一度お試しください', 'Connection failed. Please try again.'));
+    }
+    if (response.statusCode >= 200 && response.statusCode < 300) return;
+    var message = tr('報告を送れませんでした', 'Could not send the report');
+    try {
+      final error = (jsonDecode(utf8.decode(response.bodyBytes)) as Map)['error'];
+      if (error != null && error.toString().isNotEmpty) message = error.toString();
+    } catch (_) {}
+    throw ApiException(message);
+  }
+
   /// 画像を公開用にアップロードして URL を返す（Web の uploadPublicImage と同じ）
   static Future<String> uploadPublicImage(Uint8List png) async {
     final data = await Api.query(r'query GenerationViewerToken { viewer { id token } }');
@@ -333,7 +358,7 @@ mutation UpdateRatingImageGenerationModel($input: UpdateRatingImageGenerationMod
 
   /// みんなのモデル（公開）
   static Future<List<UserModel>> userModels({required String kind, String q = '', int offset = 0, int limit = 24}) async {
-    final params = {'kind': kind, if (q.isNotEmpty) 'q': q, 'sort': 'popular', 'ratings': 'G,R15', 'offset': '$offset', 'limit': '$limit'};
+    final params = {'kind': kind, if (q.isNotEmpty) 'q': q, 'sort': 'popular', 'ratings': AppContentFilter.ratings.join(','), 'offset': '$offset', 'limit': '$limit'};
     final query = params.entries.map((e) => '${e.key}=${Uri.encodeQueryComponent(e.value)}').join('&');
     final data = await _webGet('/api/user-models?$query');
     final list = data?['models'];

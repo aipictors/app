@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:aipictors/v2/core/sensitive_tags.dart';
+import 'package:aipictors/v2/core/store_policy.dart';
 import 'package:aipictors/v2/achievements/achievements_api.dart';
 import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/core/api.dart';
@@ -45,7 +47,7 @@ const _workQuery = '''
 query AppWork(\$id: ID!) {
   viewer { id user { id } }
   work(id: \$id) {
-    id title enTitle description enDescription type rating createdAt likesCount commentsCount viewsCount
+    id title enTitle description enDescription type rating isSensitive createdAt likesCount commentsCount viewsCount
     isLiked isCommentsEditable isGeneration accessType isBookmarked isMyRecommended isTagEditable
     style isPromotion relatedUrl strength otherGenerationParams
     dailyRanking weeklyRanking monthlyRanking
@@ -68,8 +70,8 @@ query AppWorkExtras(\$id: ID!) {
   work(id: \$id) {
     id
     album { id title description }
-    nextWork { id title smallThumbnailImageURL }
-    previousWork { id title smallThumbnailImageURL }
+    nextWork { id title rating isSensitive smallThumbnailImageURL }
+    previousWork { id title rating isSensitive smallThumbnailImageURL }
     botEvaluation {
       cutenessScore coolnessScore beautyScore originalityScore compositionScore
       colorScore detailScore consistencyScore overallScore comment personality
@@ -144,7 +146,8 @@ class _WorkScreenState extends State<WorkScreen> {
         setState(() => _error = tr('作品を読み込めませんでした', "Couldn't load this work"));
         return;
       }
-      if (w.str('rating') == 'R18' || w.str('rating') == 'R18G') {
+      // R18 はどの版でも、Android 版は全年齢でない作品・センシティブの欄の作品も開かない
+      if (!AppContentFilter.allows(w.str('rating')) || (StorePolicy.strict && w.boolean('isSensitive'))) {
         setState(() => _error = tr('この作品は表示できません', "This work can't be shown"));
         return;
       }
@@ -156,7 +159,7 @@ class _WorkScreenState extends State<WorkScreen> {
         _following = w.obj('user')?.boolean('isFollowee') ?? false;
         _bookmarked = w.boolean('isBookmarked');
         _recommended = w.boolean('isMyRecommended');
-        _tags = (w['tagNames'] as List?)?.map((e) => e.toString()).where((e) => e.isNotEmpty).toList() ?? [];
+        _tags = (w['tagNames'] as List?)?.map((e) => e.toString()).where((e) => e.isNotEmpty && !(StorePolicy.strict && SensitiveTags.isBlocked(e))).toList() ?? [];
       });
       _loadExtras();
       _loadPromotion();
@@ -238,7 +241,7 @@ class _WorkScreenState extends State<WorkScreen> {
   /// 「#タグ のおすすめ」（Web と同じく、作品のタグから 1 つ選ぶ。無ければ「女の子」）
   Future<void> _loadTagWorks() async {
     final tag = _randomTag ??= _tags.isEmpty ? '女の子' : _tags[Random().nextInt(_tags.length)];
-    final rating = _work?.str('rating') == 'R15' ? 'R15' : 'G';
+    final rating = _work?.str('rating') == 'R15' && AppContentFilter.showR15 ? 'R15' : 'G';
     try {
       final data = await Api.query('''
 query AppWorkTagWorks(\$where: WorksWhereInput) {
@@ -567,8 +570,10 @@ query AppWorkTagWorks(\$where: WorksWhereInput) {
     // Web と同じく、返ってきた生成情報があれば出す（非公開は API が返さない。作者本人には返る）
     final hasGenerationInfo = _GenerationInfo.hasAny(w);
     final tags = _tags;
-    final newer = _extras.obj('nextWork');
-    final older = _extras.obj('previousWork');
+    // 前後の作品も、アプリで出せる年齢区分のものだけ
+    bool shown(Map<String, dynamic>? x) => x != null && AppContentFilter.allows(x.str('rating')) && !(StorePolicy.strict && x.boolean('isSensitive'));
+    final newer = shown(_extras.obj('nextWork')) ? _extras.obj('nextWork') : null;
+    final older = shown(_extras.obj('previousWork')) ? _extras.obj('previousWork') : null;
     final album = _extras.obj('album');
     final relatedUrl = (w.strOrNull('relatedUrl') ?? '').trim();
     final width = MediaQuery.sizeOf(context).width;

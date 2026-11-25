@@ -1,3 +1,4 @@
+import 'package:aipictors/v2/core/store_policy.dart';
 import 'package:aipictors/v2/core/design.dart';
 import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/core/models.dart';
@@ -52,7 +53,7 @@ List<(String?, String)> get myPostWorkTypes => [
 List<(String?, String)> get myRatingFilters => [
       (null, tr('すべての年齢', 'All ratings')),
       ('G', tr('全年齢', 'All ages')),
-      ('R15', 'R-15'),
+      if (!StorePolicy.strict) ('R15', 'R-15'),
     ];
 
 /// 自分の作品一覧の条件（Web の my.posts の URL の条件と同じ）

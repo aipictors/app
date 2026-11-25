@@ -1,3 +1,4 @@
+import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/design.dart';
 import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/generation/generation_api.dart';
@@ -104,6 +105,19 @@ class _ResultViewerState extends State<ResultViewer> {
     context.toast(tr('削除しました', 'Deleted'));
   }
 
+  /// 不適切な画像を運営に報告する。送ったあとは削除もすすめる
+  Future<void> _report(GenResult r) async {
+    final sent = await showModalBottomSheet<bool>(
+      context: context,
+      isScrollControlled: true,
+      showDragHandle: true,
+      builder: (_) => _ReportSheet(result: r),
+    );
+    if (sent != true || !mounted) return;
+    context.toast(tr('報告しました。運営が確認します', 'Reported. Our team will review it.'), icon: Icons.flag_rounded);
+    await _delete(r);
+  }
+
   Future<void> _rate(GenResult r, int value) async {
     Ds.tap();
     final error = await c.setRating(r, r.rating == value ? 0 : value);
@@ -191,6 +205,7 @@ class _ResultViewerState extends State<ResultViewer> {
                     subtitle: r == null ? '' : relativeTime(r.completedAt),
                     onClose: () => Navigator.of(context).pop(),
                     onInfo: r == null ? null : () => _showInfo(r),
+                    onReport: r == null || (r.imageUrl ?? '').isEmpty ? null : () => _report(r),
                   ),
                 ),
                 // 下の操作
@@ -252,12 +267,13 @@ class _ZoomImage extends StatelessWidget {
 }
 
 class _TopBar extends StatelessWidget {
-  const _TopBar({required this.title, required this.subtitle, required this.onClose, required this.onInfo});
+  const _TopBar({required this.title, required this.subtitle, required this.onClose, required this.onInfo, required this.onReport});
 
   final String title;
   final String subtitle;
   final VoidCallback onClose;
   final VoidCallback? onInfo;
+  final VoidCallback? onReport;
 
   @override
   Widget build(BuildContext context) {
@@ -285,6 +301,12 @@ class _TopBar extends StatelessWidget {
                     if (subtitle.isNotEmpty) Text(subtitle, style: const TextStyle(color: Colors.white70, fontSize: 11)),
                   ],
                 ),
+              ),
+              // 不適切な生成画像を運営に報告する（AI 生成コンテンツの報告）
+              IconButton(
+                onPressed: onReport,
+                tooltip: tr('この画像を報告', 'Report this image'),
+                icon: const Icon(Icons.flag_outlined, color: Colors.white),
               ),
               IconButton(
                 onPressed: onInfo,
@@ -520,6 +542,100 @@ class _InfoSheet extends StatelessWidget {
             child: SelectableText(body, style: const TextStyle(height: 1.5)),
           ),
         ],
+      ),
+    );
+  }
+}
+
+/// 生成画像の報告（理由と詳細）
+class _ReportSheet extends StatefulWidget {
+  const _ReportSheet({required this.result});
+
+  final GenResult result;
+
+  @override
+  State<_ReportSheet> createState() => _ReportSheetState();
+}
+
+class _ReportSheetState extends State<_ReportSheet> {
+  static List<(String, String)> get _reasons => [
+        ('SEXUAL', tr('性的な内容', 'Sexual content')),
+        ('MINOR', tr('子どもに見える人物の不適切な描写', 'Inappropriate depiction of a minor')),
+        ('VIOLENCE', tr('暴力的・グロテスク', 'Violent or gory')),
+        ('HATE', tr('差別・ヘイト', 'Hate or discrimination')),
+        ('REAL_PERSON', tr('実在の人物', 'Real person')),
+        ('ILLEGAL', tr('違法・危険な内容', 'Illegal or dangerous')),
+        ('OTHER', tr('その他', 'Other')),
+      ];
+
+  String? _reason;
+  final _detail = TextEditingController();
+  bool _sending = false;
+
+  @override
+  void dispose() {
+    _detail.dispose();
+    super.dispose();
+  }
+
+  Future<void> _send() async {
+    final reason = _reason;
+    if (reason == null || _sending) return;
+    setState(() => _sending = true);
+    try {
+      await GenApi.reportResult(nanoid: widget.result.nanoid, imageUrl: widget.result.imageUrl ?? '', reason: reason, detail: _detail.text.trim());
+      if (mounted) Navigator.of(context).pop(true);
+    } on ApiException catch (e) {
+      if (mounted) context.toast(e.message, error: true);
+    } finally {
+      if (mounted) setState(() => _sending = false);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(bottom: MediaQuery.viewInsetsOf(context).bottom),
+      child: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.fromLTRB(20, 0, 20, 16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(tr('この画像を報告', 'Report this image'), style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800)),
+              const SizedBox(height: 6),
+              Text(
+                tr('意図しない不適切な画像ができたときは運営に知らせてください。生成の仕組みの改善に使います。', 'Let us know if an inappropriate image was generated. We use reports to improve generation.'),
+                style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant, fontSize: 13),
+              ),
+              const SizedBox(height: 8),
+              RadioGroup<String>(
+                groupValue: _reason,
+                onChanged: (v) => setState(() => _reason = v),
+                child: Column(
+                  children: [
+                    for (final (value, label) in _reasons) RadioListTile<String>(value: value, title: Text(label), contentPadding: EdgeInsets.zero, dense: true),
+                  ],
+                ),
+              ),
+              TextField(
+                controller: _detail,
+                maxLength: 500,
+                maxLines: 3,
+                minLines: 1,
+                decoration: InputDecoration(hintText: tr('詳しい内容（任意）', 'Details (optional)'), border: const OutlineInputBorder()),
+              ),
+              const SizedBox(height: 8),
+              SizedBox(
+                width: double.infinity,
+                child: FilledButton(
+                  onPressed: _reason == null || _sending ? null : _send,
+                  child: Text(_sending ? tr('送信中…', 'Sending…') : tr('報告する', 'Report')),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

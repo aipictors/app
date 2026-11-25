@@ -1,3 +1,4 @@
+import 'package:aipictors/v2/albums/album_api.dart' show allowedThumbnail;
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/content_translate.dart';
 import 'package:aipictors/v2/core/models.dart';
@@ -136,7 +137,8 @@ class NotificationItem {
           : NotificationWork(
               id: workJson.str('id'),
               title: localizedContent(workJson.str('title'), workJson.strOrNull('enTitle')),
-              thumbnailUrl: workJson.strOrNull('smallThumbnailImageURL'),
+              // 出せない年齢区分（Android 版は全年齢以外・センシティブ）は通知は残して絵だけ隠す
+              thumbnailUrl: allowedThumbnail(workJson, 'smallThumbnailImageURL'),
               isAdult: rating == 'R18' || rating == 'R18G',
             ),
       user: j.obj('user') == null ? null : UserSummary.fromJson(j.obj('user')!),
@@ -174,7 +176,7 @@ class NotificationsApi {
   /// タブのバッジ。アプリのどこからでも読む
   static final unread = ValueNotifier<int>(0);
 
-  static const _work = 'work { id title enTitle rating smallThumbnailImageURL }';
+  static const _work = 'work { id title enTitle rating isSensitive smallThumbnailImageURL }';
   static const _user = 'user { $userSummaryFields }';
 
   static const _list = '''

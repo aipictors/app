@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:aipictors/v2/core/models.dart';
+import 'package:aipictors/v2/core/store_policy.dart';
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/design.dart';
 import 'package:aipictors/v2/core/nav.dart';
@@ -58,10 +60,9 @@ class ModelCell {
   final String? thumbnailUrl;
   final int useCount;
 
-  /// Web の /api/user-models の 1 件から作る。R18 のものは null
+  /// Web の /api/user-models の 1 件から作る。R18（Android 版は全年齢以外）のものは null
   static ModelCell? fromJson(Map<String, dynamic> m) {
-    final rating = m.str('rating');
-    if (rating == 'R18' || rating == 'R18G') return null;
+    if (!AppContentFilter.allows(m.strOrNull('rating'))) return null;
     return ModelCell(
       id: m.str('id'),
       name: m.str('name'),
@@ -82,7 +83,7 @@ class UserTabsApi {
     final uri = Uri.parse('https://www.aipictors.com/api/user-models').replace(queryParameters: {
       'userId': userId,
       'sort': 'new',
-      'ratings': 'G,R15',
+      'ratings': AppContentFilter.ratings.join(','),
       'offset': '$offset',
       'limit': '${limit.clamp(1, 60)}',
     });
@@ -134,7 +135,7 @@ query AppUserEvents($userId: ID!, $offset: Int!, $limit: Int!, $where: UserEvent
   user(id: $userId) {
     id
     userEvents(offset: $offset, limit: $limit, where: $where) {
-      id title thumbnailImageUrl mainTag status entryCount isSensitive
+      id title thumbnailImageUrl mainTag status entryCount isSensitive ratings
     }
   }
 }''', variables: {
@@ -144,7 +145,8 @@ query AppUserEvents($userId: ID!, $offset: Int!, $limit: Int!, $where: UserEvent
       'where': {'isSensitive': false},
     });
     return (data.obj('user')?.list('userEvents') ?? const <Map<String, dynamic>>[])
-        .where((e) => !e.boolean('isSensitive'))
+        // R18 を含むイベント（Android 版は R15 を含むものも）は出さない
+        .where((e) => !e.boolean('isSensitive') && (e['ratings'] as List? ?? const []).every((r) => StorePolicy.allowsRating(r.toString(), showR15: true)))
         .map((e) => EventCell(
               id: e.str('id'),
               title: e.str('title'),

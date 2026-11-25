@@ -145,7 +145,7 @@ class _MyFoldersScreenState extends State<MyFoldersScreen> {
                 // 名前のないフォルダはいいね・ブックマーク用の既定のもの。変更も削除もさせない
                 final isDefault = f.str('title').isEmpty;
                 return ListTile(
-                  leading: AppImage(f.strOrNull('thumbnailImageURL'), width: 52, height: 52, radius: 8, memCacheWidth: 156),
+                  leading: AppImage(allowedThumbnail(f, 'thumbnailImageURL'), width: 52, height: 52, radius: 8, memCacheWidth: 156),
                   title: Text(isDefault ? 'ブックマーク' : f.str('title'), maxLines: 1, overflow: TextOverflow.ellipsis),
                   subtitle: Text('${f.integer('worksCount')}作品'),
                   onTap: () async {

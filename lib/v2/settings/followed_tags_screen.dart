@@ -369,7 +369,7 @@ query AppFollowedTagLatestWorks($where: WorksWhereInput!) {
 }''', variables: {
         'where': {
           'tagNames': [widget.name],
-          'ratings': ['G', if (AppContentFilter.showR15) 'R15'],
+          'ratings': AppContentFilter.ratings,
           'isNowCreatedAt': true,
         },
       }, cacheFor: const Duration(minutes: 5));

@@ -1,5 +1,7 @@
+import 'package:aipictors/v2/albums/album_api.dart' show allowedThumbnail;
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/models.dart';
+import 'package:aipictors/v2/core/store_policy.dart';
 
 class FolderSummary {
   const FolderSummary({required this.id, required this.title, required this.thumbnailUrl, required this.worksCount, required this.isPrivate});
@@ -15,7 +17,8 @@ class FolderSummary {
       .map((f) => FolderSummary(
             id: f.str('id'),
             title: f.str('title', '').isEmpty ? '無題のフォルダ' : f.str('title'),
-            thumbnailUrl: f.strOrNull('thumbnailImageURL'),
+            // R15 など出せないものはフォルダは残して絵だけ隠す
+            thumbnailUrl: allowedThumbnail(f, 'thumbnailImageURL'),
             worksCount: f.integer('worksCount'),
             isPrivate: f.boolean('isPrivate'),
           ))
@@ -192,6 +195,8 @@ query AppWorkActionHistories($offset: Int!, $limit: Int!, $actionType: String) {
     return (data.obj('viewer')?.list('workActionHistories') ?? const <Map<String, dynamic>>[]).map((h) {
       final label = h.str('ratingLabel');
       final isAdult = label.contains('R18');
+      // Android 版は全年齢の作品だけ絵を出す
+      final hideImage = isAdult || (StorePolicy.strict && !const {'', 'G', '全年齢'}.contains(label.trim()));
       return ActionHistoryItem(
         id: h.str('id'),
         actionType: h.str('actionType'),
@@ -199,7 +204,7 @@ query AppWorkActionHistories($offset: Int!, $limit: Int!, $actionType: String) {
         summary: isAdult ? 'アプリでは表示できない作品の履歴です' : h.str('summary'),
         title: isAdult ? null : h.strOrNull('title'),
         workId: isAdult ? null : h.strOrNull('workId'),
-        thumbnailUrl: isAdult ? null : h.strOrNull('thumbnailImageURL'),
+        thumbnailUrl: hideImage ? null : h.strOrNull('thumbnailImageURL'),
         isModeratorAction: h.boolean('isModeratorAction'),
       );
     }).toList();
@@ -210,7 +215,7 @@ query AppWorkActionHistories($offset: Int!, $limit: Int!, $actionType: String) {
 query AppModerationReports($offset: Int!, $limit: Int!, $where: ModerationReportsWhereInput) {
   moderationReports(offset: $offset, limit: $limit, where: $where) {
     id createdAt customMessage isRead responseMessage status reportMessage reportType
-    work { id title rating smallThumbnailImageURL }
+    work { id title rating isSensitive smallThumbnailImageURL }
   }
 }''', variables: {
       'offset': offset,
@@ -225,7 +230,7 @@ query AppModerationReports($offset: Int!, $limit: Int!, $where: ModerationReport
         createdAt: r.integer('createdAt'),
         workId: isAdult ? null : w?.strOrNull('id'),
         workTitle: isAdult ? null : w?.strOrNull('title'),
-        thumbnailUrl: isAdult ? null : w?.strOrNull('smallThumbnailImageURL'),
+        thumbnailUrl: allowedThumbnail(w, 'smallThumbnailImageURL'),
         customMessage: r.strOrNull('customMessage'),
         reportMessage: r.strOrNull('reportMessage'),
         responseMessage: r.strOrNull('responseMessage'),

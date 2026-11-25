@@ -1,3 +1,4 @@
+import 'package:aipictors/v2/core/store_policy.dart';
 import 'package:aipictors/providers/config_provider.dart';
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/design.dart';
@@ -411,7 +412,7 @@ class _NotificationSettingsScreenState extends State<NotificationSettingsScreen>
                     onChanged: saving ? null : (v) => saveSetting('isAnonymousLikeAllAges', v),
                   ),
                   // Web の「R-15 作品のいいねを匿名にする」。R15 を表示している人だけ出す
-                  if (s.str('preferenceRating', 'G') != 'G')
+                  if (s.str('preferenceRating', 'G') != 'G' && !StorePolicy.strict)
                     SettingsSwitch(
                       label: tr('R-15 作品のいいねを匿名にする', 'Like R-15 works anonymously'),
                       value: s.boolean('isAnonymousLikeR15'),
@@ -450,6 +451,13 @@ class _RestrictionSettingsScreenState extends State<RestrictionSettingsScreen> w
       body: settingPlaceholder() ??
           ContentWidth(
             child: ListView(children: [
+              // Android 版は全年齢の作品だけを出す（Google Play の決まり）
+              if (StorePolicy.strict)
+                SettingsGroup(
+                  footer: tr('Android 版のアプリでは全年齢の作品だけを表示します。', 'The Android app shows all-ages works only.'),
+                  children: const [],
+                )
+              else
               SettingsGroup(
                 footer: isWebRange ? 'この項目は Web の設定で決まっています。アプリでは全年齢と R15 の作品だけを表示します。' : 'アプリでは全年齢と R15 の作品だけを表示します。',
                 children: [

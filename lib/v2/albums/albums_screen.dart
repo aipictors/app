@@ -34,7 +34,7 @@ Future<void> showAddToAlbumSheet(BuildContext context, String workId) async {
           : ListView(shrinkWrap: true, children: [
               for (final a in albums)
                 ListTile(
-                  leading: AppImage(a.strOrNull('thumbnailImageURL'), width: 44, height: 44, radius: 8, memCacheWidth: 132),
+                  leading: AppImage(allowedThumbnail(a, 'thumbnailImageURL'), width: 44, height: 44, radius: 8, memCacheWidth: 132),
                   title: Text(a.str('title'), maxLines: 1, overflow: TextOverflow.ellipsis),
                   subtitle: Text('${a.integer('worksCount')}作品'),
                   onTap: () => Navigator.pop(context, a.str('id')),
@@ -113,7 +113,7 @@ class _MyAlbumsScreenState extends State<MyAlbumsScreen> {
                     c.refresh();
                   },
                   child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-                    Expanded(child: AppImage(a.strOrNull('thumbnailImageURL'), radius: 12, memCacheWidth: 500)),
+                    Expanded(child: AppImage(allowedThumbnail(a, 'thumbnailImageURL'), radius: 12, memCacheWidth: 500)),
                     const SizedBox(height: Ds.s6),
                     Text(a.str('title'), maxLines: 1, overflow: TextOverflow.ellipsis, style: const TextStyle(fontWeight: FontWeight.w700)),
                     Text('${a.integer('worksCount')}作品', style: TextStyle(color: context.muted, fontSize: 12)),
@@ -169,13 +169,12 @@ class _AlbumScreenState extends State<AlbumScreen> {
     try {
       final r = await AlbumApi.detail(widget.id);
       if (!mounted) return;
-      final rating = r.album?.str('rating');
       setState(() {
         _album = r.album;
         _viewerId = r.viewerId;
         if (r.album == null) _error = 'シリーズが見つかりませんでした';
-        // R18 はモバイルでは出さない
-        if (rating == 'R18' || rating == 'R18G') _error = 'このシリーズはアプリでは表示できません';
+        // R18 はモバイルでは出さない（Android 版はセンシティブも）
+        if (r.album != null && !isAllowedInApp(r.album)) _error = 'このシリーズはアプリでは表示できません';
       });
     } on ApiException catch (e) {
       if (mounted) setState(() => _error = e.message);
@@ -308,7 +307,7 @@ class _AlbumEditScreenState extends State<AlbumEditScreen> {
       if (a == null || a.obj('user')?.str('id') != r.viewerId) throw const ApiException('自分のシリーズだけ編集できます');
       _title.text = a.str('title');
       _description.text = a.str('description');
-      _currentImage = a.strOrNull('thumbnailImageURL');
+      _currentImage = allowedThumbnail(a, 'thumbnailImageURL');
       _selected.addAll((a['workIds'] as List? ?? const []).map((id) => id.toString()));
     } on ApiException catch (e) {
       if (mounted) {

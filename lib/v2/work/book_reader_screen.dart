@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:ui' show DisplayFeature, DisplayFeatureType;
 
+import 'package:aipictors/v2/albums/album_api.dart' show isAllowedInApp;
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/content_translate.dart';
 import 'package:aipictors/v2/core/design.dart';
@@ -17,7 +18,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 const _readerWorkQuery = '''
 query AppReaderWork(\$id: ID!) {
   work(id: \$id) {
-    id title enTitle type rating mdUrl imageURL description enDescription isCaptionBeforeBody
+    id title enTitle type rating isSensitive mdUrl imageURL description enDescription isCaptionBeforeBody
     user { id name }
   }
 }''';
@@ -153,8 +154,8 @@ class _BookReaderScreenState extends State<BookReaderScreen> {
         return;
       }
       final type = work.str('type');
-      final rating = work.str('rating');
-      if ((type != 'NOVEL' && type != 'COLUMN') || rating == 'R18' || rating == 'R18G') {
+      // R18（Android 版は全年齢以外・センシティブ）は開かない
+      if ((type != 'NOVEL' && type != 'COLUMN') || !isAllowedInApp(work)) {
         setState(() => _error = tr('この作品は本のように読めません', "This work can't be opened in the reader"));
         return;
       }

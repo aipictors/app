@@ -1,3 +1,4 @@
+import 'package:aipictors/v2/albums/album_api.dart' show allowedThumbnail;
 import 'package:aipictors/v2/community/messages_screen.dart' show mockSend;
 import 'package:aipictors/v2/community/paged_list.dart';
 import 'package:aipictors/v2/core/api.dart';
@@ -14,7 +15,7 @@ import 'package:go_router/go_router.dart';
 const _monthQuery = r'''
 query AppThemesMonth($offset: Int!, $limit: Int!, $where: DailyThemesWhereInput) {
   dailyThemes(offset: $offset, limit: $limit, where: $where) {
-    id title day month year worksCount firstWork { smallThumbnailImageURL }
+    id title day month year worksCount firstWork { smallThumbnailImageURL rating isSensitive }
   }
 }''';
 
@@ -108,6 +109,8 @@ class _DayCell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = theme;
+    // 先頭の作品が出せない年齢区分なら絵は出さない
+    final thumb = allowedThumbnail(t?.obj('firstWork'), 'smallThumbnailImageURL');
     return Pressable(
       onTap: t == null ? null : () => context.push('/themes/${month.year}/${month.month}/$day'),
       child: Container(
@@ -128,8 +131,7 @@ class _DayCell extends StatelessWidget {
               child: Text(t.str('title'), maxLines: 2, overflow: TextOverflow.ellipsis, style: const TextStyle(fontSize: 9.5, height: 1.2, fontWeight: FontWeight.w600)),
             ),
           const SizedBox(height: 2),
-          if (t?.obj('firstWork')?.strOrNull('smallThumbnailImageURL') != null)
-            Expanded(child: AppImage(t!.obj('firstWork')!.str('smallThumbnailImageURL'), memCacheWidth: 150)),
+          if (thumb != null) Expanded(child: AppImage(thumb, memCacheWidth: 150)),
         ]),
       ),
     );

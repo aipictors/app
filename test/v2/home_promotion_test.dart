@@ -1,4 +1,5 @@
 import 'package:aipictors/v2/core/models.dart';
+import 'package:aipictors/v2/core/store_policy.dart';
 import 'package:aipictors/v2/home/home_promotion.dart';
 import 'package:aipictors/v2/widgets/work_grid.dart';
 import 'package:aipictors/v2/work/work_promotion.dart';
@@ -18,6 +19,10 @@ Map<String, dynamic> _work(String id, {String rating = 'G', String? relatedUrl, 
     };
 
 void main() {
+  // flutter test は Android として動くので、iOS と同じ表示（R15 を出す）で確かめる
+  setUp(() => StorePolicy.debugStrict = false);
+  tearDown(() => StorePolicy.debugStrict = null);
+
   test('「詳しく見る」は http/https の URL だけ（Web の isValidUrl と同じ）', () {
     expect(isPromotionLinkUrl('https://example.com'), isTrue);
     expect(isPromotionLinkUrl('http://example.com/a'), isTrue);

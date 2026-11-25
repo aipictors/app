@@ -94,7 +94,7 @@ class _WorksBrowseScreenState extends State<WorksBrowseScreen> {
 
 const _tagsQuery = '''
 query AppTagsIndex {
-  hotTags { id name firstWork { smallThumbnailImageURL rating } }
+  hotTags { id name firstWork { smallThumbnailImageURL rating isSensitive } }
 }''';
 
 /// タグの一覧（いま人気・よく使われる）。写真は全年齢の作品だけ
@@ -112,7 +112,7 @@ class _TagsScreenState extends State<TagsScreen> {
     final results = await Future.wait([
       Api.query(_tagsQuery, cacheFor: const Duration(minutes: 10)).then((d) => d
           .list('hotTags')
-          .map((t) => TagSummary(name: t.str('name'), thumbnailUrl: t.obj('firstWork')?.str('rating') == 'G' ? t.obj('firstWork')?.strOrNull('smallThumbnailImageURL') : null))
+          .map((t) => TagSummary(name: t.str('name'), thumbnailUrl: t.obj('firstWork')?.str('rating') == 'G' && t.obj('firstWork')?.boolean('isSensitive') != true ? t.obj('firstWork')?.strOrNull('smallThumbnailImageURL') : null))
           .where((t) => t.name.isNotEmpty && !SensitiveTags.isBlocked(t.name))
           .toList()),
       ExploreApi.popularTags(limit: 48),

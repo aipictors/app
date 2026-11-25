@@ -1,3 +1,4 @@
+import 'package:aipictors/v2/albums/album_api.dart' show isAllowedInApp;
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/content_translate.dart';
 import 'package:aipictors/v2/core/design.dart';
@@ -13,7 +14,7 @@ query AppAiRankings(\$limit: Int!, \$offset: Int!, \$where: AiEvaluationWorkRank
   aiEvaluationWorkRankings(limit: \$limit, offset: \$offset, where: \$where) {
     id index overallScore awardTier pictorComment dateText isSensitive
     user { $userSummaryFields }
-    work { id title enTitle rating largeThumbnailImageURL }
+    work { id title enTitle rating isSensitive largeThumbnailImageURL }
   }
 }''';
 
@@ -55,8 +56,8 @@ class _AiRankingScreenState extends State<AiRankingScreen> {
           'where': {...RankingDate.where(_p, date), 'isSensitive': false},
         }, cacheFor: const Duration(minutes: 5));
         final items = data.list('aiEvaluationWorkRankings').where((r) {
-          final rating = r.obj('work')?.str('rating');
-          return !r.boolean('isSensitive') && rating != null && appRatings.contains(rating);
+          final work = r.obj('work');
+          return !r.boolean('isSensitive') && work?.strOrNull('rating') != null && isAllowedInApp(work);
         }).toList();
         if (items.isNotEmpty || !backfill || i == 6) {
           if (mounted) {

@@ -1,3 +1,4 @@
+import 'package:aipictors/v2/albums/album_api.dart' show isAllowedInApp;
 import 'package:aipictors/v2/community/paged_list.dart';
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/design.dart';
@@ -30,7 +31,7 @@ class _AlbumsBrowseScreenState extends State<AlbumsBrowseScreen> {
         'limit': limit,
         'where': {'isSensitive': false, 'ratings': ['G', 'R15'], 'needsThumbnailImage': true, 'needInspected': false, 'orderBy': 'DATE_UPDATED', 'sort': 'DESC'},
       }, cacheFor: const Duration(minutes: 5));
-      return data.list('albums').where((a) => !a.boolean('isSensitive') && a.str('rating') != 'R18').toList();
+      return data.list('albums').where((a) => !a.boolean('isSensitive') && isAllowedInApp(a)).toList();
     },
   );
 

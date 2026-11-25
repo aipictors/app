@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:aipictors/v2/albums/album_api.dart' show isAllowedInApp;
+
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/coins.dart';
 import 'package:aipictors/v2/core/debug_boot.dart';
@@ -113,7 +115,7 @@ class _MyPageScreenState extends State<MyPageScreen> {
     try {
       final data = await Api.query(r'''
 query AppMyRecentWorks($where: WorksWhereInput) {
-  works(offset: 0, limit: 8, where: $where) { id title rating accessType createdAt smallThumbnailImageURL likesCount }
+  works(offset: 0, limit: 8, where: $where) { id title rating isSensitive accessType createdAt smallThumbnailImageURL likesCount }
 }''', variables: {
         'where': {
           'userId': userId,
@@ -125,7 +127,7 @@ query AppMyRecentWorks($where: WorksWhereInput) {
           'beforeCreatedAt': DateTime.utc(2099).toIso8601String(),
         },
       });
-      if (mounted) setState(() => _recentWorks = data.list('works'));
+      if (mounted) setState(() => _recentWorks = data.list('works').where(isAllowedInApp).toList());
     } on ApiException {
       if (mounted) setState(() => _recentWorks = const []);
     }

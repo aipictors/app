@@ -1,3 +1,4 @@
+import 'package:aipictors/v2/core/store_policy.dart';
 import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/content_translate.dart';
@@ -50,11 +51,17 @@ enum RatingFilter {
   g('全年齢', 'All ages', ['G']),
   r15('R15', 'R15', ['R15']);
 
-  const RatingFilter(this._ja, this._en, this.ratings);
+  const RatingFilter(this._ja, this._en, this._ratings);
 
   final String _ja;
   final String _en;
-  final List<String> ratings;
+  final List<String> _ratings;
+
+  /// 検索で送る年齢区分（Android 版は全年齢だけ）
+  List<String> get ratings => _ratings.where(AppContentFilter.allows).toList().ifEmpty(const ['G']);
+
+  /// 絞り込みで選べるもの（Android 版は R15 を出さない）
+  static List<RatingFilter> get choices => StorePolicy.strict ? const [RatingFilter.all] : RatingFilter.values;
 
   String get label => tr(_ja, _en);
 }
@@ -146,9 +153,9 @@ class WorkFilter {
   int get hashCode => Object.hash(sort, kind, rating, style, prompt, userId);
 }
 
-/// タグのサムネイル: 先頭の作品が全年齢（G）のときだけ URL を返す
+/// タグのサムネイル: 先頭の作品が全年齢（G）でセンシティブでないときだけ URL を返す
 String? tagThumbnailIfAllAges(Map<String, dynamic>? work) {
-  if (work == null || work['rating'] != 'G') return null;
+  if (work == null || work['rating'] != 'G' || work['isSensitive'] == true) return null;
   final url = (work['smallThumbnailImageURL'] as String?)?.trim() ?? '';
   return url.isEmpty ? null : url;
 }
@@ -211,7 +218,7 @@ query SearchPopularTags(\$limit: Int!, \$where: RecommendedTagsWhereInput!) {
 
   static const _hotTags = '''
 query HotTagsWithThumbnail {
-  hotTags { name firstWork { smallThumbnailImageURL rating } }
+  hotTags { name firstWork { smallThumbnailImageURL rating isSensitive } }
 }''';
 
   /// サムネイル付きの人気のタグ（Web のトップのタグ一覧と同じ hotTags）。
@@ -255,6 +262,7 @@ query DailyTheme(\$year: Int, \$month: Int, \$day: Int) {
     firstWork {
       id
       rating
+      isSensitive
       smallThumbnailImageURL
     }
   }
@@ -270,7 +278,7 @@ query DailyTheme(\$year: Int, \$month: Int, \$day: Int) {
     final t = data.obj('dailyTheme');
     if (t == null) return null;
     final first = t.obj('firstWork');
-    final safe = first != null && appRatings.contains(first.str('rating'));
+    final safe = first != null && AppContentFilter.allows(first.str('rating')) && !(StorePolicy.strict && first.boolean('isSensitive'));
     return DailyTheme(
       id: t.str('id'),
       title: localizedContent(t.str('title'), t.strOrNull('enTitle')),
@@ -378,6 +386,7 @@ query SearchTags(\$offset: Int!, \$limit: Int!, \$where: TagsWhereInput) {
     firstWork {
       id
       rating
+      isSensitive
       smallThumbnailImageURL
     }
   }
@@ -395,9 +404,7 @@ query SearchTags(\$offset: Int!, \$limit: Int!, \$where: TagsWhereInput) {
       cacheFor: const Duration(minutes: 5),
     );
     return data.list('tags').map((t) {
-      final first = t.obj('firstWork');
-      final safe = first != null && first.str('rating') == 'G';
-      return TagSummary(name: t.str('name'), thumbnailUrl: safe ? first.strOrNull('smallThumbnailImageURL') : null);
+      return TagSummary(name: t.str('name'), thumbnailUrl: tagThumbnailIfAllAges(t.obj('firstWork')));
     })
         // 昔の作品には「ねこ 猫 ぬこ」のように空白でつないだ 1 つのタグがあるので候補から外す
         .where((t) => t.name.trim().isNotEmpty && t.name.trim().split(RegExp(r'\s+')).length < 3 && !SensitiveTags.isBlocked(t.name))
@@ -666,4 +673,8 @@ class RankingDate {
         return '${d.year}年${d.month}月';
     }
   }
+}
+
+extension on List<String> {
+  List<String> ifEmpty(List<String> fallback) => isEmpty ? fallback : this;
 }

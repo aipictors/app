@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/l10n.dart';
+import 'package:aipictors/v2/core/store_policy.dart';
 import 'package:aipictors/v2/post/post_event.dart';
 import 'package:aipictors/v2/post/upload.dart';
 import 'package:flutter/foundation.dart';
@@ -192,7 +193,7 @@ query AppPostOptions($startDate: String, $endDate: String) {
 query AppWorkForEdit($id: ID!) {
   viewer { id user { id } }
   work(id: $id) {
-    id title description type rating accessType promptAccessType style
+    id title description type rating isSensitive accessType promptAccessType style
     imageURL imageWidth imageHeight mdUrl url streamUid
     largeThumbnailImageURL largeThumbnailImageWidth largeThumbnailImageHeight
     smallThumbnailImageURL smallThumbnailImageWidth smallThumbnailImageHeight
@@ -211,6 +212,10 @@ query AppWorkForEdit($id: ID!) {
     final viewerId = data.obj('viewer')?.obj('user')?.str('id');
     if (viewerId == null || work.obj('user')?.str('id') != viewerId) {
       throw ApiException(tr('自分の作品だけ編集できます', 'You can only edit your own works'));
+    }
+    // 編集画面には画像が出るので、アプリで出せない年齢区分（Android 版は全年齢以外・センシティブ）は開かない
+    if (!StorePolicy.allowsRating(work.strOrNull('rating'), showR15: true) || (StorePolicy.strict && work.boolean('isSensitive'))) {
+      throw ApiException(tr('この年齢種別の作品はアプリから編集できません', 'Works with this age rating can\'t be edited in the app'));
     }
     return EditingWork(work);
   }

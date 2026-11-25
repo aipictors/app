@@ -1,5 +1,6 @@
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/content_translate.dart';
+import 'package:aipictors/v2/core/store_policy.dart';
 
 /// ユーザーの枠の項目。ユーザーを取る GraphQL には必ず入れる
 const avatarFrameFields = 'avatarFrame { frameType backgroundStyle borderPadding overlayImageUrl }';
@@ -14,6 +15,7 @@ const workCardFields = '''
   enTitle
   type
   rating
+  isSensitive
   isLiked
   likesCount
   commentsCount
@@ -32,14 +34,23 @@ const workCardFields = '''
   user { $userSummaryFields }
 ''';
 
-/// アプリで見せる年齢区分（R18 はアプリでは出さない）
-const appRatings = ['G', 'R15'];
+/// アプリで見せる年齢区分（R18 はアプリでは出さない。Android 版は全年齢だけ）
+List<String> get appRatings => StorePolicy.strict ? const ['G'] : const ['G', 'R15'];
 
-/// 表示の設定（Web の「R15 を表示する」）。一覧を作るときに効かせる
+/// 表示の設定（Web の「R15 を表示する」）。一覧を作るときに効かせる。Android 版は常に全年齢だけ
 class AppContentFilter {
   AppContentFilter._();
 
-  static bool showR15 = true;
+  static bool _showR15 = true;
+
+  static bool get showR15 => !StorePolicy.strict && _showR15;
+  static set showR15(bool value) => _showR15 = value;
+
+  /// この年齢区分の作品を出してよいか
+  static bool allows(String? rating) => StorePolicy.allowsRating(rating, showR15: _showR15);
+
+  /// 一覧の where に入れる年齢区分（Android 版は全年齢だけ）
+  static List<String> get ratings => showR15 ? const ['G', 'R15'] : const ['G'];
 }
 
 /// ユーザーのアイコン枠（Web の UserAvatarFramePresentation）
@@ -142,6 +153,7 @@ class WorkSummary {
     required this.user,
     this.isPromptPublic = false,
     this.isPromotion = false,
+    this.isSensitive = false,
   });
 
   final String id;
@@ -167,6 +179,9 @@ class WorkSummary {
 
   /// 宣伝作品（Web の一覧のサムネイルの「PR」。WorkNode.isPromotion）
   final bool isPromotion;
+
+  /// センシティブの欄の作品（Android 版では出さない）
+  final bool isSensitive;
 
   double get aspect {
     if (width <= 0 || height <= 0) return 1;
@@ -197,11 +212,12 @@ class WorkSummary {
       user: j.obj('user') != null ? UserSummary.fromJson(j.obj('user')!) : UserSummary.empty,
       isPromptPublic: j.str('promptAccessType') == 'PUBLIC',
       isPromotion: j.boolean('isPromotion'),
+      isSensitive: j.boolean('isSensitive'),
     );
   }
 
   static List<WorkSummary> listFrom(List<Map<String, dynamic>> items) => items
       .map(WorkSummary.fromJson)
-      .where((w) => w.id.isNotEmpty && w.imageUrl.isNotEmpty && w.rating != 'R18' && w.rating != 'R18G' && (AppContentFilter.showR15 || w.rating != 'R15'))
+      .where((w) => w.id.isNotEmpty && w.imageUrl.isNotEmpty && AppContentFilter.allows(w.rating) && !(StorePolicy.strict && w.isSensitive))
       .toList();
 }

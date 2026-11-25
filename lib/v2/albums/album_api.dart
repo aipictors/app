@@ -2,10 +2,17 @@ import 'dart:math';
 
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/models.dart';
+import 'package:aipictors/v2/core/store_policy.dart';
 import 'package:aipictors/v2/post/upload.dart';
 import 'package:flutter/foundation.dart';
 
-const albumSummaryFields = 'id title description rating thumbnailImageURL worksCount likesCount';
+const albumSummaryFields = 'id title description rating isSensitive thumbnailImageURL worksCount likesCount';
+
+/// アプリで出してよい作品・シリーズ・フォルダか（rating と isSensitive を見る。R18 は出さない。Android 版は全年齢でセンシティブでないものだけ）
+bool isAllowedInApp(Map<String, dynamic>? j) => j != null && AppContentFilter.allows(j.strOrNull('rating')) && !(StorePolicy.strict && j.boolean('isSensitive'));
+
+/// 出してよいときだけサムネイルの URL を返す（自分のシリーズ・フォルダは消さずに絵だけ隠す）
+String? allowedThumbnail(Map<String, dynamic>? j, String key) => isAllowedInApp(j) ? j!.strOrNull(key) : null;
 
 /// シリーズ（Web の albums）とブックマークフォルダの API
 class AlbumApi {
@@ -115,14 +122,14 @@ query AppMyWorksForAlbum(\$offset: Int!, \$limit: Int!, \$where: WorksWhereInput
   static Future<List<Map<String, dynamic>>> folders(int offset, int limit) async {
     final data = await Api.query(r'''
 query AppMyFolders($offset: Int!, $limit: Int!) {
-  viewer { id folders(offset: $offset, limit: $limit) { id nanoid title thumbnailImageURL worksCount isPrivate rating } }
+  viewer { id folders(offset: $offset, limit: $limit) { id nanoid title thumbnailImageURL worksCount isPrivate isSensitive rating } }
 }''', variables: {'offset': offset, 'limit': limit});
     return data.obj('viewer')?.list('folders') ?? const [];
   }
 
   static Future<Map<String, dynamic>?> folder(String id) async {
     final data = await Api.query('''
-query AppFolder(\$id: ID!) { folder(id: \$id) { id nanoid title description worksCount rating userId user { $userSummaryFields } } }''', variables: {'id': id});
+query AppFolder(\$id: ID!) { folder(id: \$id) { id nanoid title description worksCount rating isSensitive userId user { $userSummaryFields } } }''', variables: {'id': id});
     return data.obj('folder');
   }
 

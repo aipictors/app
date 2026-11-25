@@ -27,7 +27,7 @@ class UserModelsApi {
   static Future<List<Map<String, dynamic>>> list({required String sort, String kind = '', String q = '', required int offset, required int limit}) async {
     final uri = Uri.parse(_base).replace(queryParameters: {
       'sort': sort,
-      'ratings': 'G,R15',
+      'ratings': AppContentFilter.ratings.join(','),
       'offset': '$offset',
       'limit': '$limit',
       if (kind.isNotEmpty) 'kind': kind,
@@ -38,7 +38,7 @@ class UserModelsApi {
     final data = json is Map ? json['data'] : null;
     if (res.statusCode != 200 || data is! Map) throw const ApiException('モデルを読み込めませんでした');
     final models = data['models'];
-    return models is List ? models.whereType<Map<String, dynamic>>().where((m) => m.str('rating') != 'R18').toList() : const [];
+    return models is List ? models.whereType<Map<String, dynamic>>().where((m) => AppContentFilter.allows(m.strOrNull('rating'))).toList() : const [];
   }
 
   static Future<Map<String, dynamic>> detail(String id) async {
@@ -209,7 +209,7 @@ query AppImageModel($id: [ID!]) {
     idOf: (w) => w.id,
     fetch: (offset, limit) async {
       final data = await Api.query(
-        'query AppImageModelWorks(\$id: [ID!], \$offset: Int!, \$limit: Int!) { imageModel(where: { id: \$id }) { id works(offset: \$offset, limit: \$limit, where: { ratings: [G, R15] }) { $workCardFields } } }',
+        'query AppImageModelWorks(\$id: [ID!], \$offset: Int!, \$limit: Int!) { imageModel(where: { id: \$id }) { id works(offset: \$offset, limit: \$limit, where: { ratings: [${AppContentFilter.ratings.join(', ')}] }) { $workCardFields } } }',
         variables: {'id': [widget.id], 'offset': offset, 'limit': limit},
         cacheFor: const Duration(minutes: 3),
       );
@@ -289,7 +289,7 @@ class _UserModelDetailScreenState extends State<UserModelDetailScreen> {
         }
         final m = snap.data;
         if (m == null) return Scaffold(appBar: AppBar(), body: const SkeletonList());
-        if (m.str('rating') == 'R18') return Scaffold(appBar: AppBar(), body: StateView.empty('このモデルはアプリでは表示できません'));
+        if (!AppContentFilter.allows(m.strOrNull('rating'))) return Scaffold(appBar: AppBar(), body: StateView.empty('このモデルはアプリでは表示できません'));
         final samples = (m['sampleImageUrls'] as List? ?? const []).whereType<String>().toList();
         final trigger = m.strOrNull('triggerWords');
         final creatorId = m.strOrNull('userId');

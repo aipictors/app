@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:aipictors/v2/core/store_policy.dart';
 import 'package:aipictors/config.dart';
 import 'package:aipictors/features/config/utils/get_device_info.dart';
 import 'package:aipictors/providers/config_provider.dart';
@@ -107,6 +108,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
 
   bool _visible(SettingsItem item) {
     if (item.loginOnly && !Nav.isLoggedIn) return false;
+    // Android 版は全年齢の作品だけを出すので、R15 の切り替えは出さない
+    if (item.id == 'r15' && StorePolicy.strict) return false;
     if (item.debugOnly && !ref.read(configProvider).isDebugMode) return false;
     return true;
   }

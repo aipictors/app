@@ -4,6 +4,7 @@ import 'dart:ui' as ui;
 
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/l10n.dart';
+import 'package:aipictors/v2/core/store_policy.dart';
 import 'package:aipictors/v2/generation/generation_api.dart';
 import 'package:aipictors/v2/generation/generation_settings.dart';
 import 'package:flutter/foundation.dart';
@@ -396,6 +397,13 @@ class GenController extends ChangeNotifier {
     if (prompt.length > GenRules.maxPromptLength) {
       return GenBlock(GenBlockKind.message, tr('プロンプトが長すぎます（20000文字まで）', 'The prompt is too long (max 20,000 characters).'));
     }
+    // Android 版は性的な画像を作れないようにする（Google Play の決まり）。LoRA の名前も含めて見る
+    if (StorePolicy.blockedPromptWord(s.composePrompt(prompt)) case final word?) {
+      return GenBlock(
+        GenBlockKind.message,
+        tr('このアプリでは性的な画像は生成できません。「$word」を外してください', 'Sexual images cannot be generated in this app. Please remove "$word".'),
+      );
+    }
     final summary = coins;
     if (summary != null && summary.total < requestCost) {
       return GenBlock(GenBlockKind.coins, tr('コインが足りません（必要 $requestCost・残り ${summary.total}）', 'Not enough coins (need $requestCost, have ${summary.total})'));
@@ -519,7 +527,7 @@ class GenController extends ChangeNotifier {
                 'count': 1,
                 'prompt': prompt,
                 'isPromptGenerationEnabled': s.japanesePrompt,
-                'negativePrompt': s.negativePrompt,
+                'negativePrompt': StorePolicy.withSafetyNegative(s.negativePrompt),
                 'seed': seed,
                 'steps': steps,
                 'scale': s.scale,
@@ -534,7 +542,7 @@ class GenController extends ChangeNotifier {
           'vae': s.vae,
           'prompt': prompt,
           'isPromptGenerationEnabled': s.japanesePrompt,
-          'negativePrompt': s.negativePrompt,
+          'negativePrompt': StorePolicy.withSafetyNegative(s.negativePrompt),
           'seed': seed,
           'steps': steps,
           'scale': s.scale,
