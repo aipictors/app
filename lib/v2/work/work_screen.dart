@@ -36,6 +36,7 @@ import 'package:aipictors/v2/albums/album_api.dart';
 import 'package:aipictors/v2/post/post_api.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:video_player/video_player.dart';
+import 'package:aipictors/v2/widgets/zoomable_image.dart';
 
 // 作品そのものの項目だけ。コメントと関連作品は別に読む（重いものを混ぜると、
 // どれか 1 つが失敗しただけで作品が開けなくなるため）
@@ -1041,7 +1042,7 @@ class _FullscreenImagesState extends State<FullscreenImages> {
   late int _index = widget.initial;
   double _drag = 0;
 
-  /// 拡大中はページ送りと下スワイプを止め、画像の移動を優先する
+  /// 拡大中と指 2 本で触れている間はページ送りと下スワイプを止め、ピンチと画像の移動を優先する
   bool _zoomed = false;
 
   @override
@@ -1077,11 +1078,11 @@ class _FullscreenImagesState extends State<FullscreenImages> {
                 _index = i;
                 _zoomed = false;
               }),
-              itemBuilder: (context, i) => _ZoomableImage(
-                url: widget.images[i],
+              itemBuilder: (context, i) => ZoomableImage(
                 onZoomChanged: (z) {
                   if (z != _zoomed) setState(() => _zoomed = z);
                 },
+                child: Center(child: AppImage(widget.images[i], fit: BoxFit.contain)),
               ),
             ),
           ),
@@ -1101,56 +1102,6 @@ class _FullscreenImagesState extends State<FullscreenImages> {
           ]),
         ),
       ]),
-    );
-  }
-}
-
-/// ピンチとダブルタップで拡大できる画像
-class _ZoomableImage extends StatefulWidget {
-  const _ZoomableImage({required this.url, required this.onZoomChanged});
-
-  final String url;
-  final ValueChanged<bool> onZoomChanged;
-
-  @override
-  State<_ZoomableImage> createState() => _ZoomableImageState();
-}
-
-class _ZoomableImageState extends State<_ZoomableImage> {
-  final _transform = TransformationController();
-  TapDownDetails? _tap;
-
-  @override
-  void dispose() {
-    _transform.dispose();
-    super.dispose();
-  }
-
-  void _report() => widget.onZoomChanged(_transform.value.getMaxScaleOnAxis() > 1.01);
-
-  void _doubleTap() {
-    if (_transform.value.getMaxScaleOnAxis() > 1.01) {
-      _transform.value = Matrix4.identity();
-    } else {
-      final p = _tap?.localPosition ?? Offset.zero;
-      _transform.value = Matrix4.identity()
-        ..translateByDouble(-p.dx * 1.5, -p.dy * 1.5, 0, 1)
-        ..scaleByDouble(2.5, 2.5, 1, 1);
-    }
-    _report();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onDoubleTapDown: (d) => _tap = d,
-      onDoubleTap: _doubleTap,
-      child: InteractiveViewer(
-        transformationController: _transform,
-        maxScale: 5,
-        onInteractionEnd: (_) => _report(),
-        child: Center(child: AppImage(widget.url, fit: BoxFit.contain)),
-      ),
     );
   }
 }

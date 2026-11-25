@@ -95,22 +95,36 @@ class _DebugTourState extends State<_DebugTour> {
     _pointer(1, (id) => PointerUpEvent(pointer: id, position: at));
   }
 
+  /// 実際の指に近いピンチ: 1 本目を置いて少し遅れて 2 本目、2 本目だけを横に動かす（ページ送りに取られやすい形）
   Future<void> _pinch(Offset center) async {
-    var a = center - const Offset(30, 0);
+    final a = center - const Offset(40, 0);
     var b = center + const Offset(30, 0);
     _pointer(1, (id) => PointerDownEvent(pointer: id, position: a));
+    await Future<void>.delayed(const Duration(milliseconds: 40));
     _pointer(2, (id) => PointerDownEvent(pointer: id, position: b));
     for (var i = 0; i < 20; i++) {
       await Future<void>.delayed(const Duration(milliseconds: 16));
-      a -= const Offset(6, 0);
-      b += const Offset(6, 0);
-      final (pa, pb) = (a, b);
-      _pointer(1, (id) => PointerMoveEvent(pointer: id, position: pa, delta: const Offset(-6, 0)));
-      _pointer(2, (id) => PointerMoveEvent(pointer: id, position: pb, delta: const Offset(6, 0)));
+      b += const Offset(8, 0);
+      final pb = b;
+      _pointer(2, (id) => PointerMoveEvent(pointer: id, position: pb, delta: const Offset(8, 0)));
     }
-    final (pa, pb) = (a, b);
-    _pointer(1, (id) => PointerUpEvent(pointer: id, position: pa));
+    final pb = b;
+    _pointer(1, (id) => PointerUpEvent(pointer: id, position: a));
     _pointer(2, (id) => PointerUpEvent(pointer: id, position: pb));
+  }
+
+  /// 1 本指で横にドラッグする
+  Future<void> _drag(Offset from, Offset by) async {
+    var p = from;
+    _pointer(1, (id) => PointerDownEvent(pointer: id, position: p));
+    for (var i = 0; i < 15; i++) {
+      await Future<void>.delayed(const Duration(milliseconds: 16));
+      p += by / 15;
+      final q = p;
+      _pointer(1, (id) => PointerMoveEvent(pointer: id, position: q, delta: by / 15));
+    }
+    final q = p;
+    _pointer(1, (id) => PointerUpEvent(pointer: id, position: q));
   }
 
   ScrollableState? _firstVertical() {
@@ -145,7 +159,10 @@ class _DebugTourState extends State<_DebugTour> {
       builder: (_) => FullscreenImages(images: [w.str('imageURL'), ...w.list('subWorks').map((s) => s.str('imageUrl'))], initial: 0),
     ));
     await Future<void>.delayed(const Duration(seconds: 5));
-    await _pinch(const Offset(220, 480));
+    await _pinch(const Offset(200, 480));
+    await Future<void>.delayed(step);
+    // 拡大中の横ドラッグは移動（ページは送られず、枚数の表示も変わらない）
+    await _drag(const Offset(300, 480), const Offset(-200, 0));
     await Future<void>.delayed(step);
     if (!mounted) return;
     Navigator.of(context, rootNavigator: true).pop();
