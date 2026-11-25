@@ -6,6 +6,7 @@ import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/requests/requests_api.dart';
 import 'package:aipictors/v2/settings/settings_api.dart';
 import 'package:aipictors/v2/widgets/common.dart';
+import 'package:aipictors/v2/widgets/zoomable_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:go_router/go_router.dart';
@@ -274,9 +275,9 @@ class RequestImageGrid extends StatelessWidget {
           GestureDetector(
             onTap: () => showDialog<void>(
               context: context,
-              builder: (_) => GestureDetector(
+              builder: (_) => ZoomableImage(
                 onTap: () => Navigator.of(context).pop(),
-                child: InteractiveViewer(child: AppImage(url, fit: BoxFit.contain)),
+                child: AppImage(url, fit: BoxFit.contain),
               ),
             ),
             child: AppImage(url, radius: 12),

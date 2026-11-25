@@ -21,6 +21,8 @@ class InteractiveImageDialog extends HookConsumerWidget {
     final notifier = ref.read(interactiveImageDialogMatrix4Provider.notifier);
     final closeButton = useState(true);
     final isDismissible = useState(true);
+    // 指 2 本で触れている間は下スワイプで閉じる操作を外し、ピンチを縦のドラッグに取られないようにする
+    final pointers = useState(<int>{});
 
     TransformationController controller = TransformationController(position);
     AnimationController animationController = useAnimationController(
@@ -54,7 +56,11 @@ class InteractiveImageDialog extends HookConsumerWidget {
     });
 
     return SafeArea(
-        child: GestureDetector(
+        child: Listener(
+      onPointerDown: (e) => pointers.value = {...pointers.value, e.pointer},
+      onPointerUp: (e) => pointers.value = {...pointers.value}..remove(e.pointer),
+      onPointerCancel: (e) => pointers.value = {...pointers.value}..remove(e.pointer),
+      child: GestureDetector(
       //画面をワンタップでバツボタンを表示・非表示
       onTap: () {
         closeButton.value = !closeButton.value;
@@ -78,7 +84,7 @@ class InteractiveImageDialog extends HookConsumerWidget {
       },
       child: Dismissible(
           //ズーム中はスワイプされても閉じない
-          direction: isDismissible.value
+          direction: isDismissible.value && pointers.value.length < 2
               ? DismissDirection.vertical
               : DismissDirection.none,
           key: const Key(''),
@@ -88,7 +94,7 @@ class InteractiveImageDialog extends HookConsumerWidget {
           child: Stack(
             children: [
               InteractiveViewer(
-                minScale: 0.8,
+                minScale: 1,
                 maxScale: 5,
                 transformationController: controller,
                 child: Center(
@@ -126,6 +132,7 @@ class InteractiveImageDialog extends HookConsumerWidget {
                 )
             ],
           )),
+      ),
     ));
   }
 }

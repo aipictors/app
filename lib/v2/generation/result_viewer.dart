@@ -5,13 +5,14 @@ import 'package:aipictors/v2/generation/generation_controller.dart';
 import 'package:aipictors/v2/generation/generation_sheets.dart';
 import 'package:aipictors/v2/generation/model_picker.dart';
 import 'package:aipictors/v2/widgets/common.dart';
+import 'package:aipictors/v2/widgets/zoomable_image.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:share_plus/share_plus.dart';
 
-/// 生成結果を全画面で見る（ピンチで拡大・左右で切り替え）
+/// 生成結果を全画面で見る（ピンチ・ダブルタップで拡大・左右で切り替え）
 Future<void> openResultViewer(BuildContext context, {required GenController controller, required int initialIndex, required ValueChanged<GenResult> onReuse}) {
   return Navigator.of(context, rootNavigator: true).push(
     PageRouteBuilder(
@@ -221,7 +222,7 @@ class _ResultViewerState extends State<ResultViewer> {
   }
 }
 
-class _ZoomImage extends StatefulWidget {
+class _ZoomImage extends StatelessWidget {
   const _ZoomImage({required this.result, required this.onTap, required this.onZoomChanged});
 
   final GenResult result;
@@ -229,66 +230,21 @@ class _ZoomImage extends StatefulWidget {
   final ValueChanged<bool> onZoomChanged;
 
   @override
-  State<_ZoomImage> createState() => _ZoomImageState();
-}
-
-class _ZoomImageState extends State<_ZoomImage> with SingleTickerProviderStateMixin {
-  final _transform = TransformationController();
-  late final AnimationController _anim = AnimationController(vsync: this, duration: Ds.normal);
-  Animation<Matrix4>? _tween;
-  TapDownDetails? _doubleTap;
-
-  @override
-  void initState() {
-    super.initState();
-    _anim.addListener(() {
-      if (_tween != null) _transform.value = _tween!.value;
-    });
-    _transform.addListener(() => widget.onZoomChanged(_transform.value.getMaxScaleOnAxis() > 1.01));
-  }
-
-  @override
-  void dispose() {
-    _transform.dispose();
-    _anim.dispose();
-    super.dispose();
-  }
-
-  void _toggleZoom() {
-    final zoomed = _transform.value.getMaxScaleOnAxis() > 1.01;
-    final pos = _doubleTap?.localPosition ?? Offset.zero;
-    final end = zoomed
-        ? Matrix4.identity()
-        : (Matrix4.identity()
-            ..translateByDouble(-pos.dx * 1.5, -pos.dy * 1.5, 0, 1)
-            ..scaleByDouble(2.5, 2.5, 1, 1));
-    _tween = Matrix4Tween(begin: _transform.value, end: end).animate(CurvedAnimation(parent: _anim, curve: Ds.curve));
-    _anim.forward(from: 0);
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final r = widget.result;
-    return GestureDetector(
-      onTap: widget.onTap,
-      onDoubleTapDown: (d) => _doubleTap = d,
-      onDoubleTap: _toggleZoom,
-      child: InteractiveViewer(
-        transformationController: _transform,
-        minScale: 1,
-        maxScale: 6,
-        child: SizedBox.expand(
-          child: Hero(
-            tag: 'gen-${r.id}',
-            child: Stack(
-              fit: StackFit.expand,
-              children: [
-                // まずサムネイル、あとから元画像
-                AppImage(r.thumbnailUrl, fit: BoxFit.contain),
-                if (r.imageUrl != null) AppImage(r.imageUrl, fit: BoxFit.contain),
-              ],
-            ),
-          ),
+    final r = result;
+    return ZoomableImage(
+      onTap: onTap,
+      onZoomChanged: onZoomChanged,
+      maxScale: 6,
+      child: Hero(
+        tag: 'gen-${r.id}',
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            // まずサムネイル、あとから元画像
+            AppImage(r.thumbnailUrl, fit: BoxFit.contain),
+            if (r.imageUrl != null) AppImage(r.imageUrl, fit: BoxFit.contain),
+          ],
         ),
       ),
     );
