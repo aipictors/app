@@ -439,7 +439,8 @@ class _GenerationScreenState extends State<GenerationScreen> {
     }
     switch (block.kind) {
       case GenBlockKind.coins:
-        await showCoinShortageSheet(context, need: c.requestCost, have: c.coins?.total ?? 0);
+        final have = c.coins?.total ?? 0;
+        await showCoinShortageSheet(context, need: c.requestCost, have: have, passType: c.viewer?.passType, exhausted: have < c.settings.coinPerImage(c.model, isPaid: c.isPaid));
       case GenBlockKind.plan:
         await showPlanRequiredSheet(context, block.message);
       case GenBlockKind.geminiLimit:

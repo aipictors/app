@@ -3,6 +3,7 @@ import 'package:aipictors/v2/core/design.dart';
 import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/core/nav.dart';
 import 'package:aipictors/v2/generation/generation_api.dart';
+import 'package:aipictors/v2/plans/coin_shop.dart';
 import 'package:aipictors/v2/work/moderation.dart';
 import 'package:aipictors/v2/widgets/common.dart';
 import 'package:flutter/material.dart';
@@ -108,19 +109,89 @@ class _InfoSheet extends StatelessWidget {
 }
 
 /// コインが足りないとき
-Future<void> showCoinShortageSheet(BuildContext context, {required int need, required int have}) {
+/// 加入中の人が毎日の上限まで使ったら、上のプラン（ライト → スタンダード、スタンダード → プレミアム）か、
+/// プレミアムなら「今日だけ +100枚」のコイン購入を案内する（Web の生成画面と同じ流れ。金額は App Store の値段と食い違うので書かない）
+Future<void> showCoinShortageSheet(BuildContext context, {required int need, required int have, String? passType, bool exhausted = false}) {
+  final daily = switch (passType) { 'LITE' => 50, 'STANDARD' => 100, 'PREMIUM' => 200, _ => null };
+  if (passType == null || daily == null) {
+    return showGenSheet(
+      context,
+      builder: (sheet) => _InfoSheet(
+        icon: Icons.toll_rounded,
+        gradient: Ds.goldGradient,
+        title: tr('コインが足りません', 'Not enough coins'),
+        message: tr('この生成には $need コインが必要です（残り $have コイン）。\n無料のコインは毎日付与されます。Aipictors+ に加入すると、毎月たくさんのコインと同時生成などの特典が使えます。', 'This generation needs $need coins (you have $have).\nFree coins are granted every day. Aipictors+ gives you plenty of coins every month, simultaneous generation, and more.'),
+        primaryLabel: tr('プランを見る', 'See plans'),
+        onPrimary: () {
+          Navigator.of(sheet).pop();
+          Nav.plans(context);
+        },
+      ),
+    );
+  }
+  final title = exhausted ? tr('今日の$daily枚を使い切りました', "You've used today's $daily images") : tr('コインが足りません', 'Not enough coins');
+  void openPlans(BuildContext sheet) {
+    Navigator.of(sheet).pop();
+    Nav.plans(context);
+  }
+
+  void openCoins(BuildContext sheet) {
+    Navigator.of(sheet).pop();
+    showCoinShopSheet(context);
+  }
+
+  if (passType == 'PREMIUM') {
+    return showGenSheet(
+      context,
+      builder: (sheet) => _InfoSheet(
+        icon: Icons.toll_rounded,
+        gradient: Ds.goldGradient,
+        title: title,
+        message: tr('今日もっと作りたい日は、コインを足して続けられます。\n1,000コインで約100枚。余った分も3か月使えます。', 'Want to keep going today? Top up with coins.\n1,000 coins make about 100 images, and leftovers last 3 months.'),
+        primaryLabel: tr('今日だけ +100枚（コインを買う）', '+100 images today (buy coins)'),
+        onPrimary: () => openCoins(sheet),
+      ),
+    );
+  }
+  final isLite = passType == 'LITE';
+  final benefits = isLite
+      ? [tr('1日100枚（今の2倍）', '100 a day (2x now)'), tr('生成がいちばん先', 'First in the queue'), tr('同時に2本・予約生成', '2 at once · queued runs'), tr('Nano Banana 2・高速モード', 'Nano Banana 2 · fast mode')]
+      : [tr('1日200枚（今の2倍）', '200 a day (2x now)'), tr('生成画像の保存 2年（今は1年）', 'Images kept 2 years (now 1)'), tr('モデル登録 毎月150GB（今は60GB）', '150GB of model uploads a month (now 60GB)'), tr('同時に3本まで', 'Up to 3 at once')];
+  final planName = isLite ? tr('スタンダード', 'Standard') : tr('プレミアム', 'Premium');
   return showGenSheet(
     context,
     builder: (sheet) => _InfoSheet(
-      icon: Icons.toll_rounded,
-      gradient: Ds.goldGradient,
-      title: tr('コインが足りません', 'Not enough coins'),
-      message: tr('この生成には $need コインが必要です（残り $have コイン）。\n無料のコインは毎日付与されます。Aipictors+ に加入すると、毎月たくさんのコインと同時生成などの特典が使えます。', 'This generation needs $need coins (you have $have).\nFree coins are granted every day. Aipictors+ gives you plenty of coins every month, simultaneous generation, and more.'),
-      primaryLabel: tr('プランを見る', 'See plans'),
-      onPrimary: () {
-        Navigator.of(sheet).pop();
-        Nav.plans(context);
-      },
+      icon: Icons.workspace_premium_rounded,
+      title: title,
+      message: tr('$planNameなら、もっと作れます。', 'Create more with $planName.'),
+      extra: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          for (final b in benefits)
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 3),
+              child: Row(
+                children: [
+                  Icon(Icons.check_circle_rounded, size: 18, color: context.cs.primary),
+                  const SizedBox(width: 8),
+                  Expanded(child: Text(b, style: context.tt.bodyMedium?.copyWith(fontWeight: FontWeight.w600))),
+                ],
+              ),
+            ),
+          if (!isLite) ...[
+            const SizedBox(height: 8),
+            Center(
+              child: TextButton.icon(
+                onPressed: () => openCoins(sheet),
+                icon: const Icon(Icons.toll_rounded, size: 18),
+                label: Text(tr('今日だけ +100枚（コインを買う）', '+100 images today (buy coins)')),
+              ),
+            ),
+          ],
+        ],
+      ),
+      primaryLabel: tr('$planNameにする', 'Switch to $planName'),
+      onPrimary: () => openPlans(sheet),
     ),
   );
 }
