@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Push 通知のアイコンの色（colors.xml は flavor の res で上書きされるので別のファイルに置く） -->
+<resources>
+    <color name="notification_color">#0170C8</color>
+</resources>
