@@ -620,21 +620,13 @@ query AppWorkComments(\$id: ID!, \$offset: Int!, \$limit: Int!) {
                   message: tr('最初のコメントで作者さんを応援しよう', 'Cheer the creator with the first comment'),
                 );
               }
-              // コメント欄の上の「応援の帯」（読み込んだコメントだけで決める。段階の時間だけ出す）
-              final pinned = pickPinnedSupports<CommentItem>(
-                c.items.where((x) => !x.isSensitive).toList(),
-                createdAt: (x) => x.createdAt,
-                totalPt: (x) => x.supportPt,
-                nowSeconds: DateTime.now().millisecondsSinceEpoch ~/ 1000,
-              );
-              final offset = pinned.isEmpty ? 0 : 1;
+              // 推した人の一覧（応援の帯）は出さない（オーナー依頼）
               return ListView.builder(
                 controller: widget.scrollController,
                 padding: const EdgeInsets.fromLTRB(14, 4, 14, 24),
-                itemCount: c.items.length + 1 + offset,
+                itemCount: c.items.length + 1,
                 itemBuilder: (context, index) {
-                  if (offset == 1 && index == 0) return _PinnedSupports(items: pinned);
-                  final i = index - offset;
+                  final i = index;
                   if (i == c.items.length) {
                     if (c.hasMore && !c.isLoading) WidgetsBinding.instance.addPostFrameCallback((_) => c.loadMore());
                     return Padding(
@@ -1208,50 +1200,6 @@ class _SupportPreview extends StatelessWidget {
           ),
         ),
       ]),
-    );
-  }
-}
-
-/// コメント欄の上の「応援の帯」（最近の推しを段階の時間だけ上に出す。スーパーチャットのピン留め）
-class _PinnedSupports extends StatelessWidget {
-  const _PinnedSupports({required this.items});
-
-  final List<CommentItem> items;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 6, bottom: 4),
-      child: SizedBox(
-        height: 40,
-        child: ListView.separated(
-          scrollDirection: Axis.horizontal,
-          itemCount: items.length,
-          separatorBuilder: (_, _) => const SizedBox(width: 8),
-          itemBuilder: (context, i) {
-            final c = items[i];
-            final tier = SupportTier.of(c.supportPt);
-            return Container(
-              padding: const EdgeInsets.fromLTRB(4, 4, 4, 4),
-              decoration: BoxDecoration(
-                color: (tier?.color ?? Ds.gold).withValues(alpha: context.isDark ? 0.18 : 0.1),
-                border: Border.all(color: (tier?.color ?? Ds.gold).withValues(alpha: 0.5)),
-                borderRadius: Ds.br(20),
-              ),
-              child: Row(mainAxisSize: MainAxisSize.min, children: [
-                UserAvatar.json(c.user, size: 28),
-                const SizedBox(width: 6),
-                ConstrainedBox(
-                  constraints: const BoxConstraints(maxWidth: 110),
-                  child: Text(c.userName, maxLines: 1, overflow: TextOverflow.ellipsis, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700)),
-                ),
-                const SizedBox(width: 6),
-                SupportTierChip(free: c.supportFree, premium: c.supportPremium, pt: c.supportPt),
-              ]),
-            );
-          },
-        ),
-      ),
     );
   }
 }
