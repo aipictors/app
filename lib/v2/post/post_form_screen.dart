@@ -7,6 +7,7 @@ import 'package:aipictors/v2/core/design.dart';
 import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/core/nav.dart';
 import 'package:aipictors/v2/post/post_api.dart';
+import 'package:aipictors/v2/post/post_event.dart';
 import 'package:aipictors/v2/post/upload.dart';
 import 'package:aipictors/v2/post/video_post.dart';
 import 'package:aipictors/v2/post/video_section.dart';
@@ -31,13 +32,17 @@ Future<List<XFile>> pickSystemImages({bool multiple = true}) async {
 
 /// 作品の投稿と編集。[workId] があれば編集
 class PostFormScreen extends StatefulWidget {
-  const PostFormScreen({super.key, this.workId, this.workType = 'WORK', this.generationNanoid, this.debugImages, this.debugAutoSubmit = false, this.debugVideoPath});
+  const PostFormScreen({super.key, this.workId, this.workType = 'WORK', this.generationNanoid, this.eventSlug, this.initialTag, this.debugImages, this.debugAutoSubmit = false, this.debugVideoPath});
 
   final String? workId;
   final String workType;
 
   /// 生成結果から投稿するときの nanoid。画像と生成情報を最初から入れる
   final String? generationNanoid;
+
+  /// イベントの参加ボタンから来たときのイベントと参加タグ（Web の /new/image?event=&tag=）
+  final String? eventSlug;
+  final String? initialTag;
 
   /// デバッグでピッカーを通さずに試すための画像
   final List<Uint8List>? debugImages;
@@ -54,6 +59,9 @@ class _PostFormScreenState extends State<PostFormScreen> {
   PostDraft _draft = PostDraft();
   EditingWork? _editing;
   PostOptions? _options;
+
+  /// フォームに出すイベント（運営のイベント＋参加ボタンから来たイベント）
+  List<PostEvent> _events = const [];
   String? _error;
   bool _loading = true;
   double? _progress;
@@ -154,6 +162,7 @@ class _PostFormScreenState extends State<PostFormScreen> {
         }
       }
       if (widget.generationNanoid != null && _images.isEmpty) await _loadGeneration(widget.generationNanoid!, options);
+      if (!_isEdit) await _applyEvent(options);
       for (final bytes in widget.debugImages ?? const <Uint8List>[]) {
         _images.add(PostImage.local(await ImageTools.normalize(bytes)));
       }
@@ -161,6 +170,7 @@ class _PostFormScreenState extends State<PostFormScreen> {
       if (!mounted) return;
       setState(() {
         _options = options;
+        if (_events.isEmpty) _events = options.events;
         _loading = false;
       });
       if (widget.debugVideoPath != null) {
@@ -463,6 +473,48 @@ class _PostFormScreenState extends State<PostFormScreen> {
     }
   }
 
+  /// 参加ボタンから来たら、そのイベントに参加した状態にする（Web の usePostImageSearchParams と同じく URL のタグを付ける。
+  /// 開催期間外なら PostFormItemEvent と同じく付けない）
+  Future<void> _applyEvent(PostOptions options) async {
+    final slug = widget.eventSlug;
+    PostEvent? selected;
+    if (slug != null && slug.isNotEmpty) {
+      selected = options.events.where((e) => e.slug == slug).firstOrNull;
+      if (selected == null) {
+        try {
+          selected = await PostEventApi.bySlug(slug);
+        } on ApiException {
+          // イベントが読めなくてもタグだけで参加できる
+        }
+      }
+    }
+    _events = mergePostEvents(options.events, selected);
+    final tag = (widget.initialTag ?? selected?.tag ?? '').trim();
+    if (tag.isEmpty || _draft.tags.contains(tag) || _draft.tags.length >= maxPostTags) return;
+    final event = _events.where((e) => e.tag == tag).firstOrNull;
+    if (event != null && !event.isSelectable(eventPublishAt(_draft.reservedAt))) return;
+    _draft.tags = [..._draft.tags, tag];
+  }
+
+  /// イベントの「参加する」。参加タグを付け外しする（Web の PostFormItemEvent）
+  void _setAttending(PostEvent event, bool on) {
+    if (on && !event.isSelectable(eventPublishAt(_draft.reservedAt))) return;
+    if (on && _draft.tags.contains(event.tag)) return;
+    if (on && _draft.tags.length >= maxPostTags) {
+      context.toast(tr('タグは$maxPostTags個までです', 'Up to $maxPostTags tags'), error: true);
+      return;
+    }
+    setState(() => _draft.tags = on ? [..._draft.tags, event.tag] : _draft.tags.where((t) => t != event.tag).toList());
+  }
+
+  /// 予約の日時を変えて開催期間外になったイベントからは抜ける（Web の PostFormItemEvent の useEffect）
+  void _dropOutOfPeriodEvents() {
+    if (_isEdit) return;
+    final publishAt = eventPublishAt(_draft.reservedAt);
+    final out = {for (final e in _events) if (!e.isSelectable(publishAt)) e.tag};
+    _draft.tags = _draft.tags.where((t) => !out.contains(t)).toList();
+  }
+
   Future<void> _pickReservation() async {
     final now = DateTime.now();
     final date = await showDatePicker(
@@ -479,7 +531,10 @@ class _PostFormScreenState extends State<PostFormScreen> {
       context.toast(tr('これからの日時を選んでください', 'Choose a future date and time'), error: true);
       return;
     }
-    setState(() => _draft.reservedAt = picked);
+    setState(() {
+      _draft.reservedAt = picked;
+      _dropOutOfPeriodEvents();
+    });
   }
 
   Future<void> _submit() async {
@@ -491,7 +546,7 @@ class _PostFormScreenState extends State<PostFormScreen> {
       await _submitVideo();
       return;
     }
-    final invalid = PostApi.validate(_draft, _images);
+    final invalid = PostApi.validate(_draft, _images) ?? _eventError();
     if (invalid != null) {
       context.toast(invalid, error: true);
       return;
@@ -529,8 +584,11 @@ class _PostFormScreenState extends State<PostFormScreen> {
     }
   }
 
+  /// 投稿するときだけイベントの開催期間を確かめる（Web の新規投稿の getPostEventPeriodError）
+  String? _eventError() => _isEdit ? null : postEventPeriodError(tags: _draft.tags, events: _events, reservedAt: _draft.reservedAt);
+
   Future<void> _submitVideo() async {
-    final invalid = validateVideoPost(_draft, hasVideo: _isEdit || _video != null, hasThumbnail: _isEdit || _videoThumb != null);
+    final invalid = validateVideoPost(_draft, hasVideo: _isEdit || _video != null, hasThumbnail: _isEdit || _videoThumb != null) ?? _eventError();
     if (invalid != null) {
       context.toast(invalid, error: true);
       return;
@@ -754,8 +812,27 @@ class _PostFormScreenState extends State<PostFormScreen> {
               icon: Icons.schedule_rounded,
               label: _draft.reservedAt == null ? tr('今すぐ投稿', 'Post now') : _formatDate(_draft.reservedAt!),
               onTap: _pickReservation,
-              onClear: _draft.reservedAt == null ? null : () => setState(() => _draft.reservedAt = null),
+              onClear: _draft.reservedAt == null
+                  ? null
+                  : () => setState(() {
+                        _draft.reservedAt = null;
+                        _dropOutOfPeriodEvents();
+                      }),
             ),
+            // イベントは予約投稿の下（Web の PostFormItemDate の下と同じ）
+            if (_events.isNotEmpty) ...[
+              const SizedBox(height: Ds.s20),
+              _Label(tr('イベント', 'Events'), hint: tr('「参加する」で参加タグが付きます', 'Turn on "Join" to add the entry tag')),
+              for (final e in _events) ...[
+                PostEventCard(
+                  event: e,
+                  attending: _draft.tags.contains(e.tag),
+                  publishAt: eventPublishAt(_draft.reservedAt),
+                  onChanged: (on) => _setAttending(e, on),
+                ),
+                const SizedBox(height: Ds.s8),
+              ],
+            ],
             const SizedBox(height: Ds.s20),
             _Label(tr('シリーズ', 'Series')),
             _Select(

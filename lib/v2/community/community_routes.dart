@@ -2,6 +2,7 @@ import 'package:aipictors/v2/community/ai_ranking_screen.dart';
 import 'package:aipictors/v2/community/albums_screen.dart';
 import 'package:aipictors/v2/community/app_markdown.dart';
 import 'package:aipictors/v2/community/events_screen.dart';
+import 'package:aipictors/v2/community/help_screen.dart';
 import 'package:aipictors/v2/community/messages_screen.dart';
 import 'package:aipictors/v2/community/models_screen.dart';
 import 'package:aipictors/v2/community/releases_screen.dart';
@@ -53,7 +54,7 @@ final List<RouteBase> communityRoutes = [
     path: '/releases/:id',
     builder: (context, state) => ReleaseDetailScreen(id: state.pathParameters['id']!, release: state.extra is Release ? state.extra as Release : null),
   ),
-  GoRoute(path: '/help', builder: (context, state) => const DocScreen(title: 'ヘルプ', asset: 'assets/docs/help.md')),
+  GoRoute(path: '/help', builder: (context, state) => const HelpScreen()),
   GoRoute(path: '/guideline', builder: (context, state) => const DocScreen(title: 'ガイドライン', asset: 'assets/docs/guideline.md')),
   GoRoute(path: '/roadmap', builder: (context, state) => const DocScreen(title: 'ロードマップ', asset: 'assets/docs/roadmap.md')),
   GoRoute(path: '/events', builder: (context, state) => const EventsScreen()),
