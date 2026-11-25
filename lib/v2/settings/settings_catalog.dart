@@ -367,26 +367,42 @@ class SettingsHit {
   final SettingsInner? inner;
 }
 
-String _norm(String s) {
-  // 小文字にし、カタカナをひらがなに寄せ、空白を除く
-  final lower = s.toLowerCase().replaceAll(RegExp(r'\s+'), '');
-  return String.fromCharCodes(lower.runes.map((c) => c >= 0x30A1 && c <= 0x30F6 ? c - 0x60 : c));
+final _searchIgnored = RegExp(r'[\s・･\-‐ー〜~_（）()「」『』【】／/、。,.!?！？&＆]');
+
+/// 比べる形にそろえる（Web の設定の検索と同じ）: 全角英数→半角、大文字→小文字、カタカナ→ひらがな、空白・記号・長音を外す
+String normalizeSearchText(String s) {
+  final codes = s.runes.map((c) {
+    if (c >= 0xFF01 && c <= 0xFF5E) return c - 0xFEE0; // 全角英数・記号
+    if (c == 0x3000) return 0x20;
+    return c;
+  });
+  final lower = String.fromCharCodes(codes).toLowerCase();
+  final hira = String.fromCharCodes(lower.runes.map((c) => c >= 0x30A1 && c <= 0x30F6 ? c - 0x60 : c));
+  return hira.replaceAll(_searchIgnored, '');
 }
 
-bool _matches(String q, Iterable<String> words) => words.any((w) => _norm(w).contains(q));
+/// 検索欄の言葉を空白で区切り、比べる形にしたもの
+List<String> searchTerms(String query) =>
+    query.replaceAll('　', ' ').split(RegExp(r'\s+')).map(normalizeSearchText).where((t) => t.isNotEmpty).toList();
+
+/// 区切った言葉がすべて words のどれかに含まれるか
+bool matchesSearch(List<String> terms, Iterable<String> words) {
+  final normed = words.map(normalizeSearchText).toList();
+  return terms.every((t) => normed.any((w) => w.contains(t)));
+}
 
 /// 項目名（日英）・別名・サブ画面の中の項目で絞り込む。visible で表示できない項目（ログイン前など）を除く
 List<SettingsHit> searchSettings(String query, bool Function(SettingsItem) visible) {
-  final q = _norm(query);
+  final q = searchTerms(query);
   if (q.isEmpty) return const [];
   final hits = <SettingsHit>[];
   void check(SettingsItem item, SettingsSection? section) {
     if (!visible(item)) return;
-    if (_matches(q, [item.ja, item.en, ...item.keywords])) {
+    if (matchesSearch(q, [item.ja, item.en, ...item.keywords])) {
       hits.add(SettingsHit(item, section));
     }
     for (final inner in item.inner) {
-      if (_matches(q, [inner.ja, inner.en, ...inner.keywords])) hits.add(SettingsHit(item, section, inner));
+      if (matchesSearch(q, [inner.ja, inner.en, ...inner.keywords])) hits.add(SettingsHit(item, section, inner));
     }
   }
 

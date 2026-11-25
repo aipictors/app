@@ -8,9 +8,11 @@ import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/plans/coin_shop.dart';
 import 'package:aipictors/v2/core/models.dart';
 import 'package:aipictors/v2/core/nav.dart';
+import 'package:aipictors/v2/mypage/mypage_search.dart';
 import 'package:aipictors/v2/plans/plans_screen.dart';
 import 'package:aipictors/v2/post/my_posts_screen.dart';
 import 'package:aipictors/v2/post/post_api.dart';
+import 'package:aipictors/v2/settings/settings_widgets.dart';
 import 'package:aipictors/v2/settings/status_sheet.dart';
 import 'package:aipictors/v2/widgets/common.dart';
 import 'package:aipictors/v2/widgets/user_avatar.dart';
@@ -56,16 +58,19 @@ class _MyPageScreenState extends State<MyPageScreen> {
   bool _loading = true;
   String? _error;
   StreamSubscription<User?>? _authSub;
+  final _search = TextEditingController();
 
   @override
   void initState() {
     super.initState();
+    _search.addListener(() => setState(() {}));
     _authSub = FirebaseAuth.instance.authStateChanges().listen((_) => _load());
   }
 
   @override
   void dispose() {
     _authSub?.cancel();
+    _search.dispose();
     super.dispose();
   }
 
@@ -126,6 +131,127 @@ query AppMyRecentWorks($where: WorksWhereInput) {
     }
   }
 
+  /// メニューの一覧。表示と検索の両方で使う（keywords は内容・読み・別名）
+  List<MyPageMenuGroup> _groups(Map<String, dynamic> u) {
+    final id = u.str('id');
+    return [
+      MyPageMenuGroup('作品', 'Works', [
+        MyPageMenuItem(Icons.add_circle_outline_rounded, '作品を投稿', 'Post a work', onTap: () => openNewPost(context), keywords: const ['投稿', 'とうこう', '画像', '小説', '動画', 'アップロード', 'post', 'upload', 'new']),
+        MyPageMenuItem(Icons.person_outline_rounded, '自分のページ', 'My page', onTap: () => Nav.user(context, id), keywords: const ['プロフィール', 'ユーザーページ', 'じぶん', 'profile', 'user page']),
+        const MyPageMenuItem(Icons.favorite_border_rounded, 'いいねした作品', 'Liked works', path: '/my/likes', keywords: ['いいね', 'ハート', 'like', 'likes', 'favorite']),
+        const MyPageMenuItem(Icons.collections_bookmark_outlined, 'シリーズ', 'Series', path: '/viewer/albums', keywords: ['アルバム', 'まとめ', 'album', 'collection']),
+        const MyPageMenuItem(Icons.bookmark_border_rounded, 'ブックマーク', 'Bookmarks', path: '/my/bookmarks', keywords: ['保存', 'ほぞん', 'あとで見る', 'bookmark', 'saved']),
+        const MyPageMenuItem(Icons.thumb_up_alt_outlined, '推薦した作品', 'Recommended works', path: '/my/recommended', keywords: ['推薦', 'すいせん', 'おすすめ', 'recommend']),
+        const MyPageMenuItem(Icons.folder_outlined, 'フォルダ', 'Folders', path: '/my/folders', keywords: ['フォルダー', '整理', 'せいり', 'folder']),
+        const MyPageMenuItem(Icons.history_rounded, '閲覧履歴', 'History', path: '/my/views', keywords: ['履歴', 'りれき', 'えつらん', '見た作品', '最近見た', 'history', 'viewed', 'recent']),
+        const MyPageMenuItem(Icons.image_outlined, '自分の作品', 'My works', path: '/viewer/works', keywords: ['作品管理', '編集', 'へんしゅう', '削除', '公開', '非公開', '最近の作品', 'さくひん', 'manage', 'edit', 'my posts']),
+        const MyPageMenuItem(Icons.volunteer_activism_outlined, 'リクエスト', 'Requests', path: '/requests', keywords: ['依頼', 'いらい', 'コミッション', 'request', 'commission']),
+        const MyPageMenuItem(Icons.storefront_outlined, 'プラン一覧', 'Request plans', path: '/requests/plans', keywords: ['リクエスト', '依頼', 'クリエイター', 'request', 'plans', 'creator']),
+        const MyPageMenuItem(Icons.payments_outlined, '収益の受け取り', 'Rewards payout', path: '/settings/creator-rewards', keywords: ['収益', 'しゅうえき', '報酬', '振込', '口座', 'お金', 'reward', 'payout', 'bank']),
+        const MyPageMenuItem(Icons.edit_note_rounded, '作品の履歴', 'Edit history', path: '/my/histories', keywords: ['履歴', 'りれき', '編集履歴', '変更', 'history', 'edit']),
+      ]),
+      MyPageMenuGroup('つながり', 'Connections', [
+        MyPageMenuItem(Icons.people_outline_rounded, 'フォロー中', 'Following', path: '/users/$id/followees', keywords: const ['フォロー', 'フォローしている', 'follow', 'followees']),
+        MyPageMenuItem(Icons.group_add_outlined, 'フォロワー', 'Followers', path: '/users/$id/followers', keywords: const ['フォロー', 'ファン', 'follow', 'fans']),
+        const MyPageMenuItem(Icons.emoji_emotions_outlined, 'スタンプ', 'Stickers', path: '/stickers', keywords: ['スタンプを作る', '絵文字', 'えもじ', 'sticker', 'stamp', 'emoji']),
+        const MyPageMenuItem(Icons.auto_awesome_outlined, 'アイコン枠・ヘッダー枠', 'Frames', path: '/settings/frames', keywords: ['枠', 'わく', 'フレーム', '装飾', 'デコ', 'frame', 'decoration', 'avatar']),
+        const MyPageMenuItem(Icons.casino_outlined, 'スペシャル枠ガチャ', 'Frame gacha', path: '/gacha', keywords: ['ガチャ', 'がちゃ', 'くじ', '枠', 'gacha', 'lottery', 'frame']),
+        const MyPageMenuItem(Icons.emoji_events_outlined, '実績', 'Achievements', path: '/achievements', keywords: ['じっせき', 'バッジ', '称号', 'トロフィー', 'badge', 'trophy']),
+      ]),
+      const MyPageMenuGroup('コミュニティ', 'Community', [
+        MyPageMenuItem(Icons.mail_outline_rounded, 'メッセージ', 'Messages', path: '/messages', keywords: ['DM', 'ダイレクトメッセージ', 'チャット', 'message', 'chat']),
+        MyPageMenuItem(Icons.campaign_outlined, 'お知らせ', 'News', path: '/releases', keywords: ['おしらせ', 'リリース', '更新', '新機能', 'release', 'update', 'news']),
+        MyPageMenuItem(Icons.celebration_outlined, 'イベント', 'Events', path: '/events', keywords: ['企画', 'きかく', 'コンテスト', 'お題', 'event', 'contest', 'theme']),
+        MyPageMenuItem(Icons.hub_outlined, 'モデル', 'Models', path: '/models', keywords: ['AIモデル', 'チェックポイント', '生成', 'model', 'checkpoint']),
+      ]),
+      const MyPageMenuGroup('サポート', 'Support', [
+        MyPageMenuItem(Icons.support_agent_rounded, 'お問い合わせ', 'Contact us', path: '/support/chat', keywords: ['問い合わせ', 'といあわせ', '要望', '不具合', 'バグ', 'contact', 'feedback', 'bug']),
+        MyPageMenuItem(Icons.help_outline_rounded, 'ヘルプ', 'Help', path: '/help', keywords: ['使い方', 'つかいかた', 'よくある質問', 'FAQ', 'how to']),
+        MyPageMenuItem(Icons.gavel_rounded, 'ガイドライン', 'Guidelines', path: '/guideline', keywords: ['ルール', 'rule', 'guideline']),
+        MyPageMenuItem(Icons.description_outlined, '利用規約', 'Terms of use', path: '/terms', keywords: ['規約', 'きやく', 'terms', 'tos']),
+        MyPageMenuItem(Icons.privacy_tip_outlined, 'プライバシーポリシー', 'Privacy policy', path: '/privacy', keywords: ['個人情報', 'こじんじょうほう', 'privacy']),
+        MyPageMenuItem(Icons.map_outlined, 'ロードマップ', 'Roadmap', path: '/roadmap', keywords: ['予定', 'よてい', '今後', '開発', 'roadmap', 'plan']),
+      ]),
+      MyPageMenuGroup('アカウント', 'Account', [
+        MyPageMenuItem(Icons.workspace_premium_outlined, 'プラン', 'Plan', onTap: () => Nav.plans(context), keywords: const ['有料プラン', 'プレミアム', 'サブスク', '加入', '解約', 'premium', 'subscription', 'pass']),
+        MyPageMenuItem(Icons.monetization_on_outlined, 'コインを購入', 'Buy coins', onTap: () => showCoinShopSheet(context), searchOnly: true, keywords: const ['コイン', 'こいん', '買う', 'チャージ', '課金', 'coin', 'coins', 'buy', 'shop']),
+        const MyPageMenuItem(Icons.badge_outlined, 'プロフィールを編集', 'Edit profile', path: '/settings/profile', keywords: ['プロフィール', '名前', 'なまえ', 'アイコン', 'ヘッダー', '自己紹介', 'profile', 'name', 'icon', 'bio']),
+        MyPageMenuItem(Icons.chat_bubble_outline_rounded, 'ステータス', 'Status', onTap: () => showStatusSheet(context), keywords: const ['吹き出し', 'ふきだし', 'ひとこと', '今なにしてる', 'status', 'balloon']),
+        const MyPageMenuItem(Icons.shield_outlined, '運営からのお知らせ', 'Notices from staff', path: '/my/reports', keywords: ['運営', 'うんえい', '通報', '警告', '対応', 'report', 'staff', 'notice']),
+        const MyPageMenuItem(Icons.tune_rounded, '設定', 'Settings', path: '/settings', keywords: ['せってい', 'settings', 'preferences']),
+      ]),
+    ];
+  }
+
+  Widget _searchField() {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 4, 16, 8),
+      child: SizedBox(
+        height: 40,
+        child: TextField(
+          controller: _search,
+          textInputAction: TextInputAction.search,
+          autocorrect: false,
+          style: const TextStyle(fontSize: 14),
+          decoration: InputDecoration(
+            hintText: tr('機能・設定を検索', 'Search features & settings'),
+            hintStyle: TextStyle(color: context.muted, fontSize: 14),
+            prefixIcon: Icon(Icons.search_rounded, size: 20, color: context.muted),
+            suffixIcon: _search.text.isEmpty
+                ? null
+                : IconButton(tooltip: tr('消す', 'Clear'), icon: const Icon(Icons.close_rounded, size: 18), onPressed: _search.clear),
+            isDense: true,
+            filled: true,
+            fillColor: context.surfaceCard,
+            contentPadding: EdgeInsets.zero,
+            border: OutlineInputBorder(borderRadius: Ds.br(12), borderSide: BorderSide(color: context.hairline)),
+            enabledBorder: OutlineInputBorder(borderRadius: Ds.br(12), borderSide: BorderSide(color: context.hairline)),
+          ),
+        ),
+      ),
+    );
+  }
+
+  List<Widget> _results(String query, List<MyPageMenuGroup> groups) {
+    final hits = searchMyPage(query, groups);
+    if (hits.isEmpty) {
+      return [
+        SliverToBoxAdapter(
+          child: Padding(
+            padding: const EdgeInsets.all(32),
+            child: Column(children: [
+              Icon(Icons.search_off_rounded, size: 40, color: context.muted),
+              const SizedBox(height: 8),
+              Text(tr('「$query」に当たる機能はありません', 'No features match "$query"'), textAlign: TextAlign.center, style: TextStyle(color: context.muted)),
+            ]),
+          ),
+        ),
+      ];
+    }
+    final settings = tr('設定', 'Settings');
+    return [
+      SliverToBoxAdapter(
+        child: SettingsGroup(title: tr('検索結果', 'Results'), children: [
+          for (final h in hits)
+            if (h.menu != null)
+              SettingsLink(icon: h.menu!.icon, label: h.menu!.label, subtitle: h.group!.title, onTap: () => _openHit(() => h.menu!.open(context)))
+            else
+              SettingsLink(
+                icon: h.setting!.item.icon,
+                label: h.setting!.inner?.label ?? h.setting!.item.label,
+                subtitle: [settings, h.setting!.inner != null ? h.setting!.item.label : h.setting!.section?.title].nonNulls.join(' › '),
+                onTap: () => _openHit(() => openSettingsHit(context, h.setting!)),
+              ),
+        ]),
+      ),
+    ];
+  }
+
+  void _openHit(VoidCallback open) {
+    FocusScope.of(context).unfocus();
+    open();
+  }
+
   @override
   Widget build(BuildContext context) {
     if (!Nav.isLoggedIn) {
@@ -143,6 +269,8 @@ query AppMyRecentWorks($where: WorksWhereInput) {
       );
     }
     final u = _user;
+    final groups = u == null ? const <MyPageMenuGroup>[] : _groups(u);
+    final query = _search.text.trim();
     return Scaffold(
       body: RefreshIndicator.adaptive(
         onRefresh: _load,
@@ -164,64 +292,15 @@ query AppMyRecentWorks($where: WorksWhereInput) {
             else if (u == null)
               SliverToBoxAdapter(child: StateView.error(_error ?? 'ユーザー情報を取得できませんでした', onRetry: _load))
             else ...[
-              SliverToBoxAdapter(child: _ProfileCard(user: u)),
-              SliverToBoxAdapter(child: _PlanAndCoins(pass: _pass, coins: _coins)),
-              SliverToBoxAdapter(child: _Stats(user: u)),
-              SliverToBoxAdapter(child: _RecentWorks(works: _recentWorks)),
-              SliverToBoxAdapter(
-                child: _MenuGroup(title: tr('作品', 'Works'), items: [
-                  _MenuItem(Icons.add_circle_outline_rounded, tr('作品を投稿', 'Post a work'), () => openNewPost(context)),
-                  _MenuItem(Icons.person_outline_rounded, tr('自分のページ', 'My page'), () => Nav.user(context, u.str('id'))),
-                  _MenuItem(Icons.favorite_border_rounded, tr('いいねした作品', 'Liked works'), () => context.push('/my/likes')),
-                  _MenuItem(Icons.collections_bookmark_outlined, tr('シリーズ', 'Series'), () => context.push('/viewer/albums')),
-                  _MenuItem(Icons.bookmark_border_rounded, tr('ブックマーク', 'Bookmarks'), () => context.push('/my/bookmarks')),
-                  _MenuItem(Icons.thumb_up_alt_outlined, tr('推薦した作品', 'Recommended works'), () => context.push('/my/recommended')),
-                  _MenuItem(Icons.folder_outlined, tr('フォルダ', 'Folders'), () => context.push('/my/folders')),
-                  _MenuItem(Icons.history_rounded, tr('閲覧履歴', 'History'), () => context.push('/my/views')),
-                  _MenuItem(Icons.image_outlined, tr('自分の作品', 'My works'), () => context.push('/viewer/works')),
-                  _MenuItem(Icons.volunteer_activism_outlined, tr('リクエスト', 'Requests'), () => context.push('/requests')),
-                  _MenuItem(Icons.storefront_outlined, tr('プラン一覧', 'Request plans'), () => context.push('/requests/plans')),
-                  _MenuItem(Icons.payments_outlined, tr('収益の受け取り', 'Rewards payout'), () => context.push('/settings/creator-rewards')),
-                  _MenuItem(Icons.edit_note_rounded, tr('作品の履歴', 'Edit history'), () => context.push('/my/histories')),
-                ]),
-              ),
-              SliverToBoxAdapter(
-                child: _MenuGroup(title: tr('つながり', 'Connections'), items: [
-                  _MenuItem(Icons.people_outline_rounded, tr('フォロー中', 'Following'), () => context.push('/users/${u.str('id')}/followees')),
-                  _MenuItem(Icons.group_add_outlined, tr('フォロワー', 'Followers'), () => context.push('/users/${u.str('id')}/followers')),
-                  _MenuItem(Icons.emoji_emotions_outlined, tr('スタンプ', 'Stickers'), () => context.push('/stickers')),
-                  _MenuItem(Icons.auto_awesome_outlined, tr('アイコン枠・ヘッダー枠', 'Frames'), () => context.push('/settings/frames')),
-                  _MenuItem(Icons.casino_outlined, tr('スペシャル枠ガチャ', 'Frame gacha'), () => context.push('/gacha')),
-                  _MenuItem(Icons.emoji_events_outlined, tr('実績', 'Achievements'), () => context.push('/achievements')),
-                ]),
-              ),
-              SliverToBoxAdapter(
-                child: _MenuGroup(title: tr('コミュニティ', 'Community'), items: [
-                  _MenuItem(Icons.mail_outline_rounded, tr('メッセージ', 'Messages'), () => context.push('/messages')),
-                  _MenuItem(Icons.campaign_outlined, tr('お知らせ', 'News'), () => context.push('/releases')),
-                  _MenuItem(Icons.celebration_outlined, tr('イベント', 'Events'), () => context.push('/events')),
-                  _MenuItem(Icons.hub_outlined, tr('モデル', 'Models'), () => context.push('/models')),
-                ]),
-              ),
-              SliverToBoxAdapter(
-                child: _MenuGroup(title: tr('サポート', 'Support'), items: [
-                  _MenuItem(Icons.support_agent_rounded, tr('お問い合わせ', 'Contact us'), () => context.push('/support/chat')),
-                  _MenuItem(Icons.help_outline_rounded, tr('ヘルプ', 'Help'), () => context.push('/help')),
-                  _MenuItem(Icons.gavel_rounded, tr('ガイドライン', 'Guidelines'), () => context.push('/guideline')),
-                  _MenuItem(Icons.description_outlined, tr('利用規約', 'Terms of use'), () => context.push('/terms')),
-                  _MenuItem(Icons.privacy_tip_outlined, tr('プライバシーポリシー', 'Privacy policy'), () => context.push('/privacy')),
-                  _MenuItem(Icons.map_outlined, tr('ロードマップ', 'Roadmap'), () => context.push('/roadmap')),
-                ]),
-              ),
-              SliverToBoxAdapter(
-                child: _MenuGroup(title: tr('アカウント', 'Account'), items: [
-                  _MenuItem(Icons.workspace_premium_outlined, tr('プラン', 'Plan'), () => Nav.plans(context)),
-                  _MenuItem(Icons.badge_outlined, tr('プロフィールを編集', 'Edit profile'), () => context.push('/settings/profile')),
-                  _MenuItem(Icons.chat_bubble_outline_rounded, tr('ステータス', 'Status'), () => showStatusSheet(context)),
-                  _MenuItem(Icons.shield_outlined, tr('運営からのお知らせ', 'Notices from staff'), () => context.push('/my/reports')),
-                  _MenuItem(Icons.tune_rounded, tr('設定', 'Settings'), () => context.push('/settings')),
-                ]),
-              ),
+              SliverToBoxAdapter(child: _searchField()),
+              if (query.isNotEmpty) ..._results(query, groups) else ...[
+                SliverToBoxAdapter(child: _ProfileCard(user: u)),
+                SliverToBoxAdapter(child: _PlanAndCoins(pass: _pass, coins: _coins)),
+                SliverToBoxAdapter(child: _Stats(user: u)),
+                SliverToBoxAdapter(child: _RecentWorks(works: _recentWorks)),
+                for (final g in groups)
+                  if (g.items.any((i) => !i.searchOnly)) SliverToBoxAdapter(child: _MenuGroup(group: g)),
+              ],
               const SliverToBoxAdapter(child: SizedBox(height: 120)),
             ],
           ],
@@ -345,28 +424,20 @@ class _PlanAndCoins extends StatelessWidget {
   }
 }
 
-class _MenuItem {
-  const _MenuItem(this.icon, this.label, this.onTap);
-
-  final IconData icon;
-  final String label;
-  final VoidCallback onTap;
-}
-
 class _MenuGroup extends StatelessWidget {
-  const _MenuGroup({required this.title, required this.items});
+  const _MenuGroup({required this.group});
 
-  final String title;
-  final List<_MenuItem> items;
+  final MyPageMenuGroup group;
 
   @override
   Widget build(BuildContext context) {
+    final items = group.items.where((i) => !i.searchOnly).toList();
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 20, 16, 0),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Padding(
           padding: const EdgeInsets.only(left: 4, bottom: 8),
-          child: Text(title, style: TextStyle(color: context.muted, fontWeight: FontWeight.w700, fontSize: 13)),
+          child: Text(group.title, style: TextStyle(color: context.muted, fontWeight: FontWeight.w700, fontSize: 13)),
         ),
         Container(
           decoration: BoxDecoration(color: context.surfaceCard, borderRadius: Ds.br(18), border: Border.all(color: context.hairline)),
@@ -379,7 +450,7 @@ class _MenuGroup extends StatelessWidget {
                 trailing: Icon(Icons.chevron_right_rounded, color: context.muted),
                 onTap: () {
                   Ds.tap();
-                  items[i].onTap();
+                  items[i].open(context);
                 },
               ),
               if (i != items.length - 1) Divider(height: 1, indent: 56, color: context.hairline),
