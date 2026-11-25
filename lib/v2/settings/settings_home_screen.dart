@@ -11,6 +11,7 @@ import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/core/list_like_count.dart';
 import 'package:aipictors/v2/core/models.dart';
 import 'package:aipictors/v2/core/nav.dart';
+import 'package:aipictors/v2/settings/moderation_status_card.dart';
 import 'package:aipictors/v2/settings/settings_api.dart';
 import 'package:aipictors/v2/settings/settings_catalog.dart';
 import 'package:aipictors/v2/settings/settings_widgets.dart';
@@ -341,6 +342,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     final loggedIn = Nav.isLoggedIn;
     return [
       _accountHeader(),
+      if (loggedIn) const ModerationStatusCard(),
       for (final s in settingsCatalog)
         if (s.items.any((i) => _visible(i) && i.id != 'profile'))
           SettingsGroup(title: s.title, children: [

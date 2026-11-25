@@ -7,6 +7,7 @@ import 'package:aipictors/v2/core/design.dart';
 import 'package:aipictors/v2/core/models.dart';
 import 'package:aipictors/v2/core/nav.dart';
 import 'package:aipictors/v2/core/paged.dart';
+import 'package:aipictors/v2/core/reported_comments.dart';
 import 'package:aipictors/v2/core/support_tier.dart';
 import 'package:aipictors/v2/widgets/common.dart';
 import 'package:aipictors/v2/widgets/user_avatar.dart';
@@ -142,8 +143,17 @@ class _CommentTileState extends State<CommentTile> {
   /// ミュートした人のコメントを開いた
   bool _showMuted = false;
 
+  /// 自分が通報したコメントを開いた
+  bool _showReported = false;
+
   /// 返信をすべて開いた
   bool _allReplies = false;
+
+  @override
+  void initState() {
+    super.initState();
+    ReportedComments.ensureLoaded();
+  }
 
   @override
   void didUpdateWidget(covariant CommentTile oldWidget) {
@@ -223,7 +233,9 @@ class _CommentTileState extends State<CommentTile> {
           setState(() => c.moderation = {...?c.moderation, 'canAppeal': false, 'appealedAt': DateTime.now().millisecondsSinceEpoch ~/ 1000});
         }
       case 'report':
-        await showReportSheet(context, target: ReportTarget.comment, id: c.id);
+        if (await showReportSheet(context, target: ReportTarget.comment, id: c.id)) {
+          await ReportedComments.add(c.id);
+        }
       case 'mute':
         if (await muteUser(context, c.userId, c.userName)) widget.onDeleted?.call();
       case 'block':
@@ -233,6 +245,30 @@ class _CommentTileState extends State<CommentTile> {
 
   @override
   Widget build(BuildContext context) {
+    return ValueListenableBuilder<Set<String>>(
+      valueListenable: ReportedComments.ids,
+      builder: (context, reported, _) {
+        if (reported.contains(c.id) && !_showReported) {
+          return Padding(
+            padding: EdgeInsets.only(left: widget.isReply ? 44 : 0, top: 10, bottom: 4),
+            child: Container(
+              padding: const EdgeInsets.fromLTRB(12, 4, 4, 4),
+              decoration: BoxDecoration(borderRadius: Ds.br(12), border: Border.all(color: context.hairline)),
+              child: Row(children: [
+                Icon(Icons.visibility_off_outlined, size: 18, color: context.muted),
+                const SizedBox(width: 8),
+                Expanded(child: Text(tr('報告したコメントです', 'You reported this comment'), style: TextStyle(color: context.muted, fontSize: 13))),
+                TextButton(onPressed: () => setState(() => _showReported = true), child: Text(tr('表示', 'Show'))),
+              ]),
+            ),
+          );
+        }
+        return _buildComment(context);
+      },
+    );
+  }
+
+  Widget _buildComment(BuildContext context) {
     if (c.isMuted && !_showMuted) {
       return Padding(
         padding: EdgeInsets.only(left: widget.isReply ? 44 : 0, top: 10, bottom: 4),
