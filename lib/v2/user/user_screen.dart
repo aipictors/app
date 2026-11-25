@@ -1,7 +1,7 @@
 import 'package:aipictors/v2/requests/requests_widgets.dart';
 import 'package:aipictors/v2/work/support_sheet.dart';
+import 'package:aipictors/v2/achievements/achievement_ui.dart';
 import 'package:aipictors/v2/achievements/achievements_api.dart';
-import 'package:aipictors/v2/achievements/achievements_screen.dart';
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/debug_boot.dart';
 import 'package:aipictors/v2/core/design.dart';
@@ -880,16 +880,39 @@ class _AchievementShowcaseState extends State<_AchievementShowcase> {
   @override
   Widget build(BuildContext context) {
     final s = _summary;
-    if (s == null) return const SizedBox.shrink();
+    if (s == null || s.unlockedCount == 0) return const SizedBox.shrink();
+    // Web のプロフィールと同じ（Lv の虹色のチップ・自慢のバッジを重ねて 5 個まで・実績の数）
+    final badges = s.featured.take(5).toList();
     return Padding(
       padding: const EdgeInsets.only(top: 12),
-      child: Pressable(
-        onTap: () => context.push(widget.isSelf ? '/achievements' : '/achievements?user=${widget.userId}'),
-        child: Wrap(spacing: 6, runSpacing: 6, crossAxisAlignment: WrapCrossAlignment.center, children: [
-          Badge2('Lv.${s.level}', icon: Icons.emoji_events_rounded, color: Ds.gold),
-          Badge2('実績 ${s.unlockedCount}'),
-          for (final a in s.featured.where((a) => !a.isMasked).take(3)) Badge2(a.name, color: achievementTier(a.tier).$2),
-        ]),
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: Pressable(
+          onTap: () => context.push(widget.isSelf ? '/achievements' : '/achievements?user=${widget.userId}'),
+          child: Container(
+            padding: const EdgeInsets.fromLTRB(4, 4, 12, 4),
+            decoration: BoxDecoration(color: context.surfaceCard.withValues(alpha: 0.8), borderRadius: Ds.br(99), border: Border.all(color: context.hairline)),
+            child: Row(mainAxisSize: MainAxisSize.min, children: [
+              AchievementLevelChip(s.level),
+              if (badges.isNotEmpty) ...[
+                const SizedBox(width: 6),
+                SizedBox(
+                  width: 30 + (badges.length - 1) * 24,
+                  height: 30,
+                  child: Stack(children: [
+                    for (var i = 0; i < badges.length; i++)
+                      Positioned(
+                        left: i * 24,
+                        child: AchievementBadge(achievementKey: badges[i].key, tier: badges[i].tier, isHidden: badges[i].isHidden, isUnlocked: true, size: 30),
+                      ),
+                  ]),
+                ),
+              ],
+              const SizedBox(width: 6),
+              Text(tr('実績 ${s.unlockedCount}', '${s.unlockedCount} achievements'), style: TextStyle(color: context.muted, fontSize: 12)),
+            ]),
+          ),
+        ),
       ),
     );
   }

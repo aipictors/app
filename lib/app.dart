@@ -9,6 +9,7 @@ import 'package:aipictors/router.dart';
 import 'package:aipictors/utils/extend_theme.dart';
 import 'package:aipictors/utils/to_dark_color_scheme.dart';
 import 'package:aipictors/utils/to_light_color_scheme.dart';
+import 'package:aipictors/v2/achievements/achievement_watcher.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -70,6 +71,8 @@ class App extends HookConsumerWidget {
         supportedLocales: supportedLocales,
         localizationsDelegates: localizationsDelegates,
         routerConfig: routerConfig,
+        // 実績を達成したときのバナー（どの画面の上にも出す）
+        builder: (context, child) => AchievementWatcher(router: routerConfig, child: child ?? const SizedBox.shrink()),
       );
     });
   }

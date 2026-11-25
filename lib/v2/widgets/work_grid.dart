@@ -1,3 +1,4 @@
+import 'package:aipictors/v2/achievements/achievements_api.dart';
 import 'package:aipictors/v2/generation/generation_reference.dart';
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/l10n.dart';
@@ -247,6 +248,7 @@ Future<void> _toggleLike(BuildContext context, WorkSummary work, VoidCallback? o
         'input': {'workId': work.id},
       },
     );
+    if (liked) AchievementsApi.requestCheck();
   } on ApiException catch (e) {
     work.isLiked = !liked;
     work.likesCount += liked ? -1 : 1;

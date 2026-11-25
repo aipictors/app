@@ -1,19 +1,11 @@
+import 'package:aipictors/v2/achievements/achievement_ui.dart';
 import 'package:aipictors/v2/achievements/achievements_api.dart';
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/design.dart';
+import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/settings/settings_widgets.dart';
 import 'package:aipictors/v2/widgets/common.dart';
 import 'package:flutter/material.dart';
-
-/// 実績の段階の色（Web の ACHIEVEMENT_TIERS）
-(String, Color) achievementTier(int tier) => switch (tier) {
-      1 => ('ブロンズ', const Color(0xFFB0793F)),
-      2 => ('シルバー', const Color(0xFF8E9AA8)),
-      3 => ('ゴールド', Ds.gold),
-      4 => ('プラチナ', const Color(0xFF3FB8AF)),
-      5 => ('ダイヤモンド', Ds.sky),
-      _ => ('レジェンド', Ds.purple),
-    };
 
 const _categories = <(String?, String)>[
   (null, 'すべて'),
@@ -123,6 +115,8 @@ class _SummaryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final s = summary;
+    final level = achievementLevelTier(s.level);
+    final next = level.next;
     Widget stat(IconData icon, String value, String label) => Expanded(
           child: Column(children: [
             Icon(icon, size: 20, color: Ds.gold),
@@ -136,8 +130,16 @@ class _SummaryCard extends StatelessWidget {
       padding: const EdgeInsets.all(Ds.s16),
       decoration: BoxDecoration(color: context.surfaceCard, borderRadius: Ds.br(20), border: Border.all(color: context.hairline)),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
-          Text('Lv.${s.level}', style: context.tt.headlineSmall?.copyWith(fontWeight: FontWeight.w900)),
+        Row(children: [
+          AchievementLevelIcon(tier: level.tier, size: 30),
+          const SizedBox(width: Ds.s8),
+          Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Text('Lv.${s.level}', style: context.tt.headlineSmall?.copyWith(fontWeight: FontWeight.w900, height: 1.1)),
+            Text(
+              next == null ? level.tier.label : tr('${level.tier.name}・Lv.${next.minLevel} で${next.name}', '${level.tier.enName} · ${next.enName} at Lv.${next.minLevel}'),
+              style: TextStyle(color: context.muted, fontSize: 11.5),
+            ),
+          ]),
           const Spacer(),
           Text('${s.points} / ${s.nextLevelPoints} pt', style: TextStyle(color: context.muted, fontSize: 12.5, fontWeight: FontWeight.w700)),
         ]),
@@ -153,6 +155,17 @@ class _SummaryCard extends StatelessWidget {
           stat(Icons.military_tech_rounded, '${s.longestStreak}日', '最長連続'),
           stat(Icons.calendar_month_rounded, '${s.loginDays}日', 'ログイン日数'),
         ]),
+        // 自慢のバッジ（Web の実績ページと同じ）
+        if (s.featured.isNotEmpty) ...[
+          const SizedBox(height: Ds.s12),
+          Divider(height: 1, color: context.hairline),
+          const SizedBox(height: Ds.s12),
+          Text(tr('自慢のバッジ', 'Showcase'), style: TextStyle(color: context.muted, fontSize: 11.5, fontWeight: FontWeight.w800)),
+          const SizedBox(height: Ds.s8),
+          Wrap(spacing: Ds.s8, runSpacing: Ds.s8, children: [
+            for (final a in s.featured) AchievementBadge(achievementKey: a.key, tier: a.tier, isHidden: a.isHidden, isUnlocked: true, size: 52),
+          ]),
+        ],
       ]),
     );
   }
@@ -165,24 +178,20 @@ class _AchievementRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final (tierName, color) = achievementTier(item.tier);
     final a = item;
+    final tier = achievementTier(a.tier);
+    final color = (context.isDark ? tier.darkText : tier.text).first;
     final target = a.progressTarget;
     final current = a.progressCurrent;
     final showProgress = !a.isUnlocked && !a.isMasked && target != null && target > 0 && current != null;
-    return Opacity(
-      opacity: a.isUnlocked ? 1 : 0.72,
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(Ds.s16, Ds.s8, Ds.s16, Ds.s8),
-        child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Container(
-            width: 44,
-            height: 44,
-            decoration: BoxDecoration(color: (a.isUnlocked ? color : context.muted).withValues(alpha: 0.16), shape: BoxShape.circle),
-            child: Icon(a.isMasked ? Icons.lock_outline_rounded : Icons.emoji_events_rounded, color: a.isUnlocked ? color : context.muted, size: 22),
-          ),
-          const SizedBox(width: Ds.s12),
-          Expanded(
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(Ds.s16, Ds.s8, Ds.s16, Ds.s8),
+      child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        AchievementBadge(achievementKey: a.key, tier: a.tier, isHidden: a.isHidden, isUnlocked: a.isUnlocked, size: 56),
+        const SizedBox(width: Ds.s12),
+        Expanded(
+          child: Opacity(
+            opacity: a.isUnlocked ? 1 : 0.72,
             child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text(a.isMasked ? '？？？' : a.name, style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 14.5)),
               const SizedBox(height: 2),
@@ -201,16 +210,16 @@ class _AchievementRow extends StatelessWidget {
                 ]),
               ],
               const SizedBox(height: Ds.s4),
-              Wrap(spacing: Ds.s8, children: [
-                Text(tierName, style: TextStyle(color: color, fontSize: 11.5, fontWeight: FontWeight.w800)),
+              Wrap(spacing: Ds.s8, crossAxisAlignment: WrapCrossAlignment.center, children: [
+                AchievementTierChip(a.tier),
                 Text('${a.points}pt', style: TextStyle(color: context.muted, fontSize: 11.5)),
                 if (a.rewardCoins > 0) Text('${a.rewardCoins}コイン', style: TextStyle(color: context.muted, fontSize: 11.5)),
                 if (a.rarity != null) Text('取得率 ${(a.rarity! * 100).toStringAsFixed(1)}%', style: TextStyle(color: context.muted, fontSize: 11.5)),
               ]),
             ]),
           ),
-        ]),
-      ),
+        ),
+      ]),
     );
   }
 }

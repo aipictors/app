@@ -16,8 +16,6 @@ import 'package:aipictors/features/home/widgets/config_error_screen.dart';
 import 'package:aipictors/features/home/widgets/home_navigation_bar.dart';
 import 'package:aipictors/features/home/widgets/home_navigation_rail.dart';
 import 'package:aipictors/features/home/widgets/latest_version_dialog.dart';
-import 'package:aipictors/v2/achievements/achievements_api.dart';
-import 'package:aipictors/v2/core/design.dart';
 import 'package:aipictors/v2/notifications/notifications_screen.dart';
 import 'package:aipictors/v2/settings/settings_api.dart';
 import 'package:aipictors/v2/welcome/welcome_screen.dart';
@@ -144,12 +142,6 @@ class RootScreen extends HookConsumerWidget {
     useEffect(() {
       if (authState.value != null) {
         SettingsApi.loadContentFilter();
-        AchievementsApi.check().then((names) async {
-          if (names.isEmpty) return;
-          final settings = await AchievementsApi.settings();
-          if (settings?.isUnlockNoticeOff == true || !context.mounted) return;
-          context.toast('実績を獲得しました: ${names.first}${names.length > 1 ? ' ほか${names.length - 1}件' : ''}', icon: Icons.emoji_events_rounded);
-        }).catchError((_) {});
       }
       return null;
     }, [authState.value?.uid]);

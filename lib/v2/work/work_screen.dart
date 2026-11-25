@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:aipictors/v2/achievements/achievements_api.dart';
 import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/content_translate.dart';
@@ -326,6 +327,7 @@ query AppWorkTagWorks(\$where: WorksWhereInput) {
           'input': {'workId': w.str('id')},
         },
       );
+      if (liked) AchievementsApi.requestCheck();
     } on ApiException catch (e) {
       if (!mounted) return;
       setState(() {
