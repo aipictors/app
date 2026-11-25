@@ -35,6 +35,7 @@ class GenerationPrefill {
     required this.steps,
     required this.sampler,
     required this.modelName,
+    this.postModelId,
   });
 
   final String imageUrl;
@@ -44,6 +45,9 @@ class GenerationPrefill {
   final String steps;
   final String sampler;
   final String modelName;
+
+  /// 投稿の「使用AI」に対応するモデルの ID（サーバーが紐づけ・名前で探したもの）
+  final String? postModelId;
 }
 
 class PostImage {
@@ -261,6 +265,7 @@ query AppPostGenerationResult($where: ImageGenerationResultsWhereInput) {
     imageGenerationResults(offset: 0, limit: 1, where: $where) {
       id nanoid status imageUrl prompt negativePrompt seed steps sampler
       model { id name }
+      postModelId
     }
   }
 }''', variables: {
@@ -282,6 +287,7 @@ query AppPostGenerationResult($where: ImageGenerationResultsWhereInput) {
       steps: r.integer('steps') > 0 ? '${r.integer('steps')}' : '',
       sampler: r.str('sampler'),
       modelName: r.obj('model')?.str('name') ?? '',
+      postModelId: _orNull(r.str('postModelId')),
     );
   }
 

@@ -208,9 +208,15 @@ class _PostFormScreenState extends State<PostFormScreen> {
     _sampler.text = result.sampler;
     _steps.text = result.steps;
     _modelName.text = result.modelName;
-    // 同じ名前の AI モデルがあれば選んでおく
-    for (final model in options.models) {
-      if (model.name == result.modelName) _draft.modelId = model.id;
+    // サーバーが選んだ使用AIを優先し、無ければ同じ名前の AI モデルを選んでおく
+    // （名前が少し違う新しいモデルだと選ばれず、作品が「使用AIなし」になっていた）
+    final postModelId = result.postModelId;
+    if (postModelId != null && options.models.any((model) => model.id == postModelId)) {
+      _draft.modelId = postModelId;
+    } else {
+      for (final model in options.models) {
+        if (model.name == result.modelName) _draft.modelId = model.id;
+      }
     }
   }
 
