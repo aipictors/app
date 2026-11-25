@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:aipictors/v2/core/design.dart';
 import 'package:aipictors/v2/core/api.dart';
+import 'package:aipictors/v2/core/debug_boot.dart';
 import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/plans/coin_shop.dart';
 import 'package:aipictors/v2/core/nav.dart';
@@ -9,11 +11,13 @@ import 'package:aipictors/v2/generation/generation_api.dart';
 import 'package:aipictors/v2/generation/generation_controller.dart';
 import 'package:aipictors/v2/notifications/push.dart';
 import 'package:aipictors/v2/generation/generation_debug.dart';
+import 'package:aipictors/v2/generation/generation_entry.dart';
 import 'package:aipictors/v2/generation/generation_form.dart';
 import 'package:aipictors/v2/generation/generation_history.dart';
 import 'package:aipictors/v2/generation/generation_reference.dart';
 import 'package:aipictors/v2/generation/generation_settings.dart';
 import 'package:aipictors/v2/generation/generation_sheets.dart';
+import 'package:aipictors/v2/generation/generation_simple.dart';
 import 'package:aipictors/v2/generation/lora_picker.dart';
 import 'package:aipictors/v2/generation/model_picker.dart';
 import 'package:aipictors/v2/generation/result_viewer.dart';
@@ -49,11 +53,32 @@ class _GenerationScreenState extends State<GenerationScreen> {
   RefRequest? _refLoading;
   ReferenceState? _reference;
 
+  /// かんたん入口（Web の /generation/home）を出すか。null はまだ決めていない
+  bool? _simple;
+  bool _entryLoaded = false;
+
+  /// 端末に覚えた入口の選択（'advanced' / 'simple'）
+  String? _entryMode;
+
+  /// かんたん入口で「生成する」を押して、ログインや読み込みを待っているプロンプト
+  String? _pending;
+  bool _pendingRunning = false;
+
+  /// 一度通常の画面を出したら、開いている間はかんたん入口に戻さない（Web と同じ）
+  bool _shownAdvanced = false;
+
+  /// 切り替えのボタンで選んだあとは、自動では変えない
+  bool _chosen = false;
+
   @override
   void initState() {
     super.initState();
+    // 開発用: /tmp/aipictors-debug の 2 行目 gen:<action> でも自動操作を選べる（本体のアプリで確かめるとき）
+    final debugTab = DebugBoot.screenTab;
+    if (kDebugMode && GenDebug.action == null && debugTab != null && debugTab.startsWith('gen:')) GenDebug.action = debugTab.substring(4);
     _controller.start(loggedIn: _loggedIn);
     _controller.addListener(_onController);
+    _loadEntry();
     GenReference.pending.addListener(_takeReference);
     GenerationScreen.openHistory.addListener(_showHistory);
     _auth = FirebaseAuth.instance.authStateChanges().listen((user) {
@@ -65,6 +90,7 @@ class _GenerationScreenState extends State<GenerationScreen> {
       } else {
         _controller.onLoggedOut();
       }
+      _decideEntry();
     });
   }
 
@@ -80,11 +106,14 @@ class _GenerationScreenState extends State<GenerationScreen> {
 
   void _showHistory() {
     if (!mounted) return;
+    _openAdvanced(remember: false);
     setState(() => _tab = 1);
     unawaited(_controller.refreshAll());
   }
 
   void _onController() {
+    _decideEntry();
+    _runPending();
     _takeReference();
     if (kDebugMode && !_debugDone && GenDebug.action != null) _runDebugAction();
     final grant = _controller.grantMessage;
@@ -94,6 +123,113 @@ class _GenerationScreenState extends State<GenerationScreen> {
         if (mounted) context.toast(grant, icon: Icons.toll_rounded);
       });
     }
+  }
+
+  Future<void> _loadEntry() async {
+    final mode = await GenEntry.readMode();
+    final pending = await GenEntry.readPending();
+    if (!mounted) return;
+    _entryMode = mode;
+    // ログイン済みで開いたときの残りは使わない（前に押したものが、開いただけで急に生成されないように）
+    if (pending != null && _loggedIn) {
+      unawaited(GenEntry.clearPending());
+    } else {
+      _pending = pending;
+    }
+    _entryLoaded = true;
+    _decideEntry();
+    _runPending();
+  }
+
+  /// かんたん入口と通常の画面のどちらを出すか決める（Web の useGenerationEntryMode と同じ）
+  /// - 「詳細設定」を押した・一度生成した・生成履歴がある人は通常の画面（端末に覚える）
+  /// - 未ログインの人と、生成履歴が 0 件の人はかんたん入口
+  /// - 履歴が読めないときは、今までどおり通常の画面
+  void _decideEntry() {
+    if (!_entryLoaded || _shownAdvanced || _chosen || !mounted) return;
+    final v = _controller.viewer;
+    final bool? simple;
+    if (_pending != null && _loggedIn) {
+      simple = false;
+    } else if (_entryMode == 'advanced') {
+      simple = false;
+    } else if (_entryMode == 'simple' || !_loggedIn) {
+      simple = true;
+    } else if (_controller.viewerError != null) {
+      simple = false;
+    } else if (v == null) {
+      simple = null;
+    } else {
+      simple = v.generatedCount == 0;
+    }
+    if (v != null && v.generatedCount > 0 && _entryMode == null) {
+      _entryMode = 'advanced';
+      unawaited(GenEntry.saveMode('advanced'));
+    }
+    if (simple == false) _shownAdvanced = true;
+    if (simple != _simple) setState(() => _simple = simple);
+  }
+
+  /// 通常の画面にする（remember: 次からも通常の画面で開く）
+  void _openAdvanced({bool remember = true}) {
+    if (remember) {
+      _entryMode = 'advanced';
+      unawaited(GenEntry.saveMode('advanced'));
+    }
+    _shownAdvanced = true;
+    if (_simple != false && mounted) setState(() => _simple = false);
+  }
+
+  /// かんたん入口にする（次からもかんたん入口で開く）
+  void _openSimple({bool remember = true}) {
+    if (remember) {
+      _entryMode = 'simple';
+      unawaited(GenEntry.saveMode('simple'));
+    }
+    FocusScope.of(context).unfocus();
+    _chosen = true;
+    _shownAdvanced = false;
+    setState(() => _simple = true);
+  }
+
+  /// かんたん入口の「生成する」。未ログインならログインのあとに始める
+  void _startFromEntry(String prompt) {
+    _pending = prompt;
+    unawaited(GenEntry.savePending(prompt));
+    if (!_loggedIn) {
+      context.toast(tr('ログイン（無料の登録）をすると、入力したプロンプトでそのまま生成が始まります', 'Log in (free sign-up) and generation starts right away with your prompt'), icon: Icons.login_rounded);
+      Nav.login(context);
+      return;
+    }
+    _decideEntry();
+    _runPending();
+  }
+
+  /// 待っているプロンプトを通常の画面の入力欄に入れて、生成ボタンを押したときと同じ処理を 1 回だけ呼ぶ
+  /// （Web の useGenerationAutoSubmit。日本語なら「日本語で入力する」をオンにする）
+  void _runPending() {
+    final prompt = _pending;
+    final c = _controller;
+    if (prompt == null || _pendingRunning || !_loggedIn || c.catalog == null || c.viewer == null || !mounted) return;
+    _pendingRunning = true;
+    _pending = null;
+    unawaited(GenEntry.clearPending());
+    c.settings.update((s) {
+      s.prompt = prompt;
+      s.japanesePrompt = containsJapanese(prompt);
+    });
+    _openAdvanced(remember: false);
+    setState(() => _tab = 0);
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      if (!mounted) return;
+      final ok = await _generate();
+      _pendingRunning = false;
+      // 生成を始められたら、次からは通常の画面で開く（自分でかんたんを選んだ人はそのまま）
+      if (ok && _entryMode != 'simple') {
+        _entryMode = 'advanced';
+        unawaited(GenEntry.saveMode('advanced'));
+      }
+    });
   }
 
   /// 開発用: 画面に触れずに各状態を開く（debug_main.dart から）
@@ -154,6 +290,17 @@ class _GenerationScreenState extends State<GenerationScreen> {
           showCoinHistorySheet(context);
         case 'usermodels':
           showModelPicker(context, c);
+        case 'simple':
+          _openSimple(remember: false);
+        case 'simple-dry':
+          // かんたん入口から押したときに送る内容をログに出すだけ（生成は依頼しない）
+          Api.debugMutationHandler = (document, variables) async {
+            debugPrint('[GenDebug] mutation ${RegExp(r'mutation\s+(\w+)').firstMatch(document)?.group(1)} ${jsonEncode(variables)}');
+            return <String, dynamic>{};
+          };
+          _openSimple(remember: false);
+          await Future.delayed(const Duration(seconds: 1));
+          if (mounted) _startFromEntry(tr('桜の下で笑う女の子、やわらかい光、アニメ風', 'a smiling girl under cherry blossoms, soft light, anime style'));
       }
     });
   }
@@ -163,6 +310,8 @@ class _GenerationScreenState extends State<GenerationScreen> {
     final req = GenReference.pending.value;
     final catalog = _controller.catalog;
     if (req == null || !_loggedIn || !mounted) return;
+    // 作品の設定を読み込むときは通常の画面で（Web の ?work= と同じ）
+    _openAdvanced(remember: false);
     // モデル一覧を読み終えるまで待つ（_onController から呼び直される）
     if (catalog == null) {
       if (_refLoading?.workId != req.workId) setState(() => _refLoading = req);
@@ -265,27 +414,28 @@ class _GenerationScreenState extends State<GenerationScreen> {
     context.toast(tr('この設定を読み込みました', 'Settings loaded'), icon: Icons.replay_rounded);
   }
 
-  Future<void> _generate() async {
+  /// 生成を始められたら true
+  Future<bool> _generate() async {
     FocusScope.of(context).unfocus();
     final c = _controller;
     if (c.viewer != null && !c.viewer!.hasSignedTerms) {
       final agreed = await showTermsSheet(context, onAgree: c.signTerms);
-      if (!agreed || !mounted) return;
+      if (!agreed || !mounted) return false;
     }
     // フリーコインが足りずプレミアムコインを使うときは確認する
     if (c.check() == null && c.premiumCoinUse > 0) {
       final ok = await showConfirmSheet(context, title: tr('プレミアムコインを使います', 'Use premium coins'), message: tr('この生成でプレミアムコインを ${c.premiumCoinUse} 枚使います。よろしいですか？', 'This generation uses ${c.premiumCoinUse} premium coins. Continue?'), confirmLabel: tr('使って生成する', 'Use and generate'));
-      if (!ok || !mounted) return;
+      if (!ok || !mounted) return false;
     }
     Ds.impact();
     final block = await c.submit();
-    if (!mounted) return;
+    if (!mounted) return false;
     if (block == null) {
       Ds.success();
       context.toast(tr('生成をはじめました', 'Generation started'), icon: Icons.auto_awesome_rounded);
       // 通知がオフなら「アプリを閉じても続く・終わったら知らせる」を提案する（間をあけて数回まで）
       unawaited(Push.offerAfterGeneration(context));
-      return;
+      return true;
     }
     switch (block.kind) {
       case GenBlockKind.coins:
@@ -298,14 +448,18 @@ class _GenerationScreenState extends State<GenerationScreen> {
         await showVerificationSheet(context);
       case GenBlockKind.terms:
         final agreed = await showTermsSheet(context, onAgree: c.signTerms);
-        if (agreed && mounted) await _generate();
+        if (agreed && mounted) return _generate();
       case GenBlockKind.message:
         context.toast(block.message, error: true);
     }
+    return false;
   }
 
   @override
   Widget build(BuildContext context) {
+    // 未ログインの人もかんたん入口は使える（「生成する」でログインへ。Web と同じ）
+    if (!_loggedIn && (_simple == true || !_entryLoaded)) return _entryScaffold();
+    if (_loggedIn && _simple != false) return _entryScaffold();
     if (!_loggedIn) {
       return Scaffold(
         body: SafeArea(
@@ -327,7 +481,7 @@ class _GenerationScreenState extends State<GenerationScreen> {
             bottom: false,
             child: Column(
               children: [
-                _Header(controller: _controller),
+                _Header(controller: _controller, loggedIn: true, onSimple: _openSimple),
                 if (!wide) ...[
                   PillTabs(
                     labels: [tr('つくる', 'Create'), _controller.runningCount > 0 ? tr('履歴・生成中 ${_controller.runningCount}', 'History · ${_controller.runningCount} running') : tr('履歴', 'History')],
@@ -341,6 +495,45 @@ class _GenerationScreenState extends State<GenerationScreen> {
             ),
           );
         },
+      ),
+    );
+  }
+
+  /// かんたん入口（決めている間は同じ形の仮の表示）
+  Widget _entryScaffold() {
+    return Scaffold(
+      body: ListenableBuilder(
+        listenable: _controller,
+        builder: (context, _) => SafeArea(
+          bottom: false,
+          child: Column(
+            children: [
+              _Header(controller: _controller, loggedIn: _loggedIn),
+              Expanded(
+                child: _simple == true
+                    ? GenerationSimpleEntry(
+                        loggedIn: _loggedIn,
+                        initialPrompt: _pending,
+                        busy: _controller.submitting,
+                        onGenerate: _startFromEntry,
+                        onOpenAdvanced: () {
+                          Ds.tap();
+                          FocusScope.of(context).unfocus();
+                          _openAdvanced();
+                        },
+                      )
+                    : const Padding(
+                        padding: EdgeInsets.fromLTRB(16, 8, 16, 0),
+                        child: Column(children: [
+                          Skeleton(height: 22, width: 240, radius: 8),
+                          SizedBox(height: 14),
+                          Skeleton(height: 150, radius: 18),
+                        ]),
+                      ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -404,9 +597,13 @@ class _GenerationScreenState extends State<GenerationScreen> {
 
 /// 見出し（タイトル・プラン・コイン残高）
 class _Header extends StatelessWidget {
-  const _Header({required this.controller});
+  const _Header({required this.controller, required this.loggedIn, this.onSimple});
 
   final GenController controller;
+  final bool loggedIn;
+
+  /// 通常の画面で出す「かんたん」（かんたん入口に切り替える）
+  final VoidCallback? onSimple;
 
   @override
   Widget build(BuildContext context) {
@@ -434,7 +631,25 @@ class _Header extends StatelessWidget {
               ],
             ),
           ),
-          Pressable(
+          if (onSimple != null) ...[
+            Pressable(
+              onTap: onSimple,
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
+                decoration: BoxDecoration(color: context.skeleton, borderRadius: Ds.br(20)),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(Icons.edit_note_rounded, size: 17, color: context.cs.onSurface.withValues(alpha: 0.78)),
+                    const SizedBox(width: 3),
+                    Text(tr('かんたん', 'Simple'), style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w700, color: context.cs.onSurface.withValues(alpha: 0.78))),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(width: 8),
+          ],
+          if (loggedIn) Pressable(
             onTap: () => _showCoins(context),
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
