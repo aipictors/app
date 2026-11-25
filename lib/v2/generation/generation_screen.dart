@@ -7,6 +7,7 @@ import 'package:aipictors/v2/plans/coin_shop.dart';
 import 'package:aipictors/v2/core/nav.dart';
 import 'package:aipictors/v2/generation/generation_api.dart';
 import 'package:aipictors/v2/generation/generation_controller.dart';
+import 'package:aipictors/v2/notifications/push.dart';
 import 'package:aipictors/v2/generation/generation_debug.dart';
 import 'package:aipictors/v2/generation/generation_form.dart';
 import 'package:aipictors/v2/generation/generation_history.dart';
@@ -24,6 +25,9 @@ import 'package:flutter/material.dart';
 /// 画像生成タブ（Web の /generation と同じことができる画面）
 class GenerationScreen extends StatefulWidget {
   const GenerationScreen({super.key});
+
+  /// 「生成が終わりました」の通知を押したとき、履歴を開いて読み直す（値を 1 つ進める）
+  static final openHistory = ValueNotifier<int>(0);
 
   @override
   State<GenerationScreen> createState() => _GenerationScreenState();
@@ -51,6 +55,7 @@ class _GenerationScreenState extends State<GenerationScreen> {
     _controller.start(loggedIn: _loggedIn);
     _controller.addListener(_onController);
     GenReference.pending.addListener(_takeReference);
+    GenerationScreen.openHistory.addListener(_showHistory);
     _auth = FirebaseAuth.instance.authStateChanges().listen((user) {
       final loggedIn = user != null;
       if (loggedIn == _loggedIn) return;
@@ -67,9 +72,16 @@ class _GenerationScreenState extends State<GenerationScreen> {
   void dispose() {
     _auth?.cancel();
     GenReference.pending.removeListener(_takeReference);
+    GenerationScreen.openHistory.removeListener(_showHistory);
     _controller.removeListener(_onController);
     _controller.dispose();
     super.dispose();
+  }
+
+  void _showHistory() {
+    if (!mounted) return;
+    setState(() => _tab = 1);
+    unawaited(_controller.refreshAll());
   }
 
   void _onController() {
@@ -271,6 +283,8 @@ class _GenerationScreenState extends State<GenerationScreen> {
     if (block == null) {
       Ds.success();
       context.toast(tr('生成をはじめました', 'Generation started'), icon: Icons.auto_awesome_rounded);
+      // 通知がオフなら「アプリを閉じても続く・終わったら知らせる」を提案する（間をあけて数回まで）
+      unawaited(Push.offerAfterGeneration(context));
       return;
     }
     switch (block.kind) {

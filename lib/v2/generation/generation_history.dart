@@ -10,6 +10,7 @@ import 'package:aipictors/v2/generation/result_viewer.dart';
 import 'package:aipictors/v2/widgets/common.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:aipictors/v2/notifications/push.dart';
 
 /// 生成履歴（生成中のカード＋結果の一覧）
 class GenerationHistory extends StatefulWidget {
@@ -67,6 +68,8 @@ class _GenerationHistoryState extends State<GenerationHistory> {
               physics: const AlwaysScrollableScrollPhysics(),
               slivers: [
                 SliverToBoxAdapter(child: _HistoryFilterBar(controller: c)),
+                // 生成中は「アプリを閉じても続く・終わったら通知」を出す（待たずに閉じてよいと分かるように）
+                if (busy.isNotEmpty) const SliverToBoxAdapter(child: _KeepsRunningHint()),
                 if (c.historyLoading && isEmpty)
                   SliverPadding(
                     padding: const EdgeInsets.all(12),
@@ -144,6 +147,58 @@ class _GenerationHistoryState extends State<GenerationHistory> {
 
 /// 生成済みの画像のタイル
 /// 履歴の絞り込み（お気に入り度・保護中・日付）
+class _KeepsRunningHint extends StatefulWidget {
+  const _KeepsRunningHint();
+
+  @override
+  State<_KeepsRunningHint> createState() => _KeepsRunningHintState();
+}
+
+class _KeepsRunningHintState extends State<_KeepsRunningHint> {
+  bool? _pushOn;
+
+  @override
+  void initState() {
+    super.initState();
+    Push.isEnabled().then((v) {
+      if (mounted) setState(() => _pushOn = v);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final on = _pushOn ?? true;
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(12, 4, 12, 0),
+      child: Container(
+        padding: const EdgeInsets.fromLTRB(12, 8, 6, 8),
+        decoration: BoxDecoration(color: context.cs.primary.withValues(alpha: context.isDark ? 0.14 : 0.07), borderRadius: Ds.br(12)),
+        child: Row(children: [
+          Icon(on ? Icons.notifications_active_outlined : Icons.phone_iphone_rounded, size: 18, color: context.cs.primary),
+          const SizedBox(width: 8),
+          Expanded(
+            child: Text(
+              on
+                  ? tr('アプリを閉じても生成は続きます。終わったら通知でお知らせします', 'Generation keeps running even if you close the app. We will notify you when it is done.')
+                  : tr('アプリを閉じても生成は続きます', 'Generation keeps running even if you close the app'),
+              style: const TextStyle(fontSize: 12, height: 1.4),
+            ),
+          ),
+          if (_pushOn == false)
+            TextButton(
+              style: TextButton.styleFrom(visualDensity: VisualDensity.compact),
+              onPressed: () async {
+                final ok = await Push.enableWithFeedback(context);
+                if (mounted) setState(() => _pushOn = ok);
+              },
+              child: Text(tr('終わったら通知', 'Notify me'), style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w800)),
+            ),
+        ]),
+      ),
+    );
+  }
+}
+
 class _HistoryFilterBar extends StatelessWidget {
   const _HistoryFilterBar({required this.controller});
 

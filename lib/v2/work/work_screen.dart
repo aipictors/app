@@ -15,6 +15,7 @@ import 'package:aipictors/v2/widgets/user_avatar.dart';
 import 'package:aipictors/v2/widgets/official_badge.dart';
 import 'package:aipictors/v2/widgets/work_grid.dart';
 import 'package:aipictors/v2/work/comments.dart';
+import 'package:aipictors/v2/work/quick_stickers.dart';
 import 'package:aipictors/v2/work/moderation.dart';
 import 'package:aipictors/v2/work/support_sheet.dart';
 import 'package:aipictors/v2/work/book_reader_screen.dart';
@@ -181,7 +182,8 @@ class _WorkScreenState extends State<WorkScreen> {
       }
       if (DebugBoot.screenTab?.startsWith('sheet') == true) {
         Future.delayed(const Duration(seconds: 3), () {
-          if (mounted) _openComments();
+          // sheet:reply なら一番上のコメントへの返信の状態で開く（表示の確認用）
+          if (mounted) _openComments(replyTo: DebugBoot.screenTab == 'sheet:reply' ? _comments.firstOrNull : null);
         });
       }
       // 開発用: /tmp/aipictors-debug の 2 行目が comments ならコメント欄まで送る（表示の確認用）
@@ -427,7 +429,7 @@ query AppWorkTagWorks(\$where: WorksWhereInput) {
     );
   }
 
-  void _openComments({bool compose = false}) {
+  void _openComments({bool compose = false, CommentItem? replyTo}) {
     showCommentsSheet(
       context,
       workId: w.str('id'),
@@ -436,6 +438,7 @@ query AppWorkTagWorks(\$where: WorksWhereInput) {
       viewerId: _viewerId,
       rating: w.strOrNull('rating'),
       openComposer: compose,
+      replyTo: replyTo,
       onChanged: _load,
     );
   }
@@ -764,6 +767,7 @@ query AppWorkTagWorks(\$where: WorksWhereInput) {
                         ],
                         const SizedBox(height: 8),
                         _CommentsPreview(
+                          workId: w.str('id'),
                           comments: _comments,
                           total: w.integer('commentsCount'),
                           viewerId: _viewerId,
@@ -772,6 +776,13 @@ query AppWorkTagWorks(\$where: WorksWhereInput) {
                           onCompose: () {
                             if (Nav.requireLogin(context)) _openComments(compose: true);
                           },
+                          onReply: (c) {
+                            if (Nav.requireLogin(context)) _openComments(replyTo: c);
+                          },
+                          onPosted: (c) => setState(() {
+                            _comments = [c, ..._comments];
+                            w['commentsCount'] = w.integer('commentsCount') + 1;
+                          }),
                         ),
     ]);
 
@@ -1489,22 +1500,58 @@ class _GenerationInfo extends StatelessWidget {
   }
 }
 
-class _CommentsPreview extends StatelessWidget {
+class _CommentsPreview extends StatefulWidget {
   const _CommentsPreview({
+    required this.workId,
     required this.comments,
     required this.total,
     required this.viewerId,
     required this.editable,
     required this.onOpen,
     required this.onCompose,
+    required this.onReply,
+    required this.onPosted,
   });
 
+  final String workId;
   final List<CommentItem> comments;
   final int total;
   final String? viewerId;
   final bool editable;
   final VoidCallback onOpen;
   final VoidCallback onCompose;
+  final ValueChanged<CommentItem> onReply;
+
+  /// すぐ送れるスタンプで送ったコメント
+  final ValueChanged<CommentItem> onPosted;
+
+  @override
+  State<_CommentsPreview> createState() => _CommentsPreviewState();
+}
+
+class _CommentsPreviewState extends State<_CommentsPreview> {
+  String? _sendingId;
+
+  Future<void> _sendSticker(Map<String, dynamic> sticker) async {
+    if (_sendingId != null || !Nav.requireLogin(context)) return;
+    setState(() => _sendingId = sticker.str('id'));
+    try {
+      final comment = await postStickerComment(workId: widget.workId, sticker: sticker);
+      Ds.success();
+      widget.onPosted(comment);
+      if (mounted) context.toast(tr('スタンプを送りました', 'Sticker sent'));
+    } on ApiException catch (e) {
+      if (mounted) context.toast(e.message, error: true);
+    } finally {
+      if (mounted) setState(() => _sendingId = null);
+    }
+  }
+
+  Future<void> _openAll() async {
+    if (!Nav.requireLogin(context)) return;
+    final picked = await showStickerPicker(context);
+    if (picked != null) await _sendSticker(picked);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -1514,17 +1561,17 @@ class _CommentsPreview extends StatelessWidget {
         child: Row(children: [
           Text(tr('コメント', 'Comments'), style: context.tt.titleMedium?.copyWith(fontWeight: FontWeight.w900)),
           const SizedBox(width: 6),
-          Text('$total', style: TextStyle(color: context.muted, fontWeight: FontWeight.w700)),
+          Text('${widget.total}', style: TextStyle(color: context.muted, fontWeight: FontWeight.w700)),
           const Spacer(),
-          if (total > 0) TextButton(onPressed: onOpen, child: Text(tr('すべて見る', 'See all'))),
+          if (widget.total > 0) TextButton(onPressed: widget.onOpen, child: Text(tr('すべて見る', 'See all'))),
         ]),
       ),
       // 入力欄はコメントの上（下にあると、まずほかの人のコメントを通り過ぎることになる）
-      if (editable) ...[
+      if (widget.editable) ...[
         const SizedBox(height: 6),
         Pressable(
           scale: 0.99,
-          onTap: onCompose,
+          onTap: widget.onCompose,
           child: Container(
             height: 46,
             padding: const EdgeInsets.symmetric(horizontal: 14),
@@ -1534,15 +1581,19 @@ class _CommentsPreview extends StatelessWidget {
               const SizedBox(width: 8),
               Text(tr('コメントを書く', 'Write a comment'), style: TextStyle(color: context.muted)),
               const Spacer(),
-              Icon(Icons.emoji_emotions_outlined, size: 20, color: context.muted),
-              const SizedBox(width: 8),
               const Icon(Icons.monetization_on_outlined, size: 20, color: Ds.gold),
             ]),
           ),
         ),
+        // Web と同じく、入力欄のすぐ下に押すとすぐ送れるスタンプ（ピン留め・最近使った）
+        if (Nav.isLoggedIn) ...[
+          const SizedBox(height: 8),
+          QuickStickerTray(dense: true, onSend: _sendSticker, onOpenAll: _openAll, sendingId: _sendingId),
+        ],
         const SizedBox(height: 10),
       ],
-      for (final c in comments) CommentTile(key: ValueKey(c.id), comment: c, viewerId: viewerId),
+      for (final c in widget.comments)
+        CommentTile(key: ValueKey(c.id), comment: c, viewerId: widget.viewerId, onReply: widget.editable ? widget.onReply : null),
     ]);
   }
 }

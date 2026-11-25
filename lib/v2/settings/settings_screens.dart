@@ -16,10 +16,10 @@ import 'package:aipictors/v2/widgets/common.dart';
 import 'package:aipictors/v2/widgets/paged_list.dart';
 import 'package:aipictors/v2/widgets/user_avatar.dart';
 import 'package:aipictors/v2/widgets/user_name_row.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:aipictors/v2/notifications/push.dart';
 
 /// アカウント設定
 class AccountSettingsScreen extends StatefulWidget {
@@ -275,10 +275,47 @@ class NotificationSettingsScreen extends StatefulWidget {
 class _NotificationSettingsScreenState extends State<NotificationSettingsScreen> with _SettingState {
   bool _pushBusy = false;
 
+  /// アプリの通知の種類ごとのオン・オフ（読めるまでは null）
+  PushPrefs? _prefs;
+  bool _prefsBusy = false;
+
   @override
   void initState() {
     super.initState();
     loadSetting();
+    _loadPrefs();
+  }
+
+  Future<void> _loadPrefs() async {
+    try {
+      final prefs = await Push.prefs();
+      if (mounted) setState(() => _prefs = prefs);
+    } on ApiException catch (_) {
+      // 読めなければ種類の行は出さない（Push 自体のオン・オフは使える）
+    }
+  }
+
+  Future<void> _savePref({bool? generation, bool? ranking, bool? digest}) async {
+    final before = _prefs;
+    setState(() {
+      _prefsBusy = true;
+      _prefs = PushPrefs(
+        generation: generation ?? before?.generation ?? true,
+        ranking: ranking ?? before?.ranking ?? true,
+        digest: digest ?? before?.digest ?? true,
+      );
+    });
+    try {
+      final saved = await Push.savePrefs(generation: generation, ranking: ranking, digest: digest);
+      if (mounted) setState(() => _prefs = saved);
+    } on ApiException catch (e) {
+      if (mounted) {
+        setState(() => _prefs = before);
+        context.toast(e.message, error: true);
+      }
+    } finally {
+      if (mounted) setState(() => _prefsBusy = false);
+    }
   }
 
   bool get _pushOn => viewer?.obj('user')?.strOrNull('fcmToken') != null;
@@ -287,20 +324,15 @@ class _NotificationSettingsScreenState extends State<NotificationSettingsScreen>
     setState(() => _pushBusy = true);
     try {
       if (!on) {
-        await SettingsApi.updateFcmToken(null);
+        await Push.disable();
         viewer?.obj('user')?['fcmToken'] = null;
         if (mounted) context.toast('Push通知をオフにしました');
       } else {
-        final messaging = FirebaseMessaging.instance;
-        final permission = await messaging.requestPermission(alert: true, sound: true, badge: true);
-        if (permission.authorizationStatus == AuthorizationStatus.denied) {
+        if (!await Push.enable()) {
           if (mounted) context.toast('端末の設定で Aipictors の通知を許可してください', error: true);
           return;
         }
-        final token = await messaging.getToken();
-        if (token == null) throw const ApiException('Push通知の登録に失敗しました');
-        await SettingsApi.updateFcmToken(token);
-        viewer?.obj('user')?['fcmToken'] = token;
+        viewer?.obj('user')?['fcmToken'] = 'on';
         if (mounted) context.toast('Push通知をオンにしました');
       }
     } on ApiException catch (e) {
@@ -343,6 +375,32 @@ class _NotificationSettingsScreenState extends State<NotificationSettingsScreen>
                   onChanged: _pushBusy ? null : _setPush,
                 ),
               ]),
+              // アプリの通知の種類（しつこくならないように、それぞれ回数を決めて送る）
+              if (_pushOn && _prefs != null)
+                SettingsGroup(
+                  title: tr('アプリの通知', 'App notifications'),
+                  footer: tr('ランキングは 1 日 1 通、まとめは週 1 通までです。', 'Ranking news is at most once a day, and the summary once a week.'),
+                  children: [
+                    SettingsSwitch(
+                      label: tr('生成が終わったとき', 'When generation finishes'),
+                      subtitle: tr('アプリを閉じていてもお知らせします', 'Even when the app is closed'),
+                      value: _prefs!.generation,
+                      onChanged: _prefsBusy ? null : (v) => _savePref(generation: v),
+                    ),
+                    SettingsSwitch(
+                      label: tr('作品がランキングに入ったとき', 'When your work makes the ranking'),
+                      subtitle: tr('毎日お昼ごろ', 'Around noon'),
+                      value: _prefs!.ranking,
+                      onChanged: _prefsBusy ? null : (v) => _savePref(ranking: v),
+                    ),
+                    SettingsSwitch(
+                      label: tr('1 週間の反応のまとめ', 'Weekly summary of reactions'),
+                      subtitle: tr('日曜の夜。いいね・コメントがあった週だけ', 'Sunday evening, only when you got likes or comments'),
+                      value: _prefs!.digest,
+                      onChanged: _prefsBusy ? null : (v) => _savePref(digest: v),
+                    ),
+                  ],
+                ),
               SettingsGroup(
                 title: 'いいねの表示',
                 footer: tr('いいねしたときに、作者への通知やいいね一覧で名前を出さないようにします。', 'Hides your name in author notifications and like lists when you like a work.'),

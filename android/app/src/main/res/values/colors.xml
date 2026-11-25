@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="ic_launcher_background">#171923</color>
+    <!-- 通知のアイコンの色 -->
+    <color name="notification_color">#0170C8</color>
 </resources>

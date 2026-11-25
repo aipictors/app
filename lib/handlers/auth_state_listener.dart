@@ -1,5 +1,6 @@
 import 'package:aipictors/providers/home_tab_index_provider.dart';
 import 'package:aipictors/v2/core/debug_boot.dart';
+import 'package:aipictors/v2/notifications/push.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -36,6 +37,9 @@ Listener authStateListener(BuildContext context, WidgetRef ref) {
 
     // ユーザIDを記録する
     FirebaseAnalytics.instance.setUserId(id: state.value?.uid);
+
+    // 通知をオンにしてある端末は、トークンが変わっていれば登録し直す
+    Push.syncOnLaunch();
 
     // ユーザIDを記録する
     // Sentry.configureScope((scope) {

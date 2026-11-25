@@ -29,6 +29,13 @@
     <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
     <meta-data android:name="flutterEmbedding" android:value="2" />
+    <!-- Push 通知のアイコンと色（無いとステータスバーにアプリのアイコンが白い四角で出る） -->
+    <meta-data
+      android:name="com.google.firebase.messaging.default_notification_icon"
+      android:resource="@drawable/ic_stat_notify" />
+    <meta-data
+      android:name="com.google.firebase.messaging.default_notification_color"
+      android:resource="@color/notification_color" />
     <!-- 古い端末にもシステムの写真ピッカーを届ける（READ_MEDIA_* を宣言しない） -->
     <service
       android:name="com.google.android.gms.metadata.ModuleDependencies"

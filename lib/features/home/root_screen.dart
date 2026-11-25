@@ -101,7 +101,7 @@ class RootScreen extends HookConsumerWidget {
 
     ref.listen(
       foregroundMessageProvider,
-      messageListener(context, ref),
+      messageListener(context, ref, opened: false),
     );
 
     ref.listen(
