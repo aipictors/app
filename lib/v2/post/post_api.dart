@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/l10n.dart';
+import 'package:aipictors/v2/post/post_event.dart';
 import 'package:aipictors/v2/post/upload.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
@@ -94,12 +95,15 @@ bool canAddAiModel(List<NamedOption> models, String name) {
 }
 
 class PostOptions {
-  const PostOptions({required this.albums, required this.models, required this.themes, required this.recentTags});
+  const PostOptions({required this.albums, required this.models, required this.themes, required this.recentTags, this.events = const []});
 
   final List<NamedOption> albums;
   final List<NamedOption> models;
   final List<ThemeOption> themes;
   final List<String> recentTags;
+
+  /// 今日以降に終わる運営のイベント（Web の投稿フォームの appEvents と同じ）
+  final List<PostEvent> events;
 }
 
 /// フォームの入力
@@ -166,6 +170,7 @@ query AppPostOptions($startDate: String, $endDate: String) {
   viewer { id albums(offset: 0, limit: 128) { id title } recentlyUsedTags { id name } }
   aiModels(offset: 0, limit: 300, where: {}) { id name workModelId }
   dailyThemes(limit: 8, offset: 0, where: { startDate: $startDate, endDate: $endDate }) { id title dateText }
+  appEvents(limit: 8, offset: 0, where: { endAt: $startDate }) { slug title description thumbnailImageUrl headerImageUrl tag startAt endAt }
 }''', variables: {'startDate': day(now), 'endDate': day(now.add(const Duration(days: 7)))});
     final viewer = data.obj('viewer');
     return PostOptions(
@@ -177,6 +182,7 @@ query AppPostOptions($startDate: String, $endDate: String) {
           .toList(),
       themes: data.list('dailyThemes').map((t) => ThemeOption(t.str('id'), t.str('title'), t.str('dateText'))).toList(),
       recentTags: (viewer?.list('recentlyUsedTags') ?? const []).map((t) => t.str('name')).where((n) => n.isNotEmpty).toList(),
+      events: data.list('appEvents').map(PostEvent.fromJson).where((e) => e.tag.isNotEmpty).toList(),
     );
   }
 

@@ -2,8 +2,11 @@ import 'package:aipictors/v2/community/app_markdown.dart';
 import 'package:aipictors/v2/community/paged_list.dart';
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/design.dart';
+import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/core/models.dart';
+import 'package:aipictors/v2/core/nav.dart';
 import 'package:aipictors/v2/core/paged.dart';
+import 'package:aipictors/v2/post/post_event.dart';
 import 'package:aipictors/v2/widgets/common.dart';
 import 'package:aipictors/v2/widgets/work_grid.dart';
 import 'package:flutter/material.dart';
@@ -200,6 +203,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
     if (_error != null) return Scaffold(appBar: AppBar(), body: StateView.error(_error!, onRetry: _load));
     if (e == null) return Scaffold(appBar: AppBar(), body: const SkeletonGrid());
     final guide = e.strOrNull('wayToJoin') ?? e.strOrNull('participationGuide');
+    final tag = e.strOrNull('tag') ?? e.strOrNull('mainTag') ?? '';
     return Scaffold(
       appBar: AppBar(title: Text(e.str('title'), style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 16))),
       body: CustomScrollView(slivers: [
@@ -214,6 +218,20 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                 '${_statusLabel(e.str('status'))}・${formatYmd(e.integer('startAt'))}〜${formatYmd(e.integer('endAt'))}・${e.integer('worksCount')} 作品',
                 style: TextStyle(color: context.muted, fontSize: 12),
               ),
+              // 開催中・開催予定なら参加ボタン（Web のイベントページと同じく投稿画面をこのイベントに参加した状態で開く）
+              if (tag.isNotEmpty && (e.str('status') == 'ONGOING' || e.str('status') == 'UPCOMING')) ...[
+                const SizedBox(height: Ds.s12),
+                Text(tr('参加タグ #$tag（投稿時に付けると参加できます）', 'Entry tag #$tag (add when posting to join)'), style: TextStyle(color: context.muted, fontSize: 12)),
+                const SizedBox(height: Ds.s8),
+                GradientButton(
+                  label: tr('このイベントに参加する（投稿する）', 'Join this event (post)'),
+                  icon: Icons.edit_rounded,
+                  onPressed: () {
+                    if (!Nav.requireLogin(context)) return;
+                    openPostForEvent(context, slug: e.str('slug'), tag: tag);
+                  },
+                ),
+              ],
             ]),
           ),
         ),
