@@ -1,4 +1,5 @@
 import 'package:aipictors/v2/post/post_event.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 int wall(int y, int m, int d, [int h = 0]) => DateTime.utc(y, m, d, h).millisecondsSinceEpoch ~/ 1000;
@@ -37,5 +38,22 @@ void main() {
 
   test('開催期間は UTC の各要素で出す', () {
     expect(formatEventDateTime(wall(2026, 11, 30, 23)), '2026/11/30 23:00');
+  });
+
+  testWidgets('イベントの枠: 開催中は「参加する」を切り替えられ、開始前は参加できない', (tester) async {
+    final changes = <bool>[];
+    Future<void> pump(PostEvent e, {required bool attending}) => tester.pumpWidget(MaterialApp(
+          home: Scaffold(
+            body: SizedBox(width: 361, child: PostEventCard(event: e, attending: attending, publishAt: wall(2026, 11, 25, 10), onChanged: changes.add)),
+          ),
+        ));
+    await pump(ongoing, attending: false);
+    await tester.tap(find.byType(Switch));
+    expect(changes, [true]);
+    await pump(upcoming, attending: false);
+    expect(find.textContaining('まだ開始されていません'), findsOneWidget);
+    await tester.tap(find.byType(Switch));
+    expect(changes, [true]);
+    expect(tester.takeException(), isNull);
   });
 }

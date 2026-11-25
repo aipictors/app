@@ -1,4 +1,6 @@
 import 'package:aipictors/v2/community/help_screen.dart';
+import 'package:aipictors/v2/core/l10n.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -28,5 +30,20 @@ void main() {
     final guide = await HelpGuide.load();
     final all = guide.sections.expand((s) => [...s.points, s.lead, for (final f in s.faqs) f.a]).map((t) => '${t.ja} ${t.en}').join();
     expect(all, isNot(contains('PayPay')));
+  });
+
+  testWidgets('4 コマは iPhone の幅でも日英どちらもはみ出さない', (tester) async {
+    final guide = (await tester.runAsync(HelpGuide.load))!;
+    tester.view.physicalSize = const Size(393 * 3, 852 * 3);
+    tester.view.devicePixelRatio = 3;
+    addTearDown(tester.view.reset);
+    addTearDown(() => L10n.override = null);
+    for (final lang in ['ja', 'en']) {
+      L10n.override = lang;
+      for (final s in guide.sections) {
+        await tester.pumpWidget(MaterialApp(home: Scaffold(body: SingleChildScrollView(padding: const EdgeInsets.all(16), child: HelpFourKoma(title: s.mangaTitle, panels: s.panels)))));
+        expect(tester.takeException(), isNull, reason: '$lang ${s.id}');
+      }
+    }
   });
 }
