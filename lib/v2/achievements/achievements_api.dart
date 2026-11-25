@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:aipictors/v2/core/api.dart';
+import 'package:aipictors/v2/core/debug_boot.dart';
 import 'package:flutter/foundation.dart';
 
 class Achievement {
@@ -110,6 +113,13 @@ class AchievementSettings {
 class AchievementsApi {
   AchievementsApi._();
 
+  static final _checkRequests = StreamController<void>.broadcast();
+
+  /// いいね・フォローなどのあとに呼ぶ。少し待ってからまとめて確かめる（Web の requestAchievementCheck）
+  static void requestCheck() => _checkRequests.add(null);
+
+  static Stream<void> get checkRequests => _checkRequests.stream;
+
   static const _fields = 'key name description category series tier points rewardCoins isHidden isUnlocked unlockedAt progressCurrent progressTarget rarity';
 
   static const _page = '''
@@ -162,28 +172,79 @@ mutation AppUpdateAchievementSettings($input: UpdateAchievementSettingsInput!) {
   }
 
   /// Web の AchievementWatcher と同じ確認。ログイン日数と実績はこれで進む。
-  /// 新しく取った実績の名前を返す。審査用アカウントのコインや実績を増やさないよう、デバッグでは呼ばない
-  static Future<List<String>> check() async {
-    if (kDebugMode) return const [];
-    try {
-      final data = await Api.mutate(r'''
-mutation AppCheckAchievements {
-  checkAchievements {
+  /// まだ見ていない達成（新しい順）を返す。[force] は投稿・いいねのあとなど、サーバーの間隔を待たずに数え直すとき。
+  /// 審査用アカウントのコインや実績を増やさないよう、デバッグでは送らない（sample:achievement なら見本を返す）
+  static Future<AchievementCheckResult?> check({bool force = false}) async {
+    if (kDebugMode) return DebugBoot.flag('sample:achievement') ? AchievementCheckResult.sample() : null;
+    final data = await Api.mutate(r'''
+mutation AppCheckAchievements($force: Boolean) {
+  checkAchievements(force: $force) {
     isInitialSync
-    unlocked { key name }
+    unlocked { key name enName description enDescription tier isHidden rewardCoins }
   }
-}''');
-      final r = data.obj('checkAchievements');
-      final unlocked = r?.list('unlocked') ?? const <Map<String, dynamic>>[];
-      if (unlocked.isEmpty) return const [];
-      await Api.mutate(r'''
+}''', variables: {'force': force});
+    final r = data.obj('checkAchievements');
+    if (r == null) return null;
+    return AchievementCheckResult(
+      isInitialSync: r.boolean('isInitialSync'),
+      unlocked: r.list('unlocked').map(UnlockedAchievement.fromJson).toList(),
+    );
+  }
+
+  /// 見たことにする（次の確認から返らない）
+  static Future<void> markSeen(List<String> keys) async {
+    if (kDebugMode || keys.isEmpty) return;
+    await Api.mutate(r'''
 mutation AppMarkAchievementsSeen($keys: [String!]!) {
   markAchievementsSeen(keys: $keys)
-}''', variables: {'keys': unlocked.map((a) => a.str('key')).toList()});
-      // 初めての同期では過去の分がまとめて返るので知らせない
-      return r?.boolean('isInitialSync') == true ? const [] : unlocked.map((a) => a.str('name')).toList();
-    } catch (_) {
-      return const [];
-    }
+}''', variables: {'keys': keys});
   }
+}
+
+class UnlockedAchievement {
+  const UnlockedAchievement({
+    required this.key,
+    required this.name,
+    required this.enName,
+    required this.description,
+    required this.enDescription,
+    required this.tier,
+    required this.isHidden,
+    required this.rewardCoins,
+  });
+
+  final String key;
+  final String name;
+  final String enName;
+  final String description;
+  final String enDescription;
+  final int tier;
+  final bool isHidden;
+  final int rewardCoins;
+
+  factory UnlockedAchievement.fromJson(Map<String, dynamic> j) => UnlockedAchievement(
+        key: j.str('key'),
+        name: j.str('name'),
+        enName: j.str('enName'),
+        description: j.str('description'),
+        enDescription: j.str('enDescription'),
+        tier: j.integer('tier', 1),
+        isHidden: j.boolean('isHidden'),
+        rewardCoins: j.integer('rewardCoins'),
+      );
+}
+
+class AchievementCheckResult {
+  const AchievementCheckResult({required this.isInitialSync, required this.unlocked});
+
+  /// はじめての確認（これまでの分がまとめて返る）
+  final bool isInitialSync;
+  final List<UnlockedAchievement> unlocked;
+
+  /// 開発用の見本（本番のデータは変えない）
+  factory AchievementCheckResult.sample() => const AchievementCheckResult(isInitialSync: false, unlocked: [
+        UnlockedAchievement(
+            key: 'likes-given-100', name: '応援の輪', enName: 'Circle of cheers', description: 'いいねを100回する', enDescription: 'Give 100 likes', tier: 3, isHidden: false, rewardCoins: 10),
+        UnlockedAchievement(key: 'works-1', name: 'はじめての一枚', enName: 'First work', description: '作品を1つ投稿する', enDescription: 'Post 1 work', tier: 1, isHidden: false, rewardCoins: 0),
+      ]);
 }

@@ -44,6 +44,9 @@ class DebugBoot {
     return null;
   }
 
+  /// どこかの行にその言葉があるか（sample:achievement など、見本を出す切り替え）
+  static bool flag(String line) => kDebugMode && _file.any((l) => l.trim() == line);
+
   static const _tab = String.fromEnvironment('debugTab');
 
   /// 1 行目が tab:<n> なら、そのホームのタブで起動する（マイページなど）

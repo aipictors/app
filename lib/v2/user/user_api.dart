@@ -1,3 +1,4 @@
+import 'package:aipictors/v2/achievements/achievements_api.dart';
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/models.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -461,6 +462,7 @@ mutation FollowUser($input: FollowUserInput!) {
 }''', variables: {
         'input': {'userId': userId},
       });
+      AchievementsApi.requestCheck();
     } else {
       await Api.mutate(r'''
 mutation UnfollowUser($input: UnfollowUserInput!) {
