@@ -10,7 +10,7 @@ import 'package:url_launcher/url_launcher.dart';
 class WebLinks {
   WebLinks._();
 
-  static const discordInvite = 'https://discord.gg/hcQggQEYfn';
+  static const discordInvite = 'https://discord.gg/7jA2MmtvtR';
 
   static final _purchasePath = RegExp(r'^/(plus|plans|generation/plans|premium-coins|coins|my/coins|my/plan)(/|$)');
   static final _bareLink = RegExp(r'(?<![\(\[<])https?://(?:www\.)?aipictors\.com(?:/[a-z]{2})?/(?:plus|plans|generation/plans|premium-coins|coins|my/coins|my/plan)[^\s)\]]*');
