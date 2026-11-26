@@ -15,6 +15,7 @@ import 'package:aipictors/v2/widgets/official_badge.dart';
 import 'package:aipictors/v2/widgets/support_tier.dart';
 import 'package:aipictors/v2/work/moderation.dart';
 import 'package:aipictors/v2/work/quick_stickers.dart';
+import 'package:aipictors/v2/work/support_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -456,6 +457,7 @@ Future<void> showCommentsSheet(
   required String ownerName,
   required String? viewerId,
   String? rating,
+  bool originalWork = false,
   bool openComposer = false,
   CommentItem? replyTo,
   VoidCallback? onChanged,
@@ -477,6 +479,7 @@ Future<void> showCommentsSheet(
         ownerName: ownerName,
         viewerId: viewerId,
         rating: rating,
+        originalWork: originalWork,
         scrollController: scroll,
         openComposer: openComposer || replyTo != null,
         replyTo: replyTo,
@@ -495,6 +498,7 @@ class _CommentsSheet extends StatefulWidget {
     required this.scrollController,
     required this.openComposer,
     this.rating,
+    this.originalWork = false,
     this.replyTo,
     this.onChanged,
   });
@@ -504,6 +508,7 @@ class _CommentsSheet extends StatefulWidget {
   final String ownerName;
   final String? viewerId;
   final String? rating;
+  final bool originalWork;
   final ScrollController scrollController;
   final bool openComposer;
 
@@ -658,6 +663,7 @@ query AppWorkComments(\$id: ID!, \$offset: Int!, \$limit: Int!) {
           ownerId: widget.ownerId,
           ownerName: widget.ownerName,
           rating: widget.rating,
+          originalWork: widget.originalWork,
           focusNode: _focus,
           replyTo: _replyTo,
           onCancelReply: () => setState(() => _replyTo = null),
@@ -694,6 +700,7 @@ class CommentComposer extends StatefulWidget {
     this.replyTo,
     this.onCancelReply,
     this.rating,
+    this.originalWork = false,
   });
 
   final String workId;
@@ -702,6 +709,9 @@ class CommentComposer extends StatefulWidget {
 
   /// 作品の年齢区分。全年齢（G / R15）のときだけ推しの欄に報酬の一言を出す
   final String? rating;
+
+  /// オリジナル作品（プレミアムコインで推せるのはオリジナル作品だけ）
+  final bool originalWork;
   final FocusNode? focusNode;
   final CommentItem? replyTo;
   final VoidCallback? onCancelReply;
@@ -803,7 +813,7 @@ class _CommentComposerState extends State<CommentComposer> {
   Future<void> _pickSupport() async {
     if (!Nav.requireLogin(context)) return;
     try {
-      _balance ??= await Coins.summary(supportTo: widget.ownerId);
+      _balance ??= (await Coins.summary(supportTo: widget.ownerId)).forTarget(originalWork: widget.originalWork);
     } on ApiException catch (e) {
       if (mounted) context.toast(e.message, error: true);
       return;
@@ -830,7 +840,7 @@ class _CommentComposerState extends State<CommentComposer> {
         anonymous: _supportAnonymous,
         previewText: _text.text.trim(),
         // 報酬の一言は、全年齢の作品で、作者が報酬に参加していてプレミアムコインを受け取るときだけ
-        showRewardNote: isCreatorRewardRating(widget.rating) && _balance!.rewardJoined && _balance!.premiumAccepted,
+        showRewardNote: isCreatorRewardRating(widget.rating) && _balance!.rewardJoined && _balance!.premiumUsable,
       ),
     );
     if (picked == null) return;
@@ -903,6 +913,16 @@ mutation AppComment(\$input: CreateWorkCommentInput!) { createWorkComment(input:
       return true;
     } on ApiException catch (e) {
       if (!mounted) return false;
+      // オリジナルでない作品へのプレミアムコインの推しを断られたら、プレミアムを外して理由を出す（コメントと文章は残す）
+      if (_supportPremium > 0 && isPremiumOriginalOnlyError(e)) {
+        setState(() {
+          _sending = false;
+          _supportPremium = 0;
+          _balance = _balance?.forTarget(originalWork: false);
+        });
+        context.toast(premiumOriginalOnlyNote(), error: true);
+        return false;
+      }
       setState(() => _sending = false);
       context.toast(e.message, error: true);
       return false;
@@ -1093,7 +1113,7 @@ class SupportPickerState extends State<SupportPicker> {
   static const _confirmPt = 1000;
 
   late int _free = widget.free;
-  late int _premium = widget.balance.premiumAccepted ? widget.premium : 0;
+  late int _premium = widget.balance.premiumUsable ? widget.premium : 0;
   late bool _anonymous = widget.anonymous;
 
   int get _pt => _free + _premium * 10;
@@ -1136,10 +1156,10 @@ class SupportPickerState extends State<SupportPicker> {
           const SizedBox(height: Ds.s12),
           _row(tr('フリー', 'Free'), b.free, _free, _freeSteps, 1, (v) => setState(() => _free = v)),
           const SizedBox(height: Ds.s12),
-          if (b.premiumAccepted)
+          if (b.premiumUsable)
             _row(tr('プレミアム（×10pt）', 'Premium (×10pt)'), b.premium, _premium, _premiumSteps, 10, (v) => setState(() => _premium = v))
           else
-            Text(tr('この作者はプレミアムコインでの応援を受け付けていません。フリーコインで推せます', 'This creator does not accept support with premium coins. You can support with free coins.'), style: TextStyle(color: context.muted, fontSize: 12)),
+            PremiumUnavailableNote(balance: b),
           if (_pt > 0) ...[
             const SizedBox(height: Ds.s12),
             Text(tr('コメントはこう表示されます', 'Your comment will look like this'), style: TextStyle(color: context.muted, fontSize: 11)),

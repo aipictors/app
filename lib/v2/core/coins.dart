@@ -1,12 +1,13 @@
 import 'dart:convert';
 
 import 'package:aipictors/v2/core/api.dart';
+import 'package:aipictors/v2/core/l10n.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
 
 /// コイン残高
 class CoinSummary {
-  const CoinSummary({required this.free, required this.premium, this.supportAccepted = true, this.premiumAccepted = true, this.rewardJoined = false});
+  const CoinSummary({required this.free, required this.premium, this.supportAccepted = true, this.premiumAccepted = true, this.rewardJoined = false, this.premiumOriginalOnly = false});
 
   final int free;
   final int premium;
@@ -20,13 +21,37 @@ class CoinSummary {
   /// 推す相手がクリエイター報酬に参加中（summary(supportTo:) のときだけ分かる）
   final bool rewardJoined;
 
+  /// オリジナル作品への推しではない（作品なし・オリジナルのタグがない）ので、プレミアムコインを使えない
+  final bool premiumOriginalOnly;
+
   int get total => free + premium;
 
-  /// 推しで使える残高（相手がプレミアムコインを受け取らないときはフリーだけ）
-  CoinSummary get forSupport => premiumAccepted ? this : CoinSummary(free: free, premium: 0, supportAccepted: supportAccepted, premiumAccepted: false, rewardJoined: rewardJoined);
+  /// この推しでプレミアムコインを使える（相手が受け取り、オリジナル作品への推し）
+  bool get premiumUsable => premiumAccepted && !premiumOriginalOnly;
+
+  /// 推しで使える残高（プレミアムコインを使えないときはフリーだけ）
+  CoinSummary get forSupport => premiumUsable ? this : CoinSummary(free: free, premium: 0, supportAccepted: supportAccepted, premiumAccepted: premiumAccepted, rewardJoined: rewardJoined, premiumOriginalOnly: premiumOriginalOnly);
+
+  /// 推す先の作品に合わせる（originalWork が false ならプレミアムコインを使えない）
+  CoinSummary forTarget({required bool originalWork}) => CoinSummary(free: free, premium: premium, supportAccepted: supportAccepted, premiumAccepted: premiumAccepted, rewardJoined: rewardJoined, premiumOriginalOnly: !originalWork);
 
   static const zero = CoinSummary(free: 0, premium: 0);
 }
+
+/// オリジナル作品とみなすタグ（API と同じ。大文字小文字・前後の空白は区別しない）
+const originalWorkTags = {'オリジナル', 'オリジナルキャラ', 'オリジナルキャラクター', 'オリキャラ', '創作', '一次創作', 'original'};
+
+/// タグにオリジナルのタグがあればオリジナル作品（プレミアムコインで推せるのはオリジナル作品だけ）
+bool isOriginalWork(Iterable<Object?>? tags) => tags != null && tags.any((t) => t != null && originalWorkTags.contains(t.toString().trim().toLowerCase()));
+
+/// API がオリジナルでない作品へのプレミアムコインの推しを断ったときの code
+const premiumSupportOriginalOnlyCode = 'PREMIUM_SUPPORT_ORIGINAL_ONLY';
+
+/// プレミアムコインを使えない理由（推す画面・コメントの推しの欄に出す）
+String premiumOriginalOnlyNote() => tr('プレミアムコインはオリジナル作品だけに使えます。二次創作にお金が動かないようにするためです', 'Premium coins can only be used for original works. This keeps money from flowing to fan works.');
+
+/// API の断りがオリジナル作品だけの決まりによるものか（GraphQL のエラーは code か文言で見る）
+bool isPremiumOriginalOnlyError(ApiException e) => e.code == premiumSupportOriginalOnlyCode || e.message.contains(premiumSupportOriginalOnlyCode) || e.message.contains('オリジナル作品');
 
 /// 推しで使う内訳（フリーから先に使う。Web と同じ）
 class SupportBreakdown {
@@ -112,12 +137,17 @@ class Coins {
     for (final r in responses) {
       if (r.statusCode != 200) {
         String message = '推しを送れませんでした';
+        String? code;
         try {
           final j = jsonDecode(utf8.decode(r.bodyBytes));
           final e = j is Map ? j['error']?.toString() : null;
+          code = j is Map ? j['code']?.toString() : null;
           if (e != null && e.isNotEmpty) message = '推しを送れませんでした（$e）';
         } catch (_) {}
-        throw ApiException(message);
+        // Web の /api/coins/support は code を落として error の文言だけ返すことがあるので、文言でも見る
+        final e = ApiException(message, code: code);
+        if (isPremiumOriginalOnlyError(e)) throw ApiException(premiumOriginalOnlyNote(), code: premiumSupportOriginalOnlyCode);
+        throw e;
       }
     }
   }
