@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:aipictors/v2/settings/leave_survey.dart';
 import 'package:aipictors/v2/core/api.dart';
 import 'package:aipictors/v2/core/design.dart';
 import 'package:aipictors/v2/core/nav.dart';
@@ -249,6 +250,16 @@ class _PlansScreenState extends State<PlansScreen> {
     if (!opened && mounted) context.toast('ページを開けませんでした', error: true);
   }
 
+  /// ストアの定期購入の管理を開く。このストアで加入中なら、先に解約の理由を聞く（解約はストアの画面でするので、開く前に）
+  Future<void> _manage() async {
+    final hasStorePass = _pass != null && _pass!.strOrNull('paymentProvider') == storeProvider;
+    if (hasStorePass) {
+      final ok = await showStoreCancelSurveySheet(context);
+      if (!ok || !mounted) return;
+    }
+    await _open(_manageUrl);
+  }
+
   String get _manageUrl => Platform.isAndroid ? 'https://play.google.com/store/account/subscriptions?package=com.aipictors.app' : 'https://apps.apple.com/account/subscriptions';
 
   @override
@@ -284,7 +295,7 @@ class _PlansScreenState extends State<PlansScreen> {
               child: _CurrentPassCard(
                 pass: _pass!,
                 provider: provider,
-                onManage: () => _open(_manageUrl),
+                onManage: _manage,
               ),
             ),
           if (busy)
@@ -340,7 +351,7 @@ class _PlansScreenState extends State<PlansScreen> {
                   ),
                   const SizedBox(height: 8),
                   TextButton.icon(
-                    onPressed: () => _open(_manageUrl),
+                    onPressed: _manage,
                     icon: const Icon(Icons.settings_rounded, size: 18),
                     label: const Text('サブスクリプションを管理'),
                   ),
