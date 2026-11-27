@@ -289,8 +289,8 @@ class _CreatorRewardsScreenState extends State<CreatorRewardsScreen> with Widget
               const SizedBox(height: 10),
               Text(
                 tr(
-                  '対象は全年齢（一般・R15）の作品への推しで、ファンがお金を払って買ったコインの分です。無料でもらったコインやR18の作品への推しは、今までどおりコインで受け取ります。',
-                  'Covers supports on all-ages (G / R15) works paid with coins fans bought. Free coins and supports on R18 works are received as coins as before.',
+                  '対象は、プロフィールからプレミアムコイン（ファンがお金を払って買ったコイン）で推された分です（R18・R18G の作品を公開していない人だけ）。作品への推しやフリーコインの推しは、今までどおりコインで受け取ります。',
+                  'Covers support from your profile paid with premium coins fans bought (only for creators who have not published R18 / R18G works). Support on works and free-coin support are received as coins as before.',
                 ),
                 style: muted.copyWith(fontSize: 12),
               ),

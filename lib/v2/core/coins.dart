@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 
 /// コイン残高
 class CoinSummary {
-  const CoinSummary({required this.free, required this.premium, this.supportAccepted = true, this.premiumAccepted = true, this.rewardJoined = false, this.premiumOriginalOnly = false});
+  const CoinSummary({required this.free, required this.premium, this.supportAccepted = true, this.premiumAccepted = true, this.rewardJoined = false, this.premiumUserOnly = false});
 
   final int free;
   final int premium;
@@ -21,37 +21,41 @@ class CoinSummary {
   /// 推す相手がクリエイター報酬に参加中（summary(supportTo:) のときだけ分かる）
   final bool rewardJoined;
 
-  /// オリジナル作品への推しではない（作品なし・オリジナルのタグがない）ので、プレミアムコインを使えない
-  final bool premiumOriginalOnly;
+  /// 作品からの推し（作品画面の推す画面・コメントの推し）なので、プレミアムコインを使えない
+  /// （プレミアムコインで推せるのはプロフィールからのユーザーへの推しだけ。オリジナル作品でも同じ）
+  final bool premiumUserOnly;
 
   int get total => free + premium;
 
-  /// この推しでプレミアムコインを使える（相手が受け取り、オリジナル作品への推し）
-  bool get premiumUsable => premiumAccepted && !premiumOriginalOnly;
+  /// この推しでプレミアムコインを使える（相手が受け取り、プロフィールからのユーザーへの推し）
+  bool get premiumUsable => premiumAccepted && !premiumUserOnly;
 
   /// 推しで使える残高（プレミアムコインを使えないときはフリーだけ）
-  CoinSummary get forSupport => premiumUsable ? this : CoinSummary(free: free, premium: 0, supportAccepted: supportAccepted, premiumAccepted: premiumAccepted, rewardJoined: rewardJoined, premiumOriginalOnly: premiumOriginalOnly);
+  CoinSummary get forSupport => premiumUsable ? this : CoinSummary(free: free, premium: 0, supportAccepted: supportAccepted, premiumAccepted: premiumAccepted, rewardJoined: rewardJoined, premiumUserOnly: premiumUserOnly);
 
-  /// 推す先の作品に合わせる（originalWork が false ならプレミアムコインを使えない）
-  CoinSummary forTarget({required bool originalWork}) => CoinSummary(free: free, premium: premium, supportAccepted: supportAccepted, premiumAccepted: premiumAccepted, rewardJoined: rewardJoined, premiumOriginalOnly: !originalWork);
+  /// 作品からの推しにする（プレミアムコインを使えない）
+  CoinSummary get forWork => CoinSummary(free: free, premium: premium, supportAccepted: supportAccepted, premiumAccepted: premiumAccepted, rewardJoined: rewardJoined, premiumUserOnly: true);
 
   static const zero = CoinSummary(free: 0, premium: 0);
 }
 
-/// オリジナル作品とみなすタグ（API と同じ。大文字小文字・前後の空白は区別しない）
-const originalWorkTags = {'オリジナル', 'オリジナルキャラ', 'オリジナルキャラクター', 'オリキャラ', '創作', '一次創作', 'original'};
+/// API が作品付きのプレミアムコインの推しを断ったときの code（プレミアムコインはユーザーへの推しだけ）
+const premiumSupportUserOnlyCode = 'PREMIUM_SUPPORT_USER_ONLY';
 
-/// タグにオリジナルのタグがあればオリジナル作品（プレミアムコインで推せるのはオリジナル作品だけ）
-bool isOriginalWork(Iterable<Object?>? tags) => tags != null && tags.any((t) => t != null && originalWorkTags.contains(t.toString().trim().toLowerCase()));
-
-/// API がオリジナルでない作品へのプレミアムコインの推しを断ったときの code
+/// 前の決まり（オリジナル作品だけ）の code。古い API が返しても同じに扱う
 const premiumSupportOriginalOnlyCode = 'PREMIUM_SUPPORT_ORIGINAL_ONLY';
 
 /// プレミアムコインを使えない理由（推す画面・コメントの推しの欄に出す）
-String premiumOriginalOnlyNote() => tr('プレミアムコインはオリジナル作品だけに使えます。二次創作にお金が動かないようにするためです', 'Premium coins can only be used for original works. This keeps money from flowing to fan works.');
+String premiumUserOnlyNote() => tr('プレミアムコインはユーザーへの推し（プロフィールから）だけに使えます。作品への推しはフリーコインです', 'Premium coins can only be used to support users (from their profile). Supporting a work uses free coins.');
 
-/// API の断りがオリジナル作品だけの決まりによるものか（GraphQL のエラーは code か文言で見る）
-bool isPremiumOriginalOnlyError(ApiException e) => e.code == premiumSupportOriginalOnlyCode || e.message.contains(premiumSupportOriginalOnlyCode) || e.message.contains('オリジナル作品');
+/// API の断りがプレミアムコインの決まり（ユーザーへの推しだけ・前のオリジナル作品だけ）によるものか（GraphQL のエラーは code か文言で見る）
+bool isPremiumUserOnlyError(ApiException e) =>
+    e.code == premiumSupportUserOnlyCode ||
+    e.code == premiumSupportOriginalOnlyCode ||
+    e.message.contains(premiumSupportUserOnlyCode) ||
+    e.message.contains(premiumSupportOriginalOnlyCode) ||
+    e.message.contains('ユーザー（プロフィール）への推しだけ') ||
+    e.message.contains('オリジナル作品');
 
 /// 推しで使う内訳（フリーから先に使う。Web と同じ）
 class SupportBreakdown {
@@ -146,7 +150,7 @@ class Coins {
         } catch (_) {}
         // Web の /api/coins/support は code を落として error の文言だけ返すことがあるので、文言でも見る
         final e = ApiException(message, code: code);
-        if (isPremiumOriginalOnlyError(e)) throw ApiException(premiumOriginalOnlyNote(), code: premiumSupportOriginalOnlyCode);
+        if (isPremiumUserOnlyError(e)) throw ApiException(premiumUserOnlyNote(), code: premiumSupportUserOnlyCode);
         throw e;
       }
     }

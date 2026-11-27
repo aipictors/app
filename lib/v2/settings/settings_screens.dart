@@ -959,8 +959,8 @@ class _SupportReceivedScreenState extends State<SupportReceivedScreen> {
       Padding(
         padding: const EdgeInsets.fromLTRB(Ds.s16, Ds.s12, Ds.s16, Ds.s8),
         child: Text(
-          tr('受け取った応援コインの累計 pt と、フリー / プレミアムの内訳です。全年齢の作品で受け取った有料のプレミアムコインは、クリエイター報酬（銀行振込）の対象になります。',
-              'Cumulative received support points with free/premium breakdowns. Purchased Premium Coins received on all-ages works are eligible for Creator Rewards (bank payout).'),
+          tr('受け取った応援コインの累計 pt と、フリー / プレミアムの内訳です。プロフィールから有料のプレミアムコインで推された分は、クリエイター報酬（銀行振込）の対象になります（R18・R18G の作品を公開していない人だけ）。',
+              'Cumulative received support points with free/premium breakdowns. Purchased Premium Coins received as support from your profile are eligible for Creator Rewards (bank payout), for creators who have not published R18 / R18G works.'),
           style: TextStyle(color: context.muted, fontSize: 12.5, height: 1.5),
         ),
       ),

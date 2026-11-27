@@ -245,8 +245,8 @@ class SupportAmountButton extends StatelessWidget {
   }
 }
 
-/// 「応援はクリエイターの報酬につながります」の一言。作者が報酬に参加していて全年齢の作品のときだけ出すので、
-/// 条件の括弧書きは付けない（コメントからもプロフィールからも同じ言い方）
+/// 「応援はクリエイターの報酬につながります」の一言。作者が報酬に参加していてプレミアムコインを使える推し
+/// （プロフィールからの推し）のときだけ出すので、条件の括弧書きは付けない
 class SupportRewardNote extends StatelessWidget {
   const SupportRewardNote({super.key});
 

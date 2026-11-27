@@ -6,7 +6,6 @@ import 'package:aipictors/v2/core/store_policy.dart';
 import 'package:aipictors/v2/achievements/achievements_api.dart';
 import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/core/api.dart';
-import 'package:aipictors/v2/core/coins.dart';
 import 'package:aipictors/v2/core/content_translate.dart';
 import 'package:aipictors/v2/core/debug_boot.dart';
 import 'package:aipictors/v2/core/design.dart';
@@ -183,7 +182,7 @@ class _WorkScreenState extends State<WorkScreen> {
             iconUrl: user.strOrNull('iconUrl'),
             frame: AvatarFrame.fromJson(user.obj('avatarFrame')),
             showRewardNote: isCreatorRewardRating(_work?.strOrNull('rating')),
-            originalWork: isOriginalWork(_work?['tagNames'] as List?),
+            fromWork: true,
           );
         });
       }
@@ -445,8 +444,6 @@ query AppWorkTagWorks(\$where: WorksWhereInput) {
       ownerName: user.str('name'),
       viewerId: _viewerId,
       rating: w.strOrNull('rating'),
-      // プレミアムコインで推せるのはオリジナル作品だけ（タグで見る。API と同じ）
-      originalWork: isOriginalWork(w['tagNames'] as List?),
       openComposer: compose,
       replyTo: replyTo,
       onChanged: _load,
@@ -624,7 +621,8 @@ query AppWorkTagWorks(\$where: WorksWhereInput) {
                                     frame: AvatarFrame.fromJson(user.obj('avatarFrame')),
                                     // R18 の作品の画面では報酬の一言を出さない
                                     showRewardNote: isCreatorRewardRating(w.strOrNull('rating')),
-                                    originalWork: isOriginalWork(w['tagNames'] as List?),
+                                    // 作品の画面からの推しはフリーコインだけ（プレミアムはプロフィールからの推しだけ）
+                                    fromWork: true,
                                   ),
                           onShare: _share,
                         ),

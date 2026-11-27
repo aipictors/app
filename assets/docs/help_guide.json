@@ -754,8 +754,8 @@
      "en": "The support ranking shows who was supported most; the contribution ranking shows who supported most, each week."
     },
     {
-     "ja": "購入したプレミアムコインでの推しは、クリエイターの報酬（次の章）につながります。",
-     "en": "Support with purchased premium coins becomes creator rewards (see the next section)."
+     "ja": "購入したプレミアムコインで推せるのは、ユーザーへの推し（プロフィールから）だけです。作品への推しやコメントの推しは、オリジナル作品でもフリーコインになります。プロフィールからのプレミアムコインの推しは、クリエイターの報酬（次の章）につながります。",
+     "en": "Purchased premium coins can only be used to support users (from their profile). Supporting a work or adding support to a comment uses free coins, even for original works. Premium-coin support from a profile becomes creator rewards (see the next section)."
     }
    ],
    "links": [
@@ -788,8 +788,8 @@
       "en": "What's the difference between free and premium coins?"
      },
      "a": {
-      "ja": "フリーコインは毎日やキャンペーンでもらえる無料のコインで、毎日の分はその日のうちに使います（フリーコインの推しで受け取った分は 30 日もちます）。プレミアムコインは購入するコインで、推しでは 1 枚 10pt になり、クリエイターの報酬につながります。",
-      "en": "Free coins are given daily or in campaigns; the daily ones expire the same day (free coins received as support last 30 days). Premium coins are purchased; each counts as 10pt when supporting and becomes creator rewards."
+      "ja": "フリーコインは毎日やキャンペーンでもらえる無料のコインで、毎日の分はその日のうちに使います（フリーコインの推しで受け取った分は 30 日もちます）。プレミアムコインは購入するコインで、プロフィールからのユーザーへの推しだけに使え、1 枚 10pt になってクリエイターの報酬につながります。作品への推しはフリーコインです。",
+      "en": "Free coins are given daily or in campaigns; the daily ones expire the same day (free coins received as support last 30 days). Premium coins are purchased; they can only be used to support users from their profile, count as 10pt each and become creator rewards. Supporting a work uses free coins."
      }
     }
    ]
@@ -808,15 +808,15 @@
     "en": "Support becomes rewards!"
    },
    "lead": {
-    "ja": "全年齢の作品に、購入したプレミアムコインで推しが届くと、その分がお金の報酬としてたまり、銀行口座に振り込まれます。口座の登録は世界中で使われている Stripe で行うので安心です。",
-    "en": "When people support your all-ages works with purchased premium coins, it builds up as cash rewards paid to your bank account. Bank details are handled securely by Stripe."
+    "ja": "プロフィールから、購入したプレミアムコインで推されると、その分がお金の報酬としてたまり、銀行口座に振り込まれます（R18 / R18G の作品を公開していない人が対象）。口座の登録は世界中で使われている Stripe で行うので安心です。",
+    "en": "When people support you from your profile with purchased premium coins, it builds up as cash rewards paid to your bank account (for creators who have not published R18 / R18G works). Bank details are handled securely by Stripe."
    },
    "panels": [
     {
      "image": "rewards-1",
      "caption": {
-      "ja": "全年齢の作品に、プレミアムコインの推しが届くと…",
-      "en": "When premium-coin support reaches your all-ages work…"
+      "ja": "プロフィールに、プレミアムコインの推しが届くと…",
+      "en": "When premium-coin support reaches your profile…"
      },
      "bubbles": [
       {
@@ -877,8 +877,8 @@
      "en": "Join from Settings → Creator rewards. You must be 18+ and have a bank account and address in Japan (payouts are in JPY)."
     },
     {
-     "ja": "対象は全年齢（G / R15）の作品と、プロフィールへの推し・有料リクエストの報酬です。フリーコインの推しは対象外です。",
-     "en": "Covers support on all-ages (G / R15) works, profile support and paid request earnings. Free-coin support is not included."
+     "ja": "対象は、プロフィールからプレミアムコインで推された分と、有料リクエストの報酬です。R18 / R18G の作品を公開している人は推しの報酬の対象外です。作品への推し・フリーコインの推しも対象外です。",
+     "en": "Covers premium-coin support received from your profile and paid request earnings. Support rewards are only for creators who have not published R18 / R18G works. Support on works and free-coin support are not included."
     },
     {
      "ja": "推されてから 7 日の確認期間のあと、毎月 10 日と 25 日の締めでまとめて振り込みます。",
@@ -916,8 +916,8 @@
       "en": "How much is support worth?"
      },
      "a": {
-      "ja": "購入したプレミアムコイン 1,000 枚の推しで 500 円の報酬になります。3,000 円以上たまると振り込まれ、それまでは次回に持ち越されます。",
-      "en": "Support of 1,000 purchased premium coins equals a about $3.1 (¥500) reward. Payouts happen once you reach about $19 (¥3,000); smaller amounts carry over."
+      "ja": "プロフィールからの、購入したプレミアムコイン 1,000 枚の推しで 500 円の報酬になります。3,000 円以上たまると振り込まれ、それまでは次回に持ち越されます。",
+      "en": "Profile support of 1,000 purchased premium coins equals a about $3.1 (¥500) reward. Payouts happen once you reach about $19 (¥3,000); smaller amounts carry over."
      }
     },
     {

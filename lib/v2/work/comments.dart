@@ -457,7 +457,6 @@ Future<void> showCommentsSheet(
   required String ownerName,
   required String? viewerId,
   String? rating,
-  bool originalWork = false,
   bool openComposer = false,
   CommentItem? replyTo,
   VoidCallback? onChanged,
@@ -479,7 +478,6 @@ Future<void> showCommentsSheet(
         ownerName: ownerName,
         viewerId: viewerId,
         rating: rating,
-        originalWork: originalWork,
         scrollController: scroll,
         openComposer: openComposer || replyTo != null,
         replyTo: replyTo,
@@ -498,7 +496,6 @@ class _CommentsSheet extends StatefulWidget {
     required this.scrollController,
     required this.openComposer,
     this.rating,
-    this.originalWork = false,
     this.replyTo,
     this.onChanged,
   });
@@ -508,7 +505,6 @@ class _CommentsSheet extends StatefulWidget {
   final String ownerName;
   final String? viewerId;
   final String? rating;
-  final bool originalWork;
   final ScrollController scrollController;
   final bool openComposer;
 
@@ -663,7 +659,6 @@ query AppWorkComments(\$id: ID!, \$offset: Int!, \$limit: Int!) {
           ownerId: widget.ownerId,
           ownerName: widget.ownerName,
           rating: widget.rating,
-          originalWork: widget.originalWork,
           focusNode: _focus,
           replyTo: _replyTo,
           onCancelReply: () => setState(() => _replyTo = null),
@@ -700,7 +695,6 @@ class CommentComposer extends StatefulWidget {
     this.replyTo,
     this.onCancelReply,
     this.rating,
-    this.originalWork = false,
   });
 
   final String workId;
@@ -710,8 +704,6 @@ class CommentComposer extends StatefulWidget {
   /// 作品の年齢区分。全年齢（G / R15）のときだけ推しの欄に報酬の一言を出す
   final String? rating;
 
-  /// オリジナル作品（プレミアムコインで推せるのはオリジナル作品だけ）
-  final bool originalWork;
   final FocusNode? focusNode;
   final CommentItem? replyTo;
   final VoidCallback? onCancelReply;
@@ -813,7 +805,8 @@ class _CommentComposerState extends State<CommentComposer> {
   Future<void> _pickSupport() async {
     if (!Nav.requireLogin(context)) return;
     try {
-      _balance ??= (await Coins.summary(supportTo: widget.ownerId)).forTarget(originalWork: widget.originalWork);
+      // 作品からの推しなので、プレミアムコインは使えない（オリジナル作品でも同じ。プレミアムはプロフィールからの推しだけ）
+      _balance ??= (await Coins.summary(supportTo: widget.ownerId)).forWork;
     } on ApiException catch (e) {
       if (mounted) context.toast(e.message, error: true);
       return;
@@ -839,7 +832,7 @@ class _CommentComposerState extends State<CommentComposer> {
         premium: _supportPremium,
         anonymous: _supportAnonymous,
         previewText: _text.text.trim(),
-        // 報酬の一言は、全年齢の作品で、作者が報酬に参加していてプレミアムコインを受け取るときだけ
+        // 報酬の一言は、全年齢の作品で、作者が報酬に参加していてプレミアムコインを使えるときだけ（作品からの推しはプレミアムを使えないので今は出ない）
         showRewardNote: isCreatorRewardRating(widget.rating) && _balance!.rewardJoined && _balance!.premiumUsable,
       ),
     );
@@ -913,14 +906,14 @@ mutation AppComment(\$input: CreateWorkCommentInput!) { createWorkComment(input:
       return true;
     } on ApiException catch (e) {
       if (!mounted) return false;
-      // オリジナルでない作品へのプレミアムコインの推しを断られたら、プレミアムを外して理由を出す（コメントと文章は残す）
-      if (_supportPremium > 0 && isPremiumOriginalOnlyError(e)) {
+      // 作品へのプレミアムコインの推しを断られたら、プレミアムを外して理由を出す（コメントと文章は残す）
+      if (_supportPremium > 0 && isPremiumUserOnlyError(e)) {
         setState(() {
           _sending = false;
           _supportPremium = 0;
-          _balance = _balance?.forTarget(originalWork: false);
+          _balance = _balance?.forWork;
         });
-        context.toast(premiumOriginalOnlyNote(), error: true);
+        context.toast(premiumUserOnlyNote(), error: true);
         return false;
       }
       setState(() => _sending = false);
