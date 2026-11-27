@@ -72,13 +72,14 @@ class LeaveSurveyAnswer extends ChangeNotifier {
       .where((g) => g.showIf == null || (choices[g.showIf!.$1]?.contains(g.showIf!.$2) ?? false))
       .toList();
 
-  /// 送れる状態か（理由を選び、「その他」は自由記述を leaveSurveyMinText 文字以上）
-  bool get isComplete {
-    final r = selected;
-    if (r == null) return false;
-    if (r.text?.required == true) return text.text.trim().length >= leaveSurveyMinText;
-    return true;
-  }
+  /// 追加質問のうち、まだ 1 つも選んでいないもの（どれも必須）
+  List<LeaveSurveyGroup> get missingGroups => visibleGroups.where((g) => choices[g.id]?.isNotEmpty != true).toList();
+
+  /// 詳しい説明がまだ足りないか（required の理由は leaveSurveyMinText 文字以上）
+  bool get isTextMissing => selected?.text?.required == true && text.text.trim().length < leaveSurveyMinText;
+
+  /// 送れる状態か（理由を選び、追加質問にすべて答え、詳しい説明を書いた）
+  bool get isComplete => selected != null && missingGroups.isEmpty && !isTextMissing;
 
   void selectReason(String value) {
     if (reason == value) return;
@@ -205,6 +206,7 @@ class LeaveSurveyFields extends StatelessWidget {
                 for (final g in answer.visibleGroups) ...[
                   Text.rich(TextSpan(children: [
                     TextSpan(text: _t(g.question), style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 13.5)),
+                    TextSpan(text: tr(' 必須', ' Required'), style: TextStyle(color: context.cs.error, fontSize: 12)),
                     TextSpan(text: tr('（いくつでも）', ' (choose any)'), style: TextStyle(color: context.muted, fontSize: 12)),
                   ])),
                   const SizedBox(height: Ds.s6),
