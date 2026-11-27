@@ -896,7 +896,7 @@ class _ManagedTagsScreenState extends State<ManagedTagsScreen> {
   }
 }
 
-/// 応援コイン受け取り（応援の付いたコメントの一覧）
+/// 応援コイン受け取り（累計と受け取り履歴。作品への推しは終了したので、推し付きコメントの一覧は出さない）
 class SupportReceivedScreen extends StatefulWidget {
   const SupportReceivedScreen({super.key});
 
@@ -905,21 +905,13 @@ class SupportReceivedScreen extends StatefulWidget {
 }
 
 class _SupportReceivedScreenState extends State<SupportReceivedScreen> {
-  final _items = PagedController<SupportedComment>(pageSize: 30, idOf: (c) => c.id, fetch: SettingsApi.receivedSupport);
   SupportReceivedSummary? _summary;
   bool _summaryFailed = false;
-  int _tab = 0;
 
   @override
   void initState() {
     super.initState();
     _loadSummary();
-  }
-
-  @override
-  void dispose() {
-    _items.dispose();
-    super.dispose();
   }
 
   Future<void> _loadSummary() async {
@@ -959,8 +951,8 @@ class _SupportReceivedScreenState extends State<SupportReceivedScreen> {
       Padding(
         padding: const EdgeInsets.fromLTRB(Ds.s16, Ds.s12, Ds.s16, Ds.s8),
         child: Text(
-          tr('受け取った応援コインの累計 pt と、フリー / プレミアムの内訳です。プロフィールから有料のプレミアムコインで推された分は、クリエイター報酬（銀行振込）の対象になります（R18・R18G の作品を公開していない人だけ）。',
-              'Cumulative received support points with free/premium breakdowns. Purchased Premium Coins received as support from your profile are eligible for Creator Rewards (bank payout), for creators who have not published R18 / R18G works.'),
+          tr('受け取った応援コインの累計 pt と、フリー / プレミアムの内訳です。推しはユーザーへの推しだけで、これまでの作品経由の推しもここに入ります。ユーザーへのプレミアムコインの推しのうち有料分は、クリエイター報酬（銀行振込）の対象になります（R18・R18G の作品を公開している人は対象外）。',
+              'Cumulative received support points with free/premium breakdowns. Support is now for users only, and past support through works is included here. Paid premium-coin support to you is eligible for Creator Rewards (bank payout), except for creators who have published R18 / R18G works.'),
           style: TextStyle(color: context.muted, fontSize: 12.5, height: 1.5),
         ),
       ),
@@ -985,7 +977,6 @@ class _SupportReceivedScreenState extends State<SupportReceivedScreen> {
           ),
         ),
       ),
-      PillTabs(labels: [tr('受け取り履歴', 'Received history'), tr('受け取ったコメント', 'Received comments')], index: _tab, onChanged: (i) => setState(() => _tab = i)),
       const SizedBox(height: Ds.s8),
     ]);
   }
@@ -1022,43 +1013,7 @@ class _SupportReceivedScreenState extends State<SupportReceivedScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(tr('応援コイン受け取り', 'Supports received'), style: const TextStyle(fontWeight: FontWeight.w800))),
-      body: _tab == 0 ? _transfers(context) : PagedList<SupportedComment>(
-        header: _top(context),
-        controller: _items,
-        emptyTitle: 'まだ応援はありません',
-        emptyMessage: '作品に応援コインが届くと、ここに並びます',
-        emptyIcon: Icons.volunteer_activism_outlined,
-        itemBuilder: (context, c) {
-          final canOpen = c.workId != null && !c.isAdult;
-          return InkWell(
-            onTap: canOpen ? () => Nav.work(context, c.workId!) : null,
-            child: Padding(
-              padding: const EdgeInsets.all(Ds.s12),
-              child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                if (c.user != null) UserAvatar.summary(c.user!, size: 40, tappable: true) else const SizedBox(width: 40, height: 40),
-                const SizedBox(width: Ds.s12),
-                Expanded(
-                  child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                    if (c.user != null) UserNameRow.summary(c.user!, style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 14)),
-                    if (c.text.isNotEmpty) Padding(padding: const EdgeInsets.only(top: Ds.s4), child: Text(c.text, maxLines: 4, overflow: TextOverflow.ellipsis, style: const TextStyle(fontSize: 14, height: 1.35))),
-                    if (c.stickerUrl != null) Padding(padding: const EdgeInsets.only(top: Ds.s4), child: SizedBox(width: 64, height: 64, child: AppImage(c.stickerUrl, fit: BoxFit.contain, memCacheWidth: 192))),
-                    const SizedBox(height: Ds.s4),
-                    Row(children: [
-                      Badge2('${c.coins}コイン', icon: Icons.monetization_on_rounded, color: Ds.gold),
-                      const SizedBox(width: Ds.s8),
-                      Text(relativeTime(c.createdAt), style: TextStyle(color: context.muted, fontSize: 12)),
-                    ]),
-                  ]),
-                ),
-                if (canOpen && c.workThumbnail != null) ...[
-                  const SizedBox(width: Ds.s8),
-                  SizedBox(width: 52, height: 52, child: AppImage(c.workThumbnail, radius: 10, memCacheWidth: 156)),
-                ],
-              ]),
-            ),
-          );
-        },
-      ),
+      body: _transfers(context),
     );
   }
 }

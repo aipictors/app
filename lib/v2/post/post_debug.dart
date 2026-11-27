@@ -4,7 +4,6 @@ import 'dart:typed_data';
 import 'dart:ui' as ui;
 
 import 'package:aipictors/v2/core/api.dart';
-import 'package:aipictors/v2/core/coins.dart';
 import 'package:aipictors/v2/core/design.dart';
 import 'package:aipictors/v2/post/post_api.dart';
 import 'package:aipictors/v2/post/post_form_screen.dart';
@@ -166,17 +165,7 @@ class _DebugTourState extends State<_DebugTour> {
     await Future<void>.delayed(step);
     if (!mounted) return;
     Navigator.of(context, rootNavigator: true).pop();
-    // 2: 推しコインの内訳
-    showModalBottomSheet<void>(
-      context: context,
-      showDragHandle: true,
-      useRootNavigator: true,
-      builder: (_) => const SupportPicker(balance: CoinSummary(free: 120, premium: 8), free: 30, premium: 3, anonymous: false),
-    ).ignore();
-    await Future<void>.delayed(step);
-    if (!mounted) return;
-    Navigator.of(context, rootNavigator: true).pop();
-    // 3: 写真ピッカーを開く
+    // 2: 写真ピッカーを開く
     context.push('/works/create');
     await Future<void>.delayed(const Duration(seconds: 5));
     await _tap(const Offset(70, 233));

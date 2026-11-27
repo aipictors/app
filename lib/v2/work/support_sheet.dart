@@ -12,15 +12,13 @@ import 'package:aipictors/v2/widgets/support_tier.dart';
 import 'package:aipictors/v2/widgets/user_avatar.dart';
 import 'package:flutter/material.dart';
 
-/// 推し（コインでクリエイターを応援する）シート
+/// 推し（コインでクリエイターを応援する）シート。推しはユーザーへの推しだけ（作品を通さない。プロフィールからも作品の作者の欄からも同じ）
 Future<bool> showSupportSheet(
   BuildContext context, {
   required String userId,
   required String userName,
   String? iconUrl,
   AvatarFrame? frame,
-  bool showRewardNote = true,
-  bool fromWork = false,
 }) async {
   if (!Nav.requireLogin(context)) return false;
   final sent = await showModalBottomSheet<bool>(
@@ -29,24 +27,18 @@ Future<bool> showSupportSheet(
     useSafeArea: true,
     showDragHandle: true,
     backgroundColor: context.surfaceCard,
-    builder: (_) => _SupportSheet(userId: userId, userName: userName, iconUrl: iconUrl, frame: frame, showRewardNote: showRewardNote, fromWork: fromWork),
+    builder: (_) => _SupportSheet(userId: userId, userName: userName, iconUrl: iconUrl, frame: frame),
   );
   return sent == true;
 }
 
 class _SupportSheet extends StatefulWidget {
-  const _SupportSheet({required this.userId, required this.userName, this.iconUrl, this.frame, this.showRewardNote = true, this.fromWork = false});
+  const _SupportSheet({required this.userId, required this.userName, this.iconUrl, this.frame});
 
   final String userId;
   final String userName;
   final String? iconUrl;
   final AvatarFrame? frame;
-
-  /// 「クリエイターの報酬につながります」の一言（R18 の作品の画面では false）
-  final bool showRewardNote;
-
-  /// 作品の画面から開いた（作品からの推しなのでプレミアムコインは使えない。プロフィールから開いたときだけプレミアムも使える）
-  final bool fromWork;
 
   @override
   State<_SupportSheet> createState() => _SupportSheetState();
@@ -70,9 +62,8 @@ class _SupportSheetState extends State<_SupportSheet> {
 
   Future<void> _load() async {
     try {
-      // プレミアムコインで推せるのはプロフィールからのユーザーへの推しだけ（作品の画面から開いたときはフリーコインだけ）
-      final summary = await Coins.summary(supportTo: widget.userId);
-      final b = widget.fromWork ? summary.forWork : summary;
+      // ユーザーへの推しなので、フリー・プレミアムとも使える（相手がプレミアムを受け取らないときはフリーだけ）
+      final b = await Coins.summary(supportTo: widget.userId);
       if (!mounted) return;
       setState(() {
         _balance = b;
@@ -101,16 +92,6 @@ class _SupportSheetState extends State<_SupportSheet> {
       if (mounted) Navigator.of(context).pop(true);
     } on ApiException catch (e) {
       if (!mounted) return;
-      // プレミアムコインの推しを断られたら、プレミアムを外して理由を出す（フリーコインで推し直せる）
-      if (breakdown.premium > 0 && isPremiumUserOnlyError(e)) {
-        setState(() {
-          _sending = false;
-          _balance = b.forWork;
-          if (b.forWork.forSupport.total > 0 && _amount > b.forWork.forSupport.total) _amount = b.forWork.forSupport.total;
-        });
-        context.toast(e.message, error: true);
-        return;
-      }
       setState(() => _sending = false);
       context.toast(e.message, error: true);
     }
@@ -161,7 +142,7 @@ class _SupportSheetState extends State<_SupportSheet> {
                       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                         Text(tr('${widget.userName}さんを推す', 'Support ${widget.userName}'), style: context.tt.titleMedium?.copyWith(fontWeight: FontWeight.w800)),
                         Text(tr('コインで応援できます', 'Cheer with coins'), style: context.tt.bodySmall?.copyWith(color: context.muted)),
-                        if (widget.showRewardNote && b != null && b.rewardJoined && b.premiumUsable) ...[const SizedBox(height: 4), const SupportRewardJoinedBadge()],
+                        if (b != null && b.rewardJoined && b.premiumUsable) ...[const SizedBox(height: 4), const SupportRewardJoinedBadge()],
                       ]),
                     ),
                   ]),
@@ -232,7 +213,7 @@ class _SupportSheetState extends State<_SupportSheet> {
                     const SizedBox(height: 10),
                   ],
                   // 報酬の一言は、作者が報酬に参加していてプレミアムコインを使えるときだけ
-                  if (widget.showRewardNote && b != null && b.rewardJoined && b.premiumUsable) ...[const SupportRewardNote(), const SizedBox(height: 10)],
+                  if (b != null && b.rewardJoined && b.premiumUsable) ...[const SupportRewardNote(), const SizedBox(height: 10)],
                   GradientButton(
                     label: breakdown == null ? tr('推す', 'Support') : tr('$_amount枚で応援する', 'Send $_amount coins'),
                     icon: Icons.volunteer_activism_rounded,
@@ -253,7 +234,7 @@ class _SupportSheetState extends State<_SupportSheet> {
   }
 }
 
-/// プレミアムコインを使えない理由（作者が受け取らない・作品からの推し）
+/// プレミアムコインを使えない理由（作者がプレミアムコインでの推しを受け取らない）
 class PremiumUnavailableNote extends StatelessWidget {
   const PremiumUnavailableNote({super.key, required this.balance});
 
@@ -261,13 +242,10 @@ class PremiumUnavailableNote extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String text;
-    if (!balance.premiumAccepted) {
-      text = tr('この作者はプレミアムコインでの応援を受け付けていません。フリーコインで推せます', 'This creator does not accept support with premium coins. You can support with free coins.');
-    } else {
-      text = premiumUserOnlyNote();
-    }
-    return Text(text, style: TextStyle(color: context.muted, fontSize: 12));
+    return Text(
+      tr('この作者はプレミアムコインでの応援を受け付けていません。フリーコインで推せます', 'This creator does not accept support with premium coins. You can support with free coins.'),
+      style: TextStyle(color: context.muted, fontSize: 12),
+    );
   }
 }
 

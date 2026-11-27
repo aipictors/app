@@ -289,8 +289,8 @@ class _CreatorRewardsScreenState extends State<CreatorRewardsScreen> with Widget
               const SizedBox(height: 10),
               Text(
                 tr(
-                  '対象は、プロフィールからプレミアムコイン（ファンがお金を払って買ったコイン）で推された分です（R18・R18G の作品を公開していない人だけ）。作品への推しやフリーコインの推しは、今までどおりコインで受け取ります。',
-                  'Covers support from your profile paid with premium coins fans bought (only for creators who have not published R18 / R18G works). Support on works and free-coin support are received as coins as before.',
+                  '対象は、ユーザーへのプレミアムコインの推しのうち、ファンがお金を払って買ったコインの分です（R18・R18G の作品を公開している人は対象外）。フリーコインの推しは、今までどおりコインで受け取ります。',
+                  'Covers premium-coin support to you as a user, for the coins fans paid for (not for creators who have published R18 / R18G works). Free-coin support is received as coins as before.',
                 ),
                 style: muted.copyWith(fontSize: 12),
               ),
@@ -766,7 +766,8 @@ String creatorEarningTitle(Map e) {
   if (e['kind'] == 'CLAWBACK') return tr('返金による差し引き', 'Refund deduction');
   if (e['kind'] == 'REQUEST') return tr('有料リクエスト', 'Paid request');
   if (e['kind'] == 'ADJUSTMENT') return tr('調整', 'Adjustment');
-  return e['workId'] != null ? tr('作品への推し', 'Support on work') : tr('プロフィールへの推し', 'Profile support');
+  // 作品への推しは終了したので、過去の作品経由の推しもユーザーへの推しとして出す
+  return tr('ユーザーへの推し', 'User support');
 }
 
 String creatorPayoutStatusLabel(String s) => switch (s) {

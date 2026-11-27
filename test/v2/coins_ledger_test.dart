@@ -42,11 +42,12 @@ void main() {
     expect(coinLedgerLabel(_row(1, 'GRANT', 10, reason: 'FREE daily generation coin grant')), '毎日のコイン');
     expect(coinLedgerLabel(_row(1, 'GRANT', 10, reason: 'STANDARD daily generation coin grant')), '毎日のコイン（STANDARD）');
     expect(coinLedgerLabel(_row(1, 'CONSUME', -1, reason: 'image-generation:flux')), '画像生成（FLUX）');
-    expect(coinLedgerLabel(_row(1, 'CONSUME', -1, reason: 'work-comment-support', source: 'work-comment:123:9')), 'コメントで推した');
-    expect(coinLedgerLabel(_row(1, 'GRANT', 1, reason: 'work-comment-support')), 'コメントで推してもらった');
+    // 作品への推しは終了したので、過去のコメント・作品経由の推しもユーザーへの推しとして出す
+    expect(coinLedgerLabel(_row(1, 'CONSUME', -1, reason: 'work-comment-support', source: 'work-comment:123:9')), 'ユーザーを推した');
+    expect(coinLedgerLabel(_row(1, 'GRANT', 1, reason: 'work-comment-support')), '推してもらった');
+    expect(coinLedgerLabel(_row(1, 'CONSUME', -1, source: 'work-comment:123:9')), 'ユーザーを推した');
     expect(coinLedgerLabel(_row(1, 'GRANT', 5, reason: '実績の報酬')), '実績の報酬');
     expect(coinLedgerLabel(_row(1, 'GRANT', 5, reason: 'some-internal-id')), 'コインを受け取り');
-    expect(coinLedgerWorkId(_row(1, 'CONSUME', -1, source: 'work-comment:123:9')), '123');
   });
 
   test('続く同じ行をまとめ、今日の合計を出す', () {

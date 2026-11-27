@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-/// 推し（コイン付きのコメント・推し）の段階。YouTube のスーパーチャットのように、
+/// 推しの段階。YouTube のスーパーチャットのように、
 /// pt（フリー 1 枚 = 1pt・プレミアム 1 枚 = 10pt）が大きいほど色が濃く・長く上に出る。
 /// Web（app/utils/support-tier.ts）と同じ区切り・同じ色
 class SupportTier {
@@ -46,24 +46,3 @@ class SupportTier {
 
   static int ptOf(int free, int premium) => (free < 0 ? 0 : free) + (premium < 0 ? 0 : premium) * 10;
 }
-
-/// コメント欄の上に出しておく推しを選ぶ（読み込んだコメントだけで決める。問い合わせは増やさない）
-/// 段階ごとの時間内のものを、段階の高い順・新しい順に最大 limit 件
-List<T> pickPinnedSupports<T>(List<T> items, {required int Function(T) createdAt, required int Function(T) totalPt, required int nowSeconds, int limit = 10}) {
-  final picked = <(T, SupportTier)>[];
-  for (final item in items) {
-    final tier = SupportTier.of(totalPt(item));
-    if (tier == null) continue;
-    final at = createdAt(item);
-    if (nowSeconds - at >= tier.pinSeconds || at > nowSeconds + 60) continue;
-    picked.add((item, tier));
-  }
-  picked.sort((a, b) {
-    final byLevel = b.$2.level.compareTo(a.$2.level);
-    return byLevel != 0 ? byLevel : createdAt(b.$1).compareTo(createdAt(a.$1));
-  });
-  return picked.take(limit).map((e) => e.$1).toList();
-}
-
-/// 推した作品がクリエイター報酬の対象になりうるか（全年齢＝G / R15 だけ）
-bool isCreatorRewardRating(String? rating) => rating == 'G' || rating == 'R15';

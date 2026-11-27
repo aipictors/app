@@ -1,6 +1,5 @@
 import 'package:aipictors/v2/core/l10n.dart';
 import 'package:aipictors/v2/core/api.dart';
-import 'package:aipictors/v2/core/coins.dart';
 import 'package:aipictors/v2/core/content_translate.dart';
 import 'package:aipictors/v2/core/debug_boot.dart';
 import 'package:aipictors/v2/core/design.dart';
@@ -8,14 +7,11 @@ import 'package:aipictors/v2/core/models.dart';
 import 'package:aipictors/v2/core/nav.dart';
 import 'package:aipictors/v2/core/paged.dart';
 import 'package:aipictors/v2/core/reported_comments.dart';
-import 'package:aipictors/v2/core/support_tier.dart';
 import 'package:aipictors/v2/widgets/common.dart';
 import 'package:aipictors/v2/widgets/user_avatar.dart';
 import 'package:aipictors/v2/widgets/official_badge.dart';
-import 'package:aipictors/v2/widgets/support_tier.dart';
 import 'package:aipictors/v2/work/moderation.dart';
 import 'package:aipictors/v2/work/quick_stickers.dart';
-import 'package:aipictors/v2/work/support_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -29,9 +25,7 @@ const commentFields = '''
   isMuted
   isSensitive
   isWorkOwnerLiked
-  supportThankYouMessage
   sticker { id imageUrl title isDownloaded }
-  support { freeCoinAmount premiumCoinAmount totalPt }
   user { $userSummaryFields }
 ''';
 
@@ -84,21 +78,7 @@ class CommentItem {
 
   bool get isWorkOwnerLiked => json.boolean('isWorkOwnerLiked');
 
-  String? get thankYouMessage => json.strOrNull('supportThankYouMessage');
-
-  int get supportFree => json.obj('support')?.integer('freeCoinAmount') ?? 0;
-
-  int get supportPremium => json.obj('support')?.integer('premiumCoinAmount') ?? 0;
-
   String? get stickerId => json.obj('sticker')?.strOrNull('id');
-
-  int get supportPt => json.obj('support')?.integer('totalPt') ?? 0;
-
-  int get supportCoins {
-    final s = json.obj('support');
-    if (s == null) return 0;
-    return s.integer('freeCoinAmount') + s.integer('premiumCoinAmount');
-  }
 
   static CommentItem fromJson(Map<String, dynamic> j) {
     final item = CommentItem(j);
@@ -286,8 +266,7 @@ class _CommentTileState extends State<CommentTile> {
         ),
       );
     }
-    final support = c.supportCoins > 0;
-    final tier = support ? SupportTier.of(c.supportPt) : null;
+    // 作品への推しは終了したので、過去の推し付きコメントも帯や金額を付けず本文だけのコメントとして出す
     return Padding(
       padding: EdgeInsets.only(left: widget.isReply ? 44 : 0, top: 10, bottom: 4),
       child: Column(
@@ -302,13 +281,10 @@ class _CommentTileState extends State<CommentTile> {
                 child: Container(
                   clipBehavior: Clip.antiAlias,
                   decoration: BoxDecoration(
-                    color: tier != null ? tier.color.withValues(alpha: context.isDark ? 0.18 : 0.1) : context.skeleton.withValues(alpha: context.isDark ? 0.8 : 0.7),
-                    border: tier != null ? Border.all(color: tier.color.withValues(alpha: 0.55)) : null,
+                    color: context.skeleton.withValues(alpha: context.isDark ? 0.8 : 0.7),
                     borderRadius: const BorderRadius.only(topRight: Ds.r16, bottomLeft: Ds.r16, bottomRight: Ds.r16, topLeft: Radius.circular(4)),
                   ),
                   child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-                    // 推し付きは段階の色の帯（コイン数を大きく）でスーパーチャットのように目立たせる
-                    if (tier != null) SupportBand(free: c.supportFree, premium: c.supportPremium, pt: c.supportPt),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(12, 9, 12, 10),
                       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -361,10 +337,6 @@ class _CommentTileState extends State<CommentTile> {
                             Text(tr('異議申し立てを受け付けています。確認をお待ちください。', 'Your appeal has been received.'), style: TextStyle(fontSize: 12, color: context.muted)),
                         ]),
                       ),
-                    ],
-                    if (support && c.thankYouMessage != null) ...[
-                      const SizedBox(height: 6),
-                      Text(tr('作者より：${c.thankYouMessage}', 'From the creator: ${c.thankYouMessage}'), style: TextStyle(color: context.muted, fontSize: 12)),
                     ],
                       ]),
                     ),
@@ -456,7 +428,6 @@ Future<void> showCommentsSheet(
   required String ownerId,
   required String ownerName,
   required String? viewerId,
-  String? rating,
   bool openComposer = false,
   CommentItem? replyTo,
   VoidCallback? onChanged,
@@ -477,7 +448,6 @@ Future<void> showCommentsSheet(
         ownerId: ownerId,
         ownerName: ownerName,
         viewerId: viewerId,
-        rating: rating,
         scrollController: scroll,
         openComposer: openComposer || replyTo != null,
         replyTo: replyTo,
@@ -495,7 +465,6 @@ class _CommentsSheet extends StatefulWidget {
     required this.viewerId,
     required this.scrollController,
     required this.openComposer,
-    this.rating,
     this.replyTo,
     this.onChanged,
   });
@@ -504,7 +473,6 @@ class _CommentsSheet extends StatefulWidget {
   final String ownerId;
   final String ownerName;
   final String? viewerId;
-  final String? rating;
   final ScrollController scrollController;
   final bool openComposer;
 
@@ -658,7 +626,6 @@ query AppWorkComments(\$id: ID!, \$offset: Int!, \$limit: Int!) {
           workId: widget.workId,
           ownerId: widget.ownerId,
           ownerName: widget.ownerName,
-          rating: widget.rating,
           focusNode: _focus,
           replyTo: _replyTo,
           onCancelReply: () => setState(() => _replyTo = null),
@@ -683,7 +650,7 @@ query AppWorkComments(\$id: ID!, \$offset: Int!, \$limit: Int!) {
   }
 }
 
-/// コメント入力欄（スタンプ・推しコインを添えられる）
+/// コメント入力欄（スタンプを添えられる。作品への推しは終了したので推しコインは添えない）
 class CommentComposer extends StatefulWidget {
   const CommentComposer({
     super.key,
@@ -694,16 +661,11 @@ class CommentComposer extends StatefulWidget {
     this.focusNode,
     this.replyTo,
     this.onCancelReply,
-    this.rating,
   });
 
   final String workId;
   final String ownerId;
   final String ownerName;
-
-  /// 作品の年齢区分。全年齢（G / R15）のときだけ推しの欄に報酬の一言を出す
-  final String? rating;
-
   final FocusNode? focusNode;
   final CommentItem? replyTo;
   final VoidCallback? onCancelReply;
@@ -721,15 +683,7 @@ class _CommentComposerState extends State<CommentComposer> {
 
   /// 入力欄の上の「すぐ送れるスタンプ」。キーボードを出している間はしまい、スタンプのボタンで切り替える（LINE のように）
   bool _trayOpen = true;
-  int _supportFree = 0;
-  int _supportPremium = 0;
-  bool _supportAnonymous = false;
   bool _sensitive = false;
-  CoinSummary? _balance;
-
-  bool get _hasSupport => _supportFree + _supportPremium > 0;
-
-  int get _supportPt => _supportFree + _supportPremium * 10;
 
   void _onFocus() {
     if (_focus.hasFocus && _trayOpen) setState(() => _trayOpen = false);
@@ -741,19 +695,10 @@ class _CommentComposerState extends State<CommentComposer> {
     _text.addListener(() => setState(() {}));
     _focus.addListener(_onFocus);
     if (_focus.hasFocus) _trayOpen = false;
-    // 開発用: /tmp/aipictors-debug の 2 行目が sheet:support なら推しの欄を開く（表示の確認用。送信はしない）
     // 開発用: sheet:sticker ならスタンプ選びを開く（表示の確認用）
     if (DebugBoot.screenTab == 'sheet:sticker') {
       Future.delayed(const Duration(seconds: 3), () {
         if (mounted) _pickSticker();
-      });
-    }
-    if (DebugBoot.screenTab == 'sheet:support') {
-      Future.delayed(const Duration(seconds: 3), () {
-        if (!mounted) return;
-        _text.text = tr('いつも素敵な作品をありがとうございます！', 'Thank you for your wonderful work!');
-        _supportFree = 30;
-        _pickSupport();
       });
     }
   }
@@ -802,48 +747,6 @@ class _CommentComposerState extends State<CommentComposer> {
     if (ok) StickerShelf.instance.markUsed(sticker);
     if (!ok && mounted) setState(() => _sticker = null);
   }
-  Future<void> _pickSupport() async {
-    if (!Nav.requireLogin(context)) return;
-    try {
-      // 作品からの推しなので、プレミアムコインは使えない（オリジナル作品でも同じ。プレミアムはプロフィールからの推しだけ）
-      _balance ??= (await Coins.summary(supportTo: widget.ownerId)).forWork;
-    } on ApiException catch (e) {
-      if (mounted) context.toast(e.message, error: true);
-      return;
-    }
-    if (!mounted) return;
-    // 作者が「推しを受け付けない」なら推しの欄は開かず、選んでいた枚数を外す（コメントは送れる。Web と同じ）
-    if (!_balance!.supportAccepted) {
-      setState(() {
-        _supportFree = 0;
-        _supportPremium = 0;
-      });
-      context.toast(tr('この作者は推しを受け付けていません', 'This creator does not accept support'));
-      return;
-    }
-    final picked = await showModalBottomSheet<SupportPick>(
-      context: context,
-      isScrollControlled: true,
-      showDragHandle: true,
-      backgroundColor: context.surfaceCard,
-      builder: (_) => SupportPicker(
-        balance: _balance!,
-        free: _supportFree,
-        premium: _supportPremium,
-        anonymous: _supportAnonymous,
-        previewText: _text.text.trim(),
-        // 報酬の一言は、全年齢の作品で、作者が報酬に参加していてプレミアムコインを使えるときだけ（作品からの推しはプレミアムを使えないので今は出ない）
-        showRewardNote: isCreatorRewardRating(widget.rating) && _balance!.rewardJoined && _balance!.premiumUsable,
-      ),
-    );
-    if (picked == null) return;
-    setState(() {
-      _supportFree = picked.free;
-      _supportPremium = picked.premium;
-      _supportAnonymous = picked.anonymous;
-    });
-  }
-
   /// 送れたら true
   Future<bool> _send() async {
     if (!Nav.requireLogin(context) || !_canSend) return false;
@@ -871,34 +774,21 @@ mutation AppComment(\$input: CreateWorkCommentInput!) { createWorkComment(input:
             'text': _text.text.trim(),
             'isSensitive': _sensitive,
             if (_sticker != null) 'stickerId': _sticker!['id'],
-            if (_hasSupport) ...{
-              'supportFreeCoinAmount': _supportFree,
-              'supportPremiumCoinAmount': _supportPremium,
-              'supportIsAnonymous': _supportAnonymous,
-            },
           },
         });
         created = data.obj('createWorkComment') ?? {};
       }
       Ds.success();
       _text.clear();
-      final hadSupport = _hasSupport;
-      final sent = (free: _supportFree, premium: _supportPremium, pt: _supportPt);
       setState(() {
         _sticker = null;
-        _supportFree = 0;
-        _supportPremium = 0;
-        _supportAnonymous = false;
         _sensitive = false;
-        _balance = null;
         _sending = false;
       });
       if (!mounted) return true;
       FocusScope.of(context).unfocus();
       widget.onPosted(CommentItem(created, parent: parent), parent);
-      if (hadSupport) {
-        showSupportSent(context, free: sent.free, premium: sent.premium, pt: sent.pt);
-      } else if (parent != null) {
+      if (parent != null) {
         context.toast(stickerOnly ? tr('スタンプで返信しました', 'Replied with a sticker') : tr('返信しました', 'Reply posted'));
       } else {
         context.toast(stickerOnly ? tr('スタンプを送りました', 'Sticker sent') : tr('コメントしました', 'Comment posted'));
@@ -906,16 +796,6 @@ mutation AppComment(\$input: CreateWorkCommentInput!) { createWorkComment(input:
       return true;
     } on ApiException catch (e) {
       if (!mounted) return false;
-      // 作品へのプレミアムコインの推しを断られたら、プレミアムを外して理由を出す（コメントと文章は残す）
-      if (_supportPremium > 0 && isPremiumUserOnlyError(e)) {
-        setState(() {
-          _sending = false;
-          _supportPremium = 0;
-          _balance = _balance?.forWork;
-        });
-        context.toast(premiumUserOnlyNote(), error: true);
-        return false;
-      }
       setState(() => _sending = false);
       context.toast(e.message, error: true);
       return false;
@@ -935,22 +815,6 @@ mutation AppComment(\$input: CreateWorkCommentInput!) { createWorkComment(input:
       padding: EdgeInsets.fromLTRB(10, 8, 10, 8 + (bottom > 0 ? bottom : MediaQuery.paddingOf(context).bottom)),
       child: Column(mainAxisSize: MainAxisSize.min, children: [
         if (replyTo != null) _ReplyBanner(target: replyTo, onCancel: widget.onCancelReply),
-        if (_hasSupport)
-          Padding(
-            padding: const EdgeInsets.only(bottom: 6),
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: InputChip(
-                label: SupportTierChip(free: _supportFree, premium: _supportPremium, pt: _supportPt),
-                tooltip: tr('推しコイン（${supportAmountLabel(_supportFree, _supportPremium, _supportPt)}）', 'Support coins (${supportAmountLabel(_supportFree, _supportPremium, _supportPt)})'),
-                onPressed: _pickSupport,
-                onDeleted: () => setState(() {
-                  _supportFree = 0;
-                  _supportPremium = 0;
-                }),
-              ),
-            ),
-          ),
         AnimatedSize(
           duration: Ds.fast,
           curve: Curves.easeOutCubic,
@@ -978,12 +842,6 @@ mutation AppComment(\$input: CreateWorkCommentInput!) { createWorkComment(input:
             onPressed: () => setState(() => _sensitive = !_sensitive),
             icon: Icon(_sensitive ? Icons.visibility_off_rounded : Icons.visibility_outlined, color: _sensitive ? context.cs.primary : null),
           ),
-          if (replyTo == null)
-            IconButton(
-              tooltip: tr('推しコインを添える', 'Add support coins'),
-              onPressed: _pickSupport,
-              icon: Icon(Icons.monetization_on_outlined, color: _hasSupport ? (SupportTier.of(_supportPt)?.color ?? Ds.gold) : null),
-            ),
           Expanded(
             child: TextField(
               controller: _text,
@@ -1071,150 +929,10 @@ class _ReplyBanner extends StatelessWidget {
   }
 }
 
-class SupportPick {
-  const SupportPick(this.free, this.premium, this.anonymous);
-
-  final int free;
-  final int premium;
-  final bool anonymous;
-}
-
-/// 推しコインの内訳を選ぶ（Web の work-comment-support-panel。購入への導線は置かない）
-class SupportPicker extends StatefulWidget {
-  const SupportPicker({required this.balance, required this.free, required this.premium, required this.anonymous, this.previewText = '', this.showRewardNote = false});
-
-  final CoinSummary balance;
-  final int free;
-  final int premium;
-  final bool anonymous;
-
-  /// 入力中のコメント（送るとどう目立つかの見本に出す）
-  final String previewText;
-
-  /// 全年齢の作品のとき true（報酬の一言を出す）
-  final bool showRewardNote;
-
-  @override
-  State<SupportPicker> createState() => SupportPickerState();
-}
-
-class SupportPickerState extends State<SupportPicker> {
-  static const _freeSteps = [10, 30, 50, 100];
-  static const _premiumSteps = [1, 3, 5, 10];
-
-  /// これ以上の pt を送るときは確認する（桁の間違いを防ぐ）
-  static const _confirmPt = 1000;
-
-  late int _free = widget.free;
-  late int _premium = widget.balance.premiumUsable ? widget.premium : 0;
-  late bool _anonymous = widget.anonymous;
-
-  int get _pt => _free + _premium * 10;
-
-  Widget _row(String label, int balance, int value, List<int> steps, int ptPerCoin, ValueChanged<int> onChanged) {
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Row(children: [
-        Text(label, style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 13)),
-        const SizedBox(width: Ds.s6),
-        Text(tr('手持ち $balance枚', 'You have $balance'), style: TextStyle(color: context.muted, fontSize: 12)),
-        const Spacer(),
-        Text(tr('$value枚', '$value'), style: const TextStyle(fontWeight: FontWeight.w800)),
-        if (value > 0) TextButton(onPressed: () => onChanged(0), child: Text(tr('クリア', 'Clear'))),
-      ]),
-      const SizedBox(height: Ds.s4),
-      // 金額のボタンは段階の色（大きいほど濃い色）
-      Wrap(spacing: Ds.s6, runSpacing: Ds.s6, children: [
-        for (final n in steps)
-          SupportAmountButton(label: '+$n', pt: n * ptPerCoin, selected: false, onTap: value + n <= balance ? () => onChanged(value + n) : null),
-      ]),
-    ]);
-  }
-
-  Future<void> _done() async {
-    if (_pt >= _confirmPt && !await showConfirmSheet(context, title: tr('${_pt}pt 送りますか？', 'Send ${_pt}pt?'), message: tr('プレミアム$_premium枚・フリー$_free枚を使います', 'Uses $_premium premium and $_free free coins'))) return;
-    if (mounted) Navigator.pop(context, SupportPick(_free, _premium, _anonymous));
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final b = widget.balance;
-    return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(Ds.s20, 0, Ds.s20, Ds.s16),
-        child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-          Row(children: [
-            Flexible(child: Text(tr('推しコインを添える', 'Add support coins'), style: context.tt.titleMedium?.copyWith(fontWeight: FontWeight.w800))),
-            if (widget.showRewardNote) ...[const SizedBox(width: Ds.s8), const SupportRewardJoinedBadge()],
-          ]),
-          const SizedBox(height: Ds.s12),
-          _row(tr('フリー', 'Free'), b.free, _free, _freeSteps, 1, (v) => setState(() => _free = v)),
-          const SizedBox(height: Ds.s12),
-          if (b.premiumUsable)
-            _row(tr('プレミアム（×10pt）', 'Premium (×10pt)'), b.premium, _premium, _premiumSteps, 10, (v) => setState(() => _premium = v))
-          else
-            PremiumUnavailableNote(balance: b),
-          if (_pt > 0) ...[
-            const SizedBox(height: Ds.s12),
-            Text(tr('コメントはこう表示されます', 'Your comment will look like this'), style: TextStyle(color: context.muted, fontSize: 11)),
-            const SizedBox(height: Ds.s4),
-            _SupportPreview(free: _free, premium: _premium, pt: _pt, text: widget.previewText, anonymous: _anonymous),
-          ],
-          SwitchListTile.adaptive(
-            contentPadding: EdgeInsets.zero,
-            dense: true,
-            title: Text(tr('匿名で推す', 'Support anonymously'), style: const TextStyle(fontSize: 14)),
-            value: _anonymous,
-            onChanged: (v) => setState(() => _anonymous = v),
-          ),
-          if (widget.showRewardNote) ...[const SupportRewardNote(), const SizedBox(height: Ds.s8)],
-          const SizedBox(height: Ds.s4),
-          PrimaryButton(label: _pt > 0 ? tr('合計 ${_pt}pt を添える', 'Add ${_pt}pt in total') : tr('添えない', 'None'), onPressed: _done),
-        ]),
-      ),
-    );
-  }
-}
-
 /// デフォルトのスタンプを先頭に、残りから同じスタンプを除いて並べる
 List<Map<String, dynamic>> withDefaultStickersFirst(List<Map<String, dynamic>> defaults, Iterable<Map<String, dynamic>> rest) {
   final ids = defaults.map((s) => s['id']).toSet();
   return [...defaults, ...rest.where((s) => !ids.contains(s['id']))];
-}
-
-/// 推しの欄の見本（送るとコメントがこの色の帯で目立つ）
-class _SupportPreview extends StatelessWidget {
-  const _SupportPreview({required this.free, required this.premium, required this.pt, required this.text, required this.anonymous});
-
-  final int free;
-  final int premium;
-  final int pt;
-  final String text;
-  final bool anonymous;
-
-  @override
-  Widget build(BuildContext context) {
-    final tier = SupportTier.of(pt)!;
-    return Container(
-      clipBehavior: Clip.antiAlias,
-      decoration: BoxDecoration(
-        color: tier.color.withValues(alpha: context.isDark ? 0.18 : 0.1),
-        border: Border.all(color: tier.color.withValues(alpha: 0.55)),
-        borderRadius: Ds.br(16),
-      ),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-        SupportBand(free: free, premium: premium, pt: pt, title: Text(anonymous ? tr('匿名', 'Anonymous') : tr('あなた', 'You'))),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(12, 8, 12, 10),
-          child: Text(
-            text.isEmpty ? tr('（コメントなしでも送れます）', '(You can send without a comment)') : text,
-            maxLines: 3,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(fontSize: 14, color: text.isEmpty ? context.muted : null),
-          ),
-        ),
-      ]),
-    );
-  }
 }
 
 /// すべてのスタンプから 1 つ選ぶ（最近の使用・マイスタンプ）。ピン留めの付け外しもここでできる（Web のスタンプの一覧と同じ）

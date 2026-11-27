@@ -463,11 +463,7 @@ class _NotificationRowState extends State<_NotificationRow> {
                     padding: const EdgeInsets.only(top: Ds.s4),
                     child: SizedBox(width: 72, height: 72, child: AppImage(item.stickerUrl, radius: 8, fit: BoxFit.contain, memCacheWidth: 216)),
                   ),
-                if (item.supportCoins > 0)
-                  Padding(
-                    padding: const EdgeInsets.only(top: Ds.s4),
-                    child: Badge2('応援 ${item.supportCoins}コイン', icon: Icons.monetization_on_rounded, color: Ds.gold),
-                  ),
+                // 作品への推しは終了したので、過去のコメントに付いた推しの枚数は出さない（コメントの本文だけ）
                 for (final r in item.myReplies)
                   Padding(
                     padding: const EdgeInsets.only(top: Ds.s6),

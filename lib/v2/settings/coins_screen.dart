@@ -180,11 +180,9 @@ String coinLedgerLabel(CoinLedgerRow row) {
     if (type == 'gemini-3.1-flash-image-preview') return tr('画像生成（Gemini Nano Banana 2）', 'Image generation (Gemini Nano Banana 2)');
     return tr('画像生成', 'Image generation');
   }
-  // 受け取った側の行も同じ理由で入るので、増えた行は「推してもらった」
-  if (reason == 'work-comment-support') {
-    return row.delta > 0 ? tr('コメントで推してもらった', 'Received support in a comment') : tr('コメントで推した', 'Supported in a comment');
-  }
-  if (reason == 'coin support' || source.startsWith('profile-support:')) {
+  // 受け取った側の行も同じ理由で入るので、増えた行は「推してもらった」。
+  // 作品への推しは終了したので、過去のコメント・作品経由の推し（work-comment-support）もユーザーへの推しとして出す
+  if (reason == 'coin support' || reason == 'work-comment-support' || source.startsWith('profile-support:') || source.startsWith('work-comment:')) {
     return row.delta > 0 ? tr('推してもらった', 'Received support') : tr('ユーザーを推した', 'Supported a user');
   }
   if (reason == 'coin support received') return tr('推してもらった', 'Received support');
@@ -202,9 +200,6 @@ String coinLedgerLabel(CoinLedgerRow row) {
   if (row.kind == 'CONSUME') return tr('コインを使用', 'Coins used');
   return tr('コインを受け取り', 'Coins received');
 }
-
-/// コメントの推しは source が work-comment:<作品 ID>:… なので、その作品の ID
-String? coinLedgerWorkId(CoinLedgerRow row) => RegExp(r'^work-comment:(\d+):').firstMatch(row.source ?? '')?.group(1);
 
 bool matchesCoinLedgerFilter(CoinLedgerRow row, CoinLedgerFilter filter) => switch (filter) {
   CoinLedgerFilter.all => true,
@@ -227,16 +222,15 @@ class CoinLedgerGroup {
   final String coinType;
   final String kind;
   final String label;
-  final String? workId;
   int count = 1;
   int delta;
   int firstAt;
   final int lastAt;
 
-  CoinLedgerGroup._(this.key, this.coinType, this.kind, this.label, this.workId, this.delta, this.firstAt, this.lastAt);
+  CoinLedgerGroup._(this.key, this.coinType, this.kind, this.label, this.delta, this.firstAt, this.lastAt);
 
   factory CoinLedgerGroup.of(CoinLedgerRow row) =>
-      CoinLedgerGroup._(row.id.toString(), row.coinType, row.kind, coinLedgerLabel(row), coinLedgerWorkId(row), row.delta, row.createdAt, row.createdAt);
+      CoinLedgerGroup._(row.id.toString(), row.coinType, row.kind, coinLedgerLabel(row), row.delta, row.createdAt, row.createdAt);
 }
 
 class CoinLedgerDay {
@@ -255,9 +249,8 @@ List<CoinLedgerDay> groupCoinLedgerByDay(List<CoinLedgerRow> rows) {
     if (days.isEmpty || days.last.dateKey != key) days.add(CoinLedgerDay(key, row.createdAt));
     final day = days.last;
     final label = coinLedgerLabel(row);
-    final workId = coinLedgerWorkId(row);
     final last = day.groups.isEmpty ? null : day.groups.last;
-    if (last != null && last.coinType == row.coinType && last.kind == row.kind && last.label == label && last.workId == workId) {
+    if (last != null && last.coinType == row.coinType && last.kind == row.kind && last.label == label) {
       last.count += 1;
       last.delta += row.delta;
       last.firstAt = row.createdAt;
@@ -638,14 +631,12 @@ class _CoinsScreenState extends State<CoinsScreen> {
   Widget _ledgerRow(BuildContext context, CoinLedgerGroup g) {
     final sign = g.delta > 0 ? '+' : g.delta < 0 ? '−' : '';
     final expired = g.kind == 'EXPIRE';
-    final workId = g.workId;
     return _amountRow(
       context,
       coinType: g.coinType,
-      onTap: workId == null ? null : () => Nav.work(context, workId),
       label: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Text.rich(TextSpan(children: [
-          TextSpan(text: g.label, style: TextStyle(decoration: workId != null ? TextDecoration.underline : null, decorationColor: context.hairline)),
+          TextSpan(text: g.label),
           if (g.count > 1) TextSpan(text: '  ×${g.count}', style: TextStyle(color: context.muted, fontSize: 12)),
         ]), style: const TextStyle(fontSize: 14, height: 1.35)),
         Text(g.count > 1 ? '${formatJstTime(g.firstAt)} 〜 ${formatJstTime(g.lastAt)}' : formatJstTime(g.lastAt), style: TextStyle(color: context.muted, fontSize: 12)),

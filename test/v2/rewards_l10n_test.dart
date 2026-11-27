@@ -60,8 +60,9 @@ void main() {
       expect(creatorRewardCloseDays({'closeDays': [10, 25]}), [10, 25]);
       expect(creatorRewardCloseDays({'closeDay': 10}), [10]);
       expect(creatorEarningTitle({'kind': 'REQUEST'}), '有料リクエスト');
-      expect(creatorEarningTitle({'kind': 'SUPPORT', 'workId': '1'}), '作品への推し');
-      expect(creatorEarningTitle({'kind': 'SUPPORT'}), 'プロフィールへの推し');
+      // 過去の作品経由の推しも、ユーザーへの推しとして出す
+      expect(creatorEarningTitle({'kind': 'SUPPORT', 'workId': '1'}), 'ユーザーへの推し');
+      expect(creatorEarningTitle({'kind': 'SUPPORT'}), 'ユーザーへの推し');
       expect(creatorEarningStatusLabel('HOLDING'), '確認期間中');
       expect(creatorEarningStatusLabel('HELD'), '次の振込に入る');
     });

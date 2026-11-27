@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 
 /// コイン残高
 class CoinSummary {
-  const CoinSummary({required this.free, required this.premium, this.supportAccepted = true, this.premiumAccepted = true, this.rewardJoined = false, this.premiumUserOnly = false});
+  const CoinSummary({required this.free, required this.premium, this.supportAccepted = true, this.premiumAccepted = true, this.rewardJoined = false});
 
   final int free;
   final int premium;
@@ -21,41 +21,25 @@ class CoinSummary {
   /// 推す相手がクリエイター報酬に参加中（summary(supportTo:) のときだけ分かる）
   final bool rewardJoined;
 
-  /// 作品からの推し（作品画面の推す画面・コメントの推し）なので、プレミアムコインを使えない
-  /// （プレミアムコインで推せるのはプロフィールからのユーザーへの推しだけ。オリジナル作品でも同じ）
-  final bool premiumUserOnly;
-
   int get total => free + premium;
 
-  /// この推しでプレミアムコインを使える（相手が受け取り、プロフィールからのユーザーへの推し）
-  bool get premiumUsable => premiumAccepted && !premiumUserOnly;
+  /// この推しでプレミアムコインを使える（相手が受け取る）。推しはユーザーへの推しだけなので、ほかの条件はない
+  bool get premiumUsable => premiumAccepted;
 
   /// 推しで使える残高（プレミアムコインを使えないときはフリーだけ）
-  CoinSummary get forSupport => premiumUsable ? this : CoinSummary(free: free, premium: 0, supportAccepted: supportAccepted, premiumAccepted: premiumAccepted, rewardJoined: rewardJoined, premiumUserOnly: premiumUserOnly);
-
-  /// 作品からの推しにする（プレミアムコインを使えない）
-  CoinSummary get forWork => CoinSummary(free: free, premium: premium, supportAccepted: supportAccepted, premiumAccepted: premiumAccepted, rewardJoined: rewardJoined, premiumUserOnly: true);
+  CoinSummary get forSupport => premiumUsable ? this : CoinSummary(free: free, premium: 0, supportAccepted: supportAccepted, premiumAccepted: premiumAccepted, rewardJoined: rewardJoined);
 
   static const zero = CoinSummary(free: 0, premium: 0);
 }
 
-/// API が作品付きのプレミアムコインの推しを断ったときの code（プレミアムコインはユーザーへの推しだけ）
-const premiumSupportUserOnlyCode = 'PREMIUM_SUPPORT_USER_ONLY';
+/// API が作品付きの推し（workId・コメントの推し）を断ったときの code。推しはフリー・プレミアムともユーザーへの推しだけ
+const supportUserOnlyCode = 'SUPPORT_USER_ONLY';
 
-/// 前の決まり（オリジナル作品だけ）の code。古い API が返しても同じに扱う
-const premiumSupportOriginalOnlyCode = 'PREMIUM_SUPPORT_ORIGINAL_ONLY';
+/// 作品への推しを断られたときに出す文言（API の error と同じ）
+String supportUserOnlyNote() => tr('作品への推しは終了しました。推しはユーザー（プロフィール）への推しだけになりました', 'Supporting works has ended. You can now only support users (from their profile).');
 
-/// プレミアムコインを使えない理由（推す画面・コメントの推しの欄に出す）
-String premiumUserOnlyNote() => tr('プレミアムコインはユーザーへの推し（プロフィールから）だけに使えます。作品への推しはフリーコインです', 'Premium coins can only be used to support users (from their profile). Supporting a work uses free coins.');
-
-/// API の断りがプレミアムコインの決まり（ユーザーへの推しだけ・前のオリジナル作品だけ）によるものか（GraphQL のエラーは code か文言で見る）
-bool isPremiumUserOnlyError(ApiException e) =>
-    e.code == premiumSupportUserOnlyCode ||
-    e.code == premiumSupportOriginalOnlyCode ||
-    e.message.contains(premiumSupportUserOnlyCode) ||
-    e.message.contains(premiumSupportOriginalOnlyCode) ||
-    e.message.contains('ユーザー（プロフィール）への推しだけ') ||
-    e.message.contains('オリジナル作品');
+/// API の断りが「推しはユーザーへの推しだけ」によるものか（GraphQL のエラーは code か文言で見る）
+bool isSupportUserOnlyError(ApiException e) => e.code == supportUserOnlyCode || e.message.contains(supportUserOnlyCode) || e.message.contains('作品への推しは終了');
 
 /// 推しで使う内訳（フリーから先に使う。Web と同じ）
 class SupportBreakdown {
@@ -150,7 +134,7 @@ class Coins {
         } catch (_) {}
         // Web の /api/coins/support は code を落として error の文言だけ返すことがあるので、文言でも見る
         final e = ApiException(message, code: code);
-        if (isPremiumUserOnlyError(e)) throw ApiException(premiumUserOnlyNote(), code: premiumSupportUserOnlyCode);
+        if (isSupportUserOnlyError(e)) throw ApiException(supportUserOnlyNote(), code: supportUserOnlyCode);
         throw e;
       }
     }

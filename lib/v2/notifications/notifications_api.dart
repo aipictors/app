@@ -75,7 +75,6 @@ class NotificationItem {
     required this.parentText,
     required this.parentStickerUrl,
     required this.parentUserName,
-    required this.supportCoins,
     required this.isAnonymous,
     this.isFollowingBack = false,
   });
@@ -95,9 +94,6 @@ class NotificationItem {
   final String? parentText;
   final String? parentStickerUrl;
   final String? parentUserName;
-
-  /// コメントに付いた応援コイン。付いていなければ 0
-  final int supportCoins;
   final bool isAnonymous;
 
   /// フォローの通知で、こちらもその人をフォローしている（Web と同じくフォローを返すボタンの出し分けに使う）
@@ -126,7 +122,6 @@ class NotificationItem {
     if (kind == NotificationKind.liked && workJson == null) return null;
     if (kind == NotificationKind.follow && j.obj('user') == null) return null;
     final rating = workJson?.str('rating') ?? '';
-    final support = j.obj('support');
     final parent = j.obj('comment');
     return NotificationItem(
       id: j.str('id'),
@@ -153,7 +148,6 @@ class NotificationItem {
       parentText: parent?.strOrNull('text'),
       parentStickerUrl: parent?.obj('sticker')?.strOrNull('imageUrl'),
       parentUserName: parent?.obj('user')?.strOrNull('name'),
-      supportCoins: support == null ? 0 : support.integer('freeCoinAmount') + support.integer('premiumCoinAmount'),
       isAnonymous: j.boolean('isAnonymous'),
       isFollowingBack: j.obj('user')?.boolean('isFollowee') ?? false,
     );
@@ -190,12 +184,10 @@ query AppNotifications(\$offset: Int!, \$limit: Int!, \$where: NotificationsWher
         id createdAt message replyTargetCommentId $_work $_user
         sticker { id imageUrl }
         myReplies { id text sticker { id imageUrl } }
-        support { freeCoinAmount premiumCoinAmount totalPt }
       }
       ... on WorkCommentReplyNotificationNode {
         id createdAt message replyTargetCommentId $_work $_user
         sticker { id imageUrl }
-        support { freeCoinAmount premiumCoinAmount totalPt }
         comment { id text sticker { id imageUrl } user { id name } }
       }
       ... on FollowNotificationNode { id createdAt user { $userSummaryFields isFollowee } }

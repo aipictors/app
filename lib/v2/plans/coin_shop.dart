@@ -126,7 +126,7 @@ class _CoinShopState extends State<_CoinShop> {
           ]),
           const SizedBox(height: 4),
           Text(
-            'コインは画像生成や、作品への応援に使えます。買ったコインに期限はありません。',
+            'コインは画像生成や、クリエイターへの応援（推し）に使えます。買ったコインに期限はありません。',
             style: TextStyle(color: context.muted, fontSize: 12, height: 1.5),
           ),
           const SizedBox(height: 14),

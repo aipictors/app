@@ -710,8 +710,8 @@
     {
      "image": "coins-3",
      "caption": {
-      "ja": "コインで作品やクリエイターを「推し」て応援",
-      "en": "Use coins to support works and creators"
+      "ja": "コインでクリエイターを「推し」て応援",
+      "en": "Use coins to support creators"
      },
      "bubbles": [
       {
@@ -746,16 +746,16 @@
      "en": "With free-coin support, 2/3 of the amount (rounded down) becomes the recipient's free coins (valid 30 days, up to 300 a day; beyond that it counts as pt only). Received free coins can be used for support too. Premium-coin support becomes the same number of premium coins."
     },
     {
-     "ja": "推しにはメッセージを付けられます。枚数が多いほどコメント欄で目立つ色になります（スーパーチャットのように）。",
-     "en": "Add a message when you support. Bigger support gets a more eye-catching color in comments, like a Super Chat."
+     "ja": "推すのはユーザー（クリエイター）です。プロフィールの「推す」か、作品画面の作者の欄の「作者を推す」から推せます。作品への推し・コメントに推しを添えることは終了しました。",
+     "en": "You support users (creators). Use “Support” on their profile or “Support the creator” in the creator box on a work page. Supporting works and adding support to comments have ended."
     },
     {
      "ja": "推しランキングは「どれだけ応援されたか」、貢献度ランキングは「どれだけ応援したか」の週ごとの順位です。",
      "en": "The support ranking shows who was supported most; the contribution ranking shows who supported most, each week."
     },
     {
-     "ja": "購入したプレミアムコインで推せるのは、ユーザーへの推し（プロフィールから）だけです。作品への推しやコメントの推しは、オリジナル作品でもフリーコインになります。プロフィールからのプレミアムコインの推しは、クリエイターの報酬（次の章）につながります。",
-     "en": "Purchased premium coins can only be used to support users (from their profile). Supporting a work or adding support to a comment uses free coins, even for original works. Premium-coin support from a profile becomes creator rewards (see the next section)."
+     "ja": "ユーザーへの推しには、フリーコインもプレミアムコインも使えます。購入したプレミアムコインでの推しは、クリエイターの報酬（次の章）につながります。",
+     "en": "You can support users with both free and premium coins. Support with purchased premium coins becomes creator rewards (see the next section)."
     }
    ],
    "links": [
@@ -788,8 +788,8 @@
       "en": "What's the difference between free and premium coins?"
      },
      "a": {
-      "ja": "フリーコインは毎日やキャンペーンでもらえる無料のコインで、毎日の分はその日のうちに使います（フリーコインの推しで受け取った分は 30 日もちます）。プレミアムコインは購入するコインで、プロフィールからのユーザーへの推しだけに使え、1 枚 10pt になってクリエイターの報酬につながります。作品への推しはフリーコインです。",
-      "en": "Free coins are given daily or in campaigns; the daily ones expire the same day (free coins received as support last 30 days). Premium coins are purchased; they can only be used to support users from their profile, count as 10pt each and become creator rewards. Supporting a work uses free coins."
+      "ja": "フリーコインは毎日やキャンペーンでもらえる無料のコインで、毎日の分はその日のうちに使います（フリーコインの推しで受け取った分は 30 日もちます）。プレミアムコインは購入するコインで、推しでは 1 枚 10pt になり、クリエイターの報酬につながります。推しはどちらのコインでもユーザーへの推しだけです。",
+      "en": "Free coins are given daily or in campaigns; the daily ones expire the same day (free coins received as support last 30 days). Premium coins are purchased; in support they count as 10pt each and become creator rewards. With either coin, support goes to users only."
      }
     }
    ]
@@ -808,15 +808,15 @@
     "en": "Support becomes rewards!"
    },
    "lead": {
-    "ja": "プロフィールから、購入したプレミアムコインで推されると、その分がお金の報酬としてたまり、銀行口座に振り込まれます（R18 / R18G の作品を公開していない人が対象）。口座の登録は世界中で使われている Stripe で行うので安心です。",
-    "en": "When people support you from your profile with purchased premium coins, it builds up as cash rewards paid to your bank account (for creators who have not published R18 / R18G works). Bank details are handled securely by Stripe."
+    "ja": "ユーザーとしてのあなたへ、購入したプレミアムコインで推されると、その分がお金の報酬としてたまり、銀行口座に振り込まれます（R18 / R18G の作品を公開している人は対象外）。口座の登録は世界中で使われている Stripe で行うので安心です。",
+    "en": "When people support you with purchased premium coins, it builds up as cash rewards paid to your bank account (not for creators who have published R18 / R18G works). Bank details are handled securely by Stripe."
    },
    "panels": [
     {
      "image": "rewards-1",
      "caption": {
-      "ja": "プロフィールに、プレミアムコインの推しが届くと…",
-      "en": "When premium-coin support reaches your profile…"
+      "ja": "あなたに、プレミアムコインの推しが届くと…",
+      "en": "When premium-coin support reaches you…"
      },
      "bubbles": [
       {
@@ -877,8 +877,8 @@
      "en": "Join from Settings → Creator rewards. You must be 18+ and have a bank account and address in Japan (payouts are in JPY)."
     },
     {
-     "ja": "対象は、プロフィールからプレミアムコインで推された分と、有料リクエストの報酬です。R18 / R18G の作品を公開している人は推しの報酬の対象外です。作品への推し・フリーコインの推しも対象外です。",
-     "en": "Covers premium-coin support received from your profile and paid request earnings. Support rewards are only for creators who have not published R18 / R18G works. Support on works and free-coin support are not included."
+     "ja": "対象は、ユーザーへのプレミアムコインの推しのうち有料分と、有料リクエストの報酬です。R18 / R18G の作品を公開している人は推しの報酬の対象外です。フリーコインの推しも対象外です。",
+     "en": "Covers the paid part of premium-coin support to you as a user, and paid request earnings. Creators who have published R18 / R18G works are not eligible for support rewards. Free-coin support is not included."
     },
     {
      "ja": "推されてから 7 日の確認期間のあと、毎月 10 日と 25 日の締めでまとめて振り込みます。",
@@ -916,8 +916,8 @@
       "en": "How much is support worth?"
      },
      "a": {
-      "ja": "プロフィールからの、購入したプレミアムコイン 1,000 枚の推しで 500 円の報酬になります。3,000 円以上たまると振り込まれ、それまでは次回に持ち越されます。",
-      "en": "Profile support of 1,000 purchased premium coins equals a about $3.1 (¥500) reward. Payouts happen once you reach about $19 (¥3,000); smaller amounts carry over."
+      "ja": "購入したプレミアムコイン 1,000 枚の推しで 500 円の報酬になります。3,000 円以上たまると振り込まれ、それまでは次回に持ち越されます。",
+      "en": "Support of 1,000 purchased premium coins equals a about $3.1 (¥500) reward. Payouts happen once you reach about $19 (¥3,000); smaller amounts carry over."
      }
     },
     {

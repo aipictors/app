@@ -11,7 +11,6 @@ import 'package:aipictors/v2/core/debug_boot.dart';
 import 'package:aipictors/v2/core/design.dart';
 import 'package:aipictors/v2/core/models.dart';
 import 'package:aipictors/v2/core/nav.dart';
-import 'package:aipictors/v2/core/support_tier.dart';
 import 'package:aipictors/v2/widgets/common.dart';
 import 'package:aipictors/v2/user/user_widgets.dart';
 import 'package:aipictors/v2/widgets/user_avatar.dart';
@@ -169,21 +168,11 @@ class _WorkScreenState extends State<WorkScreen> {
           if (mounted && _canPromote) _openPromotion();
         });
       }
-      // 開発用: 2 行目が sheet で始まればコメントのシートを開く（sheet:support は推しの欄も開く。表示の確認用）
-      // 開発用: 2 行目が support なら推すシートを開く（表示の確認用。送信はしない）
+      // 開発用: 2 行目が sheet で始まればコメントのシートを開く（表示の確認用）
+      // 開発用: 2 行目が support なら作者を推すシートを開く（表示の確認用。送信はしない）
       if (DebugBoot.screenTab == 'support') {
         Future.delayed(const Duration(seconds: 3), () {
-          final user = _work?.obj('user');
-          if (!mounted || user == null) return;
-          showSupportSheet(
-            context,
-            userId: user.str('id'),
-            userName: user.str('name'),
-            iconUrl: user.strOrNull('iconUrl'),
-            frame: AvatarFrame.fromJson(user.obj('avatarFrame')),
-            showRewardNote: isCreatorRewardRating(_work?.strOrNull('rating')),
-            fromWork: true,
-          );
+          if (mounted && _work?.obj('user') != null) _supportOwner();
         });
       }
       if (DebugBoot.screenTab?.startsWith('sheet') == true) {
@@ -436,6 +425,17 @@ query AppWorkTagWorks(\$where: WorksWhereInput) {
     );
   }
 
+  /// 作者を推す（ユーザーへの推し。作品を通さないので、プロフィールから推すのと同じ。フリー・プレミアムとも使える）
+  void _supportOwner() {
+    showSupportSheet(
+      context,
+      userId: user.str('id'),
+      userName: user.str('name'),
+      iconUrl: user.strOrNull('iconUrl'),
+      frame: AvatarFrame.fromJson(user.obj('avatarFrame')),
+    );
+  }
+
   void _openComments({bool compose = false, CommentItem? replyTo}) {
     showCommentsSheet(
       context,
@@ -443,7 +443,6 @@ query AppWorkTagWorks(\$where: WorksWhereInput) {
       ownerId: user.str('id'),
       ownerName: user.str('name'),
       viewerId: _viewerId,
-      rating: w.strOrNull('rating'),
       openComposer: compose,
       replyTo: replyTo,
       onChanged: _load,
@@ -611,19 +610,6 @@ query AppWorkTagWorks(\$where: WorksWhereInput) {
                           comments: w.integer('commentsCount'),
                           onLike: _toggleLike,
                           onComment: () => _openComments(),
-                          onSupport: _isMine
-                              ? null
-                              : () => showSupportSheet(
-                                    context,
-                                    userId: user.str('id'),
-                                    userName: user.str('name'),
-                                    iconUrl: user.strOrNull('iconUrl'),
-                                    frame: AvatarFrame.fromJson(user.obj('avatarFrame')),
-                                    // R18 の作品の画面では報酬の一言を出さない
-                                    showRewardNote: isCreatorRewardRating(w.strOrNull('rating')),
-                                    // 作品の画面からの推しはフリーコインだけ（プレミアムはプロフィールからの推しだけ）
-                                    fromWork: true,
-                                  ),
                           onShare: _share,
                         ),
                         const SizedBox(height: 14),
@@ -669,6 +655,8 @@ query AppWorkTagWorks(\$where: WorksWhereInput) {
                           following: _following,
                           isMine: _isMine,
                           onFollowChanged: (v) => _following = v,
+                          // 作品への推しは終了したので、推しは作者の欄の「作者を推す」から（ユーザーへの推し）
+                          onSupport: _isMine ? null : _supportOwner,
                         ),
                         if (_description(w).isNotEmpty) ...[
                           const SizedBox(height: 14),
@@ -1188,7 +1176,6 @@ class _ActionBar extends StatelessWidget {
     required this.comments,
     required this.onLike,
     required this.onComment,
-    required this.onSupport,
     required this.onShare,
   });
 
@@ -1199,7 +1186,6 @@ class _ActionBar extends StatelessWidget {
   final int comments;
   final VoidCallback onLike;
   final VoidCallback onComment;
-  final VoidCallback? onSupport;
   final VoidCallback onShare;
 
   @override
@@ -1242,25 +1228,6 @@ class _ActionBar extends StatelessWidget {
           ),
         ),
       ],
-      const Spacer(),
-      if (onSupport != null)
-        Pressable(
-          onTap: onSupport,
-          child: Container(
-            height: 44,
-            padding: const EdgeInsets.symmetric(horizontal: 18),
-            decoration: BoxDecoration(
-              gradient: Ds.goldGradient,
-              borderRadius: Ds.br(22),
-              boxShadow: [BoxShadow(color: Ds.gold.withValues(alpha: 0.35), blurRadius: 14, offset: const Offset(0, 6))],
-            ),
-            child: Row(mainAxisSize: MainAxisSize.min, children: [
-              const Icon(Icons.volunteer_activism_rounded, color: Colors.white, size: 20),
-              const SizedBox(width: 6),
-              Text(tr('推す', 'Support'), style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 15)),
-            ]),
-          ),
-        ),
     ]);
   }
 }
@@ -1286,12 +1253,15 @@ class _RoundAction extends StatelessWidget {
 }
 
 class _UserRow extends StatelessWidget {
-  const _UserRow({required this.user, required this.following, required this.isMine, required this.onFollowChanged});
+  const _UserRow({required this.user, required this.following, required this.isMine, required this.onFollowChanged, this.onSupport});
 
   final Map<String, dynamic> user;
   final bool following;
   final bool isMine;
   final ValueChanged<bool> onFollowChanged;
+
+  /// 「作者を推す」（ユーザーへの推し）。自分の作品では null
+  final VoidCallback? onSupport;
 
   String get _bio => localizedContent(user.str('biography').trim(), user.strOrNull('enBiography')?.replaceAll("\\'", "'")).trim();
 
@@ -1307,30 +1277,52 @@ class _UserRow extends StatelessWidget {
           borderRadius: Ds.br(18),
           border: Border.all(color: context.hairline),
         ),
-        child: Row(children: [
-          UserAvatar.json(user, size: 44),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Row(children: [
-                Flexible(child: Text(user.str('name'), maxLines: 1, overflow: TextOverflow.ellipsis, style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 15))),
-                if (user.boolean('isOfficial') || user.boolean('isModerator')) ...[const SizedBox(width: 4), OfficialBadge(isOfficial: user.boolean('isOfficial'), isModerator: user.boolean('isModerator'))],
+        child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+          Row(children: [
+            UserAvatar.json(user, size: 44),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                Row(children: [
+                  Flexible(child: Text(user.str('name'), maxLines: 1, overflow: TextOverflow.ellipsis, style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 15))),
+                  if (user.boolean('isOfficial') || user.boolean('isModerator')) ...[const SizedBox(width: 4), OfficialBadge(isOfficial: user.boolean('isOfficial'), isModerator: user.boolean('isModerator'))],
+                ]),
+                // Web の WorkUser と同じく、フォロワー数と投稿数
+                Text(
+                  tr('フォロワー ${compactCount(user.integer('followersCount'))} · 投稿 ${compactCount(user.integer('worksCount'))}', '${compactCount(user.integer('followersCount'))} followers · ${compactCount(user.integer('worksCount'))} posts'),
+                  style: TextStyle(color: context.muted, fontSize: 12),
+                ),
+                if (_bio.isNotEmpty) ...[
+                  const SizedBox(height: 4),
+                  AutoTranslatedText(_bio, showLabel: false, builder: (context, text) => Text(text, maxLines: 3, overflow: TextOverflow.ellipsis, style: TextStyle(color: context.muted, fontSize: 12, height: 1.4))),
+                ],
               ]),
-              // Web の WorkUser と同じく、フォロワー数と投稿数
-              Text(
-                tr('フォロワー ${compactCount(user.integer('followersCount'))} · 投稿 ${compactCount(user.integer('worksCount'))}', '${compactCount(user.integer('followersCount'))} followers · ${compactCount(user.integer('worksCount'))} posts'),
-                style: TextStyle(color: context.muted, fontSize: 12),
+            ),
+            // フォロー一覧・ユーザー画面と同じボタン（押した瞬間に切り替え、解除は確認してから）
+            if (!isMine) ...[
+              const SizedBox(width: 8),
+              FollowButton(userId: user.str('id'), isFollowing: following, compact: true, onChanged: onFollowChanged),
+            ],
+          ]),
+          // 作者を推す（作品ではなくユーザーへの推し。プロフィールの「推す」と同じシート）
+          if (onSupport != null) ...[
+            const SizedBox(height: 10),
+            Pressable(
+              onTap: onSupport!,
+              child: Container(
+                height: 40,
+                decoration: BoxDecoration(
+                  gradient: Ds.goldGradient,
+                  borderRadius: Ds.br(20),
+                  boxShadow: [BoxShadow(color: Ds.gold.withValues(alpha: 0.3), blurRadius: 12, offset: const Offset(0, 5))],
+                ),
+                child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  const Icon(Icons.volunteer_activism_rounded, color: Colors.white, size: 18),
+                  const SizedBox(width: 6),
+                  Text(tr('作者を推す', 'Support the creator'), style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 14)),
+                ]),
               ),
-              if (_bio.isNotEmpty) ...[
-                const SizedBox(height: 4),
-                AutoTranslatedText(_bio, showLabel: false, builder: (context, text) => Text(text, maxLines: 3, overflow: TextOverflow.ellipsis, style: TextStyle(color: context.muted, fontSize: 12, height: 1.4))),
-              ],
-            ]),
-          ),
-          // フォロー一覧・ユーザー画面と同じボタン（押した瞬間に切り替え、解除は確認してから）
-          if (!isMine) ...[
-            const SizedBox(width: 8),
-            FollowButton(userId: user.str('id'), isFollowing: following, compact: true, onChanged: onFollowChanged),
+            ),
           ],
         ]),
       ),

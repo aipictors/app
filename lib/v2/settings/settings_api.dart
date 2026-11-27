@@ -60,32 +60,6 @@ class PickupWork {
   final String? thumbnailUrl;
 }
 
-class SupportedComment {
-  const SupportedComment({
-    required this.id,
-    required this.createdAt,
-    required this.text,
-    required this.user,
-    required this.workId,
-    required this.workTitle,
-    required this.workThumbnail,
-    required this.isAdult,
-    required this.stickerUrl,
-    required this.coins,
-  });
-
-  final String id;
-  final int createdAt;
-  final String text;
-  final UserSummary? user;
-  final String? workId;
-  final String workTitle;
-  final String? workThumbnail;
-  final bool isAdult;
-  final String? stickerUrl;
-  final int coins;
-}
-
 /// 受け取った推しの 1 件（Web の ReceivedTransferHistoryItem）
 class SupportTransfer {
   const SupportTransfer({required this.isPremium, required this.coins, required this.pt, required this.createdAt});
@@ -417,40 +391,6 @@ mutation AppUnfollowTag($input: UnfollowTagInput!) {
         'input': {'tagName': name},
       },
     );
-  }
-
-  static const _received = '''
-query AppReceivedSupport(\$offset: Int!, \$limit: Int!) {
-  receivedWorkComments(offset: \$offset, limit: \$limit, onlySupportAttached: true) {
-    id
-    createdAt
-    text
-    user { $userSummaryFields }
-    work { id title rating smallThumbnailImageURL }
-    sticker { id imageUrl }
-    support { freeCoinAmount premiumCoinAmount totalPt }
-  }
-}''';
-
-  static Future<List<SupportedComment>> receivedSupport(int offset, int limit) async {
-    final data = await Api.query(_received, variables: {'offset': offset, 'limit': limit});
-    return data.list('receivedWorkComments').map((c) {
-      final w = c.obj('work');
-      final s = c.obj('support');
-      final rating = w?.str('rating') ?? '';
-      return SupportedComment(
-        id: c.str('id'),
-        createdAt: c.integer('createdAt'),
-        text: c.str('text'),
-        user: c.obj('user') == null ? null : UserSummary.fromJson(c.obj('user')!),
-        workId: w?.strOrNull('id'),
-        workTitle: w?.str('title') ?? '',
-        workThumbnail: w?.strOrNull('smallThumbnailImageURL'),
-        isAdult: rating == 'R18' || rating == 'R18G',
-        stickerUrl: c.obj('sticker')?.strOrNull('imageUrl'),
-        coins: s == null ? 0 : s.integer('freeCoinAmount') + s.integer('premiumCoinAmount'),
-      );
-    }).toList();
   }
 
   static Future<Map<String, dynamic>?> viewerStatus() async {
