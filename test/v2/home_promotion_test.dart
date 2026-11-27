@@ -53,9 +53,43 @@ void main() {
     expect(workCardFields, contains('isPromotion'));
   });
 
-  testWidgets('宣伝作品が無ければ欄を出さない', (tester) async {
+  testWidgets('宣伝作品もおすすめも無ければ欄を出さない', (tester) async {
     await tester.pumpWidget(const MaterialApp(home: Scaffold(body: HomePromotionSection(works: []))));
-    expect(find.text('クリエイターの宣伝'), findsNothing);
+    expect(find.text('おすすめ作品'), findsNothing);
+  });
+
+  test('おすすめ作品: 宣伝の件数によらず段ぴったり（宣伝は隠さず、入りきらなければ段を増やす）', () {
+    expect(homePicksTotal(0, 12, 2), 4);
+    expect(homePicksTotal(1, 12, 2), 4);
+    expect(homePicksTotal(1, 12, 3), 6);
+    expect(homePicksTotal(5, 12, 2), 6);
+    expect(homePicksTotal(6, 12, 3), 6);
+    // おすすめが足りなければ段を減らす（宣伝の段は残す）
+    expect(homePicksTotal(1, 2, 2), 2);
+    expect(homePicksTotal(1, 0, 2), 2);
+    expect(homePicksTotal(0, 1, 2), 0);
+  });
+
+  testWidgets('おすすめ作品: 宣伝が先頭で PR の印付き、残りはおすすめ（印なし）で 2 列 × 2 段を埋める', (tester) async {
+    await tester.binding.setSurfaceSize(const Size(400, 1200));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+    final works = promotionWorksFrom([_work('1')]);
+    // 宣伝と同じ作品はおすすめから除く
+    final fills = WorkSummary.listFrom([_work('1', isPromotion: false), for (final id in ['2', '3', '4', '5']) _work(id, isPromotion: false)]);
+    await tester.pumpWidget(MaterialApp(home: Scaffold(body: SingleChildScrollView(child: HomePromotionSection(works: works, fillWorks: fills)))));
+    expect(find.text('おすすめ作品'), findsOneWidget);
+    final cards = find.byType(PromotionWorkCard);
+    expect(cards, findsNWidgets(4));
+    expect(tester.widget<PromotionWorkCard>(cards.at(0)).isPlain, isFalse);
+    expect(tester.widget<PromotionWorkCard>(cards.at(0)).item.work.id, '1');
+    expect([for (var i = 1; i < 4; i++) tester.widget<PromotionWorkCard>(cards.at(i)).item.work.id], ['2', '3', '4']);
+    expect([for (var i = 1; i < 4; i++) tester.widget<PromotionWorkCard>(cards.at(i)).isPlain], [true, true, true]);
+    // PR の印は宣伝のカードと見出しの説明だけ
+    expect(find.descendant(of: cards.at(0), matching: find.byType(WorkPromotionMark)), findsOneWidget);
+    for (var i = 1; i < 4; i++) {
+      expect(find.descendant(of: cards.at(i), matching: find.byType(WorkPromotionMark)), findsNothing);
+    }
+    expect(tester.takeException(), isNull);
   });
 
   testWidgets('宣伝の欄: 見出し・2 列のカード・リンクのあるものだけ「詳しく見る」', (tester) async {
@@ -63,7 +97,7 @@ void main() {
     addTearDown(() => tester.binding.setSurfaceSize(null));
     final works = promotionWorksFrom([_work('1', relatedUrl: 'https://example.com'), _work('2'), _work('3')]);
     await tester.pumpWidget(MaterialApp(home: Scaffold(body: SingleChildScrollView(child: HomePromotionSection(works: works)))));
-    expect(find.text('クリエイターの宣伝'), findsOneWidget);
+    expect(find.text('おすすめ作品'), findsOneWidget);
     expect(find.byType(PromotionWorkCard), findsNWidgets(3));
     expect(find.text('詳しく見る'), findsOneWidget);
     // 1 行目は 2 枚が横に並ぶ

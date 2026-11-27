@@ -525,7 +525,7 @@ class _WorkPromotionSheetState extends State<WorkPromotionSheet> {
           Text(tr('宣伝を始めました', 'Your work is now promoted'), textAlign: TextAlign.center, style: context.tt.titleLarge?.copyWith(fontWeight: FontWeight.w900)),
           const SizedBox(height: Ds.s8),
           Text(
-            tr('${formatPromotionEnd(endsAt)} まで、ホームの「クリエイターの宣伝」に表示されます', 'Featured in “From our creators” on the home page until ${formatPromotionEnd(endsAt)}'),
+            tr('${formatPromotionEnd(endsAt)} まで、ホームの「おすすめ作品」の先頭に PR の印付きで表示されます', 'Shown first in Recommended works on the home page, with a PR mark, until ${formatPromotionEnd(endsAt)}'),
             textAlign: TextAlign.center,
             style: TextStyle(color: context.muted, height: 1.5),
           ),
@@ -653,7 +653,7 @@ class _Preview extends StatelessWidget {
     return Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Expanded(
         flex: 5,
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [card, caption(tr('ホームの「クリエイターの宣伝」に大きく', 'Featured on the home page'))]),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [card, caption(tr('ホームの「おすすめ作品」の先頭に PR 付きで', 'First in Recommended works, with a PR mark'))]),
       ),
       const SizedBox(width: Ds.s12),
       Expanded(

@@ -202,6 +202,7 @@ class _RecommendedViewState extends State<_RecommendedView> {
   List<UserSummary> _users = [];
   Map<String, dynamic>? _theme;
   List<PromotionWork> _promotions = [];
+  List<WorkSummary> _picksFill = [];
   bool _topLoading = true;
   // 開発用: /tmp/aipictors-debug の 2 行目が scroll:<px> なら、読み込みのあとその位置まで送る（表示の確認用）
   final ScrollController? _debugScroll = DebugBoot.screenTab?.startsWith('scroll:') == true ? ScrollController() : null;
@@ -266,12 +267,16 @@ class _RecommendedViewState extends State<_RecommendedView> {
     }
   }
 
-  /// クリエイターの宣伝（失敗しても欄を出さないだけで、ほかの欄は止めない）
+  /// おすすめ作品（先頭の宣伝と、残りを埋めるおすすめ）。片方が失敗してももう片方だけで出し、ほかの欄は止めない
   Future<void> _loadPromotions() async {
-    try {
-      final works = await fetchHomePromotionWorks();
-      if (mounted) setState(() => _promotions = works);
-    } catch (_) {}
+    await Future.wait([
+      fetchHomePromotionWorks().then((works) {
+        if (mounted) setState(() => _promotions = works);
+      }).catchError((_) {}),
+      fetchHomePicksFillWorks().then((works) {
+        if (mounted) setState(() => _picksFill = works);
+      }).catchError((_) {}),
+    ]);
   }
 
   Future<void> _refresh() async {
@@ -287,8 +292,9 @@ class _RecommendedViewState extends State<_RecommendedView> {
         controller: _debugScroll,
         physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
         slivers: [
-          // クリエイターの宣伝は Web のホームと同じく一番上（Web はお知らせのすぐ下・いま人気の上）。宣伝中の作品が無ければ出さない
-          if (_promotions.isNotEmpty) SliverToBoxAdapter(child: Padding(padding: const EdgeInsets.only(bottom: 12), child: HomePromotionSection(works: _promotions))),
+          // おすすめ作品（先頭に宣伝中の作品を PR の印付きで、残りをおすすめで埋める）は Web のホームと同じく一番上（Web はお知らせのすぐ下・いま人気の上）
+          if (_promotions.isNotEmpty || _picksFill.isNotEmpty)
+            SliverToBoxAdapter(child: Padding(padding: const EdgeInsets.only(bottom: 12), child: HomePromotionSection(works: _promotions, fillWorks: _picksFill))),
           SliverToBoxAdapter(
             child: _topLoading
                 ? const Padding(
@@ -328,7 +334,8 @@ class _RecommendedViewState extends State<_RecommendedView> {
           if (_firstPosts.isNotEmpty)
             SliverToBoxAdapter(child: _WorkStrip(title: tr('新規クリエイターの初投稿作品', 'First posts from new creators'), icon: Icons.fiber_new_rounded, works: _firstPosts)),
           if (_users.isNotEmpty) SliverToBoxAdapter(child: _UserStrip(users: _users)),
-          SliverToBoxAdapter(child: SectionHeader(tr('おすすめ作品', 'Recommended works'), icon: Icons.favorite_rounded)),
+          // 一番上が「おすすめ作品」になったので、こちらは「ほかのおすすめ」（Web の推薦の下の一覧と同じ名前）
+          SliverToBoxAdapter(child: SectionHeader(tr('ほかのおすすめ', 'More picks'), icon: Icons.favorite_rounded)),
           SliverPagedWorks(controller: _controller),
         ],
       ),
